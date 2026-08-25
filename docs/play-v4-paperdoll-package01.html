@@ -20,10 +20,20 @@ html,body,#game{margin:0;width:100%;height:100%;border:0;background:#0d0f10;over
     const d = frame.contentDocument;
     if (!d || !d.body) return;
     frame.contentWindow.AF_PAPERDOLL_PACKAGE01_REPLACE = true;
-    const s = d.createElement("script");
-    s.src = "js/paperdoll-package01-bridge.js";
-    s.defer = true;
-    d.body.appendChild(s);
+    const chunks = ["js/pd01-atlas-chunks/00.js","js/pd01-atlas-chunks/01.js","js/pd01-atlas-chunks/02.js","js/pd01-atlas-chunks/03.js","js/pd01-atlas-chunks/04.js","js/pd01-atlas-chunks/05.js","js/pd01-atlas-chunks/06.js","js/pd01-atlas-chunks/07.js"];
+    const load = (urls, done) => {
+      if (!urls.length) return done();
+      const s = d.createElement("script");
+      s.src = urls[0];
+      s.onload = () => load(urls.slice(1), done);
+      d.body.appendChild(s);
+    };
+    load(chunks, () => {
+      const s = d.createElement("script");
+      s.src = "js/paperdoll-package01-bridge.js";
+      s.defer = true;
+      d.body.appendChild(s);
+    });
   });
 })();
 </script>
