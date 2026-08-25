@@ -1,0 +1,68 @@
+{
+  "character_system": "astro_fighters_paper_doll_v1",
+  "package": "kairo_package01",
+  "status": "reference-derived-engineering-candidate",
+  "production_approved": false,
+  "notes": [
+    "Package 01 proves modular 8-direction Phaser layering from approved reference targets.",
+    "Runtime frames are staging derivatives and do not complete the character checklist.",
+    "Final 480x640 authored source poses, independent eyes layer, exact equipment routing, full idle/walk/ready coverage, and art-gate review remain required.",
+    "No checklist item may be struck from this manifest alone."
+  ],
+  "source_frame_size": [480, 640],
+  "runtime_frame_size": [48, 64],
+  "anchor": [24, 60],
+  "feet_position": [24, 60],
+  "directions": ["n", "ne", "e", "se", "s", "sw", "w", "nw"],
+  "direction_frame_index": {"n":0,"ne":1,"e":2,"se":3,"s":4,"sw":5,"w":6,"nw":7},
+  "animations": {
+    "idle": {"frames": 1, "required_final": 4},
+    "walk": {"frames": 0, "required_final": 6},
+    "ready": {"frames": 0, "required_final": 2}
+  },
+  "layer_order_default": ["shadow","scabbard","body","pants","shoes","inner_top","outerwear","sash","necklace","pouch","gourd","shoulder_tie","hair","charm_tag"],
+  "layer_order_by_direction": {
+    "n":  ["shadow","scabbard","body","pants","shoes","inner_top","outerwear","sash","necklace","pouch","gourd","shoulder_tie","hair","charm_tag"],
+    "ne": ["shadow","scabbard","body","pants","shoes","inner_top","outerwear","sash","necklace","pouch","gourd","shoulder_tie","hair","charm_tag"],
+    "e":  ["shadow","scabbard","body","pants","shoes","inner_top","outerwear","sash","necklace","pouch","gourd","shoulder_tie","hair","charm_tag"],
+    "se": ["shadow","body","pants","shoes","inner_top","outerwear","hair","scabbard","sash","pouch","gourd","shoulder_tie","necklace","charm_tag"],
+    "s":  ["shadow","body","pants","shoes","inner_top","outerwear","hair","scabbard","sash","pouch","gourd","shoulder_tie","necklace","charm_tag"],
+    "sw": ["shadow","body","pants","shoes","inner_top","outerwear","hair","scabbard","sash","pouch","gourd","shoulder_tie","necklace","charm_tag"],
+    "w":  ["shadow","scabbard","body","pants","shoes","inner_top","outerwear","sash","necklace","pouch","gourd","shoulder_tie","hair","charm_tag"],
+    "nw": ["shadow","scabbard","body","pants","shoes","inner_top","outerwear","sash","necklace","pouch","gourd","shoulder_tie","hair","charm_tag"]
+  },
+  "layers": {
+    "body":{"row":0,"recolor_mask":false},
+    "hair":{"row":1,"recolor_mask":false},
+    "inner_top":{"row":2,"recolor_mask":false},
+    "outerwear":{"row":3,"recolor_mask":false},
+    "pants":{"row":4,"recolor_mask":false},
+    "shoes":{"row":5,"recolor_mask":false},
+    "sash":{"row":6,"recolor_mask":false},
+    "scabbard":{"row":7,"recolor_mask":false},
+    "charm_tag":{"row":8,"recolor_mask":false},
+    "necklace":{"row":9,"recolor_mask":false},
+    "pouch":{"row":10,"recolor_mask":false},
+    "gourd":{"row":11,"recolor_mask":false},
+    "shoulder_tie":{"row":12,"recolor_mask":false},
+    "shadow":{"row":13,"recolor_mask":false}
+  },
+  "variants": {
+    "skin":["kairo01"],
+    "hair":["kairo01_current"],
+    "inner_top":["kairo01_wrapped"],
+    "outerwear":["kairo01_street_haori"],
+    "pants":["kairo01_baggy"],
+    "shoes":["kairo01_wrapped"],
+    "sash":["kairo01_layered"],
+    "equipment":["kairo01_scabbard"],
+    "accessories":["charm_tag","necklace","pouch","gourd","shoulder_tie"]
+  },
+  "atlas": {
+    "image": "assets/runtime/characters/kairo/package01/kairo-package01-atlas.png",
+    "width": 384,
+    "height": 896,
+    "frame_width": 48,
+    "frame_height": 64
+  }
+}
