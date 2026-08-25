@@ -1,0 +1,1 @@
+Do not substitute enlarged runtime sprites or repeated tiles for source references. Package 03 source anchors are preserved separately from runtime modules, and runtime modules must be validated in Phaser before any checklist completion claim.
