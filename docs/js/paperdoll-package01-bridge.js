@@ -81,7 +81,8 @@
         scene.load.off("loaderror", onError);
         try { registerFrames(scene, manifest); resolve(); } catch (e) { reject(e); }
       });
-      scene.load.image(TEXTURE_KEY, manifest.atlas.image);
+      const atlasSource = window.AF_PAPERDOLL_PACKAGE01_ATLAS_DATA_URI || manifest.atlas.image;
+      scene.load.image(TEXTURE_KEY, atlasSource);
       if (!scene.load.isLoading()) scene.load.start();
     });
   }
