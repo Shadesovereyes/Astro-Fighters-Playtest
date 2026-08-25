@@ -8,7 +8,7 @@
 
 The current art integration pass is **REJECTED as a production-art preview**. It remains useful only as a technical spike for hidden-grid movement, eight-direction routing, layering, collision, depth ordering and foreground-occlusion behavior.
 
-The previous 38/50 classification has been withdrawn. `ART_REVIEW_PASS_01.md` now records the automatic-failure conditions that were missed in the first review.
+The previous 38/50 classification has been withdrawn. `ART_REVIEW_PASS_01.md` records the automatic-failure conditions that were missed in the first review.
 
 ## Why the art pass failed
 
@@ -21,7 +21,7 @@ The current preview is materially below the locked visual standard:
 - palette compliance alone did not create character/world style homogeneity;
 - material rendering, weathering, lived-in density and monumental infrastructure are insufficient.
 
-These are rubric-level failures, not minor polish notes.
+These are **automatic-failure / critical-gate problems**, not minor polish notes. Development must continue automatically rather than treating the spike as a test candidate.
 
 ## Runtime correction
 
@@ -31,15 +31,7 @@ The standalone Canvas/JavaScript integration page is **not the game architecture
 
 No checklist entries are complete or struck.
 
-The first shared world dependency remains:
-
-- **Worn Imperial stone street — clean**
-
-The first character dependency remains:
-
-- **Approved body / skin variant**
-
-Neither current candidate reaches the locked completion bar.
+The first shared world dependency remains **Worn Imperial stone street — clean**. The first character dependency remains **Approved body / skin variant**. Neither current candidate reaches the locked completion bar.
 
 ## Next automatic continuation
 
