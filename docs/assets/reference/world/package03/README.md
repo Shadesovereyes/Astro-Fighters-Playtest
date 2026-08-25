@@ -1,0 +1,1 @@
+Package 03 v5 reference anchors are the accepted source material studies for clean, cracked, patched, and damp Imperial stone. They are reference-stage quality anchors only; checklist completion still depends on representative integrated gameplay and rubric approval.
