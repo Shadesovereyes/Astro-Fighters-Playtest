@@ -1,36 +1,37 @@
 {
   "package": "world-package03-v5",
   "status": "reference-gate-passed-single-module-phaser-integration-candidate",
+  "production_approved": false,
   "reference": {
     "materials": ["clean", "cracked", "patched", "damp"],
-    "anchors": {
-      "clean": "assets/reference/world/package03/imperial-stone-clean-anchor.png",
-      "cracked": "assets/reference/world/package03/imperial-stone-cracked-anchor.png",
-      "patched": "assets/reference/world/package03/imperial-stone-patched-anchor.png",
-      "damp": "assets/reference/world/package03/imperial-stone-damp-anchor.png"
-    },
-    "gate": "PASS for material identity and pixel-art craftsmanship; isolated reference approval is not checklist completion."
+    "gate": "PASS for material identity and pixel-art craftsmanship; isolated reference approval is not checklist completion.",
+    "source_note": "Package 02 and earlier Package 03 paving studies are superseded as visual sources. Active source anchors are preserved in the development handoff and are not represented as checklist-complete runtime scenery."
   },
   "runtime": {
     "module_size": [128, 160],
-    "images": {
-      "clean": "assets/runtime/world/package03/imperial-stone-clean-module-128x160.png",
-      "cracked": "assets/runtime/world/package03/imperial-stone-cracked-module-128x160.png",
-      "patched": "assets/runtime/world/package03/imperial-stone-patched-module-128x160.png",
-      "damp": "assets/runtime/world/package03/imperial-stone-damp-module-128x160.png"
+    "embedded_data_chunks": {
+      "clean": "js/world-p03-module-data/clean.js",
+      "cracked": "js/world-p03-module-data/cracked.js",
+      "patched": "js/world-p03-module-data/patched.js",
+      "damp": "js/world-p03-module-data/damp.js"
     },
-    "derivation": "center crop from approved anchor; no enlargement; exact locked warm world palette quantization",
-    "repetition_rule": "single-module integration only in this package; do not tile these modules edge-to-edge"
+    "derivation": "center crop from accepted source anchor; no enlargement; restrained locked warm-world palette quantization",
+    "repetition_rule": "single-module integration only in this package; do not tile these modules edge-to-edge",
+    "data_global": "window.AF_WORLD_P03_DATA"
   },
   "integration": {
     "bridge": "js/world-package03-stone-module-bridge.js",
     "playtest": "play-v4-ground-package03.html",
     "cycle_key": "F6",
     "toggle_key": "F7",
-    "hidden_grid_px": 32
+    "paperdoll_toggle_key": "F8",
+    "hidden_grid_px": 32,
+    "grid_rendered": false
   },
   "gate": {
+    "reference_core_style_gate": "pass",
+    "runtime_single_module_gate": "pass",
     "checklist_complete": false,
-    "reason": "Larger street assembly, transitions, architecture, props, occlusion, and integrated rubric threshold still required."
+    "reason": "Larger authored street assembly, thresholds, foundations, architecture, props, occlusion, finished production character stack, and integrated rubric threshold are still required."
   }
 }
