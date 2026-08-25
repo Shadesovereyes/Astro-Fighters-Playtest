@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Astro Fighters — Reference Package 02 Phaser Integration</title>
+<style>
+html,body,#game{margin:0;width:100%;height:100%;border:0;background:#0d0f10;overflow:hidden}
+#game{display:block}
+#status{position:fixed;z-index:3;left:8px;top:8px;padding:6px 8px;background:#141410;color:#F5D5BB;border:1px solid #756A55;font:10px/1.35 ui-monospace,monospace;pointer-events:none}
+</style>
+</head>
+<body>
+<div id="status">REFERENCE PACKAGE 02 · PHASER STAGING · F7 ground · F8 paper-doll · not production-approved</div>
+<iframe id="game" src="index.html" allow="fullscreen"></iframe>
+<script>
+(() => {
+  const frame = document.getElementById("game");
+  frame.addEventListener("load", () => {
+    const d = frame.contentDocument;
+    const w = frame.contentWindow;
+    if (!d?.body || !w) return;
+    w.AF_PAPERDOLL_PACKAGE01_REPLACE = true;
+    const scripts = [
+      "js/pd01-atlas-chunks/00.js","js/pd01-atlas-chunks/01.js","js/pd01-atlas-chunks/02.js","js/pd01-atlas-chunks/03.js",
+      "js/pd01-atlas-chunks/04.js","js/pd01-atlas-chunks/05.js","js/pd01-atlas-chunks/06.js","js/pd01-atlas-chunks/07.js",
+      "js/world-p02-atlas-chunks/00.js","js/world-p02-atlas-chunks/01.js","js/world-p02-atlas-chunks/02.js",
+      "js/paperdoll-package01-bridge.js",
+      "js/world-package02-stone-bridge.js"
+    ];
+    const loadNext = i => {
+      if (i >= scripts.length) return;
+      const s = d.createElement("script");
+      s.src = scripts[i];
+      s.onload = () => loadNext(i + 1);
+      s.onerror = () => console.error("Package 02 script failed", scripts[i]);
+      d.body.appendChild(s);
+    };
+    loadNext(0);
+  });
+})();
+</script>
+</body>
+</html>
