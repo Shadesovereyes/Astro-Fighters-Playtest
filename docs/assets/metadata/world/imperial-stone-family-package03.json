@@ -5,7 +5,7 @@
   "reference": {
     "materials": ["clean", "cracked", "patched", "damp"],
     "gate": "PASS for material identity and pixel-art craftsmanship; isolated reference approval is not checklist completion.",
-    "source_note": "Package 02 and earlier Package 03 paving studies are superseded as visual sources. Active source anchors are preserved in the development handoff and are not represented as checklist-complete runtime scenery."
+    "source_note": "Package 02 and earlier Package 03 paving studies are superseded as visual sources. Active source anchors are preserved in the development handoff and must not be replaced by enlarged runtime art."
   },
   "runtime": {
     "module_size": [128, 160],
@@ -27,6 +27,11 @@
     "paperdoll_toggle_key": "F8",
     "hidden_grid_px": 32,
     "grid_rendered": false
+  },
+  "cleanup": {
+    "package02_world_staging_removed": true,
+    "early_package03_atlas_removed": true,
+    "early_package03_family_bridge_removed": true
   },
   "gate": {
     "reference_core_style_gate": "pass",
