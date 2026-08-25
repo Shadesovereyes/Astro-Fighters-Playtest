@@ -1,0 +1,42 @@
+{
+  "world_system": "astro_fighters_imperial_city_ground_v1",
+  "package": "world_package02_stone_clean",
+  "status": "reference-derived-integration-candidate",
+  "production_approved": false,
+  "reference": {
+    "target": "Worn Imperial stone street — clean",
+    "source_size": [384, 256],
+    "preview_size": [768, 512],
+    "authority": ["Imperial City reference", "locked Master Palette", "locked master art direction"],
+    "source_note": "Dedicated pixel-art material reference authored first; runtime variants were nearest-neighbor derived after source validation."
+  },
+  "runtime": {
+    "variant_size": [192, 128],
+    "atlas_size": [384, 256],
+    "variants": {
+      "a": [0, 0, 192, 128],
+      "b": [192, 0, 192, 128],
+      "c": [0, 128, 192, 128],
+      "d": [192, 128, 192, 128]
+    },
+    "texture_key": "af-world-p02-stone-clean",
+    "data_uri_global": "AF_WORLD_PACKAGE02_STONE_ATLAS_DATA_URI"
+  },
+  "hidden_grid_validation": {
+    "a": {"shift_source_px": [0, 12], "vertical_32_ratio": 0.466, "horizontal_32_ratio": 0.25, "bytes": 1962},
+    "b": {"shift_source_px": [10, 76], "vertical_32_ratio": 0.483, "horizontal_32_ratio": 0.306, "bytes": 1954},
+    "c": {"shift_source_px": [12, 30], "vertical_32_ratio": 0.538, "horizontal_32_ratio": 0.309, "bytes": 2017},
+    "d": {"shift_source_px": [16, 52], "vertical_32_ratio": 0.599, "horizontal_32_ratio": 0.35, "bytes": 1952}
+  },
+  "integration": {
+    "bridge": "js/world-package02-stone-bridge.js",
+    "playtest": "play-v4-reference-package02.html",
+    "macro_step": [192, 128],
+    "hidden_gameplay_grid": [32, 32],
+    "note": "Macro variation step is intentionally not the gameplay grid size. The bridge never draws gameplay-grid lines."
+  },
+  "gate": {
+    "checklist_complete": false,
+    "reason": "Reference and Phaser staging are present, but representative world slice, material transitions, architecture/props/occlusion, and integrated rubric threshold are not yet complete."
+  }
+}
