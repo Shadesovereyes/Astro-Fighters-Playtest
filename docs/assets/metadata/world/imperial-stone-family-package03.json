@@ -1,45 +1,36 @@
 {
-  "world_system": "astro_fighters_imperial_city_ground_v2",
-  "package": "world_package03_imperial_stone_family_v2",
-  "status": "reference-gate-passed-integration-candidate",
-  "production_approved": false,
+  "package": "world-package03-v5",
+  "status": "reference-gate-passed-single-module-phaser-integration-candidate",
   "reference": {
-    "targets": [
-      "Worn Imperial stone street \u2014 clean",
-      "Worn Imperial stone street \u2014 cracked",
-      "Patched stone street",
-      "Damp stone variation"
-    ],
-    "quality_authority": [
-      "ASTRO_FIGHTERS_LOCKED_MASTER_ART_DIRECTION_PROMPT.md",
-      "approved Kairo character reference",
-      "Imperial City reference",
-      "locked Master Palette"
-    ],
-    "gate_note": "These v2 studies supersede the rejected Package 02/03 references. They use authored stone edges, recessed mortar, wear/mineral clusters, repair identity, fracture identity, and joint-following damp/moss rather than flat rectangles with noise.",
-    "source_board": "reference/imperial-stone-family-reference-montage.png"
+    "materials": ["clean", "cracked", "patched", "damp"],
+    "anchors": {
+      "clean": "assets/reference/world/package03/imperial-stone-clean-anchor.png",
+      "cracked": "assets/reference/world/package03/imperial-stone-cracked-anchor.png",
+      "patched": "assets/reference/world/package03/imperial-stone-patched-anchor.png",
+      "damp": "assets/reference/world/package03/imperial-stone-damp-anchor.png"
+    },
+    "gate": "PASS for material identity and pixel-art craftsmanship; isolated reference approval is not checklist completion."
   },
   "runtime": {
-    "patch_size": [192,128],
-    "atlas_size": [768,512],
-    "materials": ["clean","cracked","patched","damp"],
-    "variants_per_material": 4,
-    "texture_key": "af-world-p03-stone-family",
-    "frames": {
-      "clean-0":[0,0,192,128],"clean-1":[192,0,192,128],"clean-2":[384,0,192,128],"clean-3":[576,0,192,128],
-      "cracked-0":[0,128,192,128],"cracked-1":[192,128,192,128],"cracked-2":[384,128,192,128],"cracked-3":[576,128,192,128],
-      "patched-0":[0,256,192,128],"patched-1":[192,256,192,128],"patched-2":[384,256,192,128],"patched-3":[576,256,192,128],
-      "damp-0":[0,384,192,128],"damp-1":[192,384,192,128],"damp-2":[384,384,192,128],"damp-3":[576,384,192,128]
+    "module_size": [128, 160],
+    "images": {
+      "clean": "assets/runtime/world/package03/imperial-stone-clean-module-128x160.png",
+      "cracked": "assets/runtime/world/package03/imperial-stone-cracked-module-128x160.png",
+      "patched": "assets/runtime/world/package03/imperial-stone-patched-module-128x160.png",
+      "damp": "assets/runtime/world/package03/imperial-stone-damp-module-128x160.png"
     },
-    "atlas_image":"assets/runtime/world/package03/imperial-stone-family-atlas-768x512.png"
+    "derivation": "center crop from approved anchor; no enlargement; exact locked warm world palette quantization",
+    "repetition_rule": "single-module integration only in this package; do not tile these modules edge-to-edge"
   },
-  "hidden_grid_validation": {
-    "clean": {"0":{"source_crop":[20,42,96,64],"grid_boundary_ratio":0.698,"std":32.15},"1":{"source_crop":[14,10,96,64],"grid_boundary_ratio":0.706,"std":32.95},"2":{"source_crop":[20,92,96,64],"grid_boundary_ratio":0.711,"std":32.25},"3":{"source_crop":[12,108,96,64],"grid_boundary_ratio":0.741,"std":31.51}},
-    "cracked": {"0":{"source_crop":[22,70,96,64],"grid_boundary_ratio":0.757,"std":33.17},"1":{"source_crop":[28,26,96,64],"grid_boundary_ratio":0.773,"std":33.74},"2":{"source_crop":[14,86,96,64],"grid_boundary_ratio":0.773,"std":32.26},"3":{"source_crop":[16,108,96,64],"grid_boundary_ratio":0.777,"std":32.27}},
-    "patched": {"0":{"source_crop":[24,96,96,64],"grid_boundary_ratio":0.604,"std":33.52},"1":{"source_crop":[24,68,96,64],"grid_boundary_ratio":0.697,"std":31.71},"2":{"source_crop":[26,18,96,64],"grid_boundary_ratio":0.706,"std":30.87},"3":{"source_crop":[2,18,96,64],"grid_boundary_ratio":0.736,"std":33.04}},
-    "damp": {"0":{"source_crop":[38,98,96,64],"grid_boundary_ratio":0.655,"std":36.96},"1":{"source_crop":[14,18,96,64],"grid_boundary_ratio":0.678,"std":36.95},"2":{"source_crop":[20,78,96,64],"grid_boundary_ratio":0.705,"std":36.69},"3":{"source_crop":[12,100,96,64],"grid_boundary_ratio":0.716,"std":36.51}}
+  "integration": {
+    "bridge": "js/world-package03-stone-module-bridge.js",
+    "playtest": "play-v4-ground-package03.html",
+    "cycle_key": "F6",
+    "toggle_key": "F7",
+    "hidden_grid_px": 32
   },
-  "palette_validation":{"exact_master_palette_colors_only":true,"unique_colors":28,"off_palette_color_count":0},
-  "integration":{"bridge":"js/world-package03-stone-family-bridge.js","playtest":"play-v4-ground-package03.html","macro_step":[192,128],"hidden_gameplay_grid":[32,32],"controls":{"F6":"cycle material mode","F7":"toggle Package 03 ground"},"note":"The bridge never renders gameplay-grid lines. Macro placement is intentionally decoupled from the hidden 32×32 structure."},
-  "gate":{"reference_core_style_gate":"pass","runtime_derivation_gate":"pass","integrated_checklist_complete":false,"reason":"Material family now clears the source/reference quality gate, but checklist completion still requires representative integrated Imperial City gameplay with architecture, props, occlusion, finished character, and rubric threshold."}
+  "gate": {
+    "checklist_complete": false,
+    "reason": "Larger street assembly, transitions, architecture, props, occlusion, and integrated rubric threshold still required."
+  }
 }
