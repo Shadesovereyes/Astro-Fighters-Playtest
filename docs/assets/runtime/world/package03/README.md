@@ -1,0 +1,1 @@
+Package 03 v5 runtime integration intentionally uses one authored 128×160 material module at a time. Do not repeat these modules edge-to-edge; the next package adds thresholds/foundations to build larger authored street assemblies without visible macro rhythm.
