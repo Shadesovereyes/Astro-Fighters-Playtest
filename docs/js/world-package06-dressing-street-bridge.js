@@ -5,8 +5,8 @@ Reference-first integration. No checklist completion claim. */
   const API=window.AF_WORLD_PACKAGE06=window.AF_WORLD_PACKAGE06||{};
   const MANIFEST_URL="assets/metadata/world/package06-dressing-street.json";
   const TEX="af-world-package06-atlas";
-  API.version="package06-v3";
-  API.status="clean-isolation-v3-staging-candidate";
+  API.version="package06-v4";
+  API.status="clean-isolation-v3-anchor-standard-v4-staging-candidate";
 
   function note(t){
     console.warn("[AF world p06]",t);
@@ -56,7 +56,8 @@ Reference-first integration. No checklist completion claim. */
     const pick=(f,i)=>{const a=fam[f]||[];return a.length?a[((i%a.length)+a.length)%a.length]:null;};
     function add(f,i,x,y,z){
       const it=pick(f,i);if(!it)return;
-      const s=scene.add.image(x,y,TEX,it.id).setOrigin(.5,1);
+      const topHosted=(f==="lantern"||f==="sign");
+      const s=scene.add.image(x,y,TEX,it.id).setOrigin(.5,topHosted?0:1);
       s.texture.setFilter(Phaser.Textures.FilterMode.NEAREST);s.setDepth(z);root.add(s);
     }
     const layouts=[
@@ -100,7 +101,7 @@ Reference-first integration. No checklist completion claim. */
   API.install=async()=>{try{
     const f=findScene();if(!f){note("Package 06: Phaser scene not detected.");return null;}
     const m=await getManifest();await load(f.scene,m);const s=create(f.scene,m);
-    note("Package 06 v3 attached. F9 toggles clean-isolated architectural dressing; F10 cycles authored dressing layouts. No grid is rendered.");
+    note("Package 06 v4 attached. Floor-hosted modules use bottom-center origins; lanterns/signs use top-center mount origins. F9 toggles dressing; F10 cycles layouts.");
     return s;
   }catch(e){note("Package 06 failed: "+(e?.message||e));return null;}};
   (function boot(n=0){if(findScene())return API.install();if(n<80)setTimeout(()=>boot(n+1),250);else note("Package 06: Phaser runtime not detected after 20s.");})();
