@@ -2,39 +2,49 @@
 
 ## Active source gates
 
+### Base body
+
+- Shared source lattice remains **480×640**, body center `x = 240`, foot-contact `y = 560`.
+- Active clean-body pass: **v5**.
+- The chest cross-bandages have been removed from N / NE / E / W source views.
+- Wrist and ankle wraps remain because they are separate intended anchors/equipment surfaces.
+- Runtime reduction is still blocked.
+
 ### Clothing
 
-- 40 direction-specific clothing source candidates isolated across inner top, haori, trousers, footwear and sash.
-- Active body/clothing registration QA: **v4**.
-- Body and dressed benchmarks are on the shared **480×640** lattice with body center `x = 240` and foot-contact `y = 560`.
-- Runtime reduction remains blocked until direction-by-direction seam correction reproduces the approved dressed Kairo benchmark.
+The previous flat-overlay registration was rejected after review because the clothing reference sheet had been cropped but still contained two different kinds of non-runtime content:
+
+1. opaque warm-grey presentation-sheet background; and
+2. opaque interior mannequin/presentation fill inside open garments.
+
+Current active clothing stages:
+
+- **v7 paper-doll isolation** — 40 direction-specific transparent garment candidates across inner top / haori / trousers / footwear / sash;
+- wrapped inner tops now expose neck/arm/body openings instead of carrying the mannequin fill;
+- front/three-quarter haori candidates receive explicit front-opening cutouts;
+- sash sources are re-cropped below direction labels;
+- **v8 scaled registration** — source garments are nearest-neighbor normalized to the common body lattice before placement.
+
+Active source-scale normalization:
+
+- inner top `0.80×`
+- haori `0.83×`
+- trousers `0.86×`
+- footwear `0.80×`
+- sash `0.82×`
+
+The next gate is direction-by-direction manual seam / occlusion correction against the dressed Kairo benchmark. No 48×64 derivation is allowed yet.
 
 ### Hair
 
-The approved eight-direction hair sheet has been isolated direction-by-direction.
-
-- v1/v2 were rejected because lower-row crops retained detached label/border fragments.
-- active hair isolation QA: **v3**.
-- v3 keeps the primary hair silhouette and rejects shallow detached components above it.
-- hair is registered to the same crown/body lattice for all eight directions.
-- a true hairless body master is still required before interchangeable hair can be promoted to runtime.
+- Active hair isolation QA: **v3**.
+- Earlier passes were rejected for detached label/border fragments.
+- Hair is registered to the same crown/body lattice in all eight directions.
+- A true hairless body master is still required before interchangeable hair can be promoted.
 
 ### Equipment and accessories
 
-The equipment sheet has been isolated into direction-specific source candidates for:
-
-- katana in hand
-- scabbard at waist
-- scabbard cord / belt knot
-- hanging charm tag
-- necklace / charm
-- pouch
-- gourd flask
-- shoulder tie / cloth strip
-- wrist wraps
-- utility belt trinket
-
-v1/v2 were rejected because they retained direction labels, rule lines or neighboring-item fragments. The active equipment isolation QA is **v3**, which keeps the primary object silhouette and immediately overlapping legitimate components while rejecting detached labels/rules/fragments.
+Active equipment isolation QA: **v3** for katana, scabbard, scabbard cord, charm tag, necklace, pouch, gourd, shoulder tie, wrist wraps and utility trinkets.
 
 Known source coverage gaps remain intentionally unresolved:
 
@@ -43,7 +53,7 @@ Known source coverage gaps remain intentionally unresolved:
 - scabbard cord / belt knot — NW missing
 - shoulder tie / cloth strip — NW missing
 
-These missing directions will be authored from the approved Kairo visual language rather than mirrored automatically because facing-dependent asymmetry matters for weapon and accessory routing.
+These directions will be authored rather than mirrored automatically because weapon/accessory routing is facing-dependent.
 
 ## Anchor policy
 
@@ -51,4 +61,4 @@ World props may use host-specific center/bottom/top mount justification. Charact
 
 ## Current gate
 
-No character checklist item is complete. Package 07 remains a **source-registration candidate** until clothing seams, hairless-body separation, equipment routing and the missing NW source directions are resolved before 48×64 runtime derivation.
+No character checklist item is complete. Package 07 remains a **source-registration candidate** until all eight v8 clothing composites are manually corrected, a true hairless body master exists, equipment is registered to the same lattice, the four missing NW equipment directions are authored, and the complete source composite passes review before any 48×64 runtime derivation.
