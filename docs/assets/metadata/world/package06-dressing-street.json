@@ -3,8 +3,8 @@
   "status": "clean-isolation-v3-staging-candidate",
   "production_approved": false,
   "reference": {
-    "public_review": "art-review-package06.html",
-    "source_art_policy": "Full-resolution source anchors and isolated component studies remain production-source artifacts. The public playtest branch carries a self-contained art review plus the embedded runtime atlas.",
+    "source_art_policy": "Full-resolution source anchors, isolated component studies, source-vs-runtime QA sheets, and the representative street benchmark remain production-source artifacts outside the lightweight public staging payload.",
+    "local_review_artifact": "package06-isolation-v3-review.html",
     "note": "Only art regions from the generated reference board are authoritative. Dashboard scores/checkmarks/text were discarded and are not evidence. The street benchmark is never used as a baked gameplay background."
   },
   "runtime": {
@@ -45,9 +45,12 @@
       "version": "v3",
       "rule": "A modular candidate fails if any neighboring-object fragment remains. Source bounds must terminate at the actual object boundary, including object-specific row separation for overlapping source layouts.",
       "full_clean_candidate_count": 34,
-      "full_clean_atlas": "assets/runtime/world/package06/package06-dressing-atlas-1152x640.png",
-      "qa_preview": "assets/runtime/world/package06/package06-isolation-qa-v3.png",
       "staging_subset_count": 16,
+      "production_artifacts": [
+        "package06-dressing-atlas-1152x640.png",
+        "package06-runtime-module-montage-clean-v3.png",
+        "package06-isolation-qa-v3.png"
+      ],
       "corrected_user_flagged_assets": [
         "lantern family",
         "barrel/utility prop family",
