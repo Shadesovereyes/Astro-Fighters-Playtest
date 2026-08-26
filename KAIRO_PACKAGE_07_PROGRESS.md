@@ -12,15 +12,12 @@
 
 ### Clothing
 
-The previous flat-overlay registration was rejected after review because the clothing reference sheet had been cropped but still contained two different kinds of non-runtime content:
-
-1. opaque warm-grey presentation-sheet background; and
-2. opaque interior mannequin/presentation fill inside open garments.
+The previous flat-overlay registration was rejected because the clothing reference sheet had been cropped but still contained opaque warm-grey presentation-sheet background and opaque mannequin/interior fill inside open garments.
 
 Current active clothing stages:
 
 - **v7 paper-doll isolation** — 40 direction-specific transparent garment candidates across inner top / haori / trousers / footwear / sash;
-- wrapped inner tops now expose neck/arm/body openings instead of carrying the mannequin fill;
+- wrapped inner tops expose neck/arm/body openings;
 - front/three-quarter haori candidates receive explicit front-opening cutouts;
 - sash sources are re-cropped below direction labels;
 - **v8 scaled registration** — source garments are nearest-neighbor normalized to the common body lattice before placement.
@@ -33,18 +30,21 @@ Active source-scale normalization:
 - footwear `0.80×`
 - sash `0.82×`
 
-The next gate is direction-by-direction manual seam / occlusion correction against the dressed Kairo benchmark. No 48×64 derivation is allowed yet.
+The next clothing gate is direction-by-direction manual seam / occlusion correction against the dressed Kairo benchmark. No 48×64 derivation is allowed yet.
 
 ### Hair
 
-- Active hair isolation QA: **v3**.
-- Earlier passes were rejected for detached label/border fragments.
-- Hair is registered to the same crown/body lattice in all eight directions.
-- A true hairless body master is still required before interchangeable hair can be promoted.
+- Active standalone hair isolation QA remains **v3**.
+- Two experimental hairless-body reconstructions were attempted and rejected; neither is accepted as the body master because the reconstructed scalp/head geometry was not clean enough.
+- A true hairless body master therefore remains a blocking source dependency.
 
 ### Equipment and accessories
 
-Active equipment isolation QA: **v3** for katana, scabbard, scabbard cord, charm tag, necklace, pouch, gourd, shoulder tie, wrist wraps and utility trinkets.
+Active equipment isolation QA is now **v8**.
+
+The upper weapon/charm rows retain the clean v3 isolates. The dense pouch / gourd / shoulder-tie / wrist-wrap / utility rows were rebuilt with row-wide connected-component extraction so each candidate consists only of the detected object pixels rather than a manually centered rectangle.
+
+This specifically eliminates the clipped-neighbor problem that remained in the earlier dense-row passes.
 
 Known source coverage gaps remain intentionally unresolved:
 
