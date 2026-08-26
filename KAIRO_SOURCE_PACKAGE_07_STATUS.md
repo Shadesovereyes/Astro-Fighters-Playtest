@@ -27,7 +27,7 @@ Character layers are not independently centered or bottom-justified like world p
 
 The chest cross-bandages have been removed from the N / NE / E / W base-body source views. Wrist and ankle wraps remain.
 
-This is still a source cleanup candidate, not runtime approval.
+This remains a source cleanup candidate, not runtime approval.
 
 ## Clothing — v7 isolation / v8 registration active
 
@@ -58,15 +58,17 @@ The standalone clothing references are authored larger than the shared body latt
 - footwear `0.80×`;
 - sash `0.82×`.
 
-The v8 registration is visibly closer to the approved dressed Kairo benchmark, but direction-specific seam and occlusion corrections are still required before runtime reduction.
+The v8 registration is substantially cleaner than the rejected overlay passes, but direction-specific seam and occlusion corrections are still required before runtime reduction.
 
-## Hair — v3 active
+## Hair — v3 isolation active / hairless master still blocked
 
-The eight-direction hair sheet is isolated and registered to the same crown/body lattice. Earlier passes were rejected for detached label/border fragments.
+The eight-direction standalone hair sheet remains isolated under QA v3.
 
-A true hairless body master is still required before interchangeable hair can be considered source-complete.
+Two experimental hairless-body reconstruction passes were attempted from the clean body and rejected because the generated scalp/head underlayers did not meet the source-quality bar. Neither is active.
 
-## Equipment / accessories — v3 active
+A true hairless body master therefore remains a blocking dependency before interchangeable hair can be source-complete.
+
+## Equipment / accessories — v8 active
 
 Direction-specific source candidates exist for:
 - katana in hand;
@@ -79,6 +81,8 @@ Direction-specific source candidates exist for:
 - shoulder tie / cloth strip;
 - wrist wraps;
 - utility belt trinket.
+
+The dense lower equipment rows were reworked repeatedly after contamination review. The active v8 process uses row-wide connected-component extraction for pouch, gourd, shoulder tie, wrist wraps and utility trinkets, selecting only the detected object pixels rather than rectangular crops. This removes neighboring-object bleed by construction.
 
 Known source gaps remain intentionally unresolved rather than mirrored:
 - NW katana;
