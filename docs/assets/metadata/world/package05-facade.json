@@ -1,0 +1,72 @@
+{
+  "package": "world-package05",
+  "status": "reference-gate-passed-modular-derivation-candidate",
+  "production_approved": false,
+  "reference": {
+    "targets": [
+      "timber/plaster wall benchmark",
+      "shop-front facade benchmark",
+      "two-story residence benchmark",
+      "alley corner building benchmark",
+      "street dressing/prop benchmark"
+    ],
+    "anchor_montage": "assets/reference/world/package05/package05-reference-anchor-montage.png",
+    "street_benchmark": "assets/reference/world/package05/package05-street-benchmark.png",
+    "gate_note": "Reference images establish the quality and material vocabulary. Runtime modules remain staging candidates until integrated facade/street review passes the locked rubric."
+  },
+  "runtime": {
+    "cell_size": [128,160],
+    "atlas_size": [768,800],
+    "atlas_image": "assets/runtime/world/package05/package05-runtime-atlas-768x800.png",
+    "hard_alpha": true,
+    "nearest_only": true,
+    "exact_locked_world_palette": true,
+    "families": {
+      "wall": [
+        {"id":"wall-0","frame":[0,0,128,160]},
+        {"id":"wall-1","frame":[128,0,128,160]},
+        {"id":"wall-2","frame":[256,0,128,160]},
+        {"id":"wall-3","frame":[384,0,128,160]},
+        {"id":"wall-4","frame":[512,0,128,160]}
+      ],
+      "door-window": [
+        {"id":"door-window-0","frame":[0,160,128,160]},
+        {"id":"door-window-1","frame":[128,160,128,160]},
+        {"id":"door-window-2","frame":[256,160,128,160]},
+        {"id":"door-window-3","frame":[384,160,128,160]},
+        {"id":"door-window-4","frame":[512,160,128,160]}
+      ],
+      "roof-eave": [
+        {"id":"roof-eave-0","frame":[0,320,128,160]},
+        {"id":"roof-eave-1","frame":[128,320,128,160]},
+        {"id":"roof-eave-2","frame":[256,320,128,160]},
+        {"id":"roof-eave-3","frame":[384,320,128,160]},
+        {"id":"roof-eave-4","frame":[512,320,128,160]}
+      ],
+      "awning-sign": [
+        {"id":"awning-sign-0","frame":[0,480,128,160]},
+        {"id":"awning-sign-1","frame":[128,480,128,160]},
+        {"id":"awning-sign-2","frame":[256,480,128,160]},
+        {"id":"awning-sign-3","frame":[384,480,128,160]},
+        {"id":"awning-sign-4","frame":[512,480,128,160]}
+      ],
+      "street-prop": [
+        {"id":"street-prop-0","frame":[0,640,128,160]},
+        {"id":"street-prop-1","frame":[128,640,128,160]},
+        {"id":"street-prop-2","frame":[256,640,128,160]},
+        {"id":"street-prop-3","frame":[384,640,128,160]},
+        {"id":"street-prop-4","frame":[512,640,128,160]},
+        {"id":"street-prop-5","frame":[640,640,128,160]}
+      ]
+    }
+  },
+  "integration": {
+    "bridge": "js/world-package05-facade-bridge.js",
+    "playtest": "play-v4-facade-package05.html",
+    "controls": {"F2":"toggle Package 05 facade","F3":"cycle facade variant"}
+  },
+  "gate": {
+    "checklist_complete": false,
+    "reason": "First authored facade assembly, collision/interaction, final occlusion, dressing density, production character presentation and integrated rubric threshold are still required."
+  }
+}
