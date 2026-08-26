@@ -1,0 +1,71 @@
+{
+  "package": "world-package06",
+  "status": "reference-gate-passed-dressing-street-slice-staging-candidate",
+  "production_approved": false,
+  "reference": {
+    "public_review": "art-review-package06.html",
+    "source_art_policy": "Full-resolution source anchors and isolated component studies remain production-source artifacts. The public playtest branch carries a self-contained art review plus the embedded runtime atlas.",
+    "note": "Only art regions from the generated reference board are authoritative. Dashboard scores/checkmarks/text were discarded and are not evidence. The street benchmark is never used as a baked gameplay background."
+  },
+  "runtime": {
+    "cell_size": [128,160],
+    "atlas_size": [1152,640],
+    "families": {
+      "lantern": [
+        {"id":"lantern-red-tall","frame":[0,0,128,160]},
+        {"id":"lantern-cream-oval","frame":[128,0,128,160]},
+        {"id":"lantern-cream-round","frame":[256,0,128,160]},
+        {"id":"lantern-red-kanji","frame":[384,0,128,160]},
+        {"id":"lantern-paper-vertical","frame":[512,0,128,160]},
+        {"id":"lantern-red-small","frame":[640,0,128,160]},
+        {"id":"lantern-red-ribbed","frame":[768,0,128,160]},
+        {"id":"lantern-cream-tall","frame":[896,0,128,160]}
+      ],
+      "sign": [
+        {"id":"sign-wood-light","frame":[0,160,128,160]},
+        {"id":"sign-wood-narrow-a","frame":[128,160,128,160]},
+        {"id":"sign-wood-narrow-b","frame":[256,160,128,160]},
+        {"id":"sign-wood-narrow-c","frame":[384,160,128,160]},
+        {"id":"sign-indigo-vertical","frame":[512,160,128,160]},
+        {"id":"sign-wood-short","frame":[640,160,128,160]},
+        {"id":"noren-indigo","frame":[768,160,128,160]},
+        {"id":"sign-dark-vertical","frame":[896,160,128,160]}
+      ],
+      "prop": [
+        {"id":"barrel-small","frame":[0,320,128,160]},
+        {"id":"barrel-large","frame":[128,320,128,160]},
+        {"id":"crate-lashed","frame":[256,320,128,160]},
+        {"id":"pottery-jar","frame":[384,320,128,160]},
+        {"id":"barrel-open","frame":[512,320,128,160]},
+        {"id":"basket-tall","frame":[640,320,128,160]},
+        {"id":"basket-shallow","frame":[768,320,128,160]},
+        {"id":"basket-round","frame":[896,320,128,160]},
+        {"id":"tub-low","frame":[1024,320,128,160]}
+      ],
+      "decor": [
+        {"id":"plant-pot-small","frame":[0,480,128,160]},
+        {"id":"plant-pot-blue","frame":[128,480,128,160]},
+        {"id":"bonsai-small","frame":[256,480,128,160]},
+        {"id":"stone-lantern-tall","frame":[384,480,128,160]},
+        {"id":"bamboo-planter","frame":[512,480,128,160]},
+        {"id":"stone-lantern-short","frame":[640,480,128,160]},
+        {"id":"bonsai-wide","frame":[768,480,128,160]},
+        {"id":"shrine-marker","frame":[896,480,128,160]},
+        {"id":"flower-pot","frame":[1024,480,128,160]}
+      ]
+    },
+    "palette_validation":{"off_palette_colors":0,"bad_alpha_values":0},
+    "nearest_only":true,
+    "no_enlargement":true,
+    "atlas_data_uri_global":"AF_WORLD_PACKAGE06_ATLAS_DATA_URI"
+  },
+  "integration": {
+    "bridge":"js/world-package06-dressing-street-bridge.js",
+    "playtest":"play-v4-street-slice-package06.html",
+    "controls":{"F9":"toggle Package 06 dressing","F10":"cycle dressing layout"}
+  },
+  "gate": {
+    "checklist_complete":false,
+    "reason":"Representative street slice still requires live Phaser review, collision/interaction authoring, final occlusion/cutaway, production character presentation and mandatory integrated rubric threshold."
+  }
+}
