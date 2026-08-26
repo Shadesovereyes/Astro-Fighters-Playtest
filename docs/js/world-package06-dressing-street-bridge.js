@@ -5,8 +5,8 @@ Reference-first integration. No checklist completion claim. */
   const API=window.AF_WORLD_PACKAGE06=window.AF_WORLD_PACKAGE06||{};
   const MANIFEST_URL="assets/metadata/world/package06-dressing-street.json";
   const TEX="af-world-package06-atlas";
-  API.version="package06-v1";
-  API.status="dressing-street-slice-staging-candidate";
+  API.version="package06-v3";
+  API.status="clean-isolation-v3-staging-candidate";
 
   function note(t){
     console.warn("[AF world p06]",t);
@@ -100,7 +100,7 @@ Reference-first integration. No checklist completion claim. */
   API.install=async()=>{try{
     const f=findScene();if(!f){note("Package 06: Phaser scene not detected.");return null;}
     const m=await getManifest();await load(f.scene,m);const s=create(f.scene,m);
-    note("Package 06 attached. F9 toggles architectural dressing; F10 cycles authored dressing layouts. No grid is rendered.");
+    note("Package 06 v3 attached. F9 toggles clean-isolated architectural dressing; F10 cycles authored dressing layouts. No grid is rendered.");
     return s;
   }catch(e){note("Package 06 failed: "+(e?.message||e));return null;}};
   (function boot(n=0){if(findScene())return API.install();if(n<80)setTimeout(()=>boot(n+1),250);else note("Package 06: Phaser runtime not detected after 20s.");})();
