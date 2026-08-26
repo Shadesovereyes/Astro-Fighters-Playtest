@@ -1,27 +1,49 @@
 {
   "package": "kairo-source-package07",
-  "status": "anchor-lattice-v4-registration-candidate",
+  "status": "source-registration-v8-active",
   "production_approved": false,
-  "canvas": [480,640],
+  "canvas": [480, 640],
   "body_center_x": 240,
   "foot_contact_y": 560,
-  "directions": {
-    "NW": {"body_bbox":[172,264,310,560],"dressed_bbox":[165,263,315,560],"center_delta":-1,"layers":{"inner-top":{"placement":[200,329],"bbox":[200,329,278,420]},"haori":{"placement":[182,314],"bbox":[182,314,297,420]},"trousers":{"placement":[187,412],"bbox":[187,412,291,509]},"footwear":{"placement":[203,495],"bbox":[203,495,275,560]},"sash":{"placement":[188,391],"bbox":[188,391,291,464]}}},
-    "N": {"body_bbox":[164,263,317,560],"dressed_bbox":[155,261,325,560],"center_delta":0,"layers":{"inner-top":{"placement":[195,328],"bbox":[195,328,286,419]},"haori":{"placement":[164,313],"bbox":[164,313,317,422]},"trousers":{"placement":[183,412],"bbox":[183,412,298,508]},"footwear":{"placement":[203,494],"bbox":[203,494,277,560]},"sash":{"placement":[174,391],"bbox":[174,391,306,470]}}},
-    "NE": {"body_bbox":[172,264,310,560],"dressed_bbox":[171,264,311,560],"center_delta":0,"layers":{"inner-top":{"placement":[199,329],"bbox":[199,329,282,419]},"haori":{"placement":[177,314],"bbox":[177,314,303,422]},"trousers":{"placement":[186,412],"bbox":[186,412,294,509]},"footwear":{"placement":[203,494],"bbox":[203,494,277,560]},"sash":{"placement":[188,391],"bbox":[188,391,293,468]}}},
-    "E": {"body_bbox":[197,264,284,560],"dressed_bbox":[175,264,306,560],"center_delta":0,"layers":{"inner-top":{"placement":[209,329],"bbox":[209,329,272,419]},"haori":{"placement":[201,314],"bbox":[201,314,280,423]},"trousers":{"placement":[202,412],"bbox":[202,412,279,508]},"footwear":{"placement":[203,494],"bbox":[203,494,277,560]},"sash":{"placement":[202,391],"bbox":[202,391,279,468]}}},
-    "SW": {"body_bbox":[183,276,297,560],"dressed_bbox":[165,272,315,560],"center_delta":0,"layers":{"inner-top":{"placement":[204,338],"bbox":[204,338,276,428]},"haori":{"placement":[191,324],"bbox":[191,324,289,433]},"trousers":{"placement":[195,418],"bbox":[195,418,285,514]},"footwear":{"placement":[204,493],"bbox":[204,493,277,560]},"sash":{"placement":[190,398],"bbox":[190,398,290,475]}}},
-    "S": {"body_bbox":[172,275,308,560],"dressed_bbox":[164,272,316,560],"center_delta":0,"layers":{"inner-top":{"placement":[199,338],"bbox":[199,338,282,428]},"haori":{"placement":[169,323],"bbox":[169,323,312,431]},"trousers":{"placement":[181,418],"bbox":[181,418,300,515]},"footwear":{"placement":[205,494],"bbox":[205,494,275,560]},"sash":{"placement":[181,398],"bbox":[181,398,300,469]}}},
-    "SE": {"body_bbox":[178,276,302,560],"dressed_bbox":[169,272,313,560],"center_delta":1,"layers":{"inner-top":{"placement":[206,338],"bbox":[206,338,276,428]},"haori":{"placement":[196,324],"bbox":[196,324,287,432]},"trousers":{"placement":[191,418],"bbox":[191,418,291,515]},"footwear":{"placement":[214,495],"bbox":[214,495,268,560]},"sash":{"placement":[187,398],"bbox":[187,398,296,475]}}},
-    "W": {"body_bbox":[202,275,280,560],"dressed_bbox":[175,272,306,560],"center_delta":0,"layers":{"inner-top":{"placement":[206,338],"bbox":[206,338,274,428]},"haori":{"placement":[200,323],"bbox":[200,323,280,431]},"trousers":{"placement":[197,418],"bbox":[197,418,284,514]},"footwear":{"placement":[205,493],"bbox":[205,493,276,560]},"sash":{"placement":[205,398],"bbox":[205,398,275,475]}}}
+  "body": {
+    "active": "body_clean_v5",
+    "chest_cross_bandages_removed": true,
+    "wrist_wraps_preserved": true,
+    "ankle_wraps_preserved": true
   },
-  "qa": {
-    "isolation_preview": "assets/reference/character/package07/kairo-clothing-isolation-qa-preview.png",
-    "lattice_preview": "assets/reference/character/package07/kairo-anchor-lattice-qa-v4-preview.png"
+  "clothing": {
+    "source_isolation": "v7-paperdoll-cutouts",
+    "active_registration": "v8-scaled",
+    "families": ["inner-top", "haori", "trousers", "footwear", "sash"],
+    "directions": ["N", "NE", "E", "SE", "S", "SW", "W", "NW"],
+    "family_scale": {
+      "inner-top": 0.80,
+      "haori": 0.83,
+      "trousers": 0.86,
+      "footwear": 0.80,
+      "sash": 0.82
+    },
+    "rule": "Opaque presentation-sheet backgrounds and garment-interior mannequin fills are rejected. True paper-doll cutouts must expose body or inner layers where the garment is open."
+  },
+  "hair": {
+    "active_isolation": "v3",
+    "runtime_ready": false,
+    "blocker": "true hairless body master still required"
+  },
+  "equipment": {
+    "active_isolation": "v3",
+    "missing_source_directions": [
+      "NW katana",
+      "NW scabbard",
+      "NW scabbard cord",
+      "NW shoulder tie"
+    ],
+    "mirror_missing_directions": false
   },
   "rules": {
-    "source_isolation": "Reject any layer containing neighboring item pixels, labels, panel borders, presentation shadows or unrelated direction art.",
-    "paper_doll_anchor": "Character layers share the same 480x640 anatomical body lattice; do not independently center or bottom-justify layers.",
-    "runtime_gate": "No runtime reduction until direction-by-direction seam correction matches the dressed Kairo benchmark."
-  }
+    "source_isolation": "Reject neighboring-item pixels, labels, panel borders, presentation shadows, unrelated direction art, opaque sheet background, and opaque interior presentation fill.",
+    "paper_doll_anchor": "All character layers share the same 480x640 anatomical body lattice; do not independently center or bottom-justify them.",
+    "runtime_gate": "No 48x64 derivation until all eight v8 composites receive direction-specific seam/occlusion correction, a true hairless body exists, equipment is registered, and the four missing NW equipment views are authored."
+  },
+  "checklist_complete": false
 }
