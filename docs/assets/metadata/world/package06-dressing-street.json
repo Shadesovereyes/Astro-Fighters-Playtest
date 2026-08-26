@@ -1,10 +1,10 @@
 {
   "package": "world-package06",
-  "status": "clean-isolation-v3-staging-candidate",
+  "status": "clean-isolation-v3-anchor-standard-v4-staging-candidate",
   "production_approved": false,
   "reference": {
-    "source_art_policy": "Full-resolution source anchors, isolated component studies, source-vs-runtime QA sheets, and the representative street benchmark remain production-source artifacts outside the lightweight public staging payload.",
-    "local_review_artifact": "package06-isolation-v3-review.html",
+    "public_review": "art-review-package06.html",
+    "source_art_policy": "Full-resolution source anchors and isolated component studies remain production-source artifacts. The public playtest branch carries a self-contained art review plus the embedded runtime atlas.",
     "note": "Only art regions from the generated reference board are authoritative. Dashboard scores/checkmarks/text were discarded and are not evidence. The street benchmark is never used as a baked gameplay background."
   },
   "runtime": {
@@ -12,54 +12,52 @@
     "atlas_size": [512,640],
     "families": {
       "lantern": [
-        {"id":"lantern-red-tall","frame":[0,0,128,160]},
-        {"id":"lantern-red-kanji","frame":[128,0,128,160]},
-        {"id":"lantern-red-small","frame":[256,0,128,160]},
-        {"id":"lantern-cream-tall","frame":[384,0,128,160]}
+        {"id":"lantern-red-tall","frame":[0,0,128,160],"anchor_type":"mount-top","anchor_pixel":[64,4]},
+        {"id":"lantern-red-kanji","frame":[128,0,128,160],"anchor_type":"mount-top","anchor_pixel":[64,4]},
+        {"id":"lantern-red-small","frame":[256,0,128,160],"anchor_type":"mount-top","anchor_pixel":[64,4]},
+        {"id":"lantern-cream-tall","frame":[384,0,128,160],"anchor_type":"mount-top","anchor_pixel":[64,4]}
       ],
       "sign": [
-        {"id":"sign-wood-light","frame":[0,160,128,160]},
-        {"id":"sign-indigo-vertical","frame":[128,160,128,160]},
-        {"id":"noren-indigo","frame":[256,160,128,160]},
-        {"id":"sign-dark-vertical","frame":[384,160,128,160]}
+        {"id":"sign-wood-light","frame":[0,160,128,160],"anchor_type":"mount-top","anchor_pixel":[64,4]},
+        {"id":"sign-indigo-vertical","frame":[128,160,128,160],"anchor_type":"mount-top","anchor_pixel":[64,4]},
+        {"id":"noren-indigo","frame":[256,160,128,160],"anchor_type":"mount-top","anchor_pixel":[64,4]},
+        {"id":"sign-dark-vertical","frame":[384,160,128,160],"anchor_type":"mount-top","anchor_pixel":[64,4]}
       ],
       "prop": [
-        {"id":"barrel-large","frame":[0,320,128,160]},
-        {"id":"crate-lashed","frame":[128,320,128,160]},
-        {"id":"barrel-open","frame":[256,320,128,160]},
-        {"id":"basket-tall","frame":[384,320,128,160]}
+        {"id":"barrel-large","frame":[0,320,128,160],"anchor_type":"floor-bottom","anchor_pixel":[64,155]},
+        {"id":"crate-lashed","frame":[128,320,128,160],"anchor_type":"floor-bottom","anchor_pixel":[64,155]},
+        {"id":"barrel-open","frame":[256,320,128,160],"anchor_type":"floor-bottom","anchor_pixel":[64,155]},
+        {"id":"basket-tall","frame":[384,320,128,160],"anchor_type":"floor-bottom","anchor_pixel":[64,155]}
       ],
       "decor": [
-        {"id":"plant-pot-small","frame":[0,480,128,160]},
-        {"id":"stone-lantern-tall","frame":[128,480,128,160]},
-        {"id":"bonsai-wide","frame":[256,480,128,160]},
-        {"id":"flower-pot","frame":[384,480,128,160]}
+        {"id":"plant-pot-small","frame":[0,480,128,160],"anchor_type":"floor-bottom","anchor_pixel":[64,155]},
+        {"id":"stone-lantern-tall","frame":[128,480,128,160],"anchor_type":"floor-bottom","anchor_pixel":[64,155]},
+        {"id":"bonsai-wide","frame":[256,480,128,160],"anchor_type":"floor-bottom","anchor_pixel":[64,155]},
+        {"id":"flower-pot","frame":[384,480,128,160],"anchor_type":"floor-bottom","anchor_pixel":[64,155]}
       ]
     },
     "palette_validation":{"off_palette_colors":0,"bad_alpha_values":0},
     "nearest_only":true,
     "no_enlargement":true,
     "atlas_data_uri_global":"AF_WORLD_PACKAGE06_ATLAS_DATA_URI",
-    "staging_subset_note":"Public Phaser staging carries 4 selected clean-isolation-v3 variants per family; the full 34-item derivative set remains in the production package.",
+    "staging_subset_note":"Public Phaser staging carries 4 selected variants per family; the full 34-item derivative set remains in the production package.",
     "isolation_qa": {
-      "version": "v3",
-      "rule": "A modular candidate fails if any neighboring-object fragment remains. Source bounds must terminate at the actual object boundary, including object-specific row separation for overlapping source layouts.",
-      "full_clean_candidate_count": 34,
-      "staging_subset_count": 16,
-      "production_artifacts": [
-        "package06-dressing-atlas-1152x640.png",
-        "package06-runtime-module-montage-clean-v3.png",
-        "package06-isolation-qa-v3.png"
-      ],
-      "corrected_user_flagged_assets": [
-        "lantern family",
-        "barrel/utility prop family",
-        "plant-pot-blue",
-        "stone-lantern-short",
-        "bonsai-wide",
-        "flower-pot"
-      ]
-    }
+      "version":"v3",
+      "rule":"A modular candidate fails if any neighboring-object fragment remains. Source bounds must terminate at the actual object boundary, including object-specific row separation for overlapping source layouts.",
+      "full_clean_candidate_count":34,
+      "full_clean_atlas":"assets/runtime/world/package06/package06-dressing-atlas-1152x640.png",
+      "qa_preview":"assets/runtime/world/package06/package06-isolation-qa-v3.png",
+      "staging_subset_count":16,
+      "corrected_user_flagged_assets":["lantern family","barrel/utility prop family","plant-pot-blue","stone-lantern-short","bonsai-wide","flower-pot"]
+    },
+    "anchor_standard": {
+      "version":"v4",
+      "horizontal":"all isolated elements centered on x=64",
+      "floor_hosted":"prop/decor bottommost opaque pixel at y=155",
+      "hanging_or_wall_mounted":"lantern/sign topmost opaque pixel at y=4",
+      "paper_doll_exception":"character layers use the shared anatomical body lattice rather than generic object anchoring"
+    },
+    "anchor_qa":"assets/runtime/world/package06/package06-anchor-qa-v4.png"
   },
   "integration": {
     "bridge":"js/world-package06-dressing-street-bridge.js",
