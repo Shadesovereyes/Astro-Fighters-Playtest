@@ -5,46 +5,48 @@
 ### Base body
 
 - Shared source lattice remains **480×640**, body center `x = 240`, foot-contact `y = 560`.
-- Active clean-body pass: **v5**.
-- The chest cross-bandages have been removed from N / NE / E / W source views.
-- Wrist and ankle wraps remain because they are separate intended anchors/equipment surfaces.
-- Runtime reduction is still blocked.
+- The chest cross-bandage / X-wrap is **not allowed** in the production base body.
+- The earlier procedural clean-chest attempts are rejected as source-quality art; the previous statement that the N / NE / E / W cleanup was complete has been retracted.
+- Wrist and lower-leg wraps remain intentional for the current Kairo visual target.
+- A true clean-chest body master and a true hairless body master are still blocking dependencies.
+- Runtime reduction remains blocked.
 
 ### Clothing
 
-The previous flat-overlay registration was rejected because the clothing reference sheet had been cropped but still contained opaque warm-grey presentation-sheet background and opaque mannequin/interior fill inside open garments.
+The contamination lesson from the earlier passes is retained: open garments must expose the body/inner layer and may not carry opaque presentation-sheet background or mannequin fill.
 
-Current active clothing stages:
+The current 40 eight-direction clothing source candidates remain useful for isolation/reference work, but the whole-garment registration model is rejected as the final paper-doll structure.
 
-- **v7 paper-doll isolation** — 40 direction-specific transparent garment candidates across inner top / haori / trousers / footwear / sash;
-- wrapped inner tops expose neck/arm/body openings;
-- front/three-quarter haori candidates receive explicit front-opening cutouts;
-- sash sources are re-cropped below direction labels;
-- **v8 scaled registration** — source garments are nearest-neighbor normalized to the common body lattice before placement.
+Review showed that side and 3/4 facings require garments to be split by depth rather than drawn as broad overlays.
 
-Active source-scale normalization:
+A new source-stage engineering contract is now committed:
 
-- inner top `0.80×`
-- haori `0.83×`
-- trousers `0.86×`
-- footwear `0.80×`
-- sash `0.82×`
+- `KAIRO_PACKAGE_07_LAYERING_SPEC.md`
+- `docs/assets/metadata/character/package07-kairo-layer-order-v1.json`
 
-The next clothing gate is direction-by-direction manual seam / occlusion correction against the dressed Kairo benchmark. No 48×64 derivation is allowed yet.
+The production stack now requires direction-aware pieces including:
+
+- haori back mass;
+- far sleeve / far front panel;
+- near sleeve / near front panel;
+- sash back;
+- sash front;
+- sash ties;
+- separate body far/near hands so hands remain visible after sleeve cuffs;
+- equipment back/front overrides when gear crosses the body.
+
+Locked rule:
+
+> No garment layer may hide body regions unless that occlusion is directionally intentional and supported by the approved dressed benchmark.
 
 ### Hair
 
-- Active standalone hair isolation QA remains **v3**.
-- Two experimental hairless-body reconstructions were attempted and rejected; neither is accepted as the body master because the reconstructed scalp/head geometry was not clean enough.
-- A true hairless body master therefore remains a blocking source dependency.
+- Standalone eight-direction hair isolation remains a useful source/reference family.
+- A true hairless body master is still required before interchangeable hair is source-complete.
 
 ### Equipment and accessories
 
-Active equipment isolation QA is now **v8**.
-
-The upper weapon/charm rows retain the clean v3 isolates. The dense pouch / gourd / shoulder-tie / wrist-wrap / utility rows were rebuilt with row-wide connected-component extraction so each candidate consists only of the detected object pixels rather than a manually centered rectangle.
-
-This specifically eliminates the clipped-neighbor problem that remained in the earlier dense-row passes.
+The isolated equipment family still covers katana, scabbard, cord, charm tag, necklace, pouch, gourd, shoulder tie, wrist wraps and utility trinkets.
 
 Known source coverage gaps remain intentionally unresolved:
 
@@ -53,12 +55,25 @@ Known source coverage gaps remain intentionally unresolved:
 - scabbard cord / belt knot — NW missing
 - shoulder tie / cloth strip — NW missing
 
-These directions will be authored rather than mirrored automatically because weapon/accessory routing is facing-dependent.
+These directions will be authored rather than mirrored automatically because equipment routing is facing-dependent.
 
 ## Anchor policy
 
-World props may use host-specific center/bottom/top mount justification. Character paper-doll layers do not. Every Kairo body, clothing, hair, face, equipment and accessory layer must inherit the same anatomical body lattice.
+World props use host-specific placement anchors. Character paper-doll layers do not.
+
+Every Kairo body, clothing, hair, eyes, equipment and accessory layer inherits the same anatomical `480×640` body lattice. Feet, hands, shoulders and head anchors must remain stable across all directions and future animation frames.
 
 ## Current gate
 
-No character checklist item is complete. Package 07 remains a **source-registration candidate** until all eight v8 clothing composites are manually corrected, a true hairless body master exists, equipment is registered to the same lattice, the four missing NW equipment directions are authored, and the complete source composite passes review before any 48×64 runtime derivation.
+No character checklist item is complete.
+
+Package 07 remains a **source-stage engineering/art candidate** until:
+
+1. the clean-chest and hairless body masters are source-quality;
+2. the haori/sash are re-authored into the new direction-aware sublayers;
+3. all eight dressed source composites match the approved benchmark without incorrect coverage;
+4. equipment is registered to the same lattice;
+5. the four missing NW equipment directions are authored;
+6. the complete source stack passes review.
+
+Only then may the first **48×64 nearest-neighbor runtime paper-doll set** be derived and integrated into Phaser.
