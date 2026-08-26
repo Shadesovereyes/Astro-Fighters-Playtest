@@ -1,0 +1,88 @@
+{
+  "character_system": "astro_fighters_kairo_paper_doll",
+  "version": "package07-layer-order-v1",
+  "status": "source-stage-contract",
+  "production_approved": false,
+  "source_frame_size": [480, 640],
+  "runtime_frame_size": [48, 64],
+  "source_body_center_x": 240,
+  "source_foot_contact_y": 560,
+  "directions": ["N", "NE", "E", "SE", "S", "SW", "W", "NW"],
+  "canonical_draw_order": [
+    "shadow",
+    "hair_back",
+    "equipment_back",
+    "haori_back",
+    "sash_back",
+    "body_core",
+    "pants",
+    "inner_top",
+    "haori_far_sleeve",
+    "body_far_hand",
+    "haori_front_far",
+    "haori_near_sleeve",
+    "body_near_hand",
+    "haori_front_near",
+    "footwear",
+    "sash_front",
+    "sash_ties",
+    "eyes",
+    "hair_front",
+    "equipment_front",
+    "accessory_front"
+  ],
+  "direction_profiles": {
+    "N": {"profile": "front", "near_side": "symmetric", "front_panels": "both", "eyes": "visible"},
+    "NE": {"profile": "front-right-3q", "near_side": "right", "front_panels": "near-dominant", "eyes": "visible"},
+    "E": {"profile": "right-profile", "near_side": "right", "front_panels": "near-only-or-narrow", "eyes": "visible"},
+    "SE": {"profile": "back-right-3q", "near_side": "right", "front_panels": "mostly-empty", "eyes": "empty-if-not-visible"},
+    "S": {"profile": "back", "near_side": "symmetric", "front_panels": "empty", "eyes": "empty"},
+    "SW": {"profile": "back-left-3q", "near_side": "left", "front_panels": "mostly-empty", "eyes": "empty-if-not-visible"},
+    "W": {"profile": "left-profile", "near_side": "left", "front_panels": "near-only-or-narrow", "eyes": "visible"},
+    "NW": {"profile": "front-left-3q", "near_side": "left", "front_panels": "near-dominant", "eyes": "visible"}
+  },
+  "required_layer_groups": {
+    "body": ["body_core", "body_far_hand", "body_near_hand"],
+    "hair": ["hair_back", "hair_front"],
+    "clothing": [
+      "pants",
+      "inner_top",
+      "haori_back",
+      "haori_far_sleeve",
+      "haori_front_far",
+      "haori_near_sleeve",
+      "haori_front_near",
+      "footwear",
+      "sash_back",
+      "sash_front",
+      "sash_ties"
+    ],
+    "equipment": ["equipment_back", "equipment_front", "accessory_front"],
+    "face": ["eyes"],
+    "ground": ["shadow"]
+  },
+  "body_rules": {
+    "chest_cross_bandage_allowed": false,
+    "open_garment_regions_must_be_transparent": true,
+    "full_body_late_overlay_for_layer_repair": false,
+    "shared_anatomical_lattice_required": true
+  },
+  "equipment_rules": {
+    "direction_sensitive_front_back_overrides": true,
+    "missing_nw_may_be_mirrored": false,
+    "missing_nw_items": ["katana", "scabbard", "scabbard_cord", "shoulder_tie"]
+  },
+  "runtime_gate": {
+    "nearest_neighbor_only": true,
+    "blocked_until_source_composite_passes": true,
+    "required_checks": [
+      "clean chest body master exists",
+      "all eight directions have complete modular source layers",
+      "garment openings are transparent",
+      "direction-specific occlusion matches dressed benchmark",
+      "equipment routing is correct",
+      "no neighboring-source contamination",
+      "all layers share 480x640 anchors"
+    ]
+  }
+}
