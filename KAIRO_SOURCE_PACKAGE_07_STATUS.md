@@ -4,98 +4,95 @@
 
 Create contamination-free, direction-specific paper-doll source layers from the approved Kairo reference sheets before any runtime reduction or Phaser promotion.
 
-## Current pass
-
-The five clothing families from `astro_fighters_kairo_clothing_components.png` were isolated as independent source assets for all eight directions:
-
-- wrapped inner top
-- short street-haori
-- baggy trousers
-- wrapped footwear / leg wraps
-- layered sash / belt / waist treatment
-
-This produces 40 direction-specific source candidates.
-
 ## Isolation rule
 
 A modular source layer automatically fails if it contains:
-- pixels from a neighboring item
-- row labels / panel borders / call-out art
-- detached presentation shadows
-- unrelated decoration from another direction
+- pixels from a neighboring item;
+- row labels / panel borders / call-out art;
+- detached presentation shadows;
+- unrelated decoration from another direction;
+- opaque presentation-sheet background;
+- opaque mannequin/interior fill where an open garment should expose the body or an inner layer.
 
-Object bounds are family- and direction-specific; the extractor does not assume every row shares identical rectangular cells.
+## Shared body lattice
 
-## Important remaining gate
+All character layers use the same **480×640** source canvas with:
+- body center `x = 240`;
+- foot-contact line `y = 560`;
+- direction-specific anatomical registration.
 
-These are **clean source isolates**, not yet anchor-locked paper-doll layers.
+Character layers are not independently centered or bottom-justified like world props. Body registration takes priority.
 
-Before runtime derivation, every direction must be registered against the same 480×640 Kairo body anchor lattice and compared against the fully dressed eight-direction Kairo benchmark. Hair, eyes/face treatment, equipment and accessory layers must then use that same lattice.
+## Base body — v5 active
 
-No character checklist item is complete.
+The chest cross-bandages have been removed from the N / NE / E / W base-body source views. Wrist and ankle wraps remain.
 
+This is still a source cleanup candidate, not runtime approval.
 
-## Shared body lattice — registration scaffold v1
+## Clothing — v7 isolation / v8 registration active
 
-The 40 clean clothing isolates have now been placed onto a common **480×640** source canvas.
+Five clothing families exist in all eight directions:
+- wrapped inner top;
+- short street-haori;
+- baggy trousers;
+- wrapped footwear / leg wraps;
+- layered sash / belt / waist treatment.
 
-Current deterministic registration rules:
-- shared horizontal body center: `x = 240`
-- shared foot-contact line: `y = 560`
-- base-body reference figures are centered horizontally and registered to the same foot line
-- footwear is foot-contact anchored
-- trousers and sash use the shared waist region
-- inner top and haori use shared shoulder/chest regions
+The earlier flat-overlay registrations are rejected. Review confirmed that cropped clothing art still carried warm-grey sheet background and, in some open garments, opaque interior mannequin/presentation fill. That caused clothing to look pasted over or to cover body regions incorrectly.
 
-This is a **registration scaffold**, not final production approval. The current approved base-body reference still includes hair and presentation underlayers, and the clothing pieces have not yet been re-authored where necessary for exact overlap with the fully dressed Kairo turnaround.
+### v7 paper-doll cutouts
 
-Next character gate:
-1. compare every direction against the fully dressed Kairo benchmark;
-2. adjust each layer on the lattice until seams/overlaps are correct;
-3. isolate hair and equipment/accessories using the same contamination rule;
-4. only then derive runtime paper-doll layers.
+- all 40 clothing candidates are re-isolated as transparent sources;
+- wrapped inner tops expose neck / arm / torso openings;
+- front and three-quarter haori candidates receive explicit front-opening cutouts;
+- sash sources are re-cropped below the direction-label band;
+- trousers and footwear preserve only intended garment pixels.
 
+### v8 source-scale registration
 
-## Paper-doll anchor rule
+The standalone clothing references are authored larger than the shared body lattice, so v8 applies nearest-neighbor source-scale normalization before placement:
 
-Character layers are exempt from generic floor-prop anchoring. Every Kairo clothing, hair, face, equipment and accessory layer must occupy the same **480×640 body canvas** and inherit the approved body master’s anatomical anchor lattice.
+- inner top `0.80×`;
+- haori `0.83×`;
+- trousers `0.86×`;
+- footwear `0.80×`;
+- sash `0.82×`.
 
-Required shared anchors:
-- head / crown
-- shoulders
-- torso center
-- waist
-- left/right hand attachment
-- left/right foot placement / ground contact
+The v8 registration is visibly closer to the approved dressed Kairo benchmark, but direction-specific seam and occlusion corrections are still required before runtime reduction.
 
-Layers must not be independently centered or bottom-justified if doing so changes their relationship to the body. Registration against the body master takes priority.
+## Hair — v3 active
 
-## Shared body lattice — v2 cleanup
+The eight-direction hair sheet is isolated and registered to the same crown/body lattice. Earlier passes were rejected for detached label/border fragments.
 
-The body and fully dressed Kairo benchmarks have been re-extracted without presentation labels or floor-shadow strokes and placed on the same 480×640 canvas with:
+A true hairless body master is still required before interchangeable hair can be considered source-complete.
 
-- horizontal body center `x = 240`
-- shared foot-contact line `y = 560`
+## Equipment / accessories — v3 active
 
-The five clothing families are registered onto that same body canvas for all eight directions. This v2 scaffold also carries a direction-specific horizontal offset derived from the dressed-vs-body silhouette so side/three-quarter clothing is not blindly re-centered.
+Direction-specific source candidates exist for:
+- katana in hand;
+- scabbard at waist;
+- scabbard cord / belt knot;
+- hanging charm tag;
+- necklace / charm;
+- pouch;
+- gourd flask;
+- shoulder tie / cloth strip;
+- wrist wraps;
+- utility belt trinket.
 
-This remains a registration scaffold, not final overlap approval. The QA sheet compares:
-1. clean body lattice,
-2. fully dressed Kairo benchmark,
-3. current modular clothing registration.
+Known source gaps remain intentionally unresolved rather than mirrored:
+- NW katana;
+- NW scabbard;
+- NW scabbard cord;
+- NW shoulder tie.
 
-The next pass must correct individual layer seams against the fully dressed benchmark before runtime reduction.
+## Current gate
 
-## Shared body lattice — v3 cleanup
+**No character checklist item is complete.**
 
-The body and dressed benchmark segmentation was rebuilt against the sheet's known warm-grey background instead of estimating background from each crop. This removes the remaining rectangular paper contamination seen in the v2 QA.
-
-The v3 QA is now the active registration review. It remains a scaffold: individual clothing seams still require hand correction against the dressed benchmark before runtime reduction.
-
-## Shared body lattice — v4 active QA
-
-The v3 body/dressed extraction still showed residual sheet-background blocks in several directions. It has been replaced.
-
-The active v4 extraction uses the known sheet background color with a stronger distance threshold and removes detached presentation labels/contact-shadow strokes before alignment. The v4 QA is the current reference for body/clothing registration.
-
-This does **not** make the clothing production-ready. The next gate is direction-by-direction seam correction against the dressed Kairo benchmark.
+Before 48×64 runtime derivation, Package 07 still requires:
+1. direction-by-direction v8 clothing seam / occlusion correction against the dressed benchmark;
+2. a true hairless body master;
+3. equipment/accessory registration to the same anatomical lattice;
+4. authored versions of the four missing NW equipment directions;
+5. a complete source-composite review with no contamination or layering failures.
