@@ -3,8 +3,7 @@
   "status": "reference-gate-passed-dressing-street-slice-staging-candidate",
   "production_approved": false,
   "reference": {
-    "public_review": "art-review-package06.html",
-    "source_art_policy": "Full-resolution source anchors and isolated component studies remain production-source artifacts. The public playtest branch carries a self-contained art review plus the embedded runtime atlas.",
+    "source_art_policy": "Full-resolution source anchors, isolated component studies, and the representative street benchmark remain production-source artifacts. The public playtest branch carries the derived compact staging atlas and status documentation.",
     "note": "Only art regions from the generated reference board are authoritative. Dashboard scores/checkmarks/text were discarded and are not evidence. The street benchmark is never used as a baked gameplay background."
   },
   "runtime": {
