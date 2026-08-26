@@ -21,26 +21,23 @@ The generated board's own dashboard scores, checkmarks and completion labels are
 
 The references advance the locked style because they show material-specific paper, wood, cloth, ceramic, foliage and stone behavior; warm analog lighting; Edo daily-life construction; irregular lived-in density; and authored silhouettes at a craftsmanship level much closer to the Kairo quality anchor.
 
-Full-resolution source anchors and isolated component studies remain production-source artifacts. The public playtest branch carries compact review previews plus the derived runtime atlas. The wide street benchmark is a composition/quality anchor only and must never be baked into gameplay as a background.
+Full-resolution source anchors, isolated component studies, and the wide street benchmark remain production-source artifacts. The street benchmark is a composition/quality anchor only and must never be baked into gameplay as a background.
 
 ## Modular derivation
 
-Four transparent modular families were derived from the isolated component studies:
+The production package currently contains four transparent modular families:
 - 8 lantern variants
 - 8 sign / noren variants
 - 9 utility prop variants
 - 9 plant / decorative variants
 
-All derivatives:
-- use 128×160 hard-alpha cells
-- use nearest-neighbor-only scaling
-- are never enlarged from the source crop
-- are quantized to the locked world palette
-- are packed into `package06-dressing-atlas-1152x640.png`
+All derivatives use 128×160 hard-alpha cells, nearest-neighbor-only scaling, no enlargement from the source crop, and the locked world palette.
 
 Palette validation:
 - off-palette opaque colors: **0**
 - non-hard alpha values: **0**
+
+For a lighter public Phaser staging payload, four selected variants from each family are packed into an embedded **512×640** atlas. The full 34-item derivative family remains in the production package rather than being duplicated in the playtest branch.
 
 ## Phaser integration
 
@@ -56,7 +53,7 @@ Earlier package controls remain active:
 - F6/F7 stone material
 - F8 paper-doll staging
 
-No gameplay grid lines are rendered.
+The public staging atlas is embedded by `docs/js/world-p06-atlas-data.js`, avoiding the broken relative-binary-path problem encountered in earlier artifact previews. No gameplay grid lines are rendered.
 
 ## Checklist state
 
