@@ -1,40 +1,45 @@
 {
   "package": "kairo-source-package07",
-  "status": "source-registration-v8-active",
+  "status": "source-layer-contract-v1-active",
   "production_approved": false,
   "canvas": [480, 640],
   "body_center_x": 240,
   "foot_contact_y": 560,
   "body": {
-    "active": "body_clean_v5",
-    "chest_cross_bandages_removed": true,
-    "wrist_wraps_preserved": true,
-    "ankle_wraps_preserved": true,
+    "clean_chest_required": true,
+    "chest_cross_bandages_allowed": false,
+    "clean_chest_master_status": "blocked-source-art-required",
+    "procedural_cleanup_attempts_accepted": false,
+    "wrist_wraps_preserved_for_current_design": true,
+    "ankle_wraps_preserved_for_current_design": true,
     "hairless_master": null,
-    "hairless_attempts_rejected": ["v1", "v2"]
+    "runtime_ready": false
   },
   "clothing": {
-    "source_isolation": "v7-paperdoll-cutouts",
-    "active_registration": "v8-scaled",
-    "families": ["inner-top", "haori", "trousers", "footwear", "sash"],
+    "source_isolation": "eight-direction-clean-cutout-family",
+    "whole_garment_flat_stack_accepted": false,
+    "direction_aware_layering_contract": "package07-kairo-layer-order-v1.json",
+    "families": ["inner-top", "haori", "pants", "footwear", "sash"],
     "directions": ["N", "NE", "E", "SE", "S", "SW", "W", "NW"],
-    "family_scale": {
-      "inner-top": 0.80,
-      "haori": 0.83,
-      "trousers": 0.86,
-      "footwear": 0.80,
-      "sash": 0.82
-    },
-    "rule": "Opaque presentation-sheet backgrounds and garment-interior mannequin fills are rejected. True paper-doll cutouts must expose body or inner layers where the garment is open."
+    "required_outerwear_sublayers": [
+      "haori_back",
+      "haori_far_sleeve",
+      "haori_front_far",
+      "haori_near_sleeve",
+      "haori_front_near"
+    ],
+    "required_sash_sublayers": ["sash_back", "sash_front", "sash_ties"],
+    "rule": "No garment may hide body regions unless the occlusion is intentional for that facing and supported by the approved dressed benchmark. Open garment regions remain transparent."
   },
   "hair": {
-    "active_isolation": "v3",
+    "eight_direction_isolation_available": true,
     "runtime_ready": false,
-    "blocker": "true hairless body master still required"
+    "blocker": "true hairless body master still required",
+    "required_sublayers": ["hair_back", "hair_front"]
   },
   "equipment": {
-    "active_isolation": "v8",
-    "dense_row_method": "row-wide connected-component extraction; select expected object components and extract only their pixels",
+    "isolation_candidate_available": true,
+    "direction_sensitive_front_back_overrides_required": true,
     "missing_source_directions": [
       "NW katana",
       "NW scabbard",
@@ -43,10 +48,14 @@
     ],
     "mirror_missing_directions": false
   },
+  "layer_contract": {
+    "markdown": "KAIRO_PACKAGE_07_LAYERING_SPEC.md",
+    "metadata": "docs/assets/metadata/character/package07-kairo-layer-order-v1.json"
+  },
   "rules": {
     "source_isolation": "Reject neighboring-item pixels, labels, panel borders, presentation shadows, unrelated direction art, opaque sheet background, and opaque interior presentation fill.",
     "paper_doll_anchor": "All character layers share the same 480x640 anatomical body lattice; do not independently center or bottom-justify them.",
-    "runtime_gate": "No 48x64 derivation until all eight v8 clothing composites receive direction-specific seam/occlusion correction, a true hairless body exists, equipment is registered, and the four missing NW equipment views are authored."
+    "runtime_gate": "No 48x64 derivation until a source-quality clean-chest body and hairless master exist, direction-aware clothing sublayers match the dressed benchmark, equipment is registered, and the four missing NW equipment views are authored."
   },
   "checklist_complete": false
 }
