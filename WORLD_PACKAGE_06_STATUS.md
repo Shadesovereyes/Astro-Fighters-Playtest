@@ -111,3 +111,16 @@ Specific fixes:
 The full 34-item atlas and the 16-item Phaser staging subset were rebuilt from this v3 extraction. Palette and alpha validation remain clean.
 
 No checklist item is promoted by this correction.
+
+## Runtime anchoring standard — v4
+
+Reusable isolated world assets now follow a deterministic host-based alignment rule:
+
+- **all isolated candidates are horizontally centered**
+- **floor-hosted props/decor** place the bottommost opaque pixel on the shared ground-contact line (`y = 155` in a 128×160 cell)
+- **hanging / wall-mounted lanterns and signs** place the topmost opaque pixel on the shared mount line (`y = 4`)
+- Phaser uses family-appropriate origins: bottom-center for floor-hosted assets and top-center for hanging/sign assets
+
+This eliminates variant-by-variant drift when swapping modules and makes contact/mount behavior inspectable from the atlas itself.
+
+Character paper-doll layers are the deliberate exception: they must use the shared anatomical body lattice rather than generic object bottom/top justification.
