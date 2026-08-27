@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Astro Fighters — Art Review Gate</title>
+  <style>
+    :root { color-scheme: dark; --bg:#0d0f10; --panel:#15191b; --line:#433d34; --text:#eadfc8; --muted:#9e9585; --accent:#efd39d; --bad:#d78d7e; --good:#8fb28f; }
+    * { box-sizing: border-box; }
+    body { margin:0; background:var(--bg); color:var(--text); font:14px/1.45 ui-monospace,SFMono-Regular,Consolas,monospace; }
+    main { width:min(1060px,calc(100% - 32px)); margin:28px auto 60px; }
+    h1,h2 { font-family:system-ui,sans-serif; margin:0 0 12px; }
+    h1 { font-size:28px; } h2 { font-size:18px; margin-top:4px; }
+    p { color:var(--muted); }
+    .panel { background:var(--panel); border:1px solid var(--line); padding:18px; margin:14px 0; }
+    .meta { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+    label { display:grid; gap:6px; color:var(--muted); }
+    input,select,textarea,button { font:inherit; color:var(--text); background:#101315; border:1px solid #554d41; padding:9px; }
+    textarea { min-height:110px; resize:vertical; }
+    .check-row { grid-template-columns:auto 1fr; align-items:start; gap:9px; margin:7px 0; color:var(--text); }
+    .check-row input { margin-top:3px; }
+    .score-row { display:grid; grid-template-columns:1fr 86px; gap:12px; align-items:center; padding:9px 0; border-bottom:1px solid #302c27; }
+    .score-info { display:grid; gap:2px; }
+    .score-info small { color:var(--muted); }
+    .score-row input { text-align:center; }
+    .summary { position:sticky; top:0; z-index:5; display:grid; grid-template-columns:160px 1fr; gap:14px; align-items:center; background:#111416; border:1px solid #655b4c; padding:14px 18px; }
+    #total { font:700 30px/1 system-ui,sans-serif; color:var(--accent); }
+    #status { font-weight:700; }
+    #status[data-status="blocked"], #status[data-status="rejected"], #status[data-status="rework-required"] { color:var(--bad); }
+    #status[data-status="production-approved"], #status[data-status="lock-quality"] { color:var(--good); }
+    #problems { color:var(--muted); padding-left:20px; }
+    .actions { display:flex; gap:10px; flex-wrap:wrap; }
+    button { cursor:pointer; } button.primary { border-color:#8e7958; color:var(--accent); }
+    nav { display:flex; gap:14px; margin-bottom:18px; } nav a { color:var(--accent); }
+    #load-error { color:var(--bad); }
+    @media(max-width:700px){ .meta{grid-template-columns:1fr}.summary{grid-template-columns:1fr}.score-row{grid-template-columns:1fr 72px} }
+  </style>
+</head>
+<body>
+<main>
+  <nav><a href="play-v4.html">Playtest v4</a><a href="index.html">Base runtime</a></nav>
+  <h1>Astro Fighters Art Review Gate</h1>
+  <p>This is a scoring and handoff tool, not an art substitute. It enforces the repository rubric: automatic failures and critical minimums block approval regardless of aggregate score.</p>
+  <p id="load-error" hidden></p>
+
+  <section class="summary">
+    <div><div id="total">0/50</div></div>
+    <div><div id="status">LOADING</div><div id="completion"></div></div>
+  </section>
+
+  <section class="panel meta">
+    <label>Scene / preview ID<input id="scene-id" placeholder="e.g. imperial-harbor-integrated-01"></label>
+    <label>Dependency package ID<input id="package-id" placeholder="e.g. AF-IC-SHARED-FOUNDATION"></label>
+    <label>District<select id="district"><option>Imperial City — shared/global</option><option>Imperial Harbor / Docks</option><option>Civic Market / Shops</option><option>Artisan / Workshops</option><option>Academy</option><option>Residential</option><option>Shrines</option><option>Civic / Administrative</option><option>Palace</option><option>Industrial Infrastructure</option><option>Fringe Ward</option></select></label>
+    <label>Reviewer<input id="reviewer" placeholder="name or agent"></label>
+    <label>Review date<input id="review-date" type="date"></label>
+  </section>
+
+  <section class="panel">
+    <h2>Automatic failures</h2>
+    <p>Check any condition that is visibly present. Any checked item blocks approval.</p>
+    <div id="automatic-failures"></div>
+  </section>
+
+  <section class="panel">
+    <h2>Scored review</h2>
+    <p>Score every category from 0–5. Critical minimums are enforced separately from the total.</p>
+    <div id="scores"></div>
+  </section>
+
+  <section class="panel">
+    <h2>Blocking findings</h2>
+    <ul id="problems"></ul>
+  </section>
+
+  <section class="panel">
+    <label>Review notes<textarea id="notes" placeholder="Lowest-scoring categories, integration defects, next required work, and checklist items represented by this review."></textarea></label>
+  </section>
+
+  <div class="actions"><button id="export" class="primary">Export review JSON</button><button id="reset">Reset draft</button></div>
+</main>
+<script src="js/art-review.js"></script>
+</body>
+</html>
