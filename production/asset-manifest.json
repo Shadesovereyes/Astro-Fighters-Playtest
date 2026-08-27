@@ -88,11 +88,14 @@
       "directions": ["N", "NE", "E", "SE", "S", "SW", "W", "NW"],
       "sourceAuthoritiesRequired": ["base-underlayer turnaround", "fully dressed benchmark turnaround", "modular source component set"],
       "sourcePaths": {
-        "baseUnderlayer": "production/source/characters/shared-foundation/fighter-male-short-afro-base-underlayer.png",
-        "dressedBenchmark": "production/source/characters/shared-foundation/fighter-male-short-afro-dressed-benchmark.png",
-        "modularLayerRoot": "production/source/characters/shared-foundation/layers/"
+        "baseUnderlayerPattern": "production/source/characters/shared-foundation/base-underlayer/{direction}.png",
+        "dressedBenchmarkPattern": "production/source/characters/shared-foundation/dressed-benchmark/{direction}.png",
+        "modularLayerPattern": "production/source/characters/shared-foundation/layers/{layer}/{direction}.png"
       },
-      "runtimeRoot": "docs/assets/characters/shared-foundation/",
+      "runtimePaths": {
+        "benchmarkPattern": "docs/assets/characters/shared-foundation/benchmark/{direction}.png",
+        "animationPattern": "docs/assets/characters/shared-foundation/{state}/{direction}.png"
+      },
       "underlayer": ["body/skin", "short afro hair/face", "base shorts"],
       "benchmarkOutfit": ["sleeveless fighter wrap", "short utility jacket", "loose fighter trousers", "sneaker-hybrid martial shoes", "cloth sash", "wrist wraps", "neck cord/charm", "contact shadow"],
       "weaponRequired": false,
