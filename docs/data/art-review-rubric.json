@@ -13,6 +13,10 @@
     "Different elements visibly use different pixel-art styles or pixel densities.",
     "Environment art resembles generic RPG Maker, vector art, clean modern tilesets, or generic cyberpunk.",
     "Eight-direction movement is represented using obviously incorrect directional character bodies.",
+    "Anatomical weapon or equipment routing is wrong for one or more facings.",
+    "Clothing layers incorrectly cover anatomy because of coarse overlay ordering.",
+    "Modular isolates contain neighboring-item contamination or presentation artifacts.",
+    "Automatically reduced or segmented assets are presented as pixel-final without target-level cleanup.",
     "Occluding scenery permanently hides the controlled character without an authored visibility solution.",
     "A preview is called production quality while still relying on known placeholder art."
   ],
