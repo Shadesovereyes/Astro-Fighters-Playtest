@@ -1,12 +1,14 @@
 {
   "character_system": "astro_fighters_paper_doll_v1",
   "package": "kairo_package01",
-  "status": "reference-derived-engineering-candidate",
+  "status": "reference-derived-engineering-candidate-direction-corrected",
   "production_approved": false,
   "notes": [
     "Package 01 proves modular 8-direction Phaser layering from approved reference targets.",
     "Runtime frames are staging derivatives and do not complete the character checklist.",
-    "Final 480x640 authored source poses, independent eyes layer, exact equipment routing, full idle/walk/ready coverage, and art-gate review remain required.",
+    "Canonical gameplay uses S as front-facing and N as back-facing.",
+    "The packed atlas retains legacy reference-sheet source-slot order; direction_frame_index remaps canonical facings to those source frames without repacking the bitmap.",
+    "Final 480x640 authored source poses, independent eyes layer, exact equipment routing, full idle/walk/ready coverage, manual 48x64 pixel cleanup, and art-gate review remain required.",
     "No checklist item may be struck from this manifest alone."
   ],
   "source_frame_size": [480, 640],
@@ -14,7 +16,10 @@
   "anchor": [24, 60],
   "feet_position": [24, 60],
   "directions": ["n", "ne", "e", "se", "s", "sw", "w", "nw"],
-  "direction_frame_index": {"n":0,"ne":1,"e":2,"se":3,"s":4,"sw":5,"w":6,"nw":7},
+  "canonical_front": "s",
+  "canonical_back": "n",
+  "canonical_to_source_slot": {"n":"s","ne":"se","e":"e","se":"ne","s":"n","sw":"nw","w":"w","nw":"sw"},
+  "direction_frame_index": {"n":4,"ne":3,"e":2,"se":1,"s":0,"sw":7,"w":6,"nw":5},
   "animations": {
     "idle": {"frames": 1, "required_final": 4},
     "walk": {"frames": 0, "required_final": 6},
@@ -22,14 +27,14 @@
   },
   "layer_order_default": ["shadow","scabbard","body","pants","shoes","inner_top","outerwear","sash","necklace","pouch","gourd","shoulder_tie","hair","charm_tag"],
   "layer_order_by_direction": {
-    "n":  ["shadow","scabbard","body","pants","shoes","inner_top","outerwear","sash","necklace","pouch","gourd","shoulder_tie","hair","charm_tag"],
-    "ne": ["shadow","scabbard","body","pants","shoes","inner_top","outerwear","sash","necklace","pouch","gourd","shoulder_tie","hair","charm_tag"],
+    "n":  ["shadow","body","pants","shoes","inner_top","outerwear","hair","scabbard","sash","pouch","gourd","shoulder_tie","necklace","charm_tag"],
+    "ne": ["shadow","body","pants","shoes","inner_top","outerwear","hair","scabbard","sash","pouch","gourd","shoulder_tie","necklace","charm_tag"],
     "e":  ["shadow","scabbard","body","pants","shoes","inner_top","outerwear","sash","necklace","pouch","gourd","shoulder_tie","hair","charm_tag"],
-    "se": ["shadow","body","pants","shoes","inner_top","outerwear","hair","scabbard","sash","pouch","gourd","shoulder_tie","necklace","charm_tag"],
-    "s":  ["shadow","body","pants","shoes","inner_top","outerwear","hair","scabbard","sash","pouch","gourd","shoulder_tie","necklace","charm_tag"],
-    "sw": ["shadow","body","pants","shoes","inner_top","outerwear","hair","scabbard","sash","pouch","gourd","shoulder_tie","necklace","charm_tag"],
+    "se": ["shadow","scabbard","body","pants","shoes","inner_top","outerwear","sash","necklace","pouch","gourd","shoulder_tie","hair","charm_tag"],
+    "s":  ["shadow","scabbard","body","pants","shoes","inner_top","outerwear","sash","necklace","pouch","gourd","shoulder_tie","hair","charm_tag"],
+    "sw": ["shadow","scabbard","body","pants","shoes","inner_top","outerwear","sash","necklace","pouch","gourd","shoulder_tie","hair","charm_tag"],
     "w":  ["shadow","scabbard","body","pants","shoes","inner_top","outerwear","sash","necklace","pouch","gourd","shoulder_tie","hair","charm_tag"],
-    "nw": ["shadow","scabbard","body","pants","shoes","inner_top","outerwear","sash","necklace","pouch","gourd","shoulder_tie","hair","charm_tag"]
+    "nw": ["shadow","body","pants","shoes","inner_top","outerwear","hair","scabbard","sash","pouch","gourd","shoulder_tie","necklace","charm_tag"]
   },
   "layers": {
     "body":{"row":0,"recolor_mask":false},
