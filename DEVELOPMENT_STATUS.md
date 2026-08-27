@@ -16,6 +16,46 @@ Reusable ideas from the Unity slice may include damage/mitigation, stamina/chakr
 
 If repository assumptions conflict, the current public RPG runtime and current locked production documents take precedence over legacy Unity implementation details.
 
+## Active gameplay/art milestone
+
+The active milestone is **Imperial City Early Player Experience v0**.
+
+Production authority for this milestone is [`IMPERIAL_CITY_EARLY_PLAYER_EXPERIENCE_V0.md`](./IMPERIAL_CITY_EARLY_PLAYER_EXPERIENCE_V0.md).
+
+The first connected player route is:
+
+> **SOUTHERN HARBOR ARRIVAL → DOCKS / SHIPWRIGHT → MARKET / SHOPPING STREET → RESIDENTIAL / CANAL TRANSITION → ASTRO FIGHTER ACADEMY EXTERIOR → ACADEMY INTERIOR / SENSEI TUTORIAL**
+
+The route must be developed as one coherent open-world action-RPG experience, not as disconnected art mockups or combat arenas.
+
+The Academy tutorial portion must retain the established early-player progression intent:
+
+- Sensei teaches the combat foundation;
+- General/Trap ability access is introduced;
+- the player receives **100 mon**;
+- the player chooses **3 distinct trap types, 10 of each**;
+- the result is verified in the live inventory/paper-doll/action-RPG flow.
+
+The harbor must visually support the shipwright/boat system that later connects to the crab-island/cave route, but those remote zones are outside the Imperial City v0 art-completion gate.
+
+### Immediate next visual deliverable
+
+**Slice 0 — Foundation Courtyard Test**
+
+Before multiplying district-specific assets, integrate this narrow benchmark composition in Phaser:
+
+- shared Imperial stone surface;
+- timber/plaster architectural wall;
+- aged stone foundation;
+- timber post + horizontal beam;
+- street/building threshold;
+- drainage element;
+- one sign/lantern/noren dressing element;
+- one foreground occluder;
+- fully dressed benchmark player character.
+
+Slice 0 must prove character/world homogeneity, projection, occlusion, hidden-grid concealment, gameplay-scale readability, and the source→runtime asset pipeline before Harbor production expands.
+
 ## Current production state
 
 No world or character checklist item is currently recorded as rubric-approved/struck through. Existing runtime art must therefore be treated as unapproved until an integrated Phaser review passes the mandatory gate.
@@ -55,6 +95,7 @@ The package remains `contracted`; its actual source images are still missing/una
 ## Runtime / workflow engineering completed in this branch
 
 - Clarified in the root README that the target game is an open-world real-time action RPG and that the private Unity project is a legacy turn-based Combat Strategy vertical slice/reference.
+- Added `IMPERIAL_CITY_EARLY_PLAYER_EXPERIENCE_V0.md` as the scoped production queue for the harbor-to-Academy early-player route.
 - Extracted the v4 launcher hotfix from inline HTML into `docs/js/playtest-v4-patch.js` without intentionally changing behavior.
 - Reduced `docs/play-v4.html` to a stable launcher that loads the versioned patch file.
 - Added `docs/art-review.html`, a GitHub Pages review surface that enforces automatic-failure and critical-minimum rules.
@@ -108,20 +149,20 @@ The PNG tool is diagnostic/contract enforcement only. Passing it does not make a
 
 ## Next production gate
 
-Continue the **current Phaser open-world action RPG**, while creating and approving the narrow art dependencies needed for the next representative gameplay slice:
+Execute the production queue in [`IMPERIAL_CITY_EARLY_PLAYER_EXPERIENCE_V0.md`](./IMPERIAL_CITY_EARLY_PLAYER_EXPERIENCE_V0.md).
 
-1. inspect the current `/docs` RPG state and identify the next gameplay dependency for a representative open-world/action-combat test;
-2. adapt any required combat logic from the legacy Combat Strategy slice into real-time semantics rather than continuing the Unity prototype;
-3. create the shared Imperial stone / threshold / drainage material slice;
-4. create the shared timber-post / beam / plaster-wall / stone-foundation architectural slice;
-5. create eight separate canonical base-underlayer masters on the shared 480×640 lattice;
-6. create eight separate fully dressed benchmark masters on that same lattice;
-7. register the modular source component set to the benchmark;
-8. perform PNG isolation / dimension / hard-alpha QA plus visual source-assembly QA;
-9. approve source art;
-10. derive and manually clean the 48×64 / target-resolution runtime art;
-11. integrate gameplay logic and art into the Phaser action-RPG runtime using stable public paths;
-12. run the integrated rubric review using `/docs/art-review.html`;
-13. only at 42+ with no automatic failures and all critical minimums passing, strike corresponding art checklist items.
+The immediate order is:
+
+1. complete the shared-foundation surface/architecture source references and source masters needed by Slice 0;
+2. complete male and female base-underlayer turnarounds on the shared 480×640 lattice;
+3. complete the fully dressed benchmark player turnaround and modular layer assembly;
+4. perform source isolation/anchor QA;
+5. derive and manually clean the 48×64 runtime candidates;
+6. integrate Slice 0 in Phaser and review it in the actual gameplay view;
+7. repair until the critical gates pass;
+8. proceed into Imperial Harbor Arrival production;
+9. then connect Market → Residential/Canal → Academy Exterior → Academy Interior/Sensei tutorial;
+10. perform a full harbor-to-Academy route review;
+11. only at 42+ with no automatic failures and all critical minimums passing, strike the corresponding checklist items.
 
 If any upstream gate fails, repair it before continuing downstream. Git history is the iteration archive; keep only current authorities and current handoff state.
