@@ -136,6 +136,13 @@ function validateReviewEvidence(evidence, label) {
   assert(nonEmpty(evidence.reviewDate), `${label} approval evidence needs a reviewDate.`);
 }
 
+function validatePattern(value, label, tokens = []) {
+  assert(nonEmpty(value), `${label} must be a non-empty path pattern.`);
+  if (!nonEmpty(value)) return;
+  for (const token of tokens) assert(value.includes(`{${token}}`), `${label} must include {${token}}.`);
+  assert(value.endsWith('.png'), `${label} must resolve to PNG assets.`);
+}
+
 function validateActivePackage() {
   const pkg = manifest.activePackage || {};
   const packageStatuses = manifest.statusVocabulary?.package || [];
@@ -170,8 +177,16 @@ function validateActivePackage() {
   assert(same(ch.directions, manifest.canonical.directions), 'Character benchmark directions must match canonical directions.');
   assert(ch.weaponRequired === false, 'The first shared-foundation benchmark is intentionally unarmed; weaponRequired must remain false unless the package is re-contracted.');
   assert(Array.isArray(ch.sourceAuthoritiesRequired) && ch.sourceAuthoritiesRequired.length === 3, 'Character benchmark must require all three source authorities.');
-  assert(Object.values(ch.sourcePaths || {}).every(nonEmpty), 'Character benchmark source paths must be fully registered.');
-  assert(nonEmpty(ch.runtimeRoot) && ch.runtimeRoot.startsWith('docs/assets/'), 'Character benchmark runtimeRoot must be under docs/assets/.');
+
+  validatePattern(ch.sourcePaths?.baseUnderlayerPattern, 'baseUnderlayerPattern', ['direction']);
+  validatePattern(ch.sourcePaths?.dressedBenchmarkPattern, 'dressedBenchmarkPattern', ['direction']);
+  validatePattern(ch.sourcePaths?.modularLayerPattern, 'modularLayerPattern', ['layer', 'direction']);
+  validatePattern(ch.runtimePaths?.benchmarkPattern, 'benchmarkPattern', ['direction']);
+  validatePattern(ch.runtimePaths?.animationPattern, 'animationPattern', ['state', 'direction']);
+  for (const value of Object.values(ch.runtimePaths || {})) {
+    assert(value.startsWith('docs/assets/'), `Character runtime path must remain under docs/assets/: ${value}`);
+  }
+
   assert(Array.isArray(ch.underlayer) && ch.underlayer.includes('base shorts'), 'Character benchmark underlayer must retain base shorts.');
   assert(Array.isArray(ch.benchmarkOutfit) && ch.benchmarkOutfit.length >= 7, 'Character benchmark outfit is not fully contracted.');
   assert(Array.isArray(ch.paletteFamilies) && ch.paletteFamilies.length > 0, 'Character benchmark needs palette families.');
