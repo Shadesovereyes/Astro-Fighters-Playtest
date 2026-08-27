@@ -1,5 +1,24 @@
 # Kairo — Package 07 Progress Update
 
+## Direction convention correction
+
+Astro Fighters gameplay uses **`S` as front-facing** and **`N` as back-facing**.
+
+Earlier Package 07 text inherited the reference-sheet slot labels and therefore described `N` as front. That interpretation is superseded. Raw source files may keep their sheet slot labels, but all production/runtime metadata now maps them explicitly to canonical game directions.
+
+Canonical source mapping:
+
+- `N` ← source `S`
+- `NE` ← source `SE`
+- `E` ← source `E`
+- `SE` ← source `NE`
+- `S` ← source `N`
+- `SW` ← source `NW`
+- `W` ← source `W`
+- `NW` ← source `SW`
+
+See `KAIRO_PACKAGE_07_DIRECTION_CONVENTION.md`.
+
 ## Active source gates
 
 ### Shared lattice
@@ -12,11 +31,9 @@ Character layers use anatomical registration rather than generic object centerin
 
 The chest cross-bandage / X-wrap is forbidden on the production body.
 
-**Active clean-chest candidate: v35.**
+The current clean-chest work applies to source slots `N / NE / E / W`, which are canonical **`S / SE / E / W`**.
 
-v35 removes the wrap from N / NE / E / W while preserving the approved source art outside the torso correction region. It supersedes the earlier broad procedural cleanup attempts.
-
-The clean-chest candidate is good enough for continued source integration, but it is **not yet marked production-approved**. Final full-resolution torso review is still required.
+The clean-chest candidate remains useful for continued source integration but is **not yet production-approved**. Final full-resolution torso review is still required.
 
 Wrist and ankle/lower-leg wraps remain intentional.
 
@@ -30,32 +47,13 @@ Active contamination-free garment isolation: **v13**.
 - no source-sheet background;
 - no presentation shadow contamination.
 
-Direction-source correction remains:
-
-- benchmark `NW` ← clothing source `SW`;
-- benchmark `SW` ← clothing source `NW`.
+The previous two-direction `NW/SW` override is now understood as part of the full canonical source-slot remap rather than a special-case artwork swap.
 
 The open-front haori presentation fill is removed so body / inner layers remain visible.
 
-Direction-specific manual placement has been established across all eight facings:
-- N / NE / E → v29
-- SE / S / SW → v30
-- W / NW → v31
+The active body/garment routing candidate is **v37**. It narrows late body routing to head plus wrist/hand zones so upper forearms do not repaint over haori sleeves.
 
-The consolidated eight-direction source review is v32.
-
-### Clean-chest integration and body/garment routing
-
-v36 rebuilt the eight-direction clothing/waist stack on the v35 clean-chest body.
-
-**Active body/garment routing candidate: v37.**
-
-The earlier late-body mask was still too broad and exposed too much forearm over the haori sleeve. v37 narrows late body routing to:
-
-- head / hair;
-- wrist / hand zones only.
-
-Upper forearms remain behind the haori sleeve unless a facing-specific benchmark requires otherwise. This directly addresses the incorrect "clothes on top / body on top" behavior found in earlier registration passes.
+Rear-facing inner-top suppression now means canonical **`NE / N / NW`**.
 
 v37 is not final. Sleeve/cuff/hand seams and near/far garment routing still require per-facing polish against the approved dressed benchmark.
 
@@ -71,23 +69,15 @@ Production keeps these independent:
 - charm tag;
 - utility trinket.
 
-Current source staging continues to use independent belt-knot / pouch / gourd pieces.
-
 ### Hair / hairless body
 
 Standalone eight-direction hair source art is available.
 
-**v39 is the active hairless-body source candidate for continued engineering review.** It removes the existing hair and reconstructs a direction-specific scalp on the same 480×640 body lattice.
-
-**v40 validates hair re-layering** by registering the approved directional hair source back over the v39 candidate. The eight directions recompose successfully enough to prove the paper-doll separation path.
-
-Neither v39 nor v40 is production approval. The scalp silhouette and source-level shading still require manual art polish before the hairless body master can be locked.
+**v39 remains the active hairless-body engineering candidate**. It proves the separation path, but the scalp silhouette and source-level shading still require manual art polish before the hairless body master can be locked.
 
 ### Equipment and accessories
 
-Active extraction QA remains **v24**.
-
-v24 uses tight row/component extraction and corrects the prior gourd-NW clipping and shoulder-tie neighboring fragments.
+Active equipment isolation / shared-lattice registration: **v44**.
 
 Clean source candidates exist for all source-provided directions of:
 
@@ -102,12 +92,12 @@ Clean source candidates exist for all source-provided directions of:
 - wrist wraps;
 - utility trinket.
 
-Known source coverage gaps remain:
+The equipment sheet lacks source slot `NW`. Under the canonical gameplay convention, the unresolved assets are therefore **canonical `SW`**:
 
-- NW katana;
-- NW scabbard;
-- NW belt knot / scabbard cord;
-- NW shoulder tie.
+- SW katana;
+- SW scabbard;
+- SW belt knot / scabbard cord;
+- SW shoulder tie.
 
 They are not mirrored automatically because facing-sensitive routing and silhouette matter.
 
@@ -123,12 +113,12 @@ No character checklist item is complete.
 
 Package 07 remains a **source-stage art/engineering candidate** until:
 
-1. v35 clean-chest body receives final source-art approval;
+1. the clean-chest body for canonical S / SE / E / W receives final source-art approval;
 2. the v39 hairless-body scalp is manually polished and approved;
-3. all eight v37 clothing composites receive seam / occlusion polish;
+3. all eight canonical clothing composites receive seam / occlusion polish;
 4. waist cloth and accessories are fully separated;
-5. equipment is manually registered per facing;
-6. the four missing NW equipment directions are authored;
+5. v44 equipment anchors are converted into manual per-facing front/back registration;
+6. the four missing canonical SW equipment assets are authored from the absent source NW slot;
 7. the complete source composite passes review before any 48×64 reduction.
 
-See `KAIRO_PACKAGE_07_V35_V36_QA.md` and `KAIRO_PACKAGE_07_V37_V40_QA.md` for the current source QA gates.
+After source approval, runtime derivation must still be manually pixel-cleaned at 48×64 before Phaser promotion.
