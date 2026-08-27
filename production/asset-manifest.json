@@ -1,0 +1,63 @@
+{
+  "schema": "astro-fighters-production-manifest/v1",
+  "updated": "2026-08-27",
+  "approvalAuthority": "Astro Fighters — Art Preview Review Rubric.md",
+  "masterDirection": "ASTRO_FIGHTERS_LOCKED_MASTER_ART_DIRECTION_PROMPT.md",
+  "canonical": {
+    "gridPixels": 32,
+    "projection": "flat-faced 3/4 cabinet",
+    "lightingDirection": "upper-left / northwest",
+    "directions": ["N","NE","E","SE","S","SW","W","NW"],
+    "directionMeaning": {
+      "N":"back / away from camera",
+      "NE":"back-right 3/4",
+      "E":"right profile",
+      "SE":"front-right 3/4",
+      "S":"front / toward camera",
+      "SW":"front-left 3/4",
+      "W":"left profile",
+      "NW":"back-left 3/4"
+    },
+    "characterSourceCanvas": [480,640],
+    "characterRuntimeFrame": [48,64],
+    "characterAnimationFramesPerDirection": {"idle":4,"walk":6,"ready":2},
+    "baseUnderlayer": {"male":["body/skin","hair/face","base shorts"],"female":["body/skin","hair/face","base shorts","sports bra"]},
+    "worldLayerOrder": ["ground","decals","architecture","architecture-dressing","props-back","collision","interactives","actors","props-front-occluders","local-shadows","atmosphere-fx"]
+  },
+  "activePackage": {
+    "id": "AF-IC-SHARED-FOUNDATION",
+    "status": "contracted",
+    "goal": "Establish the first shared Imperial City surface/architecture kit and a fully dressed fighter benchmark that can be integrated together for the first rubric-scored production slice.",
+    "worldDependencies": [
+      {"name":"Worn Imperial stone street — clean","status":"missing","anchor":"world surface","collision":"walkable","occlusion":"none"},
+      {"name":"Worn Imperial stone street — cracked","status":"missing","anchor":"world surface","collision":"walkable","occlusion":"none"},
+      {"name":"Patched stone street","status":"missing","anchor":"world surface","collision":"walkable","occlusion":"none"},
+      {"name":"Stone-to-timber transitions","status":"missing","anchor":"world surface","collision":"walkable","occlusion":"none"},
+      {"name":"Street-to-building threshold pieces","status":"missing","anchor":"world surface","collision":"walkable","occlusion":"none"},
+      {"name":"Drainage channels","status":"missing","anchor":"world surface","collision":"walkable","occlusion":"none"},
+      {"name":"Drainage grates","status":"missing","anchor":"world surface","collision":"walkable","occlusion":"none"},
+      {"name":"Cracks","status":"missing","anchor":"surface decal","collision":"none","occlusion":"none"},
+      {"name":"Stains","status":"missing","anchor":"surface decal","collision":"none","occlusion":"none"},
+      {"name":"Wheel/cart wear","status":"missing","anchor":"surface decal","collision":"none","occlusion":"none"},
+      {"name":"Timber structural posts","status":"missing","anchor":"floor-hosted center/bottom","collision":"solid","occlusion":"mid"},
+      {"name":"Horizontal beams","status":"missing","anchor":"attachment-line","collision":"none","occlusion":"mid"},
+      {"name":"Timber-and-plaster wall","status":"missing","anchor":"architectural region","collision":"solid","occlusion":"tall / cutaway"},
+      {"name":"Aged stone foundation","status":"missing","anchor":"architectural region","collision":"solid","occlusion":"low"}
+    ],
+    "characterDependencies": {
+      "status": "missing",
+      "sourceAuthoritiesRequired": ["base-underlayer turnaround","fully dressed benchmark turnaround","modular source component set"],
+      "benchmarkOutfit": ["approved body/skin","approved face/eyes","approved hairstyle","inner top","outerwear","pants","footwear","belt/sash","weapon/scabbard if role requires","charm/accessory","contact shadow"],
+      "validation": ["all eight canonical facings","shared 480x640 lattice","anatomical equipment side","direction-aware draw order","hard alpha","master palette","48x64 target pixel cleanup"]
+    },
+    "acceptance": {
+      "integrationRequired": true,
+      "phaserRequired": true,
+      "automaticFailuresAllowed": 0,
+      "criticalMinimumsMustPass": true,
+      "checklistCompletionMinimum": 42,
+      "lockQualityMinimum": 46
+    }
+  },
+  "approvedPackages": []
+}
