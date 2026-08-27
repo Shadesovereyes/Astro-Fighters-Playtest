@@ -79,6 +79,7 @@ Astro Fighters uses:
 - a **hidden 32×32 square gameplay grid**
 - **8-direction movement**
 - directional states: N, NE, E, SE, S, SW, W, NW
+- **canonical facing convention: S = front / toward camera; N = back / away from camera**
 - smooth player-facing movement
 - no visible permanent grid
 
@@ -173,6 +174,19 @@ Every visible character module must be authored for all eight directions:
 - SW
 - W
 - NW
+
+The canonical visual orientation is locked as:
+
+- `N` = back / away from camera
+- `NE` = back-right 3/4
+- `E` = right profile
+- `SE` = front-right 3/4
+- `S` = front / toward camera
+- `SW` = front-left 3/4
+- `W` = left profile
+- `NW` = back-left 3/4
+
+Reference sheets or legacy source files that use a different direction label convention must be remapped in metadata. Correct artwork must not be rotated, mirrored, or repainted merely to change a source-slot name. Runtime/Phaser facing state and final asset names always use the canonical convention above.
 
 Direction must affect the whole silhouette, including:
 
@@ -973,4 +987,4 @@ The finished result must look like **one coherent game**.
 
 # 23. Compact Reusable Production Prompt
 
-> Create production-quality pixel-art assets for Astro Fighters that match the approved character reference sheets in style, detail density, silhouette quality, material rendering, and craftsmanship. Follow the locked reference-first workflow: create and approve high-quality source/benchmark pixel-art references first, derive modular gameplay assets from those benchmarks, integrate the derived assets into the established Phaser runtime, then evaluate the representative integrated gameplay result with the mandatory rubric. Do not treat a pretty reference image as a finished gameplay asset, and do not substitute a custom Canvas renderer, baked scene, or isolated technical demo for Phaser integration. Proceed autonomously through the active world and character checklists by dependency package unless a major art-direction decision genuinely requires user approval. Do not create placeholder blockout art, flat rectangle-based scenery, naked mannequin characters, generic RPG tiles, or baked gameplay backgrounds. Build Imperial City as a modular layered world for a hidden 32×32 square grid with smooth 8-direction movement. Characters must be fully clothed and accessorized in an Edo + hip-hop martial style, with complete direction-aware paper-doll layers. Environment districts must include the Imperial Harbor, Civic Market, Workshops, Academy, Residential canals, Shrines, Civic Ward, Palace, Industrial infrastructure, Fringe Ward, bridges, and gates. Use dense lived-in detail, handcrafted pixel clusters, warm analog materials, signage, clutter, shadow, depth, occlusion, monumental architecture, and restrained cathode/spiritual effects. The world must equal the character models in pixel-art quality. If a benchmark, runtime asset, or integrated scene misses the locked standard, continue refining automatically rather than lowering the target. If the integrated rubric score is below 36, an automatic failure is present, or a critical-category minimum is missed, continue development automatically rather than presenting the scene as testable.
+> Create production-quality pixel-art assets for Astro Fighters that match the approved character reference sheets in style, detail density, silhouette quality, material rendering, and craftsmanship. Follow the locked reference-first workflow: create and approve high-quality source/benchmark pixel-art references first, derive modular gameplay assets from those benchmarks, integrate the derived assets into the established Phaser runtime, then evaluate the representative integrated gameplay result with the mandatory rubric. Do not treat a pretty reference image as a finished gameplay asset, and do not substitute a custom Canvas renderer, baked scene, or isolated technical demo for Phaser integration. Proceed autonomously through the active world and character checklists by dependency package unless a major art-direction decision genuinely requires user approval. Do not create placeholder blockout art, flat rectangle-based scenery, naked mannequin characters, generic RPG tiles, or baked gameplay backgrounds. Build Imperial City as a modular layered world for a hidden 32×32 square grid with smooth 8-direction movement. Character direction is canonicalized as S = front/toward camera, N = back/away from camera, SE/SW = front 3/4, and NE/NW = back 3/4; legacy reference-sheet labels must be remapped in metadata rather than silently reinterpreted. Characters must be fully clothed and accessorized in an Edo + hip-hop martial style, with complete direction-aware paper-doll layers. Environment districts must include the Imperial Harbor, Civic Market, Workshops, Academy, Residential canals, Shrines, Civic Ward, Palace, Industrial infrastructure, Fringe Ward, bridges, and gates. Use dense lived-in detail, handcrafted pixel clusters, warm analog materials, signage, clutter, shadow, depth, occlusion, monumental architecture, and restrained cathode/spiritual effects. The world must equal the character models in pixel-art quality. If a benchmark, runtime asset, or integrated scene misses the locked standard, continue refining automatically rather than lowering the target. If the integrated rubric score is below 36, an automatic failure is present, or a critical-category minimum is missed, continue development automatically rather than presenting the scene as testable.
