@@ -6,7 +6,24 @@ Create contamination-free, direction-specific paper-doll source layers from the 
 
 The locked character workflow remains:
 
-`480×640 directional master → source review → modular clothing/equipment against shared anchors → direction-aware occlusion review → 48×64 nearest-neighbor runtime derivation → Phaser integration`
+`480×640 directional master → source review → modular clothing/equipment against shared anchors → direction-aware occlusion review → 48×64 nearest-neighbor runtime derivation → manual pixel cleanup → Phaser integration`
+
+## Canonical direction convention
+
+Astro Fighters gameplay uses **`S` as front-facing / toward camera** and **`N` as back-facing / away from camera**.
+
+The current reference sheets use source-slot labels that were previously interpreted with `N` as front. Those raw slots are preserved only as source identifiers. Production/runtime metadata uses the canonical mapping:
+
+- canonical `N` ← source `S`
+- canonical `NE` ← source `SE`
+- canonical `E` ← source `E`
+- canonical `SE` ← source `NE`
+- canonical `S` ← source `N`
+- canonical `SW` ← source `NW`
+- canonical `W` ← source `W`
+- canonical `NW` ← source `SW`
+
+See `KAIRO_PACKAGE_07_DIRECTION_CONVENTION.md` and `docs/assets/metadata/character/package07-direction-convention.json`.
 
 ## Isolation rule
 
@@ -33,19 +50,19 @@ Character layers are not independently centered or bottom-justified like world p
 
 The desired Kairo base body does **not** contain the chest cross-bandage / X-wrap.
 
-The earlier Package 07 text said the N / NE / E / W chest wraps were already removed. That was too strong. The procedural cleanup attempts do not meet the approved source-art quality bar and are rejected as production evidence.
+The reference-sheet source slots `N / NE / E / W` that contain the unwanted chest-wrap treatment correspond to canonical gameplay **`S / SE / E / W`**.
 
 Current rule:
 
-- N / NE / E / W require a true clean bare-torso source edit;
+- canonical `S / SE / E / W` require a true clean bare-torso source edit;
 - wrist wraps remain intentionally present for the current Kairo design;
 - lower-leg / ankle wraps remain intentionally present;
-- the cleaned body must preserve the approved anatomy, skin rendering, silhouette, feet, hair/face anchors and direction identity;
-- no 48×64 body derivative may be produced until this source master is accepted.
+- the cleaned body must preserve the approved anatomy, skin rendering, silhouette, feet, hair/face anchors and canonical direction identity;
+- no 48×64 body derivative may be promoted until this source master is accepted.
 
 A true hairless body master is also still required before interchangeable hair can be source-complete.
 
-## Clothing — v13 clean isolates / v20 occlusion candidate
+## Clothing — v13 clean isolates / v37 routing candidate
 
 Five clothing families exist as eight-direction source candidates:
 
@@ -57,16 +74,15 @@ Five clothing families exist as eight-direction source candidates:
 
 The active clean source isolation is **v13**: 40 direction-specific garment candidates with labels, sheet background, presentation shadows and neighboring-item pixels removed.
 
-A direction mapping mismatch was identified in the left-side diagonal clothing references:
+The earlier left-diagonal `NW/SW` mismatch is now resolved by the full canonical source-slot mapping rather than a special-case gameplay direction override.
 
-- benchmark `NW` uses clothing source `SW`;
-- benchmark `SW` uses clothing source `NW`.
+The open-front haori source contained dark presentation/mannequin fill inside the garment opening. That fill is rejected for paper-doll use and is cleared so the body/inner layer remains visible.
 
-The open-front haori source also contained dark presentation/mannequin fill inside the garment opening. That fill is rejected for paper-doll use and is cleared so the body/inner layer remains visible.
+The active body/garment routing candidate is **v37**. It keeps head plus wrist/hand regions available as late body layers while upper forearms remain behind the haori sleeve unless the approved benchmark requires otherwise.
 
-The current clothing staging candidate is **v20**. It draws the cleaned/open haori around the body while keeping head/hands/late anatomy available as independent front regions. Rear facings (`SE`, `S`, `SW`) suppress the front inner-top overlay.
+Rear-facing inner-top suppression now applies to canonical `NE / N / NW`.
 
-v20 is an improvement over the rejected flat overlays, but it is still not production-approved. Sleeve/cuff/hand seams, final scale and near/far routing require direction-by-direction hand correction against the dressed Kairo benchmark.
+v37 is still not production-approved. Sleeve/cuff/hand seams, final scale and near/far routing require direction-by-direction hand correction against the dressed Kairo benchmark.
 
 ### Locked clothing rule
 
@@ -76,7 +92,7 @@ Open garment regions remain transparent.
 
 ## Waist / sash modularity
 
-The clothing-sheet sash is now treated as a **visual reference**, not a final swappable production layer, because it contains presentation-baked accessory content in several directions.
+The clothing-sheet sash is treated as a **visual reference**, not a final swappable production layer, because it contains presentation-baked accessory content in several directions.
 
 Production waist accessories remain independent:
 
@@ -86,27 +102,23 @@ Production waist accessories remain independent:
 - charm tag;
 - utility trinket.
 
-A v25 source-stage staging pass demonstrates these pieces independently on the shared body lattice instead of permanently fusing them into the sash.
-
 ## Direction-aware draw-order contract
 
-The engine contract continues to require direction-sensitive front/back routing instead of a universal flat stack. The target production model includes:
+The engine contract requires direction-sensitive front/back routing instead of a universal flat stack:
 
 `shadow → hair_back → equipment_back → haori_back → sash_back → body_core → pants → inner_top → haori_far_sleeve → body_far_hand → haori_front_far → haori_near_sleeve → body_near_hand → haori_front_near → footwear → sash_front → sash_ties → eyes → hair_front → equipment_front → accessory_front`
 
-The v20 composite is an intermediate source-stage approximation of this final contract, not a replacement for the declared layer model.
+All slots are resolved using canonical gameplay facings, not implicit reference-sheet labels.
 
 ## Hair — isolation active / hairless master blocked
 
 The standalone eight-direction hair source remains useful as a reference/isolation family.
 
-A true hairless body master remains a blocking dependency before hair can be approved as an interchangeable production layer.
+The current hairless-body engineering candidate proves the separation path, but a source-quality scalp/hairline cleanup remains a blocking dependency before interchangeable hair can be approved.
 
-## Equipment / accessories — v24 active
+## Equipment / accessories — v44 active
 
-The active equipment extraction is **v24**.
-
-v24 uses tight source rows plus component-based object assignment so neighboring-item fragments are rejected rather than clipped into a candidate. The remaining gourd-NW clipping and shoulder-tie neighboring fragments visible in v23 were corrected.
+The active equipment isolation / shared-lattice registration candidate is **v44**.
 
 Clean source candidates exist for all source-provided directions of:
 
@@ -121,14 +133,14 @@ Clean source candidates exist for all source-provided directions of:
 - wrist wraps;
 - utility trinket.
 
-Known source gaps remain intentionally unresolved rather than mirrored:
+The equipment sheet lacks source slot `NW`. Under the canonical gameplay convention, the missing production direction is therefore **canonical `SW`**:
 
-- NW katana;
-- NW scabbard;
-- NW belt knot / scabbard cord;
-- NW shoulder tie.
+- SW katana;
+- SW scabbard;
+- SW belt knot / scabbard cord;
+- SW shoulder tie.
 
-These directions must be authored independently because weapon/accessory routing changes with facing.
+These must be authored independently rather than mirrored because weapon/accessory routing changes with facing.
 
 ## Current gate
 
@@ -136,14 +148,12 @@ These directions must be authored independently because weapon/accessory routing
 
 Before 48×64 runtime derivation, Package 07 still requires:
 
-1. a true source-quality clean-chest body master;
+1. a true source-quality clean-chest body for canonical S / SE / E / W;
 2. a true hairless body master;
-3. manual direction-by-direction correction of v20 clothing scale and sleeve/cuff/hand seams;
+3. manual direction-by-direction correction of clothing scale and sleeve/cuff/hand seams using canonical facings;
 4. final decomposition of the waist treatment into cloth + independent accessories;
-5. equipment/accessory registration to the same anatomical lattice;
-6. authored versions of the four missing NW equipment directions;
+5. manual per-facing equipment/accessory front/back registration;
+6. authored versions of the four missing canonical SW equipment assets from the absent source NW slot;
 7. complete source-composite review with no contamination, incorrect body coverage, or facing errors.
 
-Only after those source gates pass may the character be reduced to **48×64 by nearest-neighbor** and integrated into Phaser.
-
-See `KAIRO_PACKAGE_07_V20_V24_QA.md` for the current correction history and active QA decisions.
+Only after those source gates pass may the character be reduced to **48×64 by nearest-neighbor**, manually pixel-cleaned at runtime resolution, and integrated into Phaser.
