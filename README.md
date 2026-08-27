@@ -1,8 +1,61 @@
 # Astro Fighters Playtest
 
-Public runtime-only playtest host for Astro Fighters. The development repository remains separate/private. The playable build is published from `/docs` via GitHub Pages.
+Astro Fighters is an **open-world action-combat RPG**. The current playable implementation is the browser/Phaser RPG runtime published from `/docs` through GitHub Pages.
 
-This repository also serves as the **art-development control surface and handoff record** for Imperial City production. A new chat session or development agent should be able to open this repository, read the documents below in order, inspect checklist progress, and continue work without restarting the art-direction discussion.
+This repository is the **current public playtest/runtime surface** and also the **art-development control surface and handoff record** for Imperial City production. A new chat session or development agent should be able to open this repository, understand the actual game architecture, inspect the current playable state, read the production rules, and continue development without restarting architectural or art-direction discovery.
+
+---
+
+# GAME ARCHITECTURE — READ BEFORE DEVELOPING
+
+## Current game target
+
+The game being built now is an **open-world, real-time action-combat RPG**. Its gameplay target includes:
+
+- free exploration through a continuous authored world;
+- real-time player movement rather than turn-by-turn battlefield movement;
+- eight-direction character facing and animation;
+- direct action combat rather than a five-slot turn queue;
+- layered environments, collision, interactives, NPCs, foreground occlusion, and world traversal;
+- real-time adaptation of Astro Fighters combat resources, abilities, statuses, astrology systems, and tactical rules;
+- a playable Phaser/browser runtime under `/docs` as the current public test surface.
+
+**Do not redesign Astro Fighters as a turn-based strategy game. Do not treat the old Unity prototype as the current game.**
+
+## Legacy Unity Combat Strategy vertical slice
+
+The private `Shadesovereyes/Astro-Fighters` Unity project is a **previous vertical slice for a turn-based tactical Combat Strategy prototype**. It exists as a combat-design and systems reference. It is **not** the current open-world RPG runtime, scene architecture, control model, release target, or development roadmap.
+
+The Unity slice may be consulted to recover or validate reusable combat logic such as:
+
+- physical, elemental, and mental damage concepts;
+- mitigation and poise/stagger logic;
+- stamina, chakra, strain, and other resource rules;
+- statuses, crowd control, stealth/awareness concepts, grapples, counters, summons, and Seigan rules;
+- astrology-derived affinities and loadout concepts;
+- authored ability data and balance assumptions that remain compatible with the RPG design.
+
+Those systems must be **adapted to real-time action combat**. The following Unity-specific structures are not the target architecture and must not be copied into the RPG merely because they exist in the vertical slice:
+
+- turn rounds as the primary gameplay loop;
+- five-action slot planning;
+- the dynamic turn scheduler as a literal runtime scheduler;
+- hex-battlefield encounter structure as the open-world movement model;
+- IMGUI prototype UX;
+- Unity recovery/battle scenes as the production world;
+- any assumption that a system is correct for the action RPG simply because it worked in the turn-based slice.
+
+When translating a mechanic from the Combat Strategy slice, preserve the **design intent and useful math**, then re-express it for real-time timing, hit windows, animation commitments, movement, cooldowns/recovery, interrupts, spatial collision, and player input.
+
+## Authority when repositories disagree
+
+For the current game:
+
+1. this public playtest repository and its current runtime behavior define the active RPG implementation;
+2. current locked art/gameplay production documents define the required presentation and integration rules;
+3. the Unity Combat Strategy project is reference material for reusable combat logic only.
+
+A future developer must **not redirect development into the Unity project** after discovering that its combat code is more mature in some areas. The task is to adapt useful combat logic into the open-world action RPG.
 
 ---
 
@@ -267,44 +320,52 @@ Do not describe a blockout or known placeholder scene as production quality.
 
 # 11. New Chat / New Agent Handoff Procedure
 
-A new session should perform the following sequence before producing new art:
+A new session should perform the following sequence before producing new art or changing the playable RPG:
 
-1. Open this repository and read this `README.md`.
-2. Read `ASTRO_FIGHTERS_LOCKED_MASTER_ART_DIRECTION_PROMPT.md` in full.
-3. Read `Astro Fighters — Art Preview Review Rubric.md` in full.
-4. Inspect `Astro Fighters — Imperial City Zone-by-Zone Asset Checklist.md` and identify:
+1. Open this repository and read this `README.md`, including **GAME ARCHITECTURE — READ BEFORE DEVELOPING**.
+2. Confirm that the target is the **open-world real-time action RPG**, not the Unity turn-based Combat Strategy vertical slice.
+3. Read `ASTRO_FIGHTERS_LOCKED_MASTER_ART_DIRECTION_PROMPT.md` in full.
+4. Read `Astro Fighters — Art Preview Review Rubric.md` in full.
+5. Inspect `Astro Fighters — Imperial City Zone-by-Zone Asset Checklist.md` and identify:
    - already struck/approved items;
    - currently incomplete items;
    - dependencies for the next playable district or scene.
-5. Inspect `ASTRO_FIGHTERS_CHARACTER_CLOTHING_ACCESSORY_CHECKLIST.md` and identify the corresponding incomplete character work.
-6. Inspect the current playable files under `/docs` and the most recent integrated gameplay state.
-7. Do **not** assume existing art is approved merely because it appears in the build. Checklist strike-through plus a qualifying rubric result is the approval signal.
-8. Select the next world and character dependencies together.
-9. Develop according to the Master Art Direction Prompt.
-10. Integrate the work into gameplay.
-11. Evaluate with the Art Preview Review Rubric.
-12. Continue refining automatically if it fails.
-13. At 42+, update/strike the completed items in both checklists as applicable.
-14. Continue to the next dependencies.
+6. Inspect `ASTRO_FIGHTERS_CHARACTER_CLOTHING_ACCESSORY_CHECKLIST.md` and identify the corresponding incomplete character work.
+7. Inspect the current playable files under `/docs` and the most recent integrated **action-RPG** gameplay state.
+8. If consulting the private Unity Combat Strategy vertical slice, extract only reusable combat logic/design intent and translate it to real-time action-combat semantics. Do not continue the Unity turn-based game as though it were the target product.
+9. Do **not** assume existing art is approved merely because it appears in the build. Checklist strike-through plus a qualifying rubric result is the approval signal.
+10. Select the next gameplay/world/character dependencies together.
+11. Develop according to the current RPG architecture and Master Art Direction Prompt.
+12. Integrate the work into the playable Phaser RPG.
+13. Evaluate presentation work with the Art Preview Review Rubric.
+14. Continue refining automatically if it fails.
+15. At 42+, update/strike the completed items in both checklists as applicable.
+16. Continue to the next dependencies.
 
-This sequence is the default continuation workflow. A new chat should not restart art-direction discovery unless the user explicitly changes a locked rule.
+This sequence is the default continuation workflow. A new chat should not restart architectural or art-direction discovery unless the user explicitly changes a locked rule.
 
 ---
 
 # 12. Current Repository Roles
 
-`/docs` contains the public playtest host. At the time this README was formalized it contains the published runtime files, including the main playtest page and a `play-v4.html` entry point.
+`/docs` contains the **current public open-world action-RPG playtest runtime**, including the main playtest page and the `play-v4.html` entry point. This is the active gameplay surface that should be advanced and tested.
 
-The root Markdown documents are production-control documents. They should remain readable and current because they are the primary handoff mechanism between sessions.
+The root Markdown documents are production-control and handoff documents. They should remain readable and current because they are the primary mechanism preventing future sessions from confusing prototype history with the active game.
 
-The development repository remains separate/private; this repository is the public playtest and art-production handoff surface.
+The private `Shadesovereyes/Astro-Fighters` Unity repository is the **legacy turn-based Combat Strategy vertical slice**. It is a reference source for reusable combat mechanics and formulas only; it is not the current RPG codebase or target runtime.
+
+Source art may be authored or retained outside this public runtime repository, but the public production manifest, locked art direction, checklists, runtime paths, and integrated review state remain the authoritative handoff for what the current RPG expects. Do not assume the Unity Combat Strategy repository is the current source-art authority simply because it is private.
 
 ---
 
 # 13. Core Locked Reminders
 
-Keep these rules visible during every art pass:
+Keep these rules visible during every development/art pass:
 
+- **Astro Fighters is an open-world real-time action-combat RPG.**
+- **The Unity turn-based Combat Strategy vertical slice is reference material, not the target game.**
+- **Adapt combat logic from the slice; do not port its turn/slot/hex encounter architecture wholesale.**
+- **The current playable RPG is the Phaser/browser runtime under `/docs`.**
 - **The world must match the quality and pixel-art style of the approved character models.**
 - **Characters must be fully clothed and accessorized in presentation-quality previews.**
 - **The hidden 32×32 square grid must not be visible to the player.**
@@ -312,9 +373,9 @@ Keep these rules visible during every art pass:
 - **The game uses a flat-faced 3/4 cabinet projection.**
 - **Playable environments are layered runtime constructions, not baked full-screen illustrations.**
 - **Imperial City must feel dense, lived-in, martial, analog-industrial, and distinctly Astro Fighters.**
-- **The Master Art Direction Prompt determines how to build.**
+- **The Master Art Direction Prompt determines how to build the visual world.**
 - **The checklists determine what remains to build.**
-- **The rubric determines whether the work is acceptable.**
+- **The rubric determines whether presentation work is acceptable.**
 - **Below the quality gate, keep working without asking for permission to continue.**
 - **Only 42+ integrated, rubric-passing work is struck from the checklists as production complete.**
 
@@ -323,17 +384,19 @@ Keep these rules visible during every art pass:
 # Development Loop Summary
 
 ```text
-READ MASTER ART DIRECTION
+CONFIRM OPEN-WORLD ACTION-RPG ARCHITECTURE
         ↓
-CHECK WORLD + CHARACTER CHECKLISTS
+READ CURRENT PLAYABLE RUNTIME + MASTER ART DIRECTION
         ↓
-SELECT NEXT DEPENDENCIES
+CHECK WORLD + CHARACTER + GAMEPLAY DEPENDENCIES
         ↓
-DEVELOP MATCHING PRODUCTION ASSETS
+ADAPT NEEDED COMBAT LOGIC FROM LEGACY SLICE IF RELEVANT
         ↓
-INTEGRATE INTO PLAYABLE PHASER SCENE
+DEVELOP CURRENT RPG SYSTEMS / PRODUCTION ASSETS
         ↓
-SCORE INTEGRATED VIEW WITH ART RUBRIC
+INTEGRATE INTO PLAYABLE PHASER ACTION-RPG SCENE
+        ↓
+SCORE INTEGRATED PRESENTATION WITH ART RUBRIC
         ↓
    PASS 42+? ── NO ──→ REFINE AUTOMATICALLY ──┐
         │                                      │
@@ -344,4 +407,4 @@ STRIKE COMPLETED CHECKLIST ITEMS               │
 SELECT NEXT DEPENDENCIES ←─────────────────────┘
 ```
 
-The goal is not to accumulate assets. The goal is to systematically produce a **homogeneous, production-quality Astro Fighters world and cast** in which every approved element has survived integrated gameplay review.
+The goal is not to reproduce the old Combat Strategy prototype and not merely to accumulate assets. The goal is to systematically build a **homogeneous, production-quality open-world Astro Fighters action RPG** whose combat systems inherit the strongest logic from the earlier vertical slice while operating as real-time action gameplay.
