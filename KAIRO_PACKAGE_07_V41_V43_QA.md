@@ -1,5 +1,7 @@
 # Kairo — Package 07 v41–v43 Registration QA
 
+> **Direction-convention correction (2026-08-27):** historical direction labels in this document are reference-sheet/source-slot labels. Canonical gameplay uses `S = front` and `N = back`. Source slots `N / NE / E / W` correspond to canonical `S / SE / E / W`; absent source slot `NW` corresponds to canonical `SW` equipment.
+
 ## Why this pass exists
 
 The previous source work established clean garment isolation and direction-aware layer routing, but the actual garment scale and placement still relied too heavily on broad manual percentages. That made it difficult to tell whether a new iteration was genuinely closer to the approved Kairo turnaround.
@@ -24,7 +26,7 @@ This pass is useful as a measurement scaffold, not production approval.
 
 v41 exposed a source problem that was obscuring the torso: the standalone front/three-quarter haori reference contains dark presentation/mannequin fill inside the garment opening.
 
-v42 removes the large central low-chroma presentation-fill components from the open-front directions while retaining the actual fabric, trim, sleeve and outline pixels.
+v42 removes the large central low-chroma presentation-fill components from the open-front source facings while retaining the actual fabric, trim, sleeve and outline pixels.
 
 Result: the inner top/body is visible through the haori opening instead of being covered by an opaque dark panel.
 
@@ -42,7 +44,7 @@ Current corrections include:
 
 ## What v43 proves
 
-The source pipeline can now make measurable corrections against the dressed benchmark without returning to opaque whole-garment overlays.
+The source pipeline can make measurable corrections against the dressed benchmark without returning to opaque whole-garment overlays.
 
 The comparison surface deliberately crops candidate and benchmark using the **same base-body window**. Weapon length no longer changes the review zoom, so clothing proportions can be judged directly.
 
@@ -52,13 +54,13 @@ v43 is **not production-approved**.
 
 Visible work still required:
 
-- N/NE/E/W haori sleeve-to-hand seams need manual pixel cleanup;
+- canonical S / SE / E / W haori sleeve-to-hand seams need manual pixel cleanup;
 - front/three-quarter haori width still needs per-facing rather than family-wide tuning;
 - trousers and footwear need final per-facing rise/contact adjustments;
 - the sash source remains a reference because pouch/gourd/charm must remain separate modules;
-- rear-view waist routing still needs refinement;
+- rear-view waist routing still needs refinement for canonical NE / N / NW;
 - equipment must be manually registered after the clothing silhouette is locked;
-- four NW equipment source directions still need independent authoring;
+- four canonical SW equipment assets still need independent authoring because source slot NW is absent;
 - hairless scalp source remains below final art quality.
 
 ## Runtime gate
@@ -67,4 +69,4 @@ No `48×64` runtime derivation is approved by this pass.
 
 The sequence remains:
 
-`CLEAN SOURCE → BODY-SCALE BENCHMARK REVIEW → PER-FACING PIXEL POLISH → FULL SOURCE APPROVAL → 48×64 DERIVATION → PHASER`
+`CLEAN SOURCE → BODY-SCALE BENCHMARK REVIEW → PER-FACING PIXEL POLISH → FULL SOURCE APPROVAL → 48×64 DERIVATION → MANUAL PIXEL CLEANUP → PHASER`
