@@ -1,0 +1,45 @@
+{
+  "package": "kairo-source-package07",
+  "version": "direction-convention-v1",
+  "production_approved": true,
+  "canonical_order": ["N", "NE", "E", "SE", "S", "SW", "W", "NW"],
+  "front_facing": "S",
+  "back_facing": "N",
+  "profiles": {
+    "N": "back",
+    "NE": "back-right-3q",
+    "E": "right-profile",
+    "SE": "front-right-3q",
+    "S": "front",
+    "SW": "front-left-3q",
+    "W": "left-profile",
+    "NW": "back-left-3q"
+  },
+  "canonical_to_source_slot": {
+    "N": "S",
+    "NE": "SE",
+    "E": "E",
+    "SE": "NE",
+    "S": "N",
+    "SW": "NW",
+    "W": "W",
+    "NW": "SW"
+  },
+  "source_slot_to_canonical": {
+    "N": "S",
+    "NE": "SE",
+    "E": "E",
+    "SE": "NE",
+    "S": "N",
+    "SW": "NW",
+    "W": "W",
+    "NW": "SW"
+  },
+  "notes": {
+    "raw_source_policy": "Reference-sheet filenames may retain their source-slot label, but all engine/runtime metadata uses canonical gameplay directions.",
+    "clean_chest_canonical": ["S", "SE", "E", "W"],
+    "rear_inner_top_suppressed": ["NE", "N", "NW"],
+    "missing_equipment_canonical": "SW",
+    "missing_equipment_source_slot": "NW"
+  }
+}
