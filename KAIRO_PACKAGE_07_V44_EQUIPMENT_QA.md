@@ -1,5 +1,7 @@
 # Kairo — Package 07 v44 Equipment QA
 
+> **Direction-convention correction (2026-08-27):** the equipment reference sheet's absent slot is labeled `NW` in the source sheet, but Astro Fighters canonical gameplay uses `S = front` / `N = back`; source slot `NW` maps to canonical `SW`. Therefore the four missing production equipment views are canonical **SW**, not NW.
+
 ## Purpose
 
 v44 advances the equipment/accessory blocker without promoting any runtime art. The pass focuses on two separate gates:
@@ -30,16 +32,16 @@ v44 keeps the clean v43 candidates and rebuilds the hanging charm-tag family as 
 
 The isolation rule remains strict: a reusable equipment candidate fails if it contains typography, panel rules, neighboring-object pixels, clipped adjacent variants, or source-sheet background.
 
-The four genuine source gaps remain unchanged and are intentionally not mirrored:
+The equipment sheet lacks source slot `NW`. Those four genuine source gaps correspond to canonical gameplay `SW` and are intentionally not mirrored:
 
-- NW katana;
-- NW scabbard;
-- NW belt knot / scabbard cord;
-- NW shoulder tie.
+- SW katana;
+- SW scabbard;
+- SW belt knot / scabbard cord;
+- SW shoulder tie.
 
 ## Shared-lattice registration scaffold
 
-The v44 candidates are also placed on the existing 480×640 body lattice using family-specific anatomical anchors rather than generic centering:
+The v44 candidates are placed on the existing 480×640 body lattice using family-specific anatomical anchors rather than generic centering:
 
 - necklace → neck/chest anchor;
 - wrist wraps → wrist/hand anchor;
@@ -50,7 +52,7 @@ The v44 candidates are also placed on the existing 480×640 body lattice using f
 - scabbard → waist/back equipment anchor;
 - katana → hand/weapon anchor.
 
-This registration is intentionally a **staging scaffold**, not final placement. The QA proves that the equipment families are independent and can share the body lattice; it does not claim that the current anchor offsets match the approved dressed benchmark in every facing.
+This registration is intentionally a **staging scaffold**, not final placement. The QA proves that the equipment families are independent and can share the body lattice; it does not claim that the current anchor offsets match the approved dressed benchmark in every canonical facing.
 
 ## Direction-aware routing still required
 
@@ -69,9 +71,9 @@ v44 supersedes v24 as the current equipment-isolation candidate for continued en
 
 Before runtime reduction:
 
-1. manually align idle equipment per facing against the approved dressed turnaround;
-2. manually align the katana to the hand/weapon anchor per facing;
-3. author the four missing NW equipment views;
+1. manually align idle equipment per canonical facing against the approved dressed turnaround;
+2. manually align the katana to the hand/weapon anchor per canonical facing;
+3. author the four missing canonical SW equipment views from the absent source NW slot;
 4. validate front/back routing wherever scabbard, cord, charm or weapon cross the body;
 5. include the equipment stack in the complete eight-direction source review.
 
