@@ -2,7 +2,7 @@
   "scope": "paper-doll base underlayer standard",
   "male": {
     "required": ["body/skin", "hair/face", "base shorts"],
-    "forbidden_in_base": ["nude presentation", "chest cross-bandage", "weapon", "charms", "outer clothing"],
+    "forbidden_in_base": ["nude presentation", "chest cross-bandage", "wrist wraps", "lower-leg wraps", "footwear", "weapon", "charms", "outer clothing"],
     "active_development": true
   },
   "female_future": {
