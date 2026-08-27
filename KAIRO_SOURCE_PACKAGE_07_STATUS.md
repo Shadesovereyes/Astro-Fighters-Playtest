@@ -45,7 +45,7 @@ Current rule:
 
 A true hairless body master is also still required before interchangeable hair can be source-complete.
 
-## Clothing — clean isolates retained; flat whole-garment stacking REJECTED
+## Clothing — v13 clean isolates / v20 occlusion candidate
 
 Five clothing families exist as eight-direction source candidates:
 
@@ -53,47 +53,48 @@ Five clothing families exist as eight-direction source candidates:
 - short street-haori;
 - baggy trousers;
 - wrapped footwear / leg wraps;
-- sash / belt / waist treatment.
+- sash / belt / waist treatment reference.
 
-The useful result from the earlier passes is the **source isolation work**: open garment areas must be transparent and neighboring/background contamination is rejected.
+The active clean source isolation is **v13**: 40 direction-specific garment candidates with labels, sheet background, presentation shadows and neighboring-item pixels removed.
 
-The whole-garment registration experiments are **not** accepted as the production layer model. Review showed that a flat `body → inner top → whole haori → sash` stack can cover anatomy incorrectly in side and 3/4 views.
+A direction mapping mismatch was identified in the left-side diagonal clothing references:
 
-### Active layering contract
+- benchmark `NW` uses clothing source `SW`;
+- benchmark `SW` uses clothing source `NW`.
 
-Package 07 now has an explicit direction-aware contract in:
+The open-front haori source also contained dark presentation/mannequin fill inside the garment opening. That fill is rejected for paper-doll use and is cleared so the body/inner layer remains visible.
 
-- `KAIRO_PACKAGE_07_LAYERING_SPEC.md`
-- `docs/assets/metadata/character/package07-kairo-layer-order-v1.json`
+The current clothing staging candidate is **v20**. It draws the cleaned/open haori around the body while keeping head/hands/late anatomy available as independent front regions. Rear facings (`SE`, `S`, `SW`) suppress the front inner-top overlay.
 
-The production paper doll must support front/back/near/far decomposition where required.
-
-Minimum outerwear/waist decomposition now includes:
-
-- `haori_back`
-- `haori_far_sleeve`
-- `haori_front_far`
-- `haori_near_sleeve`
-- `haori_front_near`
-- `sash_back`
-- `sash_front`
-- `sash_ties`
-
-The body must expose separate hand regions so hands can render after sleeve cuffs without using a late full-body overlay to hide bad garment registration.
+v20 is an improvement over the rejected flat overlays, but it is still not production-approved. Sleeve/cuff/hand seams, final scale and near/far routing require direction-by-direction hand correction against the dressed Kairo benchmark.
 
 ### Locked clothing rule
 
 > No garment layer may hide body regions unless that occlusion is directionally intentional and supported by the approved dressed benchmark.
 
-Open garment regions remain transparent. Pouch, gourd, charm and scabbard-cord pixels are independent equipment/accessory modules, not permanently baked into the sash.
+Open garment regions remain transparent.
 
-## Direction-aware draw order
+## Waist / sash modularity
 
-The engine contract now declares a canonical source stack with direction-specific empty/near/far overrides:
+The clothing-sheet sash is now treated as a **visual reference**, not a final swappable production layer, because it contains presentation-baked accessory content in several directions.
+
+Production waist accessories remain independent:
+
+- belt knot / scabbard cord;
+- pouch;
+- gourd;
+- charm tag;
+- utility trinket.
+
+A v25 source-stage staging pass demonstrates these pieces independently on the shared body lattice instead of permanently fusing them into the sash.
+
+## Direction-aware draw-order contract
+
+The engine contract continues to require direction-sensitive front/back routing instead of a universal flat stack. The target production model includes:
 
 `shadow → hair_back → equipment_back → haori_back → sash_back → body_core → pants → inner_top → haori_far_sleeve → body_far_hand → haori_front_far → haori_near_sleeve → body_near_hand → haori_front_near → footwear → sash_front → sash_ties → eyes → hair_front → equipment_front → accessory_front`
 
-This follows the locked requirement that direction-sensitive clothing overlap and equipment crossing be handled explicitly rather than by a universal flat stack.
+The v20 composite is an intermediate source-stage approximation of this final contract, not a replacement for the declared layer model.
 
 ## Hair — isolation active / hairless master blocked
 
@@ -101,26 +102,30 @@ The standalone eight-direction hair source remains useful as a reference/isolati
 
 A true hairless body master remains a blocking dependency before hair can be approved as an interchangeable production layer.
 
-## Equipment / accessories — isolation candidate
+## Equipment / accessories — v24 active
 
-Direction-specific source candidates exist for:
+The active equipment extraction is **v24**.
 
-- katana in hand;
-- scabbard at waist;
-- scabbard cord / belt knot;
+v24 uses tight source rows plus component-based object assignment so neighboring-item fragments are rejected rather than clipped into a candidate. The remaining gourd-NW clipping and shoulder-tie neighboring fragments visible in v23 were corrected.
+
+Clean source candidates exist for all source-provided directions of:
+
+- katana;
+- scabbard;
+- belt knot / scabbard cord;
 - hanging charm tag;
 - necklace / charm;
 - pouch;
 - gourd flask;
 - shoulder tie / cloth strip;
 - wrist wraps;
-- utility belt trinket.
+- utility trinket.
 
 Known source gaps remain intentionally unresolved rather than mirrored:
 
 - NW katana;
 - NW scabbard;
-- NW scabbard cord;
+- NW belt knot / scabbard cord;
 - NW shoulder tie.
 
 These directions must be authored independently because weapon/accessory routing changes with facing.
@@ -133,10 +138,12 @@ Before 48×64 runtime derivation, Package 07 still requires:
 
 1. a true source-quality clean-chest body master;
 2. a true hairless body master;
-3. re-authoring the haori/sash as direction-aware front/back/near/far paper-doll sublayers;
-4. direction-by-direction seam and occlusion correction against the approved dressed Kairo benchmark;
+3. manual direction-by-direction correction of v20 clothing scale and sleeve/cuff/hand seams;
+4. final decomposition of the waist treatment into cloth + independent accessories;
 5. equipment/accessory registration to the same anatomical lattice;
 6. authored versions of the four missing NW equipment directions;
 7. complete source-composite review with no contamination, incorrect body coverage, or facing errors.
 
 Only after those source gates pass may the character be reduced to **48×64 by nearest-neighbor** and integrated into Phaser.
+
+See `KAIRO_PACKAGE_07_V20_V24_QA.md` for the current correction history and active QA decisions.
