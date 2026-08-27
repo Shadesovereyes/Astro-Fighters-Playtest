@@ -1,7 +1,7 @@
 {
   "character_system": "astro_fighters_kairo_paper_doll",
   "version": "package07-layer-order-v1",
-  "status": "source-stage-contract",
+  "status": "source-stage-v20-clothing-v24-equipment-v25-waist-staging",
   "production_approved": false,
   "source_frame_size": [480, 640],
   "runtime_frame_size": [48, 64],
@@ -31,6 +31,14 @@
     "equipment_front",
     "accessory_front"
   ],
+  "source_stage": {
+    "clothing_isolation": "v13",
+    "clothing_occlusion_candidate": "v20",
+    "equipment_isolation": "v24",
+    "waist_equipment_staging": "v25",
+    "clothing_source_direction_overrides": {"NW": "SW", "SW": "NW"},
+    "rear_inner_top_suppressed": ["SE", "S", "SW"]
+  },
   "direction_profiles": {
     "N": {"profile": "front", "near_side": "symmetric", "front_panels": "both", "eyes": "visible"},
     "NE": {"profile": "front-right-3q", "near_side": "right", "front_panels": "near-dominant", "eyes": "visible"},
@@ -63,24 +71,36 @@
   },
   "body_rules": {
     "chest_cross_bandage_allowed": false,
+    "clean_chest_master_required": true,
+    "hairless_master_required": true,
     "open_garment_regions_must_be_transparent": true,
     "full_body_late_overlay_for_layer_repair": false,
     "shared_anatomical_lattice_required": true
   },
+  "waist_rules": {
+    "clothing_sheet_sash_is_reference_only": true,
+    "all_in_one_sash_allowed": false,
+    "independent_modules": ["sash_back", "sash_front", "sash_ties", "belt_knot", "pouch", "gourd", "charm_tag", "utility_trinket"]
+  },
   "equipment_rules": {
+    "active_isolation": "v24",
     "direction_sensitive_front_back_overrides": true,
     "missing_nw_may_be_mirrored": false,
-    "missing_nw_items": ["katana", "scabbard", "scabbard_cord", "shoulder_tie"]
+    "missing_nw_items": ["katana", "scabbard", "belt_knot", "shoulder_tie"]
   },
   "runtime_gate": {
     "nearest_neighbor_only": true,
     "blocked_until_source_composite_passes": true,
     "required_checks": [
       "clean chest body master exists",
+      "hairless body master exists",
       "all eight directions have complete modular source layers",
       "garment openings are transparent",
+      "v20 sleeve/cuff/hand seams are manually corrected",
+      "waist cloth and accessories are independently swappable",
       "direction-specific occlusion matches dressed benchmark",
       "equipment routing is correct",
+      "four missing NW equipment views are authored",
       "no neighboring-source contamination",
       "all layers share 480x640 anchors"
     ]
