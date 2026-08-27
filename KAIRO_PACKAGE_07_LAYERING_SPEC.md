@@ -3,6 +3,25 @@
 **Status:** source-stage engineering contract  
 **Applies to:** all Kairo body / clothing / hair / equipment layers before 48×64 derivation
 
+## Canonical direction convention
+
+Astro Fighters gameplay uses **`S` as front-facing / toward camera** and **`N` as back-facing / away from camera**.
+
+The current Kairo reference sheets use source-slot labels that were previously interpreted with `N` as front. Do not rotate or repaint valid source art simply to rename it. Resolve source art through the explicit mapping in `KAIRO_PACKAGE_07_DIRECTION_CONVENTION.md` and `docs/assets/metadata/character/package07-direction-convention.json`.
+
+Canonical-to-source mapping:
+
+- `N` ← source `S`
+- `NE` ← source `SE`
+- `E` ← source `E`
+- `SE` ← source `NE`
+- `S` ← source `N`
+- `SW` ← source `NW`
+- `W` ← source `W`
+- `NW` ← source `SW`
+
+All future Phaser-facing state, animation names, runtime manifests and 48×64 assets use canonical gameplay directions.
+
 ## Governing rule
 
 The paper doll may not be assembled as a stack of whole-garment stickers. Any garment or equipment item that crosses the body must be decomposed into front/back/near/far pieces as required by the facing.
@@ -22,16 +41,13 @@ Open garment areas must remain transparent. Presentation-sheet background, manne
 ## Active source-stage inputs
 
 - clothing clean isolation: **v13**
-- clothing composite/occlusion staging: **v20**
-- equipment clean isolation: **v24**
-- independent waist/equipment anchor staging: **v25**
+- body/garment routing candidate: **v37**
+- hairless body candidate: **v39**
+- equipment isolation / shared-lattice registration: **v44**
 
-Two clothing-source direction overrides are currently required by the approved dressed turnaround:
+The raw garment and equipment files may retain their reference-sheet source-slot labels. Every production manifest must also expose the canonical gameplay facing explicitly.
 
-- benchmark `NW` uses clothing source `SW`
-- benchmark `SW` uses clothing source `NW`
-
-The open-front haori source is also cleaned of dark presentation/mannequin fill so the inner top/body remains visible through the garment opening.
+The open-front haori source is cleaned of dark presentation/mannequin fill so the inner top/body remains visible through the garment opening.
 
 ## Required canonical slots
 
@@ -72,7 +88,7 @@ The base body must not be used as a late full-body overlay to repair bad garment
 
 Hands render after the corresponding sleeve so exposed fingers/wraps do not disappear under outerwear.
 
-The chest cross-bandage / X-wrap is **not part of the approved base body**. N / NE / E / W require a clean bare-torso source master. Wrist and lower-leg wraps remain separate intentional visual elements for the current Kairo design and must not be used to reconstruct the removed chest wrap.
+The chest cross-bandage / X-wrap is **not part of the approved base body**. Canonical `S / SE / E / W` require a clean bare-torso source master; those correspond to source slots `N / NE / E / W`. Wrist and lower-leg wraps remain separate intentional visual elements and must not be used to reconstruct the removed chest wrap.
 
 ## Garment decomposition
 
@@ -96,11 +112,9 @@ A whole haori layer is insufficient for side and 3/4 views. Minimum logical piec
 
 Rear-facing directions may collapse front-panel slots to empty layers, but the back mass remains separate.
 
-The v20 source-stage approximation temporarily uses the full cleaned/open haori plus independent late hand/head regions to verify that the earlier body-covering failure is removed. v20 is not a substitute for the final near/far decomposition above.
-
 ### Sash / waist
 
-The clothing-sheet sash is now treated as a **visual reference only** because several facings contain presentation-baked pouch / gourd / charm content.
+The clothing-sheet sash is treated as a **visual reference only** because several facings contain presentation-baked pouch / gourd / charm content.
 
 Production separation is:
 
@@ -115,8 +129,6 @@ Production separation is:
 
 Pouch, gourd, charm and scabbard-cord pixels must never be baked permanently into the base sash.
 
-v25 demonstrates the independent waist/equipment concept on the shared lattice without using the contaminated all-in-one sash reference as the production layer.
-
 ### Pants / footwear
 
 - `pants`
@@ -124,24 +136,24 @@ v25 demonstrates the independent waist/equipment concept on the shared lattice w
 
 Both use the body lattice; footwear inherits the character foot anchors rather than generic prop bottom-justification.
 
-## Direction profiles
+## Canonical direction profiles
 
 | Facing | Visual profile | Near side | Notes |
 | --- | --- | --- | --- |
-| N | front | symmetric | both front panels can be visible; hands remain in front of cuffs |
-| NE | front-right 3/4 | right | right/near sleeve and panel route in front of torso |
-| E | right profile | right | near sleeve/panel in front; far sleeve/body mass behind |
-| SE | back-right 3/4 | right | front inner-top/panels mostly suppressed; rear haori mass dominates |
-| S | back | symmetric | front inner-top/panel slots generally empty; back mass / rear sash visible |
-| SW | back-left 3/4 | left | mirror of SE in depth logic, not a bitmap mirror; clothing source uses the current NW source slot |
-| W | left profile | left | near sleeve/panel in front; far sleeve/body mass behind |
-| NW | front-left 3/4 | left | left/near sleeve and panel route in front; clothing source uses the current SW source slot |
+| `N` | back | symmetric | front inner-top/panel slots generally empty; back mass / rear sash visible |
+| `NE` | back-right 3/4 | right | front inner-top/panels mostly suppressed; rear haori mass dominates |
+| `E` | right profile | right | near sleeve/panel in front; far sleeve/body mass behind |
+| `SE` | front-right 3/4 | right | right/near sleeve and panel route in front of torso |
+| `S` | front | symmetric | both front panels can be visible; hands remain in front of cuffs |
+| `SW` | front-left 3/4 | left | left/near sleeve and panel route in front of torso |
+| `W` | left profile | left | near sleeve/panel in front; far sleeve/body mass behind |
+| `NW` | back-left 3/4 | left | rear haori mass dominates; front panels mostly suppressed |
 
-This describes depth logic only. Artwork remains independently authored for all eight facings.
+This describes depth logic only. Artwork remains independently authored for all eight canonical facings.
 
 ## Equipment routing
 
-The active clean equipment family is **v24**. It uses tight source rows plus component-based object assignment; neighboring fragments are rejected instead of being accepted as clipped candidates.
+The active equipment isolation / registration candidate is **v44**. It uses tight source rows plus component-based object assignment; neighboring fragments are rejected instead of being accepted as clipped candidates.
 
 Clean source candidates exist for all source-provided directions of:
 
@@ -165,12 +177,14 @@ At minimum, the katana/scabbard kit must be separable into:
 - scabbard cord → front or back slot by facing
 - charm / tag → `accessory_front` unless the approved facing clearly routes it behind
 
-The following source directions remain genuinely absent and must be authored independently rather than mirrored:
+The equipment reference sheet lacks source slot `NW`. Under the canonical convention, those missing assets are **canonical `SW`**, not canonical `NW`:
 
-- NW katana
-- NW scabbard
-- NW belt knot / scabbard cord
-- NW shoulder tie
+- canonical `SW` katana — missing source slot `NW`
+- canonical `SW` scabbard — missing source slot `NW`
+- canonical `SW` belt knot / scabbard cord — missing source slot `NW`
+- canonical `SW` shoulder tie — missing source slot `NW`
+
+They must be authored independently rather than mirrored automatically.
 
 ## Hair / eyes
 
@@ -180,14 +194,15 @@ Hair must support:
 - `hair_front`
 - optional direction-specific side/volume sublayer if a hairstyle needs it
 
-Eyes remain an independent alignment-safe layer. Rear-facing directions may use an intentionally empty eyes frame.
+Eyes remain an independent alignment-safe layer. Rear-facing canonical `N` may use an intentionally empty eyes frame; `NE/NW` may also suppress eyes when the approved view does not expose them.
 
 A true hairless source body remains a blocking dependency before interchangeable hair can be approved.
 
 ## Source acceptance test
 
-Before runtime derivation, every direction must satisfy all of the following:
+Before runtime derivation, every canonical direction must satisfy all of the following:
 
+- direction identity follows `S = front`, `N = back`
 - base body contains no chest cross-bandage
 - garment openings are transparent
 - no neighboring-source contamination
@@ -199,4 +214,4 @@ Before runtime derivation, every direction must satisfy all of the following:
 - equipment crosses the body with the correct front/back routing
 - complete dressed source composite matches the approved Kairo silhouette and facing
 
-Only after this source-stage review passes may the stack be reduced to 48×64 with nearest-neighbor scaling and integrated into Phaser.
+Only after this source-stage review passes may the stack be reduced to 48×64 with nearest-neighbor scaling, manually pixel-cleaned at runtime resolution, and integrated into Phaser.
