@@ -1,13 +1,24 @@
 {
   "character_system": "astro_fighters_kairo_paper_doll",
-  "version": "package07-layer-order-v1",
-  "status": "source-stage-v20-clothing-v24-equipment-v25-waist-staging",
+  "version": "package07-layer-order-v2",
+  "status": "source-stage-v37-clothing-v44-equipment-direction-corrected",
   "production_approved": false,
   "source_frame_size": [480, 640],
   "runtime_frame_size": [48, 64],
   "source_body_center_x": 240,
   "source_foot_contact_y": 560,
+  "direction_convention": "assets/metadata/character/package07-direction-convention.json",
   "directions": ["N", "NE", "E", "SE", "S", "SW", "W", "NW"],
+  "canonical_to_source_slot": {
+    "N": "S",
+    "NE": "SE",
+    "E": "E",
+    "SE": "NE",
+    "S": "N",
+    "SW": "NW",
+    "W": "W",
+    "NW": "SW"
+  },
   "canonical_draw_order": [
     "shadow",
     "hair_back",
@@ -33,21 +44,20 @@
   ],
   "source_stage": {
     "clothing_isolation": "v13",
-    "clothing_occlusion_candidate": "v20",
-    "equipment_isolation": "v24",
-    "waist_equipment_staging": "v25",
-    "clothing_source_direction_overrides": {"NW": "SW", "SW": "NW"},
-    "rear_inner_top_suppressed": ["SE", "S", "SW"]
+    "body_garment_routing_candidate": "v37",
+    "hairless_body_candidate": "v39",
+    "equipment_isolation_registration": "v44",
+    "rear_inner_top_suppressed": ["NE", "N", "NW"]
   },
   "direction_profiles": {
-    "N": {"profile": "front", "near_side": "symmetric", "front_panels": "both", "eyes": "visible"},
-    "NE": {"profile": "front-right-3q", "near_side": "right", "front_panels": "near-dominant", "eyes": "visible"},
+    "N": {"profile": "back", "near_side": "symmetric", "front_panels": "empty-or-minimal", "eyes": "empty"},
+    "NE": {"profile": "back-right-3q", "near_side": "right", "front_panels": "mostly-empty", "eyes": "empty-if-not-visible"},
     "E": {"profile": "right-profile", "near_side": "right", "front_panels": "near-only-or-narrow", "eyes": "visible"},
-    "SE": {"profile": "back-right-3q", "near_side": "right", "front_panels": "mostly-empty", "eyes": "empty-if-not-visible"},
-    "S": {"profile": "back", "near_side": "symmetric", "front_panels": "empty", "eyes": "empty"},
-    "SW": {"profile": "back-left-3q", "near_side": "left", "front_panels": "mostly-empty", "eyes": "empty-if-not-visible"},
+    "SE": {"profile": "front-right-3q", "near_side": "right", "front_panels": "near-dominant", "eyes": "visible"},
+    "S": {"profile": "front", "near_side": "symmetric", "front_panels": "both", "eyes": "visible"},
+    "SW": {"profile": "front-left-3q", "near_side": "left", "front_panels": "near-dominant", "eyes": "visible"},
     "W": {"profile": "left-profile", "near_side": "left", "front_panels": "near-only-or-narrow", "eyes": "visible"},
-    "NW": {"profile": "front-left-3q", "near_side": "left", "front_panels": "near-dominant", "eyes": "visible"}
+    "NW": {"profile": "back-left-3q", "near_side": "left", "front_panels": "mostly-empty", "eyes": "empty-if-not-visible"}
   },
   "required_layer_groups": {
     "body": ["body_core", "body_far_hand", "body_near_hand"],
@@ -72,6 +82,7 @@
   "body_rules": {
     "chest_cross_bandage_allowed": false,
     "clean_chest_master_required": true,
+    "clean_chest_canonical_directions": ["S", "SE", "E", "W"],
     "hairless_master_required": true,
     "open_garment_regions_must_be_transparent": true,
     "full_body_late_overlay_for_layer_repair": false,
@@ -83,24 +94,27 @@
     "independent_modules": ["sash_back", "sash_front", "sash_ties", "belt_knot", "pouch", "gourd", "charm_tag", "utility_trinket"]
   },
   "equipment_rules": {
-    "active_isolation": "v24",
+    "active_isolation_registration": "v44",
     "direction_sensitive_front_back_overrides": true,
-    "missing_nw_may_be_mirrored": false,
-    "missing_nw_items": ["katana", "scabbard", "belt_knot", "shoulder_tie"]
+    "missing_source_slot_may_be_mirrored": false,
+    "missing_canonical_direction": "SW",
+    "missing_source_slot": "NW",
+    "missing_items": ["katana", "scabbard", "belt_knot", "shoulder_tie"]
   },
   "runtime_gate": {
     "nearest_neighbor_only": true,
     "blocked_until_source_composite_passes": true,
     "required_checks": [
-      "clean chest body master exists",
+      "canonical S is front-facing and canonical N is back-facing",
+      "clean chest body master exists for canonical S/SE/E/W",
       "hairless body master exists",
-      "all eight directions have complete modular source layers",
+      "all eight canonical directions have complete modular source layers",
       "garment openings are transparent",
-      "v20 sleeve/cuff/hand seams are manually corrected",
+      "sleeve/cuff/hand seams are manually corrected",
       "waist cloth and accessories are independently swappable",
       "direction-specific occlusion matches dressed benchmark",
       "equipment routing is correct",
-      "four missing NW equipment views are authored",
+      "four missing canonical SW equipment views are authored from the absent source NW slot",
       "no neighboring-source contamination",
       "all layers share 480x640 anchors"
     ]
