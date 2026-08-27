@@ -16,11 +16,9 @@ The chest cross-bandage / X-wrap is forbidden on the production body.
 
 v35 removes the wrap from N / NE / E / W while preserving the approved source art outside the torso correction region. It supersedes the earlier broad procedural cleanup attempts.
 
-The clean-chest candidate is now good enough for continued source integration, but it is **not yet marked production-approved**. Final full-resolution torso review is still required.
+The clean-chest candidate is good enough for continued source integration, but it is **not yet marked production-approved**. Final full-resolution torso review is still required.
 
 Wrist and ankle/lower-leg wraps remain intentional.
-
-A true hairless body master is still required before interchangeable hair can be source-complete.
 
 ### Clothing
 
@@ -39,22 +37,27 @@ Direction-source correction remains:
 
 The open-front haori presentation fill is removed so body / inner layers remain visible.
 
-Direction-specific manual placement has now been established across all eight facings:
+Direction-specific manual placement has been established across all eight facings:
 - N / NE / E → v29
 - SE / S / SW → v30
 - W / NW → v31
 
 The consolidated eight-direction source review is v32.
 
-### Clean-chest integration
+### Clean-chest integration and body/garment routing
 
-**Active integration candidate: v36.**
+v36 rebuilt the eight-direction clothing/waist stack on the v35 clean-chest body.
 
-v36 rebuilds the eight-direction clothing/waist stack on the v35 clean-chest body and retains the direction-specific manual placements rather than reverting to a universal overlay transform.
+**Active body/garment routing candidate: v37.**
 
-The body still uses core + late-visible anatomy routing so garments cannot blindly cover the head, hands/forearms or feet.
+The earlier late-body mask was still too broad and exposed too much forearm over the haori sleeve. v37 narrows late body routing to:
 
-v36 is not final. Sleeve/cuff/hand seams and near/far garment routing still need per-facing polish against the approved dressed benchmark.
+- head / hair;
+- wrist / hand zones only.
+
+Upper forearms remain behind the haori sleeve unless a facing-specific benchmark requires otherwise. This directly addresses the incorrect "clothes on top / body on top" behavior found in earlier registration passes.
+
+v37 is not final. Sleeve/cuff/hand seams and near/far garment routing still require per-facing polish against the approved dressed benchmark.
 
 ### Waist modularity
 
@@ -68,11 +71,17 @@ Production keeps these independent:
 - charm tag;
 - utility trinket.
 
-v36 continues to use independent belt-knot / pouch / gourd staging.
+Current source staging continues to use independent belt-knot / pouch / gourd pieces.
 
-### Hair
+### Hair / hairless body
 
-Standalone eight-direction hair isolation remains useful, but runtime hair is blocked by the missing true hairless body master.
+Standalone eight-direction hair source art is available.
+
+**v39 is the active hairless-body source candidate for continued engineering review.** It removes the existing hair and reconstructs a direction-specific scalp on the same 480×640 body lattice.
+
+**v40 validates hair re-layering** by registering the approved directional hair source back over the v39 candidate. The eight directions recompose successfully enough to prove the paper-doll separation path.
+
+Neither v39 nor v40 is production approval. The scalp silhouette and source-level shading still require manual art polish before the hairless body master can be locked.
 
 ### Equipment and accessories
 
@@ -115,11 +124,11 @@ No character checklist item is complete.
 Package 07 remains a **source-stage art/engineering candidate** until:
 
 1. v35 clean-chest body receives final source-art approval;
-2. a true hairless body master exists;
-3. all eight v36 clothing composites receive seam / occlusion polish;
+2. the v39 hairless-body scalp is manually polished and approved;
+3. all eight v37 clothing composites receive seam / occlusion polish;
 4. waist cloth and accessories are fully separated;
 5. equipment is manually registered per facing;
 6. the four missing NW equipment directions are authored;
 7. the complete source composite passes review before any 48×64 reduction.
 
-See `KAIRO_PACKAGE_07_V35_V36_QA.md` for the current body/integration gate.
+See `KAIRO_PACKAGE_07_V35_V36_QA.md` and `KAIRO_PACKAGE_07_V37_V40_QA.md` for the current source QA gates.
