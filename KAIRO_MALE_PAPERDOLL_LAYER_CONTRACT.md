@@ -1,4 +1,4 @@
-# Kairo Male Paper-Doll Layer Contract v45
+# Kairo Male Paper-Doll Layer Contract v46
 
 ## Canonical facing
 S = front. N = back.
@@ -10,12 +10,12 @@ S = front. N = back.
 - all layer positions in `docs/assets/metadata/character/package07-male-layer-positions-v45.csv` are absolute pixels relative to this canvas
 
 ## Base underlayer
-The male base is never nude. It contains:
+The male base is never nude. It contains only:
 - body / skin
 - hair / face
 - **base shorts**
 
-Chest cross-bandages are not part of the intended production base. Wrist and lower-leg wraps are separate removable layers.
+Chest cross-bandages, wrist wraps, lower-leg wraps, footwear, weapons, charms, and other clothing/equipment are **not** baked into the production male base. They remain independent removable layers.
 
 Future female base rule is documented only: **base shorts + sports bra**. No female production is included in this package.
 
@@ -43,4 +43,4 @@ The mounted sword belongs to the character's anatomical **left hip** in every fa
 For canonical **S / front**, the mount root and hilt must read inside the gap between the character's left arm and torso.
 
 ## Current gate
-This is a source-layer registration candidate, not final runtime art. Final 48×64 assets still require nearest-neighbor derivation followed by manual target-resolution pixel cleanup. The clean-chest base-body skin pass and the missing canonical SW weapon/equipment source art remain source-stage blockers.
+This is a source-layer registration candidate, not final runtime art. The v46 base removes non-underwear wrap content as an engineering/source cleanup candidate, but the bare-skin chest/wrist/foot pixels still require a hand-authored pixel cleanup pass before production approval. Final 48×64 assets still require nearest-neighbor derivation followed by manual target-resolution pixel cleanup. Missing canonical SW mounted-weapon support remains a source-stage blocker.
