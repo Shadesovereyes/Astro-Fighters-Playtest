@@ -19,6 +19,20 @@ Open garment areas must remain transparent. Presentation-sheet background, manne
 - all layers use the same origin and anatomical anchors
 - character layers are **not** independently centered or bottom-justified
 
+## Active source-stage inputs
+
+- clothing clean isolation: **v13**
+- clothing composite/occlusion staging: **v20**
+- equipment clean isolation: **v24**
+- independent waist/equipment anchor staging: **v25**
+
+Two clothing-source direction overrides are currently required by the approved dressed turnaround:
+
+- benchmark `NW` uses clothing source `SW`
+- benchmark `SW` uses clothing source `NW`
+
+The open-front haori source is also cleaned of dark presentation/mannequin fill so the inner top/body remains visible through the garment opening.
+
 ## Required canonical slots
 
 Back-to-front engine order:
@@ -82,16 +96,26 @@ A whole haori layer is insufficient for side and 3/4 views. Minimum logical piec
 
 Rear-facing directions may collapse front-panel slots to empty layers, but the back mass remains separate.
 
+The v20 source-stage approximation temporarily uses the full cleaned/open haori plus independent late hand/head regions to verify that the earlier body-covering failure is removed. v20 is not a substitute for the final near/far decomposition above.
+
 ### Sash / waist
 
-The current source sheet visually combines waist cloth with accessories. Production separation is:
+The clothing-sheet sash is now treated as a **visual reference only** because several facings contain presentation-baked pouch / gourd / charm content.
+
+Production separation is:
 
 - `sash_back`
 - `sash_front`
 - `sash_ties`
-- pouch / gourd / charm as independent equipment or accessory layers
+- `belt_knot` / scabbard cord
+- independent pouch
+- independent gourd
+- independent charm tag
+- independent utility trinket
 
 Pouch, gourd, charm and scabbard-cord pixels must never be baked permanently into the base sash.
+
+v25 demonstrates the independent waist/equipment concept on the shared lattice without using the contaminated all-in-one sash reference as the production layer.
 
 ### Pants / footwear
 
@@ -107,15 +131,30 @@ Both use the body lattice; footwear inherits the character foot anchors rather t
 | N | front | symmetric | both front panels can be visible; hands remain in front of cuffs |
 | NE | front-right 3/4 | right | right/near sleeve and panel route in front of torso |
 | E | right profile | right | near sleeve/panel in front; far sleeve/body mass behind |
-| SE | back-right 3/4 | right | front panels mostly suppressed; rear haori mass dominates |
-| S | back | symmetric | front panel slots generally empty; back mass / rear sash visible |
-| SW | back-left 3/4 | left | mirror of SE in depth logic, not a bitmap mirror |
+| SE | back-right 3/4 | right | front inner-top/panels mostly suppressed; rear haori mass dominates |
+| S | back | symmetric | front inner-top/panel slots generally empty; back mass / rear sash visible |
+| SW | back-left 3/4 | left | mirror of SE in depth logic, not a bitmap mirror; clothing source uses the current NW source slot |
 | W | left profile | left | near sleeve/panel in front; far sleeve/body mass behind |
-| NW | front-left 3/4 | left | left/near sleeve and panel route in front of torso |
+| NW | front-left 3/4 | left | left/near sleeve and panel route in front; clothing source uses the current SW source slot |
 
 This describes depth logic only. Artwork remains independently authored for all eight facings.
 
 ## Equipment routing
+
+The active clean equipment family is **v24**. It uses tight source rows plus component-based object assignment; neighboring fragments are rejected instead of being accepted as clipped candidates.
+
+Clean source candidates exist for all source-provided directions of:
+
+- katana
+- scabbard
+- belt knot / scabbard cord
+- charm tag
+- necklace
+- pouch
+- gourd
+- shoulder tie
+- wrist wraps
+- utility trinket
 
 Weapon/equipment layers require direction-sensitive front/back overrides when they cross the body.
 
@@ -126,7 +165,12 @@ At minimum, the katana/scabbard kit must be separable into:
 - scabbard cord → front or back slot by facing
 - charm / tag → `accessory_front` unless the approved facing clearly routes it behind
 
-Missing NW equipment is authored independently; do not mirror another facing as production art.
+The following source directions remain genuinely absent and must be authored independently rather than mirrored:
+
+- NW katana
+- NW scabbard
+- NW belt knot / scabbard cord
+- NW shoulder tie
 
 ## Hair / eyes
 
@@ -137,6 +181,8 @@ Hair must support:
 - optional direction-specific side/volume sublayer if a hairstyle needs it
 
 Eyes remain an independent alignment-safe layer. Rear-facing directions may use an intentionally empty eyes frame.
+
+A true hairless source body remains a blocking dependency before interchangeable hair can be approved.
 
 ## Source acceptance test
 
