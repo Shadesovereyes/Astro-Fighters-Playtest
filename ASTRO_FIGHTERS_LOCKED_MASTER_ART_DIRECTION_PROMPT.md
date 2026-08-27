@@ -7,9 +7,9 @@
 
 ## Master Directive
 
-Create **production-quality pixel-art assets for Astro Fighters**. The final art must match the detail density, silhouette quality, material rendering, and authored pixel craftsmanship of the approved Astro Fighters character reference sheets.
+Create **production-quality pixel-art assets for Astro Fighters**. Final art must match the detail density, silhouette quality, material rendering, and authored pixel craftsmanship of the approved Astro Fighters character reference sheets.
 
-**The world art and the character art must feel like they belong to the exact same game, produced by the same studio, using the same pixel vocabulary and quality standard.**
+**The world art and character art must feel like they belong to the exact same game, produced by the same studio, using the same pixel vocabulary and quality standard.**
 
 The quality of the world must rise to the character standard. The character standard must never be lowered to make environment mismatch less obvious.
 
@@ -51,18 +51,16 @@ Do **not** use:
 
 The primary setting is **Imperial City**, a dense martial metropolis containing multiple distinct but visually unified districts.
 
-The city should support:
+The city must support:
 
 - Imperial Harbor / Docks
 - Civic Market / Shops
 - Artisan / Workshop Ward
-- Astro Fighter Academy exterior
-- Astro Fighter Academy interiors
+- Astro Fighter Academy exterior and interiors
 - Residential / canal neighborhoods
 - Shrines / spiritual pockets
 - Civic / administrative ward
-- Imperial Palace exterior precinct
-- Imperial Palace interiors
+- Imperial Palace exterior precinct and interiors
 - Industrial / infrastructure corridors
 - Fringe / outer ward
 - Bridges / canal network
@@ -79,23 +77,13 @@ Astro Fighters uses:
 - a **hidden 32×32 square gameplay grid**
 - **8-direction movement**
 - directional states: N, NE, E, SE, S, SW, W, NW
+- **canonical facing convention: S = front / toward camera; N = back / away from camera**
 - smooth player-facing movement
 - no visible permanent grid
 
-The grid is structural, not graphical.
+The grid is structural, not graphical. The ordinary world must read as continuous natural space. Players must not be able to infer cell boundaries from pavement seams, floor boards, stones, wall segmentation, prop spacing, decals, checkerboarding, or repeated 32-pixel rhythms.
 
-The environment must visually read as continuous natural space. The player should not be able to infer cell boundaries from:
-
-- pavement seams
-- floor-board repetition
-- stone patterns
-- wall segmentation
-- prop spacing
-- ground decals
-- obvious 32-pixel rhythms
-- checkerboarding
-
-Temporary combat telegraphs or targeting overlays may expose spatial logic only when mechanically necessary. The ordinary world must not look like a board game.
+Temporary combat telegraphs or targeting overlays may expose spatial logic only when mechanically necessary.
 
 ---
 
@@ -103,7 +91,7 @@ Temporary combat telegraphs or targeting overlays may expose spatial logic only 
 
 The playable world must be assembled from **modular layered runtime assets**, not a single flattened scene.
 
-At minimum, maps must support independent layers or object groups for:
+Maps must support independent layers or object groups for:
 
 1. ground / street / floor surfaces
 2. decals and surface wear
@@ -118,13 +106,7 @@ At minimum, maps must support independent layers or object groups for:
 11. restrained atmosphere / FX
 12. optional distant decorative vista that never substitutes for playable geometry
 
-The player and NPCs must be able to move:
-
-- behind appropriate objects
-- in front of appropriate objects
-- through authored interior cutaways
-- under roofs that can be removed by architectural region
-- behind organic occluders that can fade when necessary
+The player and NPCs must be able to move behind and in front of appropriate objects, through authored interior cutaways, under roofs removed by architectural region, and behind organic occluders that can fade when necessary.
 
 Do not reveal interiors by individual grid cell.
 
@@ -151,13 +133,15 @@ A complete playable fighter presentation must include, where appropriate:
 
 Clothing and equipment must be authored at the same quality level as the approved character reference sheets.
 
-Do not use:
+## Base Underlayer Standard
 
-- crude recolor-only clothing
-- pasted rectangular garments
-- generic fantasy tunics
-- incomplete paper-doll stacks
-- placeholder outfits in production previews
+The interchangeable paper-doll base is **never nude**.
+
+- **Male base:** body / skin + hair / face + **base shorts**.
+- **Female base:** body / skin + hair / face + **base shorts + sports bra**.
+- Chest wraps, wrist wraps, leg wraps, footwear, clothing, weapons, scabbards, charms, pouches, and other equipment are separate removable layers unless a specific locked design says otherwise.
+
+Do not use crude recolor-only clothing, pasted rectangular garments, generic fantasy tunics, incomplete paper-doll stacks, or placeholder outfits in production previews.
 
 ---
 
@@ -165,54 +149,113 @@ Do not use:
 
 Every visible character module must be authored for all eight directions:
 
-- N
-- NE
-- E
-- SE
-- S
-- SW
-- W
-- NW
+- `N` = back / away from camera
+- `NE` = back-right 3/4
+- `E` = right profile
+- `SE` = front-right 3/4
+- `S` = front / toward camera
+- `SW` = front-left 3/4
+- `W` = left profile
+- `NW` = back-left 3/4
 
-Direction must affect the whole silhouette, including:
+Reference sheets or legacy source files that use a different direction-label convention must be remapped in metadata. Correct artwork must not be rotated, mirrored, or repainted merely to change a source-slot name. Runtime / Phaser facing state and final asset names always use the canonical convention above.
 
-- head
-- neck
-- shoulders
-- torso
-- hips
-- arms
-- hands
-- legs
-- feet
-- inner top
-- outerwear
-- pants
-- footwear
-- hair back/front/side volume
-- sash / belt
-- scabbard
-- weapon
-- charm / tag / accessory
-- direction-sensitive shadow
-- any directional clothing overlap
+Direction must affect the whole silhouette, including head, neck, shoulders, torso, hips, arms, hands, legs, feet, clothing, hair volume, sash, scabbard, weapon, accessories, shadow, and overlap order. A front-facing body with only facial pixels shifted is invalid.
 
-A front-facing body with only facial pixels shifted is invalid.
+## Anatomical-Side Rule
 
-Direction-sensitive draw-order overrides must be supported where equipment crosses the body.
+Equipment placement is defined relative to the **character's anatomy**, not screen-left / screen-right.
+
+Example: when a sword is mounted on the character's **left hip**, that left-hip mount must remain anatomically correct in all eight facings. In `S` / front, the mount root and hilt must read in the correct left-arm / torso relationship rather than being placed outside the wrong arm merely because that is convenient in screen coordinates.
+
+Direction-sensitive draw-order overrides must be supported wherever clothing or equipment crosses the body.
 
 ---
 
 # 7. Character Production Workflow
 
-Required workflow:
+Character production uses a **contract-first, shared-lattice, source-approval, target-pixel-cleanup** workflow.
 
-1. Author an approved master silhouette/proportion system at **480×640 source resolution**.
-2. Author eight distinct directional master poses at 480×640.
-3. Validate anatomy, foot placement, equipment placement, and occlusion.
-4. Derive animation frames from the directional masters.
-5. Author all clothing/equipment layers against shared anchors.
-6. Derive **48×64 runtime frames** by nearest-neighbor reduction only after source art passes review.
+## 7.1 Lock the Character Asset Contract Before Generation
+
+Before generating or drawing a character package, record:
+
+- canonical direction convention
+- source canvas size
+- shared body center
+- shared foot-contact line
+- base-underlayer contents
+- hairstyle / head authority
+- anatomical equipment mount side
+- layer family names
+- front / back / near / far routing rules
+- draw-order overrides per facing where needed
+- source palette authority
+- runtime frame size
+- required animation states
+
+Do not ask the image generator to rediscover these relationships independently for every garment or accessory.
+
+## 7.2 Shared Source Lattice
+
+1. Author an approved master silhouette / proportion system at **480×640 source resolution**.
+2. Author eight distinct directional body masters on that exact shared canvas.
+3. All body, hair, clothing, weapon, equipment, and accessory modules must use the same source lattice and anchors.
+4. A layer must not be independently centered or bottom-justified if doing so changes its anatomical relationship to the body.
+5. Source art must contain materially more authored information than runtime art.
+
+## 7.3 Source Authorities Must Be Created as a Set
+
+For a playable fighter, create and approve:
+
+1. **base-underlayer turnaround** — eight directions on the shared lattice
+2. **fully dressed benchmark turnaround** — the visual / silhouette authority
+3. **modular source component set** — garments, weapons, charms, and equipment authored for the same poses and anchors
+
+The fully dressed benchmark is a quality authority; it is **not** a substitute for properly authored modular layers.
+
+## 7.4 Modular Character Layer Standard
+
+Garments that cross the body may require decomposition into direction-aware pieces such as:
+
+- back mass
+- far sleeve
+- far/front panel
+- near sleeve
+- near/front panel
+- sash back / front
+- weapon behind-body / front-body portions
+
+Whole-garment overlays are invalid when they cover anatomy that should remain visible. Near/far routing is direction-specific and must follow the dressed benchmark.
+
+## 7.5 Source Approval Before Runtime Reduction
+
+Do not derive 48×64 runtime art until all eight source directions pass:
+
+- anatomy
+- direction labeling
+- foot placement
+- garment registration
+- weapon / equipment mount placement
+- near / far occlusion
+- source isolation cleanliness
+- palette / hard-alpha requirements
+- complete dressed-composite comparison against the approved benchmark
+
+Fix source problems at source scale. Do not multiply errors by reducing unstable source art.
+
+## 7.6 Runtime Derivation and Final Pixel Accuracy
+
+After the source masters pass:
+
+1. derive **48×64 runtime frames**
+2. use nearest-neighbor reduction where the source is authored as integer-scalable pixel art
+3. treat the reduction as a starting candidate, not automatic final art
+4. manually correct target-resolution pixels for silhouette, clusters, hands, hair, hems, footwear, weapon contours, and material boundaries
+5. validate exact palette, hard alpha, anchor, direction, and draw-order data
+6. only then mark the runtime sprite as pixel-final
+
+A mechanically reduced image is **not** final production art merely because it loads in Phaser.
 
 Required animation counts per direction:
 
@@ -222,131 +265,167 @@ Required animation counts per direction:
 
 Forbidden workflow:
 
-- drawing at 48×64
-- enlarging that frame
-- calling the enlargement “source art”
-- reducing it again
+- drawing a low-information 48×64 frame, enlarging it, and calling the enlargement source art
+- repeatedly reducing unapproved source art while the source design is still changing
+- using automatic template matching, broad color segmentation, procedural healing, or similar image-analysis operations as the authority for final production pixels
 
-Source art must contain materially more authored information than runtime art.
+Automatic image analysis may be used diagnostically to locate alignment or contamination problems; final pixels remain authored and reviewed.
 
 ---
 
 # 7A. Reference-First Asset Development & Autonomous Package Workflow
 
-All Astro Fighters art development must follow a **reference-first, modular-derivation, Phaser-integration** pipeline.
+All Astro Fighters art development must follow a **reference-first → modular-source → source-QA → runtime-derivation → Phaser-integration** pipeline.
 
-This rule applies to:
-
-- characters
-- clothing and equipment
-- environment materials
-- architecture
-- props
-- district dressing
-- occluders
-- VFX
-- integrated gameplay-art scenes
+This applies to characters, clothing / equipment, environment materials, architecture, props, district dressing, occluders, VFX, and integrated gameplay-art scenes.
 
 ## Required Production Sequence
 
-For each new development package:
+For each development package:
 
-1. **Select the next dependency package from the active checklists.**
-   - Advance world and character needs in parallel where practical.
-   - Group related dependencies into a coherent package rather than waiting for one checklist item at a time.
-   - Prefer shared/global dependencies before unnecessary district-specific duplication.
+1. **Select and contract the package.**
+   - Select the next dependency from the active checklists.
+   - Group related dependencies into a coherent package.
+   - Lock names, dimensions, anchors, layer roles, collision / occlusion role, palette family, and runtime destination before generating assets.
 
-2. **Create production-quality pixel-art reference targets first.**
-   - Reference targets may include:
-     - character master poses
-     - clothing/equipment design targets
-     - environment benchmark slices
-     - architecture/facade studies
-     - material studies
-     - prop-family studies
-     - district-identity compositions
-   - These references must already meet the locked Astro Fighters quality direction before they are used as the basis for runtime production.
-   - A weak reference image must be refined at the source stage; do not reduce low-quality source art and attempt to repair it only at runtime scale.
+2. **Create a production-quality reference target first.**
+   - Examples: character turnaround, clothing / equipment benchmark, environment benchmark slice, facade study, material study, prop family, or district-identity composition.
+   - A weak reference is refined at the source stage; never shrink weak art and hope runtime cleanup will create the missing quality.
 
-3. **Use the approved reference target as the quality anchor.**
-   - It establishes:
-     - silhouette quality
-     - authored pixel-cluster language
-     - material rendering
-     - palette behavior
-     - district identity
-     - clothing/equipment language
-     - character/world style homogeneity
-   - Compare new reference work directly against the approved Astro Fighters character sheets, Imperial City reference, Master Palette, and this master direction.
+3. **Create modular source art specifically for extraction and reuse.**
+   - Do not rely on cutting every production module out of a single fully composed illustration.
+   - Where interchangeability matters, create clean component sources against the same locked lattice / projection / material authority.
+   - Reference and modular source art must agree on silhouette, palette behavior, scale, and attachment points.
 
-4. **Derive modular runtime assets from the approved reference target.**
-   - Do not treat a single attractive reference composition as the finished playable asset.
-   - Break the approved visual target into gameplay-appropriate modular pieces such as:
-     - ground/surface variants
-     - decals
-     - walls/foundations
-     - roofs/eaves
-     - doors/windows/shutters
-     - gates/bridges/railings
-     - signs/lanterns/pipes/hardware
-     - props and clutter
-     - foreground/occluder layers
-     - character body layers
-     - clothing/equipment/accessory layers
-     - animation sheets
-     - VFX layers
-   - Where a runtime asset is directly reduced from higher-resolution source pixel art, use nearest-neighbor reduction and preserve authored cluster relationships.
-   - Runtime assets must remain modular, layerable, direction-aware, and compatible with the hidden-grid gameplay structure.
+4. **Perform immediate isolation and anchor QA.**
+   Every isolated module must pass before registration or integration:
+   - no neighboring-item pixels
+   - no clipped pieces from adjacent cells
+   - no labels, borders, presentation shadows, or checkerboard / paper background
+   - transparent unused pixels
+   - hard alpha where required
+   - correct source palette
+   - correct bounding box and anchor class
 
-5. **Integrate the derived assets into the actual Phaser runtime.**
+   Default world-prop anchor rules:
+   - floor-hosted: horizontal center + bottom-pixel justification to the shared ground-contact line
+   - hanging: horizontal center + hook / top-mount anchor
+   - wall-mounted: attachment-line anchor
+   - character paper-doll layers: shared anatomical lattice overrides generic centering / bottom justification
+
+5. **Approve the source composite / source assembly before runtime reduction.**
+   - Characters: compare all eight modular composites against the approved dressed turnaround.
+   - World: assemble a representative modular source slice to verify material, scale, seams, occlusion, and hidden-grid concealment.
+   - Fix bad isolation, scale, direction, attachment, or overlap here—not after multiple downstream conversions.
+
+6. **Derive target-resolution assets once the source is stable.**
+   - Preserve authored pixel clusters.
+   - Perform manual target-resolution pixel cleanup.
+   - Validate palette, alpha, anchors, silhouettes, and modular seams.
+
+7. **Integrate the accepted runtime assets into the actual Phaser runtime.**
    - Production gameplay-art integration must occur in the established **Phaser-based Astro Fighters runtime**.
-   - A separate custom Canvas renderer, mock renderer, baked background, or isolated technical demo may be used only as a temporary diagnostic tool and may **not** substitute for Phaser integration or gameplay-art acceptance.
-   - Validate movement, collision, depth sorting, occlusion, cutaways, LOS behavior, interaction readability, and eight-direction character routing in Phaser.
+   - A custom Canvas renderer, mock renderer, baked background, or isolated technical demo may be used only as a temporary diagnostic tool and may **not** substitute for Phaser integration or acceptance.
+   - Validate movement, collision, depth sorting, occlusion, cutaways, LOS behavior, interaction readability, hidden-grid concealment, and eight-direction routing.
 
-6. **Review the integrated Phaser result with the mandatory rubric.**
-   - Benchmark/reference approval does not complete a checklist item.
+8. **Review representative integrated Phaser gameplay with the mandatory rubric.**
+   - Reference approval does not complete a checklist item.
    - Isolated PNG approval does not complete a checklist item.
-   - A checklist item is complete only when the relevant asset is demonstrated in representative integrated gameplay and passes the required review gate.
-   - If the result fails an automatic condition, misses a critical minimum, or remains below the required completion threshold, continue development automatically.
+   - Source-composite approval does not complete a checklist item.
+   - Checklist completion occurs only after representative integrated gameplay passes the required review gate.
 
 ## Benchmark Image Rule
 
-The required workflow is:
+Required:
 
-> **high-quality pixel-art reference target → approved visual benchmark → modular asset derivation → Phaser integration → integrated rubric review**
+> **high-quality reference target → approved benchmark → purpose-built modular source assets → clean source assembly → target-resolution pixel cleanup → Phaser integration → integrated rubric review**
 
-The forbidden shortcut is:
+Forbidden:
 
-> **pretty image → shrink/crop it → call it finished game art**
+> **pretty image → shrink / crop it → call it finished game art**
 
-Reference images are **design and quality authorities**. Runtime assets are purpose-built derivatives that must preserve the reference's craftsmanship while satisfying gameplay, layering, collision, direction, and occlusion requirements.
+---
 
-## Autonomous Package Rule
+# 7B. Iteration Control, QA Scope & Repository Hygiene
 
-Unless the user explicitly pauses or redirects development, the production agent should continue through the active art checklists **autonomously by dependency package**.
+The production process must actively minimize avoidable iterations.
 
-During an active development run:
+## Narrow QA Scope
 
-- do not wait for the user to request each checklist item individually
-- do not interrupt for routine asset selection, naming, sequencing, or refinement decisions already governed by this prompt
+Development QA images should be the smallest image that answers the current question.
+
+Prefer:
+
+- one asset
+- one asset family
+- a compact 8-direction contact sheet
+- a compact `source / registered / benchmark` strip
+- an actual Phaser screenshot for integration QA
+
+Do **not** create large infographic-style development boards, decorative dashboards, fake status panels, palette presentations, or explanatory text-heavy images unless the user explicitly requests them or the visual comparison genuinely requires them. Status, reasoning, scores, and notes belong in Markdown / JSON, not baked into art.
+
+## One Gate at a Time
+
+Do not proceed downstream while an upstream gate is visibly failing. Typical order:
+
+`CONTRACT → REFERENCE → MODULAR SOURCE → ISOLATION QA → SOURCE REGISTRATION / ASSEMBLY → SOURCE APPROVAL → RUNTIME DERIVATION → TARGET PIXEL CLEANUP → PHASER → RUBRIC`
+
+If isolation is contaminated, fix isolation before registration. If registration is wrong, fix source registration before runtime reduction. If source direction is wrong, do not create animation frames from it.
+
+## Single-Current-State Repository Rule
+
+Git history is the version archive. The active repository must not be filled with sequential package-version files.
+
+- use stable canonical filenames and paths
+- replace the current asset / manifest in place when it improves
+- do not commit `v12`, `v13`, `v14`, etc. copies merely to preserve history
+- keep failed generations, temporary QA boards, extraction experiments, and disposable diagnostics outside the repository
+- commit only current source authorities, accepted runtime candidates / finals, required metadata, and concise current status / handoff material
+- maintain one current manifest per system where practical instead of multiplying overlapping direction / anchor / layer-order / position manifests
+- use Git commits / branches / tags to recover historical iterations
+- prefer stable Phaser asset paths so art can improve without runtime code churn
+
+A development package is a workflow unit, not a reason to permanently create another directory tree or status document.
+
+## Machine-Readable Registration Contract
+
+Where modular assets depend on placement, keep concise metadata recording the current authority, such as:
+
+- canonical direction
+- source-slot remap if legacy labels differ
+- canvas dimensions
+- character center and foot contact
+- anatomical mount side
+- layer / draw order
+- anchor pixel or anchor class
+- top-left placement / bounding box when required
+- missing-source flags
+- collision / occlusion role for world modules
+- runtime approval state
+
+The manifest stores current production facts; Git stores its history.
+
+---
+
+# 7C. Autonomous Package Rule
+
+Unless the user explicitly pauses or redirects development, continue through the active art checklists **autonomously by dependency package**.
+
+During active development:
+
+- do not wait for the user to request every checklist item individually
+- do not interrupt for routine naming, sequencing, extraction, refinement, or integration decisions already governed by this prompt
 - select the next logical package
-- build/refine its reference target
-- derive its modular assets
+- build / refine its reference target
+- derive clean modular source assets
+- run immediate QA
+- derive target-resolution assets only after source approval
 - integrate them into Phaser
 - review them
-- continue automatically when the gate is not met
-- update the development handoff/status as packages advance
+- continue automatically when a gate is not met
+- update the concise current handoff / status instead of spawning versioned status files
 
-Pause for user approval only when a **major art-direction decision** is genuinely unresolved by:
-
-- this locked master prompt
-- approved reference images
-- the Master Palette
-- the world/character checklists
-- the art review rubric
-- existing approved production assets
-
-Examples of major approval points include a new visual language, a major silhouette-family change, a new district identity that conflicts with established references, or a proposed change to a locked rule.
+Pause for user approval only when a **major art-direction decision** is genuinely unresolved by this prompt, approved references, Master Palette, checklists, rubric, or accepted production assets.
 
 Routine failures are **not** approval points. They trigger more development.
 
@@ -356,7 +435,7 @@ Routine failures are **not** approval points. They trigger more development.
 
 Clothing must express Astro Fighters' **Edo + martial + hip-hop / streetwear** design language.
 
-Appropriate clothing families include:
+Appropriate families include:
 
 ## Inner Tops
 - wrapped martial top
@@ -417,76 +496,17 @@ These are real authored layers, not cosmetic afterthoughts.
 
 Environment materials must be visually distinguishable without labels.
 
-Primary material families include:
+Primary material families include pristine timber, weathered timber, plaster, stone, roof tile, paper, rope, cloth, brass, clean iron / metal, rusted metal, patina, soot, water, damp masonry, moss, and foliage.
 
-- pristine timber
-- weathered timber
-- plaster
-- stone
-- roof tile
-- paper
-- rope
-- cloth
-- brass
-- clean iron / metal
-- rusted metal
-- patina
-- soot
-- water
-- damp masonry
-- moss
-- foliage
-
-Different materials must not appear as the same flat shape with different colors.
-
-Material identity should be communicated through:
-
-- pixel clustering
-- edge treatment
-- highlight behavior
-- shadow behavior
-- wear patterns
-- texture frequency
-- material-specific color ramps
+Material identity must be communicated through pixel clustering, edge treatment, highlight behavior, shadow behavior, wear patterns, texture frequency, and material-specific color ramps. Different materials must not appear as the same flat shape with different colors.
 
 ---
 
 # 10. Imperial City Environment Identity
 
-Imperial City must communicate:
+Imperial City must communicate Edo daily life at human scale, martial culture, dense lived-in activity, analog industrial infrastructure, ancient monumental civic construction, canals, workshops, civic hierarchy, spiritual spaces, market commerce, residential life, formal Imperial precincts, and rougher outer / fringe zones.
 
-- Edo daily life at human scale
-- martial culture
-- dense lived-in urban activity
-- analog industrial infrastructure
-- ancient monumental civic construction
-- canals and water infrastructure
-- workshops and handcraft
-- civic hierarchy
-- spiritual spaces
-- market commerce
-- residential life
-- formal Imperial precincts
-- rougher outer/fringe zones
-
-Appropriate recurring materials and visual motifs include:
-
-- warm wood
-- aged plaster
-- stone
-- roof tile
-- rope
-- cloth
-- paper lanterns
-- brass
-- iron
-- rust
-- patina
-- soot
-- steam
-- water
-- Imperial vermilion accents
-- restrained cathode glow
+Recurring materials and motifs include warm wood, aged plaster, stone, roof tile, rope, cloth, paper lanterns, brass, iron, rust, patina, soot, steam, water, Imperial vermilion accents, and restrained cathode glow.
 
 The city must not look like a generic Japanese fantasy village.
 
@@ -494,105 +514,15 @@ The city must not look like a generic Japanese fantasy village.
 
 # 11. World Asset Categories
 
-Environment production should be built from modular asset families including:
+Environment production should be built from modular families including:
 
-## Ground
-- stone streets
-- damp stone
-- dirt
-- timber walkways
-- dock planks
-- training-yard earth
-- palace paving
-- interior timber
-- tatami
-- industrial walkways
-
-## Decals
-- cracks
-- stains
-- puddles
-- drainage
-- soot
-- moss
-- algae
-- paper
-- leaves
-- cloth scraps
-- wheel/cart wear
-
-## Architecture
-- timber frames
-- plaster walls
-- stone foundations
-- paper-panel walls
-- doors
-- shutters
-- windows
-- roof tiles
-- eaves
-- balconies
-- verandas
-- railings
-- retaining walls
-- stairs
-- gates
-- bridges
-
-## Architectural Dressing
-- signs
-- banners
-- lanterns
-- pipes
-- vents
-- chimneys
-- cables
-- rope lines
-- brackets
-- gauges
-- cathode devices
-- wall notices
-- charm strips
-
-## Props
-- crates
-- barrels
-- baskets
-- sacks
-- jars
-- rope
-- buckets
-- stools
-- benches
-- tables
-- carts
-- tools
-- fabric bundles
-- firewood
-- storage
-- workshop clutter
-
-## Tall Occluders
-- roofs
-- large trees
-- gantries
-- elevated rail elements
-- awnings
-- towers
-- arches
-- large machinery
-
-## Atmosphere
-- steam
-- smoke
-- incense
-- dust
-- rain
-- water ripple
-- lantern flicker
-- cloth movement
-- leaf movement
-- cathode flicker
+- **Ground:** stone streets, damp stone, dirt, timber walkways, dock planks, training-yard earth, palace paving, interior timber, tatami, industrial walkways
+- **Decals:** cracks, stains, puddles, drainage, soot, moss, algae, paper, leaves, cloth scraps, wheel / cart wear
+- **Architecture:** timber frames, plaster walls, stone foundations, paper-panel walls, doors, shutters, windows, roof tiles, eaves, balconies, verandas, railings, retaining walls, stairs, gates, bridges
+- **Architectural dressing:** signs, banners, lanterns, pipes, vents, chimneys, cables, rope lines, brackets, gauges, cathode devices, wall notices, charm strips
+- **Props:** crates, barrels, baskets, sacks, jars, rope, buckets, stools, benches, tables, carts, tools, fabric bundles, firewood, storage, workshop clutter
+- **Tall occluders:** roofs, large trees, gantries, elevated rail elements, awnings, towers, arches, large machinery
+- **Atmosphere:** steam, smoke, incense, dust, rain, water ripple, lantern flicker, cloth movement, leaf movement, cathode flicker
 
 ---
 
@@ -600,69 +530,19 @@ Environment production should be built from modular asset families including:
 
 Use the locked **flat-faced 3/4 cabinet projection**.
 
-Architecture should communicate depth through:
+Architecture communicates depth through overlap, vertical placement, top/front face separation, shadows, Y-sorting, scale consistency, material contrast, and occlusion. Do not rely on photographic perspective or dramatic vanishing-point convergence.
 
-- overlap
-- vertical placement
-- top/front face separation
-- shadows
-- Y-sorting
-- scale consistency
-- material contrast
-- occlusion
-
-Do not rely on photographic perspective or dramatic vanishing-point convergence.
-
-Major architecture should be allowed to dwarf 48×64 fighters.
-
-Do not artificially shorten structures merely to preserve visibility.
-
-Use authored cutaways, roof removal, layering, and occlusion logic instead.
+Major architecture may dwarf 48×64 fighters. Do not artificially shorten structures merely to preserve visibility; use authored cutaways, roof removal, layering, and occlusion logic instead.
 
 ---
 
 # 13. Occlusion Rules
 
-Environment art must support three practical height classes.
+Environment art supports three practical height classes:
 
-## Low
-Examples:
-- crates
-- benches
-- curbs
-- small machinery
-
-Behavior:
-- may cover feet or lower legs
-- remains visible
-- does not auto-fade
-
-## Mid
-Examples:
-- counters
-- fences
-- workbenches
-- machinery
-
-Behavior:
-- may cover a meaningful portion of the fighter
-- normally remains visible
-- should not permanently obscure the fighter's head/silhouette
-
-## Tall
-Examples:
-- buildings
-- roofs
-- trees
-- towers
-- gantries
-- elevated infrastructure
-
-Behavior:
-- must support dynamic occlusion
-- architecture uses cutaways / roof removal
-- organic/decorative elements may fade where necessary
-- solid LOS-blocking structures must never reveal enemies the player cannot legitimately see
+- **Low:** crates, benches, curbs, small machinery. May cover feet / lower legs; remains visible; does not auto-fade.
+- **Mid:** counters, fences, workbenches, machinery. May cover a meaningful portion of the fighter but should not permanently obscure the head / silhouette.
+- **Tall:** buildings, roofs, trees, towers, gantries, elevated infrastructure. Must support dynamic occlusion; architecture uses cutaways / roof removal; organic / decorative elements may fade where necessary; solid LOS-blockers never reveal enemies the player cannot legitimately see.
 
 Never fade the player as the primary solution.
 
@@ -676,68 +556,33 @@ When the player enters an interior:
 - back / north wall can retain full height
 - side walls may taper toward the foreground
 - front / south wall becomes a low cutaway
-- interior visibility must be room-based or region-based
+- interior visibility is room-based or region-based
 - never reveal square cells one at a time
 
-The player should perceive:
-
-> “The room became visible.”
-
-Not:
-
-> “The game uncovered tiles.”
+The player should perceive **“the room became visible,”** not **“the game uncovered tiles.”**
 
 ---
 
 # 15. Lighting Rules
 
-Default exterior lighting direction:
-
-**upper-left / northwest**
+Default exterior lighting direction is **upper-left / northwest**.
 
 General material behavior:
 
 - upper-left highlight
 - local-color midtone
 - lower-right shadow
-- darkest value in cavities/contact edges
+- darkest value in cavities / contact edges
 
-Local sources may override nearby lighting:
-
-- lanterns
-- furnaces
-- fires
-- cathode devices
-- spiritual effects
-
-Avoid heavy full-screen color grading that destroys palette relationships.
+Local lanterns, furnaces, fires, cathode devices, and spiritual effects may override nearby lighting. Avoid heavy full-screen color grading that destroys palette relationships.
 
 ---
 
 # 16. Palette Requirements
 
-The **Astro Fighters Master Palette** is the canonical color authority.
+The **Astro Fighters Master Palette** is the canonical color authority. Do not invent arbitrary cosmetic colors unless the palette is formally revised.
 
-Do not invent arbitrary cosmetic colors unless the palette is formally revised.
-
-Use material-specific ramps for:
-
-- skin
-- timber
-- stone
-- clean metal
-- rusted metal
-- cloth
-- biome/foliage
-- Imperial vermilion
-- trim/accent
-- elemental VFX
-- Yin
-- Yang
-- Spirit
-- cathode glow
-- patina
-- UI
+Use material-specific ramps for skin, timber, stone, clean metal, rusted metal, cloth, biome / foliage, Imperial vermilion, trim / accent, elemental VFX, Yin, Yang, Spirit, cathode glow, patina, and UI.
 
 Individual runtime assets should use restrained portions of a ramp rather than every available shade.
 
@@ -745,197 +590,78 @@ Individual runtime assets should use restrained portions of a ramp rather than e
 
 # 17. District-Specific Development Requirement
 
-Each Imperial City district must receive its own authored asset family and may not simply reuse the same generic buildings with superficial prop swaps.
+Each Imperial City district must receive its own authored asset family and may not simply reuse generic buildings with superficial prop swaps.
 
-Districts must be visually differentiated through:
-
-- architecture
-- materials
-- signage
-- clutter
-- occupations
-- NPC clothing
-- infrastructure
-- spatial organization
-- social function
-
-while remaining part of the same city-wide art language.
+Differentiate districts through architecture, materials, signage, clutter, occupations, NPC clothing, infrastructure, spatial organization, and social function while maintaining one city-wide art language.
 
 ---
 
 # 18. Required District Families
 
 ## Imperial Harbor / Docks
-Include:
-- quay
-- piers
-- warehouses
-- cranes
-- hoists
-- rope systems
-- boats
-- cargo
-- nets
-- merchant infrastructure
-- wet surfaces
-- water interaction
+Quay, piers, warehouses, cranes, hoists, rope systems, boats, cargo, nets, merchant infrastructure, wet surfaces, water interaction.
 
 ## Civic Market / Shops
-Include:
-- storefronts
-- signs
-- awnings
-- stalls
-- merchandise
-- carts
-- narrow streets
-- commercial clutter
-- merchant/civilian population
+Storefronts, signs, awnings, stalls, merchandise, carts, narrow streets, commercial clutter, merchant / civilian population.
 
 ## Artisan / Workshops
-Include:
-- workbenches
-- tools
-- furnaces
-- racks
-- machinery
-- pipes
-- materials
-- active labor clutter
-- cutaway interiors
+Workbenches, tools, furnaces, racks, machinery, pipes, materials, active labor clutter, cutaway interiors.
 
 ## Academy
-Include:
-- ceremonial gates
-- dojos
-- training courtyards
-- practice equipment
-- weapon racks
-- banners
-- student/instructor clothing
-- furnished interiors
+Ceremonial gates, dojos, training courtyards, practice equipment, weapon racks, banners, student / instructor clothing, furnished interiors.
 
 ## Residential
-Include:
-- dense housing
-- canal homes
-- alleys
-- laundry
-- household clutter
-- civilian life
-- small bridges
-- neighborhood shrines
+Dense housing, canal homes, alleys, laundry, household clutter, civilian life, small bridges, neighborhood shrines.
 
 ## Shrines
-Include:
-- shrine gates
-- offerings
-- incense
-- paper charms
-- stone lanterns
-- sacred trees
-- restrained spiritual atmosphere
+Shrine gates, offerings, incense, paper charms, stone lanterns, sacred trees, restrained spiritual atmosphere.
 
 ## Civic / Administrative
-Include:
-- formal offices
-- official signage
-- records
-- guards
-- controlled plazas
-- administrative props
+Formal offices, official signage, records, guards, controlled plazas, administrative props.
 
 ## Palace
-Include:
-- monumental gates
-- refined stone
-- formal courtyards
-- Imperial ornament
-- guard infrastructure
-- premium materials
-- court interiors
+Monumental gates, refined stone, formal courtyards, Imperial ornament, guard infrastructure, premium materials, court interiors.
 
 ## Industrial Infrastructure
-Include:
-- elevated rail
-- gantries
-- pipes
-- pumps
-- utility towers
-- lifts
-- gauges
-- cathode devices
-- maintenance spaces
+Elevated rail, gantries, pipes, pumps, utility towers, lifts, gauges, cathode devices, maintenance spaces.
 
 ## Fringe Ward
-Include:
-- broken paving
-- patched construction
-- improvised shops
-- salvaged materials
-- damaged infrastructure
-- combat spaces
-- worn but still high-quality art
+Broken paving, patched construction, improvised shops, salvaged materials, damaged infrastructure, combat spaces, worn but still high-quality art.
 
 ---
 
-# 19. Presentation Preview Rules
+# 19. Presentation & Development QA Rules
 
-Every preview presented for review must show an **integrated gameplay view**, not isolated asset sheets unless specifically requested.
+**Production-acceptance previews** must show an integrated gameplay view. Isolated source sheets are not evidence that a gameplay checklist item is complete.
 
-Reference sheets, benchmark compositions, material studies, and source-scale asset studies are expected development artifacts under Section 7A, but they are **reference-stage reviews**, not evidence that a gameplay checklist item is complete. Production acceptance still requires the derived modular assets to be integrated into the Phaser runtime.
+**Development QA**, however, should intentionally remain compact and narrowly scoped. Use isolated assets or contact sheets when the specific question is contamination, anchor placement, direction, garment overlap, silhouette, or source quality.
 
-A presentation-quality preview must contain:
+A presentation-quality gameplay preview must contain fully clothed characters, near-final world assets, layered architecture, district-specific clutter, props, occlusion, material variety, contact / cast shadows, hidden-grid-friendly surfaces, coherent lighting, and equivalent character / world quality.
 
-- fully clothed player character
-- appropriately dressed NPCs
-- final-quality or near-final-quality world assets
-- layered architecture
-- district-specific clutter
-- props
-- occlusion
-- material variety
-- contact/cast shadows
-- hidden-grid-friendly surfaces
-- coherent lighting
-- equivalent character/world pixel-art quality
+Do not present mannequin characters, blockout architecture, generic rectangles, low-detail placeholder trees, temporary composites, or asset tests as finished scenes.
 
-Do not present:
-
-- mannequin characters
-- blockout architecture
-- generic rectangles
-- low-detail placeholder trees
-- temporary environment composites
-- asset tests pretending to be finished scenes
+Do not turn routine development QA into large decorative presentation boards. Keep explanatory text and progress reporting outside the artwork.
 
 ---
 
 # 20. Mandatory Art Review Gate
 
-All assets and integrated scenes must be reviewed against the **Astro Fighters Art Preview Review Rubric** before they are placed in the game or presented as testable.
+All assets and integrated scenes must be reviewed against the **Astro Fighters Art Preview Review Rubric** before production acceptance.
 
-Reference targets should be reviewed at source/benchmark stage before modular derivation, but **checklist completion is determined only by representative integrated Phaser gameplay**.
+Reference targets should be reviewed at source / benchmark stage before modular derivation, but **checklist completion is determined only by representative integrated Phaser gameplay**.
 
 Development behavior:
 
-- **Below 36:** continue development automatically.
-- **Automatic failure:** continue development automatically.
-- **Critical category below its minimum:** continue development automatically.
-- **36–41:** internal test candidate only, provided all critical requirements pass.
-- **42–45:** production approved.
-- **46–50:** lock-quality visual target.
+- **Below 36:** continue development automatically
+- **Automatic failure:** continue development automatically
+- **Critical category below minimum:** continue development automatically
+- **36–41:** internal test candidate only, provided all critical requirements pass
+- **42–45:** production approved
+- **46–50:** lock-quality visual target
 
 A high aggregate score may not override a critical-category failure.
 
-In particular, these categories must meet their rubric minimums:
-
-- Character / World Style Homogeneity
-- Character Completion & Clothing
-- Environment Pixel-Art Quality
-- Astro Fighters World Identity
-- Architectural Detail & Silhouette
-- Projection, Depth & Occlusion
+Critical minimum categories include Character / World Style Homogeneity, Character Completion & Clothing, Environment Pixel-Art Quality, Astro Fighters World Identity, Architectural Detail & Silhouette, and Projection / Depth / Occlusion.
 
 ---
 
@@ -943,17 +669,21 @@ In particular, these categories must meet their rubric minimums:
 
 A preview or asset pass fails immediately if:
 
-- world art is visibly lower quality than the character art
+- world art is visibly lower quality than character art
 - environment primarily consists of primitive geometry
-- characters are naked/mannequin-like
+- characters are naked / mannequin-like
 - clothing is incomplete or placeholder quality
 - characters look pasted onto the environment
 - buildings are generic boxes
 - a baked image substitutes for layered playable world construction
 - the hidden grid is visible
-- pixel density/styles visibly clash
-- environment resembles generic RPG Maker/vector/cyberpunk art
+- pixel density / styles visibly clash
+- environment resembles generic RPG Maker / vector / cyberpunk art
 - directional bodies are obviously incorrect
+- anatomical weapon / equipment routing is wrong
+- clothing layers incorrectly cover anatomy because of coarse overlay ordering
+- modular isolates contain neighboring-item contamination or presentation artifacts
+- automatically reduced / segmented assets are presented as pixel-final without target-level cleanup
 - occlusion permanently hides the controlled fighter without an authored solution
 - known placeholder assets are presented as production-quality art
 
@@ -973,4 +703,4 @@ The finished result must look like **one coherent game**.
 
 # 23. Compact Reusable Production Prompt
 
-> Create production-quality pixel-art assets for Astro Fighters that match the approved character reference sheets in style, detail density, silhouette quality, material rendering, and craftsmanship. Follow the locked reference-first workflow: create and approve high-quality source/benchmark pixel-art references first, derive modular gameplay assets from those benchmarks, integrate the derived assets into the established Phaser runtime, then evaluate the representative integrated gameplay result with the mandatory rubric. Do not treat a pretty reference image as a finished gameplay asset, and do not substitute a custom Canvas renderer, baked scene, or isolated technical demo for Phaser integration. Proceed autonomously through the active world and character checklists by dependency package unless a major art-direction decision genuinely requires user approval. Do not create placeholder blockout art, flat rectangle-based scenery, naked mannequin characters, generic RPG tiles, or baked gameplay backgrounds. Build Imperial City as a modular layered world for a hidden 32×32 square grid with smooth 8-direction movement. Characters must be fully clothed and accessorized in an Edo + hip-hop martial style, with complete direction-aware paper-doll layers. Environment districts must include the Imperial Harbor, Civic Market, Workshops, Academy, Residential canals, Shrines, Civic Ward, Palace, Industrial infrastructure, Fringe Ward, bridges, and gates. Use dense lived-in detail, handcrafted pixel clusters, warm analog materials, signage, clutter, shadow, depth, occlusion, monumental architecture, and restrained cathode/spiritual effects. The world must equal the character models in pixel-art quality. If a benchmark, runtime asset, or integrated scene misses the locked standard, continue refining automatically rather than lowering the target. If the integrated rubric score is below 36, an automatic failure is present, or a critical-category minimum is missed, continue development automatically rather than presenting the scene as testable.
+> Create production-quality pixel-art assets for Astro Fighters that match the approved character reference sheets in style, detail density, silhouette quality, material rendering, and craftsmanship. Lock the asset contract before generation, including canonical direction, dimensions, anchors, anatomical mount sides, layer roles, draw order, palette family, and runtime destination. Follow the required workflow: **reference target → purpose-built modular source assets → immediate isolation / anchor QA → source assembly / registration approval → target-resolution derivation → manual pixel cleanup → Phaser integration → integrated rubric review**. Do not treat a pretty reference image, crop, mechanical shrink, automatic segmentation, or template match as finished game art. Character source modules share the 480×640 anatomical lattice; runtime characters are 48×64 only after source approval and target-level pixel cleanup. S is front / toward camera and N is back / away from camera; legacy labels must be remapped in metadata. Equipment follows anatomical side, not screen side. Male paper-doll bases include shorts; female bases include shorts and a sports bra; other clothing / wraps / weapons / accessories remain modular. Keep QA images narrow and functional rather than producing large presentation boards. Keep failed experiments and temporary QA outside the repository, maintain stable canonical asset paths, and use Git history instead of accumulating `v##` package files. Build Imperial City as modular layered Phaser scenery for a hidden 32×32 square grid with smooth 8-direction movement. Proceed autonomously through world and character checklists by dependency package unless a major art-direction decision genuinely requires user approval. The world must equal the character models in pixel-art quality. If any source gate, runtime gate, automatic-failure condition, critical rubric minimum, or integrated score fails, continue refining automatically rather than lowering the target.
