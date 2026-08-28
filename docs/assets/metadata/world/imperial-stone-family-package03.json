@@ -1,0 +1,42 @@
+{
+  "package": "world-package03-v5",
+  "status": "reference-gate-passed-single-module-phaser-integration-candidate",
+  "production_approved": false,
+  "reference": {
+    "materials": ["clean", "cracked", "patched", "damp"],
+    "gate": "PASS for material identity and pixel-art craftsmanship; isolated reference approval is not checklist completion.",
+    "source_note": "Package 02 and earlier Package 03 paving studies are superseded as visual sources. Active source anchors are preserved in the development handoff and must not be replaced by enlarged runtime art."
+  },
+  "runtime": {
+    "module_size": [128, 160],
+    "embedded_data_chunks": {
+      "clean": "js/world-p03-module-data/clean.js",
+      "cracked": "js/world-p03-module-data/cracked.js",
+      "patched": "js/world-p03-module-data/patched.js",
+      "damp": "js/world-p03-module-data/damp.js"
+    },
+    "derivation": "center crop from accepted source anchor; no enlargement; restrained locked warm-world palette quantization",
+    "repetition_rule": "single-module integration only in this package; do not tile these modules edge-to-edge",
+    "data_global": "window.AF_WORLD_P03_DATA"
+  },
+  "integration": {
+    "bridge": "js/world-package03-stone-module-bridge.js",
+    "playtest": "play-v4-ground-package03.html",
+    "cycle_key": "F6",
+    "toggle_key": "F7",
+    "paperdoll_toggle_key": "F8",
+    "hidden_grid_px": 32,
+    "grid_rendered": false
+  },
+  "cleanup": {
+    "package02_world_staging_removed": true,
+    "early_package03_atlas_removed": true,
+    "early_package03_family_bridge_removed": true
+  },
+  "gate": {
+    "reference_core_style_gate": "pass",
+    "runtime_single_module_gate": "pass",
+    "checklist_complete": false,
+    "reason": "Larger authored street assembly, thresholds, foundations, architecture, props, occlusion, finished production character stack, and integrated rubric threshold are still required."
+  }
+}
