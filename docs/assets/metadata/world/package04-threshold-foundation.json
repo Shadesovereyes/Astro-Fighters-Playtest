@@ -1,0 +1,58 @@
+{
+  "package": "world-package04-threshold-foundation",
+  "status": "reference-gate-passed-phaser-staging-candidate",
+  "production_approved": false,
+  "reference": {
+    "authority": [
+      "ASTRO_FIGHTERS_LOCKED_MASTER_ART_DIRECTION_PROMPT.md",
+      "approved Kairo character reference",
+      "Imperial City reference",
+      "locked Master Palette"
+    ],
+    "assets": {
+      "preview": "assets/reference/world/package04/package04-reference-preview-452x64.png",
+      "regions_order": [
+        "threshold",
+        "foundation_low",
+        "foundation_mid",
+        "foundation_high",
+        "timber_post_beam"
+      ],
+      "note": "Repository preview is a nearest-neighbor review derivative. Full source anchors remain project art-production artifacts; runtime pieces are independently isolated derivatives."
+    },
+    "gate": "PASS for continuation only; source approval is not checklist completion."
+  },
+  "runtime": {
+    "atlas": "assets/runtime/world/package04/package04-runtime-atlas-512x128.png",
+    "atlas_size": [512, 128],
+    "frames": {
+      "threshold": [0, 0, 90, 75],
+      "foundation_low": [96, 0, 65, 71],
+      "foundation_mid": [168, 0, 75, 94],
+      "foundation_high": [248, 0, 98, 96],
+      "post_beam": [352, 0, 62, 99]
+    },
+    "palette_validation": {
+      "exact_master_palette_colors_only": true,
+      "unique_opaque_colors": 45,
+      "off_palette_color_count": 0,
+      "alpha_values": [0, 255]
+    }
+  },
+  "integration": {
+    "bridge": "js/world-package04-threshold-foundation-bridge.js",
+    "playtest": "play-v4-threshold-foundation-package04.html",
+    "controls": {
+      "F4": "toggle Package 04 structure",
+      "F5": "cycle foundation height",
+      "F6": "cycle Package 03 material",
+      "F7": "toggle Package 03 material module",
+      "F8": "toggle Package 01 paper doll"
+    },
+    "runtime": "Phaser"
+  },
+  "gate": {
+    "checklist_complete": false,
+    "reason": "Representative facade/street assembly, collision/interaction, dressing/props, production character stack, and integrated rubric threshold are still required."
+  }
+}

@@ -1,0 +1,9 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Astro Fighters — Package 04 Threshold/Foundation Phaser Test</title><style>html,body,#game{margin:0;width:100%;height:100%;border:0;background:#0d0f10;overflow:hidden}#game{display:block}#status{position:fixed;z-index:3;left:8px;top:8px;padding:6px 8px;background:#141410;color:#D5BAA0;border:1px solid #756A55;font:10px/1.35 ui-monospace,monospace;pointer-events:none}</style></head>
+<body><div id="status">PACKAGE 04 · PHASER STRUCTURE GATE · F4 structure · F5 foundation · F6 material · F7 ground · F8 paper doll · checklist not complete</div><iframe id="game" src="index.html" allow="fullscreen"></iframe><script>
+(()=>{const frame=document.getElementById('game');frame.addEventListener('load',()=>{const d=frame.contentDocument;if(!d?.body)return;const scripts=[
+  'js/pd01-atlas-chunks/00.js','js/pd01-atlas-chunks/01.js','js/pd01-atlas-chunks/02.js','js/pd01-atlas-chunks/03.js','js/pd01-atlas-chunks/04.js','js/pd01-atlas-chunks/05.js','js/pd01-atlas-chunks/06.js','js/pd01-atlas-chunks/07.js',
+  'js/world-p03-module-data/clean.js','js/world-p03-module-data/cracked.js','js/world-p03-module-data/patched.js','js/world-p03-module-data/damp.js',
+  'js/paperdoll-package01-bridge.js','js/world-package03-stone-module-bridge.js','js/world-package04-threshold-foundation-bridge.js'
+];frame.contentWindow.AF_PAPERDOLL_PACKAGE01_REPLACE=true;const next=i=>{if(i>=scripts.length)return;const s=d.createElement('script');s.src=scripts[i];s.onload=()=>next(i+1);s.onerror=()=>console.error('Package 04 script failed',scripts[i]);d.body.appendChild(s)};next(0);});})();
+</script></body></html>
