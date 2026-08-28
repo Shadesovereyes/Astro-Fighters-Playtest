@@ -4,17 +4,15 @@ Astro Fighters is an **open-world action-combat RPG**. The current playable impl
 
 This repository is the **current public playtest/runtime surface** and also the **art-development control surface and handoff record** for Imperial City production. A new chat session or development agent should be able to open this repository, understand the actual game architecture, inspect the current playable state, read the production rules, and continue development without restarting architectural or art-direction discovery.
 
-## Current authoritative development branch
+## Current authoritative development state
 
-**Until PR #11 is merged, the authoritative development state is the branch:**
+**PR #11 has been merged. The authoritative repository state is now `main`.**
 
-`development/art-review-workflow-v1`
+New chat sessions, development agents, code assistants, and reviewers must start from `main` unless this README or `DEVELOPMENT_STATUS.md` explicitly identifies a newer active development branch.
 
-New chat sessions, development agents, code assistants, and reviewers must inspect and work from `development/art-review-workflow-v1` before assuming that `main` represents the current runtime, art-production workflow, or repository instructions.
+The workflow previously developed on `development/art-review-workflow-v1` has been merged into `main`. That branch is now historical development context rather than the active authority. The merged Phaser/world corrections, art-review workflow, production manifest, early-player Imperial City plan, repository agent instructions, and handoff rules now live on `main`.
 
-That branch currently contains the active Phaser/world corrections, art-review workflow, production manifest, early-player Imperial City plan, repository agent instructions, and current handoff state. In particular, read `AGENTS.md` and `PHASER_WORLD_REFACTOR_V0.md` from that branch before continuing world/runtime work.
-
-After PR #11 is merged, `main` becomes the normal authority again unless a newer development branch is explicitly identified here.
+Before continuing world/runtime work, read `AGENTS.md` and `PHASER_WORLD_REFACTOR_V0.md` from `main`.
 
 The active early-game production roadmap is [`IMPERIAL_CITY_EARLY_PLAYER_EXPERIENCE_V0.md`](./IMPERIAL_CITY_EARLY_PLAYER_EXPERIENCE_V0.md). It scopes the first connected production-quality route as **Southern Harbor → Docks/Shipwright → Civic Market → Residential/Canal transition → Astro Fighter Academy exterior → Academy interior/Sensei tutorial**.
 
@@ -337,7 +335,7 @@ Do not describe a blockout or known placeholder scene as production quality.
 
 A new session should perform the following sequence before producing new art or changing runtime code:
 
-1. Confirm that `development/art-review-workflow-v1` is the active authoritative branch while PR #11 remains unmerged; inspect that branch before relying on `main`.
+1. Confirm that `main` is the current authoritative repository state unless this README or `DEVELOPMENT_STATUS.md` explicitly identifies a newer active development branch.
 2. Open this repository and read this `README.md`.
 3. Read `AGENTS.md` and `PHASER_WORLD_REFACTOR_V0.md` in full.
 4. Read `ASTRO_FIGHTERS_LOCKED_MASTER_ART_DIRECTION_PROMPT.md` in full.
@@ -376,7 +374,7 @@ The private Unity Combat Strategy repository is legacy combat-reference material
 
 Keep these rules visible during every art pass:
 
-- **Until PR #11 is merged, reference `development/art-review-workflow-v1` before relying on `main`.**
+- **`main` is the authoritative repository state unless a newer development branch is explicitly identified in this README or `DEVELOPMENT_STATUS.md`.**
 - **Read and obey root `AGENTS.md` and `PHASER_WORLD_REFACTOR_V0.md` before world/runtime work.**
 - **The world must match the quality and pixel-art style of the approved character models.**
 - **Characters must be fully clothed and accessorized in presentation-quality previews.**
@@ -399,7 +397,7 @@ Keep these rules visible during every art pass:
 # Development Loop Summary
 
 ```text
-CONFIRM AUTHORITATIVE DEVELOPMENT BRANCH
+CONFIRM AUTHORITATIVE REPOSITORY STATE (`main` unless superseded)
         ↓
 READ AGENTS + GAME ARCHITECTURE + MASTER ART DIRECTION
         ↓
