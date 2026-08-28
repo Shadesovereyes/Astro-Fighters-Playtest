@@ -1,16 +1,17 @@
 # Astro Fighters — Art Preview Review Rubric
 
-**Status:** Mandatory acceptance gate for all future gameplay-art previews.
+**Status:** Mandatory acceptance gate for gameplay-art previews  
+**Machine authority:** `docs/data/art-review-rubric.json`
 
-This rubric exists to prevent placeholder-quality scenery, incomplete characters, mismatched art sources, and technically functional scenes from being mistaken for acceptable Astro Fighters art.
+This document is the human-readable form of the machine rubric. The automatic-failure list, category minimums, and score thresholds must remain synchronized with `docs/data/art-review-rubric.json`.
 
-A preview is reviewed as a **single integrated game image**. Character art, clothing, architecture, props, terrain, lighting, effects, and UI-visible world elements must appear to belong to the same production.
+An **integrated gameplay review is valid only from the running Phaser canvas**. Concept art, presentation boards, source assemblies, contact sheets, Python/PIL composites, and mock renderers may be reviewed as references or QA artifacts, but they cannot receive an integrated gameplay approval score.
 
 ---
 
 ## Automatic Failure Conditions
 
-A preview is **REJECTED immediately** if any of the following are present:
+A preview is rejected immediately if any of the following is present:
 
 - World art is visibly lower quality than the approved character pixel art.
 - Environment primarily consists of flat rectangles, primitive geometry, or blockout assets.
@@ -23,430 +24,145 @@ A preview is **REJECTED immediately** if any of the following are present:
 - Different elements visibly use different pixel-art styles or pixel densities.
 - Environment art resembles generic RPG Maker, vector art, clean modern tilesets, or generic cyberpunk.
 - Eight-direction movement is represented using obviously incorrect directional character bodies.
+- Anatomical weapon or equipment routing is wrong for one or more facings.
+- Clothing layers incorrectly cover anatomy because of coarse overlay ordering.
+- Modular isolates contain neighboring-item contamination or presentation artifacts.
+- Automatically reduced or segmented assets are presented as pixel-final without target-level cleanup.
 - Occluding scenery permanently hides the controlled character without an authored visibility solution.
-- A preview is called “production quality” while still relying on known placeholder art.
+- A preview is called production quality while still relying on known placeholder art.
+- A non-Phaser preview, collage, source assembly, or mock renderer is presented as integrated gameplay.
+- Fixed grid-step exploration is presented as the final open-world movement model.
 
-Automatic-fail items cannot be compensated for by scoring highly elsewhere.
+Automatic failures cannot be offset by a high numeric total.
 
 ---
 
 # Scored Review
 
-Each category receives a score from **0–5**.
+Score each category from **0–5**.
 
-**0 — Missing / fundamentally incorrect**  
-**1 — Placeholder quality**  
-**2 — Partially developed but below target**  
-**3 — Functional production candidate**  
-**4 — Strong Astro Fighters quality**  
-**5 — Reference-quality / locked target**
+- **0 — Missing / fundamentally incorrect**
+- **1 — Placeholder quality**
+- **2 — Partially developed but below target**
+- **3 — Functional production candidate**
+- **4 — Strong Astro Fighters quality**
+- **5 — Reference-quality / locked target**
 
 Maximum score: **50**
 
----
+## 1. Character / World Style Homogeneity — Critical, minimum 4
 
-## 1. Character / World Style Homogeneity — 10% Critical
+Judge whether characters and scenery share the same pixel density, cluster language, outlines, shading, value grouping, texture density, and material treatment. A premium character placed over weaker scenery fails this category even if both pieces are individually attractive.
 
-### 5
-Characters and scenery appear to have been created by the same pixel artist or studio. Pixel density, outlines, shading, value grouping, texture density, and material rendering are coherent.
+## 2. Character Completion & Clothing — Critical, minimum 4
 
-### 3
-Generally compatible, but differences in detail density or rendering language remain noticeable.
+Presentation characters must read as complete designed fighters or civilians, with appropriate body/skin, hair, clothing, footwear, waist treatment, role equipment/accessories, and contact shadow. Clothing must follow the Astro Fighters Edo + martial + hip-hop/streetwear language. Mannequin presentation is an automatic failure.
 
-### 1
-Premium character sprites are visibly placed over lower-quality environment assets.
+## 3. Environment Pixel-Art Quality — Critical, minimum 4
 
-### 0
-Character and world clearly belong to different visual styles.
+Judge the world at the same scrutiny as the character art: deliberate pixel clusters, controlled edges, material-specific shading, localized wear, readable silhouette, handcrafted variation, and clear top/front-face construction. Primitive geometry with decoration added on top is insufficient.
 
-**Minimum acceptable score: 4**
+## 4. Astro Fighters World Identity — Critical, minimum 4
 
----
+The scene should communicate Astro Fighters specifically: Edo daily-life structure, martial culture, hip-hop/streetwear social texture, restrained analog infrastructure, warm Japandi material discipline, inherited ancient civic construction, and a lived-in Imperial City identity. Generic Japanese fantasy is not enough.
 
-## 2. Character Completion & Clothing — 10% Critical
+## 5. Material Quality & Variety — Minimum 3
 
-Characters appearing in presentation previews must include appropriate:
+Relevant materials must behave differently through value, cluster pattern, edge treatment, wear, highlight/shadow response, and palette. Typical families include timber, plaster, civic stone, cloth, rope, paper, clean iron, patinated copper, rust, water, foliage, soot/grime, and restrained cathode elements.
 
-- skin/body
-- hair
-- inner top
-- outerwear where appropriate
-- pants
-- footwear
-- belt/sash
-- equipment
-- accessories
-- contact shadow
+## 6. Architectural Detail & Silhouette — Critical, minimum 4
 
-Clothing must follow the **Edo + martial + hip-hop/streetwear** Astro Fighters language.
+Architecture must have believable construction and distinct silhouettes: timber framing, eaves, shutters, windows, retaining walls, verandas, railings, gates, service housings, signage, and district-specific details. Decorated boxes fail.
 
-### 5
-Character reads as a complete designed fighter with layered clothing, equipment, silhouette, and direction-aware details.
+## 7. Lived-In Density & Environmental Storytelling — Minimum 3
 
-### 3
-Character is dressed but lacks some distinctive Astro Fighters identity or accessory detail.
+Use readable evidence of habitation: crates, stools, baskets, tools, paper, rope, carts, lanterns, drainage, repaired surfaces, stored goods, household objects, trade displays, and role-specific clutter. Density must remain restrained enough for navigation and silhouette readability.
 
-### 1
-Basic clothing blocks or incomplete layers.
+## 8. Projection, Depth & Occlusion — Critical, minimum 4
 
-### 0
-Bare/mannequin character.
+The world must obey the locked flat-faced 3/4 cabinet projection and create depth through overlap, top/front-face separation, Y/depth sorting, contact/cast shadows, walk-behind elements, foreground occluders, architecture height, and authored cutaways. The player must be able to move in front of and behind appropriate objects in Phaser.
 
-**Minimum acceptable score: 4**
+## 9. Hidden-Grid Concealment & Movement Readability — Minimum 4
+
+The internal 32×32 logic must not be visible through pavement joints, checkerboarding, floorboards, prop spacing, architecture rhythm, or persistent overlays. Normal exploration must feel continuous even when hidden spatial quantization is used internally.
+
+## 10. Gameplay Screenshot Readiness — Public minimum 4
+
+Ask: **Could this running Phaser frame be shown publicly as representative Astro Fighters gameplay without explaining that the art is temporary?** A score below 4 is not public-ready.
 
 ---
 
-## 3. Environment Pixel-Art Quality — 10% Critical
-
-Judge the scenery at the same scrutiny applied to the character sprites.
-
-Look for:
-
-- deliberate pixel clusters
-- controlled edges
-- material-specific shading
-- readable wear
-- localized texture
-- meaningful silhouettes
-- proper top/front face separation
-- handcrafted variation
-
-### 5
-Environment art equals or exceeds character-art craftsmanship.
-
-### 3
-Good game art, but noticeably simpler than the character assets.
-
-### 1
-Mostly geometric shapes with decoration added on top.
-
-### 0
-Blockout.
-
-**Minimum acceptable score: 4**
-
----
-
-## 4. Astro Fighters World Identity — 10%
-
-The scene should express:
-
-- Edo daily-life influence
-- martial culture
-- hip-hop/streetwear cultural texture
-- analog industrial infrastructure
-- warm Japandi-industrial materials
-- ancient monumental urban construction
-- lived-in Imperial City density
-
-### 5
-The location is immediately recognizable as Astro Fighters.
-
-### 3
-Japanese/fantasy setting is apparent but could belong to another game.
-
-### 1
-Generic historical/fantasy environment.
-
-### 0
-No recognizable Astro Fighters identity.
-
-**Minimum acceptable score: 4**
-
----
-
-## 5. Material Quality & Variety — 10%
-
-Materials should visually behave differently.
-
-Required families include, when relevant:
-
-- timber
-- plaster
-- stone
-- cloth
-- rope
-- paper
-- brass
-- iron
-- rust
-- patina
-- water
-- foliage
-- soot / grime
-
-### 5
-Material identity is clear without needing labels.
-
-### 3
-Materials are distinguishable but somewhat simplified.
-
-### 1
-Most surfaces appear as differently colored versions of the same flat shape.
-
-### 0
-No meaningful material rendering.
-
-**Minimum acceptable score: 3**
-
----
-
-## 6. Architectural Detail & Silhouette — 10%
-
-Architecture should use:
-
-- timber framing
-- roof structures
-- eaves
-- shutters
-- windows
-- vents
-- conduits
-- signage
-- balconies
-- retaining walls
-- gates
-- railings
-- structural hardware
-- district-specific ornament
-
-### 5
-Buildings have distinctive silhouettes and believable construction.
-
-### 3
-Architecture works but still uses repetitive forms.
-
-### 1
-Decorated rectangles.
-
-### 0
-Placeholder boxes.
-
-**Minimum acceptable score: 4**
-
----
-
-## 7. Lived-In Density & Environmental Storytelling — 10%
-
-A finished Imperial City location should contain evidence of human activity.
-
-Possible elements:
-
-- crates
-- stools
-- baskets
-- tools
-- signage
-- cloth
-- paper
-- ropes
-- carts
-- lanterns
-- drainage
-- patched surfaces
-- stains
-- stored goods
-- market displays
-- workshop debris
-- hanging objects
-- personal belongings
-
-### 5
-Dense but readable; every area feels inhabited.
-
-### 3
-Some good clutter, but large areas still feel staged or empty.
-
-### 1
-A few props scattered over empty terrain.
-
-### 0
-Empty blockout.
-
-**Minimum acceptable score: 3**
-
----
-
-## 8. Projection, Depth & Occlusion — 10%
-
-Must obey the locked cabinet-style 3/4 world projection.
-
-Depth should come from:
-
-- overlap
-- top/front face separation
-- Y-sorting
-- contact shadows
-- cast shadows
-- architecture height
-- walk-behind objects
-- foreground elements
-- authored cutaways
-
-### 5
-World feels layered and spatial while remaining readable.
-
-### 3
-Depth mostly works with a few flat or ambiguous areas.
-
-### 1
-Objects appear pasted onto a flat floor.
-
-### 0
-Projection is inconsistent or mechanically unusable.
-
-**Minimum acceptable score: 4**
-
----
-
-## 9. Hidden-Grid Concealment & Movement Readability — 5%
-
-The game uses a **hidden 32×32 square grid with eight-direction movement**.
-
-The player must not perceive the grid from ordinary art.
-
-### 5
-Space feels continuous and natural while supporting clear movement.
-
-### 3
-Minor modular repetition is noticeable but not distracting.
-
-### 1
-Tile rhythm strongly suggests the underlying grid.
-
-### 0
-Grid/cell construction is plainly visible.
-
-**Minimum acceptable score: 4**
-
----
-
-## 10. Gameplay Screenshot Readiness — 5%
-
-Final question:
-
-> **Could this image be shown publicly as a representative Astro Fighters gameplay screenshot without needing an explanation that the art is temporary?**
-
-### 5
-Yes.
-
-### 4
-Yes, with only minor polish remaining.
-
-### 3
-Good internal production preview.
-
-### 2
-Clearly unfinished.
-
-### 1
-Prototype.
-
-### 0
-Blockout.
-
-**A public-facing benchmark must score at least 4.**
-
----
-
-# District-Specific Identity Check
-
-Every scene must also clearly communicate its district.
-
-### Imperial Harbor / Docks
-Expected cues include docks, cargo, ropes, cranes/hoists, warehouses, wet stone, mooring infrastructure, boats/barge elements, nets, harbor trade clutter.
-
-### Civic Market / Shops
-Expected cues include storefronts, signs, awnings, merchandise, carts, food/textile stalls, pedestrians, narrow dense commercial streets.
-
-### Academy
-Expected cues include ceremonial gate, dojo architecture, training courtyard, weapon racks, target posts, scrolls/notices, banners, martial-training equipment.
-
-### Workshops
-Expected cues include workbenches, tools, furnaces, racks, ventilation, material storage, unfinished goods, repair clutter.
-
-### Shrines
-Expected cues include shrine gates, offerings, prayer plaques, incense, stone lanterns, ropes/bells, moss/foliage, ritual objects.
-
-### Palace / Administrative Precinct
-Expected cues include larger architectural scale, refined stone, controlled symmetry, banners, monumental gates, ceremonial fixtures, guard infrastructure and high-status materials.
-
-A district should not merely be the same environment with a few props swapped.
+# District Identity Checks
+
+These are cues, not prompt-token lists. Always interpret them through the locked Master Art Direction.
+
+- **Imperial Harbor / Docks:** quay, piers, cargo, rope systems, warehouses/shipwright frontage, matte waterline-darkened stone, boats, nets, restrained hoist/loading infrastructure.
+- **Civic Market / Shops:** storefronts, signs, awnings, merchandise, carts, vendor stalls, narrow commercial passages, merchants/civilians.
+- **Residential / Canal:** dense housing, canal edges, laundry, household clutter, small bridges, plants, neighborhood life.
+- **Academy:** gates, dojo construction, training courtyard, practice equipment, banners/insignia, students/instructors, furnished cutaway interiors.
+- **Workshops:** workbenches, hand tools, material racks, repair stock, sealed service housings, practical ventilation, active labor clutter.
+- **Shrines / spiritual pockets:** offerings, prayer plaques, ropes/bells, stone lanterns, moss/foliage, restrained ritual objects.
+- **Palace / administrative precinct:** larger civic scale, refined stone, controlled symmetry, banners, ceremonial fixtures, guard infrastructure, high-status materials.
+
+A district may not be differentiated only by swapping props on otherwise generic buildings.
 
 ---
 
 # Character Integration Check
 
-For every character visible in a review image, confirm:
+For every visible review character confirm:
 
-- [ ] Character is fully clothed.
-- [ ] Clothing fits Astro Fighters fashion language.
-- [ ] Hair is production quality.
-- [ ] Footwear is present and readable.
-- [ ] Belt/sash or equivalent waist treatment is present.
-- [ ] Equipment is correctly positioned.
-- [ ] Accessories are integrated.
-- [ ] Character has a believable contact shadow.
-- [ ] Character shares the environment's lighting.
-- [ ] Character pixel density matches nearby scenery.
-- [ ] Character does not look pasted over the scene.
-- [ ] Directional anatomy is appropriate for current facing.
-
----
+- fully clothed and role-appropriate;
+- production-quality hair;
+- readable footwear and waist treatment;
+- accessories/equipment integrated without clipping;
+- correct anatomical equipment side and facing-specific routing;
+- believable contact shadow and shared lighting;
+- runtime pixel density matches nearby scenery;
+- directional anatomy is correct;
+- the character does not appear pasted onto the environment.
 
 # Environment Integration Check
 
-- [ ] Ground contains authored variation.
-- [ ] Architecture is not primitive geometry.
-- [ ] Props are individually authored.
-- [ ] Materials are visually distinguishable.
-- [ ] Signs and fixtures are integrated into buildings.
-- [ ] Tall objects support occlusion.
-- [ ] Foreground elements reinforce depth where useful.
-- [ ] Major buildings dwarf the fighter appropriately.
-- [ ] Repetition does not expose hidden grid construction.
-- [ ] Scene contains district-appropriate clutter.
-- [ ] World contains no inappropriate clean holographic sci-fi language.
-- [ ] Character remains readable in the fully detailed environment.
+Confirm:
+
+- authored ground variation without visible grid cadence;
+- architecture is not primitive geometry;
+- props and dressing are individually authored;
+- materials are distinguishable;
+- tall objects support live occlusion/depth behavior;
+- the player remains readable at full environment detail;
+- collision/traversal space is believable;
+- no inappropriate clean holographic, cyberpunk, wet-reflective, or steampunk visual language is present.
 
 ---
 
 # Score Thresholds
 
-**46–50 — LOCK QUALITY**  
-Approved as a visual target for subsequent assets.
+| Score | Classification | Required behavior |
+|---|---|---|
+| **46–50** | **LOCK QUALITY** | Approved as a visual authority for subsequent assets. |
+| **42–45** | **PRODUCTION APPROVED** | Relevant integrated checklist items may be marked complete. |
+| **37–41** | **CONDITIONAL** | Internal candidate only; checklist remains open. |
+| **30–36** | **REWORK REQUIRED** | Continue development. |
+| **0–29** | **REJECTED** | Does not represent production art. |
 
-**42–45 — PRODUCTION APPROVED**  
-Suitable for integration; minor polish may continue.
+Regardless of total score, approval also requires:
 
-**37–41 — CONDITIONAL**  
-Promising, but requires another review pass.
+- zero automatic failures;
+- Character / World Style Homogeneity **4+**;
+- Character Completion & Clothing **4+**;
+- Environment Pixel-Art Quality **4+**;
+- Astro Fighters World Identity **4+**;
+- Architectural Detail & Silhouette **4+**;
+- Projection, Depth & Occlusion **4+**.
 
-**30–36 — REWORK REQUIRED**  
-Major visual deficiencies remain.
-
-**Below 30 — REJECTED**  
-Does not represent Astro Fighters production art.
-
-Regardless of total score:
-
-- Character/World Homogeneity must be **4+**
-- Character Completion must be **4+**
-- Environment Pixel Quality must be **4+**
-- World Identity must be **4+**
-- Architecture must be **4+**
-- Projection/Depth must be **4+**
-
-Failure of any critical minimum prevents approval.
+Checklist completion begins at **42**, never at 36 or 37.
 
 ---
 
 # Final Approval Question
 
-Before accepting any scene, answer:
+> **Does this look like premium Astro Fighters character art inhabiting a premium Astro Fighters world, rendered as a real layered Phaser scene — or does it look like premium character art placed inside a cheaper or flattened environment?**
 
-> **Does this look like premium Astro Fighters character art inhabiting a premium Astro Fighters world — or does it look like premium character art placed inside a cheaper environment?**
-
-If the second interpretation is reasonably possible, the scene is **not approved**.
-
-The quality of the world must rise to the character standard. The character standard must never be lowered to make the environment mismatch less obvious.
+If the second interpretation is reasonably possible, the scene is not approved.
