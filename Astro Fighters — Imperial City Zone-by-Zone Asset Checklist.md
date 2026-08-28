@@ -1,33 +1,38 @@
 # Astro Fighters — Imperial City Zone-by-Zone Asset Checklist
 
-**Status:** Production checklist  
-**Purpose:** Define the minimum world, character-dressing, prop, interaction, occlusion, and atmosphere assets required to build the Imperial City as a coherent playable environment.
+**Status:** Production completion inventory  
+**Purpose:** Track world/scenery assets and integrated district packages.  
+**Visual authority:** `ASTRO_FIGHTERS_LOCKED_MASTER_ART_DIRECTION_PROMPT.md`  
+**Scope/order:** `IMPERIAL_CITY_EARLY_PLAYER_EXPERIENCE_V0.md`
 
-## Mandatory Review Rule
+This file owns **world completion state**. Do not duplicate these checkboxes in EPE, Development Status, README, or package notes.
 
-Every completed zone must be evaluated using the **Astro Fighters Art Preview Review Rubric** before it is presented as testable.
+## Mandatory review rule
 
-- A zone scoring **below 36** continues development automatically.
-- Any **automatic failure** continues development automatically.
-- Any critical category below its required minimum continues development automatically.
-- **36–41:** internal test candidate only.
-- **42–45:** production approved.
-- **46–50:** visual-target quality.
+A world item may be marked complete only after representative **actual Phaser gameplay integration** passes the mandatory review gate.
 
-The world must always match the approved character models in pixel-art quality, detail density, material rendering, and craftsmanship.
+- **0–29:** rejected
+- **30–36:** rework required
+- **37–41:** conditional/internal candidate only; item remains open
+- **42–45:** production approved; relevant item may close
+- **46–50:** lock quality; may seed later work
+
+Approval also requires zero automatic failures and all critical category minimums passing.
+
+Checklist labels describe **functions**, not generation-prompt vocabulary. Where a functional requirement could trigger off-canon imagery, translate it through the locked Master Art Direction before generation.
 
 ---
 
 # GLOBAL IMPERIAL CITY KIT
 
-These assets are shared across multiple districts and should be developed before unnecessary district-specific duplication.
+Develop shared assets before unnecessary district-specific duplication.
 
-## Ground & Surface Library
+## Ground & surface library
 
 - [ ] Worn Imperial stone street — clean
 - [ ] Worn Imperial stone street — cracked
 - [ ] Patched stone street
-- [ ] Damp stone variation
+- [ ] Localized damp-stone variation — matte, non-reflective
 - [ ] Mud/dirt transition
 - [ ] Timber walkway
 - [ ] Weathered dock planking
@@ -35,16 +40,16 @@ These assets are shared across multiple districts and should be developed before
 - [ ] Training-yard packed earth
 - [ ] Interior polished timber floor
 - [ ] Tatami-compatible interior surface
-- [ ] Industrial metal walkway
-- [ ] Stone-to-timber transitions
+- [ ] Restrained metal-service walkway where canonically required
+- [ ] Stone-to-timber transition
 - [ ] Street-to-building threshold pieces
-- [ ] Stair landings
-- [ ] Canal-edge transitions
-- [ ] Puddles
-- [ ] Drainage channels
-- [ ] Drainage grates
-- [ ] Cracks
-- [ ] Stains
+- [ ] Stair landing
+- [ ] Canal-edge transition
+- [ ] Localized puddle/water-darkening decal — no mirrored street effect
+- [ ] Drainage channel
+- [ ] Drainage grate
+- [ ] Crack decals
+- [ ] Stain/grime decals
 - [ ] Soot marks
 - [ ] Wheel/cart wear
 - [ ] Scattered leaves
@@ -54,24 +59,22 @@ These assets are shared across multiple districts and should be developed before
 - [ ] Moss
 - [ ] Algae
 
-**Rule:** none of these may reveal the hidden 32×32 grid through obvious repeating seams.
+**Grid rule:** none may reveal the hidden 32×32 grid through repeating seams, checkerboarding, obvious cadence, or regular prop spacing.
 
----
+## Common architecture components
 
-## Common Architecture Components
-
-- [ ] Timber structural posts
-- [ ] Horizontal beams
+- [ ] Timber structural post
+- [ ] Horizontal beam
 - [ ] Timber-and-plaster wall
 - [ ] Aged stone foundation
-- [ ] Brick/stone industrial foundation
+- [ ] Heavier civic/infrastructure foundation
 - [ ] Paper-panel wall
 - [ ] Sliding door
 - [ ] Heavy timber door
 - [ ] Shopfront shutters
-- [ ] Lattice windows
-- [ ] Paper windows
-- [ ] Industrial metal-framed window
+- [ ] Lattice window
+- [ ] Paper window
+- [ ] Restrained metal-framed service window
 - [ ] Roof-tile straight segment
 - [ ] Roof corner
 - [ ] Roof ridge
@@ -91,41 +94,36 @@ These assets are shared across multiple districts and should be developed before
 - [ ] Exterior stairs
 - [ ] Interior stairs
 - [ ] Raised platform
-- [ ] Bridge connection module
+- [ ] Narrow bridge connection module
 
----
-
-## Common Architectural Dressing
+## Common architectural dressing
 
 - [ ] Lantern wall mount
 - [ ] Hanging lantern
 - [ ] Paper lantern
-- [ ] Industrial work lamp
+- [ ] Restrained work-light fixture
 - [ ] Shop sign mount
 - [ ] Vertical signboard
 - [ ] Horizontal shop sign
 - [ ] Imperial banner
 - [ ] Cloth shop banner
 - [ ] Hanging noren-style curtain
-- [ ] Pipes
-- [ ] Pipe junctions
-- [ ] Vents
-- [ ] Chimneys
-- [ ] Drainpipes
-- [ ] Cable bundles
-- [ ] Rope lines
-- [ ] Brass fixtures
-- [ ] Iron brackets
-- [ ] Mechanical control box
-- [ ] Cathode display/device
+- [ ] Recessed/covered service channel
+- [ ] Sealed service junction
+- [ ] Practical vent/flue
+- [ ] Drain outlet/downspout
+- [ ] Cable/cord bundle
+- [ ] Rope line
+- [ ] Patinated-copper / clean-iron fixture
+- [ ] Structural bracket
+- [ ] Analog service housing
+- [ ] Weak single-purpose cathode indicator/instrument
 - [ ] Electrical/analog junction housing
 - [ ] Wall notices
 - [ ] Charm strips
-- [ ] Small shrine plaques
+- [ ] Small shrine plaque
 
----
-
-## Common Street Props
+## Common street props
 
 - [ ] Small crate
 - [ ] Medium crate
@@ -152,11 +150,9 @@ These assets are shared across multiple districts and should be developed before
 - [ ] Scrap pile
 - [ ] Notice board
 - [ ] Lantern pole
-- [ ] Trash/debris pile
+- [ ] Trash/debris grouping
 
----
-
-## Common Vegetation
+## Common vegetation
 
 - [ ] Cedar trunk
 - [ ] Cedar canopy — back layer
@@ -169,18 +165,18 @@ These assets are shared across multiple districts and should be developed before
 - [ ] Vine
 - [ ] Fallen leaves
 
-Foreground foliage must support authored fade behavior where necessary.
+Foreground foliage must support authored visibility behavior where necessary.
 
 ---
 
 # ZONE 1 — IMPERIAL HARBOR / DOCKS
 
-## Ground & Water
+## Ground & water
 
 - [ ] Weathered dock planks
 - [ ] Reinforced pier planks
 - [ ] Stone quay
-- [ ] Wet stone street
+- [ ] Harbor stone street — waterline/salt-darkened, matte
 - [ ] Algae-stained quay edge
 - [ ] Water surface animation
 - [ ] Canal-water edge animation
@@ -190,9 +186,7 @@ Foreground foliage must support authored fade behavior where necessary.
 - [ ] Timber loading ramp
 - [ ] Dock-to-street transition
 
----
-
-## Dock Architecture
+## Dock architecture
 
 - [ ] Small warehouse facade
 - [ ] Large warehouse facade
@@ -208,29 +202,25 @@ Foreground foliage must support authored fade behavior where necessary.
 - [ ] Watch post
 - [ ] Raised loading deck
 
----
-
-## Harbor Infrastructure
+## Harbor loading infrastructure
 
 - [ ] Mooring post
 - [ ] Mooring ring
 - [ ] Rope bollard
 - [ ] Rope ladder
-- [ ] Cargo crane
-- [ ] Manual hoist
+- [ ] Restrained cargo hoist
+- [ ] Manual lifting frame
 - [ ] Pulley assembly
 - [ ] Hanging cargo hook
 - [ ] Winch
-- [ ] Industrial lift
-- [ ] Rail/cart cargo track
-- [ ] Loading crane shadow
+- [ ] Cargo platform lift
+- [ ] Rail/cart cargo track where appropriate
+- [ ] Loading-structure shadow treatment
 - [ ] Dock bumper
 - [ ] Cargo ramp
-- [ ] Pipe discharge/outflow
+- [ ] Covered service/outflow channel
 
----
-
-## Harbor Props
+## Harbor props
 
 - [ ] Fishing net
 - [ ] Hanging fishing net
@@ -240,321 +230,156 @@ Foreground foliage must support authored fade behavior where necessary.
 - [ ] Produce crates
 - [ ] Sealed merchant crate
 - [ ] Imported-goods crate
-- [ ] Amphora/storage jars
+- [ ] Storage jars
 - [ ] Anchor
 - [ ] Boat repair tools
 - [ ] Rope bundles
 - [ ] Folded tarp
-- [ ] Wet tarp
+- [ ] Salt-darkened/weathered tarp
 - [ ] Harbor lantern
 - [ ] Cargo tags
 - [ ] Merchant markings
 - [ ] Dock stool
 - [ ] Scale/weighing device
 
----
+## Boats / watercraft
 
-## Boats / Watercraft
-
-- [ ] Small skiff
+- [ ] Small skiff / player-boat visual
 - [ ] Merchant barge
-- [ ] Fishing boat
-- [ ] Docked cargo boat
-- [ ] Boat canopy
-- [ ] Oars
-- [ ] Boat cargo load variants
+- [ ] Fishing vessel
+- [ ] Docked cargo vessel silhouette
+- [ ] Oar/pole set
+- [ ] Mooring rope attachment treatment
+- [ ] Boat repair/damage variant where needed
 
-Watercraft may initially be static environmental objects but must match the world-art quality.
+## Harbor integrated package
 
----
-
-## Harbor NPC Dressing
-
-- [ ] Dockworker outfit
-- [ ] Merchant outfit
-- [ ] Fisher outfit
-- [ ] Harbor guard outfit
-- [ ] Cargo handler accessories
-- [ ] Rope/tool accessories
-- [ ] Merchant bags/pouches
-
----
-
-## Harbor Atmosphere
-
-- [ ] Water shimmer
-- [ ] Light mist
-- [ ] Steam vent
-- [ ] Chimney smoke
-- [ ] Hanging cloth movement
-- [ ] Occasional bird silhouette
-- [ ] Dock lantern glow
-
----
-
-## Harbor Test Composition
-
-Must visibly include:
-
-- [ ] Fully dressed player character
-- [ ] At least 3 dressed NPCs
-- [ ] Warehouse
-- [ ] Canal/quay
-- [ ] Dock
-- [ ] Crane or hoist
-- [ ] Cargo clutter
-- [ ] Walk-behind foreground object
-- [ ] Water animation
-- [ ] One industrial/cathode element
+- [ ] Shipwright frontage/work area reads clearly
+- [ ] Shipwright interaction location supported visually
+- [ ] Fully dressed player integrated
+- [ ] At least three dressed Harbor NPCs integrated
+- [ ] Quay + dock + vessel relationship coherent
+- [ ] Loading/cargo identity coherent without steampunk drift
+- [ ] Foreground walk-behind case works live
+- [ ] Water animation works
+- [ ] Clear route inward to Market
 - [ ] No visible grid rhythm
+- [ ] Phaser-integrated Harbor review reaches 42+
 
 ---
 
-# ZONE 2 — CIVIC MARKET / SHOPPING STREETS
+# ZONE 2 — CIVIC MARKET / SHOPS
 
-## Ground
+## Ground / circulation
 
-- [ ] Busy stone street
+- [ ] Busy civic stone street variation
 - [ ] Narrow alley surface
 - [ ] Shop threshold
-- [ ] Drainage channel
-- [ ] Market stain decals
-- [ ] Food spill
-- [ ] Chalk/merchant markings
-- [ ] Loose paper
-- [ ] Cart-track wear
+- [ ] Food-spill / market stain decals
+- [ ] Merchant/chalk markings
+- [ ] Small drainage condition
 
----
-
-## Storefront Architecture
+## Storefront architecture
 
 - [ ] Narrow timber storefront
 - [ ] Two-story storefront
 - [ ] Corner shop
 - [ ] Open-front market shop
-- [ ] Closed shutters variant
-- [ ] Sliding-door shop variant
-- [ ] Balcony shop
-- [ ] Shop roof variants
+- [ ] Closed-shutter variant
 - [ ] Side-alley facade
-- [ ] Storage annex
-- [ ] Exterior stairs
+- [ ] Storefront roof variants
+- [ ] Service/back entrance
+- [ ] Upper-floor window/balcony condition
 
----
-
-## Shop Signage
+## Signage / awnings
 
 - [ ] Hanging shop sign
 - [ ] Vertical sign
 - [ ] Painted wood sign
 - [ ] Cloth banner sign
-- [ ] Merchant crest
-- [ ] Price/display placard
-- [ ] Imperial licensing plaque
-- [ ] Notice-board cluster
+- [ ] Civic licensing plaque
+- [ ] Awning family
+- [ ] Awning support poles
+- [ ] Noren/shop curtain variants
 
----
-
-## Market Stalls
+## Stalls / merchandise
 
 - [ ] Food stall
-- [ ] Tea stall
 - [ ] Textile stall
-- [ ] Produce stall
-- [ ] Fish stall
 - [ ] Medicine/herb stall
-- [ ] Charm/talisman stall
-- [ ] Tool/hardware stall
-- [ ] Street vendor cart
 - [ ] Stall canopy variants
-
----
-
-## Market Merchandise
-
-- [ ] Produce baskets
-- [ ] Fish display
-- [ ] Tea jars
-- [ ] Bowls
-- [ ] Bottles
-- [ ] Cloth bolts
-- [ ] Folded clothes
-- [ ] Sandals
-- [ ] Tools
-- [ ] Herbs
-- [ ] Medicine packets
-- [ ] Scrolls
-- [ ] Charms
-- [ ] Beads
-- [ ] Small sculptures
+- [ ] Produce baskets / food display
+- [ ] Tea jars / bowls / bottles
+- [ ] Cloth bolts / folded clothing
+- [ ] Tools / herbs / medicine packets
+- [ ] Charms / beads
 - [ ] Merchant boxes
-
----
-
-## Market Street Props
-
-- [ ] Stool clusters
-- [ ] Merchant tables
-- [ ] Water buckets
-- [ ] Small shrine shelf
+- [ ] Merchant table/stool grouping
 - [ ] Delivery crates
-- [ ] Handcart
-- [ ] Street lantern
-- [ ] Trash basket
-- [ ] Broom
 - [ ] Fabric hanging rack
-- [ ] Clothesline
-- [ ] Umbrella/parasol
-- [ ] Awning support poles
+
+## Market integrated package
+
+- [ ] At least three distinct storefront silhouettes
+- [ ] At least three vendor stall archetypes
+- [ ] Fully dressed player integrated
+- [ ] Market NPC roles integrated
+- [ ] One real shop/inventory/currency interaction supported
+- [ ] Foreground canopy/sign occlusion works live
+- [ ] Narrow alley + larger street opening both read
+- [ ] Dense merchandise remains navigable/readable
+- [ ] No visible grid rhythm
+- [ ] Phaser-integrated Market review reaches 42+
 
 ---
 
-## Market NPC Dressing
+# ZONE 3 — RESIDENTIAL / CANAL
 
-- [ ] General merchant
-- [ ] Food seller
-- [ ] Textile seller
-- [ ] Craftsperson
-- [ ] Shopper civilian
-- [ ] Courier
-- [ ] Street youth
-- [ ] Civic guard
-- [ ] Wealthier customer variant
+## Residential architecture
 
-All must have finished clothing/accessory layers matching playable character quality.
+- [ ] Small residence
+- [ ] Two-story residence
+- [ ] Canal-side home
+- [ ] Row-house section
+- [ ] Narrow-alley house
+- [ ] Small balcony
+- [ ] Exterior stair
+- [ ] Laundry platform
+- [ ] Residential roof variants
+- [ ] Household threshold/door variants
 
----
+## Household dressing
 
-## Market Atmosphere
+- [ ] Laundry line + hanging clothing
+- [ ] Shoe rack
+- [ ] Cooking-pot / water-bucket grouping
+- [ ] Family storage boxes
+- [ ] Potted plants
+- [ ] Small shrine shelf
+- [ ] Food-drying rack
+- [ ] Household seating/storage clutter
 
-- [ ] Cooking steam
-- [ ] Incense smoke
-- [ ] Cloth sway
-- [ ] Hanging sign movement
-- [ ] Lantern glow
-- [ ] Crowd idle animation
-- [ ] Small environmental particles
+## Canal kit
 
----
+- [ ] Small canal wall
+- [ ] Narrow bridge
+- [ ] Residential canal steps
+- [ ] Drain outlet
+- [ ] Canal-side railing
+- [ ] Laundry/washing platform
+- [ ] Small canal boat
+- [ ] Waterline-darkened masonry treatment
 
-## Market Test Composition
+## Residential integrated package
 
-- [ ] Fully clothed player
-- [ ] Minimum 5 NPCs
-- [ ] Minimum 3 distinct storefronts
-- [ ] Minimum 3 vendor stalls
-- [ ] Dense merchandise
-- [ ] Signage
-- [ ] Foreground canopy occlusion
-- [ ] Narrow alley
-- [ ] Larger street opening
-- [ ] Player still readable at full detail
-
----
-
-# ZONE 3 — ARTISAN / WORKSHOP WARD
-
-## Architecture
-
-- [ ] Carpenter workshop
-- [ ] Metalworker workshop
-- [ ] Textile workshop
-- [ ] Repair shop
-- [ ] Workshop facade
-- [ ] Workshop side wall
-- [ ] Workshop roof
-- [ ] Interior cutaway roof
-- [ ] Large industrial workshop door
-- [ ] Ventilation tower
-- [ ] Chimney
-- [ ] Loading platform
-
----
-
-## Interior Surfaces
-
-- [ ] Rough timber floor
-- [ ] Metalworking floor
-- [ ] Burn/scorch decals
-- [ ] Oil stains
-- [ ] Sawdust
-- [ ] Scrap fragments
-- [ ] Tool-drop debris
-- [ ] Interior mat sections
-
----
-
-## Workshop Furniture
-
-- [ ] Carpenter workbench
-- [ ] Metalworking bench
-- [ ] Textile table
-- [ ] Tool wall
-- [ ] Storage shelf
-- [ ] Material rack
-- [ ] Drawer cabinet
-- [ ] Stool
-- [ ] Parts bins
-- [ ] Hanging tool rack
-
----
-
-## Industrial Assets
-
-- [ ] Furnace
-- [ ] Small forge
-- [ ] Bellows
-- [ ] Boiler
-- [ ] Pressure tank
-- [ ] Analog gauge
-- [ ] Valve assembly
-- [ ] Pipe network
-- [ ] Vent hood
-- [ ] Cathode diagnostic unit
-- [ ] Mechanical lift
-- [ ] Belt-driven machine
-- [ ] Grinder/sharpening wheel
-
----
-
-## Craft Materials
-
-- [ ] Timber boards
-- [ ] Metal rods
-- [ ] Scrap metal
-- [ ] Fabric rolls
-- [ ] Leather sheets
-- [ ] Rope
-- [ ] Paint/dye jars
-- [ ] Tool bundles
-- [ ] Half-finished product variants
-
----
-
-## Workshop NPC Dressing
-
-- [ ] Carpenter
-- [ ] Smith
-- [ ] Mechanic
-- [ ] Textile worker
-- [ ] Apprentice
-- [ ] Delivery worker
-
-Include aprons, wraps, gloves, tool belts, sleeves, soot/dust treatment where appropriate.
-
----
-
-## Workshop Test Composition
-
-- [ ] Exterior-to-interior transition
-- [ ] Roof cutaway
-- [ ] Low foreground wall
-- [ ] Fully dressed player
-- [ ] Worker NPCs
-- [ ] Machinery
-- [ ] Tool clutter
-- [ ] Active furnace/steam/cathode source
-- [ ] Player readable despite dense interior
+- [ ] Narrow alley works as live traversal
+- [ ] Canal crossing works
+- [ ] Dense vertical housing reads at player scale
+- [ ] Household clutter supports lived-in identity
+- [ ] Civilian population integrated
+- [ ] Foreground/vertical occlusion works
+- [ ] Clear route continues toward Academy
+- [ ] Phaser-integrated Residential/Canal review reaches 42+
 
 ---
 
@@ -570,846 +395,208 @@ Include aprons, wraps, gloves, tool belts, sleeves, soot/dust treatment where ap
 - [ ] Drainage
 - [ ] Path transitions
 
----
-
-## Academy Architecture
+## Architecture
 
 - [ ] Main ceremonial gate
 - [ ] Side gate
 - [ ] Perimeter wall
 - [ ] Main dojo exterior
-- [ ] Administration building
 - [ ] Training hall
-- [ ] Dormitory exterior
+- [ ] Administration frontage
 - [ ] Veranda
 - [ ] Raised timber walkway
-- [ ] Academy roofs
+- [ ] Academy roof set
 - [ ] Bell/gong structure
 - [ ] Banner mounts
 
----
-
-## Training Props
+## Training / identity props
 
 - [ ] Straw target
 - [ ] Wooden training dummy
 - [ ] Practice posts
 - [ ] Weapon rack
 - [ ] Training mats
-- [ ] Sandbag
-- [ ] Rope station
 - [ ] Sparring markers
-- [ ] Archery target if used
 - [ ] Conditioning stones
 - [ ] Practice swords/staves
-
----
-
-## Academy Decorative Assets
-
 - [ ] Academy banners
 - [ ] Astro Fighter insignia
-- [ ] Notice board
-- [ ] Scroll posting
+- [ ] Notice board / scroll posting
 - [ ] Lantern
-- [ ] Bell
 - [ ] Water basin
 - [ ] Shoe rack
 - [ ] Bench
-- [ ] Trees / landscaping
-- [ ] Small ceremonial shrine
+- [ ] Landscaping
+
+## Academy exterior integrated package
+
+- [ ] Clear gate establishing view
+- [ ] Fully dressed player integrated
+- [ ] Multiple dressed students integrated
+- [ ] Active training reads clearly
+- [ ] Academy branding/identity reads
+- [ ] Foreground veranda/roof occlusion works
+- [ ] Walkable paths remain readable
+- [ ] No visible grid rhythm
+- [ ] Phaser-integrated Academy exterior review reaches 42+
 
 ---
 
-## Academy NPC Dressing
+# ZONE 5 — ACADEMY INTERIOR / SENSEI TUTORIAL
 
-- [ ] Student uniform — masculine silhouette
-- [ ] Student uniform — feminine silhouette
-- [ ] Senior student variant
-- [ ] Instructor
-- [ ] Sensei
-- [ ] Groundskeeper
-- [ ] Academy attendant
-
----
-
-## Academy Exterior Test Composition
-
-- [ ] Main gate establishing shot
-- [ ] Player
-- [ ] Multiple students
-- [ ] Active training
-- [ ] Training props
-- [ ] Academy branding
-- [ ] Large architecture
-- [ ] Foreground veranda/roof occlusion
-- [ ] Clear walkable paths without visible grid
-
----
-
-# ZONE 5 — ASTRO FIGHTER ACADEMY INTERIORS
-
-## Interior Architecture
+## Interior architecture
 
 - [ ] Dojo floor
-- [ ] Tatami training room
 - [ ] Timber corridor
 - [ ] Sliding paper screens
 - [ ] Interior columns
 - [ ] Back walls
 - [ ] Cutaway side walls
 - [ ] Cutaway foreground wall
-- [ ] Roof removal set
-- [ ] Interior stairs
-- [ ] Storage-room wall variants
+- [ ] Roof-removal set
+- [ ] Storage-room wall variant
 
----
-
-## Interior Props
+## Tutorial / furnishing props
 
 - [ ] Weapon racks
 - [ ] Scroll shelves
-- [ ] Teacher desk
-- [ ] Student desks
+- [ ] Sensei area
 - [ ] Training mats
-- [ ] Tatami stacks
 - [ ] Scrolls
-- [ ] Ink set
-- [ ] Book stack
 - [ ] Storage chest
-- [ ] Practice equipment
 - [ ] Lanterns
-- [ ] Wall banners
-- [ ] Academy notices
-
----
-
-## Sensei / Foundation Area
-
-- [ ] Sensei seating area
+- [ ] Wall banners / Academy notices
 - [ ] Equipment-issue rack
 - [ ] Trap pouch display
 - [ ] Trap stock crates
-- [ ] Scroll / curriculum display
-- [ ] Ceremonial weapon rack
+- [ ] Curriculum display
 - [ ] Academy foundation emblem
 
----
+## Academy interior integrated package
 
-## Academy Interior Test Composition
-
-- [ ] Roof disappears by room
+- [ ] Roof disappears by authored room/region
 - [ ] No per-cell visibility reveal
-- [ ] Foreground wall cuts away
+- [ ] Foreground wall cuts away correctly
 - [ ] Player remains readable
-- [ ] Interior feels fully furnished
-- [ ] Sensei and students fully dressed
-- [ ] Interior matches exterior style
+- [ ] Sensei/students fully dressed
+- [ ] Interior furnished and used
+- [ ] Interior matches Academy exterior material language
+- [ ] Sensei dialogue/combat-teaching area supported
+- [ ] 100 mon / 3 trap types ×10 issue area supported
+- [ ] Phaser-integrated Academy interior review reaches 42+
 
 ---
 
-# ZONE 6 — RESIDENTIAL / CANAL NEIGHBORHOODS
+# DEFERRED IMPERIAL CITY FAMILIES
 
-## Architecture
+These remain valid requirements but are downstream of the Harbor-to-Academy v0 route.
 
-- [ ] Small residence
-- [ ] Two-story residence
-- [ ] Canal-side home
-- [ ] Row-house section
-- [ ] Shared courtyard
-- [ ] Narrow alley house
-- [ ] Small balcony
-- [ ] Exterior stair
-- [ ] Laundry platform
-- [ ] Residential roof variants
+## Artisan / Workshop Ward
 
----
+- [ ] Workshop facade family
+- [ ] Workbench/tool family
+- [ ] Material rack/storage family
+- [ ] Repair-stock/unfinished-goods family
+- [ ] Practical ventilation/service housing family
+- [ ] Workshop NPC/occupation dressing support
+- [ ] Cutaway interior package
+- [ ] Integrated Workshop review 42+
 
-## Residential Props
+## Shrines / spiritual pockets
 
-- [ ] Laundry line
-- [ ] Hanging clothing
-- [ ] Shoe rack
-- [ ] Small table
-- [ ] Cooking pots
-- [ ] Water bucket
-- [ ] Family storage boxes
-- [ ] Potted plants
-- [ ] Children’s toys
-- [ ] Seating cushions
-- [ ] Small shrine shelf
-- [ ] Household broom
-- [ ] Food drying rack
-
----
-
-## Canal Assets
-
-- [ ] Small canal wall
-- [ ] Narrow bridge
-- [ ] Residential canal steps
-- [ ] Drain outlet
-- [ ] Water barrel
-- [ ] Small boat
-- [ ] Canal-side railing
-- [ ] Laundry/washing platform
-
----
-
-## Residential NPC Dressing
-
-- [ ] Adult civilian
-- [ ] Elder
-- [ ] Child/teen silhouette
-- [ ] Household worker
-- [ ] Courier
-- [ ] Local shopkeeper
-
----
-
-## Residential Test Composition
-
-- [ ] Narrow alley
-- [ ] Canal crossing
-- [ ] Dense vertical housing
-- [ ] Household clutter
-- [ ] Civilians
-- [ ] Player-scale architecture comparison
-- [ ] Strong lived-in feeling
-
----
-
-# ZONE 7 — SHRINES / SPIRITUAL POCKETS
-
-## Architecture
-
-- [ ] Small neighborhood shrine
-- [ ] Medium temple/shrine
-- [ ] Torii/gate equivalent
-- [ ] Shrine steps
-- [ ] Offering structure
-- [ ] Covered prayer area
-- [ ] Bell structure
-- [ ] Stone boundary wall
-
----
-
-## Ritual Props
-
-- [ ] Offering box
-- [ ] Incense burner
-- [ ] Stone lantern
-- [ ] Paper charms
-- [ ] Prayer plaques
-- [ ] Rope/bell
-- [ ] Ritual bowls
-- [ ] Candles
-- [ ] Small statues
-- [ ] Spirit markers
-- [ ] Offering food
-- [ ] Prayer strips
-
----
-
-## Natural Assets
-
-- [ ] Large sacred tree
-- [ ] Root network
-- [ ] Moss
-- [ ] Rock grouping
-- [ ] Fallen leaves
-- [ ] Shrine garden
-- [ ] Water basin
-- [ ] Small stream/pond edge if needed
-
----
-
-## Spiritual Atmosphere
-
-- [ ] Incense smoke
-- [ ] Soft lantern glow
-- [ ] Restrained spirit motes
-- [ ] Wind-driven prayer paper
-- [ ] Bell movement
-- [ ] Leaf fall
-
-Mystical effects must remain restrained and not become generic neon magic.
-
----
-
-## Shrine NPC Dressing
-
-- [ ] Shrine attendant
-- [ ] Monk/priest equivalent
-- [ ] Pilgrim
-- [ ] Martial practitioner
-- [ ] Civilian worshipper
-
----
-
-# ZONE 8 — CIVIC / ADMINISTRATIVE WARD
-
-## Architecture
-
-- [ ] Civic office
-- [ ] Registry building
-- [ ] Guard station
-- [ ] Courthouse/administrative hall
-- [ ] Public records hall
-- [ ] Civic gate
-- [ ] Formal courtyard
-- [ ] Public notice plaza
-- [ ] Elevated balcony
-
----
-
-## Civic Props
-
-- [ ] Official notice board
-- [ ] Imperial seal plaque
-- [ ] Queue barriers
-- [ ] Guard desk
-- [ ] Records cabinet
-- [ ] Document bundles
-- [ ] Official lanterns
-- [ ] Formal benches
-- [ ] Mail/courier station
-- [ ] Public announcement fixture
-
----
-
-## Civic NPC Dressing
-
-- [ ] Clerk
-- [ ] Official
-- [ ] Civic guard
-- [ ] Courier
-- [ ] Citizen
-- [ ] Inspector
-- [ ] Administrator
-
----
-
-## Civic Test Composition
-
-- [ ] Clear visual contrast from market district
-- [ ] Stronger order/formality
-- [ ] Still lived-in
-- [ ] Fully dressed officials
-- [ ] Imperial symbols
-- [ ] Public service clutter
-- [ ] Monumental infrastructure visible
-
----
-
-# ZONE 9 — IMPERIAL PALACE EXTERIOR PRECINCT
-
-## Ground
-
-- [ ] Refined palace stone
-- [ ] Ceremonial path
-- [ ] Courtyard paving
-- [ ] Formal drainage
-- [ ] Garden paths
-- [ ] Guard-post flooring
-
----
-
-## Palace Architecture
-
-- [ ] Outer palace wall
-- [ ] Monumental main gate
-- [ ] Side gate
-- [ ] Guard tower
-- [ ] Gatehouse
-- [ ] Palace facade
-- [ ] Large ceremonial roof
-- [ ] Veranda
-- [ ] Balcony
-- [ ] Formal stairs
-- [ ] Raised court
-- [ ] Bridge
-- [ ] Courtyard walls
-
----
-
-## Palace Ornament
-
-- [ ] Imperial banners
-- [ ] Crest
-- [ ] Carved brackets
-- [ ] Roof ornaments
+- [ ] Shrine architecture family
+- [ ] Offerings / prayer plaques
+- [ ] Rope/bell ritual dressing
 - [ ] Stone lanterns
-- [ ] Formal braziers
-- [ ] Banner poles
-- [ ] Statues
-- [ ] Ceremonial screens
-- [ ] Guard standards
-- [ ] High-status brass fittings
+- [ ] Moss/foliage treatment
+- [ ] Restrained spiritual atmosphere
+- [ ] Integrated Shrine review 42+
+
+## Civic / Administrative
+
+- [ ] Formal office/public-building family
+- [ ] Official signage/records props
+- [ ] Guard infrastructure
+- [ ] Controlled public-space/courtyard family
+- [ ] Integrated Civic review 42+
+
+## Palace / Crown precinct
+
+- [ ] Monumental-but-horizontal gate/courtyard family
+- [ ] Refined stone/timber/copper material package
+- [ ] Ceremonial banners/fixtures
+- [ ] Guard infrastructure
+- [ ] Palace interior/cutaway family
+- [ ] Integrated Palace review 42+
+
+## Observatory / inherited civic infrastructure
+
+- [ ] Sealed stone/copper/slate architecture family
+- [ ] Recessed instrument alcoves
+- [ ] Named canonical apparatus
+- [ ] Maintenance/service dressing without generic machine-room language
+- [ ] Integrated Observatory review 42+
+
+## Fringe / outer ward
+
+- [ ] Broken/patched paving family
+- [ ] Improvised timber/repair construction
+- [ ] Salvaged material family
+- [ ] Clan/crew-influenced shops/dressing
+- [ ] Combat-space environmental package
+- [ ] Integrated Fringe review 42+
+
+## Bridges / canal network
+
+- [ ] Small pedestrian bridge family
+- [ ] Larger civic bridge family
+- [ ] Canal retaining wall variants
+- [ ] Canal steps/railings
+- [ ] Bridge foreground-occlusion variants
+- [ ] Integrated canal-network review 42+
+
+## Major gates / transitions
+
+- [ ] North gate
+- [ ] East gate
+- [ ] West gate
+- [ ] District-transition gate family
+- [ ] Exterior transition-space kit
+- [ ] Integrated gate/transition review 42+
 
 ---
 
-## Palace Landscaping
+# ATMOSPHERE / FX
 
-- [ ] Sculpted trees
-- [ ] Formal shrubs
-- [ ] Stone garden
-- [ ] Water basin
-- [ ] Pond/canal feature
-- [ ] Decorative bridge
-- [ ] Courtyard planters
-
----
-
-## Palace NPC Dressing
-
-- [ ] Imperial guard
-- [ ] Guard officer
-- [ ] Court official
-- [ ] Attendant
-- [ ] Noble/court civilian
-- [ ] Palace worker
-- [ ] Elite martial guard
-
----
-
-## Palace Exterior Test Composition
-
-- [ ] Architecture clearly dwarfs fighters
-- [ ] Monumental gate
-- [ ] Elite guards
-- [ ] Refined materials
-- [ ] Strong Imperial vermilion usage without overuse
-- [ ] Formal courtyard
-- [ ] Palace-specific silhouettes
-- [ ] No generic “Japanese castle” look
-
----
-
-# ZONE 10 — IMPERIAL PALACE INTERIORS
-
-## Interior Architecture
-
-- [ ] Grand hall
-- [ ] Administrative chamber
-- [ ] Audience room
-- [ ] Guard corridor
-- [ ] Formal waiting room
-- [ ] Private office
-- [ ] Archive room
-- [ ] Interior veranda
-- [ ] Screen partitions
-- [ ] Palace roof cutaway components
-
----
-
-## Palace Interior Props
-
-- [ ] Formal low tables
-- [ ] Cushions
-- [ ] Scroll displays
-- [ ] Records cabinets
-- [ ] Ceremonial weapons
-- [ ] Imperial seal stand
-- [ ] Braziers
-- [ ] High-quality lanterns
-- [ ] Decorative screens
-- [ ] Carpets/mats
-- [ ] Art objects
-- [ ] Document piles
-- [ ] Guard equipment racks
-
----
-
-## Palace Interior Test Composition
-
-- [ ] Clear roof/cutaway functionality
-- [ ] Premium material rendering
-- [ ] Distinct from academy interiors
-- [ ] Fully dressed court NPCs
-- [ ] Strong but restrained ceremonial detail
-- [ ] Player remains readable
-
----
-
-# ZONE 11 — INDUSTRIAL / INFRASTRUCTURE CORRIDORS
-
-This represents the ancient-industrial systems that visually distinguish Imperial City from a conventional Edo fantasy city.
-
-## Large Infrastructure
-
-- [ ] Elevated rail support
-- [ ] Elevated rail segment
-- [ ] Gantry
-- [ ] Service bridge
-- [ ] Large pipe
-- [ ] Pipe junction
-- [ ] Pressure tower
-- [ ] Waterworks structure
-- [ ] Mechanical lift
-- [ ] Large vent
-- [ ] Ancient industrial pillar
-- [ ] Monumental retaining wall
-- [ ] Utility platform
-
----
-
-## Machinery
-
-- [ ] Generator
-- [ ] Pump
-- [ ] Valve station
-- [ ] Control cabinet
-- [ ] Cathode monitoring station
-- [ ] Gauge cluster
-- [ ] Winch
-- [ ] Chain hoist
-- [ ] Maintenance rack
-- [ ] Service cart
-
----
-
-## Service Props
-
-- [ ] Tools
-- [ ] Maintenance barrels
-- [ ] Warning placards
-- [ ] Rope barriers
-- [ ] Repair scaffolding
-- [ ] Spare pipe
-- [ ] Scrap metal
-- [ ] Oil containers
-- [ ] Worker lantern
-- [ ] Maintenance notes
-
----
-
-## Infrastructure NPC Dressing
-
-- [ ] Engineer
-- [ ] Maintenance worker
-- [ ] Utility guard
-- [ ] Rail worker
-- [ ] Inspector
-
----
-
-# ZONE 12 — FRINGE / OUTER WARD
-
-## Visual Identity
-
-The Fringe should reuse Imperial materials but show reduced maintenance, improvised construction, and harsher living conditions—not switch to an unrelated art style.
-
----
-
-## Ground
-
-- [ ] Broken paving
-- [ ] Dirt intrusion
-- [ ] Mud
-- [ ] Damaged drains
-- [ ] Scrap patches
-- [ ] Burn marks
-- [ ] Heavy wear
-
----
-
-## Architecture
-
-- [ ] Patched residence
-- [ ] Improvised shop
-- [ ] Damaged warehouse
-- [ ] Scrap-metal additions
-- [ ] Temporary awning
-- [ ] Reinforced doors
-- [ ] Barricades
-- [ ] Broken wall sections
-- [ ] Scaffold repairs
-- [ ] Abandoned structure
-
----
-
-## Props
-
-- [ ] Scrap piles
-- [ ] Broken crates
-- [ ] Improvised seating
-- [ ] Barrels
-- [ ] Camp stove
-- [ ] Patching materials
-- [ ] Cloth shelters
-- [ ] Salvaged signs
-- [ ] Rope barriers
-- [ ] Broken machinery
-- [ ] Abandoned carts
-
----
-
-## Combat / Tactical Environment Assets
-
-- [ ] Low cover
-- [ ] Tall occluder
-- [ ] Narrow choke
-- [ ] Breakable-looking clutter if later supported
-- [ ] Hazard marker assets
-- [ ] Damaged industrial machinery
-- [ ] Open combat courtyard
-- [ ] Alley combat space
-
-The environment must still hide the square grid.
-
----
-
-## Fringe NPC Dressing
-
-- [ ] Fringe civilian
-- [ ] Salvager
-- [ ] Laborer
-- [ ] Local fighter
-- [ ] Hostile street fighter
-- [ ] Fringe merchant
-- [ ] Patrol/guard variant
-
-Characters should look more worn and improvised but must retain full Astro Fighters pixel-art quality.
-
----
-
-# ZONE 13 — BRIDGES / CANAL NETWORK
-
-These are reusable transition spaces connecting several Imperial districts.
-
-## Bridge Assets
-
-- [ ] Small timber bridge
-- [ ] Stone bridge
-- [ ] Market bridge
-- [ ] Palace bridge
-- [ ] Industrial service bridge
-- [ ] Bridge railing
-- [ ] Bridge lantern
-- [ ] Bridge stairs
-- [ ] Bridge support
-- [ ] Under-bridge shadow/occluder
-
----
-
-## Canal Assets
-
-- [ ] Narrow canal
-- [ ] Wide canal
-- [ ] Stone retaining wall
-- [ ] Timber retaining wall
-- [ ] Canal stair
-- [ ] Water access platform
-- [ ] Drain opening
-- [ ] Sewer outlet
-- [ ] Mooring point
-- [ ] Canal railing
-- [ ] Canal-side lantern
-- [ ] Vegetation growth
-
----
-
-# ZONE 14 — CITY GATES / MAJOR TRANSITION SPACES
-
-## Required Assets
-
-- [ ] Harbor gate
-- [ ] Civic gate
-- [ ] Academy gate
-- [ ] Palace gate
-- [ ] Fringe gate
-- [ ] Guard booth
-- [ ] Checkpoint barrier
-- [ ] Gate signage
-- [ ] District banners
-- [ ] Large doors
-- [ ] Portcullis/mechanical barrier if appropriate
-- [ ] Inspection table
-- [ ] Queue markers
-- [ ] Guard equipment
-- [ ] Transition-road surfaces
-
-Each gate should visually communicate the district beyond it before the player enters.
-
----
-
-# GLOBAL CHARACTER-DRESSING REQUIREMENTS FOR WORLD NPCS
-
-No presentation-quality environment test may use mannequin NPCs.
-
-## Civilian Clothing Families
-
-- [ ] Working-class wrapped top
-- [ ] Merchant top
-- [ ] Utility jacket
-- [ ] Civilian haori
-- [ ] Loose trousers
-- [ ] Cuffed trousers
-- [ ] Worker footwear
-- [ ] Civilian sandal/boot
-- [ ] Belts/sashes
-- [ ] Bags/pouches
-- [ ] Scarves
-- [ ] Hats/head wraps where appropriate
-
----
-
-## Martial Clothing Families
-
-- [ ] Academy student
-- [ ] Instructor
-- [ ] Guard
-- [ ] Elite guard
-- [ ] Street fighter
-- [ ] Martial worker
-- [ ] Weapon-bearing civilian
-
----
-
-## Profession Accessories
-
-- [ ] Merchant pouch
-- [ ] Dockworker rope
-- [ ] Carpenter tool belt
-- [ ] Smith apron
-- [ ] Guard weapon/scabbard
-- [ ] Clerk document case
-- [ ] Shrine charm bundle
-- [ ] Academy scroll
-- [ ] Courier bag
-- [ ] Engineer tools
-
----
-
-# WORLD FX / ATMOSPHERE LIBRARY
-
-These are shared but must remain restrained.
-
-- [ ] Steam
-- [ ] Smoke
-- [ ] Furnace smoke
-- [ ] Incense smoke
-- [ ] Dust motes
-- [ ] Rain
 - [ ] Water ripple
-- [ ] Puddle ripple
-- [ ] Cloth flutter
-- [ ] Banner flutter
+- [ ] Cloth movement
 - [ ] Leaf movement
-- [ ] Falling leaves
-- [ ] Cathode flicker
+- [ ] Dust motes where appropriate
+- [ ] Smoke/incense only where locally justified
+- [ ] Restrained vapor/utility emission where canonically necessary
 - [ ] Lantern flicker
-- [ ] Small sparks
-- [ ] Dripping water
-- [ ] Chimney output
-- [ ] Heat shimmer if stylistically compatible
+- [ ] Weak cathode indicator flicker
+- [ ] Day/evening local-light compatibility
+- [ ] No full-screen cyberpunk color wash
 
 ---
 
-# OCCLUSION ASSET REQUIREMENTS
+# GLOBAL INTEGRATION REQUIREMENTS
 
-Every zone must include examples of all relevant height classes.
+Before any district package closes, confirm:
 
-## Low
+- [ ] Actual Phaser scene, not collage/mock renderer
+- [ ] Modular world layers loaded separately
+- [ ] Continuous real-time movement
+- [ ] Collision independent from appearance imagery
+- [ ] Hidden 32×32 grid not visible/inferable
+- [ ] Character/world pixel density and style match
+- [ ] Foreground/background occlusion works
+- [ ] Cutaways work where required
+- [ ] Player remains readable
+- [ ] District identity is specific, not generic
+- [ ] Zero automatic review failures
+- [ ] All critical category minimums pass
+- [ ] Integrated score is 42+
 
-- [ ] Small crate/bench/curb-style object
-- [ ] Can obscure feet/lower legs
-- [ ] Does not fade
-
-## Mid
-
-- [ ] Counter/fence/machine
-- [ ] Correct Y-sort
-- [ ] Does not permanently hide the fighter's head
-
-## Tall
-
-- [ ] Building/tree/gantry
-- [ ] Separate occluder layer
-- [ ] Cutaway or fade behavior implemented
-- [ ] Solid LOS-blocking structure never reveals unseen enemies
-
----
-
-# DISTRICT COMPLETION PACKAGE
-
-A zone is not considered complete merely because individual assets exist.
-
-Every district must eventually provide:
-
-- [ ] Ground set
-- [ ] Decal set
-- [ ] Architecture set
-- [ ] Roof/cutaway set
-- [ ] Low props
-- [ ] Mid props
-- [ ] Tall occluders
-- [ ] Interactive objects
-- [ ] Signs/banners
-- [ ] District clutter
-- [ ] Profession-specific NPC clothing
-- [ ] At least one animated environmental feature
-- [ ] Atmosphere treatment
-- [ ] Collision definitions
-- [ ] Occlusion definitions
-- [ ] Y-sort anchors
-- [ ] Integrated gameplay composition
-- [ ] Fully dressed player
-- [ ] Fully dressed NPC population
-- [ ] Rubric evaluation
-
----
-
-# PRODUCTION ORDER
-
-Develop assets in this order unless gameplay requirements demand otherwise:
-
-1. [ ] Global Imperial City kit
-2. [ ] Fully dressed player-character test stack
-3. [ ] Imperial Harbor / Docks
-4. [ ] Civic Market / Shops
-5. [ ] Workshop Ward
-6. [ ] Academy Exterior
-7. [ ] Academy Interior
-8. [ ] Bridges / Canal Network
-9. [ ] Residential Neighborhoods
-10. [ ] Civic / Administrative Ward
-11. [ ] Shrines
-12. [ ] Industrial Infrastructure
-13. [ ] Palace Exterior
-14. [ ] Palace Interior
-15. [ ] Fringe Ward
-16. [ ] Major district gates/transitions
-17. [ ] Global polish and district blending
-
----
-
-# FIRST TESTABLE ART MILESTONE
-
-Before expanding the entire city, the first integrated slice should contain:
-
-- [ ] Fully dressed player character
-- [ ] At least 4 fully dressed NPCs
-- [ ] Imperial Docks
-- [ ] Market-street transition
-- [ ] One workshop interior
-- [ ] Canal
-- [ ] Bridge
-- [ ] Tall architecture
-- [ ] Industrial infrastructure
-- [ ] Cedar/tree occlusion test
-- [ ] Roof cutaway test
-- [ ] Shop signage
-- [ ] Market clutter
-- [ ] Harbor clutter
-- [ ] Animated water
-- [ ] Steam or smoke
-- [ ] Cathode device
-- [ ] Hidden 32×32 grid remains invisible
-- [ ] Correct 8-direction player presentation
-- [ ] Environment matches character pixel-art quality
-- [ ] No placeholder rectangles or mannequin characters
-- [ ] Rubric score ≥36 with every critical minimum satisfied
-
-If the milestone fails any of the final three conditions, development continues automatically rather than presenting it as a completed test environment.
+Only then mark the represented world items complete.
