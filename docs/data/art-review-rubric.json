@@ -18,7 +18,9 @@
     "Modular isolates contain neighboring-item contamination or presentation artifacts.",
     "Automatically reduced or segmented assets are presented as pixel-final without target-level cleanup.",
     "Occluding scenery permanently hides the controlled character without an authored visibility solution.",
-    "A preview is called production quality while still relying on known placeholder art."
+    "A preview is called production quality while still relying on known placeholder art.",
+    "A non-Phaser preview, collage, source assembly, or mock renderer is presented as integrated gameplay.",
+    "Fixed grid-step exploration is presented as the final open-world movement model."
   ],
   "categories": [
     {"id":"homogeneity","name":"Character / World Style Homogeneity","min":4,"critical":true},
