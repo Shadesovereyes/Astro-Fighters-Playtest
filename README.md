@@ -1,8 +1,75 @@
 # Astro Fighters Playtest
 
-Public runtime-only playtest host for Astro Fighters. The development repository remains separate/private. The playable build is published from `/docs` via GitHub Pages.
+Astro Fighters is an **open-world action-combat RPG**. The current playable implementation is the browser/Phaser RPG runtime published from `/docs` through GitHub Pages.
 
-This repository also serves as the **art-development control surface and handoff record** for Imperial City production. A new chat session or development agent should be able to open this repository, read the documents below in order, inspect checklist progress, and continue work without restarting the art-direction discussion.
+This repository is the **current public playtest/runtime surface** and also the **art-development control surface and handoff record** for Imperial City production. A new chat session or development agent should be able to open this repository, understand the actual game architecture, inspect the current playable state, read the production rules, and continue development without restarting architectural or art-direction discovery.
+
+## Current authoritative development branch
+
+**Until PR #11 is merged, the authoritative development state is the branch:**
+
+`development/art-review-workflow-v1`
+
+New chat sessions, development agents, code assistants, and reviewers must inspect and work from `development/art-review-workflow-v1` before assuming that `main` represents the current runtime, art-production workflow, or repository instructions.
+
+That branch currently contains the active Phaser/world corrections, art-review workflow, production manifest, early-player Imperial City plan, repository agent instructions, and current handoff state. In particular, read `AGENTS.md` and `PHASER_WORLD_REFACTOR_V0.md` from that branch before continuing world/runtime work.
+
+After PR #11 is merged, `main` becomes the normal authority again unless a newer development branch is explicitly identified here.
+
+The active early-game production roadmap is [`IMPERIAL_CITY_EARLY_PLAYER_EXPERIENCE_V0.md`](./IMPERIAL_CITY_EARLY_PLAYER_EXPERIENCE_V0.md). It scopes the first connected production-quality route as **Southern Harbor → Docks/Shipwright → Civic Market → Residential/Canal transition → Astro Fighter Academy exterior → Academy interior/Sensei tutorial**.
+
+---
+
+# GAME ARCHITECTURE — READ BEFORE DEVELOPING
+
+## Current game target
+
+The game being built now is an **open-world, real-time action-combat RPG**. Its gameplay target includes:
+
+- free exploration through a continuous authored world;
+- real-time player movement rather than turn-by-turn battlefield movement;
+- eight-direction character facing and animation;
+- direct action combat rather than a five-slot turn queue;
+- layered environments, collision, interactives, NPCs, foreground occlusion, and world traversal;
+- real-time adaptation of Astro Fighters combat resources, abilities, statuses, astrology systems, and tactical rules;
+- a playable Phaser/browser runtime under `/docs` as the current public test surface.
+
+**Do not redesign Astro Fighters as a turn-based strategy game. Do not treat the old Unity prototype as the current game.**
+
+## Legacy Unity Combat Strategy vertical slice
+
+The private `Shadesovereyes/Astro-Fighters` Unity project is a **previous vertical slice for a turn-based tactical Combat Strategy prototype**. It exists as a combat-design and systems reference. It is **not** the current open-world RPG runtime, scene architecture, control model, release target, or development roadmap.
+
+The Unity slice may be consulted to recover or validate reusable combat logic such as:
+
+- physical, elemental, and mental damage concepts;
+- mitigation and poise/stagger logic;
+- stamina, chakra, strain, and other resource rules;
+- statuses, crowd control, stealth/awareness concepts, grapples, counters, summons, and Seigan rules;
+- astrology-derived affinities and loadout concepts;
+- authored ability data and balance assumptions that remain compatible with the RPG design.
+
+Those systems must be **adapted to real-time action combat**. The following Unity-specific structures are not the target architecture and must not be copied into the RPG merely because they exist in the vertical slice:
+
+- turn rounds as the primary gameplay loop;
+- five-action slot planning;
+- the dynamic turn scheduler as a literal runtime scheduler;
+- hex-battlefield encounter structure as the open-world movement model;
+- IMGUI prototype UX;
+- Unity recovery/battle scenes as the production world;
+- any assumption that a system is correct for the action RPG simply because it worked in the turn-based slice.
+
+When translating a mechanic from the Combat Strategy slice, preserve the **design intent and useful math**, then re-express it for real-time timing, hit windows, animation commitments, movement, cooldowns/recovery, interrupts, spatial collision, and player input.
+
+## Authority when repositories disagree
+
+For the current game:
+
+1. this public playtest repository and its current runtime behavior define the active RPG implementation;
+2. current locked art/gameplay production documents define the required presentation and integration rules;
+3. the Unity Combat Strategy project is reference material for reusable combat logic only.
+
+A future developer must **not redirect development into the Unity project** after discovering that its combat code is more mature in some areas. The task is to adapt useful combat logic into the open-world action RPG.
 
 ---
 
@@ -14,12 +81,13 @@ The required operating sequence is:
 
 > **MASTER ART DIRECTION → CHECK BOTH ASSET CHECKLISTS → DEVELOP → INTEGRATE IN GAME → SCORE WITH RUBRIC → REFINE OR MARK COMPLETE → CONTINUE**
 
-The four controlling documents on `main` are:
+The five controlling production documents are:
 
 1. [`ASTRO_FIGHTERS_LOCKED_MASTER_ART_DIRECTION_PROMPT.md`](./ASTRO_FIGHTERS_LOCKED_MASTER_ART_DIRECTION_PROMPT.md) — **HOW to develop the art.**
-2. [`Astro Fighters — Imperial City Zone-by-Zone Asset Checklist.md`](./Astro%20Fighters%20%E2%80%94%20Imperial%20City%20Zone-by-Zone%20Asset%20Checklist.md) — **WHAT world/scenery assets remain to be developed.**
-3. [`ASTRO_FIGHTERS_CHARACTER_CLOTHING_ACCESSORY_CHECKLIST.md`](./ASTRO_FIGHTERS_CHARACTER_CLOTHING_ACCESSORY_CHECKLIST.md) — **WHAT character clothing, hair, equipment, and accessory work remains to be developed in parallel.**
-4. [`Astro Fighters — Art Preview Review Rubric.md`](./Astro%20Fighters%20%E2%80%94%20Art%20Preview%20Review%20Rubric.md) — **WHEN an integrated result is good enough to test or mark production-complete.**
+2. [`IMPERIAL_CITY_EARLY_PLAYER_EXPERIENCE_V0.md`](./IMPERIAL_CITY_EARLY_PLAYER_EXPERIENCE_V0.md) — **WHICH world/character dependencies are first for the early player experience.**
+3. [`Astro Fighters — Imperial City Zone-by-Zone Asset Checklist.md`](./Astro%20Fighters%20%E2%80%94%20Imperial%20City%20Zone-by-Zone%20Asset%20Checklist.md) — **WHAT world/scenery assets remain to be developed.**
+4. [`ASTRO_FIGHTERS_CHARACTER_CLOTHING_ACCESSORY_CHECKLIST.md`](./ASTRO_FIGHTERS_CHARACTER_CLOTHING_ACCESSORY_CHECKLIST.md) — **WHAT character clothing, hair, equipment, and accessory work remains to be developed in parallel.**
+5. [`Astro Fighters — Art Preview Review Rubric.md`](./Astro%20Fighters%20%E2%80%94%20Art%20Preview%20Review%20Rubric.md) — **WHEN an integrated result is good enough to test or mark production-complete.**
 
 These files are not optional reference notes. Together they define the production process.
 
@@ -267,37 +335,40 @@ Do not describe a blockout or known placeholder scene as production quality.
 
 # 11. New Chat / New Agent Handoff Procedure
 
-A new session should perform the following sequence before producing new art:
+A new session should perform the following sequence before producing new art or changing runtime code:
 
-1. Open this repository and read this `README.md`.
-2. Read `ASTRO_FIGHTERS_LOCKED_MASTER_ART_DIRECTION_PROMPT.md` in full.
-3. Read `Astro Fighters — Art Preview Review Rubric.md` in full.
-4. Inspect `Astro Fighters — Imperial City Zone-by-Zone Asset Checklist.md` and identify:
+1. Confirm that `development/art-review-workflow-v1` is the active authoritative branch while PR #11 remains unmerged; inspect that branch before relying on `main`.
+2. Open this repository and read this `README.md`.
+3. Read `AGENTS.md` and `PHASER_WORLD_REFACTOR_V0.md` in full.
+4. Read `ASTRO_FIGHTERS_LOCKED_MASTER_ART_DIRECTION_PROMPT.md` in full.
+5. Read `IMPERIAL_CITY_EARLY_PLAYER_EXPERIENCE_V0.md` and identify the active slice/queue position.
+6. Read `Astro Fighters — Art Preview Review Rubric.md` in full.
+7. Inspect `Astro Fighters — Imperial City Zone-by-Zone Asset Checklist.md` and identify:
    - already struck/approved items;
    - currently incomplete items;
    - dependencies for the next playable district or scene.
-5. Inspect `ASTRO_FIGHTERS_CHARACTER_CLOTHING_ACCESSORY_CHECKLIST.md` and identify the corresponding incomplete character work.
-6. Inspect the current playable files under `/docs` and the most recent integrated gameplay state.
-7. Do **not** assume existing art is approved merely because it appears in the build. Checklist strike-through plus a qualifying rubric result is the approval signal.
-8. Select the next world and character dependencies together.
-9. Develop according to the Master Art Direction Prompt.
-10. Integrate the work into gameplay.
-11. Evaluate with the Art Preview Review Rubric.
-12. Continue refining automatically if it fails.
-13. At 42+, update/strike the completed items in both checklists as applicable.
-14. Continue to the next dependencies.
+8. Inspect `ASTRO_FIGHTERS_CHARACTER_CLOTHING_ACCESSORY_CHECKLIST.md` and identify the corresponding incomplete character work.
+9. Inspect the current playable files under `/docs` and the most recent integrated gameplay state.
+10. Do **not** assume existing art is approved merely because it appears in the build. Checklist strike-through plus a qualifying rubric result is the approval signal.
+11. Select the next world and character dependencies together from the active early-player production queue.
+12. Develop according to the Master Art Direction Prompt and repository runtime instructions.
+13. Integrate the work into the actual Phaser runtime.
+14. Evaluate with the Art Preview Review Rubric.
+15. Continue refining automatically if it fails.
+16. At 42+, update/strike the completed items in both checklists as applicable.
+17. Continue to the next dependencies.
 
-This sequence is the default continuation workflow. A new chat should not restart art-direction discovery unless the user explicitly changes a locked rule.
+This sequence is the default continuation workflow. A new chat should not restart game-architecture or art-direction discovery unless the user explicitly changes a locked rule.
 
 ---
 
 # 12. Current Repository Roles
 
-`/docs` contains the public playtest host. At the time this README was formalized it contains the published runtime files, including the main playtest page and a `play-v4.html` entry point.
+`/docs` contains the active public Phaser/open-world action-RPG playtest host, including the main runtime and `play-v4.html` entry point.
 
 The root Markdown documents are production-control documents. They should remain readable and current because they are the primary handoff mechanism between sessions.
 
-The development repository remains separate/private; this repository is the public playtest and art-production handoff surface.
+The private Unity Combat Strategy repository is legacy combat-reference material, not the active game runtime.
 
 ---
 
@@ -305,14 +376,19 @@ The development repository remains separate/private; this repository is the publ
 
 Keep these rules visible during every art pass:
 
+- **Until PR #11 is merged, reference `development/art-review-workflow-v1` before relying on `main`.**
+- **Read and obey root `AGENTS.md` and `PHASER_WORLD_REFACTOR_V0.md` before world/runtime work.**
 - **The world must match the quality and pixel-art style of the approved character models.**
 - **Characters must be fully clothed and accessorized in presentation-quality previews.**
 - **The hidden 32×32 square grid must not be visible to the player.**
 - **Movement/facing supports eight directions.**
 - **The game uses a flat-faced 3/4 cabinet projection.**
 - **Playable environments are layered runtime constructions, not baked full-screen illustrations.**
+- **Integrated gameplay review means an actual running Phaser-canvas view, not a collage/source composite.**
 - **Imperial City must feel dense, lived-in, martial, analog-industrial, and distinctly Astro Fighters.**
+- **The active early-player route is Harbor → Market → Residential/Canal → Academy.**
 - **The Master Art Direction Prompt determines how to build.**
+- **The early-player plan determines what to build first.**
 - **The checklists determine what remains to build.**
 - **The rubric determines whether the work is acceptable.**
 - **Below the quality gate, keep working without asking for permission to continue.**
@@ -323,7 +399,11 @@ Keep these rules visible during every art pass:
 # Development Loop Summary
 
 ```text
-READ MASTER ART DIRECTION
+CONFIRM AUTHORITATIVE DEVELOPMENT BRANCH
+        ↓
+READ AGENTS + GAME ARCHITECTURE + MASTER ART DIRECTION
+        ↓
+CHECK EARLY-PLAYER PRODUCTION QUEUE
         ↓
 CHECK WORLD + CHARACTER CHECKLISTS
         ↓
@@ -331,7 +411,7 @@ SELECT NEXT DEPENDENCIES
         ↓
 DEVELOP MATCHING PRODUCTION ASSETS
         ↓
-INTEGRATE INTO PLAYABLE PHASER SCENE
+INTEGRATE INTO PLAYABLE PHASER ACTION-RPG SCENE
         ↓
 SCORE INTEGRATED VIEW WITH ART RUBRIC
         ↓

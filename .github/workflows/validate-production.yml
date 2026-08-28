@@ -1,0 +1,33 @@
+name: Validate Astro Fighters Production Contract
+
+on:
+  push:
+    branches:
+      - main
+      - development/**
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-production:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Use Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Check production QA tool syntax
+        run: |
+          node --check tools/validate-production.mjs
+          node --check tools/validate-source-png.mjs
+          node --check docs/js/art-review.js
+          node --check docs/js/playtest-v4-patch.js
+
+      - name: Validate production manifest and art rubric
+        run: node tools/validate-production.mjs

@@ -1,0 +1,42 @@
+{
+  "version": 1,
+  "maxScore": 50,
+  "automaticFailures": [
+    "World art is visibly lower quality than the approved character pixel art.",
+    "Environment primarily consists of flat rectangles, primitive geometry, or blockout assets.",
+    "Bare or mannequin-like player/NPC bodies are used in a presentation-quality preview.",
+    "Characters lack appropriate clothing, footwear, hair, equipment, or accessories.",
+    "Characters look pasted over scenery rather than integrated into it.",
+    "Buildings are represented by generic boxes rather than authored architecture.",
+    "A baked full-screen image substitutes for layered playable world assets.",
+    "The hidden 32×32 grid is visible through lines, checkerboarding, repeated seams, or obvious tile rhythm.",
+    "Different elements visibly use different pixel-art styles or pixel densities.",
+    "Environment art resembles generic RPG Maker, vector art, clean modern tilesets, or generic cyberpunk.",
+    "Eight-direction movement is represented using obviously incorrect directional character bodies.",
+    "Anatomical weapon or equipment routing is wrong for one or more facings.",
+    "Clothing layers incorrectly cover anatomy because of coarse overlay ordering.",
+    "Modular isolates contain neighboring-item contamination or presentation artifacts.",
+    "Automatically reduced or segmented assets are presented as pixel-final without target-level cleanup.",
+    "Occluding scenery permanently hides the controlled character without an authored visibility solution.",
+    "A preview is called production quality while still relying on known placeholder art."
+  ],
+  "categories": [
+    {"id":"homogeneity","name":"Character / World Style Homogeneity","min":4,"critical":true},
+    {"id":"characterCompletion","name":"Character Completion & Clothing","min":4,"critical":true},
+    {"id":"environmentQuality","name":"Environment Pixel-Art Quality","min":4,"critical":true},
+    {"id":"worldIdentity","name":"Astro Fighters World Identity","min":4,"critical":true},
+    {"id":"materials","name":"Material Quality & Variety","min":3,"critical":false},
+    {"id":"architecture","name":"Architectural Detail & Silhouette","min":4,"critical":true},
+    {"id":"livedIn","name":"Lived-In Density & Environmental Storytelling","min":3,"critical":false},
+    {"id":"projection","name":"Projection, Depth & Occlusion","min":4,"critical":true},
+    {"id":"grid","name":"Hidden-Grid Concealment & Movement Readability","min":4,"critical":false},
+    {"id":"screenshot","name":"Gameplay Screenshot Readiness","min":null,"critical":false,"publicMinimum":4}
+  ],
+  "thresholds": [
+    {"min":46,"max":50,"code":"lock-quality","label":"LOCK QUALITY"},
+    {"min":42,"max":45,"code":"production-approved","label":"PRODUCTION APPROVED"},
+    {"min":37,"max":41,"code":"conditional","label":"CONDITIONAL"},
+    {"min":30,"max":36,"code":"rework-required","label":"REWORK REQUIRED"},
+    {"min":0,"max":29,"code":"rejected","label":"REJECTED"}
+  ]
+}
