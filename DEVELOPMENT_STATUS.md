@@ -1,168 +1,150 @@
 # Astro Fighters — Current Development Status
 
-**Updated:** 2026-08-27  
-**Working branch:** `development/art-review-workflow-v1`  
-**Draft PR:** #11
+**Updated:** 2026-08-28  
+**Authoritative branch:** `main`  
+**Current milestone:** Imperial City Early Player Experience v0  
+**Immediate runtime gate:** Phaser World Refactor v0 + Slice 0 Foundation Courtyard
 
 ## Current game architecture
 
-Astro Fighters is being developed as an **open-world, real-time action-combat RPG**.
+Astro Fighters is an **open-world, real-time action-combat RPG**. The active public implementation is the **Phaser/browser runtime under `/docs`**.
 
-The active public gameplay implementation is the **Phaser/browser RPG runtime under `/docs`**. Development should advance that runtime, its open-world traversal, real-time action combat, character systems, world integration, and production art.
+The private `Shadesovereyes/Astro-Fighters` Unity project is a **legacy turn-based tactical Combat Strategy vertical slice**. It is reference material for reusable combat logic and math only. Do not redirect current development into Unity and do not port the old turn loop, action-slot scheduler, hex encounter structure, or prototype UX into the open-world RPG.
 
-The private `Shadesovereyes/Astro-Fighters` Unity project is a **legacy turn-based tactical Combat Strategy vertical slice**. It is not the current game, target runtime, scene architecture, or roadmap. It may be consulted for reusable combat design logic and math, but those systems must be translated into real-time action-RPG semantics.
+When legacy combat logic is reused, preserve design intent and useful math, then adapt it to real-time movement, hit windows, animation commitment, collision, interrupts, recovery/cooldowns, resources, player input, and AI behavior.
 
-Reusable ideas from the Unity slice may include damage/mitigation, stamina/chakra, poise/stagger, statuses/CC, stealth/awareness, grapples, counters, summons, Seigan, astrology affinities, ability data, and balance assumptions. Do **not** port its round loop, five-action slot queue, dynamic turn scheduler, hex encounter structure, IMGUI presentation, or Unity battle/recovery scenes as though those define the RPG.
+## Repository authority
 
-If repository assumptions conflict, the current public RPG runtime and current locked production documents take precedence over legacy Unity implementation details.
+`main` is the current repository authority unless `README.md` or this file explicitly identifies a newer active development branch.
 
-## Active gameplay/art milestone
+Before development, read in this order:
 
-The active milestone is **Imperial City Early Player Experience v0**.
+1. `README.md` — repository orientation and game architecture
+2. `AGENTS.md` — repository/runtime/development behavior
+3. `ASTRO_FIGHTERS_LOCKED_MASTER_ART_DIRECTION_PROMPT.md` — visual canon
+4. `PHASER_WORLD_REFACTOR_V0.md` — temporary world-runtime migration gate
+5. `IMPERIAL_CITY_EARLY_PLAYER_EXPERIENCE_V0.md` — current route/scope/order
+6. `Astro Fighters — Art Preview Review Rubric.md` — human review rules
+7. `docs/data/art-review-rubric.json` — machine scoring authority
+8. world and character production checklists — completion inventories
+9. `production/asset-manifest.json` — current machine-readable package contract
 
-Production authority for this milestone is [`IMPERIAL_CITY_EARLY_PLAYER_EXPERIENCE_V0.md`](./IMPERIAL_CITY_EARLY_PLAYER_EXPERIENCE_V0.md).
+Git history is the iteration archive. Old development branches and superseded package PRs are historical reference, not current authority.
 
-The first connected player route is:
+## Active milestone
+
+The first connected production-quality route is:
 
 > **SOUTHERN HARBOR ARRIVAL → DOCKS / SHIPWRIGHT → MARKET / SHOPPING STREET → RESIDENTIAL / CANAL TRANSITION → ASTRO FIGHTER ACADEMY EXTERIOR → ACADEMY INTERIOR / SENSEI TUTORIAL**
 
-The route must be developed as one coherent open-world action-RPG experience, not as disconnected art mockups or combat arenas.
-
-The Academy tutorial portion must retain the established early-player progression intent:
+The Academy tutorial retains the established progression intent:
 
 - Sensei teaches the combat foundation;
 - General/Trap ability access is introduced;
 - the player receives **100 mon**;
 - the player chooses **3 distinct trap types, 10 of each**;
-- the result is verified in the live inventory/paper-doll/action-RPG flow.
+- inventory/paper-doll/action-RPG state reflects the result.
 
-The harbor must visually support the shipwright/boat system that later connects to the crab-island/cave route, but those remote zones are outside the Imperial City v0 art-completion gate.
+Crab-island/cave production remains outside this milestone gate.
 
-### Immediate next visual deliverable
+## Immediate technical gate
 
-**Slice 0 — Foundation Courtyard Test**
+The current browser prototype genuinely uses Phaser, but its world layer still contains prototype debt:
 
-Before multiplying district-specific assets, integrate this narrow benchmark composition in Phaser:
+- baked full-frame district imagery;
+- visible 32×32 route/grid presentation;
+- fixed integer tile-step exploration;
+- collision tied too closely to grid rectangles;
+- limited live depth/occlusion behavior.
 
-- shared Imperial stone surface;
-- timber/plaster architectural wall;
-- aged stone foundation;
-- timber post + horizontal beam;
-- street/building threshold;
-- drainage element;
-- one sign/lantern/noren dressing element;
-- one foreground occluder;
-- fully dressed benchmark player character.
+`PHASER_WORLD_REFACTOR_V0.md` is the active correction plan.
 
-Slice 0 must prove character/world homogeneity, projection, occlusion, hidden-grid concealment, gameplay-scale readability, and the source→runtime asset pipeline before Harbor production expands.
+Before Slice 0 can be called integrated, the runtime must prove:
 
-## Current production state
+- continuous real-time movement;
+- no persistent visible grid;
+- multiple separate environment textures/layers loaded by Phaser;
+- collision authored independently from appearance imagery;
+- live foreground/background occlusion;
+- eight-direction player facing/animation;
+- crisp pixel rendering;
+- an integrated review captured from the actual Phaser canvas.
 
-No world or character checklist item is currently recorded as rubric-approved/struck through. Existing runtime art must therefore be treated as unapproved until an integrated Phaser review passes the mandatory gate.
+A collage, presentation board, source assembly, contact sheet, or mock renderer is never an integrated gameplay preview.
 
-The active art package remains **pre-art / contracted**. No checklist item was marked complete during the workflow/QA engineering work on this branch.
-
-## Repository boundary
-
-This repository is the **current public open-world action-RPG playtest/runtime surface and art-production control surface** described by the root README. It records the current runtime, contracts, acceptance rules, logical source registration, runtime destinations, review tooling, and handoff state.
-
-Do not redirect gameplay development into the private Unity Combat Strategy vertical slice merely because its combat engine is more mature in some areas. Extract reusable mechanics from it only when they help the current real-time RPG.
-
-Source art may be authored or retained outside this public runtime repository, but do not assume the private Unity Combat Strategy repository is the source-art authority. The public manifest, locked art direction, checklists, runtime paths, and integrated review state define what the current RPG expects.
-
-Do not substitute generated/procedural placeholder art merely to satisfy a source path. The locked source workflow still applies wherever source-authority art is produced.
-
-## Active dependency package
+## Active production package
 
 `AF-IC-SHARED-FOUNDATION`
 
-The package contract in [`production/asset-manifest.json`](./production/asset-manifest.json) is now complete enough to begin source production. It locks:
+The package is currently **contracted** in `production/asset-manifest.json`. Its production source masters and runtime assets remain missing/unapproved in the repository.
 
-- canonical `N, NE, E, SE, S, SW, W, NW` facing order;
-- 480×640 per-direction character source canvas;
-- shared character body center `[240,600]` and foot-contact line `y=600`;
-- 48×64 runtime benchmark frame and pivot `[24,60]`;
-- 10× world source-to-runtime scale for this package;
-- source/runtime dimensions for every shared-foundation world dependency;
-- world layer role, palette/material families, anchor, collision role, occlusion role, and stable runtime path;
-- explicit `{direction}` source patterns for base-underlayer and dressed benchmark masters;
-- explicit `{layer}/{direction}` modular character source registration;
-- fully dressed unarmed Academy street-fighter benchmark outfit and palette families;
-- the mandatory source gate that blocks runtime derivation until reference, modular assembly, and isolation/anchor QA pass.
+Locked package facts include:
 
-The package remains `contracted`; its actual source images are still missing/unapproved.
+- canonical directions `N, NE, E, SE, S, SW, W, NW`;
+- `S = front`, `N = back`;
+- character source canvas `480×640`;
+- source body center `[240,600]`;
+- source foot-contact line `y=600`;
+- runtime frame `48×64`;
+- runtime pivot `[24,60]`;
+- world source scale `10×` for the shared-foundation contract;
+- source approval before runtime derivation;
+- actual Phaser integration before checklist completion.
 
-## Runtime / workflow engineering completed in this branch
+## Slice 0 — Foundation Courtyard
 
-- Clarified in the root README that the target game is an open-world real-time action RPG and that the private Unity project is a legacy turn-based Combat Strategy vertical slice/reference.
-- Added `IMPERIAL_CITY_EARLY_PLAYER_EXPERIENCE_V0.md` as the scoped production queue for the harbor-to-Academy early-player route.
-- Extracted the v4 launcher hotfix from inline HTML into `docs/js/playtest-v4-patch.js` without intentionally changing behavior.
-- Reduced `docs/play-v4.html` to a stable launcher that loads the versioned patch file.
-- Added `docs/art-review.html`, a GitHub Pages review surface that enforces automatic-failure and critical-minimum rules.
-- Added `docs/data/art-review-rubric.json` as the machine-readable scoring authority used by the review surface.
-- Synced the browser rubric with the revised Master Prompt automatic failures for anatomical equipment routing, clothing occlusion, contaminated modular isolates, and uncleaned automatic reductions.
-- Added `production/asset-manifest.json` as the single-current-state registration/production contract.
-- Added `tools/validate-production.mjs` to reject drift in canonical direction rules, source/runtime dimensions, package registration, score gates, and approval evidence.
-- Added `tools/validate-source-png.mjs` for PNG-level QA of contracted world and character assets. It checks expected dimensions, RGBA format, hard alpha, non-empty pixels, transparency where required, and reports registration/contact/color diagnostics.
-- Added `.github/workflows/validate-production.yml` so GitHub Actions syntax-checks the QA/browser scripts and runs the production contract validator on pushes and pull requests.
+Slice 0 is the next production proof. It must combine, in the running Phaser scene:
 
-## Combat Strategy adaptation rule
+- Imperial stone ground and wear/decal treatment;
+- street/building threshold;
+- drainage channel/grate;
+- aged stone foundation;
+- timber/plaster wall;
+- timber post and horizontal beam;
+- one restrained sign/lantern/noren-style dressing cue;
+- one foreground occluder;
+- one fully dressed benchmark player.
 
-When a mechanic is brought forward from the Unity Combat Strategy vertical slice, perform an explicit adaptation pass before integrating it into the RPG:
+The purpose is to prove character/world homogeneity, projection, hidden-grid concealment, traversal scale, collision, depth, occlusion, and the source-to-runtime pipeline before Harbor production expands.
 
-1. identify the mechanic's design intent and reusable math;
-2. remove assumptions that depend on turns, slots, or a closed hex encounter;
-3. define its real-time trigger/timing model;
-4. define movement, collision, animation commitment, hit window, interrupt, recovery, cooldown/resource, and AI implications as applicable;
-5. implement it in the Phaser action-RPG runtime;
-6. validate it in live movement/combat rather than judging it by Unity vertical-slice behavior alone.
+Prior collage-derived Slice 0 boards and extracted candidates are **reference/scaffolding only**. They are not production source masters and must not be promoted merely because they were isolated or resized.
 
-The Unity slice is a source of **combat knowledge**, not a second active game that should be developed in parallel.
+## Review gate
 
-## Source QA commands
+The machine rubric in `docs/data/art-review-rubric.json` and the human-readable rubric must stay synchronized.
 
-World source example:
+- **0–29:** rejected
+- **30–36:** rework required
+- **37–41:** conditional/internal candidate only
+- **42–45:** production approved
+- **46–50:** lock quality
 
-```bash
-node tools/validate-source-png.mjs world stone-clean source path/to/stone-clean.png
-```
+Approval additionally requires zero automatic failures and all critical minimums passing. Checklist completion begins only at **42+**.
 
-World runtime candidate example:
+Integrated review is valid only from the running Phaser canvas.
 
-```bash
-node tools/validate-source-png.mjs world timber-post runtime path/to/timber-post.png
-```
+## Completion-state ownership
 
-Character source example:
+To avoid duplicate or contradictory progress tracking:
 
-```bash
-node tools/validate-source-png.mjs character S source path/to/base-underlayer/S.png base
-```
+- the **world checklist** owns world-asset completion state;
+- the **character checklist** owns character-asset completion state;
+- `production/asset-manifest.json` owns the active package/runtime registration state;
+- `IMPERIAL_CITY_EARLY_PLAYER_EXPERIENCE_V0.md` owns route scope and production order;
+- this file records only the current handoff snapshot.
 
-Character dressed benchmark example:
+Do not use this file as a second checklist.
 
-```bash
-node tools/validate-source-png.mjs character NE source path/to/dressed-benchmark/NE.png dressed
-```
+## Next work order
 
-The PNG tool is diagnostic/contract enforcement only. Passing it does not make an asset production-approved; source comparison, target pixel cleanup, Phaser integration, and the mandatory integrated rubric still remain downstream gates.
+1. complete the Phaser world refactor minimum needed for Slice 0;
+2. author/approve the shared-foundation source assets and player source authorities;
+3. run source isolation/anchor/assembly QA;
+4. derive and manually clean runtime candidates only after source approval;
+5. assemble Slice 0 from separate assets in Phaser;
+6. capture the actual Phaser gameplay frame and score it;
+7. repair until all critical gates pass;
+8. at 42+, update only the relevant checklist/manifest completion state;
+9. proceed into Harbor Arrival, then Market → Residential/Canal → Academy Exterior → Academy Interior/Sensei.
 
-## Next production gate
-
-Execute the production queue in [`IMPERIAL_CITY_EARLY_PLAYER_EXPERIENCE_V0.md`](./IMPERIAL_CITY_EARLY_PLAYER_EXPERIENCE_V0.md).
-
-The immediate order is:
-
-1. complete the shared-foundation surface/architecture source references and source masters needed by Slice 0;
-2. complete male and female base-underlayer turnarounds on the shared 480×640 lattice;
-3. complete the fully dressed benchmark player turnaround and modular layer assembly;
-4. perform source isolation/anchor QA;
-5. derive and manually clean the 48×64 runtime candidates;
-6. integrate Slice 0 in Phaser and review it in the actual gameplay view;
-7. repair until the critical gates pass;
-8. proceed into Imperial Harbor Arrival production;
-9. then connect Market → Residential/Canal → Academy Exterior → Academy Interior/Sensei tutorial;
-10. perform a full harbor-to-Academy route review;
-11. only at 42+ with no automatic failures and all critical minimums passing, strike the corresponding checklist items.
-
-If any upstream gate fails, repair it before continuing downstream. Git history is the iteration archive; keep only current authorities and current handoff state.
+If an upstream gate fails, repair it before continuing downstream.
