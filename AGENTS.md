@@ -2,30 +2,42 @@
 
 These instructions apply to the entire `Shadesovereyes/Astro-Fighters-Playtest` repository.
 
-## Authority and required reading
+## Authority order
 
-Before changing runtime code, world art, character art, production manifests, checklists, or review status, read and obey:
+Before changing runtime code, world art, character art, production manifests, checklists, or review state, read:
 
 1. `README.md`
-2. `ASTRO_FIGHTERS_LOCKED_MASTER_ART_DIRECTION_PROMPT.md`
-3. `PHASER_WORLD_REFACTOR_V0.md`
-4. `IMPERIAL_CITY_EARLY_PLAYER_EXPERIENCE_V0.md`
-5. `Astro Fighters — Art Preview Review Rubric.md`
-6. both active world/character production checklists
+2. `AGENTS.md`
+3. `ASTRO_FIGHTERS_LOCKED_MASTER_ART_DIRECTION_PROMPT.md`
+4. `PHASER_WORLD_REFACTOR_V0.md`
+5. `IMPERIAL_CITY_EARLY_PLAYER_EXPERIENCE_V0.md`
+6. `Astro Fighters — Art Preview Review Rubric.md`
+7. `docs/data/art-review-rubric.json`
+8. both production checklists
+9. `production/asset-manifest.json`
+10. `DEVELOPMENT_STATUS.md`
 
-If an older implementation conflicts with these instructions, the older implementation is technical debt unless the user explicitly relocks it.
+If an older implementation, branch, package note, or prototype conflicts with these authorities, treat the older material as technical debt or historical reference unless the user explicitly relocks it.
+
+`main` is authoritative unless README or Development Status explicitly identifies a newer active development branch.
 
 ---
 
-# Locked Runtime Standard
+# Locked runtime standard
 
 Astro Fighters is an **open-world, real-time action-combat RPG**. The active public runtime is **Phaser/browser under `/docs`**.
 
-Phaser is not merely a wrapper around a flattened illustration. Production gameplay scenes must be constructed and rendered by Phaser from separate runtime assets and world data.
+The private Unity project is a legacy turn-based tactical Combat Strategy vertical slice. It may supply reusable combat design intent/math, but it is not the current runtime, scene architecture, movement model, roadmap, or release target.
 
-## Required production world architecture
+Do not reintroduce the Unity turn loop, five-action slot queue, dynamic turn scheduler, hex battlefield as exploration space, or prototype IMGUI flow.
 
-A production gameplay scene must use separate Phaser objects, containers, tile/object data, or equivalent runtime layers for the world, including as applicable:
+---
+
+# Phaser world standard
+
+Production gameplay scenes must be constructed and rendered by Phaser from separate runtime assets and world data.
+
+Use separate objects/containers/layers as appropriate for:
 
 1. ground
 2. decals / wear
@@ -39,131 +51,177 @@ A production gameplay scene must use separate Phaser objects, containers, tile/o
 10. local shadows
 11. atmosphere / FX
 
-The exact implementation may evolve, but the world must remain genuinely layered, traversable, depth-aware, and authored as game space.
+The exact implementation may evolve, but playable space must remain layered, traversable, depth-aware, and authored as game space.
 
 ## Forbidden production shortcuts
 
-The following may be used only as reference, concept, diagnostic, or temporary scaffolding and **must never be presented as production-integrated gameplay**:
+The following are reference/QA/scaffolding only and must never be presented as production-integrated gameplay:
 
-- photo-collage or cut-and-paste presentation composites;
-- Python/PIL composites presented as gameplay;
-- generated montage boards presented as gameplay;
-- a single baked full-screen district image standing in for playable world construction;
-- cropped pieces of a presentation board treated as production modular assets without proper source-authoring and QA;
-- a custom mock canvas or isolated renderer presented as proof of Phaser integration;
-- mixed-resolution imagery that reads as a collage rather than one coherent pixel-art game;
+- photo-collage or cut-and-paste composites;
+- Python/PIL composites;
+- generated montage boards;
+- single baked full-screen district images standing in for playable construction;
+- cropped presentation-board pieces treated as production modular assets without independent authoring/QA;
+- custom mock canvases or isolated renderers presented as Phaser proof;
+- mixed-resolution imagery that reads as a collage;
 - persistent visible 32×32 grid overlays;
-- pavement, floorboards, prop spacing, or architecture that visibly exposes the hidden gameplay grid;
+- repeated seams/spacing that reveal the hidden grid;
 - ordinary exploration driven by fixed integer tile stepping.
 
-A beautiful concept image is still concept art. A technically loaded PNG is still not proof of world integration.
+A beautiful concept image is still concept art. A loaded PNG is not proof of world integration.
 
 ---
 
-# Phaser Integration Gate
+# Integration gate
 
 An integrated gameplay-art review is valid only when the reviewed scene is rendered by the actual Phaser runtime.
 
-For a scene to count as integrated, verify in Phaser:
+Verify in Phaser:
 
 - separate runtime assets are loaded and assembled as world layers;
-- the player moves through the scene in real time;
-- collision is authored independently from the appearance image;
-- eight-direction facing and animation respond to movement;
+- the player moves continuously in real time;
+- collision is authored independently from appearance imagery;
+- eight-direction facing/animation responds to movement;
 - foreground/background depth ordering works;
 - the player can pass in front of and behind appropriate objects;
-- cutaways/roof behavior works by authored architectural region where applicable;
+- authored cutaways/roof behavior works where applicable;
 - interactions remain readable;
 - the hidden grid is not persistently visible or inferable;
-- pixel-art rendering remains crisp and stylistically homogeneous;
-- the screenshot or video used for integrated review comes from the running Phaser canvas.
+- pixel-art rendering remains crisp and homogeneous;
+- review screenshots/video come from the running Phaser canvas.
 
-Do not award an integrated rubric score to a presentation board, collage, source assembly, concept painting, isolated asset preview, or non-Phaser mockup.
+Do not award an integrated rubric score to a presentation board, collage, source assembly, concept painting, contact sheet, isolated asset preview, or non-Phaser mockup.
 
 ---
 
-# Exploration Movement Standard
+# Exploration movement standard
 
-Ordinary exploration must use continuous real-time movement rather than fixed tile stepping.
+Ordinary exploration uses continuous real-time movement:
 
-Required behavior:
-
-- input from WASD/arrows/controller or equivalent;
-- movement expressed in pixels per second;
+- WASD/arrows/controller or equivalent input;
+- velocity in pixels/second;
 - delta-time update;
 - normalized diagonal movement;
-- eight-direction facing selected from the movement vector;
-- idle/walk/ready state driven by real movement state;
-- authored collision against world geometry;
-- visually smooth movement while retaining pixel-snapped rendering where appropriate.
+- eight-direction facing from movement vector;
+- idle/walk/ready state from real movement state;
+- authored world collision;
+- pixel-snapped rendering where appropriate.
 
-The logical 32×32 grid may remain internally useful for AI, combat telegraphs, navigation sectors, encounter logic, placement, or ability systems. It is **structural, not graphical**, and must not dictate the visible cadence of normal exploration.
+The logical 32×32 grid may still support AI, navigation sectors, authored placement, combat telegraphs, encounter logic, or abilities. It is structural, not graphical.
 
 ---
 
-# Pixel Rendering Standard
+# Pixel rendering standard
 
-Retain the Phaser pixel-rendering contract unless the user explicitly changes it:
+Retain unless explicitly changed:
 
 - `pixelArt: true`
 - `antialias: false`
 - `roundPixels: true`
 - nearest-neighbor / pixel-preserving scaling
-- coherent runtime pixel density across characters, props, architecture, ground, VFX, and UI-adjacent gameplay art
+- coherent runtime pixel density across characters, props, architecture, ground, VFX, and gameplay-adjacent UI
 
-Do not smooth, photographically interpolate, or mix incompatible pixel densities in production gameplay.
-
----
-
-# Art Pipeline Standard
-
-Use the locked workflow:
-
-`CONTRACT → REFERENCE → MODULAR SOURCE → ISOLATION QA → SOURCE ASSEMBLY → SOURCE APPROVAL → RUNTIME DERIVATION → TARGET-PIXEL CLEANUP → PHASER INTEGRATION → RUBRIC`
-
-Reference images establish target quality and design. They do not become game-ready simply by being cropped, reduced, or composited.
-
-World and character modules must be purpose-built for the runtime contract, including correct anchors, alpha, palette, scale, direction, collision/occlusion role, and layer routing.
+Do not smooth or photographically interpolate production pixel art.
 
 ---
 
-# Review and Completion Rules
+# Art pipeline standard
 
-The active art-review rubric remains mandatory.
+Use:
 
-- Below the gate: continue development automatically.
-- `37–41`: conditional/internal candidate only if all automatic and critical gates pass.
-- `42–45`: production approved.
-- `46–50`: lock-quality target.
+`CONTRACT → REFERENCE → PURPOSE-BUILT MODULAR SOURCE → ISOLATION/ANCHOR QA → SOURCE ASSEMBLY → SOURCE APPROVAL → RUNTIME DERIVATION → TARGET-PIXEL CLEANUP → PHASER INTEGRATION → RUBRIC`
 
-A checklist item may be marked complete only after representative **actual Phaser gameplay integration** passes the required score and no automatic failure is present.
+Reference images define design/quality targets. They do not become production-ready by cropping, shrinking, segmenting, or compositing.
 
-The following are automatic blockers regardless of visual attractiveness:
-
-- collage appearance;
-- baked-background substitution for layered game space;
-- visible/inferable permanent grid;
-- mismatched character/environment pixel density or style;
-- broken depth/occlusion;
-- mannequin/incomplete presentation characters;
-- non-Phaser preview presented as integrated gameplay;
-- fixed grid-step exploration presented as the final open-world movement model.
+World and character modules must be purpose-built for the runtime contract, including anchors, alpha, palette, scale, direction, collision/occlusion role, and layer routing.
 
 ---
 
-# Current Legacy Debt
+# Generation vocabulary discipline
 
-The existing Phaser vertical slice contains prototype shortcuts, including full-frame environment images and fixed grid-step exploration. Their presence in the current build does **not** make those patterns approved production architecture.
+The Imperial City has repeatedly drifted when generic latent-space magnet words are used in generation prompts. Do not use the following as generic generation anchors:
 
-Treat `PHASER_WORLD_REFACTOR_V0.md` as the correction plan. Refactor toward modular Phaser world construction and continuous real-time movement before calling Imperial City Slice 0 production-integrated.
+- `neon`
+- `wet street` / `wet asphalt` / reflective pavement
+- `machine hall`
+- `engine room`
+- `boiler`
+- generic `machinery`
+- `pistons`
+- `gears`
+- `clockwork`
+- generic `brass`
+- generic `pipes`
+- `steam` as a hero aesthetic
+- `furnace`
+- generic `factory`
+- `monumental city`
+- generic `tower` / `spire`
+- `ziggurat`
+- `pagoda`
+- `temple gate`
+- generic `Asian city`
+- `cyberpunk`
+- `Blade Runner`
+- magenta/cyan glow language
 
-Do not regress to the old Unity turn-based tactical architecture. The private Unity project is reference material for reusable combat logic only.
+When a checklist contains a legacy functional label such as a pipe, control box, tower, or wet harbor surface, interpret the **function** through the Master Art Direction instead of copying the risky noun into a generation prompt.
+
+Preferred Imperial City language includes:
+
+- pale civic stone, slate, patinated copper, warm aged timber;
+- sealed/recessed service channels and integrated instrument housings;
+- restrained clean-iron brackets and practical junction hardware;
+- dry matte streets with only localized waterline darkening where physically appropriate;
+- warm sodium amber and weak cathode green only when evening lighting is needed;
+- horizontal inherited civic massing and named canonical apparatus rather than generic industrial spectacle.
 
 ---
 
-# Handoff Rule
+# Review and completion rules
 
-When reporting visual/runtime progress, clearly distinguish among:
+The machine rubric in `docs/data/art-review-rubric.json` is the scoring authority. The Markdown rubric must mirror it.
+
+- `0–29`: rejected
+- `30–36`: rework required
+- `37–41`: conditional/internal candidate only
+- `42–45`: production approved
+- `46–50`: lock quality
+
+Checklist completion requires **42+**, zero automatic failures, and all critical minimums passing.
+
+Current automatic blockers include collage appearance, baked-background substitution, visible/inferable grid, mismatched pixel density/style, broken depth/occlusion, mannequin characters, non-Phaser imagery presented as integrated gameplay, and fixed grid-step exploration presented as final open-world movement.
+
+---
+
+# Completion-state ownership
+
+To prevent redundant state:
+
+- world checklist owns world completion;
+- character checklist owns character completion;
+- `asset-manifest.json` owns active package/runtime registration;
+- EPE owns route scope and production order;
+- Development Status owns only the current handoff snapshot;
+- Git history owns iteration history.
+
+Do not create permanent versioned status files or duplicate completion checklists.
+
+---
+
+# Temporary documents and debt
+
+`PHASER_WORLD_REFACTOR_V0.md` is a temporary migration authority. Keep it until its completion gate passes, then retire/archive it rather than allowing it to become permanent historical process text.
+
+`production/SLICE_0_SOURCE_ART_BRIEF.md` is a temporary active execution brief. Retire it after Slice 0 is locked and the next package becomes authoritative.
+
+The current `docs/index.html`, `play-v4.html`, and launcher patch may contain prototype debt. Their existence does not make their architecture canonical.
+
+---
+
+# Handoff rule
+
+When reporting progress, clearly distinguish:
 
 - concept/reference art;
 - modular source art;
@@ -171,4 +229,4 @@ When reporting visual/runtime progress, clearly distinguish among:
 - Phaser-integrated gameplay;
 - rubric-approved production work.
 
-Never describe one category as another. In particular, never call a collage, source composite, or baked scene image an in-engine Phaser gameplay preview.
+Never describe one category as another.
