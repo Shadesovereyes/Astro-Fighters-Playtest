@@ -1,7 +1,7 @@
 # Astro Fighters — Current Development Status
 
 **Updated:** 2026-08-28  
-**Authoritative baseline:** `main`  
+**Authoritative branch:** `main`  
 **Active development branch:** `development/slice0-shared-foundation-v1`  
 **Current milestone:** Imperial City Early Player Experience v0  
 **Current gate:** Slice 0 Foundation Courtyard production assets + live Phaser review
@@ -16,7 +16,7 @@ When legacy combat logic is reused, preserve design intent and useful math, then
 
 ## Repository authority
 
-`main` remains the production baseline. Active Slice 0 work is being developed on `development/slice0-shared-foundation-v1` until reviewed/merged.
+`main` remains the authoritative production state. Active Slice 0 changes are being developed on `development/slice0-shared-foundation-v1` until reviewed and merged; that working branch does not supersede `main` as production authority.
 
 Before development, read in this order:
 
@@ -50,7 +50,7 @@ Crab-island/cave production remains outside this milestone gate.
 
 ## Phaser world refactor — technical milestone implemented
 
-The first runtime refactor milestone is now implemented on `development/slice0-shared-foundation-v1` through `docs/js/world-refactor-v0.js` and wired into `docs/play-v4.html`.
+The first runtime refactor milestone is implemented on `development/slice0-shared-foundation-v1` through `docs/js/world-refactor-v0.js` and wired into `docs/play-v4.html`.
 
 The refactor layer deliberately preserves proven gameplay systems while replacing the legacy exploration/world-presentation path.
 
@@ -73,7 +73,7 @@ Implemented:
 - static contract validation in `tools/validate-world-refactor.mjs`;
 - CI syntax + contract coverage for the refactor.
 
-GitHub Actions run **#53** passed for commit `faf3fd20734e1ea7e6fc5a38baf91563727287e4`.
+GitHub Actions run **#53** passed for commit `faf3fd20734e1ea7e6fc5a38baf91563727287e4` before the handoff wording update.
 
 ### Important status distinction
 
@@ -104,7 +104,7 @@ Locked package facts include:
 
 ## Slice 0 — next art milestone
 
-The next legitimate milestone is now **production replacement of the technical scaffold with a coherent shared-foundation asset family**.
+The next legitimate milestone is **production replacement of the technical scaffold with a coherent shared-foundation asset family**.
 
 First benchmark family:
 
