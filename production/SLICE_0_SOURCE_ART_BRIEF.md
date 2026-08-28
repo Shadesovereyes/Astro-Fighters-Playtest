@@ -1,52 +1,83 @@
 # Astro Fighters — Slice 0 Source Art Brief
 
-**Status:** Active reference-production brief  
+**Status:** Active execution brief  
 **Package:** `AF-IC-SHARED-FOUNDATION`  
 **Milestone:** Imperial City Early Player Experience v0  
-**Target:** Slice 0 — Foundation Courtyard Test  
+**Target:** Slice 0 — Foundation Courtyard  
 **Runtime:** Phaser/browser under `/docs`
+
+This is a temporary production brief. Retire/archive it after Slice 0 is locked and the next package becomes authoritative.
 
 ---
 
 # 1. Purpose
 
-Slice 0 is the first visual proof that the Imperial City world, playable character, projection, lighting, layering, and hidden-grid rules can coexist at production quality.
+Slice 0 is the first proof that Imperial City world art, the playable character, projection, lighting, layering, hidden-grid concealment, traversal, collision, and occlusion can coexist at production quality.
 
-The first deliverable is a **reference target**, not a baked gameplay background and not a substitute for modular source files. It establishes the look that the separately authored world modules and character sources must match.
+The first visual reference is a **target**, not a baked gameplay background and not a substitute for modular source files.
 
-The reference must answer one question:
+It must answer:
 
-> Can a finished Astro Fighters street-fighter character stand inside a small Imperial City architectural slice and make the entire image read as one premium game rather than a premium character pasted onto weaker scenery?
+> **Can a finished Astro Fighters street-fighter character inhabit a compact Imperial City material/architecture slice and make the whole image read as one premium game?**
 
-Only after that answer is yes should modular source production continue.
+Only after the reference target is visually sound should purpose-built modular source production proceed.
 
 ---
 
-# 2. Required Reference Composition
+# 2. Relationship to the active manifest
 
-Create one compact gameplay-oriented courtyard/street-edge composition using the locked flat-faced 3/4 cabinet projection.
+`production/asset-manifest.json` contracts **14 shared-foundation world dependencies**.
 
-The composition must visibly contain:
+Slice 0 does **not** require all 14 to appear as equal-weight hero elements in the first assembly. Its minimum architectural/material proof uses this **8-asset core subset**:
 
-- irregular worn Imperial stone street;
-- one street-to-building threshold;
-- one drainage channel and restrained grate treatment;
+1. `stone-clean`
+2. `building-threshold`
+3. `drainage-channel`
+4. `drainage-grate`
+5. `timber-post`
+6. `horizontal-beam`
+7. `timber-plaster-wall`
+8. `aged-stone-foundation`
+
+The remaining contracted shared-foundation dependencies—`stone-cracked`, `stone-patched`, `stone-timber-transition`, `cracks`, `stains`, and `cart-wear`—remain part of the active package contract and should be added where they help prove variation/grid concealment or immediately after the core assembly is stable.
+
+Do not interpret the 8-asset core as replacing the 14-asset manifest.
+
+---
+
+# 3. Reference composition
+
+Create one compact gameplay-oriented courtyard/street-edge composition in the locked flat-faced 3/4 cabinet projection.
+
+It should visibly contain:
+
+- irregular worn Imperial civic stone;
+- street-to-building threshold;
+- drainage channel + restrained grate;
 - aged stone foundation;
-- timber-and-plaster wall;
+- timber/plaster wall;
 - timber structural post;
 - horizontal timber beam;
-- a restrained roof/eave implication or architectural upper edge sufficient to establish vertical construction;
-- one analog dressing cue: hanging lantern, restrained sign mount, or noren-style cloth;
-- one foreground occluder such as a low railing, planter, or foliage edge;
-- one fully dressed benchmark player character at believable gameplay scale.
+- restrained roof/eave implication or upper architectural edge;
+- one analog dressing cue such as a hanging lantern, blank sign mount, or noren-style cloth;
+- one foreground occluder such as low railing, planter, or foliage edge;
+- one fully dressed benchmark player at believable gameplay scale.
 
-Do not make a grand plaza, palace, monumental vista, decorative key illustration, or dense market scene. This is a narrow material/character benchmark.
+Do not make:
+
+- a grand plaza;
+- palace vista;
+- decorative key illustration;
+- dense market scene;
+- infographic/status board;
+- palette chart;
+- UI-framed presentation image.
 
 ---
 
-# 3. Character Reference
+# 4. Character benchmark
 
-Use the shared-foundation benchmark identity:
+Use the shared-foundation identity:
 
 - brown-skinned male fighter;
 - short Afro;
@@ -56,189 +87,175 @@ Use the shared-foundation benchmark identity:
 - sneaker-hybrid martial shoes;
 - cloth sash;
 - wrist wraps;
-- neck cord / charm;
+- neck cord/charm;
 - no weapon required;
 - restrained contact shadow.
 
-The fighter should look like an early-game Academy/street-fighter trainee rather than a generic fantasy adventurer.
+He should read as an early-game Academy/street-fighter trainee, not a generic fantasy adventurer.
 
-Character language:
-
-- Edo/martial garment logic;
-- hip-hop/streetwear attitude;
-- practical layered silhouette;
-- premium 90s-anime-inspired pixel craftsmanship;
-- clear face/hair/garment material separation;
-- no mannequin/base-body exposure;
-- no cyberpunk techwear;
-- no European medieval fantasy silhouette.
-
-The reference character is a **visual benchmark only**. Final production character art still requires eight separately authored canonical direction masters on the shared 480×640 lattice plus modular layer sources.
+The reference character is a visual benchmark only. Production still requires eight distinct source masters and the modular character source set on the contracted `480×640` lattice.
 
 ---
 
-# 4. World Material Language
+# 5. World material language
 
 ## Imperial stone
 
-- pale-to-warm civic stone family;
-- irregular authored blocks and repair seams;
-- small cracks, grime, and cart wear;
+- pale-to-warm civic stone;
+- irregular authored blocks/repair seams;
+- localized cracks, grime, and cart wear;
 - dry matte surface;
-- no mirrored reflections;
-- no regular square tiling that exposes the hidden 32×32 grid;
-- wear patterns should cross implied movement-cell boundaries.
+- no mirrored reflection;
+- no square tiling cadence exposing the hidden 32×32 grid;
+- wear crosses implied movement-cell boundaries.
 
 ## Timber
 
 - warm aged structural timber;
-- visible grain only where it survives gameplay scale;
-- darkened contact edges and joinery;
-- restrained iron/clean-metal brackets when needed;
-- no steampunk gear/rivet clutter.
+- gameplay-readable grain only;
+- darkened contact/joinery edges;
+- restrained clean-iron or patinated-copper hardware where useful;
+- no steampunk ornament.
 
 ## Plaster
 
-- warm off-white/earthy plaster;
+- warm off-white/earth tone;
 - broad calm wall planes;
-- localized age, staining, or repairs;
-- enough negative space to preserve Japandi restraint.
+- localized age/staining/repairs;
+- enough negative space for Japandi restraint.
 
 ## Aged stone foundation
 
-- heavier, older masonry than street paving;
-- moss/grime only in restrained local pockets;
-- must read as load-bearing city fabric rather than dungeon stone.
+- older/heavier masonry than the street;
+- restrained moss/grime;
+- load-bearing city fabric, not dungeon stone.
 
-## Metal / analog dressing
+## Analog dressing
 
-- clean metal, rusted metal, patina used as small accents;
-- practical brackets, grate, lantern housing, or junction detail;
-- no chrome, glowing panels, sci-fi consoles, or ornate clockwork.
+Use practical integrated fixtures only. Prefer sealed/recessed housings, restrained clean iron, patinated copper, wood, cloth, paper, and weak single-purpose analog indicators where needed.
+
+Do not use generic neon, wet-reflective cyberpunk, boiler/gear/clockwork, generic pipework, or decorative machinery as the identity.
 
 ---
 
-# 5. Projection, Scale, and Layering
+# 6. Projection, scale, and layering
 
-The reference must obey the runtime's visual logic:
+The reference and final source assembly must obey runtime logic:
 
 - flat-faced 3/4 cabinet projection;
-- character feet establish the gameplay ground plane;
-- vertical wall faces remain legible without isometric diamond distortion;
-- foreground occluder demonstrates that the player can pass behind it in the eventual runtime;
-- architecture should clearly support separate `ground`, `architecture`, `architecture-dressing`, `actors`, and `props-front-occluders` layers;
-- do not compose impossible overlaps that only work in a flattened illustration.
+- character feet establish the ground plane;
+- vertical wall faces remain legible;
+- no isometric diamond distortion;
+- foreground occluder must be reproducible as a separate runtime layer;
+- architecture must support separate ground, architecture, dressing, actors, and front-occluder layers;
+- no impossible flattened overlap that Phaser cannot reproduce.
 
-The hidden 32×32 movement grid is structural only. No pavement seam, timber spacing, drainage rhythm, decal spacing, or prop placement may reveal a regular 32-pixel cadence.
+The hidden 32×32 grid is structural only. Do not reveal it through paving, timber spacing, drainage rhythm, decal cadence, or prop spacing.
 
 ---
 
-# 6. Lighting
+# 7. Lighting
 
 Default source lighting:
 
-- upper-left / northwest key direction;
+- upper-left / northwest key;
 - daylight or neutral warm daytime for the first benchmark;
 - restrained contact/local shadows;
 - material-specific value separation;
-- no dramatic cinematic backlight that hides the asset construction.
+- no dramatic backlight hiding construction.
 
-Night variants are downstream. Do not use neon, wet reflective pavement, magenta/cyan lighting, or cyberpunk glow to make the reference attractive.
+Night variants are downstream. Do not use magenta/cyan, generic neon, or glossy wet streets to make the reference attractive.
 
 ---
 
-# 7. Composition Restraint
+# 8. Composition restraint
 
-Use the Master Prompt's restraint requirement:
+Use one hero relationship:
 
-- one hero relationship: **finished player + finished Imperial City material slice**;
+> **finished player + finished Imperial City material slice**
+
+Keep:
+
 - broad readable wall/ground planes;
-- enough negative space to inspect the character silhouette;
-- props used sparingly;
+- enough negative space to inspect the player silhouette;
+- sparing props;
 - no crowd;
-- no decorative information board;
+- no information board;
 - no text labels baked into the art;
-- no UI frame;
-- no fake palette chart;
 - no visible grid;
-- no exaggerated machinery.
-
-The scene should feel inhabited and plausible without becoming cluttered.
+- no exaggerated apparatus.
 
 ---
 
-# 8. Automatic Reference Rejection Conditions
+# 9. Automatic reference rejection
 
-Reject/refine the reference before modular-source production if any of these appear:
+Reject/refine before modular-source production if any of these appear:
 
-- world art visibly lower quality than the character;
-- generic RPG Maker / generic fantasy town appearance;
+- world art visibly below character quality;
+- generic RPG Maker/fantasy-town appearance;
 - Japanese-Chinese architectural drift;
-- cyberpunk/neon/wet-reflective visual language;
-- steampunk boiler/gear/clockwork language;
-- character reads as mannequin or unfinished paper doll;
-- front-facing body disguised as a different facing;
-- regular paving/wall rhythm reveals the hidden grid;
-- environment is a smooth painted illustration rather than believable modular pixel-art construction;
-- foreground occlusion is impossible to reproduce as separate runtime layers;
-- excessive purple/teal palette dominance;
-- overly dark values that destroy material readability;
-- large decorative machinery becomes the hero instead of city/character homogeneity.
+- cyberpunk/neon/wet-reflective language;
+- steampunk/gear/boiler/clockwork language;
+- mannequin/incomplete player;
+- fake front-facing body reused as another direction;
+- visible grid rhythm;
+- smooth painted illustration that cannot become modular game space;
+- impossible occlusion;
+- excessive purple/teal dominance;
+- values too dark to read materials;
+- decorative apparatus becoming the hero.
 
 ---
 
-# 9. Modular Source Assets That Follow Reference Approval
+# 10. Modular source production
 
-Once the reference target is visually approved, author these separately at their contracted source dimensions from `production/asset-manifest.json`:
+After reference approval, author the contracted assets as **purpose-built clean source masters** at the dimensions in `asset-manifest.json`.
 
-1. `stone-clean` — 1920×1280 source
-2. `building-threshold` — 1280×640 source
-3. `drainage-channel` — 1600×480 source
-4. `drainage-grate` — 480×320 source
-5. `timber-post` — 480×1280 source
-6. `horizontal-beam` — 1280×480 source
-7. `timber-plaster-wall` — 1920×1600 source
-8. `aged-stone-foundation` — 1920×640 source
+Do not crop modules from the reference and call them final.
 
-Reference-only lantern/sign/noren and foreground-occluder cues must be separately contracted before they become production source assets.
+Reference-only dressing/occluder cues must be separately contracted before becoming production source assets.
 
-Do **not** crop these modules out of the reference image and call them production assets. The reference establishes the target; the modular sources must be purpose-built clean assets.
+Temporary generations, failed experiments, and QA boards may remain outside the repository. Once a source master becomes the active approved authority for a manifest path, it should live at the registered canonical source path unless the package is explicitly re-contracted to use an external source authority.
 
 ---
 
-# 10. Character Source Work After Reference Approval
+# 11. Character source work
 
 Using the same visual authority:
 
-1. author eight base-underlayer masters on 480×640 canvases;
-2. author eight fully dressed benchmark masters on the same lattice;
-3. author modular garment/accessory layers on that same lattice;
-4. compare modular composites against the dressed benchmark;
+1. author eight base-underlayer masters;
+2. author eight fully dressed benchmark masters;
+3. author modular garment/accessory layers on the same lattice;
+4. compare modular composites to the benchmark;
 5. run isolation/anchor/hard-alpha QA;
 6. approve all source directions;
-7. derive 48×64 runtime candidates;
+7. derive `48×64` runtime candidates;
 8. manually clean target-resolution pixels;
 9. integrate idle/walk/ready into Phaser.
 
-No runtime reduction should begin while the source silhouette, direction, garment routing, or material treatment is still unstable.
+No runtime reduction while source silhouette, direction, routing, or material treatment is unstable.
 
 ---
 
-# 11. Slice 0 Integrated Acceptance
+# 12. Integrated Slice 0 acceptance
 
-After modular world and character sources are built and reduced, assemble the actual Phaser Slice 0 scene and evaluate it with the mandatory rubric.
+After world and character sources are approved and runtime candidates are cleaned, assemble Slice 0 in the **actual Phaser runtime**.
 
 Required:
 
-- zero automatic failures;
-- all critical category minimums pass;
-- character and world feel authored by the same studio;
+- multiple separate runtime environment textures/layers;
+- continuous player movement;
+- collision independent from appearance imagery;
+- live foreground/background occlusion;
+- correct player pivot/contact;
 - no visible grid rhythm;
-- correct depth/occlusion behavior;
-- correct player pivot/foot contact;
+- character/world style homogeneity;
 - no placeholder clothing;
 - no baked-background dependency;
-- 42+ before related checklist completion;
-- 46+ target for the visual authority used by Harbor production.
+- integrated preview captured from the running Phaser canvas;
+- zero automatic failures;
+- all critical minimums passing;
+- **42+** before related checklist completion;
+- **46+** target before Slice 0 becomes a visual authority for Harbor production.
 
-Until that integrated gate passes, Slice 0 remains active.
+Until that gate passes, Slice 0 remains active.
