@@ -4,6 +4,18 @@ Astro Fighters is an **open-world action-combat RPG**. The current playable impl
 
 This repository is the **current public playtest/runtime surface** and also the **art-development control surface and handoff record** for Imperial City production. A new chat session or development agent should be able to open this repository, understand the actual game architecture, inspect the current playable state, read the production rules, and continue development without restarting architectural or art-direction discovery.
 
+## Current authoritative development branch
+
+**Until PR #11 is merged, the authoritative development state is the branch:**
+
+`development/art-review-workflow-v1`
+
+New chat sessions, development agents, code assistants, and reviewers must inspect and work from `development/art-review-workflow-v1` before assuming that `main` represents the current runtime, art-production workflow, or repository instructions.
+
+That branch currently contains the active Phaser/world corrections, art-review workflow, production manifest, early-player Imperial City plan, repository agent instructions, and current handoff state. In particular, read `AGENTS.md` and `PHASER_WORLD_REFACTOR_V0.md` from that branch before continuing world/runtime work.
+
+After PR #11 is merged, `main` becomes the normal authority again unless a newer development branch is explicitly identified here.
+
 The active early-game production roadmap is [`IMPERIAL_CITY_EARLY_PLAYER_EXPERIENCE_V0.md`](./IMPERIAL_CITY_EARLY_PLAYER_EXPERIENCE_V0.md). It scopes the first connected production-quality route as **Southern Harbor → Docks/Shipwright → Civic Market → Residential/Canal transition → Astro Fighter Academy exterior → Academy interior/Sensei tutorial**.
 
 ---
@@ -323,26 +335,28 @@ Do not describe a blockout or known placeholder scene as production quality.
 
 # 11. New Chat / New Agent Handoff Procedure
 
-A new session should perform the following sequence before producing new art:
+A new session should perform the following sequence before producing new art or changing runtime code:
 
-1. Open this repository and read this `README.md`.
-2. Read `ASTRO_FIGHTERS_LOCKED_MASTER_ART_DIRECTION_PROMPT.md` in full.
-3. Read `IMPERIAL_CITY_EARLY_PLAYER_EXPERIENCE_V0.md` and identify the active slice/queue position.
-4. Read `Astro Fighters — Art Preview Review Rubric.md` in full.
-5. Inspect `Astro Fighters — Imperial City Zone-by-Zone Asset Checklist.md` and identify:
+1. Confirm that `development/art-review-workflow-v1` is the active authoritative branch while PR #11 remains unmerged; inspect that branch before relying on `main`.
+2. Open this repository and read this `README.md`.
+3. Read `AGENTS.md` and `PHASER_WORLD_REFACTOR_V0.md` in full.
+4. Read `ASTRO_FIGHTERS_LOCKED_MASTER_ART_DIRECTION_PROMPT.md` in full.
+5. Read `IMPERIAL_CITY_EARLY_PLAYER_EXPERIENCE_V0.md` and identify the active slice/queue position.
+6. Read `Astro Fighters — Art Preview Review Rubric.md` in full.
+7. Inspect `Astro Fighters — Imperial City Zone-by-Zone Asset Checklist.md` and identify:
    - already struck/approved items;
    - currently incomplete items;
    - dependencies for the next playable district or scene.
-6. Inspect `ASTRO_FIGHTERS_CHARACTER_CLOTHING_ACCESSORY_CHECKLIST.md` and identify the corresponding incomplete character work.
-7. Inspect the current playable files under `/docs` and the most recent integrated gameplay state.
-8. Do **not** assume existing art is approved merely because it appears in the build. Checklist strike-through plus a qualifying rubric result is the approval signal.
-9. Select the next world and character dependencies together from the active early-player production queue.
-10. Develop according to the Master Art Direction Prompt.
-11. Integrate the work into gameplay.
-12. Evaluate with the Art Preview Review Rubric.
-13. Continue refining automatically if it fails.
-14. At 42+, update/strike the completed items in both checklists as applicable.
-15. Continue to the next dependencies.
+8. Inspect `ASTRO_FIGHTERS_CHARACTER_CLOTHING_ACCESSORY_CHECKLIST.md` and identify the corresponding incomplete character work.
+9. Inspect the current playable files under `/docs` and the most recent integrated gameplay state.
+10. Do **not** assume existing art is approved merely because it appears in the build. Checklist strike-through plus a qualifying rubric result is the approval signal.
+11. Select the next world and character dependencies together from the active early-player production queue.
+12. Develop according to the Master Art Direction Prompt and repository runtime instructions.
+13. Integrate the work into the actual Phaser runtime.
+14. Evaluate with the Art Preview Review Rubric.
+15. Continue refining automatically if it fails.
+16. At 42+, update/strike the completed items in both checklists as applicable.
+17. Continue to the next dependencies.
 
 This sequence is the default continuation workflow. A new chat should not restart game-architecture or art-direction discovery unless the user explicitly changes a locked rule.
 
@@ -362,12 +376,15 @@ The private Unity Combat Strategy repository is legacy combat-reference material
 
 Keep these rules visible during every art pass:
 
+- **Until PR #11 is merged, reference `development/art-review-workflow-v1` before relying on `main`.**
+- **Read and obey root `AGENTS.md` and `PHASER_WORLD_REFACTOR_V0.md` before world/runtime work.**
 - **The world must match the quality and pixel-art style of the approved character models.**
 - **Characters must be fully clothed and accessorized in presentation-quality previews.**
 - **The hidden 32×32 square grid must not be visible to the player.**
 - **Movement/facing supports eight directions.**
 - **The game uses a flat-faced 3/4 cabinet projection.**
 - **Playable environments are layered runtime constructions, not baked full-screen illustrations.**
+- **Integrated gameplay review means an actual running Phaser-canvas view, not a collage/source composite.**
 - **Imperial City must feel dense, lived-in, martial, analog-industrial, and distinctly Astro Fighters.**
 - **The active early-player route is Harbor → Market → Residential/Canal → Academy.**
 - **The Master Art Direction Prompt determines how to build.**
@@ -382,7 +399,9 @@ Keep these rules visible during every art pass:
 # Development Loop Summary
 
 ```text
-READ GAME ARCHITECTURE + MASTER ART DIRECTION
+CONFIRM AUTHORITATIVE DEVELOPMENT BRANCH
+        ↓
+READ AGENTS + GAME ARCHITECTURE + MASTER ART DIRECTION
         ↓
 CHECK EARLY-PLAYER PRODUCTION QUEUE
         ↓
