@@ -6,7 +6,7 @@
   "assets": [
     {
       "id": "stone-clean",
-      "status": "missing",
+      "status": "source-qa",
       "enabled": false,
       "runtimePath": "assets/world/shared-foundation/stone-clean.png",
       "runtimeCanvas": [192, 128],
@@ -14,7 +14,7 @@
     },
     {
       "id": "aged-stone-foundation",
-      "status": "missing",
+      "status": "source-qa",
       "enabled": false,
       "runtimePath": "assets/world/shared-foundation/aged-stone-foundation.png",
       "runtimeCanvas": [192, 64],
