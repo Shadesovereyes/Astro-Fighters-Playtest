@@ -1,6 +1,6 @@
 {
   "schema": "astro-fighters-production-manifest/v2",
-  "updated": "2026-08-28",
+  "updated": "2026-08-29",
   "approvalAuthority": "Astro Fighters — Art Preview Review Rubric.md",
   "masterDirection": "ASTRO_FIGHTERS_LOCKED_MASTER_ART_DIRECTION_PROMPT.md",
   "negativePromptAuthority": "production/NEGATIVE_PROMPT_REGISTER.md",
@@ -10,49 +10,25 @@
     "projection": "flat-faced 3/4 cabinet",
     "lightingDirection": "upper-left / northwest",
     "directions": ["N", "NE", "E", "SE", "S", "SW", "W", "NW"],
-    "directionMeaning": {
-      "N": "back / away from camera",
-      "NE": "back-right 3/4",
-      "E": "right profile",
-      "SE": "front-right 3/4",
-      "S": "front / toward camera",
-      "SW": "front-left 3/4",
-      "W": "left profile",
-      "NW": "back-left 3/4"
-    },
+    "directionMeaning": {"N":"back / away from camera","NE":"back-right 3/4","E":"right profile","SE":"front-right 3/4","S":"front / toward camera","SW":"front-left 3/4","W":"left profile","NW":"back-left 3/4"},
     "characterSourceCanvas": [480, 640],
     "characterSourceBodyCenter": [240, 600],
     "characterSourceFootContactY": 600,
     "characterRuntimeFrame": [48, 64],
     "characterRuntimePivot": [24, 60],
     "characterProportionRule": "grounded anime/action-RPG proportions; no chibi, SD, mascot, bobble-head, oversized-head, compressed-torso, or shortened-leg drift",
-    "characterAnimationFramesPerDirection": {"idle": 4, "walk": 6, "ready": 2},
-    "baseUnderlayer": {
-      "male": ["body/skin", "hair/face", "base shorts"],
-      "female": ["body/skin", "hair/face", "base shorts", "sports bra"]
-    },
+    "characterAnimationFramesPerDirection": {"idle":4,"walk":6,"ready":2},
+    "baseUnderlayer": {"male":["body/skin","hair/face","base shorts"],"female":["body/skin","hair/face","base shorts","sports bra"]},
     "worldSourceScale": 10,
-    "worldLayerOrder": [
-      "ground",
-      "decals",
-      "architecture",
-      "architecture-dressing",
-      "props-back",
-      "collision",
-      "interactives",
-      "actors",
-      "props-front-occluders",
-      "local-shadows",
-      "atmosphere-fx"
-    ]
+    "worldLayerOrder": ["ground","decals","architecture","architecture-dressing","props-back","collision","interactives","actors","props-front-occluders","local-shadows","atmosphere-fx"]
   },
   "statusVocabulary": {
     "package": ["contracted", "reference-in-progress", "reference-approved", "source-in-progress", "source-qa", "runtime-candidate", "phaser-integrated", "reviewed", "production-approved", "lock-quality"],
-    "asset": ["missing", "reference-in-progress", "reference-approved", "source-in-progress", "source-approved", "runtime-candidate", "integrated", "approved"]
+    "asset": ["missing", "reference-in-progress", "reference-approved", "source-in-progress", "source-qa", "source-approved", "runtime-candidate", "integrated", "approved"]
   },
   "activePackage": {
     "id": "AF-IC-SHARED-FOUNDATION",
-    "status": "contracted",
+    "status": "source-qa",
     "goal": "Establish the first shared Imperial City surface/architecture kit and a fully dressed fighter benchmark that can be integrated together for the first rubric-scored production slice.",
     "worldContract": {
       "sourceScale": 10,
@@ -64,7 +40,7 @@
       "runtimeRoot": "docs/assets/world/shared-foundation/"
     },
     "worldDependencies": [
-      {"id":"stone-clean","name":"Worn Imperial stone street — clean","status":"missing","sourceCanvas":[1920,1280],"runtimeCanvas":[192,128],"layer":"ground","palette":["stone","soot/grime"],"anchor":"world surface","collision":"walkable","occlusion":"none","runtimePath":"docs/assets/world/shared-foundation/stone-clean.png"},
+      {"id":"stone-clean","name":"Worn Imperial stone street — clean","status":"source-qa","sourceCanvas":[1920,1280],"runtimeCanvas":[192,128],"layer":"ground","palette":["stone","soot/grime"],"anchor":"world surface","collision":"walkable","occlusion":"none","runtimePath":"docs/assets/world/shared-foundation/stone-clean.png"},
       {"id":"stone-cracked","name":"Worn Imperial stone street — cracked","status":"missing","sourceCanvas":[1920,1280],"runtimeCanvas":[192,128],"layer":"ground","palette":["stone","soot/grime","moss"],"anchor":"world surface","collision":"walkable","occlusion":"none","runtimePath":"docs/assets/world/shared-foundation/stone-cracked.png"},
       {"id":"stone-patched","name":"Patched stone street","status":"missing","sourceCanvas":[1920,1280],"runtimeCanvas":[192,128],"layer":"ground","palette":["stone","rusted-metal","timber"],"anchor":"world surface","collision":"walkable","occlusion":"none","runtimePath":"docs/assets/world/shared-foundation/stone-patched.png"},
       {"id":"stone-timber-transition","name":"Stone-to-timber transitions","status":"missing","sourceCanvas":[1280,640],"runtimeCanvas":[128,64],"layer":"ground","palette":["stone","timber"],"anchor":"world surface","collision":"walkable","occlusion":"none","runtimePath":"docs/assets/world/shared-foundation/stone-timber-transition.png"},
@@ -77,7 +53,7 @@
       {"id":"timber-post","name":"Timber structural posts","status":"missing","sourceCanvas":[480,1280],"runtimeCanvas":[48,128],"layer":"architecture","palette":["timber","clean-metal","rusted-metal"],"anchor":"floor-hosted center/bottom","collision":"solid","occlusion":"mid","runtimePath":"docs/assets/world/shared-foundation/timber-post.png"},
       {"id":"horizontal-beam","name":"Horizontal beams","status":"missing","sourceCanvas":[1280,480],"runtimeCanvas":[128,48],"layer":"architecture","palette":["timber","clean-metal","rusted-metal"],"anchor":"attachment-line","collision":"none","occlusion":"mid","runtimePath":"docs/assets/world/shared-foundation/horizontal-beam.png"},
       {"id":"timber-plaster-wall","name":"Timber-and-plaster wall","status":"missing","sourceCanvas":[1920,1600],"runtimeCanvas":[192,160],"layer":"architecture","palette":["timber","plaster","stone"],"anchor":"architectural region","collision":"solid","occlusion":"tall / cutaway","runtimePath":"docs/assets/world/shared-foundation/timber-plaster-wall.png"},
-      {"id":"aged-stone-foundation","name":"Aged stone foundation","status":"missing","sourceCanvas":[1920,640],"runtimeCanvas":[192,64],"layer":"architecture","palette":["stone","moss","soot/grime"],"anchor":"architectural region","collision":"solid","occlusion":"low","runtimePath":"docs/assets/world/shared-foundation/aged-stone-foundation.png"}
+      {"id":"aged-stone-foundation","name":"Aged stone foundation","status":"source-qa","sourceCanvas":[1920,640],"runtimeCanvas":[192,64],"layer":"architecture","palette":["stone","moss","soot/grime"],"anchor":"architectural region","collision":"solid","occlusion":"low","runtimePath":"docs/assets/world/shared-foundation/aged-stone-foundation.png"}
     ],
     "characterDependencies": {
       "status": "missing",
@@ -90,15 +66,8 @@
       "runtimePivot": [24, 60],
       "directions": ["N", "NE", "E", "SE", "S", "SW", "W", "NW"],
       "sourceAuthoritiesRequired": ["base-underlayer turnaround", "fully dressed benchmark turnaround", "modular source component set"],
-      "sourcePaths": {
-        "baseUnderlayerPattern": "production/source/characters/shared-foundation/base-underlayer/{direction}.png",
-        "dressedBenchmarkPattern": "production/source/characters/shared-foundation/dressed-benchmark/{direction}.png",
-        "modularLayerPattern": "production/source/characters/shared-foundation/layers/{layer}/{direction}.png"
-      },
-      "runtimePaths": {
-        "benchmarkPattern": "docs/assets/characters/shared-foundation/benchmark/{direction}.png",
-        "animationPattern": "docs/assets/characters/shared-foundation/{state}/{direction}.png"
-      },
+      "sourcePaths": {"baseUnderlayerPattern":"production/source/characters/shared-foundation/base-underlayer/{direction}.png","dressedBenchmarkPattern":"production/source/characters/shared-foundation/dressed-benchmark/{direction}.png","modularLayerPattern":"production/source/characters/shared-foundation/layers/{layer}/{direction}.png"},
+      "runtimePaths": {"benchmarkPattern":"docs/assets/characters/shared-foundation/benchmark/{direction}.png","animationPattern":"docs/assets/characters/shared-foundation/{state}/{direction}.png"},
       "underlayer": ["body/skin", "short afro hair/face", "base shorts"],
       "benchmarkOutfit": ["sleeveless fighter wrap", "short utility jacket", "loose fighter trousers", "sneaker-hybrid martial shoes", "cloth sash", "wrist wraps", "neck cord/charm", "contact shadow"],
       "weaponRequired": false,
@@ -108,23 +77,9 @@
       "validation": ["all eight canonical facings", "shared 480×640 lattice", "shared body center and foot-contact line", "direction-aware near/far draw order", "hard alpha", "master palette", "grounded non-chibi proportions", "48×64 target pixel cleanup"]
     },
     "sourceGate": {
-      "requiredBeforeRuntimeDerivation": [
-        "world reference slice approved",
-        "world modular source assembly approved",
-        "base-underlayer eight-direction turnaround approved",
-        "fully dressed eight-direction benchmark approved",
-        "modular character source assembly matches benchmark",
-        "isolation and anchor QA passes"
-      ]
+      "requiredBeforeRuntimeDerivation": ["world reference slice approved","world modular source assembly approved","base-underlayer eight-direction turnaround approved","fully dressed eight-direction benchmark approved","modular character source assembly matches benchmark","isolation and anchor QA passes"]
     },
-    "acceptance": {
-      "integrationRequired": true,
-      "phaserRequired": true,
-      "automaticFailuresAllowed": 0,
-      "criticalMinimumsMustPass": true,
-      "checklistCompletionMinimum": 42,
-      "lockQualityMinimum": 46
-    }
+    "acceptance": {"integrationRequired":true,"phaserRequired":true,"automaticFailuresAllowed":0,"criticalMinimumsMustPass":true,"checklistCompletionMinimum":42,"lockQualityMinimum":46}
   },
   "approvedPackages": []
 }
