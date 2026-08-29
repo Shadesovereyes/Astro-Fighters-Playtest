@@ -5,11 +5,13 @@
 **Active development branch:** `development/slice0-shared-foundation-v1`  
 **Draft PR:** #12 — Slice 0 continuous modular Phaser world refactor  
 **Current milestone:** Imperial City Early Player Experience v0  
-**Current gate:** complete the five-asset shared-foundation source family, then promote passing assets into guarded Phaser runtime activation
+**Current gate:** five-asset shared-foundation source assembly / homogeneity review before source approval and Phaser runtime activation
 
 ## Architecture snapshot
 
-Astro Fighters is an **open-world, real-time action-combat RPG**. The active public runtime is Phaser/browser under `/docs`. The private Unity project is legacy turn-based Combat Strategy reference material only.
+Astro Fighters is an **open-world, real-time action-combat RPG**. The active public runtime is Phaser/browser under `/docs`. The private Unity project remains legacy turn-based Combat Strategy reference material only.
+
+`main` remains production authority until the active branch is reviewed and merged.
 
 ## Required authority order
 
@@ -25,78 +27,79 @@ Astro Fighters is an **open-world, real-time action-combat RPG**. The active pub
 10. `docs/data/shared-foundation-runtime.json`
 11. this handoff
 
-`main` remains production authority until the active branch is reviewed and merged.
-
 ## Technical runtime milestone — implemented
 
-The active branch has the Phaser refactor seam for continuous 104 px/sec movement, delta-time updates, normalized diagonals, canonical 8-direction facing, hidden legacy grid, hidden baked district background in refactor mode, modular world-layer scaffolding, collision independent from appearance, foreground Y-depth/occlusion proof, and runtime audit hooks.
+The active branch provides continuous 104 px/sec movement, delta-time updates, normalized diagonals, canonical 8-direction facing, hidden legacy grid, hidden baked district background in refactor mode, modular world-layer scaffolding, collision independent from imagery, foreground Y-depth/occlusion proof, and runtime audit hooks.
 
-`docs/data/shared-foundation-runtime.json` + `docs/js/shared-foundation-assets-v0.js` enforce guarded activation: source-QA files may exist in the repository, but only `runtime-candidate`, `integrated`, or `approved` assets can be enabled to replace scaffold textures.
+The guarded asset loader only enables assets with `runtime-candidate`, `integrated`, or `approved` status. Source-QA files may exist without appearing in gameplay.
 
 ## Persistent user corrections
 
-`production/NEGATIVE_PROMPT_REGISTER.md` is mandatory. Current locked corrections include:
+`production/NEGATIVE_PROMPT_REGISTER.md` is mandatory.
 
-- `NP-CHAR-001`: no chibi / SD / mascot / oversized-head character proportions;
-- `NP-PRES-001`: no generated status dashboards as production evidence and no invented completion, approval, path, commit, date, or Phaser claims.
+- `NP-CHAR-001`: no chibi / SD / mascot / oversized-head character proportions.
+- `NP-PRES-001`: no generated status dashboards as production evidence and no invented completion, approval, file, commit, date, or Phaser claims.
 
-## Legacy-reference salvage
+## Shared-foundation benchmark family — 5/5 authored
 
-Useful Package 03–05 material studies are preserved under `production/reference/world/shared-foundation/legacy-salvage/` and interpreted by `REFERENCE_SALVAGE_REVIEW.md`. They remain reference-only and may not be cropped or promoted as production assets.
-
-## Shared-foundation benchmark progress
-
-The meaningful production counter is now separated by stage.
-
-### Five-asset benchmark family
+All five benchmark assets now physically exist as source masters plus exact runtime-scale derivatives and are tracked as **`source-qa`**. None are source-approved or runtime-enabled yet.
 
 1. `stone-clean` — **AUTHORED / SOURCE-QA**
-   - source: `production/source/world/shared-foundation/stone-clean.png` — 1920×1280
-   - exact runtime derivative: `docs/assets/world/shared-foundation/stone-clean.png` — 192×128
+   - source 1920×1280
+   - runtime derivative 192×128
    - QA: `production/qa/world/shared-foundation/stone-clean-candidate-v1.md`
-   - runtime registry: disabled
 
 2. `aged-stone-foundation` — **AUTHORED / SOURCE-QA**
-   - source: `production/source/world/shared-foundation/aged-stone-foundation.png` — 1920×640
-   - exact runtime derivative: `docs/assets/world/shared-foundation/aged-stone-foundation.png` — 192×64
+   - source 1920×640
+   - runtime derivative 192×64
    - QA: `production/qa/world/shared-foundation/aged-stone-foundation-candidate-v1.md`
-   - runtime registry: disabled
 
-3. `timber-plaster-wall` — **MISSING**
-4. `timber-post` — **MISSING**
-5. `horizontal-beam` — **MISSING**
+3. `timber-plaster-wall` — **AUTHORED / SOURCE-QA**
+   - source 1920×1600
+   - runtime derivative 192×160
+
+4. `timber-post` — **AUTHORED / SOURCE-QA**
+   - source 480×1280
+   - runtime derivative 48×128
+
+5. `horizontal-beam` — **AUTHORED / SOURCE-QA**
+   - source 1280×480
+   - runtime derivative 128×48
+
+The final three share QA evidence in `production/qa/world/shared-foundation/timber-family-candidate-v1.md`.
 
 ### Accurate counters
 
-- benchmark source assets authored: **2 / 5**
-- benchmark assets in source QA: **2 / 5**
+- benchmark source assets authored: **5 / 5**
+- benchmark assets in source QA: **5 / 5**
+- exact runtime derivatives physically present: **5 / 5**
 - source-approved benchmark assets: **0 / 5**
-- exact runtime derivatives physically present: **2 / 5**
 - runtime-activated production assets: **0 / 5**
 - Phaser-integrated production assets: **0 / 5**
 - production-approved assets: **0 / 5**
 
-The manifest now includes `source-qa` in the asset status vocabulary so authored candidates are no longer mislabeled `missing` merely because they have not reached source approval.
+The distinction is intentional: **created ≠ approved ≠ runtime-activated ≠ integrated**.
 
-## Current material-family intent
+## Current family intent
 
-`stone-clean` establishes the base civic-stone grammar: dry matte pale/warm stone, irregular authored courses, broken NW highlights, localized chips/grime/repair, cross-block wear, and no visible 32×32 gameplay-grid cadence.
+The five files are intended to share one effective pixel density, NW/upper-left lighting, restrained edge vocabulary, dry matte surfaces, and Imperial City material logic.
 
-`aged-stone-foundation` intentionally shares that pixel density and lighting while reading older/heavier through larger masonry blocks, deeper joints, darker contact edges, restrained moss, and more concentrated age/grime. It must read as Imperial city fabric rather than dungeon masonry.
-
-Neither asset is source-approved yet. Their current purpose is to establish a coherent two-material family before timber/plaster production.
+- civic street stone uses irregular authored courses and localized wear;
+- aged foundation uses larger/heavier masonry, deeper joints, darker contact edges and restrained moss;
+- wall uses broad calm plaster planes framed by aged timber;
+- post and beam share the wall's timber ramp and restrained functional metal joinery;
+- no visible 32×32 cadence, wet-reflective treatment, cyberpunk, steampunk, clockwork or generic-fantasy material language.
 
 ## Immediate work order
 
-1. review the `stone-clean` + `aged-stone-foundation` pair as one material family;
-2. author `timber-plaster-wall` at 1920×1600 → 192×160 using the same effective pixel density and NW lighting;
-3. author `timber-post` at 480×1280 → 48×128;
-4. author `horizontal-beam` at 1280×480 → 128×48;
-5. perform a five-asset source assembly/homogeneity review;
-6. repair any style/pixel-density mismatch before source approval;
-7. promote only passing assets to `source-approved`, then derive/confirm target-pixel runtime candidates;
-8. change manifest + guarded registry to `runtime-candidate` and enable only passing assets;
-9. capture the **actual running Phaser canvas** showing traversal, hidden grid, collision, and foreground occlusion;
-10. score the integrated Slice 0 scene and repair until 42+ with zero automatic failures and all critical minimums passing.
+1. build a five-asset source assembly using the actual committed files;
+2. review homogeneity, scale, material separation, projection, NW lighting and hidden-grid behavior;
+3. repair any asset that reads as a different pixel style or lower-quality material treatment;
+4. when the full assembly passes, advance passing assets from `source-qa` to `source-approved`;
+5. confirm/manual-clean the runtime derivatives at target pixel scale;
+6. advance passing assets to `runtime-candidate` and enable them in `docs/data/shared-foundation-runtime.json`;
+7. let the actual Phaser refactor scene replace the corresponding scaffold textures;
+8. capture a real running Phaser canvas showing continuous movement, hidden grid, collision and foreground occlusion;
+9. score the integrated Slice 0 scene and repair until 42+ with zero automatic failures and all critical minimums passing.
 
-Do not expand into Harbor/Market prop quantity until this five-asset family is coherent.
+Do not expand into Harbor/Market prop quantity until this family passes the assembly/homogeneity gate.
