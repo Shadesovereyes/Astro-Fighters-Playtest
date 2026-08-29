@@ -30,6 +30,7 @@ Before development, read in this order:
 8. `docs/data/art-review-rubric.json` — machine scoring authority
 9. world and character production checklists — completion inventories
 10. `production/asset-manifest.json` — current machine-readable package contract
+11. `docs/data/shared-foundation-runtime.json` — guarded runtime activation state for the first Slice 0 family
 
 Git history is the iteration archive. Old package branches and superseded package PRs are historical reference, not production authority.
 
@@ -97,7 +98,7 @@ All five benchmark assets remain disabled and `missing`; therefore the scene rem
 
 `AF-IC-SHARED-FOUNDATION`
 
-The package remains **contracted** in `production/asset-manifest.json`. Production source masters and production runtime assets remain missing/unapproved.
+The package remains **contracted** in `production/asset-manifest.json`. The manifest now explicitly points to both `production/NEGATIVE_PROMPT_REGISTER.md` and `docs/data/shared-foundation-runtime.json` as package authorities. Production source masters and production runtime assets remain missing/unapproved.
 
 Locked package facts include:
 
