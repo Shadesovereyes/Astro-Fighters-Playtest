@@ -1,150 +1,105 @@
 # Astro Fighters — Current Development Status
 
-**Updated:** 2026-08-28  
+**Updated:** 2026-08-29  
 **Authoritative branch:** `main`  
+**Active development branch:** `development/slice0-shared-foundation-v1`  
+**Draft PR:** #12 — Slice 0 continuous modular Phaser world refactor  
 **Current milestone:** Imperial City Early Player Experience v0  
-**Immediate runtime gate:** Phaser World Refactor v0 + Slice 0 Foundation Courtyard
+**Current gate:** five-asset shared-foundation source assembly / homogeneity review before source approval and Phaser runtime activation
 
-## Current game architecture
+## Architecture snapshot
 
-Astro Fighters is an **open-world, real-time action-combat RPG**. The active public implementation is the **Phaser/browser runtime under `/docs`**.
+Astro Fighters is an **open-world, real-time action-combat RPG**. The active public runtime is Phaser/browser under `/docs`. The private Unity project remains legacy turn-based Combat Strategy reference material only.
 
-The private `Shadesovereyes/Astro-Fighters` Unity project is a **legacy turn-based tactical Combat Strategy vertical slice**. It is reference material for reusable combat logic and math only. Do not redirect current development into Unity and do not port the old turn loop, action-slot scheduler, hex encounter structure, or prototype UX into the open-world RPG.
+`main` remains production authority until the active branch is reviewed and merged.
 
-When legacy combat logic is reused, preserve design intent and useful math, then adapt it to real-time movement, hit windows, animation commitment, collision, interrupts, recovery/cooldowns, resources, player input, and AI behavior.
+## Required authority order
 
-## Repository authority
+1. `README.md`
+2. `AGENTS.md`
+3. `ASTRO_FIGHTERS_LOCKED_MASTER_ART_DIRECTION_PROMPT.md`
+4. `production/NEGATIVE_PROMPT_REGISTER.md`
+5. `PHASER_WORLD_REFACTOR_V0.md`
+6. `IMPERIAL_CITY_EARLY_PLAYER_EXPERIENCE_V0.md`
+7. art-review rubric Markdown + `docs/data/art-review-rubric.json`
+8. world/character production checklists
+9. `production/asset-manifest.json`
+10. `docs/data/shared-foundation-runtime.json`
+11. this handoff
 
-`main` is the current repository authority unless `README.md` or this file explicitly identifies a newer active development branch.
+## Technical runtime milestone — implemented
 
-Before development, read in this order:
+The active branch provides continuous 104 px/sec movement, delta-time updates, normalized diagonals, canonical 8-direction facing, hidden legacy grid, hidden baked district background in refactor mode, modular world-layer scaffolding, collision independent from imagery, foreground Y-depth/occlusion proof, and runtime audit hooks.
 
-1. `README.md` — repository orientation and game architecture
-2. `AGENTS.md` — repository/runtime/development behavior
-3. `ASTRO_FIGHTERS_LOCKED_MASTER_ART_DIRECTION_PROMPT.md` — visual canon
-4. `PHASER_WORLD_REFACTOR_V0.md` — temporary world-runtime migration gate
-5. `IMPERIAL_CITY_EARLY_PLAYER_EXPERIENCE_V0.md` — current route/scope/order
-6. `Astro Fighters — Art Preview Review Rubric.md` — human review rules
-7. `docs/data/art-review-rubric.json` — machine scoring authority
-8. world and character production checklists — completion inventories
-9. `production/asset-manifest.json` — current machine-readable package contract
+The guarded asset loader only enables assets with `runtime-candidate`, `integrated`, or `approved` status. Source-QA files may exist without appearing in gameplay.
 
-Git history is the iteration archive. Old development branches and superseded package PRs are historical reference, not current authority.
+## Persistent user corrections
 
-## Active milestone
+`production/NEGATIVE_PROMPT_REGISTER.md` is mandatory.
 
-The first connected production-quality route is:
+- `NP-CHAR-001`: no chibi / SD / mascot / oversized-head character proportions.
+- `NP-PRES-001`: no generated status dashboards as production evidence and no invented completion, approval, file, commit, date, or Phaser claims.
 
-> **SOUTHERN HARBOR ARRIVAL → DOCKS / SHIPWRIGHT → MARKET / SHOPPING STREET → RESIDENTIAL / CANAL TRANSITION → ASTRO FIGHTER ACADEMY EXTERIOR → ACADEMY INTERIOR / SENSEI TUTORIAL**
+## Shared-foundation benchmark family — 5/5 authored
 
-The Academy tutorial retains the established progression intent:
+All five benchmark assets now physically exist as source masters plus exact runtime-scale derivatives and are tracked as **`source-qa`**. None are source-approved or runtime-enabled yet.
 
-- Sensei teaches the combat foundation;
-- General/Trap ability access is introduced;
-- the player receives **100 mon**;
-- the player chooses **3 distinct trap types, 10 of each**;
-- inventory/paper-doll/action-RPG state reflects the result.
+1. `stone-clean` — **AUTHORED / SOURCE-QA**
+   - source 1920×1280
+   - runtime derivative 192×128
+   - QA: `production/qa/world/shared-foundation/stone-clean-candidate-v1.md`
 
-Crab-island/cave production remains outside this milestone gate.
+2. `aged-stone-foundation` — **AUTHORED / SOURCE-QA**
+   - source 1920×640
+   - runtime derivative 192×64
+   - QA: `production/qa/world/shared-foundation/aged-stone-foundation-candidate-v1.md`
 
-## Immediate technical gate
+3. `timber-plaster-wall` — **AUTHORED / SOURCE-QA**
+   - source 1920×1600
+   - runtime derivative 192×160
 
-The current browser prototype genuinely uses Phaser, but its world layer still contains prototype debt:
+4. `timber-post` — **AUTHORED / SOURCE-QA**
+   - source 480×1280
+   - runtime derivative 48×128
 
-- baked full-frame district imagery;
-- visible 32×32 route/grid presentation;
-- fixed integer tile-step exploration;
-- collision tied too closely to grid rectangles;
-- limited live depth/occlusion behavior.
+5. `horizontal-beam` — **AUTHORED / SOURCE-QA**
+   - source 1280×480
+   - runtime derivative 128×48
 
-`PHASER_WORLD_REFACTOR_V0.md` is the active correction plan.
+The final three share QA evidence in `production/qa/world/shared-foundation/timber-family-candidate-v1.md`.
 
-Before Slice 0 can be called integrated, the runtime must prove:
+### Accurate counters
 
-- continuous real-time movement;
-- no persistent visible grid;
-- multiple separate environment textures/layers loaded by Phaser;
-- collision authored independently from appearance imagery;
-- live foreground/background occlusion;
-- eight-direction player facing/animation;
-- crisp pixel rendering;
-- an integrated review captured from the actual Phaser canvas.
+- benchmark source assets authored: **5 / 5**
+- benchmark assets in source QA: **5 / 5**
+- exact runtime derivatives physically present: **5 / 5**
+- source-approved benchmark assets: **0 / 5**
+- runtime-activated production assets: **0 / 5**
+- Phaser-integrated production assets: **0 / 5**
+- production-approved assets: **0 / 5**
 
-A collage, presentation board, source assembly, contact sheet, or mock renderer is never an integrated gameplay preview.
+The distinction is intentional: **created ≠ approved ≠ runtime-activated ≠ integrated**.
 
-## Active production package
+## Current family intent
 
-`AF-IC-SHARED-FOUNDATION`
+The five files are intended to share one effective pixel density, NW/upper-left lighting, restrained edge vocabulary, dry matte surfaces, and Imperial City material logic.
 
-The package is currently **contracted** in `production/asset-manifest.json`. Its production source masters and runtime assets remain missing/unapproved in the repository.
+- civic street stone uses irregular authored courses and localized wear;
+- aged foundation uses larger/heavier masonry, deeper joints, darker contact edges and restrained moss;
+- wall uses broad calm plaster planes framed by aged timber;
+- post and beam share the wall's timber ramp and restrained functional metal joinery;
+- no visible 32×32 cadence, wet-reflective treatment, cyberpunk, steampunk, clockwork or generic-fantasy material language.
 
-Locked package facts include:
+## Immediate work order
 
-- canonical directions `N, NE, E, SE, S, SW, W, NW`;
-- `S = front`, `N = back`;
-- character source canvas `480×640`;
-- source body center `[240,600]`;
-- source foot-contact line `y=600`;
-- runtime frame `48×64`;
-- runtime pivot `[24,60]`;
-- world source scale `10×` for the shared-foundation contract;
-- source approval before runtime derivation;
-- actual Phaser integration before checklist completion.
+1. build a five-asset source assembly using the actual committed files;
+2. review homogeneity, scale, material separation, projection, NW lighting and hidden-grid behavior;
+3. repair any asset that reads as a different pixel style or lower-quality material treatment;
+4. when the full assembly passes, advance passing assets from `source-qa` to `source-approved`;
+5. confirm/manual-clean the runtime derivatives at target pixel scale;
+6. advance passing assets to `runtime-candidate` and enable them in `docs/data/shared-foundation-runtime.json`;
+7. let the actual Phaser refactor scene replace the corresponding scaffold textures;
+8. capture a real running Phaser canvas showing continuous movement, hidden grid, collision and foreground occlusion;
+9. score the integrated Slice 0 scene and repair until 42+ with zero automatic failures and all critical minimums passing.
 
-## Slice 0 — Foundation Courtyard
-
-Slice 0 is the next production proof. It must combine, in the running Phaser scene:
-
-- Imperial stone ground and wear/decal treatment;
-- street/building threshold;
-- drainage channel/grate;
-- aged stone foundation;
-- timber/plaster wall;
-- timber post and horizontal beam;
-- one restrained sign/lantern/noren-style dressing cue;
-- one foreground occluder;
-- one fully dressed benchmark player.
-
-The purpose is to prove character/world homogeneity, projection, hidden-grid concealment, traversal scale, collision, depth, occlusion, and the source-to-runtime pipeline before Harbor production expands.
-
-Prior collage-derived Slice 0 boards and extracted candidates are **reference/scaffolding only**. They are not production source masters and must not be promoted merely because they were isolated or resized.
-
-## Review gate
-
-The machine rubric in `docs/data/art-review-rubric.json` and the human-readable rubric must stay synchronized.
-
-- **0–29:** rejected
-- **30–36:** rework required
-- **37–41:** conditional/internal candidate only
-- **42–45:** production approved
-- **46–50:** lock quality
-
-Approval additionally requires zero automatic failures and all critical minimums passing. Checklist completion begins only at **42+**.
-
-Integrated review is valid only from the running Phaser canvas.
-
-## Completion-state ownership
-
-To avoid duplicate or contradictory progress tracking:
-
-- the **world checklist** owns world-asset completion state;
-- the **character checklist** owns character-asset completion state;
-- `production/asset-manifest.json` owns the active package/runtime registration state;
-- `IMPERIAL_CITY_EARLY_PLAYER_EXPERIENCE_V0.md` owns route scope and production order;
-- this file records only the current handoff snapshot.
-
-Do not use this file as a second checklist.
-
-## Next work order
-
-1. complete the Phaser world refactor minimum needed for Slice 0;
-2. author/approve the shared-foundation source assets and player source authorities;
-3. run source isolation/anchor/assembly QA;
-4. derive and manually clean runtime candidates only after source approval;
-5. assemble Slice 0 from separate assets in Phaser;
-6. capture the actual Phaser gameplay frame and score it;
-7. repair until all critical gates pass;
-8. at 42+, update only the relevant checklist/manifest completion state;
-9. proceed into Harbor Arrival, then Market → Residential/Canal → Academy Exterior → Academy Interior/Sensei.
-
-If an upstream gate fails, repair it before continuing downstream.
+Do not expand into Harbor/Market prop quantity until this family passes the assembly/homogeneity gate.

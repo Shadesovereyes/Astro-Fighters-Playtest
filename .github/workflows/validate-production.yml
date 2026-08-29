@@ -26,8 +26,18 @@ jobs:
         run: |
           node --check tools/validate-production.mjs
           node --check tools/validate-source-png.mjs
+          node --check tools/validate-world-refactor.mjs
+          node --check tools/validate-shared-foundation-runtime.mjs
           node --check docs/js/art-review.js
           node --check docs/js/playtest-v4-patch.js
+          node --check docs/js/world-refactor-v0.js
+          node --check docs/js/shared-foundation-assets-v0.js
 
       - name: Validate production manifest and art rubric
         run: node tools/validate-production.mjs
+
+      - name: Validate Phaser world refactor contract
+        run: node tools/validate-world-refactor.mjs
+
+      - name: Validate shared-foundation runtime activation gate
+        run: node tools/validate-shared-foundation-runtime.mjs

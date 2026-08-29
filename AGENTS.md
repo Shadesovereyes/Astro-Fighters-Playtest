@@ -9,17 +9,34 @@ Before changing runtime code, world art, character art, production manifests, ch
 1. `README.md`
 2. `AGENTS.md`
 3. `ASTRO_FIGHTERS_LOCKED_MASTER_ART_DIRECTION_PROMPT.md`
-4. `PHASER_WORLD_REFACTOR_V0.md`
-5. `IMPERIAL_CITY_EARLY_PLAYER_EXPERIENCE_V0.md`
-6. `Astro Fighters — Art Preview Review Rubric.md`
-7. `docs/data/art-review-rubric.json`
-8. both production checklists
-9. `production/asset-manifest.json`
-10. `DEVELOPMENT_STATUS.md`
+4. `production/NEGATIVE_PROMPT_REGISTER.md`
+5. `PHASER_WORLD_REFACTOR_V0.md`
+6. `IMPERIAL_CITY_EARLY_PLAYER_EXPERIENCE_V0.md`
+7. `Astro Fighters — Art Preview Review Rubric.md`
+8. `docs/data/art-review-rubric.json`
+9. both production checklists
+10. `production/asset-manifest.json`
+11. `DEVELOPMENT_STATUS.md`
 
 If an older implementation, branch, package note, or prototype conflicts with these authorities, treat the older material as technical debt or historical reference unless the user explicitly relocks it.
 
 `main` is authoritative unless README or Development Status explicitly identifies a newer active development branch.
+
+---
+
+# User-correction capture rule
+
+Every explicit user correction to generated art, asset style, proportions, materials, composition, presentation, prompt wording, or recurring visual drift must be persisted so the user does not have to repeat it.
+
+For every such correction:
+
+1. identify the rejected failure mode precisely;
+2. add or update the appropriate negative constraint in `production/NEGATIVE_PROMPT_REGISTER.md` before further related generation;
+3. update the relevant lasting canon/contract file as well when the correction changes a durable production rule;
+4. preserve prior corrections unless the user explicitly reverses or supersedes them;
+5. treat the register as required prompt context for future related image generation and art review.
+
+Do not rely only on chat memory for a correction that affects production art.
 
 ---
 
@@ -164,6 +181,8 @@ The Imperial City has repeatedly drifted when generic latent-space magnet words 
 - `cyberpunk`
 - `Blade Runner`
 - magenta/cyan glow language
+
+Character-generation prompts must also apply the negative constraints in `production/NEGATIVE_PROMPT_REGISTER.md`, including the locked rejection of chibi / super-deformed player proportions.
 
 When a checklist contains a legacy functional label such as a pipe, control box, tower, or wet harbor surface, interpret the **function** through the Master Art Direction instead of copying the risky noun into a generation prompt.
 

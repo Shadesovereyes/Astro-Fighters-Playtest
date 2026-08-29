@@ -3,6 +3,7 @@
 **Status:** LOCKED  
 **Role:** Visual canon and asset-art authority  
 **Repository/runtime behavior:** `AGENTS.md`  
+**Persistent negative corrections:** `production/NEGATIVE_PROMPT_REGISTER.md`  
 **Current package contract:** `production/asset-manifest.json`  
 **Acceptance:** `Astro Fighters — Art Preview Review Rubric.md` + `docs/data/art-review-rubric.json`
 
@@ -59,6 +60,8 @@ Do not use as generic prompt language:
 - magenta/cyan glow language
 
 Functional requirements in a checklist do not override this rule. Translate the function into canon-specific language before prompting.
+
+Character and population prompts must also apply the persistent negative constraints in `production/NEGATIVE_PROMPT_REGISTER.md`.
 
 Preferred language:
 
@@ -259,6 +262,34 @@ For evening/night:
 # 9. Population and clothing identity
 
 The city population should predominantly use brown-skin hues, with broad variation rather than one repeated tone.
+
+## Character proportion standard
+
+Adult and young-adult fighters must use **grounded anime/action-RPG proportions**, not chibi or super-deformed proportions.
+
+Reject:
+
+- chibi / super-deformed / SD bodies;
+- mascot-like miniature proportions;
+- oversized heads relative to the torso and legs;
+- bobble-head silhouettes;
+- compressed torsos;
+- shortened legs used to create a cute or toy-like read;
+- childlike proportions on adult characters;
+- presentation or mockup characters that distort the canonical paper-doll silhouette merely for readability.
+
+Require:
+
+- a smaller head relative to the full body than chibi/SD art;
+- natural torso length;
+- longer, anatomically believable legs;
+- grounded young-adult/adult fighter silhouettes;
+- consistent proportion language across all eight directions;
+- preservation of the canonical paper-doll silhouette through runtime reduction.
+
+This rule applies to production characters, NPCs, source masters, runtime sprites, concept/reference sheets, presentation images, and gameplay-reference mockups. A board or environment study does not get an exemption to use a chibi proxy.
+
+A specifically authored child character may use age-appropriate proportions, but only when that character is intentionally a child.
 
 Character clothing fuses:
 
