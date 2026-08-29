@@ -51,6 +51,30 @@ A presentation board may not use a chibi proxy merely because the environment is
 
 ---
 
+## Presentation / status integrity
+
+### NP-PRES-001 — No generated status dashboards as production evidence
+
+**Failure source:** Repeated generated presentation boards invented completion percentages, approvals, runtime integration, dates, commits, dimensions, or file paths that were not supported by the repository.
+
+**Do not generate or approve:**
+
+- dashboard-style progress boards as substitutes for actual asset work;
+- invented completion percentages or green checkmarks;
+- invented "source approved", "runtime ready", "integrated", or rubric-pass labels;
+- invented dates, commit SHAs, branch state, asset IDs, file paths, or dimensions;
+- simulated Phaser captures presented as runtime proof;
+- decorative handoff/status images that imply repository state.
+
+**Required correction:**
+
+- repository state comes from GitHub files, manifest data, CI, and actual Phaser runtime captures only;
+- generated images may be used for visual reference or asset ideation only;
+- handoff/status updates belong in Markdown/JSON, not generated artwork;
+- if a generated image contains status UI for composition reference, every status claim must be treated as non-authoritative and discarded unless independently verified from the repo.
+
+---
+
 ## Existing global negative vocabulary
 
 The following established drift magnets remain prohibited as generic prompt anchors and are also documented in the Master Art Direction / `AGENTS.md`:
