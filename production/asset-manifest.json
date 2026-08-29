@@ -1,8 +1,10 @@
 {
   "schema": "astro-fighters-production-manifest/v2",
-  "updated": "2026-08-27",
+  "updated": "2026-08-28",
   "approvalAuthority": "Astro Fighters — Art Preview Review Rubric.md",
   "masterDirection": "ASTRO_FIGHTERS_LOCKED_MASTER_ART_DIRECTION_PROMPT.md",
+  "negativePromptAuthority": "production/NEGATIVE_PROMPT_REGISTER.md",
+  "runtimeRegistry": "docs/data/shared-foundation-runtime.json",
   "canonical": {
     "gridPixels": 32,
     "projection": "flat-faced 3/4 cabinet",
@@ -23,6 +25,7 @@
     "characterSourceFootContactY": 600,
     "characterRuntimeFrame": [48, 64],
     "characterRuntimePivot": [24, 60],
+    "characterProportionRule": "grounded anime/action-RPG proportions; no chibi, SD, mascot, bobble-head, oversized-head, compressed-torso, or shortened-leg drift",
     "characterAnimationFramesPerDirection": {"idle": 4, "walk": 6, "ready": 2},
     "baseUnderlayer": {
       "male": ["body/skin", "hair/face", "base shorts"],
@@ -102,7 +105,7 @@
       "paletteFamilies": ["skin_e", "cloth", "tide", "rust", "ui", "trimB"],
       "layerFamilies": ["back-garment", "body-underlayer", "pants", "footwear", "inner-top", "outerwear-far", "outerwear-near", "waist-back", "waist-front", "accessories", "contact-shadow"],
       "drawOrderRule": "Near/far garment panels route by canonical facing; no whole-overlay layer may cover anatomy that should remain visible.",
-      "validation": ["all eight canonical facings", "shared 480×640 lattice", "shared body center and foot-contact line", "direction-aware near/far draw order", "hard alpha", "master palette", "48×64 target pixel cleanup"]
+      "validation": ["all eight canonical facings", "shared 480×640 lattice", "shared body center and foot-contact line", "direction-aware near/far draw order", "hard alpha", "master palette", "grounded non-chibi proportions", "48×64 target pixel cleanup"]
     },
     "sourceGate": {
       "requiredBeforeRuntimeDerivation": [
