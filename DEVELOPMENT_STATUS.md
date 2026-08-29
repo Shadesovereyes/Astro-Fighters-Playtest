@@ -31,6 +31,7 @@ Before development, read in this order:
 9. world and character production checklists — completion inventories
 10. `production/asset-manifest.json` — current machine-readable package contract
 11. `docs/data/shared-foundation-runtime.json` — guarded runtime activation state for the first Slice 0 family
+12. `production/reference/world/shared-foundation/REFERENCE_SALVAGE_REVIEW.md` — vetted historical visual evidence only
 
 Git history is the iteration archive. Old package branches and superseded package PRs are historical reference, not production authority.
 
@@ -53,8 +54,6 @@ Crab-island/cave production remains outside this milestone gate.
 ## Phaser world refactor — technical milestone implemented
 
 The first runtime refactor milestone is implemented on `development/slice0-shared-foundation-v1` through `docs/js/world-refactor-v0.js` and wired into `docs/play-v4.html`.
-
-The refactor layer deliberately preserves proven gameplay systems while replacing the legacy exploration/world-presentation path.
 
 Implemented:
 
@@ -79,7 +78,7 @@ A live/manual Phaser-canvas observation is still required before the refactor do
 
 ## Guarded runtime asset activation — implemented
 
-`docs/data/shared-foundation-runtime.json` and `docs/js/shared-foundation-assets-v0.js` now form the production-asset activation seam for the first five shared-foundation assets.
+`docs/data/shared-foundation-runtime.json` and `docs/js/shared-foundation-assets-v0.js` form the production-asset activation seam for the first five shared-foundation assets.
 
 Rules enforced by `tools/validate-shared-foundation-runtime.mjs`:
 
@@ -98,7 +97,7 @@ All five benchmark assets remain disabled and `missing`; therefore the scene rem
 
 `AF-IC-SHARED-FOUNDATION`
 
-The package remains **contracted** in `production/asset-manifest.json`. The manifest now explicitly points to both `production/NEGATIVE_PROMPT_REGISTER.md` and `docs/data/shared-foundation-runtime.json` as package authorities. Production source masters and production runtime assets remain missing/unapproved.
+The package remains **contracted** in `production/asset-manifest.json`. Production source masters and production runtime assets remain missing/unapproved.
 
 Locked package facts include:
 
@@ -114,19 +113,43 @@ Locked package facts include:
 - source approval before runtime derivation;
 - actual Phaser integration before checklist completion.
 
+## Slice 0 reference salvage — consolidated
+
+Useful visual evidence from superseded Package 03–05 work has been consolidated under:
+
+`production/reference/world/shared-foundation/legacy-salvage/`
+
+The carried-forward references are:
+
+- `package03-clean-data.js` — historical clean-stone embedded runtime study;
+- `package04-reference-preview.png` — threshold/foundation/post-beam visual reference;
+- `package05-reference-anchor-montage.png` — facade/timber/plaster visual reference.
+
+Their exact usage limits are documented in:
+
+`production/reference/world/shared-foundation/REFERENCE_SALVAGE_REVIEW.md`
+
+They are **reference-only**. They are not production masters, source-approved assets, runtime candidates, or integrated gameplay. No old package status or architecture was imported.
+
+The salvage review preserves the strongest useful material lessons: irregular civic-stone rhythm, localized wear, older/heavier foundations, warm aged timber, broad restrained plaster planes, and functional metal accents.
+
+## Rejected development outputs
+
+The first local schematic/procedural five-asset trial was rejected because it was dimensionally correct but visually too flat and generic to establish the production style. It was not committed or promoted.
+
+Generated status/handoff dashboards are also rejected as production evidence. `NP-PRES-001` now prohibits generated dashboards from inventing completion percentages, approvals, runtime integration, dates, commits, dimensions, file paths, or Phaser proof. Repository data and actual Phaser captures are the only authorities for those claims.
+
 ## Slice 0 — next art milestone
 
-The next legitimate milestone is **production replacement of the technical scaffold with a coherent shared-foundation asset family**.
+The next legitimate milestone is **author and approve the first current-contract `stone-clean` source master**, then use it as the material/pixel-density authority for the remaining benchmark family.
 
-First benchmark family:
+Benchmark family order:
 
-1. Imperial stone ground
-2. aged stone foundation
-3. timber/plaster wall
-4. timber post
-5. horizontal beam
-
-These assets must establish one coherent studio language before drainage, threshold, decals, signs, props, or foliage expand the set.
+1. `stone-clean` — source 1920×1280 → runtime 192×128
+2. `aged-stone-foundation` — source 1920×640 → runtime 192×64
+3. `timber-plaster-wall` — source 1920×1600 → runtime 192×160
+4. `timber-post` — source 480×1280 → runtime 48×128
+5. `horizontal-beam` — source 1280×480 → runtime 128×48
 
 The first production family must share:
 
@@ -140,7 +163,7 @@ The first production family must share:
 - no visible 32×32 cadence;
 - no generic steampunk/cyberpunk drift.
 
-The first local schematic/procedural benchmark trial was rejected at visual QA because it was too flat and low-detail to establish the production style. It was not committed or promoted. Dimension correctness alone is not sufficient.
+The old Package 03 clean-stone study may inform value grouping and joint rhythm, but it uses an obsolete shape and must not be blindly resized into the current 192×128 runtime contract.
 
 Only after source/reference approval should 10× source masters be reduced and manually cleaned into runtime assets.
 
@@ -168,19 +191,18 @@ Integrated review is valid only from the running Phaser canvas.
 
 Do not use this file as a second checklist.
 
-## Next work order
+## Handoff — exact next actions
 
-1. author one coherent shared-foundation visual benchmark family: stone + aged foundation + timber/plaster + post/beam;
-2. approve that source/reference language before expanding the asset count;
-3. produce clean modular source masters on contracted dimensions;
-4. run source isolation/anchor/assembly QA;
-5. derive and manually clean runtime candidates;
-6. promote each passing asset in both the manifest and guarded runtime registry;
-7. let Phaser replace only those scaffold textures whose runtime candidates pass CI;
-8. capture an actual Phaser gameplay frame demonstrating continuous traversal, hidden grid, collision, and foreground occlusion;
-9. score the integrated Slice 0 scene;
-10. repair until all critical gates pass;
-11. at 42+, update only the relevant checklist/manifest completion state;
-12. proceed into Harbor Arrival, then Market → Residential/Canal → Academy Exterior → Academy Interior/Sensei.
+1. Use the consolidated salvage references only as visual evidence; do not resurrect Package 03–05 runtime architecture.
+2. Author a new `stone-clean` source master at **1920×1280** to the current canon.
+3. Source-QA it for irregular authored courses, hidden-grid suppression, NW lighting, matte stone, localized wear, palette discipline, and homogeneity.
+4. If source QA passes, change only `stone-clean` to `source-approved` in the manifest.
+5. Derive the **192×128** runtime candidate with nearest-neighbor reduction plus manual target-pixel cleanup.
+6. Change `stone-clean` to `runtime-candidate` in both manifest and guarded runtime registry only after the runtime PNG exists and passes CI.
+7. Let Phaser replace only the ground scaffold; keep every other scaffold active and keep the scene marked **NOT ART REVIEW**.
+8. Repeat the same source → QA → runtime chain for `aged-stone-foundation`, `timber-plaster-wall`, `timber-post`, and `horizontal-beam`.
+9. Once all five are real runtime candidates, capture the first actual Phaser Foundation Courtyard proof showing continuous movement, hidden grid, collision, and walk-behind occlusion.
+10. Score the integrated scene and repair until all critical gates pass; checklist completion begins only at 42+.
+11. Proceed into Harbor Arrival, then Market → Residential/Canal → Academy Exterior → Academy Interior/Sensei.
 
 If an upstream gate fails, repair it before continuing downstream.
