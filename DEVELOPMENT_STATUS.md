@@ -1,7 +1,7 @@
 # Astro Fighters — Current Development Status
 
 **Updated:** 2026-08-28  
-**Authoritative production branch:** `main`  
+**Authoritative branch:** `main`  
 **Active development branch:** `development/slice0-shared-foundation-v1`  
 **Draft PR:** #12 — Slice 0 continuous modular Phaser world refactor  
 **Current milestone:** Imperial City Early Player Experience v0  
