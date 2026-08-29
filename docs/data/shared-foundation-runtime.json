@@ -1,0 +1,48 @@
+{
+  "schema": "astro-fighters-shared-foundation-runtime/v1",
+  "packageId": "AF-IC-SHARED-FOUNDATION",
+  "reviewState": "not-ready-for-art-review",
+  "allowedActivationStatuses": ["runtime-candidate", "integrated", "approved"],
+  "assets": [
+    {
+      "id": "stone-clean",
+      "status": "missing",
+      "enabled": false,
+      "runtimePath": "assets/world/shared-foundation/stone-clean.png",
+      "runtimeCanvas": [192, 128],
+      "replacesScaffoldTexture": "af-scaffold-ground"
+    },
+    {
+      "id": "aged-stone-foundation",
+      "status": "missing",
+      "enabled": false,
+      "runtimePath": "assets/world/shared-foundation/aged-stone-foundation.png",
+      "runtimeCanvas": [192, 64],
+      "replacesScaffoldTexture": "af-scaffold-foundation"
+    },
+    {
+      "id": "timber-plaster-wall",
+      "status": "missing",
+      "enabled": false,
+      "runtimePath": "assets/world/shared-foundation/timber-plaster-wall.png",
+      "runtimeCanvas": [192, 160],
+      "replacesScaffoldTexture": "af-scaffold-wall"
+    },
+    {
+      "id": "timber-post",
+      "status": "missing",
+      "enabled": false,
+      "runtimePath": "assets/world/shared-foundation/timber-post.png",
+      "runtimeCanvas": [48, 128],
+      "replacesScaffoldTexture": "af-scaffold-post"
+    },
+    {
+      "id": "horizontal-beam",
+      "status": "missing",
+      "enabled": false,
+      "runtimePath": "assets/world/shared-foundation/horizontal-beam.png",
+      "runtimeCanvas": [128, 48],
+      "replacesScaffoldTexture": null
+    }
+  ]
+}
