@@ -23,12 +23,13 @@ Before development, read in this order:
 1. `README.md` — repository orientation and game architecture
 2. `AGENTS.md` — repository/runtime/development behavior
 3. `ASTRO_FIGHTERS_LOCKED_MASTER_ART_DIRECTION_PROMPT.md` — visual canon
-4. `PHASER_WORLD_REFACTOR_V0.md` — world-runtime migration gate
-5. `IMPERIAL_CITY_EARLY_PLAYER_EXPERIENCE_V0.md` — current route/scope/order
-6. `Astro Fighters — Art Preview Review Rubric.md` — human review rules
-7. `docs/data/art-review-rubric.json` — machine scoring authority
-8. world and character production checklists — completion inventories
-9. `production/asset-manifest.json` — current machine-readable package contract
+4. `production/NEGATIVE_PROMPT_REGISTER.md` — persistent corrections learned from user review
+5. `PHASER_WORLD_REFACTOR_V0.md` — world-runtime migration gate
+6. `IMPERIAL_CITY_EARLY_PLAYER_EXPERIENCE_V0.md` — current route/scope/order
+7. `Astro Fighters — Art Preview Review Rubric.md` — human review rules
+8. `docs/data/art-review-rubric.json` — machine scoring authority
+9. world and character production checklists — completion inventories
+10. `production/asset-manifest.json` — current machine-readable package contract
 
 Git history is the iteration archive. Old package branches and superseded package PRs are historical reference, not production authority.
 
@@ -73,15 +74,24 @@ Implemented:
 - static contract validation in `tools/validate-world-refactor.mjs`;
 - CI syntax + contract coverage for the refactor.
 
-GitHub Actions run **#53** passed for commit `faf3fd20734e1ea7e6fc5a38baf91563727287e4` before the handoff wording update.
+A live/manual Phaser-canvas observation is still required before the refactor document's final visual proof items can be checked off. CI proves the code contract and wiring, not visual art quality.
 
-### Important status distinction
+## Guarded runtime asset activation — implemented
 
-This completes the **technical code/scaffold milestone**, not the art milestone.
+`docs/data/shared-foundation-runtime.json` and `docs/js/shared-foundation-assets-v0.js` now form the production-asset activation seam for the first five shared-foundation assets.
 
-The generated scaffold textures are intentionally low-authority technical materials. They are marked `productionArt: false` and `scaffoldOnly: true`. They must never be scored or presented as production-quality Astro Fighters art.
+Rules enforced by `tools/validate-shared-foundation-runtime.mjs`:
 
-A live/manual Phaser-canvas observation is still required before the refactor document's final visual proof items can be checked off, especially the actual occlusion screenshot/review evidence. CI proves the code contract and wiring, not visual art quality.
+- an asset is not loaded merely because a PNG exists;
+- it must be explicitly enabled in the runtime registry;
+- enabled status must be `runtime-candidate`, `integrated`, or `approved`;
+- registry status must exactly match `production/asset-manifest.json`;
+- runtime path and dimensions must match the manifest contract;
+- enabled PNGs must physically exist in `/docs/assets/world/shared-foundation/` and pass PNG signature/dimension validation;
+- partially replaced scaffold scenes remain labeled **NOT ART REVIEW**;
+- Phaser audit state is exposed through `AF_TEST.sharedFoundation()`.
+
+All five benchmark assets remain disabled and `missing`; therefore the scene remains scaffold-only and no production-art completion is claimed.
 
 ## Active production package
 
@@ -98,6 +108,7 @@ Locked package facts include:
 - source foot-contact line `y=600`;
 - runtime frame `48×64`;
 - runtime pivot `[24,60]`;
+- grounded non-chibi character proportions per `production/NEGATIVE_PROMPT_REGISTER.md`;
 - world source scale `10×` for the shared-foundation contract;
 - source approval before runtime derivation;
 - actual Phaser integration before checklist completion.
@@ -127,6 +138,8 @@ The first production family must share:
 - flat-faced 3/4 cabinet projection;
 - no visible 32×32 cadence;
 - no generic steampunk/cyberpunk drift.
+
+The first local schematic/procedural benchmark trial was rejected at visual QA because it was too flat and low-detail to establish the production style. It was not committed or promoted. Dimension correctness alone is not sufficient.
 
 Only after source/reference approval should 10× source masters be reduced and manually cleaned into runtime assets.
 
@@ -161,11 +174,12 @@ Do not use this file as a second checklist.
 3. produce clean modular source masters on contracted dimensions;
 4. run source isolation/anchor/assembly QA;
 5. derive and manually clean runtime candidates;
-6. replace `af-scaffold-*` textures with the approved runtime assets while keeping the refactor architecture;
-7. capture an actual Phaser gameplay frame demonstrating continuous traversal, hidden grid, collision, and foreground occlusion;
-8. score the integrated Slice 0 scene;
-9. repair until all critical gates pass;
-10. at 42+, update only the relevant checklist/manifest completion state;
-11. proceed into Harbor Arrival, then Market → Residential/Canal → Academy Exterior → Academy Interior/Sensei.
+6. promote each passing asset in both the manifest and guarded runtime registry;
+7. let Phaser replace only those scaffold textures whose runtime candidates pass CI;
+8. capture an actual Phaser gameplay frame demonstrating continuous traversal, hidden grid, collision, and foreground occlusion;
+9. score the integrated Slice 0 scene;
+10. repair until all critical gates pass;
+11. at 42+, update only the relevant checklist/manifest completion state;
+12. proceed into Harbor Arrival, then Market → Residential/Canal → Academy Exterior → Academy Interior/Sensei.
 
 If an upstream gate fails, repair it before continuing downstream.
