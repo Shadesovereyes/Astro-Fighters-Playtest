@@ -56,7 +56,36 @@ Future female rule is documented but not in active production: **body / skin + h
 
 Equipment placement follows the character's anatomy, not screen-left / screen-right.
 
-Kairo's mounted sword belongs to his **anatomical left hip** in every facing. In canonical `S`, the hilt/mount must read inside the left-arm / torso relationship. `SW` and `W` must preserve the same anatomical mount as the body rotates.
+Kairo's mounted sword belongs to his **anatomical left hip** in every facing.
+
+- `S`: hilt/mount reads inside the left-arm / torso relationship
+- `SW`: hilt remains visible and connected to the left-hip mount
+- `W`: scabbard routes on the anatomical left side
+
+## Approved visual idle reference
+
+The approved eight-direction dressed idle design is the visual authority for:
+
+- silhouette
+- Kairo clothing proportions
+- near/far garment behavior
+- anatomical sword routing
+- weapon/hilt visibility
+- accessory placement
+
+Its machine-readable frame/anchor contract is stored at `docs/assets/characters/kairo/reference/kairo-idle-reference.json`.
+
+The approved visual reference is **not automatically the modular source master**. Body and modular clothing/equipment source art must be authored against the same geometry instead of attempting to retrofit independently generated body and dressed sheets together.
+
+### Rejected registration approach
+
+Recent QA confirmed that forcing an independently generated clean base underneath an independently generated dressed benchmark produces persistent sleeve, torso, hand, and silhouette seams even when scale/translation are tuned.
+
+That retrofit path is now rejected as a production workflow. Automatic scale matching, broad color segmentation, template matching, and procedural healing remain diagnostic tools only.
+
+The active production path is:
+
+> approved idle reference geometry → matching base underlayer source → matching modular source layers → source assembly approval → 48×64 derivation → manual target-pixel cleanup → Phaser
 
 ## Modular layer inventory
 
@@ -103,16 +132,18 @@ Waist accessories remain independently swappable: belt knot / scabbard cord, pou
 
 Accepted development facts:
 
-- clean eight-direction male base-underlayer visual direction is established
+- canonical `S = front`, `N = back`
+- male base underlayer is shorts-only beyond body/hair/face
 - chest cross-bandage is not part of the production base
-- clothing/equipment must be isolated without neighboring pixels, labels, panel rules, checkerboard/paper background, or presentation shadows
+- clothing/equipment isolates may not contain neighboring pixels, labels, panel rules, checkerboard/paper background, or presentation shadows
 - source components are reviewed before runtime reduction
 - source registration is performed direction-by-direction against the approved dressed benchmark
 - automatic segmentation/template matching may diagnose problems but is not final-pixel authority
+- source geometry must be shared from the beginning; mismatched independently generated body/dressed geometry is not repaired downstream
 
 Known unresolved source blocker:
 
-The equipment reference lacks legacy source slot `NW`, which maps to canonical **`SW`**. The following canonical `SW` assets must be independently authored rather than mirrored automatically:
+The legacy equipment reference lacks source slot `NW`, which maps to canonical **`SW`**. The following canonical `SW` assets must be independently authored rather than mirrored automatically:
 
 - katana
 - scabbard
