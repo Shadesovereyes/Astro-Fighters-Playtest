@@ -4,16 +4,7 @@
   "status": "source_stage",
   "production_approved": false,
   "canonical_directions": {
-    "order": [
-      "N",
-      "NE",
-      "E",
-      "SE",
-      "S",
-      "SW",
-      "W",
-      "NW"
-    ],
+    "order": ["N", "NE", "E", "SE", "S", "SW", "W", "NW"],
     "profiles": {
       "N": "back",
       "NE": "back-right-3q",
@@ -36,29 +27,21 @@
     }
   },
   "source_lattice": {
-    "canvas": [
-      480,
-      640
-    ],
+    "canvas": [480, 640],
     "body_center_x": 240,
     "foot_contact_y": 560,
-    "runtime_frame": [
-      48,
-      64
-    ]
+    "runtime_frame": [48, 64]
+  },
+  "reference_idle": {
+    "manifest": "reference/kairo-idle-reference.json",
+    "status": "approved_visual_reference_not_source_master",
+    "purpose": "eight-direction male idle silhouette, clothing, and anatomical left-hip sword authority",
+    "binary_reference_asset_committed": false,
+    "note": "Reference imagery remains a development authority until a clean stable-path source image is promoted; the machine-readable frame contract is committed now."
   },
   "base_underlayer": {
-    "male": [
-      "body_skin",
-      "hair_face",
-      "base_shorts"
-    ],
-    "female_future": [
-      "body_skin",
-      "hair_face",
-      "base_shorts",
-      "sports_bra"
-    ],
+    "male": ["body_skin", "hair_face", "base_shorts"],
+    "female_future": ["body_skin", "hair_face", "base_shorts", "sports_bra"],
     "male_active_only": true,
     "forbidden_baked_modules": [
       "chest_wraps",
@@ -80,7 +63,9 @@
     "sword": {
       "side": "character_left_hip",
       "screen_side_is_authority": false,
-      "front_S_rule": "hilt_and_mount_read_inside_left_arm_torso_relationship"
+      "front_S_rule": "hilt_and_mount_read_inside_left_arm_torso_relationship",
+      "SW_rule": "hilt_remains_visible_and_connected_to_left_hip_mount",
+      "W_rule": "scabbard_routes_on_anatomical_left_side"
     }
   },
   "draw_order": [
@@ -107,15 +92,8 @@
     "accessory_front"
   ],
   "required_modules": {
-    "body": [
-      "body_core",
-      "body_far_hand",
-      "body_near_hand"
-    ],
-    "hair": [
-      "hair_back",
-      "hair_front"
-    ],
+    "body": ["body_core", "body_far_hand", "body_near_hand"],
+    "hair": ["hair_back", "hair_front"],
     "clothing": [
       "pants",
       "inner_top",
@@ -129,68 +107,34 @@
       "sash_front",
       "sash_ties"
     ],
-    "equipment": [
-      "equipment_back",
-      "equipment_front",
-      "accessory_front"
-    ],
-    "waist_independent": [
-      "belt_knot",
-      "pouch",
-      "gourd",
-      "charm_tag",
-      "utility_attachment"
-    ],
-    "face": [
-      "eyes"
-    ],
-    "ground": [
-      "shadow"
-    ]
+    "equipment": ["equipment_back", "equipment_front", "accessory_front"],
+    "waist_independent": ["belt_knot", "pouch", "gourd", "charm_tag", "utility_attachment"],
+    "face": ["eyes"],
+    "ground": ["shadow"]
   },
   "direction_profiles": {
-    "N": {
-      "near_side": "symmetric",
-      "front_panels": "empty-or-minimal"
-    },
-    "NE": {
-      "near_side": "right",
-      "front_panels": "mostly-empty"
-    },
-    "E": {
-      "near_side": "right",
-      "front_panels": "near-only-or-narrow"
-    },
-    "SE": {
-      "near_side": "right",
-      "front_panels": "near-dominant"
-    },
-    "S": {
-      "near_side": "symmetric",
-      "front_panels": "both"
-    },
-    "SW": {
-      "near_side": "left",
-      "front_panels": "near-dominant"
-    },
-    "W": {
-      "near_side": "left",
-      "front_panels": "near-only-or-narrow"
-    },
-    "NW": {
-      "near_side": "left",
-      "front_panels": "mostly-empty"
-    }
+    "N": {"near_side": "symmetric", "front_panels": "empty-or-minimal"},
+    "NE": {"near_side": "right", "front_panels": "mostly-empty"},
+    "E": {"near_side": "right", "front_panels": "near-only-or-narrow"},
+    "SE": {"near_side": "right", "front_panels": "near-dominant"},
+    "S": {"near_side": "symmetric", "front_panels": "both"},
+    "SW": {"near_side": "left", "front_panels": "near-dominant"},
+    "W": {"near_side": "left", "front_panels": "near-only-or-narrow"},
+    "NW": {"near_side": "left", "front_panels": "mostly-empty"}
+  },
+  "source_workflow": {
+    "contract_first": true,
+    "shared_lattice_required": true,
+    "fully_dressed_benchmark_is_quality_authority": true,
+    "modular_sources_must_share_benchmark_geometry": true,
+    "retrofit_between_mismatched_body_and_dressed_geometry_rejected": true,
+    "automatic_segmentation_or_template_matching_final_authority": false,
+    "source_approval_before_runtime_reduction": true
   },
   "missing_source": {
     "legacy_slot": "NW",
     "canonical_direction": "SW",
-    "items": [
-      "katana",
-      "scabbard",
-      "belt_knot",
-      "shoulder_tie"
-    ],
+    "items": ["katana", "scabbard", "belt_knot", "shoulder_tie"],
     "automatic_mirroring_allowed": false
   },
   "quality_gates": {
@@ -214,6 +158,7 @@
     "stable_filenames": true,
     "version_history": "git",
     "temporary_qa_committed": false,
-    "versioned_package_files_forbidden": true
+    "versioned_package_files_forbidden": true,
+    "current_human_contract": "../../../art/KAIRO_PAPERDOLL.md"
   }
 }
