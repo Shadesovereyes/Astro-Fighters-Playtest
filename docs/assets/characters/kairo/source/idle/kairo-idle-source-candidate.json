@@ -1,0 +1,37 @@
+{
+  "asset": "kairo_idle_source_candidate_continuation",
+  "status": "source_composite_candidate_not_modular_layer_approved",
+  "canonical_order": ["N", "NE", "E", "SE", "S", "SW", "W", "NW"],
+  "production_sequence": ["S", "SE", "E", "NE", "N", "NW", "W", "SW"],
+  "frame_size": [480, 640],
+  "atlas_size": [1920, 1280],
+  "body_center_x": 240,
+  "foot_contact_y": 560,
+  "frames": {
+    "N": {"x": 0, "y": 0, "w": 480, "h": 640},
+    "NE": {"x": 480, "y": 0, "w": 480, "h": 640},
+    "E": {"x": 960, "y": 0, "w": 480, "h": 640},
+    "SE": {"x": 1440, "y": 0, "w": 480, "h": 640},
+    "S": {"x": 0, "y": 640, "w": 480, "h": 640},
+    "SW": {"x": 480, "y": 640, "w": 480, "h": 640},
+    "W": {"x": 960, "y": 640, "w": 480, "h": 640},
+    "NW": {"x": 1440, "y": 640, "w": 480, "h": 640}
+  },
+  "output_bboxes": {
+    "S": [105, 60, 318, 560],
+    "SE": [104, 60, 315, 560],
+    "E": [164, 60, 324, 560],
+    "NE": [117, 60, 315, 560],
+    "N": [123, 60, 337, 560],
+    "NW": [163, 60, 358, 560],
+    "W": [142, 60, 331, 560],
+    "SW": [166, 60, 383, 560]
+  },
+  "notes": [
+    "Dressed composite extraction from the replacement visual-reference continuation.",
+    "Transparent 480x640 source-composite candidates are registered to x=240 and foot-contact y=560.",
+    "The production sequence was executed S -> SE -> E -> NE -> N -> NW -> W -> SW rather than iterating all facings simultaneously.",
+    "Generated presentation-board validation checkmarks are not QA evidence.",
+    "These composites are not modular paper-doll source approval; layer decomposition, near/far occlusion QA, palette validation, and target-pixel cleanup remain required."
+  ]
+}
