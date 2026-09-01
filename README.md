@@ -8,19 +8,20 @@ This repository also serves as the **art-development control surface and handoff
 
 # Art Development Workflow — READ THIS FIRST
 
-Astro Fighters art development is **source-driven, checklist-driven, and rubric-gated**. Do not improvise a new visual direction and do not treat technically functional placeholder art as production art.
+Astro Fighters art development is **reference-guided, source-driven, checklist-driven, and rubric-gated**. Do not improvise a new visual direction and do not treat technically functional placeholder art as production art.
 
 The required operating sequence is:
 
-> **MASTER ART DIRECTION → SOURCE-LAYER INTEGRITY RULES → CHECK BOTH ASSET CHECKLISTS → DEVELOP → SOURCE QA → INTEGRATE IN GAME → SCORE WITH RUBRIC → REFINE OR MARK COMPLETE → CONTINUE**
+> **MASTER ART DIRECTION → REFERENCE / GAME-ASSET CLASSIFICATION → PIXEL SOURCE STANDARD → SOURCE-LAYER INTEGRITY RULES → CHECK BOTH ASSET CHECKLISTS → DEVELOP → SOURCE QA → INTEGRATE IN GAME → SCORE WITH RUBRIC → REFINE OR MARK COMPLETE → CONTINUE**
 
-The five controlling documents on `main` are:
+The six controlling documents on this branch are:
 
 1. [`ASTRO_FIGHTERS_LOCKED_MASTER_ART_DIRECTION_PROMPT.md`](./ASTRO_FIGHTERS_LOCKED_MASTER_ART_DIRECTION_PROMPT.md) — **HOW to develop the art.**
-2. [`ASTRO_FIGHTERS_MODULAR_SOURCE_LAYER_INTEGRITY_RULES.md`](./ASTRO_FIGHTERS_MODULAR_SOURCE_LAYER_INTEGRITY_RULES.md) — **HOW modular source layers must be authored and QA'd; visibility slices and occlusion-boundary clipping are automatic failures.**
-3. [`Astro Fighters — Imperial City Zone-by-Zone Asset Checklist.md`](./Astro%20Fighters%20%E2%80%94%20Imperial%20City%20Zone-by-Zone%20Asset%20Checklist.md) — **WHAT world/scenery assets remain to be developed.**
-4. [`ASTRO_FIGHTERS_CHARACTER_CLOTHING_ACCESSORY_CHECKLIST.md`](./ASTRO_FIGHTERS_CHARACTER_CLOTHING_ACCESSORY_CHECKLIST.md) — **WHAT character clothing, hair, equipment, and accessory work remains to be developed in parallel.**
-5. [`Astro Fighters — Art Preview Review Rubric.md`](./Astro%20Fighters%20%E2%80%94%20Art%20Preview%20Review%20Rubric.md) — **WHEN an integrated result is good enough to test or mark production-complete.**
+2. [`ASTRO_FIGHTERS_PIXEL_ART_SOURCE_STANDARD.md`](./ASTRO_FIGHTERS_PIXEL_ART_SOURCE_STANDARD.md) — **WHERE polished reference illustration is allowed and WHERE true pixel art becomes mandatory for source/runtime/in-game assets.**
+3. [`ASTRO_FIGHTERS_MODULAR_SOURCE_LAYER_INTEGRITY_RULES.md`](./ASTRO_FIGHTERS_MODULAR_SOURCE_LAYER_INTEGRITY_RULES.md) — **HOW modular production layers must be authored and QA'd; visibility slices and occlusion-boundary clipping are automatic failures.**
+4. [`Astro Fighters — Imperial City Zone-by-Zone Asset Checklist.md`](./Astro%20Fighters%20%E2%80%94%20Imperial%20City%20Zone-by-Zone%20Asset%20Checklist.md) — **WHAT world/scenery assets remain to be developed.**
+5. [`ASTRO_FIGHTERS_CHARACTER_CLOTHING_ACCESSORY_CHECKLIST.md`](./ASTRO_FIGHTERS_CHARACTER_CLOTHING_ACCESSORY_CHECKLIST.md) — **WHAT character clothing, hair, equipment, and accessory work remains to be developed in parallel.**
+6. [`Astro Fighters — Art Preview Review Rubric.md`](./Astro%20Fighters%20%E2%80%94%20Art%20Preview%20Review%20Rubric.md) — **WHEN an integrated result is good enough to test or mark production-complete.**
 
 These files are not optional reference notes. Together they define the production process.
 
@@ -54,9 +55,37 @@ If a proposed asset conflicts with the Master Art Direction Prompt, the asset is
 
 ---
 
-# 1A. Modular Source Layer Integrity Is a Separate Mandatory Gate
+# 1A. Reference Material and In-Game Assets Are Different Asset Classes
 
-Immediately after the Master Art Direction Prompt, read **`ASTRO_FIGHTERS_MODULAR_SOURCE_LAYER_INTEGRITY_RULES.md`** before creating or approving modular character/clothing/equipment source art.
+Astro Fighters may use **polished illustration, cel-shaded art, painted turnarounds, anatomy studies, garment studies, material studies, equipment studies, and presentation-quality concept art as reference material**.
+
+That is allowed and useful.
+
+The critical rule is:
+
+> **POLISHED ILLUSTRATION IS ALLOWED FOR REFERENCE. ANYTHING IDENTIFIED FOR ACTUAL GAME USE MUST BE TRUE PIXEL ART.**
+
+Reference material may establish:
+
+- character identity and Afro-feature treatment;
+- anatomy and proportions;
+- garment construction and hidden geometry;
+- directional pose and silhouette;
+- weapon/equipment mounting;
+- material and color relationships;
+- the quality target that production pixel art must match.
+
+Reference material must be identified as **`REFERENCE ONLY`** or **`REFERENCE PASS`**. It is not a sprite/source/runtime/game asset merely because it is transparent, sits on a checkerboard, has filenames printed on it, is labeled `480×640`, or resembles a sprite sheet.
+
+The moment an asset is identified as `SOURCE CANDIDATE`, `PIXEL SOURCE`, `SOURCE PASS`, `RUNTIME CANDIDATE`, `RUNTIME PASS`, `IN-GAME`, `PHASER ASSET`, or is intended to be loaded by gameplay, it must satisfy `ASTRO_FIGHTERS_PIXEL_ART_SOURCE_STANDARD.md`.
+
+Do **not** promote illustration to game art by cropping, shrinking, palette quantization, a pixelation filter, or cutting its visible parts into transparent PNGs. The reference guides a separately authored pixel asset.
+
+---
+
+# 1B. Modular Source Layer Integrity Is a Separate Mandatory Gate
+
+Immediately after the Pixel-Art Source Standard, read **`ASTRO_FIGHTERS_MODULAR_SOURCE_LAYER_INTEGRITY_RULES.md`** before creating or approving modular character/clothing/equipment source art.
 
 The critical distinction is:
 
@@ -64,15 +93,16 @@ The critical distinction is:
 
 A layer is not production-ready merely because the dressed composite reconstructs perfectly. Pants must continue beneath sashes and weapons, sleeves must continue to their real cuff/opening edges, haori near/far pieces must be coherent garment pieces rather than sparse visible fragments, and equipment must continue behind the body/garment according to its physical mount.
 
-**Machine reconstruction PASS + clipped or fragmented standalone layers = SOURCE FAIL.**
+**Machine reconstruction PASS + clipped or fragmented standalone layers = SOURCE FAIL.**  
+**Component integrity PASS + non-pixel production rendering = SOURCE FAIL.**
 
-Every modular package requires individual-layer review and the occluder-toggle test before it can be called `SOURCE PASS` or unblock the next direction.
+Every modular package requires individual-layer review, pixel-source review, and the occluder-toggle test before it can be called `SOURCE PASS` or unblock the next direction.
 
 ---
 
 # 2. World Development Uses the Zone-by-Zone Checklist
 
-After reading the Master Art Direction Prompt, inspect the **Imperial City Zone-by-Zone Asset Checklist**.
+After reading the controlling art standards, inspect the **Imperial City Zone-by-Zone Asset Checklist**.
 
 Use it to determine the next world dependencies rather than inventing ad-hoc scenery. Development should consider shared/global Imperial City assets first when they unblock multiple districts, then proceed through the district families and current playable slice needs.
 
@@ -128,9 +158,11 @@ The character checklist governs:
 
 **No presentation-quality gameplay preview may use bare/mannequin characters or placeholder clothing.**
 
+A polished illustrated fighter reference may be used to guide the character package. The fighter that appears in actual gameplay must be the approved pixel-art runtime asset, not the illustration.
+
 ---
 
-# 4. Build Assets as Game Assets, Not Illustrations
+# 4. Build Game Assets as Pixel Assets; Use Illustration as Reference
 
 The playable world must be made from modular, layered runtime elements rather than a single baked background.
 
@@ -150,9 +182,9 @@ A representative environment should support the appropriate combination of:
 
 Characters and NPCs must be able to move correctly in front of and behind appropriate objects. Tall architecture and organic scenery must use the locked occlusion/cutaway rules.
 
-For modular source art, **do not cut the visible fragments out of a finished illustration and call those fragments the production layers**. Use the finished illustration as a dressed visual authority, then author complete reusable component geometry under overlaps according to the Source Layer Integrity Rules.
+For modular source art, **do not cut the visible fragments out of a finished illustration and call those fragments the production layers**. Use the finished illustration as a dressed visual authority, then author complete reusable component geometry in true pixel art under overlaps according to the Source Layer Integrity Rules and Pixel-Art Source Standard.
 
-A beautiful standalone image is useful as concept/reference art, but it does **not** satisfy a runtime checklist item by itself.
+A beautiful standalone image is useful as concept/reference art, but it does **not** satisfy a source, runtime, or gameplay checklist item by itself.
 
 ---
 
@@ -174,7 +206,7 @@ Do not score an isolated tree, roof, jacket, dock, or character layer as though 
 
 The Art Preview Review Rubric intentionally evaluates the game as a coherent image. An isolated asset that looks good but visibly breaks character/world homogeneity after integration remains unfinished.
 
-For modular-source systems, integrated scoring occurs **after** the source package has already passed the standalone component-integrity gate. Integrated appearance cannot retroactively excuse clipped source components.
+For modular-source systems, integrated scoring occurs **after** the source package has already passed pixel-source and standalone component-integrity gates. Integrated appearance cannot retroactively excuse clipped source components or non-pixel production rendering.
 
 ---
 
@@ -186,7 +218,7 @@ The rubric has two kinds of gates:
 
 ## Automatic failures
 
-Automatic-failure conditions override the numeric total. Examples include lower-quality world art than character art, primitive/blockout scenery, mannequin characters, incomplete clothing, generic box architecture, baked gameplay backgrounds, visible grid rhythm, clashing pixel densities/styles, incorrect directional bodies, unresolved occlusion problems, or modular source layers known to be clipped/fragmented.
+Automatic-failure conditions override the numeric total. Examples include lower-quality world art than character art, primitive/blockout scenery, mannequin characters, incomplete clothing, generic box architecture, baked gameplay backgrounds, visible grid rhythm, clashing pixel densities/styles, incorrect directional bodies, unresolved occlusion problems, modular source layers known to be clipped/fragmented, or non-pixel/painterly art being used as an actual gameplay asset.
 
 If any automatic failure is present, continue development.
 
@@ -219,7 +251,7 @@ Use these thresholds as the operating contract:
 
 The completion threshold for both checklists is therefore **42+**, not merely “an asset exists” and not merely “the scene runs.”
 
-For a modular character package, the numeric gameplay rubric does not replace the source-layer integrity gate: the source must first earn `SOURCE PASS` under the Source Layer Integrity Rules.
+For a modular character package, the numeric gameplay rubric does not replace the source gates: production source must first earn `PIXEL SOURCE PASS` and `COMPONENT INTEGRITY PASS`, then `SOURCE PASS`, before downstream runtime promotion.
 
 ---
 
@@ -246,8 +278,10 @@ Do **not** strike through:
 - assets below 42
 - assets associated with an automatic failure
 - assets whose scene fails a critical minimum
-- concept images used only as visual targets
+- concept/reference images used only as visual targets
+- illustrative/painterly art that has not been re-authored as production pixel art
 - modular packages whose individual layers contain clipped visibility slices or have not passed component-integrity/occluder-toggle QA
+- modular packages that have not passed the Pixel-Art Source Standard
 
 If a previously approved asset later proves incompatible with the Master Art Direction or fails in a more representative integration test, reopen the checklist item and refine it.
 
@@ -260,12 +294,13 @@ Do not interrupt the user for routine continuation decisions.
 When the current result fails the gate:
 
 1. identify the lowest-scoring rubric categories and any automatic failures;
-2. return to the Master Art Direction Prompt and Source Layer Integrity Rules for the correct development approach;
-3. inspect both checklists for the exact missing dependencies;
-4. improve the assets and/or integration;
-5. rerun source-layer integrity QA when modular source art changed;
-6. re-score the integrated view;
-7. repeat until a valid test candidate or production-approved result exists.
+2. return to the Master Art Direction Prompt, Pixel-Art Source Standard, and Source Layer Integrity Rules for the correct development approach;
+3. confirm whether the current file is `REFERENCE ONLY`, production `SOURCE`, or `RUNTIME` so the correct standards are applied;
+4. inspect both checklists for the exact missing dependencies;
+5. improve the assets and/or integration;
+6. rerun pixel-source and source-layer integrity QA when production source art changed;
+7. re-score the integrated view;
+8. repeat until a valid test candidate or production-approved result exists.
 
 The expected response to a failed art pass is **more development**, not “Should I continue?”
 
@@ -286,7 +321,7 @@ When surfacing a testable state, provide:
 - which checklist items were newly completed
 - which checklist items remain active
 
-Do not describe a blockout, known placeholder scene, exact-composite-only modular stack, or clipped-layer package as production quality.
+Do not describe a reference illustration, blockout, known placeholder scene, exact-composite-only modular stack, clipped-layer package, or non-pixel production candidate as production quality.
 
 ---
 
@@ -296,23 +331,25 @@ A new session should perform the following sequence before producing new art:
 
 1. Open this repository and read this `README.md`.
 2. Read `ASTRO_FIGHTERS_LOCKED_MASTER_ART_DIRECTION_PROMPT.md` in full.
-3. Read `ASTRO_FIGHTERS_MODULAR_SOURCE_LAYER_INTEGRITY_RULES.md` in full before creating or approving modular source art.
-4. Read `Astro Fighters — Art Preview Review Rubric.md` in full.
-5. Inspect `Astro Fighters — Imperial City Zone-by-Zone Asset Checklist.md` and identify:
+3. Read `ASTRO_FIGHTERS_PIXEL_ART_SOURCE_STANDARD.md` in full and preserve the distinction between illustrative **REFERENCE** material and pixel-authored **SOURCE/RUNTIME/IN-GAME** assets.
+4. Read `ASTRO_FIGHTERS_MODULAR_SOURCE_LAYER_INTEGRITY_RULES.md` in full before creating or approving modular source art.
+5. Read `Astro Fighters — Art Preview Review Rubric.md` in full.
+6. Inspect `Astro Fighters — Imperial City Zone-by-Zone Asset Checklist.md` and identify:
    - already struck/approved items;
    - currently incomplete items;
    - dependencies for the next playable district or scene.
-6. Inspect `ASTRO_FIGHTERS_CHARACTER_CLOTHING_ACCESSORY_CHECKLIST.md` and identify the corresponding incomplete character work.
-7. Inspect the current playable files under `/docs` and the most recent integrated gameplay state.
-8. Do **not** assume existing art is approved merely because it appears in the build. Checklist strike-through plus qualifying source-integrity and rubric results are the approval signals.
-9. Select the next world and character dependencies together.
-10. Develop according to the Master Art Direction Prompt and Source Layer Integrity Rules.
-11. For modular source packages, review every layer alone and run the occluder-toggle test before runtime reduction.
-12. Integrate accepted source/runtime work into gameplay.
-13. Evaluate with the Art Preview Review Rubric.
-14. Continue refining automatically if it fails.
-15. At 42+, update/strike the completed items in both checklists as applicable.
-16. Continue to the next dependencies.
+7. Inspect `ASTRO_FIGHTERS_CHARACTER_CLOTHING_ACCESSORY_CHECKLIST.md` and identify the corresponding incomplete character work.
+8. Inspect the current playable files under `/docs` and the most recent integrated gameplay state.
+9. Do **not** assume existing art is approved merely because it appears in the build or because a polished image is labeled like a sprite sheet. Checklist strike-through plus qualifying pixel-source, source-integrity, and rubric results are the approval signals.
+10. Classify each active visual file correctly as `REFERENCE ONLY`, `REFERENCE PASS`, `SOURCE CANDIDATE`, `SOURCE PASS`, `RUNTIME CANDIDATE`, `RUNTIME PASS`, or `IN-GAME`.
+11. Select the next world and character dependencies together.
+12. Develop according to the Master Art Direction Prompt, Pixel-Art Source Standard, and Source Layer Integrity Rules.
+13. For modular production source packages, review every layer alone, inspect true pixel construction, and run the occluder-toggle test before runtime reduction.
+14. Integrate accepted runtime work into gameplay.
+15. Evaluate with the Art Preview Review Rubric.
+16. Continue refining automatically if it fails.
+17. At 42+, update/strike the completed items in both checklists as applicable.
+18. Continue to the next dependencies.
 
 This sequence is the default continuation workflow. A new chat should not restart art-direction discovery unless the user explicitly changes a locked rule.
 
@@ -326,23 +363,33 @@ The root Markdown documents are production-control documents. They should remain
 
 The development repository remains separate/private; this repository is the public playtest and art-production handoff surface.
 
+Reference and production imagery should be kept visibly distinct in paths/metadata where practical:
+
+- `reference/` — polished visual authorities/studies; may be illustrative;
+- `source/` — pixel-authored production masters and modular layers;
+- established runtime/Phaser asset paths — manually cleaned game-resolution pixel assets.
+
 ---
 
 # 13. Core Locked Reminders
 
 Keep these rules visible during every art pass:
 
+- **Polished illustration / cel-shaded art is allowed for REFERENCE material.**
+- **Anything identified for source, runtime, Phaser, or in-game usage must be true pixel art.**
+- **Reference art guides production pixel art; it is not converted into production merely by cropping, shrinking, filtering, or quantization.**
 - **The world must match the quality and pixel-art style of the approved character models.**
-- **Characters must be fully clothed and accessorized in presentation-quality previews.**
+- **Characters must be fully clothed and accessorized in presentation-quality gameplay previews.**
 - **The hidden 32×32 square grid must not be visible to the player.**
 - **Movement/facing supports eight directions.**
 - **The game uses a flat-faced 3/4 cabinet projection.**
 - **Playable environments are layered runtime constructions, not baked full-screen illustrations.**
 - **Modular source layers must describe complete components, not visible fragments clipped at occlusion boundaries.**
 - **Exact composite reconstruction alone is never `SOURCE PASS`.**
-- **Individual-layer review and occluder-toggle QA are mandatory before a modular direction/package can pass.**
+- **Individual-layer review, pixel-source review, and occluder-toggle QA are mandatory before a modular direction/package can pass.**
 - **Imperial City must feel dense, lived-in, martial, analog-industrial, and distinctly Astro Fighters.**
-- **The Master Art Direction Prompt determines how to build.**
+- **The Master Art Direction Prompt determines the visual direction.**
+- **The Pixel-Art Source Standard determines when reference rendering must become production pixel art.**
 - **The Source Layer Integrity Rules determine whether modular source geometry is actually reusable.**
 - **The checklists determine what remains to build.**
 - **The rubric determines whether the integrated work is acceptable.**
@@ -356,31 +403,44 @@ Keep these rules visible during every art pass:
 ```text
 READ MASTER ART DIRECTION
         ↓
+CLASSIFY CURRENT ART
+REFERENCE ONLY / REFERENCE PASS / SOURCE / RUNTIME
+        ↓
+REFERENCE MATERIAL? ── YES ──→ POLISHED ILLUSTRATION ALLOWED
+        │                              ↓
+        │                    USE AS DESIGN AUTHORITY
+        │                              ↓
+        └────────────────────→ AUTHOR TRUE PIXEL SOURCE
+                                       ↓
+READ PIXEL-ART SOURCE STANDARD
+        ↓
 READ SOURCE-LAYER INTEGRITY RULES
         ↓
 CHECK WORLD + CHARACTER CHECKLISTS
         ↓
 SELECT NEXT DEPENDENCIES
         ↓
-DEVELOP MATCHING PRODUCTION ASSETS
+DEVELOP MATCHING PIXEL PRODUCTION ASSETS
         ↓
-INDIVIDUAL-LAYER + OCCLUDER-TOGGLE SOURCE QA
+PIXEL-SOURCE + INDIVIDUAL-LAYER + OCCLUDER-TOGGLE QA
         ↓
-   SOURCE PASS? ── NO ──→ FIX SOURCE GEOMETRY ──┐
-        │                                        │
-       YES                                       │
-        ↓                                        │
-INTEGRATE INTO PLAYABLE PHASER SCENE             │
-        ↓                                        │
-SCORE INTEGRATED VIEW WITH ART RUBRIC             │
-        ↓                                        │
-   PASS 42+? ── NO ──→ REFINE AUTOMATICALLY ─────┤
-        │                                        │
-       YES                                       │
-        ↓                                        │
-STRIKE COMPLETED CHECKLIST ITEMS                  │
-        ↓                                        │
-SELECT NEXT DEPENDENCIES ←────────────────────────┘
+   SOURCE PASS? ── NO ──→ FIX PIXELS / SOURCE GEOMETRY ──┐
+        │                                                 │
+       YES                                                │
+        ↓                                                 │
+DERIVE / CLEAN RUNTIME PIXELS                             │
+        ↓                                                 │
+INTEGRATE INTO PLAYABLE PHASER SCENE                     │
+        ↓                                                 │
+SCORE INTEGRATED VIEW WITH ART RUBRIC                    │
+        ↓                                                 │
+   PASS 42+? ── NO ──→ REFINE AUTOMATICALLY ─────────────┤
+        │                                                 │
+       YES                                                │
+        ↓                                                 │
+STRIKE COMPLETED CHECKLIST ITEMS                          │
+        ↓                                                 │
+SELECT NEXT DEPENDENCIES ←────────────────────────────────┘
 ```
 
-The goal is not to accumulate assets. The goal is to systematically produce a **homogeneous, production-quality Astro Fighters world and cast** in which every approved element has survived source-layer integrity review and integrated gameplay review.
+The goal is not to accumulate assets. The goal is to systematically produce a **homogeneous, production-quality Astro Fighters world and cast** in which polished reference material guides — but never masquerades as — the actual pixel-authored game assets, and every approved production element has survived pixel-source review, source-layer integrity review, and integrated gameplay review.
