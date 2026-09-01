@@ -1,0 +1,56 @@
+{
+  "asset": "kairo_idle_S_modular_decomposition_candidate",
+  "status": "construction_candidate_not_source_approved",
+  "direction": "S",
+  "frame_size": [480, 640],
+  "body_center_x": 240,
+  "foot_contact_y": 560,
+  "source_composite": "kairo_idle_S_480x640.png",
+  "layer_order": [
+    "shadow", "hair_back", "equipment_back", "haori_back", "sash_back", "body_core", "pants", "inner_top", "haori_far_sleeve", "body_far_hand", "haori_front_far", "haori_near_sleeve", "body_near_hand", "haori_front_near", "footwear", "sash_front", "sash_ties", "eyes", "hair_front", "equipment_front", "accessory_front"
+  ],
+  "nonempty_layers": [
+    "body_core", "pants", "inner_top", "haori_far_sleeve", "body_far_hand", "haori_front_far", "haori_near_sleeve", "body_near_hand", "haori_front_near", "footwear", "sash_front", "sash_ties", "hair_front", "equipment_front", "accessory_front"
+  ],
+  "empty_layers": ["shadow", "hair_back", "equipment_back", "haori_back", "sash_back", "eyes"],
+  "opaque_pixel_counts": {
+    "shadow": 0,
+    "hair_back": 0,
+    "equipment_back": 0,
+    "haori_back": 0,
+    "sash_back": 0,
+    "body_core": 3658,
+    "pants": 11456,
+    "inner_top": 3540,
+    "haori_far_sleeve": 3567,
+    "body_far_hand": 4041,
+    "haori_front_far": 3758,
+    "haori_near_sleeve": 2356,
+    "body_near_hand": 3522,
+    "haori_front_near": 2142,
+    "footwear": 7233,
+    "sash_front": 6670,
+    "sash_ties": 6219,
+    "eyes": 0,
+    "hair_front": 6022,
+    "equipment_front": 4718,
+    "accessory_front": 190
+  },
+  "recomposition": {
+    "exact_pixel_match": true,
+    "different_pixels": 0,
+    "max_channel_difference": 0
+  },
+  "routing": {
+    "haori": "front-facing split into far/near sleeve and front-panel pieces; back mass empty for this S construction candidate",
+    "hands": "both hand/wrap layers are independent and render separately from sleeves",
+    "equipment": "anatomical-left-hip mount is retained in equipment_front for the S construction candidate",
+    "sash": "front waist band and hanging ties are separated",
+    "openings": "composite-derived transparency is preserved"
+  },
+  "notes": [
+    "This decomposition is derived from the exact dressed S composite geometry, avoiding independent-body registration seams.",
+    "Layer semantics remain a construction candidate and require manual visual review before promotion.",
+    "Palette compliance has not yet been validated against the master palette."
+  ]
+}
