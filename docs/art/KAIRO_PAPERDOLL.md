@@ -141,9 +141,28 @@ Accepted development facts:
 - automatic segmentation/template matching may diagnose problems but is not final-pixel authority
 - source geometry must be shared from the beginning; mismatched independently generated body/dressed geometry is not repaired downstream
 
+### Current continuation candidate — 2026-09-01
+
+The missing working visual was regenerated and used to establish a new **dressed source-composite candidate**. The continuation was executed in the required construction order rather than as a simultaneous eight-facing iteration:
+
+`S → SE → E → NE → N → NW → W → SW`
+
+Current mechanical results:
+
+- eight transparent dressed composites exist at **480×640**;
+- all eight use the shared `x = 240`, `y = 560` source lattice;
+- all eight have an opaque foot-contact maximum at `y = 559`, directly above the locked contact line;
+- an eight-facing `1920×1280` source atlas has been assembled for visual comparison;
+- a nearest-neighbor `48×64` preview derivative has been generated for readability inspection only;
+- source geometry and QA metadata are recorded in `docs/assets/characters/kairo/source/idle/kairo-idle-source-candidate.json` and `kairo-idle-source-candidate-qa.json`.
+
+These results **do not promote the character to source-approved status**. The dressed composites solve the current registration/reference gap, but the paper-doll gate still requires decomposition into the canonical modular layers, seam/occlusion review of those layers, master-palette validation, and manual target-pixel cleanup. Generated presentation-board checkmarks are not treated as QA evidence.
+
+The `S` composite now provides the active construction geometry for modular decomposition. `SE` is the next facing only after the `S` modular stack recomposes cleanly without garment/hand seams and preserves the anatomical-left-hip weapon relationship.
+
 Known unresolved source blocker:
 
-The legacy equipment reference lacks source slot `NW`, which maps to canonical **`SW`**. The following canonical `SW` assets must be independently authored rather than mirrored automatically:
+The legacy equipment reference lacks source slot `NW`, which maps to canonical **`SW`**. The dressed `SW` composite now supplies visual geometry for that facing, but the following canonical `SW` **modular equipment layers** must still be independently authored rather than mirrored automatically:
 
 - katana
 - scabbard
