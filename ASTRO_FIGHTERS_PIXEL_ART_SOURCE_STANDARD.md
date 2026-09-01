@@ -1,22 +1,66 @@
 # Astro Fighters — Pixel-Art Source Standard
 
 **Status:** LOCKED production rule  
-**Scope:** all character, clothing, equipment, prop, VFX, and environment source art intended to become runtime pixel art.  
-**Purpose:** prevent painterly/cel-shaded illustration from being mistaken for valid high-resolution pixel-art source.
+**Scope:** all character, clothing, equipment, prop, VFX, and environment source art intended to become runtime/in-game pixel art.  
+**Purpose:** clearly separate permissive reference-art rendering from the mandatory pixel-art standard for production game assets.
 
 ---
 
 # 1. Governing Rule
 
-Astro Fighters is a **pixel-art game at both source and runtime stages**.
+Astro Fighters is a **pixel-art game**, but its **reference material is not required to be pixel art**.
 
-The 480×640 character source lattice is a high-information pixel-art canvas. It is **not** a concept-art canvas and is **not** permission to use smooth digital painting, airbrushed gradients, anti-aliased linework, painterly brush textures, or cel-shaded illustration that is expected to become pixel art only after reduction.
+Polished illustration, cel-shaded art, painted turnarounds, anatomy studies, garment-construction studies, equipment studies, material studies, and other high-fidelity non-pixel images are allowed when they are used strictly as **reference material**.
 
-> **SOURCE PIXEL ART → TARGET PIXEL CLEANUP**
+Anything identified for actual game use — including a modular source layer, source master, sprite sheet, runtime frame, Phaser asset, animation frame, prop, VFX asset, environment module, or any file intended to ship in gameplay — must already be **true pixel art** at its production stage.
+
+The 480×640 character source lattice is therefore a high-information **pixel-art production canvas**, not a concept-art canvas.
+
+> **POLISHED REFERENCE ART → PIXEL-AUTHORED SOURCE ASSET → TARGET PIXEL CLEANUP → IN-GAME ASSET**
 >
 > not
 >
-> **PAINTED ILLUSTRATION → SHRINK → CALL IT PIXEL ART**
+> **PAINTED ILLUSTRATION → SHRINK / QUANTIZE / CROP → CALL IT GAME PIXEL ART**
+
+---
+
+# 1A. Reference-Material Exception
+
+Non-pixel polished art is acceptable for:
+
+- character identity and facial-feature studies;
+- anatomy and proportion studies;
+- clothing / garment-construction studies;
+- weapon and equipment mounting studies;
+- directional turnaround references;
+- pose, silhouette, material, and color studies;
+- concept boards and presentation art;
+- visual targets used to guide later pixel-authoring.
+
+Such files must be clearly identified as **`REFERENCE ONLY`** or **`REFERENCE PASS`** and must not be described as source sprites, runtime sprites, Phaser assets, or game-ready assets.
+
+A reference image may establish design intent, proportions, palette relationships, garment construction, hidden geometry, and attachment logic. It does **not** become production art merely because it is transparent, uses a checkerboard background, is labeled `480×640`, contains filenames, or visually resembles a sprite sheet.
+
+Reference art may be more polished, painterly, or illustrative than the final game asset. That is acceptable because its job is to communicate the target, not to ship in-game.
+
+---
+
+# 1B. Promotion Boundary — When Pixel Art Becomes Mandatory
+
+The moment a file is identified as any of the following, the pixel-art standard becomes mandatory:
+
+- `SOURCE CANDIDATE`;
+- `PIXEL SOURCE`;
+- `SOURCE PASS`;
+- `RUNTIME CANDIDATE`;
+- `RUNTIME PASS`;
+- `IN-GAME`;
+- `PHASER ASSET`;
+- a production PNG/atlas/layer loaded or intended to be loaded by the game.
+
+A non-pixel reference illustration must therefore be **re-authored as pixel art** before it crosses into the production-source stage.
+
+Cropping a reference illustration into pieces, reducing it with nearest-neighbor, quantizing its palette, applying a pixelation filter, or tracing its visible silhouette does **not** satisfy this requirement. Those operations may assist analysis, but they do not replace deliberate pixel authoring.
 
 ---
 
@@ -44,7 +88,7 @@ Source resolution may contain **more pixel information** than runtime resolution
 
 # 3. Palette Discipline
 
-Source art must use the approved Astro Fighters palette authority or an explicitly approved source palette derived from it.
+Production source art must use the approved Astro Fighters palette authority or an explicitly approved source palette derived from it.
 
 - no arbitrary continuous RGB color drift;
 - no hundreds/thousands of near-duplicate painted colors;
@@ -54,6 +98,8 @@ Source art must use the approved Astro Fighters palette authority or an explicit
 - metallic, cloth, skin, hair, rope, leather, wood, stone, water, and VFX materials must each retain their approved ramp behavior.
 
 A source image that requires heavy palette quantization before it resembles pixel art is **not** an approved source master.
+
+Reference illustrations are exempt from production palette-count restrictions unless the reference itself is specifically being used as a palette authority. That exemption ends when the asset enters production-source status.
 
 ---
 
@@ -68,74 +114,109 @@ For authored pixel assets:
 
 The source master must not rely on downsampling to hide soft edges, anatomy errors, color noise, or painterly detail.
 
+A polished non-pixel reference may be scaled freely for presentation or study because it is not a game asset. That does not authorize using the scaled result as production sprite pixels.
+
 ---
 
 # 5. Character Source Rule
 
 For character packages such as Kairo:
 
-- all 480×640 body, hair, garment, equipment, hand, footwear, and accessory layers are pixel-art source assets;
-- modular layers must satisfy `ASTRO_FIGHTERS_MODULAR_SOURCE_LAYER_INTEGRITY_RULES.md` **and** this pixel-art source standard;
+- polished illustration may be used as a **REFERENCE ONLY** authority for identity, anatomy, garment construction, equipment placement, and directional intent;
+- all 480×640 body, hair, garment, equipment, hand, footwear, and accessory files promoted to production source status are pixel-art source assets;
+- modular production layers must satisfy `ASTRO_FIGHTERS_MODULAR_SOURCE_LAYER_INTEGRITY_RULES.md` **and** this pixel-art source standard;
 - clean component geometry does not compensate for painterly rendering;
 - a component may pass clipping/occlusion QA and still fail source approval if its rendering is not pixel art;
 - S, SE, E, NE, N, NW, W, and SW must remain stylistically coherent at the pixel-cluster level.
 
 ---
 
-# 6. Automatic Source Failures
+# 6. Automatic Production-Source Failures
 
-The following are automatic failures:
+The following are automatic failures **when presented as production/source/runtime/in-game assets**:
 
 - smooth cel-shaded/anime illustration presented as a sprite source;
 - painterly 480×640 character renders with soft edges;
 - anti-aliased silhouettes or garment borders;
-- high-resolution concept art cropped into modular pieces and called source sprites;
-- generative presentation boards whose component images are painted illustrations;
+- high-resolution concept/reference art cropped into modular pieces and called source sprites;
+- generative presentation boards whose component images are painted illustrations and are presented as game assets;
 - assets that only look pixel-art-like after aggressive shrinking;
 - arbitrary dithering/quantization used to disguise non-pixel source art;
 - filtered enlargement of a low-resolution frame masquerading as a 480×640 master;
 - acceptance based on labels such as “pixel art,” “480×640,” or “32 colors” embedded inside an image rather than the actual pixels.
 
+The same imagery may remain valid as **REFERENCE ONLY** material if it is clearly classified and is not promoted into the production asset pipeline.
+
 ---
 
-# 7. Mandatory Source Review
+# 7. Mandatory Production-Source Review
 
-Before `SOURCE PASS`, review the asset at:
+Before `PIXEL SOURCE PASS` or `SOURCE PASS`, review the asset at:
 
 1. **100% source scale** — inspect actual cluster construction and edge treatment;
 2. **zoomed pixel inspection** — verify hard alpha, palette steps, and absence of smoothing artifacts;
 3. **normal assembled composite** — verify the pieces still read as one coherent fighter/world asset;
 4. **48×64 candidate** — confirm the source contains the right information to reduce cleanly without depending on blur/averaging.
 
-A valid source must pass both:
+A valid production source must pass both:
 
 - **component / construction integrity**, and
 - **pixel-art rendering integrity**.
 
----
-
-# 8. Review Vocabulary
-
-- **REFERENCE PASS** — visual design target approved; may still be non-production reference art.
-- **COMPONENT INTEGRITY PASS** — modular shapes / hidden underlayers are valid.
-- **PIXEL SOURCE PASS** — source pixels satisfy the Astro Fighters pixel-art standard.
-- **SOURCE PASS** — registration + component integrity + pixel source quality + composite fidelity all pass.
-- **RUNTIME PASS** — 48×64 target pixels have been manually cleaned and validated.
-
-No direction may advance on `COMPONENT INTEGRITY PASS` alone.
+Reference approval is a separate upstream gate and does not satisfy either production-source requirement.
 
 ---
 
-# 9. Immediate Kairo Application
+# 8. Required Status Vocabulary
 
-The recent painterly/cel-shaded SE rebuilds are **reference/construction aids only** and are not production source art.
+Use these labels precisely in filenames, manifests, Markdown status, QA reports, and handoffs:
 
-SE remains blocked until its continuous, unclipped component geometry is recreated in the approved Astro Fighters pixel-art language on the shared 480×640 lattice. Only after SE earns both **COMPONENT INTEGRITY PASS** and **PIXEL SOURCE PASS** may it receive `SOURCE PASS` and unblock E.
+- **REFERENCE ONLY** — exploratory/reference material; may be illustrative or painterly; never an in-game asset.
+- **REFERENCE PASS** — approved visual/design authority; may still be non-pixel and non-production.
+- **COMPONENT INTEGRITY PASS** — modular shapes / hidden underlayers are valid; rendering may still require pixel-source approval.
+- **PIXEL SOURCE PASS** — production source pixels satisfy the Astro Fighters pixel-art standard.
+- **SOURCE PASS** — registration + component integrity + pixel-source quality + composite fidelity all pass.
+- **RUNTIME CANDIDATE** — derived target-resolution sprite awaiting manual target-pixel cleanup/validation.
+- **RUNTIME PASS** — target-resolution asset has been manually cleaned and validated for game use.
+- **IN-GAME / PHASER ASSET** — production runtime asset actually loaded or approved to be loaded by gameplay; must already have `RUNTIME PASS` unless explicitly marked temporary/debug-only.
+
+Never call an illustrative reference `SOURCE`, `RUNTIME`, `GAME READY`, or `IN-GAME` merely because it resembles the intended design.
+
+No direction may advance on `REFERENCE PASS` or `COMPONENT INTEGRITY PASS` alone.
+
+---
+
+# 9. Repository / File-Role Separation
+
+Where practical, keep illustrative reference authorities and production pixel assets visibly distinct in repository structure and metadata.
+
+Recommended intent separation:
+
+- `reference/` — design authorities, turnarounds, studies, approved illustrative targets;
+- `source/` — actual pixel-authored production masters and modular layers;
+- `runtime/` or established Phaser asset paths — target-resolution game assets.
+
+A manifest that points to a reference image must explicitly identify it as reference authority rather than production source.
+
+Git history may preserve earlier experiments, but the active paths must not make a painterly reference look like the current game asset.
+
+---
+
+# 10. Immediate Kairo Application
+
+The polished/cel-shaded Kairo S/SE images remain useful as **REFERENCE ONLY / REFERENCE PASS** material for Afro-feature identity, anatomy, clothing construction, directional pose, and anatomical-left weapon mounting.
+
+They are not rejected merely because they are illustrative.
+
+They are, however, **not production game assets**.
+
+SE remains blocked until its continuous, unclipped component geometry is **re-authored in the approved Astro Fighters pixel-art language** on the shared 480×640 lattice. Only after SE earns both **COMPONENT INTEGRITY PASS** and **PIXEL SOURCE PASS** may it receive `SOURCE PASS` and unblock E.
 
 ---
 
 ## Locked summary
 
-> **ASTRO FIGHTERS SOURCE ART IS PIXEL ART.**  
-> **HIGHER SOURCE RESOLUTION MEANS MORE AUTHORED PIXELS, NOT SMOOTHER PAINTING.**  
-> **DOWN-SCALING REFINES PIXEL ART; IT DOES NOT CREATE PIXEL ART FROM ILLUSTRATION.**
+> **ILLUSTRATION IS ALLOWED FOR REFERENCE.**  
+> **ANYTHING IDENTIFIED FOR GAME USE MUST BE PIXEL ART.**  
+> **REFERENCE ART GUIDES THE PIXEL ASSET; IT DOES NOT BECOME THE PIXEL ASSET BY SHRINKING, CROPPING, OR FILTERING.**  
+> **HIGHER SOURCE RESOLUTION MEANS MORE AUTHORED PIXELS, NOT SMOOTHER PAINTING.**
