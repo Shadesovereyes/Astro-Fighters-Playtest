@@ -84,6 +84,33 @@ Every production source asset must already exhibit:
 
 Source resolution may contain **more pixel information** than runtime resolution, but it must still be recognizably authored pixel art when viewed at 100% scale.
 
+## 2A. No-Mixle Rule
+
+For Astro Fighters production QA, a **mixle** means any pixel whose final value is created by interpolation, anti-aliasing, filtered scaling, partial-alpha blending, soft-edge resampling, or other automatic mixing between intended authored pixel values.
+
+Mixles are **not valid production pixels**.
+
+Production pixel art must therefore satisfy all of the following:
+
+- alpha is hard unless a specifically approved VFX asset requires controlled translucency;
+- ordinary character/environment sprite alpha uses only `0` or `255`;
+- silhouette pixels are not anti-aliased against a matte, checkerboard, paper color, presentation background, or neighboring color;
+- no bilinear, bicubic, Lanczos, diffusion, smooth scaling, or browser interpolation may define source/runtime pixel values;
+- palette colors are deliberate authored values, not intermediate RGB values created between neighboring colors;
+- nearest-neighbor previews/expansions must reproduce the logical pixel grid exactly;
+- if a production source is intentionally built as an integer expansion of a logical pixel grid, every expanded block must be exactly uniform in RGBA value;
+- zoomed QA must expose individual pixel boundaries clearly enough to detect mixed/interpolated edge colors and matte residue.
+
+Automatic failures include:
+
+- semi-transparent fringe pixels on an otherwise hard-alpha character sprite;
+- brown, gray, white, checkerboard, or other matte-colored pixels occupying air/negative space around a character or prop;
+- single-pixel blended halos produced by resizing or compositing;
+- color values that exist only because an edge was interpolated between foreground and background;
+- a file that looks crisp at normal size but reveals mixed/soft pixels when inspected at nearest-neighbor zoom.
+
+A machine `NO-MIXLE PASS` may verify hard alpha, exact nearest-neighbor expansion, and absence of interpolated block values, but it does **not** replace manual pixel-art review. Deliberate authored cluster quality still requires human/source review.
+
 ---
 
 # 3. Palette Discipline
@@ -143,6 +170,7 @@ The following are automatic failures **when presented as production/source/runti
 - assets that only look pixel-art-like after aggressive shrinking;
 - arbitrary dithering/quantization used to disguise non-pixel source art;
 - filtered enlargement of a low-resolution frame masquerading as a 480×640 master;
+- mixles: interpolated/anti-aliased/partial-alpha production pixels where discrete authored pixels are required;
 - acceptance based on labels such as “pixel art,” “480×640,” or “32 colors” embedded inside an image rather than the actual pixels.
 
 The same imagery may remain valid as **REFERENCE ONLY** material if it is clearly classified and is not promoted into the production asset pipeline.
@@ -154,7 +182,7 @@ The same imagery may remain valid as **REFERENCE ONLY** material if it is clearl
 Before `PIXEL SOURCE PASS` or `SOURCE PASS`, review the asset at:
 
 1. **100% source scale** — inspect actual cluster construction and edge treatment;
-2. **zoomed pixel inspection** — verify hard alpha, palette steps, and absence of smoothing artifacts;
+2. **zoomed pixel inspection** — verify hard alpha, palette steps, absence of mixles, and absence of smoothing artifacts;
 3. **normal assembled composite** — verify the pieces still read as one coherent fighter/world asset;
 4. **48×64 candidate** — confirm the source contains the right information to reduce cleanly without depending on blur/averaging.
 
@@ -174,7 +202,7 @@ Use these labels precisely in filenames, manifests, Markdown status, QA reports,
 - **REFERENCE ONLY** — exploratory/reference material; may be illustrative or painterly; never an in-game asset.
 - **REFERENCE PASS** — approved visual/design authority; may still be non-pixel and non-production.
 - **COMPONENT INTEGRITY PASS** — modular shapes / hidden underlayers are valid; rendering may still require pixel-source approval.
-- **PIXEL SOURCE PASS** — production source pixels satisfy the Astro Fighters pixel-art standard.
+- **PIXEL SOURCE PASS** — production source pixels satisfy the Astro Fighters pixel-art standard, including the no-mixle rule.
 - **SOURCE PASS** — registration + component integrity + pixel-source quality + composite fidelity all pass.
 - **RUNTIME CANDIDATE** — derived target-resolution sprite awaiting manual target-pixel cleanup/validation.
 - **RUNTIME PASS** — target-resolution asset has been manually cleaned and validated for game use.
@@ -219,4 +247,5 @@ SE remains blocked until its continuous, unclipped component geometry is **re-au
 > **ILLUSTRATION IS ALLOWED FOR REFERENCE.**  
 > **ANYTHING IDENTIFIED FOR GAME USE MUST BE PIXEL ART.**  
 > **REFERENCE ART GUIDES THE PIXEL ASSET; IT DOES NOT BECOME THE PIXEL ASSET BY SHRINKING, CROPPING, OR FILTERING.**  
+> **MIXLES ARE NOT PRODUCTION PIXELS.**  
 > **HIGHER SOURCE RESOLUTION MEANS MORE AUTHORED PIXELS, NOT SMOOTHER PAINTING.**
