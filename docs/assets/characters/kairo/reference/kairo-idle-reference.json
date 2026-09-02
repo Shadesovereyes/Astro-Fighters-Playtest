@@ -1,0 +1,43 @@
+{
+  "asset": "kairo_idle_reference",
+  "status": "approved_visual_reference_not_source_master",
+  "canonical_order": [
+    "N",
+    "NE",
+    "E",
+    "SE",
+    "S",
+    "SW",
+    "W",
+    "NW"
+  ],
+  "frame_size": [
+    480,
+    640
+  ],
+  "atlas_size": [
+    1920,
+    1280
+  ],
+  "body_center_x": 240,
+  "foot_contact_y": 560,
+  "frames": {
+    "N": {"x": 0, "y": 0, "w": 480, "h": 640},
+    "NE": {"x": 480, "y": 0, "w": 480, "h": 640},
+    "E": {"x": 960, "y": 0, "w": 480, "h": 640},
+    "SE": {"x": 1440, "y": 0, "w": 480, "h": 640},
+    "S": {"x": 0, "y": 640, "w": 480, "h": 640},
+    "SW": {"x": 480, "y": 640, "w": 480, "h": 640},
+    "W": {"x": 960, "y": 640, "w": 480, "h": 640},
+    "NW": {"x": 1440, "y": 640, "w": 480, "h": 640}
+  },
+  "notes": {
+    "purpose": "visual and registration authority for the male eight-direction idle stance",
+    "runtime_final": false,
+    "source_master": false,
+    "sword_mount": "character anatomical left hip",
+    "S": "front; hilt/mount reads inside left-arm/torso relationship",
+    "SW": "front-left; hilt remains visible at left-hip mount",
+    "W": "left profile; scabbard routes on anatomical left side"
+  }
+}

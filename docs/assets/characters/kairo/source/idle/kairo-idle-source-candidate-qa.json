@@ -1,0 +1,34 @@
+{
+  "status": "mechanical_source_candidate_qa_only",
+  "checks": {
+    "all_frame_size_pass": true,
+    "all_alpha_pass": true,
+    "all_foot_contact_pass": true,
+    "frame_size": [480, 640],
+    "body_center_x": 240,
+    "foot_contact_y": 560,
+    "atlas_size": [1920, 1280],
+    "preview_size": [192, 128]
+  },
+  "frames": {
+    "S": {"bbox": [105,60,318,560], "bottom_opaque_y": 559, "sha256": "32a18c88880dd083b0f8891a2a7c5f8c0438ee3599027912c6aba6d0c3527c0f"},
+    "SE": {"bbox": [104,60,315,560], "bottom_opaque_y": 559, "sha256": "8001a17cc7ec1bbda5724cda606906e0419f651e8ba5cd11f0a44b268748bfe4"},
+    "E": {"bbox": [164,60,324,560], "bottom_opaque_y": 559, "sha256": "53da40dc196556757846ab8e2d3a710bf319e5a345709721bab0bfe52390f7df"},
+    "NE": {"bbox": [117,60,315,560], "bottom_opaque_y": 559, "sha256": "a2dc5290ef23b7ac3a801dcfea9033327ade7b594060e5f9931ab0c0cb705307"},
+    "N": {"bbox": [123,60,337,560], "bottom_opaque_y": 559, "sha256": "6483ca1fe0476c85880c4c0906bc9e6df04b2ebee7b8f3edd3935accc8ec5a9f"},
+    "NW": {"bbox": [163,60,358,560], "bottom_opaque_y": 559, "sha256": "ac86dd46f20ba5be57ab208533a13239a492558ff0a2945bda0ed6fc2188d1cf"},
+    "W": {"bbox": [142,60,331,560], "bottom_opaque_y": 559, "sha256": "d05edab2464cd55a7d7ff4af6c538998a82d1adc2cd5b4e07f19a4c83289aedd"},
+    "SW": {"bbox": [166,60,383,560], "bottom_opaque_y": 559, "sha256": "7ccd2f8f8d19671993f9b9e7e0f3ce90421ce6a71469cd0476273067fd90a597"}
+  },
+  "atlas_sha256": "babb28ae96e0fbdd88af642076a7287acb13cfce0085a7e042a4137ee8027486",
+  "preview_sha256": "3f5983fd2bd4bb23b8fef5441361e539ce34b573d763b94bd648387f83626778",
+  "not_yet_validated": [
+    "modular layer purity and swappability",
+    "hand/cuff seam correctness after layer decomposition",
+    "direction-specific haori near/far routing after decomposition",
+    "master palette compliance",
+    "independently authored SW weapon/equipment layers",
+    "manual 48x64 target-pixel cleanup",
+    "Phaser integration"
+  ]
+}
