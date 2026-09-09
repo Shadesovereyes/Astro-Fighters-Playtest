@@ -1,0 +1,27 @@
+{
+  "asset": "kairo-approved-idle-benchmark",
+  "version": "v3",
+  "status": "runtime-composite-benchmark-candidate",
+  "production_approved": false,
+  "paper_doll": false,
+  "source_authority": "approved Kairo eight-direction dressed reference",
+  "runtime_frame_size": [48, 64],
+  "anchor": [24, 60],
+  "feet_position": [24, 60],
+  "direction_frame_index": {"n":0,"ne":1,"e":2,"se":3,"s":4,"sw":5,"w":6,"nw":7},
+  "atlas": {
+    "image": "assets/runtime/characters/package07/kairo-idle-benchmark-atlas-384x128.png",
+    "frame_width": 48,
+    "frame_height": 64,
+    "rows": {"character":0,"shadow":1}
+  },
+  "layers": {"shadow":{"row":1},"character":{"row":0}},
+  "layer_order_default": ["shadow","character"],
+  "note": "Final-looking composite benchmark used to judge the modular paper-doll result. It does not replace the modular source pipeline or satisfy the paper-doll checklist by itself.",
+  "validation": {
+    "locked_palette": true,
+    "hard_alpha": true,
+    "nearest_neighbor_reduction": true,
+    "runtime_pixel_cleanup": "v2 material-specific ramp mapping + detached-pixel cleanup"
+  }
+}
