@@ -279,28 +279,26 @@ Crew/faction colorways should remain differentiated and restrained. Avoid allowi
 
 # 10. Character source authority
 
-Current canonical character contract is defined in `production/asset-manifest.json`.
+The finalized male and female character sheets are the current **production-geometry authority** for character-sheet asset work. They are not loose design references and must not be regenerated into a new source body.
+
+For this workflow, the locked finalized sheets supersede older experimental `480×640` per-direction / `48×64` source-lattice assumptions in historical branches, package notes, or stale documentation unless the user explicitly reopens that pipeline.
 
 Locked baseline:
 
-- directions: `N, NE, E, SE, S, SW, W, NW`;
-- `S` = front/toward camera;
-- `N` = back/away from camera;
-- source canvas: `480×640` per direction;
-- source body center: `[240,600]`;
-- source foot-contact line: `y=600`;
-- runtime frame: `48×64`;
-- runtime pivot: `[24,60]`;
-- idle: 4 frames/direction;
-- walk: 6 frames/direction;
-- ready: 2 frames/direction.
+- native character-sheet canvas: **512×64**;
+- exactly **eight contiguous 64×64 directional frames**;
+- preserve the approved existing frame order, frame spacing, pose placement, silhouette, and pixel coordinates exactly;
+- preserve every existing base-character pixel unless the user explicitly authorizes a base-character change;
+- **never regenerate the base character** to make a costume, equipment layer, or preview;
+- **never reinterpret the pixel style** or add a smoother, more detailed, or differently shaded treatment;
+- clothing, armor, equipment, and accessories are separate transparent pixel overlays fitted to the existing silhouette;
+- overlays may cover the base visually in a composite, but they must not replace source body/hair/face pixels inside the overlay asset;
+- enlarged inspection sheets are integer nearest-neighbor derivatives only; a 10× sheet is **5120×640**;
+- composite previews are mechanical base-plus-overlay composites, not AI-generated redraws of the dressed character;
+- no extra shading/detail may be invented beyond the established source-sprite vocabulary;
+- if correct garment placement requires guessing hidden anatomy or body geometry, stop at the specific ambiguous frame/area rather than inventing anatomy, changing the pose, or creating replacement base pixels.
 
-The interchangeable base is never nude:
-
-- male base = body/skin + hair/face + base shorts;
-- female base = body/skin + hair/face + base shorts + sports bra.
-
-Other clothing/equipment remains modular unless a locked design explicitly says otherwise.
+High-contrast inspection backgrounds may be used during QA to reveal holes, unintended transparency, floating pixels, broken seams, or routing mistakes. Those errors must be corrected in the overlay itself; the locked base sheet is not modified to compensate.
 
 ---
 
@@ -324,6 +322,8 @@ A front-facing body with only facial pixels or accessory placement changed is in
 Equipment follows the character's **anatomical side**, not screen-left/screen-right. Direction-specific front/back/near/far routing must preserve believable body relationships.
 
 Mirroring may be used diagnostically or as an early candidate only where symmetry is truly valid; do not treat mirrored directional art as independently authored final work when garment/anatomy routing differs.
+
+For finalized 512×64 sheets and their overlays, preserve the existing source frame order rather than reordering base pixels to satisfy a naming convention. Direction labels must map to the approved frames without moving those frames.
 
 ---
 
@@ -438,11 +438,17 @@ When a single composition is intended as an Imperial City key illustration, open
 
 The production pipeline itself is governed by `AGENTS.md`; the visual rule is simple:
 
-> **reference target → purpose-built modular source art → clean source assembly → target-resolution cleanup → actual Phaser integration → rubric review**
+> **approved locked base geometry → purpose-built modular overlay/source art → clean source assembly → target-resolution cleanup → actual Phaser integration → rubric review**
 
 Never use:
 
 > **pretty generated image → crop/shrink → call it finished game art**
+
+or, for character clothing/equipment:
+
+> **AI-regenerated dressed character → call it a composite preview or overlay proof**
+
+A character composite preview must be produced by mechanically compositing the approved overlay over the untouched approved base sheet. Enlarged previews must be nearest-neighbor derivatives of the native pixels.
 
 A mechanically reduced image is not pixel-final simply because it loads.
 
