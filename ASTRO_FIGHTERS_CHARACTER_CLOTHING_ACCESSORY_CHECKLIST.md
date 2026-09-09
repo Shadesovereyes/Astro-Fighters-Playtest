@@ -6,6 +6,28 @@
 
 ---
 
+# 0. Locked Base-Sheet Preservation Gate
+
+The finalized male and female character sheets are **production geometry, not inspiration**. Clothing, armor, equipment, accessories, and preview work must preserve the approved source pixels exactly unless the user explicitly authorizes a base-character edit.
+
+Mandatory before any clothing/equipment asset can advance:
+
+- [ ] Native character-sheet canvas remains **512×64**
+- [ ] Eight contiguous **64×64** directional frames remain in the approved existing order
+- [ ] Base character has **not** been regenerated, redrawn, resized, repositioned, warped, or resampled
+- [ ] No approved body, hair, face, anatomy, stance, silhouette, pose, or frame-placement pixel has been changed without explicit user authorization
+- [ ] Pixel style has not been reinterpreted, smoothed, modernized, or given extra detail/shading beyond the established sprite vocabulary
+- [ ] Clothing/equipment exists as a **separate transparent pixel overlay** fitted to the locked base silhouette
+- [ ] Overlay contains no replacement skin, body, hair, face, or background pixels
+- [ ] Enlarged inspection images use integer **nearest-neighbor scaling only**; 10× = **5120×640**
+- [ ] Composite previews are mechanical base-plus-overlay composites, not AI-generated redraws of dressed characters
+- [ ] High-contrast QC corrections are made to the overlay, never to the locked base character
+- [ ] If garment placement requires guessing hidden body geometry, production stops at the specific ambiguous frame/area until it can be resolved without inventing anatomy or pose changes
+
+Older experimental `480×640` per-direction / `48×64` character-source assumptions do not authorize conversion or redrawing of the finalized 512×64 base sheets.
+
+---
+
 # 1. Mandatory Character Completion Stack
 
 Every presentation-quality character must include all required visible layers.
@@ -17,7 +39,7 @@ Every presentation-quality character must include all required visible layers.
 - [ ] Correct feet anchor
 - [ ] Correct contact shadow
 - [ ] No exposed mannequin/base-body areas unless intentionally part of the outfit
-- [ ] Silhouette remains readable at 48×64 runtime scale
+- [ ] Silhouette remains readable at native 64×64 frame scale
 
 ## Core Clothing
 - [ ] Inner top
@@ -28,7 +50,7 @@ Every presentation-quality character must include all required visible layers.
 - [ ] Sleeve / cuff treatment where applicable
 - [ ] Collar / neckline treatment
 - [ ] Garment closures, ties, wraps, cords, or fasteners
-- [ ] Clothing folds remain readable at runtime scale
+- [ ] Clothing folds remain readable at native frame scale
 
 ## Equipment
 - [ ] Weapon if role requires one
@@ -82,6 +104,7 @@ For every direction confirm:
 - [ ] No mirrored-looking equipment errors
 - [ ] No floating layers
 - [ ] No broken front/back occlusion
+- [ ] Base frame itself remains unchanged; only the overlay varies by direction
 
 ---
 
@@ -188,7 +211,7 @@ For each hairstyle:
 - [ ] Hair reads clearly against dark backgrounds
 - [ ] Hair reads clearly against light backgrounds
 - [ ] Hair back/front routing is direction-sensitive
-- [ ] Hairstyle remains recognizable at 48×64
+- [ ] Hairstyle remains recognizable at native 64×64 frame scale
 - [ ] No arbitrary colors outside the approved palette
 
 ---
@@ -588,7 +611,7 @@ For every layer:
 
 # 10. Silhouette & Readability Gate
 
-At 48×64 runtime scale:
+At native 64×64 frame scale:
 
 - [ ] Character role is readable before zooming
 - [ ] Hairstyle is recognizable
@@ -665,6 +688,7 @@ No character-focused gameplay preview may be presented as testable unless:
 - [ ] Character/world style homogeneity passes review
 - [ ] Environment itself passes its critical art gates
 - [ ] Integrated preview reaches required rubric threshold
+- [ ] Any character-focused composite inspection preview was created mechanically from the locked base plus approved overlays
 
 ---
 
@@ -682,9 +706,16 @@ A character asset is rejected immediately if:
 - [ ] Arbitrary non-palette colors are introduced
 - [ ] Character looks pasted over the world
 - [ ] Character's clothing does not fit Astro Fighters' Edo + martial + hip-hop language
-- [ ] Critical garment details disappear at 48×64
+- [ ] Critical garment details disappear at native 64×64 frame scale
 - [ ] Clothing or accessory layers visibly jitter during animation
 - [ ] Contact shadow is missing in presentation gameplay
+- [ ] Locked base character was regenerated, redrawn, resized, warped, or resampled
+- [ ] Any approved base pixel was altered without explicit user authorization
+- [ ] Clothing/equipment overlay contains replacement body, skin, hair, face, or background pixels
+- [ ] An AI-generated dressed-character redraw is presented as a composite preview or registration proof
+- [ ] Enlarged inspection art was created with smoothing/interpolation instead of integer nearest-neighbor scaling
+- [ ] Extra shading, texture density, anatomy, or contour detail drifts beyond the approved source-sprite vocabulary
+- [ ] Hidden body geometry was guessed by inventing anatomy or changing the pose instead of stopping at the ambiguous area
 
 Any automatic failure requires further development before integration.
 
@@ -721,6 +752,6 @@ Score each integrated character from 0–5:
 
 Before any clothing/accessory stack is approved, ask:
 
-> **Does this look like a fully designed Astro Fighters character whose clothing, hair, equipment, and accessories were authored as carefully as the base sprite — or does it look like a good character sprite with costume pieces placed on top?**
+> **Does this look like a fully designed Astro Fighters character whose clothing, hair, equipment, and accessories were authored as carefully as the locked base sprite without changing that base geometry — or does it look like a good character sprite that was redrawn or had costume pieces generically placed on top?**
 
 If the second interpretation is reasonably possible, the character is not approved.
