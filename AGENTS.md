@@ -125,6 +125,27 @@ Do not smooth or photographically interpolate production pixel art.
 
 ---
 
+# Locked character-sheet preservation standard
+
+The finalized male and female character sheets are **production geometry, not inspiration**. When creating clothing, armor, equipment, accessories, or inspection previews, preserve the approved character pixels rather than regenerating or reinterpreting them.
+
+Mandatory rules:
+
+- **Never regenerate the base character.** Do not redraw the body, hair, face, anatomy, stance, proportions, directional pose, silhouette, or frame placement.
+- **Never reinterpret the pixel style.** Match the approved sprite vocabulary exactly; do not smooth, modernize, increase detail density, or introduce a different shading language.
+- Work on the native **512×64 character sheet**, consisting of **eight contiguous 64×64 frames**. Do not reorder, resize, reposition, warp, or resample the approved base frames.
+- Preserve every existing source pixel unless the user explicitly authorizes changing the base character itself.
+- Clothing/equipment must be built as **separate transparent pixel overlays** fitted to the existing silhouette. Do not alter the body to make a garment fit.
+- Enlarged inspection versions must be derived only from the native asset using **integer nearest-neighbor scaling**. A 10× inspection sheet is therefore **5120×640**.
+- Do not use an AI-generated dressed-character image as a composite preview. Composite previews must be made mechanically by placing the approved overlay over the untouched approved base sheet.
+- Do not add extra shading, contour detail, texture density, or anatomical information beyond the established source-sprite vocabulary merely because a generator can produce it.
+- If a garment or equipment layer cannot be placed without guessing hidden body geometry, stop at the specific ambiguous frame/area and identify the uncertainty rather than inventing anatomy, pose changes, or replacement pixels.
+- High-contrast-background inspection may be used to find holes, stray transparency, floating pixels, broken seams, and routing errors, but QC corrections belong in the overlay—not in the locked base character.
+
+For character-sheet asset work, these preservation rules override older experimental source-lattice assumptions or branch/package notes that would require redrawing the approved base geometry. Do not silently convert the locked 512×64 sheets into a different source format.
+
+---
+
 # Art pipeline standard
 
 Use:
