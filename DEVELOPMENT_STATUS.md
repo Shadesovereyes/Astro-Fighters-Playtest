@@ -1,6 +1,6 @@
 # Astro Fighters — Current Development Status
 
-**Updated:** 2026-08-28  
+**Updated:** 2026-09-09  
 **Authoritative branch:** `main`  
 **Current milestone:** Imperial City Early Player Experience v0  
 **Immediate runtime gate:** Phaser World Refactor v0 + Slice 0 Foundation Courtyard
@@ -78,18 +78,21 @@ A collage, presentation board, source assembly, contact sheet, or mock renderer 
 
 The package is currently **contracted** in `production/asset-manifest.json`. Its production source masters and runtime assets remain missing/unapproved in the repository.
 
-Locked package facts include:
+Locked character-sheet facts now include:
 
-- canonical directions `N, NE, E, SE, S, SW, W, NW`;
-- `S = front`, `N = back`;
-- character source canvas `480×640`;
-- source body center `[240,600]`;
-- source foot-contact line `y=600`;
-- runtime frame `48×64`;
-- runtime pivot `[24,60]`;
-- world source scale `10×` for the shared-foundation contract;
-- source approval before runtime derivation;
-- actual Phaser integration before checklist completion.
+- finalized male and female character sheets are **production geometry, not inspiration**;
+- native character-sheet canvas is **512×64**;
+- the sheet contains **eight contiguous 64×64 directional frames** in the approved existing order;
+- every approved base pixel remains unchanged unless the user explicitly authorizes a base-character edit;
+- base characters are never regenerated or stylistically reinterpreted for clothing/equipment work;
+- clothing, armor, equipment, and accessories are separate transparent pixel overlays aligned to the locked sheet;
+- enlarged inspection sheets are nearest-neighbor derivatives only; 10× = **5120×640**;
+- composite previews are mechanical base-plus-overlay composites, never AI-redrawn dressed characters;
+- no extra shading/detail may be added beyond the established sprite vocabulary;
+- if fitting an asset requires guessing hidden body geometry, stop at the ambiguous frame/area rather than inventing anatomy or pose changes;
+- actual Phaser integration is still required before checklist completion.
+
+Older `480×640` per-direction / `48×64` character-source assumptions are superseded for finalized character-sheet asset production and must not be used to redraw or convert the approved base sheets. Any stale machine-readable character geometry in `production/asset-manifest.json` should be reconciled separately when that contract is next updated; the Markdown art authorities must not be used as justification to alter the locked 512×64 base geometry in the meantime.
 
 ## Slice 0 — Foundation Courtyard
 
@@ -138,7 +141,7 @@ Do not use this file as a second checklist.
 ## Next work order
 
 1. complete the Phaser world refactor minimum needed for Slice 0;
-2. author/approve the shared-foundation source assets and player source authorities;
+2. author/approve the shared-foundation source assets and player source authorities without altering the locked finalized base sheets;
 3. run source isolation/anchor/assembly QA;
 4. derive and manually clean runtime candidates only after source approval;
 5. assemble Slice 0 from separate assets in Phaser;
