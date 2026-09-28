@@ -66,6 +66,8 @@ Imperial City Early Player Experience v0 is complete only when:
 
 ## P0 — Shared foundation and playable benchmark
 
+All P0 work follows the player-relative scale rule: the 64×64 player frame is the visual scale authority, and every module is proportioned beside the actual player in the Phaser scale reference scene (`docs/index.html?scale`) before large-scale environment production. The hidden 32×32 grid never sets size.
+
 These dependencies block efficient downstream production.
 
 ### P0-A — Shared-foundation world kit
@@ -129,16 +131,15 @@ Create only enough shared props to make the early route feel inhabited:
 
 ### P0-D — Playable character benchmark
 
-Complete the contracted male benchmark source authorities:
+Complete the male benchmark on the approved 512×64 base sheet:
 
-- eight-direction base-underlayer turnaround;
-- eight-direction fully dressed benchmark turnaround;
-- modular layer source set;
-- clean source assembly matching the benchmark;
-- source isolation/anchor QA;
-- target-resolution derivation and manual pixel cleanup;
-- idle/walk/ready coverage;
-- actual Phaser paper-doll integration.
+- commit the approved 512×64 male base sheet (eight 64×64 directional frames) unchanged;
+- author benchmark outfit pieces as transparent 512×64 overlays registered to the base frames;
+- overlay registration / hard-alpha / no-copied-base-pixel QA (`tools/validate-source-png.mjs overlay`);
+- 10× 5120×640 nearest-neighbour inspection sheets;
+- mechanical base-plus-overlay composite review;
+- idle/walk/ready coverage only through separately approved sheets on the same 64×64 registration;
+- actual Phaser integration beside player-relative world assets.
 
 Benchmark identity:
 
@@ -153,11 +154,11 @@ Benchmark identity:
 - neck cord/charm;
 - no weapon required for this first benchmark.
 
-Locked contract facts remain in the manifest: `480×640`, center `[240,600]`, foot-contact `y=600`, runtime `48×64`, pivot `[24,60]`, canonical eight directions.
+Locked contract facts live in the manifest (`canonical.playerScale`): 512×64 sheet, eight 64×64 frames, canonical eight directions, authored foot-box collision, 10× = 5120×640 inspection.
 
 ### P0-E — Female base parity
 
-Produce the corresponding female base-underlayer on the same lattice and direction system:
+Commit the approved female 512×64 base sheet on the same 64×64 frame registration and direction system:
 
 - body/skin;
 - hair/face;
@@ -464,17 +465,17 @@ This is the current execution order. It is not a second checklist.
 
 ### Queue B — Player benchmark
 
-19. male base-underlayer turnaround
-20. female base-underlayer turnaround
-21. short Afro turnaround
-22. dressed player benchmark turnaround
-23. modular layer isolation
-24. source QA
-25. runtime 48×64 cleanup
-26. idle animation
-27. walk animation
-28. ready animation
-29. Phaser paper-doll integration
+19. approved male 512×64 base sheet committed and QA-passed
+20. approved female 512×64 base sheet committed and QA-passed
+21. player-relative scale reference approved in Phaser
+22. benchmark outfit overlays (512×64, registered)
+23. overlay registration QA
+24. 5120×640 inspection review
+25. mechanical composite review
+26. idle animation sheet (approved, same registration)
+27. walk animation sheet (approved, same registration)
+28. ready animation sheet (approved, same registration)
+29. Phaser player integration
 
 ### Queue C — Harbor
 

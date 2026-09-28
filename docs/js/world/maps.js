@@ -95,16 +95,19 @@
       objective:'Walk the courtyard: pass behind the gate beam, the wall, and the lantern post.',
       colliders:[
         {x:0,y:0,w:960,h:200},{x:288,y:200,w:384,h:40},
-        {x:64,y:356,w:192,h:36},
+        {x:64,y:368,w:192,h:24},
         {x:417,y:376,w:14,h:8},{x:529,y:376,w:14,h:8},
         {x:702,y:236,w:44,h:14},
         {x:352,y:508,w:16,h:12}
       ],
       exits:[{id:'south-lane',x:440,y:522,w:80,h:18,target:'Imperial Docks',arrive:'from-slice0',label:'Return to Imperial Docks'}],
-      arrivals:{},
+      arrivals:{'from-scale':{x:480,y:500,facing:'N'}},
       npcs:[{id:'courtyard-keeper',name:'Courtyard Keeper',x:600,y:330,look:'keeper',facing:'W',
         lines:['Everything here is loaded as a separate module and sorted by depth each frame. Collision is its own data — the stones do not decide where you can walk.','These textures are procedural scaffolding. Authored source art replaces them file-for-file once it passes review.']}],
       enemies:[],
+      // Authored scaffold dimensions (px) checked against AF_SCALE ratios × measured stature.
+      proportions:{doorOpeningH:68,doorOpeningW:36,plinthH:22,eaveH:106,windowSill:35,windowH:22,windowW:31,postH:128,beamClearance:112,lanternH:112,crateLarge:28},
+      interactables:[{id:'courtyard-door',name:'Courtyard door',x:480,y:252,lines:['The door is barred from inside. Room interiors and authored cutaways arrive with the Academy interior slice.']}],
       // Layer routing follows production/asset-manifest.json canonical.worldLayerOrder.
       ground:{modules:[['stone-clean',6],['stone-cracked',2],['stone-patched',1]],seed:7},
       placements:[
@@ -118,12 +121,13 @@
         {tex:'drainage-grate',x:176,y:448,layer:'architecture-dressing',sortY:-1},
         {tex:'drainage-grate',x:496,y:448,layer:'architecture-dressing',sortY:-1},
         {tex:'drainage-grate',x:816,y:448,layer:'architecture-dressing',sortY:-1},
-        {tex:'timber-plaster-wall',x:288,y:24,layer:'architecture',sortY:240},
-        {tex:'timber-plaster-wall',x:480,y:24,layer:'architecture',sortY:240},
+        {tex:'timber-plaster-wall',x:288,y:58,layer:'architecture',sortY:240},
+        {tex:'timber-plaster-wall',x:480,y:58,layer:'architecture',sortY:240},
+        {tex:'doorway',x:458,y:146,layer:'architecture-dressing',sortY:240.05},
         {tex:'aged-stone-foundation',x:288,y:176,layer:'architecture',sortY:240.1},
         {tex:'aged-stone-foundation',x:480,y:176,layer:'architecture',sortY:240.1},
-        {tex:'noren',x:448,y:130,layer:'architecture-dressing',sortY:240.2},
-        {tex:'timber-plaster-wall',x:64,y:176,layer:'architecture',sortY:392,occluder:true},
+        {tex:'noren',x:448,y:146,layer:'architecture-dressing',sortY:240.2},
+        {tex:'timber-plaster-wall',x:64,y:210,layer:'architecture',sortY:392,occluder:true},
         {tex:'aged-stone-foundation',x:64,y:328,layer:'architecture',sortY:392.1,occluder:true},
         {tex:'timber-post',x:400,y:256,layer:'architecture',sortY:384,occluder:true},
         {tex:'timber-post',x:512,y:256,layer:'architecture',sortY:384,occluder:true},
@@ -135,6 +139,28 @@
         {x:288,y:240,w:384,h:8,a:.28},{x:64,y:392,w:192,h:7,a:.28},
         {x:410,y:382,w:28,h:5,a:.25},{x:522,y:382,w:28,h:5,a:.25},{x:700,y:250,w:50,h:5,a:.25},{x:348,y:518,w:26,h:4,a:.25}
       ]
+    },
+    'Scale Reference': {
+      key:'scale', display:'Scale Reference · player-relative proportions', width:960, height:540,
+      builder:'scale', artState:'scaffold',
+      spawn:{x:96,y:470},
+      objective:'Walk beside each object and judge it against the player. Every size is a ratio of the player stature S.',
+      colliders:[{x:0,y:0,w:960,h:30}],
+      exits:[{id:'south-lane',x:440,y:522,w:80,h:18,target:'Slice 0',arrive:'from-scale',label:'Go to Slice 0 · Foundation Courtyard'}],
+      arrivals:{},
+      npcs:[
+        {id:'scale-clerk',name:'Counter Clerk',x:600,y:170,look:'keeper',facing:'S',lines:['The counter top should land near my hip. If it reaches my chest or my knee, the counter is the wrong size, not me.']},
+        {id:'scale-passerby',name:'Passer-by',x:520,y:330,look:'dockworker',facing:'W',lines:['Every character shares the player frame scale. Nobody here is scaled to a grid cell.']}
+      ],
+      enemies:[],
+      // Guide items: anchor x and ground line y; sizes come from AF_SCALE ratios × measured stature.
+      guideItems:[
+        {item:'wall-door',x:250,y:190},{item:'stairs',x:470,y:190},{item:'counter',x:600,y:190,labelDy:58},
+        {item:'crate-small',x:700,y:190},{item:'crate-large',x:740,y:190,labelDy:18},{item:'barrel',x:790,y:190,labelDy:32},
+        {item:'bench',x:110,y:330},{item:'post',x:200,y:330,labelDy:26},{item:'railing',x:330,y:330},{item:'lantern',x:450,y:330,labelDy:26},
+        {item:'bridge-single',x:650,y:402},{item:'bridge-pair',x:820,y:402},{item:'ruler',x:60,y:470}
+      ],
+      canal:{x:560,y:272,w:390,h:128}
     }
   };
 

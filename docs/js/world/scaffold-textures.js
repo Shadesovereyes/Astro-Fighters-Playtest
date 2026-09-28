@@ -231,63 +231,57 @@
       for (const bx of [6, s.w - 18]) { s.rect(bx, 18, 12, 12, P.iron[1]); s.rect(bx, 18, 12, 1, P.iron[3]); s.px(bx + 3, 23, P.iron[3]); s.px(bx + 8, 23, P.iron[3]); }
       s.rect(4, 32, s.w - 8, 3, P.soot, 0.35);
     },
+    // Proportioned against a ~56px player stature (see scale-guide.js): content is bottom-aligned;
+    // the canvas stays at the manifest container size.
     'timber-plaster-wall'(s) {
-      // slate eave
-      for (let y = 0; y < 22; y += 4) {
-        const off = (y / 4) % 2 ? 3 : 0;
-        s.rect(0, y, s.w, 4, P.slate[y < 8 ? 1 : 2]);
-        for (let x = off; x < s.w; x += 6) s.rect(x, y + 3, 1, 1, P.slate[0]);
+      const body = 84, eave = 8, roof = 40, top = s.h - body - eave - roof; // top rows stay transparent
+      // slate roof top face
+      for (let y = top; y < top + roof; y += 5) {
+        const off = ((y - top) / 5) % 2 ? 3 : 0;
+        s.rect(0, y, s.w, 5, P.slate[(y - top) < roof / 2 ? 1 : 2]);
         s.rect(0, y, s.w, 1, P.slate[3]);
+        for (let x = off; x < s.w; x += 7) s.rect(x, y + 1, 1, 4, P.slate[0]);
       }
-      s.rect(0, 22, s.w, 3, P.slate[0]);
-      // top rail
-      s.rect(0, 25, s.w, 7, P.timber[2]);
-      s.rect(0, 25, s.w, 1, P.timber[4]);
-      // plaster field
-      s.rect(0, 32, s.w, 116, P.plaster[2]);
+      s.rect(0, top + roof, s.w, eave, P.slate[0]);
+      s.rect(0, top + roof + eave - 2, s.w, 2, P.soot);
+      const b0 = s.h - body;
+      s.rect(0, b0, s.w, body, P.plaster[2]);
       const r = rng(101);
-      for (let i = 0; i < 700; i++) s.px(Math.floor(r() * s.w), 32 + Math.floor(r() * 116), r() < 0.6 ? P.plaster[1] : P.plaster[3]);
-      for (let i = 0; i < 400; i++) { const y = 110 + Math.floor(Math.pow(r(), 0.6) * 38); s.px(Math.floor(r() * s.w), y, P.plaster[0], 0.6); }
-      // mid rail
-      s.rect(0, 88, s.w, 6, P.timber[2]);
-      s.rect(0, 88, s.w, 1, P.timber[4]);
-      // posts (half posts at edges tile into full posts)
-      for (const [x, wdt] of [[0, 5], [93, 10], [s.w - 5, 5]]) {
-        s.rect(x, 25, wdt, 123, P.timber[3]);
-        s.rect(x, 25, 1, 123, P.timber[5]);
-        s.rect(x + wdt - 1, 25, 1, 123, P.timber[1]);
+      for (let i = 0; i < 500; i++) s.px(Math.floor(r() * s.w), b0 + Math.floor(r() * body), r() < 0.6 ? P.plaster[1] : P.plaster[3]);
+      for (let i = 0; i < 300; i++) { const y = s.h - 1 - Math.floor(Math.pow(r(), 1.7) * 30); s.px(Math.floor(r() * s.w), y, P.plaster[0], 0.6); }
+      s.rect(0, b0, s.w, 4, P.timber[2]); s.rect(0, b0, s.w, 1, P.timber[4]);          // head rail
+      s.rect(0, b0 + 16, s.w, 3, P.timber[2]); s.rect(0, b0 + 16, s.w, 1, P.timber[4]); // lintel rail (door head height)
+      for (const [x, wdt] of [[0, 5], [93, 8], [s.w - 5, 5]]) {
+        s.rect(x, b0, wdt, body, P.timber[3]); s.rect(x, b0, 1, body, P.timber[5]); s.rect(x + wdt - 1, b0, 1, body, P.timber[1]);
       }
-      // lattice window in the left bay
-      s.rect(22, 42, 50, 36, P.timber[1]);
-      s.rect(24, 44, 46, 32, P.plaster[3]);
-      for (let x = 24; x < 70; x += 6) s.rect(x, 44, 1, 32, P.timber[2]);
-      for (let y = 44; y < 76; y += 8) s.rect(24, y, 46, 1, P.timber[2]);
-      // sill
-      s.rect(0, 148, s.w, 12, P.timber[1]);
-      s.rect(0, 148, s.w, 1, P.timber[4]);
+      // lattice window: sill 13px above the wall base (35px above ground on a 22px plinth), 31×22
+      const wx = 32, wy = s.h - 13 - 22;
+      s.rect(wx - 2, wy - 2, 35, 26, P.timber[1]);
+      s.rect(wx, wy, 31, 22, P.plaster[3]);
+      for (let x = wx; x < wx + 31; x += 5) s.rect(x, wy, 1, 22, P.timber[2]);
+      for (let y = wy; y < wy + 22; y += 7) s.rect(wx, y, 31, 1, P.timber[2]);
     },
     'aged-stone-foundation'(s) {
-      const r = rng(107);
-      s.rect(0, 0, s.w, 7, P.stone[5]);
-      s.rect(0, 0, s.w, 1, P.stone[6]);
-      s.rect(0, 6, s.w, 1, P.stone[1]);
-      let y = 7;
-      for (const ch of [28, 29]) {
-        let x = -Math.floor(r() * 30);
-        while (x < s.w) {
-          const len = 34 + Math.floor(r() * 30);
-          const base = 2 + Math.floor(r() * 2);
-          s.rect(x, y, len, ch, P.stone[base]);
-          s.rect(x, y, len, 1, P.stone[base + 2]);
-          s.rect(x, y, 1, ch, P.stone[base + 1]);
-          s.rect(x + len - 1, y, 1, ch, P.mortar);
-          s.rect(x, y + ch - 1, len, 1, P.mortar);
-          for (let i = 0; i < len * ch * 0.05; i++) s.px(x + Math.floor(r() * len), y + Math.floor(r() * ch), P.stone[base - 1]);
-          x += len;
-        }
-        y += ch;
+      // low plinth: 5px ledge + 17px face at the bottom of the 64px container
+      const r = rng(107), top = s.h - 22;
+      s.rect(0, top, s.w, 5, P.stone[5]); s.rect(0, top, s.w, 1, P.stone[6]); s.rect(0, top + 4, s.w, 1, P.stone[1]);
+      let x = -Math.floor(r() * 30);
+      while (x < s.w) {
+        const len = 26 + Math.floor(r() * 26), base = 2 + Math.floor(r() * 2), y = top + 5, ch = 17;
+        s.rect(x, y, len, ch, P.stone[base]); s.rect(x, y, len, 1, P.stone[base + 2]); s.rect(x, y, 1, ch, P.stone[base + 1]);
+        s.rect(x + len - 1, y, 1, ch, P.mortar); s.rect(x, y + ch - 1, len, 1, P.mortar);
+        for (let i = 0; i < len * ch * 0.05; i++) s.px(x + Math.floor(r() * len), y + Math.floor(r() * ch), P.stone[base - 1]);
+        x += len;
       }
-      for (let i = 0; i < 240; i++) { const yy = s.h - 1 - Math.floor(Math.pow(r(), 2) * 16); s.px(Math.floor(r() * s.w), yy, pick(r, P.moss)); }
+      for (let i = 0; i < 120; i++) s.px(Math.floor(r() * s.w), s.h - 1 - Math.floor(Math.pow(r(), 2) * 6), pick(r, P.moss));
+    },
+    doorway(s) {
+      // 36×68 clear opening (≈0.64 × 1.21 of a 56px stature) in a 4px timber frame
+      s.rect(0, 0, s.w, s.h, P.timber[1]);
+      s.rect(0, 0, s.w, 1, P.timber[4]); s.rect(0, 0, 1, s.h, P.timber[3]);
+      s.rect(4, 4, 36, 68, '#17130f');
+      s.rect(4, 4, 36, 3, P.soot);
+      for (let x = 8; x < 40; x += 9) s.rect(x, 7, 1, 65, '#211a14');
     },
     // Dressing / occluder scaffolds (not manifest dependencies; required Slice 0 roles).
     noren(s) {
@@ -338,7 +332,7 @@
     cracks: [64, 64], stains: [64, 64], 'cart-wear': [96, 64],
     'timber-post': [48, 128], 'horizontal-beam': [128, 48],
     'timber-plaster-wall': [192, 160], 'aged-stone-foundation': [192, 64],
-    noren: [64, 44], 'lantern-post': [32, 112], 'crate-stack': [48, 56]
+    noren: [64, 44], doorway: [44, 72], 'lantern-post': [32, 112], 'crate-stack': [48, 56]
   };
 
   function build(id) {

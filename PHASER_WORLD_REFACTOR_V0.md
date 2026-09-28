@@ -219,6 +219,7 @@ The Phaser world refactor is sufficiently proven for continued city production w
 - [x] one foreground/architectural occlusion case works live;
 - [x] the paper-doll player remains eight-directional;
 - [x] pixel-art renderer settings remain enabled;
+- [ ] the player-relative scale reference (`index.html?scale`) is approved beside the approved 512×64 player;
 - [ ] an actual Phaser-canvas screenshot is used for the integrated art review;
 - [ ] no collage/full-frame background is being treated as a production world asset.
 

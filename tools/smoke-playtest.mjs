@@ -62,12 +62,14 @@ try {
   if (shotsDir) {
     fs.mkdirSync(shotsDir, { recursive: true });
     const poses = {
-      'Imperial Docks': [300, 222], 'Civic Ward': [320, 206], 'Academy': [320, 278], 'Fringe Ward': [200, 250], 'Slice 0': [480, 330]
+      'Imperial Docks': [300, 222], 'Civic Ward': [320, 206], 'Academy': [320, 278], 'Fringe Ward': [200, 250], 'Slice 0': [480, 330],
+      'Scale Reference': [330, 180], 'Scale Reference|canal': [650, 330], 'Scale Reference|ruler': [96, 470]
     };
-    for (const [map, [x, y]] of Object.entries(poses)) {
+    for (const [name, [x, y]] of Object.entries(poses)) {
+      const map = name.split('|')[0];
       await page.evaluate(([m, px, py]) => { AF_TEST.enterMap(m); AF_TEST.teleport(px, py); }, [map, x, y]);
-      await page.waitForTimeout(350);
-      const file = path.join(shotsDir, `${map.toLowerCase().replace(/\W+/g, '-')}.png`);
+      await page.waitForTimeout(900);
+      const file = path.join(shotsDir, `${name.toLowerCase().replace(/\W+/g, '-')}.png`);
       await page.locator('#game-root canvas').screenshot({ path: file });
       console.log(`shot  ${file}`);
     }

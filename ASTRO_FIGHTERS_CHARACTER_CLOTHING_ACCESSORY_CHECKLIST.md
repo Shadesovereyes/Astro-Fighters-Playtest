@@ -22,6 +22,7 @@ Mandatory before any clothing/equipment asset can advance:
 - [ ] Enlarged inspection images use integer **nearest-neighbor scaling only**; 10× = **5120×640**
 - [ ] Composite previews are mechanical base-plus-overlay composites, not AI-generated redraws of dressed characters
 - [ ] High-contrast QC corrections are made to the overlay, never to the locked base character
+- [ ] `node tools/validate-source-png.mjs sheet` passes for the base sheet and `overlay` passes for each overlay; inspection sheets pass `inspection`
 - [ ] If garment placement requires guessing hidden body geometry, production stops at the specific ambiguous frame/area until it can be resolved without inventing anatomy or pose changes
 
 Older experimental `480×640` per-direction / `48×64` character-source assumptions do not authorize conversion or redrawing of the finalized 512×64 base sheets.

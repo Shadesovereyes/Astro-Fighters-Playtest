@@ -1,6 +1,6 @@
 {
-  "schema": "astro-fighters-production-manifest/v2",
-  "updated": "2026-08-27",
+  "schema": "astro-fighters-production-manifest/v3",
+  "updated": "2026-09-28",
   "approvalAuthority": "Astro Fighters — Art Preview Review Rubric.md",
   "masterDirection": "ASTRO_FIGHTERS_LOCKED_MASTER_ART_DIRECTION_PROMPT.md",
   "canonical": {
@@ -18,12 +18,26 @@
       "W": "left profile",
       "NW": "back-left 3/4"
     },
-    "characterSourceCanvas": [480, 640],
-    "characterSourceBodyCenter": [240, 600],
-    "characterSourceFootContactY": 600,
-    "characterRuntimeFrame": [48, 64],
-    "characterRuntimePivot": [24, 60],
-    "characterAnimationFramesPerDirection": {"idle": 4, "walk": 6, "ready": 2},
+    "playerScale": {
+      "authority": "The 64×64 player frame is the visual world-scale authority. The hidden 32×32 grid is logic only and never sets visual scale.",
+      "sheetCanvas": [512, 64],
+      "frame": [64, 64],
+      "framesPerSheet": 8,
+      "frameOrder": ["N", "NE", "E", "SE", "S", "SW", "W", "NW"],
+      "frameOrderStatus": "assumed canonical order; confirm against the approved sheets on intake without moving any frame",
+      "pivotX": 32,
+      "footContactRule": "lowest opaque row of each approved frame, measured per sheet by tools/validate-source-png.mjs sheet and at runtime",
+      "inspectionScale": 10,
+      "inspectionCanvas": [5120, 640],
+      "collision": {"shape": "foot-box", "size": [20, 8], "anchor": "foot-contact", "independentOfSprite": true},
+      "interactionRange": 40,
+      "scaleReference": "docs/js/world/scale-guide.js",
+      "scaleReferenceScene": "docs/index.html?scale"
+    },
+    "characterAnimation": {
+      "status": "pending",
+      "rule": "The approved sheets hold one frame per direction. Idle/walk/ready frames require separately approved sheets on the same 64×64 frame registration; the runtime must not invent in-between frames."
+    },
     "baseUnderlayer": {
       "male": ["body/skin", "hair/face", "base shorts"],
       "female": ["body/skin", "hair/face", "base shorts", "sports bra"]
@@ -57,6 +71,7 @@
       "projection": "flat-faced 3/4 cabinet",
       "lighting": "upper-left / northwest",
       "gridRule": "Module edges and repeated detail may not reveal the hidden 32×32 movement grid.",
+      "scaleRule": "Proportion every module against the 64×64 player in the Phaser scale reference scene. Runtime canvases are containers, not scale authority; never derive size by multiplying 32px cells.",
       "sourceRoot": "production/source/world/shared-foundation/",
       "runtimeRoot": "docs/assets/world/shared-foundation/"
     },
@@ -80,37 +95,41 @@
       "status": "missing",
       "benchmarkId": "fighter-male-short-afro-shared-foundation",
       "role": "unarmed Academy street-fighter trainee",
-      "sourceCanvas": [480, 640],
-      "bodyCenter": [240, 600],
-      "footContactY": 600,
-      "runtimeFrame": [48, 64],
-      "runtimePivot": [24, 60],
+      "sheetCanvas": [512, 64],
+      "frame": [64, 64],
       "directions": ["N", "NE", "E", "SE", "S", "SW", "W", "NW"],
-      "sourceAuthoritiesRequired": ["base-underlayer turnaround", "fully dressed benchmark turnaround", "modular source component set"],
-      "sourcePaths": {
-        "baseUnderlayerPattern": "production/source/characters/shared-foundation/base-underlayer/{direction}.png",
-        "dressedBenchmarkPattern": "production/source/characters/shared-foundation/dressed-benchmark/{direction}.png",
-        "modularLayerPattern": "production/source/characters/shared-foundation/layers/{layer}/{direction}.png"
+      "baseSheets": {
+        "male": {"status": "missing", "sourcePath": "production/source/characters/base/male-base-512x64.png", "runtimePath": "docs/assets/characters/base/male-base.png"},
+        "female": {"status": "missing", "sourcePath": "production/source/characters/base/female-base-512x64.png", "runtimePath": "docs/assets/characters/base/female-base.png"}
       },
-      "runtimePaths": {
-        "benchmarkPattern": "docs/assets/characters/shared-foundation/benchmark/{direction}.png",
-        "animationPattern": "docs/assets/characters/shared-foundation/{state}/{direction}.png"
+      "baseRule": "Approved base sheets are production geometry: never redrawn, regenerated, resized, repositioned, or resampled. Runtime copies are byte-identical to the approved source.",
+      "overlayRule": "Clothing, equipment, accessories, and separately routed hair are transparent 512×64 overlays registered to the exact base frames; overlays never carry replacement base pixels.",
+      "overlayPaths": {
+        "sourcePattern": "production/source/characters/overlays/{layer}/{id}-512x64.png",
+        "runtimePattern": "docs/assets/characters/overlays/{layer}/{id}.png"
+      },
+      "inspectionPattern": "production/inspection/characters/{sheet}-5120x640.png",
+      "legacyRuntimeCandidates": {
+        "path": "docs/assets/runtime/characters/",
+        "sheetCanvas": [576, 512],
+        "frame": [48, 64],
+        "status": "legacy runtime candidate; stands in only until the approved 512×64 sheets are committed"
       },
       "underlayer": ["body/skin", "short afro hair/face", "base shorts"],
       "benchmarkOutfit": ["sleeveless fighter wrap", "short utility jacket", "loose fighter trousers", "sneaker-hybrid martial shoes", "cloth sash", "wrist wraps", "neck cord/charm", "contact shadow"],
       "weaponRequired": false,
       "paletteFamilies": ["skin_e", "cloth", "tide", "rust", "ui", "trimB"],
-      "layerFamilies": ["back-garment", "body-underlayer", "pants", "footwear", "inner-top", "outerwear-far", "outerwear-near", "waist-back", "waist-front", "accessories", "contact-shadow"],
-      "drawOrderRule": "Near/far garment panels route by canonical facing; no whole-overlay layer may cover anatomy that should remain visible.",
-      "validation": ["all eight canonical facings", "shared 480×640 lattice", "shared body center and foot-contact line", "direction-aware near/far draw order", "hard alpha", "master palette", "48×64 target pixel cleanup"]
+      "layerFamilies": ["back-garment", "pants", "footwear", "inner-top", "outerwear-far", "outerwear-near", "waist-back", "waist-front", "accessories", "contact-shadow"],
+      "drawOrderRule": "Near/far garment overlays route by canonical facing; no overlay may cover anatomy that should remain visible.",
+      "validation": ["512×64 sheet canvas", "eight 64×64 frames", "hard alpha", "shared foot-contact row", "overlay registration to base frames", "no copied base pixels in overlays", "10× inspection is exact integer nearest-neighbour", "tested beside world assets in the Phaser scale reference scene"]
     },
     "sourceGate": {
       "requiredBeforeRuntimeDerivation": [
         "world reference slice approved",
         "world modular source assembly approved",
-        "base-underlayer eight-direction turnaround approved",
-        "fully dressed eight-direction benchmark approved",
-        "modular character source assembly matches benchmark",
+        "approved 512×64 male and female base sheets committed and passing sheet QA",
+        "benchmark outfit overlays pass overlay registration QA",
+        "player-relative scale reference approved in Phaser",
         "isolation and anchor QA passes"
       ]
     },

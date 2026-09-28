@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - development/**
+      - claude/**
   pull_request:
 
 permissions:
@@ -24,10 +25,38 @@ jobs:
 
       - name: Check production QA tool syntax
         run: |
-          node --check tools/validate-production.mjs
-          node --check tools/validate-source-png.mjs
-          node --check docs/js/art-review.js
-          for f in docs/js/*.js docs/js/world/*.js docs/js/data/*.js tools/smoke-playtest.mjs tools/build-standalone.mjs; do node --check "$f"; done
+          for f in tools/*.mjs tools/lib/*.mjs docs/js/*.js docs/js/world/*.js docs/js/data/*.js; do node --check "$f"; done
 
       - name: Validate production manifest and art rubric
         run: node tools/validate-production.mjs
+
+      - name: Validate world data and character-sheet contracts
+        run: node tools/validate-world-data.mjs
+
+  runtime-smoke:
+    runs-on: ubuntu-latest
+    needs: validate-production
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Use Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Playwright Chromium
+        run: |
+          npm install --no-save playwright@1.56.1
+          npx playwright install --with-deps chromium
+
+      - name: Boot the Phaser runtime and run self-tests
+        run: node tools/smoke-playtest.mjs --shots smoke-shots
+
+      - name: Upload Phaser canvas captures
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: phaser-canvas-captures
+          path: smoke-shots/
+          if-no-files-found: ignore

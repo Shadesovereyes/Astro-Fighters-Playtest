@@ -111,6 +111,21 @@ The logical 32×32 grid may still support AI, navigation sectors, authored place
 
 ---
 
+# Player-relative world scale standard
+
+The player is the visual scale authority for the whole game world.
+
+- Player runtime frame: **64×64 px**. The approved player sheet is **512×64 = eight contiguous 64×64 directional frames**.
+- Every asset is proportioned against that player: architecture, doors, windows, counters, furniture, crates, bridges, stairs, railings, NPCs, enemies, weapons, vehicles, signs, foreground occluders, interaction distances, combat effects, and collision geometry.
+- The hidden 32×32 grid is logic only (navigation, AI, placement, telegraphs, sectors). It never sets visual scale and must not be visually exposed during exploration.
+- Required order: **64×64 player frame → believable player-relative proportion → author asset → independent collision/occlusion → test beside the player in Phaser.**
+- Forbidden: **32×32 cell → multiply dimensions → assume the object is correctly scaled.** A manifest runtime canvas is a container size, not proof of scale.
+- Player collision is an authored foot box (`production/asset-manifest.json` → `canonical.playerScale.collision`), never the full 64×64 sprite bounds.
+- A door must read as walkable, a counter must land near hip height, stairs must match the character's feet and stride, crates must read at carry/storage scale, bridges must give believable passage width, and foreground walls must occlude the character without swallowing the whole sprite.
+- Ratios live in `docs/js/world/scale-guide.js` as multiples of the measured player stature S, and are judged visually in the Phaser scale reference scene (`docs/index.html?scale`). They remain provisional until approved beside the approved 512×64 player.
+
+---
+
 # Pixel rendering standard
 
 Retain unless explicitly changed:
@@ -143,6 +158,8 @@ Mandatory rules:
 - High-contrast-background inspection may be used to find holes, stray transparency, floating pixels, broken seams, and routing errors, but QC corrections belong in the overlay—not in the locked base character.
 
 For character-sheet asset work, these preservation rules override older experimental source-lattice assumptions or branch/package notes that would require redrawing the approved base geometry. Do not silently convert the locked 512×64 sheets into a different source format.
+
+Runtime loads approved sheets as eight 64×64 frames registered in `docs/js/world/characters.js`, one frame per direction; no in-between animation frames may be invented. The legacy 48×64 runtime candidate sheets under `docs/assets/runtime/characters/` stand in only until the approved sheets are committed and must be labelled as legacy wherever they appear. QA: `node tools/validate-source-png.mjs sheet|overlay|inspection` and `node tools/validate-world-data.mjs`.
 
 ---
 

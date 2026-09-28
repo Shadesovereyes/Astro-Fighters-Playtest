@@ -97,6 +97,14 @@ Pixel-rendering contract:
 
 ---
 
+## Player-relative world scale
+
+The **64×64 player frame is the visual scale authority**. The approved player sheet is **512×64**: eight contiguous 64×64 directional frames. Every door, wall, counter, crate, bridge, stair, railing, NPC, prop, occluder, interaction distance, and collision body is proportioned against that player and tested beside it in Phaser. The hidden 32×32 grid is logic only and never sets size. Player collision is an authored foot box, not the sprite bounds.
+
+The player-relative ratios live in `docs/js/world/scale-guide.js` and are reviewed in the scale reference scene (`docs/index.html?scale`). Rules: `AGENTS.md` → *Player-relative world scale standard*.
+
+---
+
 # Current milestone
 
 The active milestone is **Imperial City Early Player Experience v0**.
@@ -182,6 +190,7 @@ Approval also requires zero automatic failures and all critical category minimum
 # Run / review surfaces
 
 - `/docs/index.html` — playtest runtime (title → character creator → Imperial Docks)
+- `/docs/index.html?scale` — player-relative scale reference scene (guide objects sized from measured player stature)
 - `/docs/index.html?slice0` — Slice 0 Foundation Courtyard engine test (modular Phaser layers, scaffold textures)
 - `/docs/index.html?selftest` — in-runtime self-test suite (`?quickstart`, `?academy`, `?fringe` jump straight in)
 - `/docs/art-review.html` — browser review/scoring surface
@@ -192,10 +201,12 @@ Runtime layout:
 - `docs/js/game.js` — scenes, real-time movement, combat, traps, dialogue, save
 - `docs/js/world/maps.js` — authored world data: pixel-space collision, exits, NPCs, enemies, Slice 0 layer placements
 - `docs/js/world/scaffold-textures.js` — procedural stand-ins for the shared-foundation modules at manifest runtime sizes
+- `docs/js/world/scale-guide.js` — player-scale contract mirror and player-relative proportion ratios
+- `docs/js/world/characters.js` — registry for the approved 512×64 base sheets and their overlays
 - `docs/js/creator-ui.js`, `docs/js/astro-natal.js`, `docs/js/data/canonical-roster.js` — creator UI, natal engine, canonical ability data
 - `docs/vendor/phaser-4.2.1.min.js`, `docs/css/game.css`, `docs/assets/runtime/` — engine, styles, runtime images
 
-Local play must be served over HTTP (WebGL refuses `file://` textures), e.g. `npx http-server docs`. `node tools/build-standalone.mjs` generates a single-file offline build in `dist/`. `node tools/smoke-playtest.mjs [--shots <dir>]` runs the self-tests and a real-input check in headless Chromium and can capture Phaser-canvas screenshots.
+Local play must be served over HTTP (WebGL refuses `file://` textures), e.g. `npx http-server docs`. `node tools/build-standalone.mjs` generates a single-file offline build in `dist/`. `node tools/smoke-playtest.mjs [--shots <dir>]` runs the self-tests and a real-input check in headless Chromium and can capture Phaser-canvas screenshots. `node tools/validate-world-data.mjs` checks the player-scale contract, character registries, and map integrity; `node tools/validate-source-png.mjs sheet|overlay|inspection` checks 512×64 sheets, registered overlays, and 5120×640 inspection derivatives.
 
 The four legacy districts (Docks, Civic, Academy, Fringe) still render baked district backdrops. They are temporary non-reviewable development backdrops with authored collision laid over them, not production world assets.
 

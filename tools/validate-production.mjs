@@ -135,6 +135,12 @@ function validateAuthorityDocs() {
   assert(docs.master.includes('# 2. Generation vocabulary discipline'), 'Master Art Direction must include generation-vocabulary discipline.');
   assert(docs.sliceBrief.includes('14 shared-foundation world dependencies'), 'Slice 0 brief must acknowledge the 14-asset package contract.');
   assert(docs.sliceBrief.includes('8-asset core subset'), 'Slice 0 brief must distinguish the 8-asset assembly subset.');
+
+  const scaleDocs = [['README', docs.readme], ['AGENTS', docs.agents], ['Master Art Direction', docs.master], ['EPE', docs.epe], ['Slice 0 brief', docs.sliceBrief], ['Development Status', docs.status]];
+  for (const [label, text] of scaleDocs) {
+    assert(text.toLowerCase().includes('player-relative'), `${label} must state the player-relative world scale rule.`);
+    assert(!/runtime `?48×64`? cleanup|derive `48×64`|`480×640` lattice|runtime `48×64`, pivot/.test(text), `${label} still contains a stale 480×640 / 48×64 character-runtime contract.`);
+  }
 }
 
 function validateCanonical() {
@@ -142,19 +148,26 @@ function validateCanonical() {
   const directions = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'];
   const layers = ['ground', 'decals', 'architecture', 'architecture-dressing', 'props-back', 'collision', 'interactives', 'actors', 'props-front-occluders', 'local-shadows', 'atmosphere-fx'];
 
-  assert(manifest.schema === 'astro-fighters-production-manifest/v2', 'Production manifest schema must be v2.');
+  assert(manifest.schema === 'astro-fighters-production-manifest/v3', 'Production manifest schema must be v3.');
   assert(manifest.masterDirection === 'ASTRO_FIGHTERS_LOCKED_MASTER_ART_DIRECTION_PROMPT.md', 'Manifest must point to the locked Master Art Direction.');
   assert(manifest.approvalAuthority === 'Astro Fighters — Art Preview Review Rubric.md', 'Manifest must point to the Art Review Rubric.');
   assert(c.gridPixels === 32, 'Hidden grid must remain 32×32.');
   assert(c.projection === 'flat-faced 3/4 cabinet', 'Projection must remain flat-faced 3/4 cabinet.');
   assert(c.lightingDirection === 'upper-left / northwest', 'Lighting must remain upper-left / northwest.');
   assert(same(c.directions, directions), 'Canonical direction order drifted.');
-  assert(same(c.characterSourceCanvas, [480, 640]), 'Character source canvas must remain 480×640.');
-  assert(same(c.characterSourceBodyCenter, [240, 600]), 'Character source body center must remain [240,600].');
-  assert(c.characterSourceFootContactY === 600, 'Character source foot-contact line must remain y=600.');
-  assert(same(c.characterRuntimeFrame, [48, 64]), 'Runtime frame must remain 48×64.');
-  assert(same(c.characterRuntimePivot, [24, 60]), 'Runtime pivot must remain [24,60].');
-  assert(same(c.characterAnimationFramesPerDirection, { idle: 4, walk: 6, ready: 2 }), 'Animation counts drifted.');
+  const ps = c.playerScale || {};
+  assert(same(ps.sheetCanvas, [512, 64]), 'Player sheet canvas must be 512×64.');
+  assert(same(ps.frame, [64, 64]), 'Player frame must be 64×64.');
+  assert(ps.framesPerSheet === 8, 'Player sheet must hold eight directional frames.');
+  assert(same(ps.frameOrder, directions), 'Player frame order must list the eight canonical directions.');
+  assert(ps.inspectionScale === 10 && same(ps.inspectionCanvas, [5120, 640]), 'Inspection sheets must be 10× = 5120×640.');
+  assert(ps.collision?.independentOfSprite === true && positivePair(ps.collision?.size), 'Player collision must be an authored box independent of the sprite frame.');
+  assert(nonEmpty(ps.authority) && ps.authority.includes('64×64'), 'playerScale must declare the 64×64 player as world-scale authority.');
+  assert(nonEmpty(ps.scaleReference) && fs.existsSync(path.join(root, ps.scaleReference)), 'playerScale.scaleReference must exist.');
+  for (const stale of ['characterSourceCanvas', 'characterSourceBodyCenter', 'characterSourceFootContactY', 'characterRuntimeFrame', 'characterRuntimePivot', 'characterAnimationFramesPerDirection']) {
+    assert(!(stale in c), `Stale canonical key ${stale} must not return.`);
+  }
+  assert(c.characterAnimation?.status && nonEmpty(c.characterAnimation?.rule), 'characterAnimation must state its status and no-invented-frames rule.');
   assert(c.worldSourceScale === 10, 'Shared-foundation source scale must remain 10×.');
   assert(same(c.worldLayerOrder, layers), 'World layer order drifted.');
 
@@ -226,27 +239,30 @@ function validateActivePackage() {
   assert(assetStatuses.includes(ch.status), `characterDependencies has invalid status ${ch.status}.`);
   assert(nonEmpty(ch.benchmarkId), 'Character benchmark needs benchmarkId.');
   assert(nonEmpty(ch.role), 'Character benchmark needs role.');
-  assert(same(ch.sourceCanvas, manifest.canonical.characterSourceCanvas), 'Character sourceCanvas must match canonical.');
-  assert(same(ch.bodyCenter, manifest.canonical.characterSourceBodyCenter), 'Character bodyCenter must match canonical.');
-  assert(ch.footContactY === manifest.canonical.characterSourceFootContactY, 'Character footContactY must match canonical.');
-  assert(same(ch.runtimeFrame, manifest.canonical.characterRuntimeFrame), 'Character runtimeFrame must match canonical.');
-  assert(same(ch.runtimePivot, manifest.canonical.characterRuntimePivot), 'Character runtimePivot must match canonical.');
+  const ps = manifest.canonical.playerScale || {};
+  assert(same(ch.sheetCanvas, ps.sheetCanvas), 'Character sheetCanvas must match canonical playerScale.');
+  assert(same(ch.frame, ps.frame), 'Character frame must match canonical playerScale.');
   assert(same(ch.directions, manifest.canonical.directions), 'Character directions must match canonical.');
+  for (const sex of ['male', 'female']) {
+    const b = ch.baseSheets?.[sex];
+    assert(b && assetStatuses.includes(b.status), `baseSheets.${sex} needs a valid status.`);
+    assert(nonEmpty(b?.sourcePath) && b.sourcePath.endsWith('-512x64.png'), `baseSheets.${sex}.sourcePath must name the 512×64 approved sheet.`);
+    assert(nonEmpty(b?.runtimePath) && b.runtimePath.startsWith('docs/assets/characters/'), `baseSheets.${sex}.runtimePath must live under docs/assets/characters/.`);
+  }
+  assert(nonEmpty(ch.baseRule) && ch.baseRule.includes('never redrawn'), 'Character baseRule must forbid redrawing approved sheets.');
+  assert(nonEmpty(ch.overlayRule) && ch.overlayRule.includes('512×64'), 'Character overlayRule must require 512×64 registered overlays.');
+  validatePattern(ch.overlayPaths?.sourcePattern, 'overlay sourcePattern', ['layer', 'id']);
+  validatePattern(ch.overlayPaths?.runtimePattern, 'overlay runtimePattern', ['layer', 'id']);
+  validatePattern(ch.inspectionPattern, 'inspectionPattern', ['sheet']);
+  assert(ch.inspectionPattern.includes('5120x640'), 'inspectionPattern must name the 5120×640 inspection size.');
   assert(ch.weaponRequired === false, 'First shared-foundation benchmark must remain unarmed unless re-contracted.');
-  assert(Array.isArray(ch.sourceAuthoritiesRequired) && ch.sourceAuthoritiesRequired.length === 3, 'Character benchmark must require three source authorities.');
-
-  validatePattern(ch.sourcePaths?.baseUnderlayerPattern, 'baseUnderlayerPattern', ['direction']);
-  validatePattern(ch.sourcePaths?.dressedBenchmarkPattern, 'dressedBenchmarkPattern', ['direction']);
-  validatePattern(ch.sourcePaths?.modularLayerPattern, 'modularLayerPattern', ['layer', 'direction']);
-  validatePattern(ch.runtimePaths?.benchmarkPattern, 'benchmarkPattern', ['direction']);
-  validatePattern(ch.runtimePaths?.animationPattern, 'animationPattern', ['state', 'direction']);
-
   assert(Array.isArray(ch.underlayer) && ch.underlayer.includes('base shorts'), 'Character underlayer must retain base shorts.');
   assert(Array.isArray(ch.benchmarkOutfit) && ch.benchmarkOutfit.length >= 7, 'Character benchmark outfit is incomplete.');
   assert(Array.isArray(ch.paletteFamilies) && ch.paletteFamilies.length > 0, 'Character benchmark needs palette families.');
   assert(Array.isArray(ch.layerFamilies) && ch.layerFamilies.length > 0, 'Character benchmark needs layer families.');
   assert(nonEmpty(ch.drawOrderRule), 'Character benchmark needs draw-order rule.');
   assert(Array.isArray(ch.validation) && ch.validation.length >= 6, 'Character validation contract is incomplete.');
+  assert(nonEmpty(wc.scaleRule) && wc.scaleRule.includes('64×64 player'), 'worldContract must carry the player-relative scale rule.');
 
   const acceptance = pkg.acceptance || {};
   assert(acceptance.integrationRequired === true, 'Package must require integration.');

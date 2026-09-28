@@ -93,7 +93,7 @@ Use the shared-foundation identity:
 
 He should read as an early-game Academy/street-fighter trainee, not a generic fantasy adventurer.
 
-The reference character is a visual benchmark only. Production still requires eight distinct source masters and the modular character source set on the contracted `480×640` lattice.
+The reference character is a visual benchmark only. The player is the approved 512×64 sheet (eight 64×64 directional frames); benchmark clothing is authored as registered 512×64 overlays, never by redrawing the base. Every Slice 0 module is proportioned player-relative: judged beside the 64×64 player in Phaser, not sized by multiplying 32px cells.
 
 ---
 
@@ -144,6 +144,7 @@ The reference and final source assembly must obey runtime logic:
 
 - flat-faced 3/4 cabinet projection;
 - character feet establish the ground plane;
+- every module is proportioned against the 64×64 player (door opening, plinth, eave, window sill, post, beam clearance, crate) using the ratios in `docs/js/world/scale-guide.js`;
 - vertical wall faces remain legible;
 - no isometric diamond distortion;
 - foreground occluder must be reproducible as a separate runtime layer;
@@ -223,15 +224,14 @@ Temporary generations, failed experiments, and QA boards may remain outside the 
 
 Using the same visual authority:
 
-1. author eight base-underlayer masters;
-2. author eight fully dressed benchmark masters;
-3. author modular garment/accessory layers on the same lattice;
-4. compare modular composites to the benchmark;
-5. run isolation/anchor/hard-alpha QA;
-6. approve all source directions;
-7. derive `48×64` runtime candidates;
-8. manually clean target-resolution pixels;
-9. integrate idle/walk/ready into Phaser.
+1. commit the approved 512×64 base sheets unchanged;
+2. author garment/accessory pieces as transparent 512×64 overlays registered to the base frames;
+3. compare mechanical base-plus-overlay composites to the benchmark;
+4. run overlay registration / hard-alpha / copied-pixel QA;
+5. review 10× 5120×640 nearest-neighbour inspection sheets;
+6. approve all eight directions;
+7. integrate into Phaser beside player-relative world assets;
+8. add idle/walk/ready only from separately approved sheets on the same registration.
 
 No runtime reduction while source silhouette, direction, routing, or material treatment is unstable.
 
@@ -248,6 +248,7 @@ Required:
 - collision independent from appearance imagery;
 - live foreground/background occlusion;
 - correct player pivot/contact;
+- every scenery element proportioned against the 64×64 player and checked in the scale reference scene;
 - no visible grid rhythm;
 - character/world style homogeneity;
 - no placeholder clothing;

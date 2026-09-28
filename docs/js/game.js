@@ -14,8 +14,10 @@
   const DASH_SPEED = 330, DASH_MS = 190, DODGE_IFRAME_MS = 300, DODGE_COST = 10;
   const ENEMY_SPEED = 72, AGGRO_RANGE = 170, DEAGGRO_RANGE = 280;
   const ENEMY_REACH = 24, ENEMY_WINDUP_MS = 460, ENEMY_RECOVER_MS = 760;
-  const INTERACT_RANGE = 34;
-  const FOOT_HW = 6, FOOT_H = 6;   // actor foot collision box (half-width, height above contact point)
+  const SCALE = window.AF_SCALE;   // player-relative scale authority (world/scale-guide.js)
+  const INTERACT_RANGE = SCALE.player.interactionRange;
+  // Actor foot collision box, authored independently of the 64×64 sprite frame.
+  const FOOT_HW = SCALE.player.collision.w/2, FOOT_H = SCALE.player.collision.h;
   const DIRS = [
     {name:'N',dx:0,dy:-1},{name:'NE',dx:1,dy:-1},{name:'E',dx:1,dy:0},{name:'SE',dx:1,dy:1},
     {name:'S',dx:0,dy:1},{name:'SW',dx:-1,dy:1},{name:'W',dx:-1,dy:0},{name:'NW',dx:-1,dy:-1}
@@ -218,6 +220,12 @@
     const local=Math.floor(time/(anim==='walk'?105:anim==='ready'?260:220))%spec.count;
     return row*12+spec.start+local;
   };
+  // Approved 512×64 base sheets (eight 64×64 directional frames). Until they are registered in
+  // world/characters.js the legacy 48×64 runtime candidates stand in and are labelled as such.
+  const CHARS = window.AF_CHARACTERS || {approved:{},overlays:{}};
+  const APPROVED_KEY = 'char-approved-male';
+  let charMode = 'legacy';
+  const approvedFrame = facing => Math.max(0,SCALE.player.frameOrder.indexOf(facing));
   const hexNum=h=>Number.parseInt(String(h||'#ffffff').replace('#',''),16)||0xffffff;
 
   const pdDomCache=new Map();
@@ -290,6 +298,24 @@
     pose(facing,anim,t){ const f=pdFrame(facing,anim,t); for(const e of this.sprites) if(e.variant) e.sprite.setFrame(f); }
     place(x,y){ this.container.setPosition(Math.round(x),Math.round(y)); this.container.setDepth(y); }
     destroy(){ this.container.destroy(); }
+  }
+
+  /* The approved player: base sheet plus registered 512×64 overlays, one frame per direction.
+     No in-between animation frames are invented; the directional frame is held while moving. */
+  class ApprovedDoll {
+    constructor(scene, x, y, footY){
+      this.scene=scene; this.container=scene.add.container(x,y);
+      const keys=[APPROVED_KEY,...Object.entries(CHARS.overlays||{}).flatMap(([layer,list])=>list.map(o=>`char-ov-${layer}-${o.id}`))].filter(k=>scene.textures.exists(k));
+      this.sprites=keys.map(k=>{const sp=scene.add.sprite(0,0,k,0).setOrigin(SCALE.player.pivotX/64,(footY+1)/64);this.container.add(sp);return {def:{slot:k},sprite:sp,variant:k};});
+      this.place(x,y);
+    }
+    apply(){}
+    pose(facing){ const f=approvedFrame(facing); for(const e of this.sprites) e.sprite.setFrame(f); }
+    place(x,y){ this.container.setPosition(Math.round(x),Math.round(y)); this.container.setDepth(y); }
+    destroy(){ this.container.destroy(); }
+  }
+  function makePlayerDoll(scene,x,y){
+    return charMode==='approved' ? new ApprovedDoll(scene,x,y,scene.footY) : new PaperDoll(scene,state.appearance,x,y);
   }
 
   /* ---------------- Dialogue, tutorial, Academy kit ---------------- */
@@ -403,7 +429,8 @@
     const art=map?.artState==='scaffold'
       ? `Separate Phaser world modules · ${worldScene?.authoredCount?`${worldScene.authoredCount} authored + `:''}procedural scaffold textures · not production art`
       : 'Legacy baked district backdrop · temporary development scaffold · not production art';
-    $('art-state').textContent=art;
+    const who=charMode==='approved'?'Player: approved 512×64 sheet':'Player: legacy 48×64 candidate (approved 512×64 sheet not yet committed)';
+    $('art-state').textContent=`${art} · ${who}${worldScene?.stature?` · S=${worldScene.stature}px`:''}`;
   }
 
   /* ---------------- Scenes ---------------- */
@@ -423,10 +450,13 @@
   const SCAFFOLD_IDS = Object.keys(window.AF_SCAFFOLD?.SPECS||{});
 
   class WorldScene extends Phaser.Scene {
-    constructor(){ super('World'); this.pausedByUi=false; this.mapObjects=[]; this.enemies=[]; this.npcs=[]; this.colliders=[]; this.occluders=[]; this.traps=[]; this.projectiles=[]; this.pending=[]; this.layerIndex={}; this.selected=null; this.authoredCount=0; }
+    constructor(){ super('World'); this.pausedByUi=false; this.builtColliders=[]; this.interactables=[]; this.guideMeasures=[]; this.mapObjects=[]; this.enemies=[]; this.npcs=[]; this.colliders=[]; this.occluders=[]; this.traps=[]; this.projectiles=[]; this.pending=[]; this.layerIndex={}; this.selected=null; this.authoredCount=0; }
     preload(){
       for(const m of Object.values(MAPS)) if(m.backdrop) this.load.image(`env-${m.key}`,assetPath(m.backdrop));
       for(const [id,path] of Object.entries(AUTHORED_MODULES)) this.load.image(`mod-${id}`,path);
+      const [fw,fh]=SCALE.player.frame;
+      if(CHARS.approved?.male) this.load.spritesheet(APPROVED_KEY,CHARS.approved.male,{frameWidth:fw,frameHeight:fh});
+      for(const [layer,list] of Object.entries(CHARS.overlays||{})) for(const o of list) this.load.spritesheet(`char-ov-${layer}-${o.id}`,o.path,{frameWidth:fw,frameHeight:fh});
       const cfg={frameWidth:48,frameHeight:64};
       for(const skin of PD_VARIANTS.skin)this.load.spritesheet(pdKey('base_body',skin),pdPath('base_body',skin),cfg);
       for(const v of ['whites','iris_mask'])this.load.spritesheet(pdKey('eyes',v),pdPath('eyes',v),cfg);
@@ -441,6 +471,9 @@
     }
     create(){
       worldScene=this;
+      charMode=this.textures.exists(APPROVED_KEY)?'approved':'legacy';
+      const m=charMode==='approved'?this.measureFrame(APPROVED_KEY,approvedFrame('S')):this.measureFrame(pdKey('base_body',state.appearance.skin),pdFrame('S','idle',0));
+      this.stature=m.stature; this.footY=m.footY; this.statureSource=m;
       this.keys=this.input.keyboard.addKeys({up:'W',down:'S',left:'A',right:'D',up2:'UP',down2:'DOWN',left2:'LEFT',right2:'RIGHT',guard:'SHIFT'});
       this.input.keyboard.addCapture('SPACE,TAB,UP,DOWN,LEFT,RIGHT');
       const kb=this.input.keyboard;
@@ -457,6 +490,15 @@
       this.buildMap(state.map,null); $('hud').classList.remove('hidden'); hideAllOverlays(); updateHud(true);
       window.__AF_WORLD_READY=true;
     }
+    /* Opaque bounds of one texture frame: stature = visible height, footY = lowest opaque row. */
+    measureFrame(key,idx){
+      const fr=this.textures.getFrame(key,idx), img=fr.source.image;
+      const c=document.createElement('canvas'); c.width=fr.cutWidth; c.height=fr.cutHeight;
+      const g=c.getContext('2d',{willReadFrequently:true}); g.drawImage(img,fr.cutX,fr.cutY,fr.cutWidth,fr.cutHeight,0,0,fr.cutWidth,fr.cutHeight);
+      const d=g.getImageData(0,0,c.width,c.height).data; let minX=c.width,minY=c.height,maxX=-1,maxY=-1;
+      for(let y=0;y<c.height;y++) for(let x=0;x<c.width;x++) if(d[(y*c.width+x)*4+3]){ if(x<minX)minX=x; if(x>maxX)maxX=x; if(y<minY)minY=y; if(y>maxY)maxY=y; }
+      return {key,frame:idx,frameSize:[c.width,c.height],bbox:[minX,minY,maxX,maxY],stature:maxY-minY+1,footY:maxY};
+    }
     setPaused(v){ this.pausedByUi=!!v; if(!v) this.inputLockUntil=now()+220; }
     refreshFromState(){ this.buildMap(state.map,null); updateHud(true); }
 
@@ -465,7 +507,7 @@
       for(const o of this.mapObjects) o?.destroy?.();
       for(const a of [...this.enemies,...this.npcs]) { a.doll?.destroy(); a.label?.destroy(); a.bar?.destroy(); }
       this.player?.doll.destroy();
-      this.mapObjects=[];this.enemies=[];this.npcs=[];this.colliders=[];this.occluders=[];this.traps=[];this.projectiles=[];this.pending=[];this.layerIndex={};this.selected=null;this.player=null;this.dash=null;this.motes=null;
+      this.mapObjects=[];this.enemies=[];this.npcs=[];this.interactables=[];this.guideMeasures=[];this.colliders=[];this.occluders=[];this.traps=[];this.projectiles=[];this.pending=[];this.layerIndex={};this.selected=null;this.player=null;this.dash=null;this.motes=null;
     }
 
     moduleTexture(id){
@@ -487,9 +529,11 @@
         this.track(this.add.image(0,0,`env-${map.key}`).setOrigin(0).setDepth(DEPTH.ground),'ground');
       }
       if(map.builder==='slice0') this.buildSlice0(map);
+      if(map.builder==='scale') this.buildScaleGuide(map);
 
       // Collision: authored data only. Debug view is hidden unless toggled (F2).
-      this.colliders=(map.colliders||[]).map(c=>({...c}));
+      this.colliders=[...(map.colliders||[]).map(c=>({...c})),...(this.builtColliders||[])]; this.builtColliders=[];
+      this.interactables=(map.interactables||[]).map(o=>({...o}));
       const dbg=this.add.graphics().setDepth(DEPTH.collision).setVisible(false);
       dbg.fillStyle(0xff3355,.28); dbg.lineStyle(1,0xff3355,.9);
       for(const c of this.colliders){ dbg.fillRect(c.x,c.y,c.w,c.h); dbg.strokeRect(c.x+.5,c.y+.5,c.w-1,c.h-1); }
@@ -501,24 +545,50 @@
       for(const c of state.corpses||[]) if(c.map===state.map && !c.recovered) this.spawnCorpseMarker(c);
 
       if(!this.isFree(state.x,state.y,null)){ state.x=map.spawn.x; state.y=map.spawn.y; }
-      this.player={x:state.x,y:state.y,doll:new PaperDoll(this,state.appearance,state.x,state.y),moving:false,staggerUntil:0};
-      if(map.width>VIEW_W||map.height>VIEW_H) cam.startFollow(this.player.doll.container,true,0.18,0.18);
+      this.player={x:state.x,y:state.y,doll:makePlayerDoll(this,state.x,state.y),moving:false,staggerUntil:0};
+      if(map.width>VIEW_W||map.height>VIEW_H){ cam.startFollow(this.player.doll.container,true,0.16,0.16); cam.setDeadzone(96,48); }
+      else cam.setDeadzone();
 
       this.targetRing=this.track(this.add.graphics().setDepth(DEPTH.trap+1).setVisible(false));
       this.fxLayer=this.track(this.add.graphics().setDepth(DEPTH.fx),'atmosphere-fx');
       this.selected=null; this.updatePrompt(); updateHud(true); saveGame(true);
     }
 
-    buildSlice0(map){
-      const r=(seed=>()=>{seed=(seed*16807)%2147483647;return (seed-1)/2147483646;})(map.ground.seed||7);
-      const weights=map.ground.modules, total=weights.reduce((s,[,w])=>s+w,0);
+    buildGround(map){
+      const spec=map.ground||{modules:[['stone-clean',3],['stone-cracked',1]],seed:3};
+      const r=(seed=>()=>{seed=(seed*16807)%2147483647;return (seed-1)/2147483646;})(spec.seed||7);
+      const weights=spec.modules, total=weights.reduce((s,[,w])=>s+w,0);
       const pickModule=()=>{let v=r()*total;for(const [id,w] of weights){if((v-=w)<0)return id;}return weights[0][0];};
-      // Ground: 192×128 pavement modules; each row gets its own horizontal offset so seams never align into a grid.
       let depth=DEPTH.ground;
       for(let y=0;y<map.height;y+=128){
         const off=Math.floor(r()*192);
         for(let x=-off;x<map.width;x+=192) this.track(this.add.image(x,y,this.moduleTexture(pickModule())).setOrigin(0).setDepth(depth+=0.001),'ground');
       }
+      return r;
+    }
+    /* Player-scale reference: every guide object is sized from AF_SCALE ratios × measured stature. */
+    buildScaleGuide(map){
+      const S=this.stature; this.buildGround(map);
+      const bridges=map.guideItems.filter(g=>g.item.startsWith('bridge')).map(g=>{const k=g.item==='bridge-single'?'bridgeSingle':'bridgePair';const w=SCALE.px(k,S);return [g.x-w/2,g.x+w/2];}).sort((a,b)=>a[0]-b[0]);
+      const cn=map.canal, water=this.add.graphics().setDepth(DEPTH.ground+5);
+      water.fillStyle(0x1b262b,1).fillRect(cn.x,cn.y,cn.w,cn.h).fillStyle(0x26363d,1).fillRect(cn.x,cn.y+cn.h-10,cn.w,10).fillStyle(0x777064,1).fillRect(cn.x,cn.y-4,cn.w,4).fillRect(cn.x,cn.y+cn.h,cn.w,4);
+      this.track(water,'ground');
+      let cx=cn.x; for(const [a,b] of bridges){ this.builtColliders.push({x:cx,y:cn.y,w:a-cx,h:cn.h}); cx=b; } this.builtColliders.push({x:cx,y:cn.y,w:cn.x+cn.w-cx,h:cn.h});
+      for(const gi of map.guideItems){
+        const it=SCALE.items[gi.item](S), key=`guide-${gi.item}-${S}`;
+        if(!this.textures.exists(key)) this.textures.addCanvas(key,it.canvas);
+        const img=this.add.image(Math.round(gi.x-it.anchor[0]),Math.round(gi.y-it.anchor[1]),key).setOrigin(0).setDepth(gi.y+(it.sortOffset||0));
+        this.track(img,gi.item==='ruler'?'atmosphere-fx':it.occluder?'architecture':'props-back');
+        for(const c of it.colliders) this.builtColliders.push({x:Math.round(gi.x+c.x),y:Math.round(gi.y+c.y),w:Math.round(c.w),h:Math.round(c.h)});
+        if(it.occluder) this.occluders.push({img,sortY:gi.y,x:img.x,y:img.y,w:img.width,h:img.height,alpha:1});
+        const lines=Object.entries(it.measures).map(([k,v])=>`${SCALE.guide[k].label}: ${v}px = ${(v/S).toFixed(2)}S`);
+        if(gi.item==='ruler') lines.push(`Player stature S = ${S}px`);
+        if(lines.length) this.track(this.add.text(gi.x,gi.y+4+(gi.labelDy||0),lines.join('\n'),{fontFamily:'monospace',fontSize:'7px',color:'#e8dcc0',backgroundColor:'#0d0d0ecc',padding:{x:2,y:1}}).setOrigin(.5,0).setDepth(DEPTH.label),'interactives');
+        this.guideMeasures.push({item:gi.item,measures:it.measures});
+      }
+    }
+    buildSlice0(map){
+      const r=this.buildGround(map);
       let overlay=0;
       for(const p of map.placements){
         const img=this.add.image(p.x,p.y,this.moduleTexture(p.tex)).setOrigin(0);
@@ -608,14 +678,15 @@
       const p=this.player; if(!p) return null;
       return (this.map.exits||[]).find(e=>p.x>=e.x-10&&p.x<=e.x+e.w+10&&p.y>=e.y-10&&p.y<=e.y+e.h+10)||null;
     }
-    nearestNpc(){ const p=this.player; return this.npcs.filter(n=>dist(n,p)<=INTERACT_RANGE).sort((a,b)=>dist(a,p)-dist(b,p))[0]||null; }
+    /* Shared interaction framework: NPCs and world interactables (doors, signs, stations) resolve through one query. */
+    nearestNpc(){ const p=this.player; return [...this.npcs,...this.interactables].filter(n=>dist(n,p)<=INTERACT_RANGE).sort((a,b)=>dist(a,p)-dist(b,p))[0]||null; }
     nearestCorpse(){ const p=this.player; return (state.corpses||[]).find(c=>c.map===state.map&&!c.recovered&&dist(c,p)<=28)||null; }
     updatePrompt(){
       if(!this.player) return;
       let prompt='';
       const npc=this.nearestNpc(), exit=this.nearestExit(), corpse=this.nearestCorpse();
       if(exit) prompt=exit.requiresAcademy&&!state.academyComplete?'Road closed · Academy certification required':exit.auto?`→ ${exit.label}`:`E · ${exit.label}`;
-      if(npc) prompt=`E · Speak with ${npc.name}`;
+      if(npc) prompt=npc.doll?`E · Speak with ${npc.name}`:`E · Examine ${npc.name}`;
       if(corpse) prompt='E · Recover your fallen inventory';
       if($('prompt').textContent!==prompt) $('prompt').textContent=prompt;
     }
@@ -624,7 +695,7 @@
       const corpse=this.nearestCorpse(); if(corpse){this.recoverCorpse(corpse);return;}
       const n=this.nearestNpc();
       if(n){
-        n.facing=dirFromVector(this.player.x-n.x,this.player.y-n.y);
+        if(n.doll) n.facing=dirFromVector(this.player.x-n.x,this.player.y-n.y);
         if(n.role==='sensei'){ if(state.academyComplete) showDialog('Sensei Daichi','Your foundation certification is complete. The Fringe Ward is past the east road of the Civic Ward. Train there, then return when you are ready for deeper systems.',[{label:'Understood'}]); else startSenseiTutorial(); }
         else showLines(n.name,n.lines||['…']);
         return;
@@ -982,6 +1053,7 @@
   $('appearance-btn').onclick=(e)=>{e?.preventDefault?.();showOverlay('appearance-overlay');startCreatorPreview();drawPaperDollPreview();};
   $('continue-btn').onclick=()=>{ if(loadGame())enterWorld(); };
   $('quick-btn').onclick=()=>{quickState();enterWorld();};
+  $('scale-btn').onclick=()=>{ if(!loadGame()) quickState(); const sp=MAPS['Scale Reference'].spawn; state.map='Scale Reference'; state.x=sp.x; state.y=sp.y; enterWorld(); };
   $('slice0-btn').onclick=()=>{ if(!loadGame()) quickState(); const sp=MAPS['Slice 0'].spawn; state.map='Slice 0'; state.x=sp.x; state.y=sp.y; enterWorld(); };
   $('chart-btn').onclick=(event)=>{event?.preventDefault?.();
     try{
@@ -1019,7 +1091,11 @@
     test('Pixel-art renderer settings retained',()=>game.config.pixelArt===true&&game.config.antialias===false&&game.config.roundPixels===true);
     test('Canonical roster is 180 records',()=>abilityRecords().length===180);
     test('Recompose exists',()=>!!abilityByName('Recompose'));
-    test('Runtime paper-doll sheets use 48x64 frames',()=>game.textures.exists(pdKey('base_body','skin04')) && game.textures.get(pdKey('base_body','skin04')).getSourceImage().width===576 && game.textures.get(pdKey('base_body','skin04')).getSourceImage().height===512);
+    test('Player contract is the 512×64 sheet of eight 64×64 frames',()=>JSON.stringify(SCALE.player.sheetCanvas)==='[512,64]'&&JSON.stringify(SCALE.player.frame)==='[64,64]'&&SCALE.player.framesPerSheet===8&&SCALE.player.frameOrder.length===8);
+    test('Approved sheet, when registered, loads as eight 64×64 frames',()=>charMode!=='approved'||(game.textures.get(APPROVED_KEY).getSourceImage().width===512&&game.textures.get(APPROVED_KEY).getSourceImage().height===64&&game.textures.get(APPROVED_KEY).frameTotal-1===8));
+    test('Legacy candidate sheets are 576×512 and only stand in for the approved sheet',()=>charMode==='approved'||(game.textures.get(pdKey('base_body','skin04')).getSourceImage().width===576&&game.textures.get(pdKey('base_body','skin04')).getSourceImage().height===512));
+    test('Player stature is measured from the base frame',()=>S.stature>=40&&S.stature<=64&&S.footY>=S.stature-1);
+    test('Player collision is an authored foot box, not the sprite frame',()=>FOOT_HW*2===SCALE.player.collision.w&&FOOT_H===SCALE.player.collision.h&&FOOT_HW*2<SCALE.player.frame[0]);
     test('Paper-doll has five skin variants',()=>PD_VARIANTS.skin.length===5);
     test('Paper-doll has five Afro hairstyle variants',()=>PD_VARIANTS.hair.length===5);
     test('Paper-doll has modular clothing options',()=>PD_VARIANTS.innerTop.length===3&&PD_VARIANTS.outerwear.length===3&&PD_VARIANTS.pants.length===3&&PD_VARIANTS.shoes.length===2);
@@ -1033,7 +1109,13 @@
     test('Diagonal movement is normalized',()=>{const p=S.player;p.x=300;p.y=222;const x0=p.x,y0=p.y;S.stepPlayer(0.1,{x:1,y:-1},now());const d=Math.hypot(p.x-x0,p.y-y0);return Math.abs(d-PLAYER_SPEED*0.1)<0.6;});
     test('Authored collision blocks movement independently of art',()=>{const p=S.player;p.x=200;p.y=200;for(let i=0;i<30;i++)S.stepPlayer(0.05,{x:-1,y:0},now());return p.x-FOOT_HW>=168-0.01;});
     test('No grid overlay; collision debug view hidden by default',()=>!S.layerIndex.grid&&S.collisionDebug.visible===false);
+    S.buildMap('Scale Reference',MAPS['Scale Reference'].spawn);
+    test('Scale reference objects are sized from ratios of measured stature',()=>S.guideMeasures.length>=12&&S.guideMeasures.every(g=>Object.entries(g.measures).every(([k,v])=>SCALE.within(k,v,S.stature))));
+    test('Scale reference door admits the player collision box',()=>{const d=S.guideMeasures.find(g=>g.item==='wall-door').measures;return d.doorOpeningW>FOOT_HW*2+8;});
+    test('Single-file bridge admits the player; canal blocks elsewhere',()=>{const p=S.player;p.x=650;p.y=420;for(let i=0;i<40;i++)S.stepPlayer(0.05,{x:0,y:-1},now());const crossed=p.y<272;p.x=600;p.y=420;for(let i=0;i<40;i++)S.stepPlayer(0.05,{x:0,y:-1},now());return crossed&&p.y>400;});
     S.buildMap('Slice 0',MAPS['Slice 0'].spawn);
+    test('Slice 0 scaffold proportions fall within player-relative tolerances',()=>Object.entries(MAPS['Slice 0'].proportions).every(([k,v])=>SCALE.within(k,v,S.stature)));
+    test('Slice 0 door is an interactable through the shared framework',()=>{S.player.x=480;S.player.y=258;return S.nearestNpc()?.id==='courtyard-door';});
     test('Slice 0 loads ≥10 separate environment textures',()=>new Set(S.mapObjects.filter(o=>o.type==='Image').map(o=>o.texture.key)).size>=10);
     test('Slice 0 routes objects into manifest world layers',()=>['ground','decals','architecture','architecture-dressing','props-back','collision','props-front-occluders','local-shadows','atmosphere-fx'].every(l=>(S.layerIndex[l]||[]).length>0));
     test('Slice 0 has no full-frame backdrop',()=>!S.mapObjects.some(o=>o.type==='Image'&&o.width>=VIEW_W&&o.height>=VIEW_H));
@@ -1050,6 +1132,7 @@
     test('Fringe Ward contains hostile thugs',()=>MAPS['Fringe Ward'].enemies.filter(e=>e.hostile).length>=2);
     S.buildMap('Fringe Ward',MAPS['Fringe Ward'].spawn);
     test('Placed trap consumes one supply',()=>{state.nextActionAt=0;state.armedTrap='Spike Pit';S.inputLockUntil=0;S.placeTrap();return state.trapStock['Spike Pit']===9&&S.traps.length===1;});
+    test('Map transitions preserve mon, inventory, and trap stock',()=>{const before=JSON.stringify([state.gold,state.inventory,state.trapStock]);S.useExit(MAPS['Fringe Ward'].exits[0]);const mid=state.map;S.buildMap('Fringe Ward',MAPS['Fringe Ward'].spawn);return mid==='Civic Ward'&&JSON.stringify([state.gold,state.inventory,state.trapStock])===before;});
     test('Melee hit damages an adjacent enemy in real time',()=>{const e=S.enemies[0];S.player.x=e.x-18;S.player.y=e.y;state.facing='E';const hp=e.hp;S.damageEnemy(e,6,BASIC_JAB);return e.hp===hp-6;});
     state=old; S.buildMap(state.map,null);
     const ok=results.every(r=>r.ok); document.body.dataset.selftest=ok?'pass':'fail'; window.__AF_SELFTEST={ok,results,build:BUILD,phaser:Phaser.VERSION,renderer:game?.renderer?.type,abilityCount:abilityRecords().length};
@@ -1083,6 +1166,7 @@
     else if(qp.has('fringe')){quickState({academy:true,map:'Fringe Ward'});enterWorld();}
     else if(qp.has('academy')){quickState({map:'Academy'});enterWorld();}
     else if(qp.has('slice0')){quickState({map:'Slice 0'});enterWorld();}
+    else if(qp.has('scale')){quickState({map:'Scale Reference'});enterWorld();}
     else if(qp.has('quickstart')){quickState();enterWorld();}
   };
   setTimeout(bootFromQuery,50);

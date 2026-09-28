@@ -21,6 +21,8 @@ Stable invariants:
 - Ordinary exploration uses continuous real-time movement; the 32×32 grid is hidden structural logic, not a permanent visual overlay.
 - Integrated art review is valid only from the running Phaser canvas.
 - Collages, presentation boards, source assemblies, PIL/Python composites, and mock renderers are reference/QA only.
+- The 64×64 player frame (approved 512×64 sheet, eight directional frames) is the visual scale authority; every asset is proportioned against the player and tested beside it in Phaser. The 32×32 grid never sets size.
+- Approved base character sheets are never redrawn, regenerated, or resampled; clothing/equipment are registered 512×64 overlays.
 - Collision is independent from appearance imagery and actors must pass in front of/behind appropriate world objects.
 - Keep crisp pixel rendering (`pixelArt: true`, `antialias: false`, `roundPixels: true`) unless explicitly changed.
 - Follow the generation-vocabulary restrictions in `AGENTS.md` and the Master Art Direction; do not reintroduce generic cyberpunk/steampunk/wet-reflective drift.

@@ -1,238 +1,157 @@
+// PNG production QA against production/asset-manifest.json.
+//
+//   node tools/validate-source-png.mjs world <asset-id> <source|runtime> <png>
+//   node tools/validate-source-png.mjs sheet <png>                  approved 512×64 base sheet
+//   node tools/validate-source-png.mjs overlay <overlay.png> <base.png>
+//   node tools/validate-source-png.mjs inspection <native.png> <inspection.png>
+//
+// Exit code 1 on contract failure; warnings are printed but do not fail.
 import fs from 'node:fs';
 import path from 'node:path';
-import zlib from 'node:zlib';
 import { fileURLToPath } from 'node:url';
+import { parsePng, inspect, inspectRegion, alphaAt, rgbaAt } from './lib/png.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(here, '..');
 const manifest = JSON.parse(fs.readFileSync(path.join(root, 'production', 'asset-manifest.json'), 'utf8'));
-const PNG_SIGNATURE = Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]);
+const scale = manifest.canonical.playerScale;
+const [SHEET_W, SHEET_H] = scale.sheetCanvas;
+const [FRAME_W, FRAME_H] = scale.frame;
 
 function usage(message) {
   if (message) console.error(message);
   console.error('Usage:');
   console.error('  node tools/validate-source-png.mjs world <asset-id> <source|runtime> <png-file>');
-  console.error('  node tools/validate-source-png.mjs character <direction> <source|runtime> <png-file> [base|dressed|layer]');
+  console.error('  node tools/validate-source-png.mjs sheet <png-file>');
+  console.error('  node tools/validate-source-png.mjs overlay <overlay-png> <base-sheet-png>');
+  console.error('  node tools/validate-source-png.mjs inspection <native-png> <inspection-png>');
   process.exit(2);
 }
 
-function paeth(a, b, c) {
-  const p = a + b - c;
-  const pa = Math.abs(p - a);
-  const pb = Math.abs(p - b);
-  const pc = Math.abs(p - c);
-  if (pa <= pb && pa <= pc) return a;
-  if (pb <= pc) return b;
-  return c;
-}
-
-function parsePng(filePath) {
-  const data = fs.readFileSync(filePath);
-  if (data.length < 33 || !data.subarray(0, 8).equals(PNG_SIGNATURE)) throw new Error('Not a valid PNG signature.');
-
-  let offset = 8;
-  let ihdr = null;
-  const idat = [];
-
-  while (offset + 12 <= data.length) {
-    const length = data.readUInt32BE(offset);
-    const type = data.toString('ascii', offset + 4, offset + 8);
-    const start = offset + 8;
-    const end = start + length;
-    if (end + 4 > data.length) throw new Error(`Truncated PNG chunk ${type}.`);
-    const chunk = data.subarray(start, end);
-
-    if (type === 'IHDR') {
-      ihdr = {
-        width: chunk.readUInt32BE(0),
-        height: chunk.readUInt32BE(4),
-        bitDepth: chunk[8],
-        colorType: chunk[9],
-        compression: chunk[10],
-        filter: chunk[11],
-        interlace: chunk[12]
-      };
-    } else if (type === 'IDAT') {
-      idat.push(chunk);
-    } else if (type === 'IEND') {
-      break;
-    }
-    offset = end + 4;
-  }
-
-  if (!ihdr) throw new Error('PNG has no IHDR chunk.');
-  if (!idat.length) throw new Error('PNG has no IDAT data.');
-  if (ihdr.bitDepth !== 8) throw new Error(`PNG bit depth ${ihdr.bitDepth} is unsupported; production QA requires 8-bit channels.`);
-  if (ihdr.colorType !== 6) throw new Error(`PNG color type ${ihdr.colorType} is unsupported; production QA requires RGBA (color type 6).`);
-  if (ihdr.compression !== 0 || ihdr.filter !== 0) throw new Error('PNG uses unsupported compression/filter method.');
-  if (ihdr.interlace !== 0) throw new Error('Interlaced PNGs are not accepted for production source/runtime assets.');
-
-  const bpp = 4;
-  const rowBytes = ihdr.width * bpp;
-  const inflated = zlib.inflateSync(Buffer.concat(idat));
-  const expectedBytes = ihdr.height * (rowBytes + 1);
-  if (inflated.length !== expectedBytes) throw new Error(`Unexpected decompressed PNG size: ${inflated.length}; expected ${expectedBytes}.`);
-
-  const pixels = Buffer.alloc(rowBytes * ihdr.height);
-  let src = 0;
-  for (let y = 0; y < ihdr.height; y += 1) {
-    const filterType = inflated[src++];
-    const rowStart = y * rowBytes;
-    const prevStart = (y - 1) * rowBytes;
-    for (let x = 0; x < rowBytes; x += 1) {
-      const raw = inflated[src++];
-      const left = x >= bpp ? pixels[rowStart + x - bpp] : 0;
-      const up = y > 0 ? pixels[prevStart + x] : 0;
-      const upLeft = y > 0 && x >= bpp ? pixels[prevStart + x - bpp] : 0;
-      let value;
-      switch (filterType) {
-        case 0: value = raw; break;
-        case 1: value = (raw + left) & 255; break;
-        case 2: value = (raw + up) & 255; break;
-        case 3: value = (raw + Math.floor((left + up) / 2)) & 255; break;
-        case 4: value = (raw + paeth(left, up, upLeft)) & 255; break;
-        default: throw new Error(`Unsupported PNG row filter ${filterType} at y=${y}.`);
-      }
-      pixels[rowStart + x] = value;
-    }
-  }
-
-  return { ...ihdr, pixels };
-}
-
-function inspect(image) {
-  let opaque = 0;
-  let transparent = 0;
-  let softAlpha = 0;
-  let minX = image.width;
-  let minY = image.height;
-  let maxX = -1;
-  let maxY = -1;
-  const colors = new Set();
-
-  for (let y = 0; y < image.height; y += 1) {
-    for (let x = 0; x < image.width; x += 1) {
-      const i = (y * image.width + x) * 4;
-      const r = image.pixels[i];
-      const g = image.pixels[i + 1];
-      const b = image.pixels[i + 2];
-      const a = image.pixels[i + 3];
-      if (a === 0) {
-        transparent += 1;
-      } else {
-        opaque += 1;
-        if (a !== 255) softAlpha += 1;
-        minX = Math.min(minX, x);
-        minY = Math.min(minY, y);
-        maxX = Math.max(maxX, x);
-        maxY = Math.max(maxY, y);
-        colors.add((r << 16) | (g << 8) | b);
-      }
-    }
-  }
-
-  return {
-    opaque,
-    transparent,
-    softAlpha,
-    colors: colors.size,
-    bbox: opaque ? [minX, minY, maxX, maxY] : null
-  };
-}
-
-function expectedContract(scope, key, stage) {
-  if (!['source', 'runtime'].includes(stage)) usage(`Invalid stage: ${stage}`);
-  if (scope === 'world') {
-    const dep = manifest.activePackage.worldDependencies.find((item) => item.id === key);
-    if (!dep) usage(`Unknown world asset id: ${key}`);
-    return {
-      label: `${dep.id} — ${dep.name}`,
-      dimensions: stage === 'source' ? dep.sourceCanvas : dep.runtimeCanvas,
-      requireTransparency: dep.layer !== 'ground',
-      contactY: null,
-      centerX: null,
-      paletteFamilies: dep.palette
-    };
-  }
-
-  if (scope === 'character') {
-    if (!manifest.canonical.directions.includes(key)) usage(`Invalid canonical character direction: ${key}`);
-    const ch = manifest.activePackage.characterDependencies;
-    return {
-      label: `${ch.benchmarkId} — ${key}`,
-      dimensions: stage === 'source' ? ch.sourceCanvas : ch.runtimeFrame,
-      requireTransparency: true,
-      contactY: stage === 'source' ? ch.footContactY : ch.runtimePivot[1],
-      centerX: stage === 'source' ? ch.bodyCenter[0] : ch.runtimePivot[0],
-      paletteFamilies: ch.paletteFamilies
-    };
-  }
-
-  usage(`Unknown scope: ${scope}`);
-}
-
-const [scope, key, stage, fileArg, characterKind = 'dressed'] = process.argv.slice(2);
-if (!scope || !key || !stage || !fileArg) usage();
-if (scope === 'character' && !['base', 'dressed', 'layer'].includes(characterKind)) usage(`Invalid character kind: ${characterKind}`);
-
-const contract = expectedContract(scope, key, stage);
-const filePath = path.resolve(process.cwd(), fileArg);
 const errors = [];
 const warnings = [];
+const info = [];
 
-let image;
-try {
-  image = parsePng(filePath);
-} catch (error) {
-  console.error(`PNG QA FAILED: ${error.message}`);
-  process.exit(1);
+function load(file) {
+  try { return parsePng(path.resolve(process.cwd(), file)); }
+  catch (error) { console.error(`PNG QA FAILED (${file}): ${error.message}`); process.exit(1); }
 }
 
-const stats = inspect(image);
-const [expectedWidth, expectedHeight] = contract.dimensions;
-if (image.width !== expectedWidth || image.height !== expectedHeight) {
-  errors.push(`Canvas is ${image.width}×${image.height}; contract requires ${expectedWidth}×${expectedHeight}.`);
-}
-if (stats.opaque === 0) errors.push('Asset contains no visible pixels.');
-if (stats.softAlpha > 0) errors.push(`Asset contains ${stats.softAlpha} pixels with soft alpha; production art requires hard alpha.`);
-if (contract.requireTransparency && stats.transparent === 0) errors.push('Asset has no transparent unused pixels.');
-
-if (stats.bbox) {
-  const [minX, minY, maxX, maxY] = stats.bbox;
-  const touchesEdge = minX === 0 || minY === 0 || maxX === image.width - 1 || maxY === image.height - 1;
-  if (touchesEdge && contract.requireTransparency) warnings.push('Opaque bounding box touches a canvas edge; inspect for clipping or neighboring-item contamination.');
-
-  if (scope === 'character') {
-    const bboxCenter = (minX + maxX) / 2;
-    const tolerance = stage === 'source' ? 60 : 6;
-    if (Math.abs(bboxCenter - contract.centerX) > tolerance) warnings.push(`Visible bounding-box center ${bboxCenter.toFixed(1)} is far from shared center x=${contract.centerX}; inspect registration.`);
-
-    if (characterKind !== 'layer') {
-      const contactTolerance = stage === 'source' ? 8 : 1;
-      if (Math.abs(maxY - contract.contactY) > contactTolerance) warnings.push(`Lowest visible pixel y=${maxY} does not closely match foot/contact authority y=${contract.contactY}; inspect baseline/contact shadow.`);
-    }
+function finish(label) {
+  if (warnings.length) {
+    console.warn(`PNG QA warnings (${warnings.length}) for ${label}:`);
+    warnings.forEach((w) => console.warn(`  - ${w}`));
   }
+  if (errors.length) {
+    console.error(`PNG QA FAILED (${errors.length}) for ${label}:`);
+    errors.forEach((e) => console.error(`  - ${e}`));
+    process.exit(1);
+  }
+  console.log(`PNG QA passed: ${label}`);
+  info.forEach((line) => console.log(`  ${line}`));
 }
 
-const colorWarning = scope === 'character' ? 96 : 192;
-if (stats.colors > colorWarning) warnings.push(`Asset uses ${stats.colors} opaque RGB colors; inspect for accidental anti-aliasing, off-palette colors, or excessive ramps.`);
-
-if (warnings.length) {
-  console.warn(`PNG QA warnings (${warnings.length}) for ${contract.label}:`);
-  warnings.forEach((warning) => console.warn(`  - ${warning}`));
+function checkSheetCanvas(image, what) {
+  if (image.width !== SHEET_W || image.height !== SHEET_H) errors.push(`${what} is ${image.width}×${image.height}; contract requires ${SHEET_W}×${SHEET_H} (${scale.framesPerSheet} × ${FRAME_W}×${FRAME_H}).`);
 }
 
-if (errors.length) {
-  console.error(`PNG QA FAILED (${errors.length}) for ${contract.label}:`);
-  errors.forEach((error) => console.error(`  - ${error}`));
-  process.exit(1);
+function frames(image) {
+  return scale.frameOrder.map((dir, i) => ({ dir, i, x: i * FRAME_W, ...inspectRegion(image, i * FRAME_W, 0, FRAME_W, FRAME_H) }));
 }
 
-console.log(`PNG QA passed: ${contract.label}`);
-console.log(`  stage: ${stage}`);
-console.log(`  canvas: ${image.width}×${image.height}`);
-console.log(`  opaque pixels: ${stats.opaque}`);
-console.log(`  transparent pixels: ${stats.transparent}`);
-console.log(`  unique opaque RGB colors: ${stats.colors}`);
-console.log(`  bounding box: ${stats.bbox ? stats.bbox.join(',') : 'none'}`);
-console.log(`  palette/material authority: ${contract.paletteFamilies.join(', ')}`);
+function worldMode(key, stage, file) {
+  if (!['source', 'runtime'].includes(stage)) usage(`Invalid stage: ${stage}`);
+  const dep = manifest.activePackage.worldDependencies.find((item) => item.id === key);
+  if (!dep) usage(`Unknown world asset id: ${key}`);
+  const image = load(file);
+  const stats = inspect(image);
+  const [w, h] = stage === 'source' ? dep.sourceCanvas : dep.runtimeCanvas;
+  if (image.width !== w || image.height !== h) errors.push(`Canvas is ${image.width}×${image.height}; contract requires ${w}×${h}.`);
+  if (stats.opaque === 0) errors.push('Asset contains no visible pixels.');
+  if (stats.softAlpha > 0) errors.push(`Asset contains ${stats.softAlpha} soft-alpha pixels; production art requires hard alpha (interpolated edges are prohibited).`);
+  const requireTransparency = dep.layer !== 'ground';
+  if (requireTransparency && stats.transparent === 0) errors.push('Asset has no transparent unused pixels.');
+  if (stats.bbox && requireTransparency) {
+    const [minX, minY, maxX, maxY] = stats.bbox;
+    if (minX === 0 || minY === 0 || maxX === image.width - 1 || maxY === image.height - 1) warnings.push('Opaque bounding box touches a canvas edge; inspect for clipping or neighboring-item contamination.');
+  }
+  if (stats.colors > 192) warnings.push(`Asset uses ${stats.colors} opaque RGB colors; inspect for accidental anti-aliasing or off-palette ramps.`);
+  warnings.push(`Scale is not proven by canvas size. Test ${dep.id} beside the 64×64 player in the Phaser scale reference scene.`);
+  info.push(`canvas: ${image.width}×${image.height}`, `opaque: ${stats.opaque}`, `colors: ${stats.colors}`, `bbox: ${stats.bbox ? stats.bbox.join(',') : 'none'}`);
+  finish(`${dep.id} (${stage})`);
+}
+
+function sheetMode(file) {
+  const image = load(file);
+  checkSheetCanvas(image, 'Sheet');
+  if (errors.length) finish(file);
+  const stats = inspect(image);
+  if (stats.softAlpha > 0) errors.push(`Sheet contains ${stats.softAlpha} soft-alpha pixels; approved sheets use hard alpha.`);
+  const fr = frames(image);
+  const contacts = [];
+  for (const f of fr) {
+    if (!f.opaque) { errors.push(`Frame ${f.i} (${f.dir}) is empty.`); continue; }
+    const [minX, minY, maxX, maxY] = f.bbox;
+    if (minX === 0 || maxX === FRAME_W - 1) warnings.push(`Frame ${f.i} (${f.dir}) touches a side edge; inspect for bleed into the neighbouring frame.`);
+    const cx = (minX + maxX) / 2;
+    if (Math.abs(cx - scale.pivotX) > 8) warnings.push(`Frame ${f.i} (${f.dir}) visible centre x=${cx.toFixed(1)} is far from pivot x=${scale.pivotX}.`);
+    contacts.push(maxY);
+    info.push(`frame ${f.i} ${f.dir.padEnd(2)} bbox ${f.bbox.join(',')} stature ${maxY - minY + 1}px foot y=${maxY}`);
+  }
+  if (contacts.length && Math.max(...contacts) - Math.min(...contacts) > 2) warnings.push(`Foot-contact rows vary across frames (${contacts.join(', ')}); confirm the shared ground line.`);
+  info.unshift(`canvas ${image.width}×${image.height}; ${fr.length} frames; frame order assumed ${scale.frameOrder.join(' ')} (${scale.frameOrderStatus})`);
+  finish(`base sheet ${file}`);
+}
+
+function overlayMode(file, baseFile) {
+  if (!baseFile) usage('overlay mode needs the base sheet it registers to.');
+  const ov = load(file), base = load(baseFile);
+  checkSheetCanvas(ov, 'Overlay'); checkSheetCanvas(base, 'Base sheet');
+  if (errors.length) finish(file);
+  const st = inspect(ov);
+  if (st.softAlpha > 0) errors.push(`Overlay contains ${st.softAlpha} soft-alpha pixels; overlays use hard alpha.`);
+  if (!st.opaque) errors.push('Overlay contains no visible pixels.');
+  const R = 6; // registration tolerance: overlay pixels may extend this far beyond the base silhouette (loose garments)
+  let copied = 0, far = 0;
+  for (const f of frames(ov)) {
+    let fOpaque = 0, fFar = 0;
+    for (let y = 0; y < FRAME_H; y += 1) for (let x = f.x; x < f.x + FRAME_W; x += 1) {
+      if (!alphaAt(ov, x, y)) continue;
+      fOpaque += 1;
+      if (alphaAt(base, x, y) && rgbaAt(ov, x, y) === rgbaAt(base, x, y)) copied += 1;
+      let near = false;
+      for (let dy = -R; dy <= R && !near; dy += 1) for (let dx = -R; dx <= R && !near; dx += 1) {
+        const nx = x + dx, ny = y + dy;
+        if (nx >= f.x && nx < f.x + FRAME_W && ny >= 0 && ny < FRAME_H && alphaAt(base, nx, ny)) near = true;
+      }
+      if (!near) { fFar += 1; far += 1; }
+    }
+    info.push(`frame ${f.i} ${f.dir.padEnd(2)} overlay px ${fOpaque}${fFar ? `, ${fFar} unregistered` : ''}`);
+  }
+  if (copied > 0) errors.push(`${copied} overlay pixels are exact copies of base pixels; overlays must not carry replacement body/hair/face pixels.`);
+  if (far > 0) errors.push(`${far} overlay pixels sit more than ${R}px from the base silhouette; check frame registration.`);
+  finish(`overlay ${file} on ${baseFile}`);
+}
+
+function inspectionMode(nativeFile, inspFile) {
+  if (!inspFile) usage('inspection mode needs the native sheet and the inspection sheet.');
+  const nat = load(nativeFile), insp = load(inspFile);
+  const k = scale.inspectionScale;
+  if (insp.width !== nat.width * k || insp.height !== nat.height * k) errors.push(`Inspection is ${insp.width}×${insp.height}; expected ${nat.width * k}×${nat.height * k} (${k}× integer nearest-neighbour).`);
+  else {
+    let bad = 0;
+    for (let y = 0; y < insp.height && bad < 50; y += 1) for (let x = 0; x < insp.width; x += 1) {
+      if (rgbaAt(insp, x, y) !== rgbaAt(nat, Math.floor(x / k), Math.floor(y / k))) { bad += 1; if (bad >= 50) break; }
+    }
+    if (bad) errors.push(`Inspection pixels differ from the ${k}× nearest-neighbour derivative of the native sheet (${bad}+ mismatches); resampling or edits are prohibited.`);
+  }
+  info.push(`native ${nat.width}×${nat.height} → inspection ${insp.width}×${insp.height}`);
+  finish(`inspection ${inspFile}`);
+}
+
+const [mode, a, b, c] = process.argv.slice(2);
+if (mode === 'world') { if (!a || !b || !c) usage(); worldMode(a, b, c); }
+else if (mode === 'sheet') { if (!a) usage(); sheetMode(a); }
+else if (mode === 'overlay') { if (!a) usage(); overlayMode(a, b); }
+else if (mode === 'inspection') { if (!a) usage(); inspectionMode(a, b); }
+else usage(mode ? `Unknown mode: ${mode}` : undefined);

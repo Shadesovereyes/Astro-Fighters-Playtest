@@ -61,6 +61,8 @@ Develop shared assets before unnecessary district-specific duplication.
 
 **Grid rule:** none may reveal the hidden 32×32 grid through repeating seams, checkerboarding, obvious cadence, or regular prop spacing.
 
+**Scale rule:** every asset is proportioned against the 64×64 player and tested beside it in Phaser; the grid never sets size (`AGENTS.md` → *Player-relative world scale standard*).
+
 ## Common architecture components
 
 - [ ] Timber structural post
@@ -590,6 +592,7 @@ Before any district package closes, confirm:
 - [ ] Continuous real-time movement
 - [ ] Collision independent from appearance imagery
 - [ ] Hidden 32×32 grid not visible/inferable
+- [ ] Every asset proportioned against the 64×64 player and checked beside it in Phaser
 - [ ] Character/world pixel density and style match
 - [ ] Foreground/background occlusion works
 - [ ] Cutaways work where required

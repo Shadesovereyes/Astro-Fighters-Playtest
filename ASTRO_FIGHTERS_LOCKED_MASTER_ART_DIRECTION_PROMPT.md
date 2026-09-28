@@ -165,7 +165,11 @@ Depth comes from:
 
 Do not use dramatic photographic vanishing-point convergence or isometric diamond projection.
 
-The game may use a hidden **32×32 logical grid**, but the ordinary world must read as continuous natural space.
+## Player-relative scale
+
+The **64×64 player frame** (approved 512×64 sheet, eight directional frames) is the visual scale authority. Every world element is proportioned against that player: doors read as walkable openings, counters land near hip height, stairs match the character's feet and stride, crates read at carry/storage scale, bridges give believable passage width, and foreground walls occlude the character without swallowing the whole sprite. Proportions are judged beside the actual player in Phaser, never derived by multiplying 32px cells. See `AGENTS.md` → *Player-relative world scale standard*.
+
+The game may use a hidden **32×32 logical grid**, but the ordinary world must read as continuous natural space. The grid is logic only; it never sets visual scale.
 
 Do not expose the grid through:
 
