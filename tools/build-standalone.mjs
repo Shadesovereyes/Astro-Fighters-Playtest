@@ -19,7 +19,7 @@ const escScript = (s) => s.replace(/<\/script/gi, '<\\/script');
 html = html.replace(/<link rel="stylesheet" href="([^"]+)"\s*\/?>/g, (_, href) =>
   `<style>\n${fs.readFileSync(path.join(docs, href), 'utf8')}\n</style>`);
 
-const assetRoot = path.join(docs, 'assets', 'runtime');
+const assetRoot = path.join(docs, 'assets');
 const assets = {};
 const mime = { '.png': 'image/png', '.jpg': 'image/jpeg' };
 (function walk(dir) {

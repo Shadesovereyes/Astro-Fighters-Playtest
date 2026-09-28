@@ -1,4 +1,4 @@
-/* Character-creator UI: birthplace search and master-palette swatches (folded in from the former play-v4 launcher patch). */
+/* Character-creator UI: birthplace search (folded in from the former play-v4 launcher patch). */
 (() => {
   const $ = (id) => document.getElementById(id);
 
@@ -114,73 +114,5 @@
     });
   }
 
-  function installMasterPaletteSwatches() {
-    const F = {
-      skin_e:['#291011','#3C1B17','#4F291E','#623A24','#754C2B','#885D33','#9A703C','#AD8346'],
-      skin_f:['#1F0C0B','#2E1510','#3E2115','#4E2F19','#5D3E1E','#6D4D25','#7D5D2C','#8C6D33'],
-      timber:['#292918','#464228','#645838','#816A47','#9F7C57','#BC9069','#DAA37C','#F7B690','#191A12','#343224','#4E4836','#685B47','#826E59','#9D836D','#B79881','#D1AC96'],
-      rust:['#14120A','#2E2516','#473522','#61412C','#7A4D38','#945B45','#AD6754','#C77463'],
-      cloth:['#141A16','#29342B','#3E4F3E','#556A51','#6D8566','#86A07C','#9FBB93','#BAD6AA'],
-      cedar:['#0B1414','#1A302A','#294C3B','#366746','#458350','#559F5D','#67BB6A','#7BD678'],
-      tide:['#10151F','#1F2C3D','#2E475B','#3B6779','#4A8998','#5BACB6','#6DD2D4','#80F2EB'],
-      verm:['#24180C','#422715','#5F311D','#7D3524','#9B382D','#B93B38','#D7444B','#F55165'],
-      trimA:['#0F111F','#1D243C','#2A3B5A','#375678','#457396','#5491B4','#65B1D2','#77D3F0'],
-      trimB:['#1C1F0E','#3C3D1B','#5B5628','#796A34','#987E41','#B69350','#D4A75F','#F2B970'],
-      trimC:['#1F101C','#3C1E39','#572C59','#6C3976','#7F4893','#9258B0','#A369CD','#B37AEB'],
-      fire:['#332509','#50340C','#6D3D0E','#8A420F','#A84212','#C53E1A','#E23622','#FF2C2B'],
-      earth:['#162410','#2C401C','#485D27','#687931','#8B953D','#ABB24B','#CDCE5A','#EBE469'],
-      air:['#313847','#414F62','#51677C','#618096','#729AB0','#85B5CB','#99D0E5','#AEEBFF'],
-      water:['#0E0E1F','#1A1E3D','#26335B','#314B79','#3E6798','#4D83B6','#5CA3D4','#6DC4F2'],
-      yin:['#0B070F','#191127','#251A3F','#2E2257','#332B6F','#373788','#434DA0','#5067B8'],
-      yang:['#4C4C23','#66612D','#807336','#99833F','#B29349','#CCA457','#E5B566','#FFC676'],
-      spirit:['#1D3538','#295453','#366F68','#418B7A','#4EA78A','#5EC39C','#6EDEAD','#7FFABD'],
-      patina:['#0D1A18','#1B3720','#415528','#736335','#915E42','#AF6C53','#CD7A64','#EB8676'],
-      ui:['#141410','#343427','#55503E','#756A55','#95846C','#B59F85','#D5BAA0','#F5D5BB']
-    };
-    const flat = (...a) => a.flatMap((k) => F[k]);
-    const sets = {
-      'eye-color':[flat('trimA','trimC','air','water','yin','spirit'),'#5CA3D4'],
-      'hair-color':[flat('skin_e','skin_f','timber','rust','patina','ui'),'#3C1B17'],
-      'inner-color':[flat('cloth','cedar','tide','verm','trimA','trimB','trimC','fire','earth','air','water','yin','yang','spirit','patina','ui'),'#B8CD63'],
-      'outer-color':[flat('cloth','cedar','tide','verm','trimA','trimB','trimC','fire','earth','air','water','yin','yang','spirit','patina','ui'),'#3B6779'],
-      'pants-color':[flat('cloth','ui','yin','earth'),'#343427'],
-      'shoes-color':[flat('timber','rust','ui'),'#756A55']
-    };
-
-    for (const [id, [colors, fallback]] of Object.entries(sets)) {
-      const input = $(id);
-      if (!input) continue;
-      input.type = 'hidden';
-      const label = input.closest('label');
-      if (!label) continue;
-      label.querySelector('.af-v4-swatches')?.remove();
-
-      const wrap = document.createElement('div');
-      wrap.className = 'af-v4-swatches';
-      wrap.style.cssText = 'display:grid;grid-template-columns:repeat(8,22px);gap:4px;margin-top:6px;max-height:112px;overflow:auto;padding:5px;background:#111416;border:1px solid #4d453b';
-      label.appendChild(wrap);
-
-      const current = colors.find((c) => c.toLowerCase() === String(input.value).toLowerCase()) || fallback;
-      input.value = current;
-      input.dispatchEvent(new Event('input', { bubbles: true }));
-
-      for (const c of colors) {
-        const b = document.createElement('button');
-        b.type = 'button';
-        b.style.cssText = 'width:22px;height:22px;min-width:22px;padding:0;background:' + c + ';border:' + (c === current ? '2px solid #f0d28c' : '1px solid #28231e');
-        b.title = c;
-        b.onclick = () => {
-          input.value = c;
-          input.dispatchEvent(new Event('input', { bubbles: true }));
-          [...wrap.children].forEach((x) => {
-            x.style.border = x === b ? '2px solid #f0d28c' : '1px solid #28231e';
-          });
-        };
-        wrap.appendChild(b);
-      }
-    }
-  }
-
   installBirthplaceSearch();
-  installMasterPaletteSwatches();
 })();

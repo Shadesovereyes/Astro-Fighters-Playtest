@@ -159,7 +159,7 @@ Mandatory rules:
 
 For character-sheet asset work, these preservation rules override older experimental source-lattice assumptions or branch/package notes that would require redrawing the approved base geometry. Do not silently convert the locked 512×64 sheets into a different source format.
 
-Runtime loads approved sheets as eight 64×64 frames registered in `docs/js/world/characters.js`, one frame per direction; no in-between animation frames may be invented. The legacy 48×64 runtime candidate sheets under `docs/assets/runtime/characters/` stand in only until the approved sheets are committed and must be labelled as legacy wherever they appear. QA: `node tools/validate-source-png.mjs sheet|overlay|inspection` and `node tools/validate-world-data.mjs`.
+The approved paper-doll source is `/Paperdolls` (male and female: base body ×2 skin tones, clothing, arms, armor shoulders, hair, eyes), each a 512×64 sheet of eight 64×64 frames in the order **S, SE, E, NE, N, NW, W, SW**. Runtime copies under `docs/assets/characters/` are byte-identical and registered in `docs/js/world/characters.js`; draw order is body → clothing → arms → shoulders → hair → eyes. One frame per direction; no in-between animation frames may be invented. The Gi is the starter outfit; Red/Blue Armor are male-only until female armor layers are authored. QA: `node tools/validate-source-png.mjs sheet|overlay|inspection` and `node tools/validate-world-data.mjs`.
 
 ---
 

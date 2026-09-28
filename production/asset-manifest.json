@@ -7,7 +7,16 @@
     "gridPixels": 32,
     "projection": "flat-faced 3/4 cabinet",
     "lightingDirection": "upper-left / northwest",
-    "directions": ["N", "NE", "E", "SE", "S", "SW", "W", "NW"],
+    "directions": [
+      "N",
+      "NE",
+      "E",
+      "SE",
+      "S",
+      "SW",
+      "W",
+      "NW"
+    ],
     "directionMeaning": {
       "N": "back / away from camera",
       "NE": "back-right 3/4",
@@ -20,16 +29,42 @@
     },
     "playerScale": {
       "authority": "The 64×64 player frame is the visual world-scale authority. The hidden 32×32 grid is logic only and never sets visual scale.",
-      "sheetCanvas": [512, 64],
-      "frame": [64, 64],
+      "sheetCanvas": [
+        512,
+        64
+      ],
+      "frame": [
+        64,
+        64
+      ],
       "framesPerSheet": 8,
-      "frameOrder": ["N", "NE", "E", "SE", "S", "SW", "W", "NW"],
-      "frameOrderStatus": "assumed canonical order; confirm against the approved sheets on intake without moving any frame",
+      "frameOrder": [
+        "S",
+        "SE",
+        "E",
+        "NE",
+        "N",
+        "NW",
+        "W",
+        "SW"
+      ],
+      "frameOrderStatus": "confirmed from the committed Paperdolls sheets: frame 0 faces the camera (S), then SE, E, NE, N (back), NW, W, SW; frames are never moved",
       "pivotX": 32,
       "footContactRule": "lowest opaque row of each approved frame, measured per sheet by tools/validate-source-png.mjs sheet and at runtime",
       "inspectionScale": 10,
-      "inspectionCanvas": [5120, 640],
-      "collision": {"shape": "foot-box", "size": [20, 8], "anchor": "foot-contact", "independentOfSprite": true},
+      "inspectionCanvas": [
+        5120,
+        640
+      ],
+      "collision": {
+        "shape": "foot-box",
+        "size": [
+          20,
+          8
+        ],
+        "anchor": "foot-contact",
+        "independentOfSprite": true
+      },
       "interactionRange": 40,
       "scaleReference": "docs/js/world/scale-guide.js",
       "scaleReferenceScene": "docs/index.html?scale"
@@ -39,8 +74,17 @@
       "rule": "The approved sheets hold one frame per direction. Idle/walk/ready frames require separately approved sheets on the same 64×64 frame registration; the runtime must not invent in-between frames."
     },
     "baseUnderlayer": {
-      "male": ["body/skin", "hair/face", "base shorts"],
-      "female": ["body/skin", "hair/face", "base shorts", "sports bra"]
+      "male": [
+        "body/skin",
+        "hair/face",
+        "base shorts"
+      ],
+      "female": [
+        "body/skin",
+        "hair/face",
+        "base shorts",
+        "sports bra"
+      ]
     },
     "worldSourceScale": 10,
     "worldLayerOrder": [
@@ -58,8 +102,28 @@
     ]
   },
   "statusVocabulary": {
-    "package": ["contracted", "reference-in-progress", "reference-approved", "source-in-progress", "source-qa", "runtime-candidate", "phaser-integrated", "reviewed", "production-approved", "lock-quality"],
-    "asset": ["missing", "reference-in-progress", "reference-approved", "source-in-progress", "source-approved", "runtime-candidate", "integrated", "approved"]
+    "package": [
+      "contracted",
+      "reference-in-progress",
+      "reference-approved",
+      "source-in-progress",
+      "source-qa",
+      "runtime-candidate",
+      "phaser-integrated",
+      "reviewed",
+      "production-approved",
+      "lock-quality"
+    ],
+    "asset": [
+      "missing",
+      "reference-in-progress",
+      "reference-approved",
+      "source-in-progress",
+      "source-approved",
+      "runtime-candidate",
+      "integrated",
+      "approved"
+    ]
   },
   "activePackage": {
     "id": "AF-IC-SHARED-FOUNDATION",
@@ -76,52 +140,448 @@
       "runtimeRoot": "docs/assets/world/shared-foundation/"
     },
     "worldDependencies": [
-      {"id":"stone-clean","name":"Worn Imperial stone street — clean","status":"missing","sourceCanvas":[1920,1280],"runtimeCanvas":[192,128],"layer":"ground","palette":["stone","soot/grime"],"anchor":"world surface","collision":"walkable","occlusion":"none","runtimePath":"docs/assets/world/shared-foundation/stone-clean.png"},
-      {"id":"stone-cracked","name":"Worn Imperial stone street — cracked","status":"missing","sourceCanvas":[1920,1280],"runtimeCanvas":[192,128],"layer":"ground","palette":["stone","soot/grime","moss"],"anchor":"world surface","collision":"walkable","occlusion":"none","runtimePath":"docs/assets/world/shared-foundation/stone-cracked.png"},
-      {"id":"stone-patched","name":"Patched stone street","status":"missing","sourceCanvas":[1920,1280],"runtimeCanvas":[192,128],"layer":"ground","palette":["stone","rusted-metal","timber"],"anchor":"world surface","collision":"walkable","occlusion":"none","runtimePath":"docs/assets/world/shared-foundation/stone-patched.png"},
-      {"id":"stone-timber-transition","name":"Stone-to-timber transitions","status":"missing","sourceCanvas":[1280,640],"runtimeCanvas":[128,64],"layer":"ground","palette":["stone","timber"],"anchor":"world surface","collision":"walkable","occlusion":"none","runtimePath":"docs/assets/world/shared-foundation/stone-timber-transition.png"},
-      {"id":"building-threshold","name":"Street-to-building threshold pieces","status":"missing","sourceCanvas":[1280,640],"runtimeCanvas":[128,64],"layer":"ground","palette":["stone","timber","clean-metal"],"anchor":"world surface","collision":"walkable","occlusion":"none","runtimePath":"docs/assets/world/shared-foundation/building-threshold.png"},
-      {"id":"drainage-channel","name":"Drainage channels","status":"missing","sourceCanvas":[1600,480],"runtimeCanvas":[160,48],"layer":"ground","palette":["stone","water","soot/grime"],"anchor":"world surface","collision":"walkable","occlusion":"none","runtimePath":"docs/assets/world/shared-foundation/drainage-channel.png"},
-      {"id":"drainage-grate","name":"Drainage grates","status":"missing","sourceCanvas":[480,320],"runtimeCanvas":[48,32],"layer":"architecture-dressing","palette":["clean-metal","rusted-metal","patina"],"anchor":"surface attachment","collision":"walkable","occlusion":"low","runtimePath":"docs/assets/world/shared-foundation/drainage-grate.png"},
-      {"id":"cracks","name":"Cracks","status":"missing","sourceCanvas":[640,640],"runtimeCanvas":[64,64],"layer":"decals","palette":["stone","soot/grime"],"anchor":"surface decal","collision":"none","occlusion":"none","runtimePath":"docs/assets/world/shared-foundation/cracks.png"},
-      {"id":"stains","name":"Stains","status":"missing","sourceCanvas":[640,640],"runtimeCanvas":[64,64],"layer":"decals","palette":["soot/grime","rusted-metal","water"],"anchor":"surface decal","collision":"none","occlusion":"none","runtimePath":"docs/assets/world/shared-foundation/stains.png"},
-      {"id":"cart-wear","name":"Wheel/cart wear","status":"missing","sourceCanvas":[960,640],"runtimeCanvas":[96,64],"layer":"decals","palette":["stone","soot/grime"],"anchor":"surface decal","collision":"none","occlusion":"none","runtimePath":"docs/assets/world/shared-foundation/cart-wear.png"},
-      {"id":"timber-post","name":"Timber structural posts","status":"missing","sourceCanvas":[480,1280],"runtimeCanvas":[48,128],"layer":"architecture","palette":["timber","clean-metal","rusted-metal"],"anchor":"floor-hosted center/bottom","collision":"solid","occlusion":"mid","runtimePath":"docs/assets/world/shared-foundation/timber-post.png"},
-      {"id":"horizontal-beam","name":"Horizontal beams","status":"missing","sourceCanvas":[1280,480],"runtimeCanvas":[128,48],"layer":"architecture","palette":["timber","clean-metal","rusted-metal"],"anchor":"attachment-line","collision":"none","occlusion":"mid","runtimePath":"docs/assets/world/shared-foundation/horizontal-beam.png"},
-      {"id":"timber-plaster-wall","name":"Timber-and-plaster wall","status":"missing","sourceCanvas":[1920,1600],"runtimeCanvas":[192,160],"layer":"architecture","palette":["timber","plaster","stone"],"anchor":"architectural region","collision":"solid","occlusion":"tall / cutaway","runtimePath":"docs/assets/world/shared-foundation/timber-plaster-wall.png"},
-      {"id":"aged-stone-foundation","name":"Aged stone foundation","status":"missing","sourceCanvas":[1920,640],"runtimeCanvas":[192,64],"layer":"architecture","palette":["stone","moss","soot/grime"],"anchor":"architectural region","collision":"solid","occlusion":"low","runtimePath":"docs/assets/world/shared-foundation/aged-stone-foundation.png"}
+      {
+        "id": "stone-clean",
+        "name": "Worn Imperial stone street — clean",
+        "status": "missing",
+        "sourceCanvas": [
+          1920,
+          1280
+        ],
+        "runtimeCanvas": [
+          192,
+          128
+        ],
+        "layer": "ground",
+        "palette": [
+          "stone",
+          "soot/grime"
+        ],
+        "anchor": "world surface",
+        "collision": "walkable",
+        "occlusion": "none",
+        "runtimePath": "docs/assets/world/shared-foundation/stone-clean.png"
+      },
+      {
+        "id": "stone-cracked",
+        "name": "Worn Imperial stone street — cracked",
+        "status": "missing",
+        "sourceCanvas": [
+          1920,
+          1280
+        ],
+        "runtimeCanvas": [
+          192,
+          128
+        ],
+        "layer": "ground",
+        "palette": [
+          "stone",
+          "soot/grime",
+          "moss"
+        ],
+        "anchor": "world surface",
+        "collision": "walkable",
+        "occlusion": "none",
+        "runtimePath": "docs/assets/world/shared-foundation/stone-cracked.png"
+      },
+      {
+        "id": "stone-patched",
+        "name": "Patched stone street",
+        "status": "missing",
+        "sourceCanvas": [
+          1920,
+          1280
+        ],
+        "runtimeCanvas": [
+          192,
+          128
+        ],
+        "layer": "ground",
+        "palette": [
+          "stone",
+          "rusted-metal",
+          "timber"
+        ],
+        "anchor": "world surface",
+        "collision": "walkable",
+        "occlusion": "none",
+        "runtimePath": "docs/assets/world/shared-foundation/stone-patched.png"
+      },
+      {
+        "id": "stone-timber-transition",
+        "name": "Stone-to-timber transitions",
+        "status": "missing",
+        "sourceCanvas": [
+          1280,
+          640
+        ],
+        "runtimeCanvas": [
+          128,
+          64
+        ],
+        "layer": "ground",
+        "palette": [
+          "stone",
+          "timber"
+        ],
+        "anchor": "world surface",
+        "collision": "walkable",
+        "occlusion": "none",
+        "runtimePath": "docs/assets/world/shared-foundation/stone-timber-transition.png"
+      },
+      {
+        "id": "building-threshold",
+        "name": "Street-to-building threshold pieces",
+        "status": "missing",
+        "sourceCanvas": [
+          1280,
+          640
+        ],
+        "runtimeCanvas": [
+          128,
+          64
+        ],
+        "layer": "ground",
+        "palette": [
+          "stone",
+          "timber",
+          "clean-metal"
+        ],
+        "anchor": "world surface",
+        "collision": "walkable",
+        "occlusion": "none",
+        "runtimePath": "docs/assets/world/shared-foundation/building-threshold.png"
+      },
+      {
+        "id": "drainage-channel",
+        "name": "Drainage channels",
+        "status": "missing",
+        "sourceCanvas": [
+          1600,
+          480
+        ],
+        "runtimeCanvas": [
+          160,
+          48
+        ],
+        "layer": "ground",
+        "palette": [
+          "stone",
+          "water",
+          "soot/grime"
+        ],
+        "anchor": "world surface",
+        "collision": "walkable",
+        "occlusion": "none",
+        "runtimePath": "docs/assets/world/shared-foundation/drainage-channel.png"
+      },
+      {
+        "id": "drainage-grate",
+        "name": "Drainage grates",
+        "status": "missing",
+        "sourceCanvas": [
+          480,
+          320
+        ],
+        "runtimeCanvas": [
+          48,
+          32
+        ],
+        "layer": "architecture-dressing",
+        "palette": [
+          "clean-metal",
+          "rusted-metal",
+          "patina"
+        ],
+        "anchor": "surface attachment",
+        "collision": "walkable",
+        "occlusion": "low",
+        "runtimePath": "docs/assets/world/shared-foundation/drainage-grate.png"
+      },
+      {
+        "id": "cracks",
+        "name": "Cracks",
+        "status": "missing",
+        "sourceCanvas": [
+          640,
+          640
+        ],
+        "runtimeCanvas": [
+          64,
+          64
+        ],
+        "layer": "decals",
+        "palette": [
+          "stone",
+          "soot/grime"
+        ],
+        "anchor": "surface decal",
+        "collision": "none",
+        "occlusion": "none",
+        "runtimePath": "docs/assets/world/shared-foundation/cracks.png"
+      },
+      {
+        "id": "stains",
+        "name": "Stains",
+        "status": "missing",
+        "sourceCanvas": [
+          640,
+          640
+        ],
+        "runtimeCanvas": [
+          64,
+          64
+        ],
+        "layer": "decals",
+        "palette": [
+          "soot/grime",
+          "rusted-metal",
+          "water"
+        ],
+        "anchor": "surface decal",
+        "collision": "none",
+        "occlusion": "none",
+        "runtimePath": "docs/assets/world/shared-foundation/stains.png"
+      },
+      {
+        "id": "cart-wear",
+        "name": "Wheel/cart wear",
+        "status": "missing",
+        "sourceCanvas": [
+          960,
+          640
+        ],
+        "runtimeCanvas": [
+          96,
+          64
+        ],
+        "layer": "decals",
+        "palette": [
+          "stone",
+          "soot/grime"
+        ],
+        "anchor": "surface decal",
+        "collision": "none",
+        "occlusion": "none",
+        "runtimePath": "docs/assets/world/shared-foundation/cart-wear.png"
+      },
+      {
+        "id": "timber-post",
+        "name": "Timber structural posts",
+        "status": "missing",
+        "sourceCanvas": [
+          480,
+          1280
+        ],
+        "runtimeCanvas": [
+          48,
+          128
+        ],
+        "layer": "architecture",
+        "palette": [
+          "timber",
+          "clean-metal",
+          "rusted-metal"
+        ],
+        "anchor": "floor-hosted center/bottom",
+        "collision": "solid",
+        "occlusion": "mid",
+        "runtimePath": "docs/assets/world/shared-foundation/timber-post.png"
+      },
+      {
+        "id": "horizontal-beam",
+        "name": "Horizontal beams",
+        "status": "missing",
+        "sourceCanvas": [
+          1280,
+          480
+        ],
+        "runtimeCanvas": [
+          128,
+          48
+        ],
+        "layer": "architecture",
+        "palette": [
+          "timber",
+          "clean-metal",
+          "rusted-metal"
+        ],
+        "anchor": "attachment-line",
+        "collision": "none",
+        "occlusion": "mid",
+        "runtimePath": "docs/assets/world/shared-foundation/horizontal-beam.png"
+      },
+      {
+        "id": "timber-plaster-wall",
+        "name": "Timber-and-plaster wall",
+        "status": "missing",
+        "sourceCanvas": [
+          1920,
+          1600
+        ],
+        "runtimeCanvas": [
+          192,
+          160
+        ],
+        "layer": "architecture",
+        "palette": [
+          "timber",
+          "plaster",
+          "stone"
+        ],
+        "anchor": "architectural region",
+        "collision": "solid",
+        "occlusion": "tall / cutaway",
+        "runtimePath": "docs/assets/world/shared-foundation/timber-plaster-wall.png"
+      },
+      {
+        "id": "aged-stone-foundation",
+        "name": "Aged stone foundation",
+        "status": "missing",
+        "sourceCanvas": [
+          1920,
+          640
+        ],
+        "runtimeCanvas": [
+          192,
+          64
+        ],
+        "layer": "architecture",
+        "palette": [
+          "stone",
+          "moss",
+          "soot/grime"
+        ],
+        "anchor": "architectural region",
+        "collision": "solid",
+        "occlusion": "low",
+        "runtimePath": "docs/assets/world/shared-foundation/aged-stone-foundation.png"
+      }
     ],
     "characterDependencies": {
-      "status": "missing",
+      "status": "integrated",
       "benchmarkId": "fighter-male-short-afro-shared-foundation",
       "role": "unarmed Academy street-fighter trainee",
-      "sheetCanvas": [512, 64],
-      "frame": [64, 64],
-      "directions": ["N", "NE", "E", "SE", "S", "SW", "W", "NW"],
+      "sheetCanvas": [
+        512,
+        64
+      ],
+      "frame": [
+        64,
+        64
+      ],
+      "directions": [
+        "N",
+        "NE",
+        "E",
+        "SE",
+        "S",
+        "SW",
+        "W",
+        "NW"
+      ],
       "baseSheets": {
-        "male": {"status": "missing", "sourcePath": "production/source/characters/base/male-base-512x64.png", "runtimePath": "docs/assets/characters/base/male-base.png"},
-        "female": {"status": "missing", "sourcePath": "production/source/characters/base/female-base-512x64.png", "runtimePath": "docs/assets/characters/base/female-base.png"}
+        "male": {
+          "status": "integrated",
+          "sourcePath": "Paperdolls/Male/Layer 1 - Base Body/Male Base Body1.png",
+          "runtimePath": "docs/assets/characters/male/body/tone1.png"
+        },
+        "female": {
+          "status": "integrated",
+          "sourcePath": "Paperdolls/Female/Layer 1 - Base Body/Female Base Body1.png",
+          "runtimePath": "docs/assets/characters/female/body/tone1.png"
+        }
       },
       "baseRule": "Approved base sheets are production geometry: never redrawn, regenerated, resized, repositioned, or resampled. Runtime copies are byte-identical to the approved source.",
       "overlayRule": "Clothing, equipment, accessories, and separately routed hair are transparent 512×64 overlays registered to the exact base frames; overlays never carry replacement base pixels.",
       "overlayPaths": {
-        "sourcePattern": "production/source/characters/overlays/{layer}/{id}-512x64.png",
-        "runtimePattern": "docs/assets/characters/overlays/{layer}/{id}.png"
+        "sourcePattern": "Paperdolls/{sex}/{layer}/{id}.png",
+        "runtimePattern": "docs/assets/characters/{sex}/{layer}/{id}.png"
       },
       "inspectionPattern": "production/inspection/characters/{sheet}-5120x640.png",
-      "legacyRuntimeCandidates": {
-        "path": "docs/assets/runtime/characters/",
-        "sheetCanvas": [576, 512],
-        "frame": [48, 64],
-        "status": "legacy runtime candidate; stands in only until the approved 512×64 sheets are committed"
-      },
-      "underlayer": ["body/skin", "short afro hair/face", "base shorts"],
-      "benchmarkOutfit": ["sleeveless fighter wrap", "short utility jacket", "loose fighter trousers", "sneaker-hybrid martial shoes", "cloth sash", "wrist wraps", "neck cord/charm", "contact shadow"],
+      "underlayer": [
+        "body/skin",
+        "short afro hair/face",
+        "base shorts"
+      ],
+      "benchmarkOutfit": [
+        "sleeveless fighter wrap",
+        "short utility jacket",
+        "loose fighter trousers",
+        "sneaker-hybrid martial shoes",
+        "cloth sash",
+        "wrist wraps",
+        "neck cord/charm",
+        "contact shadow"
+      ],
       "weaponRequired": false,
-      "paletteFamilies": ["skin_e", "cloth", "tide", "rust", "ui", "trimB"],
-      "layerFamilies": ["back-garment", "pants", "footwear", "inner-top", "outerwear-far", "outerwear-near", "waist-back", "waist-front", "accessories", "contact-shadow"],
+      "paletteFamilies": [
+        "skin_e",
+        "cloth",
+        "tide",
+        "rust",
+        "ui",
+        "trimB"
+      ],
+      "layerFamilies": [
+        "back-garment",
+        "pants",
+        "footwear",
+        "inner-top",
+        "outerwear-far",
+        "outerwear-near",
+        "waist-back",
+        "waist-front",
+        "accessories",
+        "contact-shadow"
+      ],
       "drawOrderRule": "Near/far garment overlays route by canonical facing; no overlay may cover anatomy that should remain visible.",
-      "validation": ["512×64 sheet canvas", "eight 64×64 frames", "hard alpha", "shared foot-contact row", "overlay registration to base frames", "no copied base pixels in overlays", "10× inspection is exact integer nearest-neighbour", "tested beside world assets in the Phaser scale reference scene"]
+      "validation": [
+        "512×64 sheet canvas",
+        "eight 64×64 frames",
+        "hard alpha",
+        "shared foot-contact row",
+        "overlay registration to base frames",
+        "no copied base pixels in overlays",
+        "10× inspection is exact integer nearest-neighbour",
+        "tested beside world assets in the Phaser scale reference scene"
+      ],
+      "paperdolls": {
+        "sourceRoot": "Paperdolls/",
+        "runtimeRoot": "docs/assets/characters/",
+        "registry": "docs/js/world/characters.js",
+        "drawOrder": [
+          "body",
+          "clothing",
+          "arms",
+          "shoulders",
+          "hair",
+          "eyes"
+        ],
+        "bodyLayers": [
+          "body",
+          "arms"
+        ],
+        "rule": "Every Paperdolls sheet is registered once; runtime copies are byte-identical. Arms are base-body layers drawn over clothing; clothing, shoulders, hair, and eyes are overlays.",
+        "starterOutfit": "gi",
+        "outfitAvailability": {
+          "gi": [
+            "male",
+            "female"
+          ],
+          "red-armor": [
+            "male"
+          ],
+          "blue-armor": [
+            "male"
+          ]
+        },
+        "openGaps": [
+          "No female Red/Blue Armor layers; armor is male-only until they are authored.",
+          "No idle/walk/ready animation sheets; one frame per direction."
+        ]
+      }
     },
     "sourceGate": {
       "requiredBeforeRuntimeDerivation": [

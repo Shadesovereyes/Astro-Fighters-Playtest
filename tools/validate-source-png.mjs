@@ -99,7 +99,7 @@ function sheetMode(file) {
     info.push(`frame ${f.i} ${f.dir.padEnd(2)} bbox ${f.bbox.join(',')} stature ${maxY - minY + 1}px foot y=${maxY}`);
   }
   if (contacts.length && Math.max(...contacts) - Math.min(...contacts) > 2) warnings.push(`Foot-contact rows vary across frames (${contacts.join(', ')}); confirm the shared ground line.`);
-  info.unshift(`canvas ${image.width}×${image.height}; ${fr.length} frames; frame order assumed ${scale.frameOrder.join(' ')} (${scale.frameOrderStatus})`);
+  info.unshift(`canvas ${image.width}×${image.height}; ${fr.length} frames; frame order ${scale.frameOrder.join(' ')} (${scale.frameOrderStatus})`);
   finish(`base sheet ${file}`);
 }
 

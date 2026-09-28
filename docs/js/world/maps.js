@@ -6,14 +6,16 @@
 (() => {
   'use strict';
 
+  // NPC looks are built from the same approved paper-doll layers as the player (world/characters.js).
   const LOOKS = {
-    sensei: {skin:'skin05',hair:'locs_short',eyeColor:'#434DA0',hairColor:'#95846C',innerTop:'wrap_top',outerwear:'utility_haori',pants:'fighter_hakama',shoes:'wrapped_boots',innerColor:'#D5BAA0',outerColor:'#29342B',pantsColor:'#141410',shoesColor:'#343427',weapon:'none'},
-    guard: {skin:'skin03',hair:'afro_short',eyeColor:'#314B79',hairColor:'#1F0C0B',innerTop:'hoodie_under',outerwear:'short_jacket',pants:'fighter_hakama',shoes:'wrapped_boots',innerColor:'#343427',outerColor:'#2A3B5A',pantsColor:'#1D243C',shoesColor:'#141410',weapon:'katana01'},
-    dockworker: {skin:'skin02',hair:'twists',eyeColor:'#4A8998',hairColor:'#3C1B17',innerTop:'hoodie_under',outerwear:'utility_haori',pants:'cuffed_trousers',shoes:'wrapped_boots',innerColor:'#86A07C',outerColor:'#645838',pantsColor:'#3E4F3E',shoesColor:'#464228',weapon:'none'},
-    student: {skin:'skin01',hair:'puff_undercut',eyeColor:'#5CA3D4',hairColor:'#291011',innerTop:'wrap_top',outerwear:'short_jacket',pants:'fighter_hakama',shoes:'wrapped_boots',innerColor:'#D5BAA0',outerColor:'#375678',pantsColor:'#1D243C',shoesColor:'#343427',weapon:'none'},
-    keeper: {skin:'skin04',hair:'afro_short',eyeColor:'#6D8566',hairColor:'#55503E',innerTop:'wrap_top',outerwear:'patterned_haori',pants:'loose_pants',shoes:'sneaker_hybrid',innerColor:'#B69350',outerColor:'#366F68',pantsColor:'#343427',shoesColor:'#685B47',weapon:'none'},
-    thug: {skin:'skin03',hair:'twists',eyeColor:'#9B382D',hairColor:'#14120A',innerTop:'cropped_top',outerwear:'short_jacket',pants:'loose_pants',shoes:'sneaker_hybrid',innerColor:'#2E2516',outerColor:'#7D3524',pantsColor:'#29342B',shoesColor:'#14120A',weapon:'none'},
-    thug2: {skin:'skin05',hair:'high_puff',eyeColor:'#945B45',hairColor:'#2E1510',innerTop:'hoodie_under',outerwear:'utility_haori',pants:'cuffed_trousers',shoes:'wrapped_boots',innerColor:'#473522',outerColor:'#5F311D',pantsColor:'#191127',shoesColor:'#2E2516',weapon:'none'}
+    sensei: {sex:'male',skin:'tone2',hair:'long',eyes:'brown',outfit:'gi'},
+    guard: {sex:'male',skin:'tone1',hair:'fade',eyes:'brown',outfit:'blue-armor'},
+    armorer: {sex:'male',skin:'tone2',hair:'fade',eyes:'purple',outfit:'red-armor'},
+    dockworker: {sex:'female',skin:'tone2',hair:'afro',eyes:'brown',outfit:'gi'},
+    student: {sex:'female',skin:'tone1',hair:'long',eyes:'purple',outfit:'gi'},
+    keeper: {sex:'female',skin:'tone1',hair:'afro',eyes:'purple',outfit:'gi'},
+    thug: {sex:'male',skin:'tone1',hair:'long',eyes:'purple',outfit:'red-armor'},
+    thug2: {sex:'male',skin:'tone2',hair:'afro',eyes:'brown',outfit:'red-armor'}
   };
 
   const THUG = {name:'Street Thug',hp:75,maxHp:75,poise:60,maxPoise:60,power:8,hostile:true,xp:30,mon:5};
@@ -52,7 +54,8 @@
       arrivals:{'from-docks':{x:26,y:192,facing:'E'},'from-academy':{x:320,y:206,facing:'N'},'from-fringe':{x:612,y:192,facing:'W'}},
       npcs:[
         {id:'guard-a',name:'Royal Guard',x:250,y:210,look:'guard',facing:'S',lines:['Royal Guard patrols keep the central wards free of street-clan violence.']},
-        {id:'guard-b',name:'Royal Guard',x:390,y:210,look:'guard',facing:'S',lines:['The east road leads to the Fringe. Uncertified fighters are turned back at the gate.']}
+        {id:'guard-b',name:'Royal Guard',x:390,y:210,look:'guard',facing:'S',lines:['The east road leads to the Fringe. Uncertified fighters are turned back at the gate.']},
+        {id:'armorer-ren',name:'Armorer Ren',x:120,y:196,look:'armorer',facing:'S',role:'armorer',stock:['red-armor','blue-armor']}
       ],
       enemies:[]
     },

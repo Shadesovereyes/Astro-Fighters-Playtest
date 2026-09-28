@@ -13,7 +13,7 @@
     sheetCanvas: [512, 64],
     frame: [64, 64],
     framesPerSheet: 8,
-    frameOrder: ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'],
+    frameOrder: ['S', 'SE', 'E', 'NE', 'N', 'NW', 'W', 'SW'],
     pivotX: 32,
     collision: {w: 20, h: 8},
     interactionRange: 40

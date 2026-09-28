@@ -73,11 +73,11 @@
   const DEFAULT_STATE = {
     build:BUILD, created:false, academyComplete:false, academyRewardGranted:false,
     level:1, xp:0, xpDebt:0, gold:0, map:'Imperial Docks', x:MAPS['Imperial Docks'].spawn.x, y:MAPS['Imperial Docks'].spawn.y, posUnits:'px', facing:'N',
-    name:'Fighter', appearance:{skin:'skin04',hair:'high_puff',eyeColor:'#57c5c0',hairColor:'#24180f',innerTop:'wrap_top',outerwear:'patterned_haori',pants:'loose_pants',shoes:'sneaker_hybrid',innerColor:'#d1a455',outerColor:'#245e66',pantsColor:'#2b2928',shoesColor:'#755238',weapon:'katana01'},
+    name:'Fighter', appearance:{sex:'male',skin:'tone2',hair:'afro',eyes:'brown',outfit:'gi'}, wardrobe:['gi'],
     birth:null, chart:null,
     stats:{maxHp:100,hp:100,maxStamina:100,stamina:100,maxChakra:100,chakra:100,maxPoise:100,poise:100},
     attributes:{STR:10,AGI:10,FORT:10,INT:10,CHA:10},
-    learned:['Basic Jab'], hotbar:['Basic Jab'], trapStock:{}, armedTrap:null, inventory:[], equipment:{trainingJacket:{name:'Training Jacket',durability:100,maxDurability:100}},
+    learned:['Basic Jab'], hotbar:['Basic Jab'], trapStock:{}, armedTrap:null, inventory:[], equipment:{Gi:{name:'Gi',durability:100,maxDurability:100}},
     questState:{academy_intro:{state:'active'}}, targetId:null, nextActionAt:0, guard:false, dodgeUntil:0,
     kills:{}, corpses:[], tutorialFlags:{moved:false,targeted:false,jabbed:false,guarded:false,dodged:false,menu:false}
   };
@@ -99,12 +99,12 @@
     const out = Object.assign(deepClone(DEFAULT_STATE), s||{});
     out.stats = Object.assign({}, DEFAULT_STATE.stats, s?.stats||{});
     out.attributes = Object.assign({}, DEFAULT_STATE.attributes, s?.attributes||{});
-    out.appearance = Object.assign({}, DEFAULT_STATE.appearance, s?.appearance||{});
-    // Migrate pre-paper-doll saves to valid modular variants.
-    for(const [slot,key] of [['skin','skin'],['hair','hair'],['innerTop','innerTop'],['outerwear','outerwear'],['pants','pants'],['shoes','shoes']]){
-      if(!PD_VARIANTS[key].includes(out.appearance[slot])) out.appearance[slot]=DEFAULT_STATE.appearance[slot];
-    }
-    if(!['katana01','none'].includes(out.appearance.weapon)) out.appearance.weapon=DEFAULT_STATE.appearance.weapon;
+    // Legacy 48×64 paper-doll saves carry no `sex`; they migrate to the default approved look.
+    out.appearance = sanitizeLook(s?.appearance);
+    out.wardrobe = [...new Set([CHARS.starterOutfit,...(Array.isArray(s?.wardrobe)?s.wardrobe:[])])].filter(id=>OUTFITS[id]);
+    if(!out.wardrobe.includes(out.appearance.outfit)) out.appearance.outfit=CHARS.starterOutfit;
+    out.equipment = Object.assign({}, s?.equipment||{}); delete out.equipment.trainingJacket;
+    for(const id of out.wardrobe){ const n=OUTFITS[id].name; out.equipment[n] ||= {name:n,durability:100,maxDurability:100}; }
     if(!MAPS[out.map]) out.map='Imperial Docks';
     // Migrate tile-step saves (integer grid cells) to world-pixel positions.
     if(out.posUnits!=='px' || !Number.isFinite(out.x) || !Number.isFinite(out.y)){
@@ -185,137 +185,135 @@
     }
   }
 
-  /* ---------------- Paper-doll character layers ---------------- */
+  /* ---------------- Paper-doll characters (approved 512×64 sheets) ---------------- */
 
-  const PD_DIRS=['N','NE','E','SE','S','SW','W','NW'];
-  const PD_DIR_ROWS=Object.fromEntries(PD_DIRS.map((d,i)=>[d,i]));
-  const PD_ANIMS={idle:{start:0,count:4},walk:{start:4,count:6},ready:{start:10,count:2}};
-  const PD_VARIANTS={
-    skin:['skin01','skin02','skin03','skin04','skin05'],
-    hair:['afro_short','high_puff','locs_short','twists','puff_undercut'],
-    innerTop:['wrap_top','cropped_top','hoodie_under'],
-    outerwear:['patterned_haori','utility_haori','short_jacket'],
-    pants:['loose_pants','cuffed_trousers','fighter_hakama'],
-    shoes:['wrapped_boots','sneaker_hybrid']
+  // Layers come from the committed /Paperdolls sheets via world/characters.js. Each sheet is
+  // eight 64×64 directional frames; one frame per direction, no invented animation frames.
+  const CHARS = window.AF_CHARACTERS;
+  const frameFor = facing => Math.max(0, CHARS.frameOrder.indexOf(facing));
+  const COMPASS = ['N','NE','E','SE','S','SW','W','NW'];
+  let FOOT_Y = 63; // lowest opaque row of the south body frame, measured at runtime
+  // Outfit catalogue. Defense is the share of incoming damage absorbed (placeholder balance).
+  const OUTFITS = {
+    gi:{name:'Gi',price:0,defense:0,description:'Standard Academy training gi. Starter outfit.'},
+    'red-armor':{name:'Red Armor',price:80,defense:.15,description:'Lacquered red plate over a fighter wrap, with shoulder guards. Absorbs 15% of incoming damage.'},
+    'blue-armor':{name:'Blue Armor',price:80,defense:.15,description:'Blue plate over a fighter wrap, with shoulder guards. Absorbs 15% of incoming damage.'}
   };
-  const PD_DRAW=[
-    {slot:'shadow',module:'shadow',variant:()=> 'ground01'},
-    {slot:'hairBack',module:'hair_back',variant:a=>a.hair,tint:a=>a.hairColor},
-    {slot:'body',module:'base_body',variant:a=>a.skin},
-    {slot:'eyesWhite',module:'eyes',variant:()=> 'whites'},
-    {slot:'eyesIris',module:'eyes',variant:()=> 'iris_mask',tint:a=>a.eyeColor},
-    {slot:'pants',module:'pants',variant:a=>a.pants,tint:a=>a.pantsColor},
-    {slot:'shoes',module:'shoes',variant:a=>a.shoes,tint:a=>a.shoesColor},
-    {slot:'innerTop',module:'inner_top',variant:a=>a.innerTop,tint:a=>a.innerColor},
-    {slot:'outerwear',module:'outerwear',variant:a=>a.outerwear,tint:a=>a.outerColor},
-    {slot:'equipmentBack',module:'equipment_back',variant:a=>a.weapon==='none'?null:'katana01'},
-    {slot:'hairFront',module:'hair_front',variant:a=>a.hair,tint:a=>a.hairColor},
-    {slot:'equipmentFront',module:'equipment_front',variant:a=>a.weapon==='none'?null:'katana01'}
-  ];
-  const pdKey=(module,variant)=>`pd-${module}-${variant}`;
+  const DEFAULT_LOOK = {sex:'male',skin:'tone2',hair:'afro',eyes:'brown',outfit:CHARS.starterOutfit};
+  function sanitizeLook(a){
+    const sex=CHARS.sexes[a?.sex]?a.sex:'male', d=CHARS.sexes[sex];
+    const pick=(k,v)=>d[k][v]?v:Object.keys(d[k])[0];
+    return {sex,skin:pick('skin',a?.skin),hair:pick('hair',a?.hair),eyes:pick('eyes',a?.eyes),outfit:d.outfits[a?.outfit]?a.outfit:CHARS.starterOutfit};
+  }
+  const outfitFits=(sex,id)=>!!CHARS.sexes[sex]?.outfits?.[id];
+  const layerKey=(sex,slot,id)=>`pd-${sex}-${slot}-${id}`;
   const assetPath=path=>(window.AF_ASSET_DATA&&window.AF_ASSET_DATA[path])||path;
-  const pdPath=(module,variant)=>assetPath(`assets/runtime/characters/${module}/${variant}-sheet.png`);
-  const pdFrame=(facing,anim,time=0)=>{
-    const row=PD_DIR_ROWS[facing]??4, spec=PD_ANIMS[anim]||PD_ANIMS.idle;
-    const local=Math.floor(time/(anim==='walk'?105:anim==='ready'?260:220))%spec.count;
-    return row*12+spec.start+local;
-  };
-  // Approved 512×64 base sheets (eight 64×64 directional frames). Until they are registered in
-  // world/characters.js the legacy 48×64 runtime candidates stand in and are labelled as such.
-  const CHARS = window.AF_CHARACTERS || {approved:{},overlays:{}};
-  const APPROVED_KEY = 'char-approved-male';
-  let charMode = 'legacy';
-  const approvedFrame = facing => Math.max(0,SCALE.player.frameOrder.indexOf(facing));
-  const hexNum=h=>Number.parseInt(String(h||'#ffffff').replace('#',''),16)||0xffffff;
-
-  const pdDomCache=new Map();
-  function loadPdDomImage(module,variant){
-    const key=`${module}/${variant}`; if(pdDomCache.has(key)) return pdDomCache.get(key);
-    const promise=new Promise((resolve,reject)=>{const img=new Image();img.onload=()=>resolve(img);img.onerror=()=>reject(new Error(`Paper-doll asset failed: ${key}`));img.src=pdPath(module,variant);});
-    pdDomCache.set(key,promise);return promise;
+  /* Ordered layers for a look, following CHARS.drawOrder: body → clothing → arms → shoulders → hair → eyes. */
+  function lookLayers(look){
+    const L=sanitizeLook(look), d=CHARS.sexes[L.sex], o=d.outfits[L.outfit];
+    const bySlot={body:[L.skin,d.skin[L.skin].body],clothing:[L.outfit,o.clothing],arms:[L.skin,d.skin[L.skin].arms],shoulders:[L.outfit,o.shoulders],hair:[L.hair,d.hair[L.hair].layer],eyes:[L.eyes,d.eyes[L.eyes].layer]};
+    return CHARS.drawOrder.filter(slot=>bySlot[slot][1]).map(slot=>({slot,key:layerKey(L.sex,slot,bySlot[slot][0]),path:bySlot[slot][1].path}));
   }
-  function readCreatorAppearance(){
-    return {
-      skin:$('skin-opt')?.value||'skin04', hair:$('hair-opt')?.value||'high_puff',
-      eyeColor:$('eye-color')?.value||'#57c5c0', hairColor:$('hair-color')?.value||'#24180f',
-      innerTop:$('inner-top-opt')?.value||'wrap_top', outerwear:$('outerwear-opt')?.value||'patterned_haori',
-      pants:$('pants-opt')?.value||'loose_pants', shoes:$('shoes-opt')?.value||'sneaker_hybrid',
-      innerColor:$('inner-color')?.value||'#d1a455', outerColor:$('outer-color')?.value||'#245e66',
-      pantsColor:$('pants-color')?.value||'#2b2928', shoesColor:$('shoes-color')?.value||'#755238',
-      weapon:$('weapon-opt')?.value||'katana01'
-    };
-  }
-  let creatorFacing='S', creatorAnim='idle', creatorPreviewToken=0, creatorPreviewRAF=0;
-  function tintCanvasCell(img,sx,sy,tint){
-    const off=document.createElement('canvas');off.width=48;off.height=64;const oc=off.getContext('2d');oc.imageSmoothingEnabled=false;
-    oc.drawImage(img,sx,sy,48,64,0,0,48,64);
-    if(tint){oc.globalCompositeOperation='source-atop';oc.fillStyle=tint;oc.fillRect(0,0,48,64);oc.globalCompositeOperation='source-over';}
-    return off;
-  }
-  async function drawPaperDollPreview(ts=performance.now()){
-    const canvas=$('paperdoll-preview'); if(!canvas||$('appearance-overlay').classList.contains('hidden')) return;
-    const token=++creatorPreviewToken, ctx=canvas.getContext('2d');ctx.imageSmoothingEnabled=false;
-    const a=readCreatorAppearance(), frame=pdFrame(creatorFacing,creatorAnim,ts); const row=Math.floor(frame/12), col=frame%12;
-    const cells=[];
-    for(const l of PD_DRAW){
-      const variant=l.variant(a);if(!variant)continue;
-      try{const img=await loadPdDomImage(l.module,variant);if(token!==creatorPreviewToken)return;cells.push(tintCanvasCell(img,col*48,row*64,l.tint?.(a)));}catch(e){console.warn(e);}
+  function allLayerRefs(){
+    const refs=[];
+    for(const [sex,d] of Object.entries(CHARS.sexes)){
+      for(const [id,sk] of Object.entries(d.skin)) refs.push([layerKey(sex,'body',id),sk.body.path],[layerKey(sex,'arms',id),sk.arms.path]);
+      for(const k of ['hair','eyes']) for(const [id,o] of Object.entries(d[k])) refs.push([layerKey(sex,k,id),o.layer.path]);
+      for(const [id,o] of Object.entries(d.outfits)){ refs.push([layerKey(sex,'clothing',id),o.clothing.path]); if(o.shoulders) refs.push([layerKey(sex,'shoulders',id),o.shoulders.path]); }
     }
-    if(token!==creatorPreviewToken) return;
-    const grad=ctx.createLinearGradient(0,0,0,canvas.height);grad.addColorStop(0,'#263a42');grad.addColorStop(.7,'#1a2023');grad.addColorStop(.705,'#5e5643');grad.addColorStop(1,'#342d25');ctx.fillStyle=grad;ctx.fillRect(0,0,canvas.width,canvas.height);
-    for(const cell of cells) ctx.drawImage(cell,0,0,48,64,0,0,240,320);
+    return refs;
+  }
+
+  /* ---- character creator preview (mechanical layer composite, integer 4× nearest-neighbour) ---- */
+  function readCreatorAppearance(){ return sanitizeLook({sex:$('sex-opt')?.value,skin:$('skin-opt')?.value,hair:$('hair-opt')?.value,eyes:$('eyes-opt')?.value,outfit:CHARS.starterOutfit}); }
+  function fillCreatorOptions(){
+    const d=CHARS.sexes[$('sex-opt').value]||CHARS.sexes.male;
+    for(const [id,k] of [['skin-opt','skin'],['hair-opt','hair'],['eyes-opt','eyes']]){
+      const sel=$(id), prev=sel.value;
+      sel.innerHTML=Object.entries(d[k]).map(([v,o])=>`<option value="${v}">${safeText(o.label)}</option>`).join('');
+      if(d[k][prev]) sel.value=prev;
+    }
+  }
+  const domImages=new Map();
+  function loadDomImage(path){
+    if(!domImages.has(path)) domImages.set(path,new Promise((res,rej)=>{const i=new Image();i.onload=()=>res(i);i.onerror=()=>rej(new Error(`Paper-doll layer failed: ${path}`));i.src=assetPath(path);}));
+    return domImages.get(path);
+  }
+  let creatorFacing='S', creatorToken=0;
+  async function drawPaperDollPreview(){
+    const canvas=$('paperdoll-preview'); if(!canvas||$('appearance-overlay').classList.contains('hidden')) return;
+    const token=++creatorToken, imgs=[];
+    for(const l of lookLayers(readCreatorAppearance())){ try{imgs.push(await loadDomImage(l.path));}catch(e){console.warn(e);} }
+    if(token!==creatorToken) return;
+    const g=canvas.getContext('2d'); g.imageSmoothingEnabled=false;
+    const grad=g.createLinearGradient(0,0,0,canvas.height);grad.addColorStop(0,'#263a42');grad.addColorStop(.78,'#1a2023');grad.addColorStop(.785,'#5e5643');grad.addColorStop(1,'#342d25');g.fillStyle=grad;g.fillRect(0,0,canvas.width,canvas.height);
+    const f=frameFor(creatorFacing);
+    for(const im of imgs) g.drawImage(im,f*64,0,64,64,0,0,canvas.width,canvas.height);
     $('preview-facing').textContent=creatorFacing;
   }
-  function startCreatorPreview(){
-    cancelAnimationFrame(creatorPreviewRAF);
-    const loop=t=>{if(!$('appearance-overlay').classList.contains('hidden')){drawPaperDollPreview(t);creatorPreviewRAF=requestAnimationFrame(loop);}else creatorPreviewRAF=0;};creatorPreviewRAF=requestAnimationFrame(loop);
-  }
+  function startCreatorPreview(){ if(!$('skin-opt').options.length) fillCreatorOptions(); drawPaperDollPreview(); }
   function bindCreatorPreview(){
-    const ids=['skin-opt','hair-opt','eye-color','hair-color','inner-top-opt','outerwear-opt','pants-opt','shoes-opt','inner-color','outer-color','pants-color','shoes-color','weapon-opt'];
-    ids.forEach(id=>$(id)?.addEventListener('input',()=>drawPaperDollPreview()));
-    $('preview-left')?.addEventListener('click',()=>{creatorFacing=PD_DIRS[(PD_DIRS.indexOf(creatorFacing)+7)%8];drawPaperDollPreview();});
-    $('preview-right')?.addEventListener('click',()=>{creatorFacing=PD_DIRS[(PD_DIRS.indexOf(creatorFacing)+1)%8];drawPaperDollPreview();});
-    document.querySelectorAll('[data-preview-anim]').forEach(b=>b.addEventListener('click',()=>{creatorAnim=b.dataset.previewAnim;document.querySelectorAll('[data-preview-anim]').forEach(x=>x.classList.toggle('active',x===b));drawPaperDollPreview();}));
+    $('sex-opt')?.addEventListener('input',()=>{fillCreatorOptions();drawPaperDollPreview();});
+    for(const id of ['skin-opt','hair-opt','eyes-opt']) $(id)?.addEventListener('input',()=>drawPaperDollPreview());
+    $('preview-left')?.addEventListener('click',()=>{creatorFacing=COMPASS[(COMPASS.indexOf(creatorFacing)+7)%8];drawPaperDollPreview();});
+    $('preview-right')?.addEventListener('click',()=>{creatorFacing=COMPASS[(COMPASS.indexOf(creatorFacing)+1)%8];drawPaperDollPreview();});
   }
 
-  /* A layered paper-doll actor. The container's position is the foot-contact point (runtime pivot 24,60). */
+  /* A layered actor. Container position is the foot-contact point; the sprite frame is 64×64. */
   class PaperDoll {
-    constructor(scene, look, x, y){
-      this.scene=scene; this.container=scene.add.container(x,y);
-      this.sprites=PD_DRAW.map(def=>{const s=scene.add.sprite(0,0,pdKey('base_body','skin04'),0).setOrigin(.5,60/64);this.container.add(s);return {def,sprite:s,variant:null};});
-      this.apply(look); this.place(x,y);
-    }
+    constructor(scene, look, x, y){ this.scene=scene; this.container=scene.add.container(x,y); this.sprites=[]; this.sig=''; this.frame=frameFor('S'); this.apply(look); this.place(x,y); }
     apply(look){
-      this.look=look;
-      for(const e of this.sprites){
-        const v=e.def.variant(look);
-        if(!v){e.sprite.setVisible(false);e.variant=null;continue;}
-        e.sprite.setVisible(true);
-        if(e.variant!==v){e.sprite.setTexture(pdKey(e.def.module,v));e.variant=v;}
-        if(e.def.tint) e.sprite.setTint(hexNum(e.def.tint(look))); else e.sprite.clearTint();
-      }
+      const layers=lookLayers(look), sig=layers.map(l=>l.key).join('|');
+      if(sig===this.sig) return; this.sig=sig; this.look=sanitizeLook(look);
+      for(const e of this.sprites) e.sprite.destroy();
+      this.sprites=layers.filter(l=>this.scene.textures.exists(l.key)).map(l=>{
+        const sp=this.scene.add.sprite(0,0,l.key,this.frame).setOrigin(SCALE.player.pivotX/64,(FOOT_Y+1)/64);
+        this.container.add(sp); return {def:{slot:l.slot},sprite:sp,variant:l.key};
+      });
     }
-    pose(facing,anim,t){ const f=pdFrame(facing,anim,t); for(const e of this.sprites) if(e.variant) e.sprite.setFrame(f); }
+    pose(facing){ this.frame=frameFor(facing); for(const e of this.sprites) e.sprite.setFrame(this.frame); }
     place(x,y){ this.container.setPosition(Math.round(x),Math.round(y)); this.container.setDepth(y); }
     destroy(){ this.container.destroy(); }
   }
+  const makePlayerDoll=(scene,x,y)=>new PaperDoll(scene,state.appearance,x,y);
 
-  /* The approved player: base sheet plus registered 512×64 overlays, one frame per direction.
-     No in-between animation frames are invented; the directional frame is held while moving. */
-  class ApprovedDoll {
-    constructor(scene, x, y, footY){
-      this.scene=scene; this.container=scene.add.container(x,y);
-      const keys=[APPROVED_KEY,...Object.entries(CHARS.overlays||{}).flatMap(([layer,list])=>list.map(o=>`char-ov-${layer}-${o.id}`))].filter(k=>scene.textures.exists(k));
-      this.sprites=keys.map(k=>{const sp=scene.add.sprite(0,0,k,0).setOrigin(SCALE.player.pivotX/64,(footY+1)/64);this.container.add(sp);return {def:{slot:k},sprite:sp,variant:k};});
-      this.place(x,y);
-    }
-    apply(){}
-    pose(facing){ const f=approvedFrame(facing); for(const e of this.sprites) e.sprite.setFrame(f); }
-    place(x,y){ this.container.setPosition(Math.round(x),Math.round(y)); this.container.setDepth(y); }
-    destroy(){ this.container.destroy(); }
+  /* ---- wardrobe: owned outfits persist through death; carried inventory does not ---- */
+  function ownsOutfit(id){ return (state.wardrobe||[]).includes(id); }
+  function equipOutfit(id){
+    if(!ownsOutfit(id)){ toast('You do not own that outfit.'); return false; }
+    if(!outfitFits(state.appearance.sex,id)){ toast(`${OUTFITS[id]?.name||id} is not fitted for this frame yet.`); return false; }
+    state.appearance.outfit=id; worldScene?.player?.doll.apply(state.appearance); saveGame(true); toast(`Equipped ${OUTFITS[id].name}.`,1200); return true;
   }
-  function makePlayerDoll(scene,x,y){
-    return charMode==='approved' ? new ApprovedDoll(scene,x,y,scene.footY) : new PaperDoll(scene,state.appearance,x,y);
+  function buyOutfit(id){
+    const o=OUTFITS[id]; if(!o) return false;
+    if(ownsOutfit(id)){ toast('Already owned.'); return false; }
+    if(!outfitFits(state.appearance.sex,id)){ toast(`${o.name} is not fitted for this frame yet.`); return false; }
+    if(state.gold<o.price){ toast(`Not enough mon. ${o.name} costs ${o.price}.`); return false; }
+    state.gold-=o.price; state.wardrobe.push(id); state.equipment[o.name]={name:o.name,durability:100,maxDurability:100};
+    saveGame(true); toast(`Bought ${o.name} · −${o.price} mon`,1600); return true;
+  }
+  function sellOutfit(id){
+    const o=OUTFITS[id]; if(!o||!ownsOutfit(id)||id===CHARS.starterOutfit) return false;
+    if(state.appearance.outfit===id){ state.appearance.outfit=CHARS.starterOutfit; worldScene?.player?.doll.apply(state.appearance); }
+    const price=Math.floor(o.price/2); state.gold+=price; state.wardrobe=state.wardrobe.filter(x=>x!==id); delete state.equipment[o.name];
+    saveGame(true); toast(`Sold ${o.name} · +${price} mon`,1600); return true;
+  }
+  function openShop(merchant){
+    const render=()=>{
+      const rows=(merchant.stock||[]).map(id=>{
+        const o=OUTFITS[id], owned=ownsOutfit(id), fits=outfitFits(state.appearance.sex,id), worn=state.appearance.outfit===id;
+        const btns=!fits?'<span class="shop-note">Not yet fitted for the female frame</span>'
+          :owned?`${worn?'<span class="shop-note">Equipped</span>':`<button data-shop="equip" data-id="${id}">Equip</button>`}<button data-shop="sell" data-id="${id}">Sell ${Math.floor(o.price/2)}</button>`
+          :`<button data-shop="buy" data-id="${id}" class="primary"${state.gold<o.price?' disabled':''}>Buy ${o.price}</button>`;
+        return `<div class="shop-row"><div><b>${safeText(o.name)}</b><small>${safeText(o.description)}</small></div><div class="shop-actions">${btns}</div></div>`;
+      }).join('');
+      showDialog(merchant.name,`<div class="shop-purse">Your purse: <b>${state.gold} mon</b></div>${rows}`,[{label:'Leave shop'}]);
+      document.querySelectorAll('#dialog-text [data-shop]').forEach(b=>b.addEventListener('click',()=>{
+        const id=b.dataset.id; if(b.dataset.shop==='buy') buyOutfit(id); else if(b.dataset.shop==='sell') sellOutfit(id); else equipOutfit(id);
+        updateHud(true); render();
+      }));
+    };
+    render();
   }
 
   /* ---------------- Dialogue, tutorial, Academy kit ---------------- */
@@ -404,7 +402,8 @@
       c.innerHTML=`<span class="eyebrow">ABILITY LIBRARY</span><h1>${records.length} records</h1><p>Loaded from the canonical runtime roster. Locked records remain visible with their gate reason.</p>` + records.map(a=>{const ac=accessForAbility(a),st=runtimeCost(a,'stam',state),ch=runtimeCost(a,'chakra',state);return `<div class="ability-row ${ac.ok?'':'locked'}"><b>${safeText(cleanAbilityName(a))}</b><span class="cost">${st?`STA ${st} `:''}${ch?`CHK ${ch} `:''}${a.slots?`${a.slots} slot`:''}</span><span class="reason">${safeText(ac.ok?(a.statusText||a.description||'Ready'):ac.reason)}</span></div>`;}).join('');
     } else if(tab==='inventory'){
       const items=[...state.inventory.map(i=>`${i.name} ×${i.qty||1}`),...Object.entries(state.trapStock).filter(([,q])=>q>0).map(([n,q])=>`${n} supplies ×${q}`)];
-      c.innerHTML=`<span class="eyebrow">CARRIED INVENTORY</span><h1>Inventory</h1>${items.length?items.map(x=>`<div class="inv-row">${safeText(x)}</div>`).join(''):'<p>No carried items.</p>'}<h2>Equipment</h2>${Object.values(state.equipment||{}).map(e=>`<div class="inv-row">${safeText(e.name)} · durability ${e.durability}/${e.maxDurability}</div>`).join('')}`;
+      c.innerHTML=`<span class="eyebrow">CARRIED INVENTORY</span><h1>Inventory</h1>${items.length?items.map(x=>`<div class="inv-row">${safeText(x)}</div>`).join(''):'<p>No carried items.</p>'}<h2>Wardrobe</h2>${state.wardrobe.map(id=>{const o=OUTFITS[id],worn=state.appearance.outfit===id,fits=outfitFits(state.appearance.sex,id),eq=state.equipment[o.name];return `<div class="inv-row wardrobe-row"><span><b>${safeText(o.name)}</b>${eq?` · durability ${eq.durability}/${eq.maxDurability}`:''}${o.defense?` · absorbs ${Math.round(o.defense*100)}%`:''}</span>${worn?'<span class="shop-note">Equipped</span>':fits?`<button data-equip="${id}">Equip</button>`:'<span class="shop-note">Not fitted for this frame</span>'}</div>`;}).join('')}<p class="note">Owned outfits stay with you when you fall; carried items and trap stock stay on your corpse.</p>`;
+      c.querySelectorAll('[data-equip]').forEach(btn=>btn.addEventListener('click',()=>{equipOutfit(btn.dataset.equip);renderFieldTab('inventory');}));
     } else if(tab==='chart'){
       c.innerHTML=`<span class="eyebrow">NATAL RECORD</span><h1>${safeText(state.birth?.place||'Unknown birthplace')}</h1><table class="chart-table"><thead><tr><th>Placement</th><th>Sign</th><th>Degree</th><th>Awakens</th></tr></thead><tbody>${chartRows(state.chart).map(([k,v])=>`<tr><td>${safeText(k)}</td><td>${safeText(v.sign)} · ${safeText(v.element)}</td><td>${Number(v.degree||0).toFixed(1)}°</td><td>Lv ${progressionLevelForPlacement(k)}</td></tr>`).join('')}</tbody></table>`;
     } else {
@@ -429,7 +428,7 @@
     const art=map?.artState==='scaffold'
       ? `Separate Phaser world modules · ${worldScene?.authoredCount?`${worldScene.authoredCount} authored + `:''}procedural scaffold textures · not production art`
       : 'Legacy baked district backdrop · temporary development scaffold · not production art';
-    const who=charMode==='approved'?'Player: approved 512×64 sheet':'Player: legacy 48×64 candidate (approved 512×64 sheet not yet committed)';
+    const who='Player: approved 512×64 paper-doll layers';
     $('art-state').textContent=`${art} · ${who}${worldScene?.stature?` · S=${worldScene.stature}px`:''}`;
   }
 
@@ -455,25 +454,12 @@
       for(const m of Object.values(MAPS)) if(m.backdrop) this.load.image(`env-${m.key}`,assetPath(m.backdrop));
       for(const [id,path] of Object.entries(AUTHORED_MODULES)) this.load.image(`mod-${id}`,path);
       const [fw,fh]=SCALE.player.frame;
-      if(CHARS.approved?.male) this.load.spritesheet(APPROVED_KEY,CHARS.approved.male,{frameWidth:fw,frameHeight:fh});
-      for(const [layer,list] of Object.entries(CHARS.overlays||{})) for(const o of list) this.load.spritesheet(`char-ov-${layer}-${o.id}`,o.path,{frameWidth:fw,frameHeight:fh});
-      const cfg={frameWidth:48,frameHeight:64};
-      for(const skin of PD_VARIANTS.skin)this.load.spritesheet(pdKey('base_body',skin),pdPath('base_body',skin),cfg);
-      for(const v of ['whites','iris_mask'])this.load.spritesheet(pdKey('eyes',v),pdPath('eyes',v),cfg);
-      for(const h of PD_VARIANTS.hair){this.load.spritesheet(pdKey('hair_back',h),pdPath('hair_back',h),cfg);this.load.spritesheet(pdKey('hair_front',h),pdPath('hair_front',h),cfg);}
-      for(const v of PD_VARIANTS.innerTop)this.load.spritesheet(pdKey('inner_top',v),pdPath('inner_top',v),cfg);
-      for(const v of PD_VARIANTS.outerwear)this.load.spritesheet(pdKey('outerwear',v),pdPath('outerwear',v),cfg);
-      for(const v of PD_VARIANTS.pants)this.load.spritesheet(pdKey('pants',v),pdPath('pants',v),cfg);
-      for(const v of PD_VARIANTS.shoes)this.load.spritesheet(pdKey('shoes',v),pdPath('shoes',v),cfg);
-      this.load.spritesheet(pdKey('equipment_back','katana01'),pdPath('equipment_back','katana01'),cfg);
-      this.load.spritesheet(pdKey('equipment_front','katana01'),pdPath('equipment_front','katana01'),cfg);
-      this.load.spritesheet(pdKey('shadow','ground01'),pdPath('shadow','ground01'),cfg);
+      for(const [key,path] of allLayerRefs()) this.load.spritesheet(key,assetPath(path),{frameWidth:fw,frameHeight:fh});
     }
     create(){
       worldScene=this;
-      charMode=this.textures.exists(APPROVED_KEY)?'approved':'legacy';
-      const m=charMode==='approved'?this.measureFrame(APPROVED_KEY,approvedFrame('S')):this.measureFrame(pdKey('base_body',state.appearance.skin),pdFrame('S','idle',0));
-      this.stature=m.stature; this.footY=m.footY; this.statureSource=m;
+      const look=sanitizeLook(state.appearance), m=this.measureFrame(layerKey(look.sex,'body',look.skin),frameFor('S'));
+      this.stature=m.stature; this.footY=m.footY; this.statureSource=m; FOOT_Y=m.footY;
       this.keys=this.input.keyboard.addKeys({up:'W',down:'S',left:'A',right:'D',up2:'UP',down2:'DOWN',left2:'LEFT',right2:'RIGHT',guard:'SHIFT'});
       this.input.keyboard.addCapture('SPACE,TAB,UP,DOWN,LEFT,RIGHT');
       const kb=this.input.keyboard;
@@ -696,6 +682,7 @@
       const n=this.nearestNpc();
       if(n){
         if(n.doll) n.facing=dirFromVector(this.player.x-n.x,this.player.y-n.y);
+        if(n.role==='armorer'){ openShop(n); return; }
         if(n.role==='sensei'){ if(state.academyComplete) showDialog('Sensei Daichi','Your foundation certification is complete. The Fringe Ward is past the east road of the Civic Ward. Train there, then return when you are ready for deeper systems.',[{label:'Understood'}]); else startSenseiTutorial(); }
         else showLines(n.name,n.lines||['…']);
         return;
@@ -800,6 +787,7 @@
       let dmg=raw;
       if(state.guard && state.stats.stamina>0){ dmg=Math.ceil(dmg*.45); state.stats.stamina=Math.max(0,state.stats.stamina-raw*.8); this.lastStaminaUse=t; }
       if(t<(this.fortifiedUntil||0)) dmg=Math.ceil(dmg*.75);
+      const armor=OUTFITS[state.appearance.outfit]?.defense||0; if(armor) dmg=Math.max(1,Math.round(dmg*(1-armor)));
       state.stats.hp-=dmg; state.stats.poise-=Math.ceil(dmg*.9);
       this.floatText(p.x,p.y-60,`-${dmg}`,'#e38f7f'); this.flash(p.doll); this.cameras.main.shake(90,0.004);
       if(state.stats.poise<=0){ p.staggerUntil=t+650; state.stats.poise=Math.round(state.stats.maxPoise*.5); this.floatText(p.x,p.y-72,'STAGGERED','#e7c47e'); }
@@ -1092,14 +1080,13 @@
     test('Canonical roster is 180 records',()=>abilityRecords().length===180);
     test('Recompose exists',()=>!!abilityByName('Recompose'));
     test('Player contract is the 512×64 sheet of eight 64×64 frames',()=>JSON.stringify(SCALE.player.sheetCanvas)==='[512,64]'&&JSON.stringify(SCALE.player.frame)==='[64,64]'&&SCALE.player.framesPerSheet===8&&SCALE.player.frameOrder.length===8);
-    test('Approved sheet, when registered, loads as eight 64×64 frames',()=>charMode!=='approved'||(game.textures.get(APPROVED_KEY).getSourceImage().width===512&&game.textures.get(APPROVED_KEY).getSourceImage().height===64&&game.textures.get(APPROVED_KEY).frameTotal-1===8));
-    test('Legacy candidate sheets are 576×512 and only stand in for the approved sheet',()=>charMode==='approved'||(game.textures.get(pdKey('base_body','skin04')).getSourceImage().width===576&&game.textures.get(pdKey('base_body','skin04')).getSourceImage().height===512));
+    test('Every registered paper-doll layer loads as a 512×64 sheet of eight 64×64 frames',()=>allLayerRefs().every(([k])=>game.textures.exists(k)&&game.textures.get(k).getSourceImage().width===512&&game.textures.get(k).getSourceImage().height===64&&game.textures.get(k).frameTotal-1===8));
+    test('Frame order is the confirmed approved order (S first)',()=>JSON.stringify(CHARS.frameOrder)===JSON.stringify(SCALE.player.frameOrder)&&CHARS.frameOrder[0]==='S');
+    test('Male and female options: 2 skin tones, hair, 2 eye colours',()=>Object.keys(CHARS.sexes.male.skin).length===2&&Object.keys(CHARS.sexes.female.skin).length===2&&Object.keys(CHARS.sexes.male.hair).length===3&&Object.keys(CHARS.sexes.female.hair).length===2&&Object.keys(CHARS.sexes.male.eyes).length===2);
+    test('Draw order is body, clothing, arms, shoulders, hair, eyes',()=>lookLayers({sex:'male',outfit:'red-armor'}).map(l=>l.slot).join()==='body,clothing,arms,shoulders,hair,eyes');
+    test('Gi is the starter outfit for both frames',()=>{const n=normalizeState(DEFAULT_STATE);return n.appearance.outfit==='gi'&&n.wardrobe.join()==='gi'&&outfitFits('female','gi')&&outfitFits('male','gi');});
     test('Player stature is measured from the base frame',()=>S.stature>=40&&S.stature<=64&&S.footY>=S.stature-1);
     test('Player collision is an authored foot box, not the sprite frame',()=>FOOT_HW*2===SCALE.player.collision.w&&FOOT_H===SCALE.player.collision.h&&FOOT_HW*2<SCALE.player.frame[0]);
-    test('Paper-doll has five skin variants',()=>PD_VARIANTS.skin.length===5);
-    test('Paper-doll has five Afro hairstyle variants',()=>PD_VARIANTS.hair.length===5);
-    test('Paper-doll has modular clothing options',()=>PD_VARIANTS.innerTop.length===3&&PD_VARIANTS.outerwear.length===3&&PD_VARIANTS.pants.length===3&&PD_VARIANTS.shoes.length===2);
-    test('Paper-doll animation map is 8-way idle walk ready',()=>PD_DIRS.length===8&&PD_ANIMS.idle.count===4&&PD_ANIMS.walk.count===6&&PD_ANIMS.ready.count===2);
     test('Eight-direction facing from movement vector',()=>['E','SE','S','SW','W','NW','N','NE'].every((d,i)=>dirFromVector(Math.cos(i*Math.PI/4),Math.sin(i*Math.PI/4))===d));
     const old=deepClone(state);
     quickState(); S.buildMap('Imperial Docks',MAPS['Imperial Docks'].spawn);
@@ -1132,6 +1119,10 @@
     test('Fringe Ward contains hostile thugs',()=>MAPS['Fringe Ward'].enemies.filter(e=>e.hostile).length>=2);
     S.buildMap('Fringe Ward',MAPS['Fringe Ward'].spawn);
     test('Placed trap consumes one supply',()=>{state.nextActionAt=0;state.armedTrap='Spike Pit';S.inputLockUntil=0;S.placeTrap();return state.trapStock['Spike Pit']===9&&S.traps.length===1;});
+    test('Armor purchase: mon decreases, wardrobe grows, paper doll changes, persists through save/load',()=>{state.appearance.sex='male';state.gold=100;const ok=buyOutfit('red-armor')&&equipOutfit('red-armor');const layers=S.player.doll.sprites.map(e=>e.variant).join();saveGame(true);loadGame();return ok&&state.gold===20&&state.wardrobe.includes('red-armor')&&state.appearance.outfit==='red-armor'&&layers.includes('pd-male-shoulders-red-armor');});
+    test('Armor cannot be bought without enough mon',()=>{state.gold=10;return !buyOutfit('blue-armor')&&state.gold===10;});
+    test('Armor is not offered to the female frame (no female armor layers)',()=>!outfitFits('female','red-armor')&&!outfitFits('female','blue-armor'));
+    test('Selling returns half price and reverts to the Gi',()=>{state.gold=0;const ok=sellOutfit('red-armor');return ok&&state.gold===40&&state.appearance.outfit==='gi'&&!state.wardrobe.includes('red-armor');});
     test('Map transitions preserve mon, inventory, and trap stock',()=>{const before=JSON.stringify([state.gold,state.inventory,state.trapStock]);S.useExit(MAPS['Fringe Ward'].exits[0]);const mid=state.map;S.buildMap('Fringe Ward',MAPS['Fringe Ward'].spawn);return mid==='Civic Ward'&&JSON.stringify([state.gold,state.inventory,state.trapStock])===before;});
     test('Melee hit damages an adjacent enemy in real time',()=>{const e=S.enemies[0];S.player.x=e.x-18;S.player.y=e.y;state.facing='E';const hp=e.hp;S.damageEnemy(e,6,BASIC_JAB);return e.hp===hp-6;});
     state=old; S.buildMap(state.map,null);
@@ -1148,12 +1139,8 @@
     useHotbar:(i)=>worldScene?.useHotbar(i),
     scene:()=>worldScene,
     worldLayers:()=>Object.fromEntries(Object.entries(worldScene?.layerIndex||{}).map(([k,v])=>[k,v.length])),
-    paperDoll:()=>({
-      variants:deepClone(PD_VARIANTS),
-      previewFacing:creatorFacing,
-      previewAnim:creatorAnim,
-      worldLayers:(worldScene?.player?.doll.sprites||[]).map(entry=>({slot:entry.def.slot,texture:entry.sprite.texture.key,frame:[entry.sprite.frame.width,entry.sprite.frame.height],visible:entry.sprite.visible}))
-    }),
+    paperDoll:()=>({look:deepClone(state.appearance),wardrobe:[...state.wardrobe],previewFacing:creatorFacing,layers:(worldScene?.player?.doll.sprites||[]).map(e=>({slot:e.def.slot,texture:e.sprite.texture.key,frame:[e.sprite.frame.width,e.sprite.frame.height]}))}),
+    buyOutfit,sellOutfit,equipOutfit,
     renderer:()=>({phaser:Phaser.VERSION,type:game?.renderer?.type,webgl:game?.renderer?.type===Phaser.WEBGL,canvas:game?.renderer?.type===Phaser.CANVAS})
   };
 

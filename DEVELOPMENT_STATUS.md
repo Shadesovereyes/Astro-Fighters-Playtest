@@ -53,7 +53,9 @@ The **64×64 player frame is the visual world-scale authority**. The approved pl
 
 Contracts reconciled on 2026-09-28: `production/asset-manifest.json` (schema v3, `canonical.playerScale`, `characterDependencies.baseSheets`), `tools/validate-production.mjs`, `tools/validate-source-png.mjs` (sheet / overlay / inspection modes), `tools/validate-world-data.mjs`, the runtime loader, and the authority documents no longer describe the player as 48×64 or use 480×640 source assumptions.
 
-**Blocker:** the approved 512×64 male and female base sheets are not in the repository. Intake: commit each unchanged to `production/source/characters/base/{male,female}-base-512x64.png`, copy byte-identically to `docs/assets/characters/base/{male,female}-base.png`, register the runtime path in `docs/js/world/characters.js`, run `node tools/validate-source-png.mjs sheet <file>`, and confirm the frame order (currently assumed canonical `N NE E SE S SW W NW`). Until then the runtime stands in the legacy 48×64 candidate sheets (stature S=56px) and labels them as legacy.
+**Character layers integrated (2026-09-28):** `/Paperdolls` supplies male and female base bodies (two skin tones with matching arms), Gi, male Red/Blue Armor with shoulder guards, hair (male: Afro, Fade, Long; female: Afro, Long), and Brown/Purple eyes. All 23 sheets are 512×64, hard alpha, registered in `docs/js/world/characters.js`, and copied byte-identically to `docs/assets/characters/`. Frame order confirmed from the sheets: **S, SE, E, NE, N, NW, W, SW**. Measured stature S=55px. The legacy 48×64 candidate sheets were removed; player and NPCs now use the same layers and scale.
+
+Open gaps: no female armor layers (armor is male-only for now); no idle/walk/ready animation sheets (one frame per direction, held while moving).
 
 ## Immediate technical gate
 
@@ -63,7 +65,8 @@ Runtime state (2026-09-28):
 - exploration is continuous real-time movement (112 px/s, delta-time, normalized diagonals, eight-direction facing), camera follow with deadzone on maps larger than the view;
 - no visible grid overlay; collision is authored pixel-space data independent of imagery (F2 debug view);
 - actors, architecture, and props are depth-sorted by foot line; authored occluders fade when the player is behind them;
-- the player loads the approved 512×64 sheet when registered, measures stature from the south frame, and never invents animation frames;
+- player and NPCs are composited from the approved paper-doll layers; the creator offers body, skin tone, hair, and eyes, with the Gi as starter outfit;
+- Armorer Ren (Civic Ward, temporary location until Market exists) sells Red/Blue Armor for 80 mon, buys back at half, and equips; the wardrobe persists through save/load and death;
 - the **scale reference scene** (`?scale`) sizes door/wall/window, stairs, counter, crates, barrel, bench, post, railing, lantern, and two bridge widths from ratios × measured stature; ratios are provisional until reviewed beside the approved player;
 - **Slice 0** (`?slice0`) was re-proportioned against the player (22px plinth, 106px eave, 36×68 door opening, lattice window at 35px sill) from separate module textures in the manifest layer order, with a door interactable through the shared interaction framework;
 - real-time combat, traps, dialogue, and save/load remain as before; map transitions are tested to preserve mon, inventory, and trap stock.
@@ -72,7 +75,6 @@ Remaining debt:
 
 - Slice 0 modules are **procedural scaffold textures**, not modular source art or runtime candidates; authored runtime PNGs register through `authoredModules` in `docs/js/world/maps.js`;
 - Docks, Civic Ward, Academy, and Fringe still use **baked full-frame district backdrops** (temporary, non-reviewable);
-- NPCs still use legacy 48×64 candidate sheets;
 - no Phaser-canvas integrated art review has been scored; Slice 0 has not passed, so Harbor has not started.
 
 Before Slice 0 can be called integrated, the runtime must prove:
@@ -156,12 +158,11 @@ Do not use this file as a second checklist.
 
 ## Next work order
 
-1. commit and register the approved 512×64 male/female base sheets (see blocker above) and confirm frame order;
-2. review the scale reference scene beside the approved player and lock or adjust `docs/js/world/scale-guide.js` ratios;
-3. author/approve the shared-foundation modules against those ratios without altering the locked base sheets;
-4. run module and overlay QA (`validate-source-png.mjs`, `validate-world-data.mjs`), then register runtime modules in `authoredModules`;
-5. capture Slice 0 from the running Phaser canvas and score it;
-6. repair until all critical gates pass; at 42+, update only the relevant checklist/manifest completion state;
-7. only then begin Harbor Arrival, then Market → Residential/Canal → Academy Exterior → Academy Interior/Sensei.
+1. review the scale reference scene beside the approved player and lock or adjust `docs/js/world/scale-guide.js` ratios;
+2. author/approve the shared-foundation modules against those ratios without altering the locked base sheets;
+3. run module and overlay QA (`validate-source-png.mjs`, `validate-world-data.mjs`), then register runtime modules in `authoredModules`;
+4. capture Slice 0 from the running Phaser canvas and score it;
+5. repair until all critical gates pass; at 42+, update only the relevant checklist/manifest completion state;
+6. only then begin Harbor Arrival, then Market → Residential/Canal → Academy Exterior → Academy Interior/Sensei.
 
 If an upstream gate fails, repair it before continuing downstream.

@@ -159,7 +159,8 @@ function validateCanonical() {
   assert(same(ps.sheetCanvas, [512, 64]), 'Player sheet canvas must be 512×64.');
   assert(same(ps.frame, [64, 64]), 'Player frame must be 64×64.');
   assert(ps.framesPerSheet === 8, 'Player sheet must hold eight directional frames.');
-  assert(same(ps.frameOrder, directions), 'Player frame order must list the eight canonical directions.');
+  assert(Array.isArray(ps.frameOrder) && same([...ps.frameOrder].sort(), [...directions].sort()), 'Player frame order must list each of the eight canonical directions once.');
+  assert(nonEmpty(ps.frameOrderStatus), 'Player frame order must state how it was confirmed.');
   assert(ps.inspectionScale === 10 && same(ps.inspectionCanvas, [5120, 640]), 'Inspection sheets must be 10× = 5120×640.');
   assert(ps.collision?.independentOfSprite === true && positivePair(ps.collision?.size), 'Player collision must be an authored box independent of the sprite frame.');
   assert(nonEmpty(ps.authority) && ps.authority.includes('64×64'), 'playerScale must declare the 64×64 player as world-scale authority.');
@@ -246,7 +247,7 @@ function validateActivePackage() {
   for (const sex of ['male', 'female']) {
     const b = ch.baseSheets?.[sex];
     assert(b && assetStatuses.includes(b.status), `baseSheets.${sex} needs a valid status.`);
-    assert(nonEmpty(b?.sourcePath) && b.sourcePath.endsWith('-512x64.png'), `baseSheets.${sex}.sourcePath must name the 512×64 approved sheet.`);
+    assert(nonEmpty(b?.sourcePath) && b.sourcePath.startsWith('Paperdolls/') && fs.existsSync(path.join(root, b.sourcePath)), `baseSheets.${sex}.sourcePath must name an existing approved Paperdolls sheet.`);
     assert(nonEmpty(b?.runtimePath) && b.runtimePath.startsWith('docs/assets/characters/'), `baseSheets.${sex}.runtimePath must live under docs/assets/characters/.`);
   }
   assert(nonEmpty(ch.baseRule) && ch.baseRule.includes('never redrawn'), 'Character baseRule must forbid redrawing approved sheets.');
@@ -255,6 +256,10 @@ function validateActivePackage() {
   validatePattern(ch.overlayPaths?.runtimePattern, 'overlay runtimePattern', ['layer', 'id']);
   validatePattern(ch.inspectionPattern, 'inspectionPattern', ['sheet']);
   assert(ch.inspectionPattern.includes('5120x640'), 'inspectionPattern must name the 5120×640 inspection size.');
+  const pd = ch.paperdolls || {};
+  assert(pd.sourceRoot === 'Paperdolls/' && nonEmpty(pd.registry) && fs.existsSync(path.join(root, pd.registry)), 'characterDependencies.paperdolls must name the Paperdolls source root and runtime registry.');
+  assert(same(pd.drawOrder, ['body', 'clothing', 'arms', 'shoulders', 'hair', 'eyes']), 'Paper-doll draw order drifted.');
+  assert(pd.starterOutfit === 'gi', 'The Gi must remain the starter outfit.');
   assert(ch.weaponRequired === false, 'First shared-foundation benchmark must remain unarmed unless re-contracted.');
   assert(Array.isArray(ch.underlayer) && ch.underlayer.includes('base shorts'), 'Character underlayer must retain base shorts.');
   assert(Array.isArray(ch.benchmarkOutfit) && ch.benchmarkOutfit.length >= 7, 'Character benchmark outfit is incomplete.');

@@ -202,7 +202,7 @@ Runtime layout:
 - `docs/js/world/maps.js` — authored world data: pixel-space collision, exits, NPCs, enemies, Slice 0 layer placements
 - `docs/js/world/scaffold-textures.js` — procedural stand-ins for the shared-foundation modules at manifest runtime sizes
 - `docs/js/world/scale-guide.js` — player-scale contract mirror and player-relative proportion ratios
-- `docs/js/world/characters.js` — registry for the approved 512×64 base sheets and their overlays
+- `docs/js/world/characters.js` — registry of the approved `/Paperdolls` layers (512×64, eight 64×64 frames) copied byte-identically to `docs/assets/characters/`
 - `docs/js/creator-ui.js`, `docs/js/astro-natal.js`, `docs/js/data/canonical-roster.js` — creator UI, natal engine, canonical ability data
 - `docs/vendor/phaser-4.2.1.min.js`, `docs/css/game.css`, `docs/assets/runtime/` — engine, styles, runtime images
 

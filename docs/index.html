@@ -73,46 +73,21 @@
         <header><span class="eyebrow">STEP 3 / 3</span><h1>Fighter Registration</h1><p>Cosmetics are separate runtime layers so each part can be replaced without rewriting movement or combat.</p></header>
         <div class="appearance-grid paperdoll-creator">
           <div class="paperdoll-stage">
-            <canvas id="paperdoll-preview" width="240" height="320" aria-label="Layered fighter preview"></canvas>
+            <canvas id="paperdoll-preview" width="256" height="256" aria-label="Layered fighter preview"></canvas>
             <div class="preview-controls">
               <button id="preview-left" type="button" aria-label="Rotate left">◀</button>
-              <span id="preview-facing">SOUTH</span>
+              <span id="preview-facing">S</span>
               <button id="preview-right" type="button" aria-label="Rotate right">▶</button>
             </div>
-            <div class="preview-anim-tabs">
-              <button type="button" data-preview-anim="idle" class="active">Idle</button>
-              <button type="button" data-preview-anim="walk">Walk</button>
-              <button type="button" data-preview-anim="ready">Ready</button>
-            </div>
-            <div class="paperdoll-note">Legacy 48×64 runtime candidate sheets · 8 directions · modular layers</div>
+            <div class="paperdoll-note">Approved 512×64 paper-doll layers · 64×64 frame shown at 4× nearest-neighbour</div>
           </div>
           <div class="form-grid compact creator-options">
             <label class="span-2">Fighter name<input id="fighter-name" value="Akio"></label>
-            <label>Skin tone<select id="skin-opt">
-              <option value="skin01">Warm Light</option><option value="skin02">Golden Brown</option><option value="skin03">Copper Brown</option><option value="skin04" selected>Deep Brown</option><option value="skin05">Deep Umber</option>
-            </select></label>
-            <label>Eye color<input id="eye-color" type="color" value="#57c5c0"></label>
-            <label>Afro hairstyle<select id="hair-opt">
-              <option value="afro_short">Short Afro</option><option value="high_puff" selected>High Puff</option><option value="locs_short">Short Freeform Locs</option><option value="twists">Braided Twists</option><option value="puff_undercut">Puff Undercut</option>
-            </select></label>
-            <label>Hair color<input id="hair-color" type="color" value="#24180f"></label>
-            <label>Inner top<select id="inner-top-opt">
-              <option value="wrap_top" selected>Wrapped Martial Top</option><option value="cropped_top">Cropped Fighter Top</option><option value="hoodie_under">Hooded Underlayer</option>
-            </select></label>
-            <label>Outerwear<select id="outerwear-opt">
-              <option value="patterned_haori" selected>Patterned Haori</option><option value="utility_haori">Utility Haori</option><option value="short_jacket">Short Street Jacket</option>
-            </select></label>
-            <label>Pants<select id="pants-opt">
-              <option value="loose_pants" selected>Loose Fighter Pants</option><option value="cuffed_trousers">Cuffed Trousers</option><option value="fighter_hakama">Fighter Hakama</option>
-            </select></label>
-            <label>Footwear<select id="shoes-opt">
-              <option value="wrapped_boots">Wrapped Boots</option><option value="sneaker_hybrid" selected>Sneaker Hybrid</option>
-            </select></label>
-            <label>Inner top color<input id="inner-color" type="color" value="#d1a455"></label>
-            <label>Outerwear color<input id="outer-color" type="color" value="#245e66"></label>
-            <label>Pants color<input id="pants-color" type="color" value="#2b2928"></label>
-            <label>Footwear color<input id="shoes-color" type="color" value="#755238"></label>
-            <label class="span-2">Starter equipment<select id="weapon-opt"><option value="katana01" selected>Katana + Scabbard + Charm</option><option value="none">No Weapon</option></select></label>
+            <label>Body<select id="sex-opt"><option value="male" selected>Male</option><option value="female">Female</option></select></label>
+            <label>Skin tone<select id="skin-opt"></select></label>
+            <label>Hair<select id="hair-opt"></select></label>
+            <label>Eyes<select id="eyes-opt"></select></label>
+            <div class="note span-2">Every fighter starts in the Academy <b>Gi</b>. Red and Blue Armor are sold by the Civic Ward armorer.</div>
           </div>
         </div>
         <div class="actions"><a id="appearance-back" class="button-link" href="#chart-overlay">Back to Chart</a><button id="enter-world-btn" class="primary">Enter Imperial Docks</button></div>

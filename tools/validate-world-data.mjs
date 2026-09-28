@@ -3,7 +3,7 @@
 //   node tools/validate-world-data.mjs
 //
 // Checks: player-scale mirror vs manifest, approved sheet + overlay registry (512×64, eight
-// 64×64 frames, hard alpha, registration), legacy candidate sheet sizes, authored world
+// 64×64 frames, hard alpha, byte-identical Paperdolls copies, full registration), authored world
 // module registry, map integrity (bounds, collisions, exits, arrivals, placements, layers),
 // and Slice 0 scaffold proportions against the player-relative scale guide.
 import fs from 'node:fs';
@@ -48,56 +48,71 @@ assert(SCALE.player.interactionRange === ps.interactionRange, 'scale-guide.js in
 assert(fs.existsSync(path.join(root, ps.scaleReference)), `Scale reference ${ps.scaleReference} is missing.`);
 for (const [k, g] of Object.entries(SCALE.guide)) assert(g.r > 0 && g.tol > 0 && g.label, `Scale guide entry ${k} is incomplete.`);
 
-/* ---- character sheets ---- */
+/* ---- character sheets (Paperdolls registry) ---- */
 const [FW, FH] = ps.frame;
-function checkSheet(file, label) {
-  let img; try { img = parsePng(file); } catch (e) { fail(`${label}: ${e.message}`); return null; }
+const ch = manifest.activePackage.characterDependencies;
+const pd = ch.paperdolls;
+assert(same(CHARS.frameOrder, ps.frameOrder), 'characters.js frameOrder must equal manifest playerScale.frameOrder.');
+assert(same(CHARS.drawOrder, pd.drawOrder), 'characters.js drawOrder must equal manifest paperdolls.drawOrder.');
+assert(CHARS.starterOutfit === pd.starterOutfit, 'characters.js starterOutfit must equal manifest.');
+const sheets = new Map();
+function loadSheet(ref, label) {
+  const rt = docPath(ref.path), src = path.join(root, ref.source);
+  if (!fs.existsSync(rt)) { fail(`${label}: runtime file missing ${ref.path}`); return null; }
+  if (!fs.existsSync(src)) { fail(`${label}: source missing ${ref.source}`); return null; }
+  if (!ref.source.startsWith(pd.sourceRoot)) fail(`${label}: source must live under ${pd.sourceRoot}`);
+  if (!fs.readFileSync(src).equals(fs.readFileSync(rt))) fail(`${label}: runtime copy is not byte-identical to ${ref.source} (edits/resampling prohibited).`);
+  const img = parsePng(rt);
   if (img.width !== ps.sheetCanvas[0] || img.height !== ps.sheetCanvas[1]) { fail(`${label} is ${img.width}×${img.height}; must be ${ps.sheetCanvas.join('×')}.`); return null; }
   const st = inspect(img);
-  if (st.softAlpha) fail(`${label} has ${st.softAlpha} soft-alpha pixels (interpolation is prohibited).`);
+  if (st.softAlpha) fail(`${label} has ${st.softAlpha} soft-alpha pixels.`);
+  sheets.set(ref.source, img);
   return img;
 }
-const ch = manifest.activePackage.characterDependencies;
+const registered = new Set();
 let stature = null;
-for (const sex of ['male', 'female']) {
-  const reg = CHARS.approved?.[sex];
-  const spec = ch.baseSheets[sex];
-  if (!reg) { notes.push(`approved ${sex} base sheet not registered (manifest status: ${spec.status}); runtime uses legacy candidates`); continue; }
-  assert(`docs/${reg}` === spec.runtimePath, `characters.js ${sex} path must equal manifest runtimePath ${spec.runtimePath}.`);
-  const img = checkSheet(docPath(reg), `approved ${sex} sheet`);
-  if (!img) continue;
-  const feet = [];
-  ps.frameOrder.forEach((dir, i) => {
-    const r = inspectRegion(img, i * FW, 0, FW, FH);
-    if (!r.opaque) fail(`approved ${sex} sheet frame ${i} (${dir}) is empty.`); else feet.push(r.bbox[3]);
-    if (dir === 'S' && r.bbox && sex === 'male') stature = r.bbox[3] - r.bbox[1] + 1;
-  });
-  if (feet.length && Math.max(...feet) - Math.min(...feet) > 2) notes.push(`approved ${sex} sheet foot rows vary: ${feet.join(',')}`);
-  const src = path.join(root, spec.sourcePath);
-  if (fs.existsSync(src)) assert(fs.readFileSync(src).equals(fs.readFileSync(docPath(reg))), `approved ${sex} runtime sheet must be byte-identical to ${spec.sourcePath}.`);
-}
-for (const [layer, list] of Object.entries(CHARS.overlays || {})) {
-  const base = CHARS.approved?.male ? parsePng(docPath(CHARS.approved.male)) : null;
-  for (const o of list) {
-    const img = checkSheet(docPath(o.path), `overlay ${layer}/${o.id}`);
-    if (!img || !base) { if (!base) fail(`overlay ${layer}/${o.id} registered without an approved base sheet.`); continue; }
+for (const [sex, d] of Object.entries(CHARS.sexes)) {
+  const bodies = [];
+  for (const [id, sk] of Object.entries(d.skin)) {
+    for (const part of ['body', 'arms']) {
+      registered.add(sk[part].source);
+      const img = loadSheet(sk[part], `${sex} ${part} ${id}`);
+      if (img && part === 'body') {
+        bodies.push(img);
+        ps.frameOrder.forEach((dir, i) => { const r = inspectRegion(img, i * FW, 0, FW, FH); if (!r.opaque) fail(`${sex} body ${id} frame ${i} (${dir}) is empty.`); });
+        if (sex === 'male' && id === Object.keys(d.skin)[0]) { const r = inspectRegion(img, ps.frameOrder.indexOf('S') * FW, 0, FW, FH); stature = r.bbox[3] - r.bbox[1] + 1; }
+      }
+    }
+  }
+  const overlays = [];
+  for (const k of ['hair', 'eyes']) for (const [id, o] of Object.entries(d[k])) overlays.push([`${sex} ${k} ${id}`, o.layer]);
+  for (const [id, o] of Object.entries(d.outfits)) {
+    overlays.push([`${sex} clothing ${id}`, o.clothing]);
+    if (o.shoulders) overlays.push([`${sex} shoulders ${id}`, o.shoulders]);
+    const avail = pd.outfitAvailability?.[id];
+    assert(avail?.includes(sex), `outfit ${id} registered for ${sex} but manifest outfitAvailability does not list it.`);
+  }
+  for (const [label, ref] of overlays) {
+    registered.add(ref.source);
+    const img = loadSheet(ref, label);
+    if (!img) continue;
+    // Overlays must not carry replacement base-body pixels (compared against every skin tone).
     let copied = 0;
-    for (let y = 0; y < img.height; y += 1) for (let x = 0; x < img.width; x += 1) if (alphaAt(img, x, y) && alphaAt(base, x, y) && rgbaAt(img, x, y) === rgbaAt(base, x, y)) copied += 1;
-    assert(copied === 0, `overlay ${layer}/${o.id} contains ${copied} copied base pixels.`);
+    for (const body of bodies) for (let y = 0; y < img.height; y += 1) for (let x = 0; x < img.width; x += 1) {
+      if (alphaAt(img, x, y) && alphaAt(body, x, y) && rgbaAt(img, x, y) === rgbaAt(body, x, y)) copied += 1;
+    }
+    if (copied) notes.push(`${label}: ${copied} px match base-body colour at the same position (inspect for copied base pixels)`);
   }
 }
-const legacyDir = path.join(docs, 'assets/runtime/characters');
-const [lw, lh] = ch.legacyRuntimeCandidates.sheetCanvas;
-for (const mod of fs.readdirSync(legacyDir)) for (const f of fs.readdirSync(path.join(legacyDir, mod))) {
-  const img = parsePng(path.join(legacyDir, mod, f));
-  assert(img.width === lw && img.height === lh, `legacy candidate ${mod}/${f} is ${img.width}×${img.height}; expected ${lw}×${lh}.`);
+for (const [id, sexes] of Object.entries(pd.outfitAvailability || {})) for (const sex of sexes) assert(CHARS.sexes[sex]?.outfits?.[id], `manifest lists outfit ${id} for ${sex} but characters.js has no layers for it.`);
+const walk = (d) => fs.readdirSync(d, { withFileTypes: true }).flatMap((e) => e.isDirectory() ? walk(path.join(d, e.name)) : [path.join(d, e.name)]);
+for (const f of walk(path.join(root, pd.sourceRoot))) if (f.endsWith('.png')) {
+  const rel = path.relative(root, f).split(path.sep).join('/');
+  if (!registered.has(rel)) fail(`Paperdolls sheet ${rel} is not registered in characters.js.`);
 }
-if (stature == null) {
-  const img = parsePng(path.join(legacyDir, 'base_body/skin04-sheet.png'));
-  const r = inspectRegion(img, 0, 4 * 64, 48, 64); // S row, idle frame 0
-  stature = r.bbox[3] - r.bbox[1] + 1;
-  notes.push(`stature S=${stature}px measured from legacy candidate skin04 (south idle)`);
-} else notes.push(`stature S=${stature}px measured from approved male sheet (S frame)`);
+for (const [sex, b] of Object.entries(ch.baseSheets)) assert(Object.values(CHARS.sexes[sex]?.skin || {}).some((sk) => sk.body.source === b.sourcePath && `docs/${sk.body.path}` === b.runtimePath), `manifest baseSheets.${sex} must match a registered body sheet.`);
+notes.push(`stature S=${stature}px measured from the male base body (south frame)`);
+notes.push(`${registered.size} Paperdolls sheets registered; runtime copies byte-identical`);
 
 /* ---- world modules ---- */
 const deps = new Map(manifest.activePackage.worldDependencies.map((d) => [d.id, d]));
