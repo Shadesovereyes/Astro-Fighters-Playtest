@@ -236,7 +236,7 @@ Do not create permanent versioned status files or duplicate completion checklist
 
 `production/SLICE_0_SOURCE_ART_BRIEF.md` is a temporary active execution brief. Retire it after Slice 0 is locked and the next package becomes authoritative.
 
-The current `docs/index.html`, `play-v4.html`, and launcher patch may contain prototype debt. Their existence does not make their architecture canonical.
+The current `docs/index.html` runtime and its legacy baked district backdrops may contain prototype debt. Their existence does not make their architecture canonical. Slice 0 scaffold textures (`docs/js/world/scaffold-textures.js`) are engine scaffolding only and must never be marked source-approved, runtime-candidate, integrated, or approved.
 
 ---
 

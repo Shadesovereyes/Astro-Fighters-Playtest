@@ -181,11 +181,23 @@ Approval also requires zero automatic failures and all critical category minimum
 
 # Run / review surfaces
 
-- `/docs/index.html` — current base runtime/prototype
-- `/docs/play-v4.html` — current playtest launcher wrapper
+- `/docs/index.html` — playtest runtime (title → character creator → Imperial Docks)
+- `/docs/index.html?slice0` — Slice 0 Foundation Courtyard engine test (modular Phaser layers, scaffold textures)
+- `/docs/index.html?selftest` — in-runtime self-test suite (`?quickstart`, `?academy`, `?fringe` jump straight in)
 - `/docs/art-review.html` — browser review/scoring surface
+- `/docs/play-v4.html` — redirect to `index.html` for old links
 
-The launcher/patch and monolithic base runtime are temporary technical debt where identified by `PHASER_WORLD_REFACTOR_V0.md`; do not treat their current architecture as the production target simply because it already runs.
+Runtime layout:
+
+- `docs/js/game.js` — scenes, real-time movement, combat, traps, dialogue, save
+- `docs/js/world/maps.js` — authored world data: pixel-space collision, exits, NPCs, enemies, Slice 0 layer placements
+- `docs/js/world/scaffold-textures.js` — procedural stand-ins for the shared-foundation modules at manifest runtime sizes
+- `docs/js/creator-ui.js`, `docs/js/astro-natal.js`, `docs/js/data/canonical-roster.js` — creator UI, natal engine, canonical ability data
+- `docs/vendor/phaser-4.2.1.min.js`, `docs/css/game.css`, `docs/assets/runtime/` — engine, styles, runtime images
+
+Local play must be served over HTTP (WebGL refuses `file://` textures), e.g. `npx http-server docs`. `node tools/build-standalone.mjs` generates a single-file offline build in `dist/`. `node tools/smoke-playtest.mjs [--shots <dir>]` runs the self-tests and a real-input check in headless Chromium and can capture Phaser-canvas screenshots.
+
+The four legacy districts (Docks, Civic, Academy, Fringe) still render baked district backdrops. They are temporary non-reviewable development backdrops with authored collision laid over them, not production world assets.
 
 ---
 

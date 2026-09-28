@@ -212,13 +212,13 @@ They may not be marked `source-approved`, `runtime-candidate`, `integrated`, or 
 
 The Phaser world refactor is sufficiently proven for continued city production when:
 
-- [ ] the visible debug grid is absent from normal gameplay;
-- [ ] exploration movement is continuous real-time rather than tile-step cadence;
-- [ ] Slice 0 loads multiple separate environment textures rather than one baked background;
-- [ ] collision exists separately from artwork;
-- [ ] one foreground/architectural occlusion case works live;
-- [ ] the paper-doll player remains eight-directional;
-- [ ] pixel-art renderer settings remain enabled;
+- [x] the visible debug grid is absent from normal gameplay;
+- [x] exploration movement is continuous real-time rather than tile-step cadence;
+- [x] Slice 0 loads multiple separate environment textures rather than one baked background; *(procedural scaffold textures until authored modules are approved)*
+- [x] collision exists separately from artwork;
+- [x] one foreground/architectural occlusion case works live;
+- [x] the paper-doll player remains eight-directional;
+- [x] pixel-art renderer settings remain enabled;
 - [ ] an actual Phaser-canvas screenshot is used for the integrated art review;
 - [ ] no collage/full-frame background is being treated as a production world asset.
 

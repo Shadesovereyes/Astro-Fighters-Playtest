@@ -1,6 +1,6 @@
 # Astro Fighters — Current Development Status
 
-**Updated:** 2026-09-09  
+**Updated:** 2026-09-28  
 **Authoritative branch:** `main`  
 **Current milestone:** Imperial City Early Player Experience v0  
 **Immediate runtime gate:** Phaser World Refactor v0 + Slice 0 Foundation Courtyard
@@ -49,15 +49,24 @@ Crab-island/cave production remains outside this milestone gate.
 
 ## Immediate technical gate
 
-The current browser prototype genuinely uses Phaser, but its world layer still contains prototype debt:
+Runtime state after the world refactor pass (2026-09-28):
 
-- baked full-frame district imagery;
-- visible 32×32 route/grid presentation;
-- fixed integer tile-step exploration;
-- collision tied too closely to grid rectangles;
-- limited live depth/occlusion behavior.
+- `docs/index.html` is now a thin shell; engine, data, natal engine, world data, runtime, and images are separate files under `/docs`;
+- exploration is continuous real-time movement (112 px/s, delta-time, normalized diagonals, eight-direction facing from the movement vector);
+- the visible 32×32 route/grid overlay is removed; the grid survives only as a logic unit;
+- collision is authored pixel-space data in `docs/js/world/maps.js`, independent of imagery (F2 shows a debug view);
+- actors, architecture, and props are depth-sorted by foot line; authored occluders fade when the player is behind them;
+- combat is real time: wind-up/recovery commitment, enemy telegraphs, guard, dash with invulnerability, poise stagger, projectiles, placeable Academy traps;
+- Slice 0 Foundation Courtyard (`?slice0`) is assembled in Phaser from separate module textures routed into the manifest layer order.
 
-`PHASER_WORLD_REFACTOR_V0.md` is the active correction plan.
+Remaining debt:
+
+- Slice 0 modules are **procedural scaffold textures**, not modular source art or runtime candidates; authored runtime PNGs register through `authoredModules` in `docs/js/world/maps.js`;
+- Docks, Civic Ward, Academy, and Fringe still use **baked full-frame district backdrops** as temporary non-reviewable development backdrops;
+- the paper-doll runtime still uses the legacy 48×64 candidate sheets, not the locked 512×64 finalized character sheets;
+- no Phaser-canvas integrated art review has been scored.
+
+`PHASER_WORLD_REFACTOR_V0.md` remains the active correction plan until its last two gate items pass.
 
 Before Slice 0 can be called integrated, the runtime must prove:
 

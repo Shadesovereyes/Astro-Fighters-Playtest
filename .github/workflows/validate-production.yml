@@ -27,7 +27,7 @@ jobs:
           node --check tools/validate-production.mjs
           node --check tools/validate-source-png.mjs
           node --check docs/js/art-review.js
-          node --check docs/js/playtest-v4-patch.js
+          for f in docs/js/*.js docs/js/world/*.js docs/js/data/*.js tools/smoke-playtest.mjs tools/build-standalone.mjs; do node --check "$f"; done
 
       - name: Validate production manifest and art rubric
         run: node tools/validate-production.mjs
