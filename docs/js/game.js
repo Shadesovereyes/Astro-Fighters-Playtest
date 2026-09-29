@@ -200,10 +200,45 @@
     'blue-armor':{name:'Blue Armor',price:80,defense:.15,description:'Blue plate over a fighter wrap, with shoulder guards. Absorbs 15% of incoming damage.'}
   };
   const DEFAULT_LOOK = {sex:'male',skin:'tone2',hair:'afro',eyes:'brown',outfit:CHARS.starterOutfit};
+  /* Eye tint. `eyeColor` is the darker iris shade the player picked. A preset's own darker shade uses
+     that preset's authored sheet unchanged; any other colour recolours the template sheet's two iris
+     colours, deriving the lighter shade with the reference preset's light↔dark shift. */
+  const HEX6=/^#[0-9a-f]{6}$/i;
+  const eyePresets=sex=>CHARS.sexes[sex].eyes;
+  let IRIS_SHIFT=null;
+  function irisShift(){
+    if(!IRIS_SHIFT){ const ref=eyePresets('male')[CHARS.irisShift.reference].iris; IRIS_SHIFT=AF_COLOUR.measureShift(ref.light,ref.dark); }
+    return IRIS_SHIFT;
+  }
+  function irisPairFromDark(dark){ return {dark:dark.toLowerCase(),light:AF_COLOUR.lightenByShift(dark,irisShift())}; }
+  function presetForDark(sex,dark){ return Object.entries(eyePresets(sex)).find(([,o])=>o.iris.dark.toLowerCase()===String(dark).toLowerCase())?.[0]||null; }
   function sanitizeLook(a){
     const sex=CHARS.sexes[a?.sex]?a.sex:'male', d=CHARS.sexes[sex];
     const pick=(k,v)=>d[k][v]?v:Object.keys(d[k])[0];
-    return {sex,skin:pick('skin',a?.skin),hair:pick('hair',a?.hair),eyes:pick('eyes',a?.eyes),outfit:d.outfits[a?.outfit]?a.outfit:CHARS.starterOutfit};
+    const eyes=pick('eyes',a?.eyes);
+    const eyeColor=HEX6.test(a?.eyeColor||'')?a.eyeColor.toLowerCase():d.eyes[eyes].iris.dark.toLowerCase();
+    return {sex,skin:pick('skin',a?.skin),hair:pick('hair',a?.hair),eyes:presetForDark(sex,eyeColor)||eyes,eyeColor,outfit:d.outfits[a?.outfit]?a.outfit:CHARS.starterOutfit};
+  }
+  /* Eyes layer for a look: the authored preset sheet, or a recolour of the template sheet. */
+  function eyeLayer(L){
+    const d=CHARS.sexes[L.sex], preset=presetForDark(L.sex,L.eyeColor);
+    if(preset) return {slot:'eyes',key:layerKey(L.sex,'eyes',preset),path:d.eyes[preset].layer.path};
+    const t=d.eyes[CHARS.irisTemplate], pair=irisPairFromDark(L.eyeColor);
+    return {slot:'eyes',key:`pd-${L.sex}-eyes-${pair.dark.slice(1)}`,baseKey:layerKey(L.sex,'eyes',CHARS.irisTemplate),path:t.layer.path,
+      recolor:{[t.iris.dark.toLowerCase()]:pair.dark,[t.iris.light.toLowerCase()]:pair.light}};
+  }
+  /* Mechanical recolour of exact colours on a copy of a sheet; positions and alpha are untouched. */
+  function recolorCanvas(img,map){
+    const c=document.createElement('canvas'); c.width=img.width; c.height=img.height;
+    const g=c.getContext('2d',{willReadFrequently:true}); g.drawImage(img,0,0);
+    const id=g.getImageData(0,0,c.width,c.height), d=id.data;
+    for(let i=0;i<d.length;i+=4){ if(!d[i+3]) continue; const h='#'+[d[i],d[i+1],d[i+2]].map(v=>v.toString(16).padStart(2,'0')).join(''), n=map[h]; if(n){ d[i]=parseInt(n.slice(1,3),16); d[i+1]=parseInt(n.slice(3,5),16); d[i+2]=parseInt(n.slice(5,7),16); } }
+    g.putImageData(id,0,0); return c;
+  }
+  function ensureLayerTexture(scene,l){
+    if(!l.recolor||scene.textures.exists(l.key)||!scene.textures.exists(l.baseKey)) return;
+    const t=scene.textures.addCanvas(l.key,recolorCanvas(scene.textures.get(l.baseKey).getSourceImage(),l.recolor));
+    for(let i=0;i<SCALE.player.framesPerSheet;i++) t.add(i,0,i*SCALE.player.frame[0],0,SCALE.player.frame[0],SCALE.player.frame[1]);
   }
   const outfitFits=(sex,id)=>!!CHARS.sexes[sex]?.outfits?.[id];
   const layerKey=(sex,slot,id)=>`pd-${sex}-${slot}-${id}`;
@@ -212,8 +247,8 @@
   /* Ordered layers for a look, following CHARS.drawOrder: body → clothing → arms → shoulders → hair → eyes. */
   function lookLayers(look){
     const L=sanitizeLook(look), d=CHARS.sexes[L.sex], o=d.outfits[L.outfit];
-    const bySlot={shadow:['contact',CHARS.contactShadow],body:[L.skin,d.skin[L.skin].body],clothing:[L.outfit,o.clothing],arms:[L.skin,d.skin[L.skin].arms],shoulders:[L.outfit,o.shoulders],hair:[L.hair,d.hair[L.hair].layer],eyes:[L.eyes,d.eyes[L.eyes].layer]};
-    return CHARS.drawOrder.filter(slot=>bySlot[slot]?.[1]).map(slot=>({slot,key:slot==='shadow'?SHADOW_KEY:layerKey(L.sex,slot,bySlot[slot][0]),path:bySlot[slot][1].path}));
+    const bySlot={shadow:['contact',CHARS.contactShadow],body:[L.skin,d.skin[L.skin].body],clothing:[L.outfit,o.clothing],arms:[L.skin,d.skin[L.skin].arms],shoulders:[L.outfit,o.shoulders],hair:[L.hair,d.hair[L.hair].layer]};
+    return CHARS.drawOrder.filter(slot=>slot==='eyes'||bySlot[slot]?.[1]).map(slot=>slot==='eyes'?eyeLayer(L):({slot,key:slot==='shadow'?SHADOW_KEY:layerKey(L.sex,slot,bySlot[slot][0]),path:bySlot[slot][1].path}));
   }
   function allLayerRefs(){
     const refs=[];
@@ -226,10 +261,19 @@
   }
 
   /* ---- character creator preview (mechanical layer composite, integer 4× nearest-neighbour) ---- */
-  function readCreatorAppearance(){ return sanitizeLook({sex:$('sex-opt')?.value,skin:$('skin-opt')?.value,hair:$('hair-opt')?.value,eyes:$('eyes-opt')?.value,outfit:CHARS.starterOutfit}); }
+  function readCreatorAppearance(){ return sanitizeLook({sex:$('sex-opt')?.value,skin:$('skin-opt')?.value,hair:$('hair-opt')?.value,eyeColor:$('eye-color')?.value,outfit:CHARS.starterOutfit}); }
+  function updateEyePair(){
+    const L=readCreatorAppearance(), preset=presetForDark(L.sex,L.eyeColor);
+    const pair=preset?eyePresets(L.sex)[preset].iris:irisPairFromDark(L.eyeColor);
+    const [dark,light]=$('eye-pair').children; dark.style.background=pair.dark; light.style.background=pair.light;
+    $('eye-pair').title=`Darker ${pair.dark} · lighter ${pair.light}${preset?` (${eyePresets(L.sex)[preset].label} preset)`:' (derived)'}`;
+  }
   function fillCreatorOptions(){
     const d=CHARS.sexes[$('sex-opt').value]||CHARS.sexes.male;
-    for(const [id,k] of [['skin-opt','skin'],['hair-opt','hair'],['eyes-opt','eyes']]){
+    $('eye-presets').innerHTML=Object.values(d.eyes).map(o=>`<button type="button" data-eye="${o.iris.dark}"><i style="background:${o.iris.dark}"></i>${safeText(o.label)}</button>`).join('');
+    $('eye-presets').querySelectorAll('[data-eye]').forEach(b=>b.addEventListener('click',()=>{$('eye-color').value=b.dataset.eye;updateEyePair();drawPaperDollPreview();}));
+    updateEyePair();
+    for(const [id,k] of [['skin-opt','skin'],['hair-opt','hair']]){
       const sel=$(id), prev=sel.value;
       sel.innerHTML=Object.entries(d[k]).map(([v,o])=>`<option value="${v}">${safeText(o.label)}</option>`).join('');
       if(d[k][prev]) sel.value=prev;
@@ -244,7 +288,7 @@
   async function drawPaperDollPreview(){
     const canvas=$('paperdoll-preview'); if(!canvas||$('appearance-overlay').classList.contains('hidden')) return;
     const token=++creatorToken, imgs=[];
-    for(const l of lookLayers(readCreatorAppearance())){ try{imgs.push([l.slot,await loadDomImage(l.path)]);}catch(e){console.warn(e);} }
+    for(const l of lookLayers(readCreatorAppearance())){ try{const im=await loadDomImage(l.path);imgs.push([l.slot,l.recolor?recolorCanvas(im,l.recolor):im]);}catch(e){console.warn(e);} }
     if(token!==creatorToken) return;
     const g=canvas.getContext('2d'); g.imageSmoothingEnabled=false;
     const grad=g.createLinearGradient(0,0,0,canvas.height);grad.addColorStop(0,'#263a42');grad.addColorStop(.78,'#1a2023');grad.addColorStop(.785,'#5e5643');grad.addColorStop(1,'#342d25');g.fillStyle=grad;g.fillRect(0,0,canvas.width,canvas.height);
@@ -257,7 +301,8 @@
   function startCreatorPreview(){ if(!$('skin-opt').options.length) fillCreatorOptions(); drawPaperDollPreview(); }
   function bindCreatorPreview(){
     $('sex-opt')?.addEventListener('input',()=>{fillCreatorOptions();drawPaperDollPreview();});
-    for(const id of ['skin-opt','hair-opt','eyes-opt']) $(id)?.addEventListener('input',()=>drawPaperDollPreview());
+    for(const id of ['skin-opt','hair-opt']) $(id)?.addEventListener('input',()=>drawPaperDollPreview());
+    $('eye-color')?.addEventListener('input',()=>{updateEyePair();drawPaperDollPreview();});
     $('preview-left')?.addEventListener('click',()=>{creatorFacing=COMPASS[(COMPASS.indexOf(creatorFacing)+7)%8];drawPaperDollPreview();});
     $('preview-right')?.addEventListener('click',()=>{creatorFacing=COMPASS[(COMPASS.indexOf(creatorFacing)+1)%8];drawPaperDollPreview();});
   }
@@ -268,6 +313,7 @@
     apply(look){
       const layers=lookLayers(look), sig=layers.map(l=>l.key).join('|');
       if(sig===this.sig) return; this.sig=sig; this.look=sanitizeLook(look);
+      for(const l of layers) ensureLayerTexture(this.scene,l);
       for(const e of this.sprites) e.sprite.destroy();
       this.sprites=layers.filter(l=>this.scene.textures.exists(l.key)).map(l=>{
         const sp=this.scene.add.sprite(0,0,l.key,this.frame).setOrigin(SCALE.player.pivotX/64,(FOOT_Y+1)/64);
@@ -1105,6 +1151,9 @@
     test('Player contract is the 512×64 sheet of eight 64×64 frames',()=>JSON.stringify(SCALE.player.sheetCanvas)==='[512,64]'&&JSON.stringify(SCALE.player.frame)==='[64,64]'&&SCALE.player.framesPerSheet===8&&SCALE.player.frameOrder.length===8);
     test('Every registered paper-doll layer loads as a 512×64 sheet of eight 64×64 frames',()=>allLayerRefs().every(([k])=>game.textures.exists(k)&&game.textures.get(k).getSourceImage().width===512&&game.textures.get(k).getSourceImage().height===64&&game.textures.get(k).frameTotal-1===8));
     test('Frame order is the confirmed approved order (S first)',()=>JSON.stringify(CHARS.frameOrder)===JSON.stringify(SCALE.player.frameOrder)&&CHARS.frameOrder[0]==='S');
+    test('Eye tint: Purple darker shade reproduces the authored Purple lighter shade',()=>{const o=eyePresets('male').purple.iris,d=irisPairFromDark(o.dark).light;return [1,3,5].every(i=>Math.abs(parseInt(d.slice(i,i+2),16)-parseInt(o.light.slice(i,i+2),16))<=2);});
+    test('Eye tint: a preset darker shade uses the authored sheet unchanged',()=>eyeLayer(sanitizeLook({sex:'female',eyeColor:'#754c2b'})).key===layerKey('female','eyes','brown')&&!eyeLayer(sanitizeLook({sex:'female',eyeColor:'#754c2b'})).recolor);
+    test('Eye tint: a custom darker shade recolours only the two iris colours',()=>{const look={...state.appearance,eyeColor:'#1f6b3a'};const d=new PaperDoll(S,look,0,0);const e=d.sprites.find(x=>x.def.slot==='eyes');const src=S.textures.get(e.variant).getSourceImage(),tpl=S.textures.get(layerKey(look.sex,'eyes','brown')).getSourceImage();const rd=im=>{const c=document.createElement('canvas');c.width=512;c.height=64;const g=c.getContext('2d');g.drawImage(im,0,0);return g.getImageData(0,0,512,64).data;};const a=rd(src),b=rd(tpl),pair=irisPairFromDark('#1f6b3a');const hx=(p,i)=>'#'+[p[i],p[i+1],p[i+2]].map(v=>v.toString(16).padStart(2,'0')).join('');let ok=e.variant==='pd-'+look.sex+'-eyes-1f6b3a';for(let i=0;i<a.length&&ok;i+=4){if(a[i+3]!==b[i+3]){ok=false;break;}if(!b[i+3])continue;const t=hx(b,i),n=hx(a,i);if(t==='#754c2b')ok=n===pair.dark;else if(t==='#a36b3e')ok=n===pair.light;else ok=n===t;}d.destroy();return ok;});
     test('Four skin tones share identical body geometry (palette swaps only)',()=>{const alphaOf=k=>{const src=game.textures.get(k).getSourceImage(),c=document.createElement('canvas');c.width=512;c.height=64;const g=c.getContext('2d');g.drawImage(src,0,0);const d=g.getImageData(0,0,512,64).data;let h=0;for(let i=3;i<d.length;i+=4)h=(h*31+(d[i]?1:0))|0;return h;};return ['male','female'].every(sx=>{const base=alphaOf(layerKey(sx,'body','tone1')),deep=alphaOf(layerKey(sx,'body','tone2'));return alphaOf(layerKey(sx,'body','tone0'))===base&&alphaOf(layerKey(sx,'body','tone3'))===deep;});});
     test('Male and female options: 4 skin tones, hair, 2 eye colours',()=>Object.keys(CHARS.sexes.male.skin).join()==='tone0,tone1,tone2,tone3'&&Object.keys(CHARS.sexes.female.skin).length===4&&Object.keys(CHARS.sexes.male.hair).length===3&&Object.keys(CHARS.sexes.female.hair).length===2&&Object.keys(CHARS.sexes.male.eyes).length===2);
     test('Draw order is shadow, body, clothing, arms, shoulders, hair, eyes',()=>lookLayers({sex:'male',outfit:'red-armor'}).map(l=>l.slot).join()==='shadow,body,clothing,arms,shoulders,hair,eyes');

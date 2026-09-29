@@ -127,6 +127,27 @@ if (CHARS.contactShadow) {
     notes.push(`contact shadow: 512×64 on body registration (derivation: ${cs.derivation || 'copy'})`);
   }
 }
+// Eye sheets: only black/white/grey plus the two iris colours declared in characters.js, and the iris
+// occupies the same pixels in every preset, so any preset can serve as the recolour template.
+const EYE_KEEP = new Set(['#000000', '#ffffff', '#e3e3e3']);
+assert(CHARS.irisTemplate && CHARS.irisShift?.reference, 'characters.js must declare irisTemplate and irisShift.reference.');
+for (const [sex, d] of Object.entries(CHARS.sexes)) {
+  let irisMask = null;
+  for (const [id, o] of Object.entries(d.eyes)) {
+    assert(/^#[0-9a-f]{6}$/.test(o.iris?.light || '') && /^#[0-9a-f]{6}$/.test(o.iris?.dark || ''), `${sex} eyes ${id} must declare iris.light and iris.dark.`);
+    const img = sheets.get(o.layer.source); if (!img) continue;
+    const mask = [];
+    for (let i = 0; i < img.pixels.length; i += 4) {
+      if (!img.pixels[i + 3]) continue;
+      const h = '#' + [0, 1, 2].map((j) => img.pixels[i + j].toString(16).padStart(2, '0')).join('');
+      if (h === o.iris.light || h === o.iris.dark) mask.push(`${i}${h === o.iris.dark ? 'd' : 'l'}`);
+      else if (!EYE_KEEP.has(h)) fail(`${sex} eyes ${id}: colour ${h} is neither black/white/grey nor a declared iris colour.`);
+    }
+    const sig = mask.join(',');
+    if (irisMask == null) irisMask = sig; else assert(sig === irisMask, `${sex} eyes ${id}: iris pixels differ from the other presets; recolouring the template would not match.`);
+  }
+  assert(d.eyes[CHARS.irisTemplate] && d.eyes[CHARS.irisShift.reference], `${sex}: irisTemplate/irisShift reference preset missing.`);
+}
 for (const [id, sexes] of Object.entries(pd.outfitAvailability || {})) for (const sex of sexes) assert(CHARS.sexes[sex]?.outfits?.[id], `manifest lists outfit ${id} for ${sex} but characters.js has no layers for it.`);
 const walk = (d) => fs.readdirSync(d, { withFileTypes: true }).flatMap((e) => e.isDirectory() ? walk(path.join(d, e.name)) : [path.join(d, e.name)]);
 for (const f of walk(path.join(root, pd.sourceRoot))) if (f.endsWith('.png')) {

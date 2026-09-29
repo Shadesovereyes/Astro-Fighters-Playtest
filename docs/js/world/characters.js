@@ -14,6 +14,11 @@
     // Shared by every actor: 512×64, eight 64×64 frames, drawn under the body on the same registration.
     contactShadow: {path: 'assets/characters/shadow/contact-shadow.png', source: 'Paperdolls/contact-shadow.png', derivation: 'copy'},
     starterOutfit: 'gi',
+    // Eye tint: only the two iris colours of each eyes sheet change; black, white, and grey stay.
+    // The player picks the darker iris shade; the lighter shade keeps the light↔dark OKLCH shift of
+    // the reference preset (Purple: lighter = ΔL +0.243, chroma ÷0.954, same hue), applied to the template sheet.
+    irisShift: {reference: 'purple'},
+    irisTemplate: 'brown',
     sexes: {
       "male": {
         "skin": {
@@ -91,6 +96,10 @@
             "layer": {
               "path": "assets/characters/male/eyes/brown.png",
               "source": "Paperdolls/Male/Layer 6 - Eyes/Brown Eyes.png"
+            },
+            "iris": {
+              "light": "#a36b3e",
+              "dark": "#754c2b"
             }
           },
           "purple": {
@@ -98,6 +107,10 @@
             "layer": {
               "path": "assets/characters/male/eyes/purple.png",
               "source": "Paperdolls/Male/Layer 6 - Eyes/Purple Eyes.png"
+            },
+            "iris": {
+              "light": "#e39ced",
+              "dark": "#93549c"
             }
           }
         },
@@ -202,6 +215,10 @@
             "layer": {
               "path": "assets/characters/female/eyes/brown.png",
               "source": "Paperdolls/Female/Layer 5 - Eyes/Brown Eyes.png"
+            },
+            "iris": {
+              "light": "#a36b3e",
+              "dark": "#754c2b"
             }
           },
           "purple": {
@@ -209,6 +226,10 @@
             "layer": {
               "path": "assets/characters/female/eyes/purple.png",
               "source": "Paperdolls/Female/Layer 5 - Eyes/Purple Eyes.png"
+            },
+            "iris": {
+              "light": "#e39ced",
+              "dark": "#93549c"
             }
           }
         },

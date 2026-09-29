@@ -648,6 +648,18 @@
             }
           },
           "status": "tone0 Fair and tone3 Umber palettes approved by the user on 2026-09-29 (visual approval of the derived ramps; not a rubric score)"
+        },
+        "eyeTint": {
+          "pick": "darker iris shade (player-chosen)",
+          "derive": "lighter iris shade = reference preset light↔dark OKLCH shift reversed (Purple: ΔL +0.243, chroma ÷0.954, same hue); chroma reduced only if out of sRGB",
+          "unchanged": [
+            "#000000",
+            "#ffffff",
+            "#e3e3e3"
+          ],
+          "template": "brown",
+          "reference": "purple",
+          "rule": "presets whose darker shade is chosen use their authored sheet unchanged; other colours recolour only the template sheet’s two iris colours at runtime (positions and alpha untouched)"
         }
       }
     },
