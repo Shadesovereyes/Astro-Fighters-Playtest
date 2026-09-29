@@ -68,7 +68,7 @@ Open QA issues (per-asset detail in `production/asset-manifest.json` → `qaIssu
 - `stains` reads as a solid dark oval rather than irregular soot wear;
 - `timber-plaster-wall`, `noren`, `lantern-post`, `crate-stack` were exported with near-opaque alpha (248–254); runtime copies are alpha-snapped;
 - `timber-plaster-wall` has transparent edge columns (2 px seam when tiled) and plaster ending at row 147;
-- contact shadow integrated from `Paperdolls/contact-shadow.png` (512×64, body registration) under every actor; the source is now transparent except 4 stray white pixels in frame 1 (SE), which the runtime copy keys out (recorded QA issue);
+- contact shadow integrated from `Paperdolls/contact-shadow.png` (512×64, body registration, byte-identical copy) under every actor;
 - no walk-animation character sheets yet (integration gate: animation responds to movement).
 
 Measured Slice 0 proportions at S=55px: door opening 34×67 (0.62×S / 1.22×S), stone base 17 (0.31×S), eave underside 93 (1.69×S), post 111 (2.02×S), gate clearance 104 (1.89×S), lantern 107 (1.95×S).
