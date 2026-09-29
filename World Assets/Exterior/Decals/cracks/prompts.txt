@@ -1,0 +1,4 @@
+cracks — 64×64**
+
+- **Content:** 1 px branching cracks, drawn at least 4 px in from every edge.
+- **Placement:** at (120,250), (620,330) and (860,396).

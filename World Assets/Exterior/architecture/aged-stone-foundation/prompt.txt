@@ -1,0 +1,9 @@
+aged-stone-foundation — 192×64 (collision: solid; occlusion: low)
+
+Empty area: rows 0–46 are transparent.
+Top face: rows 47–50 are a 4 px ledge top face.
+Front face: rows 51–63 are a 13 px front face of blocks 26–52 px wide with 1 px mortar.
+Moss: moss only in the bottom 6 rows.
+Height: the visible stone base is 17 px (0.31×S). The runtime currently uses 22 px; change it to 17.
+Anchor: the bottom edge sits on the ground line: y 240 for the main building, y 392 for the left wall.
+Collision (in map data): {288,200,384,40} and {64,368,192,24}.

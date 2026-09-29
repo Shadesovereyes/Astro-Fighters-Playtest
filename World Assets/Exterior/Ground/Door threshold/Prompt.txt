@@ -1,0 +1,8 @@
+building-threshold — 128×64
+
+Sill: rows 0–8 are a timber sill, with highlight at rows 0–1 and shade at row 8.
+Top face: rows 9–48 are the slab's top face (40 px deep), with slab joints at x = 42 and x = 86.
+Wear band: a worn band at x 47–80 lines up under the 34 px door opening.
+Step face: rows 49–58 are the step's front face, a 10 px rise (0.18×S).
+Grime: rows 59–63 are contact grime.
+Placement: (416,236). Its centre (x 480) must line up with the centre of the door.
