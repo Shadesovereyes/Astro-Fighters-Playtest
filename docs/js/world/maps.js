@@ -101,22 +101,24 @@
         {x:64,y:368,w:192,h:24},
         {x:417,y:376,w:14,h:8},{x:529,y:376,w:14,h:8},
         {x:702,y:236,w:44,h:14},
-        {x:352,y:508,w:16,h:12}
+        {x:354,y:512,w:12,h:8}
       ],
       exits:[{id:'south-lane',x:440,y:522,w:80,h:18,target:'Imperial Docks',arrive:'from-slice0',label:'Return to Imperial Docks'}],
       arrivals:{'from-scale':{x:480,y:500,facing:'N'}},
       npcs:[{id:'courtyard-keeper',name:'Courtyard Keeper',x:600,y:330,look:'keeper',facing:'W',
         lines:['Everything here is loaded as a separate module and sorted by depth each frame. Collision is its own data — the stones do not decide where you can walk.','These textures are procedural scaffolding. Authored source art replaces them file-for-file once it passes review.']}],
       enemies:[],
-      // Authored scaffold dimensions (px) checked against AF_SCALE ratios × measured stature.
-      proportions:{doorOpeningH:68,doorOpeningW:36,plinthH:22,eaveH:106,windowSill:35,windowH:22,windowW:31,postH:128,beamClearance:112,lanternH:112,crateLarge:28},
+      // Measured dimensions (px) of the placed authored modules, checked against AF_SCALE ratios × measured stature.
+      proportions:{doorOpeningH:67,doorOpeningW:34,plinthH:17,eaveH:93,postH:111,beamClearance:104,lanternH:107},
       interactables:[{id:'courtyard-door',name:'Courtyard door',x:480,y:252,lines:['The door is barred from inside. Room interiors and authored cutaways arrive with the Academy interior slice.']}],
       // Layer routing follows production/asset-manifest.json canonical.worldLayerOrder.
       ground:{modules:[['stone-clean',6],['stone-cracked',2],['stone-patched',1]],seed:7},
+      // Ground lines: main building 240 (plinth top 223), left wall 392 (plinth top 375), gate 384,
+      // crates 250, lantern 520. `bottom`/`cx` align each module's opaque content, not its canvas.
       placements:[
         {tex:'stone-timber-transition',x:704,y:300,layer:'ground'},
         {tex:'stone-timber-transition',x:832,y:300,layer:'ground'},
-        {tex:'building-threshold',x:416,y:236,layer:'ground'},
+        {tex:'building-threshold',cx:480,y:231,layer:'ground'},
         ...[0,160,320,480,640,800].map(x=>({tex:'drainage-channel',x,y:440,layer:'ground'})),
         {tex:'cracks',x:120,y:250,layer:'decals'},{tex:'cracks',x:620,y:330,layer:'decals'},{tex:'cracks',x:860,y:396,layer:'decals'},
         {tex:'stains',x:330,y:404,layer:'decals'},{tex:'stains',x:700,y:250,layer:'decals'},{tex:'stains',x:70,y:470,layer:'decals'},
@@ -124,19 +126,19 @@
         {tex:'drainage-grate',x:176,y:448,layer:'architecture-dressing',sortY:-1},
         {tex:'drainage-grate',x:496,y:448,layer:'architecture-dressing',sortY:-1},
         {tex:'drainage-grate',x:816,y:448,layer:'architecture-dressing',sortY:-1},
-        {tex:'timber-plaster-wall',x:288,y:58,layer:'architecture',sortY:240},
-        {tex:'timber-plaster-wall',x:480,y:58,layer:'architecture',sortY:240},
-        {tex:'doorway',x:458,y:146,layer:'architecture-dressing',sortY:240.05},
-        {tex:'aged-stone-foundation',x:288,y:176,layer:'architecture',sortY:240.1},
-        {tex:'aged-stone-foundation',x:480,y:176,layer:'architecture',sortY:240.1},
-        {tex:'noren',x:448,y:146,layer:'architecture-dressing',sortY:240.2},
-        {tex:'timber-plaster-wall',x:64,y:210,layer:'architecture',sortY:392,occluder:true},
-        {tex:'aged-stone-foundation',x:64,y:328,layer:'architecture',sortY:392.1,occluder:true},
-        {tex:'timber-post',x:400,y:256,layer:'architecture',sortY:384,occluder:true},
-        {tex:'timber-post',x:512,y:256,layer:'architecture',sortY:384,occluder:true},
-        {tex:'horizontal-beam',x:416,y:240,layer:'architecture',sortY:384.1,occluder:true},
-        {tex:'crate-stack',x:700,y:196,layer:'props-back',sortY:250},
-        {tex:'lantern-post',x:344,y:408,layer:'props-front-occluders',sortY:520,occluder:true}
+        {tex:'timber-plaster-wall',x:288,bottom:223,layer:'architecture',sortY:240},
+        {tex:'timber-plaster-wall',x:480,bottom:223,layer:'architecture',sortY:240},
+        {tex:'doorway',cx:480,bottom:223,layer:'architecture-dressing',sortY:240.05},
+        {tex:'aged-stone-foundation',x:288,bottom:240,layer:'architecture',sortY:240.1},
+        {tex:'aged-stone-foundation',x:480,bottom:240,layer:'architecture',sortY:240.1},
+        {tex:'noren',cx:480,bottom:178,layer:'architecture-dressing',sortY:240.2},
+        {tex:'timber-plaster-wall',x:64,bottom:375,layer:'architecture',sortY:392,occluder:true},
+        {tex:'aged-stone-foundation',x:64,bottom:392,layer:'architecture',sortY:392.1,occluder:true},
+        {tex:'timber-post',cx:424,bottom:384,layer:'architecture',sortY:384,occluder:true},
+        {tex:'timber-post',cx:536,bottom:384,layer:'architecture',sortY:384,occluder:true},
+        {tex:'horizontal-beam',x:416,bottom:280,layer:'architecture',sortY:384.1,occluder:true},
+        {tex:'crate-stack',cx:724,bottom:250,layer:'props-back',sortY:250},
+        {tex:'lantern-post',cx:360,bottom:520,layer:'props-front-occluders',sortY:520,occluder:true}
       ],
       shadows:[
         {x:288,y:240,w:384,h:8,a:.28},{x:64,y:392,w:192,h:7,a:.28},
@@ -167,10 +169,9 @@
     }
   };
 
-  // Authored shared-foundation runtime PNGs, keyed by manifest dependency id, e.g.
-  // 'stone-clean': 'assets/world/shared-foundation/stone-clean.png'. Listed modules replace
-  // the procedural scaffold texture of the same id; unlisted ids fall back to scaffold.
-  const authoredModules = {};
+  // Authored world modules (world/world-modules.js), keyed by module id → runtime path under /docs.
+  // Listed modules replace the procedural scaffold texture of the same id; unlisted ids use scaffold.
+  const authoredModules = Object.fromEntries(Object.entries(window.AF_WORLD_MODULES || {}).map(([id, m]) => [id, m.path]));
 
   window.AF_WORLD = {MAPS, LOOKS, authoredModules};
 })();

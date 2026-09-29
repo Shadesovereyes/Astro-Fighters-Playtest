@@ -145,3 +145,27 @@ export function inspectRegion(image, rx, ry, rw, rh) {
 
 export const alphaAt = (image, x, y) => image.pixels[(y * image.width + x) * 4 + 3];
 export const rgbaAt = (image, x, y) => image.pixels.readUInt32BE((y * image.width + x) * 4);
+
+const CRC_TABLE = (() => { const t = new Uint32Array(256); for (let n = 0; n < 256; n += 1) { let c = n; for (let k = 0; k < 8; k += 1) c = c & 1 ? 0xedb88320 ^ (c >>> 1) : c >>> 1; t[n] = c >>> 0; } return t; })();
+function crc32(buf) { let c = 0xffffffff; for (const b of buf) c = CRC_TABLE[(c ^ b) & 255] ^ (c >>> 8); return (c ^ 0xffffffff) >>> 0; }
+function chunk(type, data) {
+  const len = Buffer.alloc(4); len.writeUInt32BE(data.length);
+  const td = Buffer.concat([Buffer.from(type, 'ascii'), data]);
+  const crc = Buffer.alloc(4); crc.writeUInt32BE(crc32(td));
+  return Buffer.concat([len, td, crc]);
+}
+/** Encode an 8-bit RGBA image ({width,height,pixels}) as PNG (filter 0, no interlace). */
+export function encodePng(image) {
+  const { width: w, height: h, pixels } = image;
+  const raw = Buffer.alloc((w * 4 + 1) * h);
+  for (let y = 0; y < h; y += 1) { raw[y * (w * 4 + 1)] = 0; pixels.copy(raw, y * (w * 4 + 1) + 1, y * w * 4, (y + 1) * w * 4); }
+  const ihdr = Buffer.alloc(13); ihdr.writeUInt32BE(w, 0); ihdr.writeUInt32BE(h, 4); ihdr[8] = 8; ihdr[9] = 6;
+  return Buffer.concat([PNG_SIGNATURE, chunk('IHDR', ihdr), chunk('IDAT', zlib.deflateSync(raw, { level: 9 })), chunk('IEND', Buffer.alloc(0))]);
+}
+/** Runtime derivation for near-opaque export artefacts: alpha >= 128 → 255, else 0. RGB is untouched. */
+export function snapAlpha(image) {
+  const pixels = Buffer.from(image.pixels);
+  let changed = 0;
+  for (let i = 3; i < pixels.length; i += 4) { const a = pixels[i], n = a >= 128 ? 255 : 0; if (n !== a) { pixels[i] = n; changed += 1; } }
+  return { image: { ...image, pixels }, changed };
+}

@@ -214,7 +214,7 @@ The Phaser world refactor is sufficiently proven for continued city production w
 
 - [x] the visible debug grid is absent from normal gameplay;
 - [x] exploration movement is continuous real-time rather than tile-step cadence;
-- [x] Slice 0 loads multiple separate environment textures rather than one baked background; *(procedural scaffold textures until authored modules are approved)*
+- [x] Slice 0 loads multiple separate environment textures rather than one baked background; *(authored `/World Assets` runtime candidates since 2026-09-29; unreviewed)*
 - [x] collision exists separately from artwork;
 - [x] one foreground/architectural occlusion case works live;
 - [x] the paper-doll player remains eight-directional;

@@ -57,6 +57,21 @@ Contracts reconciled on 2026-09-28: `production/asset-manifest.json` (schema v3,
 
 Open gaps: no female armor layers (armor is male-only for now); no idle/walk/ready animation sheets (one frame per direction, held while moving).
 
+## Slice 0 world modules (2026-09-29)
+
+`/World Assets` supplies all 14 shared-foundation modules plus the four Slice 0 dressing modules (doorway, noren, lantern post, crate stack). They are registered in `docs/js/world/world-modules.js`, derived by `tools/sync-runtime-assets.mjs`, and placed in Slice 0 by their measured opaque content against the player-relative ground lines. Slice 0 no longer uses any scaffold texture. State is **Phaser-integrated runtime candidates, unreviewed** — not production-approved.
+
+Open QA issues (per-asset detail in `production/asset-manifest.json` → `qaIssues`):
+
+- `stone-cracked` (12,431 colours) and `drainage-channel` (4,159 colours) carry per-pixel noise instead of a cleaned palette; kept at `runtime-candidate`;
+- `drainage-channel` rows 0–3 are a solid black band that draws a hard line across the courtyard;
+- `stains` reads as a solid dark oval rather than irregular soot wear;
+- `timber-plaster-wall`, `noren`, `lantern-post`, `crate-stack` were exported with near-opaque alpha (248–254); runtime copies are alpha-snapped;
+- `timber-plaster-wall` has transparent edge columns (2 px seam when tiled) and plaster ending at row 147;
+- no contact-shadow or walk-animation character sheets yet (integration gate: animation responds to movement).
+
+Measured Slice 0 proportions at S=55px: door opening 34×67 (0.62×S / 1.22×S), stone base 17 (0.31×S), eave underside 93 (1.69×S), post 111 (2.02×S), gate clearance 104 (1.89×S), lantern 107 (1.95×S).
+
 ## Immediate technical gate
 
 Runtime state (2026-09-28):

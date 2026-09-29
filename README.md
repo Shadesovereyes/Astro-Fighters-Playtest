@@ -202,11 +202,12 @@ Runtime layout:
 - `docs/js/world/maps.js` — authored world data: pixel-space collision, exits, NPCs, enemies, Slice 0 layer placements
 - `docs/js/world/scaffold-textures.js` — procedural stand-ins for the shared-foundation modules at manifest runtime sizes
 - `docs/js/world/scale-guide.js` — player-scale contract mirror and player-relative proportion ratios
+- `docs/js/world/world-modules.js` — registry of authored `/World Assets` modules (Slice 0) and how each runtime copy is derived
 - `docs/js/world/characters.js` — registry of the approved `/Paperdolls` layers (512×64, eight 64×64 frames) copied byte-identically to `docs/assets/characters/`
 - `docs/js/creator-ui.js`, `docs/js/astro-natal.js`, `docs/js/data/canonical-roster.js` — creator UI, natal engine, canonical ability data
 - `docs/vendor/phaser-4.2.1.min.js`, `docs/css/game.css`, `docs/assets/runtime/` — engine, styles, runtime images
 
-Local play must be served over HTTP (WebGL refuses `file://` textures), e.g. `npx http-server docs`. `node tools/build-standalone.mjs` generates a single-file offline build in `dist/`. `node tools/smoke-playtest.mjs [--shots <dir>]` runs the self-tests and a real-input check in headless Chromium and can capture Phaser-canvas screenshots. `node tools/validate-world-data.mjs` checks the player-scale contract, character registries, and map integrity; `node tools/validate-source-png.mjs sheet|overlay|inspection` checks 512×64 sheets, registered overlays, and 5120×640 inspection derivatives.
+Local play must be served over HTTP (WebGL refuses `file://` textures), e.g. `npx http-server docs`. `node tools/build-standalone.mjs` generates a single-file offline build in `dist/`. `node tools/smoke-playtest.mjs [--shots <dir>]` runs the self-tests and a real-input check in headless Chromium and can capture Phaser-canvas screenshots. `node tools/sync-runtime-assets.mjs` derives every runtime copy from `/Paperdolls` and `/World Assets` (`--check` fails on stale copies). `node tools/validate-world-data.mjs` checks the player-scale contract, character registries, and map integrity; `node tools/validate-source-png.mjs sheet|overlay|inspection` checks 512×64 sheets, registered overlays, and 5120×640 inspection derivatives.
 
 The four legacy districts (Docks, Civic, Academy, Fringe) still render baked district backdrops. They are temporary non-reviewable development backdrops with authored collision laid over them, not production world assets.
 

@@ -425,8 +425,10 @@
     $('hotbar').innerHTML=state.hotbar.slice(0,6).map((n,i)=>{const a=abilityByName(n)||BASIC_JAB;const st=runtimeCost(a,'stam',state),ch=runtimeCost(a,'chakra',state);return `<div class="slot ${left>0?'cooling':''}"><kbd>${i+1}</kbd><b>${safeText(n)}</b><small>${a.slots||1}S${st?` · STA ${st}`:''}${ch?` · CHK ${ch}`:''}</small></div>`;}).join('');
     const traps=Object.entries(state.trapStock).filter(([,q])=>q>0);
     $('trap-hud').innerHTML=traps.length?`TRAP <b>${safeText(state.armedTrap||traps[0][0])}</b> ×${state.trapStock[state.armedTrap||traps[0][0]]||0} · Q cycle · F set`:'';
+    const auth=worldScene?.authoredIds?.size||0, scaf=worldScene?.scaffoldCount||0;
     const art=map?.artState==='scaffold'
-      ? `Separate Phaser world modules · ${worldScene?.authoredCount?`${worldScene.authoredCount} authored + `:''}procedural scaffold textures · not production art`
+      ? (auth&&!scaf?`Separate Phaser world modules · ${auth} authored runtime candidates · unreviewed, not production-approved`
+        :`Separate Phaser world modules · ${auth?`${auth} authored + `:''}procedural scaffold textures · not production art`)
       : 'Legacy baked district backdrop · temporary development scaffold · not production art';
     const who='Player: approved 512×64 paper-doll layers';
     $('art-state').textContent=`${art} · ${who}${worldScene?.stature?` · S=${worldScene.stature}px`:''}`;
@@ -496,8 +498,19 @@
       this.mapObjects=[];this.enemies=[];this.npcs=[];this.interactables=[];this.guideMeasures=[];this.colliders=[];this.occluders=[];this.traps=[];this.projectiles=[];this.pending=[];this.layerIndex={};this.selected=null;this.player=null;this.dash=null;this.motes=null;
     }
 
+    /* Opaque bounds of a whole texture (cached per key). */
+    contentBounds(key){
+      this.boundsCache ||= {};
+      if(this.boundsCache[key]) return this.boundsCache[key];
+      const src=this.textures.get(key).getSourceImage(), c=document.createElement('canvas'); c.width=src.width; c.height=src.height;
+      const g=c.getContext('2d',{willReadFrequently:true}); g.drawImage(src,0,0);
+      const d=g.getImageData(0,0,c.width,c.height).data; let minX=c.width,minY=c.height,maxX=-1,maxY=-1;
+      for(let y=0;y<c.height;y++) for(let x=0;x<c.width;x++) if(d[(y*c.width+x)*4+3]){ if(x<minX)minX=x; if(x>maxX)maxX=x; if(y<minY)minY=y; if(y>maxY)maxY=y; }
+      return this.boundsCache[key]=maxX<0?{minX:0,minY:0,maxX:c.width-1,maxY:c.height-1}:{minX,minY,maxX,maxY};
+    }
     moduleTexture(id){
-      if(this.textures.exists(`mod-${id}`)){ this.authoredCount++; return `mod-${id}`; }
+      if(this.textures.exists(`mod-${id}`)){ this.authoredCount++; (this.authoredIds ||= new Set()).add(id); return `mod-${id}`; }
+      this.scaffoldCount=(this.scaffoldCount||0)+1;
       const key=`scaf-${id}`;
       if(!this.textures.exists(key)) this.textures.addCanvas(key, window.AF_SCAFFOLD.build(id));
       return key;
@@ -505,7 +518,7 @@
 
     buildMap(name, arrival){
       const map=MAPS[name]||MAPS['Imperial Docks'];
-      this.clearWorld(); this.authoredCount=0;
+      this.clearWorld(); this.authoredCount=0; this.scaffoldCount=0; this.authoredIds=new Set(); this.placed=[];
       state.map=MAPS[name]?name:'Imperial Docks';
       if(arrival){ state.x=arrival.x; state.y=arrival.y; if(arrival.facing) state.facing=arrival.facing; }
       this.map=map;
@@ -577,13 +590,19 @@
       const r=this.buildGround(map);
       let overlay=0;
       for(const p of map.placements){
-        const img=this.add.image(p.x,p.y,this.moduleTexture(p.tex)).setOrigin(0);
+        const key=this.moduleTexture(p.tex), img=this.add.image(p.x,p.y,key).setOrigin(0);
+        // Authored modules are placed by their opaque content, not their canvas corner:
+        // `bottom` puts the lowest opaque row on that world line; `cx` centres the content horizontally.
+        const cb=this.contentBounds(key);
+        if(p.cx!=null) img.x=Math.round(p.cx-(cb.minX+cb.maxX+1)/2);
+        if(p.bottom!=null) img.y=p.bottom-(cb.maxY+1);
         if(p.layer==='ground') img.setDepth(DEPTH.ground+10+(overlay++)*0.001);
         else if(p.layer==='decals') img.setDepth(DEPTH.decals);
         else if(p.sortY===-1) img.setDepth(DEPTH.dressingFlat);
         else img.setDepth(p.sortY);
         this.track(img,p.layer);
-        if(p.occluder) this.occluders.push({img,sortY:p.sortY,x:p.x,y:p.y,w:img.width,h:img.height,alpha:1});
+        if(p.occluder) this.occluders.push({img,sortY:p.sortY,x:img.x+cb.minX,y:img.y+cb.minY,w:cb.maxX-cb.minX+1,h:cb.maxY-cb.minY+1,alpha:1});
+        this.placed.push({tex:p.tex,key,x:img.x,y:img.y,bounds:{x:img.x+cb.minX,y:img.y+cb.minY,w:cb.maxX-cb.minX+1,h:cb.maxY-cb.minY+1}});
       }
       const sh=this.add.graphics().setDepth(DEPTH.shadow);
       for(const s of map.shadows||[]){ sh.fillStyle(0x0d0c0b,s.a); sh.fillRect(s.x,s.y,s.w,s.h); sh.fillStyle(0x0d0c0b,s.a*.5); sh.fillRect(s.x+2,s.y+s.h,s.w-4,2); }

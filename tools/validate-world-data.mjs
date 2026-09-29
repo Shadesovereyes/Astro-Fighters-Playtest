@@ -9,6 +9,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import vm from 'node:vm';
+import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { parsePng, inspect, inspectRegion, alphaAt, rgbaAt } from './lib/png.mjs';
 
@@ -27,7 +28,7 @@ const same = (a, b) => JSON.stringify(a) === JSON.stringify(b);
 // Load browser world-data scripts in a sandbox.
 const sandbox = { window: {}, document: { createElement: () => { throw new Error('canvas not available in validator'); } }, console };
 vm.createContext(sandbox);
-for (const f of ['js/world/scaffold-textures.js', 'js/world/scale-guide.js', 'js/world/characters.js', 'js/world/maps.js']) {
+for (const f of ['js/world/scaffold-textures.js', 'js/world/scale-guide.js', 'js/world/characters.js', 'js/world/world-modules.js', 'js/world/maps.js']) {
   vm.runInContext(fs.readFileSync(path.join(docs, f), 'utf8'), sandbox, { filename: f });
 }
 const { AF_SCALE: SCALE, AF_CHARACTERS: CHARS, AF_WORLD: WORLD, AF_SCAFFOLD: SCAFFOLD } = sandbox.window;
@@ -117,15 +118,33 @@ notes.push(`${registered.size} Paperdolls sheets registered; runtime copies byte
 /* ---- world modules ---- */
 const deps = new Map(manifest.activePackage.worldDependencies.map((d) => [d.id, d]));
 for (const [id, spec] of Object.entries(SCAFFOLD.SPECS)) if (deps.has(id)) assert(same(spec, deps.get(id).runtimeCanvas), `scaffold ${id} canvas ${spec} must equal manifest runtimeCanvas ${deps.get(id).runtimeCanvas}.`);
+const dressing = new Map((manifest.activePackage.dressingDependencies || []).map((d) => [d.id, d]));
+const MODS = sandbox.window.AF_WORLD_MODULES || {};
+const PALETTE_LIMIT = 64; // opaque RGB colours; more indicates un-cleaned noise/anti-aliasing
 for (const [id, rel] of Object.entries(WORLD.authoredModules || {})) {
-  const dep = deps.get(id);
-  if (!dep) { fail(`authoredModules registers unknown id ${id}.`); continue; }
+  const dep = deps.get(id) || dressing.get(id);
+  if (!dep) { fail(`authoredModules registers ${id}, which is neither a manifest world nor dressing dependency.`); continue; }
   assert(`docs/${rel}` === dep.runtimePath, `authored module ${id} path must equal manifest runtimePath.`);
+  assert(MODS[id]?.source === dep.sourcePath, `world-modules.js source for ${id} must equal manifest sourcePath.`);
+  assert(fs.existsSync(path.join(root, dep.sourcePath || '')), `authored module ${id} source missing: ${dep.sourcePath}`);
   if (!fs.existsSync(docPath(rel))) { fail(`authored module ${id} file missing: ${rel}`); continue; }
-  const img = parsePng(docPath(rel));
+  const img = parsePng(docPath(rel)), st = inspect(img);
   assert(img.width === dep.runtimeCanvas[0] && img.height === dep.runtimeCanvas[1], `authored module ${id} is ${img.width}×${img.height}; manifest requires ${dep.runtimeCanvas.join('×')}.`);
-  assert(inspect(img).softAlpha === 0, `authored module ${id} has soft alpha.`);
+  assert(st.softAlpha === 0, `authored module ${id} runtime copy has soft alpha.`);
+  const issues = (dep.qaIssues || []).join(' ');
+  if (st.colors > PALETTE_LIMIT) {
+    assert(/palette/.test(issues) && dep.status !== 'integrated' && dep.status !== 'approved', `authored module ${id} uses ${st.colors} colours (> ${PALETTE_LIMIT}); record a palette qaIssue and keep it at runtime-candidate.`);
+    notes.push(`${id}: ${st.colors} colours — runtime-candidate pending palette cleanup`);
+  }
+  if (MODS[id].derivation === 'alpha-snap') assert(/alpha-snapped/.test(issues), `authored module ${id} is alpha-snapped at runtime; record it in qaIssues.`);
+  if (dep.qaIssues?.length) notes.push(`${id}: ${dep.qaIssues.length} open QA issue(s)`);
 }
+for (const id of [...deps.keys(), ...dressing.keys()]) {
+  const st = (deps.get(id) || dressing.get(id)).status;
+  if (['integrated', 'runtime-candidate', 'approved'].includes(st)) assert(WORLD.authoredModules?.[id], `manifest marks ${id} as ${st} but no authored module is registered.`);
+}
+try { execFileSync(process.execPath, [path.join(here, 'sync-runtime-assets.mjs'), '--check'], { stdio: 'pipe' }); }
+catch (e) { fail(`runtime assets are stale; run node tools/sync-runtime-assets.mjs\n${String(e.stderr || '').trim()}`); }
 for (const m of Object.values(WORLD.MAPS)) if (m.backdrop) assert(fs.existsSync(docPath(m.backdrop)), `backdrop missing: ${m.backdrop}`);
 
 /* ---- map integrity ---- */

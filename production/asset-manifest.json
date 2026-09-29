@@ -1,6 +1,6 @@
 {
   "schema": "astro-fighters-production-manifest/v3",
-  "updated": "2026-09-28",
+  "updated": "2026-09-29",
   "approvalAuthority": "Astro Fighters — Art Preview Review Rubric.md",
   "masterDirection": "ASTRO_FIGHTERS_LOCKED_MASTER_ART_DIRECTION_PROMPT.md",
   "canonical": {
@@ -127,7 +127,7 @@
   },
   "activePackage": {
     "id": "AF-IC-SHARED-FOUNDATION",
-    "status": "contracted",
+    "status": "phaser-integrated",
     "goal": "Establish the first shared Imperial City surface/architecture kit and a fully dressed fighter benchmark that can be integrated together for the first rubric-scored production slice.",
     "worldContract": {
       "sourceScale": 10,
@@ -137,13 +137,14 @@
       "gridRule": "Module edges and repeated detail may not reveal the hidden 32×32 movement grid.",
       "scaleRule": "Proportion every module against the 64×64 player in the Phaser scale reference scene. Runtime canvases are containers, not scale authority; never derive size by multiplying 32px cells.",
       "sourceRoot": "production/source/world/shared-foundation/",
-      "runtimeRoot": "docs/assets/world/shared-foundation/"
+      "runtimeRoot": "docs/assets/world/shared-foundation/",
+      "sourceNote": "Supplied World Assets sources are authored at runtime size (1×); no 10× source masters exist yet."
     },
     "worldDependencies": [
       {
         "id": "stone-clean",
         "name": "Worn Imperial stone street — clean",
-        "status": "missing",
+        "status": "integrated",
         "sourceCanvas": [
           1920,
           1280
@@ -160,12 +161,13 @@
         "anchor": "world surface",
         "collision": "walkable",
         "occlusion": "none",
-        "runtimePath": "docs/assets/world/shared-foundation/stone-clean.png"
+        "runtimePath": "docs/assets/world/shared-foundation/stone-clean.png",
+        "sourcePath": "World Assets/Exterior/Ground/Stone Floor/stone-clean/Stone Floor.png"
       },
       {
         "id": "stone-cracked",
         "name": "Worn Imperial stone street — cracked",
-        "status": "missing",
+        "status": "runtime-candidate",
         "sourceCanvas": [
           1920,
           1280
@@ -183,12 +185,16 @@
         "anchor": "world surface",
         "collision": "walkable",
         "occlusion": "none",
-        "runtimePath": "docs/assets/world/shared-foundation/stone-cracked.png"
+        "runtimePath": "docs/assets/world/shared-foundation/stone-cracked.png",
+        "sourcePath": "World Assets/Exterior/Ground/Stone Floor/stone-cracked/stone-cracked.png",
+        "qaIssues": [
+          "palette: 12,431 opaque colours with per-pixel noise (stone-clean uses 10); needs target-pixel cleanup to the shared stone palette"
+        ]
       },
       {
         "id": "stone-patched",
         "name": "Patched stone street",
-        "status": "missing",
+        "status": "integrated",
         "sourceCanvas": [
           1920,
           1280
@@ -206,12 +212,13 @@
         "anchor": "world surface",
         "collision": "walkable",
         "occlusion": "none",
-        "runtimePath": "docs/assets/world/shared-foundation/stone-patched.png"
+        "runtimePath": "docs/assets/world/shared-foundation/stone-patched.png",
+        "sourcePath": "World Assets/Exterior/Ground/Stone Floor/stone-patched/Stone Patched.png"
       },
       {
         "id": "stone-timber-transition",
         "name": "Stone-to-timber transitions",
-        "status": "missing",
+        "status": "integrated",
         "sourceCanvas": [
           1280,
           640
@@ -228,12 +235,13 @@
         "anchor": "world surface",
         "collision": "walkable",
         "occlusion": "none",
-        "runtimePath": "docs/assets/world/shared-foundation/stone-timber-transition.png"
+        "runtimePath": "docs/assets/world/shared-foundation/stone-timber-transition.png",
+        "sourcePath": "World Assets/Exterior/Ground/Stone Floor/stone-timber-transition/Stone-timber-transition.png"
       },
       {
         "id": "building-threshold",
         "name": "Street-to-building threshold pieces",
-        "status": "missing",
+        "status": "integrated",
         "sourceCanvas": [
           1280,
           640
@@ -251,12 +259,13 @@
         "anchor": "world surface",
         "collision": "walkable",
         "occlusion": "none",
-        "runtimePath": "docs/assets/world/shared-foundation/building-threshold.png"
+        "runtimePath": "docs/assets/world/shared-foundation/building-threshold.png",
+        "sourcePath": "World Assets/Exterior/Ground/Door threshold/Door Threshorld .png"
       },
       {
         "id": "drainage-channel",
         "name": "Drainage channels",
-        "status": "missing",
+        "status": "runtime-candidate",
         "sourceCanvas": [
           1600,
           480
@@ -274,12 +283,17 @@
         "anchor": "world surface",
         "collision": "walkable",
         "occlusion": "none",
-        "runtimePath": "docs/assets/world/shared-foundation/drainage-channel.png"
+        "runtimePath": "docs/assets/world/shared-foundation/drainage-channel.png",
+        "sourcePath": "World Assets/Exterior/Ground/Drainage/drainage-channel-east-west/drainage-channel-east-west.png",
+        "qaIssues": [
+          "palette: 4,159 opaque colours with per-pixel noise; needs target-pixel cleanup",
+          "rows 0–3 are a solid black band that reads as a hard line across the courtyard"
+        ]
       },
       {
         "id": "drainage-grate",
         "name": "Drainage grates",
-        "status": "missing",
+        "status": "integrated",
         "sourceCanvas": [
           480,
           320
@@ -297,12 +311,13 @@
         "anchor": "surface attachment",
         "collision": "walkable",
         "occlusion": "low",
-        "runtimePath": "docs/assets/world/shared-foundation/drainage-grate.png"
+        "runtimePath": "docs/assets/world/shared-foundation/drainage-grate.png",
+        "sourcePath": "World Assets/Exterior/Decals/drainage-grate/drainage-grate.png"
       },
       {
         "id": "cracks",
         "name": "Cracks",
-        "status": "missing",
+        "status": "integrated",
         "sourceCanvas": [
           640,
           640
@@ -319,12 +334,13 @@
         "anchor": "surface decal",
         "collision": "none",
         "occlusion": "none",
-        "runtimePath": "docs/assets/world/shared-foundation/cracks.png"
+        "runtimePath": "docs/assets/world/shared-foundation/cracks.png",
+        "sourcePath": "World Assets/Exterior/Decals/cracks/cracks.png"
       },
       {
         "id": "stains",
         "name": "Stains",
-        "status": "missing",
+        "status": "integrated",
         "sourceCanvas": [
           640,
           640
@@ -342,12 +358,16 @@
         "anchor": "surface decal",
         "collision": "none",
         "occlusion": "none",
-        "runtimePath": "docs/assets/world/shared-foundation/stains.png"
+        "runtimePath": "docs/assets/world/shared-foundation/stains.png",
+        "sourcePath": "World Assets/Exterior/Decals/stains/stains.png",
+        "qaIssues": [
+          "reads as a solid dark oval in Phaser rather than irregular soot wear; needs a broken, irregular silhouette"
+        ]
       },
       {
         "id": "cart-wear",
         "name": "Wheel/cart wear",
-        "status": "missing",
+        "status": "integrated",
         "sourceCanvas": [
           960,
           640
@@ -364,12 +384,13 @@
         "anchor": "surface decal",
         "collision": "none",
         "occlusion": "none",
-        "runtimePath": "docs/assets/world/shared-foundation/cart-wear.png"
+        "runtimePath": "docs/assets/world/shared-foundation/cart-wear.png",
+        "sourcePath": "World Assets/Exterior/Decals/cart-wear/cart-wear.png"
       },
       {
         "id": "timber-post",
         "name": "Timber structural posts",
-        "status": "missing",
+        "status": "integrated",
         "sourceCanvas": [
           480,
           1280
@@ -387,12 +408,13 @@
         "anchor": "floor-hosted center/bottom",
         "collision": "solid",
         "occlusion": "mid",
-        "runtimePath": "docs/assets/world/shared-foundation/timber-post.png"
+        "runtimePath": "docs/assets/world/shared-foundation/timber-post.png",
+        "sourcePath": "World Assets/Exterior/architecture/timber-post/timber-post.png"
       },
       {
         "id": "horizontal-beam",
         "name": "Horizontal beams",
-        "status": "missing",
+        "status": "integrated",
         "sourceCanvas": [
           1280,
           480
@@ -410,12 +432,13 @@
         "anchor": "attachment-line",
         "collision": "none",
         "occlusion": "mid",
-        "runtimePath": "docs/assets/world/shared-foundation/horizontal-beam.png"
+        "runtimePath": "docs/assets/world/shared-foundation/horizontal-beam.png",
+        "sourcePath": "World Assets/Exterior/architecture/horizontal-beam/horizontal-beam.png"
       },
       {
         "id": "timber-plaster-wall",
         "name": "Timber-and-plaster wall",
-        "status": "missing",
+        "status": "integrated",
         "sourceCanvas": [
           1920,
           1600
@@ -433,12 +456,18 @@
         "anchor": "architectural region",
         "collision": "solid",
         "occlusion": "tall / cutaway",
-        "runtimePath": "docs/assets/world/shared-foundation/timber-plaster-wall.png"
+        "runtimePath": "docs/assets/world/shared-foundation/timber-plaster-wall.png",
+        "sourcePath": "World Assets/Exterior/architecture/timber-plaster-wall/timber-plaster-wall.png",
+        "qaIssues": [
+          "exported with near-opaque alpha (248–254 on 23,485 px); runtime copy is alpha-snapped",
+          "plaster ends at row 147; rows 148–159 transparent (placement compensates)",
+          "columns 0 and 191 are transparent, leaving a 2 px seam between tiled walls (hidden by the doorway in Slice 0)"
+        ]
       },
       {
         "id": "aged-stone-foundation",
         "name": "Aged stone foundation",
-        "status": "missing",
+        "status": "integrated",
         "sourceCanvas": [
           1920,
           640
@@ -456,7 +485,8 @@
         "anchor": "architectural region",
         "collision": "solid",
         "occlusion": "low",
-        "runtimePath": "docs/assets/world/shared-foundation/aged-stone-foundation.png"
+        "runtimePath": "docs/assets/world/shared-foundation/aged-stone-foundation.png",
+        "sourcePath": "World Assets/Exterior/architecture/aged-stone-foundation/aged-stone-foundation.png"
       }
     ],
     "characterDependencies": {
@@ -600,7 +630,75 @@
       "criticalMinimumsMustPass": true,
       "checklistCompletionMinimum": 42,
       "lockQualityMinimum": 46
-    }
+    },
+    "dressingDependencies": [
+      {
+        "id": "doorway",
+        "name": "Timber doorway with 34×67 clear opening",
+        "status": "integrated",
+        "runtimeCanvas": [
+          42,
+          71
+        ],
+        "layer": "architecture-dressing",
+        "collision": "none (building footprint)",
+        "occlusion": "with wall",
+        "sourcePath": "World Assets/Exterior/architecture/doorway/Doorway.png",
+        "runtimePath": "docs/assets/world/slice0-dressing/doorway.png"
+      },
+      {
+        "id": "noren",
+        "name": "Noren doorway curtain (dressing cue)",
+        "status": "integrated",
+        "runtimeCanvas": [
+          44,
+          34
+        ],
+        "layer": "architecture-dressing",
+        "collision": "none",
+        "occlusion": "with wall",
+        "sourcePath": "World Assets/Exterior/architecture/noren/noren.png",
+        "runtimePath": "docs/assets/world/slice0-dressing/noren.png",
+        "qaIssues": [
+          "exported with near-opaque alpha (248–254); runtime copy is alpha-snapped"
+        ]
+      },
+      {
+        "id": "lantern-post",
+        "name": "Lantern post (foreground occluder)",
+        "status": "integrated",
+        "runtimeCanvas": [
+          32,
+          112
+        ],
+        "layer": "props-front-occluders",
+        "collision": "solid 12×8 foot",
+        "occlusion": "fades when player is behind",
+        "sourcePath": "World Assets/Exterior/architecture/lantern-post/lantern-post.png",
+        "runtimePath": "docs/assets/world/slice0-dressing/lantern-post.png",
+        "qaIssues": [
+          "exported with near-opaque alpha (248–254); runtime copy is alpha-snapped"
+        ]
+      },
+      {
+        "id": "crate-stack",
+        "name": "Crate stack",
+        "status": "integrated",
+        "runtimeCanvas": [
+          56,
+          48
+        ],
+        "layer": "props-back",
+        "collision": "solid 44×14 foot",
+        "occlusion": "depth-sorted",
+        "sourcePath": "World Assets/Exterior/architecture/crate-stack/crate-stack.png",
+        "runtimePath": "docs/assets/world/slice0-dressing/crate-stack.png",
+        "qaIssues": [
+          "exported with near-opaque alpha (248–254); runtime copy is alpha-snapped",
+          "canvas is 56×48 (spec proposed 48×56); accepted as authored"
+        ]
+      }
+    ]
   },
   "approvedPackages": []
 }
