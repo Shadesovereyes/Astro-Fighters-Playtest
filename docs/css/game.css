@@ -28,4 +28,3 @@
 
 .eye-picker{display:flex;gap:8px;align-items:center;margin-top:6px}.eye-picker input[type=color]{width:56px;height:36px;padding:2px;margin:0;background:#111417;border:1px solid #544b40}
 .eye-pair{display:inline-flex;border:1px solid #544b40}.eye-pair i{display:block;width:14px;height:28px}
-.eye-presets{display:flex;gap:6px;margin-top:6px;flex-wrap:wrap}.eye-presets button{padding:4px 8px;font:10px ui-monospace,monospace;display:flex;gap:5px;align-items:center}.eye-presets button i{display:inline-block;width:10px;height:10px;border:1px solid #111}

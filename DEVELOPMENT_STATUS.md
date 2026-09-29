@@ -57,7 +57,7 @@ Contracts reconciled on 2026-09-28: `production/asset-manifest.json` (schema v3,
 
 Skin tones (2026-09-29): four per body — tone0 Fair and tone3 Umber were added as palette swaps of tone1 Light and tone2 Deep by `tools/derive-skin-tones.mjs` (skin ramp recoloured; pixel positions and alpha identical). Their palettes were approved by the user on 2026-09-29; the colour tables in the tool are now the locked ramps for these tones.
 
-Eye colour (2026-09-29): the creator offers a colour picker plus Brown/Purple presets. The player picks the darker iris shade; the lighter shade is derived with Purple's shift (OKLCH ΔL +0.243, chroma ÷0.954, same hue). Presets use their authored sheets unchanged; custom colours recolour only the two iris colours of the Brown template at runtime. The choice persists in save data.
+Eye colour (2026-09-29): the creator offers a single colour picker (no preset buttons). The player picks the darker iris shade; the lighter shade is derived with Purple's shift (OKLCH ΔL +0.243, chroma ÷0.954, same hue). Presets use their authored sheets unchanged; custom colours recolour only the two iris colours of the Brown template at runtime. The choice persists in save data.
 
 Open gaps: no female armor layers (armor is male-only for now); no idle/walk/ready animation sheets (one frame per direction, held while moving).
 

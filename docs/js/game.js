@@ -266,12 +266,10 @@
     const L=readCreatorAppearance(), preset=presetForDark(L.sex,L.eyeColor);
     const pair=preset?eyePresets(L.sex)[preset].iris:irisPairFromDark(L.eyeColor);
     const [dark,light]=$('eye-pair').children; dark.style.background=pair.dark; light.style.background=pair.light;
-    $('eye-pair').title=`Darker ${pair.dark} · lighter ${pair.light}${preset?` (${eyePresets(L.sex)[preset].label} preset)`:' (derived)'}`;
+    $('eye-pair').title=`Darker ${pair.dark} · lighter ${pair.light}`;
   }
   function fillCreatorOptions(){
     const d=CHARS.sexes[$('sex-opt').value]||CHARS.sexes.male;
-    $('eye-presets').innerHTML=Object.values(d.eyes).map(o=>`<button type="button" data-eye="${o.iris.dark}"><i style="background:${o.iris.dark}"></i>${safeText(o.label)}</button>`).join('');
-    $('eye-presets').querySelectorAll('[data-eye]').forEach(b=>b.addEventListener('click',()=>{$('eye-color').value=b.dataset.eye;updateEyePair();drawPaperDollPreview();}));
     updateEyePair();
     for(const [id,k] of [['skin-opt','skin'],['hair-opt','hair']]){
       const sel=$(id), prev=sel.value;
