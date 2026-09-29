@@ -207,12 +207,13 @@
   }
   const outfitFits=(sex,id)=>!!CHARS.sexes[sex]?.outfits?.[id];
   const layerKey=(sex,slot,id)=>`pd-${sex}-${slot}-${id}`;
+  const SHADOW_KEY='pd-contact-shadow';
   const assetPath=path=>(window.AF_ASSET_DATA&&window.AF_ASSET_DATA[path])||path;
   /* Ordered layers for a look, following CHARS.drawOrder: body → clothing → arms → shoulders → hair → eyes. */
   function lookLayers(look){
     const L=sanitizeLook(look), d=CHARS.sexes[L.sex], o=d.outfits[L.outfit];
-    const bySlot={body:[L.skin,d.skin[L.skin].body],clothing:[L.outfit,o.clothing],arms:[L.skin,d.skin[L.skin].arms],shoulders:[L.outfit,o.shoulders],hair:[L.hair,d.hair[L.hair].layer],eyes:[L.eyes,d.eyes[L.eyes].layer]};
-    return CHARS.drawOrder.filter(slot=>bySlot[slot][1]).map(slot=>({slot,key:layerKey(L.sex,slot,bySlot[slot][0]),path:bySlot[slot][1].path}));
+    const bySlot={shadow:['contact',CHARS.contactShadow],body:[L.skin,d.skin[L.skin].body],clothing:[L.outfit,o.clothing],arms:[L.skin,d.skin[L.skin].arms],shoulders:[L.outfit,o.shoulders],hair:[L.hair,d.hair[L.hair].layer],eyes:[L.eyes,d.eyes[L.eyes].layer]};
+    return CHARS.drawOrder.filter(slot=>bySlot[slot]?.[1]).map(slot=>({slot,key:slot==='shadow'?SHADOW_KEY:layerKey(L.sex,slot,bySlot[slot][0]),path:bySlot[slot][1].path}));
   }
   function allLayerRefs(){
     const refs=[];
@@ -243,12 +244,16 @@
   async function drawPaperDollPreview(){
     const canvas=$('paperdoll-preview'); if(!canvas||$('appearance-overlay').classList.contains('hidden')) return;
     const token=++creatorToken, imgs=[];
-    for(const l of lookLayers(readCreatorAppearance())){ try{imgs.push(await loadDomImage(l.path));}catch(e){console.warn(e);} }
+    for(const l of lookLayers(readCreatorAppearance())){ try{imgs.push([l.slot,await loadDomImage(l.path)]);}catch(e){console.warn(e);} }
     if(token!==creatorToken) return;
     const g=canvas.getContext('2d'); g.imageSmoothingEnabled=false;
     const grad=g.createLinearGradient(0,0,0,canvas.height);grad.addColorStop(0,'#263a42');grad.addColorStop(.78,'#1a2023');grad.addColorStop(.785,'#5e5643');grad.addColorStop(1,'#342d25');g.fillStyle=grad;g.fillRect(0,0,canvas.width,canvas.height);
     const f=frameFor(creatorFacing);
-    for(const im of imgs) g.drawImage(im,f*64,0,64,64,0,0,canvas.width,canvas.height);
+    const k=canvas.width/64;
+    for(const [slot,im] of imgs){
+      if(slot==='shadow'){ const [fw,fh]=CHARS.contactShadow.frame; g.drawImage(im,f*fw,0,fw,fh,(SCALE.player.pivotX-fw/2)*k,(FOOT_Y+1-fh)*k,fw*k,fh*k); }
+      else g.drawImage(im,f*64,0,64,64,0,0,canvas.width,canvas.height);
+    }
     $('preview-facing').textContent=creatorFacing;
   }
   function startCreatorPreview(){ if(!$('skin-opt').options.length) fillCreatorOptions(); drawPaperDollPreview(); }
@@ -267,7 +272,9 @@
       if(sig===this.sig) return; this.sig=sig; this.look=sanitizeLook(look);
       for(const e of this.sprites) e.sprite.destroy();
       this.sprites=layers.filter(l=>this.scene.textures.exists(l.key)).map(l=>{
-        const sp=this.scene.add.sprite(0,0,l.key,this.frame).setOrigin(SCALE.player.pivotX/64,(FOOT_Y+1)/64);
+        // Shadow frames are 32×112 with the shadow on the last rows: bottom edge on the foot line.
+        const sp=l.slot==='shadow'?this.scene.add.sprite(0,0,l.key,this.frame).setOrigin(.5,1)
+          :this.scene.add.sprite(0,0,l.key,this.frame).setOrigin(SCALE.player.pivotX/64,(FOOT_Y+1)/64);
         this.container.add(sp); return {def:{slot:l.slot},sprite:sp,variant:l.key};
       });
     }
@@ -457,6 +464,7 @@
       for(const [id,path] of Object.entries(AUTHORED_MODULES)) this.load.image(`mod-${id}`,path);
       const [fw,fh]=SCALE.player.frame;
       for(const [key,path] of allLayerRefs()) this.load.spritesheet(key,assetPath(path),{frameWidth:fw,frameHeight:fh});
+      if(CHARS.contactShadow) this.load.spritesheet(SHADOW_KEY,assetPath(CHARS.contactShadow.path),{frameWidth:CHARS.contactShadow.frame[0],frameHeight:CHARS.contactShadow.frame[1]});
     }
     create(){
       worldScene=this;
@@ -1102,7 +1110,8 @@
     test('Every registered paper-doll layer loads as a 512×64 sheet of eight 64×64 frames',()=>allLayerRefs().every(([k])=>game.textures.exists(k)&&game.textures.get(k).getSourceImage().width===512&&game.textures.get(k).getSourceImage().height===64&&game.textures.get(k).frameTotal-1===8));
     test('Frame order is the confirmed approved order (S first)',()=>JSON.stringify(CHARS.frameOrder)===JSON.stringify(SCALE.player.frameOrder)&&CHARS.frameOrder[0]==='S');
     test('Male and female options: 2 skin tones, hair, 2 eye colours',()=>Object.keys(CHARS.sexes.male.skin).length===2&&Object.keys(CHARS.sexes.female.skin).length===2&&Object.keys(CHARS.sexes.male.hair).length===3&&Object.keys(CHARS.sexes.female.hair).length===2&&Object.keys(CHARS.sexes.male.eyes).length===2);
-    test('Draw order is body, clothing, arms, shoulders, hair, eyes',()=>lookLayers({sex:'male',outfit:'red-armor'}).map(l=>l.slot).join()==='body,clothing,arms,shoulders,hair,eyes');
+    test('Draw order is shadow, body, clothing, arms, shoulders, hair, eyes',()=>lookLayers({sex:'male',outfit:'red-armor'}).map(l=>l.slot).join()==='shadow,body,clothing,arms,shoulders,hair,eyes');
+    test('Contact shadow loads as eight 32×112 frames and sits on the foot line',()=>{const t=game.textures.get(SHADOW_KEY);const sh=S.player.doll.sprites.find(e=>e.def.slot==='shadow');return t.frameTotal-1===8&&sh&&sh.sprite.originY===1&&sh.sprite.y===0;});
     test('Gi is the starter outfit for both frames',()=>{const n=normalizeState(DEFAULT_STATE);return n.appearance.outfit==='gi'&&n.wardrobe.join()==='gi'&&outfitFits('female','gi')&&outfitFits('male','gi');});
     test('Player stature is measured from the base frame',()=>S.stature>=40&&S.stature<=64&&S.footY>=S.stature-1);
     test('Player collision is an authored foot box, not the sprite frame',()=>FOOT_HW*2===SCALE.player.collision.w&&FOOT_H===SCALE.player.collision.h&&FOOT_HW*2<SCALE.player.frame[0]);

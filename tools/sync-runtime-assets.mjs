@@ -26,6 +26,7 @@ for (const d of Object.values(CHARS.sexes)) {
   for (const k of ['hair', 'eyes']) for (const o of Object.values(d[k])) jobs.push(o.layer);
   for (const o of Object.values(d.outfits)) { jobs.push(o.clothing); if (o.shoulders) jobs.push(o.shoulders); }
 }
+if (CHARS.contactShadow) jobs.push(CHARS.contactShadow);
 for (const m of Object.values(MODS)) jobs.push(m);
 
 let stale = 0, written = 0;

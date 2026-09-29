@@ -2,13 +2,17 @@
    Source authority: the committed /Paperdolls sheets (512×64, eight 64×64 directional frames).
    Runtime copies under docs/assets/characters/ are byte-identical (tools/validate-world-data.mjs).
    Frame order confirmed from the sheets: S, SE, E, NE, N, NW, W, SW (frames are never moved).
-   Draw order per frame: body → clothing → arms → shoulders → hair → eyes.
+   Draw order per frame: contact shadow → body → clothing → arms → shoulders → hair → eyes.
    Never register a redrawn, regenerated, resized, or resampled copy of any sheet. */
 (() => {
   'use strict';
   window.AF_CHARACTERS = {
     frameOrder: ['S', 'SE', 'E', 'NE', 'N', 'NW', 'W', 'SW'],
-    drawOrder: ['body', 'clothing', 'arms', 'shoulders', 'hair', 'eyes'],
+    drawOrder: ['shadow', 'body', 'clothing', 'arms', 'shoulders', 'hair', 'eyes'],
+    // Shared by every actor. Supplied as 256×112 (eight identical 23×5 shadows at a 32 px pitch,
+    // bottom-aligned at rows 107–111), so it is sliced as 32×112 frames with its bottom row on the
+    // foot-contact line and its centre (x 16) on the pivot. Pixels are used unchanged.
+    contactShadow: {path: 'assets/characters/shadow/contact-shadow.png', source: 'Paperdolls/contact-shadow.png', frame: [32, 112]},
     starterOutfit: 'gi',
     sexes: {
       "male": {

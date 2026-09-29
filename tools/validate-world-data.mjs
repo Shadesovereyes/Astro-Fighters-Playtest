@@ -105,6 +105,22 @@ for (const [sex, d] of Object.entries(CHARS.sexes)) {
     if (copied) notes.push(`${label}: ${copied} px match base-body colour at the same position (inspect for copied base pixels)`);
   }
 }
+if (CHARS.contactShadow) {
+  const cs = CHARS.contactShadow, spec = pd.contactShadow;
+  registered.add(cs.source);
+  assert(spec && spec.sourcePath === cs.source && spec.runtimePath === `docs/${cs.path}`, 'characters.js contactShadow must match manifest paperdolls.contactShadow.');
+  const rt = docPath(cs.path);
+  if (!fs.existsSync(rt)) fail(`contact shadow runtime copy missing: ${cs.path}`);
+  else {
+    assert(fs.readFileSync(rt).equals(fs.readFileSync(path.join(root, cs.source))), 'contact shadow runtime copy must be byte-identical.');
+    const img = parsePng(rt), st = inspect(img);
+    assert(st.softAlpha === 0, 'contact shadow has soft alpha.');
+    assert(same([img.width, img.height], spec.canvas) && img.width / cs.frame[0] === ps.framesPerSheet && img.height === cs.frame[1], `contact shadow is ${img.width}×${img.height}; expected ${spec.canvas.join('×')} as eight ${cs.frame.join('×')} frames.`);
+    if (!same(spec.canvas, ps.sheetCanvas)) assert((spec.qaIssues || []).some((q) => q.includes('canvas')), 'contact shadow deviates from the 512×64 contract without a recorded qaIssue.');
+    for (let i = 0; i < ps.framesPerSheet; i += 1) { const r = inspectRegion(img, i * cs.frame[0], 0, cs.frame[0], cs.frame[1]); if (!r.opaque) fail(`contact shadow frame ${i} is empty.`); else if (r.bbox[3] !== cs.frame[1] - 1) fail(`contact shadow frame ${i} bottom row is ${r.bbox[3]}; must be the frame's last row (foot line).`); }
+    notes.push('contact shadow: 256×112 sliced as 32×112 frames (recorded deviation from 512×64)');
+  }
+}
 for (const [id, sexes] of Object.entries(pd.outfitAvailability || {})) for (const sex of sexes) assert(CHARS.sexes[sex]?.outfits?.[id], `manifest lists outfit ${id} for ${sex} but characters.js has no layers for it.`);
 const walk = (d) => fs.readdirSync(d, { withFileTypes: true }).flatMap((e) => e.isDirectory() ? walk(path.join(d, e.name)) : [path.join(d, e.name)]);
 for (const f of walk(path.join(root, pd.sourceRoot))) if (f.endsWith('.png')) {

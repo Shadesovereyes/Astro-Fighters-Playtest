@@ -258,7 +258,7 @@ function validateActivePackage() {
   assert(ch.inspectionPattern.includes('5120x640'), 'inspectionPattern must name the 5120×640 inspection size.');
   const pd = ch.paperdolls || {};
   assert(pd.sourceRoot === 'Paperdolls/' && nonEmpty(pd.registry) && fs.existsSync(path.join(root, pd.registry)), 'characterDependencies.paperdolls must name the Paperdolls source root and runtime registry.');
-  assert(same(pd.drawOrder, ['body', 'clothing', 'arms', 'shoulders', 'hair', 'eyes']), 'Paper-doll draw order drifted.');
+  assert(same(pd.drawOrder, ['shadow', 'body', 'clothing', 'arms', 'shoulders', 'hair', 'eyes']), 'Paper-doll draw order drifted.');
   assert(pd.starterOutfit === 'gi', 'The Gi must remain the starter outfit.');
   assert(ch.weaponRequired === false, 'First shared-foundation benchmark must remain unarmed unless re-contracted.');
   assert(Array.isArray(ch.underlayer) && ch.underlayer.includes('base shorts'), 'Character underlayer must retain base shorts.');
