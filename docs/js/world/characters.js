@@ -10,8 +10,8 @@
     frameOrder: ['S', 'SE', 'E', 'NE', 'N', 'NW', 'W', 'SW'],
     drawOrder: ['shadow', 'body', 'clothing', 'arms', 'shoulders', 'hair', 'eyes'],
     // Shared by every actor: 512×64, eight 64×64 frames, drawn under the body on the same registration.
-    // Supplied on an opaque white background; the runtime copy keys pure white to transparent
-    // (tools/sync-runtime-assets.mjs). Re-export with transparency to return to a byte copy.
+    // Transparent export, except 4 stray pure-white pixels in frame 1 (SE); the runtime copy keys
+    // pure white to transparent (tools/sync-runtime-assets.mjs). Clear them at source to return to a byte copy.
     contactShadow: {path: 'assets/characters/shadow/contact-shadow.png', source: 'Paperdolls/contact-shadow.png', derivation: 'key-white'},
     starterOutfit: 'gi',
     sexes: {

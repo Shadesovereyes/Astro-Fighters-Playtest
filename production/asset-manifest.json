@@ -622,7 +622,7 @@
           ],
           "derivation": "key-white",
           "qaIssues": [
-            "exported on an opaque white background (no transparency); runtime copy keys pure white (255,255,255) to transparent"
+            "background is now transparent, but 4 stray opaque white (255,255,255) pixels remain in frame 1 (SE) at frame-local (22,61), (42,61), (26,63), (38,63); runtime copy keys pure white to transparent until they are cleared at source"
           ]
         }
       }
