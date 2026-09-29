@@ -55,7 +55,7 @@ Contracts reconciled on 2026-09-28: `production/asset-manifest.json` (schema v3,
 
 **Character layers integrated (2026-09-28):** `/Paperdolls` supplies male and female base bodies (two skin tones with matching arms), Gi, male Red/Blue Armor with shoulder guards, hair (male: Afro, Fade, Long; female: Afro, Long), and Brown/Purple eyes. All 23 sheets are 512×64, hard alpha, registered in `docs/js/world/characters.js`, and copied byte-identically to `docs/assets/characters/`. Frame order confirmed from the sheets: **S, SE, E, NE, N, NW, W, SW**. Measured stature S=55px. The legacy 48×64 candidate sheets were removed; player and NPCs now use the same layers and scale.
 
-Skin tones (2026-09-29): four per body — tone0 Fair and tone3 Umber were added as palette swaps of tone1 Light and tone2 Deep by `tools/derive-skin-tones.mjs` (skin ramp recoloured; pixel positions and alpha identical). They are derived candidates awaiting your visual approval.
+Skin tones (2026-09-29): four per body — tone0 Fair and tone3 Umber were added as palette swaps of tone1 Light and tone2 Deep by `tools/derive-skin-tones.mjs` (skin ramp recoloured; pixel positions and alpha identical). Their palettes were approved by the user on 2026-09-29; the colour tables in the tool are now the locked ramps for these tones.
 
 Open gaps: no female armor layers (armor is male-only for now); no idle/walk/ready animation sheets (one frame per direction, held while moving).
 

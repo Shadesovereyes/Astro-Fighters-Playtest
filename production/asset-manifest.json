@@ -647,7 +647,7 @@
               "rule": "palette swap of the skin ramp only; pixel positions and alpha identical to tone2"
             }
           },
-          "status": "tone0/tone3 are derived candidates awaiting visual approval"
+          "status": "tone0 Fair and tone3 Umber palettes approved by the user on 2026-09-29 (visual approval of the derived ramps; not a rubric score)"
         }
       }
     },
