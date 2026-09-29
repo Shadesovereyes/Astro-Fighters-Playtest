@@ -165,6 +165,8 @@ for (const id of [...deps.keys(), ...dressing.keys()]) {
   const st = (deps.get(id) || dressing.get(id)).status;
   if (['integrated', 'runtime-candidate', 'approved'].includes(st)) assert(WORLD.authoredModules?.[id], `manifest marks ${id} as ${st} but no authored module is registered.`);
 }
+try { execFileSync(process.execPath, [path.join(here, 'derive-skin-tones.mjs'), '--check'], { stdio: 'pipe' }); }
+catch (e) { fail(`derived skin tones are stale; run node tools/derive-skin-tones.mjs\n${String(e.stderr || '').trim()}`); }
 try { execFileSync(process.execPath, [path.join(here, 'sync-runtime-assets.mjs'), '--check'], { stdio: 'pipe' }); }
 catch (e) { fail(`runtime assets are stale; run node tools/sync-runtime-assets.mjs\n${String(e.stderr || '').trim()}`); }
 for (const m of Object.values(WORLD.MAPS)) if (m.backdrop) assert(fs.existsSync(docPath(m.backdrop)), `backdrop missing: ${m.backdrop}`);

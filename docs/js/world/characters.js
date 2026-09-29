@@ -2,6 +2,8 @@
    Source authority: the committed /Paperdolls sheets (512×64, eight 64×64 directional frames).
    Runtime copies under docs/assets/characters/ are byte-identical (tools/validate-world-data.mjs).
    Frame order confirmed from the sheets: S, SE, E, NE, N, NW, W, SW (frames are never moved).
+   Skin tones: tone0 Fair and tone3 Umber are palette swaps of tone1/tone2 made by
+   tools/derive-skin-tones.mjs (same pixels and alpha, skin ramp recoloured).
    Draw order per frame: contact shadow → body → clothing → arms → shoulders → hair → eyes.
    Never register a redrawn, regenerated, resized, or resampled copy of any sheet. */
 (() => {
@@ -15,6 +17,17 @@
     sexes: {
       "male": {
         "skin": {
+          "tone0": {
+            "label": "Fair",
+            "body": {
+              "path": "assets/characters/male/body/tone0.png",
+              "source": "Paperdolls/Male/Layer 1 - Base Body/Male Base Body0.png"
+            },
+            "arms": {
+              "path": "assets/characters/male/arms/tone0.png",
+              "source": "Paperdolls/Male/Layer 3 - Arms/Male Arms0.png"
+            }
+          },
           "tone1": {
             "label": "Light",
             "body": {
@@ -35,6 +48,17 @@
             "arms": {
               "path": "assets/characters/male/arms/tone2.png",
               "source": "Paperdolls/Male/Layer 3 - Arms/Male Arms2.png"
+            }
+          },
+          "tone3": {
+            "label": "Umber",
+            "body": {
+              "path": "assets/characters/male/body/tone3.png",
+              "source": "Paperdolls/Male/Layer 1 - Base Body/Male Base Body3.png"
+            },
+            "arms": {
+              "path": "assets/characters/male/arms/tone3.png",
+              "source": "Paperdolls/Male/Layer 3 - Arms/Male Arms3.png"
             }
           }
         },
@@ -111,6 +135,17 @@
       },
       "female": {
         "skin": {
+          "tone0": {
+            "label": "Fair",
+            "body": {
+              "path": "assets/characters/female/body/tone0.png",
+              "source": "Paperdolls/Female/Layer 1 - Base Body/Female Base Body0.png"
+            },
+            "arms": {
+              "path": "assets/characters/female/arms/tone0.png",
+              "source": "Paperdolls/Female/Layer 3 - Arms/Female Arms0.png"
+            }
+          },
           "tone1": {
             "label": "Light",
             "body": {
@@ -131,6 +166,17 @@
             "arms": {
               "path": "assets/characters/female/arms/tone2.png",
               "source": "Paperdolls/Female/Layer 3 - Arms/Female Arms2.png"
+            }
+          },
+          "tone3": {
+            "label": "Umber",
+            "body": {
+              "path": "assets/characters/female/body/tone3.png",
+              "source": "Paperdolls/Female/Layer 1 - Base Body/Female Base Body3.png"
+            },
+            "arms": {
+              "path": "assets/characters/female/arms/tone3.png",
+              "source": "Paperdolls/Female/Layer 3 - Arms/Female Arms3.png"
             }
           }
         },

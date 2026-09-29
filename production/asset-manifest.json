@@ -621,6 +621,33 @@
             64
           ],
           "derivation": "copy"
+        },
+        "skinTones": {
+          "order": [
+            "tone0",
+            "tone1",
+            "tone2",
+            "tone3"
+          ],
+          "labels": {
+            "tone0": "Fair",
+            "tone1": "Light",
+            "tone2": "Deep",
+            "tone3": "Umber"
+          },
+          "derived": {
+            "tone0": {
+              "from": "tone1",
+              "tool": "tools/derive-skin-tones.mjs",
+              "rule": "palette swap of the skin ramp only; pixel positions and alpha identical to tone1"
+            },
+            "tone3": {
+              "from": "tone2",
+              "tool": "tools/derive-skin-tones.mjs",
+              "rule": "palette swap of the skin ramp only; pixel positions and alpha identical to tone2"
+            }
+          },
+          "status": "tone0/tone3 are derived candidates awaiting visual approval"
         }
       }
     },
