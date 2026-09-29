@@ -1120,7 +1120,15 @@
     test('Diagonal movement is normalized',()=>{const p=S.player;p.x=300;p.y=222;const x0=p.x,y0=p.y;S.stepPlayer(0.1,{x:1,y:-1},now());const d=Math.hypot(p.x-x0,p.y-y0);return Math.abs(d-PLAYER_SPEED*0.1)<0.6;});
     test('Authored collision blocks movement independently of art',()=>{const p=S.player;p.x=200;p.y=200;for(let i=0;i<30;i++)S.stepPlayer(0.05,{x:-1,y:0},now());return p.x-FOOT_HW>=168-0.01;});
     test('No grid overlay; collision debug view hidden by default',()=>!S.layerIndex.grid&&S.collisionDebug.visible===false);
+    const walk=(x,y,dx,dy,secs)=>{const p=S.player;p.x=x;p.y=y;for(let i=0;i<secs*20;i++)S.stepPlayer(0.05,{x:dx,y:dy},now());return {x:p.x,y:p.y};};
+    S.buildMap('Civic Ward',MAPS['Civic Ward'].arrivals['from-docks']);
+    test('Civic Academy is solid: no entry from its north face',()=>{const r=walk(320,214,0,1,2);S.player.x=r.x;S.player.y=r.y;return r.y<=222&&S.nearestExit()?.id!=='academy-door';});
+    test('Civic Academy entered only through its south door recess',()=>{const r=walk(320,346,0,-1,2);return r.y>=326&&r.y<=338&&S.nearestExit()?.id==='academy-door';});
+    test('Civic Academy walls beside the door are solid',()=>{const r=walk(250,346,0,-1,2);return r.y>=344;});
+    S.buildMap('Slice 0',MAPS['Slice 0'].spawn);
+    test('Slice 0 buildings are solid (no walking behind them)',()=>{const a=walk(160,420,0,-1,3),b=walk(480,300,0,-1,3);return a.y>=400&&b.y>=248;});
     S.buildMap('Scale Reference',MAPS['Scale Reference'].spawn);
+    test('Scale Reference room is entered only through its door',()=>{const side=walk(60,100,1,0,3),door=walk(250,220,0,-1,4);return side.x<=78&&door.y<180;});
     test('Scale reference objects are sized from ratios of measured stature',()=>S.guideMeasures.length>=12&&S.guideMeasures.every(g=>Object.entries(g.measures).every(([k,v])=>SCALE.within(k,v,S.stature))));
     test('Scale reference door admits the player collision box',()=>{const d=S.guideMeasures.find(g=>g.item==='wall-door').measures;return d.doorOpeningW>FOOT_HW*2+8;});
     test('Single-file bridge admits the player; canal blocks elsewhere',()=>{const p=S.player;p.x=650;p.y=420;for(let i=0;i<40;i++)S.stepPlayer(0.05,{x:0,y:-1},now());const crossed=p.y<272;p.x=600;p.y=420;for(let i=0;i<40;i++)S.stepPlayer(0.05,{x:0,y:-1},now());return crossed&&p.y>400;});

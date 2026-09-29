@@ -41,17 +41,21 @@
       key:'civic', display:'Imperial City · Civic Ward', width:640, height:360,
       backdrop:'assets/runtime/env/civic-ward.png', artState:'legacy',
       spawn:{x:320,y:214},
-      objective:'Find the Astro Fighter Academy south of the crossroads.',
+      objective:'The Astro Fighter Academy door faces the harbor road on the south street.',
+      // Buildings are solid footprints; the only way into the Academy is its south-facing door recess
+      // (x 292–348). The harbor road enters from the south edge beneath the Academy door; the east
+      // column (x 600–640) links the south street to the crossroads.
       colliders:[
         {x:30,y:35,w:170,h:105},{x:425,y:32,w:175,h:113},
-        {x:25,y:250,w:175,h:95},{x:430,y:250,w:180,h:95},{x:194,y:226,w:252,h:114}
+        {x:25,y:250,w:175,h:86},{x:430,y:250,w:170,h:86},
+        {x:194,y:222,w:98,h:114},{x:348,y:222,w:98,h:114},{x:292,y:222,w:56,h:96}
       ],
       exits:[
-        {id:'academy-gate',x:288,y:212,w:64,h:18,target:'Academy',arrive:'from-civic',label:'Enter Astro Fighter Academy'},
-        {id:'west-road',x:0,y:152,w:10,h:78,target:'Imperial Docks',arrive:'from-civic',label:'Return to Imperial Docks',auto:true},
+        {id:'academy-door',x:292,y:318,w:56,h:20,target:'Academy',arrive:'from-civic',label:'Enter Astro Fighter Academy'},
+        {id:'harbor-road',x:260,y:357,w:120,h:3,target:'Imperial Docks',arrive:'from-civic',label:'Harbor road → Imperial Docks',auto:true},
         {id:'east-road',x:630,y:152,w:10,h:78,target:'Fringe Ward',arrive:'from-civic',label:'Enter Fringe Ward',auto:true,requiresAcademy:true}
       ],
-      arrivals:{'from-docks':{x:26,y:192,facing:'E'},'from-academy':{x:320,y:206,facing:'N'},'from-fringe':{x:612,y:192,facing:'W'}},
+      arrivals:{'from-docks':{x:320,y:346,facing:'N'},'from-academy':{x:320,y:346,facing:'S'},'from-fringe':{x:612,y:192,facing:'W'}},
       npcs:[
         {id:'guard-a',name:'Royal Guard',x:250,y:210,look:'guard',facing:'S',lines:['Royal Guard patrols keep the central wards free of street-clan violence.']},
         {id:'guard-b',name:'Royal Guard',x:390,y:210,look:'guard',facing:'S',lines:['The east road leads to the Fringe. Uncertified fighters are turned back at the gate.']},
@@ -95,10 +99,10 @@
       key:'slice0', display:'Slice 0 · Foundation Courtyard (engine test)', width:960, height:540,
       builder:'slice0', artState:'scaffold',
       spawn:{x:480,y:420},
-      objective:'Walk the courtyard: pass behind the gate beam, the wall, and the lantern post.',
+      objective:'Walk the courtyard: pass behind the gate beam and the lantern post. Buildings are solid; doors are the only way in.',
       colliders:[
         {x:0,y:0,w:960,h:200},{x:288,y:200,w:384,h:40},
-        {x:64,y:368,w:192,h:24},
+        {x:64,y:200,w:192,h:192},
         {x:417,y:376,w:14,h:8},{x:529,y:376,w:14,h:8},
         {x:702,y:236,w:44,h:14},
         {x:354,y:512,w:12,h:8}
@@ -150,7 +154,8 @@
       builder:'scale', artState:'scaffold',
       spawn:{x:96,y:470},
       objective:'Walk beside each object and judge it against the player. Every size is a ratio of the player stature S.',
-      colliders:[{x:0,y:0,w:960,h:30}],
+      // Side walls close the room behind the wall-door so the door is its only entrance.
+      colliders:[{x:0,y:0,w:960,h:30},{x:88,y:30,w:8,h:160},{x:404,y:30,w:8,h:160}],
       exits:[{id:'south-lane',x:440,y:522,w:80,h:18,target:'Slice 0',arrive:'from-scale',label:'Go to Slice 0 · Foundation Courtyard'}],
       arrivals:{},
       npcs:[

@@ -71,6 +71,8 @@ Open QA issues (per-asset detail in `production/asset-manifest.json` → `qaIssu
 - contact shadow integrated from `Paperdolls/contact-shadow.png` (512×64, body registration, byte-identical copy) under every actor;
 - no walk-animation character sheets yet (integration gate: animation responds to movement).
 
+Buildings are solid footprints with door-only access: Slice 0's buildings cannot be walked behind; the Civic Ward Academy is entered only through its south-facing door (the harbor road now arrives there); the Scale Reference room is enclosed except for its doorway. `tools/validate-world-data.mjs` flood-fills each map from its spawn to prove every exit, arrival, NPC, and interactable stays reachable.
+
 Measured Slice 0 proportions at S=55px: door opening 34×67 (0.62×S / 1.22×S), stone base 17 (0.31×S), eave underside 93 (1.69×S), post 111 (2.02×S), gate clearance 104 (1.89×S), lantern 107 (1.95×S).
 
 ## Immediate technical gate

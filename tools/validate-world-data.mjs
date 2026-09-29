@@ -206,6 +206,30 @@ for (const [name, map] of Object.entries(WORLD.MAPS)) {
   }
 }
 
+/* ---- reachability: everything interactive must be walkable-to from the spawn ---- */
+// Flood fill over authored map colliders at a 2 px step. Builder-generated colliders (e.g. the
+// Scale Reference canal) are not in map data, so that map's check is conservative.
+for (const [name, map] of Object.entries(WORLD.MAPS)) {
+  const STEP = 2, W = Math.floor(map.width / STEP) + 1, H = Math.floor(map.height / STEP) + 1;
+  const seen = new Uint8Array(W * H), queue = [];
+  const free = (gx, gy) => !hits(map, gx * STEP, gy * STEP);
+  const s0 = [Math.round(map.spawn.x / STEP), Math.round(map.spawn.y / STEP)];
+  if (free(...s0)) { seen[s0[1] * W + s0[0]] = 1; queue.push(s0); }
+  while (queue.length) {
+    const [x, y] = queue.pop();
+    for (const [dx, dy] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
+      const nx = x + dx, ny = y + dy;
+      if (nx < 0 || ny < 0 || nx >= W || ny >= H || seen[ny * W + nx] || !free(nx, ny)) continue;
+      seen[ny * W + nx] = 1; queue.push([nx, ny]);
+    }
+  }
+  const reachable = (test) => { for (let gy = 0; gy < H; gy += 1) for (let gx = 0; gx < W; gx += 1) if (seen[gy * W + gx] && test(gx * STEP, gy * STEP)) return true; return false; };
+  const near = (o, r) => (x, y) => Math.hypot(x - o.x, y - o.y) <= r;
+  for (const e of map.exits || []) assert(reachable((x, y) => inZone(e, x, y)), `${name}: exit ${e.id} cannot be reached from the spawn.`);
+  for (const [k, pt] of Object.entries(map.arrivals || {})) assert(reachable(near(pt, 3)), `${name}: arrival ${k} is not connected to the spawn.`);
+  for (const n of [...(map.npcs || []), ...(map.interactables || [])]) assert(reachable(near(n, ps.interactionRange)), `${name}: ${n.id} cannot be reached within interaction range.`);
+}
+
 if (errors.length) {
   console.error(`World data validation FAILED (${errors.length}):`);
   errors.forEach((e) => console.error(`  - ${e}`));
