@@ -617,15 +617,12 @@
           "sourcePath": "Paperdolls/contact-shadow.png",
           "runtimePath": "docs/assets/characters/shadow/contact-shadow.png",
           "canvas": [
-            256,
-            112
+            512,
+            64
           ],
-          "frame": [
-            32,
-            112
-          ],
+          "derivation": "key-white",
           "qaIssues": [
-            "canvas is 256×112 (eight 32×112 frames) instead of the 512×64 / 64×64 sheet contract; used unchanged by slicing 32×112 frames with the bottom row on the foot line"
+            "exported on an opaque white background (no transparency); runtime copy keys pure white (255,255,255) to transparent"
           ]
         }
       }

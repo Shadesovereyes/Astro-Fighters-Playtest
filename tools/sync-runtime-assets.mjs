@@ -5,11 +5,12 @@
 //
 // Paperdolls (docs/js/world/characters.js): byte-identical copies only.
 // World modules (docs/js/world/world-modules.js): 'copy' or 'alpha-snap' (see that file).
+// 'key-white': sheet exported on an opaque white background; pure white becomes transparent.
 import fs from 'node:fs';
 import path from 'node:path';
 import vm from 'node:vm';
 import { fileURLToPath } from 'node:url';
-import { parsePng, encodePng, snapAlpha } from './lib/png.mjs';
+import { parsePng, encodePng, snapAlpha, keyColour } from './lib/png.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(here, '..');
@@ -37,6 +38,9 @@ for (const j of jobs) {
   if (j.derivation === 'alpha-snap') {
     const { image, changed } = snapAlpha(parsePng(src));
     bytes = encodePng(image); note = `alpha-snap (${changed} px)`;
+  } else if (j.derivation === 'key-white') {
+    const { image, changed } = keyColour(parsePng(src), [255, 255, 255]);
+    bytes = encodePng(image); note = `key-white (${changed} px)`;
   }
   const same = fs.existsSync(dst) && fs.readFileSync(dst).equals(bytes);
   if (same) continue;

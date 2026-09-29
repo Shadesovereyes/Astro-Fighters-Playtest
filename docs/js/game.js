@@ -249,10 +249,8 @@
     const g=canvas.getContext('2d'); g.imageSmoothingEnabled=false;
     const grad=g.createLinearGradient(0,0,0,canvas.height);grad.addColorStop(0,'#263a42');grad.addColorStop(.78,'#1a2023');grad.addColorStop(.785,'#5e5643');grad.addColorStop(1,'#342d25');g.fillStyle=grad;g.fillRect(0,0,canvas.width,canvas.height);
     const f=frameFor(creatorFacing);
-    const k=canvas.width/64;
     for(const [slot,im] of imgs){
-      if(slot==='shadow'){ const [fw,fh]=CHARS.contactShadow.frame; g.drawImage(im,f*fw,0,fw,fh,(SCALE.player.pivotX-fw/2)*k,(FOOT_Y+1-fh)*k,fw*k,fh*k); }
-      else g.drawImage(im,f*64,0,64,64,0,0,canvas.width,canvas.height);
+      g.drawImage(im,f*64,0,64,64,0,0,canvas.width,canvas.height);
     }
     $('preview-facing').textContent=creatorFacing;
   }
@@ -272,9 +270,7 @@
       if(sig===this.sig) return; this.sig=sig; this.look=sanitizeLook(look);
       for(const e of this.sprites) e.sprite.destroy();
       this.sprites=layers.filter(l=>this.scene.textures.exists(l.key)).map(l=>{
-        // Shadow frames are 32×112 with the shadow on the last rows: bottom edge on the foot line.
-        const sp=l.slot==='shadow'?this.scene.add.sprite(0,0,l.key,this.frame).setOrigin(.5,1)
-          :this.scene.add.sprite(0,0,l.key,this.frame).setOrigin(SCALE.player.pivotX/64,(FOOT_Y+1)/64);
+        const sp=this.scene.add.sprite(0,0,l.key,this.frame).setOrigin(SCALE.player.pivotX/64,(FOOT_Y+1)/64);
         this.container.add(sp); return {def:{slot:l.slot},sprite:sp,variant:l.key};
       });
     }
@@ -464,7 +460,7 @@
       for(const [id,path] of Object.entries(AUTHORED_MODULES)) this.load.image(`mod-${id}`,path);
       const [fw,fh]=SCALE.player.frame;
       for(const [key,path] of allLayerRefs()) this.load.spritesheet(key,assetPath(path),{frameWidth:fw,frameHeight:fh});
-      if(CHARS.contactShadow) this.load.spritesheet(SHADOW_KEY,assetPath(CHARS.contactShadow.path),{frameWidth:CHARS.contactShadow.frame[0],frameHeight:CHARS.contactShadow.frame[1]});
+      if(CHARS.contactShadow) this.load.spritesheet(SHADOW_KEY,assetPath(CHARS.contactShadow.path),{frameWidth:fw,frameHeight:fh});
     }
     create(){
       worldScene=this;
@@ -1111,7 +1107,7 @@
     test('Frame order is the confirmed approved order (S first)',()=>JSON.stringify(CHARS.frameOrder)===JSON.stringify(SCALE.player.frameOrder)&&CHARS.frameOrder[0]==='S');
     test('Male and female options: 2 skin tones, hair, 2 eye colours',()=>Object.keys(CHARS.sexes.male.skin).length===2&&Object.keys(CHARS.sexes.female.skin).length===2&&Object.keys(CHARS.sexes.male.hair).length===3&&Object.keys(CHARS.sexes.female.hair).length===2&&Object.keys(CHARS.sexes.male.eyes).length===2);
     test('Draw order is shadow, body, clothing, arms, shoulders, hair, eyes',()=>lookLayers({sex:'male',outfit:'red-armor'}).map(l=>l.slot).join()==='shadow,body,clothing,arms,shoulders,hair,eyes');
-    test('Contact shadow loads as eight 32×112 frames and sits on the foot line',()=>{const t=game.textures.get(SHADOW_KEY);const sh=S.player.doll.sprites.find(e=>e.def.slot==='shadow');return t.frameTotal-1===8&&sh&&sh.sprite.originY===1&&sh.sprite.y===0;});
+    test('Contact shadow is a 512×64 sheet on the body registration with a transparent background',()=>{const t=game.textures.get(SHADOW_KEY),src=t.getSourceImage();const sh=S.player.doll.sprites.find(e=>e.def.slot==='shadow');const c=document.createElement('canvas');c.width=64;c.height=64;const g=c.getContext('2d');g.drawImage(src,0,0,64,64,0,0,64,64);return src.width===512&&src.height===64&&t.frameTotal-1===8&&sh&&sh.sprite.originY===(FOOT_Y+1)/64&&g.getImageData(0,0,1,1).data[3]===0;});
     test('Gi is the starter outfit for both frames',()=>{const n=normalizeState(DEFAULT_STATE);return n.appearance.outfit==='gi'&&n.wardrobe.join()==='gi'&&outfitFits('female','gi')&&outfitFits('male','gi');});
     test('Player stature is measured from the base frame',()=>S.stature>=40&&S.stature<=64&&S.footY>=S.stature-1);
     test('Player collision is an authored foot box, not the sprite frame',()=>FOOT_HW*2===SCALE.player.collision.w&&FOOT_H===SCALE.player.collision.h&&FOOT_HW*2<SCALE.player.frame[0]);

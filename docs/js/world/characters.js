@@ -9,10 +9,10 @@
   window.AF_CHARACTERS = {
     frameOrder: ['S', 'SE', 'E', 'NE', 'N', 'NW', 'W', 'SW'],
     drawOrder: ['shadow', 'body', 'clothing', 'arms', 'shoulders', 'hair', 'eyes'],
-    // Shared by every actor. Supplied as 256×112 (eight identical 23×5 shadows at a 32 px pitch,
-    // bottom-aligned at rows 107–111), so it is sliced as 32×112 frames with its bottom row on the
-    // foot-contact line and its centre (x 16) on the pivot. Pixels are used unchanged.
-    contactShadow: {path: 'assets/characters/shadow/contact-shadow.png', source: 'Paperdolls/contact-shadow.png', frame: [32, 112]},
+    // Shared by every actor: 512×64, eight 64×64 frames, drawn under the body on the same registration.
+    // Supplied on an opaque white background; the runtime copy keys pure white to transparent
+    // (tools/sync-runtime-assets.mjs). Re-export with transparency to return to a byte copy.
+    contactShadow: {path: 'assets/characters/shadow/contact-shadow.png', source: 'Paperdolls/contact-shadow.png', derivation: 'key-white'},
     starterOutfit: 'gi',
     sexes: {
       "male": {

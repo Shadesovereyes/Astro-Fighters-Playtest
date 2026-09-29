@@ -169,3 +169,12 @@ export function snapAlpha(image) {
   for (let i = 3; i < pixels.length; i += 4) { const a = pixels[i], n = a >= 128 ? 255 : 0; if (n !== a) { pixels[i] = n; changed += 1; } }
   return { image: { ...image, pixels }, changed };
 }
+/** Runtime derivation for sheets exported on an opaque background: pixels exactly matching `rgb` become transparent. */
+export function keyColour(image, rgb) {
+  const pixels = Buffer.from(image.pixels);
+  let changed = 0;
+  for (let i = 0; i < pixels.length; i += 4) {
+    if (pixels[i + 3] && pixels[i] === rgb[0] && pixels[i + 1] === rgb[1] && pixels[i + 2] === rgb[2]) { pixels[i] = pixels[i + 1] = pixels[i + 2] = pixels[i + 3] = 0; changed += 1; }
+  }
+  return { image: { ...image, pixels }, changed };
+}
