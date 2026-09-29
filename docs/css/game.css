@@ -27,4 +27,3 @@
 .paperdoll-stage canvas{aspect-ratio:1/1;width:256px;max-width:100%;margin:0 auto}
 
 .eye-picker{display:flex;gap:8px;align-items:center;margin-top:6px}.eye-picker input[type=color]{width:56px;height:36px;padding:2px;margin:0;background:#111417;border:1px solid #544b40}
-.eye-pair{display:inline-flex;border:1px solid #544b40}.eye-pair i{display:block;width:14px;height:28px}

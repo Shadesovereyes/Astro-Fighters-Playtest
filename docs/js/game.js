@@ -262,15 +262,8 @@
 
   /* ---- character creator preview (mechanical layer composite, integer 4× nearest-neighbour) ---- */
   function readCreatorAppearance(){ return sanitizeLook({sex:$('sex-opt')?.value,skin:$('skin-opt')?.value,hair:$('hair-opt')?.value,eyeColor:$('eye-color')?.value,outfit:CHARS.starterOutfit}); }
-  function updateEyePair(){
-    const L=readCreatorAppearance(), preset=presetForDark(L.sex,L.eyeColor);
-    const pair=preset?eyePresets(L.sex)[preset].iris:irisPairFromDark(L.eyeColor);
-    const [dark,light]=$('eye-pair').children; dark.style.background=pair.dark; light.style.background=pair.light;
-    $('eye-pair').title=`Darker ${pair.dark} · lighter ${pair.light}`;
-  }
   function fillCreatorOptions(){
     const d=CHARS.sexes[$('sex-opt').value]||CHARS.sexes.male;
-    updateEyePair();
     for(const [id,k] of [['skin-opt','skin'],['hair-opt','hair']]){
       const sel=$(id), prev=sel.value;
       sel.innerHTML=Object.entries(d[k]).map(([v,o])=>`<option value="${v}">${safeText(o.label)}</option>`).join('');
@@ -300,7 +293,7 @@
   function bindCreatorPreview(){
     $('sex-opt')?.addEventListener('input',()=>{fillCreatorOptions();drawPaperDollPreview();});
     for(const id of ['skin-opt','hair-opt']) $(id)?.addEventListener('input',()=>drawPaperDollPreview());
-    $('eye-color')?.addEventListener('input',()=>{updateEyePair();drawPaperDollPreview();});
+    $('eye-color')?.addEventListener('input',()=>drawPaperDollPreview());
     $('preview-left')?.addEventListener('click',()=>{creatorFacing=COMPASS[(COMPASS.indexOf(creatorFacing)+7)%8];drawPaperDollPreview();});
     $('preview-right')?.addEventListener('click',()=>{creatorFacing=COMPASS[(COMPASS.indexOf(creatorFacing)+1)%8];drawPaperDollPreview();});
   }
