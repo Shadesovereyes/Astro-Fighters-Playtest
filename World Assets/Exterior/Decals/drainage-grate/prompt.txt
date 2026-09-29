@@ -1,0 +1,7 @@
+drainage-grate — 48×32 (layer: architecture-dressing, drawn flat below the actors)
+
+Frame: a 1 px outer iron frame.
+Opening: the opening runs from x 3–44 and rows 4–27.
+Bars: 2 px bars every 4 px, starting at x = 5.
+Patina: up to 18 patina pixels.
+Placement: centred in the channel at y = 448, at x = 176, 496 and 816. Walkable.

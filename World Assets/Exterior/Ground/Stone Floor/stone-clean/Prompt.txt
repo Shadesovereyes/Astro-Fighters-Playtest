@@ -1,0 +1,7 @@
+stone-clean — 192×128
+
+Rows (courses): seven, top to bottom 17, 21, 15, 19, 18, 22, 16 px (total 128). The last row of each course is a 1 px mortar line: rows 16, 37, 52, 71, 89, 111 and 127.
+Stones: 18–44 px wide, with vertical joints staggered from course to course. No joint should line up with the same x position more than two courses running, and none on multiples of 32.
+Tiling: it must tile left to right: a stone crossing x = 191 continues at x = 0. The top and bottom edges always meet on a mortar line.
+Scale check: the player's foot is about 6 px, so each stone should read as about 3–7 shoe-lengths.
+Surface: stone interiors get no more than 6% single-pixel speckle.

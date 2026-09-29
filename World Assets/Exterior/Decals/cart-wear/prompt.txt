@@ -1,0 +1,5 @@
+cart-wear — 96×64
+
+Tracks: two wheel ruts at rows 16–21 and 40–45, so the wheels sit 24 px apart centre to centre (0.44×S, a handcart width).
+Color: each rut is 2 rows of polished highlight plus 4 rows of grime.
+Ends: the ruts fade out by dithering over the last 18 px at each end.

@@ -1,0 +1,4 @@
+stains — 64×64
+
+Content: a dithered soot patch about 62×40 px, using 2–3 shades on a checker or ordered dither.
+Alpha: the current placeholder uses semi-transparent pixels, which is not allowed in the final art.

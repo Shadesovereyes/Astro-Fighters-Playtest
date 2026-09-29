@@ -1,0 +1,7 @@
+drainage-channel — 160×48
+
+Curbs: rows 0–7 and 40–47 are curb blocks 22–40 px long.
+Channel: rows 8–39 are the recessed channel, 32 px wide (0.58×S, narrow enough to step over).
+Water: a water band at rows 25–29 with a 1 px highlight at row 25.
+Tiling: tiles left to right.
+Placement: six copies at y = 440, x = 0 to 800 in steps of 160.

@@ -1,0 +1,7 @@
+stone-timber-transition — 128×64
+
+Stone band: rows 0–27 are stone pavers.
+Lip: rows 28–31 are a stone lip, with a highlight at rows 28–30 and shade at row 31.
+Planks: rows 32–63 hold four planks, each 7 px tall with a 1 px gap (plank tops at y = 32, 40, 48, 56). Planks are 30–70 px long with 1 px end joints.
+Tiling: tiles left to right.
+Placement: (704,300) and (832,300).

@@ -1,0 +1,5 @@
+stone-patched — 192×128**
+
+- **Base:** same course and joint layout as stone-clean.
+- **Cobble patch:** reset cobbles 8×7 px in a patch from (58,38) to (121,81).
+- **Timber repair:** a board 40×9 px at (132,84), with a 1 px highlight on top, a 1 px shade row, and two iron nails at (135,88) and (168,88).

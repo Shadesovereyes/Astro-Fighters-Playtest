@@ -1,0 +1,7 @@
+**noren (the required sign/lantern/noren dressing item) — 44×34**
+
+- **Rod:** rows 0–2 across the full width.
+- **Curtain:** three 13 px panels with 1 px gaps, rows 3–33, overhanging the door opening by 4 px on each side.
+- **Length:** it hangs down 30 px, covering about 45% of the opening.
+- **Colours:** indigo cloth using 4 shades, plus one pale crest on the centre panel.
+- **Placement:** (458,153).
