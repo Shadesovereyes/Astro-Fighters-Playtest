@@ -1,0 +1,669 @@
+{
+  "schema": "astro-fighters-character-rig/v1",
+  "body": "male",
+  "source": {
+    "body": "Paperdolls/Male/Layer 1 - Base Body/Male Base Body1.png",
+    "arms": "Paperdolls/Male/Layer 3 - Arms/Male Arms1.png"
+  },
+  "frameSize": [
+    64,
+    64
+  ],
+  "frameOrder": [
+    "S",
+    "SE",
+    "E",
+    "NE",
+    "N",
+    "NW",
+    "W",
+    "SW"
+  ],
+  "status": "candidate — pending user approval",
+  "method": {
+    "head": "rows ≤ 20 (row 20 only within the neck columns of row 19)",
+    "torso": "rows 20–32 excluding arms",
+    "pelvis": "rows 33–38 plus shorts-coloured pixels on rows 39–40",
+    "arms": "Arms1 ∩ Body1 components; upper arm at or above the elbow row",
+    "legs": "per-row split at the interior separator nearest the crotch; profiles use the per-row far-leg boundary in the tool config; thigh at or above the narrowest row in the knee search band (profile near knee fixed at row 46)",
+    "anatomicalSides": "R/L are the character's own sides; nearSide/farSide per direction (null for S and N)"
+  },
+  "partColours": {
+    "head": "#e6194b",
+    "torso": "#3cb44b",
+    "pelvis": "#ffe119",
+    "R-upper-arm": "#0082c8",
+    "R-forearm-hand": "#46f0f0",
+    "L-upper-arm": "#911eb4",
+    "L-forearm-hand": "#f032e6",
+    "R-thigh": "#f58230",
+    "R-shin-foot": "#aa6e28",
+    "L-thigh": "#808000",
+    "L-shin-foot": "#000080"
+  },
+  "totalPixels": 5628,
+  "frames": [
+    {
+      "direction": "S",
+      "frame": 0,
+      "anatomicalScreenLeft": "R",
+      "nearSide": null,
+      "farSide": null,
+      "elbowRow": 28,
+      "kneeRow": {
+        "R": 45,
+        "L": 45
+      },
+      "pixelCounts": {
+        "head": 116,
+        "torso": 108,
+        "pelvis": 74,
+        "R-upper-arm": 31,
+        "R-forearm-hand": 59,
+        "L-upper-arm": 31,
+        "L-forearm-hand": 60,
+        "R-thigh": 45,
+        "R-shin-foot": 101,
+        "L-thigh": 44,
+        "L-shin-foot": 102
+      },
+      "anchors": {
+        "head": [
+          31,
+          9
+        ],
+        "neck": [
+          31,
+          20
+        ],
+        "R-shoulder": [
+          25,
+          21
+        ],
+        "R-elbow": [
+          24,
+          28
+        ],
+        "R-hand-grip": [
+          21,
+          38
+        ],
+        "R-knee": [
+          26,
+          45
+        ],
+        "R-foot": [
+          22,
+          63
+        ],
+        "L-shoulder": [
+          38,
+          21
+        ],
+        "L-elbow": [
+          39,
+          28
+        ],
+        "L-hand-grip": [
+          41,
+          38
+        ],
+        "L-knee": [
+          36,
+          45
+        ],
+        "L-foot": [
+          40,
+          63
+        ],
+        "hip": [
+          31,
+          38
+        ]
+      },
+      "notes": []
+    },
+    {
+      "direction": "SE",
+      "frame": 1,
+      "anatomicalScreenLeft": "R",
+      "nearSide": "R",
+      "farSide": "L",
+      "elbowRow": 28,
+      "kneeRow": {
+        "R": 47,
+        "L": 46
+      },
+      "pixelCounts": {
+        "head": 135,
+        "torso": 97,
+        "pelvis": 71,
+        "R-upper-arm": 40,
+        "R-forearm-hand": 54,
+        "L-upper-arm": 19,
+        "L-forearm-hand": 51,
+        "R-thigh": 60,
+        "R-shin-foot": 89,
+        "L-thigh": 56,
+        "L-shin-foot": 83
+      },
+      "anchors": {
+        "head": [
+          32,
+          9
+        ],
+        "neck": [
+          32,
+          20
+        ],
+        "R-shoulder": [
+          26,
+          20
+        ],
+        "R-elbow": [
+          25,
+          28
+        ],
+        "R-hand-grip": [
+          22,
+          38
+        ],
+        "R-knee": [
+          25,
+          47
+        ],
+        "R-foot": [
+          24,
+          63
+        ],
+        "L-shoulder": [
+          37,
+          21
+        ],
+        "L-elbow": [
+          38,
+          28
+        ],
+        "L-hand-grip": [
+          41,
+          37
+        ],
+        "L-knee": [
+          38,
+          46
+        ],
+        "L-foot": [
+          40,
+          61
+        ],
+        "hip": [
+          32,
+          38
+        ]
+      },
+      "notes": []
+    },
+    {
+      "direction": "E",
+      "frame": 2,
+      "anatomicalScreenLeft": null,
+      "nearSide": "R",
+      "farSide": "L",
+      "elbowRow": 30,
+      "kneeRow": {
+        "R": 46,
+        "L": null
+      },
+      "pixelCounts": {
+        "head": 133,
+        "torso": 43,
+        "pelvis": 22,
+        "R-upper-arm": 50,
+        "R-forearm-hand": 58,
+        "L-upper-arm": 0,
+        "L-forearm-hand": 0,
+        "R-thigh": 46,
+        "R-shin-foot": 99,
+        "L-thigh": 0,
+        "L-shin-foot": 34
+      },
+      "anchors": {
+        "head": [
+          34,
+          8
+        ],
+        "neck": [
+          32,
+          20
+        ],
+        "R-shoulder": [
+          32,
+          21
+        ],
+        "R-elbow": [
+          32,
+          30
+        ],
+        "R-hand-grip": [
+          35,
+          39
+        ],
+        "R-knee": [
+          33,
+          46
+        ],
+        "R-foot": [
+          34,
+          63
+        ],
+        "L-shoulder": null,
+        "L-elbow": null,
+        "L-hand-grip": null,
+        "L-knee": null,
+        "L-foot": [
+          29,
+          60
+        ],
+        "hip": [
+          30,
+          38
+        ]
+      },
+      "notes": [
+        "far (L) arm fully hidden by the body; no pixels",
+        "far (L) thigh hidden behind the near thigh; far leg visible from y=47 as shin-foot only"
+      ]
+    },
+    {
+      "direction": "NE",
+      "frame": 3,
+      "anatomicalScreenLeft": "L",
+      "nearSide": "R",
+      "farSide": "L",
+      "elbowRow": 28,
+      "kneeRow": {
+        "R": 46,
+        "L": 45
+      },
+      "pixelCounts": {
+        "head": 126,
+        "torso": 96,
+        "pelvis": 76,
+        "R-upper-arm": 39,
+        "R-forearm-hand": 65,
+        "L-upper-arm": 31,
+        "L-forearm-hand": 61,
+        "R-thigh": 50,
+        "R-shin-foot": 98,
+        "L-thigh": 41,
+        "L-shin-foot": 96
+      },
+      "anchors": {
+        "head": [
+          34,
+          9
+        ],
+        "neck": [
+          32,
+          20
+        ],
+        "R-shoulder": [
+          37,
+          20
+        ],
+        "R-elbow": [
+          37,
+          28
+        ],
+        "R-hand-grip": [
+          41,
+          39
+        ],
+        "R-knee": [
+          37,
+          46
+        ],
+        "R-foot": [
+          40,
+          63
+        ],
+        "L-shoulder": [
+          25,
+          20
+        ],
+        "L-elbow": [
+          24,
+          28
+        ],
+        "L-hand-grip": [
+          22,
+          38
+        ],
+        "L-knee": [
+          27,
+          45
+        ],
+        "L-foot": [
+          25,
+          61
+        ],
+        "hip": [
+          31,
+          38
+        ]
+      },
+      "notes": []
+    },
+    {
+      "direction": "N",
+      "frame": 4,
+      "anatomicalScreenLeft": "L",
+      "nearSide": null,
+      "farSide": null,
+      "elbowRow": 28,
+      "kneeRow": {
+        "R": 46,
+        "L": 46
+      },
+      "pixelCounts": {
+        "head": 122,
+        "torso": 110,
+        "pelvis": 78,
+        "R-upper-arm": 39,
+        "R-forearm-hand": 58,
+        "L-upper-arm": 39,
+        "L-forearm-hand": 58,
+        "R-thigh": 54,
+        "R-shin-foot": 102,
+        "L-thigh": 57,
+        "L-shin-foot": 102
+      },
+      "anchors": {
+        "head": [
+          31,
+          9
+        ],
+        "neck": [
+          31,
+          20
+        ],
+        "R-shoulder": [
+          38,
+          21
+        ],
+        "R-elbow": [
+          39,
+          28
+        ],
+        "R-hand-grip": [
+          41,
+          38
+        ],
+        "R-knee": [
+          37,
+          46
+        ],
+        "R-foot": [
+          40,
+          63
+        ],
+        "L-shoulder": [
+          24,
+          21
+        ],
+        "L-elbow": [
+          24,
+          28
+        ],
+        "L-hand-grip": [
+          21,
+          38
+        ],
+        "L-knee": [
+          26,
+          46
+        ],
+        "L-foot": [
+          23,
+          63
+        ],
+        "hip": [
+          31,
+          38
+        ]
+      },
+      "notes": []
+    },
+    {
+      "direction": "NW",
+      "frame": 5,
+      "anatomicalScreenLeft": "L",
+      "nearSide": "L",
+      "farSide": "R",
+      "elbowRow": 28,
+      "kneeRow": {
+        "R": 45,
+        "L": 46
+      },
+      "pixelCounts": {
+        "head": 126,
+        "torso": 96,
+        "pelvis": 76,
+        "R-upper-arm": 31,
+        "R-forearm-hand": 61,
+        "L-upper-arm": 39,
+        "L-forearm-hand": 65,
+        "R-thigh": 39,
+        "R-shin-foot": 96,
+        "L-thigh": 52,
+        "L-shin-foot": 98
+      },
+      "anchors": {
+        "head": [
+          30,
+          9
+        ],
+        "neck": [
+          32,
+          20
+        ],
+        "R-shoulder": [
+          38,
+          20
+        ],
+        "R-elbow": [
+          39,
+          28
+        ],
+        "R-hand-grip": [
+          41,
+          38
+        ],
+        "R-knee": [
+          36,
+          45
+        ],
+        "R-foot": [
+          39,
+          61
+        ],
+        "L-shoulder": [
+          27,
+          20
+        ],
+        "L-elbow": [
+          26,
+          28
+        ],
+        "L-hand-grip": [
+          23,
+          39
+        ],
+        "L-knee": [
+          26,
+          46
+        ],
+        "L-foot": [
+          23,
+          63
+        ],
+        "hip": [
+          32,
+          38
+        ]
+      },
+      "notes": []
+    },
+    {
+      "direction": "W",
+      "frame": 6,
+      "anatomicalScreenLeft": null,
+      "nearSide": "L",
+      "farSide": "R",
+      "elbowRow": 30,
+      "kneeRow": {
+        "R": null,
+        "L": 46
+      },
+      "pixelCounts": {
+        "head": 133,
+        "torso": 43,
+        "pelvis": 22,
+        "R-upper-arm": 0,
+        "R-forearm-hand": 0,
+        "L-upper-arm": 50,
+        "L-forearm-hand": 58,
+        "R-thigh": 0,
+        "R-shin-foot": 34,
+        "L-thigh": 46,
+        "L-shin-foot": 99
+      },
+      "anchors": {
+        "head": [
+          30,
+          8
+        ],
+        "neck": [
+          31,
+          20
+        ],
+        "R-shoulder": null,
+        "R-elbow": null,
+        "R-hand-grip": null,
+        "R-knee": null,
+        "R-foot": [
+          35,
+          60
+        ],
+        "L-shoulder": [
+          31,
+          21
+        ],
+        "L-elbow": [
+          31,
+          30
+        ],
+        "L-hand-grip": [
+          29,
+          39
+        ],
+        "L-knee": [
+          30,
+          46
+        ],
+        "L-foot": [
+          29,
+          63
+        ],
+        "hip": [
+          33,
+          38
+        ]
+      },
+      "notes": [
+        "far (R) arm fully hidden by the body; no pixels",
+        "far (R) thigh hidden behind the near thigh; far leg visible from y=47 as shin-foot only"
+      ]
+    },
+    {
+      "direction": "SW",
+      "frame": 7,
+      "anatomicalScreenLeft": "R",
+      "nearSide": "L",
+      "farSide": "R",
+      "elbowRow": 28,
+      "kneeRow": {
+        "R": 46,
+        "L": 47
+      },
+      "pixelCounts": {
+        "head": 135,
+        "torso": 97,
+        "pelvis": 71,
+        "R-upper-arm": 19,
+        "R-forearm-hand": 51,
+        "L-upper-arm": 40,
+        "L-forearm-hand": 54,
+        "R-thigh": 58,
+        "R-shin-foot": 83,
+        "L-thigh": 58,
+        "L-shin-foot": 89
+      },
+      "anchors": {
+        "head": [
+          31,
+          9
+        ],
+        "neck": [
+          31,
+          20
+        ],
+        "R-shoulder": [
+          27,
+          21
+        ],
+        "R-elbow": [
+          26,
+          28
+        ],
+        "R-hand-grip": [
+          22,
+          37
+        ],
+        "R-knee": [
+          26,
+          46
+        ],
+        "R-foot": [
+          24,
+          61
+        ],
+        "L-shoulder": [
+          38,
+          20
+        ],
+        "L-elbow": [
+          39,
+          28
+        ],
+        "L-hand-grip": [
+          41,
+          38
+        ],
+        "L-knee": [
+          38,
+          47
+        ],
+        "L-foot": [
+          39,
+          63
+        ],
+        "hip": [
+          32,
+          38
+        ]
+      },
+      "notes": []
+    }
+  ]
+}

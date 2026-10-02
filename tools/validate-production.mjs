@@ -194,6 +194,19 @@ function validateCanonical() {
   const order = g.referenceFrameOrder;
   assert(same(order, ['S', 'SE', 'E', 'NE', 'N', 'NW', 'W', 'SW']), 'Reference sheet frame order must remain S, SE, E, NE, N, NW, W, SW.');
   assert(Array.isArray(g.parts) && g.parts.length > 0, 'characterGeometry needs a part list.');
+  for (const [body, entry] of Object.entries(g.rig || {})) {
+    if (body === 'generator') continue;
+    for (const key of ['partMap', 'data']) assert(fs.existsSync(path.join(root, entry[key] || '')), `Rig ${body} ${key} missing on disk.`);
+    if (fs.existsSync(path.join(root, entry.data || ''))) {
+      const rigData = JSON.parse(read(entry.data));
+      assert(same(rigData.frameOrder, g.referenceFrameOrder), `Rig ${body} frame order must match referenceFrameOrder.`);
+      assert(rigData.frames?.length === 8, `Rig ${body} must describe eight frames.`);
+      for (const frame of rigData.frames || []) {
+        for (const anchor of g.anchors) assert(anchor in frame.anchors, `Rig ${body} ${frame.direction} missing anchor ${anchor}.`);
+        for (const part of Object.keys(frame.pixelCounts)) assert(g.parts.includes(part), `Rig ${body} ${frame.direction} has unknown part ${part}.`);
+      }
+    }
+  }
   assert(Array.isArray(g.anchors) && g.anchors.length > 0, 'characterGeometry needs an anchor list.');
   assert(Array.isArray(g.openIssues), 'characterGeometry needs openIssues (may be empty).');
 }
