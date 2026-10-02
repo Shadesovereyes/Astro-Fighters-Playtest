@@ -161,7 +161,7 @@ On approval, a new base frame becomes **locked production geometry** with protec
 - Female Body1 is the user's corrected sheet (2026-10-02), which removes 4 stray pixels outside the outline (frames 0, 1, 7).
 - **Body2 sheets are skin-tone references only**, not geometry, not animation bases, and not runtime assets. They are kept unmodified as the colour authority for the second skin tone; their silhouette and interior shading are not binding.
 - Body1 and Arms1 (male and female) share one locked 5-step skin ramp: `#f6a35b` light, `#c87845` mid, `#9e4a31` shadow, `#70241d` dark, `#3f0505` deep, plus `#000000` outline and `#ffffff`/`#e3e3e3` wraps (consolidated 2026-10-02; colour-only edit, no pixel moved). Hair layers keep their own colours.
-- Skin-tone variants are produced by mapping that ramp step-for-step to a target ramp. The second ramp is defined in `production/asset-manifest.json`; its highlight `#e0764b` is a derived candidate pending approval, because the Body2 reference collapses light and mid into `#b24b36`.
+- Skin-tone variants are produced by mapping that ramp step-for-step to a target ramp. Tone 2 (approved 2026-10-02): `#e0764b` light, `#b24b36` mid, `#96392b` shadow, `#7b2b21` dark, `#4a1510` deep; recorded in `production/asset-manifest.json`.
 
 ## Equipment and overlays
 

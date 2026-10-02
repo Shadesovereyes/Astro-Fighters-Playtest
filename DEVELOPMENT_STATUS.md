@@ -98,7 +98,7 @@ The `480×640` source / `48×64` runtime character contract is retired. `product
 
 Open character-geometry items:
 
-- body geometry: Body1 is the only base geometry for both bodies; Female Body1 is the user's corrected sheet. Body2 sheets are skin-tone references only, kept as originally authored. Body1/Arms1 (male and female) now share one locked 5-step skin ramp (`#f6a35b` / `#c87845` / `#9e4a31` / `#70241d` / `#3f0505`); the second ramp's highlight `#e0764b` is a derived candidate pending approval;
+- body geometry: Body1 is the only base geometry for both bodies; Female Body1 is the user's corrected sheet. Body2 sheets are skin-tone references only, kept as originally authored. Body1/Arms1 (male and female) now share one locked 5-step skin ramp (`#f6a35b` / `#c87845` / `#9e4a31` / `#70241d` / `#3f0505`); tone 2 ramp approved (`#e0764b` / `#b24b36` / `#96392b` / `#7b2b21` / `#4a1510`);
 - reference-pose feet touch the frame bottom (y=63), leaving no headroom below the contact line;
 - the `/docs` prototype still loads `48×64` paper-doll sheets; that is prototype debt, not the production contract.
 

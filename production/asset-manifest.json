@@ -40,7 +40,7 @@
       "lockedSkinPalette": {
         "appliesTo": ["Body1", "Arms1"],
         "tone1": {"light": "#f6a35b", "mid": "#c87845", "shadow": "#9e4a31", "dark": "#70241d", "deep": "#3f0505"},
-        "tone2Candidate": {"status": "pending user approval", "light": "#e0764b", "mid": "#b24b36", "shadow": "#96392b", "dark": "#7b2b21", "deep": "#4a1510", "derivation": "light = tone2 mid + tone1 light-mid OKLab step; other steps from Body2 reference"},
+        "tone2": {"status": "approved by user 2026-10-02", "light": "#e0764b", "mid": "#b24b36", "shadow": "#96392b", "dark": "#7b2b21", "deep": "#4a1510", "derivation": "light = tone2 mid + tone1 light-mid OKLab step; other steps from Body2 reference"},
         "sharedNonSkin": {"outline": "#000000", "wrapLight": "#ffffff", "wrapShade": "#e3e3e3"}
       },
       "referenceFrameOrder": ["S", "SE", "E", "NE", "N", "NW", "W", "SW"],
@@ -60,7 +60,6 @@
       "equipmentRule": "rigid items placed by anchor; deformable items authored per body-part pose; runtime-eligible only with full direction × state × frame coverage",
       "generatedImageryRule": "reference only; no production pixel converted from generated imagery",
       "openIssues": [
-        "second skin ramp highlight #e0764b is a derived candidate pending approval; Body2 reference ramp collapses light and mid into #b24b36",
         "reference-pose feet touch the frame bottom (y=63); no headroom below the contact line"
       ]
     },
