@@ -33,6 +33,7 @@
       },
       "referencePoseRole": "frame 0 of each direction's ready state",
       "skinVariants": "palette swaps of one canonical geometry per body",
+      "canonicalGeometry": {"male": "Paperdolls/Male/Layer 1 - Base Body/Male Base Body1.png", "female": "Paperdolls/Female/Layer 1 - Base Body/Female Base Body1.png"},
       "animationBaseApproval": "per state per direction; approved frames become locked production geometry",
       "riggingRule": "cut-out rig from reference-pose pixels; whole-pixel moves and approved part variants/joint patches only; no rotation or resampling",
       "parts": ["head", "torso", "pelvis", "near-upper-arm", "near-forearm-hand", "far-upper-arm", "far-forearm-hand", "near-thigh", "near-shin-foot", "far-thigh", "far-shin-foot"],
@@ -41,7 +42,8 @@
       "equipmentRule": "rigid items placed by anchor; deformable items authored per body-part pose; runtime-eligible only with full direction × state × frame coverage",
       "generatedImageryRule": "reference only; no production pixel converted from generated imagery",
       "openIssues": [
-        "female Body1/Body2 differ by 8 silhouette pixels; canonical female geometry not yet chosen",
+        "female Body2 differs from a pure colour mapping of canonical Body1 at 40 interior pixels",
+        "Body1 sheets contain near-duplicate colours; locked body palette not yet consolidated",
         "mapping of the eight reference frames to canonical direction labels not yet recorded",
         "reference-pose feet touch the frame bottom (y=63); no headroom below the contact line"
       ]

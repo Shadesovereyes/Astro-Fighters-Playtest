@@ -179,6 +179,10 @@ function validateCanonical() {
   for (const key of ['referencePoseRole', 'skinVariants', 'animationBaseApproval', 'riggingRule', 'drawOrder', 'equipmentRule', 'generatedImageryRule']) {
     assert(nonEmpty(g[key]), `characterGeometry needs ${key}.`);
   }
+  for (const body of ['male', 'female']) {
+    const canon = g.canonicalGeometry?.[body];
+    assert(nonEmpty(canon) && (g.referencePoses?.[body] || []).includes(canon), `characterGeometry needs a ${body} canonical geometry listed among its reference poses.`);
+  }
   assert(Array.isArray(g.parts) && g.parts.length > 0, 'characterGeometry needs a part list.');
   assert(Array.isArray(g.anchors) && g.anchors.length > 0, 'characterGeometry needs an anchor list.');
   assert(Array.isArray(g.openIssues), 'characterGeometry needs openIssues (may be empty).');

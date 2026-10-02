@@ -156,7 +156,7 @@ Locked contract facts remain in the manifest: `512×64` reference sheets, `64×6
 
 ### P0-E — Female base parity
 
-Resolve the 8-pixel silhouette difference between female Base Body1 and Body2 into one canonical geometry (explicit one-time base edit), then produce female animation bases on the same frame, pivot, and direction system:
+Female Body1 is the canonical female geometry (Body2 silhouette aligned to it). Resolve Body2's remaining interior shading differences into a pure palette swap, then produce female animation bases on the same frame, pivot, and direction system:
 
 - body/skin;
 - hair/face;
@@ -463,7 +463,7 @@ This is the current execution order. It is not a second checklist.
 
 ### Queue B — Player benchmark
 
-19. canonical female geometry decision (Body1/Body2 silhouette parity)
+19. locked body palette consolidation + female Body2 palette-swap parity
 20. reference-frame direction mapping + part split + anchors
 21. male idle animation base (approval-gated, then locked)
 22. male walk animation base (approval-gated, then locked)
