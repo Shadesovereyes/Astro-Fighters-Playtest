@@ -223,7 +223,7 @@ Temporary generations, failed experiments, and QA boards may remain outside the 
 
 Using the same visual authority and the locked base geometry change control in `AGENTS.md`:
 
-1. record the reference-frame direction mapping, part split, and anchors for the locked 512×64 sheets;
+1. record the part split and anchors for the locked 512×64 sheets (frame order `S, SE, E, NE, N, NW, W, SW`);
 2. author idle, walk, and ready animation base frames as deterministic data specs from the reference poses;
 3. approve each state per direction, then lock it;
 4. author benchmark garment/accessory overlays per body-part pose and anchor;

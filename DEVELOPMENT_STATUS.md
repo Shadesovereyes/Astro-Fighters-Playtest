@@ -85,6 +85,7 @@ Locked base geometry is under **change control** (approved 2026-10-02):
 - new animation base frames (idle, walk, ready, attack) may be authored as deterministic data specs built from the reference pose as a cut-out rig; each becomes locked production geometry after user approval per state per direction;
 - approved frames are never regenerated, redrawn, or stylistically reinterpreted; unlocking one requires explicit user instruction, a recorded reason, and overlay re-verification;
 - each body has one canonical geometry; skin tones are palette swaps;
+- sheet frame order, left to right (frames 0–7): `S, SE, E, NE, N, NW, W, SW` (recorded as `referenceFrameOrder` in the manifest);
 - clothing, armor, equipment, and accessories are separate transparent overlays: rigid items placed by anchor, deformable items authored per body-part pose, coverage tracked per direction × state × frame;
 - AI-generated images are reference only; no production pixel is converted from them;
 - enlarged inspection sheets are integer nearest-neighbor derivatives only; 10× = **5120×640**;
@@ -97,7 +98,6 @@ The `480×640` source / `48×64` runtime character contract is retired. `product
 Open character-geometry items:
 
 - body geometry: Body1 is the only base geometry for both bodies; Female Body1 is the user's corrected sheet. Body2 sheets are skin-tone references only, kept as originally authored. Body1/Arms1 (male and female) now share one locked 5-step skin ramp (`#f6a35b` / `#c87845` / `#9e4a31` / `#70241d` / `#3f0505`); the second ramp's highlight `#e0764b` is a derived candidate pending approval;
-- the mapping from the eight reference frames to canonical direction labels is not yet recorded in the manifest;
 - reference-pose feet touch the frame bottom (y=63), leaving no headroom below the contact line;
 - the `/docs` prototype still loads `48×64` paper-doll sheets; that is prototype debt, not the production contract.
 

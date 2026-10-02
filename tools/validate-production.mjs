@@ -191,6 +191,8 @@ function validateCanonical() {
     const canon = g.canonicalGeometry?.[body];
     assert(nonEmpty(canon) && (g.referencePoses?.[body] || []).includes(canon), `characterGeometry needs a ${body} canonical geometry listed among its reference poses.`);
   }
+  const order = g.referenceFrameOrder;
+  assert(same(order, ['S', 'SE', 'E', 'NE', 'N', 'NW', 'W', 'SW']), 'Reference sheet frame order must remain S, SE, E, NE, N, NW, W, SW.');
   assert(Array.isArray(g.parts) && g.parts.length > 0, 'characterGeometry needs a part list.');
   assert(Array.isArray(g.anchors) && g.anchors.length > 0, 'characterGeometry needs an anchor list.');
   assert(Array.isArray(g.openIssues), 'characterGeometry needs openIssues (may be empty).');

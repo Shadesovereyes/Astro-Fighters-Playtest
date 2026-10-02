@@ -43,6 +43,7 @@
         "tone2Candidate": {"status": "pending user approval", "light": "#e0764b", "mid": "#b24b36", "shadow": "#96392b", "dark": "#7b2b21", "deep": "#4a1510", "derivation": "light = tone2 mid + tone1 light-mid OKLab step; other steps from Body2 reference"},
         "sharedNonSkin": {"outline": "#000000", "wrapLight": "#ffffff", "wrapShade": "#e3e3e3"}
       },
+      "referenceFrameOrder": ["S", "SE", "E", "NE", "N", "NW", "W", "SW"],
       "referencePoseRole": "frame 0 of each direction's ready state",
       "skinVariants": "palette maps of Body1 geometry to a target skin ramp",
       "canonicalGeometry": {"male": "Paperdolls/Male/Layer 1 - Base Body/Male Base Body1.png", "female": "Paperdolls/Female/Layer 1 - Base Body/Female Base Body1.png"},
@@ -55,7 +56,6 @@
       "generatedImageryRule": "reference only; no production pixel converted from generated imagery",
       "openIssues": [
         "second skin ramp highlight #e0764b is a derived candidate pending approval; Body2 reference ramp collapses light and mid into #b24b36",
-        "mapping of the eight reference frames to canonical direction labels not yet recorded",
         "reference-pose feet touch the frame bottom (y=63); no headroom below the contact line"
       ]
     },

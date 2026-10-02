@@ -132,7 +132,7 @@ Create only enough shared props to make the early route feel inhabited:
 Complete the contracted male benchmark source authorities:
 
 - locked 512×64 reference poses (existing; unchanged);
-- reference-frame direction mapping, part split, and anchors;
+- part split and anchors (frame order `S, SE, E, NE, N, NW, W, SW` is recorded);
 - approval-gated idle/walk/ready animation base frames, locked on approval;
 - benchmark overlays authored per body-part pose and anchor;
 - mechanical composite matching the benchmark intent;
@@ -464,7 +464,7 @@ This is the current execution order. It is not a second checklist.
 ### Queue B — Player benchmark
 
 19. second skin-tone ramp approval (candidate highlight `#e0764b`)
-20. reference-frame direction mapping + part split + anchors
+20. part split + anchors
 21. male idle animation base (approval-gated, then locked)
 22. male walk animation base (approval-gated, then locked)
 23. male ready animation base (approval-gated, then locked)

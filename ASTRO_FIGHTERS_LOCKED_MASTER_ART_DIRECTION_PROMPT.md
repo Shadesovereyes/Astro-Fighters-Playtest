@@ -337,7 +337,7 @@ Equipment follows the character's **anatomical side**, not screen-left/screen-ri
 
 Mirroring may be used diagnostically or as an early candidate only where symmetry is truly valid; do not treat mirrored directional art as independently authored final work when garment/anatomy routing differs.
 
-For finalized 512×64 sheets and their overlays, preserve the existing source frame order rather than reordering base pixels to satisfy a naming convention. Direction labels must map to the approved frames without moving those frames.
+For finalized 512×64 sheets and their overlays, preserve the existing source frame order rather than reordering base pixels to satisfy a naming convention. Direction labels must map to the approved frames without moving those frames. The sheet frame order, left to right, is `S, SE, E, NE, N, NW, W, SW`.
 
 ---
 

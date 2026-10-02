@@ -137,6 +137,7 @@ The rule exists for two reasons, and both must keep holding:
 ## Reference poses
 
 - The existing native **512×64** sheets (**eight contiguous 64×64 frames**) remain untouched as the reference poses and as frame 0 of the `ready` state for each direction.
+- Sheet frame order, left to right (frames 0–7): **S, SE, E, NE, N, NW, W, SW**. Every character sheet and overlay uses this order.
 - Do not reorder, resize, reposition, warp, or resample the reference frames.
 - Preserve every reference-pose pixel unless the user explicitly authorizes a base-character edit.
 
