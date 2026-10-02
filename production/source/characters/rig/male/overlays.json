@@ -1,0 +1,730 @@
+{
+  "schema": "astro-fighters-character-overlay-split/v1",
+  "body": "male",
+  "status": "candidate — pending user approval",
+  "method": {
+    "under-arms": "Layer 2 clothing: each pixel takes the nearest body part excluding arm and head parts (drawn under Arms1; collars stay with the torso)",
+    "head": "whole layer follows the head part",
+    "component": "each connected piece takes the majority nearest body part",
+    "colourParts": "listed colours (and outline pixels touching them) are forced to a part, e.g. the Gi sash follows the pelvis"
+  },
+  "drawOrder": [
+    "contact shadow",
+    "Layer 1 body",
+    "Layer 2 clothing",
+    "Layer 3 arms",
+    "Layer 4 shoulder/arm accessories",
+    "Layer 5 hair",
+    "Layer 6 eyes"
+  ],
+  "groundLayers": [
+    {
+      "file": "Paperdolls/contact-shadow.png",
+      "role": "contact shadow",
+      "drawOrder": "below the body",
+      "anchor": "pivot"
+    }
+  ],
+  "layers": [
+    {
+      "source": "Paperdolls/Male/Layer 2 - Clothing/Male Gi.png",
+      "class": "under-arms",
+      "partMap": "overlays/male-gi.png",
+      "frames": [
+        {
+          "direction": "S",
+          "pixelCounts": {
+            "torso": 148,
+            "pelvis": 115,
+            "R-thigh": 65,
+            "R-shin-foot": 149,
+            "L-thigh": 52,
+            "L-shin-foot": 148
+          }
+        },
+        {
+          "direction": "SE",
+          "pixelCounts": {
+            "torso": 140,
+            "pelvis": 107,
+            "R-thigh": 90,
+            "R-shin-foot": 125,
+            "L-thigh": 46,
+            "L-shin-foot": 128
+          }
+        },
+        {
+          "direction": "E",
+          "pixelCounts": {
+            "torso": 118,
+            "pelvis": 91,
+            "R-thigh": 69,
+            "R-shin-foot": 102,
+            "L-shin-foot": 51
+          }
+        },
+        {
+          "direction": "NE",
+          "pixelCounts": {
+            "torso": 141,
+            "pelvis": 88,
+            "R-thigh": 70,
+            "R-shin-foot": 129,
+            "L-thigh": 62,
+            "L-shin-foot": 140
+          }
+        },
+        {
+          "direction": "N",
+          "pixelCounts": {
+            "torso": 155,
+            "pelvis": 88,
+            "R-thigh": 71,
+            "R-shin-foot": 137,
+            "L-thigh": 79,
+            "L-shin-foot": 137
+          }
+        },
+        {
+          "direction": "NW",
+          "pixelCounts": {
+            "torso": 141,
+            "pelvis": 88,
+            "R-thigh": 53,
+            "R-shin-foot": 133,
+            "L-thigh": 80,
+            "L-shin-foot": 135
+          }
+        },
+        {
+          "direction": "W",
+          "pixelCounts": {
+            "torso": 118,
+            "pelvis": 91,
+            "R-shin-foot": 51,
+            "L-thigh": 69,
+            "L-shin-foot": 102
+          }
+        },
+        {
+          "direction": "SW",
+          "pixelCounts": {
+            "torso": 140,
+            "pelvis": 108,
+            "R-thigh": 48,
+            "R-shin-foot": 128,
+            "L-thigh": 88,
+            "L-shin-foot": 125
+          }
+        }
+      ]
+    },
+    {
+      "source": "Paperdolls/Male/Layer 2 - Clothing/Male Blue Armor.png",
+      "class": "under-arms",
+      "partMap": "overlays/male-blue-armor.png",
+      "frames": [
+        {
+          "direction": "S",
+          "pixelCounts": {
+            "torso": 161,
+            "pelvis": 74,
+            "R-thigh": 65,
+            "R-shin-foot": 125,
+            "L-thigh": 58,
+            "L-shin-foot": 124
+          }
+        },
+        {
+          "direction": "SE",
+          "pixelCounts": {
+            "torso": 141,
+            "pelvis": 73,
+            "R-thigh": 71,
+            "R-shin-foot": 113,
+            "L-thigh": 59,
+            "L-shin-foot": 108
+          }
+        },
+        {
+          "direction": "E",
+          "pixelCounts": {
+            "torso": 137,
+            "pelvis": 46,
+            "R-thigh": 79,
+            "R-shin-foot": 86,
+            "L-shin-foot": 43
+          }
+        },
+        {
+          "direction": "NE",
+          "pixelCounts": {
+            "torso": 158,
+            "pelvis": 79,
+            "R-thigh": 62,
+            "R-shin-foot": 118,
+            "L-thigh": 55,
+            "L-shin-foot": 119
+          }
+        },
+        {
+          "direction": "N",
+          "pixelCounts": {
+            "torso": 150,
+            "pelvis": 78,
+            "R-thigh": 60,
+            "R-shin-foot": 131,
+            "L-thigh": 68,
+            "L-shin-foot": 128
+          }
+        },
+        {
+          "direction": "NW",
+          "pixelCounts": {
+            "torso": 158,
+            "pelvis": 79,
+            "R-thigh": 53,
+            "R-shin-foot": 119,
+            "L-thigh": 64,
+            "L-shin-foot": 118
+          }
+        },
+        {
+          "direction": "W",
+          "pixelCounts": {
+            "torso": 137,
+            "pelvis": 46,
+            "R-shin-foot": 43,
+            "L-thigh": 79,
+            "L-shin-foot": 86
+          }
+        },
+        {
+          "direction": "SW",
+          "pixelCounts": {
+            "torso": 141,
+            "pelvis": 73,
+            "R-thigh": 61,
+            "R-shin-foot": 108,
+            "L-thigh": 69,
+            "L-shin-foot": 113
+          }
+        }
+      ]
+    },
+    {
+      "source": "Paperdolls/Male/Layer 2 - Clothing/Male Red Armor.png",
+      "class": "under-arms",
+      "partMap": "overlays/male-red-armor.png",
+      "frames": [
+        {
+          "direction": "S",
+          "pixelCounts": {
+            "torso": 161,
+            "pelvis": 74,
+            "R-thigh": 65,
+            "R-shin-foot": 125,
+            "L-thigh": 58,
+            "L-shin-foot": 124
+          }
+        },
+        {
+          "direction": "SE",
+          "pixelCounts": {
+            "torso": 141,
+            "pelvis": 73,
+            "R-thigh": 71,
+            "R-shin-foot": 113,
+            "L-thigh": 59,
+            "L-shin-foot": 108
+          }
+        },
+        {
+          "direction": "E",
+          "pixelCounts": {
+            "torso": 137,
+            "pelvis": 46,
+            "R-thigh": 79,
+            "R-shin-foot": 86,
+            "L-shin-foot": 43
+          }
+        },
+        {
+          "direction": "NE",
+          "pixelCounts": {
+            "torso": 158,
+            "pelvis": 79,
+            "R-thigh": 62,
+            "R-shin-foot": 118,
+            "L-thigh": 55,
+            "L-shin-foot": 119
+          }
+        },
+        {
+          "direction": "N",
+          "pixelCounts": {
+            "torso": 150,
+            "pelvis": 78,
+            "R-thigh": 60,
+            "R-shin-foot": 131,
+            "L-thigh": 68,
+            "L-shin-foot": 128
+          }
+        },
+        {
+          "direction": "NW",
+          "pixelCounts": {
+            "torso": 158,
+            "pelvis": 79,
+            "R-thigh": 53,
+            "R-shin-foot": 119,
+            "L-thigh": 64,
+            "L-shin-foot": 118
+          }
+        },
+        {
+          "direction": "W",
+          "pixelCounts": {
+            "torso": 137,
+            "pelvis": 46,
+            "R-shin-foot": 43,
+            "L-thigh": 79,
+            "L-shin-foot": 86
+          }
+        },
+        {
+          "direction": "SW",
+          "pixelCounts": {
+            "torso": 141,
+            "pelvis": 73,
+            "R-thigh": 61,
+            "R-shin-foot": 108,
+            "L-thigh": 69,
+            "L-shin-foot": 113
+          }
+        }
+      ]
+    },
+    {
+      "source": "Paperdolls/Male/Layer 4 - Shoulders and Arms accessories/Blue Armor Shoulders.png",
+      "class": "component",
+      "partMap": "overlays/blue-armor-shoulders.png",
+      "frames": [
+        {
+          "direction": "S",
+          "pixelCounts": {
+            "R-upper-arm": 13,
+            "R-forearm-hand": 41,
+            "L-upper-arm": 13,
+            "L-forearm-hand": 41
+          }
+        },
+        {
+          "direction": "SE",
+          "pixelCounts": {
+            "R-upper-arm": 13,
+            "R-forearm-hand": 44,
+            "L-upper-arm": 9,
+            "L-forearm-hand": 46
+          }
+        },
+        {
+          "direction": "E",
+          "pixelCounts": {
+            "R-upper-arm": 14,
+            "R-forearm-hand": 40
+          }
+        },
+        {
+          "direction": "NE",
+          "pixelCounts": {
+            "R-upper-arm": 13,
+            "R-forearm-hand": 44,
+            "L-upper-arm": 9,
+            "L-forearm-hand": 40
+          }
+        },
+        {
+          "direction": "N",
+          "pixelCounts": {
+            "R-upper-arm": 13,
+            "R-forearm-hand": 48,
+            "L-upper-arm": 13,
+            "L-forearm-hand": 48
+          }
+        },
+        {
+          "direction": "NW",
+          "pixelCounts": {
+            "R-upper-arm": 9,
+            "R-forearm-hand": 40,
+            "L-upper-arm": 13,
+            "L-forearm-hand": 44
+          }
+        },
+        {
+          "direction": "W",
+          "pixelCounts": {
+            "L-upper-arm": 14,
+            "L-forearm-hand": 40
+          }
+        },
+        {
+          "direction": "SW",
+          "pixelCounts": {
+            "R-upper-arm": 9,
+            "R-forearm-hand": 46,
+            "L-upper-arm": 13,
+            "L-forearm-hand": 44
+          }
+        }
+      ]
+    },
+    {
+      "source": "Paperdolls/Male/Layer 4 - Shoulders and Arms accessories/Red Armor Shoulders.png",
+      "class": "component",
+      "partMap": "overlays/red-armor-shoulders.png",
+      "frames": [
+        {
+          "direction": "S",
+          "pixelCounts": {
+            "R-upper-arm": 13,
+            "R-forearm-hand": 41,
+            "L-upper-arm": 13,
+            "L-forearm-hand": 41
+          }
+        },
+        {
+          "direction": "SE",
+          "pixelCounts": {
+            "R-upper-arm": 13,
+            "R-forearm-hand": 44,
+            "L-upper-arm": 9,
+            "L-forearm-hand": 46
+          }
+        },
+        {
+          "direction": "E",
+          "pixelCounts": {
+            "R-upper-arm": 14,
+            "R-forearm-hand": 40
+          }
+        },
+        {
+          "direction": "NE",
+          "pixelCounts": {
+            "R-upper-arm": 13,
+            "R-forearm-hand": 44,
+            "L-upper-arm": 9,
+            "L-forearm-hand": 40
+          }
+        },
+        {
+          "direction": "N",
+          "pixelCounts": {
+            "R-upper-arm": 13,
+            "R-forearm-hand": 48,
+            "L-upper-arm": 13,
+            "L-forearm-hand": 48
+          }
+        },
+        {
+          "direction": "NW",
+          "pixelCounts": {
+            "R-upper-arm": 9,
+            "R-forearm-hand": 40,
+            "L-upper-arm": 13,
+            "L-forearm-hand": 44
+          }
+        },
+        {
+          "direction": "W",
+          "pixelCounts": {
+            "L-upper-arm": 14,
+            "L-forearm-hand": 40
+          }
+        },
+        {
+          "direction": "SW",
+          "pixelCounts": {
+            "R-upper-arm": 9,
+            "R-forearm-hand": 46,
+            "L-upper-arm": 13,
+            "L-forearm-hand": 44
+          }
+        }
+      ]
+    },
+    {
+      "source": "Paperdolls/Male/Layer 5 - Hair/Afro Hair.png",
+      "class": "head",
+      "partMap": "overlays/afro-hair.png",
+      "frames": [
+        {
+          "direction": "S",
+          "pixelCounts": {
+            "head": 349
+          }
+        },
+        {
+          "direction": "SE",
+          "pixelCounts": {
+            "head": 315
+          }
+        },
+        {
+          "direction": "E",
+          "pixelCounts": {
+            "head": 306
+          }
+        },
+        {
+          "direction": "NE",
+          "pixelCounts": {
+            "head": 345
+          }
+        },
+        {
+          "direction": "N",
+          "pixelCounts": {
+            "head": 401
+          }
+        },
+        {
+          "direction": "NW",
+          "pixelCounts": {
+            "head": 345
+          }
+        },
+        {
+          "direction": "W",
+          "pixelCounts": {
+            "head": 306
+          }
+        },
+        {
+          "direction": "SW",
+          "pixelCounts": {
+            "head": 315
+          }
+        }
+      ]
+    },
+    {
+      "source": "Paperdolls/Male/Layer 5 - Hair/Fade Hair.png",
+      "class": "head",
+      "partMap": "overlays/fade-hair.png",
+      "frames": [
+        {
+          "direction": "S",
+          "pixelCounts": {
+            "head": 35
+          }
+        },
+        {
+          "direction": "SE",
+          "pixelCounts": {
+            "head": 28
+          }
+        },
+        {
+          "direction": "E",
+          "pixelCounts": {
+            "head": 39
+          }
+        },
+        {
+          "direction": "NE",
+          "pixelCounts": {
+            "head": 40
+          }
+        },
+        {
+          "direction": "N",
+          "pixelCounts": {
+            "head": 42
+          }
+        },
+        {
+          "direction": "NW",
+          "pixelCounts": {
+            "head": 40
+          }
+        },
+        {
+          "direction": "W",
+          "pixelCounts": {
+            "head": 39
+          }
+        },
+        {
+          "direction": "SW",
+          "pixelCounts": {
+            "head": 28
+          }
+        }
+      ]
+    },
+    {
+      "source": "Paperdolls/Male/Layer 5 - Hair/Long Hair.png",
+      "class": "head",
+      "partMap": "overlays/long-hair.png",
+      "frames": [
+        {
+          "direction": "S",
+          "pixelCounts": {
+            "head": 131
+          }
+        },
+        {
+          "direction": "SE",
+          "pixelCounts": {
+            "head": 130
+          }
+        },
+        {
+          "direction": "E",
+          "pixelCounts": {
+            "head": 155
+          }
+        },
+        {
+          "direction": "NE",
+          "pixelCounts": {
+            "head": 146
+          }
+        },
+        {
+          "direction": "N",
+          "pixelCounts": {
+            "head": 193
+          }
+        },
+        {
+          "direction": "NW",
+          "pixelCounts": {
+            "head": 146
+          }
+        },
+        {
+          "direction": "W",
+          "pixelCounts": {
+            "head": 155
+          }
+        },
+        {
+          "direction": "SW",
+          "pixelCounts": {
+            "head": 130
+          }
+        }
+      ]
+    },
+    {
+      "source": "Paperdolls/Male/Layer 6 - Eyes/Brown Eyes.png",
+      "class": "head",
+      "partMap": "overlays/brown-eyes.png",
+      "frames": [
+        {
+          "direction": "S",
+          "pixelCounts": {
+            "head": 16
+          }
+        },
+        {
+          "direction": "SE",
+          "pixelCounts": {
+            "head": 16
+          }
+        },
+        {
+          "direction": "E",
+          "pixelCounts": {
+            "head": 8
+          }
+        },
+        {
+          "direction": "NE",
+          "pixelCounts": {
+            "head": 8
+          }
+        },
+        {
+          "direction": "N",
+          "pixelCounts": {}
+        },
+        {
+          "direction": "NW",
+          "pixelCounts": {
+            "head": 8
+          }
+        },
+        {
+          "direction": "W",
+          "pixelCounts": {
+            "head": 8
+          }
+        },
+        {
+          "direction": "SW",
+          "pixelCounts": {
+            "head": 16
+          }
+        }
+      ]
+    },
+    {
+      "source": "Paperdolls/Male/Layer 6 - Eyes/Purple Eyes.png",
+      "class": "head",
+      "partMap": "overlays/purple-eyes.png",
+      "frames": [
+        {
+          "direction": "S",
+          "pixelCounts": {
+            "head": 16
+          }
+        },
+        {
+          "direction": "SE",
+          "pixelCounts": {
+            "head": 16
+          }
+        },
+        {
+          "direction": "E",
+          "pixelCounts": {
+            "head": 8
+          }
+        },
+        {
+          "direction": "NE",
+          "pixelCounts": {
+            "head": 8
+          }
+        },
+        {
+          "direction": "N",
+          "pixelCounts": {}
+        },
+        {
+          "direction": "NW",
+          "pixelCounts": {
+            "head": 8
+          }
+        },
+        {
+          "direction": "W",
+          "pixelCounts": {
+            "head": 8
+          }
+        },
+        {
+          "direction": "SW",
+          "pixelCounts": {
+            "head": 16
+          }
+        }
+      ]
+    }
+  ]
+}

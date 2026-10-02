@@ -25,6 +25,24 @@ const CONFIG = {
     body: 'Paperdolls/Male/Layer 1 - Base Body/Male Base Body1.png',
     arms: 'Paperdolls/Male/Layer 3 - Arms/Male Arms1.png',
     status: 'approved by user 2026-10-02',
+    // Overlay layers split onto the approved body parts. Classes:
+    //  under-arms — Layer 2 clothing drawn beneath Arms1: pixels never take arm or head parts (collars and cloth under the arm stay with the torso);
+    //  head       — whole layer follows the head;
+    //  component  — Layer 4 accessories above the arms: each connected piece follows its majority nearest part.
+    overlays: [
+      // The sash (and its outline) hangs from the waist, so it follows the pelvis rather than the legs it crosses.
+      { file: 'Paperdolls/Male/Layer 2 - Clothing/Male Gi.png', class: 'under-arms', colourParts: { '9c0909': 'pelvis' }, outline: '030101' },
+      { file: 'Paperdolls/Male/Layer 2 - Clothing/Male Blue Armor.png', class: 'under-arms' },
+      { file: 'Paperdolls/Male/Layer 2 - Clothing/Male Red Armor.png', class: 'under-arms' },
+      { file: 'Paperdolls/Male/Layer 4 - Shoulders and Arms accessories/Blue Armor Shoulders.png', class: 'component' },
+      { file: 'Paperdolls/Male/Layer 4 - Shoulders and Arms accessories/Red Armor Shoulders.png', class: 'component' },
+      { file: 'Paperdolls/Male/Layer 5 - Hair/Afro Hair.png', class: 'head' },
+      { file: 'Paperdolls/Male/Layer 5 - Hair/Fade Hair.png', class: 'head' },
+      { file: 'Paperdolls/Male/Layer 5 - Hair/Long Hair.png', class: 'head' },
+      { file: 'Paperdolls/Male/Layer 6 - Eyes/Brown Eyes.png', class: 'head' },
+      { file: 'Paperdolls/Male/Layer 6 - Eyes/Purple Eyes.png', class: 'head' }
+    ],
+    groundLayers: [{ file: 'Paperdolls/contact-shadow.png', role: 'contact shadow', drawOrder: 'below the body', anchor: 'pivot' }],
     headEnd: 20,
     pelvis: [33, 38],
     pelvisColourRows: [39, 40],
@@ -87,6 +105,7 @@ function encodePng(w, h, px) {
   return Buffer.concat([Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]), chunk('IHDR', ihdr), chunk('IDAT', zlib.deflateSync(raw, { level: 9 })), chunk('IEND', Buffer.alloc(0))]);
 }
 
+const hexAt = (img, x, y) => img.px.toString('hex', (y * img.w + x) * 4, (y * img.w + x) * 4 + 3);
 const hex = (img, x, y) => { const i = (y * img.w + x) * 4; return img.px.toString('hex', i, i + 3); };
 const opaque = (img, x, y) => x >= 0 && y >= 0 && x < img.w && y < img.h && img.px[(y * img.w + x) * 4 + 3] === 255;
 const isWrap = (c) => c === 'ffffff' || c === 'e3e3e3';
@@ -239,6 +258,61 @@ function splitFrame(cfg, body, arms, f) {
   } };
 }
 
+function splitOverlay(entry, body, partMap) {
+  const img = readPng(path.join(root, entry.file));
+  if (img.w !== 512 || img.h !== 64) throw new Error(`${entry.file}: overlay must be 512×64`);
+  const byColour = new Map(Object.entries(PART_COLOURS).map(([p, c]) => [c.join(','), p]));
+  const partAt = (x, y) => byColour.get([...partMap.subarray((y * 512 + x) * 4, (y * 512 + x) * 4 + 3)].join(','));
+  const allowed = (p) => entry.class !== 'under-arms' || (!p.includes('arm') && p !== 'head');
+  const out = Buffer.alloc(512 * 64 * 4), frames = [];
+  for (let f = 0; f < 8; f++) {
+    const ox = f * FRAME, label = new Map(), key = (x, y) => `${x},${y}`;
+    const pts = [];
+    for (let y = 0; y < FRAME; y++) for (let x = 0; x < FRAME; x++) if (img.px[(y * 512 + ox + x) * 4 + 3]) pts.push([x, y]);
+    if (entry.class === 'head') for (const [x, y] of pts) label.set(key(x, y), 'head');
+    else {
+      // Nearest allowed body part: breadth-first rings from the body silhouette, scan order breaks ties.
+      const near = new Map(), queue = [];
+      for (let y = 0; y < FRAME; y++) for (let x = 0; x < FRAME; x++) {
+        const p = body.px[(y * 512 + ox + x) * 4 + 3] ? partAt(ox + x, y) : null;
+        if (p && allowed(p)) { near.set(key(x, y), p); queue.push([x, y]); }
+      }
+      for (let i = 0; i < queue.length; i++) {
+        const [x, y] = queue[i], p = near.get(key(x, y));
+        for (const [dx, dy] of [[0, -1], [-1, 0], [1, 0], [0, 1]]) {
+          const nx = x + dx, ny = y + dy, k = key(nx, ny);
+          if (nx < 0 || ny < 0 || nx >= FRAME || ny >= FRAME || near.has(k)) continue;
+          near.set(k, p); queue.push([nx, ny]);
+        }
+      }
+      if (entry.class === 'component') {
+        for (const comp of components(pts)) {
+          const tally = {};
+          for (const [x, y] of comp) tally[near.get(key(x, y))] = (tally[near.get(key(x, y))] || 0) + 1;
+          const major = Object.entries(tally).sort((a, b) => b[1] - a[1] || PARTS.indexOf(a[0]) - PARTS.indexOf(b[0]))[0][0];
+          for (const [x, y] of comp) label.set(key(x, y), major);
+        }
+      } else for (const [x, y] of pts) label.set(key(x, y), near.get(key(x, y)));
+      for (const [colour, part] of Object.entries(entry.colourParts || {})) {
+        const hit = (x, y) => x >= 0 && y >= 0 && x < FRAME && y < FRAME && img.px[(y * 512 + ox + x) * 4 + 3] && hexAt(img, ox + x, y) === colour;
+        for (const [x, y] of pts) {
+          if (hit(x, y) || (hexAt(img, ox + x, y) === entry.outline && [[1, 0], [-1, 0], [0, 1], [0, -1]].some(([dx, dy]) => hit(x + dx, y + dy)))) label.set(key(x, y), part);
+        }
+      }
+    }
+    const counts = {};
+    for (const [k, p] of label) {
+      const [x, y] = k.split(',').map(Number);
+      out.set([...PART_COLOURS[p], 255], (y * 512 + ox + x) * 4);
+      counts[p] = (counts[p] || 0) + 1;
+    }
+    if (label.size !== pts.length) throw new Error(`${entry.file} ${ORDER[f]}: unlabelled overlay pixels`);
+    frames.push({ direction: ORDER[f], pixelCounts: Object.fromEntries(PARTS.filter((p) => counts[p]).map((p) => [p, counts[p]])) });
+  }
+  const slug = path.basename(entry.file, '.png').toLowerCase().replace(/[^a-z0-9]+/g, '-');
+  return { slug, png: encodePng(512, 64, out), info: { source: entry.file, class: entry.class, partMap: `overlays/${slug}.png`, frames } };
+}
+
 function build(name) {
   const cfg = CONFIG[name];
   if (!cfg) throw new Error(`No rig config for ${name}`);
@@ -276,22 +350,44 @@ function build(name) {
     totalPixels: total,
     frames
   };
-  return { png: encodePng(512, 64, map), json: JSON.stringify(rig, null, 2) + '\n' };
+  const files = { 'part-map.png': encodePng(512, 64, map), 'rig.json': JSON.stringify(rig, null, 2) + '\n' };
+  const overlays = (cfg.overlays || []).map((entry) => splitOverlay(entry, body, map));
+  for (const o of overlays) files[`overlays/${o.slug}.png`] = o.png;
+  files['overlays.json'] = JSON.stringify({
+    schema: 'astro-fighters-character-overlay-split/v1',
+    body: name,
+    status: 'candidate — pending user approval',
+    method: {
+      'under-arms': 'Layer 2 clothing: each pixel takes the nearest body part excluding arm and head parts (drawn under Arms1; collars stay with the torso)',
+      head: 'whole layer follows the head part',
+      component: 'each connected piece takes the majority nearest body part',
+      colourParts: 'listed colours (and outline pixels touching them) are forced to a part, e.g. the Gi sash follows the pelvis'
+    },
+    drawOrder: ['contact shadow', 'Layer 1 body', 'Layer 2 clothing', 'Layer 3 arms', 'Layer 4 shoulder/arm accessories', 'Layer 5 hair', 'Layer 6 eyes'],
+    groundLayers: cfg.groundLayers || [],
+    layers: overlays.map((o) => o.info)
+  }, null, 2) + '\n';
+  return files;
 }
 
 const [name, flag] = process.argv.slice(2);
 if (!name) { console.error('Usage: node tools/character-rig.mjs <male> [--check]'); process.exit(2); }
 const outDir = path.join(root, 'production/source/characters/rig', name);
-const { png, json } = build(name);
+const files = build(name);
+const decodePngBuffer = (buf) => { const t = path.join(outDir, '.check.png'); fs.writeFileSync(t, buf); try { return readPng(t).px; } finally { fs.rmSync(t, { force: true }); } };
 if (flag === '--check') {
-  const okPng = fs.existsSync(path.join(outDir, 'part-map.png')) && readPng(path.join(outDir, 'part-map.png')).px.equals(readPng.call(null, (() => { const t = path.join(outDir, '.check.png'); fs.writeFileSync(t, png); return t; })()).px);
-  fs.rmSync(path.join(outDir, '.check.png'), { force: true });
-  const okJson = fs.existsSync(path.join(outDir, 'rig.json')) && fs.readFileSync(path.join(outDir, 'rig.json'), 'utf8') === json;
-  if (!okPng || !okJson) { console.error(`Rig outputs for ${name} are stale or missing; rerun node tools/character-rig.mjs ${name}`); process.exit(1); }
-  console.log(`Rig outputs for ${name} are current.`);
-} else {
   fs.mkdirSync(outDir, { recursive: true });
-  fs.writeFileSync(path.join(outDir, 'part-map.png'), png);
-  fs.writeFileSync(path.join(outDir, 'rig.json'), json);
-  console.log(`Wrote ${path.relative(root, outDir)}/part-map.png and rig.json`);
+  const stale = Object.entries(files).filter(([rel, data]) => {
+    const file = path.join(outDir, rel);
+    if (!fs.existsSync(file)) return true;
+    return rel.endsWith('.png') ? !readPng(file).px.equals(decodePngBuffer(data)) : fs.readFileSync(file, 'utf8') !== data;
+  });
+  if (stale.length) { console.error(`Rig outputs for ${name} are stale or missing (${stale.map(([r]) => r).join(', ')}); rerun node tools/character-rig.mjs ${name}`); process.exit(1); }
+  console.log(`Rig outputs for ${name} are current (${Object.keys(files).length} files).`);
+} else {
+  for (const [rel, data] of Object.entries(files)) {
+    fs.mkdirSync(path.dirname(path.join(outDir, rel)), { recursive: true });
+    fs.writeFileSync(path.join(outDir, rel), data);
+  }
+  console.log(`Wrote ${Object.keys(files).length} files to ${path.relative(root, outDir)}/`);
 }

@@ -54,8 +54,11 @@
       "anchors": ["head", "neck", "R-shoulder", "L-shoulder", "R-elbow", "L-elbow", "R-hand-grip", "L-hand-grip", "hip", "R-knee", "L-knee", "R-foot", "L-foot"],
       "rig": {
         "male": {"partMap": "production/source/characters/rig/male/part-map.png", "data": "production/source/characters/rig/male/rig.json", "status": "approved by user 2026-10-02"},
-        "generator": "tools/character-rig.mjs"
+        "generator": "tools/character-rig.mjs",
+        "maleOverlaySplit": {"data": "production/source/characters/rig/male/overlays.json", "status": "candidate — pending user approval"}
       },
+      "contactShadow": {"file": "Paperdolls/contact-shadow.png", "drawOrder": "below the body (first layer)", "frames": "same 23×5 ellipse in all eight frames, rows 59–63, centred on x≈32", "colours": ["#181614", "#26231f"], "alpha": "fully opaque"},
+      "layerDrawOrder": ["contact shadow", "Layer 1 body", "Layer 2 clothing", "Layer 3 arms", "Layer 4 shoulder/arm accessories", "Layer 5 hair", "Layer 6 eyes"],
       "drawOrder": "per-frame metadata by anatomical side",
       "equipmentRule": "rigid items placed by anchor; deformable items authored per body-part pose; runtime-eligible only with full direction × state × frame coverage",
       "generatedImageryRule": "reference only; no production pixel converted from generated imagery",

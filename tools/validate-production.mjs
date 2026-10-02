@@ -194,8 +194,21 @@ function validateCanonical() {
   const order = g.referenceFrameOrder;
   assert(same(order, ['S', 'SE', 'E', 'NE', 'N', 'NW', 'W', 'SW']), 'Reference sheet frame order must remain S, SE, E, NE, N, NW, W, SW.');
   assert(Array.isArray(g.parts) && g.parts.length > 0, 'characterGeometry needs a part list.');
+  assert(fs.existsSync(path.join(root, g.contactShadow?.file || '')), 'characterGeometry contact shadow file missing.');
+  assert(g.layerDrawOrder?.[0] === 'contact shadow', 'Contact shadow must be the first (lowest) character layer.');
   for (const [body, entry] of Object.entries(g.rig || {})) {
     if (body === 'generator') continue;
+    if (body.endsWith('OverlaySplit')) {
+      assert(fs.existsSync(path.join(root, entry.data || '')), `${body} data missing on disk.`);
+      if (fs.existsSync(path.join(root, entry.data || ''))) {
+        const split = JSON.parse(read(entry.data));
+        for (const layer of split.layers || []) {
+          assert(fs.existsSync(path.join(root, layer.source)), `${body}: overlay source missing ${layer.source}`);
+          assert(fs.existsSync(path.join(path.dirname(path.join(root, entry.data)), layer.partMap)), `${body}: part map missing ${layer.partMap}`);
+        }
+      }
+      continue;
+    }
     for (const key of ['partMap', 'data']) assert(fs.existsSync(path.join(root, entry[key] || '')), `Rig ${body} ${key} missing on disk.`);
     if (fs.existsSync(path.join(root, entry.data || ''))) {
       const rigData = JSON.parse(read(entry.data));
