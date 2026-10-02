@@ -35,7 +35,13 @@
         "role": "colour authority only; not geometry, animation base, or runtime asset",
         "male": ["Paperdolls/Male/Layer 1 - Base Body/Male Base Body2.png"],
         "female": ["Paperdolls/Female/Layer 1 - Base Body/Female Base Body2.png"],
-        "observedMapping": {"#f6a35b": "#b24b36", "#f6a15b": "#b24b36", "#c87845": "#b24b36", "#9e4a31": "#96392b", "#9d4a31": "#96392b", "#70241d": "#7b2b21", "#70241c": "#7b2b21", "#702219": "#7b2b21", "#663300": "#7b2b21", "#3f0505": "#4a1510", "#3f0404": "#4a1510", "#000000": "#000000", "#ffffff": "#ffffff", "#e3e3e3": "#e3e3e3"}
+        "observedMapping": {"#f6a35b": "#b24b36", "#c87845": "#b24b36", "#9e4a31": "#96392b", "#70241d": "#7b2b21", "#3f0505": "#4a1510"}
+      },
+      "lockedSkinPalette": {
+        "appliesTo": ["Body1", "Arms1"],
+        "tone1": {"light": "#f6a35b", "mid": "#c87845", "shadow": "#9e4a31", "dark": "#70241d", "deep": "#3f0505"},
+        "tone2Candidate": {"status": "pending user approval", "light": "#e0764b", "mid": "#b24b36", "shadow": "#96392b", "dark": "#7b2b21", "deep": "#4a1510", "derivation": "light = tone2 mid + tone1 light-mid OKLab step; other steps from Body2 reference"},
+        "sharedNonSkin": {"outline": "#000000", "wrapLight": "#ffffff", "wrapShade": "#e3e3e3"}
       },
       "referencePoseRole": "frame 0 of each direction's ready state",
       "skinVariants": "palette maps of Body1 geometry to a target skin ramp",
@@ -48,8 +54,7 @@
       "equipmentRule": "rigid items placed by anchor; deformable items authored per body-part pose; runtime-eligible only with full direction × state × frame coverage",
       "generatedImageryRule": "reference only; no production pixel converted from generated imagery",
       "openIssues": [
-        "second skin ramp collapses Body1's light and mid skin steps into #b24b36; highlight step not yet defined",
-        "Body1 sheets contain near-duplicate colours; locked body palette not yet consolidated",
+        "second skin ramp highlight #e0764b is a derived candidate pending approval; Body2 reference ramp collapses light and mid into #b24b36",
         "mapping of the eight reference frames to canonical direction labels not yet recorded",
         "reference-pose feet touch the frame bottom (y=63); no headroom below the contact line"
       ]

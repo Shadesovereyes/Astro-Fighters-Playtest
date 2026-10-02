@@ -96,8 +96,7 @@ The `480×640` source / `48×64` runtime character contract is retired. `product
 
 Open character-geometry items:
 
-- body geometry: Body1 is the only base geometry for both bodies; Female Body1 is the user's corrected sheet (4 stray outside-outline pixels removed). Body2 sheets are skin-tone references only and are kept as originally authored (Female Body2 restored to its original pixels). Body2's ramp collapses Body1's light/mid skin steps (`#f6a35b`, `#f6a15b`, `#c87845`) into `#b24b36`, so the second skin ramp needs a highlight step defined;
-- both Body1 sheets contain near-duplicate colours (`#f6a35b`/`#f6a15b` in both; male `#9e4a31`/`#70241d`/`#3f0505`/`#702219` vs female `#9d4a31`/`#70241c`/`#3f0404`), which should be consolidated into one locked body palette;
+- body geometry: Body1 is the only base geometry for both bodies; Female Body1 is the user's corrected sheet. Body2 sheets are skin-tone references only, kept as originally authored. Body1/Arms1 (male and female) now share one locked 5-step skin ramp (`#f6a35b` / `#c87845` / `#9e4a31` / `#70241d` / `#3f0505`); the second ramp's highlight `#e0764b` is a derived candidate pending approval;
 - the mapping from the eight reference frames to canonical direction labels is not yet recorded in the manifest;
 - reference-pose feet touch the frame bottom (y=63), leaving no headroom below the contact line;
 - the `/docs` prototype still loads `48×64` paper-doll sheets; that is prototype debt, not the production contract.

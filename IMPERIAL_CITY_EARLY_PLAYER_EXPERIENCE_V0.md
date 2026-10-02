@@ -463,7 +463,7 @@ This is the current execution order. It is not a second checklist.
 
 ### Queue B — Player benchmark
 
-19. locked body palette consolidation + second skin-tone ramp (highlight step) from the Body2 references
+19. second skin-tone ramp approval (candidate highlight `#e0764b`)
 20. reference-frame direction mapping + part split + anchors
 21. male idle animation base (approval-gated, then locked)
 22. male walk animation base (approval-gated, then locked)
