@@ -176,6 +176,14 @@ function validateCanonical() {
     assert(Array.isArray(poses) && poses.length > 0, `characterGeometry needs ${body} reference poses.`);
     for (const pose of poses || []) assert(fs.existsSync(path.join(root, pose)), `Reference pose missing on disk: ${pose}`);
   }
+  for (const body of ['male', 'female']) {
+    const refs = g.skinToneReferences?.[body];
+    assert(Array.isArray(refs) && refs.length > 0, `characterGeometry needs ${body} skin-tone references.`);
+    for (const ref of refs || []) {
+      assert(fs.existsSync(path.join(root, ref)), `Skin-tone reference missing on disk: ${ref}`);
+      assert(!(g.referencePoses?.[body] || []).includes(ref), `Skin-tone reference ${ref} must not be listed as a reference pose.`);
+    }
+  }
   for (const key of ['referencePoseRole', 'skinVariants', 'animationBaseApproval', 'riggingRule', 'drawOrder', 'equipmentRule', 'generatedImageryRule']) {
     assert(nonEmpty(g[key]), `characterGeometry needs ${key}.`);
   }

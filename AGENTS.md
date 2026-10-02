@@ -156,9 +156,10 @@ On approval, a new base frame becomes **locked production geometry** with protec
 ## Body geometry and skin variants
 
 - Each body (male, female) has one canonical geometry. Skin-tone variants are palette swaps of that geometry, not separate sheets.
-- **Body1 is the canonical geometry for both bodies.** Male Body1/Body2 share an identical silhouette, and male Body2 is an exact colour mapping of Body1.
-- Female Body1 was chosen as canonical (user decision, 2026-10-02) and then replaced by the user's corrected Body1, which removes 4 stray pixels outside the outline (frames 0, 1, 7). Female Body2 was aligned to that silhouette in one authorized base edit of 12 pixels: 4 stray outside-outline pixels cleared, 4 frame-7 shin outline pixels filled, and the 4 displaced inner-outline pixels recoloured to Body2 skin/wrap.
-- Female Body2 still differs from a pure colour mapping of Body1 at 35 interior pixels (frame 0 jaw/neck contour: 29; frames 1 and 7 shoulder marks: 3 each). Until those are resolved, overlays register to Body1 geometry, and Body2's interior shading is not yet a valid palette-swap variant.
+- **Body1 is the only base geometry for both bodies.** All animation bases and overlays register to Body1.
+- Female Body1 is the user's corrected sheet (2026-10-02), which removes 4 stray pixels outside the outline (frames 0, 1, 7).
+- **Body2 sheets are skin-tone references only**, not geometry, not animation bases, and not runtime assets. They are kept unmodified as the colour authority for the second skin tone; their silhouette and interior shading are not binding.
+- Skin-tone variants are produced by mapping Body1's locked palette to a target ramp. Body2's mapping currently collapses Body1's light and mid skin steps into one tone (`#b24b36`), so the second ramp needs its missing highlight step defined before a variant can keep Body1's shading structure.
 
 ## Equipment and overlays
 
