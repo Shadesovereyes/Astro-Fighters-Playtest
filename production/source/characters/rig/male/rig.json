@@ -19,7 +19,7 @@
     "W",
     "SW"
   ],
-  "status": "candidate — pending user approval",
+  "status": "approved by user 2026-10-02",
   "method": {
     "head": "rows ≤ 20 (row 20 only within the neck columns of row 19)",
     "torso": "rows 20–32 excluding arms",

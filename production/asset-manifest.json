@@ -53,7 +53,7 @@
       "partSides": "R/L are the character's anatomical sides; each rig frame records nearSide/farSide (null for S and N)",
       "anchors": ["head", "neck", "R-shoulder", "L-shoulder", "R-elbow", "L-elbow", "R-hand-grip", "L-hand-grip", "hip", "R-knee", "L-knee", "R-foot", "L-foot"],
       "rig": {
-        "male": {"partMap": "production/source/characters/rig/male/part-map.png", "data": "production/source/characters/rig/male/rig.json", "status": "candidate — pending user approval"},
+        "male": {"partMap": "production/source/characters/rig/male/part-map.png", "data": "production/source/characters/rig/male/rig.json", "status": "approved by user 2026-10-02"},
         "generator": "tools/character-rig.mjs"
       },
       "drawOrder": "per-frame metadata by anatomical side",

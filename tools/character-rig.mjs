@@ -24,6 +24,7 @@ const CONFIG = {
   male: {
     body: 'Paperdolls/Male/Layer 1 - Base Body/Male Base Body1.png',
     arms: 'Paperdolls/Male/Layer 3 - Arms/Male Arms1.png',
+    status: 'approved by user 2026-10-02',
     headEnd: 20,
     pelvis: [33, 38],
     pelvisColourRows: [39, 40],
@@ -262,7 +263,7 @@ function build(name) {
     source: { body: cfg.body, arms: cfg.arms },
     frameSize: [FRAME, FRAME],
     frameOrder: ORDER,
-    status: 'candidate — pending user approval',
+    status: cfg.status || 'candidate — pending user approval',
     method: {
       head: `rows ≤ ${cfg.headEnd} (row ${cfg.headEnd} only within the neck columns of row ${cfg.headEnd - 1})`,
       torso: `rows ${cfg.headEnd}–${cfg.pelvis[0] - 1} excluding arms`,
