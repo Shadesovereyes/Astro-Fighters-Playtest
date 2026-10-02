@@ -169,7 +169,6 @@ On approval, a new base frame becomes **locked production geometry** with protec
 - **Rigid items** (helmets, shoulder pieces, weapons, shields) are authored per direction plus approved variants and placed by anchor with integer offsets.
 - **Deformable items** (garments, armor bodies, sleeves, trousers, hair) are authored per body-part pose (torso, head, near/far arm, near/far leg) and reused wherever that part pose appears.
 - Draw order comes from per-frame metadata and follows the character's anatomical side.
-- **Outline rule (2026-10-02):** a layer's outer outline — outline pixels facing open background (transparent in the layer and in Body1 ∪ Arms1) — uses the darkest shade of the adjacent material. Interior separation lines (cloth against skin, arm against torso, hair against face) stay `#000000`/`#030101`. New overlays must follow the same rule.
 - An equipment item is not runtime-eligible until its coverage table shows every direction × state × frame covered by an overlay, an anchor placement, or a reused part pose.
 - QC corrections belong in the overlay — never in a locked base frame.
 - If fitting an item requires hidden or unapproved body geometry, stop at the specific frame/area and report it rather than inventing anatomy or pose changes.
