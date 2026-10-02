@@ -96,7 +96,7 @@ The `480×640` source / `48×64` runtime character contract is retired. `product
 
 Open character-geometry items:
 
-- female geometry: Body1 is canonical (decided 2026-10-02); Female Body2 was aligned to Body1's silhouette (8 silhouette pixels plus 4 displaced inner-outline pixels on the frame-7 shin; 12 total). Female Body2 still differs from a pure colour mapping of Body1 at 35 interior pixels (frame 0 jaw/neck contour 29, frames 1 and 7 shoulder marks 3 each) — either derive Body2 entirely as a mapping of Body1 or approve those pixels as variant shading;
+- female geometry: Body1 is canonical (decided 2026-10-02); Female Body1 was replaced by the user's corrected sheet (4 stray outside-outline pixels removed). Female Body2 was aligned to it (12 pixels: 4 stray pixels cleared, 4 shin outline pixels filled, 4 displaced inner-outline pixels recoloured). Female Body2 still differs from a pure colour mapping of Body1 at 35 interior pixels (frame 0 jaw/neck contour 29, frames 1 and 7 shoulder marks 3 each) — either derive Body2 entirely as a mapping of Body1 or approve those pixels as variant shading;
 - both Body1 sheets contain near-duplicate colours (`#f6a35b`/`#f6a15b` in both; male `#9e4a31`/`#70241d`/`#3f0505`/`#702219` vs female `#9d4a31`/`#70241c`/`#3f0404`), which should be consolidated into one locked body palette;
 - the mapping from the eight reference frames to canonical direction labels is not yet recorded in the manifest;
 - reference-pose feet touch the frame bottom (y=63), leaving no headroom below the contact line;
