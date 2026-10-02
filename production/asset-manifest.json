@@ -42,7 +42,7 @@
       "equipmentRule": "rigid items placed by anchor; deformable items authored per body-part pose; runtime-eligible only with full direction × state × frame coverage",
       "generatedImageryRule": "reference only; no production pixel converted from generated imagery",
       "openIssues": [
-        "female Body2 differs from a pure colour mapping of canonical Body1 at 40 interior pixels",
+        "female Body2 differs from a pure colour mapping of canonical Body1 at 35 interior pixels (frame 0 jaw/neck contour 29; frames 1 and 7 shoulder marks 3 each)",
         "Body1 sheets contain near-duplicate colours; locked body palette not yet consolidated",
         "mapping of the eight reference frames to canonical direction labels not yet recorded",
         "reference-pose feet touch the frame bottom (y=63); no headroom below the contact line"

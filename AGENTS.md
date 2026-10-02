@@ -157,8 +157,8 @@ On approval, a new base frame becomes **locked production geometry** with protec
 
 - Each body (male, female) has one canonical geometry. Skin-tone variants are palette swaps of that geometry, not separate sheets.
 - **Body1 is the canonical geometry for both bodies.** Male Body1/Body2 share an identical silhouette, and male Body2 is an exact colour mapping of Body1.
-- Female Body1 was chosen as canonical (user decision, 2026-10-02). The one-time base edit aligned Female Body2's 8 differing silhouette pixels to Body1; no other pixel changed.
-- Female Body2 still differs from a pure colour mapping of Body1 at 40 interior pixels (shading/outline choices). Until those are resolved, overlays register to Body1 geometry, and Body2's interior shading is not yet a valid palette-swap variant.
+- Female Body1 was chosen as canonical (user decision, 2026-10-02). The one-time base edit aligned Female Body2 to Body1's silhouette: 8 silhouette pixels plus the 4 old inner-outline pixels on the frame-7 shin that the silhouette shift displaced (12 pixels total).
+- Female Body2 still differs from a pure colour mapping of Body1 at 35 interior pixels (frame 0 jaw/neck contour: 29; frames 1 and 7 shoulder marks: 3 each). Until those are resolved, overlays register to Body1 geometry, and Body2's interior shading is not yet a valid palette-swap variant.
 
 ## Equipment and overlays
 
