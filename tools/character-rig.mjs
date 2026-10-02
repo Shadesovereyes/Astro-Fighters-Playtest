@@ -25,6 +25,7 @@ const CONFIG = {
     body: 'Paperdolls/Male/Layer 1 - Base Body/Male Base Body1.png',
     arms: 'Paperdolls/Male/Layer 3 - Arms/Male Arms1.png',
     status: 'approved by user 2026-10-02',
+    overlayStatus: 'approved by user 2026-10-02 (armour belt split added after approval: candidate)',
     // Overlay layers split onto the approved body parts. Classes:
     //  under-arms — Layer 2 clothing drawn beneath Arms1: pixels never take arm or head parts (collars and cloth under the arm stay with the torso);
     //  head       — whole layer follows the head;
@@ -32,8 +33,9 @@ const CONFIG = {
     overlays: [
       // The sash (and its outline) is its own part so it can sway; it hangs from the hip anchor.
       { file: 'Paperdolls/Male/Layer 2 - Clothing/Male Gi.png', class: 'under-arms', colourParts: { '9c0909': 'sash' }, outline: '030101' },
-      { file: 'Paperdolls/Male/Layer 2 - Clothing/Male Blue Armor.png', class: 'under-arms' },
-      { file: 'Paperdolls/Male/Layer 2 - Clothing/Male Red Armor.png', class: 'under-arms' },
+      // Armour belt: the outlined body-colour region between the torso's lower outline and the legs (band + hanging flap).
+      { file: 'Paperdolls/Male/Layer 2 - Clothing/Male Blue Armor.png', class: 'under-arms', belt: { colours: ['434da0', '332b6f'], outline: '000000', topRows: [30, 46], part: 'sash' } },
+      { file: 'Paperdolls/Male/Layer 2 - Clothing/Male Red Armor.png', class: 'under-arms', belt: { colours: ['af071a', '770202'], outline: '000000', topRows: [30, 46], part: 'sash' } },
       { file: 'Paperdolls/Male/Layer 4 - Shoulders and Arms accessories/Blue Armor Shoulders.png', class: 'component' },
       { file: 'Paperdolls/Male/Layer 4 - Shoulders and Arms accessories/Red Armor Shoulders.png', class: 'component' },
       { file: 'Paperdolls/Male/Layer 5 - Hair/Afro Hair.png', class: 'head' },
@@ -296,6 +298,36 @@ function splitOverlay(entry, body, partMap) {
           for (const [x, y] of comp) label.set(key(x, y), major);
         }
       } else for (const [x, y] of pts) label.set(key(x, y), near.get(key(x, y)));
+      if (entry.belt) {
+        // Belt = connected regions of belt colour (separated by outline, 4-connectivity) that start inside topRows
+        // and do not extend above it (the torso) or below the knee band (boots). Outline pixels follow the side most
+        // of their non-outline neighbours belong to; ties go to the belt on side edges, to the other part on top/bottom.
+        const { colours, outline, topRows, part } = entry.belt;
+        const isBeltColour = (x, y) => x >= 0 && y >= 0 && x < FRAME && y < FRAME && img.px[(y * 512 + ox + x) * 4 + 3] && colours.includes(hexAt(img, ox + x, y));
+        const seen = new Set(), belt = new Set();
+        for (const [x0, y0] of pts) {
+          if (seen.has(key(x0, y0)) || !isBeltColour(x0, y0)) continue;
+          const comp = [], stack = [[x0, y0]]; seen.add(key(x0, y0));
+          while (stack.length) {
+            const [x, y] = stack.pop(); comp.push([x, y]);
+            for (const [dx, dy] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) if (isBeltColour(x + dx, y + dy) && !seen.has(key(x + dx, y + dy))) { seen.add(key(x + dx, y + dy)); stack.push([x + dx, y + dy]); }
+          }
+          const ys = comp.map((p) => p[1]);
+          if (Math.min(...ys) >= topRows[0] && Math.min(...ys) <= topRows[1] && Math.max(...ys) <= topRows[1]) for (const [x, y] of comp) belt.add(key(x, y));
+        }
+        for (const k of belt) label.set(k, part);
+        for (const [x, y] of pts) {
+          if (hexAt(img, ox + x, y) !== outline) continue;
+          let side = 0, vert = 0, other = 0;
+          for (const [dx, dy] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
+            const nx = x + dx, ny = y + dy;
+            if (nx < 0 || ny < 0 || nx >= FRAME || ny >= FRAME || !img.px[(ny * 512 + ox + nx) * 4 + 3] || hexAt(img, ox + nx, ny) === outline) continue;
+            if (belt.has(key(nx, ny))) { if (dx) side++; else vert++; } else other++;
+          }
+          const mine = side + vert;
+          if (mine && (mine > other || (mine === other && side > 0))) label.set(key(x, y), part);
+        }
+      }
       for (const [colour, part] of Object.entries(entry.colourParts || {})) {
         const hit = (x, y) => x >= 0 && y >= 0 && x < FRAME && y < FRAME && img.px[(y * 512 + ox + x) * 4 + 3] && hexAt(img, ox + x, y) === colour;
         for (const [x, y] of pts) {
@@ -359,12 +391,13 @@ function build(name) {
   files['overlays.json'] = JSON.stringify({
     schema: 'astro-fighters-character-overlay-split/v1',
     body: name,
-    status: 'candidate — pending user approval',
+    status: cfg.overlayStatus || 'candidate — pending user approval',
     method: {
       'under-arms': 'Layer 2 clothing: each pixel takes the nearest body part excluding arm and head parts (drawn under Arms1; collars stay with the torso)',
       head: 'whole layer follows the head part',
       component: 'each connected piece takes the majority nearest body part',
-      colourParts: 'listed colours (and outline pixels touching them) are forced to a part; the Gi sash is its own part'
+      colourParts: 'listed colours (and outline pixels touching them) are forced to a part; the Gi sash is its own part',
+      belt: 'armour belt = outlined belt-colour regions starting between the torso outline and the knee band (band + flap), as part sash; outline pixels follow their majority side, side-edge ties to the belt'
     },
     drawOrder: ['contact shadow', 'Layer 1 body', 'Layer 2 clothing', 'Layer 3 arms', 'Layer 4 shoulder/arm accessories', 'Layer 5 hair', 'Layer 6 eyes'],
     overlayParts: Object.fromEntries(Object.entries(OVERLAY_PART_COLOURS).map(([p, c]) => [p, { colour: '#' + c.map((v) => v.toString(16).padStart(2, '0')).join(''), anchor: OVERLAY_PART_ANCHORS[p] }])),

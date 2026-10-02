@@ -1,12 +1,13 @@
 {
   "schema": "astro-fighters-character-overlay-split/v1",
   "body": "male",
-  "status": "candidate — pending user approval",
+  "status": "approved by user 2026-10-02 (armour belt split added after approval: candidate)",
   "method": {
     "under-arms": "Layer 2 clothing: each pixel takes the nearest body part excluding arm and head parts (drawn under Arms1; collars stay with the torso)",
     "head": "whole layer follows the head part",
     "component": "each connected piece takes the majority nearest body part",
-    "colourParts": "listed colours (and outline pixels touching them) are forced to a part; the Gi sash is its own part"
+    "colourParts": "listed colours (and outline pixels touching them) are forced to a part; the Gi sash is its own part",
+    "belt": "armour belt = outlined belt-colour regions starting between the torso outline and the knee band (band + flap), as part sash; outline pixels follow their majority side, side-edge ties to the belt"
   },
   "drawOrder": [
     "contact shadow",
@@ -142,86 +143,94 @@
           "direction": "S",
           "pixelCounts": {
             "torso": 161,
-            "pelvis": 74,
-            "R-thigh": 65,
-            "R-shin-foot": 125,
-            "L-thigh": 58,
-            "L-shin-foot": 124
+            "pelvis": 38,
+            "R-thigh": 54,
+            "R-shin-foot": 124,
+            "L-thigh": 32,
+            "L-shin-foot": 123,
+            "sash": 75
           }
         },
         {
           "direction": "SE",
           "pixelCounts": {
             "torso": 141,
-            "pelvis": 73,
+            "pelvis": 39,
             "R-thigh": 71,
             "R-shin-foot": 113,
-            "L-thigh": 59,
-            "L-shin-foot": 108
+            "L-thigh": 30,
+            "L-shin-foot": 108,
+            "sash": 63
           }
         },
         {
           "direction": "E",
           "pixelCounts": {
-            "torso": 137,
-            "pelvis": 46,
-            "R-thigh": 79,
+            "torso": 129,
+            "pelvis": 26,
+            "R-thigh": 61,
             "R-shin-foot": 86,
-            "L-shin-foot": 43
+            "L-shin-foot": 43,
+            "sash": 46
           }
         },
         {
           "direction": "NE",
           "pixelCounts": {
-            "torso": 158,
-            "pelvis": 79,
+            "torso": 148,
+            "pelvis": 69,
             "R-thigh": 62,
             "R-shin-foot": 118,
             "L-thigh": 55,
-            "L-shin-foot": 119
+            "L-shin-foot": 119,
+            "sash": 20
           }
         },
         {
           "direction": "N",
           "pixelCounts": {
             "torso": 150,
-            "pelvis": 78,
+            "pelvis": 48,
             "R-thigh": 60,
             "R-shin-foot": 131,
             "L-thigh": 68,
-            "L-shin-foot": 128
+            "L-shin-foot": 128,
+            "sash": 30
           }
         },
         {
           "direction": "NW",
           "pixelCounts": {
-            "torso": 158,
-            "pelvis": 79,
+            "torso": 148,
+            "pelvis": 69,
             "R-thigh": 53,
             "R-shin-foot": 119,
             "L-thigh": 64,
-            "L-shin-foot": 118
+            "L-shin-foot": 118,
+            "sash": 20
           }
         },
         {
           "direction": "W",
           "pixelCounts": {
-            "torso": 137,
-            "pelvis": 46,
+            "torso": 129,
+            "pelvis": 26,
             "R-shin-foot": 43,
-            "L-thigh": 79,
-            "L-shin-foot": 86
+            "L-thigh": 61,
+            "L-shin-foot": 86,
+            "sash": 46
           }
         },
         {
           "direction": "SW",
           "pixelCounts": {
             "torso": 141,
-            "pelvis": 73,
-            "R-thigh": 61,
+            "pelvis": 39,
+            "R-thigh": 32,
             "R-shin-foot": 108,
             "L-thigh": 69,
-            "L-shin-foot": 113
+            "L-shin-foot": 113,
+            "sash": 63
           }
         }
       ]
@@ -235,86 +244,94 @@
           "direction": "S",
           "pixelCounts": {
             "torso": 161,
-            "pelvis": 74,
-            "R-thigh": 65,
-            "R-shin-foot": 125,
-            "L-thigh": 58,
-            "L-shin-foot": 124
+            "pelvis": 38,
+            "R-thigh": 54,
+            "R-shin-foot": 124,
+            "L-thigh": 32,
+            "L-shin-foot": 123,
+            "sash": 75
           }
         },
         {
           "direction": "SE",
           "pixelCounts": {
             "torso": 141,
-            "pelvis": 73,
+            "pelvis": 39,
             "R-thigh": 71,
             "R-shin-foot": 113,
-            "L-thigh": 59,
-            "L-shin-foot": 108
+            "L-thigh": 30,
+            "L-shin-foot": 108,
+            "sash": 63
           }
         },
         {
           "direction": "E",
           "pixelCounts": {
-            "torso": 137,
-            "pelvis": 46,
-            "R-thigh": 79,
+            "torso": 129,
+            "pelvis": 26,
+            "R-thigh": 61,
             "R-shin-foot": 86,
-            "L-shin-foot": 43
+            "L-shin-foot": 43,
+            "sash": 46
           }
         },
         {
           "direction": "NE",
           "pixelCounts": {
-            "torso": 158,
-            "pelvis": 79,
+            "torso": 148,
+            "pelvis": 69,
             "R-thigh": 62,
             "R-shin-foot": 118,
             "L-thigh": 55,
-            "L-shin-foot": 119
+            "L-shin-foot": 119,
+            "sash": 20
           }
         },
         {
           "direction": "N",
           "pixelCounts": {
             "torso": 150,
-            "pelvis": 78,
+            "pelvis": 48,
             "R-thigh": 60,
             "R-shin-foot": 131,
             "L-thigh": 68,
-            "L-shin-foot": 128
+            "L-shin-foot": 128,
+            "sash": 30
           }
         },
         {
           "direction": "NW",
           "pixelCounts": {
-            "torso": 158,
-            "pelvis": 79,
+            "torso": 148,
+            "pelvis": 69,
             "R-thigh": 53,
             "R-shin-foot": 119,
             "L-thigh": 64,
-            "L-shin-foot": 118
+            "L-shin-foot": 118,
+            "sash": 20
           }
         },
         {
           "direction": "W",
           "pixelCounts": {
-            "torso": 137,
-            "pelvis": 46,
+            "torso": 129,
+            "pelvis": 26,
             "R-shin-foot": 43,
-            "L-thigh": 79,
-            "L-shin-foot": 86
+            "L-thigh": 61,
+            "L-shin-foot": 86,
+            "sash": 46
           }
         },
         {
           "direction": "SW",
           "pixelCounts": {
             "torso": 141,
-            "pelvis": 73,
-            "R-thigh": 61,
+            "pelvis": 39,
+            "R-thigh": 32,
             "R-shin-foot": 108,
             "L-thigh": 69,
-            "L-shin-foot": 113
+            "L-shin-foot": 113,
+            "sash": 63
           }
         }
       ]
