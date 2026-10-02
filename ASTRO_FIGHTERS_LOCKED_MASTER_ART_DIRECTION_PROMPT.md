@@ -279,26 +279,40 @@ Crew/faction colorways should remain differentiated and restrained. Avoid allowi
 
 # 10. Character source authority
 
-The finalized male and female character sheets are the current **production-geometry authority** for character-sheet asset work. They are not loose design references and must not be regenerated into a new source body.
+The finalized male and female character sheets are the current **production-geometry authority** for character work. They are not loose design references and must not be regenerated into a new source body. Base geometry is under **change control**: it may grow through an approval gate, but approved frames are never redrawn.
 
-For this workflow, the locked finalized sheets supersede older experimental `480×640` per-direction / `48×64` source-lattice assumptions in historical branches, package notes, or stale documentation unless the user explicitly reopens that pipeline.
+The locked finalized sheets supersede the retired experimental `480×640` per-direction / `48×64` source-lattice assumptions in historical branches, package notes, or stale documentation.
 
 Locked baseline:
 
 - native character-sheet canvas: **512×64**;
-- exactly **eight contiguous 64×64 directional frames**;
+- exactly **eight contiguous 64×64 directional frames** — the **reference poses**, also frame 0 of each direction's `ready` state;
 - preserve the approved existing frame order, frame spacing, pose placement, silhouette, and pixel coordinates exactly;
 - preserve every existing base-character pixel unless the user explicitly authorizes a base-character change;
-- **never regenerate the base character** to make a costume, equipment layer, or preview;
+- **never regenerate the base character** to make a costume, equipment layer, animation, or preview;
 - **never reinterpret the pixel style** or add a smoother, more detailed, or differently shaded treatment;
-- clothing, armor, equipment, and accessories are separate transparent pixel overlays fitted to the existing silhouette;
+- each body has one canonical geometry; skin tones are palette swaps of it;
+- no extra shading/detail may be invented beyond the established source-sprite vocabulary.
+
+Animation bases:
+
+- new body frames for idle, walk, ready, attack, and later states are authored as data specs and rendered deterministically, never converted from generator output;
+- frames are built from the reference pose as a cut-out rig — whole-pixel part moves plus approved part variants and joint patches; no rotation or resampling;
+- every frame keeps the shared 64×64 frame and pivot/foot contact unless the motion intends otherwise, and carries anchor and per-frame draw-order metadata;
+- each frame is user-approved per state per direction, then becomes locked production geometry with the same protection as the reference poses;
+- changing an approved frame requires an explicit unlock, a recorded reason, and re-verification of every overlay registered to it.
+
+Equipment:
+
+- clothing, armor, equipment, and accessories are separate transparent pixel overlays fitted to approved base frames;
 - overlays may cover the base visually in a composite, but they must not replace source body/hair/face pixels inside the overlay asset;
+- rigid items are authored per direction (plus approved variants) and placed by anchor; deformable items are authored per body-part pose and reused wherever that pose appears;
 - enlarged inspection sheets are integer nearest-neighbor derivatives only; a 10× sheet is **5120×640**;
 - composite previews are mechanical base-plus-overlay composites, not AI-generated redraws of the dressed character;
-- no extra shading/detail may be invented beyond the established source-sprite vocabulary;
-- if correct garment placement requires guessing hidden anatomy or body geometry, stop at the specific ambiguous frame/area rather than inventing anatomy, changing the pose, or creating replacement base pixels.
+- AI-generated images are reference only; no production pixel may come from converting one;
+- if correct garment placement requires guessing hidden or unapproved body geometry, stop at the specific ambiguous frame/area rather than inventing anatomy, changing the pose, or creating replacement base pixels.
 
-High-contrast inspection backgrounds may be used during QA to reveal holes, unintended transparency, floating pixels, broken seams, or routing mistakes. Those errors must be corrected in the overlay itself; the locked base sheet is not modified to compensate.
+High-contrast inspection backgrounds may be used during QA to reveal holes, unintended transparency, floating pixels, broken seams, or routing mistakes. Those errors must be corrected in the overlay itself; locked base frames are not modified to compensate.
 
 ---
 

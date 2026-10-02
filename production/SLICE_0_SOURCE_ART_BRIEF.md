@@ -93,7 +93,7 @@ Use the shared-foundation identity:
 
 He should read as an early-game Academy/street-fighter trainee, not a generic fantasy adventurer.
 
-The reference character is a visual benchmark only. Production still requires eight distinct source masters and the modular character source set on the contracted `480×640` lattice.
+The reference character is a visual benchmark only. Production uses the locked `512×64` reference sheets, approval-gated animation base frames, and part-indexed overlays on the shared `64×64` frame.
 
 ---
 
@@ -221,19 +221,17 @@ Temporary generations, failed experiments, and QA boards may remain outside the 
 
 # 11. Character source work
 
-Using the same visual authority:
+Using the same visual authority and the locked base geometry change control in `AGENTS.md`:
 
-1. author eight base-underlayer masters;
-2. author eight fully dressed benchmark masters;
-3. author modular garment/accessory layers on the same lattice;
-4. compare modular composites to the benchmark;
-5. run isolation/anchor/hard-alpha QA;
-6. approve all source directions;
-7. derive `48×64` runtime candidates;
-8. manually clean target-resolution pixels;
-9. integrate idle/walk/ready into Phaser.
+1. record the reference-frame direction mapping, part split, and anchors for the locked 512×64 sheets;
+2. author idle, walk, and ready animation base frames as deterministic data specs from the reference poses;
+3. approve each state per direction, then lock it;
+4. author benchmark garment/accessory overlays per body-part pose and anchor;
+5. compare mechanical composites to the benchmark intent;
+6. run coverage, isolation, anchor, hard-alpha, and palette QA;
+7. integrate idle/walk/ready into Phaser.
 
-No runtime reduction while source silhouette, direction, routing, or material treatment is unstable.
+No overlay production on frames that are not yet approved and locked.
 
 ---
 

@@ -1,6 +1,6 @@
 {
   "schema": "astro-fighters-production-manifest/v2",
-  "updated": "2026-08-27",
+  "updated": "2026-10-02",
   "approvalAuthority": "Astro Fighters — Art Preview Review Rubric.md",
   "masterDirection": "ASTRO_FIGHTERS_LOCKED_MASTER_ART_DIRECTION_PROMPT.md",
   "canonical": {
@@ -18,12 +18,34 @@
       "W": "left profile",
       "NW": "back-left 3/4"
     },
-    "characterSourceCanvas": [480, 640],
-    "characterSourceBodyCenter": [240, 600],
-    "characterSourceFootContactY": 600,
-    "characterRuntimeFrame": [48, 64],
-    "characterRuntimePivot": [24, 60],
+    "characterSheetCanvas": [512, 64],
+    "characterFrame": [64, 64],
+    "characterFramesPerSheet": 8,
+    "characterPivot": [32, 63],
+    "characterFootContactY": 63,
     "characterAnimationFramesPerDirection": {"idle": 4, "walk": 6, "ready": 2},
+    "characterAnimationStatesPending": {"attack": "frame counts, active frames, hitboxes, and event markers contracted per weapon class"},
+    "characterGeometry": {
+      "policy": "locked base geometry under change control (AGENTS.md)",
+      "referencePoses": {
+        "male": ["Paperdolls/Male/Layer 1 - Base Body/Male Base Body1.png", "Paperdolls/Male/Layer 1 - Base Body/Male Base Body2.png"],
+        "female": ["Paperdolls/Female/Layer 1 - Base Body/Female Base Body1.png", "Paperdolls/Female/Layer 1 - Base Body/Female Base Body2.png"]
+      },
+      "referencePoseRole": "frame 0 of each direction's ready state",
+      "skinVariants": "palette swaps of one canonical geometry per body",
+      "animationBaseApproval": "per state per direction; approved frames become locked production geometry",
+      "riggingRule": "cut-out rig from reference-pose pixels; whole-pixel moves and approved part variants/joint patches only; no rotation or resampling",
+      "parts": ["head", "torso", "pelvis", "near-upper-arm", "near-forearm-hand", "far-upper-arm", "far-forearm-hand", "near-thigh", "near-shin-foot", "far-thigh", "far-shin-foot"],
+      "anchors": ["head", "neck", "near-shoulder", "far-shoulder", "near-elbow", "far-elbow", "near-hand-grip", "far-hand-grip", "hip", "near-knee", "far-knee", "near-foot", "far-foot"],
+      "drawOrder": "per-frame metadata by anatomical side",
+      "equipmentRule": "rigid items placed by anchor; deformable items authored per body-part pose; runtime-eligible only with full direction × state × frame coverage",
+      "generatedImageryRule": "reference only; no production pixel converted from generated imagery",
+      "openIssues": [
+        "female Body1/Body2 differ by 8 silhouette pixels; canonical female geometry not yet chosen",
+        "mapping of the eight reference frames to canonical direction labels not yet recorded",
+        "reference-pose feet touch the frame bottom (y=63); no headroom below the contact line"
+      ]
+    },
     "baseUnderlayer": {
       "male": ["body/skin", "hair/face", "base shorts"],
       "female": ["body/skin", "hair/face", "base shorts", "sports bra"]
@@ -80,17 +102,15 @@
       "status": "missing",
       "benchmarkId": "fighter-male-short-afro-shared-foundation",
       "role": "unarmed Academy street-fighter trainee",
-      "sourceCanvas": [480, 640],
-      "bodyCenter": [240, 600],
-      "footContactY": 600,
-      "runtimeFrame": [48, 64],
-      "runtimePivot": [24, 60],
+      "sheetCanvas": [512, 64],
+      "frame": [64, 64],
+      "pivot": [32, 63],
       "directions": ["N", "NE", "E", "SE", "S", "SW", "W", "NW"],
-      "sourceAuthoritiesRequired": ["base-underlayer turnaround", "fully dressed benchmark turnaround", "modular source component set"],
+      "sourceAuthoritiesRequired": ["locked reference pose sheets", "approved animation base frames", "part-indexed overlay set"],
       "sourcePaths": {
-        "baseUnderlayerPattern": "production/source/characters/shared-foundation/base-underlayer/{direction}.png",
-        "dressedBenchmarkPattern": "production/source/characters/shared-foundation/dressed-benchmark/{direction}.png",
-        "modularLayerPattern": "production/source/characters/shared-foundation/layers/{layer}/{direction}.png"
+        "animationBasePattern": "production/source/characters/bases/{body}/{state}/{direction}.png",
+        "dressedBenchmarkPattern": "production/source/characters/shared-foundation/dressed-benchmark/{state}/{direction}.png",
+        "modularLayerPattern": "production/source/characters/shared-foundation/layers/{layer}/{state}/{direction}.png"
       },
       "runtimePaths": {
         "benchmarkPattern": "docs/assets/characters/shared-foundation/benchmark/{direction}.png",
@@ -102,14 +122,14 @@
       "paletteFamilies": ["skin_e", "cloth", "tide", "rust", "ui", "trimB"],
       "layerFamilies": ["back-garment", "body-underlayer", "pants", "footwear", "inner-top", "outerwear-far", "outerwear-near", "waist-back", "waist-front", "accessories", "contact-shadow"],
       "drawOrderRule": "Near/far garment panels route by canonical facing; no whole-overlay layer may cover anatomy that should remain visible.",
-      "validation": ["all eight canonical facings", "shared 480×640 lattice", "shared body center and foot-contact line", "direction-aware near/far draw order", "hard alpha", "master palette", "48×64 target pixel cleanup"]
+      "validation": ["all eight canonical facings", "locked 512×64 reference poses unchanged", "shared 64×64 frame and pivot/foot contact [32,63]", "every animation base frame approved and locked", "direction-aware near/far draw order", "hard alpha", "master palette", "full direction × state × frame coverage", "no production pixels converted from generated imagery"]
     },
     "sourceGate": {
       "requiredBeforeRuntimeDerivation": [
         "world reference slice approved",
         "world modular source assembly approved",
-        "base-underlayer eight-direction turnaround approved",
-        "fully dressed eight-direction benchmark approved",
+        "animation base frames approved and locked for every contracted state and direction",
+        "dressed benchmark overlays approved for every contracted state and direction",
         "modular character source assembly matches benchmark",
         "isolation and anchor QA passes"
       ]

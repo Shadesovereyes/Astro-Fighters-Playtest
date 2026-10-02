@@ -131,13 +131,12 @@ Create only enough shared props to make the early route feel inhabited:
 
 Complete the contracted male benchmark source authorities:
 
-- eight-direction base-underlayer turnaround;
-- eight-direction fully dressed benchmark turnaround;
-- modular layer source set;
-- clean source assembly matching the benchmark;
-- source isolation/anchor QA;
-- target-resolution derivation and manual pixel cleanup;
-- idle/walk/ready coverage;
+- locked 512×64 reference poses (existing; unchanged);
+- reference-frame direction mapping, part split, and anchors;
+- approval-gated idle/walk/ready animation base frames, locked on approval;
+- benchmark overlays authored per body-part pose and anchor;
+- mechanical composite matching the benchmark intent;
+- coverage, isolation, anchor, hard-alpha, and palette QA;
 - actual Phaser paper-doll integration.
 
 Benchmark identity:
@@ -153,11 +152,11 @@ Benchmark identity:
 - neck cord/charm;
 - no weapon required for this first benchmark.
 
-Locked contract facts remain in the manifest: `480×640`, center `[240,600]`, foot-contact `y=600`, runtime `48×64`, pivot `[24,60]`, canonical eight directions.
+Locked contract facts remain in the manifest: `512×64` reference sheets, `64×64` frames, pivot/foot contact `[32,63]`, canonical eight directions. Base geometry is under change control: animation base frames are authored from the reference poses and locked on approval (see `AGENTS.md`).
 
 ### P0-E — Female base parity
 
-Produce the corresponding female base-underlayer on the same lattice and direction system:
+Resolve the 8-pixel silhouette difference between female Base Body1 and Body2 into one canonical geometry (explicit one-time base edit), then produce female animation bases on the same frame, pivot, and direction system:
 
 - body/skin;
 - hair/face;
@@ -464,17 +463,15 @@ This is the current execution order. It is not a second checklist.
 
 ### Queue B — Player benchmark
 
-19. male base-underlayer turnaround
-20. female base-underlayer turnaround
-21. short Afro turnaround
-22. dressed player benchmark turnaround
-23. modular layer isolation
-24. source QA
-25. runtime 48×64 cleanup
-26. idle animation
-27. walk animation
-28. ready animation
-29. Phaser paper-doll integration
+19. canonical female geometry decision (Body1/Body2 silhouette parity)
+20. reference-frame direction mapping + part split + anchors
+21. male idle animation base (approval-gated, then locked)
+22. male walk animation base (approval-gated, then locked)
+23. male ready animation base (approval-gated, then locked)
+24. short Afro and dressed benchmark overlays per part pose
+25. coverage table + overlay QA
+26. female animation bases and overlays
+27. Phaser paper-doll integration
 
 ### Queue C — Harbor
 

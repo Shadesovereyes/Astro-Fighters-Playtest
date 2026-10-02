@@ -6,25 +6,43 @@
 
 ---
 
-# 0. Locked Base-Sheet Preservation Gate
+# 0. Locked Base Geometry Gate
 
-The finalized male and female character sheets are **production geometry, not inspiration**. Clothing, armor, equipment, accessories, and preview work must preserve the approved source pixels exactly unless the user explicitly authorizes a base-character edit.
+The finalized male and female character sheets are **production geometry, not inspiration**. Base geometry is under change control: the reference poses and every approved animation base frame are locked. Clothing, armor, equipment, accessories, animation, and preview work must preserve locked pixels exactly unless the user explicitly unlocks a specific frame.
 
 Mandatory before any clothing/equipment asset can advance:
 
-- [ ] Native character-sheet canvas remains **512×64**
-- [ ] Eight contiguous **64×64** directional frames remain in the approved existing order
-- [ ] Base character has **not** been regenerated, redrawn, resized, repositioned, warped, or resampled
-- [ ] No approved body, hair, face, anatomy, stance, silhouette, pose, or frame-placement pixel has been changed without explicit user authorization
+- [ ] Native reference sheets remain **512×64** with eight contiguous **64×64** directional frames in the approved existing order
+- [ ] No locked base frame (reference pose or approved animation base) has been regenerated, redrawn, resized, repositioned, warped, or resampled
+- [ ] No approved body, hair, face, anatomy, stance, silhouette, pose, or frame-placement pixel has been changed without explicit user unlock
 - [ ] Pixel style has not been reinterpreted, smoothed, modernized, or given extra detail/shading beyond the established sprite vocabulary
-- [ ] Clothing/equipment exists as a **separate transparent pixel overlay** fitted to the locked base silhouette
+- [ ] Clothing/equipment exists as **separate transparent pixel overlays** fitted to approved base frames
 - [ ] Overlay contains no replacement skin, body, hair, face, or background pixels
+- [ ] Rigid items are placed by anchor; deformable items are authored per body-part pose
+- [ ] Coverage table shows every direction × state × frame covered (overlay, anchor placement, or reused part pose)
 - [ ] Enlarged inspection images use integer **nearest-neighbor scaling only**; 10× = **5120×640**
 - [ ] Composite previews are mechanical base-plus-overlay composites, not AI-generated redraws of dressed characters
-- [ ] High-contrast QC corrections are made to the overlay, never to the locked base character
-- [ ] If garment placement requires guessing hidden body geometry, production stops at the specific ambiguous frame/area until it can be resolved without inventing anatomy or pose changes
+- [ ] No production pixel was converted from AI-generated imagery
+- [ ] High-contrast QC corrections are made to the overlay, never to a locked base frame
+- [ ] If garment placement requires guessing hidden or unapproved body geometry, production stops at the specific frame/area until it can be resolved without inventing anatomy or pose changes
 
-Older experimental `480×640` per-direction / `48×64` character-source assumptions do not authorize conversion or redrawing of the finalized 512×64 base sheets.
+## 0.1 Animation Base Approval Gate
+
+Mandatory before a new base frame becomes locked production geometry:
+
+- [ ] Authored as a data spec and rendered deterministically (not converted from generator output)
+- [ ] Locked body palette only; hard alpha; no new shading style, texture density, contour, or anatomy
+- [ ] Shared 64×64 frame and pivot/foot contact `[32,63]` unless the motion intends otherwise
+- [ ] Every part traces to reference-pose pixels or an approved part variant; whole-pixel moves only, no rotation/resampling
+- [ ] Joint patches approved alongside the frame
+- [ ] Anchor and per-frame draw-order metadata committed with the frame
+- [ ] Foot contact does not slide during planted phases; loop seam is clean
+- [ ] User approval recorded per state per direction
+- [ ] Skin-tone variants produced as palette swaps of the approved geometry
+
+Unlocking an approved frame requires an explicit user instruction, a recorded reason, and re-verification of every overlay registered to it.
+
+Retired experimental `480×640` per-direction / `48×64` character-source assumptions do not authorize conversion or redrawing of the locked sheets.
 
 ---
 
@@ -110,7 +128,7 @@ For every direction confirm:
 
 # 3. Animation Coverage
 
-Each approved fighter clothing stack must support:
+Each approved fighter clothing stack must support the following states. Every state depends on approved, locked animation base frames (§0.1); overlays are authored against those frames, never by altering them.
 
 ## Idle
 - [ ] 4 frames per direction
@@ -716,6 +734,8 @@ A character asset is rejected immediately if:
 - [ ] Enlarged inspection art was created with smoothing/interpolation instead of integer nearest-neighbor scaling
 - [ ] Extra shading, texture density, anatomy, or contour detail drifts beyond the approved source-sprite vocabulary
 - [ ] Hidden body geometry was guessed by inventing anatomy or changing the pose instead of stopping at the ambiguous area
+- [ ] Animation base frame used in production without recorded approval
+- [ ] Production pixels converted from AI-generated imagery (including palette-matched or downsampled conversions)
 
 Any automatic failure requires further development before integration.
 

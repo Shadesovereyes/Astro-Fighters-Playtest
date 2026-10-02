@@ -125,24 +125,61 @@ Do not smooth or photographically interpolate production pixel art.
 
 ---
 
-# Locked character-sheet preservation standard
+# Locked base geometry — change control
 
-The finalized male and female character sheets are **production geometry, not inspiration**. When creating clothing, armor, equipment, accessories, or inspection previews, preserve the approved character pixels rather than regenerating or reinterpreting them.
+The finalized male and female character sheets are **production geometry, not inspiration**. Approved base frames are never regenerated, reinterpreted, smoothed, or redrawn. Base geometry may grow only through the approval gate below; it is never changed casually.
 
-Mandatory rules:
+The rule exists for two reasons, and both must keep holding:
 
-- **Never regenerate the base character.** Do not redraw the body, hair, face, anatomy, stance, proportions, directional pose, silhouette, or frame placement.
-- **Never reinterpret the pixel style.** Match the approved sprite vocabulary exactly; do not smooth, modernize, increase detail density, or introduce a different shading language.
-- Work on the native **512×64 character sheet**, consisting of **eight contiguous 64×64 frames**. Do not reorder, resize, reposition, warp, or resample the approved base frames.
-- Preserve every existing source pixel unless the user explicitly authorizes changing the base character itself.
-- Clothing/equipment must be built as **separate transparent pixel overlays** fitted to the existing silhouette. Do not alter the body to make a garment fit.
-- Enlarged inspection versions must be derived only from the native asset using **integer nearest-neighbor scaling**. A 10× inspection sheet is therefore **5120×640**.
-- Do not use an AI-generated dressed-character image as a composite preview. Composite previews must be made mechanically by placing the approved overlay over the untouched approved base sheet.
-- Do not add extra shading, contour detail, texture density, or anatomical information beyond the established source-sprite vocabulary merely because a generator can produce it.
-- If a garment or equipment layer cannot be placed without guessing hidden body geometry, stop at the specific ambiguous frame/area and identify the uncertainty rather than inventing anatomy, pose changes, or replacement pixels.
-- High-contrast-background inspection may be used to find holes, stray transparency, floating pixels, broken seams, and routing errors, but QC corrections belong in the overlay—not in the locked base character.
+1. **no drift** — generators and redraws must not reinterpret the character; approved pixels are authored data, not a style suggestion;
+2. **exact registration** — every clothing, armor, equipment, and accessory overlay is registered pixel-for-pixel to the base. Interchangeable equipment depends on base geometry that does not move.
 
-For character-sheet asset work, these preservation rules override older experimental source-lattice assumptions or branch/package notes that would require redrawing the approved base geometry. Do not silently convert the locked 512×64 sheets into a different source format.
+## Reference poses
+
+- The existing native **512×64** sheets (**eight contiguous 64×64 frames**) remain untouched as the reference poses and as frame 0 of the `ready` state for each direction.
+- Do not reorder, resize, reposition, warp, or resample the reference frames.
+- Preserve every reference-pose pixel unless the user explicitly authorizes a base-character edit.
+
+## Approval gate for new base frames (animation bases)
+
+New body frames for animation states (idle, walk, ready, attack, and later states) may be authored only when they:
+
+- are authored as data specs rendered deterministically — never converted from generator output;
+- use only the locked body palette, hard alpha, and no shading, texture density, contour, or anatomy beyond the established sprite vocabulary;
+- keep the shared 64×64 frame and pivot/foot contact unless the motion intends otherwise (jump, lunge);
+- trace every part to reference-pose pixels or to an approved part variant (cut-out rig moves are whole-pixel only; no rotation or resampling);
+- carry committed anchor and per-frame draw-order metadata;
+- receive user approval, recorded per state per direction.
+
+On approval, a new base frame becomes **locked production geometry** with protection identical to the reference poses. Changing any approved frame requires an explicit user unlock, a recorded reason, and re-verification of every overlay registered to it.
+
+## Body geometry and skin variants
+
+- Each body (male, female) has one canonical geometry. Skin-tone variants are palette swaps of that geometry, not separate sheets.
+- Male Body1/Body2 already share an identical silhouette. Female Body1/Body2 differ by 8 silhouette pixels; one canonical version must be chosen through a one-time explicit base edit before female overlays are produced.
+
+## Equipment and overlays
+
+- Clothing, armor, equipment, and accessories are separate transparent pixel overlays fitted to approved base frames. Never alter the body to make a garment fit.
+- Overlays contain no replacement skin, body, hair, face, or background pixels.
+- **Rigid items** (helmets, shoulder pieces, weapons, shields) are authored per direction plus approved variants and placed by anchor with integer offsets.
+- **Deformable items** (garments, armor bodies, sleeves, trousers, hair) are authored per body-part pose (torso, head, near/far arm, near/far leg) and reused wherever that part pose appears.
+- Draw order comes from per-frame metadata and follows the character's anatomical side.
+- An equipment item is not runtime-eligible until its coverage table shows every direction × state × frame covered by an overlay, an anchor placement, or a reused part pose.
+- QC corrections belong in the overlay — never in a locked base frame.
+- If fitting an item requires hidden or unapproved body geometry, stop at the specific frame/area and report it rather than inventing anatomy or pose changes.
+
+## Generated imagery
+
+AI-generated images are reference only (pose ideas, silhouettes, palette studies). No production pixel may come from converting a generated image, including palette-matched or downsampled conversions. Production pixels come only from authored specs or direct pixel authoring.
+
+## Inspection and previews
+
+- Enlarged inspection versions use **integer nearest-neighbor scaling** only. A 10× inspection sheet is **5120×640**.
+- Composite previews are mechanical: approved overlays placed over untouched approved base frames. Never present an AI-generated dressed-character image as a composite.
+- High-contrast-background inspection may be used to find holes, stray transparency, floating pixels, broken seams, and routing errors.
+
+These rules override older experimental `480×640` source-lattice / `48×64` runtime assumptions, which are retired for character production. Do not silently convert the locked sheets into a different source format.
 
 ---
 

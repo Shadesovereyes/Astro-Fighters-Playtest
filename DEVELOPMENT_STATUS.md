@@ -1,6 +1,6 @@
 # Astro Fighters — Current Development Status
 
-**Updated:** 2026-09-09  
+**Updated:** 2026-10-02  
 **Authoritative branch:** `main`  
 **Current milestone:** Imperial City Early Player Experience v0  
 **Immediate runtime gate:** Phaser World Refactor v0 + Slice 0 Foundation Courtyard
@@ -78,21 +78,28 @@ A collage, presentation board, source assembly, contact sheet, or mock renderer 
 
 The package is currently **contracted** in `production/asset-manifest.json`. Its production source masters and runtime assets remain missing/unapproved in the repository.
 
-Locked character-sheet facts now include:
+Locked base geometry is under **change control** (approved 2026-10-02):
 
 - finalized male and female character sheets are **production geometry, not inspiration**;
-- native character-sheet canvas is **512×64**;
-- the sheet contains **eight contiguous 64×64 directional frames** in the approved existing order;
-- every approved base pixel remains unchanged unless the user explicitly authorizes a base-character edit;
-- base characters are never regenerated or stylistically reinterpreted for clothing/equipment work;
-- clothing, armor, equipment, and accessories are separate transparent pixel overlays aligned to the locked sheet;
-- enlarged inspection sheets are nearest-neighbor derivatives only; 10× = **5120×640**;
-- composite previews are mechanical base-plus-overlay composites, never AI-redrawn dressed characters;
-- no extra shading/detail may be added beyond the established sprite vocabulary;
-- if fitting an asset requires guessing hidden body geometry, stop at the ambiguous frame/area rather than inventing anatomy or pose changes;
+- the native **512×64** sheets (eight contiguous **64×64** directional frames, approved existing order) are the locked **reference poses** and frame 0 of each direction's `ready` state;
+- new animation base frames (idle, walk, ready, attack) may be authored as deterministic data specs built from the reference pose as a cut-out rig; each becomes locked production geometry after user approval per state per direction;
+- approved frames are never regenerated, redrawn, or stylistically reinterpreted; unlocking one requires explicit user instruction, a recorded reason, and overlay re-verification;
+- each body has one canonical geometry; skin tones are palette swaps;
+- clothing, armor, equipment, and accessories are separate transparent overlays: rigid items placed by anchor, deformable items authored per body-part pose, coverage tracked per direction × state × frame;
+- AI-generated images are reference only; no production pixel is converted from them;
+- enlarged inspection sheets are integer nearest-neighbor derivatives only; 10× = **5120×640**;
+- composite previews are mechanical base-plus-overlay composites;
+- if fitting an asset requires guessing hidden or unapproved body geometry, stop at the ambiguous frame/area;
 - actual Phaser integration is still required before checklist completion.
 
-Older `480×640` per-direction / `48×64` character-source assumptions are superseded for finalized character-sheet asset production and must not be used to redraw or convert the approved base sheets. Any stale machine-readable character geometry in `production/asset-manifest.json` should be reconciled separately when that contract is next updated; the Markdown art authorities must not be used as justification to alter the locked 512×64 base geometry in the meantime.
+The `480×640` source / `48×64` runtime character contract is retired. `production/asset-manifest.json` now records the 512×64 sheet, 64×64 frame, and pivot `[32,63]` (measured: lowest opaque row of every reference frame is y=63, frame center x=32).
+
+Open character-geometry items:
+
+- female Base Body1/Body2 differ by 8 silhouette pixels; a canonical geometry must be chosen (one-time explicit base edit) before female overlays are produced;
+- the mapping from the eight reference frames to canonical direction labels is not yet recorded in the manifest;
+- reference-pose feet touch the frame bottom (y=63), leaving no headroom below the contact line;
+- the `/docs` prototype still loads `48×64` paper-doll sheets; that is prototype debt, not the production contract.
 
 ## Slice 0 — Foundation Courtyard
 

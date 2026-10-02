@@ -133,6 +133,11 @@ function validateAuthorityDocs() {
   assert(docs.worldChecklist.includes('This file owns **world completion state**'), 'World checklist must declare completion-state ownership.');
   assert(docs.agents.includes('# Generation vocabulary discipline'), 'AGENTS must include generation-vocabulary discipline.');
   assert(docs.master.includes('# 2. Generation vocabulary discipline'), 'Master Art Direction must include generation-vocabulary discipline.');
+  assert(docs.agents.includes('# Locked base geometry — change control'), 'AGENTS must include locked base geometry change control.');
+  assert(docs.characterChecklist.includes('## 0.1 Animation Base Approval Gate'), 'Character checklist must include the animation base approval gate.');
+  for (const [label, text] of [['AGENTS', docs.agents], ['Master Art Direction', docs.master], ['EPE', docs.epe], ['Slice 0 brief', docs.sliceBrief]]) {
+    assert(!/48×64 (runtime )?(cleanup|candidates)|runtime `48×64`|contracted `480×640` lattice/.test(text), `${label} still treats the retired 480×640/48×64 character contract as active.`);
+  }
   assert(docs.sliceBrief.includes('14 shared-foundation world dependencies'), 'Slice 0 brief must acknowledge the 14-asset package contract.');
   assert(docs.sliceBrief.includes('8-asset core subset'), 'Slice 0 brief must distinguish the 8-asset assembly subset.');
 }
@@ -149,17 +154,34 @@ function validateCanonical() {
   assert(c.projection === 'flat-faced 3/4 cabinet', 'Projection must remain flat-faced 3/4 cabinet.');
   assert(c.lightingDirection === 'upper-left / northwest', 'Lighting must remain upper-left / northwest.');
   assert(same(c.directions, directions), 'Canonical direction order drifted.');
-  assert(same(c.characterSourceCanvas, [480, 640]), 'Character source canvas must remain 480×640.');
-  assert(same(c.characterSourceBodyCenter, [240, 600]), 'Character source body center must remain [240,600].');
-  assert(c.characterSourceFootContactY === 600, 'Character source foot-contact line must remain y=600.');
-  assert(same(c.characterRuntimeFrame, [48, 64]), 'Runtime frame must remain 48×64.');
-  assert(same(c.characterRuntimePivot, [24, 60]), 'Runtime pivot must remain [24,60].');
+  assert(same(c.characterSheetCanvas, [512, 64]), 'Character reference sheet must remain 512×64.');
+  assert(same(c.characterFrame, [64, 64]), 'Character frame must remain 64×64.');
+  assert(c.characterFramesPerSheet === 8, 'Character reference sheet must hold eight frames.');
+  assert(same(c.characterPivot, [32, 63]), 'Character pivot must remain [32,63].');
+  assert(c.characterFootContactY === c.characterPivot?.[1], 'Character foot-contact line must match the pivot row.');
+  for (const retired of ['characterSourceCanvas', 'characterSourceBodyCenter', 'characterSourceFootContactY', 'characterRuntimeFrame', 'characterRuntimePivot']) {
+    assert(!(retired in c), `Retired 480×640/48×64 character field ${retired} must not return.`);
+  }
   assert(same(c.characterAnimationFramesPerDirection, { idle: 4, walk: 6, ready: 2 }), 'Animation counts drifted.');
   assert(c.worldSourceScale === 10, 'Shared-foundation source scale must remain 10×.');
   assert(same(c.worldLayerOrder, layers), 'World layer order drifted.');
 
   for (const item of ['body/skin', 'hair/face', 'base shorts']) assert(c.baseUnderlayer?.male?.includes(item), `Male base missing ${item}.`);
   for (const item of ['body/skin', 'hair/face', 'base shorts', 'sports bra']) assert(c.baseUnderlayer?.female?.includes(item), `Female base missing ${item}.`);
+
+  const g = c.characterGeometry || {};
+  assert(nonEmpty(g.policy) && g.policy.includes('change control'), 'characterGeometry must declare change-control policy.');
+  for (const body of ['male', 'female']) {
+    const poses = g.referencePoses?.[body];
+    assert(Array.isArray(poses) && poses.length > 0, `characterGeometry needs ${body} reference poses.`);
+    for (const pose of poses || []) assert(fs.existsSync(path.join(root, pose)), `Reference pose missing on disk: ${pose}`);
+  }
+  for (const key of ['referencePoseRole', 'skinVariants', 'animationBaseApproval', 'riggingRule', 'drawOrder', 'equipmentRule', 'generatedImageryRule']) {
+    assert(nonEmpty(g[key]), `characterGeometry needs ${key}.`);
+  }
+  assert(Array.isArray(g.parts) && g.parts.length > 0, 'characterGeometry needs a part list.');
+  assert(Array.isArray(g.anchors) && g.anchors.length > 0, 'characterGeometry needs an anchor list.');
+  assert(Array.isArray(g.openIssues), 'characterGeometry needs openIssues (may be empty).');
 }
 
 function validateReviewEvidence(evidence, label) {
@@ -226,18 +248,16 @@ function validateActivePackage() {
   assert(assetStatuses.includes(ch.status), `characterDependencies has invalid status ${ch.status}.`);
   assert(nonEmpty(ch.benchmarkId), 'Character benchmark needs benchmarkId.');
   assert(nonEmpty(ch.role), 'Character benchmark needs role.');
-  assert(same(ch.sourceCanvas, manifest.canonical.characterSourceCanvas), 'Character sourceCanvas must match canonical.');
-  assert(same(ch.bodyCenter, manifest.canonical.characterSourceBodyCenter), 'Character bodyCenter must match canonical.');
-  assert(ch.footContactY === manifest.canonical.characterSourceFootContactY, 'Character footContactY must match canonical.');
-  assert(same(ch.runtimeFrame, manifest.canonical.characterRuntimeFrame), 'Character runtimeFrame must match canonical.');
-  assert(same(ch.runtimePivot, manifest.canonical.characterRuntimePivot), 'Character runtimePivot must match canonical.');
+  assert(same(ch.sheetCanvas, manifest.canonical.characterSheetCanvas), 'Character sheetCanvas must match canonical.');
+  assert(same(ch.frame, manifest.canonical.characterFrame), 'Character frame must match canonical.');
+  assert(same(ch.pivot, manifest.canonical.characterPivot), 'Character pivot must match canonical.');
   assert(same(ch.directions, manifest.canonical.directions), 'Character directions must match canonical.');
   assert(ch.weaponRequired === false, 'First shared-foundation benchmark must remain unarmed unless re-contracted.');
   assert(Array.isArray(ch.sourceAuthoritiesRequired) && ch.sourceAuthoritiesRequired.length === 3, 'Character benchmark must require three source authorities.');
 
-  validatePattern(ch.sourcePaths?.baseUnderlayerPattern, 'baseUnderlayerPattern', ['direction']);
-  validatePattern(ch.sourcePaths?.dressedBenchmarkPattern, 'dressedBenchmarkPattern', ['direction']);
-  validatePattern(ch.sourcePaths?.modularLayerPattern, 'modularLayerPattern', ['layer', 'direction']);
+  validatePattern(ch.sourcePaths?.animationBasePattern, 'animationBasePattern', ['body', 'state', 'direction']);
+  validatePattern(ch.sourcePaths?.dressedBenchmarkPattern, 'dressedBenchmarkPattern', ['state', 'direction']);
+  validatePattern(ch.sourcePaths?.modularLayerPattern, 'modularLayerPattern', ['layer', 'state', 'direction']);
   validatePattern(ch.runtimePaths?.benchmarkPattern, 'benchmarkPattern', ['direction']);
   validatePattern(ch.runtimePaths?.animationPattern, 'animationPattern', ['state', 'direction']);
 
