@@ -6,7 +6,7 @@
     "under-arms": "Layer 2 clothing: each pixel takes the nearest body part excluding arm and head parts (drawn under Arms1; collars stay with the torso)",
     "head": "whole layer follows the head part",
     "component": "each connected piece takes the majority nearest body part",
-    "colourParts": "listed colours (and outline pixels touching them) are forced to a part, e.g. the Gi sash follows the pelvis"
+    "colourParts": "listed colours (and outline pixels touching them) are forced to a part; the Gi sash is its own part"
   },
   "drawOrder": [
     "contact shadow",
@@ -17,6 +17,12 @@
     "Layer 5 hair",
     "Layer 6 eyes"
   ],
+  "overlayParts": {
+    "sash": {
+      "colour": "#ffa0c8",
+      "anchor": "hip"
+    }
+  },
   "groundLayers": [
     {
       "file": "Paperdolls/contact-shadow.png",
@@ -35,86 +41,94 @@
           "direction": "S",
           "pixelCounts": {
             "torso": 148,
-            "pelvis": 115,
+            "pelvis": 49,
             "R-thigh": 65,
-            "R-shin-foot": 149,
+            "R-shin-foot": 146,
             "L-thigh": 52,
-            "L-shin-foot": 148
+            "L-shin-foot": 145,
+            "sash": 66
           }
         },
         {
           "direction": "SE",
           "pixelCounts": {
             "torso": 140,
-            "pelvis": 107,
+            "pelvis": 36,
             "R-thigh": 90,
             "R-shin-foot": 125,
             "L-thigh": 46,
-            "L-shin-foot": 128
+            "L-shin-foot": 128,
+            "sash": 71
           }
         },
         {
           "direction": "E",
           "pixelCounts": {
             "torso": 118,
-            "pelvis": 91,
+            "pelvis": 29,
             "R-thigh": 69,
             "R-shin-foot": 102,
-            "L-shin-foot": 51
+            "L-shin-foot": 51,
+            "sash": 62
           }
         },
         {
           "direction": "NE",
           "pixelCounts": {
             "torso": 141,
-            "pelvis": 88,
+            "pelvis": 62,
             "R-thigh": 70,
             "R-shin-foot": 129,
             "L-thigh": 62,
-            "L-shin-foot": 140
+            "L-shin-foot": 140,
+            "sash": 26
           }
         },
         {
           "direction": "N",
           "pixelCounts": {
             "torso": 155,
-            "pelvis": 88,
+            "pelvis": 63,
             "R-thigh": 71,
             "R-shin-foot": 137,
             "L-thigh": 79,
-            "L-shin-foot": 137
+            "L-shin-foot": 137,
+            "sash": 25
           }
         },
         {
           "direction": "NW",
           "pixelCounts": {
             "torso": 141,
-            "pelvis": 88,
+            "pelvis": 62,
             "R-thigh": 53,
             "R-shin-foot": 133,
             "L-thigh": 80,
-            "L-shin-foot": 135
+            "L-shin-foot": 135,
+            "sash": 26
           }
         },
         {
           "direction": "W",
           "pixelCounts": {
             "torso": 118,
-            "pelvis": 91,
+            "pelvis": 29,
             "R-shin-foot": 51,
             "L-thigh": 69,
-            "L-shin-foot": 102
+            "L-shin-foot": 102,
+            "sash": 62
           }
         },
         {
           "direction": "SW",
           "pixelCounts": {
             "torso": 140,
-            "pelvis": 108,
+            "pelvis": 37,
             "R-thigh": 48,
             "R-shin-foot": 128,
             "L-thigh": 88,
-            "L-shin-foot": 125
+            "L-shin-foot": 125,
+            "sash": 71
           }
         }
       ]

@@ -30,8 +30,8 @@ const CONFIG = {
     //  head       — whole layer follows the head;
     //  component  — Layer 4 accessories above the arms: each connected piece follows its majority nearest part.
     overlays: [
-      // The sash (and its outline) hangs from the waist, so it follows the pelvis rather than the legs it crosses.
-      { file: 'Paperdolls/Male/Layer 2 - Clothing/Male Gi.png', class: 'under-arms', colourParts: { '9c0909': 'pelvis' }, outline: '030101' },
+      // The sash (and its outline) is its own part so it can sway; it hangs from the hip anchor.
+      { file: 'Paperdolls/Male/Layer 2 - Clothing/Male Gi.png', class: 'under-arms', colourParts: { '9c0909': 'sash' }, outline: '030101' },
       { file: 'Paperdolls/Male/Layer 2 - Clothing/Male Blue Armor.png', class: 'under-arms' },
       { file: 'Paperdolls/Male/Layer 2 - Clothing/Male Red Armor.png', class: 'under-arms' },
       { file: 'Paperdolls/Male/Layer 4 - Shoulders and Arms accessories/Blue Armor Shoulders.png', class: 'component' },
@@ -66,6 +66,9 @@ const PART_COLOURS = {
   'L-thigh': [128, 128, 0], 'L-shin-foot': [0, 0, 128]
 };
 const PARTS = Object.keys(PART_COLOURS);
+// Overlay-only parts: pieces that animate independently of any body part (anchored to a body anchor).
+const OVERLAY_PART_COLOURS = { sash: [255, 160, 200] };
+const OVERLAY_PART_ANCHORS = { sash: 'hip' };
 
 function paeth(a, b, c) {
   const p = a + b - c, pa = Math.abs(p - a), pb = Math.abs(p - b), pc = Math.abs(p - c);
@@ -303,11 +306,11 @@ function splitOverlay(entry, body, partMap) {
     const counts = {};
     for (const [k, p] of label) {
       const [x, y] = k.split(',').map(Number);
-      out.set([...PART_COLOURS[p], 255], (y * 512 + ox + x) * 4);
+      out.set([...(PART_COLOURS[p] || OVERLAY_PART_COLOURS[p]), 255], (y * 512 + ox + x) * 4);
       counts[p] = (counts[p] || 0) + 1;
     }
     if (label.size !== pts.length) throw new Error(`${entry.file} ${ORDER[f]}: unlabelled overlay pixels`);
-    frames.push({ direction: ORDER[f], pixelCounts: Object.fromEntries(PARTS.filter((p) => counts[p]).map((p) => [p, counts[p]])) });
+    frames.push({ direction: ORDER[f], pixelCounts: Object.fromEntries([...PARTS, ...Object.keys(OVERLAY_PART_COLOURS)].filter((p) => counts[p]).map((p) => [p, counts[p]])) });
   }
   const slug = path.basename(entry.file, '.png').toLowerCase().replace(/[^a-z0-9]+/g, '-');
   return { slug, png: encodePng(512, 64, out), info: { source: entry.file, class: entry.class, partMap: `overlays/${slug}.png`, frames } };
@@ -361,9 +364,10 @@ function build(name) {
       'under-arms': 'Layer 2 clothing: each pixel takes the nearest body part excluding arm and head parts (drawn under Arms1; collars stay with the torso)',
       head: 'whole layer follows the head part',
       component: 'each connected piece takes the majority nearest body part',
-      colourParts: 'listed colours (and outline pixels touching them) are forced to a part, e.g. the Gi sash follows the pelvis'
+      colourParts: 'listed colours (and outline pixels touching them) are forced to a part; the Gi sash is its own part'
     },
     drawOrder: ['contact shadow', 'Layer 1 body', 'Layer 2 clothing', 'Layer 3 arms', 'Layer 4 shoulder/arm accessories', 'Layer 5 hair', 'Layer 6 eyes'],
+    overlayParts: Object.fromEntries(Object.entries(OVERLAY_PART_COLOURS).map(([p, c]) => [p, { colour: '#' + c.map((v) => v.toString(16).padStart(2, '0')).join(''), anchor: OVERLAY_PART_ANCHORS[p] }])),
     groundLayers: cfg.groundLayers || [],
     layers: overlays.map((o) => o.info)
   }, null, 2) + '\n';
