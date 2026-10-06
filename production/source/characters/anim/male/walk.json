@@ -1,0 +1,135 @@
+{
+  "schema": "astro-fighters-character-posed-animation/v1",
+  "body": "male",
+  "state": "walk",
+  "status": "approved by user 2026-10-06: E authored (8 frames); W = mirror of E",
+  "frames": 8,
+  "fps": 10,
+  "sourceDirection": "E",
+  "directions": ["E", "W"],
+  "mirror": {
+    "W": "E",
+    "rule": "The W reference frame is an exact horizontal mirror of E for Body1, Arms1, hair, eyes and clothing; the renderer verifies this before mirroring (x -> 63 - x). The near side becomes the character's left side."
+  },
+  "intent": "Contact, down, passing, up per step. The near leg runs poses 0-7; the far leg runs the same poses 4 frames later, one shade darker and drawn behind the body. The planted foot slides back 2-3 px per frame to match root motion. Arms swing from the shoulder opposite the legs.",
+  "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
+  "palette": {
+    "L": "#f6a35b",
+    "m": "#c87845",
+    "s": "#9e4a31",
+    "d": "#70241d",
+    "D": "#3f0505",
+    "W": "#ffffff",
+    "w": "#e3e3e3",
+    "#": "#000000"
+  },
+  "farShade": {
+    "rule": "The far leg and far arm are drawn one ramp step darker. Cloth has two steps only, so far-side wraps go flat #e3e3e3 and never into skin colours.",
+    "map": { "L": "m", "m": "s", "s": "d", "d": "D", "D": "D", "W": "w", "w": "w", "#": "#" }
+  },
+  "bob": {
+    "rule": "Whole-pixel dy for everything above the legs (pelvis, torso, head, arms, hair, eyes). Positive is down.",
+    "dy": [0, 1, 0, -1, 0, 1, 0, -1]
+  },
+  "rootMotion": {
+    "E": [[3, 0], [2, 0], [3, 0], [2, 0], [3, 0], [2, 0], [3, 0], [2, 0]],
+    "W": [[-3, 0], [-2, 0], [-3, 0], [-2, 0], [-3, 0], [-2, 0], [-3, 0], [-2, 0]],
+    "rule": "World displacement applied when advancing from frame k to k+1; matches the planted foot's slide (34, 31, 29, 26, 24 for the wrap's back column)."
+  },
+  "legs": {
+    "source": "The reference near leg (R-thigh, R-shin-foot) of the E frame is replaced by row-span legs. Every leg is outlined; the reference wrap+foot block (R-shin-foot rows 56-63) is reused unchanged by the reference-ankle construction.",
+    "thighRows": ["dmLmL", "dmLLL", "dLLmL", "dLLmL"],
+    "shinRows4": ["dLLL", "dLLL", "dmLL"],
+    "shinRow3": "dmL",
+    "wrap": "wWW",
+    "crease": "D on the back pixel of the first shin row (back of the knee)",
+    "heelFill": "In the reference foot the corner under the wrap is hidden by the far leg; it is filled with d m on the first foot row.",
+    "feet": {
+      "toe30": {
+        "use": "passing swing: toes dropped about 30 degrees, sole turned toward the back",
+        "rows": ["#dmmL#", "#dmLLL#", "#DmLLLL#", ".#DDmLL#", "..##DsL#", "....###."]
+      },
+      "toe60": {
+        "use": "toe-off: heel lifted, toes still on the ground",
+        "rows": ["#dmmL#", "#DmLLL#", ".#DmLL#", ".#DDmL#", "..#DsL#", "..#DLL#", "...###."]
+      },
+      "flat": {
+        "use": "planted foot: the reference foot with the heel corner filled",
+        "rows": ["#dmmL#", "#dmLLL#", "#DmLLLL#", "#DDDDsLL#", "#########"]
+      }
+    },
+    "constructions": {
+      "reference-ankle": "Thigh rows from (hipX, hipRow) to (kneeX, kneeRow); shin rows interpolate kneeX -> ankleX down to the row above wrapRow; the reference wrap+foot block is translated so its wrap's back interior column sits at ankleX and its first wrap row at wrapRow.",
+      "line": "Thigh as above; the shin AND the three wrap rows follow one straight line from (kneeX, kneeRow) to (footX, wrapRow + 2), so the ankle carries the shin's slope; the named foot hangs under the last wrap row with its column 0 at footX - 1."
+    },
+    "poses": [
+      { "name": "contact-front", "construction": "reference-ankle", "hipX": 31, "kneeX": 34, "ankleX": 34, "hipRow": 40, "kneeRow": 48, "wrapRow": 56, "approved": "2026-10-06" },
+      { "name": "down", "construction": "line", "hipX": 31, "kneeX": 34, "footX": 31, "hipRow": 41, "kneeRow": 49, "wrapRow": 56, "foot": "flat", "approved": "2026-10-06" },
+      { "name": "passing-stance", "construction": "reference-ankle", "hipX": 31, "kneeX": 30, "ankleX": 29, "hipRow": 40, "kneeRow": 48, "wrapRow": 56, "approved": "2026-10-06" },
+      { "name": "up", "construction": "reference-ankle", "hipX": 30, "kneeX": 28, "ankleX": 26, "hipRow": 39, "kneeRow": 47, "wrapRow": 56, "approved": "2026-10-06" },
+      { "name": "contact-back", "construction": "reference-ankle", "hipX": 30, "kneeX": 27, "ankleX": 24, "hipRow": 40, "kneeRow": 48, "wrapRow": 56, "approved": "2026-10-06" },
+      { "name": "toe-off", "construction": "line", "hipX": 30, "kneeX": 29, "footX": 24, "hipRow": 41, "kneeRow": 48, "wrapRow": 54, "foot": "toe60", "approved": "2026-10-06" },
+      { "name": "passing-swing", "construction": "line", "hipX": 31, "kneeX": 35, "footX": 29, "hipRow": 40, "kneeRow": 47, "wrapRow": 53, "foot": "toe30", "approved": "2026-10-06" },
+      { "name": "reach", "construction": "reference-ankle", "hipX": 31, "kneeX": 35, "ankleX": 33, "hipRow": 39, "kneeRow": 47, "wrapRow": 55, "approved": "2026-10-06" }
+    ],
+    "near": [0, 1, 2, 3, 4, 5, 6, 7],
+    "far": [4, 5, 6, 7, 0, 1, 2, 3]
+  },
+  "arms": {
+    "source": "The reference near arm (Arms1, E frame). Every row keeps its reference pixels and only moves sideways. The far arm (hidden in the reference) is the same arm, far-shaded and drawn behind the body.",
+    "rows": { "shoulder": 21, "elbow": 31, "pendulumRigidFrom": 34, "lineHand": 38 },
+    "constructions": {
+      "reference": "the reference arm unchanged",
+      "pendulum": "swing from the shoulder: dx grows linearly from the shoulder row to row pendulumRigidFrom and reaches 'total' there (rounded half to even); the wrist wrap and hand below move rigidly with it",
+      "line": "each row's back edge is placed on a straight line: shoulder to elbow moves 'upper' px, elbow to lineHand leans 'lean' px (measured from the shoulder's back column, rounded half up); rows below lineHand move with it"
+    },
+    "near": [
+      { "construction": "pendulum", "total": -5 },
+      { "construction": "pendulum", "total": -3 },
+      { "construction": "reference" },
+      { "construction": "line", "upper": 1, "lean": 4 },
+      { "construction": "line", "upper": 2, "lean": 5 },
+      { "construction": "line", "upper": 1, "lean": 4 },
+      { "construction": "reference" },
+      { "construction": "pendulum", "total": -3 }
+    ],
+    "far": [
+      { "construction": "line", "upper": 2, "lean": 5 },
+      { "construction": "line", "upper": 1, "lean": 4 },
+      { "construction": "reference" },
+      { "construction": "line", "upper": -1, "lean": -1 },
+      { "construction": "line", "upper": -2, "lean": -2 },
+      { "construction": "line", "upper": -1, "lean": -1 },
+      { "construction": "reference" },
+      { "construction": "line", "upper": 1, "lean": 4 }
+    ],
+    "outline": "Arm pixels touching empty space get an outline, except above the shoulder row; the near arm is not outlined where it lies over the body (its dark back column separates it).",
+    "approved": "2026-10-06"
+  },
+  "armRemovalFill": {
+    "rule": "The reference near arm is also painted into Body1. Where it is removed from the body layer, the uncovered pixels are filled: torso rows up to 32 take mid skin; trunk rows 33-37 take white (light grey from column 35); row 38 white; row 39 outline (the trunk hem); rows from 40 down stay empty so the legs show. The frontmost fill pixel of trunk rows 33-38 becomes outline (the trunk's front edge). Outline pixels in trunk rows 33-37, columns 30-32, that only separated the trunk from the arm become white; a lone d pixel inside the white row 38 becomes white.",
+    "torsoMaxRow": 32,
+    "trunkRows": [33, 37],
+    "trunkGreyFromX": 35,
+    "trunkWhiteRow": 38,
+    "hemRow": 39,
+    "frontEdgeRows": [33, 38],
+    "separatorRows": [33, 37],
+    "separatorCols": [30, 32],
+    "approved": "2026-10-06"
+  },
+  "overlays": {
+    "rule": "Hair and eye layers follow the head's bob through their rig part maps. Lagging hair falls take the bob of 1 or 2 frames earlier (overlays.json lagFrames) but never sit higher than the part above them (cap >= upper fall >= lower fall, positive dy is down), so no gap opens.",
+    "layers": ["long-hair", "fade-hair", "afro-hair", "brown-eyes", "purple-eyes"],
+    "pending": ["male-gi", "male-blue-armor", "male-red-armor", "blue-armor-shoulders", "red-armor-shoulders"]
+  },
+  "cleanup": {
+    "notchFromRow": 24,
+    "rules": [
+      "From row 24 down, an empty pixel enclosed on 3 sides by body or arm pixels becomes outline (the gaps between hair strands above are authored and stay open).",
+      "A generated outline pixel with no coloured 4-neighbour that touches empty space is removed, repeatedly; reference outline pixels are never touched.",
+      "Where a far part's generated outline runs beside an outline (colour # # colour) and the pixel is not an edge, it takes the far part's colour, leaving one shared line."
+    ],
+    "approved": "2026-10-06"
+  }
+}

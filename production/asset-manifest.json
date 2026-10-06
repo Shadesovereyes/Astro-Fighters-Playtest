@@ -32,14 +32,15 @@
       "rootMotion": "per-frame dx, dy in pixels for world movement; the sprite stays anchored at pivot [32,63]",
       "directionOrder": "idle in all 8 directions; walk, sprint, lightAttack and heavyAttack in E and W first, then the other 6",
       "idle": "breathing: torso, head and arms settle 1 px down and return; pelvis and legs fixed; downward-only moves need no new pixels",
-      "walk": "contact, down, passing, up per step; planted foot never slides",
+      "walk": "contact, down, passing, up per step; the planted foot slides back in the frame exactly as far as the root motion carries the body, so it stays fixed on the ground",
       "sprint": "Naruto-style run: lean from stacked head/torso/pelvis offsets, arms swept back, long low stride",
       "lightAttack": "taijutsu jab/cross: guard, jab (active), recoil (chain window), cross (active); hitboxes and damage events on active frames",
       "heavyAttack": "kick chain: wind-up 2, front snap kick 3, step-through 2, side kick 3, roundhouse spin 3 (through the directional bodies), roundhouse impact 2, recovery 1; root motion on the step-through",
       "secondaryMotion": "sash part sways; long hair split into cap / upper fall / lower fall with 1- and 2-frame lag",
-      "generator": "tools/character-animate.mjs",
+      "generator": {"offsets": "tools/character-animate.mjs (whole-pixel part offsets: idle)", "posed": "tools/character-posed.mjs (authored leg/arm pose specs on the reference sheets: walk)"},
       "outputs": {
-        "male/idle": {"spec": "production/source/characters/anim/male/idle.json", "sheets": "production/source/characters/anim/male/idle/", "layout": "one sheet per layer, rows = directions S..SW, columns = frames", "status": "approved by user 2026-10-06"}
+        "male/idle": {"spec": "production/source/characters/anim/male/idle.json", "sheets": "production/source/characters/anim/male/idle/", "layout": "one sheet per layer, rows = directions S..SW, columns = frames", "status": "approved by user 2026-10-06"},
+        "male/walk": {"spec": "production/source/characters/anim/male/walk.json", "sheets": "production/source/characters/anim/male/walk/", "layout": "one sheet per layer, rows = E, W, columns = frames; W is the mirror of E", "status": "approved by user 2026-10-06 (E authored, W mirrored); clothing and shoulder layers pending"}
       }
     },
     "characterGeometry": {

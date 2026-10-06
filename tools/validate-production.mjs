@@ -166,7 +166,7 @@ function validateCanonical() {
   assert(c.characterAnimationPlan?.maxFramesPerAnimation === 16, 'Animation plan must cap animations at 16 frames.');
   for (const [key, out] of Object.entries(c.characterAnimationPlan?.outputs || {})) {
     assert(fs.existsSync(path.join(root, out.spec || '')), `Animation ${key} spec missing on disk.`);
-    assert(fs.existsSync(path.join(root, out.sheets || '', 'animation.json')), `Animation ${key} rendered output missing; run tools/character-animate.mjs.`);
+    assert(fs.existsSync(path.join(root, out.sheets || '', 'animation.json')), `Animation ${key} rendered output missing; run its generator (tools/character-animate.mjs or tools/character-posed.mjs).`);
   }
   for (const [state, n] of Object.entries(c.characterAnimationFramesPerDirection || {})) assert(Number.isInteger(n) && n >= 1 && n <= 16, `Animation ${state} must have 1–16 frames.`);
   assert(c.worldSourceScale === 10, 'Shared-foundation source scale must remain 10×.');
