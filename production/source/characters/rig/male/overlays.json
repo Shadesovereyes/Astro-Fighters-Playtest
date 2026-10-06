@@ -1,9 +1,9 @@
 {
   "schema": "astro-fighters-character-overlay-split/v1",
   "body": "male",
-  "status": "approved by user 2026-10-02 (armour belt split added after approval: candidate); regenerated after the Body1 update of 2026-10-06",
+  "status": "approved by user 2026-10-02 (armour belt split added after approval: candidate); regenerated after the Body1 update of 2026-10-06; long-hair sway split approved 2026-10-06",
   "method": {
-    "under-arms": "Layer 2 clothing: each pixel takes the nearest body part excluding arm and head parts (drawn under Arms1; collars stay with the torso)",
+    "under-arms": "Layer 2 clothing: each pixel takes the nearest body part excluding arm and head parts (drawn under Arms1; collars stay with the torso); cloth at or below the waistline (row 33) never takes the torso",
     "head": "whole layer follows the head part; layers with rowBands split into cap (head) and sway parts by row",
     "component": "each connected piece takes the majority nearest body part",
     "colourParts": "listed colours (and outline pixels touching them) are forced to a part; the Gi sash is its own part",
@@ -76,8 +76,8 @@
         {
           "direction": "E",
           "pixelCounts": {
-            "torso": 118,
-            "pelvis": 29,
+            "torso": 116,
+            "pelvis": 31,
             "R-thigh": 66,
             "R-shin-foot": 102,
             "L-shin-foot": 45,
@@ -123,8 +123,8 @@
         {
           "direction": "W",
           "pixelCounts": {
-            "torso": 118,
-            "pelvis": 29,
+            "torso": 116,
+            "pelvis": 31,
             "R-shin-foot": 45,
             "L-thigh": 66,
             "L-shin-foot": 102,
@@ -177,8 +177,8 @@
         {
           "direction": "E",
           "pixelCounts": {
-            "torso": 129,
-            "pelvis": 26,
+            "torso": 127,
+            "pelvis": 28,
             "R-thigh": 61,
             "R-shin-foot": 86,
             "L-shin-foot": 43,
@@ -224,8 +224,8 @@
         {
           "direction": "W",
           "pixelCounts": {
-            "torso": 129,
-            "pelvis": 26,
+            "torso": 127,
+            "pelvis": 28,
             "R-shin-foot": 43,
             "L-thigh": 61,
             "L-shin-foot": 86,
@@ -278,8 +278,8 @@
         {
           "direction": "E",
           "pixelCounts": {
-            "torso": 129,
-            "pelvis": 26,
+            "torso": 127,
+            "pelvis": 28,
             "R-thigh": 61,
             "R-shin-foot": 86,
             "L-shin-foot": 43,
@@ -325,8 +325,8 @@
         {
           "direction": "W",
           "pixelCounts": {
-            "torso": 129,
-            "pelvis": 26,
+            "torso": 127,
+            "pelvis": 28,
             "R-shin-foot": 43,
             "L-thigh": 61,
             "L-shin-foot": 86,

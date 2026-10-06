@@ -5,8 +5,8 @@
 //   --check regenerates in memory and fails if the committed outputs differ.
 import fs from 'node:fs';
 import path from 'node:path';
-import zlib from 'node:zlib';
 import { fileURLToPath } from 'node:url';
+import { readPng, encodePng } from './lib/png.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const FRAME = 64;
@@ -25,7 +25,7 @@ const CONFIG = {
     body: 'Paperdolls/Male/Layer 1 - Base Body/Male Base Body1.png',
     arms: 'Paperdolls/Male/Layer 3 - Arms/Male Arms1.png',
     status: 'approved by user 2026-10-02; S/N legs and NE/NW feet regenerated after the Body1 update of 2026-10-06 — pending re-approval',
-    overlayStatus: 'approved by user 2026-10-02 (armour belt split added after approval: candidate); regenerated after the Body1 update of 2026-10-06',
+    overlayStatus: 'approved by user 2026-10-02 (armour belt split added after approval: candidate); regenerated after the Body1 update of 2026-10-06; long-hair sway split approved 2026-10-06',
     // Overlay layers split onto the approved body parts. Classes:
     //  under-arms — Layer 2 clothing drawn beneath Arms1: pixels never take arm or head parts (collars and cloth under the arm stay with the torso);
     //  head       — whole layer follows the head;
@@ -74,44 +74,6 @@ const OVERLAY_PART_COLOURS = { sash: [255, 160, 200], 'hair-fall-upper': [255, 1
 const OVERLAY_PART_ANCHORS = { sash: 'hip', 'hair-fall-upper': 'head', 'hair-fall-lower': 'head' };
 // Secondary-motion lag in frames behind the part they hang from.
 const OVERLAY_PART_LAG = { sash: 1, 'hair-fall-upper': 1, 'hair-fall-lower': 2 };
-
-function paeth(a, b, c) {
-  const p = a + b - c, pa = Math.abs(p - a), pb = Math.abs(p - b), pc = Math.abs(p - c);
-  return pa <= pb && pa <= pc ? a : pb <= pc ? b : c;
-}
-
-function readPng(file) {
-  const d = fs.readFileSync(file);
-  let o = 8, w, h, idat = [];
-  while (o < d.length) {
-    const len = d.readUInt32BE(o), type = d.toString('ascii', o + 4, o + 8), c = d.subarray(o + 8, o + 8 + len);
-    if (type === 'IHDR') {
-      w = c.readUInt32BE(0); h = c.readUInt32BE(4);
-      if (c[8] !== 8 || c[9] !== 6 || c[12] !== 0) throw new Error(`${file}: need 8-bit RGBA, non-interlaced`);
-    } else if (type === 'IDAT') idat.push(c);
-    o += 12 + len;
-  }
-  const raw = zlib.inflateSync(Buffer.concat(idat)), stride = w * 4, px = Buffer.alloc(stride * h);
-  for (let y = 0, s = 0; y < h; y++) {
-    const f = raw[s++];
-    for (let x = 0; x < stride; x++) {
-      const a = x >= 4 ? px[y * stride + x - 4] : 0, b = y ? px[(y - 1) * stride + x] : 0, c = x >= 4 && y ? px[(y - 1) * stride + x - 4] : 0;
-      const v = raw[s++];
-      px[y * stride + x] = (f === 0 ? v : f === 1 ? v + a : f === 2 ? v + b : f === 3 ? v + ((a + b) >> 1) : v + paeth(a, b, c)) & 255;
-    }
-  }
-  return { w, h, px };
-}
-
-function encodePng(w, h, px) {
-  const crcTable = Array.from({ length: 256 }, (_, n) => { let c = n; for (let k = 0; k < 8; k++) c = c & 1 ? 0xedb88320 ^ (c >>> 1) : c >>> 1; return c >>> 0; });
-  const crc = (buf) => { let c = 0xffffffff; for (const b of buf) c = crcTable[(c ^ b) & 255] ^ (c >>> 8); return (c ^ 0xffffffff) >>> 0; };
-  const chunk = (type, data) => { const t = Buffer.from(type), len = Buffer.alloc(4), cr = Buffer.alloc(4); len.writeUInt32BE(data.length); cr.writeUInt32BE(crc(Buffer.concat([t, data]))); return Buffer.concat([len, t, data, cr]); };
-  const ihdr = Buffer.alloc(13); ihdr.writeUInt32BE(w, 0); ihdr.writeUInt32BE(h, 4); ihdr[8] = 8; ihdr[9] = 6;
-  const raw = Buffer.alloc((w * 4 + 1) * h);
-  for (let y = 0; y < h; y++) px.copy(raw, y * (w * 4 + 1) + 1, y * w * 4, (y + 1) * w * 4);
-  return Buffer.concat([Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]), chunk('IHDR', ihdr), chunk('IDAT', zlib.deflateSync(raw, { level: 9 })), chunk('IEND', Buffer.alloc(0))]);
-}
 
 const hexAt = (img, x, y) => img.px.toString('hex', (y * img.w + x) * 4, (y * img.w + x) * 4 + 3);
 const hex = (img, x, y) => { const i = (y * img.w + x) * 4; return img.px.toString('hex', i, i + 3); };
@@ -266,12 +228,14 @@ function splitFrame(cfg, body, arms, f) {
   } };
 }
 
-function splitOverlay(entry, body, partMap) {
+function splitOverlay(entry, body, partMap, waistline) {
   const img = readPng(path.join(root, entry.file));
   if (img.w !== 512 || img.h !== 64) throw new Error(`${entry.file}: overlay must be 512×64`);
   const byColour = new Map(Object.entries(PART_COLOURS).map(([p, c]) => [c.join(','), p]));
   const partAt = (x, y) => byColour.get([...partMap.subarray((y * 512 + x) * 4, (y * 512 + x) * 4 + 3)].join(','));
   const allowed = (p) => entry.class !== 'under-arms' || (!p.includes('arm') && p !== 'head');
+  // Layer 2 cloth below the body's waistline never follows the torso; it stays with the pelvis and legs.
+  const allowedAt = (p, y) => allowed(p) && !(entry.class === 'under-arms' && p === 'torso' && y >= waistline);
   const out = Buffer.alloc(512 * 64 * 4), frames = [];
   for (let f = 0; f < 8; f++) {
     const ox = f * FRAME, label = new Map(), key = (x, y) => `${x},${y}`;
@@ -289,7 +253,7 @@ function splitOverlay(entry, body, partMap) {
         const [x, y] = queue[i], p = near.get(key(x, y));
         for (const [dx, dy] of [[0, -1], [-1, 0], [1, 0], [0, 1]]) {
           const nx = x + dx, ny = y + dy, k = key(nx, ny);
-          if (nx < 0 || ny < 0 || nx >= FRAME || ny >= FRAME || near.has(k)) continue;
+          if (nx < 0 || ny < 0 || nx >= FRAME || ny >= FRAME || near.has(k) || !allowedAt(p, ny)) continue;
           near.set(k, p); queue.push([nx, ny]);
         }
       }
@@ -389,14 +353,14 @@ function build(name) {
     frames
   };
   const files = { 'part-map.png': encodePng(512, 64, map), 'rig.json': JSON.stringify(rig, null, 2) + '\n' };
-  const overlays = (cfg.overlays || []).map((entry) => splitOverlay(entry, body, map));
+  const overlays = (cfg.overlays || []).map((entry) => splitOverlay(entry, body, map, cfg.pelvis[0]));
   for (const o of overlays) files[`overlays/${o.slug}.png`] = o.png;
   files['overlays.json'] = JSON.stringify({
     schema: 'astro-fighters-character-overlay-split/v1',
     body: name,
     status: cfg.overlayStatus || 'candidate — pending user approval',
     method: {
-      'under-arms': 'Layer 2 clothing: each pixel takes the nearest body part excluding arm and head parts (drawn under Arms1; collars stay with the torso)',
+      'under-arms': 'Layer 2 clothing: each pixel takes the nearest body part excluding arm and head parts (drawn under Arms1; collars stay with the torso); cloth at or below the waistline (row 33) never takes the torso',
       head: 'whole layer follows the head part; layers with rowBands split into cap (head) and sway parts by row',
       component: 'each connected piece takes the majority nearest body part',
       colourParts: 'listed colours (and outline pixels touching them) are forced to a part; the Gi sash is its own part',

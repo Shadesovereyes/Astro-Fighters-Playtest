@@ -27,6 +27,8 @@ jobs:
           node --check tools/validate-production.mjs
           node --check tools/validate-source-png.mjs
           node --check tools/character-rig.mjs
+          node --check tools/character-animate.mjs
+          node --check tools/lib/png.mjs
           node --check docs/js/art-review.js
           node --check docs/js/playtest-v4-patch.js
 
@@ -35,3 +37,6 @@ jobs:
 
       - name: Check character rig outputs are current
         run: node tools/character-rig.mjs male --check
+
+      - name: Check character animation outputs are current and pass QC
+        run: node tools/character-animate.mjs male idle --check

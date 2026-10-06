@@ -1,0 +1,146 @@
+{
+  "schema": "astro-fighters-character-animation/v1",
+  "body": "male",
+  "state": "idle",
+  "status": "candidate \u2014 pending user approval",
+  "frames": 8,
+  "fps": 6,
+  "directions": [
+    "S",
+    "SE",
+    "E",
+    "NE",
+    "N",
+    "NW",
+    "W",
+    "SW"
+  ],
+  "intent": "Breathing. The upper body settles 1 px on the exhale and returns; pelvis, legs and sash stay planted so the feet never move.",
+  "units": "Track values are whole-pixel [dx, dy] offsets per frame (a plain number is dy). Positive dy moves down.",
+  "groups": {
+    "arms": [
+      "R-upper-arm",
+      "R-forearm-hand",
+      "L-upper-arm",
+      "L-forearm-hand"
+    ]
+  },
+  "tracks": {
+    "head": [
+      0,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      0
+    ],
+    "torso": [
+      0,
+      0,
+      1,
+      1,
+      1,
+      1,
+      0,
+      0
+    ],
+    "arms": [
+      0,
+      0,
+      0,
+      1,
+      1,
+      1,
+      0,
+      0
+    ],
+    "hair-fall-upper": [
+      0,
+      0,
+      1,
+      1,
+      1,
+      1,
+      0,
+      0
+    ],
+    "hair-fall-lower": [
+      0,
+      0,
+      0,
+      1,
+      1,
+      0,
+      0,
+      0
+    ]
+  },
+  "rules": [
+    "At a joint, the upper part is never higher than the part below it (head >= torso, hair cap >= upper fall >= lower fall), so no gap ever opens: the head drops first and rises last; the hair falls settle after the cap and rise before it.",
+    "Arms lag the torso on the way down but return with it: in the profiles the torso sits directly above the near arm, so an arm lower than the torso would open a gap at that seam.",
+    "In NE and NW the far forearm sits directly above torso pixels, so the arms move exactly with the torso there (directionTracks).",
+    "Pelvis, legs and sash have no track and stay at 0; the feet stay on the pivot."
+  ],
+  "rootMotion": [
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      0
+    ]
+  ],
+  "directionTracks": {
+    "NE": {
+      "arms": [
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        0,
+        0
+      ]
+    },
+    "NW": {
+      "arms": [
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        0,
+        0
+      ]
+    }
+  }
+}

@@ -1,0 +1,93 @@
+{
+  "schema": "astro-fighters-character-animation-output/v1",
+  "body": "male",
+  "state": "idle",
+  "status": "candidate — pending user approval",
+  "frames": 8,
+  "fps": 6,
+  "frameSize": [
+    64,
+    64
+  ],
+  "pivot": [
+    32,
+    63
+  ],
+  "sheetLayout": {
+    "rows": [
+      "S",
+      "SE",
+      "E",
+      "NE",
+      "N",
+      "NW",
+      "W",
+      "SW"
+    ],
+    "columns": "frames 0–7"
+  },
+  "layers": {
+    "body": "body.png",
+    "arms": "arms.png",
+    "male-gi": "male-gi.png",
+    "male-blue-armor": "male-blue-armor.png",
+    "male-red-armor": "male-red-armor.png",
+    "blue-armor-shoulders": "blue-armor-shoulders.png",
+    "red-armor-shoulders": "red-armor-shoulders.png",
+    "afro-hair": "afro-hair.png",
+    "fade-hair": "fade-hair.png",
+    "long-hair": "long-hair.png",
+    "brown-eyes": "brown-eyes.png",
+    "purple-eyes": "purple-eyes.png"
+  },
+  "drawOrder": [
+    "contact shadow",
+    "Layer 1 body",
+    "Layer 2 clothing",
+    "Layer 3 arms",
+    "Layer 4 shoulder/arm accessories",
+    "Layer 5 hair",
+    "Layer 6 eyes"
+  ],
+  "rootMotion": [
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      0
+    ]
+  ],
+  "qc": {
+    "frame0MatchesReference": true,
+    "feetPlanted": true,
+    "newGaps": {},
+    "newExposedSkin": {},
+    "pass": true
+  }
+}

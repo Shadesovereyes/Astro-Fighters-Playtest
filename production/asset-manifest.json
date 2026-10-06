@@ -36,7 +36,11 @@
       "sprint": "Naruto-style run: lean from stacked head/torso/pelvis offsets, arms swept back, long low stride",
       "lightAttack": "taijutsu jab/cross: guard, jab (active), recoil (chain window), cross (active); hitboxes and damage events on active frames",
       "heavyAttack": "kick chain: wind-up 2, front snap kick 3, step-through 2, side kick 3, roundhouse spin 3 (through the directional bodies), roundhouse impact 2, recovery 1; root motion on the step-through",
-      "secondaryMotion": "sash part sways; long hair split into cap / upper fall / lower fall with 1- and 2-frame lag"
+      "secondaryMotion": "sash part sways; long hair split into cap / upper fall / lower fall with 1- and 2-frame lag",
+      "generator": "tools/character-animate.mjs",
+      "outputs": {
+        "male/idle": {"spec": "production/source/characters/anim/male/idle.json", "sheets": "production/source/characters/anim/male/idle/", "layout": "one sheet per layer, rows = directions S..SW, columns = frames", "status": "candidate — pending user approval"}
+      }
     },
     "characterGeometry": {
       "policy": "locked base geometry under change control (AGENTS.md)",
