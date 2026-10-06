@@ -43,10 +43,10 @@
           "pixelCounts": {
             "torso": 148,
             "pelvis": 49,
-            "R-thigh": 65,
-            "R-shin-foot": 143,
-            "L-thigh": 52,
-            "L-shin-foot": 142,
+            "R-thigh": 60,
+            "R-shin-foot": 133,
+            "L-thigh": 47,
+            "L-shin-foot": 132,
             "sash": 66
           }
         },
