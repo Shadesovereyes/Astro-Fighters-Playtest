@@ -191,9 +191,9 @@ const overlayLayers = spec.overlays.layers.map((name) => {
 });
 const lagOf = (part) => (part === 'head' ? 0 : overlays.overlayParts?.[part]?.lagFrames);
 
-// ---- frames -------------------------------------------------------------------------------------------
 const bob = spec.bob.dy;
-const report = { cleanupRemoved: [], cleanupMerged: [], frontalHoleFills: {} };
+// ---- frames -------------------------------------------------------------------------------------------
+const report = { cleanupRemoved: [], cleanupMerged: [], frontalOutlineAdded: {}, frontalHoleFills: {} };
 function frame(k) {
   const b = bob[k];
   const bodyL = new Map(), armsL = new Map();
@@ -267,8 +267,8 @@ const layerNames = Object.keys(srcFrames[0]);
 // ---- mirrored directions --------------------------------------------------------------------------------
 const mirrorValid = {};
 const sourceImgs = { body, arms, ...Object.fromEntries(overlayLayers.map((l) => [l.name, l.img])) };
-for (const [dir, from] of Object.entries(spec.mirror || {})) {
-  if (dir === 'rule') continue;
+const mirrors = Object.fromEntries(Object.entries(spec.mirror || {}).filter(([d]) => d !== 'rule'));
+for (const [dir, { from }] of Object.entries(mirrors)) {
   const a = order.indexOf(from) * FRAME, w = order.indexOf(dir) * FRAME;
   mirrorValid[dir] = Object.values(sourceImgs).every((img) => {
     for (let y = 0; y < FRAME; y++) for (let x = 0; x < FRAME; x++) {
@@ -298,50 +298,91 @@ const rowMap = (y, bobDy, removed, repeated) => {
   const s = y + bobDy - removed.filter((r) => r < y).length + repeated.filter((r) => r < y).length;
   return [s, ...repeated.filter((r) => r === y).map((_, i) => s + i + 1)];
 };
+// Diagonal views add a sideways swing: every limb row also shifts sideways, from hipDx / 0 at the pivot (hip or
+// shoulder) growing linearly to footDx / handDx at the foot or hand, which move rigidly. Where a moved limb newly
+// leaves colour against empty space, outline is added; reference edges stay as drawn.
+const shear = (y, pivot, rigid, total) => { const yy = Math.min(y, rigid); return yy <= pivot ? 0 : roundHalfEven(total * (yy - pivot) / (rigid - pivot)); };
+const refExposed = {};
+function exposedInReference(fx) {
+  if (refExposed[fx]) return refExposed[fx];
+  const m = new Map();
+  for (const img of [body, arms]) for (let y = 0; y < FRAME; y++) for (let x = 0; x < FRAME; x++) if (opaque(img, fx + x, y)) m.set(key(x, y), hexAt(img, fx + x, y));
+  return (refExposed[fx] = new Set([...m].filter(([p, c]) => { const [x, y] = unkey(p); return c !== BLACK && N4.some(([dx, dy]) => !m.has(key(x + dx, y + dy))); }).map(([p]) => p)));
+}
 function frontalFrame(dir, k) {
-  const d = FR.views[dir], fx = order.indexOf(dir) * FRAME, b = FR.bob[k];
-  const cap = b, up = Math.min(FR.bob[(k - 1 + F) % F], cap), lo = Math.min(FR.bob[(k - 2 + F) % F], up), dyOf = [cap, up, lo];
+  const d = FR.views[dir], fx = order.indexOf(dir) * FRAME, b = bob[k];
+  const cap = b, up = Math.min(bob[(k - 1 + F) % F], cap), lo = Math.min(bob[(k - 2 + F) % F], up), dyOf = [cap, up, lo];
+  const lift = d.legLift || FR.legLift, far = d.far;
   const srcLayers = [['body', body, partMap], ['arms', arms, partMap], ...overlayLayers.map((l) => [l.name, l.img, l.map])];
-  const out = {};
+  const out = {}, src = {};
   for (const [name, img, map] of srcLayers) {
-    const m = new Map();
+    const items = [];
     for (let y = 0; y < FRAME; y++) for (let x = 0; x < FRAME; x++) {
       if (!opaque(img, fx + x, y)) continue;
       const part = partNear(map, fx, x, y), limb = LIMB[part];
-      let rows;
-      if (limb?.[0] === 'leg') rows = rowMap(y, b, d.legRows[limb[1]].slice(0, FR.legLift[limb[1]][k] + b), []);
-      else if (limb?.[0] === 'arm') {
-        const h = d.handDy[limb[1]][k];
-        rows = rowMap(y, b, h < 0 ? d.armRows[limb[1]].slice(0, -h) : [], h > 0 ? d.armRepeatRows[limb[1]].slice(0, h) : []);
+      let rows, dx = 0, z = 3;
+      if (limb?.[0] === 'leg') {
+        const s = limb[1], n = lift[s][k] + b;
+        rows = rowMap(y, b, n > 0 ? d.legRows[s].slice(0, n) : [], n < 0 ? d.legRepeatRows[s].slice(0, -n) : []);
+        if (d.footDx) { const hd = d.hipDx[s][k]; dx = hd + shear(y, d.legPivot, d.footFrom[s], d.footDx[s][k] - hd); }
+        z = s === far ? 0 : 2;
+      } else if (limb?.[0] === 'arm') {
+        const s = limb[1], h = d.handDy[s][k];
+        rows = rowMap(y, b, h < 0 ? d.armRows[s].slice(0, -h) : [], h > 0 ? d.armRepeatRows[s].slice(0, h) : []);
+        if (d.handDx) dx = shear(y, d.armPivot, d.handFrom[s], d.handDx[s][k]);
+        z = s === far ? -1 : 4;
       } else if (part === 'head' || overlays.overlayParts?.[part]?.lagFrames !== undefined) rows = [y + dyOf[lagOf(part)]];
-      else if (part) rows = [y + b];
+      else if (part) { rows = [y + b]; if (part === 'pelvis') z = 2.5; }
       else throw new Error(`${name} ${dir}: pixel ${x},${y} has no rig part`);
-      for (const ny of rows) m.set(key(x, ny), hexAt(img, fx + x, y));
+      for (const ny of rows) items.push([z, x + dx, ny, hexAt(img, fx + x, y), key(x, y)]);
     }
-    out[name] = m;
+    const m = new Map(), sm = new Map();
+    for (const [, x, y, c, s0] of items.sort((a, c) => a[0] - c[0])) { m.set(key(x, y), c); sm.set(key(x, y), s0); }
+    out[name] = m; src[name] = sm;
   }
-  // a background pixel boxed in on all 4 sides (where a moved arm's outline meets the trunk's) becomes outline
-  const fig = new Map([...out.body, ...out.arms]);
-  let fills = 0;
+  const fig = new Map([...out.body, ...out.arms]), refx = exposedInReference(fx);
+  let outlined = 0, fills = 0;
+  for (const [p, c] of [...fig]) {
+    if (c === BLACK) continue;
+    const s0 = out.arms.has(p) ? src.arms.get(p) : src.body.get(p);
+    if (refx.has(s0)) continue;
+    const [x, y] = unkey(p);
+    for (const [dx, dy] of N4) { const q = key(x + dx, y + dy); if (!fig.has(q)) { out.body.set(q, BLACK); fig.set(q, BLACK); outlined++; } }
+  }
+  // a background pixel boxed in on all 4 sides (where a moved limb's outline meets another) becomes outline
   for (let y = spec.cleanup.notchFromRow; y < FRAME; y++) for (let x = 0; x < FRAME; x++) {
-    if (!fig.has(key(x, y)) && N4.every(([dx, dy]) => fig.has(key(x + dx, y + dy)))) { out.body.set(key(x, y), BLACK); fills++; }
+    if (!fig.has(key(x, y)) && N4.every(([dx, dy]) => fig.has(key(x + dx, y + dy)))) { out.body.set(key(x, y), BLACK); fig.set(key(x, y), BLACK); fills++; }
   }
+  report.frontalOutlineAdded[`${dir}:${k}`] = outlined;
   report.frontalHoleFills[`${dir}:${k}`] = fills;
   return out;
 }
 for (const dir of Object.keys(FR?.views || {})) {
-  const v = FR.views[dir];
+  const v = FR.views[dir], lift = v.legLift || FR.legLift;
   for (const s of ['R', 'L']) {
-    if (v.handDy[s].length !== F || FR.legLift[s].length !== F) throw new Error(`frontal ${dir} ${s} tables need ${F} entries`);
-    const needLeg = Math.max(...FR.legLift[s].map((l, k) => l + FR.bob[k])), needArm = Math.max(...v.handDy[s].map(Math.abs));
+    for (const [n, t] of [['handDy', v.handDy[s]], ['legLift', lift[s]], ...['hipDx', 'footDx', 'handDx'].filter((n) => v[n]).map((n) => [n, v[n][s]])]) {
+      if (t.length !== F) throw new Error(`frontal ${dir} ${s} ${n} needs ${F} entries`);
+    }
+    const needLeg = Math.max(...lift[s].map((l, k) => l + bob[k])), needRep = Math.max(0, ...lift[s].map((l, k) => -(l + bob[k])));
+    const needArm = Math.max(...v.handDy[s].map(Math.abs));
     if (needLeg > v.legRows[s].length) throw new Error(`frontal ${dir} ${s} leg needs ${needLeg} removable rows`);
+    if (needRep > (v.legRepeatRows?.[s]?.length || 0)) throw new Error(`frontal ${dir} ${s} leg needs ${needRep} repeatable rows`);
     if (needArm > v.armRows[s].length || needArm > v.armRepeatRows[s].length) throw new Error(`frontal ${dir} ${s} arm needs ${needArm} edit rows`);
   }
 }
 const frontalFrames = Object.fromEntries(Object.keys(FR?.views || {}).map((dir) => [dir, Array.from({ length: F }, (_, k) => frontalFrame(dir, k))]));
 
-const framesFor = (dir) => (dir === spec.sourceDirection ? srcFrames : frontalFrames[dir] ? frontalFrames[dir]
-  : srcFrames.map((fr) => Object.fromEntries(Object.entries(fr).map(([n, m]) => [n, new Map([...m].map(([p, c]) => { const [x, y] = unkey(p); return [key(FRAME - 1 - x, y), c]; }))]))));
+// A mirror swaps the character's sides, so a mirrored direction plays its source half a cycle later (frameShift):
+// every direction then has the same anatomical leg forward at the same frame and the walk can switch direction on
+// any frame.
+const mirrorFrames = (fr) => Object.fromEntries(Object.entries(fr).map(([n, m]) => [n, new Map([...m].map(([p, c]) => { const [x, y] = unkey(p); return [key(FRAME - 1 - x, y), c]; }))]));
+const framesFor = (dir) => {
+  if (dir === spec.sourceDirection) return srcFrames;
+  if (frontalFrames[dir]) return frontalFrames[dir];
+  const { from, frameShift = 0 } = mirrors[dir];
+  const base = framesFor(from);
+  return base.map((_, k) => mirrorFrames(base[(k + frameShift) % F]));
+};
 
 // ---- sheets ---------------------------------------------------------------------------------------------
 const W = F * FRAME, H = spec.directions.length * FRAME;
@@ -370,6 +411,15 @@ const refEdges = (dir) => {
   return edgeCount(fig);
 };
 qc.referenceEdges = {};
+const footLine = (dir) => {
+  const fx = order.indexOf(dir) * FRAME, low = {};
+  for (let y = 0; y < FRAME; y++) for (let x = 0; x < FRAME; x++) {
+    if (!opaque(body, fx + x, y)) continue;
+    const p = colourToPart.get(hexAt(partMap, fx + x, y));
+    if (p === 'R-shin-foot' || p === 'L-shin-foot') low[p] = Math.max(low[p] ?? 0, y);
+  }
+  return Math.min(...Object.values(low));
+};
 for (const dir of spec.directions) all[dir].forEach((fr, k) => {
   const fig = new Map([...fr.body, ...fr.arms]), id = `${dir}:${k}`;
   qc.referenceEdges[dir] ??= refEdges(dir);
@@ -385,7 +435,8 @@ for (const dir of spec.directions) all[dir].forEach((fr, k) => {
   if (holes) qc.holes[id] = holes;
   if (notches) qc.outlineNotches[id] = notches;
   if (off) qc.offPalette[id] = off;
-  if (![...fig.keys()].some((p) => unkey(p)[1] === FRAME - 1)) qc.groundContact = false;
+  // a planted foot must sit as low as the higher of the reference's two feet (in a diagonal the far foot stands higher)
+  if (Math.max(...[...fig.keys()].map((p) => unkey(p)[1])) < footLine(dir)) qc.groundContact = false;
 });
 qc.cleanup = report;
 qc.pass = Object.values(mirrorValid).every(Boolean) && qc.groundContact

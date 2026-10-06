@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-animation-output/v1",
   "body": "male",
   "state": "walk",
-  "status": "approved by user 2026-10-06: E authored (8 frames); W = mirror of E; S and N by row edits",
+  "status": "approved by user 2026-10-06: E authored (8 frames); W = mirror of E; S and N by row edits; SE and SW candidate",
   "frames": 8,
   "fps": 10,
   "frameSize": [
@@ -16,9 +16,11 @@
   "sheetLayout": {
     "rows": [
       "S",
+      "SE",
       "E",
       "N",
-      "W"
+      "W",
+      "SW"
     ],
     "columns": "frames 0–7"
   },
@@ -80,6 +82,40 @@
       [
         0,
         2
+      ]
+    ],
+    "SE": [
+      [
+        2,
+        2
+      ],
+      [
+        2,
+        1
+      ],
+      [
+        2,
+        2
+      ],
+      [
+        2,
+        1
+      ],
+      [
+        2,
+        2
+      ],
+      [
+        2,
+        1
+      ],
+      [
+        2,
+        2
+      ],
+      [
+        2,
+        1
       ]
     ],
     "E": [
@@ -183,11 +219,46 @@
         -2,
         0
       ]
+    ],
+    "SW": [
+      [
+        -2,
+        2
+      ],
+      [
+        -2,
+        1
+      ],
+      [
+        -2,
+        2
+      ],
+      [
+        -2,
+        1
+      ],
+      [
+        -2,
+        2
+      ],
+      [
+        -2,
+        1
+      ],
+      [
+        -2,
+        2
+      ],
+      [
+        -2,
+        1
+      ]
     ]
   },
   "qc": {
     "mirrorValid": {
-      "W": true
+      "W": true,
+      "SW": true
     },
     "unoutlinedEdges": {},
     "holes": {},
@@ -202,6 +273,14 @@
       "S:5": 7,
       "S:6": 6,
       "S:7": 6,
+      "SE:0": 4,
+      "SE:1": 3,
+      "SE:2": 7,
+      "SE:3": 5,
+      "SE:4": 7,
+      "SE:5": 5,
+      "SE:6": 7,
+      "SE:7": 4,
       "E:0": 2,
       "E:1": 5,
       "E:2": 1,
@@ -220,18 +299,28 @@
       "N:7": 8,
       "W:0": 2,
       "W:1": 5,
-      "W:2": 1,
-      "W:3": 3,
+      "W:2": 3,
+      "W:3": 4,
       "W:4": 2,
       "W:5": 5,
-      "W:6": 3,
-      "W:7": 4
+      "W:6": 1,
+      "W:7": 3,
+      "SW:0": 7,
+      "SW:1": 5,
+      "SW:2": 7,
+      "SW:3": 4,
+      "SW:4": 4,
+      "SW:5": 3,
+      "SW:6": 7,
+      "SW:7": 5
     },
     "referenceEdges": {
       "S": 1,
+      "SE": 1,
       "E": 0,
       "N": 1,
-      "W": 0
+      "W": 0,
+      "SW": 1
     },
     "cleanup": {
       "cleanupRemoved": [
@@ -254,6 +343,32 @@
         0,
         1
       ],
+      "frontalOutlineAdded": {
+        "S:0": 0,
+        "S:1": 0,
+        "S:2": 0,
+        "S:3": 0,
+        "S:4": 0,
+        "S:5": 0,
+        "S:6": 0,
+        "S:7": 0,
+        "N:0": 0,
+        "N:1": 0,
+        "N:2": 0,
+        "N:3": 0,
+        "N:4": 0,
+        "N:5": 0,
+        "N:6": 0,
+        "N:7": 0,
+        "SE:0": 8,
+        "SE:1": 4,
+        "SE:2": 0,
+        "SE:3": 1,
+        "SE:4": 6,
+        "SE:5": 1,
+        "SE:6": 0,
+        "SE:7": 4
+      },
       "frontalHoleFills": {
         "S:0": 0,
         "S:1": 0,
@@ -270,7 +385,15 @@
         "N:4": 1,
         "N:5": 1,
         "N:6": 0,
-        "N:7": 1
+        "N:7": 1,
+        "SE:0": 0,
+        "SE:1": 0,
+        "SE:2": 1,
+        "SE:3": 1,
+        "SE:4": 2,
+        "SE:5": 1,
+        "SE:6": 1,
+        "SE:7": 0
       }
     },
     "pass": true

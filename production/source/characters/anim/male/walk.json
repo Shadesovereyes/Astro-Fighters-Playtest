@@ -2,14 +2,15 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "walk",
-  "status": "approved by user 2026-10-06: E authored (8 frames); W = mirror of E; S and N by row edits",
+  "status": "approved by user 2026-10-06: E authored (8 frames); W = mirror of E; S and N by row edits; SE and SW candidate",
   "frames": 8,
   "fps": 10,
   "sourceDirection": "E",
-  "directions": ["S", "E", "N", "W"],
+  "directions": ["S", "SE", "E", "N", "W", "SW"],
   "mirror": {
-    "W": "E",
-    "rule": "The W reference frame is an exact horizontal mirror of E for Body1, Arms1, hair, eyes and clothing; the renderer verifies this before mirroring (x -> 63 - x). The near side becomes the character's left side."
+    "W": { "from": "E", "frameShift": 4 },
+    "SW": { "from": "SE", "frameShift": 4 },
+    "rule": "A mirrored reference must be an exact horizontal mirror of its source for Body1, Arms1, hair, eyes and clothing; the renderer verifies this before mirroring (x -> 63 - x). Mirroring swaps the character's sides, so the mirrored direction plays its source half a cycle later (frameShift 4): every direction then has the right leg forward at frame 0 and the walk can change direction on any frame."
   },
   "intent": "Contact, down, passing, up per step. The near leg runs poses 0-7; the far leg runs the same poses 4 frames later, one shade darker and drawn behind the body. The planted foot slides back 2-3 px per frame to match root motion. Arms swing from the shoulder opposite the legs.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
@@ -28,7 +29,7 @@
     "map": { "L": "m", "m": "s", "s": "d", "d": "D", "D": "D", "W": "w", "w": "w", "#": "#" }
   },
   "bob": {
-    "rule": "Whole-pixel dy for everything above the legs (pelvis, torso, head, arms, hair, eyes). Positive is down.",
+    "rule": "Whole-pixel dy for everything above the legs (pelvis, torso, head, arms, hair, eyes). Positive is down. Shared by every direction so a direction change on any frame keeps the body height.",
     "dy": [0, 1, 0, -1, 0, 1, 0, -1]
   },
   "rootMotion": {
@@ -36,6 +37,8 @@
     "W": [[-3, 0], [-2, 0], [-3, 0], [-2, 0], [-3, 0], [-2, 0], [-3, 0], [-2, 0]],
     "S": [[0, 3], [0, 2], [0, 3], [0, 2], [0, 3], [0, 2], [0, 3], [0, 2]],
     "N": [[0, -3], [0, -2], [0, -3], [0, -2], [0, -3], [0, -2], [0, -3], [0, -2]],
+    "SE": [[2, 2], [2, 1], [2, 2], [2, 1], [2, 2], [2, 1], [2, 2], [2, 1]],
+    "SW": [[-2, 2], [-2, 1], [-2, 2], [-2, 1], [-2, 2], [-2, 1], [-2, 2], [-2, 1]],
     "rule": "World displacement applied when advancing from frame k to k+1. E/W: matches the planted foot's slide (34, 31, 29, 26, 24 for the wrap's back column). S/N: same speed; the planted foot does not move in the frame."
   },
   "legs": {
@@ -123,8 +126,7 @@
   "frontal": {
     "rule": "S and N are built from their own reference frames with no new pixels. A limb gets shorter by dropping listed reference rows and longer by repeating them; every row of that limb below the edit moves with it. A raised leg is a shortened leg (the leg tilting toward or away from the camera); the planted leg stays on row 63. Arms swing from the shoulder: the first pixel of swing is the elbow row (the upper arm's foreshortening moves the elbow), then a forearm row, then a wrist-wrap row. The step phase matches E/W (right leg forward at frame 0).",
     "approved": "2026-10-06",
-    "bob": [0, 1, 0, 0, 0, 1, 0, 0],
-    "bobRule": "Everything above the legs drops 1 px on the down frames; the planted leg loses one row so the foot stays. S/N do not rise above the reference (that would need new leg pixels).",
+    "bobRule": "The shared bob (0, +1, 0, -1): on +1 frames the planted leg loses a listed row, on -1 frames it repeats one (legRepeatRows), so the planted foot stays on row 63.",
     "legLift": {
       "R": [0, 0, 0, 0, 1, 2, 3, 1],
       "L": [1, 2, 3, 1, 0, 0, 0, 0]
@@ -138,6 +140,7 @@
           "L": [3, 2, 0, -2, -3, -2, 0, 2]
         },
         "legRows": { "R": [41, 50, 56, 59], "L": [41, 50, 56, 59] },
+        "legRepeatRows": { "R": [41], "L": [41] },
         "armRows": { "R": [28, 32, 35], "L": [28, 32, 35] },
         "armRepeatRows": { "R": [28, 32, 35], "L": [28, 32, 35] }
       },
@@ -148,8 +151,42 @@
           "L": [-3, -2, 0, 2, 3, 2, 0, -2]
         },
         "legRows": { "R": [50, 54, 56], "L": [50, 54, 56] },
+        "legRepeatRows": { "R": [50], "L": [50] },
         "armRows": { "R": [29, 35, 34], "L": [29, 35, 34] },
         "armRepeatRows": { "R": [29, 35, 35], "L": [29, 35, 35] }
+      },
+      "SE": {
+        "rule": "S at an angle: the S row edits plus a sideways swing. Legs move at the hip (hipDx) and swing to the foot (footDx); arms swing from the shoulder to the hand (handDx). + is toward the facing (screen right). The legs scissor in this view: with the near (R) leg forward the feet cross, so that contact has less sideways travel and more depth (the far foot rises 2); with the far leg forward they spread. The far (L) side is drawn behind the body.",
+        "approved": "candidate",
+        "far": "L",
+        "legLift": {
+          "R": [0, 0, 0, 0, 1, 2, 3, 1],
+          "L": [2, 2, 3, 1, 0, 0, 0, 0]
+        },
+        "handDy": {
+          "R": [-3, -2, 0, 2, 3, 2, 0, -2],
+          "L": [2, 1, 0, -1, -2, -1, 0, 1]
+        },
+        "legRows": { "R": [50, 56, 43], "L": [50, 55, 56] },
+        "legRepeatRows": { "R": [50], "L": [50] },
+        "armRows": { "R": [30, 34, 38], "L": [35, 37] },
+        "armRepeatRows": { "R": [30, 34, 38], "L": [37, 36] },
+        "legPivot": 39,
+        "footFrom": { "R": 55, "L": 54 },
+        "armPivot": 22,
+        "handFrom": { "R": 36, "L": 36 },
+        "hipDx": {
+          "R": [1, 0, 0, 0, -1, 0, 0, 0],
+          "L": [0, 0, 0, 0, 1, 0, 0, 0]
+        },
+        "footDx": {
+          "R": [1, 0, 0, -1, -2, -1, 0, 1],
+          "L": [-1, -1, 0, 1, 2, 1, 0, -1]
+        },
+        "handDx": {
+          "R": [-2, -1, 0, 1, 2, 1, 0, -1],
+          "L": [1, 1, 0, -1, -1, -1, 0, 1]
+        }
       }
     }
   },
