@@ -24,8 +24,8 @@ const CONFIG = {
   male: {
     body: 'Paperdolls/Male/Layer 1 - Base Body/Male Base Body1.png',
     arms: 'Paperdolls/Male/Layer 3 - Arms/Male Arms1.png',
-    status: 'approved by user 2026-10-02',
-    overlayStatus: 'approved by user 2026-10-02 (armour belt split added after approval: candidate)',
+    status: 'approved by user 2026-10-02; S/N legs and NE/NW feet regenerated after the Body1 update of 2026-10-06 — pending re-approval',
+    overlayStatus: 'approved by user 2026-10-02 (armour belt split added after approval: candidate); regenerated after the Body1 update of 2026-10-06',
     // Overlay layers split onto the approved body parts. Classes:
     //  under-arms — Layer 2 clothing drawn beneath Arms1: pixels never take arm or head parts (collars and cloth under the arm stay with the torso);
     //  head       — whole layer follows the head;

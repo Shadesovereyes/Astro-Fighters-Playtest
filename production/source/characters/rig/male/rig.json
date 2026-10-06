@@ -19,7 +19,7 @@
     "W",
     "SW"
   ],
-  "status": "approved by user 2026-10-02",
+  "status": "approved by user 2026-10-02; S/N legs and NE/NW feet regenerated after the Body1 update of 2026-10-06 — pending re-approval",
   "method": {
     "head": "rows ≤ 20 (row 20 only within the neck columns of row 19)",
     "torso": "rows 20–32 excluding arms",
@@ -41,7 +41,7 @@
     "L-thigh": "#808000",
     "L-shin-foot": "#000080"
   },
-  "totalPixels": 5628,
+  "totalPixels": 5600,
   "frames": [
     {
       "direction": "S",
@@ -63,9 +63,9 @@
         "L-upper-arm": 31,
         "L-forearm-hand": 60,
         "R-thigh": 45,
-        "R-shin-foot": 101,
+        "R-shin-foot": 95,
         "L-thigh": 44,
-        "L-shin-foot": 102
+        "L-shin-foot": 95
       },
       "anchors": {
         "head": [
@@ -93,7 +93,7 @@
           45
         ],
         "R-foot": [
-          22,
+          24,
           63
         ],
         "L-shoulder": [
@@ -113,7 +113,7 @@
           45
         ],
         "L-foot": [
-          40,
+          39,
           63
         ],
         "hip": [
@@ -296,7 +296,7 @@
         "R-thigh": 50,
         "R-shin-foot": 98,
         "L-thigh": 41,
-        "L-shin-foot": 96
+        "L-shin-foot": 95
       },
       "anchors": {
         "head": [
@@ -324,7 +324,7 @@
           46
         ],
         "R-foot": [
-          40,
+          41,
           63
         ],
         "L-shoulder": [
@@ -373,10 +373,10 @@
         "R-forearm-hand": 58,
         "L-upper-arm": 39,
         "L-forearm-hand": 58,
-        "R-thigh": 54,
-        "R-shin-foot": 102,
-        "L-thigh": 57,
-        "L-shin-foot": 102
+        "R-thigh": 50,
+        "R-shin-foot": 100,
+        "L-thigh": 52,
+        "L-shin-foot": 100
       },
       "anchors": {
         "head": [
@@ -400,11 +400,11 @@
           38
         ],
         "R-knee": [
-          37,
+          36,
           46
         ],
         "R-foot": [
-          40,
+          38,
           63
         ],
         "L-shoulder": [
@@ -424,7 +424,7 @@
           46
         ],
         "L-foot": [
-          23,
+          25,
           63
         ],
         "hip": [
@@ -454,7 +454,7 @@
         "L-upper-arm": 39,
         "L-forearm-hand": 65,
         "R-thigh": 39,
-        "R-shin-foot": 96,
+        "R-shin-foot": 95,
         "L-thigh": 52,
         "L-shin-foot": 98
       },
@@ -484,7 +484,7 @@
           45
         ],
         "R-foot": [
-          39,
+          38,
           61
         ],
         "L-shoulder": [

@@ -53,7 +53,7 @@
       "partSides": "R/L are the character's anatomical sides; each rig frame records nearSide/farSide (null for S and N)",
       "anchors": ["head", "neck", "R-shoulder", "L-shoulder", "R-elbow", "L-elbow", "R-hand-grip", "L-hand-grip", "hip", "R-knee", "L-knee", "R-foot", "L-foot"],
       "rig": {
-        "male": {"partMap": "production/source/characters/rig/male/part-map.png", "data": "production/source/characters/rig/male/rig.json", "status": "approved by user 2026-10-02"},
+        "male": {"partMap": "production/source/characters/rig/male/part-map.png", "data": "production/source/characters/rig/male/rig.json", "status": "approved by user 2026-10-02; S/N legs and NE/NW feet regenerated after the Body1 update of 2026-10-06 — pending re-approval"},
         "generator": "tools/character-rig.mjs",
         "maleOverlaySplit": {"data": "production/source/characters/rig/male/overlays.json", "status": "approved by user 2026-10-02; armour belt split added after approval (candidate)"}
       },
