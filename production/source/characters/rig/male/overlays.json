@@ -56,9 +56,9 @@
             "torso": 140,
             "pelvis": 36,
             "R-thigh": 90,
-            "R-shin-foot": 125,
+            "R-shin-foot": 134,
             "L-thigh": 46,
-            "L-shin-foot": 128,
+            "L-shin-foot": 133,
             "sash": 71
           }
         },
@@ -67,9 +67,9 @@
           "pixelCounts": {
             "torso": 118,
             "pelvis": 29,
-            "R-thigh": 69,
+            "R-thigh": 66,
             "R-shin-foot": 102,
-            "L-shin-foot": 51,
+            "L-shin-foot": 45,
             "sash": 62
           }
         },
@@ -79,9 +79,9 @@
             "torso": 141,
             "pelvis": 62,
             "R-thigh": 70,
-            "R-shin-foot": 129,
+            "R-shin-foot": 134,
             "L-thigh": 62,
-            "L-shin-foot": 129,
+            "L-shin-foot": 136,
             "sash": 26
           }
         },
@@ -91,9 +91,9 @@
             "torso": 155,
             "pelvis": 63,
             "R-thigh": 71,
-            "R-shin-foot": 133,
+            "R-shin-foot": 121,
             "L-thigh": 79,
-            "L-shin-foot": 133,
+            "L-shin-foot": 120,
             "sash": 25
           }
         },
@@ -103,9 +103,9 @@
             "torso": 141,
             "pelvis": 62,
             "R-thigh": 53,
-            "R-shin-foot": 122,
+            "R-shin-foot": 125,
             "L-thigh": 80,
-            "L-shin-foot": 135,
+            "L-shin-foot": 134,
             "sash": 26
           }
         },
@@ -114,8 +114,8 @@
           "pixelCounts": {
             "torso": 118,
             "pelvis": 29,
-            "R-shin-foot": 51,
-            "L-thigh": 69,
+            "R-shin-foot": 45,
+            "L-thigh": 66,
             "L-shin-foot": 102,
             "sash": 62
           }
@@ -125,10 +125,10 @@
           "pixelCounts": {
             "torso": 140,
             "pelvis": 37,
-            "R-thigh": 48,
-            "R-shin-foot": 128,
-            "L-thigh": 88,
-            "L-shin-foot": 125,
+            "R-thigh": 47,
+            "R-shin-foot": 125,
+            "L-thigh": 86,
+            "L-shin-foot": 128,
             "sash": 71
           }
         }
