@@ -40,7 +40,8 @@ const CONFIG = {
       { file: 'Paperdolls/Male/Layer 4 - Shoulders and Arms accessories/Red Armor Shoulders.png', class: 'component' },
       { file: 'Paperdolls/Male/Layer 5 - Hair/Afro Hair.png', class: 'head' },
       { file: 'Paperdolls/Male/Layer 5 - Hair/Fade Hair.png', class: 'head' },
-      { file: 'Paperdolls/Male/Layer 5 - Hair/Long Hair.png', class: 'head' },
+      // Long hair sways: cap stays on the head (rows <= 15), upper fall rows 16-19, lower fall rows 20+.
+      { file: 'Paperdolls/Male/Layer 5 - Hair/Long Hair.png', class: 'head', rowBands: [[15, 'head'], [19, 'hair-fall-upper'], [63, 'hair-fall-lower']] },
       { file: 'Paperdolls/Male/Layer 6 - Eyes/Brown Eyes.png', class: 'head' },
       { file: 'Paperdolls/Male/Layer 6 - Eyes/Purple Eyes.png', class: 'head' }
     ],
@@ -69,8 +70,10 @@ const PART_COLOURS = {
 };
 const PARTS = Object.keys(PART_COLOURS);
 // Overlay-only parts: pieces that animate independently of any body part (anchored to a body anchor).
-const OVERLAY_PART_COLOURS = { sash: [255, 160, 200] };
-const OVERLAY_PART_ANCHORS = { sash: 'hip' };
+const OVERLAY_PART_COLOURS = { sash: [255, 160, 200], 'hair-fall-upper': [255, 140, 60], 'hair-fall-lower': [255, 230, 120] };
+const OVERLAY_PART_ANCHORS = { sash: 'hip', 'hair-fall-upper': 'head', 'hair-fall-lower': 'head' };
+// Secondary-motion lag in frames behind the part they hang from.
+const OVERLAY_PART_LAG = { sash: 1, 'hair-fall-upper': 1, 'hair-fall-lower': 2 };
 
 function paeth(a, b, c) {
   const p = a + b - c, pa = Math.abs(p - a), pb = Math.abs(p - b), pc = Math.abs(p - c);
@@ -274,7 +277,7 @@ function splitOverlay(entry, body, partMap) {
     const ox = f * FRAME, label = new Map(), key = (x, y) => `${x},${y}`;
     const pts = [];
     for (let y = 0; y < FRAME; y++) for (let x = 0; x < FRAME; x++) if (img.px[(y * 512 + ox + x) * 4 + 3]) pts.push([x, y]);
-    if (entry.class === 'head') for (const [x, y] of pts) label.set(key(x, y), 'head');
+    if (entry.class === 'head') for (const [x, y] of pts) label.set(key(x, y), entry.rowBands ? entry.rowBands.find(([max]) => y <= max)[1] : 'head');
     else {
       // Nearest allowed body part: breadth-first rings from the body silhouette, scan order breaks ties.
       const near = new Map(), queue = [];
@@ -394,13 +397,13 @@ function build(name) {
     status: cfg.overlayStatus || 'candidate — pending user approval',
     method: {
       'under-arms': 'Layer 2 clothing: each pixel takes the nearest body part excluding arm and head parts (drawn under Arms1; collars stay with the torso)',
-      head: 'whole layer follows the head part',
+      head: 'whole layer follows the head part; layers with rowBands split into cap (head) and sway parts by row',
       component: 'each connected piece takes the majority nearest body part',
       colourParts: 'listed colours (and outline pixels touching them) are forced to a part; the Gi sash is its own part',
       belt: 'armour belt = outlined belt-colour regions starting between the torso outline and the knee band (band + flap), as part sash; outline pixels follow their majority side, side-edge ties to the belt'
     },
     drawOrder: ['contact shadow', 'Layer 1 body', 'Layer 2 clothing', 'Layer 3 arms', 'Layer 4 shoulder/arm accessories', 'Layer 5 hair', 'Layer 6 eyes'],
-    overlayParts: Object.fromEntries(Object.entries(OVERLAY_PART_COLOURS).map(([p, c]) => [p, { colour: '#' + c.map((v) => v.toString(16).padStart(2, '0')).join(''), anchor: OVERLAY_PART_ANCHORS[p] }])),
+    overlayParts: Object.fromEntries(Object.entries(OVERLAY_PART_COLOURS).map(([p, c]) => [p, { colour: '#' + c.map((v) => v.toString(16).padStart(2, '0')).join(''), anchor: OVERLAY_PART_ANCHORS[p], lagFrames: OVERLAY_PART_LAG[p] }])),
     groundLayers: cfg.groundLayers || [],
     layers: overlays.map((o) => o.info)
   }, null, 2) + '\n';

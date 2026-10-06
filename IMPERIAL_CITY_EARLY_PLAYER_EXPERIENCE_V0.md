@@ -465,13 +465,18 @@ This is the current execution order. It is not a second checklist.
 
 19. female part split + anchors
 20. part split + anchors
-21. male idle animation base (approval-gated, then locked)
-22. male walk animation base (approval-gated, then locked)
-23. male ready animation base (approval-gated, then locked)
-24. short Afro and dressed benchmark overlays per part pose
-25. coverage table + overlay QA
-26. female animation bases and overlays
-27. Phaser paper-doll integration
+21. male long-hair sway split (cap / upper fall / lower fall)
+22. male idle, 8 frames, all 8 directions (approval-gated, then locked)
+23. male walk, 8 frames, E/W first
+24. male light attack (jab / cross), 4 frames, E/W first
+25. male sprint, 8 frames, E/W first
+26. male heavy attack (kick chain → roundhouse), 16 frames, E/W first
+27. male ready animation base
+28. remaining directions for walk, sprint and attacks
+29. short Afro and dressed benchmark overlays per part pose
+30. coverage table + overlay QA
+31. female animation bases and overlays
+32. Phaser paper-doll integration
 
 ### Queue C — Harbor
 

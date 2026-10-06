@@ -131,7 +131,7 @@ For every direction confirm:
 Each approved fighter clothing stack must support the following states. Every state depends on approved, locked animation base frames (§0.1); overlays are authored against those frames, never by altering them.
 
 ## Idle
-- [ ] 4 frames per direction
+- [ ] 8 frames per direction (all 8 directions)
 - [ ] Clothing remains anchored
 - [ ] Hair has restrained secondary motion where appropriate
 - [ ] Sash / cloth tails remain stable
@@ -139,7 +139,7 @@ Each approved fighter clothing stack must support the following states. Every st
 - [ ] Accessories do not jitter
 
 ## Walk
-- [ ] 6 frames per direction
+- [ ] 8 frames per direction (E/W first)
 - [ ] Pants move with leg cycle
 - [ ] Coat / haori reacts to movement
 - [ ] Hair movement is directionally believable
@@ -155,6 +155,23 @@ Each approved fighter clothing stack must support the following states. Every st
 - [ ] Clothing tension reflects combat stance
 - [ ] Scabbard / weapon routing remains correct
 - [ ] Accessories remain legible
+
+## Sprint
+- [ ] 8 frames per direction (E/W first)
+- [ ] Forward lean built from part offsets, not rotation
+- [ ] Sash and long hair trail the motion
+- [ ] Footwear stays aligned to feet
+
+## Light attack (jab / cross)
+- [ ] 4 frames per direction (E/W first)
+- [ ] Hitboxes and damage events on the jab and cross frames
+- [ ] Clothing follows the extended arm without gaps
+
+## Heavy attack (kick chain → roundhouse)
+- [ ] 16 frames per direction (E/W first)
+- [ ] Root motion recorded for the step-through
+- [ ] Trousers follow chambered and extended legs without gaps
+- [ ] Sash sway reads through the spin
 
 ---
 

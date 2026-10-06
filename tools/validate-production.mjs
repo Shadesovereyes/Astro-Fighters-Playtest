@@ -162,7 +162,9 @@ function validateCanonical() {
   for (const retired of ['characterSourceCanvas', 'characterSourceBodyCenter', 'characterSourceFootContactY', 'characterRuntimeFrame', 'characterRuntimePivot']) {
     assert(!(retired in c), `Retired 480×640/48×64 character field ${retired} must not return.`);
   }
-  assert(same(c.characterAnimationFramesPerDirection, { idle: 4, walk: 6, ready: 2 }), 'Animation counts drifted.');
+  assert(same(c.characterAnimationFramesPerDirection, { idle: 8, walk: 8, ready: 2, sprint: 8, lightAttack: 4, heavyAttack: 16 }), 'Animation counts drifted.');
+  assert(c.characterAnimationPlan?.maxFramesPerAnimation === 16, 'Animation plan must cap animations at 16 frames.');
+  for (const [state, n] of Object.entries(c.characterAnimationFramesPerDirection || {})) assert(Number.isInteger(n) && n >= 1 && n <= 16, `Animation ${state} must have 1–16 frames.`);
   assert(c.worldSourceScale === 10, 'Shared-foundation source scale must remain 10×.');
   assert(same(c.worldLayerOrder, layers), 'World layer order drifted.');
 

@@ -23,8 +23,21 @@
     "characterFramesPerSheet": 8,
     "characterPivot": [32, 63],
     "characterFootContactY": 63,
-    "characterAnimationFramesPerDirection": {"idle": 4, "walk": 6, "ready": 2},
-    "characterAnimationStatesPending": {"attack": "frame counts, active frames, hitboxes, and event markers contracted per weapon class"},
+    "characterAnimationFramesPerDirection": {"idle": 8, "walk": 8, "ready": 2, "sprint": 8, "lightAttack": 4, "heavyAttack": 16},
+    "characterAnimationPlan": {
+      "status": "approved by user 2026-10-06",
+      "maxFramesPerAnimation": 16,
+      "timing": "one speed per animation (base fps below); per-frame holds added only on approved key poses",
+      "baseFps": {"idle": 6, "walk": 10, "sprint": 14, "lightAttack": 12, "heavyAttack": 12},
+      "rootMotion": "per-frame dx, dy in pixels for world movement; the sprite stays anchored at pivot [32,63]",
+      "directionOrder": "idle in all 8 directions; walk, sprint, lightAttack and heavyAttack in E and W first, then the other 6",
+      "idle": "breathing: torso, head and arms settle 1 px down and return; pelvis and legs fixed; downward-only moves need no new pixels",
+      "walk": "contact, down, passing, up per step; planted foot never slides",
+      "sprint": "Naruto-style run: lean from stacked head/torso/pelvis offsets, arms swept back, long low stride",
+      "lightAttack": "taijutsu jab/cross: guard, jab (active), recoil (chain window), cross (active); hitboxes and damage events on active frames",
+      "heavyAttack": "kick chain: wind-up 2, front snap kick 3, step-through 2, side kick 3, roundhouse spin 3 (through the directional bodies), roundhouse impact 2, recovery 1; root motion on the step-through",
+      "secondaryMotion": "sash part sways; long hair split into cap / upper fall / lower fall with 1- and 2-frame lag"
+    },
     "characterGeometry": {
       "policy": "locked base geometry under change control (AGENTS.md)",
       "referencePoses": {
