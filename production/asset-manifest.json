@@ -40,7 +40,7 @@
       "generator": {"offsets": "tools/character-animate.mjs (whole-pixel part offsets: idle)", "posed": "tools/character-posed.mjs (authored leg/arm pose specs on the reference sheets: walk)"},
       "outputs": {
         "male/idle": {"spec": "production/source/characters/anim/male/idle.json", "sheets": "production/source/characters/anim/male/idle/", "layout": "one sheet per layer, rows = directions S..SW, columns = frames", "status": "approved by user 2026-10-06"},
-        "male/walk": {"spec": "production/source/characters/anim/male/walk.json", "sheets": "production/source/characters/anim/male/walk/", "layout": "one sheet per layer, rows = E, W, columns = frames; W is the mirror of E", "status": "approved by user 2026-10-06 (E authored, W mirrored); clothing and shoulder layers pending"}
+        "male/walk": {"spec": "production/source/characters/anim/male/walk.json", "sheets": "production/source/characters/anim/male/walk/", "layout": "one sheet per layer, rows = S, E, N, W, columns = frames; W is the mirror of E", "status": "approved by user 2026-10-06 (E authored, W mirrored, S and N by row edits); SE, NE, NW, SW and the clothing and shoulder layers pending"}
       }
     },
     "characterGeometry": {

@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-animation-output/v1",
   "body": "male",
   "state": "walk",
-  "status": "approved by user 2026-10-06: E authored (8 frames); W = mirror of E",
+  "status": "approved by user 2026-10-06: E authored (8 frames); W = mirror of E; S and N by row edits",
   "frames": 8,
   "fps": 10,
   "frameSize": [
@@ -15,7 +15,9 @@
   ],
   "sheetLayout": {
     "rows": [
+      "S",
       "E",
+      "N",
       "W"
     ],
     "columns": "frames 0–7"
@@ -46,6 +48,40 @@
     "Layer 6 eyes"
   ],
   "rootMotion": {
+    "S": [
+      [
+        0,
+        3
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        0,
+        3
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        0,
+        3
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        0,
+        3
+      ],
+      [
+        0,
+        2
+      ]
+    ],
     "E": [
       [
         3,
@@ -78,6 +114,40 @@
       [
         2,
         0
+      ]
+    ],
+    "N": [
+      [
+        0,
+        -3
+      ],
+      [
+        0,
+        -2
+      ],
+      [
+        0,
+        -3
+      ],
+      [
+        0,
+        -2
+      ],
+      [
+        0,
+        -3
+      ],
+      [
+        0,
+        -2
+      ],
+      [
+        0,
+        -3
+      ],
+      [
+        0,
+        -2
       ]
     ],
     "W": [
@@ -124,6 +194,14 @@
     "groundContact": true,
     "offPalette": {},
     "outlineNotches": {
+      "S:0": 6,
+      "S:1": 6,
+      "S:2": 6,
+      "S:3": 7,
+      "S:4": 7,
+      "S:5": 7,
+      "S:6": 6,
+      "S:7": 6,
       "E:0": 2,
       "E:1": 5,
       "E:2": 1,
@@ -132,6 +210,14 @@
       "E:5": 5,
       "E:6": 3,
       "E:7": 4,
+      "N:0": 6,
+      "N:1": 8,
+      "N:2": 7,
+      "N:3": 7,
+      "N:4": 8,
+      "N:5": 7,
+      "N:6": 7,
+      "N:7": 8,
       "W:0": 2,
       "W:1": 5,
       "W:2": 1,
@@ -140,6 +226,12 @@
       "W:5": 5,
       "W:6": 3,
       "W:7": 4
+    },
+    "referenceEdges": {
+      "S": 1,
+      "E": 0,
+      "N": 1,
+      "W": 0
     },
     "cleanup": {
       "cleanupRemoved": [
@@ -161,7 +253,25 @@
         3,
         0,
         1
-      ]
+      ],
+      "frontalHoleFills": {
+        "S:0": 0,
+        "S:1": 0,
+        "S:2": 0,
+        "S:3": 0,
+        "S:4": 0,
+        "S:5": 0,
+        "S:6": 0,
+        "S:7": 0,
+        "N:0": 1,
+        "N:1": 1,
+        "N:2": 0,
+        "N:3": 1,
+        "N:4": 1,
+        "N:5": 1,
+        "N:6": 0,
+        "N:7": 1
+      }
     },
     "pass": true
   }

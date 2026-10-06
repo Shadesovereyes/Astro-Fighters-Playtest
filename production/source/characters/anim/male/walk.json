@@ -2,11 +2,11 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "walk",
-  "status": "approved by user 2026-10-06: E authored (8 frames); W = mirror of E",
+  "status": "approved by user 2026-10-06: E authored (8 frames); W = mirror of E; S and N by row edits",
   "frames": 8,
   "fps": 10,
   "sourceDirection": "E",
-  "directions": ["E", "W"],
+  "directions": ["S", "E", "N", "W"],
   "mirror": {
     "W": "E",
     "rule": "The W reference frame is an exact horizontal mirror of E for Body1, Arms1, hair, eyes and clothing; the renderer verifies this before mirroring (x -> 63 - x). The near side becomes the character's left side."
@@ -34,7 +34,9 @@
   "rootMotion": {
     "E": [[3, 0], [2, 0], [3, 0], [2, 0], [3, 0], [2, 0], [3, 0], [2, 0]],
     "W": [[-3, 0], [-2, 0], [-3, 0], [-2, 0], [-3, 0], [-2, 0], [-3, 0], [-2, 0]],
-    "rule": "World displacement applied when advancing from frame k to k+1; matches the planted foot's slide (34, 31, 29, 26, 24 for the wrap's back column)."
+    "S": [[0, 3], [0, 2], [0, 3], [0, 2], [0, 3], [0, 2], [0, 3], [0, 2]],
+    "N": [[0, -3], [0, -2], [0, -3], [0, -2], [0, -3], [0, -2], [0, -3], [0, -2]],
+    "rule": "World displacement applied when advancing from frame k to k+1. E/W: matches the planted foot's slide (34, 31, 29, 26, 24 for the wrap's back column). S/N: same speed; the planted foot does not move in the frame."
   },
   "legs": {
     "source": "The reference near leg (R-thigh, R-shin-foot) of the E frame is replaced by row-span legs. Every leg is outlined; the reference wrap+foot block (R-shin-foot rows 56-63) is reused unchanged by the reference-ankle construction.",
@@ -117,6 +119,39 @@
     "separatorRows": [33, 37],
     "separatorCols": [30, 32],
     "approved": "2026-10-06"
+  },
+  "frontal": {
+    "rule": "S and N are built from their own reference frames with no new pixels. A limb gets shorter by dropping listed reference rows and longer by repeating them; every row of that limb below the edit moves with it. A raised leg is a shortened leg (the leg tilting toward or away from the camera); the planted leg stays on row 63. Arms swing from the shoulder: the first pixel of swing is the elbow row (the upper arm's foreshortening moves the elbow), then a forearm row, then a wrist-wrap row. The step phase matches E/W (right leg forward at frame 0).",
+    "approved": "2026-10-06",
+    "bob": [0, 1, 0, 0, 0, 1, 0, 0],
+    "bobRule": "Everything above the legs drops 1 px on the down frames; the planted leg loses one row so the foot stays. S/N do not rise above the reference (that would need new leg pixels).",
+    "legLift": {
+      "R": [0, 0, 0, 0, 1, 2, 3, 1],
+      "L": [1, 2, 3, 1, 0, 0, 0, 0]
+    },
+    "legLiftRule": "rows removed from a leg = its lift + the frame's bob, taken in listed order",
+    "views": {
+      "S": {
+        "handDyRule": "+ is lower on screen: the arm swinging forward comes toward the viewer and lengthens; the arm swinging back shortens",
+        "handDy": {
+          "R": [-3, -2, 0, 2, 3, 2, 0, -2],
+          "L": [3, 2, 0, -2, -3, -2, 0, 2]
+        },
+        "legRows": { "R": [41, 50, 56, 59], "L": [41, 50, 56, 59] },
+        "armRows": { "R": [28, 32, 35], "L": [28, 32, 35] },
+        "armRepeatRows": { "R": [28, 32, 35], "L": [28, 32, 35] }
+      },
+      "N": {
+        "handDyRule": "the reverse of S: the arm swinging forward moves away from the viewer and shortens",
+        "handDy": {
+          "R": [3, 2, 0, -2, -3, -2, 0, 2],
+          "L": [-3, -2, 0, 2, 3, 2, 0, -2]
+        },
+        "legRows": { "R": [50, 54, 56], "L": [50, 54, 56] },
+        "armRows": { "R": [29, 35, 34], "L": [29, 35, 34] },
+        "armRepeatRows": { "R": [29, 35, 35], "L": [29, 35, 35] }
+      }
+    }
   },
   "overlays": {
     "rule": "Hair and eye layers follow the head's bob through their rig part maps. Lagging hair falls take the bob of 1 or 2 frames earlier (overlays.json lagFrames) but never sit higher than the part above them (cap >= upper fall >= lower fall, positive dy is down), so no gap opens.",

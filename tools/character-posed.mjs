@@ -193,7 +193,7 @@ const lagOf = (part) => (part === 'head' ? 0 : overlays.overlayParts?.[part]?.la
 
 // ---- frames -------------------------------------------------------------------------------------------
 const bob = spec.bob.dy;
-const report = { cleanupRemoved: [], cleanupMerged: [] };
+const report = { cleanupRemoved: [], cleanupMerged: [], frontalHoleFills: {} };
 function frame(k) {
   const b = bob[k];
   const bodyL = new Map(), armsL = new Map();
@@ -279,7 +279,68 @@ for (const [dir, from] of Object.entries(spec.mirror || {})) {
   });
   if (!mirrorValid[dir]) throw new Error(`${dir} reference is not a mirror of ${from}; it cannot be mirrored`);
 }
-const framesFor = (dir) => (dir === spec.sourceDirection ? srcFrames
+// ---- front and back views (row edits on the reference frame) -------------------------------------------------
+// No new pixels: a limb gets shorter by dropping listed reference rows and longer by repeating them; every row of
+// that limb below the edit moves with it. Parts above the legs bob as a block.
+const FR = spec.frontal;
+const LIMB = { 'R-thigh': ['leg', 'R'], 'R-shin-foot': ['leg', 'R'], 'L-thigh': ['leg', 'L'], 'L-shin-foot': ['leg', 'L'],
+  'R-upper-arm': ['arm', 'R'], 'R-forearm-hand': ['arm', 'R'], 'L-upper-arm': ['arm', 'L'], 'L-forearm-hand': ['arm', 'L'] };
+function partNear(map, fx, x, y) {
+  if (opaque(map, fx + x, y)) { const p = colourToPart.get(hexAt(map, fx + x, y)); if (p) return p; }
+  for (let r = 1; r <= 3; r++) for (let dy = -r; dy <= r; dy++) for (let dx = -r; dx <= r; dx++) {
+    const nx = x + dx, ny = y + dy;
+    if (nx >= 0 && ny >= 0 && nx < FRAME && ny < FRAME && opaque(map, fx + nx, ny)) { const p = colourToPart.get(hexAt(map, fx + nx, ny)); if (p) return p; }
+  }
+  return undefined;
+}
+const rowMap = (y, bobDy, removed, repeated) => {
+  if (removed.includes(y)) return [];
+  const s = y + bobDy - removed.filter((r) => r < y).length + repeated.filter((r) => r < y).length;
+  return [s, ...repeated.filter((r) => r === y).map((_, i) => s + i + 1)];
+};
+function frontalFrame(dir, k) {
+  const d = FR.views[dir], fx = order.indexOf(dir) * FRAME, b = FR.bob[k];
+  const cap = b, up = Math.min(FR.bob[(k - 1 + F) % F], cap), lo = Math.min(FR.bob[(k - 2 + F) % F], up), dyOf = [cap, up, lo];
+  const srcLayers = [['body', body, partMap], ['arms', arms, partMap], ...overlayLayers.map((l) => [l.name, l.img, l.map])];
+  const out = {};
+  for (const [name, img, map] of srcLayers) {
+    const m = new Map();
+    for (let y = 0; y < FRAME; y++) for (let x = 0; x < FRAME; x++) {
+      if (!opaque(img, fx + x, y)) continue;
+      const part = partNear(map, fx, x, y), limb = LIMB[part];
+      let rows;
+      if (limb?.[0] === 'leg') rows = rowMap(y, b, d.legRows[limb[1]].slice(0, FR.legLift[limb[1]][k] + b), []);
+      else if (limb?.[0] === 'arm') {
+        const h = d.handDy[limb[1]][k];
+        rows = rowMap(y, b, h < 0 ? d.armRows[limb[1]].slice(0, -h) : [], h > 0 ? d.armRepeatRows[limb[1]].slice(0, h) : []);
+      } else if (part === 'head' || overlays.overlayParts?.[part]?.lagFrames !== undefined) rows = [y + dyOf[lagOf(part)]];
+      else if (part) rows = [y + b];
+      else throw new Error(`${name} ${dir}: pixel ${x},${y} has no rig part`);
+      for (const ny of rows) m.set(key(x, ny), hexAt(img, fx + x, y));
+    }
+    out[name] = m;
+  }
+  // a background pixel boxed in on all 4 sides (where a moved arm's outline meets the trunk's) becomes outline
+  const fig = new Map([...out.body, ...out.arms]);
+  let fills = 0;
+  for (let y = spec.cleanup.notchFromRow; y < FRAME; y++) for (let x = 0; x < FRAME; x++) {
+    if (!fig.has(key(x, y)) && N4.every(([dx, dy]) => fig.has(key(x + dx, y + dy)))) { out.body.set(key(x, y), BLACK); fills++; }
+  }
+  report.frontalHoleFills[`${dir}:${k}`] = fills;
+  return out;
+}
+for (const dir of Object.keys(FR?.views || {})) {
+  const v = FR.views[dir];
+  for (const s of ['R', 'L']) {
+    if (v.handDy[s].length !== F || FR.legLift[s].length !== F) throw new Error(`frontal ${dir} ${s} tables need ${F} entries`);
+    const needLeg = Math.max(...FR.legLift[s].map((l, k) => l + FR.bob[k])), needArm = Math.max(...v.handDy[s].map(Math.abs));
+    if (needLeg > v.legRows[s].length) throw new Error(`frontal ${dir} ${s} leg needs ${needLeg} removable rows`);
+    if (needArm > v.armRows[s].length || needArm > v.armRepeatRows[s].length) throw new Error(`frontal ${dir} ${s} arm needs ${needArm} edit rows`);
+  }
+}
+const frontalFrames = Object.fromEntries(Object.keys(FR?.views || {}).map((dir) => [dir, Array.from({ length: F }, (_, k) => frontalFrame(dir, k))]));
+
+const framesFor = (dir) => (dir === spec.sourceDirection ? srcFrames : frontalFrames[dir] ? frontalFrames[dir]
   : srcFrames.map((fr) => Object.fromEntries(Object.entries(fr).map(([n, m]) => [n, new Map([...m].map(([p, c]) => { const [x, y] = unkey(p); return [key(FRAME - 1 - x, y), c]; }))]))));
 
 // ---- sheets ---------------------------------------------------------------------------------------------
@@ -301,14 +362,20 @@ spec.directions.forEach((dir, r) => {
 // ---- QC -------------------------------------------------------------------------------------------------
 const qc = { mirrorValid, unoutlinedEdges: {}, holes: {}, groundContact: true, offPalette: {}, outlineNotches: {} };
 const palette = new Set(Object.values(pal));
+const edgeCount = (fig) => [...fig].filter(([p, c]) => { const [x, y] = unkey(p); return y >= spec.cleanup.notchFromRow && c !== BLACK && N4.some(([dx, dy]) => !fig.has(key(x + dx, y + dy))); }).length;
+// Unoutlined edge pixels already present in the reference frame (e.g. a stray Arms1 pixel) are not counted against a frame.
+const refEdges = (dir) => {
+  const fx = order.indexOf(dir) * FRAME, fig = new Map();
+  for (const img of [body, arms]) for (let y = 0; y < FRAME; y++) for (let x = 0; x < FRAME; x++) if (opaque(img, fx + x, y)) fig.set(key(x, y), hexAt(img, fx + x, y));
+  return edgeCount(fig);
+};
+qc.referenceEdges = {};
 for (const dir of spec.directions) all[dir].forEach((fr, k) => {
   const fig = new Map([...fr.body, ...fr.arms]), id = `${dir}:${k}`;
-  let edges = 0, holes = 0, notches = 0, off = 0;
-  for (const [p, c] of fig) {
-    const [x, y] = unkey(p);
-    if (!palette.has(c)) off++;
-    if (y >= spec.cleanup.notchFromRow && c !== BLACK && N4.some(([dx, dy]) => !fig.has(key(x + dx, y + dy)))) edges++;
-  }
+  qc.referenceEdges[dir] ??= refEdges(dir);
+  let holes = 0, notches = 0, off = 0;
+  const edges = Math.max(0, edgeCount(fig) - qc.referenceEdges[dir]);
+  for (const [, c] of fig) if (!palette.has(c)) off++;
   for (let y = spec.cleanup.notchFromRow; y < FRAME; y++) for (let x = 0; x < FRAME; x++) {
     if (fig.has(key(x, y))) continue;
     const n = N4.filter(([dx, dy]) => fig.has(key(x + dx, y + dy))).length;
