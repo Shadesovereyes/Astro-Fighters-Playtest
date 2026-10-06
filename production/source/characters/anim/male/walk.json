@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "walk",
-  "status": "approved by user 2026-10-06: E authored (8 frames); W = mirror of E; S and N by row edits; SE and SW candidate",
+  "status": "approved by user 2026-10-06: E authored (8 frames); W = mirror of E; S and N by row edits; SE/SW approved as a draft (revisit)",
   "frames": 8,
   "fps": 10,
   "sourceDirection": "E",
@@ -157,7 +157,7 @@
       },
       "SE": {
         "rule": "S at an angle: the S row edits plus a sideways swing. Legs move at the hip (hipDx) and swing to the foot (footDx); arms swing from the shoulder to the hand (handDx). + is toward the facing (screen right). The legs scissor in this view: with the near (R) leg forward the feet cross, so that contact has less sideways travel and more depth (the far foot rises 2); with the far leg forward they spread. The far (L) side is drawn behind the body.",
-        "approved": "candidate",
+        "approved": "2026-10-06 as a draft state; revisit later (legs scissor at the right-leg contact, sideways travel limited to 1-2 px, far arm limited to 2 px)",
         "far": "L",
         "legLift": {
           "R": [0, 0, 0, 0, 1, 2, 3, 1],

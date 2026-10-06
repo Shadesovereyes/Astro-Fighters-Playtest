@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-animation-output/v1",
   "body": "male",
   "state": "walk",
-  "status": "approved by user 2026-10-06: E authored (8 frames); W = mirror of E; S and N by row edits; SE and SW candidate",
+  "status": "approved by user 2026-10-06: E authored (8 frames); W = mirror of E; S and N by row edits; SE/SW approved as a draft (revisit)",
   "frames": 8,
   "fps": 10,
   "frameSize": [

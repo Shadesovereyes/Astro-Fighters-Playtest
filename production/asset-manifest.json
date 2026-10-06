@@ -40,7 +40,7 @@
       "generator": {"offsets": "tools/character-animate.mjs (whole-pixel part offsets: idle)", "posed": "tools/character-posed.mjs (authored leg/arm pose specs on the reference sheets: walk)"},
       "outputs": {
         "male/idle": {"spec": "production/source/characters/anim/male/idle.json", "sheets": "production/source/characters/anim/male/idle/", "layout": "one sheet per layer, rows = directions S..SW, columns = frames", "status": "approved by user 2026-10-06"},
-        "male/walk": {"spec": "production/source/characters/anim/male/walk.json", "sheets": "production/source/characters/anim/male/walk/", "layout": "one sheet per layer, rows = S, SE, E, N, W, SW, columns = frames; W and SW mirror E and SE half a cycle later so every direction shares the step phase", "status": "E, W, S, N approved by user 2026-10-06; SE/SW, the shared bob (S/N frames 3 and 7) and the W frame shift are candidates; NE, NW and the clothing and shoulder layers pending"}
+        "male/walk": {"spec": "production/source/characters/anim/male/walk.json", "sheets": "production/source/characters/anim/male/walk/", "layout": "one sheet per layer, rows = S, SE, E, N, W, SW, columns = frames; W and SW mirror E and SE half a cycle later so every direction shares the step phase", "status": "E, W, S, N approved by user 2026-10-06; SE/SW, the shared bob and the W/SW frame shift approved 2026-10-06 as a draft state to revisit; NE, NW and the clothing and shoulder layers pending"}
       }
     },
     "characterGeometry": {
