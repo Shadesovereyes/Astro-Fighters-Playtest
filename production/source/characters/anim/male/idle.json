@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-animation/v1",
   "body": "male",
   "state": "idle",
-  "status": "candidate \u2014 pending user approval",
+  "status": "approved by user 2026-10-06",
   "frames": 8,
   "fps": 6,
   "directions": [
