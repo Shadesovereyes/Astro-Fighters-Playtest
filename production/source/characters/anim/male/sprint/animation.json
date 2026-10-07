@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-animation-output/v1",
   "body": "male",
   "state": "sprint",
-  "status": "candidate: E sprint draft v7 (W = mirror of E); torso shear with 3 rows dropped, straight raised arms",
+  "status": "candidate: E sprint draft v8 (W = mirror of E); ankle articulation on airborne feet",
   "frames": 8,
   "fps": 14,
   "frameSize": [
@@ -161,7 +161,7 @@
         1,
         0,
         0,
-        2,
+        4,
         0,
         0
       ],

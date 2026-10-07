@@ -118,7 +118,8 @@ function buildLeg(p) {
       [...(y >= p.wrapRow ? L.wrap : shinPattern(i))].forEach((c, j) => out.set(key(x0 + j, y), c));
       if (i === 0) out.set(key(x0, y), 'D');
     }
-    L.feet[p.foot].rows.forEach((row, r) => [...row].forEach((c, j) => { if (c !== '.') out.set(key(p.footX - 1 + j, bot + 1 + r), c); }));
+    const ft = L.feet[p.foot];   // ft.dx moves the foot's column 0 sideways (a foot pointing back starts left of the ankle)
+    ft.rows.forEach((row, r) => [...row].forEach((c, j) => { if (c !== '.') out.set(key(p.footX - 1 + (ft.dx || 0) + j, bot + 1 + r), c); }));
     closeLeg(out, true);
   } else throw new Error(`unknown leg construction ${p.construction}`);
   pinchFill(out);
@@ -543,7 +544,7 @@ function posedClothing(l, px, k) {
       const bot = pose.wrapRow + 2;
       if (pose.foot === 'flat') for (let sr = LR.foot; sr < FRAME; sr++) put(sr, sr + shift, pose.footX - ankleX);
       else L.feet[pose.foot].rows.forEach((row, r) => [...row].forEach((c, j) => {
-        if (c !== '.') items.push([z, pose.footX - 1 + j, bot + 1 + r, col(c === '#' ? l.outline : l.shoe), null]);
+        if (c !== '.') items.push([z, pose.footX - 1 + (L.feet[pose.foot].dx || 0) + j, bot + 1 + r, col(c === '#' ? l.outline : l.shoe), null]);
       }));
     }
   }

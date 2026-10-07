@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "sprint",
-  "status": "candidate: E sprint draft v7 (W = mirror of E); torso shear with 3 rows dropped, straight raised arms",
+  "status": "candidate: E sprint draft v8 (W = mirror of E); ankle articulation on airborne feet",
   "frames": 8,
   "fps": 14,
   "sourceDirection": "E",
@@ -188,6 +188,29 @@
           "#DDDDsLL#",
           "#########"
         ]
+      },
+      "pointBack": {
+        "use": "airborne trailing foot, ankle fully extended: toes point down and back along the shin, sole turned up",
+        "dx": -3,
+        "rows": [
+          "...#dmmL#",
+          "..#DDmLL#",
+          ".#DDmLL#",
+          "#DDmLL#",
+          "#DsLL#",
+          ".####"
+        ]
+      },
+      "flex": {
+        "use": "airborne reaching foot, ankle flexed: heel down, toes pulled up ready to land",
+        "rows": [
+          "#dmmL#..",
+          "#dmLLL##",
+          "#DmLLLLL#",
+          "#DDsLLL#",
+          ".#DD###",
+          "..##"
+        ]
       }
     },
     "constructions": {
@@ -237,7 +260,7 @@
         "hipRow": 40,
         "kneeRow": 47,
         "wrapRow": 52,
-        "foot": "toe30"
+        "foot": "pointBack"
       },
       {
         "name": "kick-back",
@@ -248,7 +271,7 @@
         "hipRow": 41,
         "kneeRow": 47,
         "wrapRow": 50,
-        "foot": "toe30"
+        "foot": "pointBack"
       },
       {
         "name": "recovery",
@@ -259,7 +282,7 @@
         "hipRow": 42,
         "kneeRow": 47,
         "wrapRow": 50,
-        "foot": "toe30"
+        "foot": "toe60"
       },
       {
         "name": "knee-drive",
@@ -281,7 +304,7 @@
         "hipRow": 40,
         "kneeRow": 46,
         "wrapRow": 54,
-        "foot": "toe30"
+        "foot": "flex"
       }
     ],
     "near": [
