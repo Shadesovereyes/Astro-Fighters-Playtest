@@ -475,20 +475,29 @@ function posedClothing(l, px, k) {
   }
   // Jacket under the reference near arm: the arm swings away from it, so its under-arm shading becomes jacket
   // base colour (the pixel against the jacket's own outline keeps the edge shade).
+  const sway = sashSway(spec.sourceDirection, px, k);
   const under = Object.fromEntries(Object.entries(CL[l.name].underArm).map(([k2, v]) => [k2, v.slice(1).toLowerCase()])), at = new Map(px.map((p) => [key(p.x, p.y), p]));
   for (const p of px) {
     if (LIMB[p.part]?.[0] === 'leg') continue;
     let c = p.c;
     if (p.part === 'torso' && refArm.has(key(p.x, p.y)) && c !== l.outline) c = at.get(key(p.x + 1, p.y))?.c === l.outline ? under.edge : under.base;
     const lag = p.part === 'sash' ? lagOf('sash') : 0;
-    items.push([p.part === 'sash' ? 3 : 1, p.x, p.y + dyOf[lag], c, p.src]);
+    items.push([p.part === 'sash' ? 3 : 1, p.x + sway(p), p.y + dyOf[lag], c, p.src]);
   }
   return items;
 }
 function frontalClothing(geom, px, k) {
-  const d = FR.views[geom], items = [];
-  for (const p of px) { const { rows, dx, z } = frontalMove(d, k, p.part, p.y); for (const ny of rows) items.push([z, p.x + dx, ny, p.c, p.src]); }
+  const d = FR.views[geom], items = [], sway = sashSway(geom, px, k);
+  for (const p of px) { const { rows, dx, z } = frontalMove(d, k, p.part, p.y); for (const ny of rows) items.push([z, p.x + dx + sway(p), ny, p.c, p.src]); }
   return items;
+}
+// The sash's hanging flaps swing from the knot: rows below the knot row shift sideways, growing to sashSway[k] at the
+// flaps' lowest row (a pendulum, phased with the step). The band and knot stay with the waist.
+function sashSway(geom, px, k) {
+  const sw = CL.sash, table = sw?.sway?.[geom];
+  if (!table) return () => 0;
+  const rows = px.filter((p) => p.part === 'sash').map((p) => p.y), bottom = Math.max(...rows);
+  return (p) => (p.part === 'sash' && p.y > sw.knotRow && bottom > sw.knotRow ? roundHalfEven(table[k] * (p.y - sw.knotRow) / (bottom - sw.knotRow)) : 0);
 }
 const refClothingExposed = {};
 function clothingFrame(l, dir, k, fr) {
@@ -501,12 +510,12 @@ function clothingFrame(l, dir, k, fr) {
     const X = flip ? FRAME - 1 - x : x;
     layer.set(key(X, y), c); src.set(key(X, y), s0);
   }
-  // Under the hanging sash there is no cloth in the reference; where the legs move out from under it, the uncovered
-  // leg gets the trouser colour (only between clothing pixels on the same row, so a hand beside the body stays skin).
-  const skin = new Set(Object.entries(pal).filter(([sy]) => 'LmsdD'.includes(sy)).map(([, h]) => h));
+  // Under the hanging sash there is no cloth in the reference; where the flaps swing or the legs move out from under
+  // it, the uncovered body (skin or shorts) gets the trouser colour, but only between clothing pixels on the same row,
+  // so a hand beside the body stays visible.
   let filled = 0;
   for (const [p, c] of fr.body) {
-    if (!skin.has(c) || layer.has(p) || fr.arms.has(p)) continue;
+    if (c === BLACK || layer.has(p) || fr.arms.has(p)) continue;
     const [x, y] = unkey(p);
     if (y < CL[l.name].gapFill.fromRow) continue;
     const near = (dx) => [1, 2, 3].some((i) => layer.has(key(x + dx * i, y)));

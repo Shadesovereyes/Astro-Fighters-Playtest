@@ -231,14 +231,25 @@
     "approved": "candidate",
     "layers": ["male-gi"],
     "posedLegRows": { "knee": 48, "wrap": 56 },
+    "sash": {
+      "rule": "The hanging flaps swing from the knot like a pendulum: rows below knotRow shift sideways, growing to sway[k] at the flaps' lowest row (+ is screen right in that direction's orientation; mirrored directions use their source's table, flipped). In the profile the flaps trail behind the walk and kick back twice per cycle; in front/back views they swing toward the leg that is stepping; the band and knot stay with the waist. The flaps also lag the body bob by one frame.",
+      "knotRow": 34,
+      "sway": {
+        "E": [0, -1, -2, -1, 0, -1, -2, -1],
+        "S": [1, 1, 0, -1, -1, -1, 0, 1],
+        "N": [-1, -1, 0, 1, 1, 1, 0, -1],
+        "SE": [1, 0, -1, -1, -1, 0, 0, 1],
+        "NE": [-1, -1, 0, 1, 1, 0, -1, -1]
+      }
+    },
     "male-gi": {
       "outline": "#030101",
       "shoe": "#3b2014",
-      "gapFill": { "colour": "#ddcdb4", "fromRow": 39, "rule": "leg skin uncovered from under the hanging sash, with cloth on both sides in the same row, takes the trouser mid colour" },
+      "gapFill": { "colour": "#ddcdb4", "fromRow": 35, "rule": "body (skin or shorts) uncovered from under the hanging sash or its swinging flaps, with cloth on both sides in the same row, takes the trouser mid colour" },
       "underArm": { "base": "#f8eee0", "edge": "#a9977d" },
       "wrap": {
-        "rule": "line-pose wrap rows (which follow the shin's slope): the leg's wrap span widened by 'margin' px each side, interior striped as on the reference E Gi wrap",
-        "margin": 1, "pattern": "iai", "fill": "h",
+        "rule": "line-pose wrap rows (which follow the shin's slope): the leg's wrap span widened by 'margin' px each side, grey on the back three pixels and white in front, as on the corrected E Gi wrap (single outline, no inner black stripe)",
+        "margin": 1, "pattern": "iii", "fill": "h",
         "colours": { "a": "#030101", "i": "#adadad", "h": "#fefefc" }
       },
       "trouser": {
