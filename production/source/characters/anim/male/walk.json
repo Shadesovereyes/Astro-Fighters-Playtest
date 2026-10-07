@@ -1280,9 +1280,9 @@
         "edge": "#332b6f"
       },
       "wrap": {
-        "rule": "line-pose boot-shaft rows: the leg's wrap span widened 1 px each side, boot colour with the reference's dark seam one pixel in",
-        "margin": 1,
-        "pattern": "cac",
+        "rule": "line-pose boot-shaft rows: the leg's own wrap span (margin 0) in boot colour inside one outline, matching the corrected E/W boot (the far-boot sliver and its inner black line were removed)",
+        "margin": 0,
+        "pattern": "c",
         "fill": "c",
         "colours": {
           "a": "#000000",
@@ -1330,9 +1330,9 @@
         "edge": "#770202"
       },
       "wrap": {
-        "rule": "line-pose boot-shaft rows: the leg's wrap span widened 1 px each side, boot colour with the reference's dark seam one pixel in",
-        "margin": 1,
-        "pattern": "cac",
+        "rule": "line-pose boot-shaft rows: the leg's own wrap span (margin 0) in boot colour inside one outline, matching the corrected E/W boot (the far-boot sliver and its inner black line were removed)",
+        "margin": 0,
+        "pattern": "c",
         "fill": "c",
         "colours": {
           "a": "#000000",
