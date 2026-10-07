@@ -963,7 +963,7 @@
         }
       },
       "NE": {
-        "rule": "N at an angle, built like SE: S/N-style row edits plus a sideways swing (+ is toward the facing, screen right). As in N, the arm swinging forward moves away from the viewer and shortens. The scissor is the reverse of SE: the legs spread with the near (R) leg forward and cross with the far (L) leg forward; that contact keeps the hips still and the near foot down, relying on the reference's 2 px higher far foot for depth. Near-arm length edits stay on the wrap rows below 33 (above it the arm's outline is also the torso/shorts edge). The far (L) side is drawn behind the body. The thighs are joined down to the crotch (row 46) in this view, so they never spread apart: the pelvis, the shorts or belt and both thigh tops sway together 1 px toward the stance leg (pelvisDx, changing at most 1 px per frame so it never jerks), and each leg's swing starts at the crotch with the planted foot held still.",
+        "rule": "N at an angle, built like SE: S/N-style row edits plus a sideways swing (+ is toward the facing, screen right). As in N, the arm swinging forward moves away from the viewer and shortens. The scissor is the reverse of SE: the legs spread with the near (R) leg forward and cross with the far (L) leg forward; that contact keeps the hips still and the near foot down, relying on the reference's 2 px higher far foot for depth. Near-arm length edits stay on the wrap rows below 33 (above it the arm's outline is also the torso/shorts edge). The far (L) side is drawn behind the body. The thighs are joined down to the crotch (row 46) in this view, so the hips stay with the pelvis and each leg's swing starts at the crotch: spreading the thighs opened doubled outlines at the seat, and a one-frame hip shift read as a jerk.",
         "approved": "2026-10-07",
         "far": "L",
         "legLift": {
@@ -1067,23 +1067,23 @@
         "hipDx": {
           "R": [
             0,
-            1,
-            1,
-            1,
             0,
-            -1,
-            -1,
-            -1
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
           ],
           "L": [
             0,
-            1,
-            1,
-            1,
             0,
-            -1,
-            -1,
-            -1
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
           ]
         },
         "footDx": {
@@ -1129,17 +1129,7 @@
             0,
             1
           ]
-        },
-        "pelvisDx": [
-          0,
-          1,
-          1,
-          1,
-          0,
-          -1,
-          -1,
-          -1
-        ]
+        }
       }
     }
   },
@@ -1215,7 +1205,7 @@
       "shoe": "#3b2014",
       "gapFill": {
         "colour": "#ddcdb4",
-        "fromRow": 33,
+        "fromRow": 35,
         "rule": "body (skin or shorts) uncovered from under the hanging sash or its swinging flaps, with cloth on both sides in the same row, takes the trouser mid colour"
       },
       "underArm": {
@@ -1282,7 +1272,7 @@
       },
       "gapFill": {
         "colour": "#adadad",
-        "fromRow": 33,
+        "fromRow": 35,
         "rule": "body (skin or shorts) uncovered from under the hanging sash or its swinging flaps, with cloth on both sides in the same row, takes the trouser mid colour"
       },
       "underArm": {
@@ -1332,7 +1322,7 @@
       },
       "gapFill": {
         "colour": "#adadad",
-        "fromRow": 33,
+        "fromRow": 35,
         "rule": "body (skin or shorts) uncovered from under the hanging sash or its swinging flaps, with cloth on both sides in the same row, takes the trouser mid colour"
       },
       "underArm": {
