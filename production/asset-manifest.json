@@ -40,7 +40,7 @@
       "generator": {"offsets": "tools/character-animate.mjs (whole-pixel part offsets: idle)", "posed": "tools/character-posed.mjs (authored leg/arm pose specs on the reference sheets: walk)"},
       "outputs": {
         "male/idle": {"spec": "production/source/characters/anim/male/idle.json", "sheets": "production/source/characters/anim/male/idle/", "layout": "one sheet per layer, rows = directions S..SW, columns = frames", "status": "approved by user 2026-10-06"},
-        "male/walk": {"spec": "production/source/characters/anim/male/walk.json", "sheets": "production/source/characters/anim/male/walk/", "layout": "one sheet per layer, rows = S, SE, E, NE, N, NW, W, SW (all 8), columns = frames; W, SW and NW mirror E, SE and NE half a cycle later so every direction shares the step phase", "status": "E, W, S, N approved by user 2026-10-06; SE/SW, the shared bob and the mirror frame shift approved 2026-10-06 as a draft state to revisit; NE/NW approved 2026-10-07; male Gi layer fitted to all 8 directions (candidate 2026-10-07); armour and shoulder layers pending"}
+        "male/walk": {"spec": "production/source/characters/anim/male/walk.json", "sheets": "production/source/characters/anim/male/walk/", "layout": "one sheet per layer, rows = S, SE, E, NE, N, NW, W, SW (all 8), columns = frames; W, SW and NW mirror E, SE and NE half a cycle later so every direction shares the step phase", "status": "E, W, S, N approved by user 2026-10-06; SE/SW, the shared bob and the mirror frame shift approved 2026-10-06 as a draft state to revisit; NE/NW approved 2026-10-07; male Gi layer fitted to all 8 directions (approved 2026-10-07); blue/red armour and shoulder layers fitted (candidate 2026-10-07)"}
       }
     },
     "characterGeometry": {

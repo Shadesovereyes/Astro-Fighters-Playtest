@@ -131,15 +131,18 @@ for (let y = 0; y < FRAME; y++) for (let x = 0; x < FRAME; x++) if (opaque(arms,
 const armRows = [...new Set([...refArm.keys()].map((k) => unkey(k)[1]))];
 const refBack = {};
 for (const y of armRows) refBack[y] = Math.min(...[...refArm.keys()].map(unkey).filter((p) => p[1] === y).map((p) => p[0]));
-function buildArm(p) {
-  let shift;
-  if (p.construction === 'reference') shift = () => 0;
-  else if (p.construction === 'pendulum') shift = (y) => roundHalfEven(p.total * (Math.min(y, AR.pendulumRigidFrom) - AR.shoulder) / (AR.pendulumRigidFrom - AR.shoulder));
-  else if (p.construction === 'line') {
+function armShift(p) {
+  if (p.construction === 'reference') return () => 0;
+  if (p.construction === 'pendulum') return (y) => roundHalfEven(p.total * (Math.min(y, AR.pendulumRigidFrom) - AR.shoulder) / (AR.pendulumRigidFrom - AR.shoulder));
+  if (p.construction === 'line') {
     const e = (y) => (y <= AR.elbow ? refBack[AR.shoulder] + p.upper * (y - AR.shoulder) / (AR.elbow - AR.shoulder)
       : refBack[AR.shoulder] + p.upper + p.lean * (y - AR.elbow) / (AR.lineHand - AR.elbow));
-    shift = (y) => Math.floor(e(Math.min(y, AR.lineHand)) + 0.5) - refBack[Math.min(y, AR.lineHand)];
-  } else throw new Error(`unknown arm construction ${p.construction}`);
+    return (y) => { const yy = Math.max(AR.shoulder, Math.min(y, AR.lineHand)); return Math.floor(e(yy) + 0.5) - refBack[yy]; };
+  }
+  throw new Error(`unknown arm construction ${p.construction}`);
+}
+function buildArm(p) {
+  const shift = armShift(p);
   if (Math.min(...armRows) < AR.shoulder) throw new Error('reference arm starts above the shoulder row');
   const out = new Map();
   for (const [k, c] of refArm) { const [x, y] = unkey(k); out.set(key(x + shift(y), y), c); }
@@ -193,6 +196,7 @@ const lagOf = (part) => (part === 'head' ? 0 : overlays.overlayParts?.[part]?.la
 
 const bob = spec.bob.dy;
 // ---- frames -------------------------------------------------------------------------------------------
+const FAR_ARM_PX = [];   // positions where the posed far arm shows (for far-arm accessories)
 const report = { cleanupRemoved: [], cleanupMerged: [], frontalOutlineAdded: {}, frontalHoleFills: {} };
 function frame(k) {
   const b = bob[k];
@@ -208,6 +212,7 @@ function frame(k) {
   for (const [p, c] of na) { const [x, y] = unkey(p); armsL.set(key(x, y + b), colourOf(c)); }
   const nearPos = new Set([...near.keys(), ...[...bodyRest.keys(), ...na.keys()].map((p) => { const [x, y] = unkey(p); return key(x, y + b); })]);
   const farPx = new Set([...farKeys].filter((p) => !nearPos.has(p)));
+  FAR_ARM_PX[k] = new Set([...fa.keys()].map((p) => { const [x, y] = unkey(p); return key(x, y + b); }).filter((p) => farPx.has(p)));
   const comp = () => { const m = new Map(bodyL); for (const [p, c] of armsL) m.set(p, c); return m; };
   let img = comp();
   for (let y = spec.cleanup.notchFromRow; y < FRAME; y++) for (let x = 0; x < FRAME; x++) {
@@ -403,11 +408,12 @@ const clothingLayers = CL.layers.map((name) => {
   if (!l) throw new Error(`clothing ${name} not in overlays.json`);
   const c = CL[name];
   return { name, img: readPng(path.join(root, l.source)), map: readPng(path.join(rigDir, l.partMap)),
-    outline: c.outline.slice(1).toLowerCase(), shoe: c.shoe.slice(1).toLowerCase(),
-    gapFill: c.gapFill.colour.slice(1).toLowerCase(),
+    outline: c.outline.slice(1).toLowerCase(), shoe: c.shoe?.slice(1).toLowerCase(),
+    gapFill: c.gapFill?.colour.slice(1).toLowerCase(),
+    legRows: c.legRows || { wrap: 56, foot: 59 },
     wrap: c.wrap && { ...c.wrap, colours: Object.fromEntries(Object.entries(c.wrap.colours).map(([a, b]) => [a, b.slice(1).toLowerCase()])) },
     trouser: c.trouser && { ...c.trouser, colours: Object.fromEntries(Object.entries(c.trouser.colours).map(([a, b]) => [a, b.slice(1).toLowerCase()])) },
-    shade: Object.fromEntries(Object.entries(c.farShade).map(([a, b]) => [a.slice(1).toLowerCase(), b.slice(1).toLowerCase()])) };
+    shade: Object.fromEntries(Object.entries(c.farShade || {}).map(([a, b]) => [a.slice(1).toLowerCase(), b.slice(1).toLowerCase()])) };
 });
 const swapSide = (p) => (p?.startsWith('R-') ? 'L-' + p.slice(2) : p?.startsWith('L-') ? 'R-' + p.slice(2) : p);
 // pixels of a clothing frame seen in the orientation of `geom` (flipped and side-swapped when the frame is a mirror)
@@ -438,8 +444,8 @@ function posedClothing(l, px, k) {
   const legPx = px.filter((p) => LIMB[p.part]?.[0] === 'leg');
   const byRow = {}; for (const p of legPx) (byRow[p.y] ??= []).push(p);
   const legRows = Object.keys(byRow).map(Number), top = Math.min(...legRows);
-  const S = CL.posedLegRows;   // reference rows: thigh top..knee, shin to the row above the wrap, wrap rows, shoe rows
-  for (const [which, z] of [['far', 0], ['near', 2]]) {
+  const LR = l.legRows, BODY_WRAP = 56;   // LR.wrap: first rigid row of the garment's ankle (wrap / boot); LR.foot: first shoe row
+  for (const [which, z] of legPx.length ? [['far', 0], ['near', 2]] : []) {
     const pose = L.poses[L[which][k]], legMap = legPoses[L[which][k]], back = rowsOf(legMap);
     const col = (c) => (which === 'far' ? (l.shade[c] ?? c) : c);
     const put = (srcRow, t, dx) => { for (const p of byRow[srcRow] || []) items.push([z, p.x + dx, t, col(p.c), p.src]); };
@@ -447,27 +453,28 @@ function posedClothing(l, px, k) {
     // trouser margins, shaded with the trouser row pattern; the row above the wrap is the hem (outline).
     const T = l.trouser, extent = {};
     for (const p of legMap.keys()) { const [x, y] = unkey(p); const e = (extent[y] ??= [99, -1]); e[0] = Math.min(e[0], x); e[1] = Math.max(e[1], x); }
-    for (let t = pose.hipRow - 1; t <= pose.wrapRow - 1; t++) {
+    const shift = pose.wrapRow - BODY_WRAP, hemRow = LR.wrap + shift - 1;
+    for (let t = pose.hipRow - 1; t <= hemRow; t++) {
       const e = extent[t] ?? extent[t + 1] ?? extent[t - 1];
       const x0 = e[0] - T.back, x1 = e[1] + T.front, n = x1 - x0 - 1;
-      const hem = t === pose.wrapRow - 1, thighRow = t <= pose.kneeRow;
+      const hem = t === hemRow, thighRow = t <= pose.kneeRow;
       const half = Math.ceil((n - 2) / 2), pat = hem ? 'a'.repeat(n) : 'd' + 'c'.repeat(half) + 'b'.repeat(n - 2 - half) + (thighRow ? T.thighFront : T.shinFront);
       const row = 'a' + (t === pose.kneeRow + 1 && !hem ? pat.slice(0, 1) + 'd' + pat.slice(2) : pat) + 'a';
       [...row].forEach((c, j) => items.push([z, x0 + j, t, col(T.colours[c]), null]));
     }
     if (pose.construction === 'reference-ankle') {
-      for (let sr = S.wrap; sr < FRAME; sr++) put(sr, sr + pose.wrapRow - S.wrap, pose.ankleX - ankleX);
+      for (let sr = LR.wrap; sr < FRAME; sr++) put(sr, sr + shift, pose.ankleX - ankleX);
     } else {
       // wrap rows follow the shin line: each is the leg's wrap span widened by the reference wrap margins,
       // striped with the wrap pattern
       const Wp = l.wrap;
-      for (let i = 0; i < 3; i++) {
-        const t = pose.wrapRow + i, e = extent[t], x0 = e[0] - Wp.margin, n = e[1] - e[0] + 2 * Wp.margin - 1;
+      for (let t = LR.wrap + shift; t <= pose.wrapRow + 2; t++) {
+        const e = extent[t], x0 = e[0] - Wp.margin, n = e[1] - e[0] + 2 * Wp.margin - 1;
         const row = 'a' + (Wp.pattern + Wp.fill.repeat(Math.max(0, n - Wp.pattern.length))).slice(0, n) + 'a';
         [...row].forEach((c, j) => items.push([z, x0 + j, t, col(Wp.colours[c]), null]));
       }
       const bot = pose.wrapRow + 2;
-      if (pose.foot === 'flat') for (let sr = S.wrap + 3; sr < FRAME; sr++) put(sr, sr + pose.wrapRow - S.wrap, pose.footX - ankleX);
+      if (pose.foot === 'flat') for (let sr = LR.foot; sr < FRAME; sr++) put(sr, sr + shift, pose.footX - ankleX);
       else L.feet[pose.foot].rows.forEach((row, r) => [...row].forEach((c, j) => {
         if (c !== '.') items.push([z, pose.footX - 1 + j, bot + 1 + r, col(c === '#' ? l.outline : l.shoe), null]);
       }));
@@ -475,21 +482,30 @@ function posedClothing(l, px, k) {
   }
   // Jacket under the reference near arm: the arm swings away from it, so its under-arm shading becomes jacket
   // base colour (the pixel against the jacket's own outline keeps the edge shade).
-  const sway = sashSway(spec.sourceDirection, px, k);
-  const under = Object.fromEntries(Object.entries(CL[l.name].underArm).map(([k2, v]) => [k2, v.slice(1).toLowerCase()])), at = new Map(px.map((p) => [key(p.x, p.y), p]));
+  const sway = sashSway(spec.sourceDirection, px, k, l);
+  const under = CL[l.name].underArm && Object.fromEntries(Object.entries(CL[l.name].underArm).map(([k2, v]) => [k2, v.slice(1).toLowerCase()])), at = new Map(px.map((p) => [key(p.x, p.y), p]));
+  const nearArm = armShift(A.near[k]), farArm = armShift(A.far[k]);
   for (const p of px) {
     if (LIMB[p.part]?.[0] === 'leg') continue;
+    if (LIMB[p.part]?.[0] === 'arm') {
+      const near = nearSide.arm.includes(p.part);
+      items.push([near ? 4 : -1, p.x + (near ? nearArm : farArm)(p.y), p.y + b, p.c, p.src]);
+      // the far arm is hidden in the profile reference, so its pieces are the near ones on the far arm, shaded
+      // darker and kept only where the far arm itself shows
+      if (near) items.push([-1, p.x + farArm(p.y), p.y + b, l.shade[p.c] ?? p.c, null, 'farArm']);
+      continue;
+    }
     let c = p.c;
-    if (p.part === 'torso' && refArm.has(key(p.x, p.y)) && c !== l.outline) c = at.get(key(p.x + 1, p.y))?.c === l.outline ? under.edge : under.base;
-    const lag = p.part === 'sash' && !isBand(p) ? lagOf('sash') : 0;
+    if (under && p.part === 'torso' && refArm.has(key(p.x, p.y)) && c !== l.outline) c = at.get(key(p.x + 1, p.y))?.c === l.outline ? under.edge : under.base;
+    const lag = p.part === 'sash' && !isBand(p, l) ? lagOf('sash') : 0;
     items.push([p.part === 'sash' ? 3 : 1, p.x + sway(p), p.y + dyOf[lag], c, p.src]);
   }
   return items;
 }
-function frontalClothing(geom, px, k) {
-  const d = FR.views[geom], items = [], sway = sashSway(geom, px, k);
+function frontalClothing(l, geom, px, k) {
+  const d = FR.views[geom], items = [], sway = sashSway(geom, px, k, l);
   for (const p of px) {
-    const part = p.part === 'sash' && isBand(p) ? 'pelvis' : p.part;
+    const part = p.part === 'sash' && isBand(p, l) ? 'pelvis' : p.part;
     const { rows, dx, z } = frontalMove(d, k, part, p.y);
     for (const ny of rows) items.push([p.part === 'sash' ? 3 : z, p.x + dx + sway(p), ny, p.c, p.src]);
   }
@@ -498,19 +514,22 @@ function frontalClothing(geom, px, k) {
 // The sash's hanging flaps swing from the knot: rows below the knot row shift sideways, growing to sashSway[k] at the
 // flaps' lowest row (a pendulum, phased with the step). The band and knot stay with the waist.
 // With bandFollowsBody the band and knot (rows down to knotRow) move exactly with the waist; only the flaps lag.
-const isBand = (p) => !!CL.sash?.bandFollowsBody && p.y <= CL.sash.knotRow;
-function sashSway(geom, px, k) {
+const knotOf = (l) => CL[l.name]?.sashKnotRow ?? CL.sash.knotRow;
+const isBand = (p, l) => !!CL.sash?.bandFollowsBody && p.y <= knotOf(l);
+function sashSway(geom, px, k, l) {
   const sw = CL.sash, table = sw?.sway?.[geom];
   if (!table) return () => 0;
   const rows = px.filter((p) => p.part === 'sash').map((p) => p.y), bottom = Math.max(...rows);
-  return (p) => (p.part === 'sash' && p.y > sw.knotRow && bottom > sw.knotRow ? roundHalfEven(table[k] * (p.y - sw.knotRow) / (bottom - sw.knotRow)) : 0);
+  const knot = knotOf(l);
+  return (p) => (p.part === 'sash' && p.y > knot && bottom > knot ? roundHalfEven(table[k] * (p.y - knot) / (bottom - knot)) : 0);
 }
 const refClothingExposed = {};
 function clothingFrame(l, dir, k, fr) {
   const m = mirrors[dir], geom = m ? m.from : dir;
   const flip = !!m, kk = m ? (k + (m.frameShift || 0)) % F : k;
   const px = clothingPixels(l, dir, flip);
-  const items = geom === spec.sourceDirection ? posedClothing(l, px, kk) : frontalClothing(geom, px, kk);
+  const items = (geom === spec.sourceDirection ? posedClothing(l, px, kk) : frontalClothing(l, geom, px, kk))
+    .filter((it) => it[5] !== 'farArm' || FAR_ARM_PX[kk].has(key(it[1], it[2])));
   const layer = new Map(), src = new Map();
   for (const [, x, y, c, s0] of items.sort((a, c) => a[0] - c[0])) {
     const X = flip ? FRAME - 1 - x : x;
@@ -523,7 +542,7 @@ function clothingFrame(l, dir, k, fr) {
   for (const [p, c] of fr.body) {
     if (c === BLACK || layer.has(p) || fr.arms.has(p)) continue;
     const [x, y] = unkey(p);
-    if (y < CL[l.name].gapFill.fromRow) continue;
+    if (!l.gapFill || y < CL[l.name].gapFill.fromRow) continue;
     const near = (dx) => [1, 2, 3].some((i) => layer.has(key(x + dx * i, y)));
     if (near(1) && near(-1)) { layer.set(p, l.gapFill); filled++; }
   }
