@@ -539,12 +539,15 @@ function clothingFrame(l, dir, k, fr) {
   // it, the uncovered body (skin or shorts) gets the trouser colour, but only between clothing pixels on the same row,
   // so a hand beside the body stays visible.
   let filled = 0;
+  // A body outline pixel left showing inside the garment (where hip-shifted leg cloth parts from the waist cloth)
+  // is filled too when cloth touches it on both sides or directly above and below (pinholes only, not the gap between legs).
   for (const [p, c] of fr.body) {
-    if (c === BLACK || layer.has(p) || fr.arms.has(p)) continue;
+    if (layer.has(p) || fr.arms.has(p)) continue;
     const [x, y] = unkey(p);
     if (!l.gapFill || y < CL[l.name].gapFill.fromRow) continue;
-    const near = (dx) => [1, 2, 3].some((i) => layer.has(key(x + dx * i, y)));
-    if (near(1) && near(-1)) { layer.set(p, l.gapFill); filled++; }
+    const near = (dx, reach) => Array.from({ length: reach }, (_, i) => i + 1).some((i) => layer.has(key(x + dx * i, y)));
+    const boxed = (near(1, 1) && near(-1, 1)) || (layer.has(key(x, y - 1)) && layer.has(key(x, y + 1)));
+    if (c === BLACK ? boxed : near(1, 3) && near(-1, 3)) { layer.set(p, l.gapFill); filled++; }
   }
   report.clothingGapFill[`${l.name} ${dir}:${k}`] = filled;
   // outline where clothing newly meets empty space
@@ -556,18 +559,68 @@ function clothingFrame(l, dir, k, fr) {
       .filter((p) => { if (!opaque(l.img, fx + unkey(p)[0], unkey(p)[1])) return false; const [x, y] = unkey(p); return N4.some(([dx, dy]) => !ref.has(key(x + dx, y + dy))); }));
   }
   const fig = new Map([...fr.body, ...fr.arms, ...layer]);
+  const closingAdded = new Set();
   let added = 0;
   for (const [p, c] of [...layer]) {
     if (c === l.outline || c === BLACK) continue;
     const s0 = src.get(p);
     if (s0 && refClothingExposed[refKey].has(s0)) continue;
     const [x, y] = unkey(p);
-    for (const [dx, dy] of N4) { const q = key(x + dx, y + dy); if (!fig.has(q)) { layer.set(q, l.outline); fig.set(q, l.outline); added++; } }
+    for (const [dx, dy] of N4) { const q = key(x + dx, y + dy); if (!fig.has(q)) { layer.set(q, l.outline); fig.set(q, l.outline); closingAdded.add(q); added++; } }
+  }
+  // second pass after the outline: a body pixel still showing between cloth (left/right or above/below) is a
+  // pinhole and takes the gap colour
+  if (l.gapFill) for (const [p, c] of fr.body) {
+    if (c === BLACK || layer.has(p) || fr.arms.has(p)) continue;
+    const [x, y] = unkey(p);
+    if (y < CL[l.name].gapFill.fromRow) continue;
+    if ((layer.has(key(x - 1, y)) && layer.has(key(x + 1, y))) || (layer.has(key(x, y - 1)) && layer.has(key(x, y + 1)))) { layer.set(p, l.gapFill); filled++; }
+  }
+  report.clothingGapFill[`${l.name} ${dir}:${k}`] = filled;
+  // Loose bits between the legs: cloth specks of 1-2 px cut off from the garment, and outline pixels that no
+  // longer border any cloth, are removed (lower body only, where moved leg pieces can leave them behind). Bits that
+  // are already loose in the reference drawing are kept.
+  const looseIn = (m, isCloth) => {
+    const out = new Set(), seen = new Set();
+    for (const [p] of m) {
+      const [, y] = unkey(p);
+      if (y < CL.looseFromRow || seen.has(p) || !isCloth(p)) continue;
+      const comp = [p], stack = [p]; seen.add(p);
+      while (stack.length) { const [cx, cy] = unkey(stack.pop()); for (const [dx, dy] of N4) { const q = key(cx + dx, cy + dy); if (!seen.has(q) && isCloth(q)) { seen.add(q); comp.push(q); stack.push(q); } } }
+      if (comp.length <= 2) comp.forEach((q) => out.add(q));
+    }
+    for (const [p] of m) {
+      const [x, y] = unkey(p);
+      if (y < CL.looseFromRow || isCloth(p)) continue;
+      let any = false;
+      for (let dy = -1; dy <= 1 && !any; dy++) for (let dx = -1; dx <= 1 && !any; dx++) if ((dx || dy) && isCloth(key(x + dx, y + dy))) any = true;
+      if (!any) out.add(p);
+    }
+    return out;
+  };
+  const refLooseKey = `loose:${l.name}:${dir}`;
+  if (!refClothingExposed[refLooseKey]) {
+    const ref = new Map();
+    for (let y = 0; y < FRAME; y++) for (let x = 0; x < FRAME; x++) if (opaque(l.img, fx + x, y)) ref.set(key(x, y), hexAt(l.img, fx + x, y));
+    refClothingExposed[refLooseKey] = looseIn(ref, (q) => ref.has(q) && ref.get(q) !== l.outline && ref.get(q) !== BLACK);
+  }
+  let loose = 0;
+  for (let pass = 0; pass < 4; pass++) {
+    const drop = [...looseIn(layer, (q) => layer.has(q) && layer.get(q) !== l.outline && layer.get(q) !== BLACK)]
+      // only reference pixels left behind (and outline the renderer added around them); authored pieces such as a
+      // drawn toe-down shoe are never touched
+      .filter((p) => (src.get(p) ? !refClothingExposed[refLooseKey].has(src.get(p)) : closingAdded.has(p)))
+      // never uncover the body: a far boot or trouser sliver that still covers a foot or leg stays
+      .filter((p) => !fr.body.has(p) || fr.body.get(p) === BLACK);
+    if (!drop.length) break;
+    for (const p of drop) layer.delete(p);
+    loose += drop.length;
   }
   report.clothingOutlineAdded[`${l.name} ${dir}:${k}`] = added;
+  report.clothingLooseRemoved[`${l.name} ${dir}:${k}`] = loose;
   return layer;
 }
-report.clothingOutlineAdded = {}; report.clothingGapFill = {};
+report.clothingOutlineAdded = {}; report.clothingGapFill = {}; report.clothingLooseRemoved = {};
 
 // ---- sheets ---------------------------------------------------------------------------------------------
 const W = F * FRAME, H = spec.directions.length * FRAME;
