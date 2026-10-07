@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "walk",
-  "status": "approved by user 2026-10-06: E authored (8 frames); W = mirror of E; S and N by row edits; SE/SW approved as a draft (revisit); NE/NW approved 2026-10-07",
+  "status": "approved by user 2026-10-06: E authored (8 frames); W = mirror of E; S and N by row edits; SE/SW approved as a draft (revisit); NE/NW approved 2026-10-07; full 8-direction walk with Gi and both armours approved 2026-10-07",
   "frames": 8,
   "fps": 10,
   "sourceDirection": "E",
@@ -964,7 +964,7 @@
       },
       "NE": {
         "rule": "N at an angle, built like SE: S/N-style row edits plus a sideways swing (+ is toward the facing, screen right). As in N, the arm swinging forward moves away from the viewer and shortens. The scissor is the reverse of SE: the legs spread with the near (R) leg forward and cross with the far (L) leg forward; that contact keeps the hips still and the near foot down, relying on the reference's 2 px higher far foot for depth. Near-arm length edits stay on the wrap rows below 33 (above it the arm's outline is also the torso/shorts edge). The far (L) side is drawn behind the body. The thighs are joined down to the crotch (row 46) in this view, so the hips do not shift sideways (spreading them opened doubled outlines at the seat, and a one-frame hip shift read as a jerk); each leg swings from the hip row (39), so the upper thigh angles with the stride.",
-        "approved": "2026-10-07",
+        "approved": "2026-10-07 (leg swing from the hip, no sideways hip shift)",
         "far": "L",
         "legLift": {
           "R": [
@@ -1135,7 +1135,7 @@
   },
   "clothing": {
     "rule": "Layer 2 clothing follows the body it is registered to. Front, back and diagonal views move each clothing pixel exactly like the body pixel of the same part. In the authored profile (E) each trouser row is resampled onto the posed leg (thigh rows onto the pose's thigh rows, shin rows onto its shin rows) and shifted by the leg's back edge; wrap and shoe follow the ankle (reference-ankle poses) or the shin line and the authored foot (line poses), where a toe-down foot is drawn as the foot's own shape in the shoe colours. The far trouser leg is the near one on the far pose, shaded one step darker and drawn behind. A mirrored direction whose clothing is not an exact mirror is built from its own clothing frame, flipped through its source's motion. Where clothing newly meets empty space it gets the clothing's outline colour.",
-    "approved": "male-gi approved 2026-10-07; armours and shoulder pieces candidate",
+    "approved": "male-gi, male-blue-armor, male-red-armor and both shoulder pieces approved by user 2026-10-07",
     "layers": [
       "male-gi",
       "male-blue-armor",
