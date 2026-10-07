@@ -19,6 +19,8 @@ const BODY_SHEETS = {
 const NEAR = { E: { leg: ['R-thigh', 'R-shin-foot'], arm: ['R-upper-arm', 'R-forearm-hand'] } };
 const LEG_PARTS = ['R-thigh', 'R-shin-foot', 'L-thigh', 'L-shin-foot'];
 const N4 = [[1, 0], [-1, 0], [0, 1], [0, -1]];
+const LIMB = { 'R-thigh': ['leg', 'R'], 'R-shin-foot': ['leg', 'R'], 'L-thigh': ['leg', 'L'], 'L-shin-foot': ['leg', 'L'],
+  'R-upper-arm': ['arm', 'R'], 'R-forearm-hand': ['arm', 'R'], 'L-upper-arm': ['arm', 'L'], 'L-forearm-hand': ['arm', 'L'] };
 
 const [bodyName, state, flag] = process.argv.slice(2);
 if (!bodyName || !state) { console.error('Usage: node tools/character-posed.mjs <body> <state> [--check]'); process.exit(2); }
@@ -186,6 +188,24 @@ for (let x = 0; x < FRAME; x++) {
   if (bodyRest.get(key(x, r)) === 'd' && bodyRest.get(key(x + 1, r)) === 'W' && ['W', 'w'].includes(bodyRest.get(key(x - 1, r)))) bodyRest.set(key(x, r), 'W');
 }
 
+// ---- lean (optional) --------------------------------------------------------------------------------------
+// A forward lean is stacked whole-pixel offsets toward the facing: pelvis, torso (with the arms, which hang from the
+// shoulders) and head (with hair and eyes) each move sideways as a block. Legs are authored per pose and do not lean.
+// The arm-removal fills belong to the torso up to torsoMaxRow and to the pelvis below.
+const LEAN = spec.lean?.dx;
+for (const [g, v] of Object.entries(LEAN || {})) if (Array.isArray(v) && v.length !== F) throw new Error(`lean ${g} needs ${F} entries`);
+const leanGroup = (part, y) => {
+  if (!part || LEG_PARTS.includes(part)) return null;
+  if (part === 'head' || overlays.overlayParts?.[part]?.lagFrames !== undefined && part !== 'sash') return 'head';
+  if (part === 'torso') return 'torso';
+  if (part === 'pelvis' || part === 'sash') return 'pelvis';
+  if (LIMB[part]?.[0] === 'arm') return y === undefined || y <= R.torsoMaxRow ? 'torso' : 'pelvis';
+  return null;
+};
+const leanOf = (group, k) => { const v = group && LEAN?.[group]; return Array.isArray(v) ? v[k] : (v || 0); };
+const restGroup = new Map();
+for (const p of bodyRest.keys()) { const [x, y] = unkey(p); restGroup.set(p, leanGroup(bodyPart(x, y), y)); }
+
 // ---- overlays (hair, eyes) ------------------------------------------------------------------------------
 const overlayLayers = spec.overlays.layers.map((name) => {
   const l = overlays.layers.find((o) => path.basename(o.partMap, '.png') === name);
@@ -202,15 +222,28 @@ function frame(k) {
   const b = bob[k];
   const bodyL = new Map(), armsL = new Map();
   const far = legPoses[L.far[k]], near = legPoses[L.near[k]];
-  const na = closeArm(buildArm(A.near[k]), (x, y, q) => y < AR.shoulder || bodyRest.has(q));
-  const fa = closeArm(buildArm(A.far[k]), (x, y) => y < AR.shoulder);
+  const T = leanOf('torso', k);
+  const shifted = (m) => new Map([...m].map(([p, c]) => { const [x, y] = unkey(p); return [key(x + T, y), c]; }));
+  const rest = new Map([...bodyRest].map(([p, c]) => { const [x, y] = unkey(p); return [key(x + leanOf(restGroup.get(p), k), y), c]; }));
+  // where the lean slides one block past the next (torso over pelvis, head over neck), an edge that was covered in the
+  // reference is now open and gets outline
+  if (LEAN) for (const [p, c] of bodyRest) {
+    if (c === '#' || c === 'o') continue;
+    const [x, y] = unkey(p), lx = x + leanOf(restGroup.get(p), k);
+    for (const [dx, dy] of N4) {
+      const q = key(lx + dx, y + dy);
+      if (bodyRest.has(key(x + dx, y + dy)) && !rest.has(q)) rest.set(q, 'o');
+    }
+  }
+  const na = closeArm(shifted(buildArm(A.near[k])), (x, y, q) => y < AR.shoulder || rest.has(q));
+  const fa = closeArm(shifted(buildArm(A.far[k])), (x, y) => y < AR.shoulder);
   for (const [p, c] of far) bodyL.set(p, colourOf(farShade[c]));
   for (const [p, c] of fa) { const [x, y] = unkey(p); bodyL.set(key(x, y + b), colourOf(farShade[c])); }
   const farKeys = new Set(bodyL.keys());
   for (const [p, c] of near) bodyL.set(p, colourOf(c));
-  for (const [p, c] of bodyRest) { const [x, y] = unkey(p); bodyL.set(key(x, y + b), colourOf(c)); }
+  for (const [p, c] of rest) { const [x, y] = unkey(p); bodyL.set(key(x, y + b), colourOf(c)); }
   for (const [p, c] of na) { const [x, y] = unkey(p); armsL.set(key(x, y + b), colourOf(c)); }
-  const nearPos = new Set([...near.keys(), ...[...bodyRest.keys(), ...na.keys()].map((p) => { const [x, y] = unkey(p); return key(x, y + b); })]);
+  const nearPos = new Set([...near.keys(), ...[...rest.keys(), ...na.keys()].map((p) => { const [x, y] = unkey(p); return key(x, y + b); })]);
   const farPx = new Set([...farKeys].filter((p) => !nearPos.has(p)));
   FAR_ARM_PX[k] = new Set([...fa.keys()].map((p) => { const [x, y] = unkey(p); return key(x, y + b); }).filter((p) => farPx.has(p)));
   const comp = () => { const m = new Map(bodyL); for (const [p, c] of armsL) m.set(p, c); return m; };
@@ -260,7 +293,7 @@ function frame(k) {
       if (!opaque(l.img, ox + x, y)) continue;
       const part = colourToPart.get(hexAt(l.map, ox + x, y)), lag = lagOf(part);
       if (lag === undefined) throw new Error(`${l.name}: pixel ${x},${y} has part ${part}, which has no walk motion`);
-      m.set(key(x, y + dyOf[lag]), hexAt(l.img, ox + x, y));
+      m.set(key(x + leanOf(leanGroup(part), k), y + dyOf[lag]), hexAt(l.img, ox + x, y));
     }
     ov[l.name] = m;
   }
@@ -288,8 +321,6 @@ for (const [dir, { from }] of Object.entries(mirrors)) {
 // No new pixels: a limb gets shorter by dropping listed reference rows and longer by repeating them; every row of
 // that limb below the edit moves with it. Parts above the legs bob as a block.
 const FR = spec.frontal;
-const LIMB = { 'R-thigh': ['leg', 'R'], 'R-shin-foot': ['leg', 'R'], 'L-thigh': ['leg', 'L'], 'L-shin-foot': ['leg', 'L'],
-  'R-upper-arm': ['arm', 'R'], 'R-forearm-hand': ['arm', 'R'], 'L-upper-arm': ['arm', 'L'], 'L-forearm-hand': ['arm', 'L'] };
 function partNear(map, fx, x, y) {
   if (opaque(map, fx + x, y)) { const p = colourToPart.get(hexAt(map, fx + x, y)); if (p) return p; }
   for (let r = 1; r <= 3; r++) for (let dy = -r; dy <= r; dy++) for (let dx = -r; dx <= r; dx++) {
@@ -490,7 +521,7 @@ function posedClothing(l, px, k) {
   // base colour (the pixel against the jacket's own outline keeps the edge shade).
   const sway = sashSway(spec.sourceDirection, px, k, l);
   const under = CL[l.name].underArm && Object.fromEntries(Object.entries(CL[l.name].underArm).map(([k2, v]) => [k2, v.slice(1).toLowerCase()])), at = new Map(px.map((p) => [key(p.x, p.y), p]));
-  const nearArm = armShift(A.near[k]), farArm = armShift(A.far[k]);
+  const T = leanOf('torso', k), nearArm = (y) => armShift(A.near[k])(y) + T, farArm = (y) => armShift(A.far[k])(y) + T;
   for (const p of px) {
     if (LIMB[p.part]?.[0] === 'leg') continue;
     if (LIMB[p.part]?.[0] === 'arm') {
@@ -504,8 +535,9 @@ function posedClothing(l, px, k) {
     let c = p.c;
     if (under && p.part === 'torso' && refArm.has(key(p.x, p.y)) && c !== l.outline) c = at.get(key(p.x + 1, p.y))?.c === l.outline ? under.edge : under.base;
     const lag = p.part === 'sash' && !isBand(p, l) ? lagOf('sash') : 0;
-    items.push([p.part === 'sash' ? 3 : 1, p.x + sway(p), p.y + dyOf[lag], c, p.src]);
-    if (p.part === 'sash' && !isBand(p, l) && l.gapFill) items.push([-2, p.x, p.y + dyOf[lag], l.gapFill, null, 'backing']);
+    const ln = leanOf(leanGroup(p.part, p.y), k);
+    items.push([p.part === 'sash' ? 3 : 1, p.x + sway(p) + ln, p.y + dyOf[lag], c, p.src]);
+    if (p.part === 'sash' && !isBand(p, l) && l.gapFill) items.push([-2, p.x + ln, p.y + dyOf[lag], l.gapFill, null, 'backing']);
   }
   return items;
 }
@@ -700,7 +732,8 @@ for (const dir of spec.directions) all[dir].forEach((fr, k) => {
   if (notches) qc.outlineNotches[id] = notches;
   if (off) qc.offPalette[id] = off;
   // a planted foot must sit as low as the higher of the reference's two feet (in a diagonal the far foot stands higher)
-  if (Math.max(...[...fig.keys()].map((p) => unkey(p)[1])) < footLine(dir)) qc.groundContact = false;
+  // frames listed as airborne (the flight phase of a run) have both feet off the ground
+  if (!(spec.airborneFrames || []).includes(k) && Math.max(...[...fig.keys()].map((p) => unkey(p)[1])) < footLine(dir)) qc.groundContact = false;
 });
 qc.cleanup = report;
 qc.pass = Object.values(mirrorValid).every(Boolean) && qc.groundContact
