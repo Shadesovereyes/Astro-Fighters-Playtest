@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "sprint",
-  "status": "candidate: E sprint draft (W = mirror of E)",
+  "status": "candidate: E sprint draft v6 (W = mirror of E); lean via torso shear, arms straight and raised",
   "frames": 8,
   "fps": 14,
   "sourceDirection": "E",
@@ -60,11 +60,11 @@
     7
   ],
   "lean": {
-    "rule": "Stacked whole-pixel offsets toward the facing (+x in E): each group moves as a block. Arms hang from the torso; hair and eyes go with the head.",
+    "rule": "Forward lean toward the facing (+x in E). Pelvis and head move as blocks; with torsoShear each torso row moves on the straight line between them, so the back is one slanted line. Arms hang from the shoulder row; hair and eyes go with the head.",
+    "torsoShear": true,
     "dx": {
       "pelvis": 1,
-      "torso": 3,
-      "head": 5
+      "head": 8
     }
   },
   "rootMotion": {
@@ -315,74 +315,91 @@
     "constructions": {
       "reference": "the reference arm unchanged",
       "pendulum": "swing from the shoulder: dx grows linearly from the shoulder row to row pendulumRigidFrom and reaches 'total' there (rounded half to even); the wrist wrap and hand below move rigidly with it",
-      "line": "each row's back edge is placed on a straight line: shoulder to elbow moves 'upper' px, elbow to lineHand leans 'lean' px (measured from the shoulder's back column, rounded half up); rows below lineHand move with it"
+      "line": "each row's back edge is placed on a straight line: shoulder to elbow moves 'upper' px, elbow to lineHand leans 'lean' px (measured from the shoulder's back column, rounded half up); rows below lineHand move with it",
+      "straight": "the whole arm, wrist and hand included, on one straight line from the shoulder: dx grows linearly from the shoulder row to the arm's lowest row, reaching total there. 'drop' removes that many rows, evenly spaced between the shoulder row and the wrist wrap, so the raised arm keeps its length"
     },
     "near": [
       {
-        "construction": "pendulum",
-        "total": -12
+        "construction": "straight",
+        "total": -18,
+        "drop": 6
       },
       {
-        "construction": "pendulum",
-        "total": -12
+        "construction": "straight",
+        "total": -18,
+        "drop": 6
       },
       {
-        "construction": "pendulum",
-        "total": -13
+        "construction": "straight",
+        "total": -19,
+        "drop": 6
       },
       {
-        "construction": "pendulum",
-        "total": -13
+        "construction": "straight",
+        "total": -19,
+        "drop": 6
       },
       {
-        "construction": "pendulum",
-        "total": -12
+        "construction": "straight",
+        "total": -18,
+        "drop": 6
       },
       {
-        "construction": "pendulum",
-        "total": -12
+        "construction": "straight",
+        "total": -18,
+        "drop": 6
       },
       {
-        "construction": "pendulum",
-        "total": -13
+        "construction": "straight",
+        "total": -19,
+        "drop": 6
       },
       {
-        "construction": "pendulum",
-        "total": -13
+        "construction": "straight",
+        "total": -19,
+        "drop": 6
       }
     ],
     "far": [
       {
-        "construction": "pendulum",
-        "total": -10
+        "construction": "straight",
+        "total": -16,
+        "drop": 5
       },
       {
-        "construction": "pendulum",
-        "total": -10
+        "construction": "straight",
+        "total": -16,
+        "drop": 5
       },
       {
-        "construction": "pendulum",
-        "total": -9
+        "construction": "straight",
+        "total": -15,
+        "drop": 5
       },
       {
-        "construction": "pendulum",
-        "total": -9
+        "construction": "straight",
+        "total": -15,
+        "drop": 5
       },
       {
-        "construction": "pendulum",
-        "total": -10
+        "construction": "straight",
+        "total": -16,
+        "drop": 5
       },
       {
-        "construction": "pendulum",
-        "total": -10
+        "construction": "straight",
+        "total": -16,
+        "drop": 5
       },
       {
-        "construction": "pendulum",
-        "total": -9
+        "construction": "straight",
+        "total": -15,
+        "drop": 5
       },
       {
-        "construction": "pendulum",
-        "total": -9
+        "construction": "straight",
+        "total": -15,
+        "drop": 5
       }
     ],
     "outline": "Arm pixels touching empty space get an outline, except above the shoulder row; the near arm is not outlined where it lies over the body (its dark back column separates it)."

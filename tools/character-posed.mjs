@@ -136,6 +136,12 @@ for (const y of armRows) refBack[y] = Math.min(...[...refArm.keys()].map(unkey).
 function armShift(p) {
   if (p.construction === 'reference') return () => 0;
   if (p.construction === 'pendulum') return (y) => roundHalfEven(p.total * (Math.min(y, AR.pendulumRigidFrom) - AR.shoulder) / (AR.pendulumRigidFrom - AR.shoulder));
+  // straight: the whole arm, hand included, on one line from the shoulder (no rigid forearm or wrist); a raised arm
+  // drops rows between the shoulder and the wrist wrap so it keeps its length while it angles away
+  if (p.construction === 'straight') {
+    const row = armRow(p), bottom = row(Math.max(...armRows));
+    return (y) => { const ny = row(y); return ny === null || ny <= AR.shoulder ? 0 : roundHalfEven(p.total * (ny - AR.shoulder) / (bottom - AR.shoulder)); };
+  }
   if (p.construction === 'line') {
     const e = (y) => (y <= AR.elbow ? refBack[AR.shoulder] + p.upper * (y - AR.shoulder) / (AR.elbow - AR.shoulder)
       : refBack[AR.shoulder] + p.upper + p.lean * (y - AR.elbow) / (AR.lineHand - AR.elbow));
@@ -143,11 +149,21 @@ function armShift(p) {
   }
   throw new Error(`unknown arm construction ${p.construction}`);
 }
+// Rows of a raised arm: 'drop' rows, evenly spaced between the shoulder row and the wrist wrap (pendulumRigidFrom),
+// are removed and every row below moves up; other constructions keep every row.
+function armRow(p) {
+  const n = p.drop || 0;
+  if (!n) return (y) => y;
+  const lo = AR.shoulder + 1, span = AR.pendulumRigidFrom - lo;
+  if (n >= span) throw new Error(`arm drop ${n} leaves no upper arm`);
+  const dropped = Array.from({ length: n }, (_, i) => lo + Math.floor((i + 0.5) * span / n));
+  return (y) => (dropped.includes(y) ? null : y - dropped.filter((r) => r < y).length);
+}
 function buildArm(p) {
-  const shift = armShift(p);
+  const shift = armShift(p), row = armRow(p);
   if (Math.min(...armRows) < AR.shoulder) throw new Error('reference arm starts above the shoulder row');
   const out = new Map();
-  for (const [k, c] of refArm) { const [x, y] = unkey(k); out.set(key(x + shift(y), y), c); }
+  for (const [k, c] of refArm) { const [x, y] = unkey(k), ny = row(y); if (ny !== null) out.set(key(x + shift(y), ny), c); }
   return out;
 }
 function closeArm(out, keep) {
@@ -192,7 +208,9 @@ for (let x = 0; x < FRAME; x++) {
 // A forward lean is stacked whole-pixel offsets toward the facing: pelvis, torso (with the arms, which hang from the
 // shoulders) and head (with hair and eyes) each move sideways as a block. Legs are authored per pose and do not lean.
 // The arm-removal fills belong to the torso up to torsoMaxRow and to the pelvis below.
-const LEAN = spec.lean?.dx;
+// With lean.torsoShear the torso is not a block: each torso row moves by the straight line from the pelvis offset
+// (below torsoMaxRow) to the head offset (above the shoulder row), so the back stays one slanted line.
+const LEAN = spec.lean?.dx, TORSO_SHEAR = !!spec.lean?.torsoShear;
 for (const [g, v] of Object.entries(LEAN || {})) if (Array.isArray(v) && v.length !== F) throw new Error(`lean ${g} needs ${F} entries`);
 const leanGroup = (part, y) => {
   if (!part || LEG_PARTS.includes(part)) return null;
@@ -202,7 +220,12 @@ const leanGroup = (part, y) => {
   if (LIMB[part]?.[0] === 'arm') return y === undefined || y <= R.torsoMaxRow ? 'torso' : 'pelvis';
   return null;
 };
-const leanOf = (group, k) => { const v = group && LEAN?.[group]; return Array.isArray(v) ? v[k] : (v || 0); };
+const leanVal = (group, k) => { const v = group && LEAN?.[group]; return Array.isArray(v) ? v[k] : (v || 0); };
+const leanOf = (group, k, y) => {
+  if (group !== 'torso' || !TORSO_SHEAR) return leanVal(group, k);
+  const lo = R.torsoMaxRow + 1, hi = AR.shoulder - 1, yy = Math.max(hi, Math.min(lo, y ?? AR.shoulder));
+  return roundHalfEven(leanVal('pelvis', k) + (leanVal('head', k) - leanVal('pelvis', k)) * (lo - yy) / (lo - hi));
+};
 const restGroup = new Map();
 for (const p of bodyRest.keys()) { const [x, y] = unkey(p); restGroup.set(p, leanGroup(bodyPart(x, y), y)); }
 
@@ -222,14 +245,14 @@ function frame(k) {
   const b = bob[k];
   const bodyL = new Map(), armsL = new Map();
   const far = legPoses[L.far[k]], near = legPoses[L.near[k]];
-  const T = leanOf('torso', k);
+  const T = leanOf('torso', k, AR.shoulder);
   const shifted = (m) => new Map([...m].map(([p, c]) => { const [x, y] = unkey(p); return [key(x + T, y), c]; }));
-  const rest = new Map([...bodyRest].map(([p, c]) => { const [x, y] = unkey(p); return [key(x + leanOf(restGroup.get(p), k), y), c]; }));
+  const rest = new Map([...bodyRest].map(([p, c]) => { const [x, y] = unkey(p); return [key(x + leanOf(restGroup.get(p), k, y), y), c]; }));
   // where the lean slides one block past the next (torso over pelvis, head over neck), an edge that was covered in the
   // reference is now open and gets outline
   if (LEAN) for (const [p, c] of bodyRest) {
     if (c === '#' || c === 'o') continue;
-    const [x, y] = unkey(p), lx = x + leanOf(restGroup.get(p), k);
+    const [x, y] = unkey(p), lx = x + leanOf(restGroup.get(p), k, y);
     for (const [dx, dy] of N4) {
       const q = key(lx + dx, y + dy);
       if (bodyRest.has(key(x + dx, y + dy)) && !rest.has(q)) rest.set(q, 'o');
@@ -293,7 +316,7 @@ function frame(k) {
       if (!opaque(l.img, ox + x, y)) continue;
       const part = colourToPart.get(hexAt(l.map, ox + x, y)), lag = lagOf(part);
       if (lag === undefined) throw new Error(`${l.name}: pixel ${x},${y} has part ${part}, which has no walk motion`);
-      m.set(key(x + leanOf(leanGroup(part), k), y + dyOf[lag]), hexAt(l.img, ox + x, y));
+      m.set(key(x + leanOf(leanGroup(part), k, y), y + dyOf[lag]), hexAt(l.img, ox + x, y));
     }
     ov[l.name] = m;
   }
@@ -521,21 +544,22 @@ function posedClothing(l, px, k) {
   // base colour (the pixel against the jacket's own outline keeps the edge shade).
   const sway = sashSway(spec.sourceDirection, px, k, l);
   const under = CL[l.name].underArm && Object.fromEntries(Object.entries(CL[l.name].underArm).map(([k2, v]) => [k2, v.slice(1).toLowerCase()])), at = new Map(px.map((p) => [key(p.x, p.y), p]));
-  const T = leanOf('torso', k), nearArm = (y) => armShift(A.near[k])(y) + T, farArm = (y) => armShift(A.far[k])(y) + T;
+  const T = leanOf('torso', k, AR.shoulder), nearArm = (y) => armShift(A.near[k])(y) + T, farArm = (y) => armShift(A.far[k])(y) + T;
   for (const p of px) {
     if (LIMB[p.part]?.[0] === 'leg') continue;
     if (LIMB[p.part]?.[0] === 'arm') {
-      const near = nearSide.arm.includes(p.part);
-      items.push([near ? 4 : -1, p.x + (near ? nearArm : farArm)(p.y), p.y + b, p.c, p.src]);
+      const near = nearSide.arm.includes(p.part), nr = armRow(A.near[k])(p.y), fr = armRow(A.far[k])(p.y);
+      const ny = near ? nr : fr;
+      if (ny !== null) items.push([near ? 4 : -1, p.x + (near ? nearArm : farArm)(p.y), ny + b, p.c, p.src]);
       // the far arm is hidden in the profile reference, so its pieces are the near ones on the far arm, shaded
       // darker and kept only where the far arm itself shows
-      if (near) items.push([-1, p.x + farArm(p.y), p.y + b, l.shade[p.c] ?? p.c, null, 'farArm']);
+      if (near && fr !== null) items.push([-1, p.x + farArm(p.y), fr + b, l.shade[p.c] ?? p.c, null, 'farArm']);
       continue;
     }
     let c = p.c;
     if (under && p.part === 'torso' && refArm.has(key(p.x, p.y)) && c !== l.outline) c = at.get(key(p.x + 1, p.y))?.c === l.outline ? under.edge : under.base;
     const lag = p.part === 'sash' && !isBand(p, l) ? lagOf('sash') : 0;
-    const ln = leanOf(leanGroup(p.part, p.y), k);
+    const ln = leanOf(leanGroup(p.part, p.y), k, p.y);
     items.push([p.part === 'sash' ? 3 : 1, p.x + sway(p) + ln, p.y + dyOf[lag], c, p.src]);
     if (p.part === 'sash' && !isBand(p, l) && l.gapFill) items.push([-2, p.x + ln, p.y + dyOf[lag], l.gapFill, null, 'backing']);
   }
