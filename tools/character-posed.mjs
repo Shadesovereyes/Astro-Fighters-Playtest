@@ -309,31 +309,36 @@ function exposedInReference(fx) {
   for (const img of [body, arms]) for (let y = 0; y < FRAME; y++) for (let x = 0; x < FRAME; x++) if (opaque(img, fx + x, y)) m.set(key(x, y), hexAt(img, fx + x, y));
   return (refExposed[fx] = new Set([...m].filter(([p, c]) => { const [x, y] = unkey(p); return c !== BLACK && N4.some(([dx, dy]) => !m.has(key(x + dx, y + dy))); }).map(([p]) => p)));
 }
-function frontalFrame(dir, k) {
-  const d = FR.views[dir], fx = order.indexOf(dir) * FRAME, b = bob[k];
+// Where one pixel of a front/back/diagonal view goes at frame k: its rows (after row edits), sideways shift and depth.
+function frontalMove(d, k, part, y) {
+  const b = bob[k], lift = d.legLift || FR.legLift, far = d.far, limb = LIMB[part];
   const cap = b, up = Math.min(bob[(k - 1 + F) % F], cap), lo = Math.min(bob[(k - 2 + F) % F], up), dyOf = [cap, up, lo];
-  const lift = d.legLift || FR.legLift, far = d.far;
+  let rows, dx = 0, z = 3;
+  if (limb?.[0] === 'leg') {
+    const s = limb[1], n = lift[s][k] + b;
+    rows = rowMap(y, b, n > 0 ? d.legRows[s].slice(0, n) : [], n < 0 ? d.legRepeatRows[s].slice(0, -n) : []);
+    if (d.footDx) { const hd = d.hipDx[s][k]; dx = hd + shear(y, d.legPivot, d.footFrom[s], d.footDx[s][k] - hd); }
+    z = s === far ? 0 : 2;
+  } else if (limb?.[0] === 'arm') {
+    const s = limb[1], h = d.handDy[s][k];
+    rows = rowMap(y, b, h < 0 ? d.armRows[s].slice(0, -h) : [], h > 0 ? d.armRepeatRows[s].slice(0, h) : []);
+    if (d.handDx) dx = shear(y, d.armPivot, d.handFrom[s], d.handDx[s][k]);
+    z = s === far ? -1 : 4;
+  } else if (part === 'head' || overlays.overlayParts?.[part]?.lagFrames !== undefined) rows = [y + dyOf[lagOf(part)]];
+  else { rows = [y + b]; if (part === 'pelvis') z = 2.5; }
+  return { rows, dx, z };
+}
+function frontalFrame(dir, k) {
+  const d = FR.views[dir], fx = order.indexOf(dir) * FRAME;
   const srcLayers = [['body', body, partMap], ['arms', arms, partMap], ...overlayLayers.map((l) => [l.name, l.img, l.map])];
   const out = {}, src = {};
   for (const [name, img, map] of srcLayers) {
     const items = [];
     for (let y = 0; y < FRAME; y++) for (let x = 0; x < FRAME; x++) {
       if (!opaque(img, fx + x, y)) continue;
-      const part = partNear(map, fx, x, y), limb = LIMB[part];
-      let rows, dx = 0, z = 3;
-      if (limb?.[0] === 'leg') {
-        const s = limb[1], n = lift[s][k] + b;
-        rows = rowMap(y, b, n > 0 ? d.legRows[s].slice(0, n) : [], n < 0 ? d.legRepeatRows[s].slice(0, -n) : []);
-        if (d.footDx) { const hd = d.hipDx[s][k]; dx = hd + shear(y, d.legPivot, d.footFrom[s], d.footDx[s][k] - hd); }
-        z = s === far ? 0 : 2;
-      } else if (limb?.[0] === 'arm') {
-        const s = limb[1], h = d.handDy[s][k];
-        rows = rowMap(y, b, h < 0 ? d.armRows[s].slice(0, -h) : [], h > 0 ? d.armRepeatRows[s].slice(0, h) : []);
-        if (d.handDx) dx = shear(y, d.armPivot, d.handFrom[s], d.handDx[s][k]);
-        z = s === far ? -1 : 4;
-      } else if (part === 'head' || overlays.overlayParts?.[part]?.lagFrames !== undefined) rows = [y + dyOf[lagOf(part)]];
-      else if (part) { rows = [y + b]; if (part === 'pelvis') z = 2.5; }
-      else throw new Error(`${name} ${dir}: pixel ${x},${y} has no rig part`);
+      const part = partNear(map, fx, x, y);
+      if (!part) throw new Error(`${name} ${dir}: pixel ${x},${y} has no rig part`);
+      const { rows, dx, z } = frontalMove(d, k, part, y);
       for (const ny of rows) items.push([z, x + dx, ny, hexAt(img, fx + x, y), key(x, y)]);
     }
     const m = new Map(), sm = new Map();
@@ -384,12 +389,159 @@ const framesFor = (dir) => {
   return base.map((_, k) => mirrorFrames(base[(k + frameShift) % F]));
 };
 
+// ---- clothing (Layer 2) ------------------------------------------------------------------------------------
+// Clothing follows the body it is registered to. Front/back/diagonal views move every clothing pixel exactly like
+// the body pixel of the same part (frontalMove). The authored profile view (E) maps each trouser row onto the posed
+// leg: thigh and shin rows are resampled onto the pose's thigh and shin rows and shifted by the leg's back edge;
+// wrap and shoe follow the ankle (reference-ankle poses) or the shin line and the authored foot (line poses), where a
+// toe-down foot is the foot's own shape in the shoe colours. The far trouser leg is the near one on the far pose,
+// shaded darker and drawn behind. A mirrored direction whose clothing is not an exact mirror (the Gi was reworked per
+// direction) is built from its own clothing frame, flipped through its source's motion. New edges get outline.
+const CL = spec.clothing || { layers: [] };
+const clothingLayers = CL.layers.map((name) => {
+  const l = overlays.layers.find((o) => path.basename(o.partMap, '.png') === name);
+  if (!l) throw new Error(`clothing ${name} not in overlays.json`);
+  const c = CL[name];
+  return { name, img: readPng(path.join(root, l.source)), map: readPng(path.join(rigDir, l.partMap)),
+    outline: c.outline.slice(1).toLowerCase(), shoe: c.shoe.slice(1).toLowerCase(),
+    gapFill: c.gapFill.colour.slice(1).toLowerCase(),
+    wrap: c.wrap && { ...c.wrap, colours: Object.fromEntries(Object.entries(c.wrap.colours).map(([a, b]) => [a, b.slice(1).toLowerCase()])) },
+    trouser: c.trouser && { ...c.trouser, colours: Object.fromEntries(Object.entries(c.trouser.colours).map(([a, b]) => [a, b.slice(1).toLowerCase()])) },
+    shade: Object.fromEntries(Object.entries(c.farShade).map(([a, b]) => [a.slice(1).toLowerCase(), b.slice(1).toLowerCase()])) };
+});
+const swapSide = (p) => (p?.startsWith('R-') ? 'L-' + p.slice(2) : p?.startsWith('L-') ? 'R-' + p.slice(2) : p);
+// pixels of a clothing frame seen in the orientation of `geom` (flipped and side-swapped when the frame is a mirror)
+function clothingPixels(l, dir, flip) {
+  const fx = order.indexOf(dir) * FRAME, out = [];
+  for (let y = 0; y < FRAME; y++) for (let x = 0; x < FRAME; x++) {
+    const sx = flip ? FRAME - 1 - x : x;
+    if (!opaque(l.img, fx + sx, y)) continue;
+    const part = partNear(l.map, fx, sx, y);
+    if (!part) throw new Error(`${l.name} ${dir}: pixel ${sx},${y} has no rig part`);
+    out.push({ x, y, c: hexAt(l.img, fx + sx, y), part: flip ? swapSide(part) : part, src: key(sx, y) });
+  }
+  return out;
+}
+const rowsOf = (m) => { const r = {}; for (const p of m.keys()) { const [x, y] = unkey(p); r[y] = Math.min(r[y] ?? 99, x); } return r; };
+const nearestRow = (r, t) => { if (r[t] !== undefined) return r[t]; for (let d = 1; d < FRAME; d++) { if (r[t - d] !== undefined) return r[t - d]; if (r[t + d] !== undefined) return r[t + d]; } return 0; };
+const refLegBack = (() => {
+  const r = {};
+  for (let y = 0; y < FRAME; y++) for (let x = 0; x < FRAME; x++) if (nearSide.leg.includes(bodyPart(x, y))) r[y] = Math.min(r[y] ?? 99, x);
+  return r;
+})();
+const resample = (t, t0, t1, s0, s1) => (t1 === t0 ? s0 : s0 + roundHalfEven((t - t0) * (s1 - s0) / (t1 - t0)));
+function posedClothing(l, px, k) {
+  const b = bob[k], cap = b, up = Math.min(bob[(k - 1 + F) % F], cap), lo = Math.min(bob[(k - 2 + F) % F], up), dyOf = [cap, up, lo];
+  const items = [];
+  // In the profile the trousers are drawn as one silhouette (the far leg's slivers are its back edge), so every
+  // leg pixel forms the trouser that is placed on each posed leg.
+  const legPx = px.filter((p) => LIMB[p.part]?.[0] === 'leg');
+  const byRow = {}; for (const p of legPx) (byRow[p.y] ??= []).push(p);
+  const legRows = Object.keys(byRow).map(Number), top = Math.min(...legRows);
+  const S = CL.posedLegRows;   // reference rows: thigh top..knee, shin to the row above the wrap, wrap rows, shoe rows
+  for (const [which, z] of [['far', 0], ['near', 2]]) {
+    const pose = L.poses[L[which][k]], legMap = legPoses[L[which][k]], back = rowsOf(legMap);
+    const col = (c) => (which === 'far' ? (l.shade[c] ?? c) : c);
+    const put = (srcRow, t, dx) => { for (const p of byRow[srcRow] || []) items.push([z, p.x + dx, t, col(p.c), p.src]); };
+    // Trouser rows are authored on the posed leg: each row spans the leg's outline widened by the reference
+    // trouser margins, shaded with the trouser row pattern; the row above the wrap is the hem (outline).
+    const T = l.trouser, extent = {};
+    for (const p of legMap.keys()) { const [x, y] = unkey(p); const e = (extent[y] ??= [99, -1]); e[0] = Math.min(e[0], x); e[1] = Math.max(e[1], x); }
+    for (let t = pose.hipRow - 1; t <= pose.wrapRow - 1; t++) {
+      const e = extent[t] ?? extent[t + 1] ?? extent[t - 1];
+      const x0 = e[0] - T.back, x1 = e[1] + T.front, n = x1 - x0 - 1;
+      const hem = t === pose.wrapRow - 1, thighRow = t <= pose.kneeRow;
+      const half = Math.ceil((n - 2) / 2), pat = hem ? 'a'.repeat(n) : 'd' + 'c'.repeat(half) + 'b'.repeat(n - 2 - half) + (thighRow ? T.thighFront : T.shinFront);
+      const row = 'a' + (t === pose.kneeRow + 1 && !hem ? pat.slice(0, 1) + 'd' + pat.slice(2) : pat) + 'a';
+      [...row].forEach((c, j) => items.push([z, x0 + j, t, col(T.colours[c]), null]));
+    }
+    if (pose.construction === 'reference-ankle') {
+      for (let sr = S.wrap; sr < FRAME; sr++) put(sr, sr + pose.wrapRow - S.wrap, pose.ankleX - ankleX);
+    } else {
+      // wrap rows follow the shin line: each is the leg's wrap span widened by the reference wrap margins,
+      // striped with the wrap pattern
+      const Wp = l.wrap;
+      for (let i = 0; i < 3; i++) {
+        const t = pose.wrapRow + i, e = extent[t], x0 = e[0] - Wp.margin, n = e[1] - e[0] + 2 * Wp.margin - 1;
+        const row = 'a' + (Wp.pattern + Wp.fill.repeat(Math.max(0, n - Wp.pattern.length))).slice(0, n) + 'a';
+        [...row].forEach((c, j) => items.push([z, x0 + j, t, col(Wp.colours[c]), null]));
+      }
+      const bot = pose.wrapRow + 2;
+      if (pose.foot === 'flat') for (let sr = S.wrap + 3; sr < FRAME; sr++) put(sr, sr + pose.wrapRow - S.wrap, pose.footX - ankleX);
+      else L.feet[pose.foot].rows.forEach((row, r) => [...row].forEach((c, j) => {
+        if (c !== '.') items.push([z, pose.footX - 1 + j, bot + 1 + r, col(c === '#' ? l.outline : l.shoe), null]);
+      }));
+    }
+  }
+  // Jacket under the reference near arm: the arm swings away from it, so its under-arm shading becomes jacket
+  // base colour (the pixel against the jacket's own outline keeps the edge shade).
+  const under = Object.fromEntries(Object.entries(CL[l.name].underArm).map(([k2, v]) => [k2, v.slice(1).toLowerCase()])), at = new Map(px.map((p) => [key(p.x, p.y), p]));
+  for (const p of px) {
+    if (LIMB[p.part]?.[0] === 'leg') continue;
+    let c = p.c;
+    if (p.part === 'torso' && refArm.has(key(p.x, p.y)) && c !== l.outline) c = at.get(key(p.x + 1, p.y))?.c === l.outline ? under.edge : under.base;
+    const lag = p.part === 'sash' ? lagOf('sash') : 0;
+    items.push([p.part === 'sash' ? 3 : 1, p.x, p.y + dyOf[lag], c, p.src]);
+  }
+  return items;
+}
+function frontalClothing(geom, px, k) {
+  const d = FR.views[geom], items = [];
+  for (const p of px) { const { rows, dx, z } = frontalMove(d, k, p.part, p.y); for (const ny of rows) items.push([z, p.x + dx, ny, p.c, p.src]); }
+  return items;
+}
+const refClothingExposed = {};
+function clothingFrame(l, dir, k, fr) {
+  const m = mirrors[dir], geom = m ? m.from : dir;
+  const flip = !!m, kk = m ? (k + (m.frameShift || 0)) % F : k;
+  const px = clothingPixels(l, dir, flip);
+  const items = geom === spec.sourceDirection ? posedClothing(l, px, kk) : frontalClothing(geom, px, kk);
+  const layer = new Map(), src = new Map();
+  for (const [, x, y, c, s0] of items.sort((a, c) => a[0] - c[0])) {
+    const X = flip ? FRAME - 1 - x : x;
+    layer.set(key(X, y), c); src.set(key(X, y), s0);
+  }
+  // Under the hanging sash there is no cloth in the reference; where the legs move out from under it, the uncovered
+  // leg gets the trouser colour (only between clothing pixels on the same row, so a hand beside the body stays skin).
+  const skin = new Set(Object.entries(pal).filter(([sy]) => 'LmsdD'.includes(sy)).map(([, h]) => h));
+  let filled = 0;
+  for (const [p, c] of fr.body) {
+    if (!skin.has(c) || layer.has(p) || fr.arms.has(p)) continue;
+    const [x, y] = unkey(p);
+    if (y < CL[l.name].gapFill.fromRow) continue;
+    const near = (dx) => [1, 2, 3].some((i) => layer.has(key(x + dx * i, y)));
+    if (near(1) && near(-1)) { layer.set(p, l.gapFill); filled++; }
+  }
+  report.clothingGapFill[`${l.name} ${dir}:${k}`] = filled;
+  // outline where clothing newly meets empty space
+  const fx = order.indexOf(dir) * FRAME, refKey = `${l.name}:${dir}`;
+  if (!refClothingExposed[refKey]) {
+    const ref = new Map();
+    for (const img of [body, arms, l.img]) for (let y = 0; y < FRAME; y++) for (let x = 0; x < FRAME; x++) if (opaque(img, fx + x, y)) ref.set(key(x, y), hexAt(img, fx + x, y));
+    refClothingExposed[refKey] = new Set([...Array(FRAME * FRAME).keys()].map((i) => key(i % FRAME, Math.floor(i / FRAME)))
+      .filter((p) => { if (!opaque(l.img, fx + unkey(p)[0], unkey(p)[1])) return false; const [x, y] = unkey(p); return N4.some(([dx, dy]) => !ref.has(key(x + dx, y + dy))); }));
+  }
+  const fig = new Map([...fr.body, ...fr.arms, ...layer]);
+  let added = 0;
+  for (const [p, c] of [...layer]) {
+    if (c === l.outline || c === BLACK) continue;
+    const s0 = src.get(p);
+    if (s0 && refClothingExposed[refKey].has(s0)) continue;
+    const [x, y] = unkey(p);
+    for (const [dx, dy] of N4) { const q = key(x + dx, y + dy); if (!fig.has(q)) { layer.set(q, l.outline); fig.set(q, l.outline); added++; } }
+  }
+  report.clothingOutlineAdded[`${l.name} ${dir}:${k}`] = added;
+  return layer;
+}
+report.clothingOutlineAdded = {}; report.clothingGapFill = {};
+
 // ---- sheets ---------------------------------------------------------------------------------------------
 const W = F * FRAME, H = spec.directions.length * FRAME;
+layerNames.push(...clothingLayers.map((l) => l.name));
 const sheets = Object.fromEntries(layerNames.map((n) => [n, Buffer.alloc(W * H * 4)]));
 const all = {};
 spec.directions.forEach((dir, r) => {
-  all[dir] = framesFor(dir);
+  all[dir] = framesFor(dir).map((fr, k) => ({ ...fr, ...Object.fromEntries(clothingLayers.map((l) => [l.name, clothingFrame(l, dir, k, fr)])) }));
   all[dir].forEach((fr, k) => {
     for (const n of layerNames) for (const [p, c] of fr[n]) {
       const [x, y] = unkey(p);

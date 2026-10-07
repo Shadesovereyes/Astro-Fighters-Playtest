@@ -226,10 +226,37 @@
       }
     }
   },
+  "clothing": {
+    "rule": "Layer 2 clothing follows the body it is registered to. Front, back and diagonal views move each clothing pixel exactly like the body pixel of the same part. In the authored profile (E) each trouser row is resampled onto the posed leg (thigh rows onto the pose's thigh rows, shin rows onto its shin rows) and shifted by the leg's back edge; wrap and shoe follow the ankle (reference-ankle poses) or the shin line and the authored foot (line poses), where a toe-down foot is drawn as the foot's own shape in the shoe colours. The far trouser leg is the near one on the far pose, shaded one step darker and drawn behind. A mirrored direction whose clothing is not an exact mirror is built from its own clothing frame, flipped through its source's motion. Where clothing newly meets empty space it gets the clothing's outline colour.",
+    "approved": "candidate",
+    "layers": ["male-gi"],
+    "posedLegRows": { "knee": 48, "wrap": 56 },
+    "male-gi": {
+      "outline": "#030101",
+      "shoe": "#3b2014",
+      "gapFill": { "colour": "#ddcdb4", "fromRow": 39, "rule": "leg skin uncovered from under the hanging sash, with cloth on both sides in the same row, takes the trouser mid colour" },
+      "underArm": { "base": "#f8eee0", "edge": "#a9977d" },
+      "wrap": {
+        "rule": "line-pose wrap rows (which follow the shin's slope): the leg's wrap span widened by 'margin' px each side, interior striped as on the reference E Gi wrap",
+        "margin": 1, "pattern": "iai", "fill": "h",
+        "colours": { "a": "#030101", "i": "#adadad", "h": "#fefefc" }
+      },
+      "trouser": {
+        "rule": "profile trouser rows: the leg's outline span widened by 'back' px behind and 'front' px in front (measured on the reference E Gi); interior shaded d, c..., b..., then the front shade; the row above the wrap is the hem; a d fold marks the back of the knee",
+        "back": 2, "front": 1, "thighFront": "f", "shinFront": "d",
+        "colours": { "a": "#030101", "b": "#f8eee0", "c": "#ddcdb4", "d": "#a9977d", "f": "#726250" }
+      },
+      "farShade": {
+        "#f8eee0": "#ddcdb4", "#ddcdb4": "#a9977d", "#a9977d": "#726250", "#726250": "#726250",
+        "#fefefc": "#dadad9", "#dadad9": "#adadad", "#adadad": "#adadad",
+        "#3b2014": "#3b2014", "#9c0909": "#9c0909", "#030101": "#030101"
+      }
+    }
+  },
   "overlays": {
     "rule": "Hair and eye layers follow the head's bob through their rig part maps. Lagging hair falls take the bob of 1 or 2 frames earlier (overlays.json lagFrames) but never sit higher than the part above them (cap >= upper fall >= lower fall, positive dy is down), so no gap opens.",
     "layers": ["long-hair", "fade-hair", "afro-hair", "brown-eyes", "purple-eyes"],
-    "pending": ["male-gi", "male-blue-armor", "male-red-armor", "blue-armor-shoulders", "red-armor-shoulders"]
+    "pending": ["male-blue-armor", "male-red-armor", "blue-armor-shoulders", "red-armor-shoulders"]
   },
   "cleanup": {
     "notchFromRow": 24,
