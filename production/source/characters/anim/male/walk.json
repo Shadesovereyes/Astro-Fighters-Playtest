@@ -2,14 +2,15 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "walk",
-  "status": "approved by user 2026-10-06: E authored (8 frames); W = mirror of E; S and N by row edits; SE/SW approved as a draft (revisit)",
+  "status": "approved by user 2026-10-06: E authored (8 frames); W = mirror of E; S and N by row edits; SE/SW approved as a draft (revisit); NE/NW approved 2026-10-07",
   "frames": 8,
   "fps": 10,
   "sourceDirection": "E",
-  "directions": ["S", "SE", "E", "N", "W", "SW"],
+  "directions": ["S", "SE", "E", "NE", "N", "NW", "W", "SW"],
   "mirror": {
     "W": { "from": "E", "frameShift": 4 },
     "SW": { "from": "SE", "frameShift": 4 },
+    "NW": { "from": "NE", "frameShift": 4 },
     "rule": "A mirrored reference must be an exact horizontal mirror of its source for Body1, Arms1, hair, eyes and clothing; the renderer verifies this before mirroring (x -> 63 - x). Mirroring swaps the character's sides, so the mirrored direction plays its source half a cycle later (frameShift 4): every direction then has the right leg forward at frame 0 and the walk can change direction on any frame."
   },
   "intent": "Contact, down, passing, up per step. The near leg runs poses 0-7; the far leg runs the same poses 4 frames later, one shade darker and drawn behind the body. The planted foot slides back 2-3 px per frame to match root motion. Arms swing from the shoulder opposite the legs.",
@@ -39,6 +40,8 @@
     "N": [[0, -3], [0, -2], [0, -3], [0, -2], [0, -3], [0, -2], [0, -3], [0, -2]],
     "SE": [[2, 2], [2, 1], [2, 2], [2, 1], [2, 2], [2, 1], [2, 2], [2, 1]],
     "SW": [[-2, 2], [-2, 1], [-2, 2], [-2, 1], [-2, 2], [-2, 1], [-2, 2], [-2, 1]],
+    "NE": [[2, -2], [2, -1], [2, -2], [2, -1], [2, -2], [2, -1], [2, -2], [2, -1]],
+    "NW": [[-2, -2], [-2, -1], [-2, -2], [-2, -1], [-2, -2], [-2, -1], [-2, -2], [-2, -1]],
     "rule": "World displacement applied when advancing from frame k to k+1. E/W: matches the planted foot's slide (34, 31, 29, 26, 24 for the wrap's back column). S/N: same speed; the planted foot does not move in the frame."
   },
   "legs": {
@@ -182,6 +185,39 @@
         "footDx": {
           "R": [1, 0, 0, -1, -2, -1, 0, 1],
           "L": [-1, -1, 0, 1, 2, 1, 0, -1]
+        },
+        "handDx": {
+          "R": [-2, -1, 0, 1, 2, 1, 0, -1],
+          "L": [1, 1, 0, -1, -1, -1, 0, 1]
+        }
+      },
+      "NE": {
+        "rule": "N at an angle, built like SE: S/N-style row edits plus a sideways swing (+ is toward the facing, screen right). As in N, the arm swinging forward moves away from the viewer and shortens. The scissor is the reverse of SE: the legs spread with the near (R) leg forward and cross with the far (L) leg forward; that contact keeps the hips still and the near foot down, relying on the reference's 2 px higher far foot for depth. Near-arm length edits stay on the wrap rows below 33 (above it the arm's outline is also the torso/shorts edge). The far (L) side is drawn behind the body.",
+        "approved": "2026-10-07",
+        "far": "L",
+        "legLift": {
+          "R": [0, 0, 0, 0, 0, 2, 3, 1],
+          "L": [1, 2, 3, 1, 0, 0, 0, 0]
+        },
+        "handDy": {
+          "R": [3, 2, 0, -2, -3, -2, 0, 2],
+          "L": [-2, -1, 0, 1, 2, 1, 0, -1]
+        },
+        "legRows": { "R": [50, 57, 51], "L": [48, 55, 56] },
+        "legRepeatRows": { "R": [50], "L": [48] },
+        "armRows": { "R": [35, 34, 36], "L": [34, 35, 36] },
+        "armRepeatRows": { "R": [35, 35, 35], "L": [34, 35, 36] },
+        "legPivot": 39,
+        "footFrom": { "R": 56, "L": 54 },
+        "armPivot": 21,
+        "handFrom": { "R": 37, "L": 37 },
+        "hipDx": {
+          "R": [1, 0, 0, 0, 0, 0, 0, 0],
+          "L": [-1, 0, 0, 0, 0, 0, 0, 0]
+        },
+        "footDx": {
+          "R": [2, 1, 0, -1, -1, -1, 0, 1],
+          "L": [-2, -1, 0, 1, 1, 1, 0, -1]
         },
         "handDx": {
           "R": [-2, -1, 0, 1, 2, 1, 0, -1],
