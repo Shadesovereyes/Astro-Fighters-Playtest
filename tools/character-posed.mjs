@@ -226,6 +226,12 @@ const leanOf = (group, k, y) => {
   const lo = R.torsoMaxRow + 1, hi = AR.shoulder - 1, yy = Math.max(hi, Math.min(lo, y ?? AR.shoulder));
   return roundHalfEven(leanVal('pelvis', k) + (leanVal('head', k) - leanVal('pelvis', k)) * (lo - yy) / (lo - hi));
 };
+// lean.torsoDrop shortens the leaning torso so it keeps its length: that many torso rows, evenly spaced between the
+// shoulder row and torsoMaxRow, are removed and everything above them (upper torso, head, hair, eyes, arms) moves down.
+const DROP = spec.lean?.torsoDrop || 0;
+const torsoDropped = Array.from({ length: DROP }, (_, i) => AR.shoulder + Math.floor((i + 0.5) * (R.torsoMaxRow - AR.shoulder + 1) / DROP));
+const leanY = (group, y) => (group === 'head' || group === 'arm' ? y + DROP
+  : group === 'torso' ? (torsoDropped.includes(y) ? null : y + torsoDropped.filter((r) => r > y).length) : y);
 const restGroup = new Map();
 for (const p of bodyRest.keys()) { const [x, y] = unkey(p); restGroup.set(p, leanGroup(bodyPart(x, y), y)); }
 
@@ -246,20 +252,21 @@ function frame(k) {
   const bodyL = new Map(), armsL = new Map();
   const far = legPoses[L.far[k]], near = legPoses[L.near[k]];
   const T = leanOf('torso', k, AR.shoulder);
-  const shifted = (m) => new Map([...m].map(([p, c]) => { const [x, y] = unkey(p); return [key(x + T, y), c]; }));
-  const rest = new Map([...bodyRest].map(([p, c]) => { const [x, y] = unkey(p); return [key(x + leanOf(restGroup.get(p), k, y), y), c]; }));
+  const shifted = (m) => new Map([...m].map(([p, c]) => { const [x, y] = unkey(p); return [key(x + T, y + DROP), c]; }));
+  const rest = new Map([...bodyRest].flatMap(([p, c]) => { const [x, y] = unkey(p), g = restGroup.get(p), ny = leanY(g, y); return ny === null ? [] : [[key(x + leanOf(g, k, y), ny), c]]; }));
   // where the lean slides one block past the next (torso over pelvis, head over neck), an edge that was covered in the
   // reference is now open and gets outline
   if (LEAN) for (const [p, c] of bodyRest) {
     if (c === '#' || c === 'o') continue;
-    const [x, y] = unkey(p), lx = x + leanOf(restGroup.get(p), k, y);
+    const [x, y] = unkey(p), g = restGroup.get(p), lx = x + leanOf(g, k, y), ly = leanY(g, y);
+    if (ly === null) continue;
     for (const [dx, dy] of N4) {
-      const q = key(lx + dx, y + dy);
+      const q = key(lx + dx, ly + dy);
       if (bodyRest.has(key(x + dx, y + dy)) && !rest.has(q)) rest.set(q, 'o');
     }
   }
-  const na = closeArm(shifted(buildArm(A.near[k])), (x, y, q) => y < AR.shoulder || rest.has(q));
-  const fa = closeArm(shifted(buildArm(A.far[k])), (x, y) => y < AR.shoulder);
+  const na = closeArm(shifted(buildArm(A.near[k])), (x, y, q) => y < AR.shoulder + DROP || rest.has(q));
+  const fa = closeArm(shifted(buildArm(A.far[k])), (x, y) => y < AR.shoulder + DROP);
   for (const [p, c] of far) bodyL.set(p, colourOf(farShade[c]));
   for (const [p, c] of fa) { const [x, y] = unkey(p); bodyL.set(key(x, y + b), colourOf(farShade[c])); }
   const farKeys = new Set(bodyL.keys());
@@ -316,7 +323,7 @@ function frame(k) {
       if (!opaque(l.img, ox + x, y)) continue;
       const part = colourToPart.get(hexAt(l.map, ox + x, y)), lag = lagOf(part);
       if (lag === undefined) throw new Error(`${l.name}: pixel ${x},${y} has part ${part}, which has no walk motion`);
-      m.set(key(x + leanOf(leanGroup(part), k, y), y + dyOf[lag]), hexAt(l.img, ox + x, y));
+      m.set(key(x + leanOf(leanGroup(part), k, y), leanY(leanGroup(part), y) + dyOf[lag]), hexAt(l.img, ox + x, y));
     }
     ov[l.name] = m;
   }
@@ -550,18 +557,19 @@ function posedClothing(l, px, k) {
     if (LIMB[p.part]?.[0] === 'arm') {
       const near = nearSide.arm.includes(p.part), nr = armRow(A.near[k])(p.y), fr = armRow(A.far[k])(p.y);
       const ny = near ? nr : fr;
-      if (ny !== null) items.push([near ? 4 : -1, p.x + (near ? nearArm : farArm)(p.y), ny + b, p.c, p.src]);
+      if (ny !== null) items.push([near ? 4 : -1, p.x + (near ? nearArm : farArm)(p.y), ny + DROP + b, p.c, p.src]);
       // the far arm is hidden in the profile reference, so its pieces are the near ones on the far arm, shaded
       // darker and kept only where the far arm itself shows
-      if (near && fr !== null) items.push([-1, p.x + farArm(p.y), fr + b, l.shade[p.c] ?? p.c, null, 'farArm']);
+      if (near && fr !== null) items.push([-1, p.x + farArm(p.y), fr + DROP + b, l.shade[p.c] ?? p.c, null, 'farArm']);
       continue;
     }
     let c = p.c;
     if (under && p.part === 'torso' && refArm.has(key(p.x, p.y)) && c !== l.outline) c = at.get(key(p.x + 1, p.y))?.c === l.outline ? under.edge : under.base;
     const lag = p.part === 'sash' && !isBand(p, l) ? lagOf('sash') : 0;
-    const ln = leanOf(leanGroup(p.part, p.y), k, p.y);
-    items.push([p.part === 'sash' ? 3 : 1, p.x + sway(p) + ln, p.y + dyOf[lag], c, p.src]);
-    if (p.part === 'sash' && !isBand(p, l) && l.gapFill) items.push([-2, p.x + ln, p.y + dyOf[lag], l.gapFill, null, 'backing']);
+    const g = leanGroup(p.part, p.y), ln = leanOf(g, k, p.y), ly = leanY(g, p.y);
+    if (ly === null) continue;
+    items.push([p.part === 'sash' ? 3 : 1, p.x + sway(p) + ln, ly + dyOf[lag], c, p.src]);
+    if (p.part === 'sash' && !isBand(p, l) && l.gapFill) items.push([-2, p.x + ln, ly + dyOf[lag], l.gapFill, null, 'backing']);
   }
   return items;
 }

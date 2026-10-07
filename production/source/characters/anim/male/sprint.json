@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "sprint",
-  "status": "candidate: E sprint draft v6 (W = mirror of E); lean via torso shear, arms straight and raised",
+  "status": "candidate: E sprint draft v7 (W = mirror of E); torso shear with 3 rows dropped, straight raised arms",
   "frames": 8,
   "fps": 14,
   "sourceDirection": "E",
@@ -60,12 +60,13 @@
     7
   ],
   "lean": {
-    "rule": "Forward lean toward the facing (+x in E). Pelvis and head move as blocks; with torsoShear each torso row moves on the straight line between them, so the back is one slanted line. Arms hang from the shoulder row; hair and eyes go with the head.",
+    "rule": "Forward lean toward the facing (+x in E). Pelvis and head move as blocks; with torsoShear each torso row moves on the straight line between them, so the back is one slanted line. Arms hang from the shoulder row; hair and eyes go with the head. torsoDrop removes that many torso rows (evenly spaced between the shoulder row and the trunk) so the leaning torso keeps its length; everything above moves down with it.",
     "torsoShear": true,
     "dx": {
       "pelvis": 1,
       "head": 8
-    }
+    },
+    "torsoDrop": 3
   },
   "rootMotion": {
     "E": [
