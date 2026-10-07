@@ -963,7 +963,7 @@
         }
       },
       "NE": {
-        "rule": "N at an angle, built like SE: S/N-style row edits plus a sideways swing (+ is toward the facing, screen right). As in N, the arm swinging forward moves away from the viewer and shortens. The scissor is the reverse of SE: the legs spread with the near (R) leg forward and cross with the far (L) leg forward; that contact keeps the hips still and the near foot down, relying on the reference's 2 px higher far foot for depth. Near-arm length edits stay on the wrap rows below 33 (above it the arm's outline is also the torso/shorts edge). The far (L) side is drawn behind the body. The thighs are joined down to the crotch (row 46) in this view, so the hips shift together (both thighs move as one) and each leg's own swing starts at the crotch; spreading the thighs apart opened a seam of doubled outlines at the seat.",
+        "rule": "N at an angle, built like SE: S/N-style row edits plus a sideways swing (+ is toward the facing, screen right). As in N, the arm swinging forward moves away from the viewer and shortens. The scissor is the reverse of SE: the legs spread with the near (R) leg forward and cross with the far (L) leg forward; that contact keeps the hips still and the near foot down, relying on the reference's 2 px higher far foot for depth. Near-arm length edits stay on the wrap rows below 33 (above it the arm's outline is also the torso/shorts edge). The far (L) side is drawn behind the body. The thighs are joined down to the crotch (row 46) in this view, so the hips stay with the pelvis and each leg's swing starts at the crotch: spreading the thighs opened doubled outlines at the seat, and a one-frame hip shift read as a jerk.",
         "approved": "2026-10-07",
         "far": "L",
         "legLift": {
@@ -1066,7 +1066,7 @@
         },
         "hipDx": {
           "R": [
-            1,
+            0,
             0,
             0,
             0,
@@ -1076,7 +1076,7 @@
             0
           ],
           "L": [
-            1,
+            0,
             0,
             0,
             0,
