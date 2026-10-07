@@ -426,6 +426,12 @@ function clothingPixels(l, dir, flip) {
     if (!part) throw new Error(`${l.name} ${dir}: pixel ${sx},${y} has no rig part`);
     out.push({ x, y, c: hexAt(l.img, fx + sx, y), part: flip ? swapSide(part) : part, src: key(sx, y) });
   }
+  // the outline row closing the bottom of a hanging sash/flap belongs to the flap, so it swings with it
+  const at = new Map(out.map((p) => [key(p.x, p.y), p]));
+  for (const p of out) {
+    if (p.part === 'sash' || (p.c !== l.outline && p.c !== BLACK)) continue;
+    if (at.get(key(p.x, p.y - 1))?.part === 'sash') p.part = 'sash';
+  }
   return out;
 }
 const rowsOf = (m) => { const r = {}; for (const p of m.keys()) { const [x, y] = unkey(p); r[y] = Math.min(r[y] ?? 99, x); } return r; };
@@ -499,6 +505,7 @@ function posedClothing(l, px, k) {
     if (under && p.part === 'torso' && refArm.has(key(p.x, p.y)) && c !== l.outline) c = at.get(key(p.x + 1, p.y))?.c === l.outline ? under.edge : under.base;
     const lag = p.part === 'sash' && !isBand(p, l) ? lagOf('sash') : 0;
     items.push([p.part === 'sash' ? 3 : 1, p.x + sway(p), p.y + dyOf[lag], c, p.src]);
+    if (p.part === 'sash' && !isBand(p, l) && l.gapFill) items.push([-2, p.x, p.y + dyOf[lag], l.gapFill, null, 'backing']);
   }
   return items;
 }
@@ -507,7 +514,11 @@ function frontalClothing(l, geom, px, k) {
   for (const p of px) {
     const part = p.part === 'sash' && isBand(p, l) ? 'pelvis' : p.part;
     const { rows, dx, z } = frontalMove(d, k, part, p.y);
-    for (const ny of rows) items.push([p.part === 'sash' ? 3 : z, p.x + dx + sway(p), ny, p.c, p.src]);
+    for (const ny of rows) {
+      items.push([p.part === 'sash' ? 3 : z, p.x + dx + sway(p), ny, p.c, p.src]);
+      // cloth behind a swinging flap: shows only where the flap swings off the body
+      if (p.part === 'sash' && !isBand(p, l) && l.gapFill) items.push([-2, p.x + dx, ny, l.gapFill, null, 'backing']);
+    }
   }
   return items;
 }
@@ -529,7 +540,8 @@ function clothingFrame(l, dir, k, fr) {
   const flip = !!m, kk = m ? (k + (m.frameShift || 0)) % F : k;
   const px = clothingPixels(l, dir, flip);
   const items = (geom === spec.sourceDirection ? posedClothing(l, px, kk) : frontalClothing(l, geom, px, kk))
-    .filter((it) => it[5] !== 'farArm' || FAR_ARM_PX[kk].has(key(it[1], it[2])));
+    .filter((it) => it[5] !== 'farArm' || FAR_ARM_PX[kk].has(key(it[1], it[2])))
+    .filter((it) => it[5] !== 'backing' || fr.body.has(key(flip ? FRAME - 1 - it[1] : it[1], it[2])));
   const layer = new Map(), src = new Map();
   for (const [, x, y, c, s0] of items.sort((a, c) => a[0] - c[0])) {
     const X = flip ? FRAME - 1 - x : x;
@@ -546,8 +558,21 @@ function clothingFrame(l, dir, k, fr) {
     const [x, y] = unkey(p);
     if (!l.gapFill || y < CL[l.name].gapFill.fromRow) continue;
     const near = (dx, reach) => Array.from({ length: reach }, (_, i) => i + 1).some((i) => layer.has(key(x + dx * i, y)));
-    const boxed = (near(1, 1) && near(-1, 1)) || (layer.has(key(x, y - 1)) && layer.has(key(x, y + 1)));
+    // cloth (not outline) on both sides: a pinhole; between two outlines it is the gap between the legs, left as is
+    const clothAt = (q) => layer.has(q) && layer.get(q) !== l.outline && layer.get(q) !== BLACK;
+    const boxed = (clothAt(key(x - 1, y)) && clothAt(key(x + 1, y))) || (clothAt(key(x, y - 1)) && clothAt(key(x, y + 1)));
     if (c === BLACK ? boxed : near(1, 3) && near(-1, 3)) { layer.set(p, l.gapFill); filled++; }
+  }
+  // In the front/back/diagonal views every body pixel outside the arms belongs to the trunk or legs, so leg or hip
+  // skin the garment moved off (it touches cloth) is covered with the gap colour before the outline is drawn.
+  if (l.gapFill && geom !== spec.sourceDirection) {
+    const skinHex = new Set(Object.entries(pal).filter(([sy]) => 'LmsdD'.includes(sy)).map(([, h]) => h));
+    for (const [p, c] of fr.body) {
+      if (!skinHex.has(c) || layer.has(p) || fr.arms.has(p)) continue;
+      const [x, y] = unkey(p);
+      if (y < CL[l.name].gapFill.fromRow) continue;
+      if (N4.some(([dx, dy]) => layer.has(key(x + dx, y + dy)) && layer.get(key(x + dx, y + dy)) !== l.outline)) { layer.set(p, l.gapFill); filled++; }
+    }
   }
   report.clothingGapFill[`${l.name} ${dir}:${k}`] = filled;
   // outline where clothing newly meets empty space
