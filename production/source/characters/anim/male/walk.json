@@ -234,6 +234,7 @@
     "sash": {
       "rule": "The hanging flaps swing from the knot like a pendulum: rows below knotRow shift sideways, growing to sway[k] at the flaps' lowest row (+ is screen right in that direction's orientation; mirrored directions use their source's table, flipped). In the profile the flaps trail behind the walk and kick back twice per cycle; in front/back views they swing toward the leg that is stepping; the band and knot stay with the waist. The flaps also lag the body bob by one frame.",
       "knotRow": 34,
+      "bandFollowsBody": true,
       "sway": {
         "E": [0, -1, -2, -1, 0, -1, -2, -1],
         "S": [1, 1, 0, -1, -1, -1, 0, 1],

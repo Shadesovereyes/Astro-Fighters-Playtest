@@ -481,18 +481,24 @@ function posedClothing(l, px, k) {
     if (LIMB[p.part]?.[0] === 'leg') continue;
     let c = p.c;
     if (p.part === 'torso' && refArm.has(key(p.x, p.y)) && c !== l.outline) c = at.get(key(p.x + 1, p.y))?.c === l.outline ? under.edge : under.base;
-    const lag = p.part === 'sash' ? lagOf('sash') : 0;
+    const lag = p.part === 'sash' && !isBand(p) ? lagOf('sash') : 0;
     items.push([p.part === 'sash' ? 3 : 1, p.x + sway(p), p.y + dyOf[lag], c, p.src]);
   }
   return items;
 }
 function frontalClothing(geom, px, k) {
   const d = FR.views[geom], items = [], sway = sashSway(geom, px, k);
-  for (const p of px) { const { rows, dx, z } = frontalMove(d, k, p.part, p.y); for (const ny of rows) items.push([z, p.x + dx + sway(p), ny, p.c, p.src]); }
+  for (const p of px) {
+    const part = p.part === 'sash' && isBand(p) ? 'pelvis' : p.part;
+    const { rows, dx, z } = frontalMove(d, k, part, p.y);
+    for (const ny of rows) items.push([p.part === 'sash' ? 3 : z, p.x + dx + sway(p), ny, p.c, p.src]);
+  }
   return items;
 }
 // The sash's hanging flaps swing from the knot: rows below the knot row shift sideways, growing to sashSway[k] at the
 // flaps' lowest row (a pendulum, phased with the step). The band and knot stay with the waist.
+// With bandFollowsBody the band and knot (rows down to knotRow) move exactly with the waist; only the flaps lag.
+const isBand = (p) => !!CL.sash?.bandFollowsBody && p.y <= CL.sash.knotRow;
 function sashSway(geom, px, k) {
   const sw = CL.sash, table = sw?.sway?.[geom];
   if (!table) return () => 0;
