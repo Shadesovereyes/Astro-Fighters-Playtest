@@ -249,8 +249,8 @@
       "gapFill": { "colour": "#ddcdb4", "fromRow": 35, "rule": "body (skin or shorts) uncovered from under the hanging sash or its swinging flaps, with cloth on both sides in the same row, takes the trouser mid colour" },
       "underArm": { "base": "#f8eee0", "edge": "#a9977d" },
       "wrap": {
-        "rule": "line-pose wrap rows (which follow the shin's slope): the leg's wrap span widened by 'margin' px each side, grey on the back three pixels and white in front, as on the corrected E Gi wrap (single outline, no inner black stripe)",
-        "margin": 1, "pattern": "iii", "fill": "h",
+        "rule": "line-pose wrap rows (which follow the shin's slope): the leg's own wrap span (margin 0), one grey pixel at the back and white in front, as on the corrected E Gi wrap (3 px inside a single outline, like every other direction)",
+        "margin": 0, "pattern": "i", "fill": "h",
         "colours": { "a": "#030101", "i": "#adadad", "h": "#fefefc" }
       },
       "trouser": {

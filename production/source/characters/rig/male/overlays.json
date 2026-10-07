@@ -79,8 +79,8 @@
             "torso": 116,
             "pelvis": 31,
             "R-thigh": 66,
-            "R-shin-foot": 102,
-            "L-shin-foot": 45,
+            "R-shin-foot": 106,
+            "L-shin-foot": 33,
             "sash": 62
           }
         },
@@ -125,9 +125,9 @@
           "pixelCounts": {
             "torso": 116,
             "pelvis": 31,
-            "R-shin-foot": 45,
+            "R-shin-foot": 33,
             "L-thigh": 66,
-            "L-shin-foot": 102,
+            "L-shin-foot": 106,
             "sash": 62
           }
         },
