@@ -482,6 +482,11 @@ function frontalMove(d, k, part, y) {
   }
   else if (part === 'torso') { const ny = leanY('torso', y); rows = ny === null ? [] : [ny + b]; }
   else { rows = [y + b]; if (part === 'pelvis') z = 2.5; }
+  // leanScale: a diagonal view shows part of the profile lean sideways (toward the facing), scaled from E's offsets
+  if (d.leanScale && limb?.[0] !== 'leg') {
+    const g = limb?.[0] === 'arm' ? 'torso' : leanGroup(part, y), ly = limb?.[0] === 'arm' ? AR.shoulder : y;
+    if (g) dx += roundHalfEven(d.leanScale * leanOf(g, k, ly)) * (d.leanSign || 1);
+  }
   return { rows, dx, z };
 }
 function frontalFrame(dir, k) {
@@ -502,7 +507,8 @@ function frontalFrame(dir, k) {
     if (name === 'arms') for (const [sd, ab] of Object.entries(d.armBand || {})) {
       if (!ab) continue;
       const sc = ab.scale ?? 1, r = (v) => Math.round(v * sc), B0 = A.band;
-      const pb = { angle: ab.angle[k], band: { pivot: [ab.pivot[0], ab.pivot[1] + bob[k] + (d.crouch || 0) + DROP],
+      const lx = d.leanScale ? roundHalfEven(d.leanScale * leanOf('torso', k, AR.shoulder)) * (d.leanSign || 1) : 0;
+      const pb = { angle: ab.angle[k], band: { pivot: [ab.pivot[0] + lx, ab.pivot[1] + bob[k] + (d.crouch || 0) + DROP],
         start: B0.start, length: r(B0.length + B0.start) - B0.start, wrapFrom: r(B0.wrapFrom), handFrom: r(B0.handFrom) } };
       for (const [q, c] of bandArm(pb)) { const [x, y] = unkey(q); items.push([sd === d.far ? -1 : 4, x, y, pal[c], 'band']); }
     }
