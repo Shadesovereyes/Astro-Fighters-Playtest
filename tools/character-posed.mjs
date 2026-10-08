@@ -135,7 +135,7 @@ const armRows = [...new Set([...refArm.keys()].map((k) => unkey(k)[1]))];
 const refBack = {};
 for (const y of armRows) refBack[y] = Math.min(...[...refArm.keys()].map(unkey).filter((p) => p[1] === y).map((p) => p[0]));
 function armShift(p) {
-  if (p.construction === 'reference') return () => 0;
+  if (p.construction === 'reference' || p.construction === 'band') return () => 0;
   if (p.construction === 'pendulum') return (y) => roundHalfEven(p.total * (Math.min(y, AR.pendulumRigidFrom) - AR.shoulder) / (AR.pendulumRigidFrom - AR.shoulder));
   // straight: the whole arm, hand included, on one line from the shoulder (no rigid forearm or wrist); a raised arm
   // drops rows between the shoulder and the wrist wrap so it keeps its length while it angles away
@@ -160,7 +160,29 @@ function armRow(p) {
   const dropped = Array.from({ length: n }, (_, i) => lo + Math.floor((i + 0.5) * span / n));
   return (y) => (dropped.includes(y) ? null : y - dropped.filter((r) => r < y).length);
 }
+// band: an authored raised arm. The arm is a straight band of constant thickness from the shoulder pivot at `angle`
+// degrees behind vertical; each pixel takes its colour from the authored cross-section pattern of its segment (upper
+// arm and forearm, wrist wrap, hand, hand end), read back-to-front across the band, so the arm keeps its thickness at
+// any angle. bandRef maps a band pixel to the reference arm pixel at the same distance along and across the arm
+// (used only to place arm accessories).
+function bandGeom(p) {
+  const B = A.band, t = p.angle * Math.PI / 180, d = [-Math.sin(t), Math.cos(t)], n = [Math.cos(t), Math.sin(t)];
+  const uv = (x, y) => { const cx = x + 0.5 - B.pivot[0], cy = y + 0.5 - B.pivot[1]; return [cx * d[0] + cy * d[1], cx * n[0] + cy * n[1]]; };
+  return { B, uv };
+}
+function bandArm(p) {
+  const { B, uv } = bandGeom(p), out = new Map(), half = B.thickness / 2, end = B.start + B.length;
+  for (let y = 0; y < FRAME; y++) for (let x = 0; x < FRAME; x++) {
+    const [u, v] = uv(x, y), hand = u >= B.handFrom, h = hand ? (B.handThickness ?? B.thickness) / 2 : half;
+    if (u < B.start || u >= end || v < -h || v >= h) continue;
+    const pat = u >= end - 1 ? B.pattern.handEnd : hand ? B.pattern.hand : u >= B.wrapFrom ? B.pattern.wrap : B.pattern.skin;
+    out.set(key(x, y), pat[Math.min(pat.length - 1, Math.floor(v + h))]);
+  }
+  return out;
+}
+const bandRef = (p) => { const { B, uv } = bandGeom(p); return (x, y) => { const [u, v] = uv(x, y); return [Math.floor(B.pivot[0] + v), Math.floor(B.pivot[1] + u)]; }; };
 function buildArm(p) {
+  if (p.construction === 'band') return bandArm(p);
   const shift = armShift(p), row = armRow(p);
   if (Math.min(...armRows) < AR.shoulder) throw new Error('reference arm starts above the shoulder row');
   const out = new Map();
@@ -269,7 +291,8 @@ function frame(k) {
       if (bodyRest.has(key(x + dx, y + dy)) && !rest.has(q)) rest.set(q, 'o');
     }
   }
-  const na = closeArm(shifted(buildArm(A.near[k])), (x, y, q) => y < AR.shoulder + DROP || rest.has(q));
+  // a raised (band) near arm crosses the torso, so it is outlined over the body as well
+  const na = closeArm(shifted(buildArm(A.near[k])), (x, y, q) => y < AR.shoulder + DROP || (A.near[k].construction !== 'band' && rest.has(q)));
   const fa = closeArm(shifted(buildArm(A.far[k])), (x, y) => y < AR.shoulder + DROP);
   for (const [p, c] of far) bodyL.set(p, colourOf(farShade[c]));
   for (const [p, c] of fa) { const [x, y] = unkey(p); bodyL.set(key(x, y + b), colourOf(farShade[c])); }
@@ -556,15 +579,30 @@ function posedClothing(l, px, k) {
   const sway = sashSway(spec.sourceDirection, px, k, l);
   const under = CL[l.name].underArm && Object.fromEntries(Object.entries(CL[l.name].underArm).map(([k2, v]) => [k2, v.slice(1).toLowerCase()])), at = new Map(px.map((p) => [key(p.x, p.y), p]));
   const T = leanOf('torso', k, AR.shoulder), nearArm = (y) => armShift(A.near[k])(y) + T, farArm = (y) => armShift(A.far[k])(y) + T;
+  // accessories on a band arm: each band pixel takes the accessory pixel of the reference arm at the same place
+  // along and across the arm (provisional placement until per-pose accessory variants are authored)
+  const armAt = new Map(px.filter((p) => LIMB[p.part]?.[0] === 'arm').map((p) => [key(p.x, p.y), p]));
+  for (const [which, z] of [['near', 4], ['far', -1]]) {
+    const ap = A[which][k];
+    if (ap.construction !== 'band') continue;
+    const ref = bandRef(ap);
+    for (const q of bandArm(ap).keys()) {
+      const [x, y] = unkey(q), [rx, ry] = ref(x, y), hit = armAt.get(key(rx, ry));
+      if (!hit || !nearSide.arm.includes(hit.part)) continue;
+      if (which === 'near') items.push([z, x + T, y + DROP + b, hit.c, hit.src]);
+      else items.push([z, x + T, y + DROP + b, l.shade[hit.c] ?? hit.c, null, 'farArm']);
+    }
+  }
   for (const p of px) {
     if (LIMB[p.part]?.[0] === 'leg') continue;
     if (LIMB[p.part]?.[0] === 'arm') {
       const near = nearSide.arm.includes(p.part), nr = armRow(A.near[k])(p.y), fr = armRow(A.far[k])(p.y);
       const ny = near ? nr : fr;
-      if (ny !== null) items.push([near ? 4 : -1, p.x + (near ? nearArm : farArm)(p.y), ny + DROP + b, p.c, p.src]);
+      const bandNear = A.near[k].construction === 'band', bandFar = A.far[k].construction === 'band';
+      if (ny !== null && !(near ? bandNear : bandFar)) items.push([near ? 4 : -1, p.x + (near ? nearArm : farArm)(p.y), ny + DROP + b, p.c, p.src]);
       // the far arm is hidden in the profile reference, so its pieces are the near ones on the far arm, shaded
       // darker and kept only where the far arm itself shows
-      if (near && fr !== null) items.push([-1, p.x + farArm(p.y), fr + DROP + b, l.shade[p.c] ?? p.c, null, 'farArm']);
+      if (near && fr !== null && !bandFar) items.push([-1, p.x + farArm(p.y), fr + DROP + b, l.shade[p.c] ?? p.c, null, 'farArm']);
       continue;
     }
     let c = p.c;

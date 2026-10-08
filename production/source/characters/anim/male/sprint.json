@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "sprint",
-  "status": "candidate: E sprint draft v15 (W = mirror of E); arms raised further (drop 10/9)",
+  "status": "candidate: E sprint draft v16 (W = mirror of E); authored band arms keep their thickness",
   "frames": 8,
   "fps": 14,
   "sourceDirection": "E",
@@ -341,93 +341,97 @@
       "reference": "the reference arm unchanged",
       "pendulum": "swing from the shoulder: dx grows linearly from the shoulder row to row pendulumRigidFrom and reaches 'total' there (rounded half to even); the wrist wrap and hand below move rigidly with it",
       "line": "each row's back edge is placed on a straight line: shoulder to elbow moves 'upper' px, elbow to lineHand leans 'lean' px (measured from the shoulder's back column, rounded half up); rows below lineHand move with it",
-      "straight": "the whole arm, wrist and hand included, on one straight line from the shoulder: dx grows linearly from the shoulder row to the arm's lowest row, reaching total there. 'drop' removes that many rows, evenly spaced between the shoulder row and the wrist wrap, so the raised arm keeps its length"
+      "straight": "the whole arm, wrist and hand included, on one straight line from the shoulder: dx grows linearly from the shoulder row to the arm's lowest row, reaching total there. 'drop' removes that many rows, evenly spaced between the shoulder row and the wrist wrap, so the raised arm keeps its length",
+      "band": "authored raised arm: a straight band of constant thickness from the shoulder pivot at 'angle' degrees behind vertical; each pixel takes its colour from the authored cross-section pattern (back to front) of its segment, so the arm keeps its thickness at any angle. Arm accessories are placed by the reference arm pixel at the same place along and across the arm (provisional)."
     },
     "near": [
       {
-        "construction": "straight",
-        "total": -20,
-        "drop": 10
+        "construction": "band",
+        "angle": 70
       },
       {
-        "construction": "straight",
-        "total": -20,
-        "drop": 10
+        "construction": "band",
+        "angle": 70
       },
       {
-        "construction": "straight",
-        "total": -21,
-        "drop": 10
+        "construction": "band",
+        "angle": 72
       },
       {
-        "construction": "straight",
-        "total": -21,
-        "drop": 10
+        "construction": "band",
+        "angle": 72
       },
       {
-        "construction": "straight",
-        "total": -20,
-        "drop": 10
+        "construction": "band",
+        "angle": 70
       },
       {
-        "construction": "straight",
-        "total": -20,
-        "drop": 10
+        "construction": "band",
+        "angle": 70
       },
       {
-        "construction": "straight",
-        "total": -21,
-        "drop": 10
+        "construction": "band",
+        "angle": 72
       },
       {
-        "construction": "straight",
-        "total": -21,
-        "drop": 10
+        "construction": "band",
+        "angle": 72
       }
     ],
     "far": [
       {
-        "construction": "straight",
-        "total": -18,
-        "drop": 9
+        "construction": "band",
+        "angle": 64
       },
       {
-        "construction": "straight",
-        "total": -18,
-        "drop": 9
+        "construction": "band",
+        "angle": 64
       },
       {
-        "construction": "straight",
-        "total": -17,
-        "drop": 9
+        "construction": "band",
+        "angle": 62
       },
       {
-        "construction": "straight",
-        "total": -17,
-        "drop": 9
+        "construction": "band",
+        "angle": 62
       },
       {
-        "construction": "straight",
-        "total": -18,
-        "drop": 9
+        "construction": "band",
+        "angle": 64
       },
       {
-        "construction": "straight",
-        "total": -18,
-        "drop": 9
+        "construction": "band",
+        "angle": 64
       },
       {
-        "construction": "straight",
-        "total": -17,
-        "drop": 9
+        "construction": "band",
+        "angle": 62
       },
       {
-        "construction": "straight",
-        "total": -17,
-        "drop": 9
+        "construction": "band",
+        "angle": 62
       }
     ],
-    "outline": "Arm pixels touching empty space get an outline, except above the shoulder row; the near arm is not outlined where it lies over the body (its dark back column separates it)."
+    "outline": "Arm pixels touching empty space get an outline, except above the shoulder row; the near arm is not outlined where it lies over the body (its dark back column separates it).",
+    "band": {
+      "pivot": [
+        32,
+        23
+      ],
+      "thickness": 4,
+      "start": -2,
+      "length": 18,
+      "wrapFrom": 11,
+      "handFrom": 14,
+      "pattern": {
+        "skin": "DLLm",
+        "wrap": "wwWW",
+        "hand": "dLLLm",
+        "handEnd": "msssD"
+      },
+      "note": "Lengths from the reference arm: pivot at the shoulder joint (row 23, centre column 32), wrap from row 34, hand from row 37, last colour row 40; cross-section from the reference rows 26-29 (D back edge, L L, m front).",
+      "handThickness": 5
+    }
   },
   "armRemovalFill": {
     "rule": "The reference near arm is also painted into Body1. Where it is removed from the body layer, the uncovered pixels are filled: torso rows up to 32 take mid skin; trunk rows 33-37 take white (light grey from column 35); row 38 white; row 39 outline (the trunk hem); rows from 40 down stay empty so the legs show. The frontmost fill pixel of trunk rows 33-38 becomes outline (the trunk's front edge). Outline pixels in trunk rows 33-37, columns 30-32, that only separated the trunk from the arm become white; a lone d pixel inside the white row 38 becomes white.",
