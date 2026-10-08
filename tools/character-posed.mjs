@@ -201,23 +201,56 @@ function bandGeom(p) {
   return { B, uv };
 }
 function bandArm(p) {
-  const { B, uv } = bandGeom(p), out = new Map(), half = B.thickness / 2, end = B.start + B.length;
+  const { B, uv } = bandGeom(p), out = new Map(), ref = new Map(), half = B.thickness / 2, end = B.start + B.length;
+  // elbow: a bent arm is two bands, the upper arm (p.angle, to elbow.at along the arm) and the forearm (elbow.angle)
+  // from the elbow point, joined by a round elbow; the forearm carries the wrap and the fist
+  const E = p.elbow, eu = E ? E.at : Infinity;
+  const fore = E && (() => {
+    const t1 = p.angle * Math.PI / 180, ex = B.pivot[0] - Math.sin(t1) * eu, ey = B.pivot[1] + Math.cos(t1) * eu;
+    const g = bandGeom({ angle: E.angle, band: { ...(p.band || {}), pivot: [ex, ey] } });
+    return { uv: (x, y) => { const [u, v] = g.uv(x, y); return [u + eu, v]; }, ex, ey };
+  })();
+  const pick = (u, v, h) => {
+    const pat = u >= end - 1 && B.pattern.handEnd ? B.pattern.handEnd : u >= B.handFrom ? B.pattern.hand : u >= B.wrapFrom ? B.pattern.wrap : B.pattern.skin;
+    return pat[Math.min(pat.length - 1, Math.floor(v + h))];
+  };
   for (let y = 0; y < FRAME; y++) for (let x = 0; x < FRAME; x++) {
-    const [u, v] = uv(x, y), hand = u >= B.handFrom, h = hand ? (B.handThickness ?? B.thickness) / 2 : half;
+    let [u, v] = uv(x, y);
+    if (E && u > eu + 0.5) {
+      [u, v] = fore.uv(x, y);
+      if (u < eu - 0.5) {   // round elbow joint between the two bands
+        if (Math.hypot(x + 0.5 - fore.ex, y + 0.5 - fore.ey) > half) continue;
+        u = eu; v = Math.max(-half, Math.min(half - 0.01, v));
+      }
+    } else if (E && u < B.start) continue;
+    const hand = u >= B.handFrom, h = hand ? (B.handThickness ?? B.thickness) / 2 : half;
     if (u < B.start || u >= end || v < -h || v >= h) continue;
-    const pat = u >= end - 1 && B.pattern.handEnd ? B.pattern.handEnd : hand ? B.pattern.hand : u >= B.wrapFrom ? B.pattern.wrap : B.pattern.skin;
-    out.set(key(x, y), pat[Math.min(pat.length - 1, Math.floor(v + h))]);
+    out.set(key(x, y), pick(u, v, h));
+    ref.set(key(x, y), [Math.floor(B.pivot[0] + v), Math.floor(B.pivot[1] + u)]);
   }
-  // an authored fist replaces the band's hand segment: its anchor cell sits on the arm line where the hand begins
+  // an authored fist replaces the band's hand segment: its anchor cell sits on the arm line where the hand begins.
+  // The fist is chosen by the direction of the hand: back (fist), forward (fist mirrored) or up (fistUp).
   if (B.fist) {
-    for (const q of [...out.keys()]) { const [x, y] = unkey(q); if (uv(x, y)[0] >= B.handFrom) out.delete(q); }
-    const t = p.angle * Math.PI / 180, ax = B.pivot[0] - Math.sin(t) * B.handFrom, ay = B.pivot[1] + Math.cos(t) * B.handFrom;
-    const x0 = Math.floor(ax) - B.fist.anchor[0], y0 = Math.floor(ay) - B.fist.anchor[1];
-    B.fist.rows.forEach((row, r) => [...row].forEach((c, j) => { if (c !== '.') out.set(key(x0 + j, y0 + r), c); }));
+    const along = (x, y) => (E ? fore.uv(x, y) : uv(x, y))[0];
+    for (const q of [...out.keys()]) { const [x, y] = unkey(q); if (along(x, y) >= B.handFrom) { out.delete(q); ref.delete(q); } }
+    const a = ((E ? E.angle : p.angle) % 360 + 540) % 360 - 180, t = a * Math.PI / 180;
+    const ox = E ? fore.ex : B.pivot[0], oy = E ? fore.ey : B.pivot[1], du = E ? B.handFrom - eu : B.handFrom;
+    const ax = ox - Math.sin(t) * du, ay = oy + Math.cos(t) * du;
+    let F = B.fist;
+    if (a < -45 && a >= -135) F = { anchor: [B.fist.rows[0].length - 1 - B.fist.anchor[0], B.fist.anchor[1]], rows: B.fist.rows.map((r) => [...r].reverse().join('')) };
+    else if ((a > 135 || a < -135) && B.fistUp) F = B.fistUp;
+    const x0 = Math.floor(ax) - F.anchor[0], y0 = Math.floor(ay) - F.anchor[1];
+    F.rows.forEach((row, r) => [...row].forEach((c, j) => {
+      if (c === '.') return;
+      const q = key(x0 + j, y0 + r);
+      out.set(q, c);
+      if (!E) { const [u, v] = uv(x0 + j, y0 + r); ref.set(q, [Math.floor(B.pivot[0] + v), Math.floor(B.pivot[1] + u)]); }
+    }));
   }
+  out.ref = ref;
   return out;
 }
-const bandRef = (p) => { const { B, uv } = bandGeom(p); return (x, y) => { const [u, v] = uv(x, y); return [Math.floor(B.pivot[0] + v), Math.floor(B.pivot[1] + u)]; }; };
+const bandRef = (p) => { const r = bandArm(p).ref; return (x, y) => r.get(key(x, y)) || [-1, -1]; };
 function buildArm(p) {
   if (p.construction === 'band') return bandArm(p);
   const shift = armShift(p), row = armRow(p);
@@ -749,7 +782,7 @@ function posedClothing(l, px, k) {
   const armAt = new Map(px.filter((p) => LIMB[p.part]?.[0] === 'arm').map((p) => [key(p.x, p.y), p]));
   for (const [which, z] of [['near', 4], ['far', -1]]) {
     const ap = A[which][k];
-    if (ap.construction !== 'band') continue;
+    if (ap.construction !== 'band') continue;   // (elbow arms included)
     const ref = bandRef(ap);
     for (const q of bandArm(ap).keys()) {
       const [x, y] = unkey(q), [rx, ry] = ref(x, y), hit = armAt.get(key(rx, ry));
@@ -1011,6 +1044,7 @@ const definition = JSON.stringify({
   pendingLayers: spec.overlays.pending,
   drawOrder: overlays.drawOrder,
   rootMotion: Object.fromEntries(spec.directions.map((d) => [d, spec.rootMotion[d]])),
+  ...(spec.events ? { events: spec.events } : {}),
   qc
 }, null, 2) + '\n';
 

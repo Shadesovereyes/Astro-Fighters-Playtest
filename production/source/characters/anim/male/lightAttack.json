@@ -1,0 +1,659 @@
+{
+  "schema": "astro-fighters-character-posed-animation/v1",
+  "body": "male",
+  "state": "lightAttack",
+  "status": "candidate: E jab/cross draft (W = mirror of E)",
+  "frames": 4,
+  "fps": 12,
+  "sourceDirection": "E",
+  "directions": [
+    "E",
+    "W"
+  ],
+  "mirror": {
+    "W": {
+      "from": "E",
+      "frameShift": 0
+    },
+    "rule": "W mirrors E frame for frame (an attack is not a cycle, so no half-cycle shift)."
+  },
+  "intent": "Taijutsu jab/cross from an orthodox stance: lead (far, left) leg and hand forward, rear (near, right) leg back. Frame 0 guard, 1 jab (lead hand straight, active), 2 recoil (chain window), 3 cross (rear hand straight, active; rear heel lifts, lean deepens).",
+  "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
+  "palette": {
+    "L": "#f6a35b",
+    "m": "#c87845",
+    "s": "#9e4a31",
+    "d": "#70241d",
+    "D": "#3f0505",
+    "W": "#ffffff",
+    "w": "#e3e3e3",
+    "#": "#000000"
+  },
+  "farShade": {
+    "rule": "The far leg and far arm are drawn one ramp step darker. Cloth has two steps only, so far-side wraps go flat #e3e3e3 and never into skin colours.",
+    "map": {
+      "L": "m",
+      "m": "s",
+      "s": "d",
+      "d": "D",
+      "D": "D",
+      "W": "w",
+      "w": "w",
+      "#": "#"
+    }
+  },
+  "armRemovalFill": {
+    "rule": "The reference near arm is also painted into Body1. Where it is removed from the body layer, the uncovered pixels are filled: torso rows up to 32 take mid skin; trunk rows 33-37 take white (light grey from column 35); row 38 white; row 39 outline (the trunk hem); rows from 40 down stay empty so the legs show. The frontmost fill pixel of trunk rows 33-38 becomes outline (the trunk's front edge). Outline pixels in trunk rows 33-37, columns 30-32, that only separated the trunk from the arm become white; a lone d pixel inside the white row 38 becomes white.",
+    "torsoMaxRow": 32,
+    "trunkRows": [
+      33,
+      37
+    ],
+    "trunkGreyFromX": 35,
+    "trunkWhiteRow": 38,
+    "hemRow": 39,
+    "frontEdgeRows": [
+      33,
+      38
+    ],
+    "separatorRows": [
+      33,
+      37
+    ],
+    "separatorCols": [
+      30,
+      32
+    ],
+    "approved": "2026-10-06"
+  },
+  "cleanup": {
+    "notchFromRow": 24,
+    "rules": [
+      "From row 24 down, an empty pixel enclosed on 3 sides by body or arm pixels becomes outline (the gaps between hair strands above are authored and stay open).",
+      "A generated outline pixel with no coloured 4-neighbour that touches empty space is removed, repeatedly; reference outline pixels are never touched.",
+      "Where a far part's generated outline runs beside an outline (colour # # colour) and the pixel is not an edge, it takes the far part's colour, leaving one shared line."
+    ],
+    "approved": "2026-10-06"
+  },
+  "overlays": {
+    "rule": "Hair and eye layers follow the head's bob through their rig part maps. Lagging hair falls take the bob of 1 or 2 frames earlier (overlays.json lagFrames) but never sit higher than the part above them (cap >= upper fall >= lower fall, positive dy is down), so no gap opens.",
+    "layers": [
+      "long-hair",
+      "fade-hair",
+      "afro-hair",
+      "brown-eyes",
+      "purple-eyes"
+    ],
+    "pending": []
+  },
+  "bob": {
+    "rule": "whole-pixel dy above the legs; the stance sits 1 px low, the cross drops 1 more",
+    "dy": [
+      1,
+      1,
+      1,
+      2
+    ]
+  },
+  "lean": {
+    "rule": "forward lean toward the facing: pelvis and head blocks, torso sheared between them",
+    "torsoShear": true,
+    "dx": {
+      "pelvis": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "head": [
+        2,
+        3,
+        2,
+        5
+      ]
+    }
+  },
+  "rootMotion": {
+    "E": [
+      [
+        0,
+        0
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        1,
+        0
+      ]
+    ],
+    "W": [
+      [
+        0,
+        0
+      ],
+      [
+        -1,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        -1,
+        0
+      ]
+    ]
+  },
+  "airborneFrames": [],
+  "legs": {
+    "source": "The reference near leg (R-thigh, R-shin-foot) of the E frame is replaced by row-span legs. Every leg is outlined; the reference wrap+foot block (R-shin-foot rows 56-63) is reused unchanged by the reference-ankle construction.",
+    "thighRows": [
+      "dmLmL",
+      "dmLLL",
+      "dLLmL",
+      "dLLmL"
+    ],
+    "shinRows4": [
+      "dLLL",
+      "dLLL",
+      "dmLL"
+    ],
+    "shinRow3": "dmL",
+    "wrap": "wWW",
+    "crease": "D on the back pixel of the first shin row (back of the knee)",
+    "heelFill": "In the reference foot the corner under the wrap is hidden by the far leg; it is filled with d m on the first foot row.",
+    "feet": {
+      "toe30": {
+        "use": "passing swing: toes dropped about 30 degrees, sole turned toward the back",
+        "rows": [
+          "#dmmL#",
+          "#dmLLL#",
+          "#DmLLLL#",
+          ".#DDmLL#",
+          "..##DsL#",
+          "....###."
+        ]
+      },
+      "toe60": {
+        "use": "toe-off: heel lifted, toes still on the ground",
+        "rows": [
+          "#dmmL#",
+          "#DmLLL#",
+          ".#DmLL#",
+          ".#DDmL#",
+          "..#DsL#",
+          "..#DLL#",
+          "...###."
+        ]
+      },
+      "flat": {
+        "use": "planted foot: the reference foot with the heel corner filled",
+        "rows": [
+          "#dmmL#",
+          "#dmLLL#",
+          "#DmLLLL#",
+          "#DDDDsLL#",
+          "#########"
+        ]
+      },
+      "pointBack": {
+        "use": "airborne trailing foot, ankle extended: the ankle continues the shin's slope for one row, then the foot hangs straight down with the toes pointing down (toes not angled); its front edge stays in line with the wrap",
+        "dx": -2,
+        "rows": [
+          ".#dmmL#",
+          "#DmLLL#",
+          "#DmLLL#",
+          "#DmLL#",
+          "#DsL#",
+          ".###"
+        ]
+      },
+      "flex": {
+        "use": "airborne reaching foot, ankle flexed: heel down, toes pulled up ready to land",
+        "rows": [
+          "#dmmL#..",
+          "#dmLLL##",
+          "#DmLLLLL#",
+          "#DDsLLL#",
+          ".#DD###",
+          "..##"
+        ]
+      }
+    },
+    "constructions": {
+      "reference-ankle": "Thigh rows from (hipX, hipRow) to (kneeX, kneeRow); shin rows interpolate kneeX -> ankleX down to the row above wrapRow; the reference wrap+foot block is translated so its wrap's back interior column sits at ankleX and its first wrap row at wrapRow.",
+      "line": "Thigh as above; the shin AND the three wrap rows follow one straight line from (kneeX, kneeRow) to (footX, wrapRow + 2), so the ankle carries the shin's slope; the named foot hangs under the last wrap row with its column 0 at footX - 1.",
+      "band": "like 'line', but thigh and shin are bands of constant thickness measured across the limb (thigh 5, upper shin 4, lower shin and wrap 3), each running along the limb's back edge and coloured from the same row patterns read back to front; the thigh runs on past the knee so the joint stays closed"
+    },
+    "poses": [
+      {
+        "name": "stance-lead",
+        "construction": "band",
+        "hipX": 32,
+        "kneeX": 35,
+        "footX": 37,
+        "hipRow": 42,
+        "kneeRow": 50,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "stance-rear",
+        "construction": "band",
+        "hipX": 31,
+        "kneeX": 29,
+        "footX": 25,
+        "hipRow": 42,
+        "kneeRow": 50,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "cross-lead",
+        "construction": "band",
+        "hipX": 33,
+        "kneeX": 36,
+        "footX": 37,
+        "hipRow": 43,
+        "kneeRow": 51,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "cross-rear",
+        "construction": "band",
+        "hipX": 32,
+        "kneeX": 31,
+        "footX": 27,
+        "hipRow": 43,
+        "kneeRow": 50,
+        "wrapRow": 54,
+        "foot": "toe60"
+      }
+    ],
+    "near": [
+      1,
+      1,
+      1,
+      3
+    ],
+    "far": [
+      0,
+      0,
+      0,
+      2
+    ]
+  },
+  "arms": {
+    "source": "The reference near arm (Arms1, E frame). Every row keeps its reference pixels and only moves sideways. The far arm (hidden in the reference) is the same arm, far-shaded and drawn behind the body.",
+    "rows": {
+      "shoulder": 21,
+      "elbow": 31,
+      "pendulumRigidFrom": 34,
+      "lineHand": 38
+    },
+    "constructions": {
+      "reference": "the reference arm unchanged",
+      "pendulum": "swing from the shoulder: dx grows linearly from the shoulder row to row pendulumRigidFrom and reaches 'total' there (rounded half to even); the wrist wrap and hand below move rigidly with it",
+      "line": "each row's back edge is placed on a straight line: shoulder to elbow moves 'upper' px, elbow to lineHand leans 'lean' px (measured from the shoulder's back column, rounded half up); rows below lineHand move with it",
+      "straight": "the whole arm, wrist and hand included, on one straight line from the shoulder: dx grows linearly from the shoulder row to the arm's lowest row, reaching total there. 'drop' removes that many rows, evenly spaced between the shoulder row and the wrist wrap, so the raised arm keeps its length",
+      "band": "authored raised arm: a straight band of constant thickness from the shoulder pivot at 'angle' degrees behind vertical; each pixel takes its colour from the authored cross-section pattern (back to front) of its segment, so the arm keeps its thickness at any angle. Arm accessories are placed by the reference arm pixel at the same place along and across the arm (provisional). With 'elbow' {at, angle} the arm bends: the upper arm runs at 'angle' to 'at' along the arm, the forearm at elbow.angle from there (round elbow joint); the fist follows the hand's direction (back, forward = mirrored, up = fistUp)."
+    },
+    "near": [
+      {
+        "construction": "band",
+        "angle": -25,
+        "elbow": {
+          "at": 8,
+          "angle": 192
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -25,
+        "elbow": {
+          "at": 8,
+          "angle": 192
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -25,
+        "elbow": {
+          "at": 8,
+          "angle": 192
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -92,
+        "elbow": {
+          "at": 8,
+          "angle": -92
+        }
+      }
+    ],
+    "far": [
+      {
+        "construction": "band",
+        "angle": -40,
+        "elbow": {
+          "at": 8,
+          "angle": 205
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -93,
+        "elbow": {
+          "at": 8,
+          "angle": -93
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -50,
+        "elbow": {
+          "at": 8,
+          "angle": 235
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -40,
+        "elbow": {
+          "at": 8,
+          "angle": 205
+        }
+      }
+    ],
+    "outline": "Arm pixels touching empty space get an outline, except above the shoulder row; the near arm is not outlined where it lies over the body (its dark back column separates it).",
+    "band": {
+      "pivot": [
+        32,
+        23
+      ],
+      "thickness": 4,
+      "start": -2,
+      "length": 16,
+      "wrapFrom": 11,
+      "handFrom": 14,
+      "pattern": {
+        "skin": "DLLm",
+        "wrap": "wwWW"
+      },
+      "note": "Lengths from the reference arm: pivot at the shoulder joint (row 23, centre column 32), wrap from row 34, hand from row 37, last colour row 40; cross-section from the reference rows 26-29 (D back edge, L L, m front).",
+      "fist": {
+        "use": "closed fist pointing back along the raised arm, knuckles at the left (back) end; outline is added by the arm outline rule",
+        "anchor": [
+          3,
+          1
+        ],
+        "rows": [
+          "mLLm",
+          "LLLm",
+          "mLms",
+          ".sDs"
+        ]
+      },
+      "fistUp": {
+        "use": "closed fist held up in guard, knuckles on top",
+        "anchor": [
+          1,
+          3
+        ],
+        "rows": [
+          "mLLm",
+          "LLLm",
+          "LLms",
+          "sDDs"
+        ]
+      }
+    }
+  },
+  "clothing": {
+    "rule": "Layer 2 clothing follows the body it is registered to. Front, back and diagonal views move each clothing pixel exactly like the body pixel of the same part. In the authored profile (E) each trouser row is resampled onto the posed leg (thigh rows onto the pose's thigh rows, shin rows onto its shin rows) and shifted by the leg's back edge; wrap and shoe follow the ankle (reference-ankle poses) or the shin line and the authored foot (line poses), where a toe-down foot is drawn as the foot's own shape in the shoe colours. The far trouser leg is the near one on the far pose, shaded one step darker and drawn behind. A mirrored direction whose clothing is not an exact mirror is built from its own clothing frame, flipped through its source's motion. Where clothing newly meets empty space it gets the clothing's outline colour.",
+    "layers": [
+      "male-gi",
+      "male-blue-armor",
+      "male-red-armor",
+      "blue-armor-shoulders",
+      "red-armor-shoulders"
+    ],
+    "sash": {
+      "rule": "The hanging flaps swing from the knot like a pendulum: rows below knotRow shift sideways, growing to sway[k] at the flaps' lowest row (+ is screen right in that direction's orientation; mirrored directions use their source's table, flipped). In the profile the flaps trail behind the walk and kick back twice per cycle; in front/back views they swing toward the leg that is stepping; the band and knot stay with the waist. The flaps also lag the body bob by one frame.",
+      "knotRow": 34,
+      "bandFollowsBody": true,
+      "sway": {
+        "E": [
+          -1,
+          -1,
+          -1,
+          -2
+        ]
+      }
+    },
+    "male-gi": {
+      "outline": "#030101",
+      "shoe": "#3b2014",
+      "gapFill": {
+        "colour": "#ddcdb4",
+        "fromRow": 35,
+        "rule": "body (skin or shorts) uncovered from under the hanging sash or its swinging flaps, with cloth on both sides in the same row, takes the trouser mid colour"
+      },
+      "underArm": {
+        "base": "#f8eee0",
+        "edge": "#a9977d"
+      },
+      "wrap": {
+        "rule": "line-pose wrap rows (which follow the shin's slope): the leg's own wrap span (margin 0), one grey pixel at the back and white in front, as on the corrected E Gi wrap (3 px inside a single outline, like every other direction)",
+        "margin": 0,
+        "pattern": "i",
+        "fill": "h",
+        "colours": {
+          "a": "#030101",
+          "i": "#adadad",
+          "h": "#fefefc"
+        }
+      },
+      "trouser": {
+        "rule": "profile trouser rows: the leg's outline span widened by 'back' px behind and 'front' px in front (measured on the reference E Gi); interior shaded d, c..., b..., then the front shade; the row above the wrap is the hem; a d fold marks the back of the knee",
+        "back": 2,
+        "front": 1,
+        "thighFront": "f",
+        "shinFront": "d",
+        "colours": {
+          "a": "#030101",
+          "b": "#f8eee0",
+          "c": "#ddcdb4",
+          "d": "#a9977d",
+          "f": "#726250"
+        }
+      },
+      "farShade": {
+        "#f8eee0": "#ddcdb4",
+        "#ddcdb4": "#a9977d",
+        "#a9977d": "#726250",
+        "#726250": "#726250",
+        "#fefefc": "#dadad9",
+        "#dadad9": "#adadad",
+        "#adadad": "#adadad",
+        "#3b2014": "#3b2014",
+        "#9c0909": "#9c0909",
+        "#030101": "#030101"
+      },
+      "legRows": {
+        "wrap": 56,
+        "foot": 59
+      }
+    },
+    "male-blue-armor": {
+      "outline": "#000000",
+      "shoe": "#332b6f",
+      "sashKnotRow": 35,
+      "legRows": {
+        "wrap": 55,
+        "foot": 59,
+        "rule": "the boot starts one row above the body's wrap (row 55); the boot cuff (row 54) is the trouser hem"
+      },
+      "farShade": {
+        "#ffffff": "#adadad",
+        "#adadad": "#adadad",
+        "#434da0": "#332b6f",
+        "#332b6f": "#332b6f",
+        "#000000": "#000000"
+      },
+      "gapFill": {
+        "colour": "#adadad",
+        "fromRow": 35,
+        "rule": "body (skin or shorts) uncovered from under the hanging sash or its swinging flaps, with cloth on both sides in the same row, takes the trouser mid colour"
+      },
+      "underArm": {
+        "base": "#434da0",
+        "edge": "#332b6f"
+      },
+      "wrap": {
+        "rule": "line-pose boot-shaft rows: the leg's own wrap span (margin 0) in boot colour inside one outline, matching the corrected E/W boot (the far-boot sliver and its inner black line were removed)",
+        "margin": 0,
+        "pattern": "c",
+        "fill": "c",
+        "colours": {
+          "a": "#000000",
+          "c": "#332b6f"
+        }
+      },
+      "trouser": {
+        "rule": "profile leg armour rows: the leg's outline span widened 2 px behind and 1 px in front (measured on the reference E armour); grey with a white front, as on the reference",
+        "back": 2,
+        "front": 1,
+        "thighFront": "c",
+        "shinFront": "c",
+        "colours": {
+          "a": "#000000",
+          "b": "#ffffff",
+          "c": "#adadad",
+          "d": "#adadad",
+          "f": "#adadad"
+        }
+      }
+    },
+    "male-red-armor": {
+      "outline": "#000000",
+      "shoe": "#770202",
+      "sashKnotRow": 35,
+      "legRows": {
+        "wrap": 55,
+        "foot": 59,
+        "rule": "the boot starts one row above the body's wrap (row 55); the boot cuff (row 54) is the trouser hem"
+      },
+      "farShade": {
+        "#ffffff": "#adadad",
+        "#adadad": "#adadad",
+        "#af071a": "#770202",
+        "#770202": "#770202",
+        "#000000": "#000000"
+      },
+      "gapFill": {
+        "colour": "#adadad",
+        "fromRow": 35,
+        "rule": "body (skin or shorts) uncovered from under the hanging sash or its swinging flaps, with cloth on both sides in the same row, takes the trouser mid colour"
+      },
+      "underArm": {
+        "base": "#af071a",
+        "edge": "#770202"
+      },
+      "wrap": {
+        "rule": "line-pose boot-shaft rows: the leg's own wrap span (margin 0) in boot colour inside one outline, matching the corrected E/W boot (the far-boot sliver and its inner black line were removed)",
+        "margin": 0,
+        "pattern": "c",
+        "fill": "c",
+        "colours": {
+          "a": "#000000",
+          "c": "#770202"
+        }
+      },
+      "trouser": {
+        "rule": "profile leg armour rows: the leg's outline span widened 2 px behind and 1 px in front (measured on the reference E armour); grey with a white front, as on the reference",
+        "back": 2,
+        "front": 1,
+        "thighFront": "c",
+        "shinFront": "c",
+        "colours": {
+          "a": "#000000",
+          "b": "#ffffff",
+          "c": "#adadad",
+          "d": "#adadad",
+          "f": "#adadad"
+        }
+      }
+    },
+    "blue-armor-shoulders": {
+      "outline": "#000000",
+      "farShade": {
+        "#ffffff": "#adadad",
+        "#adadad": "#adadad",
+        "#434da0": "#332b6f",
+        "#332b6f": "#332b6f",
+        "#000000": "#000000"
+      },
+      "rule": "Layer 4 pieces follow the arm part they sit on: pads with the upper arm, bracers with the forearm, through the same row edits and swing as the arm"
+    },
+    "red-armor-shoulders": {
+      "outline": "#000000",
+      "farShade": {
+        "#ffffff": "#adadad",
+        "#adadad": "#adadad",
+        "#af071a": "#770202",
+        "#770202": "#770202",
+        "#000000": "#000000"
+      },
+      "rule": "Layer 4 pieces follow the arm part they sit on: pads with the upper arm, bracers with the forearm, through the same row edits and swing as the arm"
+    },
+    "looseFromRow": 40,
+    "looseRule": "from row 40 down, cloth specks of 1-2 px cut off from the garment and outline pixels that no longer border any cloth are removed (they are left between the legs where a direction's own clothing frame does not register exactly with its source's motion)"
+  },
+  "events": {
+    "rule": "per-frame gameplay data in the E frame (W mirrors x -> 63 - x - w + 1): hitbox [x, y, w, h] on active frames, damage event",
+    "E": [
+      {
+        "frame": 0,
+        "type": "guard"
+      },
+      {
+        "frame": 1,
+        "type": "active",
+        "move": "jab",
+        "hitbox": [
+          40,
+          18,
+          12,
+          8
+        ],
+        "damage": "light"
+      },
+      {
+        "frame": 2,
+        "type": "chainWindow"
+      },
+      {
+        "frame": 3,
+        "type": "active",
+        "move": "cross",
+        "hitbox": [
+          40,
+          18,
+          14,
+          8
+        ],
+        "damage": "light+"
+      }
+    ]
+  }
+}
