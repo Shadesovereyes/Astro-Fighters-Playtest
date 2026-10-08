@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-animation-output/v1",
   "body": "male",
   "state": "sprint",
-  "status": "candidate: E sprint draft v8 (W = mirror of E); ankle articulation on airborne feet",
+  "status": "candidate: E sprint draft v9 (W = mirror of E); milder flex on the reach foot",
   "frames": 8,
   "fps": 14,
   "frameSize": [

@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "sprint",
-  "status": "candidate: E sprint draft v8 (W = mirror of E); ankle articulation on airborne feet",
+  "status": "candidate: E sprint draft v9 (W = mirror of E); milder flex on the reach foot",
   "frames": 8,
   "fps": 14,
   "sourceDirection": "E",
@@ -202,14 +202,13 @@
         ]
       },
       "flex": {
-        "use": "airborne reaching foot, ankle flexed: heel down, toes pulled up ready to land",
+        "use": "airborne reaching foot, ankle slightly flexed: the flat foot with the toes lifted about one pixel, ready to land",
         "rows": [
           "#dmmL#..",
-          "#dmLLL##",
-          "#DmLLLLL#",
-          "#DDsLLL#",
-          ".#DD###",
-          "..##"
+          "#dmLLL#.",
+          "#DmLLLL#",
+          "#DDDsLLL#",
+          ".#######"
         ]
       }
     },
