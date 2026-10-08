@@ -443,8 +443,9 @@ function exposedInReference(fx) {
 }
 // Where one pixel of a front/back/diagonal view goes at frame k: its rows (after row edits), sideways shift and depth.
 function frontalMove(d, k, part, y) {
-  const b = bob[k], lift = d.legLift || FR.legLift, far = d.far, limb = LIMB[part];
-  const cap = b, up = Math.min(bob[(k - 1 + F) % F], cap), lo = Math.min(bob[(k - 2 + F) % F], up), dyOf = [cap, up, lo];
+  // crouch: a view's whole figure sits lower by d.crouch rows (every leg drops that many more bob rows)
+  const b = bob[k] + (d.crouch || 0), lift = d.legLift || FR.legLift, far = d.far, limb = LIMB[part];
+  const c0 = d.crouch || 0, cap = b, up = Math.min(bob[(k - 1 + F) % F] + c0, cap), lo = Math.min(bob[(k - 2 + F) % F] + c0, up), dyOf = [cap, up, lo];
   let rows, dx = 0, z = 3;
   if (limb?.[0] === 'leg') {
     const s = limb[1], n = lift[s][k] + b;
@@ -517,7 +518,7 @@ for (const dir of Object.keys(FR?.views || {})) {
   if (v.legPose) for (const s of ['R', 'L']) {
     if (v.legPose[s].length !== F) throw new Error(`frontal ${dir} ${s} legPose needs ${F} entries`);
     for (const n of v.legPose[s]) if (!v.legPoseRows[n]) throw new Error(`frontal ${dir}: unknown leg pose ${n}`);
-    if (Math.max(...bob) > v.bobRows.length) throw new Error(`frontal ${dir} needs ${Math.max(...bob)} bob rows`);
+    if (Math.max(...bob) + (v.crouch || 0) > v.bobRows.length) throw new Error(`frontal ${dir} needs ${Math.max(...bob) + (v.crouch || 0)} bob rows`);
   }
   for (const s of ['R', 'L']) {
     for (const [n, t] of [['handDy', v.handDy[s]], ['legLift', lift[s]], ...['hipDx', 'footDx', 'handDx'].filter((n) => v[n]).map((n) => [n, v[n][s]])]) {
