@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-animation-output/v1",
   "body": "male",
   "state": "sprint",
-  "status": "candidate: E sprint draft v9 (W = mirror of E); milder flex on the reach foot",
+  "status": "candidate: E sprint draft v10 (W = mirror of E); milder point on the trailing foot",
   "frames": 8,
   "fps": 14,
   "frameSize": [
