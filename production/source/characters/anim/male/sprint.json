@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "sprint",
-  "status": "candidate: E sprint draft v10 (W = mirror of E); milder point on the trailing foot",
+  "status": "candidate: E sprint draft v11 (W = mirror of E); trailing foot hangs straight down",
   "frames": 8,
   "fps": 14,
   "sourceDirection": "E",
@@ -190,12 +190,11 @@
         ]
       },
       "pointBack": {
-        "use": "airborne trailing foot, ankle extended: toes point down and slightly back, sole turned back",
-        "dx": -1,
+        "use": "airborne trailing foot, ankle extended: the foot hangs straight down under the ankle, toes pointing down, not angled back",
         "rows": [
-          ".#dmmL#",
-          ".#DDmLL#",
-          "#DDmLL#",
+          "#dmmL#",
+          "#DmLLL#",
+          "#DmLLL#",
           "#DmLL#",
           "#DsL#",
           ".###"
