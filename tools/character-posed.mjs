@@ -543,8 +543,18 @@ function frontalBand(d, k, sd, dir) {
 }
 // armWiden: a thin reference upper arm is widened by one column on its outer side (the outermost colour column is
 // repeated outward and the outline moves with it), so it is as thick as the wrist and fist below it.
+// armNarrow: the opposite on the inner side: the innermost colour column of the listed rows is dropped and the inner
+// outline moves out with it, leaving a gap between the wrist/fist and the body.
 function widenXs(d, dir, part, x, y) {
-  const W = d.armWiden, limb = LIMB[part];
+  const N = d.armNarrow, limb = LIMB[part];
+  if (N && limb?.[0] === 'arm' && y >= N.rows[0] && y <= N.rows[1]) {
+    const e = refArmSpan(dir, limb[1])[y];
+    if (!e) return [x];
+    const inward = d.inward?.[limb[1]] || 0, i = inward > 0 ? e[1] : e[0];
+    if (x === i) return [];
+    return (inward > 0 ? x > i : x < i) ? [x - inward] : [x];
+  }
+  const W = d.armWiden;
   if (!W || limb?.[0] !== 'arm' || y < W.rows[0] || y > W.rows[1]) return [x];
   const e = refArmSpan(dir, limb[1])[y];
   if (!e) return [x];

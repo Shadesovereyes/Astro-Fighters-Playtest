@@ -1116,7 +1116,14 @@
             32
           ]
         },
-        "armWidenRule": "the upper arms (reference rows 21-32, 3 colour columns) are widened by one column on the outer side to match the 4-column wrist band and the fist"
+        "armWidenRule": "the upper arms (reference rows 21-32, 3 colour columns) are widened by one column on the outer side to match the 4-column wrist band and the fist",
+        "armNarrow": {
+          "rows": [
+            33,
+            40
+          ]
+        },
+        "armNarrowRule": "the wrist band and fist (reference rows 33-40) drop their innermost colour column, so they are one pixel slimmer than the upper arm and stand 1 px off the body"
       },
       "N": {
         "handDyRule": "both arms are swept back and raised toward the viewer and are foreshortened by 5-6 rows",
