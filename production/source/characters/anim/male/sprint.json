@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "sprint",
-  "status": "candidate: E sprint draft v11 (W = mirror of E); trailing foot hangs straight down",
+  "status": "candidate: E sprint draft v12 (W = mirror of E); trailing foot follows the shin at the ankle",
   "frames": 8,
   "fps": 14,
   "sourceDirection": "E",
@@ -190,9 +190,10 @@
         ]
       },
       "pointBack": {
-        "use": "airborne trailing foot, ankle extended: the foot hangs straight down under the ankle, toes pointing down, not angled back",
+        "use": "airborne trailing foot, ankle extended: the ankle continues the shin's slope for one row, then the foot hangs straight down with the toes pointing down (toes not angled); its front edge stays in line with the wrap",
+        "dx": -2,
         "rows": [
-          "#dmmL#",
+          ".#dmmL#",
           "#DmLLL#",
           "#DmLLL#",
           "#DmLL#",
