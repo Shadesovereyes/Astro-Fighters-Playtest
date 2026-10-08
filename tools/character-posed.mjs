@@ -123,26 +123,29 @@ function buildLeg(p) {
     closeLeg(out, true);
   } else if (p.construction === 'band') {
     // Like 'line', but thigh and shin are bands of constant thickness measured across the limb, not row spans of
-    // fixed width, so a leg keeps its thickness at any angle. Each band runs along the limb's back edge (the same
-    // edge 'line' places its row patterns on); a pixel takes the colour of its cross-section pattern, read back to
-    // front. The thigh runs on past the knee and the shin starts above it, so the knee joint stays closed.
+    // fixed width, so a leg keeps its thickness at any angle. Each band runs along the limb's centre line (hip joint
+    // to knee to ankle; the 'line' poses' back-edge coordinates plus half the limb width) and a pixel takes the colour
+    // of its row pattern read back to front across the band. The knee is a round joint the width of the shin, so the
+    // bend closes without a bump.
     out.clear();
     const bot = p.wrapRow + 2;
     const band = (ax, ay, bx, by) => {
       const len = Math.hypot(bx - ax, by - ay), d = [(bx - ax) / len, (by - ay) / len], n = [d[1], -d[0]];
       return { len, uv: (x, y) => { const cx = x + 0.5 - ax, cy = y + 0.5 - ay; return [cx * d[0] + cy * d[1], cx * n[0] + cy * n[1]]; } };
     };
-    const th = band(p.hipX, p.hipRow + 0.5, p.kneeX, p.kneeRow + 0.5), sh = band(p.kneeX, p.kneeRow + 0.5, p.footX, bot + 0.5);
+    const kx = p.kneeX + 2.5, ky = p.kneeRow + 0.5;
+    const th = band(p.hipX + 2.5, p.hipRow + 0.5, kx, ky), sh = band(p.kneeX + 2, ky, p.footX + 1.5, bot + 0.5);
     // the wrap is cut by rows (wrapRow to the last shin row), as in 'line', so it reads as a level band at the ankle
     const shinPat = (u, y) => (y >= p.wrapRow ? L.wrap : u < 3 ? L.shinRows4[Math.max(0, Math.min(2, Math.floor(u)))] : L.shinRow3);
+    const pick = (pat, v) => pat[Math.max(0, Math.min(pat.length - 1, Math.floor(v + pat.length / 2)))];
     for (let y = 0; y < FRAME; y++) for (let x = 0; x < FRAME; x++) {
       const [su, sv] = sh.uv(x, y), [tu, tv] = th.uv(x, y);
-      const sp = shinPat(su, y), inShin = y <= bot && su >= -0.5 && su <= sh.len + 1.5 && sv >= 0 && sv < sp.length;
-      const inThigh = y >= p.hipRow && tu >= -2 && tu <= th.len + 0.5 && tv >= 0 && tv < 5;
-      const joint = tu > th.len + 0.5 && tu <= th.len + 2 && tv >= 0 && tv < 5;
-      if (inThigh) out.set(key(x, y), L.thighRows[Math.max(0, Math.min(3, Math.floor(tu * 4 / th.len)))][Math.floor(tv)]);
-      else if (inShin) out.set(key(x, y), sp[Math.floor(sv)]);
-      else if (joint && su < 0) out.set(key(x, y), L.shinRows4[0][Math.min(3, Math.floor(tv))]);
+      const sp = shinPat(su, y), inShin = y <= bot && su >= 0 && su <= sh.len + 1.5 && Math.abs(sv + 0.5 - 0.5) <= sp.length / 2 && sv >= -sp.length / 2 && sv < sp.length / 2;
+      const inThigh = tu >= -2 && tu <= th.len && tv >= -2.5 && tv < 2.5;
+      const inKnee = Math.hypot(x + 0.5 - kx + 0.25, y + 0.5 - ky) <= 2.3;
+      if (inThigh) out.set(key(x, y), pick(L.thighRows[Math.max(0, Math.min(3, Math.floor(tu * 4 / th.len)))], tv));
+      else if (inShin) out.set(key(x, y), pick(sp, sv));
+      else if (inKnee) out.set(key(x, y), pick(L.shinRows4[0], sv));
     }
     // the foot hangs under the wrap; where the slanted wrap end overlaps it, the wrap stays on top
     const ft = L.feet[p.foot];
@@ -582,7 +585,9 @@ function posedClothing(l, px, k) {
     const T = l.trouser, extent = {};
     for (const p of legMap.keys()) { const [x, y] = unkey(p); const e = (extent[y] ??= [99, -1]); e[0] = Math.min(e[0], x); e[1] = Math.max(e[1], x); }
     const shift = pose.wrapRow - BODY_WRAP, hemRow = LR.wrap + shift - 1;
-    for (let t = pose.hipRow - 1; t <= hemRow; t++) {
+    // a raised band thigh can rise above the hip row; its trouser starts at the leg's top row
+    const legTop = pose.construction === 'band' ? Math.min(...[...legMap.keys()].map((q) => unkey(q)[1])) + 1 : pose.hipRow;
+    for (let t = Math.min(pose.hipRow, legTop) - 1; t <= hemRow; t++) {
       const e = extent[t] ?? extent[t + 1] ?? extent[t - 1];
       const x0 = e[0] - T.back, x1 = e[1] + T.front, n = x1 - x0 - 1;
       const hem = t === hemRow, thighRow = t <= pose.kneeRow;
