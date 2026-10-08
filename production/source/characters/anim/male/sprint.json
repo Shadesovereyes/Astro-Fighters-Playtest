@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "sprint",
-  "status": "E/W, S/N, SE/SW approved by user 2026-10-08 (S arms tentative, revisit); NE/NW candidate",
+  "status": "approved by user 2026-10-08: E/W, S/N, SE/SW; NE/NW approved tentatively 2026-10-08; S arm sizing tentative (see revisit)",
   "frames": 8,
   "fps": 14,
   "sourceDirection": "E",
@@ -957,7 +957,9 @@
     "S": "2026-10-08; S arm/wrist/fist sizing approved tentatively 2026-10-08, to revisit",
     "N": "2026-10-08",
     "SE": "2026-10-08",
-    "SW": "2026-10-08 (mirror of SE)"
+    "SW": "2026-10-08 (mirror of SE)",
+    "NE": "2026-10-08 (tentative, revisit)",
+    "NW": "2026-10-08 (tentative, mirror of NE)"
   },
   "frontal": {
     "rule": "S and N are built from their own reference frames with no new pixels. A limb gets shorter by dropping listed reference rows and longer by repeating them; every row of that limb below the edit moves with it. A raised leg is a shortened leg (the leg tilting toward or away from the camera); the planted leg stays on row 63. Arms swing from the shoulder: the first pixel of swing is the elbow row (the upper arm's foreshortening moves the elbow), then a forearm row, then a wrist-wrap row. The step phase matches E/W (right leg forward at frame 0). Sprint: the lean is seen end-on, so the torso is shortened by the same rows as E (lean.torsoDrop) and the head lowered by lean.headDy, keeping every direction the same height; the arms are swept back and raised, so from the front and back both arms are foreshortened (shortened from the shoulder).",
@@ -1605,6 +1607,7 @@
   },
   "revisit": [
     "S arms: upper arm widened to 4 px (armWiden), wrist band and fist narrowed by 1 px with a 1 px gap to the body (armNarrow); the fist is only 2 px wide and lost its shade column. Approved tentatively 2026-10-08; revisit (option: narrow only the wrist, keep the 3 px fist and move it 1 px outward).",
-    "SE/SW arm armour on the band arm is placed from the reference accessory rows (stopgap); per-pose accessory variants still to be authored."
+    "SE/SW arm armour on the band arm is placed from the reference accessory rows (stopgap); per-pose accessory variants still to be authored.",
+    "NE/NW approved tentatively 2026-10-08: the near arm crosses the back with its fist over the hips; the legs bunch as they pass in frame 2 (also SE frames 6-7)."
   ]
 }

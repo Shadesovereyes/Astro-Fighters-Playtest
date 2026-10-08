@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-animation-output/v1",
   "body": "male",
   "state": "sprint",
-  "status": "E/W, S/N, SE/SW approved by user 2026-10-08 (S arms tentative, revisit); NE/NW candidate",
+  "status": "approved by user 2026-10-08: E/W, S/N, SE/SW; NE/NW approved tentatively 2026-10-08; S arm sizing tentative (see revisit)",
   "frames": 8,
   "fps": 14,
   "frameSize": [
