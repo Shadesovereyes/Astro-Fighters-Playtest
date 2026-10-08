@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "sprint",
-  "status": "E/W approved 2026-10-08; S/N approved 2026-10-08; SE/SW candidate",
+  "status": "E/W, S/N, SE/SW approved by user 2026-10-08; NE/NW to do",
   "frames": 8,
   "fps": 14,
   "sourceDirection": "E",
@@ -871,7 +871,9 @@
     "E": "2026-10-08",
     "W": "2026-10-08 (mirror of E)",
     "S": "2026-10-08",
-    "N": "2026-10-08"
+    "N": "2026-10-08",
+    "SE": "2026-10-08",
+    "SW": "2026-10-08 (mirror of SE)"
   },
   "frontal": {
     "rule": "S and N are built from their own reference frames with no new pixels. A limb gets shorter by dropping listed reference rows and longer by repeating them; every row of that limb below the edit moves with it. A raised leg is a shortened leg (the leg tilting toward or away from the camera); the planted leg stays on row 63. Arms swing from the shoulder: the first pixel of swing is the elbow row (the upper arm's foreshortening moves the elbow), then a forearm row, then a wrist-wrap row. The step phase matches E/W (right leg forward at frame 0). Sprint: the lean is seen end-on, so the torso is shortened by the same rows as E (lean.torsoDrop) and the head lowered by lean.headDy, keeping every direction the same height; the arms are swept back and raised, so from the front and back both arms are foreshortened (shortened from the shoulder).",

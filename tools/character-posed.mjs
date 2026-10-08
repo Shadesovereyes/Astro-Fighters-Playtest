@@ -505,6 +505,24 @@ function frontalMove(d, k, part, y) {
   }
   return { rows, dx, z };
 }
+// A view's band arm for one side: its pixels (symbols, in frame coordinates after bob, crouch, torso drop and lean)
+// and, for each of them, the view's reference arm pixel at the same place along and across the arm (for accessories).
+function frontalBand(d, k, sd) {
+  const ab = d.armBand?.[sd];
+  if (!ab) return null;
+  const sc = ab.scale ?? 1, r = (v) => Math.round(v * sc), B0 = A.band;
+  const lx = d.leanScale ? roundHalfEven(d.leanScale * leanOf('torso', k, AR.shoulder)) * (d.leanSign || 1) : 0;
+  const dy = bob[k] + (d.crouch || 0) + DROP;
+  const pb = { angle: ab.angle[k], band: { pivot: ab.pivot, start: B0.start, length: r(B0.length + B0.start) - B0.start,
+    wrapFrom: r(B0.wrapFrom), handFrom: r(B0.handFrom) } };
+  const { uv } = bandGeom(pb), pixels = new Map(), ref = new Map();
+  for (const [q, c] of bandArm(pb)) {
+    const [x, y] = unkey(q), [u, v] = uv(x, y), Q = key(x + lx, y + dy);
+    pixels.set(Q, c);
+    ref.set(Q, key(Math.floor(ab.pivot[0] + v), Math.floor(ab.pivot[1] + u / sc)));
+  }
+  return { pixels, ref };
+}
 function frontalFrame(dir, k) {
   const d = FR.views[dir], fx = order.indexOf(dir) * FRAME;
   const srcLayers = [['body', body, partMap], ['arms', arms, partMap], ...overlayLayers.map((l) => [l.name, l.img, l.map])];
@@ -524,13 +542,9 @@ function frontalFrame(dir, k) {
       const sy = lg.isFar ? farShade[c] : c, [x, y] = unkey(q);
       items.push([lg.z, x, y, sy === 'o' ? BLACK : pal[sy], 'band']);
     }
-    if (name === 'arms') for (const [sd, ab] of Object.entries(d.armBand || {})) {
-      if (!ab) continue;
-      const sc = ab.scale ?? 1, r = (v) => Math.round(v * sc), B0 = A.band;
-      const lx = d.leanScale ? roundHalfEven(d.leanScale * leanOf('torso', k, AR.shoulder)) * (d.leanSign || 1) : 0;
-      const pb = { angle: ab.angle[k], band: { pivot: [ab.pivot[0] + lx, ab.pivot[1] + bob[k] + (d.crouch || 0) + DROP],
-        start: B0.start, length: r(B0.length + B0.start) - B0.start, wrapFrom: r(B0.wrapFrom), handFrom: r(B0.handFrom) } };
-      for (const [q, c] of bandArm(pb)) { const [x, y] = unkey(q); items.push([sd === d.far ? -1 : 4, x, y, pal[c], 'band']); }
+    if (name === 'arms') for (const sd of Object.keys(d.armBand || {})) {
+      const fb = frontalBand(d, k, sd);
+      if (fb) for (const [q, c] of fb.pixels) { const [x, y] = unkey(q); items.push([sd === d.far ? -1 : 4, x, y, pal[c], 'band']); }
     }
     const m = new Map(), sm = new Map(), hz = new Set();
     for (const [z, x, y, c, s0] of items.sort((a, c) => a[0] - c[0])) { m.set(key(x, y), c); sm.set(key(x, y), s0); if (d.headZ > 3 && z === d.headZ) hz.add(key(x, y)); else hz.delete(key(x, y)); }
@@ -728,6 +742,17 @@ function posedClothing(l, px, k) {
 }
 function frontalClothing(l, geom, px, k) {
   const d = FR.views[geom], items = [], sway = sashSway(geom, px, k, l);
+  // accessories on a band arm: each band pixel takes the view's reference accessory pixel at the same place along
+  // and across the arm (as on the E band arms)
+  for (const sd of Object.keys(d.armBand || {})) {
+    const fb = frontalBand(d, k, sd);
+    if (!fb) continue;
+    const armAt = new Map(px.filter((p) => LIMB[p.part]?.[0] === 'arm' && LIMB[p.part][1] === sd).map((p) => [p.src && !p.flipSrc ? key(p.x, p.y) : key(p.x, p.y), p]));
+    for (const [q, rq] of fb.ref) {
+      const hit = armAt.get(rq);
+      if (hit) { const [x, y] = unkey(q); items.push([sd === d.far ? -1 : 4, x, y, hit.c, null]); }
+    }
+  }
   if (d.legBand) {
     // garments on band legs are authored on each leg as in E, from the profile garment's leg rows
     const byRow = {};
