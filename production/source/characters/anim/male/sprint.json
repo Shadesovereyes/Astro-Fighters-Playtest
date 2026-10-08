@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "sprint",
-  "status": "candidate: E sprint draft v12 (W = mirror of E); trailing foot follows the shin at the ankle",
+  "status": "candidate: E sprint draft v13 (W = mirror of E); head, shoulders and upper torso 1 px lower (torsoDrop 4, head +9)",
   "frames": 8,
   "fps": 14,
   "sourceDirection": "E",
@@ -64,9 +64,9 @@
     "torsoShear": true,
     "dx": {
       "pelvis": 1,
-      "head": 8
+      "head": 9
     },
-    "torsoDrop": 3
+    "torsoDrop": 4
   },
   "rootMotion": {
     "E": [
