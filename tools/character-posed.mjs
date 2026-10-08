@@ -507,7 +507,22 @@ function frontalMove(d, k, part, y) {
 }
 // A view's band arm for one side: its pixels (symbols, in frame coordinates after bob, crouch, torso drop and lean)
 // and, for each of them, the view's reference arm pixel at the same place along and across the arm (for accessories).
-function frontalBand(d, k, sd) {
+// Reference arm span per row (columns of the view's Arms1 pixels of one side), so a band pixel can find the reference
+// pixel at the same fraction across the arm even where the reference forearm is offset from the upper arm.
+const armSpanCache = {};
+function refArmSpan(dir, sd) {
+  const ck = `${dir}:${sd}`;
+  if (armSpanCache[ck]) return armSpanCache[ck];
+  const fx = order.indexOf(dir) * FRAME, span = {};
+  for (let y = 0; y < FRAME; y++) for (let x = 0; x < FRAME; x++) {
+    if (!opaque(arms, fx + x, y) || hexAt(arms, fx + x, y) === BLACK) continue;
+    const part = partNear(partMap, fx, x, y);
+    if (LIMB[part]?.[0] !== 'arm' || LIMB[part][1] !== sd) continue;
+    const e = (span[y] ??= [99, -1]); e[0] = Math.min(e[0], x); e[1] = Math.max(e[1], x);
+  }
+  return (armSpanCache[ck] = span);
+}
+function frontalBand(d, k, sd, dir) {
   const ab = d.armBand?.[sd];
   if (!ab) return null;
   const sc = ab.scale ?? 1, r = (v) => Math.round(v * sc), B0 = A.band;
@@ -515,13 +530,16 @@ function frontalBand(d, k, sd) {
   const dy = bob[k] + (d.crouch || 0) + DROP;
   const pb = { angle: ab.angle[k], band: { pivot: ab.pivot, start: B0.start, length: r(B0.length + B0.start) - B0.start,
     wrapFrom: r(B0.wrapFrom), handFrom: r(B0.handFrom) } };
-  const { uv } = bandGeom(pb), pixels = new Map(), ref = new Map();
+  const { uv } = bandGeom(pb), pixels = new Map(), ref = new Map(), across = new Map(), span = dir ? refArmSpan(dir, sd) : {}, T = B0.thickness;
   for (const [q, c] of bandArm(pb)) {
-    const [x, y] = unkey(q), [u, v] = uv(x, y), Q = key(x + lx, y + dy);
+    const [x, y] = unkey(q), [u, v] = uv(x, y), Q = key(x + lx, y + dy), ry = Math.floor(ab.pivot[1] + u / sc), e = span[ry];
     pixels.set(Q, c);
-    ref.set(Q, key(Math.floor(ab.pivot[0] + v), Math.floor(ab.pivot[1] + u / sc)));
+    // the reference pixel at the same fraction across the reference arm's row (back edge to front edge)
+    const f = Math.max(0, Math.min(0.999, (v + T / 2) / T));
+    ref.set(Q, key(e ? e[0] + Math.floor(f * (e[1] - e[0] + 1)) : Math.floor(ab.pivot[0] + v), ry));
+    across.set(Q, [ry, f]);
   }
-  return { pixels, ref };
+  return { pixels, ref, across };
 }
 function frontalFrame(dir, k) {
   const d = FR.views[dir], fx = order.indexOf(dir) * FRAME;
@@ -745,11 +763,17 @@ function frontalClothing(l, geom, px, k) {
   // accessories on a band arm: each band pixel takes the view's reference accessory pixel at the same place along
   // and across the arm (as on the E band arms)
   for (const sd of Object.keys(d.armBand || {})) {
-    const fb = frontalBand(d, k, sd);
+    const fb = frontalBand(d, k, sd, geom);
     if (!fb) continue;
-    const armAt = new Map(px.filter((p) => LIMB[p.part]?.[0] === 'arm' && LIMB[p.part][1] === sd).map((p) => [p.src && !p.flipSrc ? key(p.x, p.y) : key(p.x, p.y), p]));
-    for (const [q, rq] of fb.ref) {
-      const hit = armAt.get(rq);
+    // the accessory's own row span on this arm: a band pixel takes the accessory pixel at the same fraction across it,
+    // so the piece keeps its stripes and inner outline lines at the band's thickness
+    const acc = px.filter((p) => LIMB[p.part]?.[0] === 'arm' && LIMB[p.part][1] === sd), accRow = {};
+    for (const p of acc) (accRow[p.y] ??= []).push(p);
+    for (const r of Object.values(accRow)) r.sort((a, b) => a.x - b.x);
+    for (const [q, [ry, f]] of fb.across) {
+      const r = accRow[ry];
+      if (!r) continue;
+      const x0 = r[0].x, x1 = r[r.length - 1].x, hit = r.find((p) => p.x === x0 + Math.floor(f * (x1 - x0 + 1)));
       if (hit) { const [x, y] = unkey(q); items.push([sd === d.far ? -1 : 4, x, y, hit.c, null]); }
     }
   }
