@@ -175,8 +175,15 @@ function bandArm(p) {
   for (let y = 0; y < FRAME; y++) for (let x = 0; x < FRAME; x++) {
     const [u, v] = uv(x, y), hand = u >= B.handFrom, h = hand ? (B.handThickness ?? B.thickness) / 2 : half;
     if (u < B.start || u >= end || v < -h || v >= h) continue;
-    const pat = u >= end - 1 ? B.pattern.handEnd : hand ? B.pattern.hand : u >= B.wrapFrom ? B.pattern.wrap : B.pattern.skin;
+    const pat = u >= end - 1 && B.pattern.handEnd ? B.pattern.handEnd : hand ? B.pattern.hand : u >= B.wrapFrom ? B.pattern.wrap : B.pattern.skin;
     out.set(key(x, y), pat[Math.min(pat.length - 1, Math.floor(v + h))]);
+  }
+  // an authored fist replaces the band's hand segment: its anchor cell sits on the arm line where the hand begins
+  if (B.fist) {
+    for (const q of [...out.keys()]) { const [x, y] = unkey(q); if (uv(x, y)[0] >= B.handFrom) out.delete(q); }
+    const t = p.angle * Math.PI / 180, ax = B.pivot[0] - Math.sin(t) * B.handFrom, ay = B.pivot[1] + Math.cos(t) * B.handFrom;
+    const x0 = Math.floor(ax) - B.fist.anchor[0], y0 = Math.floor(ay) - B.fist.anchor[1];
+    B.fist.rows.forEach((row, r) => [...row].forEach((c, j) => { if (c !== '.') out.set(key(x0 + j, y0 + r), c); }));
   }
   return out;
 }
