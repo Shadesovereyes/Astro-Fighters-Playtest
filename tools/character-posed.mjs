@@ -196,7 +196,7 @@ function armRow(p) {
 // any angle. bandRef maps a band pixel to the reference arm pixel at the same distance along and across the arm
 // (used only to place arm accessories).
 function bandGeom(p) {
-  const B = A.band, t = p.angle * Math.PI / 180, d = [-Math.sin(t), Math.cos(t)], n = [Math.cos(t), Math.sin(t)];
+  const B = { ...A.band, ...(p.band || {}) }, t = p.angle * Math.PI / 180, d = [-Math.sin(t), Math.cos(t)], n = [Math.cos(t), Math.sin(t)];
   const uv = (x, y) => { const cx = x + 0.5 - B.pivot[0], cy = y + 0.5 - B.pivot[1]; return [cx * d[0] + cy * d[1], cx * n[0] + cy * n[1]]; };
   return { B, uv };
 }
@@ -452,11 +452,15 @@ function frontalMove(d, k, part, y) {
     if (d.legPose) {
       // a named leg pose drops its own rows (thigh rows foreshorten a knee coming toward or away from the viewer,
       // shin rows a lower leg folding back); every leg also drops the frame's bob rows so the planted foot stays down
-      const drop = [...new Set([...d.legPoseRows[d.legPose[s][k]], ...d.bobRows.slice(0, b)])];
+      // pose rows and bob rows may be given per side ({R, L}) where the two legs are drawn differently (diagonals)
+      const side = (v) => (Array.isArray(v) ? v : v[s]);
+      const drop = [...new Set([...side(d.legPoseRows[d.legPose[s][k]]), ...side(d.bobRows).slice(0, b)])];
       rows = rowMap(y, b, drop, []);
       // a swinging leg comes in under the body: it shears toward the centre line from the hip row to the foot
       const pdx = (d.legPoseDx?.[d.legPose[s][k]] || 0) * (d.inward?.[s] || 0);
       if (pdx) dx = shear(y, d.legPivot ?? 39, d.legPoseDxFrom ?? 56, pdx);
+      // diagonal views also swing the leg sideways from the hip to the foot
+      if (d.footDx) { const hd = d.hipDx[s][k]; dx += hd + shear(y, d.legPivot, d.footFrom[s], d.footDx[s][k] - hd); }
     } else rows = rowMap(y, b, n > 0 ? d.legRows[s].slice(0, n) : [], n < 0 ? d.legRepeatRows[s].slice(0, -n) : []);
     if (d.footDx) { const hd = d.hipDx[s][k]; dx = hd + shear(y, d.legPivot, d.footFrom[s], d.footDx[s][k] - hd); }
     z = s === far ? 0 : 2;
@@ -467,7 +471,9 @@ function frontalMove(d, k, part, y) {
     z = s === far ? -1 : 4;
     rows = rows.map((r) => r + DROP);   // the lean's shortened torso lowers the shoulders
     // armVisibleTo: arms swept behind the body show only down to this reference row (shoulder and upper arm)
-    if (d.armVisibleTo !== undefined && y > d.armVisibleTo) rows = [];
+    if (d.armBand?.[s]) rows = [];   // drawn as an authored band arm instead (frontalFrame)
+    const vis = typeof d.armVisibleTo === 'object' ? d.armVisibleTo?.[s] : d.armVisibleTo;
+    if (vis !== undefined && vis !== null && y > vis) rows = [];
   } else if (part === 'head' || overlays.overlayParts?.[part]?.lagFrames !== undefined) {
     // a view may lower the head further (headDy) and draw it in front of the torso (headZ above 3) or behind it
     const g = leanGroup(part);
@@ -491,6 +497,15 @@ function frontalFrame(dir, k) {
       const { rows, dx, z } = frontalMove(d, k, part, y);
       for (const ny of rows) items.push([z, x + dx, ny, hexAt(img, fx + x, y), key(x, y)]);
     }
+    // armBand: a raised arm seen at an angle is drawn as the authored band arm (constant thickness, authored fist)
+    // from the view's shoulder pivot, its segment lengths scaled for foreshortening
+    if (name === 'arms') for (const [sd, ab] of Object.entries(d.armBand || {})) {
+      if (!ab) continue;
+      const sc = ab.scale ?? 1, r = (v) => Math.round(v * sc), B0 = A.band;
+      const pb = { angle: ab.angle[k], band: { pivot: [ab.pivot[0], ab.pivot[1] + bob[k] + (d.crouch || 0) + DROP],
+        start: B0.start, length: r(B0.length + B0.start) - B0.start, wrapFrom: r(B0.wrapFrom), handFrom: r(B0.handFrom) } };
+      for (const [q, c] of bandArm(pb)) { const [x, y] = unkey(q); items.push([sd === d.far ? -1 : 4, x, y, pal[c], 'band']); }
+    }
     const m = new Map(), sm = new Map(), hz = new Set();
     for (const [z, x, y, c, s0] of items.sort((a, c) => a[0] - c[0])) { m.set(key(x, y), c); sm.set(key(x, y), s0); if (d.headZ > 3 && z === d.headZ) hz.add(key(x, y)); else hz.delete(key(x, y)); }
     out[name] = m; src[name] = sm;
@@ -501,8 +516,10 @@ function frontalFrame(dir, k) {
   for (const [p, c] of [...fig]) {
     if (c === BLACK) continue;
     const s0 = out.arms.has(p) ? src.arms.get(p) : src.body.get(p);
-    if (refx.has(s0)) continue;
     const [x, y] = unkey(p);
+    // an edge already open in the reference stays as drawn, unless the edit moved it from above the outline-check
+    // rows (where the reference leaves a few loose pixels) down into them
+    if (refx.has(s0) && !(unkey(s0)[1] < spec.cleanup.notchFromRow && y >= spec.cleanup.notchFromRow)) continue;
     for (const [dx, dy] of N4) { const q = key(x + dx, y + dy); if (!fig.has(q)) { out.body.set(q, BLACK); fig.set(q, BLACK); outlined++; } }
   }
   // a background pixel boxed in on all 4 sides (where a moved limb's outline meets another) becomes outline
@@ -518,7 +535,7 @@ for (const dir of Object.keys(FR?.views || {})) {
   if (v.legPose) for (const s of ['R', 'L']) {
     if (v.legPose[s].length !== F) throw new Error(`frontal ${dir} ${s} legPose needs ${F} entries`);
     for (const n of v.legPose[s]) if (!v.legPoseRows[n]) throw new Error(`frontal ${dir}: unknown leg pose ${n}`);
-    if (Math.max(...bob) + (v.crouch || 0) > v.bobRows.length) throw new Error(`frontal ${dir} needs ${Math.max(...bob) + (v.crouch || 0)} bob rows`);
+    if (Math.max(...bob) + (v.crouch || 0) > (Array.isArray(v.bobRows) ? v.bobRows : v.bobRows[s]).length) throw new Error(`frontal ${dir} needs ${Math.max(...bob) + (v.crouch || 0)} bob rows`);
   }
   for (const s of ['R', 'L']) {
     for (const [n, t] of [['handDy', v.handDy[s]], ['legLift', lift[s]], ...['hipDx', 'footDx', 'handDx'].filter((n) => v[n]).map((n) => [n, v[n][s]])]) {
@@ -526,8 +543,8 @@ for (const dir of Object.keys(FR?.views || {})) {
     }
     const needLeg = Math.max(...lift[s].map((l, k) => l + bob[k])), needRep = Math.max(0, ...lift[s].map((l, k) => -(l + bob[k])));
     const needArm = Math.max(...v.handDy[s].map(Math.abs));
-    if (needLeg > v.legRows[s].length) throw new Error(`frontal ${dir} ${s} leg needs ${needLeg} removable rows`);
-    if (needRep > (v.legRepeatRows?.[s]?.length || 0)) throw new Error(`frontal ${dir} ${s} leg needs ${needRep} repeatable rows`);
+    if (!v.legPose && needLeg > v.legRows[s].length) throw new Error(`frontal ${dir} ${s} leg needs ${needLeg} removable rows`);
+    if (!v.legPose && needRep > (v.legRepeatRows?.[s]?.length || 0)) throw new Error(`frontal ${dir} ${s} leg needs ${needRep} repeatable rows`);
     if (needArm > v.armRows[s].length || needArm > v.armRepeatRows[s].length) throw new Error(`frontal ${dir} ${s} arm needs ${needArm} edit rows`);
   }
 }

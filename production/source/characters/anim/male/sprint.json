@@ -2,22 +2,28 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "sprint",
-  "status": "E/W approved by user 2026-10-08; S/N candidate",
+  "status": "E/W approved 2026-10-08; S/N approved 2026-10-08; SE/SW candidate",
   "frames": 8,
   "fps": 14,
   "sourceDirection": "E",
   "directions": [
     "S",
+    "SE",
     "E",
     "N",
-    "W"
+    "W",
+    "SW"
   ],
   "mirror": {
     "W": {
       "from": "E",
       "frameShift": 4
     },
-    "rule": "A mirrored reference must be an exact horizontal mirror of its source for Body1, Arms1, hair, eyes and clothing; the renderer verifies this before mirroring (x -> 63 - x). Mirroring swaps the character's sides, so the mirrored direction plays its source half a cycle later (frameShift 4): every direction then has the right leg forward at frame 0 and the walk can change direction on any frame."
+    "rule": "A mirrored reference must be an exact horizontal mirror of its source for Body1, Arms1, hair, eyes and clothing; the renderer verifies this before mirroring (x -> 63 - x). Mirroring swaps the character's sides, so the mirrored direction plays its source half a cycle later (frameShift 4): every direction then has the right leg forward at frame 0 and the walk can change direction on any frame.",
+    "SW": {
+      "from": "SE",
+      "frameShift": 4
+    }
   },
   "intent": "Naruto-style run: forward lean from stacked pelvis/torso/head offsets, both arms swept back from the shoulder, long low stride. Per step: contact (foot ahead), load (body lowest), drive (toe-off behind), flight (both feet up). The far leg runs the near leg poses 4 frames later.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
@@ -206,6 +212,74 @@
       [
         0,
         -6
+      ]
+    ],
+    "SE": [
+      [
+        4,
+        4
+      ],
+      [
+        4,
+        4
+      ],
+      [
+        4,
+        4
+      ],
+      [
+        4,
+        4
+      ],
+      [
+        4,
+        4
+      ],
+      [
+        4,
+        4
+      ],
+      [
+        4,
+        4
+      ],
+      [
+        4,
+        4
+      ]
+    ],
+    "SW": [
+      [
+        -4,
+        4
+      ],
+      [
+        -4,
+        4
+      ],
+      [
+        -4,
+        4
+      ],
+      [
+        -4,
+        4
+      ],
+      [
+        -4,
+        4
+      ],
+      [
+        -4,
+        4
+      ],
+      [
+        -4,
+        4
+      ],
+      [
+        -4,
+        4
       ]
     ]
   },
@@ -590,6 +664,16 @@
           1,
           0,
           -1
+        ],
+        "SE": [
+          1,
+          0,
+          -1,
+          -1,
+          -1,
+          0,
+          0,
+          1
         ]
       }
     },
@@ -785,7 +869,9 @@
   },
   "approved": {
     "E": "2026-10-08",
-    "W": "2026-10-08 (mirror of E)"
+    "W": "2026-10-08 (mirror of E)",
+    "S": "2026-10-08",
+    "N": "2026-10-08"
   },
   "frontal": {
     "rule": "S and N are built from their own reference frames with no new pixels. A limb gets shorter by dropping listed reference rows and longer by repeating them; every row of that limb below the edit moves with it. A raised leg is a shortened leg (the leg tilting toward or away from the camera); the planted leg stays on row 63. Arms swing from the shoulder: the first pixel of swing is the elbow row (the upper arm's foreshortening moves the elbow), then a forearm row, then a wrist-wrap row. The step phase matches E/W (right leg forward at frame 0). Sprint: the lean is seen end-on, so the torso is shortened by the same rows as E (lean.torsoDrop) and the head lowered by lean.headDy, keeping every direction the same height; the arms are swept back and raised, so from the front and back both arms are foreshortened (shortened from the shoulder).",
@@ -1173,6 +1259,305 @@
         "legPoseDxRule": "a swinging leg comes in under the body: it shears toward the centre line by legPoseDx px, growing from the hip row (39) to the ankle (row 56), the foot moving with the ankle",
         "crouch": 2,
         "crouchRule": "a sprinting stance seen end-on: the whole figure sits 2 rows lower; every leg loses 2 more rows (the first bobRows) so the planted foot stays down"
+      },
+      "SE": {
+        "rule": "S at an angle, built like the S sprint: named leg poses drop thigh or shin rows (per side, the far leg is drawn differently), every leg drops the crouch and bob rows, and the legs swing sideways from the hip to the foot (footDx, + is toward the facing). The near (R) arm is swept back: foreshortened and sheared back from the shoulder; the far (L) arm is behind the body and shows only to the elbow. The head stays level with E/W and is drawn in front of the chest. The far (L) side is drawn behind the body.",
+        "far": "L",
+        "crouch": 2,
+        "headDy": -3,
+        "headZ": 3.5,
+        "legPose": {
+          "R": [
+            "plant",
+            "plant",
+            "plant",
+            "pushOff",
+            "kickBack",
+            "recovery",
+            "kneeDrive",
+            "reach"
+          ],
+          "L": [
+            "kickBack",
+            "recovery",
+            "kneeDrive",
+            "reach",
+            "plant",
+            "plant",
+            "plant",
+            "pushOff"
+          ]
+        },
+        "legPoseRows": {
+          "plant": [],
+          "pushOff": {
+            "R": [
+              49,
+              50,
+              52,
+              51,
+              53
+            ],
+            "L": [
+              49,
+              50,
+              51,
+              48,
+              52
+            ]
+          },
+          "kickBack": {
+            "R": [
+              48,
+              49,
+              50,
+              51,
+              52,
+              53,
+              56,
+              55,
+              54
+            ],
+            "L": [
+              48,
+              49,
+              50,
+              51,
+              52,
+              53,
+              55,
+              54,
+              47
+            ]
+          },
+          "recovery": {
+            "R": [
+              41,
+              42,
+              43,
+              44,
+              50,
+              51,
+              56
+            ],
+            "L": [
+              41,
+              43,
+              44,
+              45,
+              50,
+              51,
+              55
+            ]
+          },
+          "kneeDrive": {
+            "R": [
+              40,
+              41,
+              42,
+              43,
+              44,
+              50,
+              51,
+              52
+            ],
+            "L": [
+              40,
+              41,
+              43,
+              44,
+              45,
+              50,
+              51,
+              49
+            ]
+          },
+          "reach": {
+            "R": [
+              41,
+              42,
+              43
+            ],
+            "L": [
+              41,
+              43,
+              44
+            ]
+          }
+        },
+        "bobRows": {
+          "R": [
+            58,
+            47,
+            57,
+            46
+          ],
+          "L": [
+            53,
+            46,
+            47,
+            42
+          ]
+        },
+        "legPivot": 39,
+        "footFrom": {
+          "R": 55,
+          "L": 54
+        },
+        "hipDx": {
+          "R": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "L": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "footDx": {
+          "R": [
+            2,
+            0,
+            -2,
+            -3,
+            -3,
+            0,
+            2,
+            3
+          ],
+          "L": [
+            -3,
+            0,
+            2,
+            3,
+            2,
+            0,
+            -2,
+            -3
+          ]
+        },
+        "handDy": {
+          "R": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "L": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "armRows": {
+          "R": [
+            30,
+            34,
+            29,
+            31,
+            24,
+            26
+          ],
+          "L": [
+            30,
+            34,
+            29,
+            31,
+            24,
+            26
+          ]
+        },
+        "armRepeatRows": {
+          "R": [
+            30,
+            34,
+            29,
+            31,
+            24,
+            26
+          ],
+          "L": [
+            30,
+            34,
+            29,
+            31,
+            24,
+            26
+          ]
+        },
+        "armPivot": 22,
+        "handFrom": {
+          "R": 36,
+          "L": 36
+        },
+        "handDx": {
+          "R": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "L": [
+            -3,
+            -3,
+            -3,
+            -3,
+            -3,
+            -3,
+            -3,
+            -3
+          ]
+        },
+        "armVisibleTo": {
+          "R": null,
+          "L": 30
+        },
+        "armBand": {
+          "R": {
+            "pivot": [
+              26,
+              23
+            ],
+            "angle": [
+              70,
+              70,
+              72,
+              72,
+              70,
+              70,
+              72,
+              72
+            ],
+            "scale": 0.8
+          },
+          "L": null
+        },
+        "armBandRule": "the near (R) arm is swept back and raised like E: drawn as the authored band arm from the near shoulder at 70-72 degrees behind vertical, 80% length for foreshortening (it points away from the viewer)"
       }
     }
   }
