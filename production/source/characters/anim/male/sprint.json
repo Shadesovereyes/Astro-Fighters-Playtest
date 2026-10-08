@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "sprint",
-  "status": "candidate: E sprint draft v14 (W = mirror of E); arms raised (drop 8/7), head lowered 2 px",
+  "status": "candidate: E sprint draft v15 (W = mirror of E); arms raised further (drop 10/9)",
   "frames": 8,
   "fps": 14,
   "sourceDirection": "E",
@@ -346,85 +346,85 @@
     "near": [
       {
         "construction": "straight",
-        "total": -18,
-        "drop": 8
+        "total": -20,
+        "drop": 10
       },
       {
         "construction": "straight",
-        "total": -18,
-        "drop": 8
+        "total": -20,
+        "drop": 10
       },
       {
         "construction": "straight",
-        "total": -19,
-        "drop": 8
+        "total": -21,
+        "drop": 10
       },
       {
         "construction": "straight",
-        "total": -19,
-        "drop": 8
+        "total": -21,
+        "drop": 10
       },
       {
         "construction": "straight",
-        "total": -18,
-        "drop": 8
+        "total": -20,
+        "drop": 10
       },
       {
         "construction": "straight",
-        "total": -18,
-        "drop": 8
+        "total": -20,
+        "drop": 10
       },
       {
         "construction": "straight",
-        "total": -19,
-        "drop": 8
+        "total": -21,
+        "drop": 10
       },
       {
         "construction": "straight",
-        "total": -19,
-        "drop": 8
+        "total": -21,
+        "drop": 10
       }
     ],
     "far": [
       {
         "construction": "straight",
-        "total": -16,
-        "drop": 7
+        "total": -18,
+        "drop": 9
       },
       {
         "construction": "straight",
-        "total": -16,
-        "drop": 7
+        "total": -18,
+        "drop": 9
       },
       {
         "construction": "straight",
-        "total": -15,
-        "drop": 7
+        "total": -17,
+        "drop": 9
       },
       {
         "construction": "straight",
-        "total": -15,
-        "drop": 7
+        "total": -17,
+        "drop": 9
       },
       {
         "construction": "straight",
-        "total": -16,
-        "drop": 7
+        "total": -18,
+        "drop": 9
       },
       {
         "construction": "straight",
-        "total": -16,
-        "drop": 7
+        "total": -18,
+        "drop": 9
       },
       {
         "construction": "straight",
-        "total": -15,
-        "drop": 7
+        "total": -17,
+        "drop": 9
       },
       {
         "construction": "straight",
-        "total": -15,
-        "drop": 7
+        "total": -17,
+        "drop": 9
       }
     ],
     "outline": "Arm pixels touching empty space get an outline, except above the shoulder row; the near arm is not outlined where it lies over the body (its dark back column separates it)."
