@@ -902,9 +902,9 @@
             23
           ]
         },
-        "headDy": 3,
+        "headDy": -3,
         "headZ": 3.5,
-        "headRule": "leaning toward the viewer, the head drops 3 more rows and is drawn in front of the chest",
+        "headRule": "the head stays level with E/W: headDy -3 cancels the 2-row crouch and the 1 px lower head of the S/N reference frames, so the top of the head sits exactly as high as in E/W on every frame and is drawn in front of the chest",
         "armVisibleTo": 30,
         "armRule": "the arms are swept behind the body: the shoulders and upper arms show down to the elbow (reference rows to 30); forearms and hands are hidden",
         "legPoseRule": "running legs seen end-on: a planted leg keeps its rows; a lower leg folding back (push-off, kick-back) loses shin rows so the foot rises toward the knee; a knee driving forward (recovery, knee drive) loses thigh rows so the knee rises with the shin hanging below it; the reaching leg loses 2 thigh rows. Every leg also loses the frame's bob rows.",
@@ -1083,9 +1083,9 @@
             26
           ]
         },
-        "headDy": 3,
+        "headDy": -3,
         "headZ": 2.9,
-        "headRule": "leaning away from the viewer, the head drops 3 more rows behind the shoulders",
+        "headRule": "the head stays level with E/W: headDy -3 cancels the 2-row crouch and the 1 px lower head of the S/N reference frames, so the top of the head sits exactly as high as in E/W on every frame and is drawn behind the shoulders",
         "legPoseRule": "running legs seen end-on: a planted leg keeps its rows; a lower leg folding back (push-off, kick-back) loses shin rows so the foot rises toward the knee; a knee driving forward (recovery, knee drive) loses thigh rows so the knee rises with the shin hanging below it; the reaching leg loses 2 thigh rows. Every leg also loses the frame's bob rows.",
         "legPoseRows": {
           "plant": [],
