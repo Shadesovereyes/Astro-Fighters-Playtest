@@ -906,7 +906,81 @@
         "headZ": 3.5,
         "headRule": "leaning toward the viewer, the head drops 3 more rows and is drawn in front of the chest",
         "armVisibleTo": 26,
-        "armRule": "the arms are swept behind the body: only the shoulders and the top of the upper arms (reference rows to 26) show; forearms and hands are hidden"
+        "armRule": "the arms are swept behind the body: only the shoulders and the top of the upper arms (reference rows to 26) show; forearms and hands are hidden",
+        "legPoseRule": "running legs seen end-on: a planted leg keeps its rows; a lower leg folding back (push-off, kick-back) loses shin rows so the foot rises toward the knee; a knee driving forward (recovery, knee drive) loses thigh rows so the knee rises with the shin hanging below it; the reaching leg loses 2 thigh rows. Every leg also loses the frame's bob rows.",
+        "legPoseRows": {
+          "plant": [],
+          "pushOff": [
+            49,
+            50,
+            52
+          ],
+          "kickBack": [
+            48,
+            49,
+            50,
+            51,
+            52,
+            53,
+            56
+          ],
+          "recovery": [
+            41,
+            42,
+            43,
+            50,
+            56
+          ],
+          "kneeDrive": [
+            40,
+            41,
+            42,
+            43,
+            44,
+            50
+          ],
+          "reach": [
+            41,
+            42
+          ]
+        },
+        "bobRows": [
+          59,
+          53
+        ],
+        "legPose": {
+          "R": [
+            "plant",
+            "plant",
+            "plant",
+            "pushOff",
+            "kickBack",
+            "recovery",
+            "kneeDrive",
+            "reach"
+          ],
+          "L": [
+            "kickBack",
+            "recovery",
+            "kneeDrive",
+            "reach",
+            "plant",
+            "plant",
+            "plant",
+            "pushOff"
+          ]
+        },
+        "legPoseDx": {
+          "recovery": 1,
+          "kneeDrive": 2,
+          "reach": 1
+        },
+        "inward": {
+          "R": 1,
+          "L": -1
+        },
+        "legPoseDxFrom": 56,
+        "legPoseDxRule": "a swinging leg comes in under the body: it shears toward the centre line by legPoseDx px, growing from the hip row (39) to the ankle (row 56), the foot moving with the ankle"
       },
       "N": {
         "handDyRule": "both arms are swept back and raised toward the viewer and are foreshortened by 5-6 rows",
@@ -998,7 +1072,81 @@
         },
         "headDy": 3,
         "headZ": 2.9,
-        "headRule": "leaning away from the viewer, the head drops 3 more rows behind the shoulders"
+        "headRule": "leaning away from the viewer, the head drops 3 more rows behind the shoulders",
+        "legPoseRule": "running legs seen end-on: a planted leg keeps its rows; a lower leg folding back (push-off, kick-back) loses shin rows so the foot rises toward the knee; a knee driving forward (recovery, knee drive) loses thigh rows so the knee rises with the shin hanging below it; the reaching leg loses 2 thigh rows. Every leg also loses the frame's bob rows.",
+        "legPoseRows": {
+          "plant": [],
+          "pushOff": [
+            49,
+            50,
+            52
+          ],
+          "kickBack": [
+            48,
+            49,
+            50,
+            51,
+            52,
+            53,
+            56
+          ],
+          "recovery": [
+            41,
+            42,
+            43,
+            50,
+            56
+          ],
+          "kneeDrive": [
+            40,
+            41,
+            42,
+            43,
+            44,
+            50
+          ],
+          "reach": [
+            41,
+            42
+          ]
+        },
+        "bobRows": [
+          54,
+          46
+        ],
+        "legPose": {
+          "R": [
+            "plant",
+            "plant",
+            "plant",
+            "pushOff",
+            "kickBack",
+            "recovery",
+            "kneeDrive",
+            "reach"
+          ],
+          "L": [
+            "kickBack",
+            "recovery",
+            "kneeDrive",
+            "reach",
+            "plant",
+            "plant",
+            "plant",
+            "pushOff"
+          ]
+        },
+        "legPoseDx": {
+          "recovery": 1,
+          "kneeDrive": 2,
+          "reach": 1
+        },
+        "inward": {
+          "R": -1,
+          "L": 1
+        },
+        "legPoseDxFrom": 56,
+        "legPoseDxRule": "a swinging leg comes in under the body: it shears toward the centre line by legPoseDx px, growing from the hip row (39) to the ankle (row 56), the foot moving with the ankle"
       }
     }
   }

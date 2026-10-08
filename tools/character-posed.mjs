@@ -448,7 +448,15 @@ function frontalMove(d, k, part, y) {
   let rows, dx = 0, z = 3;
   if (limb?.[0] === 'leg') {
     const s = limb[1], n = lift[s][k] + b;
-    rows = rowMap(y, b, n > 0 ? d.legRows[s].slice(0, n) : [], n < 0 ? d.legRepeatRows[s].slice(0, -n) : []);
+    if (d.legPose) {
+      // a named leg pose drops its own rows (thigh rows foreshorten a knee coming toward or away from the viewer,
+      // shin rows a lower leg folding back); every leg also drops the frame's bob rows so the planted foot stays down
+      const drop = [...new Set([...d.legPoseRows[d.legPose[s][k]], ...d.bobRows.slice(0, b)])];
+      rows = rowMap(y, b, drop, []);
+      // a swinging leg comes in under the body: it shears toward the centre line from the hip row to the foot
+      const pdx = (d.legPoseDx?.[d.legPose[s][k]] || 0) * (d.inward?.[s] || 0);
+      if (pdx) dx = shear(y, d.legPivot ?? 39, d.legPoseDxFrom ?? 56, pdx);
+    } else rows = rowMap(y, b, n > 0 ? d.legRows[s].slice(0, n) : [], n < 0 ? d.legRepeatRows[s].slice(0, -n) : []);
     if (d.footDx) { const hd = d.hipDx[s][k]; dx = hd + shear(y, d.legPivot, d.footFrom[s], d.footDx[s][k] - hd); }
     z = s === far ? 0 : 2;
   } else if (limb?.[0] === 'arm') {
@@ -506,6 +514,11 @@ function frontalFrame(dir, k) {
 }
 for (const dir of Object.keys(FR?.views || {})) {
   const v = FR.views[dir], lift = v.legLift || FR.legLift;
+  if (v.legPose) for (const s of ['R', 'L']) {
+    if (v.legPose[s].length !== F) throw new Error(`frontal ${dir} ${s} legPose needs ${F} entries`);
+    for (const n of v.legPose[s]) if (!v.legPoseRows[n]) throw new Error(`frontal ${dir}: unknown leg pose ${n}`);
+    if (Math.max(...bob) > v.bobRows.length) throw new Error(`frontal ${dir} needs ${Math.max(...bob)} bob rows`);
+  }
   for (const s of ['R', 'L']) {
     for (const [n, t] of [['handDy', v.handDy[s]], ['legLift', lift[s]], ...['hipDx', 'footDx', 'handDx'].filter((n) => v[n]).map((n) => [n, v[n][s]])]) {
       if (t.length !== F) throw new Error(`frontal ${dir} ${s} ${n} needs ${F} entries`);
