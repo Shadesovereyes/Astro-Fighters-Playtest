@@ -121,6 +121,33 @@ function buildLeg(p) {
     const ft = L.feet[p.foot];   // ft.dx moves the foot's column 0 sideways (a foot pointing back starts left of the ankle)
     ft.rows.forEach((row, r) => [...row].forEach((c, j) => { if (c !== '.') out.set(key(p.footX - 1 + (ft.dx || 0) + j, bot + 1 + r), c); }));
     closeLeg(out, true);
+  } else if (p.construction === 'band') {
+    // Like 'line', but thigh and shin are bands of constant thickness measured across the limb, not row spans of
+    // fixed width, so a leg keeps its thickness at any angle. Each band runs along the limb's back edge (the same
+    // edge 'line' places its row patterns on); a pixel takes the colour of its cross-section pattern, read back to
+    // front. The thigh runs on past the knee and the shin starts above it, so the knee joint stays closed.
+    out.clear();
+    const bot = p.wrapRow + 2;
+    const band = (ax, ay, bx, by) => {
+      const len = Math.hypot(bx - ax, by - ay), d = [(bx - ax) / len, (by - ay) / len], n = [d[1], -d[0]];
+      return { len, uv: (x, y) => { const cx = x + 0.5 - ax, cy = y + 0.5 - ay; return [cx * d[0] + cy * d[1], cx * n[0] + cy * n[1]]; } };
+    };
+    const th = band(p.hipX, p.hipRow + 0.5, p.kneeX, p.kneeRow + 0.5), sh = band(p.kneeX, p.kneeRow + 0.5, p.footX, bot + 0.5);
+    // the wrap is cut by rows (wrapRow to the last shin row), as in 'line', so it reads as a level band at the ankle
+    const shinPat = (u, y) => (y >= p.wrapRow ? L.wrap : u < 3 ? L.shinRows4[Math.max(0, Math.min(2, Math.floor(u)))] : L.shinRow3);
+    for (let y = 0; y < FRAME; y++) for (let x = 0; x < FRAME; x++) {
+      const [su, sv] = sh.uv(x, y), [tu, tv] = th.uv(x, y);
+      const sp = shinPat(su, y), inShin = y <= bot && su >= -0.5 && su <= sh.len + 1.5 && sv >= 0 && sv < sp.length;
+      const inThigh = y >= p.hipRow && tu >= -2 && tu <= th.len + 0.5 && tv >= 0 && tv < 5;
+      const joint = tu > th.len + 0.5 && tu <= th.len + 2 && tv >= 0 && tv < 5;
+      if (inThigh) out.set(key(x, y), L.thighRows[Math.max(0, Math.min(3, Math.floor(tu * 4 / th.len)))][Math.floor(tv)]);
+      else if (inShin) out.set(key(x, y), sp[Math.floor(sv)]);
+      else if (joint && su < 0) out.set(key(x, y), L.shinRows4[0][Math.min(3, Math.floor(tv))]);
+    }
+    // the foot hangs under the wrap; where the slanted wrap end overlaps it, the wrap stays on top
+    const ft = L.feet[p.foot];
+    ft.rows.forEach((row, r) => [...row].forEach((c, j) => { const q = key(p.footX - 1 + (ft.dx || 0) + j, bot + 1 + r); if (c !== '.' && !out.has(q)) out.set(q, c); }));
+    closeLeg(out, true);
   } else throw new Error(`unknown leg construction ${p.construction}`);
   pinchFill(out);
   return out;

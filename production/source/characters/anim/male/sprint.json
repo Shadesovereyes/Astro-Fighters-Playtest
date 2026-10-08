@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "sprint",
-  "status": "candidate: E sprint draft v17 (W = mirror of E); authored fist on the band arms",
+  "status": "candidate: E sprint draft v18 (W = mirror of E); band legs keep their thickness",
   "frames": 8,
   "fps": 14,
   "sourceDirection": "E",
@@ -216,12 +216,13 @@
     },
     "constructions": {
       "reference-ankle": "Thigh rows from (hipX, hipRow) to (kneeX, kneeRow); shin rows interpolate kneeX -> ankleX down to the row above wrapRow; the reference wrap+foot block is translated so its wrap's back interior column sits at ankleX and its first wrap row at wrapRow.",
-      "line": "Thigh as above; the shin AND the three wrap rows follow one straight line from (kneeX, kneeRow) to (footX, wrapRow + 2), so the ankle carries the shin's slope; the named foot hangs under the last wrap row with its column 0 at footX - 1."
+      "line": "Thigh as above; the shin AND the three wrap rows follow one straight line from (kneeX, kneeRow) to (footX, wrapRow + 2), so the ankle carries the shin's slope; the named foot hangs under the last wrap row with its column 0 at footX - 1.",
+      "band": "like 'line', but thigh and shin are bands of constant thickness measured across the limb (thigh 5, upper shin 4, lower shin and wrap 3), each running along the limb's back edge and coloured from the same row patterns read back to front; the thigh runs on past the knee so the joint stays closed"
     },
     "poses": [
       {
         "name": "contact",
-        "construction": "line",
+        "construction": "band",
         "hipX": 32,
         "kneeX": 37,
         "footX": 41,
@@ -232,7 +233,7 @@
       },
       {
         "name": "load",
-        "construction": "line",
+        "construction": "band",
         "hipX": 32,
         "kneeX": 37,
         "footX": 35,
@@ -243,7 +244,7 @@
       },
       {
         "name": "drive",
-        "construction": "line",
+        "construction": "band",
         "hipX": 31,
         "kneeX": 29,
         "footX": 24,
@@ -254,7 +255,7 @@
       },
       {
         "name": "push-off",
-        "construction": "line",
+        "construction": "band",
         "hipX": 31,
         "kneeX": 26,
         "footX": 20,
@@ -265,7 +266,7 @@
       },
       {
         "name": "kick-back",
-        "construction": "line",
+        "construction": "band",
         "hipX": 31,
         "kneeX": 27,
         "footX": 20,
@@ -276,7 +277,7 @@
       },
       {
         "name": "recovery",
-        "construction": "line",
+        "construction": "band",
         "hipX": 32,
         "kneeX": 36,
         "footX": 29,
@@ -287,7 +288,7 @@
       },
       {
         "name": "knee-drive",
-        "construction": "line",
+        "construction": "band",
         "hipX": 32,
         "kneeX": 40,
         "footX": 38,
@@ -298,7 +299,7 @@
       },
       {
         "name": "reach",
-        "construction": "line",
+        "construction": "band",
         "hipX": 32,
         "kneeX": 39,
         "footX": 42,
