@@ -541,6 +541,17 @@ function frontalBand(d, k, sd, dir) {
   }
   return { pixels, ref, across };
 }
+// armWiden: a thin reference upper arm is widened by one column on its outer side (the outermost colour column is
+// repeated outward and the outline moves with it), so it is as thick as the wrist and fist below it.
+function widenXs(d, dir, part, x, y) {
+  const W = d.armWiden, limb = LIMB[part];
+  if (!W || limb?.[0] !== 'arm' || y < W.rows[0] || y > W.rows[1]) return [x];
+  const e = refArmSpan(dir, limb[1])[y];
+  if (!e) return [x];
+  const inward = d.inward?.[limb[1]] || 0, o = inward > 0 ? e[0] : e[1];
+  if (x === o) return [x, x - inward];
+  return (inward > 0 ? x < o : x > o) ? [x - inward] : [x];
+}
 function frontalFrame(dir, k) {
   const d = FR.views[dir], fx = order.indexOf(dir) * FRAME;
   const srcLayers = [['body', body, partMap], ['arms', arms, partMap], ...overlayLayers.map((l) => [l.name, l.img, l.map])];
@@ -552,7 +563,7 @@ function frontalFrame(dir, k) {
       const part = partNear(map, fx, x, y);
       if (!part) throw new Error(`${name} ${dir}: pixel ${x},${y} has no rig part`);
       const { rows, dx, z } = frontalMove(d, k, part, y);
-      for (const ny of rows) items.push([z, x + dx, ny, hexAt(img, fx + x, y), key(x, y)]);
+      for (const ny of rows) for (const wx of widenXs(d, dir, part, x, y)) items.push([z, wx + dx, ny, hexAt(img, fx + x, y), key(x, y)]);
     }
     // armBand: a raised arm seen at an angle is drawn as the authored band arm (constant thickness, authored fist)
     // from the view's shoulder pivot, its segment lengths scaled for foreshortening
@@ -787,7 +798,7 @@ function frontalClothing(l, geom, px, k) {
     const part = p.part === 'sash' && isBand(p, l) ? 'pelvis' : p.part;
     const { rows, dx, z } = frontalMove(d, k, part, p.y);
     for (const ny of rows) {
-      items.push([p.part === 'sash' ? 3 : z, p.x + dx + sway(p), ny, p.c, p.src]);
+      for (const wx of widenXs(d, geom, part, p.x, p.y)) items.push([p.part === 'sash' ? 3 : z, wx + dx + sway(p), ny, p.c, p.src]);
       // cloth behind a swinging flap: shows only where the flap swings off the body
       if (p.part === 'sash' && !isBand(p, l) && l.gapFill) items.push([-2, p.x + dx, ny, l.gapFill, null, 'backing']);
     }

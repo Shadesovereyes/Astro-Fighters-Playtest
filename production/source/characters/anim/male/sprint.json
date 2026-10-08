@@ -1081,7 +1081,42 @@
         "legPoseDxFrom": 56,
         "legPoseDxRule": "a swinging leg comes in under the body: it shears toward the centre line by legPoseDx px, growing from the hip row (39) to the ankle (row 56), the foot moving with the ankle",
         "crouch": 2,
-        "crouchRule": "a sprinting stance seen end-on: the whole figure sits 2 rows lower; every leg loses 2 more rows (the first bobRows) so the planted foot stays down"
+        "crouchRule": "a sprinting stance seen end-on: the whole figure sits 2 rows lower; every leg loses 2 more rows (the first bobRows) so the planted foot stays down",
+        "armPivot": 32,
+        "handFrom": {
+          "R": 33,
+          "L": 33
+        },
+        "handDx": {
+          "R": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "L": [
+            -2,
+            -2,
+            -2,
+            -2,
+            -2,
+            -2,
+            -2,
+            -2
+          ]
+        },
+        "handDxRule": "with the forearm rows dropped the wrist and fist would step outward; they move 2 px inward (rows from 33) so they sit straight under the widened upper arm",
+        "armWiden": {
+          "rows": [
+            21,
+            32
+          ]
+        },
+        "armWidenRule": "the upper arms (reference rows 21-32, 3 colour columns) are widened by one column on the outer side to match the 4-column wrist band and the fist"
       },
       "N": {
         "handDyRule": "both arms are swept back and raised toward the viewer and are foreshortened by 5-6 rows",
