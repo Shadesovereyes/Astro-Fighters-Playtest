@@ -442,6 +442,21 @@ function exposedInReference(fx) {
   return (refExposed[fx] = new Set([...m].filter(([p, c]) => { const [x, y] = unkey(p); return c !== BLACK && N4.some(([dx, dy]) => !m.has(key(x + dx, y + dy))); }).map(([p]) => p)));
 }
 // Where one pixel of a front/back/diagonal view goes at frame k: its rows (after row edits), sideways shift and depth.
+// legBand: a diagonal view's legs are the E sprint's band legs (same poses and phase), each moved to its own hip in
+// this view (offset, plus the pelvis lean) and narrowed sideways by scaleX for the angled stride; the far leg is one
+// shade darker and drawn behind the body.
+const bandLegCache = new Map();
+function frontalLegs(d, k) {
+  const LB = d.legBand, far = d.far, pl = d.leanScale ? roundHalfEven(d.leanScale * leanOf('pelvis', k)) * (d.leanSign || 1) : 0;
+  return ['R', 'L'].map((side) => {
+    const isFar = side === far, src = L.poses[L[isFar ? 'far' : 'near'][k]], off = LB.offset[side] + pl, sx = LB.scaleX ?? 1;
+    const hx = src.hipX + off, tx = (v) => hx + roundHalfEven((v - src.hipX) * sx);
+    const pose = { ...src, hipX: hx, kneeX: tx(src.kneeX), footX: tx(src.footX) };
+    const ck = JSON.stringify(pose);
+    if (!bandLegCache.has(ck)) bandLegCache.set(ck, buildLeg(pose));
+    return { side, isFar, z: isFar ? 0 : 2, pose, legMap: bandLegCache.get(ck) };
+  });
+}
 function frontalMove(d, k, part, y) {
   // crouch: a view's whole figure sits lower by d.crouch rows (every leg drops that many more bob rows)
   const b = bob[k] + (d.crouch || 0), lift = d.legLift || FR.legLift, far = d.far, limb = LIMB[part];
@@ -449,7 +464,8 @@ function frontalMove(d, k, part, y) {
   let rows, dx = 0, z = 3;
   if (limb?.[0] === 'leg') {
     const s = limb[1], n = lift[s][k] + b;
-    if (d.legPose) {
+    if (d.legBand) rows = [];   // drawn as band legs instead (frontalLegs)
+    else if (d.legPose) {
       // a named leg pose drops its own rows (thigh rows foreshorten a knee coming toward or away from the viewer,
       // shin rows a lower leg folding back); every leg also drops the frame's bob rows so the planted foot stays down
       // pose rows and bob rows may be given per side ({R, L}) where the two legs are drawn differently (diagonals)
@@ -504,6 +520,10 @@ function frontalFrame(dir, k) {
     }
     // armBand: a raised arm seen at an angle is drawn as the authored band arm (constant thickness, authored fist)
     // from the view's shoulder pivot, its segment lengths scaled for foreshortening
+    if (name === 'body' && d.legBand) for (const lg of frontalLegs(d, k)) for (const [q, c] of lg.legMap) {
+      const sy = lg.isFar ? farShade[c] : c, [x, y] = unkey(q);
+      items.push([lg.z, x, y, sy === 'o' ? BLACK : pal[sy], 'band']);
+    }
     if (name === 'arms') for (const [sd, ab] of Object.entries(d.armBand || {})) {
       if (!ab) continue;
       const sc = ab.scale ?? 1, r = (v) => Math.round(v * sc), B0 = A.band;
@@ -549,8 +569,8 @@ for (const dir of Object.keys(FR?.views || {})) {
     }
     const needLeg = Math.max(...lift[s].map((l, k) => l + bob[k])), needRep = Math.max(0, ...lift[s].map((l, k) => -(l + bob[k])));
     const needArm = Math.max(...v.handDy[s].map(Math.abs));
-    if (!v.legPose && needLeg > v.legRows[s].length) throw new Error(`frontal ${dir} ${s} leg needs ${needLeg} removable rows`);
-    if (!v.legPose && needRep > (v.legRepeatRows?.[s]?.length || 0)) throw new Error(`frontal ${dir} ${s} leg needs ${needRep} repeatable rows`);
+    if (!v.legPose && !v.legBand && needLeg > v.legRows[s].length) throw new Error(`frontal ${dir} ${s} leg needs ${needLeg} removable rows`);
+    if (!v.legPose && !v.legBand && needRep > (v.legRepeatRows?.[s]?.length || 0)) throw new Error(`frontal ${dir} ${s} leg needs ${needRep} repeatable rows`);
     if (needArm > v.armRows[s].length || needArm > v.armRepeatRows[s].length) throw new Error(`frontal ${dir} ${s} arm needs ${needArm} edit rows`);
   }
 }
@@ -616,18 +636,11 @@ const refLegBack = (() => {
   return r;
 })();
 const resample = (t, t0, t1, s0, s1) => (t1 === t0 ? s0 : s0 + roundHalfEven((t - t0) * (s1 - s0) / (t1 - t0)));
-function posedClothing(l, px, k) {
-  const b = bob[k], cap = b, up = Math.min(bob[(k - 1 + F) % F], cap), lo = Math.min(bob[(k - 2 + F) % F], up), dyOf = [cap, up, lo];
-  const items = [];
-  // In the profile the trousers are drawn as one silhouette (the far leg's slivers are its back edge), so every
-  // leg pixel forms the trouser that is placed on each posed leg.
-  const legPx = px.filter((p) => LIMB[p.part]?.[0] === 'leg');
-  const byRow = {}; for (const p of legPx) (byRow[p.y] ??= []).push(p);
-  const legRows = Object.keys(byRow).map(Number), top = Math.min(...legRows);
-  const LR = l.legRows, BODY_WRAP = 56;   // LR.wrap: first rigid row of the garment's ankle (wrap / boot); LR.foot: first shoe row
-  for (const [which, z] of legPx.length ? [['far', 0], ['near', 2]] : []) {
-    const pose = L.poses[L[which][k]], legMap = legPoses[L[which][k]], back = rowsOf(legMap);
-    const col = (c) => (which === 'far' ? (l.shade[c] ?? c) : c);
+// One posed leg's garment (trouser rows authored on the leg, wrap or boot shaft, shoe): byRow holds the profile
+// garment's leg pixels by row (used for the reference ankle block and the flat shoe).
+function legGarment(l, items, byRow, isFar, z, pose, legMap) {
+  const LR = l.legRows, BODY_WRAP = 56;
+    const col = (c) => (isFar ? (l.shade[c] ?? c) : c);
     const put = (srcRow, t, dx) => { for (const p of byRow[srcRow] || []) items.push([z, p.x + dx, t, col(p.c), p.src]); };
     // Trouser rows are authored on the posed leg: each row spans the leg's outline widened by the reference
     // trouser margins, shaded with the trouser row pattern; the row above the wrap is the hem (outline).
@@ -661,7 +674,17 @@ function posedClothing(l, px, k) {
         if (c !== '.') items.push([z, pose.footX - 1 + (L.feet[pose.foot].dx || 0) + j, bot + 1 + r, col(c === '#' ? l.outline : l.shoe), null]);
       }));
     }
-  }
+}
+function posedClothing(l, px, k) {
+  const b = bob[k], cap = b, up = Math.min(bob[(k - 1 + F) % F], cap), lo = Math.min(bob[(k - 2 + F) % F], up), dyOf = [cap, up, lo];
+  const items = [];
+  // In the profile the trousers are drawn as one silhouette (the far leg's slivers are its back edge), so every
+  // leg pixel forms the trouser that is placed on each posed leg.
+  const legPx = px.filter((p) => LIMB[p.part]?.[0] === 'leg');
+  const byRow = {}; for (const p of legPx) (byRow[p.y] ??= []).push(p);
+  const legRows = Object.keys(byRow).map(Number), top = Math.min(...legRows);
+  const LR = l.legRows, BODY_WRAP = 56;   // LR.wrap: first rigid row of the garment's ankle (wrap / boot); LR.foot: first shoe row
+  for (const [which, z] of legPx.length ? [['far', 0], ['near', 2]] : []) legGarment(l, items, byRow, which === 'far', z, L.poses[L[which][k]], legPoses[L[which][k]]);
   // Jacket under the reference near arm: the arm swings away from it, so its under-arm shading becomes jacket
   // base colour (the pixel against the jacket's own outline keeps the edge shade).
   const sway = sashSway(spec.sourceDirection, px, k, l);
@@ -705,6 +728,12 @@ function posedClothing(l, px, k) {
 }
 function frontalClothing(l, geom, px, k) {
   const d = FR.views[geom], items = [], sway = sashSway(geom, px, k, l);
+  if (d.legBand) {
+    // garments on band legs are authored on each leg as in E, from the profile garment's leg rows
+    const byRow = {};
+    for (const p of clothingPixels(l, spec.sourceDirection, false)) if (LIMB[p.part]?.[0] === 'leg') (byRow[p.y] ??= []).push(p);
+    if (Object.keys(byRow).length) for (const lg of frontalLegs(d, k)) legGarment(l, items, byRow, lg.isFar, lg.z, lg.pose, lg.legMap);
+  }
   for (const p of px) {
     const part = p.part === 'sash' && isBand(p, l) ? 'pelvis' : p.part;
     const { rows, dx, z } = frontalMove(d, k, part, p.y);
