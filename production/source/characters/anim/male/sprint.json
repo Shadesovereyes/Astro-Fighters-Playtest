@@ -906,24 +906,24 @@
         "handDyRule": "both arms are swept back and raised: they point away from the viewer and are foreshortened by 5-6 rows",
         "handDy": {
           "R": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
+            -5,
+            -5,
+            -5,
+            -5,
+            -5,
+            -5,
+            -5,
+            -5
           ],
           "L": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
+            -5,
+            -5,
+            -5,
+            -5,
+            -5,
+            -5,
+            -5,
+            -5
           ]
         },
         "legRows": {
@@ -956,45 +956,45 @@
         },
         "armRows": {
           "R": [
-            28,
-            32,
+            33,
+            34,
             35,
-            25,
-            30,
-            23
+            31,
+            32,
+            30
           ],
           "L": [
-            28,
-            32,
+            33,
+            34,
             35,
-            25,
-            30,
-            23
+            31,
+            32,
+            30
           ]
         },
         "armRepeatRows": {
           "R": [
-            28,
-            32,
+            33,
+            34,
             35,
-            25,
-            30,
-            23
+            31,
+            32,
+            30
           ],
           "L": [
-            28,
-            32,
+            33,
+            34,
             35,
-            25,
-            30,
-            23
+            31,
+            32,
+            30
           ]
         },
         "headDy": -3,
         "headZ": 3.5,
         "headRule": "the head stays level with E/W: headDy -3 cancels the 2-row crouch and the 1 px lower head of the S/N reference frames, so the top of the head sits exactly as high as in E/W on every frame and is drawn in front of the chest",
-        "armVisibleTo": 30,
-        "armRule": "the arms are swept behind the body: the shoulders and upper arms show down to the elbow (reference rows to 30); forearms and hands are hidden",
+        "armVisibleTo": 37,
+        "armRule": "the arms are swept behind the body: the shoulders and upper arms show to the elbow, the forearm and wrist are hidden (5 rows dropped) and the top of each fist peeks out below the elbow (reference hand rows to 37)",
         "legPoseRule": "running legs seen end-on: a planted leg keeps its rows; a lower leg folding back (push-off, kick-back) loses shin rows so the foot rises toward the knee; a knee driving forward (recovery, knee drive) loses thigh rows so the knee rises with the shin hanging below it; the reaching leg loses 2 thigh rows. Every leg also loses the frame's bob rows.",
         "legPoseRows": {
           "plant": [],
