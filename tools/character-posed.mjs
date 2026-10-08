@@ -231,7 +231,10 @@ const leanOf = (group, k, y) => {
 // shoulder row and torsoMaxRow, are removed and everything above them (upper torso, head, hair, eyes, arms) moves down.
 const DROP = spec.lean?.torsoDrop || 0;
 const torsoDropped = Array.from({ length: DROP }, (_, i) => AR.shoulder + Math.floor((i + 0.5) * (R.torsoMaxRow - AR.shoulder + 1) / DROP));
-const leanY = (group, y) => (group === 'head' || group === 'arm' ? y + DROP
+// lean.headDy lowers the head (with hair and eyes) on its own, sinking the neck into the shoulders; the head is drawn
+// over the torso where they meet.
+const HEAD_DY = spec.lean?.headDy || 0;
+const leanY = (group, y) => (group === 'head' ? y + DROP + HEAD_DY : group === 'arm' ? y + DROP
   : group === 'torso' ? (torsoDropped.includes(y) ? null : y + torsoDropped.filter((r) => r > y).length) : y);
 const restGroup = new Map();
 for (const p of bodyRest.keys()) { const [x, y] = unkey(p); restGroup.set(p, leanGroup(bodyPart(x, y), y)); }
@@ -254,7 +257,7 @@ function frame(k) {
   const far = legPoses[L.far[k]], near = legPoses[L.near[k]];
   const T = leanOf('torso', k, AR.shoulder);
   const shifted = (m) => new Map([...m].map(([p, c]) => { const [x, y] = unkey(p); return [key(x + T, y + DROP), c]; }));
-  const rest = new Map([...bodyRest].flatMap(([p, c]) => { const [x, y] = unkey(p), g = restGroup.get(p), ny = leanY(g, y); return ny === null ? [] : [[key(x + leanOf(g, k, y), ny), c]]; }));
+  const rest = new Map([...bodyRest].sort(([p], [q]) => (restGroup.get(p) === 'head') - (restGroup.get(q) === 'head')).flatMap(([p, c]) => { const [x, y] = unkey(p), g = restGroup.get(p), ny = leanY(g, y); return ny === null ? [] : [[key(x + leanOf(g, k, y), ny), c]]; }));
   // where the lean slides one block past the next (torso over pelvis, head over neck), an edge that was covered in the
   // reference is now open and gets outline
   if (LEAN) for (const [p, c] of bodyRest) {

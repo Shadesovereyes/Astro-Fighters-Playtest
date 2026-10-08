@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "sprint",
-  "status": "candidate: E sprint draft v12 (W = mirror of E); trailing foot follows the shin at the ankle",
+  "status": "candidate: E sprint draft v14 (W = mirror of E); arms raised (drop 8/7), head lowered 2 px",
   "frames": 8,
   "fps": 14,
   "sourceDirection": "E",
@@ -60,13 +60,14 @@
     7
   ],
   "lean": {
-    "rule": "Forward lean toward the facing (+x in E). Pelvis and head move as blocks; with torsoShear each torso row moves on the straight line between them, so the back is one slanted line. Arms hang from the shoulder row; hair and eyes go with the head. torsoDrop removes that many torso rows (evenly spaced between the shoulder row and the trunk) so the leaning torso keeps its length; everything above moves down with it.",
+    "rule": "Forward lean toward the facing (+x in E). Pelvis and head move as blocks; with torsoShear each torso row moves on the straight line between them, so the back is one slanted line. Arms hang from the shoulder row; hair and eyes go with the head. torsoDrop removes that many torso rows (evenly spaced between the shoulder row and the trunk) so the leaning torso keeps its length; everything above moves down with it. headDy lowers the head (with hair and eyes) on its own; the neck sinks into the shoulders and the head is drawn over the torso.",
     "torsoShear": true,
     "dx": {
       "pelvis": 1,
       "head": 8
     },
-    "torsoDrop": 3
+    "torsoDrop": 3,
+    "headDy": 2
   },
   "rootMotion": {
     "E": [
@@ -346,84 +347,84 @@
       {
         "construction": "straight",
         "total": -18,
-        "drop": 6
+        "drop": 8
       },
       {
         "construction": "straight",
         "total": -18,
-        "drop": 6
+        "drop": 8
       },
       {
         "construction": "straight",
         "total": -19,
-        "drop": 6
+        "drop": 8
       },
       {
         "construction": "straight",
         "total": -19,
-        "drop": 6
+        "drop": 8
       },
       {
         "construction": "straight",
         "total": -18,
-        "drop": 6
+        "drop": 8
       },
       {
         "construction": "straight",
         "total": -18,
-        "drop": 6
+        "drop": 8
       },
       {
         "construction": "straight",
         "total": -19,
-        "drop": 6
+        "drop": 8
       },
       {
         "construction": "straight",
         "total": -19,
-        "drop": 6
+        "drop": 8
       }
     ],
     "far": [
       {
         "construction": "straight",
         "total": -16,
-        "drop": 5
+        "drop": 7
       },
       {
         "construction": "straight",
         "total": -16,
-        "drop": 5
+        "drop": 7
       },
       {
         "construction": "straight",
         "total": -15,
-        "drop": 5
+        "drop": 7
       },
       {
         "construction": "straight",
         "total": -15,
-        "drop": 5
+        "drop": 7
       },
       {
         "construction": "straight",
         "total": -16,
-        "drop": 5
+        "drop": 7
       },
       {
         "construction": "straight",
         "total": -16,
-        "drop": 5
+        "drop": 7
       },
       {
         "construction": "straight",
         "total": -15,
-        "drop": 5
+        "drop": 7
       },
       {
         "construction": "straight",
         "total": -15,
-        "drop": 5
+        "drop": 7
       }
     ],
     "outline": "Arm pixels touching empty space get an outline, except above the shoulder row; the near arm is not outlined where it lies over the body (its dark back column separates it)."
