@@ -583,7 +583,8 @@ function frontalFrame(dir, k) {
     }
     if (name === 'arms') for (const sd of Object.keys(d.armBand || {})) {
       const fb = frontalBand(d, k, sd);
-      if (fb) for (const [q, c] of fb.pixels) { const [x, y] = unkey(q); items.push([sd === d.far ? -1 : 4, x, y, pal[c], 'band']); }
+      // the far arm is one shade darker, as in E
+      if (fb) for (const [q, c] of fb.pixels) { const [x, y] = unkey(q), sy = sd === d.far ? farShade[c] : c; items.push([sd === d.far ? -1 : 4, x, y, sy === 'o' ? BLACK : pal[sy], 'band']); }
     }
     const m = new Map(), sm = new Map(), hz = new Set();
     for (const [z, x, y, c, s0] of items.sort((a, c) => a[0] - c[0])) { m.set(key(x, y), c); sm.set(key(x, y), s0); if (d.headZ > 3 && z === d.headZ) hz.add(key(x, y)); else hz.delete(key(x, y)); }
@@ -795,7 +796,7 @@ function frontalClothing(l, geom, px, k) {
       const r = accRow[ry];
       if (!r) continue;
       const x0 = r[0].x, x1 = r[r.length - 1].x, hit = r.find((p) => p.x === x0 + Math.floor(f * (x1 - x0 + 1)));
-      if (hit) { const [x, y] = unkey(q); items.push([sd === d.far ? -1 : 4, x, y, hit.c, null]); }
+      if (hit) { const [x, y] = unkey(q); items.push([sd === d.far ? -1 : 4, x, y, sd === d.far ? (l.shade[hit.c] ?? hit.c) : hit.c, null]); }
     }
   }
   if (d.legBand) {

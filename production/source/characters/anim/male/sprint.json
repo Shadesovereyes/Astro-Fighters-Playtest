@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "sprint",
-  "status": "E/W, S/N, SE/SW approved by user 2026-10-08; NE/NW to do",
+  "status": "E/W, S/N, SE/SW approved by user 2026-10-08 (S arms tentative, revisit); NE/NW candidate",
   "frames": 8,
   "fps": 14,
   "sourceDirection": "E",
@@ -10,7 +10,9 @@
     "S",
     "SE",
     "E",
+    "NE",
     "N",
+    "NW",
     "W",
     "SW"
   ],
@@ -22,6 +24,10 @@
     "rule": "A mirrored reference must be an exact horizontal mirror of its source for Body1, Arms1, hair, eyes and clothing; the renderer verifies this before mirroring (x -> 63 - x). Mirroring swaps the character's sides, so the mirrored direction plays its source half a cycle later (frameShift 4): every direction then has the right leg forward at frame 0 and the walk can change direction on any frame.",
     "SW": {
       "from": "SE",
+      "frameShift": 4
+    },
+    "NW": {
+      "from": "NE",
       "frameShift": 4
     }
   },
@@ -280,6 +286,74 @@
       [
         -4,
         4
+      ]
+    ],
+    "NE": [
+      [
+        4,
+        -4
+      ],
+      [
+        4,
+        -4
+      ],
+      [
+        4,
+        -4
+      ],
+      [
+        4,
+        -4
+      ],
+      [
+        4,
+        -4
+      ],
+      [
+        4,
+        -4
+      ],
+      [
+        4,
+        -4
+      ],
+      [
+        4,
+        -4
+      ]
+    ],
+    "NW": [
+      [
+        -4,
+        -4
+      ],
+      [
+        -4,
+        -4
+      ],
+      [
+        -4,
+        -4
+      ],
+      [
+        -4,
+        -4
+      ],
+      [
+        -4,
+        -4
+      ],
+      [
+        -4,
+        -4
+      ],
+      [
+        -4,
+        -4
+      ],
+      [
+        -4,
+        -4
       ]
     ]
   },
@@ -674,6 +748,16 @@
           0,
           0,
           1
+        ],
+        "NE": [
+          -1,
+          -1,
+          0,
+          1,
+          1,
+          0,
+          -1,
+          -1
         ]
       }
     },
@@ -870,7 +954,7 @@
   "approved": {
     "E": "2026-10-08",
     "W": "2026-10-08 (mirror of E)",
-    "S": "2026-10-08",
+    "S": "2026-10-08; S arm/wrist/fist sizing approved tentatively 2026-10-08, to revisit",
     "N": "2026-10-08",
     "SE": "2026-10-08",
     "SW": "2026-10-08 (mirror of SE)"
@@ -1429,7 +1513,98 @@
           "scaleX": 0.75
         },
         "legBandRule": "the legs are the E sprint band legs (same poses and phase, constant thickness, authored feet), each moved to its own hip in this view and narrowed sideways to 75% for the angled stride; the far (L) leg is one shade darker and drawn behind; garments are authored on each leg as in E"
+      },
+      "NE": {
+        "rule": "N at an angle, built like the SE sprint: the E band legs placed at this view's hips (legBand; near R on the right, far L on the left, drawn behind), the E lean shown partly sideways (leanScale), both arms swept back toward the viewer as authored band arms (foreshortened), the far arm one shade darker and behind the body. The head stays level with E/W.",
+        "far": "L",
+        "headDy": -1,
+        "leanScale": 0.6,
+        "legBand": {
+          "offset": {
+            "R": 4,
+            "L": -5
+          },
+          "scaleX": 0.75
+        },
+        "handDy": {
+          "R": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "L": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "armRows": {
+          "R": [
+            35
+          ],
+          "L": [
+            35
+          ]
+        },
+        "armRepeatRows": {
+          "R": [
+            35
+          ],
+          "L": [
+            35
+          ]
+        },
+        "armBand": {
+          "R": {
+            "pivot": [
+              39,
+              23
+            ],
+            "angle": [
+              55,
+              55,
+              57,
+              57,
+              55,
+              55,
+              57,
+              57
+            ],
+            "scale": 0.7
+          },
+          "L": {
+            "pivot": [
+              24,
+              23
+            ],
+            "angle": [
+              50,
+              50,
+              48,
+              48,
+              50,
+              50,
+              48,
+              48
+            ],
+            "scale": 0.7
+          }
+        }
       }
     }
-  }
+  },
+  "revisit": [
+    "S arms: upper arm widened to 4 px (armWiden), wrist band and fist narrowed by 1 px with a 1 px gap to the body (armNarrow); the fist is only 2 px wide and lost its shade column. Approved tentatively 2026-10-08; revisit (option: narrow only the wrist, keep the 3 px fist and move it 1 px outward).",
+    "SE/SW arm armour on the band arm is placed from the reference accessory rows (stopgap); per-pose accessory variants still to be authored."
+  ]
 }
