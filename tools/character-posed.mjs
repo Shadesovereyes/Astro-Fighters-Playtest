@@ -454,7 +454,9 @@ function frontalMove(d, k, part, y) {
     rows = rowMap(y, b, h < 0 ? d.armRows[s].slice(0, -h) : [], h > 0 ? d.armRepeatRows[s].slice(0, h) : []);
     if (d.handDx) dx = shear(y, d.armPivot, d.handFrom[s], d.handDx[s][k]);
     z = s === far ? -1 : 4;
-  } else if (part === 'head' || overlays.overlayParts?.[part]?.lagFrames !== undefined) rows = [y + dyOf[lagOf(part)]];
+    rows = rows.map((r) => r + DROP);   // the lean's shortened torso lowers the shoulders
+  } else if (part === 'head' || overlays.overlayParts?.[part]?.lagFrames !== undefined) rows = [leanY(leanGroup(part), y) + dyOf[lagOf(part)]];
+  else if (part === 'torso') { const ny = leanY('torso', y); rows = ny === null ? [] : [ny + b]; }
   else { rows = [y + b]; if (part === 'pelvis') z = 2.5; }
   return { rows, dx, z };
 }

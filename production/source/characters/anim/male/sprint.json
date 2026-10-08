@@ -2,12 +2,14 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "sprint",
-  "status": "candidate: E sprint draft v18 (W = mirror of E); band legs keep their thickness",
+  "status": "E/W approved by user 2026-10-08; S/N candidate",
   "frames": 8,
   "fps": 14,
   "sourceDirection": "E",
   "directions": [
+    "S",
     "E",
+    "N",
     "W"
   ],
   "mirror": {
@@ -136,6 +138,74 @@
       [
         -6,
         0
+      ]
+    ],
+    "S": [
+      [
+        0,
+        6
+      ],
+      [
+        0,
+        6
+      ],
+      [
+        0,
+        6
+      ],
+      [
+        0,
+        6
+      ],
+      [
+        0,
+        6
+      ],
+      [
+        0,
+        6
+      ],
+      [
+        0,
+        6
+      ],
+      [
+        0,
+        6
+      ]
+    ],
+    "N": [
+      [
+        0,
+        -6
+      ],
+      [
+        0,
+        -6
+      ],
+      [
+        0,
+        -6
+      ],
+      [
+        0,
+        -6
+      ],
+      [
+        0,
+        -6
+      ],
+      [
+        0,
+        -6
+      ],
+      [
+        0,
+        -6
+      ],
+      [
+        0,
+        -6
       ]
     ]
   },
@@ -500,6 +570,26 @@
           -3,
           -3,
           -2
+        ],
+        "S": [
+          1,
+          1,
+          0,
+          -1,
+          -1,
+          -1,
+          0,
+          1
+        ],
+        "N": [
+          -1,
+          -1,
+          0,
+          1,
+          1,
+          1,
+          0,
+          -1
         ]
       }
     },
@@ -692,5 +782,216 @@
       "purple-eyes"
     ],
     "pending": []
+  },
+  "approved": {
+    "E": "2026-10-08",
+    "W": "2026-10-08 (mirror of E)"
+  },
+  "frontal": {
+    "rule": "S and N are built from their own reference frames with no new pixels. A limb gets shorter by dropping listed reference rows and longer by repeating them; every row of that limb below the edit moves with it. A raised leg is a shortened leg (the leg tilting toward or away from the camera); the planted leg stays on row 63. Arms swing from the shoulder: the first pixel of swing is the elbow row (the upper arm's foreshortening moves the elbow), then a forearm row, then a wrist-wrap row. The step phase matches E/W (right leg forward at frame 0). Sprint: the lean is seen end-on, so the torso is shortened by the same rows as E (lean.torsoDrop) and the head lowered by lean.headDy, keeping every direction the same height; the arms are swept back and raised, so from the front and back both arms are foreshortened (shortened from the shoulder).",
+    "bobRule": "The sprint bob (1, 2, 1, 0): the planted leg loses that many listed rows, so the planted foot stays on row 63.",
+    "legLift": {
+      "R": [
+        0,
+        0,
+        0,
+        2,
+        4,
+        5,
+        4,
+        1
+      ],
+      "L": [
+        4,
+        5,
+        4,
+        1,
+        0,
+        0,
+        0,
+        2
+      ]
+    },
+    "legLiftRule": "rows removed from a leg = its lift + the frame's bob, taken in listed order",
+    "views": {
+      "S": {
+        "handDyRule": "both arms are swept back and raised: they point away from the viewer and are foreshortened by 5-6 rows",
+        "handDy": {
+          "R": [
+            -5,
+            -5,
+            -6,
+            -6,
+            -5,
+            -5,
+            -6,
+            -6
+          ],
+          "L": [
+            -6,
+            -6,
+            -5,
+            -5,
+            -6,
+            -6,
+            -5,
+            -5
+          ]
+        },
+        "legRows": {
+          "R": [
+            41,
+            50,
+            56,
+            59,
+            42,
+            49,
+            57
+          ],
+          "L": [
+            41,
+            50,
+            56,
+            59,
+            42,
+            49,
+            57
+          ]
+        },
+        "legRepeatRows": {
+          "R": [
+            41
+          ],
+          "L": [
+            41
+          ]
+        },
+        "armRows": {
+          "R": [
+            28,
+            32,
+            35,
+            25,
+            30,
+            23
+          ],
+          "L": [
+            28,
+            32,
+            35,
+            25,
+            30,
+            23
+          ]
+        },
+        "armRepeatRows": {
+          "R": [
+            28,
+            32,
+            35,
+            25,
+            30,
+            23
+          ],
+          "L": [
+            28,
+            32,
+            35,
+            25,
+            30,
+            23
+          ]
+        }
+      },
+      "N": {
+        "handDyRule": "both arms are swept back and raised toward the viewer and are foreshortened by 5-6 rows",
+        "handDy": {
+          "R": [
+            -5,
+            -5,
+            -6,
+            -6,
+            -5,
+            -5,
+            -6,
+            -6
+          ],
+          "L": [
+            -6,
+            -6,
+            -5,
+            -5,
+            -6,
+            -6,
+            -5,
+            -5
+          ]
+        },
+        "legRows": {
+          "R": [
+            50,
+            54,
+            56,
+            49,
+            57,
+            42,
+            41
+          ],
+          "L": [
+            50,
+            54,
+            56,
+            49,
+            57,
+            42,
+            41
+          ]
+        },
+        "legRepeatRows": {
+          "R": [
+            50
+          ],
+          "L": [
+            50
+          ]
+        },
+        "armRows": {
+          "R": [
+            29,
+            35,
+            34,
+            31,
+            24,
+            26
+          ],
+          "L": [
+            29,
+            35,
+            34,
+            31,
+            24,
+            26
+          ]
+        },
+        "armRepeatRows": {
+          "R": [
+            29,
+            35,
+            34,
+            31,
+            24,
+            26
+          ],
+          "L": [
+            29,
+            35,
+            34,
+            31,
+            24,
+            26
+          ]
+        }
+      }
+    }
   }
 }
