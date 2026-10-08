@@ -361,34 +361,34 @@
     "near": [
       {
         "construction": "band",
-        "angle": -25,
+        "angle": -20,
         "elbow": {
           "at": 8,
-          "angle": 192
+          "angle": 212
         }
       },
       {
         "construction": "band",
-        "angle": -25,
+        "angle": -20,
         "elbow": {
           "at": 8,
-          "angle": 192
+          "angle": 212
         }
       },
       {
         "construction": "band",
-        "angle": -25,
+        "angle": -20,
         "elbow": {
           "at": 8,
-          "angle": 192
+          "angle": 212
         }
       },
       {
         "construction": "band",
-        "angle": -25,
+        "angle": -20,
         "elbow": {
           "at": 8,
-          "angle": 192
+          "angle": 212
         }
       },
       {
@@ -417,20 +417,20 @@
       },
       {
         "construction": "band",
-        "angle": -25,
+        "angle": -20,
         "elbow": {
           "at": 8,
-          "angle": 192
+          "angle": 212
         }
       }
     ],
     "far": [
       {
         "construction": "band",
-        "angle": -40,
+        "angle": -45,
         "elbow": {
           "at": 8,
-          "angle": 205
+          "angle": 222
         }
       },
       {
@@ -451,42 +451,42 @@
       },
       {
         "construction": "band",
-        "angle": -40,
+        "angle": -45,
         "elbow": {
           "at": 8,
-          "angle": 205
+          "angle": 222
         }
       },
       {
         "construction": "band",
-        "angle": -40,
+        "angle": -45,
         "elbow": {
           "at": 8,
-          "angle": 205
+          "angle": 222
         }
       },
       {
         "construction": "band",
-        "angle": -40,
+        "angle": -45,
         "elbow": {
           "at": 8,
-          "angle": 205
+          "angle": 222
         }
       },
       {
         "construction": "band",
-        "angle": -40,
+        "angle": -45,
         "elbow": {
           "at": 8,
-          "angle": 205
+          "angle": 222
         }
       },
       {
         "construction": "band",
-        "angle": -40,
+        "angle": -45,
         "elbow": {
           "at": 8,
-          "angle": 205
+          "angle": 222
         }
       }
     ],
@@ -531,8 +531,11 @@
           "LLms",
           "sDDs"
         ]
-      }
-    }
+      },
+      "fistForwardUpTo": -165,
+      "fistRule": "the knuckles face forward (mirrored fist) for any hand pointing between straight ahead and 15 degrees short of straight up, so a boxing guard shows the fist face-on to the opponent; fistUp only for a hand pointing straight up"
+    },
+    "guardRule": "boxing guard: elbows down in front of the ribs, forearms angled up and forward, fists at chin height with knuckles forward; the lead (far) hand sits further forward"
   },
   "clothing": {
     "rule": "Layer 2 clothing follows the body it is registered to. Front, back and diagonal views move each clothing pixel exactly like the body pixel of the same part. In the authored profile (E) each trouser row is resampled onto the posed leg (thigh rows onto the pose's thigh rows, shin rows onto its shin rows) and shifted by the leg's back edge; wrap and shoe follow the ankle (reference-ankle poses) or the shin line and the authored foot (line poses), where a toe-down foot is drawn as the foot's own shape in the shoe colours. The far trouser leg is the near one on the far pose, shaded one step darker and drawn behind. A mirrored direction whose clothing is not an exact mirror is built from its own clothing frame, flipped through its source's motion. Where clothing newly meets empty space it gets the clothing's outline colour.",

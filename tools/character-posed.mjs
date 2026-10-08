@@ -237,7 +237,8 @@ function bandArm(p) {
     const ox = E ? fore.ex : B.pivot[0], oy = E ? fore.ey : B.pivot[1], du = E ? B.handFrom - eu : B.handFrom;
     const ax = ox - Math.sin(t) * du, ay = oy + Math.cos(t) * du;
     let F = B.fist;
-    if (a < -45 && a >= -135) F = { anchor: [B.fist.rows[0].length - 1 - B.fist.anchor[0], B.fist.anchor[1]], rows: B.fist.rows.map((r) => [...r].reverse().join('')) };
+    const fwdTo = B.fistForwardUpTo ?? -135;   // forward fist from straight ahead up to this angle (toward up)
+    if (a < -45 && a >= fwdTo) F = { anchor: [B.fist.rows[0].length - 1 - B.fist.anchor[0], B.fist.anchor[1]], rows: B.fist.rows.map((r) => [...r].reverse().join('')) };
     else if ((a > 135 || a < -135) && B.fistUp) F = B.fistUp;
     const x0 = Math.floor(ax) - F.anchor[0], y0 = Math.floor(ay) - F.anchor[1];
     F.rows.forEach((row, r) => [...row].forEach((c, j) => {
