@@ -433,6 +433,8 @@ const rowMap = (y, bobDy, removed, repeated) => {
 // leaves colour against empty space, outline is added; reference edges stay as drawn.
 const shear = (y, pivot, rigid, total) => { const yy = Math.min(y, rigid); return yy <= pivot ? 0 : roundHalfEven(total * (yy - pivot) / (rigid - pivot)); };
 const refExposed = {};
+// body pixels of a head drawn in front of the torso (headZ above 3): clothing does not cover them
+const HEAD_FRONT = {};
 function exposedInReference(fx) {
   if (refExposed[fx]) return refExposed[fx];
   const m = new Map();
@@ -455,7 +457,14 @@ function frontalMove(d, k, part, y) {
     if (d.handDx) dx = shear(y, d.armPivot, d.handFrom[s], d.handDx[s][k]);
     z = s === far ? -1 : 4;
     rows = rows.map((r) => r + DROP);   // the lean's shortened torso lowers the shoulders
-  } else if (part === 'head' || overlays.overlayParts?.[part]?.lagFrames !== undefined) rows = [leanY(leanGroup(part), y) + dyOf[lagOf(part)]];
+    // armVisibleTo: arms swept behind the body show only down to this reference row (shoulder and upper arm)
+    if (d.armVisibleTo !== undefined && y > d.armVisibleTo) rows = [];
+  } else if (part === 'head' || overlays.overlayParts?.[part]?.lagFrames !== undefined) {
+    // a view may lower the head further (headDy) and draw it in front of the torso (headZ above 3) or behind it
+    const g = leanGroup(part);
+    rows = [leanY(g, y) + dyOf[lagOf(part)] + (g === 'head' ? d.headDy || 0 : 0)];
+    if (g === 'head' && d.headZ !== undefined) z = d.headZ;
+  }
   else if (part === 'torso') { const ny = leanY('torso', y); rows = ny === null ? [] : [ny + b]; }
   else { rows = [y + b]; if (part === 'pelvis') z = 2.5; }
   return { rows, dx, z };
@@ -473,9 +482,10 @@ function frontalFrame(dir, k) {
       const { rows, dx, z } = frontalMove(d, k, part, y);
       for (const ny of rows) items.push([z, x + dx, ny, hexAt(img, fx + x, y), key(x, y)]);
     }
-    const m = new Map(), sm = new Map();
-    for (const [, x, y, c, s0] of items.sort((a, c) => a[0] - c[0])) { m.set(key(x, y), c); sm.set(key(x, y), s0); }
+    const m = new Map(), sm = new Map(), hz = new Set();
+    for (const [z, x, y, c, s0] of items.sort((a, c) => a[0] - c[0])) { m.set(key(x, y), c); sm.set(key(x, y), s0); if (d.headZ > 3 && z === d.headZ) hz.add(key(x, y)); else hz.delete(key(x, y)); }
     out[name] = m; src[name] = sm;
+    if (name === 'body') HEAD_FRONT[`${dir}:${k}`] = hz;
   }
   const fig = new Map([...out.body, ...out.arms]), refx = exposedInReference(fx);
   let outlined = 0, fills = 0;
@@ -689,9 +699,10 @@ function clothingFrame(l, dir, k, fr) {
   const items = (geom === spec.sourceDirection ? posedClothing(l, px, kk) : frontalClothing(l, geom, px, kk))
     .filter((it) => it[5] !== 'farArm' || FAR_ARM_PX[kk].has(key(it[1], it[2])))
     .filter((it) => it[5] !== 'backing' || fr.body.has(key(flip ? FRAME - 1 - it[1] : it[1], it[2])));
-  const layer = new Map(), src = new Map();
+  const layer = new Map(), src = new Map(), headFront = HEAD_FRONT[`${dir}:${k}`];
   for (const [, x, y, c, s0] of items.sort((a, c) => a[0] - c[0])) {
     const X = flip ? FRAME - 1 - x : x;
+    if (headFront?.has(key(X, y))) continue;
     layer.set(key(X, y), c); src.set(key(X, y), s0);
   }
   // Under the hanging sash there is no cloth in the reference; where the flaps swing or the legs move out from under

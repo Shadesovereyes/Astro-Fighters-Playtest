@@ -818,24 +818,24 @@
         "handDyRule": "both arms are swept back and raised: they point away from the viewer and are foreshortened by 5-6 rows",
         "handDy": {
           "R": [
-            -5,
-            -5,
-            -6,
-            -6,
-            -5,
-            -5,
-            -6,
-            -6
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
           ],
           "L": [
-            -6,
-            -6,
-            -5,
-            -5,
-            -6,
-            -6,
-            -5,
-            -5
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
           ]
         },
         "legRows": {
@@ -901,7 +901,12 @@
             30,
             23
           ]
-        }
+        },
+        "headDy": 3,
+        "headZ": 3.5,
+        "headRule": "leaning toward the viewer, the head drops 3 more rows and is drawn in front of the chest",
+        "armVisibleTo": 26,
+        "armRule": "the arms are swept behind the body: only the shoulders and the top of the upper arms (reference rows to 26) show; forearms and hands are hidden"
       },
       "N": {
         "handDyRule": "both arms are swept back and raised toward the viewer and are foreshortened by 5-6 rows",
@@ -990,7 +995,10 @@
             24,
             26
           ]
-        }
+        },
+        "headDy": 3,
+        "headZ": 2.9,
+        "headRule": "leaning away from the viewer, the head drops 3 more rows behind the shoulders"
       }
     }
   }
