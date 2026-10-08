@@ -214,19 +214,32 @@ function bandArm(p) {
     const pat = u >= end - 1 && B.pattern.handEnd ? B.pattern.handEnd : u >= B.handFrom ? B.pattern.hand : u >= B.wrapFrom ? B.pattern.wrap : B.pattern.skin;
     return pat[Math.min(pat.length - 1, Math.floor(v + h))];
   };
+  const seg = new Map();
   for (let y = 0; y < FRAME; y++) for (let x = 0; x < FRAME; x++) {
     let [u, v] = uv(x, y);
-    if (E && u > eu + 0.5) {
-      [u, v] = fore.uv(x, y);
-      if (u < eu - 0.5) {   // round elbow joint between the two bands
-        if (Math.hypot(x + 0.5 - fore.ex, y + 0.5 - fore.ey) > half) continue;
-        u = eu; v = Math.max(-half, Math.min(half - 0.01, v));
-      }
-    } else if (E && u < B.start) continue;
+    if (E) {
+      // each band is tested on its own (a tightly bent arm folds the forearm back alongside the upper arm); the
+      // forearm is drawn over the upper arm, and the elbow is a round joint the width of the arm
+      const [u2, v2] = fore.uv(x, y), h2 = (u2 >= B.handFrom ? (B.handThickness ?? B.thickness) : B.thickness) / 2;
+      const inFore = u2 >= eu && u2 < end && v2 >= -h2 && v2 < h2;
+      const inUpper = u >= B.start && u <= eu && v >= -half && v < half;
+      const inElbow = Math.hypot(x + 0.5 - fore.ex, y + 0.5 - fore.ey) <= half;
+      if (inFore) { out.set(key(x, y), pick(u2, v2, h2)); ref.set(key(x, y), [Math.floor(B.pivot[0] + v2), Math.floor(B.pivot[1] + u2)]); seg.set(key(x, y), 'fore'); }
+      else if (inUpper || inElbow) { const uu = Math.min(u, eu), vv = Math.max(-half, Math.min(half - 0.01, v)); out.set(key(x, y), pick(uu, vv, half)); ref.set(key(x, y), [Math.floor(B.pivot[0] + vv), Math.floor(B.pivot[1] + uu)]); seg.set(key(x, y), 'upper'); }
+      continue;
+    }
     const hand = u >= B.handFrom, h = hand ? (B.handThickness ?? B.thickness) / 2 : half;
     if (u < B.start || u >= end || v < -h || v >= h) continue;
     out.set(key(x, y), pick(u, v, h));
     ref.set(key(x, y), [Math.floor(B.pivot[0] + v), Math.floor(B.pivot[1] + u)]);
+  }
+  // where the forearm lies against the upper arm away from the elbow, the upper arm's edge becomes outline, so the
+  // two read as separate limb segments
+  if (E) for (const [q, sg] of seg) {
+    if (sg !== 'upper') continue;
+    const [x, y] = unkey(q);
+    if (Math.hypot(x + 0.5 - fore.ex, y + 0.5 - fore.ey) <= half + 1) continue;
+    if (N4.some(([dx, dy]) => seg.get(key(x + dx, y + dy)) === 'fore')) { out.set(q, 'o'); ref.delete(q); }
   }
   // an authored fist replaces the band's hand segment: its anchor cell sits on the arm line where the hand begins.
   // The fist is chosen by the direction of the hand: back (fist), forward (fist mirrored) or up (fistUp).
