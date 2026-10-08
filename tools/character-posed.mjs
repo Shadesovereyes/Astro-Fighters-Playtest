@@ -1044,6 +1044,7 @@ const definition = JSON.stringify({
   pendingLayers: spec.overlays.pending,
   drawOrder: overlays.drawOrder,
   rootMotion: Object.fromEntries(spec.directions.map((d) => [d, spec.rootMotion[d]])),
+  ...(spec.clips ? { clips: spec.clips } : {}),
   ...(spec.events ? { events: spec.events } : {}),
   qc
 }, null, 2) + '\n';

@@ -2,8 +2,8 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "lightAttack",
-  "status": "candidate: E jab/cross draft (W = mirror of E)",
-  "frames": 4,
+  "status": "candidate: E jab/cross draft as two chained clips (W = mirror of E)",
+  "frames": 8,
   "fps": 12,
   "sourceDirection": "E",
   "directions": [
@@ -17,7 +17,7 @@
     },
     "rule": "W mirrors E frame for frame (an attack is not a cycle, so no half-cycle shift)."
   },
-  "intent": "Taijutsu jab/cross from an orthodox stance: lead (far, left) leg and hand forward, rear (near, right) leg back. Frame 0 guard, 1 jab (lead hand straight, active), 2 recoil (chain window), 3 cross (rear hand straight, active; rear heel lifts, lean deepens).",
+  "intent": "Taijutsu jab/cross from an orthodox stance (lead/far left leg and hand forward, rear/near right back), played as two clips. One attack press plays the jab clip (guard, jab, recoil, guard) and returns to neutral (the ready/guard stance). A second press inside the chain window (jab frames 2-3) plays the cross clip (wind-up, cross, recover, guard) from there, then returns to neutral.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -92,7 +92,11 @@
       1,
       1,
       1,
-      2
+      1,
+      1,
+      2,
+      1,
+      1
     ]
   },
   "lean": {
@@ -103,13 +107,21 @@
         0,
         0,
         0,
-        1
+        0,
+        0,
+        1,
+        0,
+        0
       ],
       "head": [
         2,
         3,
         2,
-        5
+        2,
+        3,
+        5,
+        3,
+        2
       ]
     }
   },
@@ -128,7 +140,23 @@
         0
       ],
       [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
         1,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
         0
       ]
     ],
@@ -146,7 +174,23 @@
         0
       ],
       [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
         -1,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
         0
       ]
     ]
@@ -282,13 +326,21 @@
       1,
       1,
       1,
-      3
+      1,
+      1,
+      3,
+      1,
+      1
     ],
     "far": [
       0,
       0,
       0,
-      2
+      0,
+      0,
+      2,
+      0,
+      0
     ]
   },
   "arms": {
@@ -333,10 +385,42 @@
       },
       {
         "construction": "band",
+        "angle": -25,
+        "elbow": {
+          "at": 8,
+          "angle": 192
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -15,
+        "elbow": {
+          "at": 8,
+          "angle": 180
+        }
+      },
+      {
+        "construction": "band",
         "angle": -92,
         "elbow": {
           "at": 8,
           "angle": -92
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -55,
+        "elbow": {
+          "at": 8,
+          "angle": 230
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -25,
+        "elbow": {
+          "at": 8,
+          "angle": 192
         }
       }
     ],
@@ -363,6 +447,38 @@
         "elbow": {
           "at": 8,
           "angle": 235
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -40,
+        "elbow": {
+          "at": 8,
+          "angle": 205
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -40,
+        "elbow": {
+          "at": 8,
+          "angle": 205
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -40,
+        "elbow": {
+          "at": 8,
+          "angle": 205
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -40,
+        "elbow": {
+          "at": 8,
+          "angle": 205
         }
       },
       {
@@ -436,7 +552,11 @@
           -1,
           -1,
           -1,
-          -2
+          -1,
+          -1,
+          -2,
+          -1,
+          -1
         ]
       }
     },
@@ -620,14 +740,16 @@
     "looseRule": "from row 40 down, cloth specks of 1-2 px cut off from the garment and outline pixels that no longer border any cloth are removed (they are left between the legs where a direction's own clothing frame does not register exactly with its source's motion)"
   },
   "events": {
-    "rule": "per-frame gameplay data in the E frame (W mirrors x -> 63 - x - w + 1): hitbox [x, y, w, h] on active frames, damage event",
+    "rule": "per-frame gameplay data in the E frame (W mirrors x -> 64 - x - w): hitbox [x, y, w, h] on active frames, damage event",
     "E": [
       {
         "frame": 0,
-        "type": "guard"
+        "clip": "jab",
+        "type": "startup"
       },
       {
         "frame": 1,
+        "clip": "jab",
         "type": "active",
         "move": "jab",
         "hitbox": [
@@ -640,10 +762,24 @@
       },
       {
         "frame": 2,
-        "type": "chainWindow"
+        "clip": "jab",
+        "type": "recovery",
+        "chainWindow": true
       },
       {
         "frame": 3,
+        "clip": "jab",
+        "type": "recovery",
+        "chainWindow": true
+      },
+      {
+        "frame": 4,
+        "clip": "cross",
+        "type": "startup"
+      },
+      {
+        "frame": 5,
+        "clip": "cross",
         "type": "active",
         "move": "cross",
         "hitbox": [
@@ -653,7 +789,48 @@
           8
         ],
         "damage": "light+"
+      },
+      {
+        "frame": 6,
+        "clip": "cross",
+        "type": "recovery"
+      },
+      {
+        "frame": 7,
+        "clip": "cross",
+        "type": "recovery"
       }
     ]
+  },
+  "clips": {
+    "rule": "runtime playback: frames are sheet columns; at the end of a clip the character returns to neutral (next); a press inside a clip's chain window jumps to the chained clip on the next frame",
+    "jab": {
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "fps": 12,
+      "next": "ready",
+      "chain": {
+        "input": "attack",
+        "window": [
+          2,
+          3
+        ],
+        "to": "cross"
+      }
+    },
+    "cross": {
+      "frames": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "fps": 12,
+      "next": "ready"
+    }
   }
 }
