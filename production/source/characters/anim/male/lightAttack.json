@@ -1102,7 +1102,17 @@
               1
             ],
             "fist": "up",
-            "z": 4
+            "z": 4,
+            "pivotDx": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0
+            ]
           },
           "L": {
             "pivot": [
@@ -1161,11 +1171,103 @@
               1
             ],
             "fist": "up",
-            "z": 4
+            "z": 4,
+            "pivotDx": [
+              0,
+              -1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
           }
         },
         "headDy": -1,
-        "armRule": "guard seen from the front: elbows down at the sides, forearms nearly upright, the fists in front of each shoulder at the top of the chest, just below where the long hair hangs (the hair layer draws over the arms); a punch toward the viewer is a short straight arm (50% length) bringing the fist in front of the chest centre"
+        "armRule": "guard seen from the front: elbows down at the sides, forearms nearly upright, the fists in front of each shoulder at the top of the chest, just below where the long hair hangs (the hair layer draws over the arms); a punch toward the viewer is a short straight arm (50% length) bringing the fist in front of the chest centre",
+        "twist": {
+          "pelvis": [
+            0,
+            -1,
+            0,
+            0,
+            0,
+            2,
+            1,
+            0
+          ],
+          "shoulders": [
+            0,
+            -2,
+            -1,
+            0,
+            -1,
+            3,
+            1,
+            0
+          ],
+          "head": [
+            0,
+            -1,
+            0,
+            0,
+            0,
+            2,
+            1,
+            0
+          ]
+        },
+        "twistRule": "the body rotates into each punch: hips, shoulders and head shift sideways (shoulders most, torso sheared between hips and shoulders), toward the punching side's centre on the jab and further on the cross; the legs swing from the hip to the planted feet with the hips (hipDx), and the punching shoulder moves 1 px further in",
+        "hipDx": {
+          "R": [
+            0,
+            -1,
+            0,
+            0,
+            0,
+            2,
+            1,
+            0
+          ],
+          "L": [
+            0,
+            -1,
+            0,
+            0,
+            0,
+            2,
+            1,
+            0
+          ]
+        },
+        "footDx": {
+          "R": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "L": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "legPivot": 39,
+        "footFrom": {
+          "R": 56,
+          "L": 56
+        }
       },
       "N": {
         "legPose": {
@@ -1291,7 +1393,17 @@
             ],
             "fist": "up",
             "z": -1,
-            "showTo": 7
+            "showTo": 7,
+            "pivotDx": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              -1,
+              0,
+              0
+            ]
           },
           "L": {
             "pivot": [
@@ -1330,11 +1442,103 @@
             ],
             "fist": "up",
             "z": -1,
-            "showTo": 7
+            "showTo": 7,
+            "pivotDx": [
+              0,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
           }
         },
         "headDy": -1,
-        "armRule": "from behind the forearms, wrists and fists are in front of the body: only the shoulders and upper arms show (straight band arms cut at 7 px, showTo), hanging slightly out in guard, swinging in when that arm punches away from the viewer"
+        "armRule": "from behind the forearms, wrists and fists are in front of the body: only the shoulders and upper arms show (straight band arms cut at 7 px, showTo), hanging slightly out in guard, swinging in when that arm punches away from the viewer",
+        "twist": {
+          "pelvis": [
+            0,
+            1,
+            0,
+            0,
+            0,
+            -2,
+            -1,
+            0
+          ],
+          "shoulders": [
+            0,
+            2,
+            1,
+            0,
+            1,
+            -3,
+            -1,
+            0
+          ],
+          "head": [
+            0,
+            1,
+            0,
+            0,
+            0,
+            -2,
+            -1,
+            0
+          ]
+        },
+        "twistRule": "the body rotates into each punch: hips, shoulders and head shift sideways (shoulders most, torso sheared between hips and shoulders), toward the punching side's centre on the jab and further on the cross; the legs swing from the hip to the planted feet with the hips (hipDx), and the punching shoulder moves 1 px further in",
+        "hipDx": {
+          "R": [
+            0,
+            1,
+            0,
+            0,
+            0,
+            -2,
+            -1,
+            0
+          ],
+          "L": [
+            0,
+            1,
+            0,
+            0,
+            0,
+            -2,
+            -1,
+            0
+          ]
+        },
+        "footDx": {
+          "R": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "L": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "legPivot": 39,
+        "footFrom": {
+          "R": 56,
+          "L": 56
+        }
       }
     }
   }

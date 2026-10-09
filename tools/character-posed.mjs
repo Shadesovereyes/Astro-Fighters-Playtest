@@ -509,6 +509,15 @@ function frontalLegs(d, k) {
     return { side, isFar, z: isFar ? 0 : 2, pose, legMap: bandLegCache.get(ck) };
   });
 }
+function twistOf(d, k, g, y) {
+  const T = d.twist;
+  if (!T || !g) return 0;
+  if (g === 'pelvis') return T.pelvis[k];
+  if (g === 'head') return T.head[k];
+  if (g !== 'torso') return 0;
+  const lo = R.torsoMaxRow + 1, hi = AR.shoulder, yy = Math.max(hi, Math.min(lo, y));
+  return roundHalfEven(T.pelvis[k] + (T.shoulders[k] - T.pelvis[k]) * (lo - yy) / (lo - hi));
+}
 function frontalMove(d, k, part, y) {
   // crouch: a view's whole figure sits lower by d.crouch rows (every leg drops that many more bob rows)
   const b = bob[k] + (d.crouch || 0), lift = d.legLift || FR.legLift, far = d.far, limb = LIMB[part];
@@ -550,6 +559,9 @@ function frontalMove(d, k, part, y) {
   }
   else if (part === 'torso') { const ny = leanY('torso', y); rows = ny === null ? [] : [ny + b]; }
   else { rows = [y + b]; if (part === 'pelvis') z = 2.5; }
+  // twist: a frontal view's body rotation as sideways whole-pixel offsets: pelvis and head as blocks, the torso
+  // sheared from the pelvis value (trunk top) to the shoulders value (shoulder row); arms follow the shoulders
+  if (d.twist && limb?.[0] !== 'leg') dx += twistOf(d, k, limb?.[0] === 'arm' ? 'torso' : leanGroup(part, y), limb?.[0] === 'arm' ? AR.shoulder : y);
   // leanScale: a diagonal view shows part of the profile lean sideways (toward the facing), scaled from E's offsets
   if (d.leanScale && limb?.[0] !== 'leg') {
     const g = limb?.[0] === 'arm' ? 'torso' : leanGroup(part, y), ly = limb?.[0] === 'arm' ? AR.shoulder : y;
@@ -581,7 +593,8 @@ function frontalBand(d, k, sd, dir) {
   // fist kinds ('up', 'forward', 'back') overriding the direction rule
   const at = (v) => (Array.isArray(v) ? v[k] : v);
   const sc = at(ab.scale) ?? 1, r = (v) => Math.round(v * sc), B0 = A.band, el = at(ab.elbow);
-  const lx = d.leanScale ? roundHalfEven(d.leanScale * leanOf('torso', k, AR.shoulder)) * (d.leanSign || 1) : 0;
+  const lx = (d.leanScale ? roundHalfEven(d.leanScale * leanOf('torso', k, AR.shoulder)) * (d.leanSign || 1) : 0)
+    + twistOf(d, k, 'torso', AR.shoulder) + (at(ab.pivotDx) || 0);
   const dy = bob[k] + (d.crouch || 0) + DROP;
   const pb = { angle: at(ab.angle), band: { pivot: ab.pivot, start: B0.start, length: r(B0.length + B0.start) - B0.start,
     wrapFrom: r(B0.wrapFrom), handFrom: r(B0.handFrom) }, ...(el ? { elbow: { ...el, at: r(el.at) } } : {}), fistKind: at(ab.fist) };
