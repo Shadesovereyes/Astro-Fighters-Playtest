@@ -487,7 +487,7 @@ const rowMap = (y, bobDy, removed, repeated) => {
 const shear = (y, pivot, rigid, total) => { const yy = Math.min(y, rigid); return yy <= pivot ? 0 : roundHalfEven(total * (yy - pivot) / (rigid - pivot)); };
 const refExposed = {};
 // body pixels of a head drawn in front of the torso (headZ above 3): clothing does not cover them
-const HEAD_FRONT = {};
+const HEAD_FRONT = {}, BAND_SHOWN = {};
 function exposedInReference(fx) {
   if (refExposed[fx]) return refExposed[fx];
   const m = new Map();
@@ -669,7 +669,7 @@ function frontalFrame(dir, k) {
       if (!fb) continue;
       const mine = (q) => (fb.zs.get(q) >= 3) === (name === 'arms');
       // the far arm is one shade darker, as in E
-      for (const [q, c] of fb.pixels) { if (!mine(q)) continue; const [x, y] = unkey(q), sy = sd === d.far ? farShade[c] : c; items.push([fb.zs.get(q), x, y, sy === 'o' ? BLACK : pal[sy], 'band']); }
+      for (const [q, c] of fb.pixels) { if (!mine(q)) continue; const [x, y] = unkey(q), sy = sd === d.far ? farShade[c] : c; items.push([fb.zs.get(q), x, y, sy === 'o' ? BLACK : pal[sy], `band:${sd}`]); }
       // outline: a band arm keeps its own outline wherever it lies over the body or another part (readability and
       // layering), except where it joins the shoulder; outline: false turns it off
       const olv = d.armBand[sd]?.outline, ol = (Array.isArray(olv) ? olv[k] : olv) ?? true;
@@ -690,6 +690,8 @@ function frontalFrame(dir, k) {
     for (const [z, x, y, c, s0] of items.sort((a, c) => a[0] - c[0])) { m.set(key(x, y), c); sm.set(key(x, y), s0); if (d.headZ > 3 && z === d.headZ) hz.add(key(x, y)); else hz.delete(key(x, y)); }
     out[name] = m; src[name] = sm;
     if (name === 'body') HEAD_FRONT[`${dir}:${k}`] = hz;
+    // band-arm pixels still showing after the layer is drawn (a far arm behind the torso is mostly covered)
+    for (const [q, s0] of sm) if (typeof s0 === 'string' && s0.startsWith('band:')) (BAND_SHOWN[`${dir}:${k}:${s0.slice(5)}`] ??= new Set()).add(q);
   }
   const fig = new Map([...out.body, ...out.arms]), refx = exposedInReference(fx);
   let outlined = 0, fills = 0;
@@ -892,9 +894,12 @@ function frontalClothing(l, geom, px, k) {
     const acc = px.filter((p) => LIMB[p.part]?.[0] === 'arm' && LIMB[p.part][1] === sd), accRow = {};
     for (const p of acc) (accRow[p.y] ??= []).push(p);
     for (const r of Object.values(accRow)) r.sort((a, b) => a.x - b.x);
+    // an accessory shows only on the part of the band arm that is itself visible (not on a far arm behind the torso),
+    // and with accessoryTo only up to that many reference rows from the shoulder (no far-hand armour)
+    const shown = BAND_SHOWN[`${geom}:${k}:${sd}`] || new Set(), aTo = d.armBand[sd].accessoryTo;
     for (const [q, [ry, f]] of fb.across) {
       const r = accRow[ry];
-      if (!r) continue;
+      if (!r || !shown.has(q) || (aTo !== undefined && ry - d.armBand[sd].pivot[1] > aTo)) continue;
       const x0 = r[0].x, x1 = r[r.length - 1].x, hit = r.find((p) => p.x === x0 + Math.floor(f * (x1 - x0 + 1)));
       if (hit) { const [x, y] = unkey(q); items.push([fb.zs.get(q), x, y, sd === d.far ? (l.shade[hit.c] ?? hit.c) : hit.c, null]); }
     }
