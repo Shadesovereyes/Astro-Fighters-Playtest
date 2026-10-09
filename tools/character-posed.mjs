@@ -128,6 +128,7 @@ function buildLeg(p) {
     // of its row pattern read back to front across the band. The knee is a round joint the width of the shin, so the
     // bend closes without a bump.
     out.clear();
+    if (p.ankle) return kickLeg(p, out);
     const bot = p.wrapRow + 2;
     const band = (ax, ay, bx, by) => {
       const len = Math.hypot(bx - ax, by - ay), d = [(bx - ax) / len, (by - ay) / len], n = [d[1], -d[0]];
@@ -153,6 +154,40 @@ function buildLeg(p) {
     closeLeg(out, true);
   } else throw new Error(`unknown leg construction ${p.construction}`);
   pinchFill(out);
+  return out;
+}
+// kick leg: a band leg whose shin ends at an explicit ankle point (any angle, e.g. horizontal in a kick), not on a
+// wrap row. The wrap is the last wrapLen px along the shin (cut across the limb, not by rows) and the authored foot
+// is placed with its anchor cell on the ankle point. out.limb keeps the geometry so garments can be drawn along it.
+function kickLeg(p, out) {
+  const band = (ax, ay, bx, by) => {
+    const len = Math.hypot(bx - ax, by - ay), d = [(bx - ax) / len, (by - ay) / len], n = [d[1], -d[0]];
+    return { len, uv: (x, y) => { const cx = x + 0.5 - ax, cy = y + 0.5 - ay; return [cx * d[0] + cy * d[1], cx * n[0] + cy * n[1]]; } };
+  };
+  // the shin's front (L) side faces the band's normal; a leg pointing right has its front up, pointing left down
+  const kx = p.kneeX + 0.5, ky = p.kneeRow + 0.5, ax = p.ankle[0] + 0.5, ay = p.ankle[1] + 0.5;
+  const th = band(p.hipX + 0.5, p.hipRow + 0.5, kx, ky), sh = band(kx, ky, ax, ay), wrapLen = p.wrapLen ?? 3;
+  const pick = (pat, v) => pat[Math.max(0, Math.min(pat.length - 1, Math.floor(v + pat.length / 2)))];
+  const seg = new Map();
+  for (let y = 0; y < FRAME; y++) for (let x = 0; x < FRAME; x++) {
+    const [su, sv] = sh.uv(x, y), [tu, tv] = th.uv(x, y);
+    const wrap = su >= sh.len - wrapLen, sp = wrap ? L.wrap : su < 3 ? L.shinRows4[Math.max(0, Math.min(2, Math.floor(su)))] : L.shinRow3;
+    const inShin = su >= 0 && su <= sh.len && sv >= -sp.length / 2 && sv < sp.length / 2;
+    const inThigh = tu >= -2 && tu <= th.len && tv >= -2.5 && tv < 2.5;
+    const inKnee = Math.hypot(x + 0.5 - kx, y + 0.5 - ky) <= 2.3;
+    if (inThigh) { out.set(key(x, y), pick(L.thighRows[Math.max(0, Math.min(3, Math.floor(tu * 4 / th.len)))], tv)); seg.set(key(x, y), 'thigh'); }
+    else if (inShin) { out.set(key(x, y), pick(sp, sv)); seg.set(key(x, y), wrap ? 'wrap' : 'shin'); }
+    else if (inKnee) { out.set(key(x, y), pick(L.shinRows4[0], sv)); seg.set(key(x, y), 'knee'); }
+  }
+  const ft = L.feet[p.foot];
+  if (!ft.anchor) throw new Error(`kick foot ${p.foot} needs an anchor`);
+  ft.rows.forEach((row, r) => [...row].forEach((c, j) => {
+    const q = key(p.ankle[0] + 1 + j - ft.anchor[0], p.ankle[1] + r - ft.anchor[1]);
+    if (c !== '.' && !out.has(q)) { out.set(q, c); seg.set(q, 'foot'); }
+  }));
+  closeLeg(out, true);
+  pinchFill(out);
+  out.limb = { th, sh, kx, ky, wrapLen, seg };
   return out;
 }
 const legPoses = L.poses.map(buildLeg);
@@ -395,6 +430,13 @@ function frame(k) {
   FAR_ARM_PX[k] = new Set([...fa.keys()].map((p) => { const [x, y] = unkey(p); return key(x, y + b); }).filter((p) => farPx.has(p)));
   const comp = () => { const m = new Map(bodyL); for (const [p, c] of armsL) m.set(p, c); return m; };
   let img = comp();
+  // closeOpenEdges: a body edge the reference left covered (the back of the shorts over a raised rear leg) gets outline
+  if (spec.cleanup.closeOpenEdges) for (const [p, c] of [...img]) {
+    if (!coloured(c)) continue;
+    const [x, y] = unkey(p);
+    if (y < spec.cleanup.notchFromRow) continue;
+    for (const [dx, dy] of N4) { const q = key(x + dx, y + dy); if (!img.has(q)) { img.set(q, GEN); bodyL.set(q, GEN); } }
+  }
   for (let y = spec.cleanup.notchFromRow; y < FRAME; y++) for (let x = 0; x < FRAME; x++) {
     if (img.has(key(x, y))) continue;
     if (N4.filter(([dx, dy]) => img.has(key(x + dx, y + dy))).length >= 3) { img.set(key(x, y), GEN); bodyL.set(key(x, y), GEN); }
@@ -797,6 +839,7 @@ const resample = (t, t0, t1, s0, s1) => (t1 === t0 ? s0 : s0 + roundHalfEven((t 
 function legGarment(l, items, byRow, isFar, z, pose, legMap) {
   const LR = l.legRows, BODY_WRAP = 56;
     const col = (c) => (isFar ? (l.shade[c] ?? c) : c);
+    if (legMap.limb) return kickGarment(l, items, isFar, z, legMap, col);
     const put = (srcRow, t, dx) => { for (const p of byRow[srcRow] || []) items.push([z, p.x + dx, t, col(p.c), p.src]); };
     // Trouser rows are authored on the posed leg: each row spans the leg's outline widened by the reference
     // trouser margins, shaded with the trouser row pattern; the row above the wrap is the hem (outline).
@@ -830,6 +873,32 @@ function legGarment(l, items, byRow, isFar, z, pose, legMap) {
         if (c !== '.') items.push([z, pose.footX - 1 + (L.feet[pose.foot].dx || 0) + j, bot + 1 + r, col(c === '#' ? l.outline : l.shoe), null]);
       }));
     }
+}
+// garment on a kick leg, drawn along the limb: the trouser is the thigh and shin bands widened by the reference
+// margins (back/front), shaded across the limb back to front like a profile trouser row, ending in a hem line one
+// pixel before the wrap; the wrap/boot shaft and the shoe take the leg's own wrap and foot pixels.
+function kickGarment(l, items, isFar, z, legMap, col) {
+  const T = l.trouser, Wp = l.wrap, { th, sh, kx, ky, wrapLen, seg } = legMap.limb, hemU = sh.len - wrapLen - 1;
+  const across = (v, half, front) => {
+    const lo = -half - T.back, hi = half + front, n = Math.round(hi - lo), i = Math.floor(v - lo);
+    if (i < 0 || i >= n) return null;
+    if (i === 0 || i === n - 1) return 'a';
+    const m = n - 2, j = i - 1, h = Math.ceil((m - 2) / 2);
+    return j === 0 ? 'd' : j === m - 1 ? 'F' : j <= h ? 'c' : 'b';
+  };
+  for (let y = 0; y < FRAME; y++) for (let x = 0; x < FRAME; x++) {
+    const q = key(x, y), sg = seg.get(q);
+    if (sg === 'wrap') { const [, sv] = sh.uv(x, y); items.push([z, x, y, col(Wp.colours[sv < -0.5 ? Wp.pattern : Wp.fill] ?? Wp.colours[Wp.fill]), null]); continue; }
+    if (sg === 'foot') { const c = legMap.get(q); items.push([z, x, y, col(c === '#' || c === 'o' ? l.outline : l.shoe), null]); continue; }
+    const [tu, tv] = th.uv(x, y), [su, sv] = sh.uv(x, y);
+    let c = null;
+    if (tu >= -2 && tu <= th.len) c = across(tv, 2.5, 1.5 + T.front);
+    if (!c && su >= 0 && su <= hemU) c = su > hemU - 1 ? (across(sv, 2, 1 + T.front) && 'a') : across(sv, 2, 1 + T.front);
+    if (!c && Math.hypot(x + 0.5 - kx, y + 0.5 - ky) <= 2.5 + T.back) c = 'c';
+    if (!c) continue;
+    const front = (tu >= -2 && tu <= th.len) ? T.thighFront : T.shinFront;
+    items.push([z, x, y, col(T.colours[c === 'F' ? front : c]), null]);
+  }
 }
 function posedClothing(l, px, k) {
   const b = bob[k], cap = b, up = Math.min(bob[(k - 1 + F) % F], cap), lo = Math.min(bob[(k - 2 + F) % F], up), dyOf = [cap, up, lo];
@@ -1054,6 +1123,23 @@ const sheets = Object.fromEntries(layerNames.map((n) => [n, Buffer.alloc(W * H *
 const all = {};
 spec.directions.forEach((dir, r) => {
   all[dir] = framesFor(dir).map((fr, k) => ({ ...fr, ...Object.fromEntries(clothingLayers.map((l) => [l.name, clothingFrame(l, dir, k, fr)])) }));
+  // borrowed frames: a frame of the source direction may be another state's rendered frame of another direction
+  // (a spin passes through the directional bodies); its mirrors take it flipped
+  const srcDir = mirrors[dir]?.from ?? dir;
+  if (srcDir === spec.sourceDirection) for (const [kk, b] of Object.entries(spec.borrow?.frames || {})) {
+    const other = JSON.parse(fs.readFileSync(path.join(animDir, `${b.state}.json`), 'utf8')), row = other.directions.indexOf(b.dir);
+    if (row < 0) throw new Error(`borrow: ${b.state} has no ${b.dir} row`);
+    const fr = {};
+    for (const n of layerNames) {
+      const img = readPng(path.join(animDir, b.state, `${n}.png`)), m = new Map();
+      for (let y = 0; y < FRAME; y++) for (let x = 0; x < FRAME; x++) {
+        const sx = b.frame * FRAME + x, sy = row * FRAME + y;
+        if (opaque(img, sx, sy)) m.set(key(mirrors[dir] ? FRAME - 1 - x : x, y + (b.dy || 0)), hexAt(img, sx, sy));
+      }
+      fr[n] = m;
+    }
+    all[dir][Number(kk)] = fr;
+  }
   all[dir].forEach((fr, k) => {
     for (const n of layerNames) for (const [p, c] of fr[n]) {
       const [x, y] = unkey(p);
