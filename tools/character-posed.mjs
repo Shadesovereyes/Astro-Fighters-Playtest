@@ -599,7 +599,11 @@ function frontalBand(d, k, sd, dir) {
   const dy = bob[k] + (d.crouch || 0) + DROP;
   const pb = { angle: at(ab.angle), band: { pivot: ab.pivot, start: B0.start, length: r(B0.length + B0.start) - B0.start,
     wrapFrom: r(B0.wrapFrom), handFrom: r(B0.handFrom) }, ...(el ? { elbow: { ...el, at: r(el.at) } } : {}), fistKind: at(ab.fist) };
-  const { uv } = bandGeom(pb), pixels = new Map(), ref = new Map(), across = new Map(), span = dir ? refArmSpan(dir, sd) : {}, T = B0.thickness;
+  const { uv } = bandGeom(pb), pixels = new Map(), ref = new Map(), across = new Map(), zs = new Map(), span = dir ? refArmSpan(dir, sd) : {}, T = B0.thickness;
+  // depth per segment: the arm is at z (default: far arm -1, behind the body; near arm 4, in front); with zFore the part
+  // from foreAt along the arm (default the elbow) is at zFore instead, so a far arm's forearm and fist can come out in
+  // front of the torso while its shoulder end stays behind
+  const z0 = at(ab.z) ?? (sd === d.far ? -1 : 4), zF = at(ab.zFore), fAt = at(ab.foreAt) ?? (el ? r(el.at) : Infinity);
   const arm = bandArm(pb);
   for (const [q, c] of arm) {
     const [x, y] = unkey(q), Q = key(x + lx, y + dy);
@@ -609,12 +613,13 @@ function frontalBand(d, k, sd, dir) {
     if (ab.showTo !== undefined && !(u <= ab.showTo)) continue;
     const ry = Math.floor(ab.pivot[1] + u / sc), e = span[ry];
     pixels.set(Q, c);
+    zs.set(Q, zF !== undefined && u >= fAt ? zF : z0);
     // the reference pixel at the same fraction across the reference arm's row (back edge to front edge)
     const f = Math.max(0, Math.min(0.999, (v + T / 2) / T));
     ref.set(Q, key(e ? e[0] + Math.floor(f * (e[1] - e[0] + 1)) : Math.floor(ab.pivot[0] + v), ry));
     across.set(Q, [ry, f]);
   }
-  return { pixels, ref, across };
+  return { pixels, ref, across, zs };
 }
 // armWiden: a thin reference upper arm is widened by one column on its outer side (the outermost colour column is
 // repeated outward and the outline moves with it), so it is as thick as the wrist and fist below it.
@@ -658,23 +663,25 @@ function frontalFrame(dir, k) {
     }
     // a band arm in front of the body (z 3 and up) goes into the arms layer; one behind it (the far arm, z below 3) goes
     // into the body layer under the torso, so the body really covers it
+    // (decided per pixel, so one arm can be split between the two)
     if (name === 'arms' || name === 'body') for (const sd of Object.keys(d.armBand || {})) {
-      const bz = d.armBand[sd]?.z ?? (sd === d.far ? -1 : 4);
-      if ((bz >= 3) !== (name === 'arms')) continue;
       const fb = frontalBand(d, k, sd);
+      if (!fb) continue;
+      const mine = (q) => (fb.zs.get(q) >= 3) === (name === 'arms');
       // the far arm is one shade darker, as in E
-      if (fb) for (const [q, c] of fb.pixels) { const [x, y] = unkey(q), sy = sd === d.far ? farShade[c] : c; items.push([bz, x, y, sy === 'o' ? BLACK : pal[sy], 'band']); }
+      for (const [q, c] of fb.pixels) { if (!mine(q)) continue; const [x, y] = unkey(q), sy = sd === d.far ? farShade[c] : c; items.push([fb.zs.get(q), x, y, sy === 'o' ? BLACK : pal[sy], 'band']); }
       // outline: a band arm keeps its own outline wherever it lies over the body or another part (readability and
       // layering), except where it joins the shoulder; outline: false turns it off
       const olv = d.armBand[sd]?.outline, ol = (Array.isArray(olv) ? olv[k] : olv) ?? true;
-      if (fb && ol) {
+      if (ol) {
         const pv = d.armBand[sd].pivot, px0 = pv[0] + twistOf(d, k, 'torso', AR.shoulder) + (Array.isArray(d.armBand[sd].pivotDx) ? d.armBand[sd].pivotDx[k] : 0);
         const py0 = pv[1] + bob[k] + (d.crouch || 0) + DROP;
         for (const q of fb.pixels.keys()) {
+          if (!mine(q)) continue;
           const [x, y] = unkey(q);
           for (const [dx2, dy2] of N4) {
             const n = key(x + dx2, y + dy2);
-            if (!fb.pixels.has(n) && Math.hypot(x + dx2 + 0.5 - px0, y + dy2 + 0.5 - py0) > 3) items.push([bz - 0.5, x + dx2, y + dy2, BLACK, 'band']);
+            if (!fb.pixels.has(n) && Math.hypot(x + dx2 + 0.5 - px0, y + dy2 + 0.5 - py0) > 3) items.push([fb.zs.get(q) - 0.5, x + dx2, y + dy2, BLACK, 'band']);
           }
         }
       }
@@ -889,7 +896,7 @@ function frontalClothing(l, geom, px, k) {
       const r = accRow[ry];
       if (!r) continue;
       const x0 = r[0].x, x1 = r[r.length - 1].x, hit = r.find((p) => p.x === x0 + Math.floor(f * (x1 - x0 + 1)));
-      if (hit) { const [x, y] = unkey(q); items.push([d.armBand[sd]?.z ?? (sd === d.far ? -1 : 4), x, y, sd === d.far ? (l.shade[hit.c] ?? hit.c) : hit.c, null]); }
+      if (hit) { const [x, y] = unkey(q); items.push([fb.zs.get(q), x, y, sd === d.far ? (l.shade[hit.c] ?? hit.c) : hit.c, null]); }
     }
   }
   if (d.legBand) {

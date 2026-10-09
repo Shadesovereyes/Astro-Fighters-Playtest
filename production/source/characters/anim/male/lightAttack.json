@@ -1741,7 +1741,7 @@
         }
       },
       "SE": {
-        "rule": "S at an angle, built like the sprint SE: the E stance band legs placed at this view's hips (75% stride), the E lean shown sideways (0.6), and the E arm poses (guard, jab, recoil, cross) as band arms from this view's shoulders at 90% length; the near (R, rear) arm in front, the far (L, lead) arm one shade darker behind the body. Head level with E/W.",
+        "rule": "S at an angle, built like the sprint SE: the E stance band legs placed at this view's hips (75% stride), the E lean shown sideways (0.6), and the E arm poses (guard, jab, recoil, cross) as band arms from this view's shoulders at 90% length; the near (R, rear) arm in front, the far (L, lead) arm one shade darker behind the body. Head level with E/W. Depth per segment: the lead (far) arm's shoulder end is behind the torso and its forearm and fist in front (zFore), punches aimed slightly down toward the camera; the rear (near) arm is in front throughout.",
         "far": "L",
         "headDy": -1,
         "leanScale": 0.6,
@@ -1803,7 +1803,7 @@
               -20,
               -20,
               -8,
-              -92,
+              -75,
               -55,
               -20
             ],
@@ -1830,7 +1830,7 @@
               },
               {
                 "at": 8,
-                "angle": -92
+                "angle": -75
               },
               {
                 "at": 8,
@@ -1859,7 +1859,7 @@
             ],
             "angle": [
               -45,
-              -93,
+              -80,
               -50,
               -45,
               -45,
@@ -1874,7 +1874,7 @@
               },
               {
                 "at": 8,
-                "angle": -93
+                "angle": -80
               },
               {
                 "at": 8,
@@ -1910,12 +1910,13 @@
               0.9,
               0.9,
               0.9
-            ]
+            ],
+            "zFore": 4
           }
         }
       },
       "NE": {
-        "rule": "N at an angle, built like the sprint NE: the E stance band legs at this view's hips (near R right, far L left and behind), the E lean shown sideways (0.6), the E arm poses as band arms from this view's shoulders at 90% length; the far (L, lead) arm one shade darker behind the body, so most of the lead guard and jab is hidden by the back. Head level with E/W.",
+        "rule": "N at an angle, built like the sprint NE: the E stance band legs at this view's hips (near R right, far L left and behind), the E lean shown sideways (0.6), the E arm poses as band arms from this view's shoulders at 90% length; the far (L, lead) arm one shade darker behind the body, so most of the lead guard and jab is hidden by the back. Head level with E/W. Depth: from behind, punches go away from the camera (aimed slightly up); the lead arm stays behind the torso and head, the rear arm is in front at the side.",
         "far": "L",
         "headDy": -1,
         "leanScale": 0.6,
@@ -1976,7 +1977,7 @@
               -20,
               -20,
               -8,
-              -92,
+              -105,
               -55,
               -20
             ],
@@ -2003,7 +2004,7 @@
               },
               {
                 "at": 8,
-                "angle": -92
+                "angle": -105
               },
               {
                 "at": 8,
@@ -2032,7 +2033,7 @@
             ],
             "angle": [
               -45,
-              -93,
+              -105,
               -50,
               -45,
               -45,
@@ -2047,7 +2048,7 @@
               },
               {
                 "at": 8,
-                "angle": -93
+                "angle": -105
               },
               {
                 "at": 8,
