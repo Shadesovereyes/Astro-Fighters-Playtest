@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Taijutsu kick chain from the orthodox stance (lead/far left leg forward, rear/near right back), played as three clips. Snap kick (0-4): wind-up 2 (weight back, rear knee lifts), front snap kick 3 (chamber, extension, rechamber) with the rear (near) leg. Side kick (5-9): step-through 2 (the kicking leg lands forward, stance switches, root motion forward), side kick 3 (chamber, extension, rechamber) with the now-front near leg, leaning back. Spin roundhouse (10-15): spin 3 through the directional bodies (S, W, N guard frames of lightAttack), roundhouse impact 2 with the left (far) leg at head height, recovery 1 back to the orthodox guard. One heavy press plays the snap kick and returns to neutral; a press inside a clip's chain window plays the next clip.",
+  "intent": "Taijutsu kick chain from the orthodox stance (lead/far left leg forward, rear/near right back), played as three clips, each started by its own heavy press; every clip starts and ends in the orthodox guard so kicks and punches can be woven (combo.json). Snap kick (0-4): wind-up 2 (weight back, rear knee lifts), front snap kick 3 (chamber, extension, rechamber) with the rear (near, right) leg, which returns to the rear. Side kick (5-9): skip step (the rear foot slides up under the hips), lead (far, left) leg chamber, side kick leaning back, rechamber, lead foot lands forward (root motion forward). Spin roundhouse (10-15): spin through the directional bodies (S, W, N guard frames of lightAttack) pivoting on the lead foot, roundhouse at head height with the rear (near, right) leg, leg folds and lands back to the rear: the orthodox guard. The spin roundhouse is the combo finisher.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -97,10 +97,10 @@
       0,
       0,
       1,
+      0,
+      0,
+      0,
       1,
-      0,
-      0,
-      0,
       1,
       1,
       1,
@@ -119,10 +119,10 @@
         0,
         1,
         0,
-        1,
         0,
         0,
         1,
+        0,
         0,
         0,
         0,
@@ -138,10 +138,10 @@
         -3,
         -1,
         2,
-        2,
-        -1,
+        0,
         -4,
         -1,
+        2,
         0,
         0,
         0,
@@ -152,6 +152,7 @@
     }
   },
   "rootMotion": {
+    "rule": "per-frame displacement applied when the frame is shown; the skip and the lead landing carry the side kick forward 10 px, the spin pivots in place",
     "E": [
       [
         0,
@@ -178,7 +179,19 @@
         0
       ],
       [
-        3,
+        2,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        5,
         0
       ],
       [
@@ -191,18 +204,6 @@
       ],
       [
         0,
-        0
-      ],
-      [
-        1,
-        0
-      ],
-      [
-        1,
-        0
-      ],
-      [
-        1,
         0
       ],
       [
@@ -244,7 +245,19 @@
         0
       ],
       [
-        -3,
+        -2,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        -5,
         0
       ],
       [
@@ -257,18 +270,6 @@
       ],
       [
         0,
-        0
-      ],
-      [
-        -1,
-        0
-      ],
-      [
-        -1,
-        0
-      ],
-      [
-        -1,
         0
       ],
       [
@@ -561,6 +562,28 @@
           43
         ],
         "foot": "toe30k"
+      },
+      {
+        "name": "skip-rear",
+        "construction": "band",
+        "hipX": 31,
+        "kneeX": 31,
+        "footX": 29,
+        "hipRow": 42,
+        "kneeRow": 50,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "lead-lift",
+        "construction": "band",
+        "hipX": 32,
+        "kneeX": 36,
+        "footX": 36,
+        "hipRow": 42,
+        "kneeRow": 49,
+        "wrapRow": 54,
+        "foot": "toe60"
       }
     ],
     "near": [
@@ -569,16 +592,16 @@
       3,
       4,
       3,
-      5,
-      0,
-      7,
-      8,
-      7,
-      0,
-      0,
-      0,
+      12,
       9,
       9,
+      9,
+      1,
+      1,
+      1,
+      1,
+      10,
+      11,
       1
     ],
     "far": [
@@ -587,16 +610,16 @@
       0,
       0,
       0,
-      6,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      10,
-      11,
+      13,
+      7,
+      8,
+      7,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
       0
     ]
   },
@@ -674,18 +697,18 @@
       },
       {
         "construction": "band",
-        "angle": -20,
-        "elbow": {
-          "at": 8,
-          "angle": 212
-        }
-      },
-      {
-        "construction": "band",
         "angle": 25,
         "elbow": {
           "at": 8,
           "angle": 20
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -20,
+        "elbow": {
+          "at": 8,
+          "angle": 212
         }
       },
       {
@@ -960,9 +983,9 @@
           -1,
           -2,
           -1,
-          -1,
           -2,
           -1,
+          -2,
           0,
           0,
           0,
@@ -1180,7 +1203,8 @@
           14,
           10
         ],
-        "damage": "heavy"
+        "damage": "heavy",
+        "chainWindow": true
       },
       {
         "frame": 4,
@@ -1201,11 +1225,6 @@
       {
         "frame": 7,
         "clip": "sideKick",
-        "type": "startup"
-      },
-      {
-        "frame": 8,
-        "clip": "sideKick",
         "type": "active",
         "move": "side kick",
         "hitbox": [
@@ -1215,6 +1234,12 @@
           12
         ],
         "damage": "heavy"
+      },
+      {
+        "frame": 8,
+        "clip": "sideKick",
+        "type": "recovery",
+        "chainWindow": true
       },
       {
         "frame": 9,
@@ -1263,7 +1288,7 @@
     ]
   },
   "clips": {
-    "rule": "runtime playback: frames are sheet columns; at the end of a clip the character returns to neutral (next); a press inside a clip's chain window jumps to the chained clip on the next frame",
+    "rule": "runtime playback: frames are sheet columns; each clip starts and ends in the orthodox guard; at the end of a clip the character returns to neutral (next) unless a press in the clip's chain window continues the combo (combo.json: light and heavy presses can be mixed)",
     "snapKick": {
       "frames": [
         0,
@@ -1274,14 +1299,10 @@
       ],
       "fps": 12,
       "next": "ready",
-      "chain": {
-        "input": "heavy",
-        "window": [
-          4,
-          4
-        ],
-        "to": "sideKick"
-      }
+      "chainWindow": [
+        3,
+        4
+      ]
     },
     "sideKick": {
       "frames": [
@@ -1293,14 +1314,10 @@
       ],
       "fps": 12,
       "next": "ready",
-      "chain": {
-        "input": "heavy",
-        "window": [
-          9,
-          9
-        ],
-        "to": "spinRoundhouse"
-      }
+      "chainWindow": [
+        8,
+        9
+      ]
     },
     "spinRoundhouse": {
       "frames": [
@@ -1312,12 +1329,13 @@
         15
       ],
       "fps": 12,
-      "next": "ready"
+      "next": "ready",
+      "finisher": true
     }
   },
   "approved": {},
   "borrow": {
-    "rule": "spin frames are the guard frame (0) of lightAttack in the S, W and N bodies; W takes them flipped",
+    "rule": "spin frames are the guard frame (0) of lightAttack in the S, W and N bodies (turning toward the rear side, back to the target at W); W takes them flipped",
     "frames": {
       "10": {
         "state": "lightAttack",

@@ -1,0 +1,32 @@
+{
+  "schema": "astro-fighters-character-combo/v1",
+  "body": "male",
+  "status": "candidate 2026-10-09",
+  "inputs": {
+    "light": "attack (punch)",
+    "heavy": "heavy attack (kick)"
+  },
+  "sequences": {
+    "light": [
+      "lightAttack/jab",
+      "lightAttack/cross"
+    ],
+    "heavy": [
+      "heavyAttack/snapKick",
+      "heavyAttack/sideKick",
+      "heavyAttack/spinRoundhouse"
+    ]
+  },
+  "rules": [
+    "One press plays one clip; every step of a chain needs its own press.",
+    "From neutral (ready) a light press plays the first light clip and a heavy press the first heavy clip.",
+    "A press inside the playing clip's chain window plays, on the next frame, the next clip of that input's sequence. Light and heavy presses can be mixed: each sequence keeps its own position for the life of the combo, so jab, snap kick, cross, side kick, spin roundhouse is one valid combo, as are jab, cross, snap kick and snap kick, jab, side kick.",
+    "A press whose sequence is used up does nothing. The finisher (spinRoundhouse) ends the combo.",
+    "A clip that finishes with no press in its window returns to neutral and ends the combo; both sequence positions reset.",
+    "A press during a clip's active frame or later is buffered and taken at its chain window.",
+    "Every clip starts and ends in the orthodox guard, so any clip can follow any other without a transition frame."
+  ],
+  "finishers": [
+    "heavyAttack/spinRoundhouse"
+  ]
+}

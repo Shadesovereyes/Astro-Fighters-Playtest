@@ -45,3 +45,4 @@ jobs:
           node tools/character-posed.mjs male walk --check
           node tools/character-posed.mjs male sprint --check
           node tools/character-posed.mjs male lightAttack --check
+          node tools/character-posed.mjs male heavyAttack --check

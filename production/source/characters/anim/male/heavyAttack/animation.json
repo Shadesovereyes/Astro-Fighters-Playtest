@@ -71,7 +71,19 @@
         0
       ],
       [
-        3,
+        2,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        5,
         0
       ],
       [
@@ -84,18 +96,6 @@
       ],
       [
         0,
-        0
-      ],
-      [
-        1,
-        0
-      ],
-      [
-        1,
-        0
-      ],
-      [
-        1,
         0
       ],
       [
@@ -137,7 +137,19 @@
         0
       ],
       [
-        -3,
+        -2,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        -5,
         0
       ],
       [
@@ -150,18 +162,6 @@
       ],
       [
         0,
-        0
-      ],
-      [
-        -1,
-        0
-      ],
-      [
-        -1,
-        0
-      ],
-      [
-        -1,
         0
       ],
       [
@@ -179,7 +179,7 @@
     ]
   },
   "clips": {
-    "rule": "runtime playback: frames are sheet columns; at the end of a clip the character returns to neutral (next); a press inside a clip's chain window jumps to the chained clip on the next frame",
+    "rule": "runtime playback: frames are sheet columns; each clip starts and ends in the orthodox guard; at the end of a clip the character returns to neutral (next) unless a press in the clip's chain window continues the combo (combo.json: light and heavy presses can be mixed)",
     "snapKick": {
       "frames": [
         0,
@@ -190,14 +190,10 @@
       ],
       "fps": 12,
       "next": "ready",
-      "chain": {
-        "input": "heavy",
-        "window": [
-          4,
-          4
-        ],
-        "to": "sideKick"
-      }
+      "chainWindow": [
+        3,
+        4
+      ]
     },
     "sideKick": {
       "frames": [
@@ -209,14 +205,10 @@
       ],
       "fps": 12,
       "next": "ready",
-      "chain": {
-        "input": "heavy",
-        "window": [
-          9,
-          9
-        ],
-        "to": "spinRoundhouse"
-      }
+      "chainWindow": [
+        8,
+        9
+      ]
     },
     "spinRoundhouse": {
       "frames": [
@@ -228,7 +220,8 @@
         15
       ],
       "fps": 12,
-      "next": "ready"
+      "next": "ready",
+      "finisher": true
     }
   },
   "events": {
@@ -260,7 +253,8 @@
           14,
           10
         ],
-        "damage": "heavy"
+        "damage": "heavy",
+        "chainWindow": true
       },
       {
         "frame": 4,
@@ -281,11 +275,6 @@
       {
         "frame": 7,
         "clip": "sideKick",
-        "type": "startup"
-      },
-      {
-        "frame": 8,
-        "clip": "sideKick",
         "type": "active",
         "move": "side kick",
         "hitbox": [
@@ -295,6 +284,12 @@
           12
         ],
         "damage": "heavy"
+      },
+      {
+        "frame": 8,
+        "clip": "sideKick",
+        "type": "recovery",
+        "chainWindow": true
       },
       {
         "frame": 9,
@@ -356,32 +351,32 @@
       "E:2": 2,
       "E:3": 5,
       "E:4": 2,
-      "E:5": 6,
-      "E:6": 5,
-      "E:7": 4,
-      "E:8": 6,
-      "E:9": 4,
+      "E:5": 4,
+      "E:6": 2,
+      "E:7": 6,
+      "E:8": 2,
+      "E:9": 3,
       "E:10": 3,
       "E:11": 3,
       "E:12": 3,
-      "E:13": 6,
-      "E:14": 2,
+      "E:13": 9,
+      "E:14": 3,
       "E:15": 3,
       "W:0": 4,
       "W:1": 6,
       "W:2": 2,
       "W:3": 5,
       "W:4": 2,
-      "W:5": 6,
-      "W:6": 5,
-      "W:7": 4,
-      "W:8": 6,
-      "W:9": 4,
+      "W:5": 4,
+      "W:6": 2,
+      "W:7": 6,
+      "W:8": 2,
+      "W:9": 3,
       "W:10": 3,
       "W:11": 3,
       "W:12": 3,
-      "W:13": 6,
-      "W:14": 2,
+      "W:13": 9,
+      "W:14": 3,
       "W:15": 3
     },
     "referenceEdges": {
@@ -395,16 +390,16 @@
         2,
         9,
         2,
-        7,
-        6,
-        4,
-        8,
-        4,
-        6,
-        6,
-        6,
-        10,
+        9,
         3,
+        6,
+        2,
+        6,
+        6,
+        6,
+        6,
+        9,
+        4,
         6
       ],
       "cleanupMerged": [
@@ -413,14 +408,14 @@
         0,
         0,
         0,
+        2,
         0,
         0,
         0,
-        0,
-        0,
-        0,
-        0,
-        0,
+        1,
+        1,
+        1,
+        1,
         0,
         0,
         1
@@ -458,24 +453,24 @@
         "male-red-armor E:5": 0,
         "blue-armor-shoulders E:5": 0,
         "red-armor-shoulders E:5": 0,
-        "male-gi E:6": 0,
-        "male-blue-armor E:6": 0,
-        "male-red-armor E:6": 0,
+        "male-gi E:6": 14,
+        "male-blue-armor E:6": 14,
+        "male-red-armor E:6": 14,
         "blue-armor-shoulders E:6": 0,
         "red-armor-shoulders E:6": 0,
-        "male-gi E:7": 14,
-        "male-blue-armor E:7": 14,
-        "male-red-armor E:7": 14,
+        "male-gi E:7": 3,
+        "male-blue-armor E:7": 3,
+        "male-red-armor E:7": 3,
         "blue-armor-shoulders E:7": 0,
         "red-armor-shoulders E:7": 0,
-        "male-gi E:8": 3,
-        "male-blue-armor E:8": 3,
-        "male-red-armor E:8": 3,
+        "male-gi E:8": 14,
+        "male-blue-armor E:8": 14,
+        "male-red-armor E:8": 14,
         "blue-armor-shoulders E:8": 0,
         "red-armor-shoulders E:8": 0,
-        "male-gi E:9": 14,
-        "male-blue-armor E:9": 14,
-        "male-red-armor E:9": 14,
+        "male-gi E:9": 2,
+        "male-blue-armor E:9": 0,
+        "male-red-armor E:9": 0,
         "blue-armor-shoulders E:9": 0,
         "red-armor-shoulders E:9": 0,
         "male-gi E:10": 0,
@@ -538,24 +533,24 @@
         "male-red-armor W:5": 0,
         "blue-armor-shoulders W:5": 0,
         "red-armor-shoulders W:5": 0,
-        "male-gi W:6": 0,
-        "male-blue-armor W:6": 0,
-        "male-red-armor W:6": 0,
+        "male-gi W:6": 14,
+        "male-blue-armor W:6": 14,
+        "male-red-armor W:6": 14,
         "blue-armor-shoulders W:6": 0,
         "red-armor-shoulders W:6": 0,
-        "male-gi W:7": 14,
-        "male-blue-armor W:7": 14,
-        "male-red-armor W:7": 14,
+        "male-gi W:7": 3,
+        "male-blue-armor W:7": 3,
+        "male-red-armor W:7": 3,
         "blue-armor-shoulders W:7": 0,
         "red-armor-shoulders W:7": 0,
-        "male-gi W:8": 3,
-        "male-blue-armor W:8": 3,
-        "male-red-armor W:8": 3,
+        "male-gi W:8": 14,
+        "male-blue-armor W:8": 14,
+        "male-red-armor W:8": 14,
         "blue-armor-shoulders W:8": 0,
         "red-armor-shoulders W:8": 0,
-        "male-gi W:9": 14,
-        "male-blue-armor W:9": 14,
-        "male-red-armor W:9": 14,
+        "male-gi W:9": 2,
+        "male-blue-armor W:9": 0,
+        "male-red-armor W:9": 0,
         "blue-armor-shoulders W:9": 0,
         "red-armor-shoulders W:9": 0,
         "male-gi W:10": 0,
@@ -625,24 +620,24 @@
         "male-red-armor E:6": 0,
         "blue-armor-shoulders E:6": 0,
         "red-armor-shoulders E:6": 0,
-        "male-gi E:7": 0,
-        "male-blue-armor E:7": 0,
-        "male-red-armor E:7": 0,
+        "male-gi E:7": 3,
+        "male-blue-armor E:7": 3,
+        "male-red-armor E:7": 3,
         "blue-armor-shoulders E:7": 0,
         "red-armor-shoulders E:7": 0,
-        "male-gi E:8": 3,
-        "male-blue-armor E:8": 3,
-        "male-red-armor E:8": 3,
+        "male-gi E:8": 0,
+        "male-blue-armor E:8": 0,
+        "male-red-armor E:8": 0,
         "blue-armor-shoulders E:8": 0,
         "red-armor-shoulders E:8": 0,
         "male-gi E:9": 0,
-        "male-blue-armor E:9": 0,
-        "male-red-armor E:9": 0,
+        "male-blue-armor E:9": 5,
+        "male-red-armor E:9": 5,
         "blue-armor-shoulders E:9": 0,
         "red-armor-shoulders E:9": 0,
         "male-gi E:10": 0,
-        "male-blue-armor E:10": 5,
-        "male-red-armor E:10": 5,
+        "male-blue-armor E:10": 0,
+        "male-red-armor E:10": 0,
         "blue-armor-shoulders E:10": 0,
         "red-armor-shoulders E:10": 0,
         "male-gi E:11": 0,
@@ -705,24 +700,24 @@
         "male-red-armor W:6": 0,
         "blue-armor-shoulders W:6": 0,
         "red-armor-shoulders W:6": 0,
-        "male-gi W:7": 0,
-        "male-blue-armor W:7": 0,
-        "male-red-armor W:7": 0,
+        "male-gi W:7": 3,
+        "male-blue-armor W:7": 3,
+        "male-red-armor W:7": 3,
         "blue-armor-shoulders W:7": 0,
         "red-armor-shoulders W:7": 0,
-        "male-gi W:8": 3,
-        "male-blue-armor W:8": 3,
-        "male-red-armor W:8": 3,
+        "male-gi W:8": 0,
+        "male-blue-armor W:8": 0,
+        "male-red-armor W:8": 0,
         "blue-armor-shoulders W:8": 0,
         "red-armor-shoulders W:8": 0,
         "male-gi W:9": 0,
-        "male-blue-armor W:9": 0,
-        "male-red-armor W:9": 0,
+        "male-blue-armor W:9": 5,
+        "male-red-armor W:9": 5,
         "blue-armor-shoulders W:9": 0,
         "red-armor-shoulders W:9": 0,
         "male-gi W:10": 0,
-        "male-blue-armor W:10": 5,
-        "male-red-armor W:10": 5,
+        "male-blue-armor W:10": 0,
+        "male-red-armor W:10": 0,
         "blue-armor-shoulders W:10": 0,
         "red-armor-shoulders W:10": 0,
         "male-gi W:11": 0,
@@ -793,8 +788,8 @@
         "blue-armor-shoulders E:7": 0,
         "red-armor-shoulders E:7": 0,
         "male-gi E:8": 0,
-        "male-blue-armor E:8": 1,
-        "male-red-armor E:8": 1,
+        "male-blue-armor E:8": 0,
+        "male-red-armor E:8": 0,
         "blue-armor-shoulders E:8": 0,
         "red-armor-shoulders E:8": 0,
         "male-gi E:9": 0,
@@ -873,8 +868,8 @@
         "blue-armor-shoulders W:7": 0,
         "red-armor-shoulders W:7": 0,
         "male-gi W:8": 0,
-        "male-blue-armor W:8": 1,
-        "male-red-armor W:8": 1,
+        "male-blue-armor W:8": 0,
+        "male-red-armor W:8": 0,
         "blue-armor-shoulders W:8": 0,
         "red-armor-shoulders W:8": 0,
         "male-gi W:9": 0,

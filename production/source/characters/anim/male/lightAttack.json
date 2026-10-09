@@ -1070,17 +1070,19 @@
       {
         "frame": 6,
         "clip": "cross",
-        "type": "recovery"
+        "type": "recovery",
+        "chainWindow": true
       },
       {
         "frame": 7,
         "clip": "cross",
-        "type": "recovery"
+        "type": "recovery",
+        "chainWindow": true
       }
     ]
   },
   "clips": {
-    "rule": "runtime playback: frames are sheet columns; at the end of a clip the character returns to neutral (next); a press inside a clip's chain window jumps to the chained clip on the next frame",
+    "rule": "runtime playback: frames are sheet columns; each clip starts and ends in the orthodox guard; at the end of a clip the character returns to neutral (next) unless a press in the clip's chain window continues the combo (combo.json: light and heavy presses can be mixed)",
     "jab": {
       "frames": [
         0,
@@ -1090,14 +1092,10 @@
       ],
       "fps": 12,
       "next": "ready",
-      "chain": {
-        "input": "attack",
-        "window": [
-          2,
-          3
-        ],
-        "to": "cross"
-      }
+      "chainWindow": [
+        2,
+        3
+      ]
     },
     "cross": {
       "frames": [
@@ -1107,7 +1105,11 @@
         7
       ],
       "fps": 12,
-      "next": "ready"
+      "next": "ready",
+      "chainWindow": [
+        6,
+        7
+      ]
     }
   },
   "approved": {
