@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "lightAttack",
-  "status": "E/W approved by user 2026-10-09; S/N candidate; SE/SW and NE/NW candidate",
+  "status": "E/W approved by user 2026-10-09; SE/SW and NE/NW approved temporarily 2026-10-09; S/N candidate",
   "frames": 8,
   "fps": 12,
   "sourceDirection": "E",
@@ -1112,7 +1112,11 @@
   },
   "approved": {
     "E": "2026-10-09",
-    "W": "2026-10-09 (mirror of E)"
+    "W": "2026-10-09 (mirror of E)",
+    "SE": "2026-10-09 (temporary, revisit)",
+    "SW": "2026-10-09 (temporary, mirror of SE)",
+    "NE": "2026-10-09 (temporary, revisit)",
+    "NW": "2026-10-09 (temporary, mirror of NE)"
   },
   "frontal": {
     "rule": "S and N are built from their reference frames: legs keep their rows (every leg drops the frame's bob rows so the feet stay down); the arms are authored band arms from each shoulder (bent guard arms with the fists up at the chin; a punch toward or away from the viewer is a short, foreshortened straight arm). In S the arms are in front of the body; in N they are behind it.",
