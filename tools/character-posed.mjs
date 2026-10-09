@@ -253,7 +253,8 @@ function bandArm(p) {
     const fwdTo = B.fistForwardUpTo ?? -135;   // forward fist from straight ahead up to this angle (toward up)
     if (a < -45 && a >= fwdTo) F = { anchor: [B.fist.rows[0].length - 1 - B.fist.anchor[0], B.fist.anchor[1]], rows: B.fist.rows.map((r) => [...r].reverse().join('')) };
     else if ((a > 135 || a < -135) && B.fistUp) F = B.fistUp;
-    const x0 = Math.floor(ax) - F.anchor[0], y0 = Math.floor(ay) - F.anchor[1];
+    // fistDy: a bent arm's fist may sit higher or lower on the wrist (whole pixels)
+    const x0 = Math.floor(ax) - F.anchor[0], y0 = Math.floor(ay) - F.anchor[1] + (E ? (E.fistDy ?? B.bentFistDy ?? 0) : 0);
     F.rows.forEach((row, r) => [...row].forEach((c, j) => {
       if (c === '.') return;
       const q = key(x0 + j, y0 + r);

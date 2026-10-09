@@ -533,7 +533,9 @@
         ]
       },
       "fistForwardUpTo": -165,
-      "fistRule": "the knuckles face forward (mirrored fist) for any hand pointing between straight ahead and 15 degrees short of straight up, so a boxing guard shows the fist face-on to the opponent; fistUp only for a hand pointing straight up"
+      "fistRule": "the knuckles face forward (mirrored fist) for any hand pointing between straight ahead and 15 degrees short of straight up, so a boxing guard shows the fist face-on to the opponent; fistUp only for a hand pointing straight up",
+      "bentFistDy": -1,
+      "bentFistRule": "on a bent arm (guard, recoil, wind-up, recover) the fist sits 1 px higher on the wrist"
     },
     "guardRule": "boxing guard: elbows down in front of the ribs, forearms angled up and forward, fists at chin height with knuckles forward; the lead (far) hand sits further forward"
   },
