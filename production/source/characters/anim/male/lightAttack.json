@@ -1056,46 +1056,39 @@
               10,
               10,
               14,
-              -25,
+              -30,
               5,
               10
             ],
             "elbow": [
               {
-                "at": 5,
-                "angle": 220,
-                "fistDy": 1
+                "at": 7,
+                "angle": 192
               },
               {
-                "at": 5,
-                "angle": 220,
-                "fistDy": 1
+                "at": 7,
+                "angle": 192
               },
               {
-                "at": 5,
-                "angle": 220,
-                "fistDy": 1
+                "at": 7,
+                "angle": 192
               },
               {
-                "at": 5,
-                "angle": 220,
-                "fistDy": 1
+                "at": 7,
+                "angle": 192
               },
               {
-                "at": 5,
-                "angle": 212,
-                "fistDy": 1
+                "at": 7,
+                "angle": 188
               },
               null,
               {
-                "at": 5,
-                "angle": 205,
-                "fistDy": 1
+                "at": 7,
+                "angle": 200
               },
               {
-                "at": 5,
-                "angle": 220,
-                "fistDy": 1
+                "at": 7,
+                "angle": 192
               }
             ],
             "scale": [
@@ -1104,7 +1097,7 @@
               1,
               1,
               1,
-              0.45,
+              0.5,
               0.85,
               1
             ],
@@ -1118,7 +1111,7 @@
             ],
             "angle": [
               -10,
-              25,
+              30,
               -5,
               -10,
               -10,
@@ -1128,45 +1121,38 @@
             ],
             "elbow": [
               {
-                "at": 5,
-                "angle": 140,
-                "fistDy": 1
+                "at": 7,
+                "angle": 168
               },
               null,
               {
-                "at": 5,
-                "angle": 155,
-                "fistDy": 1
+                "at": 7,
+                "angle": 160
               },
               {
-                "at": 5,
-                "angle": 140,
-                "fistDy": 1
+                "at": 7,
+                "angle": 168
               },
               {
-                "at": 5,
-                "angle": 140,
-                "fistDy": 1
+                "at": 7,
+                "angle": 168
               },
               {
-                "at": 5,
-                "angle": 140,
-                "fistDy": 1
+                "at": 7,
+                "angle": 168
               },
               {
-                "at": 5,
-                "angle": 140,
-                "fistDy": 1
+                "at": 7,
+                "angle": 168
               },
               {
-                "at": 5,
-                "angle": 140,
-                "fistDy": 1
+                "at": 7,
+                "angle": 168
               }
             ],
             "scale": [
               1,
-              0.45,
+              0.5,
               0.85,
               1,
               1,
@@ -1179,7 +1165,7 @@
           }
         },
         "headDy": -1,
-        "armRule": "guard seen end-on: the upper arms point down and toward the viewer (shortened, elbow at 5 px), the forearms angle up and in, the fists sit at the chin; a punch toward (S) or away from (N) the viewer is a short straight arm (45% length); in S the fists sit 2 px lower on the wrist than in E so the hair, which hangs in front of the chin, does not cover them"
+        "armRule": "guard seen from the front: elbows down at the sides, forearms nearly upright, the fists in front of each shoulder at the top of the chest, just below where the long hair hangs (the hair layer draws over the arms); a punch toward the viewer is a short straight arm (50% length) bringing the fist in front of the chest centre"
       },
       "N": {
         "legPose": {
@@ -1274,45 +1260,24 @@
               24
             ],
             "angle": [
-              -10,
-              -10,
-              -10,
-              -10,
-              -14,
-              25,
-              -5,
-              -10
+              -12,
+              -12,
+              -12,
+              -12,
+              -16,
+              15,
+              -4,
+              -12
             ],
             "elbow": [
-              {
-                "at": 5,
-                "angle": 140
-              },
-              {
-                "at": 5,
-                "angle": 140
-              },
-              {
-                "at": 5,
-                "angle": 140
-              },
-              {
-                "at": 5,
-                "angle": 140
-              },
-              {
-                "at": 5,
-                "angle": 148
-              },
               null,
-              {
-                "at": 5,
-                "angle": 155
-              },
-              {
-                "at": 5,
-                "angle": 140
-              }
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null
             ],
             "scale": [
               1,
@@ -1320,12 +1285,13 @@
               1,
               1,
               1,
-              0.45,
-              0.85,
+              1,
+              1,
               1
             ],
             "fist": "up",
-            "z": -1
+            "z": -1,
+            "showTo": 7
           },
           "L": {
             "pivot": [
@@ -1333,50 +1299,29 @@
               24
             ],
             "angle": [
-              10,
-              -25,
-              5,
-              10,
-              10,
-              10,
-              10,
-              10
+              12,
+              -15,
+              4,
+              12,
+              12,
+              12,
+              12,
+              12
             ],
             "elbow": [
-              {
-                "at": 5,
-                "angle": 220
-              },
               null,
-              {
-                "at": 5,
-                "angle": 205
-              },
-              {
-                "at": 5,
-                "angle": 220
-              },
-              {
-                "at": 5,
-                "angle": 220
-              },
-              {
-                "at": 5,
-                "angle": 220
-              },
-              {
-                "at": 5,
-                "angle": 220
-              },
-              {
-                "at": 5,
-                "angle": 220
-              }
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null
             ],
             "scale": [
               1,
-              0.45,
-              0.85,
+              1,
+              1,
               1,
               1,
               1,
@@ -1384,11 +1329,12 @@
               1
             ],
             "fist": "up",
-            "z": -1
+            "z": -1,
+            "showTo": 7
           }
         },
         "headDy": -1,
-        "armRule": "guard seen end-on: the upper arms point down and toward the viewer (shortened, elbow at 5 px), the forearms angle up and in, the fists sit at the chin; a punch toward (S) or away from (N) the viewer is a short straight arm (45% length)"
+        "armRule": "from behind the forearms, wrists and fists are in front of the body: only the shoulders and upper arms show (straight band arms cut at 7 px, showTo), hanging slightly out in guard, swinging in when that arm punches away from the viewer"
       }
     }
   }
