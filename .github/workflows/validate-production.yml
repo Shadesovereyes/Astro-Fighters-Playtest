@@ -44,3 +44,4 @@ jobs:
           node tools/character-animate.mjs male idle --check
           node tools/character-posed.mjs male walk --check
           node tools/character-posed.mjs male sprint --check
+          node tools/character-posed.mjs male lightAttack --check

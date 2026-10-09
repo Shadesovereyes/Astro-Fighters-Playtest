@@ -2,22 +2,34 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "lightAttack",
-  "status": "E/W approved by user 2026-10-09; S/N candidate",
+  "status": "E/W approved by user 2026-10-09; S/N candidate; SE/SW and NE/NW candidate",
   "frames": 8,
   "fps": 12,
   "sourceDirection": "E",
   "directions": [
     "S",
+    "SE",
     "E",
+    "NE",
     "N",
-    "W"
+    "NW",
+    "W",
+    "SW"
   ],
   "mirror": {
     "W": {
       "from": "E",
       "frameShift": 0
     },
-    "rule": "W mirrors E frame for frame (an attack is not a cycle, so no half-cycle shift)."
+    "rule": "W mirrors E frame for frame (an attack is not a cycle, so no half-cycle shift).",
+    "SW": {
+      "from": "SE",
+      "frameShift": 0
+    },
+    "NW": {
+      "from": "NE",
+      "frameShift": 0
+    }
   },
   "intent": "Taijutsu jab/cross from an orthodox stance (lead/far left leg and hand forward, rear/near right back), played as two clips. One attack press plays the jab clip (guard, jab, recoil, guard) and returns to neutral (the ready/guard stance). A second press inside the chain window (jab frames 2-3) plays the cross clip (wind-up, cross, recover, guard) from there, then returns to neutral.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
@@ -253,6 +265,142 @@
       ],
       [
         0,
+        -1
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "SE": [
+      [
+        0,
+        0
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "SW": [
+      [
+        0,
+        0
+      ],
+      [
+        -1,
+        1
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        -1,
+        1
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "NE": [
+      [
+        0,
+        0
+      ],
+      [
+        1,
+        -1
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        1,
+        -1
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "NW": [
+      [
+        0,
+        0
+      ],
+      [
+        -1,
+        -1
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        -1,
         -1
       ],
       [
@@ -665,6 +813,26 @@
           1,
           1,
           0,
+          -1
+        ],
+        "SE": [
+          1,
+          0,
+          -1,
+          -1,
+          -1,
+          0,
+          0,
+          1
+        ],
+        "NE": [
+          -1,
+          -1,
+          0,
+          1,
+          1,
+          0,
+          -1,
           -1
         ]
       }
@@ -1570,6 +1738,353 @@
         "footFrom": {
           "R": 56,
           "L": 56
+        }
+      },
+      "SE": {
+        "rule": "S at an angle, built like the sprint SE: the E stance band legs placed at this view's hips (75% stride), the E lean shown sideways (0.6), and the E arm poses (guard, jab, recoil, cross) as band arms from this view's shoulders at 90% length; the near (R, rear) arm in front, the far (L, lead) arm one shade darker behind the body. Head level with E/W.",
+        "far": "L",
+        "headDy": -1,
+        "leanScale": 0.6,
+        "headZ": 3.5,
+        "legBand": {
+          "offset": {
+            "R": -6,
+            "L": 1
+          },
+          "scaleX": 0.75
+        },
+        "handDy": {
+          "R": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "L": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "armRows": {
+          "R": [
+            35
+          ],
+          "L": [
+            35
+          ]
+        },
+        "armRepeatRows": {
+          "R": [
+            35
+          ],
+          "L": [
+            35
+          ]
+        },
+        "armBand": {
+          "R": {
+            "pivot": [
+              25,
+              23
+            ],
+            "angle": [
+              -20,
+              -20,
+              -20,
+              -20,
+              -8,
+              -92,
+              -55,
+              -20
+            ],
+            "elbow": [
+              {
+                "at": 8,
+                "angle": 212
+              },
+              {
+                "at": 8,
+                "angle": 212
+              },
+              {
+                "at": 8,
+                "angle": 212
+              },
+              {
+                "at": 8,
+                "angle": 212
+              },
+              {
+                "at": 8,
+                "angle": 205
+              },
+              {
+                "at": 8,
+                "angle": -92
+              },
+              {
+                "at": 8,
+                "angle": 230
+              },
+              {
+                "at": 8,
+                "angle": 212
+              }
+            ],
+            "scale": [
+              0.9,
+              0.9,
+              0.9,
+              0.9,
+              0.9,
+              0.9,
+              0.9,
+              0.9
+            ]
+          },
+          "L": {
+            "pivot": [
+              40,
+              23
+            ],
+            "angle": [
+              -45,
+              -93,
+              -50,
+              -45,
+              -45,
+              -45,
+              -45,
+              -45
+            ],
+            "elbow": [
+              {
+                "at": 8,
+                "angle": 222
+              },
+              {
+                "at": 8,
+                "angle": -93
+              },
+              {
+                "at": 8,
+                "angle": 235
+              },
+              {
+                "at": 8,
+                "angle": 222
+              },
+              {
+                "at": 8,
+                "angle": 222
+              },
+              {
+                "at": 8,
+                "angle": 222
+              },
+              {
+                "at": 8,
+                "angle": 222
+              },
+              {
+                "at": 8,
+                "angle": 222
+              }
+            ],
+            "scale": [
+              0.9,
+              0.9,
+              0.9,
+              0.9,
+              0.9,
+              0.9,
+              0.9,
+              0.9
+            ]
+          }
+        }
+      },
+      "NE": {
+        "rule": "N at an angle, built like the sprint NE: the E stance band legs at this view's hips (near R right, far L left and behind), the E lean shown sideways (0.6), the E arm poses as band arms from this view's shoulders at 90% length; the far (L, lead) arm one shade darker behind the body, so most of the lead guard and jab is hidden by the back. Head level with E/W.",
+        "far": "L",
+        "headDy": -1,
+        "leanScale": 0.6,
+        "legBand": {
+          "offset": {
+            "R": 4,
+            "L": -5
+          },
+          "scaleX": 0.75
+        },
+        "handDy": {
+          "R": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "L": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "armRows": {
+          "R": [
+            35
+          ],
+          "L": [
+            35
+          ]
+        },
+        "armRepeatRows": {
+          "R": [
+            35
+          ],
+          "L": [
+            35
+          ]
+        },
+        "armBand": {
+          "R": {
+            "pivot": [
+              39,
+              23
+            ],
+            "angle": [
+              -20,
+              -20,
+              -20,
+              -20,
+              -8,
+              -92,
+              -55,
+              -20
+            ],
+            "elbow": [
+              {
+                "at": 8,
+                "angle": 212
+              },
+              {
+                "at": 8,
+                "angle": 212
+              },
+              {
+                "at": 8,
+                "angle": 212
+              },
+              {
+                "at": 8,
+                "angle": 212
+              },
+              {
+                "at": 8,
+                "angle": 205
+              },
+              {
+                "at": 8,
+                "angle": -92
+              },
+              {
+                "at": 8,
+                "angle": 230
+              },
+              {
+                "at": 8,
+                "angle": 212
+              }
+            ],
+            "scale": [
+              0.9,
+              0.9,
+              0.9,
+              0.9,
+              0.9,
+              0.9,
+              0.9,
+              0.9
+            ]
+          },
+          "L": {
+            "pivot": [
+              24,
+              23
+            ],
+            "angle": [
+              -45,
+              -93,
+              -50,
+              -45,
+              -45,
+              -45,
+              -45,
+              -45
+            ],
+            "elbow": [
+              {
+                "at": 8,
+                "angle": 222
+              },
+              {
+                "at": 8,
+                "angle": -93
+              },
+              {
+                "at": 8,
+                "angle": 235
+              },
+              {
+                "at": 8,
+                "angle": 222
+              },
+              {
+                "at": 8,
+                "angle": 222
+              },
+              {
+                "at": 8,
+                "angle": 222
+              },
+              {
+                "at": 8,
+                "angle": 222
+              },
+              {
+                "at": 8,
+                "angle": 222
+              }
+            ],
+            "scale": [
+              0.9,
+              0.9,
+              0.9,
+              0.9,
+              0.9,
+              0.9,
+              0.9,
+              0.9
+            ]
+          }
         }
       }
     }

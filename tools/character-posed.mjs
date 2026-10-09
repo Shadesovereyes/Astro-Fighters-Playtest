@@ -656,10 +656,13 @@ function frontalFrame(dir, k) {
       const sy = lg.isFar ? farShade[c] : c, [x, y] = unkey(q);
       items.push([lg.z, x, y, sy === 'o' ? BLACK : pal[sy], 'band']);
     }
-    if (name === 'arms') for (const sd of Object.keys(d.armBand || {})) {
+    // a band arm in front of the body (z 3 and up) goes into the arms layer; one behind it (the far arm, z below 3) goes
+    // into the body layer under the torso, so the body really covers it
+    if (name === 'arms' || name === 'body') for (const sd of Object.keys(d.armBand || {})) {
+      const bz = d.armBand[sd]?.z ?? (sd === d.far ? -1 : 4);
+      if ((bz >= 3) !== (name === 'arms')) continue;
       const fb = frontalBand(d, k, sd);
       // the far arm is one shade darker, as in E
-      const bz = d.armBand[sd]?.z ?? (sd === d.far ? -1 : 4);
       if (fb) for (const [q, c] of fb.pixels) { const [x, y] = unkey(q), sy = sd === d.far ? farShade[c] : c; items.push([bz, x, y, sy === 'o' ? BLACK : pal[sy], 'band']); }
       // outline: a band arm keeps its own outline wherever it lies over the body or another part (readability and
       // layering), except where it joins the shoulder; outline: false turns it off
