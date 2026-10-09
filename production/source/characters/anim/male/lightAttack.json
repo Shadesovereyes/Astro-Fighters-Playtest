@@ -393,10 +393,10 @@
       },
       {
         "construction": "band",
-        "angle": -15,
+        "angle": -8,
         "elbow": {
           "at": 8,
-          "angle": 180
+          "angle": 205
         }
       },
       {
