@@ -251,7 +251,11 @@ function bandArm(p) {
     const ax = ox - Math.sin(t) * du, ay = oy + Math.cos(t) * du;
     let F = B.fist;
     const fwdTo = B.fistForwardUpTo ?? -135;   // forward fist from straight ahead up to this angle (toward up)
-    if (a < -45 && a >= fwdTo) F = { anchor: [B.fist.rows[0].length - 1 - B.fist.anchor[0], B.fist.anchor[1]], rows: B.fist.rows.map((r) => [...r].reverse().join('')) };
+    const mir = { anchor: [B.fist.rows[0].length - 1 - B.fist.anchor[0], B.fist.anchor[1]], rows: B.fist.rows.map((r) => [...r].reverse().join('')) };
+    if (p.fistKind === 'up' && B.fistUp) F = B.fistUp;
+    else if (p.fistKind === 'forward') F = mir;
+    else if (p.fistKind === 'back') F = B.fist;
+    else if (a < -45 && a >= fwdTo) F = { anchor: [B.fist.rows[0].length - 1 - B.fist.anchor[0], B.fist.anchor[1]], rows: B.fist.rows.map((r) => [...r].reverse().join('')) };
     else if ((a > 135 || a < -135) && B.fistUp) F = B.fistUp;
     // fistDy: a bent arm's fist may sit higher or lower on the wrist (whole pixels)
     const x0 = Math.floor(ax) - F.anchor[0], y0 = Math.floor(ay) - F.anchor[1] + (E ? (E.fistDy ?? B.bentFistDy ?? 0) : 0);
@@ -573,14 +577,21 @@ function refArmSpan(dir, sd) {
 function frontalBand(d, k, sd, dir) {
   const ab = d.armBand?.[sd];
   if (!ab) return null;
-  const sc = ab.scale ?? 1, r = (v) => Math.round(v * sc), B0 = A.band;
+  // per-frame values: scale may be an array, elbow an array of {at, angle} (null for a straight arm), fist an array of
+  // fist kinds ('up', 'forward', 'back') overriding the direction rule
+  const at = (v) => (Array.isArray(v) ? v[k] : v);
+  const sc = at(ab.scale) ?? 1, r = (v) => Math.round(v * sc), B0 = A.band, el = at(ab.elbow);
   const lx = d.leanScale ? roundHalfEven(d.leanScale * leanOf('torso', k, AR.shoulder)) * (d.leanSign || 1) : 0;
   const dy = bob[k] + (d.crouch || 0) + DROP;
-  const pb = { angle: ab.angle[k], band: { pivot: ab.pivot, start: B0.start, length: r(B0.length + B0.start) - B0.start,
-    wrapFrom: r(B0.wrapFrom), handFrom: r(B0.handFrom) } };
+  const pb = { angle: at(ab.angle), band: { pivot: ab.pivot, start: B0.start, length: r(B0.length + B0.start) - B0.start,
+    wrapFrom: r(B0.wrapFrom), handFrom: r(B0.handFrom) }, ...(el ? { elbow: { ...el, at: r(el.at) } } : {}), fistKind: at(ab.fist) };
   const { uv } = bandGeom(pb), pixels = new Map(), ref = new Map(), across = new Map(), span = dir ? refArmSpan(dir, sd) : {}, T = B0.thickness;
-  for (const [q, c] of bandArm(pb)) {
-    const [x, y] = unkey(q), [u, v] = uv(x, y), Q = key(x + lx, y + dy), ry = Math.floor(ab.pivot[1] + u / sc), e = span[ry];
+  const arm = bandArm(pb);
+  for (const [q, c] of arm) {
+    const [x, y] = unkey(q), Q = key(x + lx, y + dy);
+    // distance along and across the arm (both segments of a bent arm)
+    const rr = arm.ref.get(q), [u, v] = el ? (rr ? [rr[1] - ab.pivot[1], rr[0] - ab.pivot[0]] : [Infinity, 0]) : uv(x, y);
+    const ry = Math.floor(ab.pivot[1] + u / sc), e = span[ry];
     pixels.set(Q, c);
     // the reference pixel at the same fraction across the reference arm's row (back edge to front edge)
     const f = Math.max(0, Math.min(0.999, (v + T / 2) / T));
@@ -632,7 +643,8 @@ function frontalFrame(dir, k) {
     if (name === 'arms') for (const sd of Object.keys(d.armBand || {})) {
       const fb = frontalBand(d, k, sd);
       // the far arm is one shade darker, as in E
-      if (fb) for (const [q, c] of fb.pixels) { const [x, y] = unkey(q), sy = sd === d.far ? farShade[c] : c; items.push([sd === d.far ? -1 : 4, x, y, sy === 'o' ? BLACK : pal[sy], 'band']); }
+      const bz = d.armBand[sd]?.z ?? (sd === d.far ? -1 : 4);
+      if (fb) for (const [q, c] of fb.pixels) { const [x, y] = unkey(q), sy = sd === d.far ? farShade[c] : c; items.push([bz, x, y, sy === 'o' ? BLACK : pal[sy], 'band']); }
     }
     const m = new Map(), sm = new Map(), hz = new Set();
     for (const [z, x, y, c, s0] of items.sort((a, c) => a[0] - c[0])) { m.set(key(x, y), c); sm.set(key(x, y), s0); if (d.headZ > 3 && z === d.headZ) hz.add(key(x, y)); else hz.delete(key(x, y)); }
@@ -844,7 +856,7 @@ function frontalClothing(l, geom, px, k) {
       const r = accRow[ry];
       if (!r) continue;
       const x0 = r[0].x, x1 = r[r.length - 1].x, hit = r.find((p) => p.x === x0 + Math.floor(f * (x1 - x0 + 1)));
-      if (hit) { const [x, y] = unkey(q); items.push([sd === d.far ? -1 : 4, x, y, sd === d.far ? (l.shade[hit.c] ?? hit.c) : hit.c, null]); }
+      if (hit) { const [x, y] = unkey(q); items.push([d.armBand[sd]?.z ?? (sd === d.far ? -1 : 4), x, y, sd === d.far ? (l.shade[hit.c] ?? hit.c) : hit.c, null]); }
     }
   }
   if (d.legBand) {

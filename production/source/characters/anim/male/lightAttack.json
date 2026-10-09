@@ -2,12 +2,14 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "lightAttack",
-  "status": "candidate: E jab/cross draft as two chained clips (W = mirror of E)",
+  "status": "E/W approved by user 2026-10-09; S/N candidate",
   "frames": 8,
   "fps": 12,
   "sourceDirection": "E",
   "directions": [
+    "S",
     "E",
+    "N",
     "W"
   ],
   "mirror": {
@@ -184,6 +186,74 @@
       [
         -1,
         0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "S": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "N": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        -1
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        -1
       ],
       [
         0,
@@ -562,6 +632,26 @@
           -2,
           -1,
           -1
+        ],
+        "S": [
+          1,
+          1,
+          0,
+          -1,
+          -1,
+          -1,
+          0,
+          1
+        ],
+        "N": [
+          -1,
+          -1,
+          0,
+          1,
+          1,
+          1,
+          0,
+          -1
         ]
       }
     },
@@ -836,6 +926,470 @@
       ],
       "fps": 12,
       "next": "ready"
+    }
+  },
+  "approved": {
+    "E": "2026-10-09",
+    "W": "2026-10-09 (mirror of E)"
+  },
+  "frontal": {
+    "rule": "S and N are built from their reference frames: legs keep their rows (every leg drops the frame's bob rows so the feet stay down); the arms are authored band arms from each shoulder (bent guard arms with the fists up at the chin; a punch toward or away from the viewer is a short, foreshortened straight arm). In S the arms are in front of the body; in N they are behind it.",
+    "legLift": {
+      "R": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "L": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "legLiftRule": "not used (named leg poses)",
+    "views": {
+      "S": {
+        "legPose": {
+          "R": [
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant"
+          ],
+          "L": [
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant"
+          ]
+        },
+        "legPoseRows": {
+          "plant": []
+        },
+        "bobRows": [
+          59,
+          45,
+          58,
+          47
+        ],
+        "legRows": {
+          "R": [
+            41
+          ],
+          "L": [
+            41
+          ]
+        },
+        "legRepeatRows": {
+          "R": [
+            41
+          ],
+          "L": [
+            41
+          ]
+        },
+        "handDy": {
+          "R": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "L": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "armRows": {
+          "R": [
+            35
+          ],
+          "L": [
+            35
+          ]
+        },
+        "armRepeatRows": {
+          "R": [
+            35
+          ],
+          "L": [
+            35
+          ]
+        },
+        "armBand": {
+          "R": {
+            "pivot": [
+              25,
+              24
+            ],
+            "angle": [
+              10,
+              10,
+              10,
+              10,
+              14,
+              -25,
+              5,
+              10
+            ],
+            "elbow": [
+              {
+                "at": 5,
+                "angle": 220,
+                "fistDy": 1
+              },
+              {
+                "at": 5,
+                "angle": 220,
+                "fistDy": 1
+              },
+              {
+                "at": 5,
+                "angle": 220,
+                "fistDy": 1
+              },
+              {
+                "at": 5,
+                "angle": 220,
+                "fistDy": 1
+              },
+              {
+                "at": 5,
+                "angle": 212,
+                "fistDy": 1
+              },
+              null,
+              {
+                "at": 5,
+                "angle": 205,
+                "fistDy": 1
+              },
+              {
+                "at": 5,
+                "angle": 220,
+                "fistDy": 1
+              }
+            ],
+            "scale": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              0.45,
+              0.85,
+              1
+            ],
+            "fist": "up",
+            "z": 4
+          },
+          "L": {
+            "pivot": [
+              38,
+              24
+            ],
+            "angle": [
+              -10,
+              25,
+              -5,
+              -10,
+              -10,
+              -10,
+              -10,
+              -10
+            ],
+            "elbow": [
+              {
+                "at": 5,
+                "angle": 140,
+                "fistDy": 1
+              },
+              null,
+              {
+                "at": 5,
+                "angle": 155,
+                "fistDy": 1
+              },
+              {
+                "at": 5,
+                "angle": 140,
+                "fistDy": 1
+              },
+              {
+                "at": 5,
+                "angle": 140,
+                "fistDy": 1
+              },
+              {
+                "at": 5,
+                "angle": 140,
+                "fistDy": 1
+              },
+              {
+                "at": 5,
+                "angle": 140,
+                "fistDy": 1
+              },
+              {
+                "at": 5,
+                "angle": 140,
+                "fistDy": 1
+              }
+            ],
+            "scale": [
+              1,
+              0.45,
+              0.85,
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "fist": "up",
+            "z": 4
+          }
+        },
+        "headDy": -1,
+        "armRule": "guard seen end-on: the upper arms point down and toward the viewer (shortened, elbow at 5 px), the forearms angle up and in, the fists sit at the chin; a punch toward (S) or away from (N) the viewer is a short straight arm (45% length); in S the fists sit 2 px lower on the wrist than in E so the hair, which hangs in front of the chin, does not cover them"
+      },
+      "N": {
+        "legPose": {
+          "R": [
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant"
+          ],
+          "L": [
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant"
+          ]
+        },
+        "legPoseRows": {
+          "plant": []
+        },
+        "bobRows": [
+          54,
+          46,
+          53,
+          47
+        ],
+        "legRows": {
+          "R": [
+            50
+          ],
+          "L": [
+            50
+          ]
+        },
+        "legRepeatRows": {
+          "R": [
+            50
+          ],
+          "L": [
+            50
+          ]
+        },
+        "handDy": {
+          "R": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "L": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "armRows": {
+          "R": [
+            35
+          ],
+          "L": [
+            35
+          ]
+        },
+        "armRepeatRows": {
+          "R": [
+            35
+          ],
+          "L": [
+            35
+          ]
+        },
+        "armBand": {
+          "R": {
+            "pivot": [
+              39,
+              24
+            ],
+            "angle": [
+              -10,
+              -10,
+              -10,
+              -10,
+              -14,
+              25,
+              -5,
+              -10
+            ],
+            "elbow": [
+              {
+                "at": 5,
+                "angle": 140
+              },
+              {
+                "at": 5,
+                "angle": 140
+              },
+              {
+                "at": 5,
+                "angle": 140
+              },
+              {
+                "at": 5,
+                "angle": 140
+              },
+              {
+                "at": 5,
+                "angle": 148
+              },
+              null,
+              {
+                "at": 5,
+                "angle": 155
+              },
+              {
+                "at": 5,
+                "angle": 140
+              }
+            ],
+            "scale": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              0.45,
+              0.85,
+              1
+            ],
+            "fist": "up",
+            "z": -1
+          },
+          "L": {
+            "pivot": [
+              24,
+              24
+            ],
+            "angle": [
+              10,
+              -25,
+              5,
+              10,
+              10,
+              10,
+              10,
+              10
+            ],
+            "elbow": [
+              {
+                "at": 5,
+                "angle": 220
+              },
+              null,
+              {
+                "at": 5,
+                "angle": 205
+              },
+              {
+                "at": 5,
+                "angle": 220
+              },
+              {
+                "at": 5,
+                "angle": 220
+              },
+              {
+                "at": 5,
+                "angle": 220
+              },
+              {
+                "at": 5,
+                "angle": 220
+              },
+              {
+                "at": 5,
+                "angle": 220
+              }
+            ],
+            "scale": [
+              1,
+              0.45,
+              0.85,
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "fist": "up",
+            "z": -1
+          }
+        },
+        "headDy": -1,
+        "armRule": "guard seen end-on: the upper arms point down and toward the viewer (shortened, elbow at 5 px), the forearms angle up and in, the fists sit at the chin; a punch toward (S) or away from (N) the viewer is a short straight arm (45% length)"
+      }
     }
   }
 }
