@@ -252,7 +252,8 @@ function bandArm(p) {
     let F = B.fist;
     const fwdTo = B.fistForwardUpTo ?? -135;   // forward fist from straight ahead up to this angle (toward up)
     const mir = { anchor: [B.fist.rows[0].length - 1 - B.fist.anchor[0], B.fist.anchor[1]], rows: B.fist.rows.map((r) => [...r].reverse().join('')) };
-    if (p.fistKind === 'up' && B.fistUp) F = B.fistUp;
+    if (p.fistKind === 'front' && B.fistFront) F = B.fistFront;   // knuckles toward the viewer (a punch at the camera)
+    else if (p.fistKind === 'up' && B.fistUp) F = B.fistUp;
     else if (p.fistKind === 'forward') F = mir;
     else if (p.fistKind === 'back') F = B.fist;
     else if (a < -45 && a >= fwdTo) F = { anchor: [B.fist.rows[0].length - 1 - B.fist.anchor[0], B.fist.anchor[1]], rows: B.fist.rows.map((r) => [...r].reverse().join('')) };
@@ -660,6 +661,20 @@ function frontalFrame(dir, k) {
       // the far arm is one shade darker, as in E
       const bz = d.armBand[sd]?.z ?? (sd === d.far ? -1 : 4);
       if (fb) for (const [q, c] of fb.pixels) { const [x, y] = unkey(q), sy = sd === d.far ? farShade[c] : c; items.push([bz, x, y, sy === 'o' ? BLACK : pal[sy], 'band']); }
+      // outline: an arm crossing in front of the body (a punch at the viewer) gets its own outline over the body,
+      // except where it joins the shoulder
+      const ol = Array.isArray(d.armBand[sd]?.outline) ? d.armBand[sd].outline[k] : d.armBand[sd]?.outline;
+      if (fb && ol) {
+        const pv = d.armBand[sd].pivot, px0 = pv[0] + twistOf(d, k, 'torso', AR.shoulder) + (Array.isArray(d.armBand[sd].pivotDx) ? d.armBand[sd].pivotDx[k] : 0);
+        const py0 = pv[1] + bob[k] + (d.crouch || 0) + DROP;
+        for (const q of fb.pixels.keys()) {
+          const [x, y] = unkey(q);
+          for (const [dx2, dy2] of N4) {
+            const n = key(x + dx2, y + dy2);
+            if (!fb.pixels.has(n) && Math.hypot(x + dx2 + 0.5 - px0, y + dy2 + 0.5 - py0) > 3) items.push([bz - 0.5, x + dx2, y + dy2, BLACK, 'band']);
+          }
+        }
+      }
     }
     const m = new Map(), sm = new Map(), hz = new Set();
     for (const [z, x, y, c, s0] of items.sort((a, c) => a[0] - c[0])) { m.set(key(x, y), c); sm.set(key(x, y), s0); if (d.headZ > 3 && z === d.headZ) hz.add(key(x, y)); else hz.delete(key(x, y)); }

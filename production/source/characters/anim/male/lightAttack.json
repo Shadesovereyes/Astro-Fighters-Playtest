@@ -605,7 +605,21 @@
       "fistForwardUpTo": -165,
       "fistRule": "the knuckles face forward (mirrored fist) for any hand pointing between straight ahead and 15 degrees short of straight up, so a boxing guard shows the fist face-on to the opponent; fistUp only for a hand pointing straight up",
       "bentFistDy": -1,
-      "bentFistRule": "on a bent arm (guard, recoil, wind-up, recover) the fist sits 1 px higher on the wrist"
+      "bentFistRule": "on a bent arm (guard, recoil, wind-up, recover) the fist sits 1 px higher on the wrist",
+      "fistFront": {
+        "use": "fist seen knuckles-on, punching toward the viewer: wider than the profile fist because the arm behind it is foreshortened",
+        "anchor": [
+          2,
+          2
+        ],
+        "rows": [
+          ".mLLm.",
+          "mLLLLm",
+          "LLmLLs",
+          "mLLLms",
+          ".sDDs."
+        ]
+      }
     },
     "guardRule": "boxing guard: elbows down in front of the ribs, forearms angled up and forward, fists at chin height with knuckles forward; the lead (far) hand sits further forward"
   },
@@ -1056,7 +1070,7 @@
               10,
               10,
               14,
-              -30,
+              -88,
               5,
               10
             ],
@@ -1097,11 +1111,20 @@
               1,
               1,
               1,
-              0.5,
+              0.45,
               0.85,
               1
             ],
-            "fist": "up",
+            "fist": [
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
+              "front",
+              "up",
+              "up"
+            ],
             "z": 4,
             "pivotDx": [
               0,
@@ -1112,6 +1135,16 @@
               1,
               0,
               0
+            ],
+            "outline": [
+              false,
+              false,
+              false,
+              false,
+              false,
+              true,
+              false,
+              false
             ]
           },
           "L": {
@@ -1121,7 +1154,7 @@
             ],
             "angle": [
               -10,
-              30,
+              88,
               -5,
               -10,
               -10,
@@ -1162,7 +1195,7 @@
             ],
             "scale": [
               1,
-              0.5,
+              0.45,
               0.85,
               1,
               1,
@@ -1170,7 +1203,16 @@
               1,
               1
             ],
-            "fist": "up",
+            "fist": [
+              "up",
+              "front",
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
+              "up"
+            ],
             "z": 4,
             "pivotDx": [
               0,
@@ -1181,11 +1223,21 @@
               0,
               0,
               0
+            ],
+            "outline": [
+              false,
+              true,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false
             ]
           }
         },
         "headDy": -1,
-        "armRule": "guard seen from the front: elbows down at the sides, forearms nearly upright, the fists in front of each shoulder at the top of the chest, just below where the long hair hangs (the hair layer draws over the arms); a punch toward the viewer is a short straight arm (50% length) bringing the fist in front of the chest centre",
+        "armRule": "guard seen from the front: elbows down at the sides, forearms nearly upright, the fists in front of each shoulder at the top of the chest, just below where the long hair hangs (the hair layer draws over the arms); a punch toward the viewer is a short straight arm (50% length) bringing the fist in front of the chest centre; on the jab and cross the punching arm points at the viewer: the arm crosses in front of the chest at shoulder height (45%) to a knuckles-on fist (fistFront) just off the chest centre, outlined over the body",
         "twist": {
           "pelvis": [
             0,
