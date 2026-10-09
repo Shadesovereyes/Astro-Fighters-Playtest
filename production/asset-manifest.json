@@ -37,6 +37,7 @@
       "lightAttack": "taijutsu jab/cross: guard, jab (active), recoil (chain window), cross (active); hitboxes and damage events on active frames",
       "heavyAttack": "kick chain: wind-up 2, front snap kick 3, step-through 2, side kick 3, roundhouse spin 3 (through the directional bodies), roundhouse impact 2, recovery 1; root motion on the step-through",
       "secondaryMotion": "sash part sways; long hair split into cap / upper fall / lower fall with 1- and 2-frame lag",
+      "outlineRule": "body-part outlines are kept for readability and layering: every limb drawn over the body or another limb (band arms and legs, bent forearms over upper arms, punches across the chest) keeps its own outline there, except where it joins its parent (shoulder, hip, elbow); user rule 2026-10-09",
       "generator": {"offsets": "tools/character-animate.mjs (whole-pixel part offsets: idle)", "posed": "tools/character-posed.mjs (authored leg/arm pose specs on the reference sheets: walk, sprint, lightAttack)"},
       "outputs": {
         "male/idle": {"spec": "production/source/characters/anim/male/idle.json", "sheets": "production/source/characters/anim/male/idle/", "layout": "one sheet per layer, rows = directions S..SW, columns = frames", "status": "approved by user 2026-10-06"},

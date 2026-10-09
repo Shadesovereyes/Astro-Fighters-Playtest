@@ -661,9 +661,9 @@ function frontalFrame(dir, k) {
       // the far arm is one shade darker, as in E
       const bz = d.armBand[sd]?.z ?? (sd === d.far ? -1 : 4);
       if (fb) for (const [q, c] of fb.pixels) { const [x, y] = unkey(q), sy = sd === d.far ? farShade[c] : c; items.push([bz, x, y, sy === 'o' ? BLACK : pal[sy], 'band']); }
-      // outline: an arm crossing in front of the body (a punch at the viewer) gets its own outline over the body,
-      // except where it joins the shoulder
-      const ol = Array.isArray(d.armBand[sd]?.outline) ? d.armBand[sd].outline[k] : d.armBand[sd]?.outline;
+      // outline: a band arm keeps its own outline wherever it lies over the body or another part (readability and
+      // layering), except where it joins the shoulder; outline: false turns it off
+      const olv = d.armBand[sd]?.outline, ol = (Array.isArray(olv) ? olv[k] : olv) ?? true;
       if (fb && ol) {
         const pv = d.armBand[sd].pivot, px0 = pv[0] + twistOf(d, k, 'torso', AR.shoulder) + (Array.isArray(d.armBand[sd].pivotDx) ? d.armBand[sd].pivotDx[k] : 0);
         const py0 = pv[1] + bob[k] + (d.crouch || 0) + DROP;

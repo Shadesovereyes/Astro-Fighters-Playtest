@@ -1135,16 +1135,6 @@
               1,
               0,
               0
-            ],
-            "outline": [
-              false,
-              false,
-              false,
-              false,
-              false,
-              true,
-              false,
-              false
             ]
           },
           "L": {
@@ -1223,16 +1213,6 @@
               0,
               0,
               0
-            ],
-            "outline": [
-              false,
-              true,
-              false,
-              false,
-              false,
-              false,
-              false,
-              false
             ]
           }
         },
