@@ -1916,7 +1916,7 @@
         }
       },
       "NE": {
-        "rule": "N at an angle, built like the sprint NE: the E stance band legs at this view's hips (near R right, far L left and behind), the E lean shown sideways (0.6), the E arm poses as band arms from this view's shoulders at 90% length; the far (L, lead) arm one shade darker behind the body, so most of the lead guard and jab is hidden by the back. Head level with E/W. Depth: from behind, punches go away from the camera (aimed slightly up); the lead arm stays behind the torso and head, the rear arm is in front at the side. The lead arm's guard shows the upper arm out at the far side with the forearm up; armour on the far arm stops at the upper arm (accessoryTo 4), no far-hand armour.",
+        "rule": "N at an angle, built like the sprint NE: the E stance band legs at this view's hips (near R right, far L left and behind), the E lean shown sideways (0.6), the E arm poses as band arms from this view's shoulders at 90% length; the far (L, lead) arm one shade darker behind the body, so most of the lead guard and jab is hidden by the back. Head level with E/W. Depth: from behind, punches go away from the camera (aimed slightly up); the lead arm stays behind the torso and head, the rear arm is in front at the side. The lead arm's guard shows the upper arm out at the far side with the forearm up; armour shows on every visible part of the far arm and nowhere it is hidden.",
         "far": "L",
         "headDy": -1,
         "leanScale": 0.6,
@@ -2084,8 +2084,7 @@
               0.9,
               0.9,
               0.9
-            ],
-            "accessoryTo": 4
+            ]
           }
         }
       }
