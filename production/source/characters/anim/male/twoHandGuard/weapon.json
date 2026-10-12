@@ -1,7 +1,7 @@
 {
   "schema": "astro-fighters-character-weapon-output/v1",
   "body": "male",
-  "state": "weaponGuard",
+  "state": "twoHandGuard",
   "item": "katana",
   "status": "candidate",
   "file": "katana.png",
@@ -45,7 +45,7 @@
       ],
       [
         44,
-        33
+        32
       ],
       [
         44,
@@ -53,7 +53,7 @@
       ],
       [
         44,
-        33
+        34
       ]
     ],
     "W": [
@@ -63,7 +63,7 @@
       ],
       [
         19,
-        33
+        32
       ],
       [
         19,
@@ -71,7 +71,7 @@
       ],
       [
         19,
-        33
+        34
       ]
     ]
   },

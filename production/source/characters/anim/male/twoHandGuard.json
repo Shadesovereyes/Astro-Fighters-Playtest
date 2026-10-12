@@ -1,7 +1,7 @@
 {
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
-  "state": "weaponGuard",
+  "state": "twoHandGuard",
   "status": "candidate (E/W first)",
   "frames": 4,
   "fps": 6,
@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Katana combat stance (chudan, middle guard): both hands on the hilt in front of the navel, near (right) hand at the guard, far (left) hand at the pommel, blade pointing forward and up at the opponent's throat; the unarmed guard's legs and slight 1 px bob. The stance a character with a drawn weapon holds in combat; weapon attack clips return to it.",
+  "intent": "Two-handed weapon combat stance (katana) (chudan, middle guard): both hands on the hilt in front of the navel, near (right) hand at the guard, far (left) hand at the pommel, blade pointing forward and up at the opponent's throat; the unarmed guard's legs and slight 1 px bob. The stance a character with a drawn two-handed weapon holds in combat; two-handed attack clips return to it.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -708,8 +708,8 @@
     "looseRule": "from row 40 down, cloth specks of 1-2 px cut off from the garment and outline pixels that no longer border any cloth are removed (they are left between the legs where a direction's own clothing frame does not register exactly with its source's motion)"
   },
   "clips": {
-    "rule": "loops while in combat with a weapon drawn; every weapon attack clip ends here (next: weaponGuard)",
-    "weaponGuard": {
+    "rule": "loops while in combat with a two-handed weapon drawn; every two-handed attack clip ends here (next: twoHandGuard)",
+    "twoHandGuard": {
       "frames": [
         0,
         1,
@@ -1165,7 +1165,7 @@
   "weapon": {
     "item": "katana",
     "status": "candidate",
-    "rule": "per frame: grip = pixel at the centre of the near fist (body-frame coordinates), angle = blade direction in degrees above the facing's horizontal, z = depth slot",
+    "rule": "per frame: grip = pixel at the centre of the near fist (body-frame coordinates; it follows the arm bob, 0, -1, 0, +1), angle = blade direction in degrees above the facing's horizontal, z = depth slot",
     "depthRule": "front: drawn over body and clothing, under the arms layer (the fists close over the hilt); behind: drawn under the body",
     "E": [
       {
@@ -1179,7 +1179,7 @@
       {
         "grip": [
           44,
-          33
+          32
         ],
         "angle": 40,
         "z": "front"
@@ -1195,7 +1195,7 @@
       {
         "grip": [
           44,
-          33
+          34
         ],
         "angle": 40,
         "z": "front"
