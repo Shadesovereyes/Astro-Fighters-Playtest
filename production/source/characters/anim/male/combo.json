@@ -13,9 +13,10 @@
     "A heavy press after a punch (in the jab's or the cross's chain window) plays the spin roundhouse finisher.",
     "A light press after a kick does nothing: kicks never lead into punches. A light press after the cross does nothing.",
     "The spin roundhouse is the finisher and ends the combo.",
-    "A clip that finishes with no valid press in its window returns to neutral and ends the combo.",
+    "A clip that finishes with no valid press in its window returns to the guard idle (guard.json) and ends the combo.",
     "A press during a clip's active frame or later is buffered and taken at its chain window.",
-    "Every clip starts and ends in the orthodox guard, so any allowed clip can follow another without a transition frame."
+    "Every clip starts and ends in the orthodox guard, so any allowed clip can follow another without a transition frame.",
+    "After any attack the character holds the guard idle (hands up, slight bob) while in combat; with no attack for a few seconds it returns to the normal idle. A press from the guard idle starts a combo like a press from neutral."
   ],
   "finishers": [
     "heavyAttack/spinRoundhouse"
@@ -45,6 +46,10 @@
     "heavyAttack/spinRoundhouse": {
       "light": null,
       "heavy": null
+    },
+    "guard": {
+      "light": "lightAttack/jab",
+      "heavy": "heavyAttack/lowKick"
     }
   },
   "examples": {
