@@ -19,7 +19,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Taijutsu kick chain from the orthodox stance (lead/far left leg forward, rear/near right back), played as three clips, each started by its own heavy press; every clip starts and ends in the orthodox guard so kicks and punches can be woven (combo.json). Snap kick (0-4): wind-up 2 (weight back, rear knee lifts), front snap kick 3 (chamber, extension, rechamber) with the rear (near, right) leg, which returns to the rear. Side kick (5-9): skip step (the rear foot slides up under the hips), lead (far, left) leg chamber, side kick leaning back, rechamber, lead foot lands forward (root motion forward). Spin roundhouse (10-15): spin through the directional bodies (S, W, N guard frames of lightAttack) pivoting on the lead foot, roundhouse at head height with the rear (near, right) leg, leg folds and lands back to the rear: the orthodox guard. The spin roundhouse is the combo finisher.",
+  "intent": "Taijutsu kick chain from the orthodox stance (lead/far left leg forward, rear/near right back), played as three clips, each started by its own heavy press; every clip starts and ends in the orthodox guard so kicks and punches can be woven (combo.json). Low kick (0-4): the rear leg lifts, then swings in low with the shin at knee height (a roundhouse-style low kick), recoils and returns to the rear. Snap kick (5-9): the rear knee lifts and chambers, the shin snaps out at stomach height with the ball of the foot, rechambers and returns. Spin roundhouse (10-15): the spin passes through the S, W and N pivot bodies on the lead foot, the rear leg lands a roundhouse at head height with a strong lean back, folds, and returns to the guard. The spin roundhouse is the combo finisher.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -91,14 +91,14 @@
     "pending": []
   },
   "bob": {
-    "rule": "whole-pixel dy above the legs; the stance sits 1 px low; chambered and kicking frames stand tall on the support leg",
+    "rule": "whole-pixel dy above the legs; the guard sits 1 px low; lifted, chambered and kicking frames stand tall on the support leg",
     "dy": [
       1,
       0,
       0,
       0,
-      0,
       1,
+      0,
       0,
       0,
       0,
@@ -118,8 +118,8 @@
       "pelvis": [
         0,
         0,
-        0,
         1,
+        0,
         0,
         0,
         0,
@@ -136,157 +136,25 @@
       "head": [
         1,
         0,
+        -2,
+        -1,
+        1,
+        0,
         -1,
         -3,
         -1,
-        2,
-        0,
-        -4,
-        -1,
-        2,
+        1,
         0,
         0,
         0,
-        -5,
+        -6,
         -3,
         2
       ]
     }
   },
   "rootMotion": {
-    "rule": "per-frame displacement applied when the frame is shown; the skip and the lead landing carry the side kick forward 10 px, the spin pivots in place",
-    "E": [
-      [
-        0,
-        0
-      ],
-      [
-        0,
-        0
-      ],
-      [
-        0,
-        0
-      ],
-      [
-        0,
-        0
-      ],
-      [
-        0,
-        0
-      ],
-      [
-        3,
-        0
-      ],
-      [
-        2,
-        0
-      ],
-      [
-        0,
-        0
-      ],
-      [
-        0,
-        0
-      ],
-      [
-        5,
-        0
-      ],
-      [
-        0,
-        0
-      ],
-      [
-        0,
-        0
-      ],
-      [
-        0,
-        0
-      ],
-      [
-        0,
-        0
-      ],
-      [
-        0,
-        0
-      ],
-      [
-        0,
-        0
-      ]
-    ],
-    "W": [
-      [
-        0,
-        0
-      ],
-      [
-        0,
-        0
-      ],
-      [
-        0,
-        0
-      ],
-      [
-        0,
-        0
-      ],
-      [
-        0,
-        0
-      ],
-      [
-        -3,
-        0
-      ],
-      [
-        -2,
-        0
-      ],
-      [
-        0,
-        0
-      ],
-      [
-        0,
-        0
-      ],
-      [
-        -5,
-        0
-      ],
-      [
-        0,
-        0
-      ],
-      [
-        0,
-        0
-      ],
-      [
-        0,
-        0
-      ],
-      [
-        0,
-        0
-      ],
-      [
-        0,
-        0
-      ],
-      [
-        0,
-        0
-      ]
-    ],
+    "rule": "per-frame displacement applied when the frame is shown: each kick drives the body 1 px forward; the spin pivots in place",
     "S": [
       [
         0,
@@ -298,6 +166,30 @@
       ],
       [
         0,
+        1
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        0,
         0
       ],
       [
@@ -310,11 +202,11 @@
       ],
       [
         0,
-        3
+        0
       ],
       [
         0,
-        2
+        0
       ],
       [
         0,
@@ -326,7 +218,49 @@
       ],
       [
         0,
-        5
+        0
+      ]
+    ],
+    "E": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
       ],
       [
         0,
@@ -364,6 +298,30 @@
       ],
       [
         0,
+        -1
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        -1
+      ],
+      [
+        0,
         0
       ],
       [
@@ -376,11 +334,11 @@
       ],
       [
         0,
-        -3
+        0
       ],
       [
         0,
-        -2
+        0
       ],
       [
         0,
@@ -392,7 +350,49 @@
       ],
       [
         0,
-        -5
+        0
+      ]
+    ],
+    "W": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        -1,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        -1,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
       ],
       [
         0,
@@ -810,10 +810,10 @@
         "hipX": 33,
         "hipRow": 40,
         "kneeX": 39,
-        "kneeRow": 32,
+        "kneeRow": 29,
         "ankle": [
-          48,
-          27
+          47,
+          21
         ],
         "foot": "pointFwd"
       },
@@ -872,10 +872,10 @@
         "hipX": 30,
         "hipRow": 39,
         "kneeX": 29,
-        "kneeRow": 40,
+        "kneeRow": 36,
         "ankle": [
           29,
-          46
+          43
         ],
         "foot": "sFoot",
         "section": "S"
@@ -885,11 +885,11 @@
         "construction": "band",
         "hipX": 30,
         "hipRow": 39,
-        "kneeX": 29,
-        "kneeRow": 45,
+        "kneeX": 28,
+        "kneeRow": 42,
         "ankle": [
-          27,
-          51
+          25,
+          47
         ],
         "foot": "sSole",
         "section": "S"
@@ -927,11 +927,11 @@
         "construction": "band",
         "hipX": 30,
         "hipRow": 39,
-        "kneeX": 31,
-        "kneeRow": 32,
+        "kneeX": 32,
+        "kneeRow": 30,
         "ankle": [
           40,
-          27
+          22
         ],
         "foot": "pointUR",
         "section": "S"
@@ -1026,10 +1026,10 @@
         "hipX": 34,
         "hipRow": 39,
         "kneeX": 38,
-        "kneeRow": 32,
+        "kneeRow": 30,
         "ankle": [
-          45,
-          26
+          44,
+          21
         ],
         "foot": "pointUR",
         "section": "N"
@@ -1047,18 +1047,111 @@
         ],
         "foot": "sSole",
         "section": "N"
+      },
+      {
+        "name": "low-kick",
+        "construction": "band",
+        "hipX": 34,
+        "hipRow": 41,
+        "kneeX": 41,
+        "kneeRow": 46,
+        "ankle": [
+          50,
+          48
+        ],
+        "foot": "pointFwd"
+      },
+      {
+        "name": "low-recoil",
+        "construction": "band",
+        "hipX": 34,
+        "hipRow": 41,
+        "kneeX": 39,
+        "kneeRow": 46,
+        "ankle": [
+          35,
+          52
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "lead-pivot",
+        "construction": "band",
+        "hipX": 32,
+        "hipRow": 42,
+        "kneeX": 34,
+        "kneeRow": 50,
+        "footX": 35,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "S-low-R",
+        "construction": "band",
+        "hipX": 30,
+        "hipRow": 39,
+        "kneeX": 27,
+        "kneeRow": 46,
+        "ankle": [
+          36,
+          50
+        ],
+        "foot": "pointFwd",
+        "section": "S"
+      },
+      {
+        "name": "S-recoil-R",
+        "construction": "band",
+        "hipX": 30,
+        "hipRow": 39,
+        "kneeX": 29,
+        "kneeRow": 43,
+        "ankle": [
+          28,
+          50
+        ],
+        "foot": "sFoot",
+        "section": "S"
+      },
+      {
+        "name": "N-low-R",
+        "construction": "band",
+        "hipX": 34,
+        "hipRow": 39,
+        "kneeX": 37,
+        "kneeRow": 45,
+        "ankle": [
+          27,
+          44
+        ],
+        "foot": "pointFwdL",
+        "section": "N"
+      },
+      {
+        "name": "N-recoil-R",
+        "construction": "band",
+        "hipX": 34,
+        "hipRow": 39,
+        "kneeX": 37,
+        "kneeRow": 44,
+        "ankle": [
+          36,
+          50
+        ],
+        "foot": "sSole",
+        "section": "N"
       }
     ],
     "near": [
       1,
       2,
+      28,
+      29,
+      1,
+      2,
       3,
       4,
       3,
-      12,
-      9,
-      9,
-      9,
       1,
       1,
       1,
@@ -1070,13 +1163,13 @@
     "far": [
       0,
       0,
+      30,
+      30,
       0,
       0,
       0,
-      13,
-      7,
-      8,
-      7,
+      0,
+      0,
       0,
       0,
       0,
@@ -1161,50 +1254,50 @@
       },
       {
         "construction": "band",
-        "angle": -20,
-        "elbow": {
-          "at": 8,
-          "angle": 212
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -20,
-        "elbow": {
-          "at": 8,
-          "angle": 212
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -20,
-        "elbow": {
-          "at": 8,
-          "angle": 212
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -20,
-        "elbow": {
-          "at": 8,
-          "angle": 212
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -20,
-        "elbow": {
-          "at": 8,
-          "angle": 212
-        }
-      },
-      {
-        "construction": "band",
         "angle": 25,
         "elbow": {
           "at": 8,
           "angle": 20
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -20,
+        "elbow": {
+          "at": 8,
+          "angle": 212
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -20,
+        "elbow": {
+          "at": 8,
+          "angle": 212
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -20,
+        "elbow": {
+          "at": 8,
+          "angle": 212
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -20,
+        "elbow": {
+          "at": 8,
+          "angle": 212
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -20,
+        "elbow": {
+          "at": 8,
+          "angle": 212
         }
       },
       {
@@ -1482,14 +1575,14 @@
         "E": [
           -1,
           -1,
+          -2,
+          -1,
+          -1,
+          -1,
           -1,
           -2,
           -1,
-          -2,
           -1,
-          -2,
-          -1,
-          -2,
           0,
           0,
           0,
@@ -1715,75 +1808,75 @@
     "looseRule": "from row 40 down, cloth specks of 1-2 px cut off from the garment and outline pixels that no longer border any cloth are removed (they are left between the legs where a direction's own clothing frame does not register exactly with its source's motion)"
   },
   "events": {
-    "rule": "per-frame gameplay data per facing (W mirrors E: x -> 64 - x - w): hitbox [x, y, w, h] on active frames, damage event. S/N hitboxes sit in front of the facing (below the feet line for S, above the head line for N), independent of the cheated leg angle in the sprite",
+    "rule": "per-frame gameplay data per facing (W mirrors E: x -> 64 - x - w): hitbox [x, y, w, h] on active frames, damage event. S/N hitboxes sit in front of the facing (below the feet line for S, above the head line for N), at the kick's height band",
     "E": [
       {
         "frame": 0,
-        "clip": "snapKick",
+        "clip": "lowKick",
         "type": "startup"
       },
       {
         "frame": 1,
-        "clip": "snapKick",
+        "clip": "lowKick",
         "type": "startup"
       },
       {
         "frame": 2,
+        "clip": "lowKick",
+        "type": "active",
+        "move": "low kick",
+        "hitbox": [
+          42,
+          46,
+          16,
+          10
+        ],
+        "damage": "heavy"
+      },
+      {
+        "frame": 3,
+        "clip": "lowKick",
+        "type": "recovery",
+        "chainWindow": true
+      },
+      {
+        "frame": 4,
+        "clip": "lowKick",
+        "type": "recovery",
+        "chainWindow": true
+      },
+      {
+        "frame": 5,
         "clip": "snapKick",
         "type": "startup"
       },
       {
-        "frame": 3,
+        "frame": 6,
+        "clip": "snapKick",
+        "type": "startup"
+      },
+      {
+        "frame": 7,
         "clip": "snapKick",
         "type": "active",
-        "move": "front snap kick",
+        "move": "snap kick",
         "hitbox": [
           44,
           30,
           14,
           10
         ],
-        "damage": "heavy",
-        "chainWindow": true
+        "damage": "heavy"
       },
       {
-        "frame": 4,
+        "frame": 8,
         "clip": "snapKick",
         "type": "recovery",
         "chainWindow": true
       },
       {
-        "frame": 5,
-        "clip": "sideKick",
-        "type": "startup"
-      },
-      {
-        "frame": 6,
-        "clip": "sideKick",
-        "type": "startup"
-      },
-      {
-        "frame": 7,
-        "clip": "sideKick",
-        "type": "active",
-        "move": "side kick",
-        "hitbox": [
-          44,
-          31,
-          14,
-          12
-        ],
-        "damage": "heavy"
-      },
-      {
-        "frame": 8,
-        "clip": "sideKick",
-        "type": "recovery",
-        "chainWindow": true
-      },
-      {
         "frame": 9,
-        "clip": "sideKick",
+        "clip": "snapKick",
         "type": "recovery",
         "chainWindow": true
       },
@@ -1809,9 +1902,9 @@
         "move": "spinning roundhouse",
         "hitbox": [
           40,
-          20,
-          16,
-          12
+          10,
+          18,
+          14
         ],
         "damage": "heavy+"
       },
@@ -1829,54 +1922,54 @@
     "S": [
       {
         "frame": 0,
-        "clip": "snapKick",
+        "clip": "lowKick",
         "type": "startup"
       },
       {
         "frame": 1,
-        "clip": "snapKick",
+        "clip": "lowKick",
         "type": "startup"
       },
       {
         "frame": 2,
-        "clip": "snapKick",
-        "type": "startup"
+        "clip": "lowKick",
+        "type": "active",
+        "move": "low kick",
+        "hitbox": [
+          18,
+          50,
+          28,
+          12
+        ],
+        "damage": "heavy"
       },
       {
         "frame": 3,
-        "clip": "snapKick",
-        "type": "active",
-        "move": "front snap kick",
-        "hitbox": [
-          20,
-          44,
-          24,
-          16
-        ],
-        "damage": "heavy",
+        "clip": "lowKick",
+        "type": "recovery",
         "chainWindow": true
       },
       {
         "frame": 4,
-        "clip": "snapKick",
+        "clip": "lowKick",
         "type": "recovery",
         "chainWindow": true
       },
       {
         "frame": 5,
-        "clip": "sideKick",
+        "clip": "snapKick",
         "type": "startup"
       },
       {
         "frame": 6,
-        "clip": "sideKick",
+        "clip": "snapKick",
         "type": "startup"
       },
       {
         "frame": 7,
-        "clip": "sideKick",
+        "clip": "snapKick",
         "type": "active",
-        "move": "side kick",
+        "move": "snap kick",
         "hitbox": [
           20,
           44,
@@ -1887,13 +1980,13 @@
       },
       {
         "frame": 8,
-        "clip": "sideKick",
+        "clip": "snapKick",
         "type": "recovery",
         "chainWindow": true
       },
       {
         "frame": 9,
-        "clip": "sideKick",
+        "clip": "snapKick",
         "type": "recovery",
         "chainWindow": true
       },
@@ -1919,7 +2012,7 @@
         "move": "spinning roundhouse",
         "hitbox": [
           14,
-          32,
+          26,
           36,
           16
         ],
@@ -1939,54 +2032,54 @@
     "N": [
       {
         "frame": 0,
-        "clip": "snapKick",
+        "clip": "lowKick",
         "type": "startup"
       },
       {
         "frame": 1,
-        "clip": "snapKick",
+        "clip": "lowKick",
         "type": "startup"
       },
       {
         "frame": 2,
-        "clip": "snapKick",
-        "type": "startup"
+        "clip": "lowKick",
+        "type": "active",
+        "move": "low kick",
+        "hitbox": [
+          18,
+          22,
+          28,
+          12
+        ],
+        "damage": "heavy"
       },
       {
         "frame": 3,
-        "clip": "snapKick",
-        "type": "active",
-        "move": "front snap kick",
-        "hitbox": [
-          20,
-          14,
-          24,
-          16
-        ],
-        "damage": "heavy",
+        "clip": "lowKick",
+        "type": "recovery",
         "chainWindow": true
       },
       {
         "frame": 4,
-        "clip": "snapKick",
+        "clip": "lowKick",
         "type": "recovery",
         "chainWindow": true
       },
       {
         "frame": 5,
-        "clip": "sideKick",
+        "clip": "snapKick",
         "type": "startup"
       },
       {
         "frame": 6,
-        "clip": "sideKick",
+        "clip": "snapKick",
         "type": "startup"
       },
       {
         "frame": 7,
-        "clip": "sideKick",
+        "clip": "snapKick",
         "type": "active",
-        "move": "side kick",
+        "move": "snap kick",
         "hitbox": [
           20,
           14,
@@ -1997,13 +2090,13 @@
       },
       {
         "frame": 8,
-        "clip": "sideKick",
+        "clip": "snapKick",
         "type": "recovery",
         "chainWindow": true
       },
       {
         "frame": 9,
-        "clip": "sideKick",
+        "clip": "snapKick",
         "type": "recovery",
         "chainWindow": true
       },
@@ -2029,7 +2122,7 @@
         "move": "spinning roundhouse",
         "hitbox": [
           14,
-          10,
+          6,
           36,
           16
         ],
@@ -2049,7 +2142,7 @@
   },
   "clips": {
     "rule": "runtime playback: frames are sheet columns; each clip starts and ends in the orthodox guard; at the end of a clip the character returns to neutral (next) unless a press in the clip's chain window continues the combo (combo.json: light and heavy presses can be mixed)",
-    "snapKick": {
+    "lowKick": {
       "frames": [
         0,
         1,
@@ -2064,7 +2157,7 @@
         4
       ]
     },
-    "sideKick": {
+    "snapKick": {
       "frames": [
         5,
         6,
@@ -2616,12 +2709,12 @@
           "pelvis": [
             0,
             0,
-            0,
             -1,
             0,
             0,
             0,
-            1,
+            0,
+            -1,
             0,
             0,
             0,
@@ -2636,11 +2729,11 @@
             0,
             1,
             1,
-            1,
             0,
-            -1,
-            -2,
-            -1,
+            0,
+            1,
+            1,
+            1,
             0,
             0,
             0,
@@ -2652,13 +2745,13 @@
           "head": [
             0,
             0,
-            1,
             2,
             1,
             0,
-            -1,
-            -3,
-            -1,
+            0,
+            1,
+            2,
+            1,
             0,
             0,
             0,
@@ -2672,12 +2765,12 @@
           "R": [
             0,
             0,
-            0,
             -1,
             0,
             0,
             0,
-            1,
+            0,
+            -1,
             0,
             0,
             0,
@@ -2690,12 +2783,12 @@
           "L": [
             0,
             0,
-            0,
             -1,
             0,
             0,
             0,
-            1,
+            0,
+            -1,
             0,
             0,
             0,
@@ -2756,11 +2849,11 @@
               true,
               true,
               true,
+              false,
               true,
-              false,
-              false,
-              false,
-              false,
+              true,
+              true,
+              true,
               false,
               false,
               false,
@@ -2776,9 +2869,9 @@
               false,
               false,
               false,
-              true,
-              true,
-              true,
+              false,
+              false,
+              false,
               false,
               false,
               false,
@@ -2792,13 +2885,13 @@
             "R": [
               null,
               "S-lift-R",
+              "S-low-R",
+              "S-recoil-R",
+              null,
+              "S-lift-R",
               "S-chamber-R",
               "S-snap-R",
               "S-chamber-R",
-              null,
-              null,
-              null,
-              null,
               null,
               null,
               null,
@@ -2814,9 +2907,9 @@
               null,
               null,
               null,
-              "S-chamber-L",
-              "S-side-L",
-              "S-chamber-L",
+              null,
+              null,
+              null,
               null,
               null,
               null,
@@ -2846,22 +2939,22 @@
               3.5
             ],
             "L": [
-              3.5,
-              3.5,
-              3.5,
-              3.5,
-              3.5,
-              3.5,
-              3.5,
-              3.5,
-              3.5,
-              3.5,
-              3.5,
-              3.5,
-              3.5,
-              3.5,
-              3.5,
-              3.5
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2
             ]
           },
           "offset": {
@@ -2869,9 +2962,13 @@
             "L": 0
           }
         },
-        "kickRule": "S kicks: the torso and hips rotate into the kick (rotate variants) so the kicking hip comes in toward the centre; the snap kick (rear leg) and side kick (lead leg) drive down the screen toward the viewer about 15-20 degrees off the centre line, the sole toward the viewer, in front of the body; the chamber is compact and high, the extension long; the roundhouse sweeps up across the body's centre to head height with a stronger rotation",
+        "kickRule": "S: the torso and hips rotate into each rear-leg kick, the standing leg bends and the kicking hip hikes. Low kick: the leg swings in low across the front of the standing leg, shin at knee height. Snap kick: the chamber lifts the knee high toward the viewer with the shin hanging; the snap straightens the leg at the viewer, about 20 degrees off the centre line, the sole toward the viewer at stomach height (just below the hip line on screen). Roundhouse: the leg sweeps up across the body to head height, beside the head; kicking legs draw in front of the arms.",
         "variants": {
           "1": [
+            "S-hikeR1",
+            "bend1"
+          ],
+          "5": [
             "S-hikeR1",
             "bend1"
           ],
@@ -2887,7 +2984,19 @@
             "S-kneeL",
             "S-rotR"
           ],
-          "4": [
+          "6": [
+            "S-hikeR",
+            "bend2",
+            "S-kneeL",
+            "S-rotR"
+          ],
+          "7": [
+            "S-hikeR",
+            "bend2",
+            "S-kneeL",
+            "S-rotR"
+          ],
+          "8": [
             "S-hikeR",
             "bend2",
             "S-kneeL",
@@ -2904,24 +3013,6 @@
             "bend2",
             "S-kneeL",
             "S-rotR2"
-          ],
-          "6": [
-            "S-hikeL",
-            "bend2",
-            "S-kneeR",
-            "S-rotL"
-          ],
-          "7": [
-            "S-hikeL",
-            "bend2",
-            "S-kneeR",
-            "S-rotL"
-          ],
-          "8": [
-            "S-hikeL",
-            "bend2",
-            "S-kneeR",
-            "S-rotL"
           ]
         }
       },
@@ -3212,12 +3303,12 @@
           "pelvis": [
             0,
             0,
-            0,
             1,
             0,
             0,
             0,
-            -1,
+            0,
+            1,
             0,
             0,
             0,
@@ -3232,11 +3323,11 @@
             0,
             -1,
             -1,
-            -1,
             0,
-            1,
-            1,
-            1,
+            0,
+            -1,
+            -1,
+            -1,
             0,
             0,
             0,
@@ -3248,18 +3339,18 @@
           "head": [
             0,
             0,
+            -2,
+            -1,
+            0,
+            0,
             -1,
             -2,
             -1,
             0,
-            1,
-            2,
-            1,
             0,
             0,
             0,
-            0,
-            -3,
+            -2,
             -1,
             0
           ]
@@ -3268,12 +3359,12 @@
           "R": [
             0,
             0,
-            0,
             1,
             0,
             0,
             0,
-            -1,
+            0,
+            1,
             0,
             0,
             0,
@@ -3286,12 +3377,12 @@
           "L": [
             0,
             0,
-            0,
             1,
             0,
             0,
             0,
-            -1,
+            0,
+            1,
             0,
             0,
             0,
@@ -3352,11 +3443,11 @@
               true,
               true,
               true,
+              false,
               true,
-              false,
-              false,
-              false,
-              false,
+              true,
+              true,
+              true,
               false,
               false,
               false,
@@ -3372,9 +3463,9 @@
               false,
               false,
               false,
-              true,
-              true,
-              true,
+              false,
+              false,
+              false,
               false,
               false,
               false,
@@ -3388,13 +3479,13 @@
             "R": [
               null,
               "N-lift-R",
+              "N-low-R",
+              "N-recoil-R",
+              null,
+              "N-lift-R",
               "N-chamber-R",
               "N-snap-R",
               "N-chamber-R",
-              null,
-              null,
-              null,
-              null,
               null,
               null,
               null,
@@ -3410,9 +3501,9 @@
               null,
               null,
               null,
-              "N-chamber-L",
-              "N-side-L",
-              "N-chamber-L",
+              null,
+              null,
+              null,
               null,
               null,
               null,
@@ -3426,7 +3517,7 @@
             "R": [
               2,
               2,
-              2,
+              1.5,
               2,
               2,
               2,
@@ -3465,9 +3556,13 @@
             "L": 0
           }
         },
-        "kickRule": "N kicks: the torso and hips rotate into the kick so the kicking hip comes in; the snap and side kicks drive up the screen away from the viewer about 20 degrees off the centre line, behind the body, heel and sole toward the viewer; the roundhouse rises across toward head height with a stronger rotation",
+        "kickRule": "N: the torso and hips rotate into each rear-leg kick, the standing leg bends and the kicking hip hikes. Low kick: the leg swings in low behind the standing leg toward the far side, shin at knee height. Snap kick: the chamber shows the hanging shin and sole; the snap drives up the screen away from the viewer behind the body, heel and sole toward the viewer. Roundhouse: the leg rises to head height beside the head.",
         "variants": {
           "1": [
+            "N-hikeR1",
+            "bend1"
+          ],
+          "5": [
             "N-hikeR1",
             "bend1"
           ],
@@ -3483,7 +3578,19 @@
             "N-kneeL",
             "N-rotR"
           ],
-          "4": [
+          "6": [
+            "N-hikeR",
+            "bend2",
+            "N-kneeL",
+            "N-rotR"
+          ],
+          "7": [
+            "N-hikeR",
+            "bend2",
+            "N-kneeL",
+            "N-rotR"
+          ],
+          "8": [
             "N-hikeR",
             "bend2",
             "N-kneeL",
@@ -3500,24 +3607,6 @@
             "bend2",
             "N-kneeL",
             "N-rotR2"
-          ],
-          "6": [
-            "N-hikeL",
-            "bend2",
-            "N-kneeR",
-            "N-rotL"
-          ],
-          "7": [
-            "N-hikeL",
-            "bend2",
-            "N-kneeR",
-            "N-rotL"
-          ],
-          "8": [
-            "N-hikeL",
-            "bend2",
-            "N-kneeR",
-            "N-rotL"
           ]
         }
       }

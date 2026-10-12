@@ -165,9 +165,10 @@ Each approved fighter clothing stack must support the following states. Every st
 - [ ] Hitboxes and damage events on the jab and cross frames
 - [ ] Clothing follows the extended arm without gaps
 
-## Heavy attack (kick chain → roundhouse)
-- [ ] 16 frames per facing (snap kick 0-4, side kick 5-9, spin roundhouse 10-15; E/W first, then S/N)
-- [ ] Root motion recorded for the skip step and landing
+## Heavy attack (low kick → snap kick → spinning roundhouse)
+- [ ] 16 frames per facing (low kick 0-4, snap kick 5-9, spin roundhouse 10-15; E/W first, then S/N)
+- [ ] Kick heights: low kick at knee height, snap kick at stomach height, roundhouse at head height
+- [ ] Root motion recorded on the kick frames
 - [ ] Every punch and kick clip starts and ends in the guard (combo weaving, combo.json)
 - [ ] Trousers follow chambered and extended legs without gaps
 - [ ] Sash sway reads through the spin
