@@ -158,7 +158,8 @@
     checkHit() {
       const hb = this.hitbox(), p = this.post;
       // screen-space overlap; side-on (E/W) hits also need the target on roughly the same ground line
-      const sameLine = this.facing === 'S' || this.facing === 'N' || Math.abs(this.pos.y - p.y) <= 8;
+      // front/back (S/N) hits need the target on the facing side
+      const f = this.facing, sameLine = f === 'S' ? p.y >= this.pos.y : f === 'N' ? p.y <= this.pos.y : Math.abs(this.pos.y - p.y) <= 8;
       const hit = hb && sameLine && hb.x < p.x + p.w / 2 && hb.x + hb.w > p.x - p.w / 2 && hb.y < p.y && hb.y + hb.h > p.y - p.h;
       this.drawPost(!!hit);
       if (hit) this.lastHit = hb.move;

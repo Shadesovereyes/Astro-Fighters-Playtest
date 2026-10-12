@@ -216,7 +216,7 @@
     }
   },
   "events": {
-    "rule": "per-frame gameplay data in the E frame (W mirrors x -> 64 - x - w): hitbox [x, y, w, h] on active frames, damage event",
+    "rule": "per-frame gameplay data per facing (W mirrors E: x -> 64 - x - w): hitbox [x, y, w, h] on active frames, damage event. S/N hitboxes sit in front of the facing at the punch's chest height band (same convention as the kick chain: S top = E top + 14, N top = E top - 16, 16 px deep), centred on the punching fist",
     "E": [
       {
         "frame": 0,
@@ -263,6 +263,130 @@
           18,
           14,
           8
+        ],
+        "damage": "light+"
+      },
+      {
+        "frame": 6,
+        "clip": "cross",
+        "type": "recovery",
+        "chainWindow": true
+      },
+      {
+        "frame": 7,
+        "clip": "cross",
+        "type": "recovery",
+        "chainWindow": true
+      }
+    ],
+    "S": [
+      {
+        "frame": 0,
+        "clip": "jab",
+        "type": "startup"
+      },
+      {
+        "frame": 1,
+        "clip": "jab",
+        "type": "active",
+        "move": "jab",
+        "hitbox": [
+          26,
+          32,
+          12,
+          16
+        ],
+        "damage": "light"
+      },
+      {
+        "frame": 2,
+        "clip": "jab",
+        "type": "recovery",
+        "chainWindow": true
+      },
+      {
+        "frame": 3,
+        "clip": "jab",
+        "type": "recovery",
+        "chainWindow": true
+      },
+      {
+        "frame": 4,
+        "clip": "cross",
+        "type": "startup"
+      },
+      {
+        "frame": 5,
+        "clip": "cross",
+        "type": "active",
+        "move": "cross",
+        "hitbox": [
+          25,
+          32,
+          14,
+          16
+        ],
+        "damage": "light+"
+      },
+      {
+        "frame": 6,
+        "clip": "cross",
+        "type": "recovery",
+        "chainWindow": true
+      },
+      {
+        "frame": 7,
+        "clip": "cross",
+        "type": "recovery",
+        "chainWindow": true
+      }
+    ],
+    "N": [
+      {
+        "frame": 0,
+        "clip": "jab",
+        "type": "startup"
+      },
+      {
+        "frame": 1,
+        "clip": "jab",
+        "type": "active",
+        "move": "jab",
+        "hitbox": [
+          28,
+          2,
+          12,
+          16
+        ],
+        "damage": "light"
+      },
+      {
+        "frame": 2,
+        "clip": "jab",
+        "type": "recovery",
+        "chainWindow": true
+      },
+      {
+        "frame": 3,
+        "clip": "jab",
+        "type": "recovery",
+        "chainWindow": true
+      },
+      {
+        "frame": 4,
+        "clip": "cross",
+        "type": "startup"
+      },
+      {
+        "frame": 5,
+        "clip": "cross",
+        "type": "active",
+        "move": "cross",
+        "hitbox": [
+          25,
+          2,
+          14,
+          16
         ],
         "damage": "light+"
       },
