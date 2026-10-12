@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "One-handed weapon combat stance (wakizashi): the weapon is carried low in the near (right) hand at the hip, tip forward and slightly raised (10 degrees); the free far (left) hand is up in the unarmed guard. Reads apart from the two-handed stance (both hands on the hilt, blade raised). Legs and slight 1 px bob of the approved guard. One-handed attack clips return to it.",
+  "intent": "One-handed weapon combat stance (wakizashi, or the tanto as the alternative single-wield weapon): the weapon is carried low in the near (right) hand at the hip, tip forward and slightly raised (10 degrees); the free far (left) hand is up in the unarmed guard. Reads apart from the two-handed stance (both hands on the hilt, blade raised). Legs and slight 1 px bob of the approved guard. One-handed attack clips return to it.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -1158,47 +1158,54 @@
       }
     }
   },
-  "weapon": {
-    "item": "wakizashi",
-    "status": "candidate",
-    "rule": "per frame: grip = pixel at the centre of the near fist (body-frame coordinates; it follows the arm bob, 0, -1, 0, +1), angle = blade direction in degrees above the facing's horizontal, z = depth slot",
-    "depthRule": "front: drawn over body and clothing, under the arms layer (the fists close over the hilt); behind: drawn under the body",
-    "E": [
-      {
-        "grip": [
-          43,
-          35
-        ],
-        "angle": 10,
-        "z": "front"
-      },
-      {
-        "grip": [
-          43,
-          34
-        ],
-        "angle": 10,
-        "z": "front"
-      },
-      {
-        "grip": [
-          43,
-          35
-        ],
-        "angle": 10,
-        "z": "front"
-      },
-      {
-        "grip": [
-          43,
-          36
-        ],
-        "angle": 10,
-        "z": "front"
+  "weapons": [
+    {
+      "slot": "main",
+      "layer": "arms",
+      "items": [
+        "wakizashi",
+        "tanto"
+      ],
+      "status": "candidate",
+      "rule": "per frame: grip = pixel at the centre of the near fist (body-frame coordinates; it follows the arm bob, 0, -1, 0, +1), angle = blade direction in degrees above the facing's horizontal, z = depth slot",
+      "depthRule": "front: drawn over body and clothing, under the arms layer (the fists close over the hilt); behind: drawn under the body",
+      "E": [
+        {
+          "grip": [
+            43,
+            35
+          ],
+          "angle": 10,
+          "z": "front"
+        },
+        {
+          "grip": [
+            43,
+            34
+          ],
+          "angle": 10,
+          "z": "front"
+        },
+        {
+          "grip": [
+            43,
+            35
+          ],
+          "angle": 10,
+          "z": "front"
+        },
+        {
+          "grip": [
+            43,
+            36
+          ],
+          "angle": 10,
+          "z": "front"
+        }
+      ],
+      "mirror": {
+        "W": "E"
       }
-    ],
-    "mirror": {
-      "W": "E"
     }
-  }
+  ]
 }

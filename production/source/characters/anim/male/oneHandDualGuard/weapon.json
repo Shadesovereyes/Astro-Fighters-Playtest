@@ -23,9 +23,11 @@
   "weapons": [
     {
       "slot": "main",
-      "item": "wakizashi",
+      "item": "tanto",
+      "default": true,
+      "grip": "normal",
       "hand": "arms",
-      "file": "wakizashi.png",
+      "file": "main-tanto.png",
       "status": "candidate",
       "z": {
         "E": [
@@ -83,9 +85,10 @@
     {
       "slot": "off",
       "item": "tanto",
+      "default": true,
       "grip": "normal",
       "hand": "body",
-      "file": "tanto.png",
+      "file": "off-tanto.png",
       "status": "candidate",
       "z": {
         "E": [
@@ -143,22 +146,22 @@
   ],
   "qc": {
     "gripOnFist": {
-      "main E:0": true,
-      "main E:1": true,
-      "main E:2": true,
-      "main E:3": true,
-      "main W:0": true,
-      "main W:1": true,
-      "main W:2": true,
-      "main W:3": true,
-      "off E:0": true,
-      "off E:1": true,
-      "off E:2": true,
-      "off E:3": true,
-      "off W:0": true,
-      "off W:1": true,
-      "off W:2": true,
-      "off W:3": true
+      "main/tanto E:0": true,
+      "main/tanto E:1": true,
+      "main/tanto E:2": true,
+      "main/tanto E:3": true,
+      "main/tanto W:0": true,
+      "main/tanto W:1": true,
+      "main/tanto W:2": true,
+      "main/tanto W:3": true,
+      "off/tanto E:0": true,
+      "off/tanto E:1": true,
+      "off/tanto E:2": true,
+      "off/tanto E:3": true,
+      "off/tanto W:0": true,
+      "off/tanto W:1": true,
+      "off/tanto W:2": true,
+      "off/tanto W:3": true
     },
     "inFrame": true,
     "pass": true

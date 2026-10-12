@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "oneHandDualGuard",
-  "status": "candidate (E/W first); normal grip chosen by the user 2026-10-12 (reverse grip rejected)",
+  "status": "candidate (E/W first); user 2026-10-12: tanto in both hands for the dual-wield grip",
   "frames": 4,
   "fps": 6,
   "sourceDirection": "E",
@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "One-handed weapon plus off-hand dagger combat stance (combat idle): wakizashi carried low in the near (right) hand at the hip, tip forward and raised 10 degrees; tanto in the raised free (left) hand in a normal grip, blade up; legs and the guard idle motion of the approved guard (body bob 1, 1, 2, 2; head bobs at the neck; arms bob at the shoulders a frame behind, and both weapons ride with their hands). Attack clips for this loadout return to it.",
+  "intent": "Dual-wield dagger combat stance (combat idle): a tanto in each hand, normal grip; the near (right) hand low at the hip, blade forward and raised 10 degrees; the raised free (left) hand blade up; legs and the guard idle motion of the approved guard (body bob 1, 1, 2, 2; head bobs at the neck; arms bob at the shoulders a frame behind), both daggers riding their hands. Dual-wield attack clips return to it.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -1162,7 +1162,6 @@
     {
       "slot": "main",
       "layer": "arms",
-      "item": "wakizashi",
       "status": "candidate",
       "rule": "per frame: grip = pixel at the centre of the near fist (body-frame coordinates; it follows the arm bob, 0, -1, 0, +1), angle = blade direction in degrees above the facing's horizontal, z = depth slot",
       "depthRule": "front: drawn over body and clothing, under the arms layer (the fists close over the hilt); behind: drawn under the body",
@@ -1202,7 +1201,11 @@
       ],
       "mirror": {
         "W": "E"
-      }
+      },
+      "items": [
+        "tanto"
+      ],
+      "gripKind": "normal"
     },
     {
       "slot": "off",

@@ -4,7 +4,7 @@
 // single main-hand form), and checks each grip registers with its fist in the rendered hand layer.
 // Usage: node tools/character-weapon.mjs <body> <state> [--check]
 //   reads  production/source/characters/anim/<body>/<state>.json (weapon/weapons) and <state>/arms.png, body.png
-//   writes production/source/characters/anim/<body>/<state>/<item>.png per weapon (rows = spec directions, 128x128)
+//   writes production/source/characters/anim/<body>/<state>/<slot>-<item>.png per hand and item (rows = spec directions, 128x128)
 //          production/source/characters/anim/<body>/<state>/weapon.json (frame size, origin, depth per frame, QC)
 // The weapon frame is 128x128 so swings can leave the 64x64 body frame; the body frame's (0, 0) sits at ORIGIN, so the
 // character pivot [32, 63] is [64, 95] in the weapon frame.
@@ -63,7 +63,9 @@ const poseOf = (W, dir, k) => {
 const handLayers = { arms: readPng(path.join(animDir, state, 'arms.png')), body: readPng(path.join(animDir, state, 'body.png')) };
 const qc = { gripOnFist: {}, inFrame: true };
 const files = {}, out = [];
-for (const W of weapons) {
+// a hand slot may list alternative items (items: [...], the first is the default); each is rendered on the same grips as
+// its own sheet <slot>-<item>.png, so the runtime can swap the item without changing the pose
+for (const W of weapons.flatMap((w) => (w.items || [w.item]).map((it, i) => ({ ...w, item: it, isDefault: i === 0 })))) {
   const item = JSON.parse(fs.readFileSync(path.join(root, 'production/source/characters/items', `${W.item}.json`), 'utf8'));
   const pal = Object.fromEntries(Object.entries(item.palette).map(([s, h]) => [s, h.slice(1).toLowerCase()]));
   const hand = handLayers[W.layer || 'arms'];
@@ -78,7 +80,7 @@ for (const W of weapons) {
       z[dir].push(p.z);
       // registration: the grip pixel is covered by the hand's layer (the fist closes over the hilt)
       const [gx, gy] = p.grip, ai = ((r * FRAME + gy) * hand.w + k * FRAME + gx) * 4;
-      qc.gripOnFist[`${W.slot} ${dir}:${k}`] = hand.px[ai + 3] === 255;
+      qc.gripOnFist[`${W.slot}/${W.item} ${dir}:${k}`] = hand.px[ai + 3] === 255;
       for (const [q, c] of m) {
         const [x, y] = unkey(q), X = x + ORIGIN[0], Y = y + ORIGIN[1];
         if (X < 0 || Y < 0 || X >= WF || Y >= WF) { qc.inFrame = false; continue; }
@@ -86,8 +88,9 @@ for (const W of weapons) {
       }
     }
   });
-  files[`${W.item}.png`] = encodePng(WF * F, WF * dirs.length, sheet);
-  out.push({ slot: W.slot, item: W.item, grip: W.gripKind, hand: W.layer || 'arms', file: `${W.item}.png`, status: W.status || spec.status, z,
+  const file = `${W.slot}-${W.item}.png`;
+  files[file] = encodePng(WF * F, WF * dirs.length, sheet);
+  out.push({ slot: W.slot, item: W.item, default: W.isDefault, grip: W.gripKind, hand: W.layer || 'arms', file, status: W.status || spec.status, z,
     grips: Object.fromEntries(dirs.map((d) => [d, Array.from({ length: F }, (_, k) => poseOf(W, d, k).grip)])) });
 }
 qc.pass = qc.inFrame && Object.values(qc.gripOnFist).every(Boolean);

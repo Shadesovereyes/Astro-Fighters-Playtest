@@ -1162,47 +1162,53 @@
       }
     }
   },
-  "weapon": {
-    "item": "katana",
-    "status": "candidate",
-    "rule": "per frame: grip = pixel at the centre of the near fist (body-frame coordinates; it follows the arm bob, 0, -1, 0, +1), angle = blade direction in degrees above the facing's horizontal, z = depth slot",
-    "depthRule": "front: drawn over body and clothing, under the arms layer (the fists close over the hilt); behind: drawn under the body",
-    "E": [
-      {
-        "grip": [
-          44,
-          33
-        ],
-        "angle": 40,
-        "z": "front"
+  "weapons": [
+    {
+      "slot": "main",
+      "layer": "arms",
+      "status": "candidate",
+      "rule": "per frame: grip = pixel at the centre of the near fist (body-frame coordinates; it follows the arm bob, 0, -1, 0, +1), angle = blade direction in degrees above the facing's horizontal, z = depth slot",
+      "depthRule": "front: drawn over body and clothing, under the arms layer (the fists close over the hilt); behind: drawn under the body",
+      "E": [
+        {
+          "grip": [
+            44,
+            33
+          ],
+          "angle": 40,
+          "z": "front"
+        },
+        {
+          "grip": [
+            44,
+            32
+          ],
+          "angle": 40,
+          "z": "front"
+        },
+        {
+          "grip": [
+            44,
+            33
+          ],
+          "angle": 40,
+          "z": "front"
+        },
+        {
+          "grip": [
+            44,
+            34
+          ],
+          "angle": 40,
+          "z": "front"
+        }
+      ],
+      "mirror": {
+        "W": "E"
       },
-      {
-        "grip": [
-          44,
-          32
-        ],
-        "angle": 40,
-        "z": "front"
-      },
-      {
-        "grip": [
-          44,
-          33
-        ],
-        "angle": 40,
-        "z": "front"
-      },
-      {
-        "grip": [
-          44,
-          34
-        ],
-        "angle": 40,
-        "z": "front"
-      }
-    ],
-    "mirror": {
-      "W": "E"
+      "items": [
+        "katana"
+      ]
     }
-  }
+  ]
 }
