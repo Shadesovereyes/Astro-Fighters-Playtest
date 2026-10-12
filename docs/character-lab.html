@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Astro Fighters — Character Lab</title>
+  <style>
+    :root { color-scheme: dark; }
+    html, body { margin: 0; background: #101214; color: #d8d2c4; font: 13px/1.45 system-ui, sans-serif; }
+    main { display: flex; flex-wrap: wrap; gap: 16px; padding: 16px; align-items: flex-start; }
+    #game canvas { display: block; image-rendering: pixelated; }
+    aside { min-width: 260px; max-width: 340px; }
+    h1 { font-size: 15px; margin: 0 0 8px; }
+    kbd { background: #23272b; border: 1px solid #3a4046; border-radius: 3px; padding: 0 4px; font-size: 12px; }
+    table { border-collapse: collapse; width: 100%; }
+    td { padding: 2px 6px 2px 0; vertical-align: top; }
+    #state td:first-child { color: #8f8a7e; }
+    .note { color: #8f8a7e; font-size: 12px; margin-top: 10px; }
+  </style>
+</head>
+<body>
+<main>
+  <div id="game"></div>
+  <aside>
+    <h1>Character lab (Phaser runtime)</h1>
+    <table>
+      <tr><td><kbd>WASD</kbd> / arrows</td><td>move (eight directions, four facings)</td></tr>
+      <tr><td><kbd>Shift</kbd></td><td>sprint</td></tr>
+      <tr><td><kbd>J</kbd></td><td>light attack (jab, cross)</td></tr>
+      <tr><td><kbd>K</kbd></td><td>heavy attack (kicks)</td></tr>
+      <tr><td><kbd>H</kbd></td><td>hitbox and collision overlay</td></tr>
+      <tr><td><kbd>1</kbd>–<kbd>4</kbd></td><td>outfit: base, Gi, blue armour, red armour</td></tr>
+      <tr><td><kbd>5</kbd> / <kbd>6</kbd></td><td>hair / eyes</td></tr>
+    </table>
+    <h1 style="margin-top:14px">State</h1>
+    <table id="state"></table>
+    <p class="note">Integration test scene for the male paper doll: every layer is a separate runtime sheet assembled by Phaser; the ground is a plain lab floor, not world art. Combos: J J, J J K, J K, K K K.</p>
+  </aside>
+</main>
+<script src="vendor/phaser-4.2.1.min.js"></script>
+<script src="js/character-lab.js"></script>
+</body>
+</html>

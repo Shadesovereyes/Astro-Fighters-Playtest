@@ -30,6 +30,8 @@ jobs:
           node --check tools/character-animate.mjs
           node --check tools/character-posed.mjs
           node --check tools/lib/png.mjs
+          node --check tools/export-character-runtime.mjs
+          node --check docs/js/character-lab.js
           node --check docs/js/art-review.js
           node --check docs/js/playtest-v4-patch.js
 
@@ -48,3 +50,6 @@ jobs:
           node tools/character-posed.mjs male lightAttack --check
           node tools/character-posed.mjs male spinPivot --check
           node tools/character-posed.mjs male heavyAttack --check
+
+      - name: Check the character runtime export is current
+        run: node tools/export-character-runtime.mjs male --check
