@@ -19,7 +19,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Taijutsu kick chain from the orthodox stance (lead/far left leg forward, rear/near right back), played as three clips, each started by its own heavy press; every clip starts and ends in the orthodox guard so kicks and punches can be woven (combo.json). Low kick (0-4): the rear leg lifts, then swings in low with the shin at knee height (a roundhouse-style low kick), recoils and returns to the rear. Snap kick (5-9): the rear knee lifts and chambers, the shin snaps out at stomach height with the ball of the foot, rechambers and returns. Spin roundhouse (10-15): the spin passes through the S, W and N pivot bodies on the lead foot, the rear leg lands a roundhouse at head height with a strong lean back, folds, and returns to the guard. The spin roundhouse is the combo finisher.",
+  "intent": "Taijutsu kick chain from the orthodox stance (lead/far left leg forward, rear/near right back), played as three clips, each started by its own heavy press; every clip starts and ends in the orthodox guard; allowed combos are in combo.json. Low kick (0-4): the rear leg lifts, then swings in low with the shin at knee height (a roundhouse-style low kick), recoils and returns to the rear. Snap kick (5-9): the rear knee lifts and chambers, the shin snaps out at stomach height with the ball of the foot, rechambers and returns. Spin roundhouse (10-15): the spin passes through the S, W and N pivot bodies on the lead foot, the rear leg lands a roundhouse at head height with a strong lean back, folds, and returns to the guard. The spin roundhouse is the combo finisher.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -2169,7 +2169,7 @@
     ]
   },
   "clips": {
-    "rule": "runtime playback: frames are sheet columns; each clip starts and ends in the orthodox guard; at the end of a clip the character returns to neutral (next) unless a press in the clip's chain window continues the combo (combo.json: light and heavy presses can be mixed)",
+    "rule": "runtime playback: frames are sheet columns; each clip starts and ends in the orthodox guard; at the end of a clip the character returns to neutral (next) unless a press in the clip's chain window continues the combo (combo.json lists the allowed combos)",
     "lowKick": {
       "frames": [
         0,

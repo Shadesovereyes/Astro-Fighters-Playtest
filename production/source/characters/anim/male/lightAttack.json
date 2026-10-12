@@ -914,7 +914,7 @@
     ]
   },
   "clips": {
-    "rule": "runtime playback: frames are sheet columns; each clip starts and ends in the orthodox guard; at the end of a clip the character returns to neutral (next) unless a press in the clip's chain window continues the combo (combo.json: light and heavy presses can be mixed)",
+    "rule": "runtime playback: frames are sheet columns; each clip starts and ends in the orthodox guard; at the end of a clip the character returns to neutral (next) unless a press in the clip's chain window continues the combo (combo.json lists the allowed combos)",
     "jab": {
       "frames": [
         0,

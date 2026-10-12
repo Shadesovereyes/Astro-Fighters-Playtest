@@ -1,57 +1,45 @@
 {
   "schema": "astro-fighters-character-combo/v1",
   "body": "male",
-  "status": "candidate; input mapping set by the user 2026-10-12",
+  "status": "candidate; input mapping and allowed combos set by the user 2026-10-12",
   "inputs": {
     "light": "light attack: one key/button for the punch combo (jab, cross)",
     "heavy": "heavy attack: a separate key/button for the kick combo (low kick, snap kick, spin roundhouse)"
   },
-  "sequences": {
-    "light": [
-      "lightAttack/jab",
-      "lightAttack/cross"
-    ],
-    "heavy": [
-      "heavyAttack/lowKick",
-      "heavyAttack/snapKick",
-      "heavyAttack/spinRoundhouse"
-    ]
-  },
   "rules": [
     "Light attack and heavy attack are two separate inputs, each bound to its own key/button.",
     "One press plays one clip; every step of a chain needs its own press, in rhythm (inside the playing clip's chain window, its last two frames).",
-    "Punch combo: light, light = jab, cross.",
-    "Kick combo: heavy, heavy, heavy = low kick, snap kick, spin roundhouse.",
-    "Jab, cross, roundhouse: light, light, heavy. A heavy press in the cross's chain window plays the spin roundhouse finisher (the low and snap kicks are skipped).",
-    "Other mixes follow the sequences: each input keeps its own position for the life of the combo (for example light, heavy = jab, low kick; heavy, light = low kick, jab).",
-    "A press whose sequence is used up does nothing. The spin roundhouse is the finisher and ends the combo.",
-    "A clip that finishes with no press in its window returns to neutral and ends the combo; both sequence positions reset.",
+    "Only these combos exist: light, light = jab, cross; light, light, heavy = jab, cross, spin roundhouse; light, heavy = jab, spin roundhouse; heavy, heavy, heavy = low kick, snap kick, spin roundhouse (and their opening steps: light = jab; heavy = low kick; heavy, heavy = low kick, snap kick).",
+    "A heavy press after a punch (in the jab's or the cross's chain window) plays the spin roundhouse finisher.",
+    "A light press after a kick does nothing: kicks never lead into punches. A light press after the cross does nothing.",
+    "The spin roundhouse is the finisher and ends the combo.",
+    "A clip that finishes with no valid press in its window returns to neutral and ends the combo.",
     "A press during a clip's active frame or later is buffered and taken at its chain window.",
-    "Every clip starts and ends in the orthodox guard, so any clip can follow any other without a transition frame."
+    "Every clip starts and ends in the orthodox guard, so any allowed clip can follow another without a transition frame."
   ],
   "finishers": [
     "heavyAttack/spinRoundhouse"
   ],
   "transitions": {
-    "rule": "explicit next clip for a press in each clip's chain window (null: the press does nothing); from neutral light plays jab and heavy plays lowKick",
+    "rule": "the next clip for a press in each clip's chain window (null: the press does nothing); this table is the complete set of allowed combos",
     "neutral": {
       "light": "lightAttack/jab",
       "heavy": "heavyAttack/lowKick"
     },
     "lightAttack/jab": {
       "light": "lightAttack/cross",
-      "heavy": "heavyAttack/lowKick (or the next unused kick)"
+      "heavy": "heavyAttack/spinRoundhouse"
     },
     "lightAttack/cross": {
       "light": null,
       "heavy": "heavyAttack/spinRoundhouse"
     },
     "heavyAttack/lowKick": {
-      "light": "lightAttack/jab (or the next unused punch)",
+      "light": null,
       "heavy": "heavyAttack/snapKick"
     },
     "heavyAttack/snapKick": {
-      "light": "lightAttack/jab (or the next unused punch)",
+      "light": null,
       "heavy": "heavyAttack/spinRoundhouse"
     },
     "heavyAttack/spinRoundhouse": {
@@ -64,14 +52,18 @@
       "light",
       "light"
     ],
-    "kick combo": [
-      "heavy",
-      "heavy",
-      "heavy"
-    ],
     "jab, cross, roundhouse": [
       "light",
       "light",
+      "heavy"
+    ],
+    "jab, roundhouse": [
+      "light",
+      "heavy"
+    ],
+    "kick combo": [
+      "heavy",
+      "heavy",
       "heavy"
     ]
   }
