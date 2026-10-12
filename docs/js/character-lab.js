@@ -34,12 +34,12 @@
       for (let y = 0; y < VIEW_H; y += 24) g.lineBetween(0, y + 0.5, VIEW_W, y + 0.5);
       g.setDepth(-10000);
 
-      // training post as a hit target (y-sorted with the player)
-      this.post = { x: 220, y: 110, w: 10, h: 54 };   // head height, so every hit band can land
-      // authored collision (independent of the post's drawing): a ground-plane box the player's foot point cannot enter
-      this.solids = [{ x: this.post.x - 11, y: this.post.y - 4, w: 22, h: 7 }];
-      this.postG = this.add.graphics();
-      this.drawPost(false);
+      // training posts as hit targets (y-sorted with the player); footprint radius r and body height h in ground pixels
+      this.posts = [[220, 110], [236, 132], [200, 78]].map(([x, y], i) => ({ id: i + 1, x, y, r: 4, w: 10, h: 54, flash: 0, g: this.add.graphics() }));
+      // authored collision (independent of the posts' drawing): ground-plane boxes the player's foot point cannot enter
+      this.solids = this.posts.map((p) => ({ x: p.x - 11, y: p.y - 4, w: 22, h: 7 }));
+      this.target = null;
+      this.posts.forEach((p) => this.drawPost(p));
 
       // paper doll: one sprite per slot, in draw order, inside a container placed at the pivot
       this.doll = this.add.container(120, 110);
@@ -63,7 +63,7 @@
       this.keys = kb.addKeys('W,A,S,D,UP,DOWN,LEFT,RIGHT,SHIFT');
       // discrete actions are queued from key events so a tap shorter than one frame is never lost
       this.pressQueue = [];
-      const onKey = { J: 'light', K: 'heavy', H: 'hitboxes', ONE: 'outfit0', TWO: 'outfit1', THREE: 'outfit2', FOUR: 'outfit3', FIVE: 'hair', SIX: 'eyes' };
+      const onKey = { J: 'light', K: 'heavy', H: 'hitboxes', T: 'target', ONE: 'outfit0', TWO: 'outfit1', THREE: 'outfit2', FOUR: 'outfit3', FIVE: 'hair', SIX: 'eyes' };
       for (const [key, action] of Object.entries(onKey)) kb.on(`keydown-${key}`, (e) => { if (!e.repeat) this.pressQueue.push(action); });
       // walk and sprint speeds come from the sheets' root motion so the planted foot stays planted
       this.speed = {};
@@ -75,14 +75,21 @@
       this.applyLayers();
     }
 
-    drawPost(hit) {
-      const p = this.post, g = this.postG;
+    drawPost(p) {
+      const g = p.g, hit = p.flash > 0;
       g.clear();
+      if (this.target === p) g.lineStyle(1, 0xf0d080, 1).strokeEllipse(p.x, p.y, 22, 7);
       g.fillStyle(0x1c1b18, 0.55).fillEllipse(p.x, p.y, 16, 4);
       g.fillStyle(hit ? 0xd9a441 : 0x7a5a3a, 1).fillRect(p.x - p.w / 2, p.y - p.h, p.w, p.h);
       g.fillStyle(hit ? 0xf0d080 : 0x8f6c47, 1).fillRect(p.x - p.w / 2, p.y - p.h, 3, p.h);
       g.lineStyle(1, 0x000000, 1).strokeRect(p.x - p.w / 2 + 0.5, p.y - p.h + 0.5, p.w - 1, p.h - 1);
       g.setDepth(p.y);
+    }
+
+    // T cycles the selected target through the posts and back to none
+    cycleTarget() {
+      const i = this.target ? this.posts.indexOf(this.target) + 1 : 0;
+      this.target = i < this.posts.length ? this.posts[i] : null;
     }
 
     // frame index in a state's sheet for the current facing row
@@ -142,6 +149,13 @@
       if (!this.blocked(this.pos.x, y)) this.pos.y = y;
     }
 
+    activeEvent() {
+      const s = this.state;
+      if (s.kind !== 'attack') return null;
+      return ((this.def.states[s.anim].events || {}).E || []).find((x) => x.frame === s.frame && x.hitbox) || null;
+    }
+
+    // on-screen debug box (the hit test itself is the ground arc)
     hitbox() {
       const s = this.state;
       if (s.kind !== 'attack') return null;
@@ -155,14 +169,30 @@
       return { x: Math.round(this.pos.x) - 32 + x, y: Math.round(this.pos.y) - 63 + y, w, h, move: e.move };
     }
 
+    // hit test (combo.json hitArea + targeting): an arc on the ground plane in front of the facing, radius 25,
+    // plus the move's height band from its E hitbox; one target per active frame: the selected target if inside,
+    // otherwise the closest target inside
+    inArc(p) {
+      const a = this.def.combo.hitArea, [fx, fy] = { S: [0, 1], E: [1, 0], N: [0, -1], W: [-1, 0] }[this.facing];
+      const dx = p.x - this.pos.x, dy = p.y - this.pos.y, d = Math.hypot(dx, dy);
+      if (d - p.r > a.radius) return null;
+      if (d > p.r) {
+        const ang = Math.acos(Phaser.Math.Clamp((dx * fx + dy * fy) / d, -1, 1)), tol = Math.asin(Math.min(1, p.r / d));
+        if (ang - tol > a.halfAngleDeg * Math.PI / 180) return null;
+      }
+      return Math.max(0, d - p.r);
+    }
+
     checkHit() {
-      const hb = this.hitbox(), p = this.post;
-      // screen-space overlap; side-on (E/W) hits also need the target on roughly the same ground line
-      // front/back (S/N) hits need the target on the facing side
-      const f = this.facing, sameLine = f === 'S' ? p.y >= this.pos.y : f === 'N' ? p.y <= this.pos.y : Math.abs(this.pos.y - p.y) <= 8;
-      const hit = hb && sameLine && hb.x < p.x + p.w / 2 && hb.x + hb.w > p.x - p.w / 2 && hb.y < p.y && hb.y + hb.h > p.y - p.h;
-      this.drawPost(!!hit);
-      if (hit) this.lastHit = hb.move;
+      const e = this.activeEvent();
+      if (!e) return;
+      const [, y, , h] = e.hitbox, band = [63 - (y + h), 63 - y];
+      const inside = this.posts.map((p) => ({ p, d: this.inArc(p) }))
+        .filter(({ p, d }) => d !== null && band[0] < p.h && band[1] > 0);
+      if (!inside.length) { this.lastHit = `${e.move} → miss`; return; }
+      const pick = inside.find(({ p }) => p === this.target) || inside.sort((a, b) => a.d - b.d)[0];
+      pick.p.flash = 0.25;
+      this.lastHit = `${e.move} → post ${pick.p.id}${pick.p === this.target ? ' (target)' : ''}`;
     }
 
     press(input) {
@@ -181,6 +211,7 @@
       for (const action of this.pressQueue.splice(0)) {
         if (action === 'light' || action === 'heavy') this.press(action);
         else if (action === 'hitboxes') this.showHits = !this.showHits;
+        else if (action === 'target') this.cycleTarget();
         else if (action === 'hair') this.hair = (this.hair + 1) % HAIRS.length;
         else if (action === 'eyes') this.eyes = (this.eyes + 1) % EYES.length;
         else this.outfit = OUTFIT_KEYS[Number(action.slice(6))];
@@ -223,16 +254,19 @@
         const st = this.state, sd = this.def.states[st.anim];
         st.t += dt;
         while (st.t >= 1 / sd.fps) { st.t -= 1 / sd.fps; st.frame = (st.frame + 1) % sd.frames; }
-        this.drawPost(false);
       }
+      for (const p of this.posts) { p.flash = Math.max(0, p.flash - dt); this.drawPost(p); }
 
       this.applyLayers();
       this.hitG.clear();
       if (this.showHits) {
         const hb = this.hitbox();
+        const a = this.def.combo.hitArea, face = { S: 90, E: 0, N: 270, W: 180 }[this.facing], R = Phaser.Math.DegToRad;
+        const live = !!this.activeEvent(), px = Math.round(this.pos.x), py = Math.round(this.pos.y);
+        this.hitG.fillStyle(0xffd040, live ? 0.45 : 0.12).slice(px, py, a.radius, R(face - a.halfAngleDeg), R(face + a.halfAngleDeg)).fillPath();
         for (const b of this.solids) this.hitG.lineStyle(1, 0x40c0ff, 1).strokeRect(b.x + 0.5, b.y + 0.5, b.w - 1, b.h - 1);
         this.hitG.lineStyle(1, 0xff4040, 1).strokeRect(Math.round(this.pos.x) - 32 + 0.5, Math.round(this.pos.y) - 63 + 0.5, 63, 63);
-        if (hb) this.hitG.fillStyle(0xffd040, 0.45).fillRect(hb.x, hb.y, hb.w, hb.h);
+        if (hb) this.hitG.lineStyle(1, 0xffd040, 0.8).strokeRect(hb.x + 0.5, hb.y + 0.5, hb.w - 1, hb.h - 1);
       }
       this.renderStatus();
     }
@@ -244,6 +278,7 @@
         ['outfit', this.outfit],
         ['buffered', this.buffered || '—'],
         ['guard timer', this.guardTimer.toFixed(1) + ' s'],
+        ['target', this.target ? `post ${this.target.id}` : 'none'],
         ['last hit', this.lastHit || '—']
       ];
       const html = rows.map(([a, b]) => `<tr><td>${a}</td><td>${b}</td></tr>`).join('');

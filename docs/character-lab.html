@@ -28,13 +28,14 @@
       <tr><td><kbd>Shift</kbd></td><td>sprint</td></tr>
       <tr><td><kbd>J</kbd></td><td>light attack (jab, cross)</td></tr>
       <tr><td><kbd>K</kbd></td><td>heavy attack (kicks)</td></tr>
-      <tr><td><kbd>H</kbd></td><td>hitbox and collision overlay</td></tr>
+      <tr><td><kbd>T</kbd></td><td>select target (cycles posts, then none)</td></tr>
+      <tr><td><kbd>H</kbd></td><td>hit arc, hitbox and collision overlay</td></tr>
       <tr><td><kbd>1</kbd>–<kbd>4</kbd></td><td>outfit: base, Gi, blue armour, red armour</td></tr>
       <tr><td><kbd>5</kbd> / <kbd>6</kbd></td><td>hair / eyes</td></tr>
     </table>
     <h1 style="margin-top:14px">State</h1>
     <table id="state"></table>
-    <p class="note">Integration test scene for the male paper doll: every layer is a separate runtime sheet assembled by Phaser; the ground is a plain lab floor, not world art. Combos: J J, J J K, J K, K K K.</p>
+    <p class="note">Integration test scene for the male paper doll: every layer is a separate runtime sheet assembled by Phaser; the ground is a plain lab floor, not world art. Combos: J J, J J K, J K, K K K. Hits: a 25 px arc in front of the facing (120°); damage goes to the selected target if it is inside, otherwise the closest post inside.</p>
   </aside>
 </main>
 <script src="vendor/phaser-4.2.1.min.js"></script>

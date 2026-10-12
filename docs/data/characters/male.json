@@ -1678,6 +1678,24 @@
       "Every clip starts and ends in the orthodox guard, so any allowed clip can follow another without a transition frame.",
       "After any attack the character holds the guard idle (hands up, slight bob) while in combat; with no attack for a few seconds it returns to the normal idle. A press from the guard idle starts a combo like a press from neutral."
     ],
+    "hitArea": {
+      "rule": "set by the user 2026-10-12: every attack's hit area is an arc on the ground plane in front of the character, so targets that are not exactly aligned still connect",
+      "shape": "arc (circular sector) centred on the facing direction (S, E, N, W), origin at the attacker's foot pivot [32, 63]",
+      "radius": 25,
+      "halfAngleDeg": 60,
+      "units": "ground pixels; the cabinet projection maps ground depth 1:1 to screen y, so the arc is a true circle on screen",
+      "targetContact": "a target is inside when its ground footprint (circle at its foot point) overlaps the arc",
+      "heightBand": "the active event's E hitbox gives the height band above the ground: from 63 - (y + h) to 63 - y px; the target's body must overlap it (a low kick misses what is above it); the authored S/N boxes are on-screen debug only",
+      "activeFrames": "the arc is live on each active event frame; each active frame hits at most one target"
+    },
+    "targeting": {
+      "rule": "set by the user 2026-10-12: damage goes to one target per active frame",
+      "order": [
+        "the player's selected target, if it is inside the hit area",
+        "otherwise the target inside the hit area closest to the player (ground distance from foot point to footprint edge)",
+        "otherwise nothing is hit"
+      ]
+    },
     "finishers": [
       "heavyAttack/spinRoundhouse"
     ],
