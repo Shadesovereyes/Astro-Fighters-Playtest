@@ -406,19 +406,25 @@ const bob = spec.bob.dy;
 // ---- frames -------------------------------------------------------------------------------------------
 const FAR_ARM_PX = [];   // positions where the posed far arm shows (for far-arm accessories)
 const report = { cleanupRemoved: [], cleanupMerged: [], frontalOutlineAdded: {}, frontalHoleFills: {} };
+// bob.head / bob.arms: optional per-frame dy for the head (with hair and eyes; it moves at the neck) and the arms (they
+// move at the shoulders), in place of the body bob; given as absolute dy like bob.dy
+const headDelta = (k) => (spec.bob.head ? spec.bob.head[k] - bob[k] : 0);
+const armDelta = (k) => (spec.bob.arms ? spec.bob.arms[k] - bob[k] : 0);
+for (const t of ['head', 'arms']) if (spec.bob[t] && spec.bob[t].length !== F) throw new Error(`bob.${t} needs ${F} entries`);
 function frame(k) {
-  const b = bob[k];
+  const b = bob[k], HD = headDelta(k), AD = armDelta(k);
   const bodyL = new Map(), armsL = new Map();
   const far = legPoses[L.far[k]], near = legPoses[L.near[k]];
   const T = leanOf('torso', k, AR.shoulder);
   const shifted = (m) => new Map([...m].map(([p, c]) => { const [x, y] = unkey(p); return [key(x + T, y + DROP), c]; }));
-  const rest = new Map([...bodyRest].sort(([p], [q]) => (restGroup.get(p) === 'head') - (restGroup.get(q) === 'head')).flatMap(([p, c]) => { const [x, y] = unkey(p), g = restGroup.get(p), ny = leanY(g, y); return ny === null ? [] : [[key(x + leanOf(g, k, y), ny), c]]; }));
+  const rest = new Map([...bodyRest].sort(([p], [q]) => (restGroup.get(p) === 'head') - (restGroup.get(q) === 'head')).flatMap(([p, c]) => { const [x, y] = unkey(p), g = restGroup.get(p), ny = leanY(g, y); return ny === null ? [] : [[key(x + leanOf(g, k, y), ny + (g === 'head' ? HD : 0)), c]]; }));
   // where the lean slides one block past the next (torso over pelvis, head over neck), an edge that was covered in the
   // reference is now open and gets outline
   if (LEAN) for (const [p, c] of bodyRest) {
     if (c === '#' || c === 'o') continue;
-    const [x, y] = unkey(p), g = restGroup.get(p), lx = x + leanOf(g, k, y), ly = leanY(g, y);
-    if (ly === null) continue;
+    const [x, y] = unkey(p), g = restGroup.get(p), lx = x + leanOf(g, k, y), ly0 = leanY(g, y);
+    if (ly0 === null) continue;
+    const ly = ly0 + (g === 'head' ? HD : 0);
     for (const [dx, dy] of N4) {
       const q = key(lx + dx, ly + dy);
       if (bodyRest.has(key(x + dx, y + dy)) && !rest.has(q)) rest.set(q, 'o');
@@ -428,14 +434,14 @@ function frame(k) {
   const na = closeArm(shifted(buildArm(A.near[k])), (x, y, q) => y < AR.shoulder + DROP || (A.near[k].construction !== 'band' && rest.has(q)));
   const fa = closeArm(shifted(buildArm(A.far[k])), (x, y) => y < AR.shoulder + DROP);
   for (const [p, c] of far) bodyL.set(p, colourOf(farShade[c]));
-  for (const [p, c] of fa) { const [x, y] = unkey(p); bodyL.set(key(x, y + b), colourOf(farShade[c])); }
+  for (const [p, c] of fa) { const [x, y] = unkey(p); bodyL.set(key(x, y + b + AD), colourOf(farShade[c])); }
   const farKeys = new Set(bodyL.keys());
   for (const [p, c] of near) bodyL.set(p, colourOf(c));
   for (const [p, c] of rest) { const [x, y] = unkey(p); bodyL.set(key(x, y + b), colourOf(c)); }
-  for (const [p, c] of na) { const [x, y] = unkey(p); armsL.set(key(x, y + b), colourOf(c)); }
-  const nearPos = new Set([...near.keys(), ...[...rest.keys(), ...na.keys()].map((p) => { const [x, y] = unkey(p); return key(x, y + b); })]);
+  for (const [p, c] of na) { const [x, y] = unkey(p); armsL.set(key(x, y + b + AD), colourOf(c)); }
+  const nearPos = new Set([...near.keys(), ...[...rest.keys()].map((p) => { const [x, y] = unkey(p); return key(x, y + b); }), ...[...na.keys()].map((p) => { const [x, y] = unkey(p); return key(x, y + b + AD); })]);
   const farPx = new Set([...farKeys].filter((p) => !nearPos.has(p)));
-  FAR_ARM_PX[k] = new Set([...fa.keys()].map((p) => { const [x, y] = unkey(p); return key(x, y + b); }).filter((p) => farPx.has(p)));
+  FAR_ARM_PX[k] = new Set([...fa.keys()].map((p) => { const [x, y] = unkey(p); return key(x, y + b + AD); }).filter((p) => farPx.has(p)));
   const comp = () => { const m = new Map(bodyL); for (const [p, c] of armsL) m.set(p, c); return m; };
   let img = comp();
   // closeOpenEdges: a body edge the reference left covered (the back of the shorts over a raised rear leg) gets outline
@@ -482,7 +488,8 @@ function frame(k) {
   report.cleanupRemoved.push(removed.length); report.cleanupMerged.push(merged.length);
   for (const layer of [bodyL, armsL]) for (const [p, c] of layer) if (c === GEN) layer.set(p, BLACK);
   // overlays follow the head; lagging falls never sit higher than the part above them
-  const cap = b, up = Math.min(bob[(k - 1 + F) % F], cap), lo = Math.min(bob[(k - 2 + F) % F], up), dyOf = [cap, up, lo];
+  const hb = (kk) => bob[kk] + headDelta(kk);
+  const cap = hb(k), up = Math.min(hb((k - 1 + F) % F), cap), lo = Math.min(hb((k - 2 + F) % F), up), dyOf = [cap, up, lo];
   const ov = {};
   for (const l of overlayLayers) {
     const m = new Map();
@@ -672,7 +679,7 @@ function frontalMove(d, k, part, y, x) {
     rows = rowMap(y, b, h < 0 ? d.armRows[s].slice(0, -h) : [], h > 0 ? d.armRepeatRows[s].slice(0, h) : []);
     if (d.handDx) dx = shear(y, d.armPivot, d.handFrom[s], d.handDx[s][k]);
     z = s === far ? -1 : 4;
-    rows = rows.map((r) => r + DROP);   // the lean's shortened torso lowers the shoulders
+    rows = rows.map((r) => r + DROP + armDelta(k));   // the lean's shortened torso lowers the shoulders
     // armVisibleTo: arms swept behind the body show only down to this reference row (shoulder and upper arm)
     if (d.armBand?.[s]) rows = [];   // drawn as an authored band arm instead (frontalFrame)
     const vis = typeof d.armVisibleTo === 'object' ? d.armVisibleTo?.[s] : d.armVisibleTo;
@@ -680,7 +687,7 @@ function frontalMove(d, k, part, y, x) {
   } else if (part === 'head' || overlays.overlayParts?.[part]?.lagFrames !== undefined) {
     // a view may lower the head further (headDy) and draw it in front of the torso (headZ above 3) or behind it
     const g = leanGroup(part);
-    rows = [leanY(g, y) + dyOf[lagOf(part)] + (g === 'head' ? d.headDy || 0 : 0)];
+    rows = [leanY(g, y) + dyOf[lagOf(part)] + (g === 'head' ? (d.headDy || 0) + headDelta(k) : 0)];
     if (g === 'head' && d.headZ !== undefined) z = d.headZ;
   }
   else if (part === 'torso') { const ny = leanY('torso', y); rows = ny === null ? [] : [ny + b]; }
@@ -730,7 +737,7 @@ function frontalBand(d, k, sd, dir) {
   const sc = at(ab.scale) ?? 1, r = (v) => Math.round(v * sc), B0 = A.band, el = at(ab.elbow);
   const lx = (d.leanScale ? roundHalfEven(d.leanScale * leanOf('torso', k, AR.shoulder)) * (d.leanSign || 1) : 0)
     + twistOf(d, k, 'torso', AR.shoulder) + (at(ab.pivotDx) || 0) + rotateArmDx(d, k, sd);
-  const dy = bobOf(d, k) + (d.crouch || 0) + DROP + (d.variants?.[k] ? variantShear(d, k, ab.pivot[0], AR.shoulder, 'torso') : 0);
+  const dy = bobOf(d, k) + armDelta(k) + (d.crouch || 0) + DROP + (d.variants?.[k] ? variantShear(d, k, ab.pivot[0], AR.shoulder, 'torso') : 0);
   const pb = { angle: at(ab.angle), band: { pivot: ab.pivot, start: B0.start, length: r(B0.length + B0.start) - B0.start,
     wrapFrom: r(B0.wrapFrom), handFrom: r(B0.handFrom) }, ...(el ? { elbow: { ...el, at: r(el.at) } } : {}), fistKind: at(ab.fist) };
   const { uv } = bandGeom(pb), pixels = new Map(), ref = new Map(), across = new Map(), zs = new Map(), span = dir ? refArmSpan(dir, sd) : {}, T = B0.thickness;
@@ -812,7 +819,7 @@ function frontalFrame(dir, k) {
       const olv = d.armBand[sd]?.outline, ol = (Array.isArray(olv) ? olv[k] : olv) ?? true;
       if (ol) {
         const pv = d.armBand[sd].pivot, px0 = pv[0] + twistOf(d, k, 'torso', AR.shoulder) + (Array.isArray(d.armBand[sd].pivotDx) ? d.armBand[sd].pivotDx[k] : 0) + rotateArmDx(d, k, sd);
-        const py0 = pv[1] + bobOf(d, k) + (d.crouch || 0) + DROP + (d.variants?.[k] ? variantShear(d, k, pv[0], AR.shoulder, 'torso') : 0);
+        const py0 = pv[1] + bobOf(d, k) + armDelta(k) + (d.crouch || 0) + DROP + (d.variants?.[k] ? variantShear(d, k, pv[0], AR.shoulder, 'torso') : 0);
         for (const q of fb.pixels.keys()) {
           if (!mine(q)) continue;
           const [x, y] = unkey(q);
@@ -1025,8 +1032,8 @@ function posedClothing(l, px, k) {
     for (const q of bandArm(ap).keys()) {
       const [x, y] = unkey(q), [rx, ry] = ref(x, y), hit = armAt.get(key(rx, ry));
       if (!hit || !nearSide.arm.includes(hit.part)) continue;
-      if (which === 'near') items.push([z, x + T, y + DROP + b, hit.c, hit.src]);
-      else items.push([z, x + T, y + DROP + b, l.shade[hit.c] ?? hit.c, null, 'farArm']);
+      if (which === 'near') items.push([z, x + T, y + DROP + b + armDelta(k), hit.c, hit.src]);
+      else items.push([z, x + T, y + DROP + b + armDelta(k), l.shade[hit.c] ?? hit.c, null, 'farArm']);
     }
   }
   for (const p of px) {
@@ -1035,10 +1042,10 @@ function posedClothing(l, px, k) {
       const near = nearSide.arm.includes(p.part), nr = armRow(A.near[k])(p.y), fr = armRow(A.far[k])(p.y);
       const ny = near ? nr : fr;
       const bandNear = A.near[k].construction === 'band', bandFar = A.far[k].construction === 'band';
-      if (ny !== null && !(near ? bandNear : bandFar)) items.push([near ? 4 : -1, p.x + (near ? nearArm : farArm)(p.y), ny + DROP + b, p.c, p.src]);
+      if (ny !== null && !(near ? bandNear : bandFar)) items.push([near ? 4 : -1, p.x + (near ? nearArm : farArm)(p.y), ny + DROP + b + armDelta(k), p.c, p.src]);
       // the far arm is hidden in the profile reference, so its pieces are the near ones on the far arm, shaded
       // darker and kept only where the far arm itself shows
-      if (near && fr !== null && !bandFar) items.push([-1, p.x + farArm(p.y), fr + DROP + b, l.shade[p.c] ?? p.c, null, 'farArm']);
+      if (near && fr !== null && !bandFar) items.push([-1, p.x + farArm(p.y), fr + DROP + b + armDelta(k), l.shade[p.c] ?? p.c, null, 'farArm']);
       continue;
     }
     let c = p.c;
