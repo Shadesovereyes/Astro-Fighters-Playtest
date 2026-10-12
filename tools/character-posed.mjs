@@ -195,7 +195,7 @@ function kickLeg(p, out) {
   }));
   closeLeg(out, true);
   pinchFill(out);
-  out.limb = { th, sh, kx, ky, wrapLen, seg };
+  out.limb = { th, sh, kx, ky, wrapLen, seg, section: p.section };
   return out;
 }
 const legPoses = L.poses.map(buildLeg);
@@ -971,7 +971,7 @@ function legGarment(l, items, byRow, isFar, z, pose, legMap) {
 // margins (back/front), shaded across the limb back to front like a profile trouser row, ending in a hem line one
 // pixel before the wrap; the wrap/boot shaft and the shoe take the leg's own wrap and foot pixels.
 function kickGarment(l, items, isFar, z, legMap, col) {
-  const T = l.trouser, Wp = l.wrap, { th, sh, kx, ky, wrapLen, seg } = legMap.limb, hemU = sh.len - wrapLen - 1;
+  const T = l.trouser, Wp = l.wrap, { th, sh, kx, ky, wrapLen, seg, section } = legMap.limb, hemU = sh.len - wrapLen - 1;
   // the trouser's back margin tapers from the reference margin at the hip to 1 px at the knee, so a raised or folded
   // thigh is not a block
   const across = (v, half, front, back = T.back) => {
@@ -987,7 +987,8 @@ function kickGarment(l, items, isFar, z, legMap, col) {
     if (sg === 'foot') { const c = legMap.get(q); items.push([z, x, y, col(c === '#' || c === 'o' ? l.outline : l.shoe), null]); continue; }
     const [tu, tv] = th.uv(x, y), [su, sv] = sh.uv(x, y);
     let c = null;
-    const taper = Math.max(1, roundHalfEven(T.back - (T.back - 1) * Math.max(0, Math.min(1, tu / th.len))));
+    // front/back-view legs (section) keep a 1 px margin all along, so a lifted thigh meets the shorts without a step
+    const taper = section ? 1 : Math.max(1, roundHalfEven(T.back - (T.back - 1) * Math.max(0, Math.min(1, tu / th.len))));
     if (tu >= -1 && tu <= th.len) c = across(tv, 2.5, 1.5 + T.front, taper);
     if (!c && su >= 0 && su <= hemU) c = su > hemU - 1 ? (across(sv, 2, 1 + T.front) && 'a') : across(sv, 2, 1 + T.front);
     if (!c && Math.hypot(x + 0.5 - kx, y + 0.5 - ky) <= 3.5) c = 'c';
