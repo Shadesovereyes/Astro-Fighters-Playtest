@@ -2869,7 +2869,61 @@
             "L": 0
           }
         },
-        "kickRule": "S kicks are cheated out to the kicking leg's side so the extended leg clears the silhouette: the snap kick (rear leg) drives steeply down-left, about 40 degrees, knee slightly bent at contact; the side kick (lead leg) is high and straight at hip height with a strong lean away; the chamber lifts the knee to hip height; the roundhouse knee stays inside the body and the shin extends past the far side; the guard opens on the roundhouse"
+        "kickRule": "S kicks are cheated out to the kicking leg's side so the extended leg clears the silhouette: the snap kick (rear leg) drives steeply down-left, about 40 degrees, knee slightly bent at contact; the side kick (lead leg) is high and straight at hip height with a strong lean away; the chamber lifts the knee to hip height; the roundhouse knee stays inside the body and the shin extends past the far side; the guard opens on the roundhouse",
+        "variants": {
+          "1": [
+            "S-hikeR1",
+            "bend1"
+          ],
+          "2": [
+            "S-hikeR",
+            "bend2",
+            "S-turnR",
+            "S-kneeL"
+          ],
+          "3": [
+            "S-hikeR",
+            "bend2",
+            "S-turnR",
+            "S-kneeL"
+          ],
+          "4": [
+            "S-hikeR",
+            "bend2",
+            "S-turnR",
+            "S-kneeL"
+          ],
+          "13": [
+            "S-hikeR",
+            "bend2",
+            "S-turnR",
+            "S-kneeL"
+          ],
+          "14": [
+            "S-hikeR",
+            "bend2",
+            "S-turnR",
+            "S-kneeL"
+          ],
+          "6": [
+            "S-hikeL",
+            "bend2",
+            "S-turnL",
+            "S-kneeR"
+          ],
+          "7": [
+            "S-hikeL",
+            "bend2",
+            "S-turnL",
+            "S-kneeR"
+          ],
+          "8": [
+            "S-hikeL",
+            "bend2",
+            "S-turnL",
+            "S-kneeR"
+          ]
+        }
       },
       "N": {
         "legPose": {
@@ -3411,7 +3465,220 @@
             "L": 0
           }
         },
-        "kickRule": "N kicks are cheated up and out to the kicking leg's side: the snap kick (rear leg) is compact and steep, up-right about 55 degrees; the side kick (lead leg) is straight and level, out left; the roundhouse is high and long, up-right about 30 degrees with the hips turned; the body leans away from each kick and the arms open on the roundhouse"
+        "kickRule": "N kicks are cheated up and out to the kicking leg's side: the snap kick (rear leg) is compact and steep, up-right about 55 degrees; the side kick (lead leg) is straight and level, out left; the roundhouse is high and long, up-right about 30 degrees with the hips turned; the body leans away from each kick and the arms open on the roundhouse",
+        "variants": {
+          "1": [
+            "N-hikeR1",
+            "bend1"
+          ],
+          "2": [
+            "N-hikeR",
+            "bend2",
+            "N-turnR",
+            "N-kneeL"
+          ],
+          "3": [
+            "N-hikeR",
+            "bend2",
+            "N-turnR",
+            "N-kneeL"
+          ],
+          "4": [
+            "N-hikeR",
+            "bend2",
+            "N-turnR",
+            "N-kneeL"
+          ],
+          "13": [
+            "N-hikeR",
+            "bend2",
+            "N-turnR",
+            "N-kneeL"
+          ],
+          "14": [
+            "N-hikeR",
+            "bend2",
+            "N-turnR",
+            "N-kneeL"
+          ],
+          "6": [
+            "N-hikeL",
+            "bend2",
+            "N-turnL",
+            "N-kneeR"
+          ],
+          "7": [
+            "N-hikeL",
+            "bend2",
+            "N-turnL",
+            "N-kneeR"
+          ],
+          "8": [
+            "N-hikeL",
+            "bend2",
+            "N-turnL",
+            "N-kneeR"
+          ]
+        }
+      }
+    },
+    "partVariants": {
+      "rule": "named part variants for the S/N kick frames (whole-pixel only, from the reference parts): bob = the standing leg bends (drops that many bob rows) and the body sits lower; hike = the pelvis raised on the kicking side (column shear over span); tilt = the torso leaning away (column shear growing to the shoulders; head and shoulders follow); turn = the hips turned (the shorts lose the column at col on that side); knee = the bent standing leg's knee out sideways (rows hip, knee, ankle)",
+      "bend1": {
+        "bob": 1
+      },
+      "bend2": {
+        "bob": 2
+      },
+      "S-hikeR1": {
+        "span": [
+          25,
+          37
+        ],
+        "headX": 31,
+        "hike": [
+          -1,
+          0
+        ]
+      },
+      "S-hikeR": {
+        "span": [
+          25,
+          37
+        ],
+        "headX": 31,
+        "hike": [
+          -2,
+          0
+        ],
+        "tilt": [
+          0,
+          1
+        ]
+      },
+      "S-hikeL": {
+        "span": [
+          25,
+          37
+        ],
+        "headX": 31,
+        "hike": [
+          0,
+          -2
+        ],
+        "tilt": [
+          1,
+          0
+        ]
+      },
+      "S-turnR": {
+        "turn": {
+          "side": "right",
+          "col": 36
+        }
+      },
+      "S-turnL": {
+        "turn": {
+          "side": "left",
+          "col": 26
+        }
+      },
+      "N-hikeR1": {
+        "span": [
+          25,
+          37
+        ],
+        "headX": 31,
+        "hike": [
+          0,
+          -1
+        ]
+      },
+      "N-hikeR": {
+        "span": [
+          25,
+          37
+        ],
+        "headX": 31,
+        "hike": [
+          0,
+          -2
+        ],
+        "tilt": [
+          1,
+          0
+        ]
+      },
+      "N-hikeL": {
+        "span": [
+          25,
+          37
+        ],
+        "headX": 31,
+        "hike": [
+          -2,
+          0
+        ],
+        "tilt": [
+          0,
+          1
+        ]
+      },
+      "N-turnR": {
+        "turn": {
+          "side": "left",
+          "col": 26
+        }
+      },
+      "N-turnL": {
+        "turn": {
+          "side": "right",
+          "col": 36
+        }
+      },
+      "S-kneeL": {
+        "knee": {
+          "side": "L",
+          "dx": 1,
+          "rows": [
+            41,
+            48,
+            58
+          ]
+        }
+      },
+      "S-kneeR": {
+        "knee": {
+          "side": "R",
+          "dx": -1,
+          "rows": [
+            41,
+            48,
+            58
+          ]
+        }
+      },
+      "N-kneeL": {
+        "knee": {
+          "side": "L",
+          "dx": -1,
+          "rows": [
+            41,
+            48,
+            58
+          ]
+        }
+      },
+      "N-kneeR": {
+        "knee": {
+          "side": "R",
+          "dx": 1,
+          "rows": [
+            41,
+            48,
+            58
+          ]
+        }
       }
     }
   }

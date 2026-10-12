@@ -558,8 +558,11 @@ function frontalLegs(d, k) {
   return ['R', 'L'].filter((side) => bandSide(d, side, k)).map((side) => {
     const named = LB.pose?.[side]?.[k];
     if (named) {
-      const pose = L.poses.find((p) => p.name === named);
-      if (!pose) throw new Error(`legBand pose ${named} not in legs.poses`);
+      const p0 = L.poses.find((p) => p.name === named);
+      if (!p0) throw new Error(`legBand pose ${named} not in legs.poses`);
+      // a view bob (bent standing leg) lowers the kicking leg with the body, and a hip hike raises it with its hip
+      const bd = bobOf(d, k) - bob[k] + (d.variants?.[k] ? variantShear(d, k, p0.hipX, p0.hipRow, 'pelvis') : 0);
+      const pose = bd ? { ...p0, hipRow: p0.hipRow + bd, kneeRow: p0.kneeRow + bd, ankle: [p0.ankle[0], p0.ankle[1] + bd] } : p0;
       const ck = JSON.stringify(pose);
       if (!bandLegCache.has(ck)) bandLegCache.set(ck, buildLeg(pose));
       return { side, isFar: side === far, z: LB.z?.[side]?.[k] ?? 2, pose, legMap: bandLegCache.get(ck) };
@@ -581,10 +584,42 @@ function twistOf(d, k, g, y) {
   const lo = R.torsoMaxRow + 1, hi = AR.shoulder, yy = Math.max(hi, Math.min(lo, y));
   return roundHalfEven(T.pelvis[k] + (T.shoulders[k] - T.pelvis[k]) * (lo - yy) / (lo - hi));
 }
-function frontalMove(d, k, part, y) {
+// Part variants of a frontal view, per frame (frontal.partVariants, named and reused; the view lists them per frame):
+//   bob     a per-frame bob for this view (the planted leg bends: it drops that many bob rows, the body sits lower)
+//   hike    pelvis raised on one side: a whole-pixel column shear, dy at the left and right ends of span (the torso,
+//           head and shoulders above ride on it)
+//   tilt    torso tilt: a further column shear growing from 0 at the trunk top to full at the shoulder row (head and
+//           shoulders follow at their own column)
+//   turn    hips turned: the shorts lose one column on that side (the column at 'col' is dropped, the outer ones move in)
+//   knee    the bent standing leg's knee moves dx sideways (rows: hip, knee, ankle; full at the knee)
+const variantsOf = (d, k) => (d.variants?.[k] || []).map((n) => { const v = FR.partVariants?.[n]; if (!v) throw new Error(`part variant ${n} not defined`); return v; });
+const bobOf = (d, k) => { const v = variantsOf(d, k).find((x) => x.bob !== undefined); return v ? v.bob : bob[k]; };
+function variantShear(d, k, x, y, group) {
+  let dy = 0;
+  const lerp = (span, ends, xx) => { const t = Math.max(0, Math.min(1, (xx - span[0]) / (span[1] - span[0]))); return ends[0] + (ends[1] - ends[0]) * t; };
+  for (const v of variantsOf(d, k)) {
+    if (v.hike && group !== 'leg') dy += lerp(v.span, v.hike, group === 'head' ? v.headX : x);
+    if (v.tilt && (group === 'torso' || group === 'head')) {
+      const f = group === 'head' ? 1 : Math.max(0, Math.min(1, (R.torsoMaxRow + 1 - y) / (R.torsoMaxRow + 1 - AR.shoulder)));
+      dy += lerp(v.span, v.tilt, group === 'head' ? v.headX : x) * f;
+    }
+  }
+  return roundHalfEven(dy);
+}
+function variantTurn(d, k, x, part) {
+  if (part !== 'pelvis' && part !== 'sash') return 0;
+  for (const v of variantsOf(d, k)) if (v.turn) {
+    const c = v.turn.col;
+    if (x === c) return null;                              // the dropped column
+    if (v.turn.side === 'left' && x < c) return 1;         // outer columns move in
+    if (v.turn.side === 'right' && x > c) return -1;
+  }
+  return 0;
+}
+function frontalMove(d, k, part, y, x) {
   // crouch: a view's whole figure sits lower by d.crouch rows (every leg drops that many more bob rows)
-  const b = bob[k] + (d.crouch || 0), lift = d.legLift || FR.legLift, far = d.far, limb = LIMB[part];
-  const c0 = d.crouch || 0, cap = b, up = Math.min(bob[(k - 1 + F) % F] + c0, cap), lo = Math.min(bob[(k - 2 + F) % F] + c0, up), dyOf = [cap, up, lo];
+  const b = bobOf(d, k) + (d.crouch || 0), lift = d.legLift || FR.legLift, far = d.far, limb = LIMB[part];
+  const c0 = d.crouch || 0, cap = b, up = Math.min(bobOf(d, (k - 1 + F) % F) + c0, cap), lo = Math.min(bobOf(d, (k - 2 + F) % F) + c0, up), dyOf = [cap, up, lo];
   let rows, dx = 0, z = 3;
   if (limb?.[0] === 'leg') {
     const s = limb[1], n = lift[s][k] + b;
@@ -603,6 +638,12 @@ function frontalMove(d, k, part, y) {
       if (d.footDx) { const hd = d.hipDx[s][k]; dx += hd + shear(y, d.legPivot, d.footFrom[s], d.footDx[s][k] - hd); }
     } else rows = rowMap(y, b, n > 0 ? d.legRows[s].slice(0, n) : [], n < 0 ? d.legRepeatRows[s].slice(0, -n) : []);
     if (d.footDx) { const hd = d.hipDx[s][k]; dx = hd + shear(y, d.legPivot, d.footFrom[s], d.footDx[s][k] - hd); }
+    // knee variant: the bent standing leg's knee comes out sideways, growing from the hip row to the knee row and
+    // back to nothing at the ankle (whole pixels)
+    for (const v of variantsOf(d, k)) if (v.knee?.side === s) {
+      const [h0, kn, a0] = v.knee.rows, t = y <= h0 || y >= a0 ? 0 : y <= kn ? (y - h0) / (kn - h0) : (a0 - y) / (a0 - kn);
+      dx += roundHalfEven(v.knee.dx * t);
+    }
     z = s === far ? 0 : 2;
   } else if (limb?.[0] === 'arm') {
     const s = limb[1], h = d.handDy[s][k];
@@ -629,6 +670,14 @@ function frontalMove(d, k, part, y) {
   if (d.leanScale && limb?.[0] !== 'leg') {
     const g = limb?.[0] === 'arm' ? 'torso' : leanGroup(part, y), ly = limb?.[0] === 'arm' ? AR.shoulder : y;
     if (g) dx += roundHalfEven(d.leanScale * leanOf(g, k, ly)) * (d.leanSign || 1);
+  }
+  if (d.variants?.[k] && x !== undefined && limb?.[0] !== 'leg') {
+    const group = part === 'torso' ? 'torso' : part === 'pelvis' || part === 'sash' ? 'pelvis' : (part === 'head' || overlays.overlayParts?.[part]?.lagFrames !== undefined) ? 'head' : null;
+    if (group) {
+      const sh = variantShear(d, k, x, y, group), tn = variantTurn(d, k, x, part);
+      rows = tn === null ? [] : rows.map((r) => r + sh);
+      if (tn) dx += tn;
+    }
   }
   return { rows, dx, z };
 }
@@ -658,7 +707,7 @@ function frontalBand(d, k, sd, dir) {
   const sc = at(ab.scale) ?? 1, r = (v) => Math.round(v * sc), B0 = A.band, el = at(ab.elbow);
   const lx = (d.leanScale ? roundHalfEven(d.leanScale * leanOf('torso', k, AR.shoulder)) * (d.leanSign || 1) : 0)
     + twistOf(d, k, 'torso', AR.shoulder) + (at(ab.pivotDx) || 0);
-  const dy = bob[k] + (d.crouch || 0) + DROP;
+  const dy = bobOf(d, k) + (d.crouch || 0) + DROP + (d.variants?.[k] ? variantShear(d, k, ab.pivot[0], AR.shoulder, 'torso') : 0);
   const pb = { angle: at(ab.angle), band: { pivot: ab.pivot, start: B0.start, length: r(B0.length + B0.start) - B0.start,
     wrapFrom: r(B0.wrapFrom), handFrom: r(B0.handFrom) }, ...(el ? { elbow: { ...el, at: r(el.at) } } : {}), fistKind: at(ab.fist) };
   const { uv } = bandGeom(pb), pixels = new Map(), ref = new Map(), across = new Map(), zs = new Map(), span = dir ? refArmSpan(dir, sd) : {}, T = B0.thickness;
@@ -714,7 +763,7 @@ function frontalFrame(dir, k) {
       if (!opaque(img, fx + x, y)) continue;
       const part = partNear(map, fx, x, y);
       if (!part) throw new Error(`${name} ${dir}: pixel ${x},${y} has no rig part`);
-      const { rows, dx, z } = frontalMove(d, k, part, y);
+      const { rows, dx, z } = frontalMove(d, k, part, y, x);
       for (const ny of rows) for (const wx of widenXs(d, dir, part, x, y)) items.push([z, wx + dx, ny, hexAt(img, fx + x, y), key(x, y)]);
     }
     // armBand: a raised arm seen at an angle is drawn as the authored band arm (constant thickness, authored fist)
@@ -737,7 +786,7 @@ function frontalFrame(dir, k) {
       const olv = d.armBand[sd]?.outline, ol = (Array.isArray(olv) ? olv[k] : olv) ?? true;
       if (ol) {
         const pv = d.armBand[sd].pivot, px0 = pv[0] + twistOf(d, k, 'torso', AR.shoulder) + (Array.isArray(d.armBand[sd].pivotDx) ? d.armBand[sd].pivotDx[k] : 0);
-        const py0 = pv[1] + bob[k] + (d.crouch || 0) + DROP;
+        const py0 = pv[1] + bobOf(d, k) + (d.crouch || 0) + DROP + (d.variants?.[k] ? variantShear(d, k, pv[0], AR.shoulder, 'torso') : 0);
         for (const q of fb.pixels.keys()) {
           if (!mine(q)) continue;
           const [x, y] = unkey(q);
@@ -1004,7 +1053,7 @@ function frontalClothing(l, geom, px, k) {
   }
   for (const p of px) {
     const part = p.part === 'sash' && isBand(p, l) ? 'pelvis' : p.part;
-    const { rows, dx, z } = frontalMove(d, k, part, p.y);
+    const { rows, dx, z } = frontalMove(d, k, part, p.y, p.x);
     for (const ny of rows) {
       for (const wx of widenXs(d, geom, part, p.x, p.y)) items.push([p.part === 'sash' ? 3 : z, wx + dx + sway(p), ny, p.c, p.src]);
       // cloth behind a swinging flap: shows only where the flap swings off the body
