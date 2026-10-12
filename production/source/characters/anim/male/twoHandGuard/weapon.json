@@ -1,10 +1,7 @@
 {
-  "schema": "astro-fighters-character-weapon-output/v1",
+  "schema": "astro-fighters-character-weapon-output/v2",
   "body": "male",
   "state": "twoHandGuard",
-  "item": "katana",
-  "status": "candidate",
-  "file": "katana.png",
   "frameSize": [
     128,
     128
@@ -23,68 +20,77 @@
   ],
   "frames": 4,
   "depthRule": "front: drawn over body and clothing, under the arms layer (the fists close over the hilt); behind: drawn under the body",
-  "z": {
-    "E": [
-      "front",
-      "front",
-      "front",
-      "front"
-    ],
-    "W": [
-      "front",
-      "front",
-      "front",
-      "front"
-    ]
-  },
-  "grips": {
-    "E": [
-      [
-        44,
-        33
-      ],
-      [
-        44,
-        32
-      ],
-      [
-        44,
-        33
-      ],
-      [
-        44,
-        34
-      ]
-    ],
-    "W": [
-      [
-        19,
-        33
-      ],
-      [
-        19,
-        32
-      ],
-      [
-        19,
-        33
-      ],
-      [
-        19,
-        34
-      ]
-    ]
-  },
+  "weapons": [
+    {
+      "slot": "main",
+      "item": "katana",
+      "hand": "arms",
+      "file": "katana.png",
+      "status": "candidate",
+      "z": {
+        "E": [
+          "front",
+          "front",
+          "front",
+          "front"
+        ],
+        "W": [
+          "front",
+          "front",
+          "front",
+          "front"
+        ]
+      },
+      "grips": {
+        "E": [
+          [
+            44,
+            33
+          ],
+          [
+            44,
+            32
+          ],
+          [
+            44,
+            33
+          ],
+          [
+            44,
+            34
+          ]
+        ],
+        "W": [
+          [
+            19,
+            33
+          ],
+          [
+            19,
+            32
+          ],
+          [
+            19,
+            33
+          ],
+          [
+            19,
+            34
+          ]
+        ]
+      }
+    }
+  ],
   "qc": {
     "gripOnFist": {
-      "E:0": true,
-      "E:1": true,
-      "E:2": true,
-      "E:3": true,
-      "W:0": true,
-      "W:1": true,
-      "W:2": true,
-      "W:3": true
+      "main E:0": true,
+      "main E:1": true,
+      "main E:2": true,
+      "main E:3": true,
+      "main W:0": true,
+      "main W:1": true,
+      "main W:2": true,
+      "main W:3": true
     },
     "inFrame": true,
     "pass": true

@@ -1,0 +1,58 @@
+{
+  "schema": "astro-fighters-character-item/v1",
+  "item": "tanto",
+  "kind": "rigid weapon (AGENTS.md: rigid items are placed by anchor with integer offsets)",
+  "status": "candidate",
+  "construction": "band: a straight band along the weapon axis from the grip point (the centre of the near fist); every pixel takes its colour from the cross-section pattern (back/spine to front/edge) of the segment it falls in, so the weapon keeps its thickness at any angle; pixels are rasterised from the authored data, never rotated or resampled from an image",
+  "palette": {
+    "#": "#000000",
+    "a": "#adadad",
+    "W": "#ffffff",
+    "t": "#3b2014",
+    "s": "#a9977d",
+    "h": "#ddcdb4"
+  },
+  "paletteSource": "colours already in the approved male clothing layers: #adadad armour grey (blade steel, guard, pommel), #ffffff armour/Gi white (edge), #3b2014 Gi shoe brown (hilt wrap), #a9977d Gi trouser shade (hilt diamonds), #ddcdb4 Gi trouser mid (blade collar)",
+  "units": "pixels along the axis from the grip point (u, positive toward the tip) and across it (v)",
+  "segments": [
+    {
+      "name": "pommel",
+      "from": -3.5,
+      "to": -2.5,
+      "thickness": 3,
+      "pattern": [
+        "#a#"
+      ]
+    },
+    {
+      "name": "guard",
+      "from": 2.5,
+      "to": 3.5,
+      "thickness": 4,
+      "pattern": [
+        "#aa#"
+      ]
+    },
+    {
+      "name": "blade",
+      "from": 3.5,
+      "to": 10,
+      "thickness": 3,
+      "pattern": [
+        "#aW"
+      ]
+    },
+    {
+      "name": "tip",
+      "from": 10,
+      "to": 12,
+      "thickness": 2,
+      "pattern": [
+        "#W"
+      ]
+    }
+  ],
+  "outline": "every coloured pixel touching empty space gets an outline pixel (#) if it is not already one",
+  "grip": "one-handed off-hand dagger: the hilt is entirely inside the fist, so only the pommel nub and the guard show at the fist's two edges",
+  "note": "the katana construction as a dagger: blade 6.5 px; the hilt segment is not drawn (the fist covers u -2.5 to 2.5)"
+}

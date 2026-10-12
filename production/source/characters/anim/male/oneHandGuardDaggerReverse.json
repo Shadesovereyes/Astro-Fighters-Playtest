@@ -1,8 +1,8 @@
 {
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
-  "state": "oneHandGuardHigh",
-  "status": "candidate (E/W first)",
+  "state": "oneHandGuardDaggerReverse",
+  "status": "candidate (E/W first): off-hand dagger option",
   "frames": 4,
   "fps": 6,
   "sourceDirection": "E",
@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "One-handed weapon combat stance (wakizashi): the weapon is carried low in the near (right) hand at the hip, tip forward and slightly down; the free far (left) hand is up in the unarmed guard. Reads apart from the two-handed stance (both hands on the hilt, blade raised). Legs and slight 1 px bob of the approved guard. One-handed attack clips return to it.",
+  "intent": "One-handed weapon combat stance (wakizashi): the weapon is carried low in the near (right) hand at the hip, tip forward and slightly down; the free far (left) hand is up in the unarmed guard. Reads apart from the two-handed stance (both hands on the hilt, blade raised). Legs and slight 1 px bob of the approved guard. One-handed attack clips return to it. Off-hand option: a tanto in the raised free hand, reverse grip: the tanto blade leaves the little-finger side of the fist and lies back along the forearm toward the elbow.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -396,39 +396,35 @@
     "far": [
       {
         "construction": "band",
-        "angle": 125,
+        "angle": -45,
         "elbow": {
           "at": 8,
-          "angle": 140
-        },
-        "fistKind": "back"
+          "angle": 222
+        }
       },
       {
         "construction": "band",
-        "angle": 125,
+        "angle": -45,
         "elbow": {
           "at": 8,
-          "angle": 140
-        },
-        "fistKind": "back"
+          "angle": 222
+        }
       },
       {
         "construction": "band",
-        "angle": 125,
+        "angle": -45,
         "elbow": {
           "at": 8,
-          "angle": 140
-        },
-        "fistKind": "back"
+          "angle": 222
+        }
       },
       {
         "construction": "band",
-        "angle": 125,
+        "angle": -45,
         "elbow": {
           "at": 8,
-          "angle": 140
-        },
-        "fistKind": "back"
+          "angle": 222
+        }
       }
     ],
     "outline": "Arm pixels touching empty space get an outline, except above the shoulder row; the near arm is not outlined where it lies over the body (its dark back column separates it).",
@@ -709,7 +705,7 @@
   },
   "clips": {
     "rule": "loops while in combat with a one-handed weapon drawn; every one-handed attack clip ends here (next: oneHandGuard)",
-    "oneHandGuard": {
+    "oneHandGuardDaggerReverse": {
       "frames": [
         0,
         1,
@@ -1162,47 +1158,95 @@
       }
     }
   },
-  "weapon": {
-    "item": "wakizashi",
-    "status": "candidate",
-    "rule": "per frame: grip = pixel at the centre of the near fist (body-frame coordinates; it follows the arm bob, 0, -1, 0, +1), angle = blade direction in degrees above the facing's horizontal, z = depth slot",
-    "depthRule": "front: drawn over body and clothing, under the arms layer (the fists close over the hilt); behind: drawn under the body",
-    "E": [
-      {
-        "grip": [
-          43,
-          35
-        ],
-        "angle": 40,
-        "z": "front"
-      },
-      {
-        "grip": [
-          43,
-          34
-        ],
-        "angle": 40,
-        "z": "front"
-      },
-      {
-        "grip": [
-          43,
-          35
-        ],
-        "angle": 40,
-        "z": "front"
-      },
-      {
-        "grip": [
-          43,
-          36
-        ],
-        "angle": 40,
-        "z": "front"
+  "weapons": [
+    {
+      "slot": "main",
+      "layer": "arms",
+      "item": "wakizashi",
+      "status": "candidate",
+      "rule": "per frame: grip = pixel at the centre of the near fist (body-frame coordinates; it follows the arm bob, 0, -1, 0, +1), angle = blade direction in degrees above the facing's horizontal, z = depth slot",
+      "depthRule": "front: drawn over body and clothing, under the arms layer (the fists close over the hilt); behind: drawn under the body",
+      "E": [
+        {
+          "grip": [
+            43,
+            35
+          ],
+          "angle": -15,
+          "z": "front"
+        },
+        {
+          "grip": [
+            43,
+            34
+          ],
+          "angle": -15,
+          "z": "front"
+        },
+        {
+          "grip": [
+            43,
+            35
+          ],
+          "angle": -15,
+          "z": "front"
+        },
+        {
+          "grip": [
+            43,
+            36
+          ],
+          "angle": -15,
+          "z": "front"
+        }
+      ],
+      "mirror": {
+        "W": "E"
       }
-    ],
-    "mirror": {
-      "W": "E"
+    },
+    {
+      "slot": "off",
+      "layer": "body",
+      "item": "tanto",
+      "gripKind": "reverse",
+      "status": "candidate",
+      "E": [
+        {
+          "grip": [
+            45,
+            25
+          ],
+          "angle": -132,
+          "z": "front"
+        },
+        {
+          "grip": [
+            45,
+            24
+          ],
+          "angle": -132,
+          "z": "front"
+        },
+        {
+          "grip": [
+            45,
+            25
+          ],
+          "angle": -132,
+          "z": "front"
+        },
+        {
+          "grip": [
+            45,
+            26
+          ],
+          "angle": -132,
+          "z": "front"
+        }
+      ],
+      "mirror": {
+        "W": "E"
+      }
     }
-  }
+  ]
 }

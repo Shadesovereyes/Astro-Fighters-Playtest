@@ -1,8 +1,8 @@
 {
   "schema": "astro-fighters-character-animation-output/v1",
   "body": "male",
-  "state": "oneHandGuardHigh",
-  "status": "candidate (E/W first)",
+  "state": "oneHandGuardDaggerNormal",
+  "status": "candidate (E/W first): off-hand dagger option",
   "frames": 4,
   "fps": 6,
   "frameSize": [
@@ -84,7 +84,7 @@
   },
   "clips": {
     "rule": "loops while in combat with a one-handed weapon drawn; every one-handed attack clip ends here (next: oneHandGuard)",
-    "oneHandGuard": {
+    "oneHandGuardDaggerNormal": {
       "frames": [
         0,
         1,
@@ -104,14 +104,14 @@
     "groundContact": true,
     "offPalette": {},
     "outlineNotches": {
-      "E:0": 3,
-      "E:1": 4,
-      "E:2": 4,
-      "E:3": 3,
-      "W:0": 3,
-      "W:1": 4,
-      "W:2": 4,
-      "W:3": 3
+      "E:0": 4,
+      "E:1": 5,
+      "E:2": 5,
+      "E:3": 4,
+      "W:0": 4,
+      "W:1": 5,
+      "W:2": 5,
+      "W:3": 4
     },
     "referenceEdges": {
       "E": 0,
@@ -119,10 +119,10 @@
     },
     "cleanup": {
       "cleanupRemoved": [
-        5,
-        7,
-        7,
-        5
+        6,
+        8,
+        8,
+        6
       ],
       "cleanupMerged": [
         1,
@@ -154,43 +154,43 @@
         "male-gi E:0": 0,
         "male-blue-armor E:0": 0,
         "male-red-armor E:0": 0,
-        "blue-armor-shoulders E:0": 5,
-        "red-armor-shoulders E:0": 5,
+        "blue-armor-shoulders E:0": 0,
+        "red-armor-shoulders E:0": 0,
         "male-gi E:1": 0,
         "male-blue-armor E:1": 0,
         "male-red-armor E:1": 0,
-        "blue-armor-shoulders E:1": 5,
-        "red-armor-shoulders E:1": 5,
+        "blue-armor-shoulders E:1": 0,
+        "red-armor-shoulders E:1": 0,
         "male-gi E:2": 0,
         "male-blue-armor E:2": 0,
         "male-red-armor E:2": 0,
-        "blue-armor-shoulders E:2": 5,
-        "red-armor-shoulders E:2": 5,
+        "blue-armor-shoulders E:2": 0,
+        "red-armor-shoulders E:2": 0,
         "male-gi E:3": 0,
         "male-blue-armor E:3": 0,
         "male-red-armor E:3": 0,
-        "blue-armor-shoulders E:3": 5,
-        "red-armor-shoulders E:3": 5,
+        "blue-armor-shoulders E:3": 0,
+        "red-armor-shoulders E:3": 0,
         "male-gi W:0": 0,
         "male-blue-armor W:0": 0,
         "male-red-armor W:0": 0,
-        "blue-armor-shoulders W:0": 5,
-        "red-armor-shoulders W:0": 5,
+        "blue-armor-shoulders W:0": 0,
+        "red-armor-shoulders W:0": 0,
         "male-gi W:1": 0,
         "male-blue-armor W:1": 0,
         "male-red-armor W:1": 0,
-        "blue-armor-shoulders W:1": 5,
-        "red-armor-shoulders W:1": 5,
+        "blue-armor-shoulders W:1": 0,
+        "red-armor-shoulders W:1": 0,
         "male-gi W:2": 0,
         "male-blue-armor W:2": 0,
         "male-red-armor W:2": 0,
-        "blue-armor-shoulders W:2": 5,
-        "red-armor-shoulders W:2": 5,
+        "blue-armor-shoulders W:2": 0,
+        "red-armor-shoulders W:2": 0,
         "male-gi W:3": 0,
         "male-blue-armor W:3": 0,
         "male-red-armor W:3": 0,
-        "blue-armor-shoulders W:3": 5,
-        "red-armor-shoulders W:3": 5
+        "blue-armor-shoulders W:3": 0,
+        "red-armor-shoulders W:3": 0
       },
       "clothingGapFill": {
         "male-gi E:0": 0,
