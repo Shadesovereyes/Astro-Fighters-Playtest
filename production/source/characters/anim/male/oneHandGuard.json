@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "One-handed weapon combat stance (wakizashi): the weapon is carried low in the near (right) hand at the hip, tip forward and slightly down; the free far (left) hand is up in the unarmed guard. Reads apart from the two-handed stance (both hands on the hilt, blade raised). Legs and slight 1 px bob of the approved guard. One-handed attack clips return to it.",
+  "intent": "One-handed weapon combat stance (wakizashi): the weapon is carried low in the near (right) hand at the hip, tip forward and slightly raised (10 degrees); the free far (left) hand is up in the unarmed guard. Reads apart from the two-handed stance (both hands on the hilt, blade raised). Legs and slight 1 px bob of the approved guard. One-handed attack clips return to it.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -396,34 +396,34 @@
     "far": [
       {
         "construction": "band",
-        "angle": -45,
+        "angle": -38,
         "elbow": {
           "at": 8,
-          "angle": 222
+          "angle": 232
         }
       },
       {
         "construction": "band",
-        "angle": -45,
+        "angle": -38,
         "elbow": {
           "at": 8,
-          "angle": 222
+          "angle": 232
         }
       },
       {
         "construction": "band",
-        "angle": -45,
+        "angle": -38,
         "elbow": {
           "at": 8,
-          "angle": 222
+          "angle": 232
         }
       },
       {
         "construction": "band",
-        "angle": -45,
+        "angle": -38,
         "elbow": {
           "at": 8,
-          "angle": 222
+          "angle": 232
         }
       }
     ],
@@ -1169,7 +1169,7 @@
           43,
           35
         ],
-        "angle": -15,
+        "angle": 10,
         "z": "front"
       },
       {
@@ -1177,7 +1177,7 @@
           43,
           34
         ],
-        "angle": -15,
+        "angle": 10,
         "z": "front"
       },
       {
@@ -1185,7 +1185,7 @@
           43,
           35
         ],
-        "angle": -15,
+        "angle": 10,
         "z": "front"
       },
       {
@@ -1193,7 +1193,7 @@
           43,
           36
         ],
-        "angle": -15,
+        "angle": 10,
         "z": "front"
       }
     ],

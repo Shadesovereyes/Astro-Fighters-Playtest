@@ -396,34 +396,34 @@
     "far": [
       {
         "construction": "band",
-        "angle": -45,
+        "angle": -38,
         "elbow": {
           "at": 8,
-          "angle": 222
+          "angle": 232
         }
       },
       {
         "construction": "band",
-        "angle": -45,
+        "angle": -38,
         "elbow": {
           "at": 8,
-          "angle": 222
+          "angle": 232
         }
       },
       {
         "construction": "band",
-        "angle": -45,
+        "angle": -38,
         "elbow": {
           "at": 8,
-          "angle": 222
+          "angle": 232
         }
       },
       {
         "construction": "band",
-        "angle": -45,
+        "angle": -38,
         "elbow": {
           "at": 8,
-          "angle": 222
+          "angle": 232
         }
       }
     ],
@@ -1172,7 +1172,7 @@
             43,
             35
           ],
-          "angle": -15,
+          "angle": 10,
           "z": "front"
         },
         {
@@ -1180,7 +1180,7 @@
             43,
             34
           ],
-          "angle": -15,
+          "angle": 10,
           "z": "front"
         },
         {
@@ -1188,7 +1188,7 @@
             43,
             35
           ],
-          "angle": -15,
+          "angle": 10,
           "z": "front"
         },
         {
@@ -1196,7 +1196,7 @@
             43,
             36
           ],
-          "angle": -15,
+          "angle": 10,
           "z": "front"
         }
       ],
@@ -1214,15 +1214,7 @@
         {
           "grip": [
             45,
-            25
-          ],
-          "angle": 85,
-          "z": "front"
-        },
-        {
-          "grip": [
-            45,
-            24
+            26
           ],
           "angle": 85,
           "z": "front"
@@ -1239,6 +1231,14 @@
           "grip": [
             45,
             26
+          ],
+          "angle": 85,
+          "z": "front"
+        },
+        {
+          "grip": [
+            45,
+            27
           ],
           "angle": 85,
           "z": "front"
