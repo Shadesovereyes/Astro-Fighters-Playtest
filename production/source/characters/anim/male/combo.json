@@ -26,7 +26,8 @@
     "units": "ground pixels; the cabinet projection maps ground depth 1:1 to screen y, so the arc is a true circle on screen",
     "targetContact": "a target is inside when its ground footprint (circle at its foot point) overlaps the arc",
     "heightBand": "the active event's E hitbox gives the height band above the ground: from 63 - (y + h) to 63 - y px; the target's body must overlap it (a low kick misses what is above it); the authored S/N boxes are on-screen debug only",
-    "activeFrames": "the arc is live on each active event frame; each active frame hits at most one target"
+    "activeFrames": "the arc is live on each active event frame; each active frame hits at most one target",
+    "status": "approved by the user 2026-10-12 (25 px radius, 60 degree half-angle)"
   },
   "targeting": {
     "rule": "set by the user 2026-10-12: damage goes to one target per active frame; the target is chosen again on every active frame, so a combo keeps hitting the same target from move to move while it is the selected target inside the arc or still the closest target inside the arc",

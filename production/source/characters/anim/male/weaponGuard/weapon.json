@@ -1,0 +1,92 @@
+{
+  "schema": "astro-fighters-character-weapon-output/v1",
+  "body": "male",
+  "state": "weaponGuard",
+  "item": "katana",
+  "status": "candidate",
+  "file": "katana.png",
+  "frameSize": [
+    128,
+    128
+  ],
+  "origin": [
+    32,
+    32
+  ],
+  "pivot": [
+    64,
+    95
+  ],
+  "rows": [
+    "E",
+    "W"
+  ],
+  "frames": 4,
+  "depthRule": "front: drawn over body and clothing, under the arms layer (the fists close over the hilt); behind: drawn under the body",
+  "z": {
+    "E": [
+      "front",
+      "front",
+      "front",
+      "front"
+    ],
+    "W": [
+      "front",
+      "front",
+      "front",
+      "front"
+    ]
+  },
+  "grips": {
+    "E": [
+      [
+        44,
+        33
+      ],
+      [
+        44,
+        33
+      ],
+      [
+        44,
+        33
+      ],
+      [
+        44,
+        33
+      ]
+    ],
+    "W": [
+      [
+        19,
+        33
+      ],
+      [
+        19,
+        33
+      ],
+      [
+        19,
+        33
+      ],
+      [
+        19,
+        33
+      ]
+    ]
+  },
+  "qc": {
+    "gripOnFist": {
+      "E:0": true,
+      "E:1": true,
+      "E:2": true,
+      "E:3": true,
+      "W:0": true,
+      "W:1": true,
+      "W:2": true,
+      "W:3": true
+    },
+    "inFrame": true,
+    "pass": true
+  }
+}
