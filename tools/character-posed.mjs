@@ -166,18 +166,26 @@ function kickLeg(p, out) {
   };
   // the shin's front (L) side faces the band's normal; a leg pointing right has its front up, pointing left down
   const kx = p.kneeX + 0.5, ky = p.kneeRow + 0.5, ax = p.ankle[0] + 0.5, ay = p.ankle[1] + 0.5;
-  const th = band(p.hipX + 0.5, p.hipRow + 0.5, kx, ky), sh = band(kx, ky, ax, ay), wrapLen = p.wrapLen ?? 3;
+  const th = band(p.hipX + 0.5, p.hipRow + 0.5, kx, ky), sh = band(kx, ky, ax, ay);
+  // section: a front/back view's own cross-sections (read from its reference legs, lit in the centre) instead of the
+  // profile rows; shin patterns apply from their 'from' distance along the shin
+  const SC = p.section ? L.sections[p.section] : null, wrapLen = p.wrapLen ?? (SC ? SC.wrapLen : 3);
+  const thighPat = (tu) => (SC ? SC.thigh : L.thighRows[Math.max(0, Math.min(3, Math.floor(tu * 4 / th.len)))]);
+  const shinPatOf = (su, wrap) => {
+    if (SC) return wrap ? SC.wrap : (SC.shin.filter((e) => su >= e.from).pop() || SC.shin[0]).rows;
+    return wrap ? L.wrap : su < 3 ? L.shinRows4[Math.max(0, Math.min(2, Math.floor(su)))] : L.shinRow3;
+  };
   const pick = (pat, v) => pat[Math.max(0, Math.min(pat.length - 1, Math.floor(v + pat.length / 2)))];
   const seg = new Map();
   for (let y = 0; y < FRAME; y++) for (let x = 0; x < FRAME; x++) {
     const [su, sv] = sh.uv(x, y), [tu, tv] = th.uv(x, y);
-    const wrap = su >= sh.len - wrapLen, sp = wrap ? L.wrap : su < 3 ? L.shinRows4[Math.max(0, Math.min(2, Math.floor(su)))] : L.shinRow3;
+    const wrap = su >= sh.len - wrapLen, sp = shinPatOf(su, wrap);
     const inShin = su >= 0 && su <= sh.len && sv >= -sp.length / 2 && sv < sp.length / 2;
-    const inThigh = tu >= -2 && tu <= th.len && tv >= -2.5 && tv < 2.5;
+    const tp = thighPat(tu), inThigh = tu >= -2 && tu <= th.len && tv >= -tp.length / 2 && tv < tp.length / 2;
     const inKnee = Math.hypot(x + 0.5 - kx, y + 0.5 - ky) <= 2.3;
-    if (inThigh) { out.set(key(x, y), pick(L.thighRows[Math.max(0, Math.min(3, Math.floor(tu * 4 / th.len)))], tv)); seg.set(key(x, y), 'thigh'); }
+    if (inThigh) { out.set(key(x, y), pick(tp, tv)); seg.set(key(x, y), 'thigh'); }
     else if (inShin) { out.set(key(x, y), pick(sp, sv)); seg.set(key(x, y), wrap ? 'wrap' : 'shin'); }
-    else if (inKnee) { out.set(key(x, y), pick(L.shinRows4[0], sv)); seg.set(key(x, y), 'knee'); }
+    else if (inKnee) { out.set(key(x, y), pick(SC ? SC.shin[0].rows : L.shinRows4[0], sv)); seg.set(key(x, y), 'knee'); }
   }
   const ft = L.feet[p.foot];
   if (!ft.anchor) throw new Error(`kick foot ${p.foot} needs an anchor`);
