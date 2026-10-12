@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "guard",
-  "status": "candidate 2026-10-12",
+  "status": "approved by user 2026-10-12 (S, E, N, W; W mirrors E)",
   "frames": 4,
   "fps": 6,
   "sourceDirection": "E",
@@ -714,7 +714,12 @@
       "loop": true
     }
   },
-  "approved": {},
+  "approved": {
+    "S": "2026-10-12",
+    "E": "2026-10-12",
+    "N": "2026-10-12",
+    "W": "2026-10-12 (mirror of E)"
+  },
   "frontal": {
     "rule": "S and N are built from their reference frames: legs keep their rows (every leg drops the frame's bob rows so the feet stay down); the arms are authored band arms from each shoulder (bent guard arms with the fists up at the chin; a punch toward or away from the viewer is a short, foreshortened straight arm). In S the arms are in front of the body; in N they are behind it.",
     "legLift": {
