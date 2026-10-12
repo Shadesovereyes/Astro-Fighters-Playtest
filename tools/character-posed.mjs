@@ -592,6 +592,9 @@ function twistOf(d, k, g, y) {
 //           shoulders follow at their own column)
 //   turn    hips turned: the shorts lose one column on that side (the column at 'col' is dropped, the outer ones move in)
 //   knee    the bent standing leg's knee moves dx sideways (rows: hip, knee, ankle; full at the knee)
+//   rotate  torso and hips turned into the kick: on the far side of 'center' the listed columns are dropped per part
+//           (the outer columns close in, so that side narrows); the near side moves nearDx toward the centre; the
+//           head moves headDx and each band arm's shoulder armDx[side]
 const variantsOf = (d, k) => (d.variants?.[k] || []).map((n) => { const v = FR.partVariants?.[n]; if (!v) throw new Error(`part variant ${n} not defined`); return v; });
 const bobOf = (d, k) => { const v = variantsOf(d, k).find((x) => x.bob !== undefined); return v ? v.bob : bob[k]; };
 function variantShear(d, k, x, y, group) {
@@ -616,6 +619,22 @@ function variantTurn(d, k, x, part) {
   }
   return 0;
 }
+function variantRotate(d, k, x, part) {
+  let dx = 0;
+  for (const v of variantsOf(d, k)) {
+    const r = v.rotate;
+    if (!r) continue;
+    if (part === 'head' || overlays.overlayParts?.[part]?.lagFrames !== undefined) { dx += r.headDx || 0; continue; }
+    const drop = r.drop?.[part === 'sash' ? 'pelvis' : part];
+    if (!drop) continue;
+    if (drop.includes(x)) return null;
+    const farRight = r.far === 'right', far = farRight ? x > r.center : x < r.center;
+    if (far) dx += farRight ? -drop.filter((c) => c < x && c > r.center).length : drop.filter((c) => c > x && c < r.center).length;
+    else if (x !== r.center) dx += farRight ? r.nearDx : -r.nearDx;
+  }
+  return dx;
+}
+const rotateArmDx = (d, k, sd) => variantsOf(d, k).reduce((a, v) => a + (v.rotate?.armDx?.[sd] || 0), 0);
 function frontalMove(d, k, part, y, x) {
   // crouch: a view's whole figure sits lower by d.crouch rows (every leg drops that many more bob rows)
   const b = bobOf(d, k) + (d.crouch || 0), lift = d.legLift || FR.legLift, far = d.far, limb = LIMB[part];
@@ -674,9 +693,10 @@ function frontalMove(d, k, part, y, x) {
   if (d.variants?.[k] && x !== undefined && limb?.[0] !== 'leg') {
     const group = part === 'torso' ? 'torso' : part === 'pelvis' || part === 'sash' ? 'pelvis' : (part === 'head' || overlays.overlayParts?.[part]?.lagFrames !== undefined) ? 'head' : null;
     if (group) {
-      const sh = variantShear(d, k, x, y, group), tn = variantTurn(d, k, x, part);
-      rows = tn === null ? [] : rows.map((r) => r + sh);
+      const sh = variantShear(d, k, x, y, group), tn = variantTurn(d, k, x, part), rt = variantRotate(d, k, x, part);
+      rows = tn === null || rt === null ? [] : rows.map((r) => r + sh);
       if (tn) dx += tn;
+      if (rt) dx += rt;
     }
   }
   return { rows, dx, z };
@@ -706,7 +726,7 @@ function frontalBand(d, k, sd, dir) {
   const at = (v) => (Array.isArray(v) ? v[k] : v);
   const sc = at(ab.scale) ?? 1, r = (v) => Math.round(v * sc), B0 = A.band, el = at(ab.elbow);
   const lx = (d.leanScale ? roundHalfEven(d.leanScale * leanOf('torso', k, AR.shoulder)) * (d.leanSign || 1) : 0)
-    + twistOf(d, k, 'torso', AR.shoulder) + (at(ab.pivotDx) || 0);
+    + twistOf(d, k, 'torso', AR.shoulder) + (at(ab.pivotDx) || 0) + rotateArmDx(d, k, sd);
   const dy = bobOf(d, k) + (d.crouch || 0) + DROP + (d.variants?.[k] ? variantShear(d, k, ab.pivot[0], AR.shoulder, 'torso') : 0);
   const pb = { angle: at(ab.angle), band: { pivot: ab.pivot, start: B0.start, length: r(B0.length + B0.start) - B0.start,
     wrapFrom: r(B0.wrapFrom), handFrom: r(B0.handFrom) }, ...(el ? { elbow: { ...el, at: r(el.at) } } : {}), fistKind: at(ab.fist) };
@@ -785,7 +805,7 @@ function frontalFrame(dir, k) {
       // layering), except where it joins the shoulder; outline: false turns it off
       const olv = d.armBand[sd]?.outline, ol = (Array.isArray(olv) ? olv[k] : olv) ?? true;
       if (ol) {
-        const pv = d.armBand[sd].pivot, px0 = pv[0] + twistOf(d, k, 'torso', AR.shoulder) + (Array.isArray(d.armBand[sd].pivotDx) ? d.armBand[sd].pivotDx[k] : 0);
+        const pv = d.armBand[sd].pivot, px0 = pv[0] + twistOf(d, k, 'torso', AR.shoulder) + (Array.isArray(d.armBand[sd].pivotDx) ? d.armBand[sd].pivotDx[k] : 0) + rotateArmDx(d, k, sd);
         const py0 = pv[1] + bobOf(d, k) + (d.crouch || 0) + DROP + (d.variants?.[k] ? variantShear(d, k, pv[0], AR.shoulder, 'torso') : 0);
         for (const q of fb.pixels.keys()) {
           if (!mine(q)) continue;
