@@ -1,8 +1,8 @@
 {
   "schema": "astro-fighters-character-animation-output/v1",
   "body": "male",
-  "state": "oneHandGuardDaggerNormal",
-  "status": "candidate (E/W first): off-hand dagger option",
+  "state": "oneHandDualGuard",
+  "status": "candidate (E/W first); normal grip chosen by the user 2026-10-12 (reverse grip rejected)",
   "frames": 4,
   "fps": 6,
   "frameSize": [
@@ -83,8 +83,8 @@
     ]
   },
   "clips": {
-    "rule": "loops while in combat with a one-handed weapon drawn; every one-handed attack clip ends here (next: oneHandGuard)",
-    "oneHandGuardDaggerNormal": {
+    "rule": "combat idle loop while a one-handed weapon and an off-hand dagger are drawn; their attack clips end here (next: oneHandDualGuard)",
+    "oneHandDualGuard": {
       "frames": [
         0,
         1,

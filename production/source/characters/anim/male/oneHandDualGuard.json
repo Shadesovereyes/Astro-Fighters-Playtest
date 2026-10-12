@@ -1,8 +1,8 @@
 {
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
-  "state": "oneHandGuardDaggerReverse",
-  "status": "candidate (E/W first): off-hand dagger option",
+  "state": "oneHandDualGuard",
+  "status": "candidate (E/W first); normal grip chosen by the user 2026-10-12 (reverse grip rejected)",
   "frames": 4,
   "fps": 6,
   "sourceDirection": "E",
@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "One-handed weapon combat stance (wakizashi): the weapon is carried low in the near (right) hand at the hip, tip forward and slightly down; the free far (left) hand is up in the unarmed guard. Reads apart from the two-handed stance (both hands on the hilt, blade raised). Legs and slight 1 px bob of the approved guard. One-handed attack clips return to it. Off-hand option: a tanto in the raised free hand, reverse grip: the tanto blade leaves the little-finger side of the fist and points forward and slightly down, away from the body, clear of the main blade.",
+  "intent": "One-handed weapon plus off-hand dagger combat stance (combat idle): wakizashi carried low in the near (right) hand at the hip, tip forward and raised 10 degrees; tanto in the raised free (left) hand in a normal grip, blade up; legs and the guard idle motion of the approved guard (body bob 1, 1, 2, 2; head bobs at the neck; arms bob at the shoulders a frame behind, and both weapons ride with their hands). Attack clips for this loadout return to it.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -704,8 +704,8 @@
     "looseRule": "from row 40 down, cloth specks of 1-2 px cut off from the garment and outline pixels that no longer border any cloth are removed (they are left between the legs where a direction's own clothing frame does not register exactly with its source's motion)"
   },
   "clips": {
-    "rule": "loops while in combat with a one-handed weapon drawn; every one-handed attack clip ends here (next: oneHandGuard)",
-    "oneHandGuardDaggerReverse": {
+    "rule": "combat idle loop while a one-handed weapon and an off-hand dagger are drawn; their attack clips end here (next: oneHandDualGuard)",
+    "oneHandDualGuard": {
       "frames": [
         0,
         1,
@@ -1208,7 +1208,7 @@
       "slot": "off",
       "layer": "body",
       "item": "tanto",
-      "gripKind": "reverse",
+      "gripKind": "normal",
       "status": "candidate",
       "E": [
         {
@@ -1216,7 +1216,7 @@
             45,
             26
           ],
-          "angle": -10,
+          "angle": 85,
           "z": "front"
         },
         {
@@ -1224,7 +1224,7 @@
             45,
             25
           ],
-          "angle": -10,
+          "angle": 85,
           "z": "front"
         },
         {
@@ -1232,7 +1232,7 @@
             45,
             26
           ],
-          "angle": -10,
+          "angle": 85,
           "z": "front"
         },
         {
@@ -1240,7 +1240,7 @@
             45,
             27
           ],
-          "angle": -10,
+          "angle": 85,
           "z": "front"
         }
       ],

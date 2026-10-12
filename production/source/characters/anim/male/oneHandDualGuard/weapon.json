@@ -1,7 +1,7 @@
 {
   "schema": "astro-fighters-character-weapon-output/v2",
   "body": "male",
-  "state": "oneHandGuardDaggerNormal",
+  "state": "oneHandDualGuard",
   "frameSize": [
     128,
     128
