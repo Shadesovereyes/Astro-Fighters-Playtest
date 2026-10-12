@@ -1090,13 +1090,13 @@
         "construction": "band",
         "hipX": 30,
         "hipRow": 39,
-        "kneeX": 26,
-        "kneeRow": 45,
+        "kneeX": 28,
+        "kneeRow": 46,
         "ankle": [
-          20,
-          49
+          24,
+          48
         ],
-        "foot": "pointDL",
+        "foot": "pointFwdL",
         "section": "S"
       },
       {
@@ -1118,13 +1118,13 @@
         "construction": "band",
         "hipX": 34,
         "hipRow": 39,
-        "kneeX": 38,
-        "kneeRow": 45,
+        "kneeX": 36,
+        "kneeRow": 46,
         "ankle": [
-          44,
-          49
+          29,
+          48
         ],
-        "foot": "pointDR",
+        "foot": "pointFwdL",
         "section": "N"
       },
       {
@@ -2962,7 +2962,7 @@
             "L": 0
           }
         },
-        "kickRule": "S: the torso and hips rotate into each rear-leg kick, the standing leg bends and the kicking hip hikes. Low kick: the leg swings out low on the kicking side, almost straight, shin at knee height and toes pointed, as the E low kick seen from the front. Snap kick: the chamber lifts the knee high toward the viewer with the shin hanging; the snap straightens the leg at the viewer, about 20 degrees off the centre line, the sole toward the viewer at stomach height (just below the hip line on screen). Roundhouse: the leg sweeps up across the body to head height, beside the head; kicking legs draw in front of the arms.",
+        "kickRule": "S: the torso and hips rotate into each rear-leg kick, the standing leg bends and the kicking hip hikes. Low kick: the thigh drops short and nearly vertical from the rotated hip to a knee just outside the standing leg, the shin is near level at knee height reaching a few pixels past the body, toes pointed. Snap kick: the chamber lifts the knee high toward the viewer with the shin hanging; the snap straightens the leg at the viewer, about 20 degrees off the centre line, the sole toward the viewer at stomach height (just below the hip line on screen). Roundhouse: the leg sweeps up across the body to head height, beside the head; kicking legs draw in front of the arms.",
         "variants": {
           "1": [
             "S-hikeR1",
@@ -3517,7 +3517,7 @@
             "R": [
               2,
               2,
-              2,
+              1.5,
               2,
               2,
               2,
@@ -3556,7 +3556,7 @@
             "L": 0
           }
         },
-        "kickRule": "N: the torso and hips rotate into each rear-leg kick, the standing leg bends and the kicking hip hikes. Low kick: the leg swings out low on the kicking side, almost straight, shin at knee height and toes pointed. Snap kick: the chamber shows the hanging shin and sole; the snap drives up the screen away from the viewer behind the body, heel and sole toward the viewer. Roundhouse: the leg rises to head height beside the head.",
+        "kickRule": "N: the torso and hips rotate into each rear-leg kick, the standing leg bends and the kicking hip hikes. Low kick: the thigh drops short and nearly vertical from the rotated hip, the shin is near level at knee height and passes behind the standing leg's knee, toes pointed. Snap kick: the chamber shows the hanging shin and sole; the snap drives up the screen away from the viewer behind the body, heel and sole toward the viewer. Roundhouse: the leg rises to head height beside the head.",
         "variants": {
           "1": [
             "N-hikeR1",
