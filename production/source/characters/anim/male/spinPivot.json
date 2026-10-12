@@ -1501,13 +1501,15 @@
             "S-hikeR",
             "bend2",
             "S-kneeL",
-            "S-rotR"
+            "S-rotR",
+            "S-plantL"
           ],
           "1": [
             "S-hikeR",
             "bend2",
             "S-kneeL",
-            "S-rotR2"
+            "S-rotR2",
+            "S-plantL"
           ]
         }
       },
@@ -1707,19 +1709,21 @@
             "N-hikeR",
             "bend2",
             "N-kneeL",
-            "N-rotR"
+            "N-rotR",
+            "N-plantL"
           ],
           "1": [
             "N-hikeR",
             "bend2",
             "N-kneeL",
-            "N-rotR2"
+            "N-rotR2",
+            "N-plantL"
           ]
         }
       }
     },
     "partVariants": {
-      "rule": "named part variants for the S/N kick frames (whole-pixel only, from the reference parts): bob = the standing leg bends (drops that many bob rows) and the body sits lower; hike = the pelvis raised on the kicking side (column shear over span); tilt = the torso leaning away (column shear growing to the shoulders; head and shoulders follow); turn = the hips turned (the shorts lose the column at col on that side); knee = the bent standing leg's knee out sideways (rows hip, knee, ankle); rotate = torso and hips turned into the kick: far-side columns dropped per part (that side narrows), the near side, head and shoulders move toward the centre, so the kicking hip comes in and the leg drives near the centre line",
+      "rule": "named part variants for the S/N kick frames (whole-pixel only, from the reference parts): bob = the standing leg bends (drops that many bob rows) and the body sits lower; hike = the pelvis raised on the kicking side (column shear over span); tilt = the torso leaning away (column shear growing to the shoulders; head and shoulders follow); turn = the hips turned (the shorts lose the column at col on that side); knee = the bent standing leg's knee out sideways (rows hip, knee, ankle); rotate = torso and hips turned into the kick: far-side columns dropped per part (that side narrows), the near side, head and shoulders move toward the centre, so the kicking hip comes in and the leg drives near the centre line; plant = the standing leg moves toward the centre line as a whole, so the weight sits over the support foot",
       "bend1": {
         "bob": 1
       },
@@ -1986,6 +1990,30 @@
             "L": 2,
             "R": -3
           }
+        }
+      },
+      "S-plantL1": {
+        "plant": {
+          "side": "L",
+          "dx": -1
+        }
+      },
+      "S-plantL": {
+        "plant": {
+          "side": "L",
+          "dx": -2
+        }
+      },
+      "N-plantL1": {
+        "plant": {
+          "side": "L",
+          "dx": 1
+        }
+      },
+      "N-plantL": {
+        "plant": {
+          "side": "L",
+          "dx": 2
         }
       }
     }

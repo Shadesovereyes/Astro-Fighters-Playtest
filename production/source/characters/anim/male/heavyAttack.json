@@ -2990,57 +2990,66 @@
             "L": 0
           }
         },
-        "kickRule": "S: the torso and hips rotate into each rear-leg kick, the standing leg bends and the kicking hip hikes. Low kick: the thigh drops from the rotated hip to a knee at knee height and the shin runs in to the body's centre line, the sole toward the viewer in front of the standing leg. Snap kick: the chamber raises the knee well above the hip with the shin hanging; the snap keeps the knee high and drives the shin out to the kicking side, the foot level at the hip line, above the low kick.; on the lift, low kick, chamber and snap the knee turns in toward the centre line with the rotating hips, never out",
+        "kickRule": "S: the torso and hips rotate into each rear-leg kick, the standing leg bends and the kicking hip hikes. Low kick: the thigh drops from the rotated hip to a knee at knee height and the shin runs in to the body's centre line, the sole toward the viewer in front of the standing leg. Snap kick: the chamber raises the knee well above the hip with the shin hanging; the snap keeps the knee high and drives the shin out to the kicking side, the foot level at the hip line, above the low kick.; on the lift, low kick, chamber and snap the knee turns in toward the centre line with the rotating hips, never out; the standing leg shifts toward the centre line on every kick frame (plant)",
         "variants": {
           "1": [
             "S-hikeR1",
-            "bend1"
+            "bend1",
+            "S-plantL1"
           ],
           "5": [
             "S-hikeR1",
-            "bend1"
+            "bend1",
+            "S-plantL1"
           ],
           "2": [
             "S-hikeR",
             "bend2",
             "S-kneeL",
-            "S-rotR"
+            "S-rotR",
+            "S-plantL"
           ],
           "3": [
             "S-hikeR",
             "bend2",
             "S-kneeL",
-            "S-rotR"
+            "S-rotR",
+            "S-plantL"
           ],
           "6": [
             "S-hikeR",
             "bend2",
             "S-kneeL",
-            "S-rotR"
+            "S-rotR",
+            "S-plantL"
           ],
           "7": [
             "S-hikeR",
             "bend2",
             "S-kneeL",
-            "S-rotR"
+            "S-rotR",
+            "S-plantL"
           ],
           "8": [
             "S-hikeR",
             "bend2",
             "S-kneeL",
-            "S-rotR"
+            "S-rotR",
+            "S-plantL"
           ],
           "13": [
             "S-hikeR",
             "bend2",
             "S-kneeL",
-            "S-rotR2"
+            "S-rotR2",
+            "S-plantL"
           ],
           "14": [
             "S-hikeR",
             "bend2",
             "S-kneeL",
-            "S-rotR2"
+            "S-rotR2",
+            "S-plantL"
           ]
         }
       },
@@ -3584,63 +3593,72 @@
             "L": 0
           }
         },
-        "kickRule": "N: the torso and hips rotate into each rear-leg kick, the standing leg bends and the kicking hip hikes. Low kick: the thigh drops from the rotated hip to a knee at knee height and the shin runs in to the body's centre line, the sole toward the viewer between the legs. Snap kick: the chamber raises the knee to the kicking side with the sole showing; the snap drives the shin out to that side, the foot level at the hip line, clear of the torso.; on the lift, low kick, chamber and snap the knee turns in toward the centre line with the rotating hips, never out",
+        "kickRule": "N: the torso and hips rotate into each rear-leg kick, the standing leg bends and the kicking hip hikes. Low kick: the thigh drops from the rotated hip to a knee at knee height and the shin runs in to the body's centre line, the sole toward the viewer between the legs. Snap kick: the chamber raises the knee to the kicking side with the sole showing; the snap drives the shin out to that side, the foot level at the hip line, clear of the torso.; on the lift, low kick, chamber and snap the knee turns in toward the centre line with the rotating hips, never out; the standing leg shifts toward the centre line on every kick frame (plant)",
         "variants": {
           "1": [
             "N-hikeR1",
-            "bend1"
+            "bend1",
+            "N-plantL1"
           ],
           "5": [
             "N-hikeR1",
-            "bend1"
+            "bend1",
+            "N-plantL1"
           ],
           "2": [
             "N-hikeR",
             "bend2",
             "N-kneeL",
-            "N-rotR"
+            "N-rotR",
+            "N-plantL"
           ],
           "3": [
             "N-hikeR",
             "bend2",
             "N-kneeL",
-            "N-rotR"
+            "N-rotR",
+            "N-plantL"
           ],
           "6": [
             "N-hikeR",
             "bend2",
             "N-kneeL",
-            "N-rotR"
+            "N-rotR",
+            "N-plantL"
           ],
           "7": [
             "N-hikeR",
             "bend2",
             "N-kneeL",
-            "N-rotR"
+            "N-rotR",
+            "N-plantL"
           ],
           "8": [
             "N-hikeR",
             "bend2",
             "N-kneeL",
-            "N-rotR"
+            "N-rotR",
+            "N-plantL"
           ],
           "13": [
             "N-hikeR",
             "bend2",
             "N-kneeL",
-            "N-rotR2"
+            "N-rotR2",
+            "N-plantL"
           ],
           "14": [
             "N-hikeR",
             "bend2",
             "N-kneeL",
-            "N-rotR2"
+            "N-rotR2",
+            "N-plantL"
           ]
         }
       }
     },
     "partVariants": {
-      "rule": "named part variants for the S/N kick frames (whole-pixel only, from the reference parts): bob = the standing leg bends (drops that many bob rows) and the body sits lower; hike = the pelvis raised on the kicking side (column shear over span); tilt = the torso leaning away (column shear growing to the shoulders; head and shoulders follow); turn = the hips turned (the shorts lose the column at col on that side); knee = the bent standing leg's knee out sideways (rows hip, knee, ankle); rotate = torso and hips turned into the kick: far-side columns dropped per part (that side narrows), the near side, head and shoulders move toward the centre, so the kicking hip comes in and the leg drives near the centre line",
+      "rule": "named part variants for the S/N kick frames (whole-pixel only, from the reference parts): bob = the standing leg bends (drops that many bob rows) and the body sits lower; hike = the pelvis raised on the kicking side (column shear over span); tilt = the torso leaning away (column shear growing to the shoulders; head and shoulders follow); turn = the hips turned (the shorts lose the column at col on that side); knee = the bent standing leg's knee out sideways (rows hip, knee, ankle); rotate = torso and hips turned into the kick: far-side columns dropped per part (that side narrows), the near side, head and shoulders move toward the centre, so the kicking hip comes in and the leg drives near the centre line; plant = the standing leg moves toward the centre line as a whole, so the weight sits over the support foot",
       "bend1": {
         "bob": 1
       },
@@ -3907,6 +3925,30 @@
             "L": 2,
             "R": -3
           }
+        }
+      },
+      "S-plantL1": {
+        "plant": {
+          "side": "L",
+          "dx": -1
+        }
+      },
+      "S-plantL": {
+        "plant": {
+          "side": "L",
+          "dx": -2
+        }
+      },
+      "N-plantL1": {
+        "plant": {
+          "side": "L",
+          "dx": 1
+        }
+      },
+      "N-plantL": {
+        "plant": {
+          "side": "L",
+          "dx": 2
         }
       }
     }

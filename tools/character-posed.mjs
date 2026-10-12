@@ -592,6 +592,7 @@ function twistOf(d, k, g, y) {
 //           shoulders follow at their own column)
 //   turn    hips turned: the shorts lose one column on that side (the column at 'col' is dropped, the outer ones move in)
 //   knee    the bent standing leg's knee moves dx sideways (rows: hip, knee, ankle; full at the knee)
+//   plant   the standing leg (side) moves dx as a whole, toward the centre line
 //   rotate  torso and hips turned into the kick: on the far side of 'center' the listed columns are dropped per part
 //           (the outer columns close in, so that side narrows); the near side moves nearDx toward the centre; the
 //           head moves headDx and each band arm's shoulder armDx[side]
@@ -659,6 +660,8 @@ function frontalMove(d, k, part, y, x) {
     if (d.footDx) { const hd = d.hipDx[s][k]; dx = hd + shear(y, d.legPivot, d.footFrom[s], d.footDx[s][k] - hd); }
     // knee variant: the bent standing leg's knee comes out sideways, growing from the hip row to the knee row and
     // back to nothing at the ankle (whole pixels)
+    // plant variant: the standing leg moves dx toward the centre line as a whole (weight over the support foot)
+    for (const v of variantsOf(d, k)) if (v.plant?.side === s) dx += v.plant.dx;
     for (const v of variantsOf(d, k)) if (v.knee?.side === s) {
       const [h0, kn, a0] = v.knee.rows, t = y <= h0 || y >= a0 ? 0 : y <= kn ? (y - h0) / (kn - h0) : (a0 - y) / (a0 - kn);
       dx += roundHalfEven(v.knee.dx * t);
