@@ -15,7 +15,9 @@
     95
   ],
   "rows": [
+    "S",
     "E",
+    "N",
     "W"
   ],
   "frames": 4,
@@ -29,11 +31,23 @@
       "file": "main-katana.png",
       "status": "candidate",
       "z": {
+        "S": [
+          "front",
+          "front",
+          "front",
+          "front"
+        ],
         "E": [
           "front",
           "front",
           "front",
           "front"
+        ],
+        "N": [
+          "behind",
+          "behind",
+          "behind",
+          "behind"
         ],
         "W": [
           "front",
@@ -43,6 +57,24 @@
         ]
       },
       "grips": {
+        "S": [
+          [
+            31,
+            35
+          ],
+          [
+            31,
+            34
+          ],
+          [
+            31,
+            35
+          ],
+          [
+            31,
+            36
+          ]
+        ],
         "E": [
           [
             44,
@@ -59,6 +91,24 @@
           [
             44,
             34
+          ]
+        ],
+        "N": [
+          [
+            32,
+            34
+          ],
+          [
+            32,
+            33
+          ],
+          [
+            32,
+            34
+          ],
+          [
+            32,
+            35
           ]
         ],
         "W": [
@@ -84,10 +134,18 @@
   ],
   "qc": {
     "gripOnFist": {
+      "main/katana S:0": true,
+      "main/katana S:1": true,
+      "main/katana S:2": true,
+      "main/katana S:3": true,
       "main/katana E:0": true,
       "main/katana E:1": true,
       "main/katana E:2": true,
       "main/katana E:3": true,
+      "main/katana N:0": "hidden",
+      "main/katana N:1": "hidden",
+      "main/katana N:2": "hidden",
+      "main/katana N:3": "hidden",
       "main/katana W:0": true,
       "main/katana W:1": true,
       "main/katana W:2": true,

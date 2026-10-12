@@ -7,7 +7,9 @@
   "fps": 6,
   "sourceDirection": "E",
   "directions": [
+    "S",
     "E",
+    "N",
     "W"
   ],
   "mirror": {
@@ -811,27 +813,27 @@
               24
             ],
             "angle": [
-              10,
-              10,
-              10,
-              10
+              5,
+              5,
+              5,
+              5
             ],
             "elbow": [
               {
                 "at": 7,
-                "angle": 192
+                "angle": -25
               },
               {
                 "at": 7,
-                "angle": 192
+                "angle": -25
               },
               {
                 "at": 7,
-                "angle": 192
+                "angle": -25
               },
               {
                 "at": 7,
-                "angle": 192
+                "angle": -25
               }
             ],
             "scale": [
@@ -841,10 +843,10 @@
               1
             ],
             "fist": [
-              "up",
-              "up",
-              "up",
-              "up"
+              "front",
+              "front",
+              "front",
+              "front"
             ],
             "z": 4,
             "pivotDx": [
@@ -1038,10 +1040,10 @@
               24
             ],
             "angle": [
-              -12,
-              -12,
-              -12,
-              -12
+              -8,
+              -8,
+              -8,
+              -8
             ],
             "elbow": [
               null,
@@ -1205,7 +1207,88 @@
       ],
       "mirror": {
         "W": "E"
-      }
+      },
+      "S": [
+        {
+          "grip": [
+            24,
+            39
+          ],
+          "angle": 135,
+          "scale": 0.45,
+          "z": "front"
+        },
+        {
+          "grip": [
+            24,
+            38
+          ],
+          "angle": 135,
+          "scale": 0.45,
+          "z": "front"
+        },
+        {
+          "grip": [
+            24,
+            39
+          ],
+          "angle": 135,
+          "scale": 0.45,
+          "z": "front"
+        },
+        {
+          "grip": [
+            24,
+            40
+          ],
+          "angle": 135,
+          "scale": 0.45,
+          "z": "front"
+        }
+      ],
+      "N": [
+        {
+          "grip": [
+            40,
+            38
+          ],
+          "angle": 60,
+          "scale": 0.5,
+          "z": "behind",
+          "hidden": true
+        },
+        {
+          "grip": [
+            40,
+            37
+          ],
+          "angle": 60,
+          "scale": 0.5,
+          "z": "behind",
+          "hidden": true
+        },
+        {
+          "grip": [
+            40,
+            38
+          ],
+          "angle": 60,
+          "scale": 0.5,
+          "z": "behind",
+          "hidden": true
+        },
+        {
+          "grip": [
+            40,
+            39
+          ],
+          "angle": 60,
+          "scale": 0.5,
+          "z": "behind",
+          "hidden": true
+        }
+      ],
+      "viewRule": "S: the weapon hand is low at the right hip and the blade points at the viewer, raised slightly: drawn short (scale 0.45) angled up and out. N: hidden in front of the body; drawn behind it."
     }
   ]
 }

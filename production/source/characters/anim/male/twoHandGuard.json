@@ -7,7 +7,9 @@
   "fps": 6,
   "sourceDirection": "E",
   "directions": [
+    "S",
     "E",
+    "N",
     "W"
   ],
   "mirror": {
@@ -815,27 +817,27 @@
               24
             ],
             "angle": [
-              10,
-              10,
-              10,
-              10
+              5,
+              5,
+              5,
+              5
             ],
             "elbow": [
               {
                 "at": 7,
-                "angle": 192
+                "angle": -75
               },
               {
                 "at": 7,
-                "angle": 192
+                "angle": -75
               },
               {
                 "at": 7,
-                "angle": 192
+                "angle": -75
               },
               {
                 "at": 7,
-                "angle": 192
+                "angle": -75
               }
             ],
             "scale": [
@@ -845,10 +847,10 @@
               1
             ],
             "fist": [
-              "up",
-              "up",
-              "up",
-              "up"
+              "front",
+              "front",
+              "front",
+              "front"
             ],
             "z": 4,
             "pivotDx": [
@@ -864,27 +866,27 @@
               24
             ],
             "angle": [
-              -10,
-              -10,
-              -10,
-              -10
+              -5,
+              -5,
+              -5,
+              -5
             ],
             "elbow": [
               {
                 "at": 7,
-                "angle": 168
+                "angle": 75
               },
               {
                 "at": 7,
-                "angle": 168
+                "angle": 75
               },
               {
                 "at": 7,
-                "angle": 168
+                "angle": 75
               },
               {
                 "at": 7,
-                "angle": 168
+                "angle": 75
               }
             ],
             "scale": [
@@ -894,12 +896,12 @@
               1
             ],
             "fist": [
-              "up",
-              "up",
-              "up",
-              "up"
+              "front",
+              "front",
+              "front",
+              "front"
             ],
-            "z": 4,
+            "z": 3,
             "pivotDx": [
               0,
               0,
@@ -1042,10 +1044,10 @@
               24
             ],
             "angle": [
-              -12,
-              -12,
-              -12,
-              -12
+              15,
+              15,
+              15,
+              15
             ],
             "elbow": [
               null,
@@ -1075,10 +1077,10 @@
               24
             ],
             "angle": [
-              12,
-              12,
-              12,
-              12
+              -15,
+              -15,
+              -15,
+              -15
             ],
             "elbow": [
               null,
@@ -1208,7 +1210,88 @@
       },
       "items": [
         "katana"
-      ]
+      ],
+      "S": [
+        {
+          "grip": [
+            31,
+            35
+          ],
+          "angle": 90,
+          "scale": 0.55,
+          "z": "front"
+        },
+        {
+          "grip": [
+            31,
+            34
+          ],
+          "angle": 90,
+          "scale": 0.55,
+          "z": "front"
+        },
+        {
+          "grip": [
+            31,
+            35
+          ],
+          "angle": 90,
+          "scale": 0.55,
+          "z": "front"
+        },
+        {
+          "grip": [
+            31,
+            36
+          ],
+          "angle": 90,
+          "scale": 0.55,
+          "z": "front"
+        }
+      ],
+      "N": [
+        {
+          "grip": [
+            32,
+            34
+          ],
+          "angle": 65,
+          "scale": 1,
+          "z": "behind",
+          "hidden": true
+        },
+        {
+          "grip": [
+            32,
+            33
+          ],
+          "angle": 65,
+          "scale": 1,
+          "z": "behind",
+          "hidden": true
+        },
+        {
+          "grip": [
+            32,
+            34
+          ],
+          "angle": 65,
+          "scale": 1,
+          "z": "behind",
+          "hidden": true
+        },
+        {
+          "grip": [
+            32,
+            35
+          ],
+          "angle": 65,
+          "scale": 1,
+          "z": "behind",
+          "hidden": true
+        }
+      ],
+      "viewRule": "S: hands together at the navel, the blade points at the viewer's throat, drawn up the centre line foreshortened (scale 0.55). N: the hands are hidden in front of the body; the katana is drawn behind the body, angled up and to the right so its tip clears the head beside the right shoulder."
     }
   ]
 }

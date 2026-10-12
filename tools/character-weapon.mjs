@@ -27,14 +27,15 @@ const weapons = spec.weapons || (spec.weapon ? [{ slot: 'main', layer: 'arms', .
 if (!weapons) { console.error(`${state}.json has no weapon section`); process.exit(2); }
 const F = spec.frames, dirs = spec.directions;
 
-// one frame of the weapon in body-frame coordinates: grip [x, y] (pixel centre of the near fist), angle in degrees
-// above the facing's horizontal (E: +x is forward), so 0 points straight ahead and 90 straight up
+// one frame of the weapon in body-frame coordinates: grip [x, y] (pixel centre of the fist), angle in degrees above the
+// screen's +x axis (in E that is forward), so 0 points right/ahead and 90 straight up; scale foreshortens the length
 function draw(item, pose) {
   const t = pose.angle * Math.PI / 180, d = [Math.cos(t), -Math.sin(t)], n = [Math.sin(t), Math.cos(t)];
   const gx = pose.grip[0] + 0.5, gy = pose.grip[1] + 0.5, out = new Map();
   const lo = Math.min(...item.segments.map((s) => s.from)), hi = Math.max(...item.segments.map((s) => s.to));
   for (let y = -ORIGIN[1]; y < WF - ORIGIN[1]; y++) for (let x = -ORIGIN[0]; x < WF - ORIGIN[0]; x++) {
-    const cx = x + 0.5 - gx, cy = y + 0.5 - gy, u = cx * d[0] + cy * d[1], v = cx * n[0] + cy * n[1];
+    // scale foreshortens the weapon's length (a blade pointing toward or away from the viewer), never its thickness
+    const cx = x + 0.5 - gx, cy = y + 0.5 - gy, u = (cx * d[0] + cy * d[1]) / (pose.scale ?? 1), v = cx * n[0] + cy * n[1];
     if (u < lo || u >= hi) continue;
     // a gap between segments (a hilt hidden inside the fist) draws nothing
     const s = item.segments.find((g) => u >= g.from && u < g.to);
@@ -68,7 +69,6 @@ const files = {}, out = [];
 for (const W of weapons.flatMap((w) => (w.items || [w.item]).map((it, i) => ({ ...w, item: it, isDefault: i === 0 })))) {
   const item = JSON.parse(fs.readFileSync(path.join(root, 'production/source/characters/items', `${W.item}.json`), 'utf8'));
   const pal = Object.fromEntries(Object.entries(item.palette).map(([s, h]) => [s, h.slice(1).toLowerCase()]));
-  const hand = handLayers[W.layer || 'arms'];
   const sheet = Buffer.alloc(WF * F * WF * dirs.length * 4);
   const z = {};
   dirs.forEach((dir, r) => {
@@ -79,8 +79,10 @@ for (const W of weapons.flatMap((w) => (w.items || [w.item]).map((it, i) => ({ .
       if (p.mirrored) m = new Map([...m].map(([q, c]) => { const [x, y] = unkey(q); return [key(FRAME - 1 - x, y), c]; }));
       z[dir].push(p.z);
       // registration: the grip pixel is covered by the hand's layer (the fist closes over the hilt)
-      const [gx, gy] = p.grip, ai = ((r * FRAME + gy) * hand.w + k * FRAME + gx) * 4;
-      qc.gripOnFist[`${W.slot}/${W.item} ${dir}:${k}`] = hand.px[ai + 3] === 255;
+      // a pose may name its own hand layer (in S both hands are on the arms layer) or mark the hand hidden (N: the hands
+      // are in front of the body, so only the weapon parts that clear the body show and there is no fist to register to)
+      const hl = handLayers[p.layer || W.layer || 'arms'], [gx, gy] = p.grip, ai = ((r * FRAME + gy) * hl.w + k * FRAME + gx) * 4;
+      qc.gripOnFist[`${W.slot}/${W.item} ${dir}:${k}`] = p.hidden ? 'hidden' : hl.px[ai + 3] === 255;
       for (const [q, c] of m) {
         const [x, y] = unkey(q), X = x + ORIGIN[0], Y = y + ORIGIN[1];
         if (X < 0 || Y < 0 || X >= WF || Y >= WF) { qc.inFrame = false; continue; }
@@ -93,7 +95,7 @@ for (const W of weapons.flatMap((w) => (w.items || [w.item]).map((it, i) => ({ .
   out.push({ slot: W.slot, item: W.item, default: W.isDefault, grip: W.gripKind, hand: W.layer || 'arms', file, status: W.status || spec.status, z,
     grips: Object.fromEntries(dirs.map((d) => [d, Array.from({ length: F }, (_, k) => poseOf(W, d, k).grip)])) });
 }
-qc.pass = qc.inFrame && Object.values(qc.gripOnFist).every(Boolean);
+qc.pass = qc.inFrame && Object.values(qc.gripOnFist).every((v) => v === true || v === 'hidden');
 
 files['weapon.json'] = JSON.stringify({
   schema: 'astro-fighters-character-weapon-output/v2',
