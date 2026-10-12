@@ -566,7 +566,7 @@ function frontalLegs(d, k) {
     }
     const isFar = side === far, src = L.poses[L[isFar ? 'far' : 'near'][k]], off = LB.offset[side] + pl, sx = LB.scaleX ?? 1;
     const hx = src.hipX + off, tx = (v) => hx + roundHalfEven((v - src.hipX) * sx);
-    const pose = { ...src, hipX: hx, kneeX: tx(src.kneeX), footX: tx(src.footX) };
+    const pose = { ...src, hipX: hx, kneeX: tx(src.kneeX), ...(src.ankle ? { ankle: [tx(src.ankle[0]), src.ankle[1]] } : { footX: tx(src.footX) }) };
     const ck = JSON.stringify(pose);
     if (!bandLegCache.has(ck)) bandLegCache.set(ck, buildLeg(pose));
     return { side, isFar, z: isFar ? 0 : 2, pose, legMap: bandLegCache.get(ck) };

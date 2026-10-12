@@ -325,7 +325,7 @@ Movement is eight-directional; character **facing is four-directional** (adopted
 - `N` back;
 - `W` left profile (E mirrored).
 
-Facing rule: any horizontal movement or aim component faces `E` or `W` (`NE`/`SE` use `E`, `NW`/`SW` use `W`); pure vertical movement faces `N` or `S`; with no input the last facing holds; a diagonal keeps the current horizontal facing when it begins. Attacks play and resolve in the current facing. Runtime animation sheets have the rows `S, E, N, W`.
+Facing rule: any horizontal movement or aim component faces `E` or `W` (`NE`/`SE` use `E`, `NW`/`SW` use `W`); pure vertical movement faces `N` or `S`; with no input the last facing holds; a diagonal keeps the current horizontal facing when it begins. Attacks play and resolve in the current facing. Runtime animation sheets have the rows `S, E, N, W`. An attack frame may show the body turned to a three-quarter reference body (S kicks as `SE`, N kicks as `NE`, approved 2026-10-12) when the move cannot read in the front or back view; the facing, hitbox and clip stay those of the current facing.
 
 Every visible character module must obey its facing. Direction affects the complete silhouette: head, neck, shoulders, torso, hips, arms, hands, legs, feet, hair, clothing, sash, accessories, shadow, weapon/scabbard, and overlap order.
 

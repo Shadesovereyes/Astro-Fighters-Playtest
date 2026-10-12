@@ -2095,7 +2095,7 @@
   },
   "approved": {},
   "borrow": {
-    "rule": "spin frames are the spinPivot helper state's pivot poses (lead foot planted, rear leg lifted, then opening) in the three bodies the spin turns through toward the rear side (E -> S, W, N; S -> W, N, E; N -> E, S, W); each is shifted by dx so its planted lead foot stays near the facing's lead-foot position (clamped to 6 px); W takes E's flipped",
+    "rule": "spin frames (10-12) are the spinPivot helper's pivot poses in the three bodies the spin turns through toward the rear side (E -> S, W, N; S -> W, N, E; N -> E, S, W), shifted by dx so the planted lead foot stays near its spot (clamped to 6 px); S and N kick frames (1-4, 6-8, 13-14) turn the body to three-quarter: S borrows the kick34 helper's SE body, N its NE body, at the same frame; W takes E's frames flipped",
     "frames": {
       "10": {
         "state": "spinPivot",
@@ -2135,6 +2135,51 @@
           "dir": "E",
           "frame": 1,
           "dx": 1
+        },
+        "1": {
+          "state": "kick34",
+          "dir": "SE",
+          "frame": 1
+        },
+        "2": {
+          "state": "kick34",
+          "dir": "SE",
+          "frame": 2
+        },
+        "3": {
+          "state": "kick34",
+          "dir": "SE",
+          "frame": 3
+        },
+        "4": {
+          "state": "kick34",
+          "dir": "SE",
+          "frame": 4
+        },
+        "6": {
+          "state": "kick34",
+          "dir": "SE",
+          "frame": 6
+        },
+        "7": {
+          "state": "kick34",
+          "dir": "SE",
+          "frame": 7
+        },
+        "8": {
+          "state": "kick34",
+          "dir": "SE",
+          "frame": 8
+        },
+        "13": {
+          "state": "kick34",
+          "dir": "SE",
+          "frame": 13
+        },
+        "14": {
+          "state": "kick34",
+          "dir": "SE",
+          "frame": 14
         }
       },
       "N": {
@@ -2155,12 +2200,57 @@
           "dir": "W",
           "frame": 1,
           "dx": -2
+        },
+        "1": {
+          "state": "kick34",
+          "dir": "NE",
+          "frame": 1
+        },
+        "2": {
+          "state": "kick34",
+          "dir": "NE",
+          "frame": 2
+        },
+        "3": {
+          "state": "kick34",
+          "dir": "NE",
+          "frame": 3
+        },
+        "4": {
+          "state": "kick34",
+          "dir": "NE",
+          "frame": 4
+        },
+        "6": {
+          "state": "kick34",
+          "dir": "NE",
+          "frame": 6
+        },
+        "7": {
+          "state": "kick34",
+          "dir": "NE",
+          "frame": 7
+        },
+        "8": {
+          "state": "kick34",
+          "dir": "NE",
+          "frame": 8
+        },
+        "13": {
+          "state": "kick34",
+          "dir": "NE",
+          "frame": 13
+        },
+        "14": {
+          "state": "kick34",
+          "dir": "NE",
+          "frame": 14
         }
       }
     }
   },
   "frontal": {
-    "rule": "S and N are built from their reference frames: a planted leg keeps its rows (dropping the frame's bob rows so the foot stays down); a kicking leg is an authored band leg in the view's own coordinates (legBand.sides / legBand.pose), drawn in front of the body when it kicks toward the viewer (S) and behind it when it kicks away (N); the arms are the jab/cross guard band arms. S: snap and side kicks come at the camera (knee up, short foreshortened shin, the sole toward the viewer); the roundhouse sweeps across in front of the stomach. N: kicks go away from the camera behind the body (sole and heel toward the viewer); the roundhouse leg swings out to the side.",
+    "rule": "S and N are built from their reference frames: a planted leg keeps its rows (dropping the frame's bob rows so the foot stays down); a kicking leg is an authored band leg in the view's own coordinates (legBand.sides / legBand.pose), drawn in front of the body when it kicks toward the viewer (S) and behind it when it kicks away (N); the arms are the jab/cross guard band arms. S: snap and side kicks come at the camera (knee up, short foreshortened shin, the sole toward the viewer); the roundhouse sweeps across in front of the stomach. N: kicks go away from the camera behind the body (sole and heel toward the viewer); the roundhouse leg swings out to the side. Kick frames 1-4, 6-8 and 13-14 are replaced by the kick34 three-quarter bodies (borrow.byDirection); the S/N kick legs below remain as unused history.",
     "legLift": {
       "R": [
         0,

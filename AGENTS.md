@@ -107,7 +107,7 @@ Ordinary exploration uses continuous real-time movement:
 - authored world collision;
 - pixel-snapped rendering where appropriate.
 
-Four-direction facing was adopted by the user on 2026-10-12 and replaces eight-direction facing. Character runtime animation sheets have the rows S, E, N, W; W mirrors E. The locked reference sheets keep all eight frames unchanged, and the rig, anchors and overlay registration stay valid for all eight, so diagonal facings can return only by an explicit user relock. Attacks play and resolve in the current facing.
+Four-direction facing was adopted by the user on 2026-10-12 and replaces eight-direction facing. Character runtime animation sheets have the rows S, E, N, W; W mirrors E. The locked reference sheets keep all eight frames unchanged, and the rig, anchors and overlay registration stay valid for all eight, so diagonal facings can return only by an explicit user relock. Attacks play and resolve in the current facing; an attack frame may turn the body to a three-quarter reference body (S kicks as SE, N kicks as NE) where the move cannot read front-on or from behind, keeping the facing, hitbox and clip of the current facing.
 
 The logical 32×32 grid may still support AI, navigation sectors, authored placement, combat telegraphs, encounter logic, or abilities. It is structural, not graphical.
 
