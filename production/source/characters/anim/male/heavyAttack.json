@@ -2990,7 +2990,7 @@
             "L": 0
           }
         },
-        "kickRule": "S: the torso and hips rotate into each rear-leg kick, the standing leg bends and the kicking hip hikes. Low kick: the thigh drops from the rotated hip to a knee at knee height and the shin runs in to the body's centre line, the sole toward the viewer in front of the standing leg. Snap kick: the chamber raises the knee well above the hip with the shin hanging; the snap keeps the knee high and drives the shin out to the kicking side, the foot level at the hip line, above the low kick.; on the lift, low kick, chamber and snap the knee turns in toward the centre line with the rotating hips, never out; the standing leg shifts toward the centre line on every kick frame (plant)",
+        "kickRule": "S: the torso and hips rotate into each rear-leg kick, the standing leg bends and the kicking hip hikes. Low kick: the thigh drops from the rotated hip to a knee at knee height and the shin runs in to the body's centre line, the sole toward the viewer in front of the standing leg. Snap kick: the chamber raises the knee well above the hip with the shin hanging; the snap keeps the knee high and drives the shin out to the kicking side, the foot level at the hip line, above the low kick.; on the lift, low kick, chamber and snap the knee turns in toward the centre line with the rotating hips, never out; the standing leg shifts toward the centre line on every kick frame (plant); the kicking leg is in front of the standing leg (z 3.5)",
         "variants": {
           "1": [
             "S-hikeR1",
@@ -3552,22 +3552,22 @@
           },
           "z": {
             "R": [
-              2,
-              2,
-              2,
-              2,
-              2,
-              2,
-              2,
-              2,
-              2,
-              2,
-              2,
-              2,
-              2,
-              2,
-              2,
-              2
+              1.5,
+              1.5,
+              1.5,
+              1.5,
+              1.5,
+              1.5,
+              1.5,
+              1.5,
+              1.5,
+              1.5,
+              1.5,
+              1.5,
+              1.5,
+              1.5,
+              1.5,
+              1.5
             ],
             "L": [
               2,
@@ -3593,7 +3593,7 @@
             "L": 0
           }
         },
-        "kickRule": "N: the torso and hips rotate into each rear-leg kick, the standing leg bends and the kicking hip hikes. Low kick: the thigh drops from the rotated hip to a knee at knee height and the shin runs in to the body's centre line, the sole toward the viewer between the legs. Snap kick: the chamber raises the knee to the kicking side with the sole showing; the snap drives the shin out to that side, the foot level at the hip line, clear of the torso.; on the lift, low kick, chamber and snap the knee turns in toward the centre line with the rotating hips, never out; the standing leg shifts toward the centre line on every kick frame (plant)",
+        "kickRule": "N: the torso and hips rotate into each rear-leg kick, the standing leg bends and the kicking hip hikes. Low kick: the thigh drops from the rotated hip to a knee at knee height and the shin runs in to the body's centre line, the sole toward the viewer between the legs. Snap kick: the chamber raises the knee to the kicking side with the sole showing; the snap drives the shin out to that side, the foot level at the hip line, clear of the torso.; on the lift, low kick, chamber and snap the knee turns in toward the centre line with the rotating hips, never out; the standing leg shifts toward the centre line on every kick frame (plant); the kicking leg is behind the standing leg (z 1.5 under the standing leg's 2)",
         "variants": {
           "1": [
             "N-hikeR1",
