@@ -168,8 +168,7 @@ function validateCanonical() {
     const def = path.join(root, out.sheets || '', 'animation.json');
     if (!fs.existsSync(def)) continue;
     const rows = JSON.parse(fs.readFileSync(def, 'utf8')).sheetLayout?.rows || [];
-    // helper states (sources for borrowed frames, not runtime states) may use any reference-frame direction
-    if (!out.helper) assert(rows.every((d) => c.characterFacing.directions.includes(d)), `Animation ${key} has rows outside the four facing directions.`);
+    assert(rows.every((d) => c.characterFacing.directions.includes(d)), `Animation ${key} has rows outside the four facing directions.`);
   }
   assert(c.characterAnimationPlan?.maxFramesPerAnimation === 16, 'Animation plan must cap animations at 16 frames.');
   for (const [key, out] of Object.entries(c.characterAnimationPlan?.outputs || {})) {

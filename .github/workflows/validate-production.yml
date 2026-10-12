@@ -46,5 +46,4 @@ jobs:
           node tools/character-posed.mjs male sprint --check
           node tools/character-posed.mjs male lightAttack --check
           node tools/character-posed.mjs male spinPivot --check
-          node tools/character-posed.mjs male kick34 --check
           node tools/character-posed.mjs male heavyAttack --check
