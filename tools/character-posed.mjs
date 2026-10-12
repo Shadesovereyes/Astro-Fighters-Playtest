@@ -541,9 +541,21 @@ function exposedInReference(fx) {
 // this view (offset, plus the pelvis lean) and narrowed sideways by scaleX for the angled stride; the far leg is one
 // shade darker and drawn behind the body.
 const bandLegCache = new Map();
+// legBand.sides: per side and frame, whether that leg is a band leg (otherwise it keeps its reference rows);
+// legBand.pose: per side and frame, a named pose authored in this view's own coordinates (used as is, no offset or
+// scale), with legBand.z per side and frame for its depth (a kick toward the viewer is drawn in front of the body)
+const bandSide = (d, s, k) => !!d.legBand && (!d.legBand.sides || !!d.legBand.sides[s]?.[k]);
 function frontalLegs(d, k) {
   const LB = d.legBand, far = d.far, pl = d.leanScale ? roundHalfEven(d.leanScale * leanOf('pelvis', k)) * (d.leanSign || 1) : 0;
-  return ['R', 'L'].map((side) => {
+  return ['R', 'L'].filter((side) => bandSide(d, side, k)).map((side) => {
+    const named = LB.pose?.[side]?.[k];
+    if (named) {
+      const pose = L.poses.find((p) => p.name === named);
+      if (!pose) throw new Error(`legBand pose ${named} not in legs.poses`);
+      const ck = JSON.stringify(pose);
+      if (!bandLegCache.has(ck)) bandLegCache.set(ck, buildLeg(pose));
+      return { side, isFar: side === far, z: LB.z?.[side]?.[k] ?? 2, pose, legMap: bandLegCache.get(ck) };
+    }
     const isFar = side === far, src = L.poses[L[isFar ? 'far' : 'near'][k]], off = LB.offset[side] + pl, sx = LB.scaleX ?? 1;
     const hx = src.hipX + off, tx = (v) => hx + roundHalfEven((v - src.hipX) * sx);
     const pose = { ...src, hipX: hx, kneeX: tx(src.kneeX), footX: tx(src.footX) };
@@ -568,7 +580,7 @@ function frontalMove(d, k, part, y) {
   let rows, dx = 0, z = 3;
   if (limb?.[0] === 'leg') {
     const s = limb[1], n = lift[s][k] + b;
-    if (d.legBand) rows = [];   // drawn as band legs instead (frontalLegs)
+    if (bandSide(d, s, k)) rows = [];   // drawn as band legs instead (frontalLegs)
     else if (d.legPose) {
       // a named leg pose drops its own rows (thigh rows foreshorten a knee coming toward or away from the viewer,
       // shin rows a lower leg folding back); every leg also drops the frame's bob rows so the planted foot stays down
@@ -1126,7 +1138,9 @@ spec.directions.forEach((dir, r) => {
   // borrowed frames: a frame of the source direction may be another state's rendered frame of another direction
   // (a spin passes through the directional bodies); its mirrors take it flipped
   const srcDir = mirrors[dir]?.from ?? dir;
-  if (srcDir === spec.sourceDirection) for (const [kk, b] of Object.entries(spec.borrow?.frames || {})) {
+  // borrow.byDirection gives a frontal view its own borrowed frames (the spin passes through different bodies)
+  const borrowed = srcDir === spec.sourceDirection ? spec.borrow?.frames : spec.borrow?.byDirection?.[srcDir];
+  for (const [kk, b] of Object.entries(borrowed || {})) {
     const other = JSON.parse(fs.readFileSync(path.join(animDir, `${b.state}.json`), 'utf8')), row = other.directions.indexOf(b.dir);
     if (row < 0) throw new Error(`borrow: ${b.state} has no ${b.dir} row`);
     const fr = {};
