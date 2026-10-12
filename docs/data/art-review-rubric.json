@@ -12,7 +12,7 @@
     "The hidden 32×32 grid is visible through lines, checkerboarding, repeated seams, or obvious tile rhythm.",
     "Different elements visibly use different pixel-art styles or pixel densities.",
     "Environment art resembles generic RPG Maker, vector art, clean modern tilesets, or generic cyberpunk.",
-    "Eight-direction movement is represented using obviously incorrect directional character bodies.",
+    "Eight-direction movement is represented using obviously incorrect facing bodies (four-direction facing: S, E, N, W; diagonals use the E or W side view).",
     "Anatomical weapon or equipment routing is wrong for one or more facings.",
     "Clothing layers incorrectly cover anatomy because of coarse overlay ordering.",
     "Modular isolates contain neighboring-item contamination or presentation artifacts.",

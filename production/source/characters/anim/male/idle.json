@@ -2,18 +2,14 @@
   "schema": "astro-fighters-character-animation/v1",
   "body": "male",
   "state": "idle",
-  "status": "approved by user 2026-10-06",
+  "status": "approved by user 2026-10-06; four-direction facing adopted 2026-10-12: rows S, E, N, W (diagonal rows retired; their approved frames remain in git history)",
   "frames": 8,
   "fps": 6,
   "directions": [
     "S",
-    "SE",
     "E",
-    "NE",
     "N",
-    "NW",
-    "W",
-    "SW"
+    "W"
   ],
   "intent": "Breathing. The upper body settles 1 px on the exhale and returns; pelvis, legs and sash stay planted so the feet never move.",
   "units": "Track values are whole-pixel [dx, dy] offsets per frame (a plain number is dy). Positive dy moves down.",
@@ -80,7 +76,6 @@
   "rules": [
     "At a joint, the upper part is never higher than the part below it (head >= torso, hair cap >= upper fall >= lower fall), so no gap ever opens: the head drops first and rises last; the hair falls settle after the cap and rise before it.",
     "Arms lag the torso on the way down but return with it: in the profiles the torso sits directly above the near arm, so an arm lower than the torso would open a gap at that seam.",
-    "In NE and NW the far forearm sits directly above torso pixels, so the arms move exactly with the torso there (directionTracks).",
     "Pelvis, legs and sash have no track and stay at 0; the feet stay on the pivot."
   ],
   "rootMotion": [
@@ -116,31 +111,5 @@
       0,
       0
     ]
-  ],
-  "directionTracks": {
-    "NE": {
-      "arms": [
-        0,
-        0,
-        1,
-        1,
-        1,
-        1,
-        0,
-        0
-      ]
-    },
-    "NW": {
-      "arms": [
-        0,
-        0,
-        1,
-        1,
-        1,
-        1,
-        0,
-        0
-      ]
-    }
-  }
+  ]
 }

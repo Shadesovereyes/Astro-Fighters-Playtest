@@ -162,7 +162,14 @@ function validateCanonical() {
   for (const retired of ['characterSourceCanvas', 'characterSourceBodyCenter', 'characterSourceFootContactY', 'characterRuntimeFrame', 'characterRuntimePivot']) {
     assert(!(retired in c), `Retired 480×640/48×64 character field ${retired} must not return.`);
   }
-  assert(same(c.characterAnimationFramesPerDirection, { idle: 8, walk: 8, ready: 2, sprint: 8, lightAttack: 4, heavyAttack: 16 }), 'Animation counts drifted.');
+  assert(same(c.characterAnimationFramesPerDirection, { idle: 8, walk: 8, ready: 2, sprint: 8, lightAttack: 8, heavyAttack: 16 }), 'Animation counts drifted.');
+  assert(same(c.characterFacing?.directions, ['S', 'E', 'N', 'W']), 'Character facing must be four-direction: S, E, N, W.');
+  for (const [key, out] of Object.entries(c.characterAnimationPlan?.outputs || {})) {
+    const def = path.join(root, out.sheets || '', 'animation.json');
+    if (!fs.existsSync(def)) continue;
+    const rows = JSON.parse(fs.readFileSync(def, 'utf8')).sheetLayout?.rows || [];
+    assert(rows.every((d) => c.characterFacing.directions.includes(d)), `Animation ${key} has rows outside the four facing directions.`);
+  }
   assert(c.characterAnimationPlan?.maxFramesPerAnimation === 16, 'Animation plan must cap animations at 16 frames.');
   for (const [key, out] of Object.entries(c.characterAnimationPlan?.outputs || {})) {
     assert(fs.existsSync(path.join(root, out.spec || '')), `Animation ${key} spec missing on disk.`);

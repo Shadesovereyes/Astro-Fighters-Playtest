@@ -2,34 +2,22 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "sprint",
-  "status": "approved by user 2026-10-08: E/W, S/N, SE/SW; NE/NW approved tentatively 2026-10-08; S arm sizing tentative (see revisit)",
+  "status": "approved by user 2026-10-08: E/W, S/N, SE/SW; NE/NW approved tentatively 2026-10-08; S arm sizing tentative (see revisit); four-direction facing adopted 2026-10-12: rows S, E, N, W (diagonal views retired; their approved work remains in git history)",
   "frames": 8,
   "fps": 14,
   "sourceDirection": "E",
   "directions": [
     "S",
-    "SE",
     "E",
-    "NE",
     "N",
-    "NW",
-    "W",
-    "SW"
+    "W"
   ],
   "mirror": {
     "W": {
       "from": "E",
       "frameShift": 4
     },
-    "rule": "A mirrored reference must be an exact horizontal mirror of its source for Body1, Arms1, hair, eyes and clothing; the renderer verifies this before mirroring (x -> 63 - x). Mirroring swaps the character's sides, so the mirrored direction plays its source half a cycle later (frameShift 4): every direction then has the right leg forward at frame 0 and the walk can change direction on any frame.",
-    "SW": {
-      "from": "SE",
-      "frameShift": 4
-    },
-    "NW": {
-      "from": "NE",
-      "frameShift": 4
-    }
+    "rule": "A mirrored reference must be an exact horizontal mirror of its source for Body1, Arms1, hair, eyes and clothing; the renderer verifies this before mirroring (x -> 63 - x). Mirroring swaps the character's sides, so the mirrored direction plays its source half a cycle later (frameShift 4): every direction then has the right leg forward at frame 0 and the walk can change direction on any frame."
   },
   "intent": "Naruto-style run: forward lean from stacked pelvis/torso/head offsets, both arms swept back from the shoulder, long low stride. Per step: contact (foot ahead), load (body lowest), drive (toe-off behind), flight (both feet up). The far leg runs the near leg poses 4 frames later.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
@@ -218,142 +206,6 @@
       [
         0,
         -6
-      ]
-    ],
-    "SE": [
-      [
-        4,
-        4
-      ],
-      [
-        4,
-        4
-      ],
-      [
-        4,
-        4
-      ],
-      [
-        4,
-        4
-      ],
-      [
-        4,
-        4
-      ],
-      [
-        4,
-        4
-      ],
-      [
-        4,
-        4
-      ],
-      [
-        4,
-        4
-      ]
-    ],
-    "SW": [
-      [
-        -4,
-        4
-      ],
-      [
-        -4,
-        4
-      ],
-      [
-        -4,
-        4
-      ],
-      [
-        -4,
-        4
-      ],
-      [
-        -4,
-        4
-      ],
-      [
-        -4,
-        4
-      ],
-      [
-        -4,
-        4
-      ],
-      [
-        -4,
-        4
-      ]
-    ],
-    "NE": [
-      [
-        4,
-        -4
-      ],
-      [
-        4,
-        -4
-      ],
-      [
-        4,
-        -4
-      ],
-      [
-        4,
-        -4
-      ],
-      [
-        4,
-        -4
-      ],
-      [
-        4,
-        -4
-      ],
-      [
-        4,
-        -4
-      ],
-      [
-        4,
-        -4
-      ]
-    ],
-    "NW": [
-      [
-        -4,
-        -4
-      ],
-      [
-        -4,
-        -4
-      ],
-      [
-        -4,
-        -4
-      ],
-      [
-        -4,
-        -4
-      ],
-      [
-        -4,
-        -4
-      ],
-      [
-        -4,
-        -4
-      ],
-      [
-        -4,
-        -4
-      ],
-      [
-        -4,
-        -4
       ]
     ]
   },
@@ -738,26 +590,6 @@
           1,
           0,
           -1
-        ],
-        "SE": [
-          1,
-          0,
-          -1,
-          -1,
-          -1,
-          0,
-          0,
-          1
-        ],
-        "NE": [
-          -1,
-          -1,
-          0,
-          1,
-          1,
-          0,
-          -1,
-          -1
         ]
       }
     },
@@ -955,11 +787,7 @@
     "E": "2026-10-08",
     "W": "2026-10-08 (mirror of E)",
     "S": "2026-10-08; S arm/wrist/fist sizing approved tentatively 2026-10-08, to revisit",
-    "N": "2026-10-08",
-    "SE": "2026-10-08",
-    "SW": "2026-10-08 (mirror of SE)",
-    "NE": "2026-10-08 (tentative, revisit)",
-    "NW": "2026-10-08 (tentative, mirror of NE)"
+    "N": "2026-10-08"
   },
   "frontal": {
     "rule": "S and N are built from their own reference frames with no new pixels. A limb gets shorter by dropping listed reference rows and longer by repeating them; every row of that limb below the edit moves with it. A raised leg is a shortened leg (the leg tilting toward or away from the camera); the planted leg stays on row 63. Arms swing from the shoulder: the first pixel of swing is the elbow row (the upper arm's foreshortening moves the elbow), then a forearm row, then a wrist-wrap row. The step phase matches E/W (right leg forward at frame 0). Sprint: the lean is seen end-on, so the torso is shortened by the same rows as E (lean.torsoDrop) and the head lowered by lean.headDy, keeping every direction the same height; the arms are swept back and raised, so from the front and back both arms are foreshortened (shortened from the shoulder).",
@@ -1389,225 +1217,10 @@
         "legPoseDxRule": "a swinging leg comes in under the body: it shears toward the centre line by legPoseDx px, growing from the hip row (39) to the ankle (row 56), the foot moving with the ankle",
         "crouch": 2,
         "crouchRule": "a sprinting stance seen end-on: the whole figure sits 2 rows lower; every leg loses 2 more rows (the first bobRows) so the planted foot stays down"
-      },
-      "SE": {
-        "rule": "S at an angle. Legs: the E band legs placed at this view's hips (legBand). Upper body: the E lean shown partly sideways (leanScale), the near (R) arm as the authored band arm swept back from the near shoulder, the far (L) arm behind the body to the shoulder. The head stays level with E/W and is drawn in front of the chest. The far (L) side is drawn behind the body.",
-        "far": "L",
-        "headDy": -1,
-        "headZ": 3.5,
-        "handDy": {
-          "R": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ],
-          "L": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
-        "armRows": {
-          "R": [
-            30,
-            34,
-            29,
-            31,
-            24,
-            26
-          ],
-          "L": [
-            30,
-            34,
-            29,
-            31,
-            24,
-            26
-          ]
-        },
-        "armRepeatRows": {
-          "R": [
-            30,
-            34,
-            29,
-            31,
-            24,
-            26
-          ],
-          "L": [
-            30,
-            34,
-            29,
-            31,
-            24,
-            26
-          ]
-        },
-        "armPivot": 22,
-        "handFrom": {
-          "R": 36,
-          "L": 36
-        },
-        "handDx": {
-          "R": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ],
-          "L": [
-            -3,
-            -3,
-            -3,
-            -3,
-            -3,
-            -3,
-            -3,
-            -3
-          ]
-        },
-        "armVisibleTo": {
-          "R": null,
-          "L": 27
-        },
-        "armBand": {
-          "R": {
-            "pivot": [
-              26,
-              23
-            ],
-            "angle": [
-              58,
-              58,
-              60,
-              60,
-              58,
-              58,
-              60,
-              60
-            ],
-            "scale": 0.85
-          },
-          "L": null
-        },
-        "armBandRule": "the near (R) arm is swept back and raised like E: drawn as the authored band arm from the near shoulder at 70-72 degrees behind vertical, 80% length for foreshortening (it points away from the viewer)",
-        "leanScale": 0.6,
-        "leanRule": "the profile lean is partly sideways in this view: pelvis, torso (sheared) and head move toward the facing by 0.6 of the E offsets",
-        "legBand": {
-          "offset": {
-            "R": -6,
-            "L": 1
-          },
-          "scaleX": 0.75
-        },
-        "legBandRule": "the legs are the E sprint band legs (same poses and phase, constant thickness, authored feet), each moved to its own hip in this view and narrowed sideways to 75% for the angled stride; the far (L) leg is one shade darker and drawn behind; garments are authored on each leg as in E"
-      },
-      "NE": {
-        "rule": "N at an angle, built like the SE sprint: the E band legs placed at this view's hips (legBand; near R on the right, far L on the left, drawn behind), the E lean shown partly sideways (leanScale), both arms swept back toward the viewer as authored band arms (foreshortened), the far arm one shade darker and behind the body. The head stays level with E/W.",
-        "far": "L",
-        "headDy": -1,
-        "leanScale": 0.6,
-        "legBand": {
-          "offset": {
-            "R": 4,
-            "L": -5
-          },
-          "scaleX": 0.75
-        },
-        "handDy": {
-          "R": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ],
-          "L": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
-        "armRows": {
-          "R": [
-            35
-          ],
-          "L": [
-            35
-          ]
-        },
-        "armRepeatRows": {
-          "R": [
-            35
-          ],
-          "L": [
-            35
-          ]
-        },
-        "armBand": {
-          "R": {
-            "pivot": [
-              39,
-              23
-            ],
-            "angle": [
-              55,
-              55,
-              57,
-              57,
-              55,
-              55,
-              57,
-              57
-            ],
-            "scale": 0.7
-          },
-          "L": {
-            "pivot": [
-              24,
-              23
-            ],
-            "angle": [
-              50,
-              50,
-              48,
-              48,
-              50,
-              50,
-              48,
-              48
-            ],
-            "scale": 0.7
-          }
-        }
       }
     }
   },
   "revisit": [
-    "S arms: upper arm widened to 4 px (armWiden), wrist band and fist narrowed by 1 px with a 1 px gap to the body (armNarrow); the fist is only 2 px wide and lost its shade column. Approved tentatively 2026-10-08; revisit (option: narrow only the wrist, keep the 3 px fist and move it 1 px outward).",
-    "SE/SW arm armour on the band arm is placed from the reference accessory rows (stopgap); per-pose accessory variants still to be authored.",
-    "NE/NW approved tentatively 2026-10-08: the near arm crosses the back with its fist over the hips; the legs bunch as they pass in frame 2 (also SE frames 6-7)."
+    "S arms: upper arm widened to 4 px (armWiden), wrist band and fist narrowed by 1 px with a 1 px gap to the body (armNarrow); the fist is only 2 px wide and lost its shade column. Approved tentatively 2026-10-08; revisit (option: narrow only the wrist, keep the 3 px fist and move it 1 px outward)."
   ]
 }

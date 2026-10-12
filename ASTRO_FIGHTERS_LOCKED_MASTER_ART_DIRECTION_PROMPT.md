@@ -316,28 +316,26 @@ High-contrast inspection backgrounds may be used during QA to reveal holes, unin
 
 ---
 
-# 11. Eight-direction anatomy and routing
+# 11. Facing, anatomy and routing
 
-Every visible character module must obey the full direction:
+Movement is eight-directional; character **facing is four-directional** (adopted by the user 2026-10-12, replacing eight-direction facing):
 
-- `N` back;
-- `NE` back-right 3/4;
-- `E` right profile;
-- `SE` front-right 3/4;
 - `S` front;
-- `SW` front-left 3/4;
-- `W` left profile;
-- `NW` back-left 3/4.
+- `E` right profile;
+- `N` back;
+- `W` left profile (E mirrored).
 
-Direction affects the complete silhouette: head, neck, shoulders, torso, hips, arms, hands, legs, feet, hair, clothing, sash, accessories, shadow, weapon/scabbard, and overlap order.
+Facing rule: any horizontal movement or aim component faces `E` or `W` (`NE`/`SE` use `E`, `NW`/`SW` use `W`); pure vertical movement faces `N` or `S`; with no input the last facing holds; a diagonal keeps the current horizontal facing when it begins. Attacks play and resolve in the current facing. Runtime animation sheets have the rows `S, E, N, W`.
+
+Every visible character module must obey its facing. Direction affects the complete silhouette: head, neck, shoulders, torso, hips, arms, hands, legs, feet, hair, clothing, sash, accessories, shadow, weapon/scabbard, and overlap order.
 
 A front-facing body with only facial pixels or accessory placement changed is invalid.
 
 Equipment follows the character's **anatomical side**, not screen-left/screen-right. Direction-specific front/back/near/far routing must preserve believable body relationships.
 
-Mirroring may be used diagnostically or as an early candidate only where symmetry is truly valid; do not treat mirrored directional art as independently authored final work when garment/anatomy routing differs.
+Mirroring may be used diagnostically or as an early candidate only where symmetry is truly valid; do not treat mirrored directional art as independently authored final work when garment/anatomy routing differs. `W` is authored as the mirror of `E`; asymmetric equipment needs its own `W` routing check.
 
-For finalized 512×64 sheets and their overlays, preserve the existing source frame order rather than reordering base pixels to satisfy a naming convention. Direction labels must map to the approved frames without moving those frames. The sheet frame order, left to right, is `S, SE, E, NE, N, NW, W, SW`.
+For finalized 512×64 sheets and their overlays, preserve the existing source frame order rather than reordering base pixels to satisfy a naming convention. Direction labels must map to the approved frames without moving those frames. The sheet frame order, left to right, is `S, SE, E, NE, N, NW, W, SW`. The four diagonal reference frames (`SE`, `NE`, `NW`, `SW`) stay locked and registered but are not runtime facings; diagonal facing returns only by an explicit user relock.
 
 ---
 

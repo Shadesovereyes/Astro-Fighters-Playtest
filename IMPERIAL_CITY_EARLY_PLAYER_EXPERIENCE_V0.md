@@ -152,7 +152,7 @@ Benchmark identity:
 - neck cord/charm;
 - no weapon required for this first benchmark.
 
-Locked contract facts remain in the manifest: `512×64` reference sheets, `64×64` frames, pivot/foot contact `[32,63]`, canonical eight directions. Base geometry is under change control: animation base frames are authored from the reference poses and locked on approval (see `AGENTS.md`).
+Locked contract facts remain in the manifest: `512×64` reference sheets, `64×64` frames, pivot/foot contact `[32,63]`, eight reference frames, four-direction facing (S, E, N, W) for runtime animation. Base geometry is under change control: animation base frames are authored from the reference poses and locked on approval (see `AGENTS.md`).
 
 ### P0-E — Female base parity
 
@@ -162,7 +162,7 @@ Female Body1 is the only female base geometry; Body2 is a skin-tone reference on
 - hair/face;
 - base shorts;
 - sports bra;
-- all eight directions;
+- the four facing directions (S, E, N, W) for animation, on the eight locked reference frames;
 - same anchor/contact rules;
 - compatibility with the shared modular clothing contract.
 
@@ -341,7 +341,7 @@ Controlled modular reuse is allowed when role identity remains clear. Do not pop
 
 ## Traversal
 
-- correct eight-direction facing;
+- correct four-direction facing under eight-direction movement (diagonals use the E or W side view);
 - no pivot drift;
 - continuous movement;
 - credible collision at doors, bridges, stairs, alleys, quay edges, and verandas;
@@ -466,13 +466,13 @@ This is the current execution order. It is not a second checklist.
 19. female part split + anchors
 20. part split + anchors
 21. male long-hair sway split (cap / upper fall / lower fall)
-22. male idle, 8 frames, all 8 directions (approval-gated, then locked)
+22. male idle, 8 frames, S, E, N, W (approval-gated, then locked)
 23. male walk, 8 frames, E/W first
 24. male light attack (jab / cross), 4 frames, E/W first
 25. male sprint, 8 frames, E/W first
 26. male heavy attack (kick chain → roundhouse), 16 frames, E/W first
 27. male ready animation base
-28. remaining directions for walk, sprint and attacks
+28. remaining facings (S, N) for walk, sprint and attacks
 29. short Afro and dressed benchmark overlays per part pose
 30. coverage table + overlay QA
 31. female animation bases and overlays

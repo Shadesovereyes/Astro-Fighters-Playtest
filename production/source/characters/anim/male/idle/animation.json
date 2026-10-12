@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-animation-output/v1",
   "body": "male",
   "state": "idle",
-  "status": "approved by user 2026-10-06",
+  "status": "approved by user 2026-10-06; four-direction facing adopted 2026-10-12: rows S, E, N, W (diagonal rows retired; their approved frames remain in git history)",
   "frames": 8,
   "fps": 6,
   "frameSize": [
@@ -16,13 +16,9 @@
   "sheetLayout": {
     "rows": [
       "S",
-      "SE",
       "E",
-      "NE",
       "N",
-      "NW",
-      "W",
-      "SW"
+      "W"
     ],
     "columns": "frames 0–7"
   },

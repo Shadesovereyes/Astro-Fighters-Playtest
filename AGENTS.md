@@ -81,7 +81,7 @@ Verify in Phaser:
 - separate runtime assets are loaded and assembled as world layers;
 - the player moves continuously in real time;
 - collision is authored independently from appearance imagery;
-- eight-direction facing/animation responds to movement;
+- four-direction facing/animation (S, E, N, W) responds to eight-direction movement;
 - foreground/background depth ordering works;
 - the player can pass in front of and behind appropriate objects;
 - authored cutaways/roof behavior works where applicable;
@@ -102,10 +102,12 @@ Ordinary exploration uses continuous real-time movement:
 - velocity in pixels/second;
 - delta-time update;
 - normalized diagonal movement;
-- eight-direction facing from movement vector;
+- four-direction facing (S, E, N, W) from the movement vector: any horizontal component faces E or W (NE/SE use E, NW/SW use W), pure vertical faces N or S, no input keeps the last facing;
 - idle/walk/ready state from real movement state;
 - authored world collision;
 - pixel-snapped rendering where appropriate.
+
+Four-direction facing was adopted by the user on 2026-10-12 and replaces eight-direction facing. Character runtime animation sheets have the rows S, E, N, W; W mirrors E. The locked reference sheets keep all eight frames unchanged, and the rig, anchors and overlay registration stay valid for all eight, so diagonal facings can return only by an explicit user relock. Attacks play and resolve in the current facing.
 
 The logical 32×32 grid may still support AI, navigation sectors, authored placement, combat telegraphs, encounter logic, or abilities. It is structural, not graphical.
 

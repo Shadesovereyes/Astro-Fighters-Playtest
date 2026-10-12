@@ -1,6 +1,6 @@
 {
   "schema": "astro-fighters-production-manifest/v2",
-  "updated": "2026-10-02",
+  "updated": "2026-10-12",
   "approvalAuthority": "Astro Fighters — Art Preview Review Rubric.md",
   "masterDirection": "ASTRO_FIGHTERS_LOCKED_MASTER_ART_DIRECTION_PROMPT.md",
   "canonical": {
@@ -18,6 +18,16 @@
       "W": "left profile",
       "NW": "back-left 3/4"
     },
+    "movementDirections": "eight-direction movement (normalized diagonals); the canonical direction list above names the movement directions and the eight reference frames",
+    "characterFacing": {
+      "status": "adopted by user 2026-10-12 (four-direction facing; replaces eight-direction facing)",
+      "directions": ["S", "E", "N", "W"],
+      "rule": "any horizontal movement or aim component sets facing E or W (NE and SE use E, NW and SW use W); pure vertical movement sets N or S; with no input the last facing holds; a diagonal keeps the current horizontal facing when it begins (no flicker on a brief tap)",
+      "attacks": "attacks play and resolve in the current facing; hitboxes come from that facing's frames",
+      "mirroring": "W is E mirrored frame for frame (attacks) or half a cycle later (cycles)",
+      "referenceFrames": "the locked 512x64 reference sheets keep all eight frames (S, SE, E, NE, N, NW, W, SW) unchanged; the rig, anchors and overlay registration stay valid for all eight; runtime animation sheets use the four facing rows only",
+      "retiredDiagonalWork": "SE/SW and NE/NW animation views (walk, sprint, lightAttack, idle) are retired from runtime; their specs and sheets remain in git history"
+    },
     "characterSheetCanvas": [512, 64],
     "characterFrame": [64, 64],
     "characterFramesPerSheet": 8,
@@ -30,22 +40,22 @@
       "timing": "one speed per animation (base fps below); per-frame holds added only on approved key poses",
       "baseFps": {"idle": 6, "walk": 10, "sprint": 14, "lightAttack": 12, "heavyAttack": 12},
       "rootMotion": "per-frame dx, dy in pixels for world movement; the sprite stays anchored at pivot [32,63]",
-      "directionOrder": "idle in all 8 directions; walk, sprint, lightAttack and heavyAttack in E and W first, then the other 6",
+      "directionOrder": "four facing rows S, E, N, W for every animation; E authored first, W mirrored, then S and N",
       "idle": "breathing: torso, head and arms settle 1 px down and return; pelvis and legs fixed; downward-only moves need no new pixels",
       "walk": "contact, down, passing, up per step; the planted foot slides back in the frame exactly as far as the root motion carries the body, so it stays fixed on the ground",
       "sprint": "Naruto-style run: lean from stacked head/torso/pelvis offsets, arms swept back, long low stride",
       "lightAttack": "taijutsu jab/cross: guard, jab (active), recoil (chain window), cross (active); hitboxes and damage events on active frames",
-      "heavyAttack": "kick chain in three clips, one heavy press each: wind-up 2 + front snap kick 3 (rear leg); skip step 1 + lead-leg side kick 3 + landing 1 (replaces step-through 2 + side kick 3 so every clip starts and ends in the orthodox guard; root motion on the skip and landing); spin 3 (through the directional bodies) + rear-leg roundhouse impact 2 + recovery 1",
+      "heavyAttack": "kick chain in three clips, one heavy press each: wind-up 2 + front snap kick 3 (rear leg); skip step 1 + lead-leg side kick 3 + landing 1 (replaces step-through 2 + side kick 3 so every clip starts and ends in the orthodox guard; root motion on the skip and landing); spin 3 (through the S, W and N bodies) + rear-leg roundhouse impact 2 + recovery 1",
       "combo": "production/source/characters/anim/male/combo.json: punch (light) and kick (heavy) chains woven in one combo; one press per clip, each input keeps its own sequence position; spin roundhouse is the finisher",
       "secondaryMotion": "sash part sways; long hair split into cap / upper fall / lower fall with 1- and 2-frame lag",
       "outlineRule": "body-part outlines are kept for readability and layering: every limb drawn over the body or another limb (band arms and legs, bent forearms over upper arms, punches across the chest) keeps its own outline there, except where it joins its parent (shoulder, hip, elbow); user rule 2026-10-09",
-      "generator": {"offsets": "tools/character-animate.mjs (whole-pixel part offsets: idle)", "posed": "tools/character-posed.mjs (authored leg/arm pose specs on the reference sheets: walk, sprint, lightAttack)"},
+      "generator": {"offsets": "tools/character-animate.mjs (whole-pixel part offsets: idle)", "posed": "tools/character-posed.mjs (authored leg/arm pose specs on the reference sheets: walk, sprint, lightAttack, heavyAttack)"},
       "outputs": {
-        "male/idle": {"spec": "production/source/characters/anim/male/idle.json", "sheets": "production/source/characters/anim/male/idle/", "layout": "one sheet per layer, rows = directions S..SW, columns = frames", "status": "approved by user 2026-10-06"},
-        "male/walk": {"spec": "production/source/characters/anim/male/walk.json", "sheets": "production/source/characters/anim/male/walk/", "layout": "one sheet per layer, rows = S, SE, E, NE, N, NW, W, SW (all 8), columns = frames; W, SW and NW mirror E, SE and NE half a cycle later so every direction shares the step phase", "status": "E, W, S, N approved by user 2026-10-06; SE/SW, the shared bob and the mirror frame shift approved 2026-10-06 as a draft state to revisit; NE/NW approved 2026-10-07; male Gi layer fitted to all 8 directions (approved 2026-10-07); blue/red armour and shoulder layers fitted (approved 2026-10-07); full 8-direction male walk approved 2026-10-07 (SE/SW draft note still open)"},
-        "male/sprint": {"spec": "production/source/characters/anim/male/sprint.json", "sheets": "production/source/characters/anim/male/sprint/", "layout": "one sheet per layer, rows = S, SE, E, NE, N, NW, W, SW (all 8), columns = frames", "status": "E/W approved by user 2026-10-08 (lean by torso shear, torsoDrop 3, headDy 2; authored band arms with fist; band legs; pointBack/flex feet); S/N approved 2026-10-08 (named running leg poses, 2-row crouch, head level with E/W, S arms to the elbow); SE/SW approved 2026-10-08 (E band legs at the view's hips, sideways lean, near band arm with arm armour placed along the arm); S arm/wrist/fist sizing approved tentatively 2026-10-08 (revisit, see sprint.json revisit); NE/NW approved tentatively 2026-10-08 (revisit)"},
-        "male/lightAttack": {"spec": "production/source/characters/anim/male/lightAttack.json", "sheets": "production/source/characters/anim/male/lightAttack/", "layout": "one sheet per layer, rows = S, SE, E, NE, N, NW, W, SW, columns = 8 frames: jab clip 0-3 (guard, jab, recoil, guard), cross clip 4-7 (wind-up, cross, recover, guard)", "status": "E/W approved by user 2026-10-09; SE/SW and NE/NW approved temporarily 2026-10-09 (revisit); S/N candidate; clips (jab returns to neutral; a press in the chain window, jab frames 2-3, plays the cross) and per-frame events (hitboxes, damage) in animation.json"},
-        "male/heavyAttack": {"spec": "production/source/characters/anim/male/heavyAttack.json", "sheets": "production/source/characters/anim/male/heavyAttack/", "layout": "one sheet per layer, rows = E, W so far, columns = 16 frames: snapKick 0-4, sideKick 5-9, spinRoundhouse 10-15 (frames 10-12 borrowed from lightAttack S, W, N guard)", "status": "E/W first-pass candidate 2026-10-09; clips, chain windows and events in animation.json; combo rules in combo.json"}
+        "male/idle": {"spec": "production/source/characters/anim/male/idle.json", "sheets": "production/source/characters/anim/male/idle/", "layout": "one sheet per layer, rows = S, E, N, W, columns = frames", "status": "approved by user 2026-10-06; four-direction facing 2026-10-12 (diagonal rows retired)"},
+        "male/walk": {"spec": "production/source/characters/anim/male/walk.json", "sheets": "production/source/characters/anim/male/walk/", "layout": "one sheet per layer, rows = S, E, N, W, columns = frames; W mirrors E half a cycle later so every direction shares the step phase", "status": "E, W, S, N approved by user 2026-10-06; four-direction facing 2026-10-12 (SE/SW and NE/NW retired)"},
+        "male/sprint": {"spec": "production/source/characters/anim/male/sprint.json", "sheets": "production/source/characters/anim/male/sprint/", "layout": "one sheet per layer, rows = S, E, N, W, columns = frames", "status": "E/W and S/N approved by user 2026-10-08 (S arm sizing tentative, revisit); four-direction facing 2026-10-12 (SE/SW and NE/NW retired)"},
+        "male/lightAttack": {"spec": "production/source/characters/anim/male/lightAttack.json", "sheets": "production/source/characters/anim/male/lightAttack/", "layout": "one sheet per layer, rows = S, E, N, W, columns = 8 frames: jab clip 0-3 (guard, jab, recoil, guard), cross clip 4-7 (wind-up, cross, recover, guard)", "status": "E/W approved by user 2026-10-09; S/N candidate; four-direction facing 2026-10-12 (SE/SW and NE/NW retired); clips, chain windows and events in animation.json; combo rules in combo.json"},
+        "male/heavyAttack": {"spec": "production/source/characters/anim/male/heavyAttack.json", "sheets": "production/source/characters/anim/male/heavyAttack/", "layout": "one sheet per layer, rows = E, W so far (S, N to come), columns = 16 frames: snapKick 0-4, sideKick 5-9, spinRoundhouse 10-15 (frames 10-12 borrowed from lightAttack S, W, N guard)", "status": "E/W first-pass candidate 2026-10-09; clips, chain windows and events in animation.json; combo rules in combo.json"}
       }
     },
     "characterGeometry": {

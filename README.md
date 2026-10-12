@@ -37,7 +37,7 @@ The game being built now is an **open-world, real-time action-combat RPG** with:
 
 - free exploration through continuous authored space;
 - continuous real-time movement;
-- eight-direction facing and animation;
+- eight-direction movement with four-direction facing and animation (S, E, N, W; diagonals use the E or W side view);
 - direct action combat;
 - layered world construction;
 - collision independent from appearance imagery;

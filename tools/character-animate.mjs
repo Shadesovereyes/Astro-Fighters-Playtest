@@ -27,6 +27,9 @@ const spec = JSON.parse(fs.readFileSync(path.join(animDir, `${state}.json`), 'ut
 const rig = JSON.parse(fs.readFileSync(path.join(rigDir, 'rig.json'), 'utf8'));
 const overlays = JSON.parse(fs.readFileSync(path.join(rigDir, 'overlays.json'), 'utf8'));
 const order = rig.frameOrder;
+// output rows: the spec's facing directions (four-direction facing: S, E, N, W), each read from its reference frame
+const rows = spec.directions || order;
+for (const d of rows) if (!order.includes(d)) throw new Error(`unknown direction ${d}`);
 
 const colourToPart = new Map();
 for (const [p, hex] of Object.entries(rig.partColours)) colourToPart.set(hex.slice(1), p);
@@ -90,15 +93,16 @@ function render(layer, f, k) {
 // Render every layer: one sheet per layer, rows = directions, columns = frames.
 const sheets = {}, frames = {};
 for (const layer of layers) {
-  const W = spec.frames * FRAME, H = order.length * FRAME, sheet = Buffer.alloc(W * H * 4);
+  const W = spec.frames * FRAME, H = rows.length * FRAME, sheet = Buffer.alloc(W * H * 4);
   frames[layer.name] = [];
-  order.forEach((dir, f) => {
+  rows.forEach((dir, r) => {
+    const f = order.indexOf(dir);
     currentDir = dir;
     frames[layer.name][f] = [];
     for (let k = 0; k < spec.frames; k++) {
       const fr = render(layer, f, k);
       frames[layer.name][f][k] = fr;
-      for (let y = 0; y < FRAME; y++) fr.copy(sheet, ((f * FRAME + y) * W + k * FRAME) * 4, y * FRAME * 4, (y + 1) * FRAME * 4);
+      for (let y = 0; y < FRAME; y++) fr.copy(sheet, ((r * FRAME + y) * W + k * FRAME) * 4, y * FRAME * 4, (y + 1) * FRAME * 4);
     }
   });
   sheets[layer.name] = encodePng(W, H, sheet);
@@ -128,7 +132,8 @@ function seamGaps(layer, f, k) {
 const skin = (bodyBuf, dressed) => { let n = 0; for (let i = 0; i < dressed.length; i += 4) if (bodyBuf[i + 3] && dressed.compare(bodyBuf, i, i + 4, i, i + 4) === 0 && bodyBuf.toString('hex', i, i + 3) !== '000000') n++; return n; };
 const clothing = layers.filter((l) => l.role === 'clothing').map((l) => l.name);
 const qc = { frame0MatchesReference: true, feetPlanted: true, newGaps: {}, newExposedSkin: {} };
-order.forEach((dir, f) => {
+rows.forEach((dir) => {
+  const f = order.indexOf(dir);
   currentDir = dir;
   for (const layer of layers) {
     const ref = Buffer.alloc(FRAME * FRAME * 4);
@@ -155,7 +160,7 @@ const definition = JSON.stringify({
   schema: 'astro-fighters-character-animation-output/v1',
   body: bodyName, state, status: spec.status, frames: spec.frames, fps: spec.fps,
   frameSize: [FRAME, FRAME], pivot: [32, 63],
-  sheetLayout: { rows: order, columns: `frames 0–${spec.frames - 1}` },
+  sheetLayout: { rows, columns: `frames 0–${spec.frames - 1}` },
   layers: Object.fromEntries(layers.map((l) => [l.name, `${l.name}.png`])),
   drawOrder: overlays.drawOrder,
   rootMotion: spec.rootMotion,

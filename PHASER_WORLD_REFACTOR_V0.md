@@ -88,7 +88,7 @@ Replace exploration stepping with continuous real-time movement:
 - normalize diagonals so eight-way movement does not gain speed;
 - velocity expressed in pixels/second;
 - delta-time movement/update;
-- eight-direction facing selected from the movement vector;
+- four-direction facing (S, E, N, W) from the movement vector: any horizontal component faces E or W (NE/SE use E, NW/SW use W), pure vertical faces N or S, no input keeps the last facing;
 - idle/walk/ready animation driven from real movement state;
 - authored collision resolution against world bodies;
 - movement remains smooth while sprite rendering remains pixel-snapped where appropriate.
@@ -155,7 +155,7 @@ Minimum Phaser objects/textures:
 - drainage channel/grate;
 - blank sign and/or lantern/noren dressing;
 - one foreground occluder;
-- fully dressed eight-direction player paper doll.
+- fully dressed four-facing (S, E, N, W) player paper doll moving in eight directions.
 
 The scene must allow the player to walk around the courtyard and visibly pass behind at least one foreground/architectural element.
 
@@ -217,7 +217,7 @@ The Phaser world refactor is sufficiently proven for continued city production w
 - [ ] Slice 0 loads multiple separate environment textures rather than one baked background;
 - [ ] collision exists separately from artwork;
 - [ ] one foreground/architectural occlusion case works live;
-- [ ] the paper-doll player remains eight-directional;
+- [ ] the paper-doll player moves in eight directions with four-direction facing (S, E, N, W);
 - [ ] pixel-art renderer settings remain enabled;
 - [ ] an actual Phaser-canvas screenshot is used for the integrated art review;
 - [ ] no collage/full-frame background is being treated as a production world asset.

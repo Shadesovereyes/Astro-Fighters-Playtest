@@ -19,7 +19,7 @@ Mandatory before any clothing/equipment asset can advance:
 - [ ] Clothing/equipment exists as **separate transparent pixel overlays** fitted to approved base frames
 - [ ] Overlay contains no replacement skin, body, hair, face, or background pixels
 - [ ] Rigid items are placed by anchor; deformable items are authored per body-part pose
-- [ ] Coverage table shows every direction × state × frame covered (overlay, anchor placement, or reused part pose)
+- [ ] Coverage table shows every facing (S, E, N, W) × state × frame covered (overlay, anchor placement, or reused part pose)
 - [ ] Enlarged inspection images use integer **nearest-neighbor scaling only**; 10× = **5120×640**
 - [ ] Composite previews are mechanical base-plus-overlay composites, not AI-generated redraws of dressed characters
 - [ ] No production pixel was converted from AI-generated imagery
@@ -90,18 +90,16 @@ Every presentation-quality character must include all required visible layers.
 
 ---
 
-# 2. Eight-Direction Clothing Validation
+# 2. Four-Facing Clothing Validation
 
-Every clothing and accessory layer must be authored for:
+Four-direction facing (adopted 2026-10-12): the character moves in eight directions but faces S, E, N or W; NE/SE use E and NW/SW use W. Every clothing and accessory layer must be authored for the four facings on every animation frame:
 
-- [ ] N
-- [ ] NE
-- [ ] E
-- [ ] SE
 - [ ] S
-- [ ] SW
-- [ ] W
-- [ ] NW
+- [ ] E
+- [ ] N
+- [ ] W (mirror of E; check anatomical-side routing)
+
+The locked reference sheets keep all eight frames; overlay registration on the four diagonal reference frames is kept but is not runtime work.
 
 For every direction confirm:
 
@@ -131,7 +129,7 @@ For every direction confirm:
 Each approved fighter clothing stack must support the following states. Every state depends on approved, locked animation base frames (§0.1); overlays are authored against those frames, never by altering them.
 
 ## Idle
-- [ ] 8 frames per direction (all 8 directions)
+- [ ] 8 frames per facing (S, E, N, W)
 - [ ] Clothing remains anchored
 - [ ] Hair has restrained secondary motion where appropriate
 - [ ] Sash / cloth tails remain stable
@@ -139,7 +137,7 @@ Each approved fighter clothing stack must support the following states. Every st
 - [ ] Accessories do not jitter
 
 ## Walk
-- [ ] 8 frames per direction (E/W first)
+- [ ] 8 frames per facing (E/W first, then S/N)
 - [ ] Pants move with leg cycle
 - [ ] Coat / haori reacts to movement
 - [ ] Hair movement is directionally believable
@@ -157,19 +155,20 @@ Each approved fighter clothing stack must support the following states. Every st
 - [ ] Accessories remain legible
 
 ## Sprint
-- [ ] 8 frames per direction (E/W first)
+- [ ] 8 frames per facing (E/W first, then S/N)
 - [ ] Forward lean built from part offsets, not rotation
 - [ ] Sash and long hair trail the motion
 - [ ] Footwear stays aligned to feet
 
 ## Light attack (jab / cross)
-- [ ] 4 frames per direction (E/W first)
+- [ ] 8 frames per facing (jab 0-3, cross 4-7; E/W first, then S/N)
 - [ ] Hitboxes and damage events on the jab and cross frames
 - [ ] Clothing follows the extended arm without gaps
 
 ## Heavy attack (kick chain → roundhouse)
-- [ ] 16 frames per direction (E/W first)
-- [ ] Root motion recorded for the step-through
+- [ ] 16 frames per facing (snap kick 0-4, side kick 5-9, spin roundhouse 10-15; E/W first, then S/N)
+- [ ] Root motion recorded for the skip step and landing
+- [ ] Every punch and kick clip starts and ends in the guard (combo weaving, combo.json)
 - [ ] Trousers follow chambered and extended legs without gaps
 - [ ] Sash sway reads through the spin
 
@@ -240,7 +239,7 @@ Priority Afro-descended hairstyles:
 
 For each hairstyle:
 
-- [ ] Distinct silhouette in all 8 directions
+- [ ] Distinct silhouette in all four facings (S, E, N, W)
 - [ ] Front / side / back volume is believable
 - [ ] Hair does not flatten into a generic helmet shape
 - [ ] Hair reads clearly against dark backgrounds
@@ -699,7 +698,7 @@ First complete stack:
 - [ ] 1 scabbard
 - [ ] 1 charm / accessory
 - [ ] 1 shadow
-- [ ] All 8 directions
+- [ ] All four facings (S, E, N, W)
 - [ ] Idle complete
 - [ ] Walk complete
 - [ ] Ready complete
@@ -766,7 +765,7 @@ Score each integrated character from 0–5:
 |---|---:|
 | Character completion | /5 |
 | Clothing design identity | /5 |
-| Eight-direction quality | /5 |
+| Four-facing direction quality | /5 |
 | Animation stability | /5 |
 | Hair silhouette quality | /5 |
 | Equipment/accessory routing | /5 |
