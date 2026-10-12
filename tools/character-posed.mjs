@@ -537,7 +537,7 @@ const rowMap = (y, bobDy, removed, repeated) => {
 const shear = (y, pivot, rigid, total) => { const yy = Math.min(y, rigid); return yy <= pivot ? 0 : roundHalfEven(total * (yy - pivot) / (rigid - pivot)); };
 const refExposed = {};
 // body pixels of a head drawn in front of the torso (headZ above 3): clothing does not cover them
-const HEAD_FRONT = {}, BAND_SHOWN = {};
+const HEAD_FRONT = {}, BAND_SHOWN = {}, LEG_FRONT = {};
 function exposedInReference(fx) {
   if (refExposed[fx]) return refExposed[fx];
   const m = new Map();
@@ -791,6 +791,9 @@ function frontalFrame(dir, k) {
     if (name === 'body' && d.legBand) for (const lg of frontalLegs(d, k)) for (const [q, c] of lg.legMap) {
       const sy = lg.isFar ? farShade[c] : c, [x, y] = unkey(q);
       items.push([lg.z, x, y, sy === 'o' ? BLACK : pal[sy], 'band']);
+      // a leg kicking toward the viewer (z 3 and up) is in front of the arms: its pixels are cut out of the arms layer
+      // and the arm accessories above it, so the leg and foot take layering priority
+      if (lg.z >= 3) (LEG_FRONT[`${dir}:${k}`] ??= new Set()).add(q);
     }
     // a band arm in front of the body (z 3 and up) goes into the arms layer; one behind it (the far arm, z below 3) goes
     // into the body layer under the torso, so the body really covers it
@@ -819,6 +822,7 @@ function frontalFrame(dir, k) {
     }
     const m = new Map(), sm = new Map(), hz = new Set();
     for (const [z, x, y, c, s0] of items.sort((a, c) => a[0] - c[0])) { m.set(key(x, y), c); sm.set(key(x, y), s0); if (d.headZ > 3 && z === d.headZ) hz.add(key(x, y)); else hz.delete(key(x, y)); }
+    if (name === 'arms') for (const q of LEG_FRONT[`${dir}:${k}`] || []) { m.delete(q); sm.delete(q); }
     out[name] = m; src[name] = sm;
     if (name === 'body') HEAD_FRONT[`${dir}:${k}`] = hz;
     // band-arm pixels still showing after the layer is drawn (a far arm behind the torso is mostly covered)
@@ -888,7 +892,7 @@ const clothingLayers = CL.layers.map((name) => {
   const l = overlays.layers.find((o) => path.basename(o.partMap, '.png') === name);
   if (!l) throw new Error(`clothing ${name} not in overlays.json`);
   const c = CL[name];
-  return { name, img: readPng(path.join(root, l.source)), map: readPng(path.join(rigDir, l.partMap)),
+  return { name, img: readPng(path.join(root, l.source)), map: readPng(path.join(rigDir, l.partMap)), aboveArms: l.class === 'component',
     outline: c.outline.slice(1).toLowerCase(), shoe: c.shoe?.slice(1).toLowerCase(),
     gapFill: c.gapFill?.colour.slice(1).toLowerCase(),
     legRows: c.legRows || { wrap: 56, foot: 59 },
@@ -1103,9 +1107,12 @@ function clothingFrame(l, dir, k, fr) {
     .filter((it) => it[5] !== 'farArm' || FAR_ARM_PX[kk].has(key(it[1], it[2])))
     .filter((it) => it[5] !== 'backing' || fr.body.has(key(flip ? FRAME - 1 - it[1] : it[1], it[2])));
   const layer = new Map(), src = new Map(), headFront = HEAD_FRONT[`${dir}:${k}`];
+  // arm accessories (drawn above the arms) give way to a leg kicking toward the viewer, like the arms do
+  const legFront = l.aboveArms ? LEG_FRONT[`${geom}:${kk}`] : null;
   for (const [, x, y, c, s0] of items.sort((a, c) => a[0] - c[0])) {
     const X = flip ? FRAME - 1 - x : x;
     if (headFront?.has(key(X, y))) continue;
+    if (legFront?.has(key(x, y))) continue;
     layer.set(key(X, y), c); src.set(key(X, y), s0);
   }
   // Under the hanging sash there is no cloth in the reference; where the flaps swing or the legs move out from under
