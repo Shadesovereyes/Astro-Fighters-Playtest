@@ -119,7 +119,17 @@
 
     clipDef(key) { const [state, clip] = key.split('/'); return { state, clip, ...this.def.states[state].clips[clip] }; }
 
+    // an attack press with a selected target turns the character to face it (dominant axis)
+    faceTarget() {
+      const t = this.target;
+      if (!t) return;
+      const dx = t.x - this.pos.x, dy = t.y - this.pos.y;
+      if (dx === 0 && dy === 0) return;
+      this.facing = Math.abs(dx) >= Math.abs(dy) ? (dx > 0 ? 'E' : 'W') : (dy > 0 ? 'S' : 'N');
+    }
+
     startClip(key) {
+      this.faceTarget();
       const c = this.clipDef(key);
       this.state = { kind: 'attack', anim: c.state, clipKey: key, clip: c, i: 0, frame: c.frames[0], t: 0 };
       this.buffered = null;

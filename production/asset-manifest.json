@@ -23,7 +23,7 @@
       "status": "adopted by user 2026-10-12 (four-direction facing; replaces eight-direction facing)",
       "directions": ["S", "E", "N", "W"],
       "rule": "any horizontal movement or aim component sets facing E or W (NE and SE use E, NW and SW use W); pure vertical movement sets N or S; with no input the last facing holds; a diagonal keeps the current horizontal facing when it begins (no flicker on a brief tap)",
-      "attacks": "attacks play and resolve in the current facing; hitboxes come from that facing's frames",
+      "attacks": "attacks play and resolve in the current facing; the hit arc points along that facing (combo.json hitArea); each attack press with a selected target first turns the character to face it (the target's dominant axis: E/W when the horizontal offset is at least the vertical, otherwise N/S), so the target sits inside the hit arc's centre half (user 2026-10-12)",
       "mirroring": "W is E mirrored frame for frame (attacks) or half a cycle later (cycles)",
       "referenceFrames": "the locked 512x64 reference sheets keep all eight frames (S, SE, E, NE, N, NW, W, SW) unchanged; the rig, anchors and overlay registration stay valid for all eight; runtime animation sheets use the four facing rows only",
       "retiredDiagonalWork": "SE/SW and NE/NW animation views (walk, sprint, lightAttack, idle) are retired from runtime; their specs and sheets remain in git history"
