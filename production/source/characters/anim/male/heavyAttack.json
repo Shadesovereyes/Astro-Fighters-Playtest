@@ -914,12 +914,12 @@
         "hipX": 30,
         "hipRow": 39,
         "kneeX": 28,
-        "kneeRow": 36,
+        "kneeRow": 35,
         "ankle": [
-          22,
-          36
+          31,
+          41
         ],
-        "foot": "levelL",
+        "foot": "sSole",
         "section": "S"
       },
       {
@@ -1119,12 +1119,12 @@
         "hipX": 30,
         "hipRow": 39,
         "kneeX": 28,
-        "kneeRow": 47,
+        "kneeRow": 46,
         "ankle": [
-          23,
-          47
+          31,
+          48
         ],
-        "foot": "levelL",
+        "foot": "sSole",
         "section": "S"
       },
       {
@@ -2990,7 +2990,7 @@
             "L": 0
           }
         },
-        "kickRule": "S: the torso and hips rotate into each rear-leg kick, the standing leg bends and the kicking hip hikes. Low kick: the thigh drops short and nearly vertical from the rotated hip to a knee just outside the standing leg, the shin is near level at knee height reaching a few pixels past the body, toes pointed. Snap kick: the chamber raises the knee well above the hip with the shin hanging; the snap keeps the knee high and drives the shin out to the kicking side, the foot level at the hip line, above the low kick.",
+        "kickRule": "S: the torso and hips rotate into each rear-leg kick, the standing leg bends and the kicking hip hikes. Low kick: the thigh drops from the rotated hip to a knee at knee height and the shin runs in to the body's centre line, the sole toward the viewer in front of the standing leg. Snap kick: the chamber raises the knee well above the hip with the shin hanging; the snap keeps the knee high and drives the shin out to the kicking side, the foot level at the hip line, above the low kick.",
         "variants": {
           "1": [
             "S-hikeR1",

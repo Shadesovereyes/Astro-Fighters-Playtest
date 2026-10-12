@@ -648,12 +648,12 @@
         "hipX": 30,
         "hipRow": 39,
         "kneeX": 28,
-        "kneeRow": 36,
+        "kneeRow": 35,
         "ankle": [
-          22,
-          36
+          31,
+          41
         ],
-        "foot": "levelL",
+        "foot": "sSole",
         "section": "S"
       },
       {
@@ -853,12 +853,12 @@
         "hipX": 30,
         "hipRow": 39,
         "kneeX": 28,
-        "kneeRow": 47,
+        "kneeRow": 46,
         "ankle": [
-          23,
-          47
+          31,
+          48
         ],
-        "foot": "levelL",
+        "foot": "sSole",
         "section": "S"
       },
       {
