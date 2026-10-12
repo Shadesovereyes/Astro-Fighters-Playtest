@@ -899,8 +899,10 @@ function legGarment(l, items, byRow, isFar, z, pose, legMap) {
 // pixel before the wrap; the wrap/boot shaft and the shoe take the leg's own wrap and foot pixels.
 function kickGarment(l, items, isFar, z, legMap, col) {
   const T = l.trouser, Wp = l.wrap, { th, sh, kx, ky, wrapLen, seg } = legMap.limb, hemU = sh.len - wrapLen - 1;
-  const across = (v, half, front) => {
-    const lo = -half - T.back, hi = half + front, n = Math.round(hi - lo), i = Math.floor(v - lo);
+  // the trouser's back margin tapers from the reference margin at the hip to 1 px at the knee, so a raised or folded
+  // thigh is not a block
+  const across = (v, half, front, back = T.back) => {
+    const lo = -half - back, hi = half + front, n = Math.round(hi - lo), i = Math.floor(v - lo);
     if (i < 0 || i >= n) return null;
     if (i === 0 || i === n - 1) return 'a';
     const m = n - 2, j = i - 1, h = Math.ceil((m - 2) / 2);
@@ -912,9 +914,10 @@ function kickGarment(l, items, isFar, z, legMap, col) {
     if (sg === 'foot') { const c = legMap.get(q); items.push([z, x, y, col(c === '#' || c === 'o' ? l.outline : l.shoe), null]); continue; }
     const [tu, tv] = th.uv(x, y), [su, sv] = sh.uv(x, y);
     let c = null;
-    if (tu >= -2 && tu <= th.len) c = across(tv, 2.5, 1.5 + T.front);
+    const taper = Math.max(1, roundHalfEven(T.back - (T.back - 1) * Math.max(0, Math.min(1, tu / th.len))));
+    if (tu >= -1 && tu <= th.len) c = across(tv, 2.5, 1.5 + T.front, taper);
     if (!c && su >= 0 && su <= hemU) c = su > hemU - 1 ? (across(sv, 2, 1 + T.front) && 'a') : across(sv, 2, 1 + T.front);
-    if (!c && Math.hypot(x + 0.5 - kx, y + 0.5 - ky) <= 2.5 + T.back) c = 'c';
+    if (!c && Math.hypot(x + 0.5 - kx, y + 0.5 - ky) <= 3.5) c = 'c';
     if (!c) continue;
     const front = (tu >= -2 && tu <= th.len) ? T.thighFront : T.shinFront;
     items.push([z, x, y, col(T.colours[c === 'F' ? front : c]), null]);
@@ -1156,7 +1159,7 @@ spec.directions.forEach((dir, r) => {
       const img = readPng(path.join(animDir, b.state, `${n}.png`)), m = new Map();
       for (let y = 0; y < FRAME; y++) for (let x = 0; x < FRAME; x++) {
         const sx = b.frame * FRAME + x, sy = row * FRAME + y;
-        if (opaque(img, sx, sy)) m.set(key(mirrors[dir] ? FRAME - 1 - x : x, y + (b.dy || 0)), hexAt(img, sx, sy));
+        if (opaque(img, sx, sy)) { const bx = x + (b.dx || 0); if (bx < 0 || bx >= FRAME) throw new Error(`borrow ${kk}: dx pushes pixels out of the frame`); m.set(key(mirrors[dir] ? FRAME - 1 - bx : bx, y + (b.dy || 0)), hexAt(img, sx, sy)); }
       }
       fr[n] = m;
     }

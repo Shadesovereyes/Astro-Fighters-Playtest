@@ -615,6 +615,66 @@
           "#DDD#",
           ".###."
         ]
+      },
+      "pointUR": {
+        "use": "kick foot on a shin pointing up-right about 40 degrees: toes continue the line, instep on top",
+        "anchor": [
+          1,
+          4
+        ],
+        "rows": [
+          "...##.",
+          "..#LL#",
+          ".#LLm#",
+          "#LLmd#",
+          "#mmd#.",
+          ".###.."
+        ]
+      },
+      "pointDR": {
+        "use": "pointUR flipped: a shin pointing down-right",
+        "anchor": [
+          1,
+          1
+        ],
+        "rows": [
+          ".###..",
+          "#mmd#.",
+          "#LLmd#",
+          ".#LLm#",
+          "..#LL#",
+          "...##."
+        ]
+      },
+      "pointUL": {
+        "use": "pointUR mirrored: a shin pointing up-left",
+        "anchor": [
+          6,
+          4
+        ],
+        "rows": [
+          ".##...",
+          "#LL#..",
+          "#mLL#.",
+          "#dmLL#",
+          ".#dmm#",
+          "..###."
+        ]
+      },
+      "pointDL": {
+        "use": "pointDR mirrored: a shin pointing down-left",
+        "anchor": [
+          6,
+          1
+        ],
+        "rows": [
+          "..###.",
+          ".#dmm#",
+          "#dmLL#",
+          "#mLL#.",
+          "#LL#..",
+          ".##..."
+        ]
       }
     },
     "constructions": {
@@ -826,12 +886,12 @@
         "hipX": 28,
         "hipRow": 40,
         "kneeX": 23,
-        "kneeRow": 43,
+        "kneeRow": 44,
         "ankle": [
-          17,
-          46
+          19,
+          51
         ],
-        "foot": "pointFwdL",
+        "foot": "pointDL",
         "section": "S"
       },
       {
@@ -853,11 +913,11 @@
         "construction": "band",
         "hipX": 36,
         "hipRow": 40,
-        "kneeX": 41,
-        "kneeRow": 43,
+        "kneeX": 42,
+        "kneeRow": 40,
         "ankle": [
-          47,
-          46
+          49,
+          41
         ],
         "foot": "blade",
         "section": "S"
@@ -923,13 +983,13 @@
         "construction": "band",
         "hipX": 36,
         "hipRow": 40,
-        "kneeX": 41,
-        "kneeRow": 38,
+        "kneeX": 39,
+        "kneeRow": 36,
         "ankle": [
-          47,
-          35
+          43,
+          30
         ],
-        "foot": "pointFwd",
+        "foot": "pointUR",
         "section": "N"
       },
       {
@@ -951,11 +1011,11 @@
         "construction": "band",
         "hipX": 28,
         "hipRow": 40,
-        "kneeX": 23,
-        "kneeRow": 38,
+        "kneeX": 22,
+        "kneeRow": 39,
         "ankle": [
-          17,
-          36
+          15,
+          38
         ],
         "foot": "bladeL",
         "section": "N"
@@ -965,13 +1025,13 @@
         "construction": "band",
         "hipX": 36,
         "hipRow": 40,
-        "kneeX": 41,
-        "kneeRow": 34,
+        "kneeX": 42,
+        "kneeRow": 32,
         "ankle": [
-          49,
-          30
+          51,
+          27
         ],
-        "foot": "pointFwd",
+        "foot": "pointUR",
         "section": "N"
       },
       {
@@ -2035,57 +2095,66 @@
   },
   "approved": {},
   "borrow": {
-    "rule": "spin frames are the guard frame (0) of lightAttack in the three bodies the spin turns through (toward the rear side: E -> S, W, N; S -> W, N, E; N -> E, S, W); W takes E's flipped",
+    "rule": "spin frames are the spinPivot helper state's pivot poses (lead foot planted, rear leg lifted, then opening) in the three bodies the spin turns through toward the rear side (E -> S, W, N; S -> W, N, E; N -> E, S, W); each is shifted by dx so its planted lead foot stays near the facing's lead-foot position (clamped to 6 px); W takes E's flipped",
     "frames": {
       "10": {
-        "state": "lightAttack",
+        "state": "spinPivot",
         "dir": "S",
-        "frame": 0
+        "frame": 0,
+        "dx": 3
       },
       "11": {
-        "state": "lightAttack",
+        "state": "spinPivot",
         "dir": "W",
-        "frame": 0
+        "frame": 0,
+        "dx": 6
       },
       "12": {
-        "state": "lightAttack",
+        "state": "spinPivot",
         "dir": "N",
-        "frame": 0
+        "frame": 1,
+        "dx": 6
       }
     },
     "byDirection": {
       "S": {
         "10": {
-          "state": "lightAttack",
+          "state": "spinPivot",
           "dir": "W",
-          "frame": 0
+          "frame": 0,
+          "dx": 6
         },
         "11": {
-          "state": "lightAttack",
+          "state": "spinPivot",
           "dir": "N",
-          "frame": 0
+          "frame": 0,
+          "dx": 6
         },
         "12": {
-          "state": "lightAttack",
+          "state": "spinPivot",
           "dir": "E",
-          "frame": 0
+          "frame": 1,
+          "dx": 1
         }
       },
       "N": {
         "10": {
-          "state": "lightAttack",
+          "state": "spinPivot",
           "dir": "E",
-          "frame": 0
+          "frame": 0,
+          "dx": -6
         },
         "11": {
-          "state": "lightAttack",
+          "state": "spinPivot",
           "dir": "S",
-          "frame": 0
+          "frame": 0,
+          "dx": -6
         },
         "12": {
-          "state": "lightAttack",
+          "state": "spinPivot",
           "dir": "W",
-          "frame": 0
+          "frame": 1,
+          "dx": -2
         }
       }
     }
@@ -2570,7 +2639,7 @@
             1,
             0,
             -1,
-            -1,
+            -2,
             -1,
             0,
             0,
@@ -2588,7 +2657,7 @@
             1,
             0,
             -1,
-            -2,
+            -3,
             -1,
             0,
             0,
@@ -2800,7 +2869,7 @@
             "L": 0
           }
         },
-        "kickRule": "S kicks are cheated diagonally down and out to the kicking leg's side so the extended leg clears the silhouette (snap kick down-left with the rear leg, side kick down-right with the lead leg); the chamber lifts the knee to hip height; the roundhouse knee stays inside the body and the shin extends past the far side; the body leans away from each kick and the guard opens on the roundhouse"
+        "kickRule": "S kicks are cheated out to the kicking leg's side so the extended leg clears the silhouette: the snap kick (rear leg) drives steeply down-left, about 40 degrees, knee slightly bent at contact; the side kick (lead leg) is high and straight at hip height with a strong lean away; the chamber lifts the knee to hip height; the roundhouse knee stays inside the body and the shin extends past the far side; the guard opens on the roundhouse"
       },
       "N": {
         "legPose": {
@@ -3136,7 +3205,7 @@
             0,
             0,
             0,
-            -2,
+            -3,
             -1,
             0
           ]
@@ -3342,7 +3411,7 @@
             "L": 0
           }
         },
-        "kickRule": "N kicks are cheated up and out to the kicking leg's side (snap kick up-right with the rear leg, side kick up-left with the lead leg, roundhouse high to the right) so they read from behind; the body leans away from each kick and the arms open on the roundhouse"
+        "kickRule": "N kicks are cheated up and out to the kicking leg's side: the snap kick (rear leg) is compact and steep, up-right about 55 degrees; the side kick (lead leg) is straight and level, out left; the roundhouse is high and long, up-right about 30 degrees with the hips turned; the body leans away from each kick and the arms open on the roundhouse"
       }
     }
   }
