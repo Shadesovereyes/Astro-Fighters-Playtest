@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-animation-output/v1",
   "body": "male",
   "state": "heavyAttack",
-  "status": "candidate (E/W first pass)",
+  "status": "approved by user 2026-10-12: low kick, snap kick, spin roundhouse in S, E, N, W (W mirrors E), with the S/N part variants",
   "frames": 16,
   "fps": 12,
   "frameSize": [

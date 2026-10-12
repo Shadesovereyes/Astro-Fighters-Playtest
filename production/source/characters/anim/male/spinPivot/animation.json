@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-animation-output/v1",
   "body": "male",
   "state": "spinPivot",
-  "status": "helper (not a runtime state): source of the heavyAttack spin frames, candidate 2026-10-12",
+  "status": "helper (not a runtime state): source of the heavyAttack spin frames; approved with the kick chain 2026-10-12",
   "frames": 2,
   "fps": 12,
   "frameSize": [

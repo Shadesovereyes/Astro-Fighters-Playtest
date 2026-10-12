@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "heavyAttack",
-  "status": "candidate (E/W first pass)",
+  "status": "approved by user 2026-10-12: low kick, snap kick, spin roundhouse in S, E, N, W (W mirrors E), with the S/N part variants",
   "frames": 16,
   "fps": 12,
   "sourceDirection": "E",
@@ -2214,7 +2214,13 @@
       "finisher": true
     }
   },
-  "approved": {},
+  "approved": {
+    "S": "2026-10-12",
+    "E": "2026-10-12",
+    "N": "2026-10-12",
+    "W": "2026-10-12 (mirror of E)",
+    "partVariants": "2026-10-12 (bend, plant, hike, tilt, rotate, knee as used on the S/N kick frames)"
+  },
   "borrow": {
     "rule": "spin frames are the spinPivot helper state's pivot poses (lead foot planted, rear leg lifted, then opening) in the three bodies the spin turns through toward the rear side (E -> S, W, N; S -> W, N, E; N -> E, S, W); each is shifted by dx so its planted lead foot stays near the facing's lead-foot position (clamped to 2 px so the torso does not jump); W takes E's flipped",
     "frames": {
@@ -3658,7 +3664,7 @@
       }
     },
     "partVariants": {
-      "rule": "named part variants for the S/N kick frames (whole-pixel only, from the reference parts): bob = the standing leg bends (drops that many bob rows) and the body sits lower; hike = the pelvis raised on the kicking side (column shear over span); tilt = the torso leaning away (column shear growing to the shoulders; head and shoulders follow); turn = the hips turned (the shorts lose the column at col on that side); knee = the bent standing leg's knee out sideways (rows hip, knee, ankle); rotate = torso and hips turned into the kick: far-side columns dropped per part (that side narrows), the near side, head and shoulders move toward the centre, so the kicking hip comes in and the leg drives near the centre line; plant = the standing leg moves toward the centre line as a whole, so the weight sits over the support foot",
+      "rule": "named part variants for the S/N kick frames (whole-pixel only, from the reference parts): bob = the standing leg bends (drops that many bob rows) and the body sits lower; hike = the pelvis raised on the kicking side (column shear over span); tilt = the torso leaning away (column shear growing to the shoulders; head and shoulders follow); turn = the hips turned (the shorts lose the column at col on that side); knee = the bent standing leg's knee out sideways (rows hip, knee, ankle); rotate = torso and hips turned into the kick: far-side columns dropped per part (that side narrows), the near side, head and shoulders move toward the centre, so the kicking hip comes in and the leg drives near the centre line; plant = the standing leg moves toward the centre line as a whole, so the weight sits over the support foot; approved by the user 2026-10-12 with the kick chain",
       "bend1": {
         "bob": 1
       },

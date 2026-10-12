@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "spinPivot",
-  "status": "helper (not a runtime state): source of the heavyAttack spin frames, candidate 2026-10-12",
+  "status": "helper (not a runtime state): source of the heavyAttack spin frames; approved with the kick chain 2026-10-12",
   "frames": 2,
   "fps": 12,
   "sourceDirection": "E",
@@ -1723,7 +1723,7 @@
       }
     },
     "partVariants": {
-      "rule": "named part variants for the S/N kick frames (whole-pixel only, from the reference parts): bob = the standing leg bends (drops that many bob rows) and the body sits lower; hike = the pelvis raised on the kicking side (column shear over span); tilt = the torso leaning away (column shear growing to the shoulders; head and shoulders follow); turn = the hips turned (the shorts lose the column at col on that side); knee = the bent standing leg's knee out sideways (rows hip, knee, ankle); rotate = torso and hips turned into the kick: far-side columns dropped per part (that side narrows), the near side, head and shoulders move toward the centre, so the kicking hip comes in and the leg drives near the centre line; plant = the standing leg moves toward the centre line as a whole, so the weight sits over the support foot",
+      "rule": "named part variants for the S/N kick frames (whole-pixel only, from the reference parts): bob = the standing leg bends (drops that many bob rows) and the body sits lower; hike = the pelvis raised on the kicking side (column shear over span); tilt = the torso leaning away (column shear growing to the shoulders; head and shoulders follow); turn = the hips turned (the shorts lose the column at col on that side); knee = the bent standing leg's knee out sideways (rows hip, knee, ankle); rotate = torso and hips turned into the kick: far-side columns dropped per part (that side narrows), the near side, head and shoulders move toward the centre, so the kicking hip comes in and the leg drives near the centre line; plant = the standing leg moves toward the centre line as a whole, so the weight sits over the support foot; approved by the user 2026-10-12 with the kick chain",
       "bend1": {
         "bob": 1
       },
