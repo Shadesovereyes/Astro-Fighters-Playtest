@@ -53,6 +53,10 @@ jobs:
           node tools/character-posed.mjs male heavyAttack --check
           node tools/character-posed.mjs male oneHandDualGuard --check
           node tools/character-weapon.mjs male oneHandDualGuard --check
+          node tools/character-posed.mjs male oneHandGuard --check
+          node tools/character-weapon.mjs male oneHandGuard --check
+          node tools/character-posed.mjs male twoHandGuard --check
+          node tools/character-weapon.mjs male twoHandGuard --check
 
       - name: Check the character runtime export is current
         run: node tools/export-character-runtime.mjs male --check

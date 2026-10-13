@@ -1883,6 +1883,411 @@
           "loop": true
         }
       }
+    },
+    "oneHandGuard": {
+      "frames": 4,
+      "fps": 6,
+      "rows": [
+        "S",
+        "E",
+        "N",
+        "W"
+      ],
+      "status": "approved by user 2026-10-13 (S, E, N, W; W mirrors E)",
+      "rootMotion": {
+        "S": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "E": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "N": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "W": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "layers": {
+        "body": "assets/characters/male/oneHandGuard/body.png",
+        "arms": "assets/characters/male/oneHandGuard/arms.png",
+        "long-hair": "assets/characters/male/oneHandGuard/long-hair.png",
+        "fade-hair": "assets/characters/male/oneHandGuard/fade-hair.png",
+        "afro-hair": "assets/characters/male/oneHandGuard/afro-hair.png",
+        "brown-eyes": "assets/characters/male/oneHandGuard/brown-eyes.png",
+        "purple-eyes": "assets/characters/male/oneHandGuard/purple-eyes.png",
+        "male-gi": "assets/characters/male/oneHandGuard/male-gi.png",
+        "male-blue-armor": "assets/characters/male/oneHandGuard/male-blue-armor.png",
+        "male-red-armor": "assets/characters/male/oneHandGuard/male-red-armor.png",
+        "blue-armor-shoulders": "assets/characters/male/oneHandGuard/blue-armor-shoulders.png",
+        "red-armor-shoulders": "assets/characters/male/oneHandGuard/red-armor-shoulders.png"
+      },
+      "weapons": {
+        "frameSize": [
+          128,
+          128
+        ],
+        "origin": [
+          32,
+          32
+        ],
+        "pivot": [
+          64,
+          95
+        ],
+        "depthRule": "each weapon is split into depth slots, one sheet each: behind = under the body; front = over body and clothing, under the arms (the fists close over the hilt); top = over every character layer (a blade pointing at the viewer, a hand in front of the head). z per frame is one slot or { hilt, blade } split at the grip",
+        "items": [
+          {
+            "slot": "main",
+            "item": "wakizashi",
+            "default": true,
+            "hand": "arms",
+            "layers": {
+              "behind": "assets/characters/male/oneHandGuard/main-wakizashi-behind.png",
+              "front": "assets/characters/male/oneHandGuard/main-wakizashi-front.png",
+              "top": "assets/characters/male/oneHandGuard/main-wakizashi-top.png"
+            },
+            "z": {
+              "S": [
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                }
+              ],
+              "E": [
+                "front",
+                "front",
+                "front",
+                "front"
+              ],
+              "N": [
+                "behind",
+                "behind",
+                "behind",
+                "behind"
+              ],
+              "W": [
+                "front",
+                "front",
+                "front",
+                "front"
+              ]
+            }
+          },
+          {
+            "slot": "main",
+            "item": "tanto",
+            "default": false,
+            "hand": "arms",
+            "layers": {
+              "behind": "assets/characters/male/oneHandGuard/main-tanto-behind.png",
+              "front": "assets/characters/male/oneHandGuard/main-tanto-front.png",
+              "top": "assets/characters/male/oneHandGuard/main-tanto-top.png"
+            },
+            "z": {
+              "S": [
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                }
+              ],
+              "E": [
+                "front",
+                "front",
+                "front",
+                "front"
+              ],
+              "N": [
+                "behind",
+                "behind",
+                "behind",
+                "behind"
+              ],
+              "W": [
+                "front",
+                "front",
+                "front",
+                "front"
+              ]
+            }
+          }
+        ]
+      },
+      "clips": {
+        "rule": "loops while in combat with a one-handed weapon drawn; every one-handed attack clip ends here (next: oneHandGuard)",
+        "oneHandGuard": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 6,
+          "loop": true
+        }
+      }
+    },
+    "twoHandGuard": {
+      "frames": 4,
+      "fps": 6,
+      "rows": [
+        "S",
+        "E",
+        "N",
+        "W"
+      ],
+      "status": "approved by user 2026-10-13 (S, E, N, W; W mirrors E)",
+      "rootMotion": {
+        "S": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "E": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "N": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "W": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "layers": {
+        "body": "assets/characters/male/twoHandGuard/body.png",
+        "arms": "assets/characters/male/twoHandGuard/arms.png",
+        "long-hair": "assets/characters/male/twoHandGuard/long-hair.png",
+        "fade-hair": "assets/characters/male/twoHandGuard/fade-hair.png",
+        "afro-hair": "assets/characters/male/twoHandGuard/afro-hair.png",
+        "brown-eyes": "assets/characters/male/twoHandGuard/brown-eyes.png",
+        "purple-eyes": "assets/characters/male/twoHandGuard/purple-eyes.png",
+        "male-gi": "assets/characters/male/twoHandGuard/male-gi.png",
+        "male-blue-armor": "assets/characters/male/twoHandGuard/male-blue-armor.png",
+        "male-red-armor": "assets/characters/male/twoHandGuard/male-red-armor.png",
+        "blue-armor-shoulders": "assets/characters/male/twoHandGuard/blue-armor-shoulders.png",
+        "red-armor-shoulders": "assets/characters/male/twoHandGuard/red-armor-shoulders.png"
+      },
+      "weapons": {
+        "frameSize": [
+          128,
+          128
+        ],
+        "origin": [
+          32,
+          32
+        ],
+        "pivot": [
+          64,
+          95
+        ],
+        "depthRule": "each weapon is split into depth slots, one sheet each: behind = under the body; front = over body and clothing, under the arms (the fists close over the hilt); top = over every character layer (a blade pointing at the viewer, a hand in front of the head). z per frame is one slot or { hilt, blade } split at the grip",
+        "items": [
+          {
+            "slot": "main",
+            "item": "katana",
+            "default": true,
+            "hand": "arms",
+            "layers": {
+              "behind": "assets/characters/male/twoHandGuard/main-katana-behind.png",
+              "front": "assets/characters/male/twoHandGuard/main-katana-front.png",
+              "top": "assets/characters/male/twoHandGuard/main-katana-top.png"
+            },
+            "z": {
+              "S": [
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                }
+              ],
+              "E": [
+                "front",
+                "front",
+                "front",
+                "front"
+              ],
+              "N": [
+                "behind",
+                "behind",
+                "behind",
+                "behind"
+              ],
+              "W": [
+                "front",
+                "front",
+                "front",
+                "front"
+              ]
+            }
+          }
+        ]
+      },
+      "clips": {
+        "rule": "loops while in combat with a two-handed weapon drawn; every two-handed attack clip ends here (next: twoHandGuard)",
+        "twoHandGuard": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 6,
+          "loop": true
+        }
+      }
     }
   },
   "combo": {

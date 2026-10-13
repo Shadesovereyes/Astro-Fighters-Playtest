@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-item/v1",
   "item": "wakizashi",
   "kind": "rigid weapon (AGENTS.md: rigid items are placed by anchor with integer offsets)",
-  "status": "candidate",
+  "status": "approved by user 2026-10-13 (with the one-handed stance)",
   "construction": "band: a straight band along the weapon axis from the grip point (the centre of the near fist); every pixel takes its colour from the cross-section pattern (back/spine to front/edge) of the segment it falls in, so the weapon keeps its thickness at any angle; pixels are rasterised from the authored data, never rotated or resampled from an image",
   "palette": {
     "#": "#000000",
