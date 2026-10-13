@@ -817,27 +817,27 @@
               24
             ],
             "angle": [
-              5,
-              5,
-              5,
-              5
+              10,
+              10,
+              10,
+              10
             ],
             "elbow": [
               {
                 "at": 7,
-                "angle": -75
+                "angle": -80
               },
               {
                 "at": 7,
-                "angle": -75
+                "angle": -80
               },
               {
                 "at": 7,
-                "angle": -75
+                "angle": -80
               },
               {
                 "at": 7,
-                "angle": -75
+                "angle": -80
               }
             ],
             "scale": [
@@ -866,27 +866,27 @@
               24
             ],
             "angle": [
-              -5,
-              -5,
-              -5,
-              -5
+              -10,
+              -10,
+              -10,
+              -10
             ],
             "elbow": [
               {
                 "at": 7,
-                "angle": 75
+                "angle": 80
               },
               {
                 "at": 7,
-                "angle": 75
+                "angle": 80
               },
               {
                 "at": 7,
-                "angle": 75
+                "angle": 80
               },
               {
                 "at": 7,
-                "angle": 75
+                "angle": 80
               }
             ],
             "scale": [
@@ -1215,10 +1215,34 @@
         {
           "grip": [
             31,
-            35
+            33
           ],
           "angle": 90,
-          "scale": 0.55,
+          "scale": 0.643,
+          "z": {
+            "hilt": "front",
+            "blade": "top"
+          }
+        },
+        {
+          "grip": [
+            31,
+            32
+          ],
+          "angle": 90,
+          "scale": 0.643,
+          "z": {
+            "hilt": "front",
+            "blade": "top"
+          }
+        },
+        {
+          "grip": [
+            31,
+            33
+          ],
+          "angle": 90,
+          "scale": 0.643,
           "z": {
             "hilt": "front",
             "blade": "top"
@@ -1230,31 +1254,7 @@
             34
           ],
           "angle": 90,
-          "scale": 0.55,
-          "z": {
-            "hilt": "front",
-            "blade": "top"
-          }
-        },
-        {
-          "grip": [
-            31,
-            35
-          ],
-          "angle": 90,
-          "scale": 0.55,
-          "z": {
-            "hilt": "front",
-            "blade": "top"
-          }
-        },
-        {
-          "grip": [
-            31,
-            36
-          ],
-          "angle": 90,
-          "scale": 0.55,
+          "scale": 0.643,
           "z": {
             "hilt": "front",
             "blade": "top"
@@ -1303,7 +1303,8 @@
           "hidden": true
         }
       ],
-      "viewRule": "S: hands together at the navel, the blade points at the viewer's throat, drawn up the centre line foreshortened (scale 0.55). N: the hands are hidden in front of the body; the katana is drawn behind the body, angled up and to the right so its tip clears the head beside the right shoulder. S depth: the hilt and pommel sit under the fists (front), the guard and blade, pointing at the viewer, over every layer (top)."
+      "viewRule": "S: hands together at the navel, the blade points at the viewer's throat, drawn up the centre line foreshortened (scale 0.55). N: the hands are hidden in front of the body; the katana is drawn behind the body, angled up and to the right so its tip clears the head beside the right shoulder. S depth: the hilt and pommel sit under the fists (front), the guard and blade, pointing at the viewer, over every layer (top).",
+      "projectionRule": "S matches E by projection lines: every point of the weapon keeps its E row; the blade's E angle a above horizontal turns into a vertical screen line in S (the blade points at the viewer), foreshortened by sin(a)"
     }
   ]
 }

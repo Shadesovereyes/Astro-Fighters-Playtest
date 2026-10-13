@@ -813,34 +813,22 @@
               24
             ],
             "angle": [
-              5,
-              5,
-              5,
-              5
+              0,
+              0,
+              0,
+              0
             ],
             "elbow": [
-              {
-                "at": 7,
-                "angle": -25
-              },
-              {
-                "at": 7,
-                "angle": -25
-              },
-              {
-                "at": 7,
-                "angle": -25
-              },
-              {
-                "at": 7,
-                "angle": -25
-              }
+              null,
+              null,
+              null,
+              null
             ],
             "scale": [
-              1,
-              1,
-              1,
-              1
+              0.62,
+              0.62,
+              0.62,
+              0.62
             ],
             "fist": [
               "front",
@@ -862,34 +850,34 @@
               24
             ],
             "angle": [
-              -10,
-              -10,
-              -10,
-              -10
+              0,
+              0,
+              0,
+              0
             ],
             "elbow": [
               {
                 "at": 7,
-                "angle": 168
+                "angle": 130
               },
               {
                 "at": 7,
-                "angle": 168
+                "angle": 130
               },
               {
                 "at": 7,
-                "angle": 168
+                "angle": 130
               },
               {
                 "at": 7,
-                "angle": 168
+                "angle": 130
               }
             ],
             "scale": [
-              1,
-              1,
-              1,
-              1
+              0.6,
+              0.6,
+              0.6,
+              0.6
             ],
             "fist": [
               "up",
@@ -907,7 +895,7 @@
           }
         },
         "headDy": -1,
-        "armRule": "guard seen from the front: elbows down at the sides, forearms nearly upright, the fists in front of each shoulder at the top of the chest, just below where the long hair hangs (the hair layer draws over the arms); a punch toward the viewer is a short straight arm (50% length) bringing the fist in front of the chest centre; on the jab and cross the punching arm points at the viewer: the arm crosses in front of the chest at shoulder height (45%) to a knuckles-on fist (fistFront) just off the chest centre, outlined over the body",
+        "armRule": "S arms match E by projection lines: each fist sits on its E row at its own side (weapon hand at the right hip, row 35; guard hand at the left shoulder, row 26); the forearms point toward the viewer, so the band arms are foreshortened (scale) instead of swung across the body",
         "twist": {
           "pelvis": [
             0,
@@ -1211,11 +1199,11 @@
       "S": [
         {
           "grip": [
-            27,
-            38
+            25,
+            35
           ],
-          "angle": 105,
-          "scale": 0.4,
+          "angle": 90,
+          "scale": 0.174,
           "z": {
             "hilt": "front",
             "blade": "top"
@@ -1223,11 +1211,11 @@
         },
         {
           "grip": [
-            27,
-            37
+            25,
+            34
           ],
-          "angle": 105,
-          "scale": 0.4,
+          "angle": 90,
+          "scale": 0.174,
           "z": {
             "hilt": "front",
             "blade": "top"
@@ -1235,11 +1223,11 @@
         },
         {
           "grip": [
-            27,
-            38
+            25,
+            35
           ],
-          "angle": 105,
-          "scale": 0.4,
+          "angle": 90,
+          "scale": 0.174,
           "z": {
             "hilt": "front",
             "blade": "top"
@@ -1247,11 +1235,11 @@
         },
         {
           "grip": [
-            27,
-            39
+            25,
+            36
           ],
-          "angle": 105,
-          "scale": 0.4,
+          "angle": 90,
+          "scale": 0.174,
           "z": {
             "hilt": "front",
             "blade": "top"
@@ -1300,7 +1288,8 @@
           "hidden": true
         }
       ],
-      "viewRule": "S: the weapon hand is low at the right hip and the blade points at the viewer, raised slightly (as in E): the grip is the fist centre and the blade is drawn short (scale 0.4) out of the top of the fist, nearly straight up; the hilt under the fist, the blade over every layer. N: hidden in front of the body; drawn behind it."
+      "viewRule": "S: the weapon hand is low at the right hip and the blade points at the viewer, raised slightly (as in E): the grip is the fist centre and the blade is drawn short (scale 0.4) out of the top of the fist, nearly straight up; the hilt under the fist, the blade over every layer. N: hidden in front of the body; drawn behind it.",
+      "projectionRule": "S matches E by projection lines: every point of the weapon keeps its E row; the blade's E angle a above horizontal turns into a vertical screen line in S (the blade points at the viewer), foreshortened by sin(a)"
     },
     {
       "slot": "off",
@@ -1348,11 +1337,11 @@
       "S": [
         {
           "grip": [
-            38,
-            23
+            37,
+            25
           ],
           "angle": 90,
-          "scale": 1,
+          "scale": 0.996,
           "z": {
             "hilt": "front",
             "blade": "top"
@@ -1361,37 +1350,37 @@
         },
         {
           "grip": [
-            38,
-            22
-          ],
-          "angle": 90,
-          "scale": 1,
-          "z": {
-            "hilt": "front",
-            "blade": "top"
-          },
-          "layer": "arms"
-        },
-        {
-          "grip": [
-            38,
-            23
-          ],
-          "angle": 90,
-          "scale": 1,
-          "z": {
-            "hilt": "front",
-            "blade": "top"
-          },
-          "layer": "arms"
-        },
-        {
-          "grip": [
-            38,
+            37,
             24
           ],
           "angle": 90,
-          "scale": 1,
+          "scale": 0.996,
+          "z": {
+            "hilt": "front",
+            "blade": "top"
+          },
+          "layer": "arms"
+        },
+        {
+          "grip": [
+            37,
+            25
+          ],
+          "angle": 90,
+          "scale": 0.996,
+          "z": {
+            "hilt": "front",
+            "blade": "top"
+          },
+          "layer": "arms"
+        },
+        {
+          "grip": [
+            37,
+            26
+          ],
+          "angle": 90,
+          "scale": 0.996,
           "z": {
             "hilt": "front",
             "blade": "top"
@@ -1441,7 +1430,8 @@
           "hidden": true
         }
       ],
-      "viewRule": "S: the raised guard fist holds the dagger in a normal grip: the grip is the fist centre, the blade comes straight up out of the top of the fist in front of the head (top), the pommel end stays hidden under the fist and forearm (front). N: hidden in front of the body; drawn behind it (it may not show)."
+      "viewRule": "S: the raised guard fist holds the dagger in a normal grip: the grip is the fist centre, the blade comes straight up out of the top of the fist in front of the head (top), the pommel end stays hidden under the fist and forearm (front). N: hidden in front of the body; drawn behind it (it may not show).",
+      "projectionRule": "S matches E by projection lines: every point of the weapon keeps its E row; the blade's E angle a above horizontal turns into a vertical screen line in S (the blade points at the viewer), foreshortened by sin(a)"
     }
   ]
 }
