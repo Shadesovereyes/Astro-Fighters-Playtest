@@ -98,7 +98,8 @@ function ellipseOf(item, pose, weaponPx) {
     const depthIn = (1 - rho) * R;
     if (depthIn > (T.width ?? 6) * f) continue;
     const band = cols.find((b) => depthIn < b.to) || cols[cols.length - 1];
-    out.set(key(x, y), [band.colour, Math.sin(psi * Math.PI / 180) < 0 ? 'top' : 'behind']);
+    // trail.z overrides the per-pixel depth (e.g. N: the swing runs in front of the body, away from the viewer)
+    out.set(key(x, y), [band.colour, T.z || (Math.sin(psi * Math.PI / 180) < 0 ? 'top' : 'behind')]);
   }
   return out;
 }

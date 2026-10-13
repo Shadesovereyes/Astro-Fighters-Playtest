@@ -1375,7 +1375,8 @@
                   32.69,
                   28.0
                 ],
-                "width": 6
+                "width": 6,
+                "z": "behind"
               }
             },
             null,
@@ -1394,7 +1395,8 @@
                   33.06,
                   29.23
                 ],
-                "width": 6
+                "width": 6,
+                "z": "behind"
               }
             },
             null,
@@ -1632,7 +1634,8 @@
               32.69,
               28.0
             ],
-            "width": 6
+            "width": 6,
+            "z": "behind"
           }
         },
         {
@@ -1719,7 +1722,8 @@
               33.06,
               29.23
             ],
-            "width": 6
+            "width": 6,
+            "z": "behind"
           }
         },
         {
@@ -1759,7 +1763,7 @@
           "hidden": true
         }
       ],
-      "projectionRule": "S and N match E by projection lines: the horizontal swings (psi) are re-projected per view from the same swing angles (S: forward toward the viewer = down, the character's left = the viewer's right; N: the reverse), the fist keeps its E row and moves across the body with the swing, and the elliptical smear is re-projected with them (blade length + margin per item); N follows S by projection lines: every point keeps its S row and its x mirrors, a blade part in front of the body in S is behind it in N, and the smear mirrors with it; the hand is hidden in front of the body; stance frames keep the stance's S/N pose"
+      "projectionRule": "S and N match E by projection lines: the horizontal swings (psi) are re-projected per view from the same swing angles (S: forward toward the viewer = down, the character's left = the viewer's right; N: the reverse), the fist keeps its E row and moves across the body with the swing, and the elliptical smear is re-projected with them (blade length + margin per item); N follows S by projection lines: every point keeps its S row and its x mirrors, a blade part in front of the body in S is behind it in N, and the smear mirrors with it, drawn behind the body (the swing runs in front of the body, away from the viewer); the hand is hidden in front of the body; stance frames keep the stance's S/N pose"
     }
   ],
   "events": {
