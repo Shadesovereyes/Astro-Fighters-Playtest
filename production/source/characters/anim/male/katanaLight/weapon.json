@@ -27,17 +27,13 @@
       "default": true,
       "hand": "arms",
       "layers": {
-        "behind": "main-katana-behind.png",
         "front": "main-katana-front.png",
         "trail": "main-katana-trail.png"
       },
       "status": "candidate",
       "z": {
         "E": [
-          {
-            "hilt": "front",
-            "blade": "behind"
-          },
+          "front",
           "front",
           "front",
           "front",
@@ -47,10 +43,7 @@
           "front"
         ],
         "W": [
-          {
-            "hilt": "front",
-            "blade": "behind"
-          },
+          "front",
           "front",
           "front",
           "front",
@@ -63,8 +56,8 @@
       "grips": {
         "E": [
           [
-            40,
-            15
+            46,
+            20
           ],
           [
             43,
@@ -97,8 +90,8 @@
         ],
         "W": [
           [
-            23,
-            15
+            17,
+            20
           ],
           [
             20,
