@@ -59,6 +59,34 @@ function draw(item, pose) {
 // character layer: a blade pointing at the viewer, or a hand held in front of the head). A pose's z is one slot, or
 // { hilt, blade } to split the weapon at the grip (hilt = the pommel side, u < 0)
 const DEPTHS = ['behind', 'front', 'top'];
+
+// swing smear (pose.trail = { from: <blade angle the swing started at>, width }): a hard-edged pixel-art crescent swept
+// around the grip from the start angle to the current blade angle, out to the blade tip; it is widest at the current
+// blade and tapers to nothing at the start, banded from the tip inward with the item's trail colours. Pixels under the
+// weapon itself are left to the weapon. It is FX, drawn over every character layer as its own sheet.
+function trailOf(item, pose, weaponPx) {
+  const T = pose.trail, cols = item.trail.bands, R = Math.max(...item.segments.map((s) => s.to)) * (pose.scale ?? 1);
+  const gx = pose.grip[0] + 0.5, gy = pose.grip[1] + 0.5, a0 = T.from, a1 = pose.angle, span = a1 - a0, out = new Map();
+  for (let y = -ORIGIN[1]; y < WF - ORIGIN[1]; y++) for (let x = -ORIGIN[0]; x < WF - ORIGIN[0]; x++) {
+    if (weaponPx.has(key(x, y))) continue;
+    const dx = x + 0.5 - gx, dy = y + 0.5 - gy, r = Math.hypot(dx, dy);
+    if (r > R) continue;
+    let phi = Math.atan2(-dy, dx) * 180 / Math.PI;
+    // angle measured from the start of the swing in the swing's direction
+    let rel = (phi - a0) * Math.sign(span);
+    rel = ((rel % 360) + 360) % 360;
+    const f = rel / Math.abs(span);
+    if (f > 1) continue;
+    const inner = R - (T.width ?? 6) * f;
+    if (r < inner) continue;
+    const depthIn = R - r;
+    const band = cols.find((b) => depthIn < b.to) || cols[cols.length - 1];
+    out.set(key(x, y), band.colour);
+  }
+  // the tapered start can leave single detached pixels: drop trail pixels with no 4-neighbour in the trail
+  for (const q of [...out.keys()]) { const [x, y] = unkey(q); if (!N4.some(([dx, dy]) => out.has(key(x + dx, y + dy)))) out.delete(q); }
+  return out;
+}
 const depthOf = (z, u) => (typeof z === 'string' ? z : u < 0 ? z.hilt : z.blade);
 
 // itemPoses: per-item overrides of a slot's poses ({ <item>: { <dir>: { field: value } } }), so alternative items in one
@@ -79,6 +107,8 @@ for (const W of weapons.flatMap((w) => (w.items || [w.item]).map((it, i) => ({ .
   const item = JSON.parse(fs.readFileSync(path.join(root, 'production/source/characters/items', `${W.item}.json`), 'utf8'));
   const pal = Object.fromEntries(Object.entries(item.palette).map(([s, h]) => [s, h.slice(1).toLowerCase()]));
   const sheets = Object.fromEntries(DEPTHS.map((dd) => [dd, Buffer.alloc(WF * F * WF * dirs.length * 4)])), used = new Set();
+  const trailSheet = Buffer.alloc(WF * F * WF * dirs.length * 4);
+  let trailUsed = false;
   const z = {};
   dirs.forEach((dir, r) => {
     z[dir] = [];
@@ -86,7 +116,17 @@ for (const W of weapons.flatMap((w) => (w.items || [w.item]).map((it, i) => ({ .
       const p = poseOf(W, dir, k);
       const raw = draw(item, p.mirrored ? { ...p, grip: [FRAME - 1 - p.grip[0], p.grip[1]] } : p);
       let m = new Map([...raw].map(([q, c]) => [q, [c, depthOf(p.z, raw.u(q))]]));
-      if (p.mirrored) m = new Map([...m].map(([q, c]) => { const [x, y] = unkey(q); return [key(FRAME - 1 - x, y), c]; }));
+      let tr = p.trail ? trailOf(item, p.mirrored ? { ...p, grip: [FRAME - 1 - p.grip[0], p.grip[1]] } : p, raw) : new Map();
+      if (p.mirrored) {
+        m = new Map([...m].map(([q, c]) => { const [x, y] = unkey(q); return [key(FRAME - 1 - x, y), c]; }));
+        tr = new Map([...tr].map(([q, c]) => { const [x, y] = unkey(q); return [key(FRAME - 1 - x, y), c]; }));
+      }
+      for (const [q, c] of tr) {
+        const [x, y] = unkey(q), X = x + ORIGIN[0], Y = y + ORIGIN[1];
+        if (X < 0 || Y < 0 || X >= WF || Y >= WF) { qc.inFrame = false; continue; }
+        Buffer.from(c.slice(1).toLowerCase() + 'ff', 'hex').copy(trailSheet, ((r * WF + Y) * WF * F + k * WF + X) * 4);
+        trailUsed = true;
+      }
       z[dir].push(p.z);
       // registration: the grip pixel is covered by the hand's layer (the fist closes over the hilt)
       // a pose may name its own hand layer (in S both hands are on the arms layer) or mark the hand hidden (N: the hands
@@ -105,6 +145,8 @@ for (const W of weapons.flatMap((w) => (w.items || [w.item]).map((it, i) => ({ .
   // one sheet per depth slot the weapon uses: <slot>-<item>-<depth>.png
   const layers = {};
   for (const dd of DEPTHS.filter((x) => used.has(x))) { layers[dd] = `${W.slot}-${W.item}-${dd}.png`; files[layers[dd]] = encodePng(WF * F, WF * dirs.length, sheets[dd]); }
+  // the swing smear is its own FX sheet (drawn over every character layer): <slot>-<item>-trail.png
+  if (trailUsed) { layers.trail = `${W.slot}-${W.item}-trail.png`; files[layers.trail] = encodePng(WF * F, WF * dirs.length, trailSheet); }
   out.push({ slot: W.slot, item: W.item, default: W.isDefault, grip: W.gripKind, hand: W.layer || 'arms', layers, status: W.status || spec.status, z,
     grips: Object.fromEntries(dirs.map((d) => [d, Array.from({ length: F }, (_, k) => poseOf(W, d, k).grip)])) });
 }

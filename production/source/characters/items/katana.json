@@ -74,5 +74,22 @@
     }
   ],
   "outline": "every coloured pixel touching empty space gets an outline pixel (#) if it is not already one",
-  "grip": "two-handed: the hilt holds both fists (near fist at the guard end, far fist at the pommel end)"
+  "grip": "two-handed: the hilt holds both fists (near fist at the guard end, far fist at the pommel end)",
+  "trail": {
+    "rule": "swing smear colours, from the blade tip inward (pixels from the outer edge): colours already in the approved palette (Gi/armour white, body wrap grey, armour grey); hard alpha",
+    "bands": [
+      {
+        "to": 1.5,
+        "colour": "#ffffff"
+      },
+      {
+        "to": 3,
+        "colour": "#e3e3e3"
+      },
+      {
+        "to": 99,
+        "colour": "#adadad"
+      }
+    ]
+  }
 }

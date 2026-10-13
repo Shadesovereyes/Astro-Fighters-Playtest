@@ -939,7 +939,11 @@
             28
           ],
           "angle": 0,
-          "z": "front"
+          "z": "front",
+          "trail": {
+            "from": 95,
+            "width": 7
+          }
         },
         {
           "grip": [
@@ -947,7 +951,11 @@
             37
           ],
           "angle": -88,
-          "z": "front"
+          "z": "front",
+          "trail": {
+            "from": 0,
+            "width": 5
+          }
         },
         {
           "grip": [
@@ -971,7 +979,11 @@
             29
           ],
           "angle": 15,
-          "z": "front"
+          "z": "front",
+          "trail": {
+            "from": -92,
+            "width": 7
+          }
         },
         {
           "grip": [
@@ -982,6 +994,10 @@
           "z": {
             "hilt": "front",
             "blade": "behind"
+          },
+          "trail": {
+            "from": 15,
+            "width": 5
           }
         },
         {
@@ -1087,7 +1103,11 @@
           46,
           27
         ],
-        "angle": 0
+        "angle": 0,
+        "trail": {
+          "from": 95,
+          "width": 7
+        }
       },
       {
         "name": "12-6 follow-through (blade at 6)",
@@ -1095,7 +1115,11 @@
           43,
           38
         ],
-        "angle": -88
+        "angle": -88,
+        "trail": {
+          "from": 0,
+          "width": 5
+        }
       },
       {
         "name": "12-6 return",
@@ -1119,7 +1143,11 @@
           46,
           28
         ],
-        "angle": 15
+        "angle": 15,
+        "trail": {
+          "from": -92,
+          "width": 7
+        }
       },
       {
         "name": "6-12 follow-through (blade at 12)",
@@ -1131,6 +1159,10 @@
         "z": {
           "hilt": "front",
           "blade": "behind"
+        },
+        "trail": {
+          "from": 15,
+          "width": 5
         }
       },
       {

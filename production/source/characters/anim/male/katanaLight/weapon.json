@@ -28,7 +28,8 @@
       "hand": "arms",
       "layers": {
         "behind": "main-katana-behind.png",
-        "front": "main-katana-front.png"
+        "front": "main-katana-front.png",
+        "trail": "main-katana-trail.png"
       },
       "status": "candidate",
       "z": {
