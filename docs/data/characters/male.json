@@ -2651,6 +2651,586 @@
           }
         ]
       }
+    },
+    "katanaHeavy": {
+      "frames": 12,
+      "fps": 10,
+      "rows": [
+        "S",
+        "E",
+        "N",
+        "W"
+      ],
+      "status": "approved by user 2026-10-13 (S, E, N, W; W mirrors E)",
+      "rootMotion": {
+        "S": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "E": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "N": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "W": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "layers": {
+        "body": "assets/characters/male/katanaHeavy/body.png",
+        "arms": "assets/characters/male/katanaHeavy/arms.png",
+        "long-hair": "assets/characters/male/katanaHeavy/long-hair.png",
+        "fade-hair": "assets/characters/male/katanaHeavy/fade-hair.png",
+        "afro-hair": "assets/characters/male/katanaHeavy/afro-hair.png",
+        "brown-eyes": "assets/characters/male/katanaHeavy/brown-eyes.png",
+        "purple-eyes": "assets/characters/male/katanaHeavy/purple-eyes.png",
+        "male-gi": "assets/characters/male/katanaHeavy/male-gi.png",
+        "male-blue-armor": "assets/characters/male/katanaHeavy/male-blue-armor.png",
+        "male-red-armor": "assets/characters/male/katanaHeavy/male-red-armor.png",
+        "blue-armor-shoulders": "assets/characters/male/katanaHeavy/blue-armor-shoulders.png",
+        "red-armor-shoulders": "assets/characters/male/katanaHeavy/red-armor-shoulders.png"
+      },
+      "weapons": {
+        "frameSize": [
+          128,
+          128
+        ],
+        "origin": [
+          32,
+          32
+        ],
+        "pivot": [
+          64,
+          95
+        ],
+        "depthRule": "each weapon is split into depth slots, one sheet each: behind = under the body; front = over body and clothing, under the arms (the fists close over the hilt); top = over every character layer (a blade pointing at the viewer, a hand in front of the head). z per frame is one slot or { hilt, blade } split at the grip",
+        "items": [
+          {
+            "slot": "main",
+            "item": "katana",
+            "default": true,
+            "hand": "arms",
+            "layers": {
+              "behind": "assets/characters/male/katanaHeavy/main-katana-behind.png",
+              "front": "assets/characters/male/katanaHeavy/main-katana-front.png",
+              "top": "assets/characters/male/katanaHeavy/main-katana-top.png",
+              "trail": "assets/characters/male/katanaHeavy/main-katana-trail.png",
+              "trailBehind": "assets/characters/male/katanaHeavy/main-katana-trail-behind.png"
+            },
+            "z": {
+              "S": [
+                {
+                  "hilt": "front",
+                  "blade": "behind"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "behind"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "behind"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "behind"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                }
+              ],
+              "E": [
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "behind"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "behind"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "behind"
+                },
+                "front",
+                {
+                  "hilt": "front",
+                  "blade": "behind"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "behind"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                "front"
+              ],
+              "N": [
+                {
+                  "hilt": "behind",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "behind",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "behind",
+                  "blade": "behind"
+                },
+                {
+                  "hilt": "behind",
+                  "blade": "behind"
+                },
+                {
+                  "hilt": "behind",
+                  "blade": "behind"
+                },
+                {
+                  "hilt": "behind",
+                  "blade": "behind"
+                },
+                {
+                  "hilt": "behind",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "behind",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "behind",
+                  "blade": "behind"
+                },
+                {
+                  "hilt": "behind",
+                  "blade": "behind"
+                },
+                {
+                  "hilt": "behind",
+                  "blade": "behind"
+                },
+                {
+                  "hilt": "behind",
+                  "blade": "behind"
+                }
+              ],
+              "W": [
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "behind"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "behind"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "behind"
+                },
+                "front",
+                {
+                  "hilt": "front",
+                  "blade": "behind"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "behind"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                "front"
+              ]
+            }
+          }
+        ]
+      },
+      "clips": {
+        "rule": "runtime playback: frames are sheet columns; each clip starts and ends in the two-handed stance (next: twoHandGuard) unless a press in its chain window continues the combo; entry: a clip entered from the named clip while it shows one of atFrames starts at start (the backhand enters at its smear frame from the forehand's hold)",
+        "sideCutR": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "fps": 10,
+          "next": "twoHandGuard",
+          "chainWindow": [
+            3,
+            4,
+            5
+          ]
+        },
+        "sideCutL": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 10,
+          "next": "twoHandGuard",
+          "chainWindow": [
+            9,
+            10,
+            11
+          ],
+          "finisher": true,
+          "entry": {
+            "sideCutR": {
+              "atFrames": [
+                3
+              ],
+              "start": 8
+            }
+          }
+        }
+      },
+      "events": {
+        "rule": "per-frame gameplay data in the E frame (W mirrors x -> 64 - x - w): hitbox [x, y, w, h] gives the height band (combo.json hitArea arc), damage event",
+        "E": [
+          {
+            "frame": 0,
+            "clip": "sideCutR",
+            "type": "startup"
+          },
+          {
+            "frame": 1,
+            "clip": "sideCutR",
+            "type": "startup"
+          },
+          {
+            "frame": 2,
+            "clip": "sideCutR",
+            "type": "active",
+            "move": "heavy side cut (forehand)",
+            "hitbox": [
+              36,
+              18,
+              28,
+              20
+            ],
+            "damage": "heavy"
+          },
+          {
+            "frame": 3,
+            "clip": "sideCutR",
+            "type": "recovery",
+            "chainWindow": true
+          },
+          {
+            "frame": 4,
+            "clip": "sideCutR",
+            "type": "recovery",
+            "chainWindow": true
+          },
+          {
+            "frame": 5,
+            "clip": "sideCutR",
+            "type": "recovery",
+            "chainWindow": true
+          },
+          {
+            "frame": 6,
+            "clip": "sideCutL",
+            "type": "startup"
+          },
+          {
+            "frame": 7,
+            "clip": "sideCutL",
+            "type": "startup"
+          },
+          {
+            "frame": 8,
+            "clip": "sideCutL",
+            "type": "active",
+            "move": "heavy side cut (backhand)",
+            "hitbox": [
+              36,
+              18,
+              28,
+              20
+            ],
+            "damage": "heavy+"
+          },
+          {
+            "frame": 9,
+            "clip": "sideCutL",
+            "type": "recovery",
+            "chainWindow": true
+          },
+          {
+            "frame": 10,
+            "clip": "sideCutL",
+            "type": "recovery",
+            "chainWindow": true
+          },
+          {
+            "frame": 11,
+            "clip": "sideCutL",
+            "type": "recovery",
+            "chainWindow": true
+          }
+        ]
+      }
     }
   },
   "combo": {
