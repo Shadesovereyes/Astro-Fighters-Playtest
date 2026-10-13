@@ -3,7 +3,7 @@
   "body": "male",
   "state": "dualLight",
   "status": "candidate (E/W first)",
-  "frames": 8,
+  "frames": 12,
   "fps": 12,
   "frameSize": [
     64,
@@ -18,7 +18,7 @@
       "E",
       "W"
     ],
-    "columns": "frames 0–7"
+    "columns": "frames 0–11"
   },
   "layers": {
     "body": "body.png",
@@ -46,6 +46,22 @@
   ],
   "rootMotion": {
     "E": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
       [
         0,
         0
@@ -111,12 +127,28 @@
       [
         0,
         0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
       ]
     ]
   },
   "clips": {
-    "rule": "runtime playback as the katana light chain; next: oneHandDualGuard; entry: the offCut enters at its smear frame from the mainCut's low hold (the off hand is already raised in its guard)",
-    "mainCut": {
+    "rule": "one press per stab in rhythm (chain window = hold and return frames); next: oneHandDualGuard; a stab chained from the previous stab's hold starts at its own chamber",
+    "stab1": {
       "frames": [
         0,
         1,
@@ -130,7 +162,7 @@
         3
       ]
     },
-    "offCut": {
+    "stab2": {
       "frames": [
         4,
         5,
@@ -142,15 +174,17 @@
       "chainWindow": [
         6,
         7
+      ]
+    },
+    "stab3": {
+      "frames": [
+        8,
+        9,
+        10,
+        11
       ],
-      "entry": {
-        "mainCut": {
-          "atFrames": [
-            2
-          ],
-          "start": 5
-        }
-      }
+      "fps": 12,
+      "next": "oneHandDualGuard"
     }
   },
   "events": {
@@ -158,63 +192,91 @@
     "E": [
       {
         "frame": 0,
-        "clip": "mainCut",
+        "clip": "stab1",
         "type": "startup"
       },
       {
         "frame": 1,
-        "clip": "mainCut",
+        "clip": "stab1",
         "type": "active",
-        "move": "main-hand downward strike",
+        "move": "main-hand chest stab",
         "hitbox": [
-          40,
-          6,
-          20,
-          46
+          44,
+          22,
+          16,
+          12
         ],
         "damage": "light"
       },
       {
         "frame": 2,
-        "clip": "mainCut",
+        "clip": "stab1",
         "type": "recovery",
         "chainWindow": true
       },
       {
         "frame": 3,
-        "clip": "mainCut",
+        "clip": "stab1",
         "type": "recovery",
         "chainWindow": true
       },
       {
         "frame": 4,
-        "clip": "offCut",
+        "clip": "stab2",
         "type": "startup"
       },
       {
         "frame": 5,
-        "clip": "offCut",
+        "clip": "stab2",
         "type": "active",
-        "move": "off-hand downward strike",
+        "move": "off-hand high stab",
         "hitbox": [
-          40,
-          6,
-          20,
-          46
+          44,
+          12,
+          16,
+          12
         ],
         "damage": "light"
       },
       {
         "frame": 6,
-        "clip": "offCut",
+        "clip": "stab2",
         "type": "recovery",
         "chainWindow": true
       },
       {
         "frame": 7,
-        "clip": "offCut",
+        "clip": "stab2",
         "type": "recovery",
         "chainWindow": true
+      },
+      {
+        "frame": 8,
+        "clip": "stab3",
+        "type": "startup"
+      },
+      {
+        "frame": 9,
+        "clip": "stab3",
+        "type": "active",
+        "move": "main-hand rising gut stab (finisher)",
+        "hitbox": [
+          44,
+          22,
+          16,
+          14
+        ],
+        "damage": "light+"
+      },
+      {
+        "frame": 10,
+        "clip": "stab3",
+        "type": "recovery"
+      },
+      {
+        "frame": 11,
+        "clip": "stab3",
+        "type": "recovery"
       }
     ]
   },
@@ -227,22 +289,30 @@
     "groundContact": true,
     "offPalette": {},
     "outlineNotches": {
-      "E:0": 3,
-      "E:1": 4,
-      "E:2": 4,
+      "E:0": 2,
+      "E:1": 2,
+      "E:2": 3,
       "E:3": 3,
       "E:4": 3,
       "E:5": 2,
-      "E:6": 4,
+      "E:6": 3,
       "E:7": 3,
-      "W:0": 3,
-      "W:1": 4,
-      "W:2": 4,
+      "E:8": 3,
+      "E:9": 2,
+      "E:10": 3,
+      "E:11": 3,
+      "W:0": 2,
+      "W:1": 2,
+      "W:2": 3,
       "W:3": 3,
       "W:4": 3,
       "W:5": 2,
-      "W:6": 4,
-      "W:7": 3
+      "W:6": 3,
+      "W:7": 3,
+      "W:8": 3,
+      "W:9": 2,
+      "W:10": 3,
+      "W:11": 3
     },
     "referenceEdges": {
       "E": 0,
@@ -250,19 +320,27 @@
     },
     "cleanup": {
       "cleanupRemoved": [
-        5,
-        6,
-        6,
-        5,
-        5,
-        11,
+        7,
+        4,
         8,
+        5,
+        5,
+        5,
+        6,
+        5,
+        5,
+        7,
+        5,
         5
       ],
       "cleanupMerged": [
-        3,
         1,
         1,
+        1,
+        1,
+        1,
+        1,
+        2,
         1,
         1,
         1,
@@ -275,8 +353,8 @@
         "male-gi E:0": 0,
         "male-blue-armor E:0": 0,
         "male-red-armor E:0": 0,
-        "blue-armor-shoulders E:0": 5,
-        "red-armor-shoulders E:0": 5,
+        "blue-armor-shoulders E:0": 0,
+        "red-armor-shoulders E:0": 0,
         "male-gi E:1": 0,
         "male-blue-armor E:1": 0,
         "male-red-armor E:1": 0,
@@ -295,28 +373,48 @@
         "male-gi E:4": 0,
         "male-blue-armor E:4": 0,
         "male-red-armor E:4": 0,
-        "blue-armor-shoulders E:4": 4,
-        "red-armor-shoulders E:4": 4,
+        "blue-armor-shoulders E:4": 0,
+        "red-armor-shoulders E:4": 0,
         "male-gi E:5": 0,
         "male-blue-armor E:5": 0,
         "male-red-armor E:5": 0,
-        "blue-armor-shoulders E:5": 0,
-        "red-armor-shoulders E:5": 0,
+        "blue-armor-shoulders E:5": 4,
+        "red-armor-shoulders E:5": 4,
         "male-gi E:6": 0,
         "male-blue-armor E:6": 0,
         "male-red-armor E:6": 0,
-        "blue-armor-shoulders E:6": 0,
-        "red-armor-shoulders E:6": 0,
+        "blue-armor-shoulders E:6": 1,
+        "red-armor-shoulders E:6": 1,
         "male-gi E:7": 0,
         "male-blue-armor E:7": 0,
         "male-red-armor E:7": 0,
         "blue-armor-shoulders E:7": 0,
         "red-armor-shoulders E:7": 0,
+        "male-gi E:8": 0,
+        "male-blue-armor E:8": 0,
+        "male-red-armor E:8": 0,
+        "blue-armor-shoulders E:8": 0,
+        "red-armor-shoulders E:8": 0,
+        "male-gi E:9": 0,
+        "male-blue-armor E:9": 0,
+        "male-red-armor E:9": 0,
+        "blue-armor-shoulders E:9": 0,
+        "red-armor-shoulders E:9": 0,
+        "male-gi E:10": 0,
+        "male-blue-armor E:10": 0,
+        "male-red-armor E:10": 0,
+        "blue-armor-shoulders E:10": 0,
+        "red-armor-shoulders E:10": 0,
+        "male-gi E:11": 0,
+        "male-blue-armor E:11": 0,
+        "male-red-armor E:11": 0,
+        "blue-armor-shoulders E:11": 0,
+        "red-armor-shoulders E:11": 0,
         "male-gi W:0": 0,
         "male-blue-armor W:0": 0,
         "male-red-armor W:0": 0,
-        "blue-armor-shoulders W:0": 5,
-        "red-armor-shoulders W:0": 5,
+        "blue-armor-shoulders W:0": 0,
+        "red-armor-shoulders W:0": 0,
         "male-gi W:1": 0,
         "male-blue-armor W:1": 0,
         "male-red-armor W:1": 0,
@@ -335,23 +433,43 @@
         "male-gi W:4": 0,
         "male-blue-armor W:4": 0,
         "male-red-armor W:4": 0,
-        "blue-armor-shoulders W:4": 4,
-        "red-armor-shoulders W:4": 4,
+        "blue-armor-shoulders W:4": 0,
+        "red-armor-shoulders W:4": 0,
         "male-gi W:5": 0,
         "male-blue-armor W:5": 0,
         "male-red-armor W:5": 0,
-        "blue-armor-shoulders W:5": 0,
-        "red-armor-shoulders W:5": 0,
+        "blue-armor-shoulders W:5": 4,
+        "red-armor-shoulders W:5": 4,
         "male-gi W:6": 0,
         "male-blue-armor W:6": 0,
         "male-red-armor W:6": 0,
-        "blue-armor-shoulders W:6": 0,
-        "red-armor-shoulders W:6": 0,
+        "blue-armor-shoulders W:6": 1,
+        "red-armor-shoulders W:6": 1,
         "male-gi W:7": 0,
         "male-blue-armor W:7": 0,
         "male-red-armor W:7": 0,
         "blue-armor-shoulders W:7": 0,
-        "red-armor-shoulders W:7": 0
+        "red-armor-shoulders W:7": 0,
+        "male-gi W:8": 0,
+        "male-blue-armor W:8": 0,
+        "male-red-armor W:8": 0,
+        "blue-armor-shoulders W:8": 0,
+        "red-armor-shoulders W:8": 0,
+        "male-gi W:9": 0,
+        "male-blue-armor W:9": 0,
+        "male-red-armor W:9": 0,
+        "blue-armor-shoulders W:9": 0,
+        "red-armor-shoulders W:9": 0,
+        "male-gi W:10": 0,
+        "male-blue-armor W:10": 0,
+        "male-red-armor W:10": 0,
+        "blue-armor-shoulders W:10": 0,
+        "red-armor-shoulders W:10": 0,
+        "male-gi W:11": 0,
+        "male-blue-armor W:11": 0,
+        "male-red-armor W:11": 0,
+        "blue-armor-shoulders W:11": 0,
+        "red-armor-shoulders W:11": 0
       },
       "clothingGapFill": {
         "male-gi E:0": 0,
@@ -394,6 +512,26 @@
         "male-red-armor E:7": 0,
         "blue-armor-shoulders E:7": 0,
         "red-armor-shoulders E:7": 0,
+        "male-gi E:8": 0,
+        "male-blue-armor E:8": 0,
+        "male-red-armor E:8": 0,
+        "blue-armor-shoulders E:8": 0,
+        "red-armor-shoulders E:8": 0,
+        "male-gi E:9": 0,
+        "male-blue-armor E:9": 0,
+        "male-red-armor E:9": 0,
+        "blue-armor-shoulders E:9": 0,
+        "red-armor-shoulders E:9": 0,
+        "male-gi E:10": 0,
+        "male-blue-armor E:10": 0,
+        "male-red-armor E:10": 0,
+        "blue-armor-shoulders E:10": 0,
+        "red-armor-shoulders E:10": 0,
+        "male-gi E:11": 0,
+        "male-blue-armor E:11": 0,
+        "male-red-armor E:11": 0,
+        "blue-armor-shoulders E:11": 0,
+        "red-armor-shoulders E:11": 0,
         "male-gi W:0": 0,
         "male-blue-armor W:0": 0,
         "male-red-armor W:0": 0,
@@ -433,7 +571,27 @@
         "male-blue-armor W:7": 0,
         "male-red-armor W:7": 0,
         "blue-armor-shoulders W:7": 0,
-        "red-armor-shoulders W:7": 0
+        "red-armor-shoulders W:7": 0,
+        "male-gi W:8": 0,
+        "male-blue-armor W:8": 0,
+        "male-red-armor W:8": 0,
+        "blue-armor-shoulders W:8": 0,
+        "red-armor-shoulders W:8": 0,
+        "male-gi W:9": 0,
+        "male-blue-armor W:9": 0,
+        "male-red-armor W:9": 0,
+        "blue-armor-shoulders W:9": 0,
+        "red-armor-shoulders W:9": 0,
+        "male-gi W:10": 0,
+        "male-blue-armor W:10": 0,
+        "male-red-armor W:10": 0,
+        "blue-armor-shoulders W:10": 0,
+        "red-armor-shoulders W:10": 0,
+        "male-gi W:11": 0,
+        "male-blue-armor W:11": 0,
+        "male-red-armor W:11": 0,
+        "blue-armor-shoulders W:11": 0,
+        "red-armor-shoulders W:11": 0
       },
       "clothingLooseRemoved": {
         "male-gi E:0": 0,
@@ -476,6 +634,26 @@
         "male-red-armor E:7": 0,
         "blue-armor-shoulders E:7": 0,
         "red-armor-shoulders E:7": 0,
+        "male-gi E:8": 0,
+        "male-blue-armor E:8": 0,
+        "male-red-armor E:8": 0,
+        "blue-armor-shoulders E:8": 0,
+        "red-armor-shoulders E:8": 0,
+        "male-gi E:9": 0,
+        "male-blue-armor E:9": 0,
+        "male-red-armor E:9": 0,
+        "blue-armor-shoulders E:9": 0,
+        "red-armor-shoulders E:9": 0,
+        "male-gi E:10": 0,
+        "male-blue-armor E:10": 0,
+        "male-red-armor E:10": 0,
+        "blue-armor-shoulders E:10": 0,
+        "red-armor-shoulders E:10": 0,
+        "male-gi E:11": 0,
+        "male-blue-armor E:11": 0,
+        "male-red-armor E:11": 0,
+        "blue-armor-shoulders E:11": 0,
+        "red-armor-shoulders E:11": 0,
         "male-gi W:0": 0,
         "male-blue-armor W:0": 0,
         "male-red-armor W:0": 0,
@@ -515,7 +693,27 @@
         "male-blue-armor W:7": 0,
         "male-red-armor W:7": 0,
         "blue-armor-shoulders W:7": 0,
-        "red-armor-shoulders W:7": 0
+        "red-armor-shoulders W:7": 0,
+        "male-gi W:8": 0,
+        "male-blue-armor W:8": 0,
+        "male-red-armor W:8": 0,
+        "blue-armor-shoulders W:8": 0,
+        "red-armor-shoulders W:8": 0,
+        "male-gi W:9": 0,
+        "male-blue-armor W:9": 0,
+        "male-red-armor W:9": 0,
+        "blue-armor-shoulders W:9": 0,
+        "red-armor-shoulders W:9": 0,
+        "male-gi W:10": 0,
+        "male-blue-armor W:10": 0,
+        "male-red-armor W:10": 0,
+        "blue-armor-shoulders W:10": 0,
+        "red-armor-shoulders W:10": 0,
+        "male-gi W:11": 0,
+        "male-blue-armor W:11": 0,
+        "male-red-armor W:11": 0,
+        "blue-armor-shoulders W:11": 0,
+        "red-armor-shoulders W:11": 0
       }
     },
     "pass": true
