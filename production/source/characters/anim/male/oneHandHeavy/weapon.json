@@ -1,0 +1,491 @@
+{
+  "schema": "astro-fighters-character-weapon-output/v2",
+  "body": "male",
+  "state": "oneHandHeavy",
+  "frameSize": [
+    128,
+    128
+  ],
+  "origin": [
+    32,
+    32
+  ],
+  "pivot": [
+    64,
+    95
+  ],
+  "rows": [
+    "E",
+    "W"
+  ],
+  "frames": 12,
+  "depthRule": "each weapon is split into depth slots, one sheet each: behind = under the body; front = over body and clothing, under the arms (the fists close over the hilt); top = over every character layer (a blade pointing at the viewer, a hand in front of the head). z per frame is one slot or { hilt, blade } split at the grip",
+  "weapons": [
+    {
+      "slot": "main",
+      "item": "wakizashi",
+      "default": true,
+      "hand": "arms",
+      "layers": {
+        "behind": "main-wakizashi-behind.png",
+        "front": "main-wakizashi-front.png",
+        "top": "main-wakizashi-top.png",
+        "trail": "main-wakizashi-trail.png",
+        "trailBehind": "main-wakizashi-trail-behind.png"
+      },
+      "status": "candidate",
+      "z": {
+        "E": [
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "behind"
+          },
+          {
+            "hilt": "front",
+            "blade": "behind"
+          },
+          {
+            "hilt": "front",
+            "blade": "behind"
+          },
+          "front",
+          {
+            "hilt": "front",
+            "blade": "behind"
+          },
+          {
+            "hilt": "front",
+            "blade": "behind"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          "front"
+        ],
+        "W": [
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "behind"
+          },
+          {
+            "hilt": "front",
+            "blade": "behind"
+          },
+          {
+            "hilt": "front",
+            "blade": "behind"
+          },
+          "front",
+          {
+            "hilt": "front",
+            "blade": "behind"
+          },
+          {
+            "hilt": "front",
+            "blade": "behind"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          "front"
+        ]
+      },
+      "grips": {
+        "E": [
+          [
+            38,
+            30
+          ],
+          [
+            37,
+            31
+          ],
+          [
+            44,
+            30
+          ],
+          [
+            43,
+            30
+          ],
+          [
+            45,
+            32
+          ],
+          [
+            43,
+            35
+          ],
+          [
+            40,
+            28
+          ],
+          [
+            39,
+            28
+          ],
+          [
+            46,
+            31
+          ],
+          [
+            45,
+            31
+          ],
+          [
+            44,
+            33
+          ],
+          [
+            43,
+            35
+          ]
+        ],
+        "W": [
+          [
+            25,
+            30
+          ],
+          [
+            26,
+            31
+          ],
+          [
+            19,
+            30
+          ],
+          [
+            20,
+            30
+          ],
+          [
+            18,
+            32
+          ],
+          [
+            20,
+            35
+          ],
+          [
+            23,
+            28
+          ],
+          [
+            24,
+            28
+          ],
+          [
+            17,
+            31
+          ],
+          [
+            18,
+            31
+          ],
+          [
+            19,
+            33
+          ],
+          [
+            20,
+            35
+          ]
+        ]
+      }
+    },
+    {
+      "slot": "main",
+      "item": "tanto",
+      "default": false,
+      "hand": "arms",
+      "layers": {
+        "behind": "main-tanto-behind.png",
+        "front": "main-tanto-front.png",
+        "top": "main-tanto-top.png",
+        "trail": "main-tanto-trail.png",
+        "trailBehind": "main-tanto-trail-behind.png"
+      },
+      "status": "candidate",
+      "z": {
+        "E": [
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "behind"
+          },
+          {
+            "hilt": "front",
+            "blade": "behind"
+          },
+          {
+            "hilt": "front",
+            "blade": "behind"
+          },
+          "front",
+          {
+            "hilt": "front",
+            "blade": "behind"
+          },
+          {
+            "hilt": "front",
+            "blade": "behind"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          "front"
+        ],
+        "W": [
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "behind"
+          },
+          {
+            "hilt": "front",
+            "blade": "behind"
+          },
+          {
+            "hilt": "front",
+            "blade": "behind"
+          },
+          "front",
+          {
+            "hilt": "front",
+            "blade": "behind"
+          },
+          {
+            "hilt": "front",
+            "blade": "behind"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          "front"
+        ]
+      },
+      "grips": {
+        "E": [
+          [
+            38,
+            30
+          ],
+          [
+            37,
+            31
+          ],
+          [
+            44,
+            30
+          ],
+          [
+            43,
+            30
+          ],
+          [
+            45,
+            32
+          ],
+          [
+            43,
+            35
+          ],
+          [
+            40,
+            28
+          ],
+          [
+            39,
+            28
+          ],
+          [
+            46,
+            31
+          ],
+          [
+            45,
+            31
+          ],
+          [
+            44,
+            33
+          ],
+          [
+            43,
+            35
+          ]
+        ],
+        "W": [
+          [
+            25,
+            30
+          ],
+          [
+            26,
+            31
+          ],
+          [
+            19,
+            30
+          ],
+          [
+            20,
+            30
+          ],
+          [
+            18,
+            32
+          ],
+          [
+            20,
+            35
+          ],
+          [
+            23,
+            28
+          ],
+          [
+            24,
+            28
+          ],
+          [
+            17,
+            31
+          ],
+          [
+            18,
+            31
+          ],
+          [
+            19,
+            33
+          ],
+          [
+            20,
+            35
+          ]
+        ]
+      }
+    }
+  ],
+  "qc": {
+    "gripOnFist": {
+      "main/wakizashi E:0": true,
+      "main/wakizashi E:1": true,
+      "main/wakizashi E:2": true,
+      "main/wakizashi E:3": true,
+      "main/wakizashi E:4": true,
+      "main/wakizashi E:5": true,
+      "main/wakizashi E:6": true,
+      "main/wakizashi E:7": true,
+      "main/wakizashi E:8": true,
+      "main/wakizashi E:9": true,
+      "main/wakizashi E:10": true,
+      "main/wakizashi E:11": true,
+      "main/wakizashi W:0": true,
+      "main/wakizashi W:1": true,
+      "main/wakizashi W:2": true,
+      "main/wakizashi W:3": true,
+      "main/wakizashi W:4": true,
+      "main/wakizashi W:5": true,
+      "main/wakizashi W:6": true,
+      "main/wakizashi W:7": true,
+      "main/wakizashi W:8": true,
+      "main/wakizashi W:9": true,
+      "main/wakizashi W:10": true,
+      "main/wakizashi W:11": true,
+      "main/tanto E:0": true,
+      "main/tanto E:1": true,
+      "main/tanto E:2": true,
+      "main/tanto E:3": true,
+      "main/tanto E:4": true,
+      "main/tanto E:5": true,
+      "main/tanto E:6": true,
+      "main/tanto E:7": true,
+      "main/tanto E:8": true,
+      "main/tanto E:9": true,
+      "main/tanto E:10": true,
+      "main/tanto E:11": true,
+      "main/tanto W:0": true,
+      "main/tanto W:1": true,
+      "main/tanto W:2": true,
+      "main/tanto W:3": true,
+      "main/tanto W:4": true,
+      "main/tanto W:5": true,
+      "main/tanto W:6": true,
+      "main/tanto W:7": true,
+      "main/tanto W:8": true,
+      "main/tanto W:9": true,
+      "main/tanto W:10": true,
+      "main/tanto W:11": true
+    },
+    "inFrame": true,
+    "pass": true
+  }
+}
