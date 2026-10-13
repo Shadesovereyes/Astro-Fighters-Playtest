@@ -80,8 +80,31 @@ function streakOf(item, pose, weaponPx) {
   }
   return out;
 }
+// ellipse: a horizontal swing around the body seen in the cabinet projection. The tip runs on a circle of radius R
+// (pixels) in the horizontal plane; depth maps to screen y at k (far side = up). psi is the swing angle in that plane
+// (0 = toward the screen +x, +90 = far side); the crescent runs from psi 'from' to 'to', widest at 'to'. Each pixel
+// carries its own depth: the near half (sin psi < 0) is drawn over the character, the far half behind it.
+function ellipseOf(item, pose, weaponPx) {
+  const T = pose.trail, cols = item.trail.bands, out = new Map(), [cx, cy] = T.center, R = T.R, k = T.k ?? 0.5;
+  const span = T.to - T.from;
+  for (let y = -ORIGIN[1]; y < WF - ORIGIN[1]; y++) for (let x = -ORIGIN[0]; x < WF - ORIGIN[0]; x++) {
+    if (weaponPx.has(key(x, y))) continue;
+    const u = (x + 0.5 - cx) / R, w = -(y + 0.5 - cy) / (k * R), rho = Math.hypot(u, w);
+    if (rho > 1) continue;
+    const psi = Math.atan2(w, u) * 180 / Math.PI;
+    let rel = ((((psi - T.from) * Math.sign(span)) % 360) + 360) % 360;
+    const f = rel / Math.abs(span);
+    if (f > 1) continue;
+    const depthIn = (1 - rho) * R;
+    if (depthIn > (T.width ?? 6) * f) continue;
+    const band = cols.find((b) => depthIn < b.to) || cols[cols.length - 1];
+    out.set(key(x, y), [band.colour, Math.sin(psi * Math.PI / 180) < 0 ? 'top' : 'behind']);
+  }
+  return out;
+}
 function trailOf(item, pose, weaponPx) {
   if (pose.trail.mode === 'streak') return streakOf(item, pose, weaponPx);
+  if (pose.trail.mode === 'ellipse') return ellipseOf(item, pose, weaponPx);
   // center/radius: a whole swing drawn on one smear frame turns about the swing's pivot (in front of the shoulders),
   // not the end grip, so the crescent follows the blade tip's path; to: the angle the crescent reaches (default the blade)
   const T = pose.trail, cols = item.trail.bands, R = T.radius ?? Math.max(...item.segments.map((s) => s.to)) * (pose.scale ?? 1);
@@ -138,7 +161,8 @@ for (const W of weapons.flatMap((w) => (w.items || [w.item]).map((it, i) => ({ .
       const p = poseOf(W, dir, k);
       const raw = draw(item, p.mirrored ? { ...p, grip: [FRAME - 1 - p.grip[0], p.grip[1]] } : p);
       let m = new Map([...raw].map(([q, c]) => [q, [c, depthOf(p.z, raw.u(q))]]));
-      let tr = p.trail ? trailOf(item, p.mirrored ? { ...p, grip: [FRAME - 1 - p.grip[0], p.grip[1]], trail: { ...p.trail, ...(Array.isArray(p.trail.center) ? { center: [FRAME - 1 - p.trail.center[0], p.trail.center[1]] } : {}) } } : p, raw) : new Map();
+      // a mirrored facing draws the source facing's trail and mirrors its pixels, like the weapon
+      let tr = p.trail ? trailOf(item, p.mirrored ? { ...p, grip: [FRAME - 1 - p.grip[0], p.grip[1]] } : p, raw) : new Map();
       if (p.mirrored) {
         m = new Map([...m].map(([q, c]) => { const [x, y] = unkey(q); return [key(FRAME - 1 - x, y), c]; }));
         tr = new Map([...tr].map(([q, c]) => { const [x, y] = unkey(q); return [key(FRAME - 1 - x, y), c]; }));
@@ -150,8 +174,8 @@ for (const W of weapons.flatMap((w) => (w.items || [w.item]).map((it, i) => ({ .
         if (p.trail.clipBody && x >= 0 && y >= 0 && x < FRAME && y < FRAME
           && ['body', 'arms'].some((n) => handLayers[n].px[((r * FRAME + y) * handLayers[n].w + k * FRAME + x) * 4 + 3] === 255)) continue;
         if (X < 0 || Y < 0 || X >= WF || Y >= WF) { qc.inFrame = false; continue; }
-        const td = p.trail.z || 'top';
-        Buffer.from(c.slice(1).toLowerCase() + 'ff', 'hex').copy(trailSheets[td], ((r * WF + Y) * WF * F + k * WF + X) * 4);
+        const [col, td] = Array.isArray(c) ? c : [c, p.trail.z || 'top'];
+        Buffer.from(col.slice(1).toLowerCase() + 'ff', 'hex').copy(trailSheets[td], ((r * WF + Y) * WF * F + k * WF + X) * 4);
         trailUsed.add(td);
       }
       z[dir].push(p.z);
