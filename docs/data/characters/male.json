@@ -2288,6 +2288,369 @@
           "loop": true
         }
       }
+    },
+    "katanaLight": {
+      "frames": 8,
+      "fps": 12,
+      "rows": [
+        "S",
+        "E",
+        "N",
+        "W"
+      ],
+      "status": "approved by user 2026-10-13 (S, E, N, W; W mirrors E)",
+      "rootMotion": {
+        "S": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "E": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "N": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "W": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "layers": {
+        "body": "assets/characters/male/katanaLight/body.png",
+        "arms": "assets/characters/male/katanaLight/arms.png",
+        "long-hair": "assets/characters/male/katanaLight/long-hair.png",
+        "fade-hair": "assets/characters/male/katanaLight/fade-hair.png",
+        "afro-hair": "assets/characters/male/katanaLight/afro-hair.png",
+        "brown-eyes": "assets/characters/male/katanaLight/brown-eyes.png",
+        "purple-eyes": "assets/characters/male/katanaLight/purple-eyes.png",
+        "male-gi": "assets/characters/male/katanaLight/male-gi.png",
+        "male-blue-armor": "assets/characters/male/katanaLight/male-blue-armor.png",
+        "male-red-armor": "assets/characters/male/katanaLight/male-red-armor.png",
+        "blue-armor-shoulders": "assets/characters/male/katanaLight/blue-armor-shoulders.png",
+        "red-armor-shoulders": "assets/characters/male/katanaLight/red-armor-shoulders.png"
+      },
+      "weapons": {
+        "frameSize": [
+          128,
+          128
+        ],
+        "origin": [
+          32,
+          32
+        ],
+        "pivot": [
+          64,
+          95
+        ],
+        "depthRule": "each weapon is split into depth slots, one sheet each: behind = under the body; front = over body and clothing, under the arms (the fists close over the hilt); top = over every character layer (a blade pointing at the viewer, a hand in front of the head). z per frame is one slot or { hilt, blade } split at the grip",
+        "items": [
+          {
+            "slot": "main",
+            "item": "katana",
+            "default": true,
+            "hand": "arms",
+            "layers": {
+              "behind": "assets/characters/male/katanaLight/main-katana-behind.png",
+              "front": "assets/characters/male/katanaLight/main-katana-front.png",
+              "top": "assets/characters/male/katanaLight/main-katana-top.png",
+              "trail": "assets/characters/male/katanaLight/main-katana-trail.png",
+              "trailBehind": "assets/characters/male/katanaLight/main-katana-trail-behind.png"
+            },
+            "z": {
+              "S": [
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                }
+              ],
+              "E": [
+                "front",
+                "front",
+                "front",
+                "front",
+                "front",
+                "front",
+                "front",
+                "front"
+              ],
+              "N": [
+                "behind",
+                "behind",
+                "behind",
+                "behind",
+                "behind",
+                "behind",
+                "behind",
+                "behind"
+              ],
+              "W": [
+                "front",
+                "front",
+                "front",
+                "front",
+                "front",
+                "front",
+                "front",
+                "front"
+              ]
+            }
+          }
+        ]
+      },
+      "clips": {
+        "rule": "runtime playback: frames are sheet columns; each clip starts and ends in the two-handed stance (next: twoHandGuard) unless a press in its chain window continues the combo. entry: a clip entered from the named clip while it shows one of atFrames starts at start instead of its first frame (the upCut skips its wind-up when chained from the downCut's hold at 6, so the two swings flow into each other)",
+        "downCut": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 12,
+          "next": "twoHandGuard",
+          "chainWindow": [
+            2,
+            3
+          ]
+        },
+        "upCut": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 12,
+          "next": "twoHandGuard",
+          "chainWindow": [
+            6,
+            7
+          ],
+          "entry": {
+            "downCut": {
+              "atFrames": [
+                2
+              ],
+              "start": 5
+            }
+          }
+        }
+      },
+      "events": {
+        "rule": "per-frame gameplay data in the E frame (W mirrors x -> 64 - x - w): hitbox [x, y, w, h] gives the height band (combo.json hitArea arc), damage event",
+        "E": [
+          {
+            "frame": 0,
+            "clip": "downCut",
+            "type": "startup"
+          },
+          {
+            "frame": 1,
+            "clip": "downCut",
+            "type": "active",
+            "move": "downward slash",
+            "hitbox": [
+              40,
+              0,
+              24,
+              56
+            ],
+            "damage": "light"
+          },
+          {
+            "frame": 2,
+            "clip": "downCut",
+            "type": "recovery",
+            "chainWindow": true
+          },
+          {
+            "frame": 3,
+            "clip": "downCut",
+            "type": "recovery",
+            "chainWindow": true
+          },
+          {
+            "frame": 4,
+            "clip": "upCut",
+            "type": "startup"
+          },
+          {
+            "frame": 5,
+            "clip": "upCut",
+            "type": "active",
+            "move": "upward slash",
+            "hitbox": [
+              40,
+              0,
+              24,
+              56
+            ],
+            "damage": "light+"
+          },
+          {
+            "frame": 6,
+            "clip": "upCut",
+            "type": "recovery",
+            "chainWindow": true
+          },
+          {
+            "frame": 7,
+            "clip": "upCut",
+            "type": "recovery",
+            "chainWindow": true
+          }
+        ]
+      }
     }
   },
   "combo": {
