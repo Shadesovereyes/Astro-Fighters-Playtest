@@ -1656,6 +1656,233 @@
           }
         ]
       }
+    },
+    "oneHandDualGuard": {
+      "frames": 4,
+      "fps": 6,
+      "rows": [
+        "S",
+        "E",
+        "N",
+        "W"
+      ],
+      "status": "approved by user 2026-10-13 (S, E, N, W; W mirrors E)",
+      "rootMotion": {
+        "S": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "E": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "N": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "W": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "layers": {
+        "body": "assets/characters/male/oneHandDualGuard/body.png",
+        "arms": "assets/characters/male/oneHandDualGuard/arms.png",
+        "long-hair": "assets/characters/male/oneHandDualGuard/long-hair.png",
+        "fade-hair": "assets/characters/male/oneHandDualGuard/fade-hair.png",
+        "afro-hair": "assets/characters/male/oneHandDualGuard/afro-hair.png",
+        "brown-eyes": "assets/characters/male/oneHandDualGuard/brown-eyes.png",
+        "purple-eyes": "assets/characters/male/oneHandDualGuard/purple-eyes.png",
+        "male-gi": "assets/characters/male/oneHandDualGuard/male-gi.png",
+        "male-blue-armor": "assets/characters/male/oneHandDualGuard/male-blue-armor.png",
+        "male-red-armor": "assets/characters/male/oneHandDualGuard/male-red-armor.png",
+        "blue-armor-shoulders": "assets/characters/male/oneHandDualGuard/blue-armor-shoulders.png",
+        "red-armor-shoulders": "assets/characters/male/oneHandDualGuard/red-armor-shoulders.png"
+      },
+      "weapons": {
+        "frameSize": [
+          128,
+          128
+        ],
+        "origin": [
+          32,
+          32
+        ],
+        "pivot": [
+          64,
+          95
+        ],
+        "depthRule": "each weapon is split into depth slots, one sheet each: behind = under the body; front = over body and clothing, under the arms (the fists close over the hilt); top = over every character layer (a blade pointing at the viewer, a hand in front of the head). z per frame is one slot or { hilt, blade } split at the grip",
+        "items": [
+          {
+            "slot": "main",
+            "item": "tanto",
+            "default": true,
+            "hand": "arms",
+            "layers": {
+              "behind": "assets/characters/male/oneHandDualGuard/main-tanto-behind.png",
+              "front": "assets/characters/male/oneHandDualGuard/main-tanto-front.png",
+              "top": "assets/characters/male/oneHandDualGuard/main-tanto-top.png"
+            },
+            "z": {
+              "S": [
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                }
+              ],
+              "E": [
+                "front",
+                "front",
+                "front",
+                "front"
+              ],
+              "N": [
+                "behind",
+                "behind",
+                "behind",
+                "behind"
+              ],
+              "W": [
+                "front",
+                "front",
+                "front",
+                "front"
+              ]
+            }
+          },
+          {
+            "slot": "off",
+            "item": "tanto",
+            "default": true,
+            "hand": "body",
+            "layers": {
+              "behind": "assets/characters/male/oneHandDualGuard/off-tanto-behind.png",
+              "front": "assets/characters/male/oneHandDualGuard/off-tanto-front.png",
+              "top": "assets/characters/male/oneHandDualGuard/off-tanto-top.png"
+            },
+            "z": {
+              "S": [
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                }
+              ],
+              "E": [
+                "front",
+                "front",
+                "front",
+                "front"
+              ],
+              "N": [
+                "behind",
+                "behind",
+                "behind",
+                "behind"
+              ],
+              "W": [
+                "front",
+                "front",
+                "front",
+                "front"
+              ]
+            }
+          }
+        ]
+      },
+      "clips": {
+        "rule": "combat idle loop while a one-handed weapon and an off-hand dagger are drawn; their attack clips end here (next: oneHandDualGuard)",
+        "oneHandDualGuard": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 6,
+          "loop": true
+        }
+      }
     }
   },
   "combo": {

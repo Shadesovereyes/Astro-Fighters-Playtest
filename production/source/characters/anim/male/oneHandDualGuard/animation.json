@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-animation-output/v1",
   "body": "male",
   "state": "oneHandDualGuard",
-  "status": "candidate (E/W first); user 2026-10-12: tanto in both hands for the dual-wield grip",
+  "status": "approved by user 2026-10-13 (S, E, N, W; W mirrors E)",
   "frames": 4,
   "fps": 6,
   "frameSize": [

@@ -31,9 +31,24 @@ for (const [key, out] of Object.entries(plan.outputs)) {
     files.set(rel, fs.readFileSync(path.join(root, out.sheets, file)));
     layers[name] = rel;
   }
+  // weapon layers (tools/character-weapon.mjs): per hand and item, one sheet per depth slot, in 128x128 frames
+  let weapons;
+  const wfile = path.join(root, out.sheets, 'weapon.json');
+  if (fs.existsSync(wfile)) {
+    const W = JSON.parse(fs.readFileSync(wfile, 'utf8'));
+    weapons = { frameSize: W.frameSize, origin: W.origin, pivot: W.pivot, depthRule: W.depthRule, items: W.weapons.map((w) => {
+      const lay = {};
+      for (const [depth, file] of Object.entries(w.layers)) {
+        const rel = `${assetRoot}/${state}/${file}`;
+        files.set(rel, fs.readFileSync(path.join(root, out.sheets, file)));
+        lay[depth] = rel;
+      }
+      return { slot: w.slot, item: w.item, default: w.default, hand: w.hand, layers: lay, z: w.z };
+    }) };
+  }
   states[state] = {
     frames: def.frames, fps: def.fps, rows: def.sheetLayout.rows, status: def.status,
-    rootMotion: def.rootMotion, layers,
+    rootMotion: def.rootMotion, layers, ...(weapons ? { weapons } : {}),
     ...(def.clips ? { clips: def.clips } : {}),
     ...(def.events ? { events: def.events } : {})
   };
