@@ -1105,6 +1105,7 @@ const isBand = (p, l) => !!CL.sash?.bandFollowsBody && p.y <= knotOf(l);
 function sashSway(geom, px, k, l) {
   const sw = CL.sash, table = sw?.sway?.[geom];
   if (!table) return () => 0;
+  if (table.length !== F) throw new Error(`clothing.sash.sway.${geom} has ${table.length} entries; spec has ${F} frames`);
   const rows = px.filter((p) => p.part === 'sash').map((p) => p.y), bottom = Math.max(...rows);
   const knot = knotOf(l);
   return (p) => (p.part === 'sash' && p.y > knot && bottom > knot ? roundHalfEven(table[k] * (p.y - knot) / (bottom - knot)) : 0);
@@ -1255,7 +1256,7 @@ spec.directions.forEach((dir, r) => {
   all[dir].forEach((fr, k) => {
     for (const n of layerNames) for (const [p, c] of fr[n]) {
       const [x, y] = unkey(p);
-      if (x < 0 || y < 0 || x >= FRAME || y >= FRAME) throw new Error(`${n} ${dir}:${k} leaves the 64x64 frame at ${p}`);
+      if (!(x >= 0 && y >= 0 && x < FRAME && y < FRAME)) throw new Error(`${n} ${dir}:${k} leaves the 64x64 frame at ${p}`);
       const i = ((r * FRAME + y) * W + k * FRAME + x) * 4;
       Buffer.from(c + 'ff', 'hex').copy(sheets[n], i);
     }

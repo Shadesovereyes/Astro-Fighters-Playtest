@@ -1,0 +1,168 @@
+{
+  "schema": "astro-fighters-character-weapon-output/v2",
+  "body": "male",
+  "state": "katanaLight",
+  "frameSize": [
+    128,
+    128
+  ],
+  "origin": [
+    32,
+    32
+  ],
+  "pivot": [
+    64,
+    95
+  ],
+  "rows": [
+    "E",
+    "W"
+  ],
+  "frames": 8,
+  "depthRule": "each weapon is split into depth slots, one sheet each: behind = under the body; front = over body and clothing, under the arms (the fists close over the hilt); top = over every character layer (a blade pointing at the viewer, a hand in front of the head). z per frame is one slot or { hilt, blade } split at the grip",
+  "weapons": [
+    {
+      "slot": "main",
+      "item": "katana",
+      "default": true,
+      "hand": "arms",
+      "layers": {
+        "behind": "main-katana-behind.png",
+        "front": "main-katana-front.png"
+      },
+      "status": "candidate",
+      "z": {
+        "E": [
+          {
+            "hilt": "front",
+            "blade": "behind"
+          },
+          "front",
+          "front",
+          "front",
+          {
+            "hilt": "front",
+            "blade": "behind"
+          },
+          "front",
+          {
+            "hilt": "front",
+            "blade": "behind"
+          },
+          "front"
+        ],
+        "W": [
+          {
+            "hilt": "front",
+            "blade": "behind"
+          },
+          "front",
+          "front",
+          "front",
+          {
+            "hilt": "front",
+            "blade": "behind"
+          },
+          "front",
+          {
+            "hilt": "front",
+            "blade": "behind"
+          },
+          "front"
+        ]
+      },
+      "grips": {
+        "E": [
+          [
+            38,
+            17
+          ],
+          [
+            46,
+            30
+          ],
+          [
+            42,
+            37
+          ],
+          [
+            44,
+            34
+          ],
+          [
+            39,
+            38
+          ],
+          [
+            46,
+            27
+          ],
+          [
+            42,
+            19
+          ],
+          [
+            44,
+            34
+          ]
+        ],
+        "W": [
+          [
+            25,
+            17
+          ],
+          [
+            17,
+            30
+          ],
+          [
+            21,
+            37
+          ],
+          [
+            19,
+            34
+          ],
+          [
+            24,
+            38
+          ],
+          [
+            17,
+            27
+          ],
+          [
+            21,
+            19
+          ],
+          [
+            19,
+            34
+          ]
+        ]
+      }
+    }
+  ],
+  "qc": {
+    "gripOnFist": {
+      "main/katana E:0": true,
+      "main/katana E:1": true,
+      "main/katana E:2": true,
+      "main/katana E:3": true,
+      "main/katana E:4": true,
+      "main/katana E:5": true,
+      "main/katana E:6": true,
+      "main/katana E:7": true,
+      "main/katana W:0": true,
+      "main/katana W:1": true,
+      "main/katana W:2": true,
+      "main/katana W:3": true,
+      "main/katana W:4": true,
+      "main/katana W:5": true,
+      "main/katana W:6": true,
+      "main/katana W:7": true
+    },
+    "inFrame": true,
+    "pass": true
+  }
+}
