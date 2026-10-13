@@ -1289,7 +1289,17 @@
         }
       ],
       "viewRule": "S: the weapon hand is low at the right hip and the blade points at the viewer, raised slightly (as in E): the grip is the fist centre and the blade is drawn short (scale 0.4) out of the top of the fist, nearly straight up; the hilt under the fist, the blade over every layer. N: hidden in front of the body; drawn behind it.",
-      "projectionRule": "S matches E by projection lines: every point of the weapon keeps its E row; the blade's E angle a above horizontal turns into a vertical screen line in S (the blade points at the viewer), foreshortened by sin(a)"
+      "projectionRule": "S matches E by projection lines: every point of the weapon keeps its E row; the blade's E angle a above horizontal turns into a vertical screen line in S (the blade points at the viewer), foreshortened by sin(a)",
+      "itemPoses": {
+        "tanto": {
+          "E": {
+            "angle": 35
+          },
+          "S": {
+            "scale": 0.574
+          }
+        }
+      }
     }
   ]
 }

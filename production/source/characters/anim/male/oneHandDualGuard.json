@@ -19,7 +19,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Dual-wield dagger combat stance (combat idle): a tanto in each hand, normal grip; the near (right) hand low at the hip, blade forward and raised 10 degrees; the raised free (left) hand blade up; legs and the guard idle motion of the approved guard (body bob 1, 1, 2, 2; head bobs at the neck; arms bob at the shoulders a frame behind), both daggers riding their hands. Dual-wield attack clips return to it.",
+  "intent": "Dual-wield dagger combat stance (combat idle): a tanto in each hand, normal grip; the near (right) hand low at the hip, blade forward and raised 35 degrees (user 2026-10-13, so the blade reads in S); the raised free (left) hand blade up; legs and the guard idle motion of the approved guard (body bob 1, 1, 2, 2; head bobs at the neck; arms bob at the shoulders a frame behind), both daggers riding their hands. Dual-wield attack clips return to it.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -1161,7 +1161,7 @@
             43,
             35
           ],
-          "angle": 10,
+          "angle": 35,
           "z": "front"
         },
         {
@@ -1169,7 +1169,7 @@
             43,
             34
           ],
-          "angle": 10,
+          "angle": 35,
           "z": "front"
         },
         {
@@ -1177,7 +1177,7 @@
             43,
             35
           ],
-          "angle": 10,
+          "angle": 35,
           "z": "front"
         },
         {
@@ -1185,7 +1185,7 @@
             43,
             36
           ],
-          "angle": 10,
+          "angle": 35,
           "z": "front"
         }
       ],
@@ -1203,7 +1203,7 @@
             35
           ],
           "angle": 90,
-          "scale": 0.174,
+          "scale": 0.574,
           "z": {
             "hilt": "front",
             "blade": "top"
@@ -1215,7 +1215,7 @@
             34
           ],
           "angle": 90,
-          "scale": 0.174,
+          "scale": 0.574,
           "z": {
             "hilt": "front",
             "blade": "top"
@@ -1227,7 +1227,7 @@
             35
           ],
           "angle": 90,
-          "scale": 0.174,
+          "scale": 0.574,
           "z": {
             "hilt": "front",
             "blade": "top"
@@ -1239,7 +1239,7 @@
             36
           ],
           "angle": 90,
-          "scale": 0.174,
+          "scale": 0.574,
           "z": {
             "hilt": "front",
             "blade": "top"

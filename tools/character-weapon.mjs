@@ -61,9 +61,11 @@ function draw(item, pose) {
 const DEPTHS = ['behind', 'front', 'top'];
 const depthOf = (z, u) => (typeof z === 'string' ? z : u < 0 ? z.hilt : z.blade);
 
+// itemPoses: per-item overrides of a slot's poses ({ <item>: { <dir>: { field: value } } }), so alternative items in one
+// hand (wakizashi or tanto) can hold their blades at different angles on the same grip
 const poseOf = (W, dir, k) => {
   const src = W[dir] ? dir : W.mirror?.[dir];
-  const p = W[src][k];
+  const p = { ...W[src][k], ...(W.itemPoses?.[W.item]?.[src] || {}) };
   if (src === dir) return p;
   // mirrored facing: grip mirrored in the body frame, angle measured toward the mirrored forward
   return { ...p, grip: [FRAME - 1 - p.grip[0], p.grip[1]], mirrored: true };
