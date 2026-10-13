@@ -102,7 +102,21 @@ function ellipseOf(item, pose, weaponPx) {
   }
   return out;
 }
+// thrust: a stab's speed lines, drawn parallel to the blade axis (lines: [[v, uFrom, uTo], ...] in the item's axis
+// coordinates from the grip, v across the axis, positive below the blade in E). Each line is one pixel wide; its colour
+// steps through the item's trail bands from the forward end (uTo) backward, so the line fades toward its tail
+function thrustOf(item, pose, weaponPx) {
+  const T = pose.trail, cols = item.trail.bands, out = new Map(), ta = pose.angle * Math.PI / 180;
+  const ax = [Math.cos(ta), -Math.sin(ta)], nx = [Math.sin(ta), Math.cos(ta)], [gx, gy] = [pose.grip[0] + 0.5, pose.grip[1] + 0.5];
+  for (const [v, u0, u1] of T.lines) for (let u = u1; u >= u0; u -= 0.5) {
+    const q = key(Math.floor(gx + u * ax[0] + v * nx[0]), Math.floor(gy + u * ax[1] + v * nx[1]));
+    if (weaponPx.has(q) || out.has(q)) continue;
+    out.set(q, (cols.find((b) => u1 - u < b.to * (T.bandScale ?? 2)) || cols[cols.length - 1]).colour);
+  }
+  return out;
+}
 function trailOf(item, pose, weaponPx) {
+  if (pose.trail.mode === 'thrust') return thrustOf(item, pose, weaponPx);
   if (pose.trail.mode === 'streak') return streakOf(item, pose, weaponPx);
   if (pose.trail.mode === 'ellipse') return ellipseOf(item, pose, weaponPx);
   // center/radius: a whole swing drawn on one smear frame turns about the swing's pivot (in front of the shoulders),

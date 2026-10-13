@@ -3,7 +3,7 @@
   "body": "male",
   "state": "oneHandLight",
   "status": "candidate (E/W first)",
-  "frames": 8,
+  "frames": 12,
   "fps": 12,
   "sourceDirection": "E",
   "directions": [
@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "One-handed light chain (dagger/tanto, or the wakizashi on the same grips), user 2026-10-13: the same pair as the katana light chain, struck with the weapon hand while the off hand stays up in its guard. downCut = 12 to 6 (raised wind-up in front of the face, one smear frame with the blade arriving low in line with the forearm, hold, return to the one-handed stance); upCut = 6 to 12 (low wind-up, one smear frame stopping in front of the face at about 1 o'clock, hold, return). Chained from the low hold the upCut enters at its smear frame.",
+  "intent": "One-handed light chain (dagger/tanto, or the wakizashi on the same grips), user 2026-10-13: three stabs with the weapon hand while the off hand stays up in its guard. stab1 = straight thrust at chest height; stab2 = high thrust at face height, blade slightly raised; stab3 = low thrust driven up from the hip into the body (finisher). Each stab: chamber (the fist drawn back to the body), thrust (arm fully extended, speed lines along the blade), hold, return to the one-handed stance. Chained from a hold, the next stab starts at its chamber.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -96,6 +96,10 @@
       1,
       1,
       1,
+      1,
+      1,
+      1,
+      1,
       1
     ],
     "head": [
@@ -106,9 +110,17 @@
       1,
       1,
       1,
+      1,
+      1,
+      1,
+      1,
       1
     ],
     "arms": [
+      2,
+      2,
+      2,
+      2,
       2,
       2,
       2,
@@ -131,9 +143,17 @@
         0,
         0,
         0,
+        0,
+        0,
+        0,
+        0,
         0
       ],
       "head": [
+        2,
+        2,
+        2,
+        2,
         2,
         2,
         2,
@@ -148,6 +168,22 @@
   "rootMotion": {
     "rule": "in place",
     "S": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
       [
         0,
         0
@@ -213,6 +249,22 @@
       [
         0,
         0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
       ]
     ],
     "N": [
@@ -247,9 +299,41 @@
       [
         0,
         0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
       ]
     ],
     "W": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
       [
         0,
         0
@@ -419,9 +503,17 @@
       1,
       1,
       1,
+      1,
+      1,
+      1,
+      1,
       1
     ],
     "far": [
+      0,
+      0,
+      0,
+      0,
       0,
       0,
       0,
@@ -450,28 +542,28 @@
     "near": [
       {
         "construction": "band",
-        "angle": -95.3,
+        "angle": 4.8,
         "elbow": {
           "at": 8,
-          "angle": -123
+          "angle": -109.2
         },
         "fistKind": "forward"
       },
       {
         "construction": "band",
-        "angle": -36.8,
+        "angle": -63.9,
         "elbow": {
           "at": 8,
-          "angle": -40
+          "angle": -75.7
         },
         "fistKind": "forward"
       },
       {
         "construction": "band",
-        "angle": -34.4,
+        "angle": -48.7,
         "elbow": {
           "at": 8,
-          "angle": -37.7
+          "angle": -92.7
         },
         "fistKind": "forward"
       },
@@ -486,28 +578,64 @@
       },
       {
         "construction": "band",
-        "angle": -30.1,
+        "angle": -19.6,
         "elbow": {
           "at": 8,
-          "angle": -33.4
+          "angle": -157.3
         },
         "fistKind": "forward"
       },
       {
         "construction": "band",
-        "angle": -95.3,
+        "angle": -81.5,
         "elbow": {
           "at": 8,
-          "angle": -123
+          "angle": -122
         },
         "fistKind": "forward"
       },
       {
         "construction": "band",
-        "angle": -87.8,
+        "angle": -74.2,
         "elbow": {
           "at": 8,
-          "angle": -123.5
+          "angle": -134.2
+        },
+        "fistKind": "forward"
+      },
+      {
+        "construction": "band",
+        "angle": -20,
+        "elbow": {
+          "at": 8,
+          "angle": -50
+        },
+        "fistKind": "forward"
+      },
+      {
+        "construction": "band",
+        "angle": 11.5,
+        "elbow": {
+          "at": 8,
+          "angle": -68.9
+        },
+        "fistKind": "forward"
+      },
+      {
+        "construction": "band",
+        "angle": -53.6,
+        "elbow": {
+          "at": 8,
+          "angle": -68
+        },
+        "fistKind": "forward"
+      },
+      {
+        "construction": "band",
+        "angle": -39.2,
+        "elbow": {
+          "at": 8,
+          "angle": -82.4
         },
         "fistKind": "forward"
       },
@@ -522,6 +650,38 @@
       }
     ],
     "far": [
+      {
+        "construction": "band",
+        "angle": -38,
+        "elbow": {
+          "at": 8,
+          "angle": 232
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -38,
+        "elbow": {
+          "at": 8,
+          "angle": 232
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -38,
+        "elbow": {
+          "at": 8,
+          "angle": 232
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -38,
+        "elbow": {
+          "at": 8,
+          "angle": 232
+        }
+      },
       {
         "construction": "band",
         "angle": -38,
@@ -672,6 +832,10 @@
           -1,
           -1,
           -1,
+          -1,
+          -1,
+          -1,
+          -1,
           -1
         ],
         "S": [
@@ -682,9 +846,17 @@
           1,
           1,
           1,
+          1,
+          1,
+          1,
+          1,
           1
         ],
         "N": [
+          -1,
+          -1,
+          -1,
+          -1,
           -1,
           -1,
           -1,
@@ -876,8 +1048,8 @@
     "looseRule": "from row 40 down, cloth specks of 1-2 px cut off from the garment and outline pixels that no longer border any cloth are removed (they are left between the legs where a direction's own clothing frame does not register exactly with its source's motion)"
   },
   "clips": {
-    "rule": "runtime playback as the katana light chain; next: oneHandGuard; entry: the upCut enters at its smear frame from the downCut's low hold",
-    "downCut": {
+    "rule": "one press per stab in rhythm (chain window = hold and return frames); next: oneHandGuard; a stab chained from the previous stab's hold starts at its own chamber",
+    "stab1": {
       "frames": [
         0,
         1,
@@ -891,7 +1063,7 @@
         3
       ]
     },
-    "upCut": {
+    "stab2": {
       "frames": [
         4,
         5,
@@ -903,15 +1075,17 @@
       "chainWindow": [
         6,
         7
+      ]
+    },
+    "stab3": {
+      "frames": [
+        8,
+        9,
+        10,
+        11
       ],
-      "entry": {
-        "downCut": {
-          "atFrames": [
-            2
-          ],
-          "start": 5
-        }
-      }
+      "fps": 12,
+      "next": "oneHandGuard"
     }
   },
   "weapons": [
@@ -928,34 +1102,42 @@
       "E": [
         {
           "grip": [
-            46,
-            20
+            38,
+            30
           ],
-          "angle": 70,
+          "angle": 5,
           "z": "front"
         },
         {
           "grip": [
-            43,
-            37
+            46,
+            29
           ],
-          "angle": -50,
+          "angle": 0,
           "z": "front",
           "trail": {
-            "from": 70,
-            "toBlade": true,
-            "center": "blade",
-            "radiusPlus": 7,
-            "width": 6,
-            "to": -50
+            "mode": "thrust",
+            "clipBody": true,
+            "lines": [
+              [
+                -4,
+                -9,
+                4
+              ],
+              [
+                4,
+                -7,
+                2
+              ]
+            ]
           }
         },
         {
           "grip": [
-            43,
-            37
+            46,
+            29
           ],
-          "angle": -52.3,
+          "angle": 0,
           "z": "front"
         },
         {
@@ -968,32 +1150,95 @@
         },
         {
           "grip": [
-            41,
-            37
+            38,
+            27
           ],
-          "angle": -56.6,
+          "angle": 15,
+          "z": "front"
+        },
+        {
+          "grip": [
+            47,
+            23
+          ],
+          "angle": 10,
+          "z": "front",
+          "trail": {
+            "mode": "thrust",
+            "clipBody": true,
+            "lines": [
+              [
+                -4,
+                -9,
+                4
+              ],
+              [
+                4,
+                -7,
+                2
+              ]
+            ]
+          }
+        },
+        {
+          "grip": [
+            45,
+            23
+          ],
+          "angle": 10,
+          "z": "front"
+        },
+        {
+          "grip": [
+            43,
+            35
+          ],
+          "angle": 10,
+          "z": "front"
+        },
+        {
+          "grip": [
+            38,
+            34
+          ],
+          "angle": 0,
           "z": "front"
         },
         {
           "grip": [
             46,
-            20
+            31
           ],
-          "angle": 70,
+          "angle": 15,
           "z": "front",
           "trail": {
-            "from": -55,
-            "center": "blade",
-            "radiusPlus": 7,
-            "width": 6
+            "mode": "thrust",
+            "clipBody": true,
+            "lines": [
+              [
+                -4,
+                -10,
+                4
+              ],
+              [
+                4,
+                -8,
+                2
+              ],
+              [
+                7,
+                -10,
+                -2
+              ]
+            ]
           }
         },
         {
           "grip": [
-            46,
-            21
+            45,
+            31
           ],
-          "angle": 68,
+          "angle": 15,
           "z": "front"
         },
         {
@@ -1022,6 +1267,12 @@
             null,
             {
               "angle": 35
+            },
+            null,
+            null,
+            null,
+            {
+              "angle": 35
             }
           ]
         }
@@ -1033,63 +1284,91 @@
     "E": [
       {
         "frame": 0,
-        "clip": "downCut",
+        "clip": "stab1",
         "type": "startup"
       },
       {
         "frame": 1,
-        "clip": "downCut",
+        "clip": "stab1",
         "type": "active",
-        "move": "downward slash",
+        "move": "chest stab",
         "hitbox": [
-          40,
-          6,
-          20,
-          46
+          44,
+          22,
+          16,
+          12
         ],
         "damage": "light"
       },
       {
         "frame": 2,
-        "clip": "downCut",
+        "clip": "stab1",
         "type": "recovery",
         "chainWindow": true
       },
       {
         "frame": 3,
-        "clip": "downCut",
+        "clip": "stab1",
         "type": "recovery",
         "chainWindow": true
       },
       {
         "frame": 4,
-        "clip": "upCut",
+        "clip": "stab2",
         "type": "startup"
       },
       {
         "frame": 5,
-        "clip": "upCut",
+        "clip": "stab2",
         "type": "active",
-        "move": "upward slash",
+        "move": "high stab",
         "hitbox": [
-          40,
-          6,
-          20,
-          46
+          44,
+          12,
+          16,
+          12
         ],
-        "damage": "light+"
+        "damage": "light"
       },
       {
         "frame": 6,
-        "clip": "upCut",
+        "clip": "stab2",
         "type": "recovery",
         "chainWindow": true
       },
       {
         "frame": 7,
-        "clip": "upCut",
+        "clip": "stab2",
         "type": "recovery",
         "chainWindow": true
+      },
+      {
+        "frame": 8,
+        "clip": "stab3",
+        "type": "startup"
+      },
+      {
+        "frame": 9,
+        "clip": "stab3",
+        "type": "active",
+        "move": "rising gut stab (finisher)",
+        "hitbox": [
+          44,
+          22,
+          16,
+          14
+        ],
+        "damage": "light+"
+      },
+      {
+        "frame": 10,
+        "clip": "stab3",
+        "type": "recovery"
+      },
+      {
+        "frame": 11,
+        "clip": "stab3",
+        "type": "recovery"
       }
     ]
   },
@@ -1097,90 +1376,159 @@
     "state": "oneHandLight",
     "base": "oneHandGuard",
     "fps": 12,
-    "intent": "One-handed light chain (dagger/tanto, or the wakizashi on the same grips), user 2026-10-13: the same pair as the katana light chain, struck with the weapon hand while the off hand stays up in its guard. downCut = 12 to 6 (raised wind-up in front of the face, one smear frame with the blade arriving low in line with the forearm, hold, return to the one-handed stance); upCut = 6 to 12 (low wind-up, one smear frame stopping in front of the face at about 1 o'clock, hold, return). Chained from the low hold the upCut enters at its smear frame.",
+    "intent": "One-handed light chain (dagger/tanto, or the wakizashi on the same grips), user 2026-10-13: three stabs with the weapon hand while the off hand stays up in its guard. stab1 = straight thrust at chest height; stab2 = high thrust at face height, blade slightly raised; stab3 = low thrust driven up from the hip into the body (finisher). Each stab: chamber (the fist drawn back to the body), thrust (arm fully extended, speed lines along the blade), hold, return to the one-handed stance. Chained from a hold, the next stab starts at its chamber.",
     "frames": [
       {
-        "name": "12-6 wind-up",
+        "name": "stab1 chamber",
+        "main": {
+          "hand": [
+            37,
+            29
+          ],
+          "angle": 5
+        }
+      },
+      {
+        "name": "stab1 thrust",
         "main": {
           "hand": [
             45,
-            19
+            28
           ],
-          "angle": 70
-        }
-      },
-      {
-        "name": "12-6 swing (smear)",
-        "main": {
-          "hand": [
-            44,
-            38
-          ],
-          "align": "forearm",
+          "angle": 0,
           "trail": {
-            "from": 70,
-            "toBlade": true,
-            "center": "blade",
-            "radiusPlus": 7,
-            "width": 6,
-            "to": -50
-          },
-          "angle": -50
-        }
-      },
-      {
-        "name": "12-6 hold",
-        "main": {
-          "hand": [
-            43,
-            38
-          ],
-          "align": "forearm",
-          "angle": -52.3
-        }
-      },
-      {
-        "name": "12-6 return (stance)"
-      },
-      {
-        "name": "6-12 wind-up",
-        "main": {
-          "hand": [
-            42,
-            39
-          ],
-          "align": "forearm",
-          "angle": -56.6
-        }
-      },
-      {
-        "name": "6-12 swing (smear)",
-        "main": {
-          "hand": [
-            45,
-            19
-          ],
-          "angle": 70,
-          "trail": {
-            "from": -55,
-            "center": "blade",
-            "radiusPlus": 7,
-            "width": 6
+            "mode": "thrust",
+            "clipBody": true,
+            "lines": [
+              [
+                -4,
+                -9,
+                4
+              ],
+              [
+                4,
+                -7,
+                2
+              ]
+            ]
           }
         }
       },
       {
-        "name": "6-12 hold",
+        "name": "stab1 hold",
         "main": {
           "hand": [
-            45,
-            20
+            44,
+            28
           ],
-          "angle": 68
+          "angle": 0
         }
       },
       {
-        "name": "6-12 return (stance)"
+        "name": "stab1 return (stance)"
+      },
+      {
+        "name": "stab2 chamber",
+        "main": {
+          "hand": [
+            37,
+            25
+          ],
+          "angle": 15
+        }
+      },
+      {
+        "name": "stab2 thrust",
+        "main": {
+          "hand": [
+            45,
+            21
+          ],
+          "angle": 10,
+          "trail": {
+            "mode": "thrust",
+            "clipBody": true,
+            "lines": [
+              [
+                -4,
+                -9,
+                4
+              ],
+              [
+                4,
+                -7,
+                2
+              ]
+            ]
+          }
+        }
+      },
+      {
+        "name": "stab2 hold",
+        "main": {
+          "hand": [
+            44,
+            21
+          ],
+          "angle": 10
+        }
+      },
+      {
+        "name": "stab2 return (stance)"
+      },
+      {
+        "name": "stab3 chamber",
+        "main": {
+          "hand": [
+            36,
+            33
+          ],
+          "angle": 0
+        }
+      },
+      {
+        "name": "stab3 thrust",
+        "main": {
+          "hand": [
+            44,
+            30
+          ],
+          "angle": 15,
+          "trail": {
+            "mode": "thrust",
+            "clipBody": true,
+            "lines": [
+              [
+                -4,
+                -10,
+                4
+              ],
+              [
+                4,
+                -8,
+                2
+              ],
+              [
+                7,
+                -10,
+                -2
+              ]
+            ]
+          }
+        }
+      },
+      {
+        "name": "stab3 hold",
+        "main": {
+          "hand": [
+            43,
+            30
+          ],
+          "angle": 15
+        }
+      },
+      {
+        "name": "stab3 return (stance)"
       }
     ],
     "itemPoses": {
@@ -1190,12 +1538,15 @@
         },
         "7": {
           "angle": 35
+        },
+        "11": {
+          "angle": 35
         }
       }
     },
     "clips": {
-      "rule": "runtime playback as the katana light chain; next: oneHandGuard; entry: the upCut enters at its smear frame from the downCut's low hold",
-      "downCut": {
+      "rule": "one press per stab in rhythm (chain window = hold and return frames); next: oneHandGuard; a stab chained from the previous stab's hold starts at its own chamber",
+      "stab1": {
         "frames": [
           0,
           1,
@@ -1209,7 +1560,7 @@
           3
         ]
       },
-      "upCut": {
+      "stab2": {
         "frames": [
           4,
           5,
@@ -1221,15 +1572,17 @@
         "chainWindow": [
           6,
           7
+        ]
+      },
+      "stab3": {
+        "frames": [
+          8,
+          9,
+          10,
+          11
         ],
-        "entry": {
-          "downCut": {
-            "atFrames": [
-              2
-            ],
-            "start": 5
-          }
-        }
+        "fps": 12,
+        "next": "oneHandGuard"
       }
     },
     "events": {
@@ -1237,63 +1590,91 @@
       "E": [
         {
           "frame": 0,
-          "clip": "downCut",
+          "clip": "stab1",
           "type": "startup"
         },
         {
           "frame": 1,
-          "clip": "downCut",
+          "clip": "stab1",
           "type": "active",
-          "move": "downward slash",
+          "move": "chest stab",
           "hitbox": [
-            40,
-            6,
-            20,
-            46
+            44,
+            22,
+            16,
+            12
           ],
           "damage": "light"
         },
         {
           "frame": 2,
-          "clip": "downCut",
+          "clip": "stab1",
           "type": "recovery",
           "chainWindow": true
         },
         {
           "frame": 3,
-          "clip": "downCut",
+          "clip": "stab1",
           "type": "recovery",
           "chainWindow": true
         },
         {
           "frame": 4,
-          "clip": "upCut",
+          "clip": "stab2",
           "type": "startup"
         },
         {
           "frame": 5,
-          "clip": "upCut",
+          "clip": "stab2",
           "type": "active",
-          "move": "upward slash",
+          "move": "high stab",
           "hitbox": [
-            40,
-            6,
-            20,
-            46
+            44,
+            12,
+            16,
+            12
           ],
-          "damage": "light+"
+          "damage": "light"
         },
         {
           "frame": 6,
-          "clip": "upCut",
+          "clip": "stab2",
           "type": "recovery",
           "chainWindow": true
         },
         {
           "frame": 7,
-          "clip": "upCut",
+          "clip": "stab2",
           "type": "recovery",
           "chainWindow": true
+        },
+        {
+          "frame": 8,
+          "clip": "stab3",
+          "type": "startup"
+        },
+        {
+          "frame": 9,
+          "clip": "stab3",
+          "type": "active",
+          "move": "rising gut stab (finisher)",
+          "hitbox": [
+            44,
+            22,
+            16,
+            14
+          ],
+          "damage": "light+"
+        },
+        {
+          "frame": 10,
+          "clip": "stab3",
+          "type": "recovery"
+        },
+        {
+          "frame": 11,
+          "clip": "stab3",
+          "type": "recovery"
         }
       ]
     }
