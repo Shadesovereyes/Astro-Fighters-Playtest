@@ -2746,6 +2746,95 @@
         "heavy",
         "heavy"
       ]
+    },
+    "weapons": {
+      "twoHanded": {
+        "status": "combos confirmed by the user 2026-10-13",
+        "stance": "twoHandGuard",
+        "weapon": "katana",
+        "inputs": {
+          "light": "light attack key/button: katana vertical slashes (katanaLight)",
+          "heavy": "heavy attack key/button: katana side swings (katanaHeavy)"
+        },
+        "rules": [
+          "Same input rules as unarmed: one press per clip, pressed in rhythm inside the playing clip's chain window (presses from its active frame are buffered); every clip starts and ends in the two-handed stance (twoHandGuard) and returns to it when no valid press continues the combo.",
+          "Transitions are keyed by the combo path (the presses so far, L = light, H = heavy), because the same clip continues differently in different combos: after the up-cut a heavy press plays the forehand in L L H H but the backhand in L H L H.",
+          "The confirmed combos: L L (down-cut, up-cut); H H (forehand, backhand); L L H H (down-cut, up-cut, forehand, backhand); L H L H (down-cut, forehand, up-cut, backhand). Their opening steps are valid on their own. Any press with no entry for the current path does nothing; the backhand ends every combo (finisher).",
+          "A clip entered from the clip named in its entry rule while that clip shows one of the listed frames starts at the given frame (up-cut from the down-cut's low hold starts at its smear frame; backhand from the forehand's hold starts at its smear frame); otherwise it plays from its first frame (wind-up)."
+        ],
+        "clips": {
+          "downCut": "katanaLight/downCut",
+          "upCut": "katanaLight/upCut",
+          "sideCutR": "katanaHeavy/sideCutR",
+          "sideCutL": "katanaHeavy/sideCutL"
+        },
+        "paths": {
+          "rule": "path -> { light, heavy }: the clip a press plays from that point of the combo (null: the press does nothing)",
+          "": {
+            "light": "katanaLight/downCut",
+            "heavy": "katanaHeavy/sideCutR"
+          },
+          "L": {
+            "light": "katanaLight/upCut",
+            "heavy": "katanaHeavy/sideCutR"
+          },
+          "LL": {
+            "light": null,
+            "heavy": "katanaHeavy/sideCutR"
+          },
+          "LLH": {
+            "light": null,
+            "heavy": "katanaHeavy/sideCutL"
+          },
+          "LH": {
+            "light": "katanaLight/upCut",
+            "heavy": null
+          },
+          "LHL": {
+            "light": null,
+            "heavy": "katanaHeavy/sideCutL"
+          },
+          "H": {
+            "light": null,
+            "heavy": "katanaHeavy/sideCutL"
+          }
+        },
+        "combos": [
+          {
+            "inputs": "L L",
+            "clips": [
+              "katanaLight/downCut",
+              "katanaLight/upCut"
+            ]
+          },
+          {
+            "inputs": "H H",
+            "clips": [
+              "katanaHeavy/sideCutR",
+              "katanaHeavy/sideCutL"
+            ]
+          },
+          {
+            "inputs": "L L H H",
+            "clips": [
+              "katanaLight/downCut",
+              "katanaLight/upCut",
+              "katanaHeavy/sideCutR",
+              "katanaHeavy/sideCutL"
+            ]
+          },
+          {
+            "inputs": "L H L H",
+            "clips": [
+              "katanaLight/downCut",
+              "katanaHeavy/sideCutR",
+              "katanaLight/upCut",
+              "katanaHeavy/sideCutL"
+            ]
+          }
+        ],
+        "notes": "A clip that follows another without an entry rule plays its own wind-up, so the hand-offs up-cut -> forehand, forehand -> up-cut and up-cut -> backhand jump between poses; transition frames or connecting variants can smooth them later."
+      }
     }
   }
 }
