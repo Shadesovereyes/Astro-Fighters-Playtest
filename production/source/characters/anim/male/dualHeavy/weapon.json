@@ -15,7 +15,9 @@
     95
   ],
   "rows": [
+    "S",
     "E",
+    "N",
     "W"
   ],
   "frames": 12,
@@ -36,6 +38,56 @@
       },
       "status": "candidate",
       "z": {
+        "S": [
+          {
+            "hilt": "front",
+            "blade": "behind"
+          },
+          {
+            "hilt": "front",
+            "blade": "behind"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          }
+        ],
         "E": [
           {
             "hilt": "front",
@@ -64,6 +116,35 @@
           "front",
           "front",
           "front"
+        ],
+        "N": [
+          {
+            "hilt": "behind",
+            "blade": "top"
+          },
+          {
+            "hilt": "behind",
+            "blade": "top"
+          },
+          {
+            "hilt": "behind",
+            "blade": "behind"
+          },
+          {
+            "hilt": "behind",
+            "blade": "behind"
+          },
+          {
+            "hilt": "behind",
+            "blade": "behind"
+          },
+          "behind",
+          "behind",
+          "behind",
+          "behind",
+          "behind",
+          "behind",
+          "behind"
         ],
         "W": [
           {
@@ -96,6 +177,56 @@
         ]
       },
       "grips": {
+        "S": [
+          [
+            25,
+            29
+          ],
+          [
+            25,
+            30
+          ],
+          [
+            36,
+            29
+          ],
+          [
+            38,
+            30
+          ],
+          [
+            34,
+            31
+          ],
+          [
+            25,
+            35
+          ],
+          [
+            25,
+            35
+          ],
+          [
+            25,
+            35
+          ],
+          [
+            25,
+            35
+          ],
+          [
+            25,
+            35
+          ],
+          [
+            25,
+            35
+          ],
+          [
+            25,
+            35
+          ]
+        ],
         "E": [
           [
             38,
@@ -144,6 +275,56 @@
           [
             43,
             35
+          ]
+        ],
+        "N": [
+          [
+            39,
+            30
+          ],
+          [
+            39,
+            31
+          ],
+          [
+            27,
+            30
+          ],
+          [
+            25,
+            30
+          ],
+          [
+            29,
+            32
+          ],
+          [
+            40,
+            38
+          ],
+          [
+            40,
+            38
+          ],
+          [
+            40,
+            38
+          ],
+          [
+            40,
+            38
+          ],
+          [
+            40,
+            38
+          ],
+          [
+            40,
+            38
+          ],
+          [
+            40,
+            38
           ]
         ],
         "W": [
@@ -213,6 +394,56 @@
       },
       "status": "candidate",
       "z": {
+        "S": [
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "behind"
+          },
+          {
+            "hilt": "front",
+            "blade": "behind"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          }
+        ],
         "E": [
           "front",
           "front",
@@ -241,6 +472,35 @@
             "blade": "top"
           },
           "front"
+        ],
+        "N": [
+          "behind",
+          "behind",
+          "behind",
+          "behind",
+          "behind",
+          "behind",
+          {
+            "hilt": "behind",
+            "blade": "top"
+          },
+          {
+            "hilt": "behind",
+            "blade": "top"
+          },
+          {
+            "hilt": "behind",
+            "blade": "behind"
+          },
+          {
+            "hilt": "behind",
+            "blade": "behind"
+          },
+          {
+            "hilt": "behind",
+            "blade": "behind"
+          },
+          "behind"
         ],
         "W": [
           "front",
@@ -273,6 +533,56 @@
         ]
       },
       "grips": {
+        "S": [
+          [
+            37,
+            25
+          ],
+          [
+            37,
+            25
+          ],
+          [
+            37,
+            25
+          ],
+          [
+            37,
+            25
+          ],
+          [
+            37,
+            25
+          ],
+          [
+            37,
+            25
+          ],
+          [
+            38,
+            24
+          ],
+          [
+            40,
+            25
+          ],
+          [
+            28,
+            29
+          ],
+          [
+            26,
+            28
+          ],
+          [
+            30,
+            29
+          ],
+          [
+            37,
+            25
+          ]
+        ],
         "E": [
           [
             45,
@@ -321,6 +631,56 @@
           [
             45,
             26
+          ]
+        ],
+        "N": [
+          [
+            25,
+            22
+          ],
+          [
+            25,
+            22
+          ],
+          [
+            25,
+            22
+          ],
+          [
+            25,
+            22
+          ],
+          [
+            25,
+            22
+          ],
+          [
+            25,
+            22
+          ],
+          [
+            25,
+            24
+          ],
+          [
+            23,
+            25
+          ],
+          [
+            35,
+            29
+          ],
+          [
+            37,
+            28
+          ],
+          [
+            33,
+            30
+          ],
+          [
+            25,
+            22
           ]
         ],
         "W": [
@@ -378,6 +738,18 @@
   ],
   "qc": {
     "gripOnFist": {
+      "main/tanto S:0": true,
+      "main/tanto S:1": true,
+      "main/tanto S:2": true,
+      "main/tanto S:3": true,
+      "main/tanto S:4": true,
+      "main/tanto S:5": true,
+      "main/tanto S:6": true,
+      "main/tanto S:7": true,
+      "main/tanto S:8": true,
+      "main/tanto S:9": true,
+      "main/tanto S:10": true,
+      "main/tanto S:11": true,
       "main/tanto E:0": true,
       "main/tanto E:1": true,
       "main/tanto E:2": true,
@@ -390,6 +762,18 @@
       "main/tanto E:9": true,
       "main/tanto E:10": true,
       "main/tanto E:11": true,
+      "main/tanto N:0": "hidden",
+      "main/tanto N:1": "hidden",
+      "main/tanto N:2": "hidden",
+      "main/tanto N:3": "hidden",
+      "main/tanto N:4": "hidden",
+      "main/tanto N:5": "hidden",
+      "main/tanto N:6": "hidden",
+      "main/tanto N:7": "hidden",
+      "main/tanto N:8": "hidden",
+      "main/tanto N:9": "hidden",
+      "main/tanto N:10": "hidden",
+      "main/tanto N:11": "hidden",
       "main/tanto W:0": true,
       "main/tanto W:1": true,
       "main/tanto W:2": true,
@@ -402,6 +786,18 @@
       "main/tanto W:9": true,
       "main/tanto W:10": true,
       "main/tanto W:11": true,
+      "off/tanto S:0": true,
+      "off/tanto S:1": true,
+      "off/tanto S:2": true,
+      "off/tanto S:3": true,
+      "off/tanto S:4": true,
+      "off/tanto S:5": true,
+      "off/tanto S:6": true,
+      "off/tanto S:7": true,
+      "off/tanto S:8": true,
+      "off/tanto S:9": true,
+      "off/tanto S:10": true,
+      "off/tanto S:11": true,
       "off/tanto E:0": true,
       "off/tanto E:1": true,
       "off/tanto E:2": true,
@@ -414,6 +810,18 @@
       "off/tanto E:9": true,
       "off/tanto E:10": true,
       "off/tanto E:11": true,
+      "off/tanto N:0": "hidden",
+      "off/tanto N:1": "hidden",
+      "off/tanto N:2": "hidden",
+      "off/tanto N:3": "hidden",
+      "off/tanto N:4": "hidden",
+      "off/tanto N:5": "hidden",
+      "off/tanto N:6": "hidden",
+      "off/tanto N:7": "hidden",
+      "off/tanto N:8": "hidden",
+      "off/tanto N:9": "hidden",
+      "off/tanto N:10": "hidden",
+      "off/tanto N:11": "hidden",
       "off/tanto W:0": true,
       "off/tanto W:1": true,
       "off/tanto W:2": true,
