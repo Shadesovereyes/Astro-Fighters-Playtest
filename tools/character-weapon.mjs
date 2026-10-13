@@ -178,7 +178,9 @@ for (const W of weapons.flatMap((w) => (w.items || [w.item]).map((it, i) => ({ .
     z[dir] = [];
     for (let k = 0; k < F; k++) {
       const p = poseOf(W, dir, k);
-      const raw = draw(item, p.mirrored ? { ...p, grip: [FRAME - 1 - p.grip[0], p.grip[1]] } : p);
+      // omit: the weapon is not drawn (N: a hand hidden in front of the body on the far side of the torso, so the blade
+      // would show detached from the visible arm); its smear, if any, is still drawn
+      const raw = p.omit ? Object.assign(new Map(), { u: () => 0 }) : draw(item, p.mirrored ? { ...p, grip: [FRAME - 1 - p.grip[0], p.grip[1]] } : p);
       let m = new Map([...raw].map(([q, c]) => [q, [c, depthOf(p.z, raw.u(q))]]));
       // a mirrored facing draws the source facing's trail and mirrors its pixels, like the weapon
       let tr = p.trail ? trailOf(item, p.mirrored ? { ...p, grip: [FRAME - 1 - p.grip[0], p.grip[1]] } : p, raw) : new Map();
