@@ -544,7 +544,7 @@ const rowMap = (y, bobDy, removed, repeated) => {
 const shear = (y, pivot, rigid, total) => { const yy = Math.min(y, rigid); return yy <= pivot ? 0 : roundHalfEven(total * (yy - pivot) / (rigid - pivot)); };
 const refExposed = {};
 // body pixels of a head drawn in front of the torso (headZ above 3): clothing does not cover them
-const HEAD_FRONT = {}, BAND_SHOWN = {}, LEG_FRONT = {};
+const HEAD_FRONT = {}, BAND_SHOWN = {}, LEG_FRONT = {}, WEAPON_ARM = {};
 function exposedInReference(fx) {
   if (refExposed[fx]) return refExposed[fx];
   const m = new Map();
@@ -826,7 +826,7 @@ function frontalFrame(dir, k) {
           const [x, y] = unkey(q);
           for (const [dx2, dy2] of N4) {
             const n = key(x + dx2, y + dy2);
-            if (!fb.pixels.has(n) && Math.hypot(x + dx2 + 0.5 - px0, y + dy2 + 0.5 - py0) > 3) items.push([fb.zs.get(q) - 0.5, x + dx2, y + dy2, BLACK, 'band']);
+            if (!fb.pixels.has(n) && Math.hypot(x + dx2 + 0.5 - px0, y + dy2 + 0.5 - py0) > 3) items.push([fb.zs.get(q) - 0.5, x + dx2, y + dy2, BLACK, `bandol:${sd}`]);
           }
         }
       }
@@ -838,6 +838,15 @@ function frontalFrame(dir, k) {
     if (name === 'body') HEAD_FRONT[`${dir}:${k}`] = hz;
     // band-arm pixels still showing after the layer is drawn (a far arm behind the torso is mostly covered)
     for (const [q, s0] of sm) if (typeof s0 === 'string' && s0.startsWith('band:')) (BAND_SHOWN[`${dir}:${k}:${s0.slice(5)}`] ??= new Set()).add(q);
+  }
+  // weaponOver (per side, per frame): the band arm's pixels that still show (fill and outline, either layer) are
+  // recorded in the helper mask arm-weapon-mask.png, so the weapon tool can draw that hand's blade over the arm while
+  // the torso still covers it (N: the arm reaching across in front of the body, seen from behind)
+  for (const sd of Object.keys(d.armBand || {})) {
+    const wv = d.armBand[sd].weaponOver;
+    if (!(Array.isArray(wv) ? wv[k] : wv)) continue;
+    const S = (WEAPON_ARM[`${dir}:${k}`] ??= new Set());
+    for (const L of [src.body, src.arms]) for (const [q, s0] of L) if (s0 === `band:${sd}` || s0 === `bandol:${sd}`) S.add(q);
   }
   const fig = new Map([...out.body, ...out.arms]), refx = exposedInReference(fx);
   let outlined = 0, fills = 0;
@@ -1323,6 +1332,15 @@ const definition = JSON.stringify({
 
 const outDir = path.join(animDir, state);
 const files = { ...Object.fromEntries(Object.entries(sheets).map(([n, buf]) => [`${n}.png`, encodePng(W, H, buf)])), 'animation.json': definition };
+// helper (not a runtime layer): where a weaponOver band arm shows, per direction row and frame column
+if (Object.keys(WEAPON_ARM).length) {
+  const mask = Buffer.alloc(W * H * 4);
+  for (const [id, S] of Object.entries(WEAPON_ARM)) {
+    const [dir, k] = id.split(':'), r = spec.directions.indexOf(dir);
+    for (const q of S) { const [x, y] = unkey(q); if (x < 0 || y < 0 || x >= FRAME || y >= FRAME) continue; mask.fill(255, ((r * FRAME + y) * W + Number(k) * FRAME + x) * 4, ((r * FRAME + y) * W + Number(k) * FRAME + x) * 4 + 4); }
+  }
+  files['arm-weapon-mask.png'] = encodePng(W, H, mask);
+}
 if (flag === '--check') {
   const tmp = path.join(outDir, '.check.png');
   const stale = Object.entries(files).filter(([rel, data]) => {

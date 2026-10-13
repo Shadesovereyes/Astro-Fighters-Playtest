@@ -29,7 +29,6 @@
       "default": true,
       "hand": "arms",
       "layers": {
-        "behind": "main-wakizashi-behind.png",
         "front": "main-wakizashi-front.png",
         "top": "main-wakizashi-top.png",
         "trail": "main-wakizashi-trail.png",
@@ -40,15 +39,11 @@
         "S": [
           {
             "hilt": "front",
-            "blade": "behind"
+            "blade": "aboveArm"
           },
           {
             "hilt": "front",
-            "blade": "behind"
-          },
-          {
-            "hilt": "front",
-            "blade": "top"
+            "blade": "aboveArm"
           },
           {
             "hilt": "front",
@@ -64,11 +59,15 @@
           },
           {
             "hilt": "front",
-            "blade": "behind"
+            "blade": "top"
           },
           {
             "hilt": "front",
-            "blade": "behind"
+            "blade": "aboveArm"
+          },
+          {
+            "hilt": "front",
+            "blade": "aboveArm"
           },
           {
             "hilt": "front",
@@ -98,24 +97,24 @@
           },
           {
             "hilt": "front",
-            "blade": "behind"
+            "blade": "aboveArm"
           },
           {
             "hilt": "front",
-            "blade": "behind"
+            "blade": "aboveArm"
           },
           {
             "hilt": "front",
-            "blade": "behind"
+            "blade": "aboveArm"
           },
           "front",
           {
             "hilt": "front",
-            "blade": "behind"
+            "blade": "aboveArm"
           },
           {
             "hilt": "front",
-            "blade": "behind"
+            "blade": "aboveArm"
           },
           {
             "hilt": "front",
@@ -133,47 +132,53 @@
         ],
         "N": [
           {
-            "hilt": "behind",
+            "hilt": "aboveArm",
             "blade": "top"
           },
           {
-            "hilt": "behind",
+            "hilt": "aboveArm",
             "blade": "top"
           },
           {
-            "hilt": "behind",
-            "blade": "behind"
+            "hilt": "aboveArm",
+            "blade": "aboveArm"
           },
           {
-            "hilt": "behind",
-            "blade": "behind"
+            "hilt": "aboveArm",
+            "blade": "aboveArm"
           },
           {
-            "hilt": "behind",
-            "blade": "behind"
+            "hilt": "aboveArm",
+            "blade": "aboveArm"
           },
-          "behind",
           {
-            "hilt": "behind",
+            "hilt": "aboveArm",
+            "blade": "aboveArm"
+          },
+          {
+            "hilt": "aboveArm",
             "blade": "top"
           },
           {
-            "hilt": "behind",
+            "hilt": "aboveArm",
             "blade": "top"
           },
           {
-            "hilt": "behind",
-            "blade": "behind"
+            "hilt": "aboveArm",
+            "blade": "aboveArm"
           },
           {
-            "hilt": "behind",
-            "blade": "behind"
+            "hilt": "aboveArm",
+            "blade": "aboveArm"
           },
           {
-            "hilt": "behind",
-            "blade": "behind"
+            "hilt": "aboveArm",
+            "blade": "aboveArm"
           },
-          "behind"
+          {
+            "hilt": "aboveArm",
+            "blade": "aboveArm"
+          }
         ],
         "W": [
           {
@@ -186,24 +191,24 @@
           },
           {
             "hilt": "front",
-            "blade": "behind"
+            "blade": "aboveArm"
           },
           {
             "hilt": "front",
-            "blade": "behind"
+            "blade": "aboveArm"
           },
           {
             "hilt": "front",
-            "blade": "behind"
+            "blade": "aboveArm"
           },
           "front",
           {
             "hilt": "front",
-            "blade": "behind"
+            "blade": "aboveArm"
           },
           {
             "hilt": "front",
-            "blade": "behind"
+            "blade": "aboveArm"
           },
           {
             "hilt": "front",
@@ -429,7 +434,6 @@
       "default": false,
       "hand": "arms",
       "layers": {
-        "behind": "main-tanto-behind.png",
         "front": "main-tanto-front.png",
         "top": "main-tanto-top.png",
         "trail": "main-tanto-trail.png",
@@ -440,15 +444,11 @@
         "S": [
           {
             "hilt": "front",
-            "blade": "behind"
+            "blade": "aboveArm"
           },
           {
             "hilt": "front",
-            "blade": "behind"
-          },
-          {
-            "hilt": "front",
-            "blade": "top"
+            "blade": "aboveArm"
           },
           {
             "hilt": "front",
@@ -464,11 +464,15 @@
           },
           {
             "hilt": "front",
-            "blade": "behind"
+            "blade": "top"
           },
           {
             "hilt": "front",
-            "blade": "behind"
+            "blade": "aboveArm"
+          },
+          {
+            "hilt": "front",
+            "blade": "aboveArm"
           },
           {
             "hilt": "front",
@@ -498,24 +502,24 @@
           },
           {
             "hilt": "front",
-            "blade": "behind"
+            "blade": "aboveArm"
           },
           {
             "hilt": "front",
-            "blade": "behind"
+            "blade": "aboveArm"
           },
           {
             "hilt": "front",
-            "blade": "behind"
+            "blade": "aboveArm"
           },
           "front",
           {
             "hilt": "front",
-            "blade": "behind"
+            "blade": "aboveArm"
           },
           {
             "hilt": "front",
-            "blade": "behind"
+            "blade": "aboveArm"
           },
           {
             "hilt": "front",
@@ -533,47 +537,53 @@
         ],
         "N": [
           {
-            "hilt": "behind",
+            "hilt": "aboveArm",
             "blade": "top"
           },
           {
-            "hilt": "behind",
+            "hilt": "aboveArm",
             "blade": "top"
           },
           {
-            "hilt": "behind",
-            "blade": "behind"
+            "hilt": "aboveArm",
+            "blade": "aboveArm"
           },
           {
-            "hilt": "behind",
-            "blade": "behind"
+            "hilt": "aboveArm",
+            "blade": "aboveArm"
           },
           {
-            "hilt": "behind",
-            "blade": "behind"
+            "hilt": "aboveArm",
+            "blade": "aboveArm"
           },
-          "behind",
           {
-            "hilt": "behind",
+            "hilt": "aboveArm",
+            "blade": "aboveArm"
+          },
+          {
+            "hilt": "aboveArm",
             "blade": "top"
           },
           {
-            "hilt": "behind",
+            "hilt": "aboveArm",
             "blade": "top"
           },
           {
-            "hilt": "behind",
-            "blade": "behind"
+            "hilt": "aboveArm",
+            "blade": "aboveArm"
           },
           {
-            "hilt": "behind",
-            "blade": "behind"
+            "hilt": "aboveArm",
+            "blade": "aboveArm"
           },
           {
-            "hilt": "behind",
-            "blade": "behind"
+            "hilt": "aboveArm",
+            "blade": "aboveArm"
           },
-          "behind"
+          {
+            "hilt": "aboveArm",
+            "blade": "aboveArm"
+          }
         ],
         "W": [
           {
@@ -586,24 +596,24 @@
           },
           {
             "hilt": "front",
-            "blade": "behind"
+            "blade": "aboveArm"
           },
           {
             "hilt": "front",
-            "blade": "behind"
+            "blade": "aboveArm"
           },
           {
             "hilt": "front",
-            "blade": "behind"
+            "blade": "aboveArm"
           },
           "front",
           {
             "hilt": "front",
-            "blade": "behind"
+            "blade": "aboveArm"
           },
           {
             "hilt": "front",
-            "blade": "behind"
+            "blade": "aboveArm"
           },
           {
             "hilt": "front",

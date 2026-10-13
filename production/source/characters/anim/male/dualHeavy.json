@@ -1141,7 +1141,7 @@
           "scale": 0.661,
           "z": {
             "hilt": "front",
-            "blade": "behind"
+            "blade": "aboveArm"
           },
           "trail": {
             "mode": "ellipse",
@@ -1165,7 +1165,7 @@
           "scale": 0.548,
           "z": {
             "hilt": "front",
-            "blade": "behind"
+            "blade": "aboveArm"
           }
         },
         {
@@ -1177,7 +1177,7 @@
           "scale": 0.868,
           "z": {
             "hilt": "front",
-            "blade": "behind"
+            "blade": "aboveArm"
           }
         },
         {
@@ -1254,7 +1254,7 @@
           "scale": 0.661,
           "z": {
             "hilt": "front",
-            "blade": "behind"
+            "blade": "aboveArm"
           },
           "layer": "arms"
         },
@@ -1267,7 +1267,7 @@
           "scale": 0.567,
           "z": {
             "hilt": "front",
-            "blade": "behind"
+            "blade": "aboveArm"
           },
           "layer": "arms"
         },
@@ -1416,7 +1416,7 @@
           "angle": -40.9,
           "scale": 0.661,
           "z": {
-            "hilt": "behind",
+            "hilt": "aboveArm",
             "blade": "top"
           },
           "hidden": true
@@ -1429,7 +1429,7 @@
           "angle": -57,
           "scale": 0.567,
           "z": {
-            "hilt": "behind",
+            "hilt": "aboveArm",
             "blade": "top"
           },
           "hidden": true
@@ -1442,8 +1442,8 @@
           "angle": 163.9,
           "scale": 0.901,
           "z": {
-            "hilt": "behind",
-            "blade": "behind"
+            "hilt": "aboveArm",
+            "blade": "aboveArm"
           },
           "hidden": true,
           "trail": {
@@ -1468,8 +1468,8 @@
           "angle": 172.4,
           "scale": 0.975,
           "z": {
-            "hilt": "behind",
-            "blade": "behind"
+            "hilt": "aboveArm",
+            "blade": "aboveArm"
           },
           "hidden": true
         },
@@ -1481,8 +1481,8 @@
           "angle": 144.5,
           "scale": 0.705,
           "z": {
-            "hilt": "behind",
-            "blade": "behind"
+            "hilt": "aboveArm",
+            "blade": "aboveArm"
           },
           "hidden": true
         },
@@ -1493,7 +1493,10 @@
           ],
           "angle": 90,
           "scale": 0.574,
-          "z": "behind",
+          "z": {
+            "hilt": "aboveArm",
+            "blade": "aboveArm"
+          },
           "hidden": true,
           "stanceHand": true
         },
@@ -1504,7 +1507,10 @@
           ],
           "angle": 90,
           "scale": 0.574,
-          "z": "behind",
+          "z": {
+            "hilt": "aboveArm",
+            "blade": "aboveArm"
+          },
           "hidden": true,
           "stanceHand": true
         },
@@ -1515,7 +1521,10 @@
           ],
           "angle": 90,
           "scale": 0.574,
-          "z": "behind",
+          "z": {
+            "hilt": "aboveArm",
+            "blade": "aboveArm"
+          },
           "hidden": true,
           "stanceHand": true
         },
@@ -1526,7 +1535,10 @@
           ],
           "angle": 90,
           "scale": 0.574,
-          "z": "behind",
+          "z": {
+            "hilt": "aboveArm",
+            "blade": "aboveArm"
+          },
           "hidden": true,
           "stanceHand": true
         },
@@ -1537,7 +1549,10 @@
           ],
           "angle": 90,
           "scale": 0.574,
-          "z": "behind",
+          "z": {
+            "hilt": "aboveArm",
+            "blade": "aboveArm"
+          },
           "hidden": true,
           "stanceHand": true
         },
@@ -1548,7 +1563,10 @@
           ],
           "angle": 90,
           "scale": 0.574,
-          "z": "behind",
+          "z": {
+            "hilt": "aboveArm",
+            "blade": "aboveArm"
+          },
           "hidden": true,
           "stanceHand": true
         },
@@ -1559,7 +1577,10 @@
           ],
           "angle": 90,
           "scale": 0.574,
-          "z": "behind",
+          "z": {
+            "hilt": "aboveArm",
+            "blade": "aboveArm"
+          },
           "hidden": true,
           "stanceHand": true
         }
@@ -1793,7 +1814,7 @@
           "scale": 0.581,
           "z": {
             "hilt": "front",
-            "blade": "behind"
+            "blade": "aboveArm"
           },
           "layer": "arms"
         },
@@ -1806,7 +1827,7 @@
           "scale": 0.522,
           "z": {
             "hilt": "front",
-            "blade": "behind"
+            "blade": "aboveArm"
           },
           "layer": "arms"
         },
@@ -1883,7 +1904,10 @@
           ],
           "angle": 90,
           "scale": 0.996,
-          "z": "behind",
+          "z": {
+            "hilt": "aboveArm",
+            "blade": "aboveArm"
+          },
           "hidden": true,
           "stanceHand": true,
           "omit": true
@@ -1895,7 +1919,10 @@
           ],
           "angle": 90,
           "scale": 0.996,
-          "z": "behind",
+          "z": {
+            "hilt": "aboveArm",
+            "blade": "aboveArm"
+          },
           "hidden": true,
           "stanceHand": true,
           "omit": true
@@ -1907,7 +1934,10 @@
           ],
           "angle": 90,
           "scale": 0.996,
-          "z": "behind",
+          "z": {
+            "hilt": "aboveArm",
+            "blade": "aboveArm"
+          },
           "hidden": true,
           "stanceHand": true,
           "omit": true
@@ -1919,7 +1949,10 @@
           ],
           "angle": 90,
           "scale": 0.996,
-          "z": "behind",
+          "z": {
+            "hilt": "aboveArm",
+            "blade": "aboveArm"
+          },
           "hidden": true,
           "stanceHand": true,
           "omit": true
@@ -1931,7 +1964,10 @@
           ],
           "angle": 90,
           "scale": 0.996,
-          "z": "behind",
+          "z": {
+            "hilt": "aboveArm",
+            "blade": "aboveArm"
+          },
           "hidden": true,
           "stanceHand": true,
           "omit": true
@@ -1943,7 +1979,10 @@
           ],
           "angle": 90,
           "scale": 0.996,
-          "z": "behind",
+          "z": {
+            "hilt": "aboveArm",
+            "blade": "aboveArm"
+          },
           "hidden": true,
           "stanceHand": true,
           "omit": true
@@ -1956,7 +1995,7 @@
           "angle": -126.1,
           "scale": 0.581,
           "z": {
-            "hilt": "behind",
+            "hilt": "aboveArm",
             "blade": "top"
           },
           "hidden": true
@@ -1969,7 +2008,7 @@
           "angle": -109.4,
           "scale": 0.522,
           "z": {
-            "hilt": "behind",
+            "hilt": "aboveArm",
             "blade": "top"
           },
           "hidden": true
@@ -1982,8 +2021,8 @@
           "angle": 16.1,
           "scale": 0.901,
           "z": {
-            "hilt": "behind",
-            "blade": "behind"
+            "hilt": "aboveArm",
+            "blade": "aboveArm"
           },
           "hidden": true,
           "trail": {
@@ -2008,8 +2047,8 @@
           "angle": 7.6,
           "scale": 0.975,
           "z": {
-            "hilt": "behind",
-            "blade": "behind"
+            "hilt": "aboveArm",
+            "blade": "aboveArm"
           },
           "hidden": true
         },
@@ -2021,8 +2060,8 @@
           "angle": 40.9,
           "scale": 0.661,
           "z": {
-            "hilt": "behind",
-            "blade": "behind"
+            "hilt": "aboveArm",
+            "blade": "aboveArm"
           },
           "hidden": true
         },
@@ -2033,7 +2072,10 @@
           ],
           "angle": 90,
           "scale": 0.996,
-          "z": "behind",
+          "z": {
+            "hilt": "aboveArm",
+            "blade": "aboveArm"
+          },
           "hidden": true,
           "stanceHand": true,
           "omit": true
@@ -3140,6 +3182,20 @@
               -1,
               -1,
               -1
+            ],
+            "weaponOver": [
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true
             ]
           },
           "L": {
@@ -3280,6 +3336,20 @@
               1,
               1,
               1
+            ],
+            "weaponOver": [
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true
             ]
           }
         },

@@ -163,6 +163,11 @@ const poseOf = (W, dir, k) => {
   return { ...p, grip: [FRAME - 1 - p.grip[0], p.grip[1]], mirrored: true };
 };
 const handLayers = { arms: readPng(path.join(animDir, state, 'arms.png')), body: readPng(path.join(animDir, state, 'body.png')) };
+// arm-weapon-mask.png (character-posed helper): band-arm pixels in the body layer that a held blade is drawn over
+const maskFile = path.join(animDir, state, 'arm-weapon-mask.png'), armMask = fs.existsSync(maskFile) ? readPng(maskFile) : null;
+// clothing layers (every animation layer but the body, arms, hair and eyes) cover a masked arm where they overlap it
+const clothing = armMask ? Object.entries(JSON.parse(fs.readFileSync(path.join(animDir, state, 'animation.json'), 'utf8')).layers)
+  .filter(([n]) => !['body', 'arms'].includes(n) && !/-(hair|eyes)$/.test(n)).map(([, f]) => readPng(path.join(animDir, state, f))) : [];
 const qc = { gripOnFist: {}, inFrame: true };
 const files = {}, out = [];
 // a hand slot may list alternative items (items: [...], the first is the default); each is rendered on the same grips as
@@ -207,10 +212,19 @@ for (const W of weapons.flatMap((w) => (w.items || [w.item]).map((it, i) => ({ .
       qc.gripOnFist[`${W.slot}/${W.item} ${dir}:${k}`] = p.hidden ? 'hidden' : hl.px[ai + 3] === 255;
       for (const [q, [c, dd]] of m) {
         const [x, y] = unkey(q), X = x + ORIGIN[0], Y = y + ORIGIN[1];
-        if (!DEPTHS.includes(dd)) throw new Error(`${W.slot}/${W.item} ${dir}:${k}: unknown depth ${dd}`);
+        // aboveArm: over the arm holding it (a blade never goes under that arm) but still covered by the torso: drawn in
+        // the top sheet except where the body layer shows and neither the arms layer nor the posed arm mask does
+        let ds = dd;
+        if (dd === 'aboveArm') {
+          ds = 'top';
+          const op = (n) => x >= 0 && y >= 0 && x < FRAME && y < FRAME && handLayers[n].px[((r * FRAME + y) * handLayers[n].w + k * FRAME + x) * 4 + 3] === 255;
+          const at = (img) => x >= 0 && y >= 0 && x < FRAME && y < FRAME && img.px[((r * FRAME + y) * img.w + k * FRAME + x) * 4 + 3] === 255;
+          const armHere = armMask && at(armMask) && !clothing.some(at);
+          if (op('body') && !op('arms') && !armHere) continue;
+        } else if (!DEPTHS.includes(dd)) throw new Error(`${W.slot}/${W.item} ${dir}:${k}: unknown depth ${dd}`);
         if (X < 0 || Y < 0 || X >= WF || Y >= WF) { qc.inFrame = false; continue; }
-        Buffer.from(pal[c] + 'ff', 'hex').copy(sheets[dd], ((r * WF + Y) * WF * F + k * WF + X) * 4);
-        used.add(dd);
+        Buffer.from(pal[c] + 'ff', 'hex').copy(sheets[ds], ((r * WF + Y) * WF * F + k * WF + X) * 4);
+        used.add(ds);
       }
     }
   });
