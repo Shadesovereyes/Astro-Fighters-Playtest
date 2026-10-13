@@ -1413,7 +1413,7 @@
             39,
             29
           ],
-          "angle": 40.9,
+          "angle": -40.9,
           "scale": 0.661,
           "z": {
             "hilt": "behind",
@@ -1426,7 +1426,7 @@
             39,
             30
           ],
-          "angle": 57,
+          "angle": -57,
           "scale": 0.567,
           "z": {
             "hilt": "behind",
@@ -1439,7 +1439,7 @@
             23,
             30
           ],
-          "angle": 196.1,
+          "angle": 163.9,
           "scale": 0.901,
           "z": {
             "hilt": "behind",
@@ -1448,15 +1448,16 @@
           "hidden": true,
           "trail": {
             "mode": "ellipse",
-            "from": 432,
-            "to": 210,
+            "from": -72,
+            "to": 150,
             "R": 18,
             "k": 0.5,
             "center": [
               28.69,
-              29.0
+              32.0
             ],
-            "width": 6
+            "width": 6,
+            "z": "behind"
           }
         },
         {
@@ -1464,7 +1465,7 @@
             23,
             30
           ],
-          "angle": 187.6,
+          "angle": 172.4,
           "scale": 0.975,
           "z": {
             "hilt": "behind",
@@ -1477,7 +1478,7 @@
             25,
             31
           ],
-          "angle": 215.5,
+          "angle": 144.5,
           "scale": 0.705,
           "z": {
             "hilt": "behind",
@@ -1556,7 +1557,7 @@
           "hidden": true
         }
       ],
-      "projectionRule": "S and N match E by projection lines: the horizontal swings (psi) are re-projected per view from the same swing angles (S: forward toward the viewer = down, the character's left = the viewer's right; N: the reverse), the fist keeps its E row and moves across the body with the swing, and the elliptical smear is re-projected with them (blade length + margin per item); N follows S by projection lines: every point keeps its S row and its x mirrors, a blade part in front of the body in S is behind it in N, and the smear mirrors with it; the hand is hidden in front of the body; stance frames keep the stance's S/N pose"
+      "projectionRule": "S and N match E by projection lines: the horizontal swings (psi) are re-projected per view from the same swing angles (S: forward toward the viewer = down, the character's left = the viewer's right; N: the reverse), the fist keeps its E row and moves across the body with the swing, and the elliptical smear is re-projected with them (blade length + margin per item); in N the hand is hidden in front of the body; stance frames keep the stance's S/N pose N: the grip sits in the N fist (the S fist seen from behind: same row, x mirrored); the blade takes the swing angle projected for N (pointing back toward the viewer it runs down the screen over the body, pointing forward it runs up behind it); the smear follows the N projection and is drawn behind the body; stance frames keep the stance's S/N pose"
     },
     {
       "slot": "off",
@@ -1933,7 +1934,7 @@
             25,
             24
           ],
-          "angle": 126.1,
+          "angle": -126.1,
           "scale": 0.581,
           "z": {
             "hilt": "behind",
@@ -1946,7 +1947,7 @@
             23,
             25
           ],
-          "angle": 109.4,
+          "angle": -109.4,
           "scale": 0.522,
           "z": {
             "hilt": "behind",
@@ -1959,7 +1960,7 @@
             40,
             29
           ],
-          "angle": 343.9,
+          "angle": 16.1,
           "scale": 0.901,
           "z": {
             "hilt": "behind",
@@ -1968,15 +1969,16 @@
           "hidden": true,
           "trail": {
             "mode": "ellipse",
-            "from": 100,
-            "to": 330,
+            "from": 260,
+            "to": 30,
             "R": 18,
             "k": 0.5,
             "center": [
               35.31,
-              28.0
+              31.0
             ],
-            "width": 6
+            "width": 6,
+            "z": "behind"
           }
         },
         {
@@ -1984,7 +1986,7 @@
             40,
             28
           ],
-          "angle": 352.4,
+          "angle": 7.6,
           "scale": 0.975,
           "z": {
             "hilt": "behind",
@@ -1997,7 +1999,7 @@
             39,
             30
           ],
-          "angle": 319.1,
+          "angle": 40.9,
           "scale": 0.661,
           "z": {
             "hilt": "behind",
@@ -2016,7 +2018,7 @@
           "hidden": true
         }
       ],
-      "projectionRule": "S and N match E by projection lines: the horizontal swings (psi) are re-projected per view from the same swing angles (S: forward toward the viewer = down, the character's left = the viewer's right; N: the reverse), the fist keeps its E row and moves across the body with the swing, and the elliptical smear is re-projected with them (blade length + margin per item); N follows S by projection lines: every point keeps its S row and its x mirrors, a blade part in front of the body in S is behind it in N, and the smear mirrors with it; the hand is hidden in front of the body; stance frames keep the stance's S/N pose"
+      "projectionRule": "S and N match E by projection lines: the horizontal swings (psi) are re-projected per view from the same swing angles (S: forward toward the viewer = down, the character's left = the viewer's right; N: the reverse), the fist keeps its E row and moves across the body with the swing, and the elliptical smear is re-projected with them (blade length + margin per item); in N the hand is hidden in front of the body; stance frames keep the stance's S/N pose N: the grip sits in the N fist (the S fist seen from behind: same row, x mirrored); the blade takes the swing angle projected for N (pointing back toward the viewer it runs down the screen over the body, pointing forward it runs up behind it); the smear follows the N projection and is drawn behind the body; stance frames keep the stance's S/N pose"
     }
   ],
   "events": {

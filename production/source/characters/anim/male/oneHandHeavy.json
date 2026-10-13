@@ -1367,15 +1367,16 @@
             {
               "trail": {
                 "mode": "ellipse",
-                "from": 432,
-                "to": 210,
+                "from": -72,
+                "to": 150,
                 "R": 18,
                 "k": 0.5,
                 "center": [
                   28.69,
-                  29.0
+                  32.0
                 ],
-                "width": 6
+                "width": 6,
+                "z": "behind"
               }
             },
             null,
@@ -1386,15 +1387,16 @@
             {
               "trail": {
                 "mode": "ellipse",
-                "from": 130,
-                "to": 335,
+                "from": 230,
+                "to": 25,
                 "R": 18,
                 "k": 0.5,
                 "center": [
                   33.06,
-                  29.23
+                  31.77
                 ],
-                "width": 6
+                "width": 6,
+                "z": "behind"
               }
             },
             null,
@@ -1589,7 +1591,7 @@
             39,
             29
           ],
-          "angle": 40.9,
+          "angle": -40.9,
           "scale": 0.661,
           "z": {
             "hilt": "behind",
@@ -1602,7 +1604,7 @@
             39,
             30
           ],
-          "angle": 57,
+          "angle": -57,
           "scale": 0.567,
           "z": {
             "hilt": "behind",
@@ -1615,7 +1617,7 @@
             23,
             30
           ],
-          "angle": 196.1,
+          "angle": 163.9,
           "scale": 0.901,
           "z": {
             "hilt": "behind",
@@ -1624,15 +1626,16 @@
           "hidden": true,
           "trail": {
             "mode": "ellipse",
-            "from": 432,
-            "to": 210,
+            "from": -72,
+            "to": 150,
             "R": 25,
             "k": 0.5,
             "center": [
               28.69,
-              29.0
+              32.0
             ],
-            "width": 6
+            "width": 6,
+            "z": "behind"
           }
         },
         {
@@ -1640,7 +1643,7 @@
             23,
             30
           ],
-          "angle": 187.6,
+          "angle": 172.4,
           "scale": 0.975,
           "z": {
             "hilt": "behind",
@@ -1653,7 +1656,7 @@
             25,
             31
           ],
-          "angle": 215.5,
+          "angle": 144.5,
           "scale": 0.705,
           "z": {
             "hilt": "behind",
@@ -1676,7 +1679,7 @@
             24,
             28
           ],
-          "angle": 160.7,
+          "angle": -160.7,
           "scale": 0.868,
           "z": {
             "hilt": "behind",
@@ -1689,7 +1692,7 @@
             24,
             28
           ],
-          "angle": 149.2,
+          "angle": -149.2,
           "scale": 0.748,
           "z": {
             "hilt": "behind",
@@ -1702,7 +1705,7 @@
             38,
             30
           ],
-          "angle": 346.9,
+          "angle": 13.1,
           "scale": 0.931,
           "z": {
             "hilt": "behind",
@@ -1711,15 +1714,16 @@
           "hidden": true,
           "trail": {
             "mode": "ellipse",
-            "from": 130,
-            "to": 335,
+            "from": 230,
+            "to": 25,
             "R": 25,
             "k": 0.5,
             "center": [
               33.06,
-              29.23
+              31.77
             ],
-            "width": 6
+            "width": 6,
+            "z": "behind"
           }
         },
         {
@@ -1727,7 +1731,7 @@
             38,
             30
           ],
-          "angle": 355,
+          "angle": 5,
           "scale": 0.989,
           "z": {
             "hilt": "behind",
@@ -1740,7 +1744,7 @@
             35,
             32
           ],
-          "angle": 324.5,
+          "angle": 35.5,
           "scale": 0.705,
           "z": {
             "hilt": "behind",
@@ -1759,7 +1763,7 @@
           "hidden": true
         }
       ],
-      "projectionRule": "S and N match E by projection lines: the horizontal swings (psi) are re-projected per view from the same swing angles (S: forward toward the viewer = down, the character's left = the viewer's right; N: the reverse), the fist keeps its E row and moves across the body with the swing, and the elliptical smear is re-projected with them (blade length + margin per item); N follows S by projection lines: every point keeps its S row and its x mirrors, a blade part in front of the body in S is behind it in N, and the smear mirrors with it; the hand is hidden in front of the body; stance frames keep the stance's S/N pose"
+      "projectionRule": "S and N match E by projection lines: the horizontal swings (psi) are re-projected per view from the same swing angles (S: forward toward the viewer = down, the character's left = the viewer's right; N: the reverse), the fist keeps its E row and moves across the body with the swing, and the elliptical smear is re-projected with them (blade length + margin per item); in N the hand is hidden in front of the body; stance frames keep the stance's S/N pose N: the grip sits in the N fist (the S fist seen from behind: same row, x mirrored); the blade takes the swing angle projected for N (pointing back toward the viewer it runs down the screen over the body, pointing forward it runs up behind it); the smear follows the N projection and is drawn behind the body; stance frames keep the stance's S/N pose"
     }
   ],
   "events": {
