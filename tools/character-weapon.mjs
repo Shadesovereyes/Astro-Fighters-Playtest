@@ -64,7 +64,24 @@ const DEPTHS = ['behind', 'front', 'top'];
 // around the grip from the start angle to the current blade angle, out to the blade tip; it is widest at the current
 // blade and tapers to nothing at the start, banded from the tip inward with the item's trail colours. Pixels under the
 // weapon itself are left to the weapon. It is FX, drawn over every character layer as its own sheet.
+// streak: a swing in the plane of the facing seen from the front or back (S, N) projects to a vertical streak at the
+// blade's column, from row y0 (start of the swing) to y1 (the blade's end), widest at y1 and tapering to nothing at y0;
+// its centre column takes the outermost trail colour and the sides the next ones in
+function streakOf(item, pose, weaponPx) {
+  const T = pose.trail, cols = item.trail.bands, out = new Map(), x0 = pose.grip[0] + 0.5, W = T.width ?? 4;
+  const lo = Math.min(T.y0, T.y1), hi = Math.max(T.y0, T.y1);
+  for (let y = Math.floor(lo); y <= Math.ceil(hi); y++) {
+    const f = Math.abs(y + 0.5 - T.y0) / Math.max(1, Math.abs(T.y1 - T.y0)), half = Math.max(0.5, (W * Math.min(1, f)) / 2);
+    for (let x = Math.floor(x0 - half); x < Math.ceil(x0 + half); x++) {
+      if (weaponPx.has(key(x, y))) continue;
+      const d = Math.abs(x + 0.5 - x0) * 2;
+      out.set(key(x, y), (cols.find((b) => d < b.to) || cols[cols.length - 1]).colour);
+    }
+  }
+  return out;
+}
 function trailOf(item, pose, weaponPx) {
+  if (pose.trail.mode === 'streak') return streakOf(item, pose, weaponPx);
   // center/radius: a whole swing drawn on one smear frame turns about the swing's pivot (in front of the shoulders),
   // not the end grip, so the crescent follows the blade tip's path; to: the angle the crescent reaches (default the blade)
   const T = pose.trail, cols = item.trail.bands, R = T.radius ?? Math.max(...item.segments.map((s) => s.to)) * (pose.scale ?? 1);
@@ -112,8 +129,8 @@ for (const W of weapons.flatMap((w) => (w.items || [w.item]).map((it, i) => ({ .
   const item = JSON.parse(fs.readFileSync(path.join(root, 'production/source/characters/items', `${W.item}.json`), 'utf8'));
   const pal = Object.fromEntries(Object.entries(item.palette).map(([s, h]) => [s, h.slice(1).toLowerCase()]));
   const sheets = Object.fromEntries(DEPTHS.map((dd) => [dd, Buffer.alloc(WF * F * WF * dirs.length * 4)])), used = new Set();
-  const trailSheet = Buffer.alloc(WF * F * WF * dirs.length * 4);
-  let trailUsed = false;
+  // trail sheets per depth: top (over every character layer) or behind (a swing in front of a back-facing body)
+  const trailSheets = { top: Buffer.alloc(WF * F * WF * dirs.length * 4), behind: Buffer.alloc(WF * F * WF * dirs.length * 4) }, trailUsed = new Set();
   const z = {};
   dirs.forEach((dir, r) => {
     z[dir] = [];
@@ -128,9 +145,14 @@ for (const W of weapons.flatMap((w) => (w.items || [w.item]).map((it, i) => ({ .
       }
       for (const [q, c] of tr) {
         const [x, y] = unkey(q), X = x + ORIGIN[0], Y = y + ORIGIN[1];
+        // clipBody: the smear is drawn only outside the character's silhouette (a streak seen head-on would otherwise
+        // stripe the face and torso)
+        if (p.trail.clipBody && x >= 0 && y >= 0 && x < FRAME && y < FRAME
+          && ['body', 'arms'].some((n) => handLayers[n].px[((r * FRAME + y) * handLayers[n].w + k * FRAME + x) * 4 + 3] === 255)) continue;
         if (X < 0 || Y < 0 || X >= WF || Y >= WF) { qc.inFrame = false; continue; }
-        Buffer.from(c.slice(1).toLowerCase() + 'ff', 'hex').copy(trailSheet, ((r * WF + Y) * WF * F + k * WF + X) * 4);
-        trailUsed = true;
+        const td = p.trail.z || 'top';
+        Buffer.from(c.slice(1).toLowerCase() + 'ff', 'hex').copy(trailSheets[td], ((r * WF + Y) * WF * F + k * WF + X) * 4);
+        trailUsed.add(td);
       }
       z[dir].push(p.z);
       // registration: the grip pixel is covered by the hand's layer (the fist closes over the hilt)
@@ -151,7 +173,8 @@ for (const W of weapons.flatMap((w) => (w.items || [w.item]).map((it, i) => ({ .
   const layers = {};
   for (const dd of DEPTHS.filter((x) => used.has(x))) { layers[dd] = `${W.slot}-${W.item}-${dd}.png`; files[layers[dd]] = encodePng(WF * F, WF * dirs.length, sheets[dd]); }
   // the swing smear is its own FX sheet (drawn over every character layer): <slot>-<item>-trail.png
-  if (trailUsed) { layers.trail = `${W.slot}-${W.item}-trail.png`; files[layers.trail] = encodePng(WF * F, WF * dirs.length, trailSheet); }
+  if (trailUsed.has('top')) { layers.trail = `${W.slot}-${W.item}-trail.png`; files[layers.trail] = encodePng(WF * F, WF * dirs.length, trailSheets.top); }
+  if (trailUsed.has('behind')) { layers.trailBehind = `${W.slot}-${W.item}-trail-behind.png`; files[layers.trailBehind] = encodePng(WF * F, WF * dirs.length, trailSheets.behind); }
   out.push({ slot: W.slot, item: W.item, default: W.isDefault, grip: W.gripKind, hand: W.layer || 'arms', layers, status: W.status || spec.status, z,
     grips: Object.fromEntries(dirs.map((d) => [d, Array.from({ length: F }, (_, k) => poseOf(W, d, k).grip)])) });
 }
