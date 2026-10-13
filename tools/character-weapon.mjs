@@ -4,7 +4,7 @@
 // single main-hand form), and checks each grip registers with its fist in the rendered hand layer.
 // Usage: node tools/character-weapon.mjs <body> <state> [--check]
 //   reads  production/source/characters/anim/<body>/<state>.json (weapon/weapons) and <state>/arms.png, body.png
-//   writes production/source/characters/anim/<body>/<state>/<slot>-<item>.png per hand and item (rows = spec directions, 128x128)
+//   writes production/source/characters/anim/<body>/<state>/<slot>-<item>-<depth>.png per hand, item and depth slot (rows = spec directions, 128x128)
 //          production/source/characters/anim/<body>/<state>/weapon.json (frame size, origin, depth per frame, QC)
 // The weapon frame is 128x128 so swings can leave the 64x64 body frame; the body frame's (0, 0) sits at ORIGIN, so the
 // character pivot [32, 63] is [64, 95] in the weapon frame.
@@ -51,8 +51,15 @@ function draw(item, pose) {
     const [x, y] = unkey(q);
     for (const [dx, dy] of N4) if (!out.has(key(x + dx, y + dy))) out.set(key(x + dx, y + dy), '#');
   }
+  // u of every pixel (outline included), so a pose can split the weapon at the grip into two depths
+  out.u = (q) => { const [x, y] = unkey(q), cx = x + 0.5 - gx, cy = y + 0.5 - gy; return (cx * d[0] + cy * d[1]) / (pose.scale ?? 1); };
   return out;
 }
+// depth slots, back to front: behind (under the body), front (over body and clothing, under the arms), top (over every
+// character layer: a blade pointing at the viewer, or a hand held in front of the head). A pose's z is one slot, or
+// { hilt, blade } to split the weapon at the grip (hilt = the pommel side, u < 0)
+const DEPTHS = ['behind', 'front', 'top'];
+const depthOf = (z, u) => (typeof z === 'string' ? z : u < 0 ? z.hilt : z.blade);
 
 const poseOf = (W, dir, k) => {
   const src = W[dir] ? dir : W.mirror?.[dir];
@@ -69,13 +76,14 @@ const files = {}, out = [];
 for (const W of weapons.flatMap((w) => (w.items || [w.item]).map((it, i) => ({ ...w, item: it, isDefault: i === 0 })))) {
   const item = JSON.parse(fs.readFileSync(path.join(root, 'production/source/characters/items', `${W.item}.json`), 'utf8'));
   const pal = Object.fromEntries(Object.entries(item.palette).map(([s, h]) => [s, h.slice(1).toLowerCase()]));
-  const sheet = Buffer.alloc(WF * F * WF * dirs.length * 4);
+  const sheets = Object.fromEntries(DEPTHS.map((dd) => [dd, Buffer.alloc(WF * F * WF * dirs.length * 4)])), used = new Set();
   const z = {};
   dirs.forEach((dir, r) => {
     z[dir] = [];
     for (let k = 0; k < F; k++) {
       const p = poseOf(W, dir, k);
-      let m = draw(item, p.mirrored ? { ...p, grip: [FRAME - 1 - p.grip[0], p.grip[1]] } : p);
+      const raw = draw(item, p.mirrored ? { ...p, grip: [FRAME - 1 - p.grip[0], p.grip[1]] } : p);
+      let m = new Map([...raw].map(([q, c]) => [q, [c, depthOf(p.z, raw.u(q))]]));
       if (p.mirrored) m = new Map([...m].map(([q, c]) => { const [x, y] = unkey(q); return [key(FRAME - 1 - x, y), c]; }));
       z[dir].push(p.z);
       // registration: the grip pixel is covered by the hand's layer (the fist closes over the hilt)
@@ -83,16 +91,19 @@ for (const W of weapons.flatMap((w) => (w.items || [w.item]).map((it, i) => ({ .
       // are in front of the body, so only the weapon parts that clear the body show and there is no fist to register to)
       const hl = handLayers[p.layer || W.layer || 'arms'], [gx, gy] = p.grip, ai = ((r * FRAME + gy) * hl.w + k * FRAME + gx) * 4;
       qc.gripOnFist[`${W.slot}/${W.item} ${dir}:${k}`] = p.hidden ? 'hidden' : hl.px[ai + 3] === 255;
-      for (const [q, c] of m) {
+      for (const [q, [c, dd]] of m) {
         const [x, y] = unkey(q), X = x + ORIGIN[0], Y = y + ORIGIN[1];
+        if (!DEPTHS.includes(dd)) throw new Error(`${W.slot}/${W.item} ${dir}:${k}: unknown depth ${dd}`);
         if (X < 0 || Y < 0 || X >= WF || Y >= WF) { qc.inFrame = false; continue; }
-        Buffer.from(pal[c] + 'ff', 'hex').copy(sheet, ((r * WF + Y) * WF * F + k * WF + X) * 4);
+        Buffer.from(pal[c] + 'ff', 'hex').copy(sheets[dd], ((r * WF + Y) * WF * F + k * WF + X) * 4);
+        used.add(dd);
       }
     }
   });
-  const file = `${W.slot}-${W.item}.png`;
-  files[file] = encodePng(WF * F, WF * dirs.length, sheet);
-  out.push({ slot: W.slot, item: W.item, default: W.isDefault, grip: W.gripKind, hand: W.layer || 'arms', file, status: W.status || spec.status, z,
+  // one sheet per depth slot the weapon uses: <slot>-<item>-<depth>.png
+  const layers = {};
+  for (const dd of DEPTHS.filter((x) => used.has(x))) { layers[dd] = `${W.slot}-${W.item}-${dd}.png`; files[layers[dd]] = encodePng(WF * F, WF * dirs.length, sheets[dd]); }
+  out.push({ slot: W.slot, item: W.item, default: W.isDefault, grip: W.gripKind, hand: W.layer || 'arms', layers, status: W.status || spec.status, z,
     grips: Object.fromEntries(dirs.map((d) => [d, Array.from({ length: F }, (_, k) => poseOf(W, d, k).grip)])) });
 }
 qc.pass = qc.inFrame && Object.values(qc.gripOnFist).every((v) => v === true || v === 'hidden');
@@ -101,7 +112,7 @@ files['weapon.json'] = JSON.stringify({
   schema: 'astro-fighters-character-weapon-output/v2',
   body: bodyName, state, frameSize: [WF, WF], origin: ORIGIN, pivot: [ORIGIN[0] + 32, ORIGIN[1] + 63],
   rows: dirs, frames: F,
-  depthRule: weapons[0].depthRule,
+  depthRule: 'each weapon is split into depth slots, one sheet each: behind = under the body; front = over body and clothing, under the arms (the fists close over the hilt); top = over every character layer (a blade pointing at the viewer, a hand in front of the head). z per frame is one slot or { hilt, blade } split at the grip',
   weapons: out,
   qc
 }, null, 2) + '\n';

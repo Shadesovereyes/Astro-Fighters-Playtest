@@ -21,21 +21,37 @@
     "W"
   ],
   "frames": 4,
-  "depthRule": "front: drawn over body and clothing, under the arms layer (the fists close over the hilt); behind: drawn under the body",
+  "depthRule": "each weapon is split into depth slots, one sheet each: behind = under the body; front = over body and clothing, under the arms (the fists close over the hilt); top = over every character layer (a blade pointing at the viewer, a hand in front of the head). z per frame is one slot or { hilt, blade } split at the grip",
   "weapons": [
     {
       "slot": "main",
       "item": "katana",
       "default": true,
       "hand": "arms",
-      "file": "main-katana.png",
+      "layers": {
+        "behind": "main-katana-behind.png",
+        "front": "main-katana-front.png",
+        "top": "main-katana-top.png"
+      },
       "status": "candidate",
       "z": {
         "S": [
-          "front",
-          "front",
-          "front",
-          "front"
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          }
         ],
         "E": [
           "front",

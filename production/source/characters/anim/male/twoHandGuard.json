@@ -1219,7 +1219,10 @@
           ],
           "angle": 90,
           "scale": 0.55,
-          "z": "front"
+          "z": {
+            "hilt": "front",
+            "blade": "top"
+          }
         },
         {
           "grip": [
@@ -1228,7 +1231,10 @@
           ],
           "angle": 90,
           "scale": 0.55,
-          "z": "front"
+          "z": {
+            "hilt": "front",
+            "blade": "top"
+          }
         },
         {
           "grip": [
@@ -1237,7 +1243,10 @@
           ],
           "angle": 90,
           "scale": 0.55,
-          "z": "front"
+          "z": {
+            "hilt": "front",
+            "blade": "top"
+          }
         },
         {
           "grip": [
@@ -1246,7 +1255,10 @@
           ],
           "angle": 90,
           "scale": 0.55,
-          "z": "front"
+          "z": {
+            "hilt": "front",
+            "blade": "top"
+          }
         }
       ],
       "N": [
@@ -1291,7 +1303,7 @@
           "hidden": true
         }
       ],
-      "viewRule": "S: hands together at the navel, the blade points at the viewer's throat, drawn up the centre line foreshortened (scale 0.55). N: the hands are hidden in front of the body; the katana is drawn behind the body, angled up and to the right so its tip clears the head beside the right shoulder."
+      "viewRule": "S: hands together at the navel, the blade points at the viewer's throat, drawn up the centre line foreshortened (scale 0.55). N: the hands are hidden in front of the body; the katana is drawn behind the body, angled up and to the right so its tip clears the head beside the right shoulder. S depth: the hilt and pommel sit under the fists (front), the guard and blade, pointing at the viewer, over every layer (top)."
     }
   ]
 }

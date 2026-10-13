@@ -1216,7 +1216,10 @@
           ],
           "angle": 135,
           "scale": 0.45,
-          "z": "front"
+          "z": {
+            "hilt": "front",
+            "blade": "top"
+          }
         },
         {
           "grip": [
@@ -1225,7 +1228,10 @@
           ],
           "angle": 135,
           "scale": 0.45,
-          "z": "front"
+          "z": {
+            "hilt": "front",
+            "blade": "top"
+          }
         },
         {
           "grip": [
@@ -1234,7 +1240,10 @@
           ],
           "angle": 135,
           "scale": 0.45,
-          "z": "front"
+          "z": {
+            "hilt": "front",
+            "blade": "top"
+          }
         },
         {
           "grip": [
@@ -1243,7 +1252,10 @@
           ],
           "angle": 135,
           "scale": 0.45,
-          "z": "front"
+          "z": {
+            "hilt": "front",
+            "blade": "top"
+          }
         }
       ],
       "N": [
