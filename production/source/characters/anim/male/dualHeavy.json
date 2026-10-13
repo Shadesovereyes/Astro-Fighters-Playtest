@@ -1498,53 +1498,58 @@
         },
         {
           "grip": [
-            40,
-            38
+            37,
+            35
           ],
-          "angle": 60,
-          "scale": 0.5,
+          "angle": 90,
+          "scale": 0.574,
           "z": "behind",
-          "hidden": true
+          "hidden": true,
+          "stanceHand": true
         },
         {
           "grip": [
-            40,
-            38
+            37,
+            35
           ],
-          "angle": 60,
-          "scale": 0.5,
+          "angle": 90,
+          "scale": 0.574,
           "z": "behind",
-          "hidden": true
+          "hidden": true,
+          "stanceHand": true
         },
         {
           "grip": [
-            40,
-            38
+            39,
+            35
           ],
-          "angle": 60,
-          "scale": 0.5,
+          "angle": 90,
+          "scale": 0.574,
           "z": "behind",
-          "hidden": true
+          "hidden": true,
+          "stanceHand": true
         },
         {
           "grip": [
-            40,
-            38
+            39,
+            35
           ],
-          "angle": 60,
-          "scale": 0.5,
+          "angle": 90,
+          "scale": 0.574,
           "z": "behind",
-          "hidden": true
+          "hidden": true,
+          "stanceHand": true
         },
         {
           "grip": [
-            40,
-            38
+            39,
+            35
           ],
-          "angle": 60,
-          "scale": 0.5,
+          "angle": 90,
+          "scale": 0.574,
           "z": "behind",
-          "hidden": true
+          "hidden": true,
+          "stanceHand": true
         },
         {
           "grip": [
@@ -1871,53 +1876,58 @@
       "N": [
         {
           "grip": [
-            25,
-            22
+            26,
+            26
           ],
           "angle": 90,
-          "scale": 1,
+          "scale": 0.996,
           "z": "behind",
-          "hidden": true
+          "hidden": true,
+          "stanceHand": true
+        },
+        {
+          "grip": [
+            26,
+            26
+          ],
+          "angle": 90,
+          "scale": 0.996,
+          "z": "behind",
+          "hidden": true,
+          "stanceHand": true
         },
         {
           "grip": [
             25,
-            22
+            26
           ],
           "angle": 90,
-          "scale": 1,
+          "scale": 0.996,
           "z": "behind",
-          "hidden": true
+          "hidden": true,
+          "stanceHand": true
         },
         {
           "grip": [
             25,
-            22
+            26
           ],
           "angle": 90,
-          "scale": 1,
+          "scale": 0.996,
           "z": "behind",
-          "hidden": true
+          "hidden": true,
+          "stanceHand": true
         },
         {
           "grip": [
-            25,
-            22
+            24,
+            26
           ],
           "angle": 90,
-          "scale": 1,
+          "scale": 0.996,
           "z": "behind",
-          "hidden": true
-        },
-        {
-          "grip": [
-            25,
-            22
-          ],
-          "angle": 90,
-          "scale": 1,
-          "z": "behind",
-          "hidden": true
+          "hidden": true,
+          "stanceHand": true
         },
         {
           "grip": [
@@ -3014,11 +3024,11 @@
               66.8,
               59.5,
               -8,
-              -8,
-              -8,
-              -8,
-              -8,
-              -8,
+              0,
+              0,
+              0,
+              0,
+              0,
               -8
             ],
             "elbow": [
@@ -3057,11 +3067,11 @@
               0.99,
               1,
               1,
-              1,
-              1,
-              1,
-              1,
-              1,
+              0.62,
+              0.62,
+              0.62,
+              0.62,
+              0.62,
               1
             ],
             "fist": [
@@ -3071,11 +3081,11 @@
               "front",
               "front",
               "up",
-              "up",
-              "up",
-              "up",
-              "up",
-              "up",
+              "front",
+              "front",
+              "front",
+              "front",
+              "front",
               "up"
             ],
             "z": [
@@ -3099,11 +3109,11 @@
               null,
               null,
               7,
-              7,
-              7,
-              7,
-              7,
-              7,
+              null,
+              null,
+              null,
+              null,
+              null,
               7
             ],
             "pivotDx": [
@@ -3113,11 +3123,11 @@
               -1,
               -1,
               0,
-              0,
-              0,
-              0,
-              0,
-              0,
+              -1,
+              -1,
+              -1,
+              -1,
+              -1,
               0
             ]
           },
@@ -3127,11 +3137,11 @@
               24
             ],
             "angle": [
-              12,
-              12,
-              12,
-              12,
-              12,
+              0,
+              0,
+              0,
+              0,
+              0,
               12,
               -61.8,
               11.8,
@@ -3141,11 +3151,26 @@
               12
             ],
             "elbow": [
-              null,
-              null,
-              null,
-              null,
-              null,
+              {
+                "at": 9,
+                "angle": -178
+              },
+              {
+                "at": 9,
+                "angle": -178
+              },
+              {
+                "at": 9,
+                "angle": -178
+              },
+              {
+                "at": 9,
+                "angle": -178
+              },
+              {
+                "at": 9,
+                "angle": -178
+              },
               null,
               {
                 "at": 7,
@@ -3170,11 +3195,11 @@
               null
             ],
             "scale": [
-              1,
-              1,
-              1,
-              1,
-              1,
+              0.6,
+              0.6,
+              0.6,
+              0.6,
+              0.6,
               1,
               0.35,
               0.35,
@@ -3212,11 +3237,11 @@
               -1
             ],
             "showTo": [
-              7,
-              7,
-              7,
-              7,
-              7,
+              null,
+              null,
+              null,
+              null,
+              null,
               7,
               null,
               null,
@@ -3226,11 +3251,11 @@
               7
             ],
             "pivotDx": [
-              0,
-              0,
-              0,
-              0,
-              0,
+              1,
+              1,
+              1,
+              1,
+              1,
               0,
               1,
               1,
