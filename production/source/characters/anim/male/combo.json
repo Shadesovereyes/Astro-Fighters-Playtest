@@ -221,6 +221,48 @@
           ]
         }
       ]
+    },
+    "dualWield": {
+      "status": "light chain approved by the user 2026-10-13; heavy in progress",
+      "stance": "oneHandDualGuard",
+      "weapon": "tanto in each hand",
+      "inputs": {
+        "light": "light attack key/button: two main-hand stabs and an off-hand slash (dualLight)",
+        "heavy": "in progress"
+      },
+      "rules": [
+        "Same input rules as the one-handed combos; every clip starts and ends in the dual-wield stance (oneHandDualGuard); stab2 chained from stab1's hold plays from its chamber; the offSlash chained from stab2's hold starts at its smear frame (the off hand is already raised); the offSlash ends the chain (finisher)."
+      ],
+      "clips": {
+        "stab1": "dualLight/stab1",
+        "stab2": "dualLight/stab2",
+        "offSlash": "dualLight/offSlash"
+      },
+      "paths": {
+        "rule": "path -> { light, heavy }: the clip a press plays from that point of the combo (null: the press does nothing)",
+        "": {
+          "light": "dualLight/stab1",
+          "heavy": null
+        },
+        "L": {
+          "light": "dualLight/stab2",
+          "heavy": null
+        },
+        "LL": {
+          "light": "dualLight/offSlash",
+          "heavy": null
+        }
+      },
+      "combos": [
+        {
+          "inputs": "L L L",
+          "clips": [
+            "dualLight/stab1",
+            "dualLight/stab2",
+            "dualLight/offSlash"
+          ]
+        }
+      ]
     }
   }
 }

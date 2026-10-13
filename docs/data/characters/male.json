@@ -3821,6 +3821,605 @@
           }
         ]
       }
+    },
+    "dualLight": {
+      "frames": 12,
+      "fps": 12,
+      "rows": [
+        "S",
+        "E",
+        "N",
+        "W"
+      ],
+      "status": "approved by user 2026-10-13 (S, E, N, W; W mirrors E)",
+      "rootMotion": {
+        "S": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "E": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "N": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "W": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "layers": {
+        "body": "assets/characters/male/dualLight/body.png",
+        "arms": "assets/characters/male/dualLight/arms.png",
+        "long-hair": "assets/characters/male/dualLight/long-hair.png",
+        "fade-hair": "assets/characters/male/dualLight/fade-hair.png",
+        "afro-hair": "assets/characters/male/dualLight/afro-hair.png",
+        "brown-eyes": "assets/characters/male/dualLight/brown-eyes.png",
+        "purple-eyes": "assets/characters/male/dualLight/purple-eyes.png",
+        "male-gi": "assets/characters/male/dualLight/male-gi.png",
+        "male-blue-armor": "assets/characters/male/dualLight/male-blue-armor.png",
+        "male-red-armor": "assets/characters/male/dualLight/male-red-armor.png",
+        "blue-armor-shoulders": "assets/characters/male/dualLight/blue-armor-shoulders.png",
+        "red-armor-shoulders": "assets/characters/male/dualLight/red-armor-shoulders.png"
+      },
+      "weapons": {
+        "frameSize": [
+          128,
+          128
+        ],
+        "origin": [
+          32,
+          32
+        ],
+        "pivot": [
+          64,
+          95
+        ],
+        "depthRule": "each weapon is split into depth slots, one sheet each: behind = under the body; front = over body and clothing, under the arms (the fists close over the hilt); top = over every character layer (a blade pointing at the viewer, a hand in front of the head). z per frame is one slot or { hilt, blade } split at the grip",
+        "items": [
+          {
+            "slot": "main",
+            "item": "tanto",
+            "default": true,
+            "hand": "arms",
+            "layers": {
+              "behind": "assets/characters/male/dualLight/main-tanto-behind.png",
+              "front": "assets/characters/male/dualLight/main-tanto-front.png",
+              "top": "assets/characters/male/dualLight/main-tanto-top.png",
+              "trail": "assets/characters/male/dualLight/main-tanto-trail.png"
+            },
+            "z": {
+              "S": [
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                }
+              ],
+              "E": [
+                "front",
+                "front",
+                "front",
+                "front",
+                "front",
+                "front",
+                "front",
+                "front",
+                "front",
+                "front",
+                "front",
+                "front"
+              ],
+              "N": [
+                "behind",
+                "behind",
+                "behind",
+                "behind",
+                "behind",
+                "behind",
+                "behind",
+                "behind",
+                "behind",
+                "behind",
+                "behind",
+                "behind"
+              ],
+              "W": [
+                "front",
+                "front",
+                "front",
+                "front",
+                "front",
+                "front",
+                "front",
+                "front",
+                "front",
+                "front",
+                "front",
+                "front"
+              ]
+            }
+          },
+          {
+            "slot": "off",
+            "item": "tanto",
+            "default": true,
+            "hand": "body",
+            "layers": {
+              "behind": "assets/characters/male/dualLight/off-tanto-behind.png",
+              "front": "assets/characters/male/dualLight/off-tanto-front.png",
+              "top": "assets/characters/male/dualLight/off-tanto-top.png",
+              "trail": "assets/characters/male/dualLight/off-tanto-trail.png",
+              "trailBehind": "assets/characters/male/dualLight/off-tanto-trail-behind.png"
+            },
+            "z": {
+              "S": [
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                }
+              ],
+              "E": [
+                "front",
+                "front",
+                "front",
+                "front",
+                "front",
+                "front",
+                "front",
+                "front",
+                "front",
+                "front",
+                "front",
+                "front"
+              ],
+              "N": [
+                "behind",
+                "behind",
+                "behind",
+                "behind",
+                "behind",
+                "behind",
+                "behind",
+                "behind",
+                "behind",
+                "behind",
+                "behind",
+                "behind"
+              ],
+              "W": [
+                "front",
+                "front",
+                "front",
+                "front",
+                "front",
+                "front",
+                "front",
+                "front",
+                "front",
+                "front",
+                "front",
+                "front"
+              ]
+            }
+          }
+        ]
+      },
+      "clips": {
+        "rule": "one press per clip in rhythm (chain window = hold and return frames); next: oneHandDualGuard; stab2 chained from stab1's hold starts at its chamber; the offSlash chained from stab2's hold starts at its smear frame (the off hand is already raised in its guard)",
+        "stab1": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 12,
+          "next": "oneHandDualGuard",
+          "chainWindow": [
+            2,
+            3
+          ]
+        },
+        "stab2": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 12,
+          "next": "oneHandDualGuard",
+          "chainWindow": [
+            6,
+            7
+          ]
+        },
+        "offSlash": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 12,
+          "next": "oneHandDualGuard",
+          "entry": {
+            "stab2": {
+              "atFrames": [
+                6
+              ],
+              "start": 9
+            }
+          }
+        }
+      },
+      "events": {
+        "rule": "per-frame gameplay data in the E frame (W mirrors x -> 64 - x - w): hitbox [x, y, w, h] gives the height band (combo.json hitArea arc), damage event",
+        "E": [
+          {
+            "frame": 0,
+            "clip": "stab1",
+            "type": "startup"
+          },
+          {
+            "frame": 1,
+            "clip": "stab1",
+            "type": "active",
+            "move": "main-hand chest stab",
+            "hitbox": [
+              44,
+              22,
+              16,
+              12
+            ],
+            "damage": "light"
+          },
+          {
+            "frame": 2,
+            "clip": "stab1",
+            "type": "recovery",
+            "chainWindow": true
+          },
+          {
+            "frame": 3,
+            "clip": "stab1",
+            "type": "recovery",
+            "chainWindow": true
+          },
+          {
+            "frame": 4,
+            "clip": "stab2",
+            "type": "startup"
+          },
+          {
+            "frame": 5,
+            "clip": "stab2",
+            "type": "active",
+            "move": "main-hand rising gut stab",
+            "hitbox": [
+              44,
+              22,
+              16,
+              14
+            ],
+            "damage": "light"
+          },
+          {
+            "frame": 6,
+            "clip": "stab2",
+            "type": "recovery",
+            "chainWindow": true
+          },
+          {
+            "frame": 7,
+            "clip": "stab2",
+            "type": "recovery",
+            "chainWindow": true
+          },
+          {
+            "frame": 8,
+            "clip": "offSlash",
+            "type": "startup"
+          },
+          {
+            "frame": 9,
+            "clip": "offSlash",
+            "type": "active",
+            "move": "off-hand downward slash (finisher)",
+            "hitbox": [
+              40,
+              6,
+              20,
+              46
+            ],
+            "damage": "light+"
+          },
+          {
+            "frame": 10,
+            "clip": "offSlash",
+            "type": "recovery"
+          },
+          {
+            "frame": 11,
+            "clip": "offSlash",
+            "type": "recovery"
+          }
+        ]
+      }
     }
   },
   "combo": {
@@ -4043,6 +4642,48 @@
               "oneHandLight/stab1",
               "oneHandLight/stab2",
               "oneHandLight/stab3"
+            ]
+          }
+        ]
+      },
+      "dualWield": {
+        "status": "light chain approved by the user 2026-10-13; heavy in progress",
+        "stance": "oneHandDualGuard",
+        "weapon": "tanto in each hand",
+        "inputs": {
+          "light": "light attack key/button: two main-hand stabs and an off-hand slash (dualLight)",
+          "heavy": "in progress"
+        },
+        "rules": [
+          "Same input rules as the one-handed combos; every clip starts and ends in the dual-wield stance (oneHandDualGuard); stab2 chained from stab1's hold plays from its chamber; the offSlash chained from stab2's hold starts at its smear frame (the off hand is already raised); the offSlash ends the chain (finisher)."
+        ],
+        "clips": {
+          "stab1": "dualLight/stab1",
+          "stab2": "dualLight/stab2",
+          "offSlash": "dualLight/offSlash"
+        },
+        "paths": {
+          "rule": "path -> { light, heavy }: the clip a press plays from that point of the combo (null: the press does nothing)",
+          "": {
+            "light": "dualLight/stab1",
+            "heavy": null
+          },
+          "L": {
+            "light": "dualLight/stab2",
+            "heavy": null
+          },
+          "LL": {
+            "light": "dualLight/offSlash",
+            "heavy": null
+          }
+        },
+        "combos": [
+          {
+            "inputs": "L L L",
+            "clips": [
+              "dualLight/stab1",
+              "dualLight/stab2",
+              "dualLight/offSlash"
             ]
           }
         ]
