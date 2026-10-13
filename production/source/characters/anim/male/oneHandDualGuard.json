@@ -857,20 +857,20 @@
             ],
             "elbow": [
               {
-                "at": 7,
-                "angle": 130
+                "at": 9,
+                "angle": 178
               },
               {
-                "at": 7,
-                "angle": 130
+                "at": 9,
+                "angle": 178
               },
               {
-                "at": 7,
-                "angle": 130
+                "at": 9,
+                "angle": 178
               },
               {
-                "at": 7,
-                "angle": 130
+                "at": 9,
+                "angle": 178
               }
             ],
             "scale": [
@@ -895,7 +895,7 @@
           }
         },
         "headDy": -1,
-        "armRule": "S arms match E by projection lines: each fist sits on its E row at its own side (weapon hand at the right hip, row 35; guard hand at the left shoulder, row 26); the forearms point toward the viewer, so the band arms are foreshortened (scale) instead of swung across the body",
+        "armRule": "S arms match E by projection lines: each fist sits on its E row at its own side (weapon hand at the right hip, row 35; guard hand raised straight up from the left shoulder line, row 26, so the fist and its dagger sit beside the face); the forearms point toward the viewer, so the band arms are foreshortened (scale) instead of swung across the body",
         "twist": {
           "pelvis": [
             0,
