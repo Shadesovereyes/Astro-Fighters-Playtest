@@ -54,5 +54,22 @@
   ],
   "outline": "every coloured pixel touching empty space gets an outline pixel (#) if it is not already one",
   "grip": "one-handed off-hand dagger: the hilt is entirely inside the fist, so only the pommel nub and the guard show at the fist's two edges",
-  "note": "the katana construction as a dagger: blade 6.5 px; the hilt segment is not drawn (the fist covers u -2.5 to 2.5)"
+  "note": "the katana construction as a dagger: blade 6.5 px; the hilt segment is not drawn (the fist covers u -2.5 to 2.5)",
+  "trail": {
+    "rule": "swing smear colours, from the blade tip inward (pixels from the outer edge): colours already in the approved palette (Gi/armour white, body wrap grey, armour grey); hard alpha",
+    "bands": [
+      {
+        "to": 1.5,
+        "colour": "#ffffff"
+      },
+      {
+        "to": 3,
+        "colour": "#e3e3e3"
+      },
+      {
+        "to": 99,
+        "colour": "#adadad"
+      }
+    ]
+  }
 }

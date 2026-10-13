@@ -107,7 +107,9 @@ function trailOf(item, pose, weaponPx) {
   if (pose.trail.mode === 'ellipse') return ellipseOf(item, pose, weaponPx);
   // center/radius: a whole swing drawn on one smear frame turns about the swing's pivot (in front of the shoulders),
   // not the end grip, so the crescent follows the blade tip's path; to: the angle the crescent reaches (default the blade)
-  const T = pose.trail, cols = item.trail.bands, R = T.radius ?? Math.max(...item.segments.map((s) => s.to)) * (pose.scale ?? 1);
+  // radiusPlus: the radius as the item's own blade length plus a margin, so one key pose serves items of different lengths
+  const tipLen = Math.max(...item.segments.map((s) => s.to)) * (pose.scale ?? 1);
+  const T = pose.trail, cols = item.trail.bands, R = T.radius ?? (T.radiusPlus != null ? tipLen + T.radiusPlus : tipLen);
   // center 'blade': the pivot sits on the blade's own line, so the crescent ends exactly on the blade at its final angle
   const tipU = Math.max(...item.segments.map((s) => s.to)) * (pose.scale ?? 1), ta = pose.angle * Math.PI / 180;
   const c = T.center === 'blade' ? [pose.grip[0] + (tipU - R) * Math.cos(ta), pose.grip[1] - (tipU - R) * Math.sin(ta)] : T.center || pose.grip;
@@ -138,7 +140,9 @@ const depthOf = (z, u) => (typeof z === 'string' ? z : u < 0 ? z.hilt : z.blade)
 // hand (wakizashi or tanto) can hold their blades at different angles on the same grip
 const poseOf = (W, dir, k) => {
   const src = W[dir] ? dir : W.mirror?.[dir];
-  const p = { ...W[src][k], ...(W.itemPoses?.[W.item]?.[src] || {}) };
+  // an itemPoses entry is one override for every frame of that facing, or a per-frame list (null = no override)
+  const ip = W.itemPoses?.[W.item]?.[src], ov = Array.isArray(ip) ? ip[k] : ip;
+  const p = { ...W[src][k], ...(ov || {}) };
   if (src === dir) return p;
   // mirrored facing: grip mirrored in the body frame, angle measured toward the mirrored forward
   return { ...p, grip: [FRAME - 1 - p.grip[0], p.grip[1]], mirrored: true };
