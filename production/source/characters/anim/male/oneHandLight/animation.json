@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-animation-output/v1",
   "body": "male",
   "state": "oneHandLight",
-  "status": "candidate (E/W first)",
+  "status": "E/W approved by user 2026-10-13 (three stabs); S/N candidate",
   "frames": 12,
   "fps": 12,
   "frameSize": [
