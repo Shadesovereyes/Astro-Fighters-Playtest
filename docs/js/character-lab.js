@@ -1,11 +1,24 @@
 // Character lab: the male paper doll assembled and driven by Phaser from the exported runtime sheets
 // (docs/data/characters/male.json, written by tools/export-character-runtime.mjs).
 // Movement is continuous (pixels per second, delta time, normalised diagonals); facing follows the four-direction rule;
-// attacks follow combo.json; every layer is its own sprite in the locked draw order.
+// attacks follow combo.json (unarmed transitions, and the weapon combos keyed by the combo path); every layer, the
+// weapon depth slots included, is its own sprite in the locked draw order.
 (() => {
   'use strict';
   const VIEW_W = 320, VIEW_H = 180, ZOOM = 3;
-  const GUARD_TIMEOUT = 3;            // seconds in the guard with no attack before the idle returns (placeholder)
+  const GUARD_TIMEOUT = 15;           // seconds in the guard (or weapon stance) with no attack before the idle returns (user 2026-10-13)
+  // weapon modes (Q cycles): the stance replaces the guard after an attack; the weapon shows in its stance and attacks
+  // only (idle, walk and sprint are unarmed: draw and sheathe are not authored yet)
+  const MODES = [
+    { key: 'unarmed', label: 'unarmed' },
+    { key: 'katana', label: 'katana', combo: 'twoHanded', stance: 'twoHandGuard', items: { main: 'katana' } },
+    { key: 'wakizashi', label: 'wakizashi (one hand)', combo: 'oneHanded', stance: 'oneHandGuard', items: { main: 'wakizashi' } },
+    { key: 'tanto', label: 'tanto (one hand)', combo: 'oneHanded', stance: 'oneHandGuard', items: { main: 'tanto' } },
+    { key: 'dual', label: 'dual tanto', combo: 'dualWield', stance: 'oneHandDualGuard', items: { main: 'tanto', off: 'tanto' } }
+  ];
+  // weapon depth slots and where each sits in the doll: behind/trailBehind under the body, front over the clothing and
+  // under the arms (the fists close over the hilt), top and trail over every character layer
+  const WDEPTHS = ['behind', 'trailBehind', 'front', 'top', 'trail'], HANDS = ['main', 'off'];
   const HAIRS = ['fade-hair', 'long-hair', 'afro-hair'], EYES = ['brown-eyes', 'purple-eyes'];
   const OUTFIT_KEYS = ['base', 'gi', 'blueArmor', 'redArmor'];
 
@@ -18,6 +31,10 @@
         const def = this.cache.json.get('def');
         for (const [state, s] of Object.entries(def.states)) {
           for (const [layer, file] of Object.entries(s.layers)) this.load.spritesheet(`${state}|${layer}`, file, { frameWidth: 64, frameHeight: 64 });
+          const W = s.weapons;
+          if (W) for (const it of W.items) for (const [depth, file] of Object.entries(it.layers)) {
+            this.load.spritesheet(`${state}|w|${it.slot}|${it.item}|${depth}`, file, { frameWidth: W.frameSize[0], frameHeight: W.frameSize[1] });
+          }
         }
         this.load.spritesheet('shadow', def.contactShadow, { frameWidth: 64, frameHeight: 64 });
       });
@@ -46,13 +63,22 @@
       this.layers = {};
       const shadow = this.add.sprite(0, 0, 'shadow', 0).setOrigin(0.5, 63 / 64);
       this.doll.add(shadow); this.layers.shadow = shadow;
+      // weapon sprites: 128x128 frames whose pivot [64, 95] is the body frame's pivot [32, 63]
+      this.wsprites = {};
+      const wsprite = (hand, depth) => {
+        const spr = this.add.sprite(0, 0, `idle|body`, 0).setOrigin(64 / 128, 95 / 128).setVisible(false);
+        this.doll.add(spr); (this.wsprites[hand] ??= {})[depth] = spr;
+      };
+      for (const depth of ['behind', 'trailBehind']) for (const h of HANDS) wsprite(h, depth);
       for (const { slot } of def.slots) {
+        if (slot === 'arms') for (const h of HANDS) wsprite(h, 'front');
         const spr = this.add.sprite(0, 0, `idle|body`, 0).setOrigin(0.5, 63 / 64);
         this.doll.add(spr); this.layers[slot] = spr;
       }
+      for (const depth of ['top', 'trail']) for (const h of HANDS) wsprite(h, depth);
       this.hitG = this.add.graphics().setDepth(10000);
 
-      this.outfit = 'gi'; this.hair = 0; this.eyes = 0; this.showHits = false;
+      this.outfit = 'gi'; this.hair = 0; this.eyes = 0; this.showHits = false; this.mode = 0;
       this.facing = 'S';
       this.pos = { x: 120, y: 110 };
       this.state = { kind: 'idle', anim: 'idle', frame: 0, t: 0 };
@@ -63,7 +89,7 @@
       this.keys = kb.addKeys('W,A,S,D,UP,DOWN,LEFT,RIGHT,SHIFT');
       // discrete actions are queued from key events so a tap shorter than one frame is never lost
       this.pressQueue = [];
-      const onKey = { J: 'light', K: 'heavy', H: 'hitboxes', T: 'target', ONE: 'outfit0', TWO: 'outfit1', THREE: 'outfit2', FOUR: 'outfit3', FIVE: 'hair', SIX: 'eyes' };
+      const onKey = { J: 'light', K: 'heavy', H: 'hitboxes', T: 'target', Q: 'weapon', ONE: 'outfit0', TWO: 'outfit1', THREE: 'outfit2', FOUR: 'outfit3', FIVE: 'hair', SIX: 'eyes' };
       for (const [key, action] of Object.entries(onKey)) kb.on(`keydown-${key}`, (e) => { if (!e.repeat) this.pressQueue.push(action); });
       // walk and sprint speeds come from the sheets' root motion so the planted foot stays planted
       this.speed = {};
@@ -108,6 +134,16 @@
         spr.setVisible(true).setTexture(`${anim}|${layer}`, idx);
       }
       this.layers.shadow.setFrame(def.referenceFrameOrder.indexOf(this.facing));
+      // weapons: the mode's item per hand, from the state's weapon sheets (none in unarmed states)
+      const mode = MODES[this.mode], W = def.states[anim].weapons;
+      for (const h of HANDS) {
+        const it = mode.items?.[h] && W ? W.items.find((x) => x.slot === h && x.item === mode.items[h]) : null;
+        for (const depth of WDEPTHS) {
+          const spr = this.wsprites[h][depth];
+          if (it && it.layers[depth]) spr.setVisible(true).setTexture(`${anim}|w|${h}|${it.item}|${depth}`, idx);
+          else spr.setVisible(false);
+        }
+      }
       this.doll.setPosition(Math.round(this.pos.x), Math.round(this.pos.y)).setDepth(this.pos.y);
     }
 
@@ -128,10 +164,11 @@
       this.facing = Math.abs(dx) >= Math.abs(dy) ? (dx > 0 ? 'E' : 'W') : (dy > 0 ? 'S' : 'N');
     }
 
-    startClip(key) {
+    // startAt: a clip entered from another clip's hold may start later (its entry rule, e.g. at the smear frame)
+    startClip(key, path = '', startAt = null) {
       this.faceTarget();
-      const c = this.clipDef(key);
-      this.state = { kind: 'attack', anim: c.state, clipKey: key, clip: c, i: 0, frame: c.frames[0], t: 0 };
+      const c = this.clipDef(key), i = startAt !== null && c.frames.includes(startAt) ? c.frames.indexOf(startAt) : 0;
+      this.state = { kind: 'attack', anim: c.state, clipKey: key, clip: c, i, frame: c.frames[i], t: 0, path };
       this.buffered = null;
       this.applyRootMotion();
       this.checkHit();
@@ -205,8 +242,25 @@
       this.lastHit = `${e.move} → post ${pick.p.id}${pick.p === this.target ? ' (target)' : ''}`;
     }
 
+    // weapon combos: transitions keyed by the combo path (presses so far, L light / H heavy)
+    weaponCombo() { const m = MODES[this.mode]; return m.combo ? this.def.combo.weapons[m.combo] : null; }
+
+    nextClip(s, input) {
+      const wc = this.weaponCombo();
+      if (!wc) return { key: (this.def.combo.transitions[s.clipKey] || {})[input] || null };
+      const key = (wc.paths[s.path] || {})[input] || null;
+      if (!key) return { key: null };
+      const entry = this.clipDef(key).entry?.[s.clip.clip];
+      return { key, path: s.path + (input === 'light' ? 'L' : 'H'), startAt: entry && entry.atFrames.includes(s.frame) ? entry.start : null };
+    }
+
     press(input) {
-      const s = this.state, tr = this.def.combo.transitions;
+      const s = this.state, tr = this.def.combo.transitions, wc = this.weaponCombo();
+      if (s.kind !== 'attack' && wc) {
+        const key = (wc.paths[''] || {})[input];
+        if (key) this.startClip(key, input === 'light' ? 'L' : 'H');
+        return;
+      }
       if (s.kind !== 'attack') {
         const from = s.kind === 'guard' ? (tr.guard || tr.neutral) : tr.neutral;
         if (from[input]) this.startClip(from[input]);
@@ -224,6 +278,12 @@
         else if (action === 'target') this.cycleTarget();
         else if (action === 'hair') this.hair = (this.hair + 1) % HAIRS.length;
         else if (action === 'eyes') this.eyes = (this.eyes + 1) % EYES.length;
+        else if (action === 'weapon') {
+          // a mode change waits for rest (an attack in progress finishes with its own weapon)
+          if (this.state.kind === 'attack') continue;
+          this.mode = (this.mode + 1) % MODES.length;
+          if (this.state.kind === 'guard') { const st = MODES[this.mode].stance || 'guard'; this.state = { kind: 'guard', anim: st, frame: 0, t: 0 }; }
+        }
         else this.outfit = OUTFIT_KEYS[Number(action.slice(6))];
       }
 
@@ -234,12 +294,13 @@
         while (s.t >= step && this.state === s) {
           s.t -= step;
           const win = s.clip.chainWindow, next = this.buffered && win && s.frame >= win[0] && s.frame <= win[1]
-            ? (this.def.combo.transitions[s.clipKey] || {})[this.buffered] : null;
-          if (next) { this.startClip(next); break; }
+            ? this.nextClip(s, this.buffered) : null;
+          if (next && next.key) { this.startClip(next.key, next.path, next.startAt); break; }
           if (this.buffered && win && s.frame >= win[0] && s.frame <= win[1]) this.buffered = null;   // invalid press: dropped
           s.i += 1;
           if (s.i >= s.clip.frames.length) {
-            this.state = { kind: 'guard', anim: 'guard', frame: 0, t: 0 };
+            const stance = MODES[this.mode].stance || 'guard';
+            this.state = { kind: 'guard', anim: stance, frame: 0, t: 0 };
             this.guardTimer = GUARD_TIMEOUT;
             break;
           }
@@ -258,8 +319,8 @@
           if (s.anim !== anim) { this.state = { kind: anim, anim, frame: 0, t: 0 }; }
         } else {
           this.guardTimer = Math.max(0, this.guardTimer - dt);
-          const rest = this.guardTimer > 0 ? 'guard' : 'idle';
-          if (s.anim !== rest) this.state = { kind: rest, anim: rest, frame: 0, t: 0 };
+          const rest = this.guardTimer > 0 ? (MODES[this.mode].stance || 'guard') : 'idle';
+          if (s.anim !== rest) this.state = { kind: this.guardTimer > 0 ? 'guard' : 'idle', anim: rest, frame: 0, t: 0 };
         }
         const st = this.state, sd = this.def.states[st.anim];
         st.t += dt;
@@ -285,6 +346,8 @@
       const s = this.state, rows = [
         ['state', s.kind === 'attack' ? `${s.clipKey} (frame ${s.frame})` : s.anim],
         ['facing', this.facing],
+        ['weapon', MODES[this.mode].label],
+        ['combo path', s.kind === 'attack' && s.path ? s.path.split('').join(' ') : '—'],
         ['outfit', this.outfit],
         ['buffered', this.buffered || '—'],
         ['guard timer', this.guardTimer.toFixed(1) + ' s'],

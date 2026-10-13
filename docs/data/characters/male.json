@@ -5943,7 +5943,7 @@
       "A clip that finishes with no valid press in its window returns to the guard idle (guard.json) and ends the combo.",
       "A press during a clip's active frame or later is buffered and taken at its chain window.",
       "Every clip starts and ends in the orthodox guard, so any allowed clip can follow another without a transition frame.",
-      "After any attack the character holds the guard idle (hands up, slight bob) while in combat; with no attack for a few seconds it returns to the normal idle. A press from the guard idle starts a combo like a press from neutral."
+      "After any attack the character holds the guard idle (hands up, slight bob) while in combat; with no attack for 15 seconds (user 2026-10-13) it returns to the normal idle; with a weapon the weapon's stance takes the guard's place. A press from the guard idle starts a combo like a press from neutral."
     ],
     "hitArea": {
       "rule": "set by the user 2026-10-12: every attack's hit area is an arc on the ground plane in front of the character, so targets that are not exactly aligned still connect",
