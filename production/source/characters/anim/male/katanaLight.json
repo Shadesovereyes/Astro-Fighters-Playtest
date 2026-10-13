@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Katana light chain (two-handed), user 2026-10-13: two vertical slashes. Clip downCut = 12 to 6: the blade starts straight up over the head, sweeps forward through 3 o'clock (active) and ends pointing straight down. Clip upCut = 6 to 12: the blade starts pointing straight down, sweeps forward and up through 3 o'clock (active) and ends straight up over the head. Every clip starts and ends in the two-handed stance.",
+  "intent": "Katana light chain (two-handed), user 2026-10-13: two vertical slashes, each one continuous swing. downCut = 12 to 6: wind-up with the blade straight up, then one smear frame with the blade arriving at 6 and a single crescent over the whole arc 12-3-6 (active), hold at 6, return to the stance. upCut = 6 to 12: wind-up with the blade straight down, then one smear frame with the blade arriving at 12 and a single crescent over the whole arc 6-3-12 (active), hold at 12, return to the stance. Chained from the hold at 6, the upCut enters at its smear frame, so 12-6-12 plays as one continuous pair.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -459,10 +459,10 @@
       },
       {
         "construction": "band",
-        "angle": -72.2,
+        "angle": -36.8,
         "elbow": {
           "at": 8,
-          "angle": -76.3
+          "angle": -40
         },
         "fistKind": "forward"
       },
@@ -495,10 +495,10 @@
       },
       {
         "construction": "band",
-        "angle": -68.5,
+        "angle": -120,
         "elbow": {
           "at": 8,
-          "angle": -72.5
+          "angle": -179.3
         },
         "fistKind": "forward"
       },
@@ -533,10 +533,10 @@
       },
       {
         "construction": "band",
-        "angle": -34.9,
+        "angle": -45.3,
         "elbow": {
           "at": 8,
-          "angle": -115.3
+          "angle": -49
         },
         "fistKind": "forward"
       },
@@ -569,10 +569,10 @@
       },
       {
         "construction": "band",
-        "angle": -31.6,
+        "angle": -90.6,
         "elbow": {
           "at": 8,
-          "angle": -97.5
+          "angle": 170.4
         },
         "fistKind": "forward"
       },
@@ -884,7 +884,7 @@
     "looseRule": "from row 40 down, cloth specks of 1-2 px cut off from the garment and outline pixels that no longer border any cloth are removed (they are left between the legs where a direction's own clothing frame does not register exactly with its source's motion)"
   },
   "clips": {
-    "rule": "runtime playback: frames are sheet columns; each clip starts and ends in the two-handed stance (next: twoHandGuard) unless a press in its chain window continues the combo",
+    "rule": "runtime playback: frames are sheet columns; each clip starts and ends in the two-handed stance (next: twoHandGuard) unless a press in its chain window continues the combo. entry: a clip entered from the named clip while it shows one of atFrames starts at start instead of its first frame (the upCut skips its wind-up when chained from the downCut's hold at 6, so the two swings flow into each other)",
     "downCut": {
       "frames": [
         0,
@@ -911,7 +911,15 @@
       "chainWindow": [
         6,
         7
-      ]
+      ],
+      "entry": {
+        "downCut": {
+          "atFrames": [
+            2
+          ],
+          "start": 5
+        }
+      }
     }
   },
   "weapons": [
@@ -935,14 +943,20 @@
         },
         {
           "grip": [
-            47,
-            28
+            43,
+            37
           ],
-          "angle": 0,
+          "angle": -88,
           "z": "front",
           "trail": {
             "from": 95,
-            "width": 7
+            "to": -88,
+            "center": [
+              42,
+              25
+            ],
+            "radius": 31,
+            "width": 8
           }
         },
         {
@@ -951,11 +965,7 @@
             37
           ],
           "angle": -88,
-          "z": "front",
-          "trail": {
-            "from": 0,
-            "width": 5
-          }
+          "z": "front"
         },
         {
           "grip": [
@@ -975,14 +985,23 @@
         },
         {
           "grip": [
-            47,
-            29
+            41,
+            15
           ],
-          "angle": 15,
-          "z": "front",
+          "angle": 90,
+          "z": {
+            "hilt": "front",
+            "blade": "behind"
+          },
           "trail": {
             "from": -92,
-            "width": 7
+            "to": 90,
+            "center": [
+              42,
+              25
+            ],
+            "radius": 31,
+            "width": 8
           }
         },
         {
@@ -994,10 +1013,6 @@
           "z": {
             "hilt": "front",
             "blade": "behind"
-          },
-          "trail": {
-            "from": 15,
-            "width": 5
           }
         },
         {
@@ -1032,9 +1047,9 @@
         "move": "downward slash",
         "hitbox": [
           40,
-          6,
+          0,
           24,
-          42
+          56
         ],
         "damage": "light"
       },
@@ -1062,9 +1077,9 @@
         "move": "upward slash",
         "hitbox": [
           40,
-          6,
+          0,
           24,
-          42
+          56
         ],
         "damage": "light+"
       },
@@ -1083,7 +1098,7 @@
     ]
   },
   "keyPoses": {
-    "intent": "Katana light chain (two-handed), user 2026-10-13: two vertical slashes. Clip downCut = 12 to 6: the blade starts straight up over the head, sweeps forward through 3 o'clock (active) and ends pointing straight down. Clip upCut = 6 to 12: the blade starts pointing straight down, sweeps forward and up through 3 o'clock (active) and ends straight up over the head. Every clip starts and ends in the two-handed stance.",
+    "intent": "Katana light chain (two-handed), user 2026-10-13: two vertical slashes, each one continuous swing. downCut = 12 to 6: wind-up with the blade straight up, then one smear frame with the blade arriving at 6 and a single crescent over the whole arc 12-3-6 (active), hold at 6, return to the stance. upCut = 6 to 12: wind-up with the blade straight down, then one smear frame with the blade arriving at 12 and a single crescent over the whole arc 6-3-12 (active), hold at 12, return to the stance. Chained from the hold at 6, the upCut enters at its smear frame, so 12-6-12 plays as one continuous pair.",
     "frames": [
       {
         "name": "12-6 wind-up (blade at 12)",
@@ -1098,28 +1113,30 @@
         }
       },
       {
-        "name": "12-6 cut (blade through 3)",
+        "name": "12-6 swing (blade arrives at 6, smear 12-3-6)",
         "hand": [
-          46,
-          27
-        ],
-        "angle": 0,
-        "trail": {
-          "from": 95,
-          "width": 7
-        }
-      },
-      {
-        "name": "12-6 follow-through (blade at 6)",
-        "hand": [
-          43,
+          44,
           38
         ],
         "angle": -88,
         "trail": {
-          "from": 0,
-          "width": 5
+          "from": 95,
+          "to": -88,
+          "center": [
+            42,
+            25
+          ],
+          "radius": 31,
+          "width": 8
         }
+      },
+      {
+        "name": "12-6 hold at 6",
+        "hand": [
+          43,
+          38
+        ],
+        "angle": -88
       },
       {
         "name": "12-6 return",
@@ -1138,19 +1155,29 @@
         "angle": -92
       },
       {
-        "name": "6-12 cut (blade through 3)",
+        "name": "6-12 swing (blade arrives at 12, smear 6-3-12)",
         "hand": [
-          46,
-          28
+          39,
+          13
         ],
-        "angle": 15,
+        "angle": 90,
+        "z": {
+          "hilt": "front",
+          "blade": "behind"
+        },
         "trail": {
           "from": -92,
-          "width": 7
+          "to": 90,
+          "center": [
+            42,
+            25
+          ],
+          "radius": 31,
+          "width": 8
         }
       },
       {
-        "name": "6-12 follow-through (blade at 12)",
+        "name": "6-12 hold at 12",
         "hand": [
           39,
           14
@@ -1159,10 +1186,6 @@
         "z": {
           "hilt": "front",
           "blade": "behind"
-        },
-        "trail": {
-          "from": 15,
-          "width": 5
         }
       },
       {
@@ -1175,7 +1198,7 @@
       }
     ],
     "clips": {
-      "rule": "runtime playback: frames are sheet columns; each clip starts and ends in the two-handed stance (next: twoHandGuard) unless a press in its chain window continues the combo",
+      "rule": "runtime playback: frames are sheet columns; each clip starts and ends in the two-handed stance (next: twoHandGuard) unless a press in its chain window continues the combo. entry: a clip entered from the named clip while it shows one of atFrames starts at start instead of its first frame (the upCut skips its wind-up when chained from the downCut's hold at 6, so the two swings flow into each other)",
       "downCut": {
         "frames": [
           0,
@@ -1202,7 +1225,15 @@
         "chainWindow": [
           6,
           7
-        ]
+        ],
+        "entry": {
+          "downCut": {
+            "atFrames": [
+              2
+            ],
+            "start": 5
+          }
+        }
       }
     },
     "events": {
@@ -1220,9 +1251,9 @@
           "move": "downward slash",
           "hitbox": [
             40,
-            6,
+            0,
             24,
-            42
+            56
           ],
           "damage": "light"
         },
@@ -1250,9 +1281,9 @@
           "move": "upward slash",
           "hitbox": [
             40,
-            6,
+            0,
             24,
-            42
+            56
           ],
           "damage": "light+"
         },

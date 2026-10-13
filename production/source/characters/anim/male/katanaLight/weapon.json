@@ -42,7 +42,10 @@
           "front",
           "front",
           "front",
-          "front",
+          {
+            "hilt": "front",
+            "blade": "behind"
+          },
           {
             "hilt": "front",
             "blade": "behind"
@@ -58,7 +61,10 @@
           "front",
           "front",
           "front",
-          "front",
+          {
+            "hilt": "front",
+            "blade": "behind"
+          },
           {
             "hilt": "front",
             "blade": "behind"
@@ -73,8 +79,8 @@
             15
           ],
           [
-            47,
-            28
+            43,
+            37
           ],
           [
             43,
@@ -89,8 +95,8 @@
             37
           ],
           [
-            47,
-            29
+            41,
+            15
           ],
           [
             41,
@@ -107,8 +113,8 @@
             15
           ],
           [
-            16,
-            28
+            20,
+            37
           ],
           [
             20,
@@ -123,8 +129,8 @@
             37
           ],
           [
-            16,
-            29
+            22,
+            15
           ],
           [
             22,

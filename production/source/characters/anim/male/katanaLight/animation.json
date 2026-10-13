@@ -115,7 +115,7 @@
     ]
   },
   "clips": {
-    "rule": "runtime playback: frames are sheet columns; each clip starts and ends in the two-handed stance (next: twoHandGuard) unless a press in its chain window continues the combo",
+    "rule": "runtime playback: frames are sheet columns; each clip starts and ends in the two-handed stance (next: twoHandGuard) unless a press in its chain window continues the combo. entry: a clip entered from the named clip while it shows one of atFrames starts at start instead of its first frame (the upCut skips its wind-up when chained from the downCut's hold at 6, so the two swings flow into each other)",
     "downCut": {
       "frames": [
         0,
@@ -142,7 +142,15 @@
       "chainWindow": [
         6,
         7
-      ]
+      ],
+      "entry": {
+        "downCut": {
+          "atFrames": [
+            2
+          ],
+          "start": 5
+        }
+      }
     }
   },
   "events": {
@@ -160,9 +168,9 @@
         "move": "downward slash",
         "hitbox": [
           40,
-          6,
+          0,
           24,
-          42
+          56
         ],
         "damage": "light"
       },
@@ -190,9 +198,9 @@
         "move": "upward slash",
         "hitbox": [
           40,
-          6,
+          0,
           24,
-          42
+          56
         ],
         "damage": "light+"
       },
@@ -247,7 +255,7 @@
         8,
         6,
         11,
-        6,
+        4,
         6,
         6
       ],
