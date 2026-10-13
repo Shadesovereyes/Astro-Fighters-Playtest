@@ -1329,7 +1329,7 @@
                 "k": 0.5,
                 "center": [
                   35.31,
-                  29.0
+                  29
                 ],
                 "width": 6
               }
@@ -1349,7 +1349,7 @@
                 "R": 18,
                 "k": 0.5,
                 "center": [
-                  30.94,
+                  28.94,
                   29.23
                 ],
                 "width": 6
@@ -1373,7 +1373,7 @@
                 "k": 0.5,
                 "center": [
                   28.69,
-                  32.0
+                  32
                 ],
                 "width": 6,
                 "z": "behind"
@@ -1381,7 +1381,9 @@
             },
             null,
             null,
-            null,
+            {
+              "scale": 0.574
+            },
             null,
             null,
             {
@@ -1392,7 +1394,7 @@
                 "R": 18,
                 "k": 0.5,
                 "center": [
-                  33.06,
+                  35.06,
                   31.77
                 ],
                 "width": 6,
@@ -1401,7 +1403,9 @@
             },
             null,
             null,
-            null
+            {
+              "scale": 0.574
+            }
           ]
         }
       },
@@ -1452,7 +1456,7 @@
             "k": 0.5,
             "center": [
               35.31,
-              29.0
+              29
             ],
             "width": 6
           }
@@ -1523,7 +1527,7 @@
         },
         {
           "grip": [
-            25,
+            23,
             30
           ],
           "angle": -166.9,
@@ -1540,7 +1544,7 @@
             "R": 25,
             "k": 0.5,
             "center": [
-              30.94,
+              28.94,
               29.23
             ],
             "width": 6
@@ -1548,7 +1552,7 @@
         },
         {
           "grip": [
-            25,
+            23,
             30
           ],
           "angle": -175,
@@ -1561,7 +1565,7 @@
         },
         {
           "grip": [
-            28,
+            25,
             32
           ],
           "angle": -144.5,
@@ -1632,7 +1636,7 @@
             "k": 0.5,
             "center": [
               28.69,
-              32.0
+              32
             ],
             "width": 6,
             "z": "behind"
@@ -1666,13 +1670,14 @@
         },
         {
           "grip": [
-            40,
-            38
+            38,
+            35
           ],
-          "angle": 60,
-          "scale": 0.5,
+          "angle": 90,
+          "scale": 0.174,
           "z": "behind",
-          "hidden": true
+          "hidden": true,
+          "stanceHand": true
         },
         {
           "grip": [
@@ -1702,7 +1707,7 @@
         },
         {
           "grip": [
-            38,
+            40,
             30
           ],
           "angle": 13.1,
@@ -1719,7 +1724,7 @@
             "R": 25,
             "k": 0.5,
             "center": [
-              33.06,
+              35.06,
               31.77
             ],
             "width": 6,
@@ -1728,7 +1733,7 @@
         },
         {
           "grip": [
-            38,
+            40,
             30
           ],
           "angle": 5,
@@ -1741,7 +1746,7 @@
         },
         {
           "grip": [
-            35,
+            38,
             32
           ],
           "angle": 35.5,
@@ -1754,13 +1759,14 @@
         },
         {
           "grip": [
-            40,
-            38
+            38,
+            35
           ],
-          "angle": 60,
-          "scale": 0.5,
+          "angle": 90,
+          "scale": 0.174,
           "z": "behind",
-          "hidden": true
+          "hidden": true,
+          "stanceHand": true
         }
       ],
       "projectionRule": "S and N match E by projection lines: the horizontal swings (psi) are re-projected per view from the same swing angles (S: forward toward the viewer = down, the character's left = the viewer's right; N: the reverse), the fist keeps its E row and moves across the body with the swing, and the elliptical smear is re-projected with them (blade length + margin per item); in N the hand is hidden in front of the body; stance frames keep the stance's S/N pose N: the grip sits in the N fist (the S fist seen from behind: same row, x mirrored); the blade takes the swing angle projected for N (pointing back toward the viewer it runs down the screen over the body, pointing forward it runs up behind it); the smear follows the N projection and is drawn behind the body; stance frames keep the stance's S/N pose"
@@ -2341,9 +2347,9 @@
               0,
               -74.8,
               -74.8,
-              -15.2,
-              -15.2,
-              -17.8,
+              15.2,
+              15.2,
+              0.3,
               0
             ],
             "elbow": [
@@ -2378,15 +2384,15 @@
               },
               {
                 "at": 7,
-                "angle": -21.6
+                "angle": 21.6
               },
               {
                 "at": 7,
-                "angle": -21.6
+                "angle": 21.6
               },
               {
                 "at": 7,
-                "angle": -23.3
+                "angle": 14
               },
               null
             ],
@@ -2401,7 +2407,7 @@
               0.95,
               0.45,
               0.45,
-              0.61,
+              0.58,
               0.62
             ],
             "fist": [
@@ -2783,13 +2789,13 @@
               66.8,
               66.8,
               59.5,
-              -8,
+              0,
               74.8,
               74.8,
-              15.2,
-              15.2,
-              17.8,
-              -8
+              -15.2,
+              -15.2,
+              -0.3,
+              0
             ],
             "elbow": [
               {
@@ -2823,15 +2829,15 @@
               },
               {
                 "at": 7,
-                "angle": 21.6
+                "angle": -21.6
               },
               {
                 "at": 7,
-                "angle": 21.6
+                "angle": -21.6
               },
               {
                 "at": 7,
-                "angle": 23.3
+                "angle": -14
               },
               null
             ],
@@ -2841,13 +2847,13 @@
               0.99,
               0.99,
               1,
-              1,
+              0.62,
               0.95,
               0.95,
               0.45,
               0.45,
-              0.61,
-              1
+              0.58,
+              0.62
             ],
             "fist": [
               "front",
@@ -2855,13 +2861,13 @@
               "front",
               "front",
               "front",
-              "up",
               "front",
               "front",
               "front",
               "front",
               "front",
-              "up"
+              "front",
+              "front"
             ],
             "z": [
               -1,
@@ -2883,13 +2889,13 @@
               null,
               null,
               null,
-              7,
               null,
               null,
               null,
               null,
               null,
-              7
+              null,
+              null
             ],
             "pivotDx": [
               -1,
@@ -2897,13 +2903,13 @@
               -1,
               -1,
               -1,
-              0,
               -1,
               -1,
               -1,
               -1,
               -1,
-              0
+              -1,
+              -1
             ]
           },
           "L": {
