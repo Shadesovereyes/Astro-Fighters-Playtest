@@ -179,6 +179,48 @@
         }
       ],
       "notes": "A clip that follows another without an entry rule plays its own wind-up, so the hand-offs up-cut -> forehand, forehand -> up-cut and up-cut -> backhand jump between poses; transition frames or connecting variants can smooth them later."
+    },
+    "oneHanded": {
+      "status": "light chain approved by the user 2026-10-13 (three stabs); heavy not designed yet",
+      "stance": "oneHandGuard",
+      "weapon": "wakizashi (default) or tanto",
+      "inputs": {
+        "light": "light attack key/button: three stabs (oneHandLight)",
+        "heavy": "not designed yet (no clip)"
+      },
+      "rules": [
+        "Same input rules as the two-handed combos: one press per clip in rhythm inside the playing clip's chain window; every clip starts and ends in the one-handed stance (oneHandGuard); each stab plays from its own chamber; stab3 ends the chain (finisher)."
+      ],
+      "clips": {
+        "stab1": "oneHandLight/stab1",
+        "stab2": "oneHandLight/stab2",
+        "stab3": "oneHandLight/stab3"
+      },
+      "paths": {
+        "rule": "path -> { light, heavy }: the clip a press plays from that point of the combo (null: the press does nothing)",
+        "": {
+          "light": "oneHandLight/stab1",
+          "heavy": null
+        },
+        "L": {
+          "light": "oneHandLight/stab2",
+          "heavy": null
+        },
+        "LL": {
+          "light": "oneHandLight/stab3",
+          "heavy": null
+        }
+      },
+      "combos": [
+        {
+          "inputs": "L L L",
+          "clips": [
+            "oneHandLight/stab1",
+            "oneHandLight/stab2",
+            "oneHandLight/stab3"
+          ]
+        }
+      ]
     }
   }
 }

@@ -3231,6 +3231,596 @@
           }
         ]
       }
+    },
+    "oneHandLight": {
+      "frames": 12,
+      "fps": 12,
+      "rows": [
+        "S",
+        "E",
+        "N",
+        "W"
+      ],
+      "status": "approved by user 2026-10-13 (S, E, N, W; W mirrors E)",
+      "rootMotion": {
+        "S": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "E": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "N": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "W": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "layers": {
+        "body": "assets/characters/male/oneHandLight/body.png",
+        "arms": "assets/characters/male/oneHandLight/arms.png",
+        "long-hair": "assets/characters/male/oneHandLight/long-hair.png",
+        "fade-hair": "assets/characters/male/oneHandLight/fade-hair.png",
+        "afro-hair": "assets/characters/male/oneHandLight/afro-hair.png",
+        "brown-eyes": "assets/characters/male/oneHandLight/brown-eyes.png",
+        "purple-eyes": "assets/characters/male/oneHandLight/purple-eyes.png",
+        "male-gi": "assets/characters/male/oneHandLight/male-gi.png",
+        "male-blue-armor": "assets/characters/male/oneHandLight/male-blue-armor.png",
+        "male-red-armor": "assets/characters/male/oneHandLight/male-red-armor.png",
+        "blue-armor-shoulders": "assets/characters/male/oneHandLight/blue-armor-shoulders.png",
+        "red-armor-shoulders": "assets/characters/male/oneHandLight/red-armor-shoulders.png"
+      },
+      "weapons": {
+        "frameSize": [
+          128,
+          128
+        ],
+        "origin": [
+          32,
+          32
+        ],
+        "pivot": [
+          64,
+          95
+        ],
+        "depthRule": "each weapon is split into depth slots, one sheet each: behind = under the body; front = over body and clothing, under the arms (the fists close over the hilt); top = over every character layer (a blade pointing at the viewer, a hand in front of the head). z per frame is one slot or { hilt, blade } split at the grip",
+        "items": [
+          {
+            "slot": "main",
+            "item": "wakizashi",
+            "default": true,
+            "hand": "arms",
+            "layers": {
+              "behind": "assets/characters/male/oneHandLight/main-wakizashi-behind.png",
+              "front": "assets/characters/male/oneHandLight/main-wakizashi-front.png",
+              "top": "assets/characters/male/oneHandLight/main-wakizashi-top.png",
+              "trail": "assets/characters/male/oneHandLight/main-wakizashi-trail.png"
+            },
+            "z": {
+              "S": [
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                }
+              ],
+              "E": [
+                "front",
+                "front",
+                "front",
+                "front",
+                "front",
+                "front",
+                "front",
+                "front",
+                "front",
+                "front",
+                "front",
+                "front"
+              ],
+              "N": [
+                "behind",
+                "behind",
+                "behind",
+                "behind",
+                "behind",
+                "behind",
+                "behind",
+                "behind",
+                "behind",
+                "behind",
+                "behind",
+                "behind"
+              ],
+              "W": [
+                "front",
+                "front",
+                "front",
+                "front",
+                "front",
+                "front",
+                "front",
+                "front",
+                "front",
+                "front",
+                "front",
+                "front"
+              ]
+            }
+          },
+          {
+            "slot": "main",
+            "item": "tanto",
+            "default": false,
+            "hand": "arms",
+            "layers": {
+              "behind": "assets/characters/male/oneHandLight/main-tanto-behind.png",
+              "front": "assets/characters/male/oneHandLight/main-tanto-front.png",
+              "top": "assets/characters/male/oneHandLight/main-tanto-top.png",
+              "trail": "assets/characters/male/oneHandLight/main-tanto-trail.png"
+            },
+            "z": {
+              "S": [
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                }
+              ],
+              "E": [
+                "front",
+                "front",
+                "front",
+                "front",
+                "front",
+                "front",
+                "front",
+                "front",
+                "front",
+                "front",
+                "front",
+                "front"
+              ],
+              "N": [
+                "behind",
+                "behind",
+                "behind",
+                "behind",
+                "behind",
+                "behind",
+                "behind",
+                "behind",
+                "behind",
+                "behind",
+                "behind",
+                "behind"
+              ],
+              "W": [
+                "front",
+                "front",
+                "front",
+                "front",
+                "front",
+                "front",
+                "front",
+                "front",
+                "front",
+                "front",
+                "front",
+                "front"
+              ]
+            }
+          }
+        ]
+      },
+      "clips": {
+        "rule": "one press per stab in rhythm (chain window = hold and return frames); next: oneHandGuard; a stab chained from the previous stab's hold starts at its own chamber",
+        "stab1": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 12,
+          "next": "oneHandGuard",
+          "chainWindow": [
+            2,
+            3
+          ]
+        },
+        "stab2": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 12,
+          "next": "oneHandGuard",
+          "chainWindow": [
+            6,
+            7
+          ]
+        },
+        "stab3": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 12,
+          "next": "oneHandGuard"
+        }
+      },
+      "events": {
+        "rule": "per-frame gameplay data in the E frame (W mirrors x -> 64 - x - w): hitbox [x, y, w, h] gives the height band (combo.json hitArea arc), damage event",
+        "E": [
+          {
+            "frame": 0,
+            "clip": "stab1",
+            "type": "startup"
+          },
+          {
+            "frame": 1,
+            "clip": "stab1",
+            "type": "active",
+            "move": "chest stab",
+            "hitbox": [
+              44,
+              22,
+              16,
+              12
+            ],
+            "damage": "light"
+          },
+          {
+            "frame": 2,
+            "clip": "stab1",
+            "type": "recovery",
+            "chainWindow": true
+          },
+          {
+            "frame": 3,
+            "clip": "stab1",
+            "type": "recovery",
+            "chainWindow": true
+          },
+          {
+            "frame": 4,
+            "clip": "stab2",
+            "type": "startup"
+          },
+          {
+            "frame": 5,
+            "clip": "stab2",
+            "type": "active",
+            "move": "high stab",
+            "hitbox": [
+              44,
+              12,
+              16,
+              12
+            ],
+            "damage": "light"
+          },
+          {
+            "frame": 6,
+            "clip": "stab2",
+            "type": "recovery",
+            "chainWindow": true
+          },
+          {
+            "frame": 7,
+            "clip": "stab2",
+            "type": "recovery",
+            "chainWindow": true
+          },
+          {
+            "frame": 8,
+            "clip": "stab3",
+            "type": "startup"
+          },
+          {
+            "frame": 9,
+            "clip": "stab3",
+            "type": "active",
+            "move": "rising gut stab (finisher)",
+            "hitbox": [
+              44,
+              22,
+              16,
+              14
+            ],
+            "damage": "light+"
+          },
+          {
+            "frame": 10,
+            "clip": "stab3",
+            "type": "recovery"
+          },
+          {
+            "frame": 11,
+            "clip": "stab3",
+            "type": "recovery"
+          }
+        ]
+      }
     }
   },
   "combo": {
@@ -3414,6 +4004,48 @@
           }
         ],
         "notes": "A clip that follows another without an entry rule plays its own wind-up, so the hand-offs up-cut -> forehand, forehand -> up-cut and up-cut -> backhand jump between poses; transition frames or connecting variants can smooth them later."
+      },
+      "oneHanded": {
+        "status": "light chain approved by the user 2026-10-13 (three stabs); heavy not designed yet",
+        "stance": "oneHandGuard",
+        "weapon": "wakizashi (default) or tanto",
+        "inputs": {
+          "light": "light attack key/button: three stabs (oneHandLight)",
+          "heavy": "not designed yet (no clip)"
+        },
+        "rules": [
+          "Same input rules as the two-handed combos: one press per clip in rhythm inside the playing clip's chain window; every clip starts and ends in the one-handed stance (oneHandGuard); each stab plays from its own chamber; stab3 ends the chain (finisher)."
+        ],
+        "clips": {
+          "stab1": "oneHandLight/stab1",
+          "stab2": "oneHandLight/stab2",
+          "stab3": "oneHandLight/stab3"
+        },
+        "paths": {
+          "rule": "path -> { light, heavy }: the clip a press plays from that point of the combo (null: the press does nothing)",
+          "": {
+            "light": "oneHandLight/stab1",
+            "heavy": null
+          },
+          "L": {
+            "light": "oneHandLight/stab2",
+            "heavy": null
+          },
+          "LL": {
+            "light": "oneHandLight/stab3",
+            "heavy": null
+          }
+        },
+        "combos": [
+          {
+            "inputs": "L L L",
+            "clips": [
+              "oneHandLight/stab1",
+              "oneHandLight/stab2",
+              "oneHandLight/stab3"
+            ]
+          }
+        ]
       }
     }
   }
