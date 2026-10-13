@@ -162,7 +162,7 @@ function validateCanonical() {
   for (const retired of ['characterSourceCanvas', 'characterSourceBodyCenter', 'characterSourceFootContactY', 'characterRuntimeFrame', 'characterRuntimePivot']) {
     assert(!(retired in c), `Retired 480×640/48×64 character field ${retired} must not return.`);
   }
-  assert(same(c.characterAnimationFramesPerDirection, { idle: 8, walk: 8, ready: 2, guard: 4, sprint: 8, lightAttack: 8, heavyAttack: 16, oneHandDualGuard: 4, oneHandGuard: 4, twoHandGuard: 4, katanaLight: 8, katanaHeavy: 12, oneHandLight: 12, dualLight: 12 }), 'Animation counts drifted.');
+  assert(same(c.characterAnimationFramesPerDirection, { idle: 8, walk: 8, ready: 2, guard: 4, sprint: 8, lightAttack: 8, heavyAttack: 16, oneHandDualGuard: 4, oneHandGuard: 4, twoHandGuard: 4, katanaLight: 8, katanaHeavy: 12, oneHandLight: 12, dualLight: 12, oneHandHeavy: 12, dualHeavy: 12 }), 'Animation counts drifted.');
   assert(same(c.characterFacing?.directions, ['S', 'E', 'N', 'W']), 'Character facing must be four-direction: S, E, N, W.');
   for (const [key, out] of Object.entries(c.characterAnimationPlan?.outputs || {})) {
     const def = path.join(root, out.sheets || '', 'animation.json');

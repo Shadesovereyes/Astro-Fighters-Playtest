@@ -181,26 +181,29 @@
       "notes": "A clip that follows another without an entry rule plays its own wind-up, so the hand-offs up-cut -> forehand, forehand -> up-cut and up-cut -> backhand jump between poses; transition frames or connecting variants can smooth them later."
     },
     "oneHanded": {
-      "status": "light chain approved by the user 2026-10-13 (three stabs); heavy not designed yet",
+      "status": "light chain (three stabs) and heavy chain (two horizontal swipes) approved by the user 2026-10-13",
       "stance": "oneHandGuard",
       "weapon": "wakizashi (default) or tanto",
       "inputs": {
         "light": "light attack key/button: three stabs (oneHandLight)",
-        "heavy": "not designed yet (no clip)"
+        "heavy": "heavy attack key/button: two wide horizontal swipes (oneHandHeavy)"
       },
       "rules": [
-        "Same input rules as the two-handed combos: one press per clip in rhythm inside the playing clip's chain window; every clip starts and ends in the one-handed stance (oneHandGuard); each stab plays from its own chamber; stab3 ends the chain (finisher)."
+        "Same input rules as the two-handed combos: one press per clip in rhythm inside the playing clip's chain window; every clip starts and ends in the one-handed stance (oneHandGuard); each stab plays from its own chamber; stab3 ends the chain (finisher).",
+        "Heavy: H H plays the forehand then the backhand (finisher); the backhand chained from the forehand's hold starts at its smear frame. Mixed light/heavy combos are not defined yet (a press with no entry does nothing)."
       ],
       "clips": {
         "stab1": "oneHandLight/stab1",
         "stab2": "oneHandLight/stab2",
-        "stab3": "oneHandLight/stab3"
+        "stab3": "oneHandLight/stab3",
+        "swipeR": "oneHandHeavy/swipeR",
+        "swipeL": "oneHandHeavy/swipeL"
       },
       "paths": {
         "rule": "path -> { light, heavy }: the clip a press plays from that point of the combo (null: the press does nothing)",
         "": {
           "light": "oneHandLight/stab1",
-          "heavy": null
+          "heavy": "oneHandHeavy/swipeR"
         },
         "L": {
           "light": "oneHandLight/stab2",
@@ -209,6 +212,10 @@
         "LL": {
           "light": "oneHandLight/stab3",
           "heavy": null
+        },
+        "H": {
+          "light": null,
+          "heavy": "oneHandHeavy/swipeL"
         }
       },
       "combos": [
@@ -219,30 +226,40 @@
             "oneHandLight/stab2",
             "oneHandLight/stab3"
           ]
+        },
+        {
+          "inputs": "H H",
+          "clips": [
+            "oneHandHeavy/swipeR",
+            "oneHandHeavy/swipeL"
+          ]
         }
       ]
     },
     "dualWield": {
-      "status": "light chain approved by the user 2026-10-13; heavy in progress",
+      "status": "light chain and heavy chain approved by the user 2026-10-13",
       "stance": "oneHandDualGuard",
       "weapon": "tanto in each hand",
       "inputs": {
         "light": "light attack key/button: two main-hand stabs and an off-hand slash (dualLight)",
-        "heavy": "in progress"
+        "heavy": "heavy attack key/button: main-hand then off-hand horizontal swipe (dualHeavy)"
       },
       "rules": [
-        "Same input rules as the one-handed combos; every clip starts and ends in the dual-wield stance (oneHandDualGuard); stab2 chained from stab1's hold plays from its chamber; the offSlash chained from stab2's hold starts at its smear frame (the off hand is already raised); the offSlash ends the chain (finisher)."
+        "Same input rules as the one-handed combos; every clip starts and ends in the dual-wield stance (oneHandDualGuard); stab2 chained from stab1's hold plays from its chamber; the offSlash chained from stab2's hold starts at its smear frame (the off hand is already raised); the offSlash ends the chain (finisher).",
+        "Heavy: H H plays the main-hand swipe then the off-hand swipe (finisher); the off-hand swipe chained from the main swipe's hold starts at its coil frame. Mixed light/heavy combos are not defined yet."
       ],
       "clips": {
         "stab1": "dualLight/stab1",
         "stab2": "dualLight/stab2",
-        "offSlash": "dualLight/offSlash"
+        "offSlash": "dualLight/offSlash",
+        "mainSwipe": "dualHeavy/mainSwipe",
+        "offSwipe": "dualHeavy/offSwipe"
       },
       "paths": {
         "rule": "path -> { light, heavy }: the clip a press plays from that point of the combo (null: the press does nothing)",
         "": {
           "light": "dualLight/stab1",
-          "heavy": null
+          "heavy": "dualHeavy/mainSwipe"
         },
         "L": {
           "light": "dualLight/stab2",
@@ -251,6 +268,10 @@
         "LL": {
           "light": "dualLight/offSlash",
           "heavy": null
+        },
+        "H": {
+          "light": null,
+          "heavy": "dualHeavy/offSwipe"
         }
       },
       "combos": [
@@ -260,6 +281,13 @@
             "dualLight/stab1",
             "dualLight/stab2",
             "dualLight/offSlash"
+          ]
+        },
+        {
+          "inputs": "H H",
+          "clips": [
+            "dualHeavy/mainSwipe",
+            "dualHeavy/offSwipe"
           ]
         }
       ]

@@ -4420,6 +4420,1509 @@
           }
         ]
       }
+    },
+    "oneHandHeavy": {
+      "frames": 12,
+      "fps": 10,
+      "rows": [
+        "S",
+        "E",
+        "N",
+        "W"
+      ],
+      "status": "approved by user 2026-10-13 (S, E, N, W; W mirrors E)",
+      "rootMotion": {
+        "S": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "E": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "N": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "W": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "layers": {
+        "body": "assets/characters/male/oneHandHeavy/body.png",
+        "arms": "assets/characters/male/oneHandHeavy/arms.png",
+        "long-hair": "assets/characters/male/oneHandHeavy/long-hair.png",
+        "fade-hair": "assets/characters/male/oneHandHeavy/fade-hair.png",
+        "afro-hair": "assets/characters/male/oneHandHeavy/afro-hair.png",
+        "brown-eyes": "assets/characters/male/oneHandHeavy/brown-eyes.png",
+        "purple-eyes": "assets/characters/male/oneHandHeavy/purple-eyes.png",
+        "male-gi": "assets/characters/male/oneHandHeavy/male-gi.png",
+        "male-blue-armor": "assets/characters/male/oneHandHeavy/male-blue-armor.png",
+        "male-red-armor": "assets/characters/male/oneHandHeavy/male-red-armor.png",
+        "blue-armor-shoulders": "assets/characters/male/oneHandHeavy/blue-armor-shoulders.png",
+        "red-armor-shoulders": "assets/characters/male/oneHandHeavy/red-armor-shoulders.png"
+      },
+      "weapons": {
+        "frameSize": [
+          128,
+          128
+        ],
+        "origin": [
+          32,
+          32
+        ],
+        "pivot": [
+          64,
+          95
+        ],
+        "depthRule": "each weapon is split into depth slots, one sheet each: behind = under the body; front = over body and clothing, under the arms (the fists close over the hilt); top = over every character layer (a blade pointing at the viewer, a hand in front of the head). z per frame is one slot or { hilt, blade } split at the grip",
+        "items": [
+          {
+            "slot": "main",
+            "item": "wakizashi",
+            "default": true,
+            "hand": "arms",
+            "layers": {
+              "front": "assets/characters/male/oneHandHeavy/main-wakizashi-front.png",
+              "top": "assets/characters/male/oneHandHeavy/main-wakizashi-top.png",
+              "trail": "assets/characters/male/oneHandHeavy/main-wakizashi-trail.png",
+              "trailBehind": "assets/characters/male/oneHandHeavy/main-wakizashi-trail-behind.png"
+            },
+            "z": {
+              "S": [
+                {
+                  "hilt": "front",
+                  "blade": "aboveArm"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "aboveArm"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "aboveArm"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "aboveArm"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                }
+              ],
+              "E": [
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "aboveArm"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "aboveArm"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "aboveArm"
+                },
+                "front",
+                {
+                  "hilt": "front",
+                  "blade": "aboveArm"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "aboveArm"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                "front"
+              ],
+              "N": [
+                {
+                  "hilt": "aboveArm",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "aboveArm",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "aboveArm",
+                  "blade": "aboveArm"
+                },
+                {
+                  "hilt": "aboveArm",
+                  "blade": "aboveArm"
+                },
+                {
+                  "hilt": "aboveArm",
+                  "blade": "aboveArm"
+                },
+                {
+                  "hilt": "aboveArm",
+                  "blade": "aboveArm"
+                },
+                {
+                  "hilt": "aboveArm",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "aboveArm",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "aboveArm",
+                  "blade": "aboveArm"
+                },
+                {
+                  "hilt": "aboveArm",
+                  "blade": "aboveArm"
+                },
+                {
+                  "hilt": "aboveArm",
+                  "blade": "aboveArm"
+                },
+                {
+                  "hilt": "aboveArm",
+                  "blade": "aboveArm"
+                }
+              ],
+              "W": [
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "aboveArm"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "aboveArm"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "aboveArm"
+                },
+                "front",
+                {
+                  "hilt": "front",
+                  "blade": "aboveArm"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "aboveArm"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                "front"
+              ]
+            }
+          },
+          {
+            "slot": "main",
+            "item": "tanto",
+            "default": false,
+            "hand": "arms",
+            "layers": {
+              "front": "assets/characters/male/oneHandHeavy/main-tanto-front.png",
+              "top": "assets/characters/male/oneHandHeavy/main-tanto-top.png",
+              "trail": "assets/characters/male/oneHandHeavy/main-tanto-trail.png",
+              "trailBehind": "assets/characters/male/oneHandHeavy/main-tanto-trail-behind.png"
+            },
+            "z": {
+              "S": [
+                {
+                  "hilt": "front",
+                  "blade": "aboveArm"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "aboveArm"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "aboveArm"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "aboveArm"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                }
+              ],
+              "E": [
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "aboveArm"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "aboveArm"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "aboveArm"
+                },
+                "front",
+                {
+                  "hilt": "front",
+                  "blade": "aboveArm"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "aboveArm"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                "front"
+              ],
+              "N": [
+                {
+                  "hilt": "aboveArm",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "aboveArm",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "aboveArm",
+                  "blade": "aboveArm"
+                },
+                {
+                  "hilt": "aboveArm",
+                  "blade": "aboveArm"
+                },
+                {
+                  "hilt": "aboveArm",
+                  "blade": "aboveArm"
+                },
+                {
+                  "hilt": "aboveArm",
+                  "blade": "aboveArm"
+                },
+                {
+                  "hilt": "aboveArm",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "aboveArm",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "aboveArm",
+                  "blade": "aboveArm"
+                },
+                {
+                  "hilt": "aboveArm",
+                  "blade": "aboveArm"
+                },
+                {
+                  "hilt": "aboveArm",
+                  "blade": "aboveArm"
+                },
+                {
+                  "hilt": "aboveArm",
+                  "blade": "aboveArm"
+                }
+              ],
+              "W": [
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "aboveArm"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "aboveArm"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "aboveArm"
+                },
+                "front",
+                {
+                  "hilt": "front",
+                  "blade": "aboveArm"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "aboveArm"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                "front"
+              ]
+            }
+          }
+        ]
+      },
+      "clips": {
+        "rule": "runtime playback as the katana heavy chain; next: oneHandGuard; entry: the backhand enters at its smear frame from the forehand's hold",
+        "swipeR": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "fps": 10,
+          "next": "oneHandGuard",
+          "chainWindow": [
+            3,
+            4,
+            5
+          ]
+        },
+        "swipeL": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 10,
+          "next": "oneHandGuard",
+          "chainWindow": [
+            9,
+            10,
+            11
+          ],
+          "finisher": true,
+          "entry": {
+            "swipeR": {
+              "atFrames": [
+                3
+              ],
+              "start": 8
+            }
+          }
+        }
+      },
+      "events": {
+        "rule": "per-frame gameplay data in the E frame (W mirrors x -> 64 - x - w): hitbox [x, y, w, h] gives the height band (combo.json hitArea arc), damage event",
+        "E": [
+          {
+            "frame": 0,
+            "clip": "swipeR",
+            "type": "startup"
+          },
+          {
+            "frame": 1,
+            "clip": "swipeR",
+            "type": "startup"
+          },
+          {
+            "frame": 2,
+            "clip": "swipeR",
+            "type": "active",
+            "move": "heavy horizontal swipe (forehand)",
+            "hitbox": [
+              36,
+              18,
+              28,
+              20
+            ],
+            "damage": "heavy"
+          },
+          {
+            "frame": 3,
+            "clip": "swipeR",
+            "type": "recovery",
+            "chainWindow": true
+          },
+          {
+            "frame": 4,
+            "clip": "swipeR",
+            "type": "recovery",
+            "chainWindow": true
+          },
+          {
+            "frame": 5,
+            "clip": "swipeR",
+            "type": "recovery",
+            "chainWindow": true
+          },
+          {
+            "frame": 6,
+            "clip": "swipeL",
+            "type": "startup"
+          },
+          {
+            "frame": 7,
+            "clip": "swipeL",
+            "type": "startup"
+          },
+          {
+            "frame": 8,
+            "clip": "swipeL",
+            "type": "active",
+            "move": "heavy horizontal swipe (backhand)",
+            "hitbox": [
+              36,
+              18,
+              28,
+              20
+            ],
+            "damage": "heavy+"
+          },
+          {
+            "frame": 9,
+            "clip": "swipeL",
+            "type": "recovery",
+            "chainWindow": true
+          },
+          {
+            "frame": 10,
+            "clip": "swipeL",
+            "type": "recovery",
+            "chainWindow": true
+          },
+          {
+            "frame": 11,
+            "clip": "swipeL",
+            "type": "recovery",
+            "chainWindow": true
+          }
+        ]
+      }
+    },
+    "dualHeavy": {
+      "frames": 12,
+      "fps": 10,
+      "rows": [
+        "S",
+        "E",
+        "N",
+        "W"
+      ],
+      "status": "approved by user 2026-10-13 (S, E, N, W; W mirrors E)",
+      "rootMotion": {
+        "S": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "E": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "N": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "W": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "layers": {
+        "body": "assets/characters/male/dualHeavy/body.png",
+        "arms": "assets/characters/male/dualHeavy/arms.png",
+        "long-hair": "assets/characters/male/dualHeavy/long-hair.png",
+        "fade-hair": "assets/characters/male/dualHeavy/fade-hair.png",
+        "afro-hair": "assets/characters/male/dualHeavy/afro-hair.png",
+        "brown-eyes": "assets/characters/male/dualHeavy/brown-eyes.png",
+        "purple-eyes": "assets/characters/male/dualHeavy/purple-eyes.png",
+        "male-gi": "assets/characters/male/dualHeavy/male-gi.png",
+        "male-blue-armor": "assets/characters/male/dualHeavy/male-blue-armor.png",
+        "male-red-armor": "assets/characters/male/dualHeavy/male-red-armor.png",
+        "blue-armor-shoulders": "assets/characters/male/dualHeavy/blue-armor-shoulders.png",
+        "red-armor-shoulders": "assets/characters/male/dualHeavy/red-armor-shoulders.png"
+      },
+      "weapons": {
+        "frameSize": [
+          128,
+          128
+        ],
+        "origin": [
+          32,
+          32
+        ],
+        "pivot": [
+          64,
+          95
+        ],
+        "depthRule": "each weapon is split into depth slots, one sheet each: behind = under the body; front = over body and clothing, under the arms (the fists close over the hilt); top = over every character layer (a blade pointing at the viewer, a hand in front of the head). z per frame is one slot or { hilt, blade } split at the grip",
+        "items": [
+          {
+            "slot": "main",
+            "item": "tanto",
+            "default": true,
+            "hand": "arms",
+            "layers": {
+              "front": "assets/characters/male/dualHeavy/main-tanto-front.png",
+              "top": "assets/characters/male/dualHeavy/main-tanto-top.png",
+              "trail": "assets/characters/male/dualHeavy/main-tanto-trail.png",
+              "trailBehind": "assets/characters/male/dualHeavy/main-tanto-trail-behind.png"
+            },
+            "z": {
+              "S": [
+                {
+                  "hilt": "front",
+                  "blade": "aboveArm"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "aboveArm"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                }
+              ],
+              "E": [
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "aboveArm"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "aboveArm"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "aboveArm"
+                },
+                "front",
+                "front",
+                "front",
+                "front",
+                "front",
+                "front",
+                "front"
+              ],
+              "N": [
+                {
+                  "hilt": "aboveArm",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "aboveArm",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "aboveArm",
+                  "blade": "aboveArm"
+                },
+                {
+                  "hilt": "aboveArm",
+                  "blade": "aboveArm"
+                },
+                {
+                  "hilt": "aboveArm",
+                  "blade": "aboveArm"
+                },
+                {
+                  "hilt": "aboveArm",
+                  "blade": "aboveArm"
+                },
+                {
+                  "hilt": "aboveArm",
+                  "blade": "aboveArm"
+                },
+                {
+                  "hilt": "aboveArm",
+                  "blade": "aboveArm"
+                },
+                {
+                  "hilt": "aboveArm",
+                  "blade": "aboveArm"
+                },
+                {
+                  "hilt": "aboveArm",
+                  "blade": "aboveArm"
+                },
+                {
+                  "hilt": "aboveArm",
+                  "blade": "aboveArm"
+                },
+                {
+                  "hilt": "aboveArm",
+                  "blade": "aboveArm"
+                }
+              ],
+              "W": [
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "aboveArm"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "aboveArm"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "aboveArm"
+                },
+                "front",
+                "front",
+                "front",
+                "front",
+                "front",
+                "front",
+                "front"
+              ]
+            }
+          },
+          {
+            "slot": "off",
+            "item": "tanto",
+            "default": true,
+            "hand": "body",
+            "layers": {
+              "behind": "assets/characters/male/dualHeavy/off-tanto-behind.png",
+              "front": "assets/characters/male/dualHeavy/off-tanto-front.png",
+              "top": "assets/characters/male/dualHeavy/off-tanto-top.png",
+              "trail": "assets/characters/male/dualHeavy/off-tanto-trail.png",
+              "trailBehind": "assets/characters/male/dualHeavy/off-tanto-trail-behind.png"
+            },
+            "z": {
+              "S": [
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "aboveArm"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "aboveArm"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                }
+              ],
+              "E": [
+                "front",
+                "front",
+                "front",
+                "front",
+                "front",
+                "front",
+                {
+                  "hilt": "front",
+                  "blade": "behind"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "behind"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                "front"
+              ],
+              "N": [
+                {
+                  "hilt": "aboveArm",
+                  "blade": "aboveArm"
+                },
+                {
+                  "hilt": "aboveArm",
+                  "blade": "aboveArm"
+                },
+                {
+                  "hilt": "aboveArm",
+                  "blade": "aboveArm"
+                },
+                {
+                  "hilt": "aboveArm",
+                  "blade": "aboveArm"
+                },
+                {
+                  "hilt": "aboveArm",
+                  "blade": "aboveArm"
+                },
+                {
+                  "hilt": "aboveArm",
+                  "blade": "aboveArm"
+                },
+                {
+                  "hilt": "aboveArm",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "aboveArm",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "aboveArm",
+                  "blade": "aboveArm"
+                },
+                {
+                  "hilt": "aboveArm",
+                  "blade": "aboveArm"
+                },
+                {
+                  "hilt": "aboveArm",
+                  "blade": "aboveArm"
+                },
+                {
+                  "hilt": "aboveArm",
+                  "blade": "aboveArm"
+                }
+              ],
+              "W": [
+                "front",
+                "front",
+                "front",
+                "front",
+                "front",
+                "front",
+                {
+                  "hilt": "front",
+                  "blade": "behind"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "behind"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                "front"
+              ]
+            }
+          }
+        ]
+      },
+      "clips": {
+        "rule": "runtime playback as the katana heavy chain; next: oneHandDualGuard; entry: the off-hand swipe enters at its coil frame from the main-hand swipe's hold",
+        "mainSwipe": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "fps": 10,
+          "next": "oneHandDualGuard",
+          "chainWindow": [
+            3,
+            4,
+            5
+          ]
+        },
+        "offSwipe": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 10,
+          "next": "oneHandDualGuard",
+          "chainWindow": [
+            9,
+            10,
+            11
+          ],
+          "finisher": true,
+          "entry": {
+            "mainSwipe": {
+              "atFrames": [
+                3
+              ],
+              "start": 7
+            }
+          }
+        }
+      },
+      "events": {
+        "rule": "per-frame gameplay data in the E frame (W mirrors x -> 64 - x - w): hitbox [x, y, w, h] gives the height band (combo.json hitArea arc), damage event",
+        "E": [
+          {
+            "frame": 0,
+            "clip": "mainSwipe",
+            "type": "startup"
+          },
+          {
+            "frame": 1,
+            "clip": "mainSwipe",
+            "type": "startup"
+          },
+          {
+            "frame": 2,
+            "clip": "mainSwipe",
+            "type": "active",
+            "move": "heavy horizontal swipe (main-hand forehand)",
+            "hitbox": [
+              36,
+              18,
+              28,
+              20
+            ],
+            "damage": "heavy"
+          },
+          {
+            "frame": 3,
+            "clip": "mainSwipe",
+            "type": "recovery",
+            "chainWindow": true
+          },
+          {
+            "frame": 4,
+            "clip": "mainSwipe",
+            "type": "recovery",
+            "chainWindow": true
+          },
+          {
+            "frame": 5,
+            "clip": "mainSwipe",
+            "type": "recovery",
+            "chainWindow": true
+          },
+          {
+            "frame": 6,
+            "clip": "offSwipe",
+            "type": "startup"
+          },
+          {
+            "frame": 7,
+            "clip": "offSwipe",
+            "type": "startup"
+          },
+          {
+            "frame": 8,
+            "clip": "offSwipe",
+            "type": "active",
+            "move": "heavy horizontal swipe (off-hand forehand)",
+            "hitbox": [
+              36,
+              18,
+              28,
+              20
+            ],
+            "damage": "heavy+"
+          },
+          {
+            "frame": 9,
+            "clip": "offSwipe",
+            "type": "recovery",
+            "chainWindow": true
+          },
+          {
+            "frame": 10,
+            "clip": "offSwipe",
+            "type": "recovery",
+            "chainWindow": true
+          },
+          {
+            "frame": 11,
+            "clip": "offSwipe",
+            "type": "recovery",
+            "chainWindow": true
+          }
+        ]
+      }
     }
   },
   "combo": {
@@ -4605,26 +6108,29 @@
         "notes": "A clip that follows another without an entry rule plays its own wind-up, so the hand-offs up-cut -> forehand, forehand -> up-cut and up-cut -> backhand jump between poses; transition frames or connecting variants can smooth them later."
       },
       "oneHanded": {
-        "status": "light chain approved by the user 2026-10-13 (three stabs); heavy not designed yet",
+        "status": "light chain (three stabs) and heavy chain (two horizontal swipes) approved by the user 2026-10-13",
         "stance": "oneHandGuard",
         "weapon": "wakizashi (default) or tanto",
         "inputs": {
           "light": "light attack key/button: three stabs (oneHandLight)",
-          "heavy": "not designed yet (no clip)"
+          "heavy": "heavy attack key/button: two wide horizontal swipes (oneHandHeavy)"
         },
         "rules": [
-          "Same input rules as the two-handed combos: one press per clip in rhythm inside the playing clip's chain window; every clip starts and ends in the one-handed stance (oneHandGuard); each stab plays from its own chamber; stab3 ends the chain (finisher)."
+          "Same input rules as the two-handed combos: one press per clip in rhythm inside the playing clip's chain window; every clip starts and ends in the one-handed stance (oneHandGuard); each stab plays from its own chamber; stab3 ends the chain (finisher).",
+          "Heavy: H H plays the forehand then the backhand (finisher); the backhand chained from the forehand's hold starts at its smear frame. Mixed light/heavy combos are not defined yet (a press with no entry does nothing)."
         ],
         "clips": {
           "stab1": "oneHandLight/stab1",
           "stab2": "oneHandLight/stab2",
-          "stab3": "oneHandLight/stab3"
+          "stab3": "oneHandLight/stab3",
+          "swipeR": "oneHandHeavy/swipeR",
+          "swipeL": "oneHandHeavy/swipeL"
         },
         "paths": {
           "rule": "path -> { light, heavy }: the clip a press plays from that point of the combo (null: the press does nothing)",
           "": {
             "light": "oneHandLight/stab1",
-            "heavy": null
+            "heavy": "oneHandHeavy/swipeR"
           },
           "L": {
             "light": "oneHandLight/stab2",
@@ -4633,6 +6139,10 @@
           "LL": {
             "light": "oneHandLight/stab3",
             "heavy": null
+          },
+          "H": {
+            "light": null,
+            "heavy": "oneHandHeavy/swipeL"
           }
         },
         "combos": [
@@ -4643,30 +6153,40 @@
               "oneHandLight/stab2",
               "oneHandLight/stab3"
             ]
+          },
+          {
+            "inputs": "H H",
+            "clips": [
+              "oneHandHeavy/swipeR",
+              "oneHandHeavy/swipeL"
+            ]
           }
         ]
       },
       "dualWield": {
-        "status": "light chain approved by the user 2026-10-13; heavy in progress",
+        "status": "light chain and heavy chain approved by the user 2026-10-13",
         "stance": "oneHandDualGuard",
         "weapon": "tanto in each hand",
         "inputs": {
           "light": "light attack key/button: two main-hand stabs and an off-hand slash (dualLight)",
-          "heavy": "in progress"
+          "heavy": "heavy attack key/button: main-hand then off-hand horizontal swipe (dualHeavy)"
         },
         "rules": [
-          "Same input rules as the one-handed combos; every clip starts and ends in the dual-wield stance (oneHandDualGuard); stab2 chained from stab1's hold plays from its chamber; the offSlash chained from stab2's hold starts at its smear frame (the off hand is already raised); the offSlash ends the chain (finisher)."
+          "Same input rules as the one-handed combos; every clip starts and ends in the dual-wield stance (oneHandDualGuard); stab2 chained from stab1's hold plays from its chamber; the offSlash chained from stab2's hold starts at its smear frame (the off hand is already raised); the offSlash ends the chain (finisher).",
+          "Heavy: H H plays the main-hand swipe then the off-hand swipe (finisher); the off-hand swipe chained from the main swipe's hold starts at its coil frame. Mixed light/heavy combos are not defined yet."
         ],
         "clips": {
           "stab1": "dualLight/stab1",
           "stab2": "dualLight/stab2",
-          "offSlash": "dualLight/offSlash"
+          "offSlash": "dualLight/offSlash",
+          "mainSwipe": "dualHeavy/mainSwipe",
+          "offSwipe": "dualHeavy/offSwipe"
         },
         "paths": {
           "rule": "path -> { light, heavy }: the clip a press plays from that point of the combo (null: the press does nothing)",
           "": {
             "light": "dualLight/stab1",
-            "heavy": null
+            "heavy": "dualHeavy/mainSwipe"
           },
           "L": {
             "light": "dualLight/stab2",
@@ -4675,6 +6195,10 @@
           "LL": {
             "light": "dualLight/offSlash",
             "heavy": null
+          },
+          "H": {
+            "light": null,
+            "heavy": "dualHeavy/offSwipe"
           }
         },
         "combos": [
@@ -4684,6 +6208,13 @@
               "dualLight/stab1",
               "dualLight/stab2",
               "dualLight/offSlash"
+            ]
+          },
+          {
+            "inputs": "H H",
+            "clips": [
+              "dualHeavy/mainSwipe",
+              "dualHeavy/offSwipe"
             ]
           }
         ]
