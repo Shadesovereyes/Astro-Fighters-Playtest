@@ -751,7 +751,8 @@ function frontalBand(d, k, sd, dir) {
     // distance along and across the arm (both segments of a bent arm)
     const rr = arm.ref.get(q), [u, v] = el ? (rr ? [rr[1] - ab.pivot[1], rr[0] - ab.pivot[0]] : [Infinity, 0]) : uv(x, y);
     // showTo: only the part of the arm up to this distance from the shoulder shows (the rest is behind the body)
-    if (ab.showTo !== undefined && !(u <= ab.showTo)) continue;
+    // (per frame when an array; null shows the whole arm)
+    if (at(ab.showTo) != null && !(u <= at(ab.showTo))) continue;
     const ry = Math.floor(ab.pivot[1] + u / sc), e = span[ry];
     pixels.set(Q, c);
     zs.set(Q, zF !== undefined && u >= fAt ? zF : z0);

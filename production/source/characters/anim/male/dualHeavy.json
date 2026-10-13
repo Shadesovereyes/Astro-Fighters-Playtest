@@ -1247,7 +1247,7 @@
       "S": [
         {
           "grip": [
-            25,
+            24,
             29
           ],
           "angle": 139.1,
@@ -1260,7 +1260,7 @@
         },
         {
           "grip": [
-            25,
+            24,
             30
           ],
           "angle": 123,
@@ -1273,8 +1273,8 @@
         },
         {
           "grip": [
-            36,
-            29
+            40,
+            30
           ],
           "angle": -16.1,
           "scale": 0.901,
@@ -1290,15 +1290,15 @@
             "R": 18,
             "k": 0.5,
             "center": [
-              31.31,
-              28.0
+              35.31,
+              29.0
             ],
             "width": 6
           }
         },
         {
           "grip": [
-            38,
+            40,
             30
           ],
           "angle": -7.6,
@@ -1311,7 +1311,7 @@
         },
         {
           "grip": [
-            34,
+            38,
             31
           ],
           "angle": -35.5,
@@ -1336,7 +1336,7 @@
         },
         {
           "grip": [
-            25,
+            26,
             35
           ],
           "angle": 90,
@@ -1348,7 +1348,7 @@
         },
         {
           "grip": [
-            25,
+            26,
             35
           ],
           "angle": 90,
@@ -1360,7 +1360,7 @@
         },
         {
           "grip": [
-            25,
+            24,
             35
           ],
           "angle": 90,
@@ -1372,7 +1372,7 @@
         },
         {
           "grip": [
-            25,
+            24,
             35
           ],
           "angle": 90,
@@ -1384,7 +1384,7 @@
         },
         {
           "grip": [
-            25,
+            24,
             35
           ],
           "angle": 90,
@@ -1410,7 +1410,7 @@
       "N": [
         {
           "grip": [
-            38,
+            39,
             29
           ],
           "angle": 40.9,
@@ -1423,7 +1423,7 @@
         },
         {
           "grip": [
-            38,
+            39,
             30
           ],
           "angle": 57,
@@ -1436,8 +1436,8 @@
         },
         {
           "grip": [
-            27,
-            29
+            23,
+            30
           ],
           "angle": 196.1,
           "scale": 0.901,
@@ -1453,17 +1453,15 @@
             "R": 18,
             "k": 0.5,
             "center": [
-              32.69,
-              28.0
+              28.69,
+              29.0
             ],
-            "width": 6,
-            "z": "behind"
-          },
-          "omit": true
+            "width": 6
+          }
         },
         {
           "grip": [
-            25,
+            23,
             30
           ],
           "angle": 187.6,
@@ -1472,12 +1470,11 @@
             "hilt": "behind",
             "blade": "behind"
           },
-          "hidden": true,
-          "omit": true
+          "hidden": true
         },
         {
           "grip": [
-            29,
+            25,
             31
           ],
           "angle": 215.5,
@@ -1486,8 +1483,7 @@
             "hilt": "behind",
             "blade": "behind"
           },
-          "hidden": true,
-          "omit": true
+          "hidden": true
         },
         {
           "grip": [
@@ -1560,7 +1556,7 @@
           "hidden": true
         }
       ],
-      "projectionRule": "S and N match E by projection lines: the horizontal swings (psi) are re-projected per view from the same swing angles (S: forward toward the viewer = down, the character's left = the viewer's right; N: the reverse), the fist keeps its E row and moves across the body with the swing, and the elliptical smear is re-projected with them (blade length + margin per item); N follows S by projection lines: every point keeps its S row and its x mirrors, a blade part in front of the body in S is behind it in N, and the smear mirrors with it, drawn behind the body (the swing runs in front of the body, away from the viewer); the hand is hidden in front of the body; stance frames keep the stance's S/N pose; N omits the weapon on swing frames where the hand is hidden on the far side of the torso (the blade would show detached from the visible arm)"
+      "projectionRule": "S and N match E by projection lines: the horizontal swings (psi) are re-projected per view from the same swing angles (S: forward toward the viewer = down, the character's left = the viewer's right; N: the reverse), the fist keeps its E row and moves across the body with the swing, and the elliptical smear is re-projected with them (blade length + margin per item); N follows S by projection lines: every point keeps its S row and its x mirrors, a blade part in front of the body in S is behind it in N, and the smear mirrors with it; the hand is hidden in front of the body; stance frames keep the stance's S/N pose"
     },
     {
       "slot": "off",
@@ -1705,7 +1701,7 @@
         {
           "grip": [
             37,
-            25
+            26
           ],
           "angle": 90,
           "scale": 0.996,
@@ -1718,7 +1714,7 @@
         {
           "grip": [
             37,
-            25
+            26
           ],
           "angle": 90,
           "scale": 0.996,
@@ -1730,8 +1726,8 @@
         },
         {
           "grip": [
-            37,
-            25
+            38,
+            26
           ],
           "angle": 90,
           "scale": 0.996,
@@ -1743,8 +1739,8 @@
         },
         {
           "grip": [
-            37,
-            25
+            38,
+            26
           ],
           "angle": 90,
           "scale": 0.996,
@@ -1756,8 +1752,8 @@
         },
         {
           "grip": [
-            37,
-            25
+            39,
+            26
           ],
           "angle": 90,
           "scale": 0.996,
@@ -1808,7 +1804,7 @@
         },
         {
           "grip": [
-            28,
+            23,
             29
           ],
           "angle": -163.9,
@@ -1825,7 +1821,7 @@
             "R": 18,
             "k": 0.5,
             "center": [
-              33.69,
+              28.69,
               28.0
             ],
             "width": 6
@@ -1833,7 +1829,7 @@
         },
         {
           "grip": [
-            26,
+            23,
             28
           ],
           "angle": -172.4,
@@ -1846,8 +1842,8 @@
         },
         {
           "grip": [
-            30,
-            29
+            24,
+            30
           ],
           "angle": -139.1,
           "scale": 0.661,
@@ -1960,7 +1956,7 @@
         },
         {
           "grip": [
-            35,
+            40,
             29
           ],
           "angle": 343.9,
@@ -1977,17 +1973,15 @@
             "R": 18,
             "k": 0.5,
             "center": [
-              30.31,
+              35.31,
               28.0
             ],
-            "width": 6,
-            "z": "behind"
-          },
-          "omit": true
+            "width": 6
+          }
         },
         {
           "grip": [
-            37,
+            40,
             28
           ],
           "angle": 352.4,
@@ -1996,13 +1990,12 @@
             "hilt": "behind",
             "blade": "behind"
           },
-          "hidden": true,
-          "omit": true
+          "hidden": true
         },
         {
           "grip": [
-            33,
-            29
+            39,
+            30
           ],
           "angle": 319.1,
           "scale": 0.661,
@@ -2010,8 +2003,7 @@
             "hilt": "behind",
             "blade": "behind"
           },
-          "hidden": true,
-          "omit": true
+          "hidden": true
         },
         {
           "grip": [
@@ -2024,7 +2016,7 @@
           "hidden": true
         }
       ],
-      "projectionRule": "S and N match E by projection lines: the horizontal swings (psi) are re-projected per view from the same swing angles (S: forward toward the viewer = down, the character's left = the viewer's right; N: the reverse), the fist keeps its E row and moves across the body with the swing, and the elliptical smear is re-projected with them (blade length + margin per item); N follows S by projection lines: every point keeps its S row and its x mirrors, a blade part in front of the body in S is behind it in N, and the smear mirrors with it, drawn behind the body (the swing runs in front of the body, away from the viewer); the hand is hidden in front of the body; stance frames keep the stance's S/N pose; N omits the weapon on swing frames where the hand is hidden on the far side of the torso (the blade would show detached from the visible arm)"
+      "projectionRule": "S and N match E by projection lines: the horizontal swings (psi) are re-projected per view from the same swing angles (S: forward toward the viewer = down, the character's left = the viewer's right; N: the reverse), the fist keeps its E row and moves across the body with the swing, and the elliptical smear is re-projected with them (blade length + margin per item); N follows S by projection lines: every point keeps its S row and its x mirrors, a blade part in front of the body in S is behind it in N, and the smear mirrors with it; the hand is hidden in front of the body; stance frames keep the stance's S/N pose"
     }
   ],
   "events": {
@@ -2584,11 +2576,11 @@
               24
             ],
             "angle": [
-              7.7,
-              6.2,
-              -63.2,
+              7.2,
+              4.7,
               -66.8,
-              -49.7,
+              -66.8,
+              -59.5,
               0,
               0,
               0,
@@ -2600,15 +2592,11 @@
             "elbow": [
               {
                 "at": 7,
-                "angle": 14.8
+                "angle": -7.2
               },
               {
                 "at": 7,
-                "angle": 12.7
-              },
-              {
-                "at": 7,
-                "angle": -67.9
+                "angle": -4.7
               },
               {
                 "at": 7,
@@ -2616,7 +2604,11 @@
               },
               {
                 "at": 7,
-                "angle": -54.5
+                "angle": -71.1
+              },
+              {
+                "at": 7,
+                "angle": -63.6
               },
               null,
               null,
@@ -2629,9 +2621,9 @@
             "scale": [
               0.36,
               0.43,
-              0.86,
               0.99,
-              0.81,
+              0.99,
+              1,
               0.62,
               0.62,
               0.62,
@@ -2682,11 +2674,11 @@
               0,
               0,
               0,
-              258.2,
-              -24.1,
-              65.7,
-              73.7,
-              55.3,
+              61.8,
+              -11.8,
+              70.7,
+              74.8,
+              66.8,
               0
             ],
             "elbow": [
@@ -2716,23 +2708,23 @@
               },
               {
                 "at": 7,
-                "angle": 101.8
+                "angle": -151.8
               },
               {
                 "at": 7,
-                "angle": -155.9
+                "angle": -168.2
               },
               {
                 "at": 7,
-                "angle": 70.7
+                "angle": 75.1
               },
               {
                 "at": 7,
-                "angle": 78.3
+                "angle": 79.2
               },
               {
                 "at": 7,
-                "angle": 60.6
+                "angle": 71.1
               },
               {
                 "at": 9,
@@ -2748,9 +2740,9 @@
               0.6,
               0.35,
               0.35,
-              0.77,
-              0.88,
-              0.67,
+              0.97,
+              0.95,
+              0.99,
               0.6
             ],
             "fist": [
@@ -2790,42 +2782,42 @@
           "pelvis": [
             0,
             0,
+            1,
+            1,
             0,
             0,
             0,
             0,
-            0,
-            0,
-            0,
-            0,
+            -1,
+            -1,
             0,
             0
           ],
           "shoulders": [
+            -1,
+            -1,
+            2,
+            2,
+            1,
             0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
+            1,
+            1,
+            -2,
+            -2,
+            -1,
             0
           ],
           "head": [
             0,
             0,
+            1,
+            1,
             0,
             0,
             0,
             0,
-            0,
-            0,
-            0,
-            0,
+            -1,
+            -1,
             0,
             0
           ]
@@ -2835,28 +2827,28 @@
           "R": [
             0,
             0,
+            1,
+            1,
             0,
             0,
             0,
             0,
-            0,
-            0,
-            0,
-            0,
+            -1,
+            -1,
             0,
             0
           ],
           "L": [
             0,
             0,
+            1,
+            1,
             0,
             0,
             0,
             0,
-            0,
-            0,
-            0,
-            0,
+            -1,
+            -1,
             0,
             0
           ]
@@ -3014,11 +3006,11 @@
               24
             ],
             "angle": [
-              0,
-              0,
-              63.4,
+              -7.2,
+              -4.7,
               66.8,
-              51.3,
+              66.8,
+              59.5,
               -8,
               -8,
               -8,
@@ -3028,11 +3020,26 @@
               -8
             ],
             "elbow": [
-              null,
-              null,
-              null,
-              null,
-              null,
+              {
+                "at": 7,
+                "angle": 7.2
+              },
+              {
+                "at": 7,
+                "angle": 4.7
+              },
+              {
+                "at": 7,
+                "angle": 71.1
+              },
+              {
+                "at": 7,
+                "angle": 71.1
+              },
+              {
+                "at": 7,
+                "angle": 63.6
+              },
               null,
               null,
               null,
@@ -3042,10 +3049,10 @@
               null
             ],
             "scale": [
-              1,
-              1,
-              1,
-              1,
+              0.36,
+              0.43,
+              0.99,
+              0.99,
               1,
               1,
               1,
@@ -3055,15 +3062,54 @@
               1,
               1
             ],
-            "fist": "up",
-            "z": -1,
-            "showTo": 7,
+            "fist": [
+              "front",
+              "front",
+              "front",
+              "front",
+              "front",
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
+              "up"
+            ],
+            "z": [
+              -1,
+              -1,
+              -1,
+              -1,
+              -1,
+              -1,
+              -1,
+              -1,
+              -1,
+              -1,
+              -1,
+              -1
+            ],
+            "showTo": [
+              null,
+              null,
+              null,
+              null,
+              null,
+              7,
+              7,
+              7,
+              7,
+              7,
+              7,
+              7
+            ],
             "pivotDx": [
-              0,
-              0,
-              0,
-              0,
-              0,
+              -1,
+              -1,
+              -1,
+              -1,
+              -1,
               0,
               0,
               0,
@@ -3085,11 +3131,11 @@
               12,
               12,
               12,
-              -90,
-              45,
-              -65.6,
-              -72.9,
-              -56.3,
+              -61.8,
+              11.8,
+              -70.7,
+              -74.8,
+              -66.8,
               12
             ],
             "elbow": [
@@ -3099,11 +3145,26 @@
               null,
               null,
               null,
-              null,
-              null,
-              null,
-              null,
-              null,
+              {
+                "at": 7,
+                "angle": 151.8
+              },
+              {
+                "at": 7,
+                "angle": 168.2
+              },
+              {
+                "at": 7,
+                "angle": -75.1
+              },
+              {
+                "at": 7,
+                "angle": -79.2
+              },
+              {
+                "at": 7,
+                "angle": -71.1
+              },
               null
             ],
             "scale": [
@@ -3113,16 +3174,55 @@
               1,
               1,
               1,
-              1,
-              1,
-              1,
-              1,
-              1,
+              0.35,
+              0.35,
+              0.97,
+              0.95,
+              0.99,
               1
             ],
-            "fist": "up",
-            "z": -1,
-            "showTo": 7,
+            "fist": [
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
+              "front",
+              "front",
+              "front",
+              "front",
+              "front",
+              "up"
+            ],
+            "z": [
+              -1,
+              -1,
+              -1,
+              -1,
+              -1,
+              -1,
+              -1,
+              -1,
+              -1,
+              -1,
+              -1,
+              -1
+            ],
+            "showTo": [
+              7,
+              7,
+              7,
+              7,
+              7,
+              7,
+              null,
+              null,
+              null,
+              null,
+              null,
+              7
+            ],
             "pivotDx": [
               0,
               0,
@@ -3130,57 +3230,57 @@
               0,
               0,
               0,
-              0,
-              0,
-              0,
-              0,
-              0,
+              1,
+              1,
+              1,
+              1,
+              1,
               0
             ]
           }
         },
         "headDy": -1,
-        "armRule": "N: the hands are in front of the body and hidden; the swinging arm's upper arm swings toward its hand",
+        "armRule": "N: on swing frames the swinging arm is the S arm seen from behind (mirrored) and drawn whole behind the body: the shoulder and upper arm show at its own side and the fist and dagger come out past the far side of the torso when the swing carries them across; the body turns into the swipe (twist mirrors S)",
         "twist": {
           "pelvis": [
             0,
             0,
+            -1,
+            -1,
             0,
             0,
             0,
             0,
-            0,
-            0,
-            0,
-            0,
+            1,
+            1,
             0,
             0
           ],
           "shoulders": [
+            1,
+            1,
+            -2,
+            -2,
+            -1,
             0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
+            -1,
+            -1,
+            2,
+            2,
+            1,
             0
           ],
           "head": [
             0,
             0,
+            -1,
+            -1,
             0,
             0,
             0,
             0,
-            0,
-            0,
-            0,
-            0,
+            1,
+            1,
             0,
             0
           ]
@@ -3190,28 +3290,28 @@
           "R": [
             0,
             0,
+            -1,
+            -1,
             0,
             0,
             0,
             0,
-            0,
-            0,
-            0,
-            0,
+            1,
+            1,
             0,
             0
           ],
           "L": [
             0,
             0,
+            -1,
+            -1,
             0,
             0,
             0,
             0,
-            0,
-            0,
-            0,
-            0,
+            1,
+            1,
             0,
             0
           ]
