@@ -68,7 +68,10 @@ function trailOf(item, pose, weaponPx) {
   // center/radius: a whole swing drawn on one smear frame turns about the swing's pivot (in front of the shoulders),
   // not the end grip, so the crescent follows the blade tip's path; to: the angle the crescent reaches (default the blade)
   const T = pose.trail, cols = item.trail.bands, R = T.radius ?? Math.max(...item.segments.map((s) => s.to)) * (pose.scale ?? 1);
-  const c = T.center || pose.grip, gx = c[0] + 0.5, gy = c[1] + 0.5, a0 = T.from, a1 = T.to ?? pose.angle, span = a1 - a0, out = new Map();
+  // center 'blade': the pivot sits on the blade's own line, so the crescent ends exactly on the blade at its final angle
+  const tipU = Math.max(...item.segments.map((s) => s.to)) * (pose.scale ?? 1), ta = pose.angle * Math.PI / 180;
+  const c = T.center === 'blade' ? [pose.grip[0] + (tipU - R) * Math.cos(ta), pose.grip[1] - (tipU - R) * Math.sin(ta)] : T.center || pose.grip;
+  const gx = c[0] + 0.5, gy = c[1] + 0.5, a0 = T.from, a1 = T.to ?? pose.angle, span = a1 - a0, out = new Map();
   for (let y = -ORIGIN[1]; y < WF - ORIGIN[1]; y++) for (let x = -ORIGIN[0]; x < WF - ORIGIN[0]; x++) {
     if (weaponPx.has(key(x, y))) continue;
     const dx = x + 0.5 - gx, dy = y + 0.5 - gy, r = Math.hypot(dx, dy);
@@ -118,7 +121,7 @@ for (const W of weapons.flatMap((w) => (w.items || [w.item]).map((it, i) => ({ .
       const p = poseOf(W, dir, k);
       const raw = draw(item, p.mirrored ? { ...p, grip: [FRAME - 1 - p.grip[0], p.grip[1]] } : p);
       let m = new Map([...raw].map(([q, c]) => [q, [c, depthOf(p.z, raw.u(q))]]));
-      let tr = p.trail ? trailOf(item, p.mirrored ? { ...p, grip: [FRAME - 1 - p.grip[0], p.grip[1]], trail: { ...p.trail, ...(p.trail.center ? { center: [FRAME - 1 - p.trail.center[0], p.trail.center[1]] } : {}) } } : p, raw) : new Map();
+      let tr = p.trail ? trailOf(item, p.mirrored ? { ...p, grip: [FRAME - 1 - p.grip[0], p.grip[1]], trail: { ...p.trail, ...(Array.isArray(p.trail.center) ? { center: [FRAME - 1 - p.trail.center[0], p.trail.center[1]] } : {}) } } : p, raw) : new Map();
       if (p.mirrored) {
         m = new Map([...m].map(([q, c]) => { const [x, y] = unkey(q); return [key(FRAME - 1 - x, y), c]; }));
         tr = new Map([...tr].map(([q, c]) => { const [x, y] = unkey(q); return [key(FRAME - 1 - x, y), c]; }));

@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Katana light chain (two-handed), user 2026-10-13: two vertical slashes, each one continuous swing. downCut = 12 to 6: wind-up with the blade straight up, then one smear frame with the blade arriving at 6 and a single crescent over the whole arc 12-3-6 (active), hold at 6, return to the stance. upCut = 6 to 12: wind-up with the blade straight down, then one smear frame with the blade arriving at 12 and a single crescent over the whole arc 6-3-12 (active), hold at 12, return to the stance. Chained from the hold at 6, the upCut enters at its smear frame, so 12-6-12 plays as one continuous pair.",
+  "intent": "Katana light chain (two-handed), user 2026-10-13: two vertical slashes, each one continuous swing. downCut = 12 to 6: wind-up with the blade straight up, then one smear frame with the blade arriving low, in line with the forearms (its lowest angle; user 2026-10-13: never straight down), and a single crescent over the whole arc from 12 to the blade (the smear stops where the blade ends) (active), hold low, return to the stance. upCut = 6 to 12: wind-up with the blade low in line with the forearms, then one smear frame with the blade arriving at 12 and a single crescent over the whole arc from the low blade to 12 (active), hold at 12, return to the stance. Chained from the hold low, the upCut enters at its smear frame, so 12-6-12 plays as one continuous pair.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -533,19 +533,19 @@
       },
       {
         "construction": "band",
-        "angle": -45.3,
+        "angle": -36.4,
         "elbow": {
           "at": 8,
-          "angle": -49
+          "angle": -40.4
         },
         "fistKind": "forward"
       },
       {
         "construction": "band",
-        "angle": -42.8,
+        "angle": -34,
         "elbow": {
           "at": 8,
-          "angle": -46.6
+          "angle": -38.1
         },
         "fistKind": "forward"
       },
@@ -560,10 +560,10 @@
       },
       {
         "construction": "band",
-        "angle": -38.3,
+        "angle": -29.8,
         "elbow": {
           "at": 8,
-          "angle": -42.1
+          "angle": -33.8
         },
         "fistKind": "forward"
       },
@@ -946,17 +946,15 @@
             43,
             37
           ],
-          "angle": -88,
+          "angle": -50,
           "z": "front",
           "trail": {
             "from": 95,
-            "to": -88,
-            "center": [
-              42,
-              25
-            ],
+            "toBlade": true,
+            "center": "blade",
             "radius": 31,
-            "width": 8
+            "width": 8,
+            "to": -50
           }
         },
         {
@@ -964,7 +962,7 @@
             43,
             37
           ],
-          "angle": -88,
+          "angle": -52.3,
           "z": "front"
         },
         {
@@ -980,7 +978,7 @@
             41,
             37
           ],
-          "angle": -92,
+          "angle": -56.6,
           "z": "front"
         },
         {
@@ -994,12 +992,8 @@
             "blade": "behind"
           },
           "trail": {
-            "from": -92,
-            "to": 90,
-            "center": [
-              42,
-              25
-            ],
+            "from": -56.6,
+            "center": "blade",
             "radius": 31,
             "width": 8
           }
@@ -1098,7 +1092,7 @@
     ]
   },
   "keyPoses": {
-    "intent": "Katana light chain (two-handed), user 2026-10-13: two vertical slashes, each one continuous swing. downCut = 12 to 6: wind-up with the blade straight up, then one smear frame with the blade arriving at 6 and a single crescent over the whole arc 12-3-6 (active), hold at 6, return to the stance. upCut = 6 to 12: wind-up with the blade straight down, then one smear frame with the blade arriving at 12 and a single crescent over the whole arc 6-3-12 (active), hold at 12, return to the stance. Chained from the hold at 6, the upCut enters at its smear frame, so 12-6-12 plays as one continuous pair.",
+    "intent": "Katana light chain (two-handed), user 2026-10-13: two vertical slashes, each one continuous swing. downCut = 12 to 6: wind-up with the blade straight up, then one smear frame with the blade arriving low, in line with the forearms (its lowest angle; user 2026-10-13: never straight down), and a single crescent over the whole arc from 12 to the blade (the smear stops where the blade ends) (active), hold low, return to the stance. upCut = 6 to 12: wind-up with the blade low in line with the forearms, then one smear frame with the blade arriving at 12 and a single crescent over the whole arc from the low blade to 12 (active), hold at 12, return to the stance. Chained from the hold low, the upCut enters at its smear frame, so 12-6-12 plays as one continuous pair.",
     "frames": [
       {
         "name": "12-6 wind-up (blade at 12)",
@@ -1113,30 +1107,30 @@
         }
       },
       {
-        "name": "12-6 swing (blade arrives at 6, smear 12-3-6)",
+        "name": "12-6 swing (blade arrives in line with the forearms, smear 12-3 to the blade)",
         "hand": [
           44,
           38
         ],
-        "angle": -88,
+        "angle": -50,
         "trail": {
           "from": 95,
-          "to": -88,
-          "center": [
-            42,
-            25
-          ],
+          "toBlade": true,
+          "center": "blade",
           "radius": 31,
-          "width": 8
-        }
+          "width": 8,
+          "to": -50
+        },
+        "align": "forearm"
       },
       {
-        "name": "12-6 hold at 6",
+        "name": "12-6 hold (blade in line with the forearms)",
         "hand": [
           43,
           38
         ],
-        "angle": -88
+        "angle": -52.3,
+        "align": "forearm"
       },
       {
         "name": "12-6 return",
@@ -1147,12 +1141,13 @@
         "angle": 40
       },
       {
-        "name": "6-12 wind-up (blade at 6)",
+        "name": "6-12 wind-up (blade low, in line with the forearms)",
         "hand": [
           42,
           39
         ],
-        "angle": -92
+        "angle": -56.6,
+        "align": "forearm"
       },
       {
         "name": "6-12 swing (blade arrives at 12, smear 6-3-12)",
@@ -1166,12 +1161,8 @@
           "blade": "behind"
         },
         "trail": {
-          "from": -92,
-          "to": 90,
-          "center": [
-            42,
-            25
-          ],
+          "from": -56.6,
+          "center": "blade",
           "radius": 31,
           "width": 8
         }
