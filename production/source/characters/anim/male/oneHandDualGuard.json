@@ -1211,23 +1211,11 @@
       "S": [
         {
           "grip": [
-            24,
-            39
-          ],
-          "angle": 135,
-          "scale": 0.45,
-          "z": {
-            "hilt": "front",
-            "blade": "top"
-          }
-        },
-        {
-          "grip": [
-            24,
+            27,
             38
           ],
-          "angle": 135,
-          "scale": 0.45,
+          "angle": 105,
+          "scale": 0.4,
           "z": {
             "hilt": "front",
             "blade": "top"
@@ -1235,23 +1223,35 @@
         },
         {
           "grip": [
-            24,
+            27,
+            37
+          ],
+          "angle": 105,
+          "scale": 0.4,
+          "z": {
+            "hilt": "front",
+            "blade": "top"
+          }
+        },
+        {
+          "grip": [
+            27,
+            38
+          ],
+          "angle": 105,
+          "scale": 0.4,
+          "z": {
+            "hilt": "front",
+            "blade": "top"
+          }
+        },
+        {
+          "grip": [
+            27,
             39
           ],
-          "angle": 135,
-          "scale": 0.45,
-          "z": {
-            "hilt": "front",
-            "blade": "top"
-          }
-        },
-        {
-          "grip": [
-            24,
-            40
-          ],
-          "angle": 135,
-          "scale": 0.45,
+          "angle": 105,
+          "scale": 0.4,
           "z": {
             "hilt": "front",
             "blade": "top"
@@ -1300,7 +1300,7 @@
           "hidden": true
         }
       ],
-      "viewRule": "S: the weapon hand is low at the right hip and the blade points at the viewer, raised slightly: drawn short (scale 0.45) angled up and out. N: hidden in front of the body; drawn behind it."
+      "viewRule": "S: the weapon hand is low at the right hip and the blade points at the viewer, raised slightly (as in E): the grip is the fist centre and the blade is drawn short (scale 0.4) out of the top of the fist, nearly straight up; the hilt under the fist, the blade over every layer. N: hidden in front of the body; drawn behind it."
     },
     {
       "slot": "off",
@@ -1348,42 +1348,54 @@
       "S": [
         {
           "grip": [
-            37,
-            22
-          ],
-          "angle": 90,
-          "scale": 1,
-          "z": "top",
-          "layer": "arms"
-        },
-        {
-          "grip": [
-            37,
-            21
-          ],
-          "angle": 90,
-          "scale": 1,
-          "z": "top",
-          "layer": "arms"
-        },
-        {
-          "grip": [
-            37,
-            22
-          ],
-          "angle": 90,
-          "scale": 1,
-          "z": "top",
-          "layer": "arms"
-        },
-        {
-          "grip": [
-            37,
+            38,
             23
           ],
           "angle": 90,
           "scale": 1,
-          "z": "top",
+          "z": {
+            "hilt": "front",
+            "blade": "top"
+          },
+          "layer": "arms"
+        },
+        {
+          "grip": [
+            38,
+            22
+          ],
+          "angle": 90,
+          "scale": 1,
+          "z": {
+            "hilt": "front",
+            "blade": "top"
+          },
+          "layer": "arms"
+        },
+        {
+          "grip": [
+            38,
+            23
+          ],
+          "angle": 90,
+          "scale": 1,
+          "z": {
+            "hilt": "front",
+            "blade": "top"
+          },
+          "layer": "arms"
+        },
+        {
+          "grip": [
+            38,
+            24
+          ],
+          "angle": 90,
+          "scale": 1,
+          "z": {
+            "hilt": "front",
+            "blade": "top"
+          },
           "layer": "arms"
         }
       ],
@@ -1429,7 +1441,7 @@
           "hidden": true
         }
       ],
-      "viewRule": "S: the raised guard hand holds the dagger blade up, in front of the body. N: hidden in front of the body; drawn behind it (it may not show)."
+      "viewRule": "S: the raised guard fist holds the dagger in a normal grip: the grip is the fist centre, the blade comes straight up out of the top of the fist in front of the head (top), the pommel end stays hidden under the fist and forearm (front). N: hidden in front of the body; drawn behind it (it may not show)."
     }
   ]
 }
