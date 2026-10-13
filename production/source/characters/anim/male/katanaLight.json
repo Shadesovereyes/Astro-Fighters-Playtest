@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Katana light chain (two-handed): clip kesa = diagonal down-cut from over the right shoulder (wind-up, cut, follow-through, return to chudan); clip kiriage = rising cut from low (wind-up low, cut up and forward, follow-through high, return to chudan). Every clip starts and ends in the two-handed stance.",
+  "intent": "Katana light chain (two-handed), user 2026-10-13: two vertical slashes. Clip downCut = 12 to 6: the blade starts straight up over the head, sweeps forward through 3 o'clock (active) and ends pointing straight down. Clip upCut = 6 to 12: the blade starts pointing straight down, sweeps forward and up through 3 o'clock (active) and ends straight up over the head. Every clip starts and ends in the two-handed stance.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -450,28 +450,28 @@
     "near": [
       {
         "construction": "band",
-        "angle": -112.4,
+        "angle": -120.5,
         "elbow": {
           "at": 8,
-          "angle": 145.5
+          "angle": 171.5
         },
         "fistKind": "forward"
       },
       {
         "construction": "band",
-        "angle": -63.3,
+        "angle": -72.2,
         "elbow": {
           "at": 8,
-          "angle": -67.6
+          "angle": -76.3
         },
         "fistKind": "forward"
       },
       {
         "construction": "band",
-        "angle": -30.9,
+        "angle": -34.4,
         "elbow": {
           "at": 8,
-          "angle": -34.5
+          "angle": -37.7
         },
         "fistKind": "forward"
       },
@@ -486,28 +486,28 @@
       },
       {
         "construction": "band",
-        "angle": -17.8,
+        "angle": -30.1,
         "elbow": {
           "at": 8,
-          "angle": -21.8
+          "angle": -33.4
         },
         "fistKind": "forward"
       },
       {
         "construction": "band",
-        "angle": -61.8,
+        "angle": -68.5,
         "elbow": {
           "at": 8,
-          "angle": -97.5
+          "angle": -72.5
         },
         "fistKind": "forward"
       },
       {
         "construction": "band",
-        "angle": -90,
+        "angle": -112.1,
         "elbow": {
           "at": 8,
-          "angle": -180
+          "angle": 176.1
         },
         "fistKind": "forward"
       },
@@ -524,28 +524,28 @@
     "far": [
       {
         "construction": "band",
-        "angle": -86.4,
+        "angle": -91.8,
         "elbow": {
           "at": 8,
-          "angle": 171.2
+          "angle": 164.1
         },
         "fistKind": "forward"
       },
       {
         "construction": "band",
-        "angle": -26.4,
+        "angle": -34.9,
         "elbow": {
           "at": 8,
-          "angle": -111.5
+          "angle": -115.3
         },
         "fistKind": "forward"
       },
       {
         "construction": "band",
-        "angle": -11.9,
+        "angle": -42.8,
         "elbow": {
           "at": 8,
-          "angle": -63.2
+          "angle": -46.6
         },
         "fistKind": "forward"
       },
@@ -560,28 +560,28 @@
       },
       {
         "construction": "band",
-        "angle": -33.3,
+        "angle": -38.3,
         "elbow": {
           "at": 8,
-          "angle": -37.4
+          "angle": -42.1
         },
         "fistKind": "forward"
       },
       {
         "construction": "band",
-        "angle": -36.1,
+        "angle": -31.6,
         "elbow": {
           "at": 8,
-          "angle": -91.8
+          "angle": -97.5
         },
         "fistKind": "forward"
       },
       {
         "construction": "band",
-        "angle": -66.8,
+        "angle": -83.6,
         "elbow": {
           "at": 8,
-          "angle": -157.1
+          "angle": 169.5
         },
         "fistKind": "forward"
       },
@@ -885,7 +885,7 @@
   },
   "clips": {
     "rule": "runtime playback: frames are sheet columns; each clip starts and ends in the two-handed stance (next: twoHandGuard) unless a press in its chain window continues the combo",
-    "kesa": {
+    "downCut": {
       "frames": [
         0,
         1,
@@ -899,7 +899,7 @@
         3
       ]
     },
-    "kiriage": {
+    "upCut": {
       "frames": [
         4,
         5,
@@ -924,10 +924,10 @@
       "E": [
         {
           "grip": [
-            38,
-            17
+            40,
+            15
           ],
-          "angle": 140,
+          "angle": 95,
           "z": {
             "hilt": "front",
             "blade": "behind"
@@ -935,18 +935,18 @@
         },
         {
           "grip": [
-            46,
-            30
+            47,
+            28
           ],
-          "angle": -15,
+          "angle": 0,
           "z": "front"
         },
         {
           "grip": [
-            42,
+            43,
             37
           ],
-          "angle": -60,
+          "angle": -88,
           "z": "front"
         },
         {
@@ -959,29 +959,26 @@
         },
         {
           "grip": [
-            39,
-            38
+            41,
+            37
           ],
-          "angle": -150,
-          "z": {
-            "hilt": "front",
-            "blade": "behind"
-          }
-        },
-        {
-          "grip": [
-            46,
-            27
-          ],
-          "angle": 55,
+          "angle": -92,
           "z": "front"
         },
         {
           "grip": [
-            42,
-            19
+            47,
+            29
           ],
-          "angle": 115,
+          "angle": 15,
+          "z": "front"
+        },
+        {
+          "grip": [
+            41,
+            16
+          ],
+          "angle": 88,
           "z": {
             "hilt": "front",
             "blade": "behind"
@@ -1009,100 +1006,99 @@
     "E": [
       {
         "frame": 0,
-        "clip": "kesa",
+        "clip": "downCut",
         "type": "startup"
       },
       {
         "frame": 1,
-        "clip": "kesa",
+        "clip": "downCut",
         "type": "active",
-        "move": "diagonal cut",
+        "move": "downward slash",
         "hitbox": [
           40,
-          14,
-          22,
-          26
+          6,
+          24,
+          42
         ],
         "damage": "light"
       },
       {
         "frame": 2,
-        "clip": "kesa",
+        "clip": "downCut",
         "type": "recovery",
         "chainWindow": true
       },
       {
         "frame": 3,
-        "clip": "kesa",
+        "clip": "downCut",
         "type": "recovery",
         "chainWindow": true
       },
       {
         "frame": 4,
-        "clip": "kiriage",
+        "clip": "upCut",
         "type": "startup"
       },
       {
         "frame": 5,
-        "clip": "kiriage",
+        "clip": "upCut",
         "type": "active",
-        "move": "rising cut",
+        "move": "upward slash",
         "hitbox": [
           40,
-          8,
-          22,
-          30
+          6,
+          24,
+          42
         ],
         "damage": "light+"
       },
       {
         "frame": 6,
-        "clip": "kiriage",
+        "clip": "upCut",
         "type": "recovery",
         "chainWindow": true
       },
       {
         "frame": 7,
-        "clip": "kiriage",
+        "clip": "upCut",
         "type": "recovery",
         "chainWindow": true
       }
     ]
   },
   "keyPoses": {
-    "intent": "Katana light chain (two-handed): clip kesa = diagonal down-cut from over the right shoulder (wind-up, cut, follow-through, return to chudan); clip kiriage = rising cut from low (wind-up low, cut up and forward, follow-through high, return to chudan). Every clip starts and ends in the two-handed stance.",
+    "intent": "Katana light chain (two-handed), user 2026-10-13: two vertical slashes. Clip downCut = 12 to 6: the blade starts straight up over the head, sweeps forward through 3 o'clock (active) and ends pointing straight down. Clip upCut = 6 to 12: the blade starts pointing straight down, sweeps forward and up through 3 o'clock (active) and ends straight up over the head. Every clip starts and ends in the two-handed stance.",
     "frames": [
       {
-        "name": "kesa wind-up",
+        "name": "12-6 wind-up (blade at 12)",
         "hand": [
-          36,
-          15
+          38,
+          13
         ],
-        "angle": 140,
-        "elbow": "down",
+        "angle": 95,
         "z": {
           "hilt": "front",
           "blade": "behind"
         }
       },
       {
-        "name": "kesa cut",
+        "name": "12-6 cut (blade through 3)",
         "hand": [
-          45,
-          29
+          46,
+          27
         ],
-        "angle": -15
+        "angle": 0
       },
       {
-        "name": "kesa follow-through",
+        "name": "12-6 follow-through (blade at 6)",
         "hand": [
-          41,
-          37
+          43,
+          38
         ],
-        "angle": -60
+        "angle": -88
       },
       {
-        "name": "kesa return",
+        "name": "12-6 return",
         "hand": [
           43,
           33
@@ -1110,39 +1106,35 @@
         "angle": 40
       },
       {
-        "name": "kiriage wind-up",
+        "name": "6-12 wind-up (blade at 6)",
         "hand": [
-          37,
-          37
+          42,
+          39
         ],
-        "angle": -150,
+        "angle": -92
+      },
+      {
+        "name": "6-12 cut (blade through 3)",
+        "hand": [
+          46,
+          28
+        ],
+        "angle": 15
+      },
+      {
+        "name": "6-12 follow-through (blade at 12)",
+        "hand": [
+          39,
+          14
+        ],
+        "angle": 88,
         "z": {
           "hilt": "front",
           "blade": "behind"
         }
       },
       {
-        "name": "kiriage cut",
-        "hand": [
-          45,
-          26
-        ],
-        "angle": 55
-      },
-      {
-        "name": "kiriage follow-through",
-        "hand": [
-          40,
-          17
-        ],
-        "angle": 115,
-        "z": {
-          "hilt": "front",
-          "blade": "behind"
-        }
-      },
-      {
-        "name": "kiriage return",
+        "name": "6-12 return",
         "hand": [
           43,
           33
@@ -1152,7 +1144,7 @@
     ],
     "clips": {
       "rule": "runtime playback: frames are sheet columns; each clip starts and ends in the two-handed stance (next: twoHandGuard) unless a press in its chain window continues the combo",
-      "kesa": {
+      "downCut": {
         "frames": [
           0,
           1,
@@ -1166,7 +1158,7 @@
           3
         ]
       },
-      "kiriage": {
+      "upCut": {
         "frames": [
           4,
           5,
@@ -1186,61 +1178,61 @@
       "E": [
         {
           "frame": 0,
-          "clip": "kesa",
+          "clip": "downCut",
           "type": "startup"
         },
         {
           "frame": 1,
-          "clip": "kesa",
+          "clip": "downCut",
           "type": "active",
-          "move": "diagonal cut",
+          "move": "downward slash",
           "hitbox": [
             40,
-            14,
-            22,
-            26
+            6,
+            24,
+            42
           ],
           "damage": "light"
         },
         {
           "frame": 2,
-          "clip": "kesa",
+          "clip": "downCut",
           "type": "recovery",
           "chainWindow": true
         },
         {
           "frame": 3,
-          "clip": "kesa",
+          "clip": "downCut",
           "type": "recovery",
           "chainWindow": true
         },
         {
           "frame": 4,
-          "clip": "kiriage",
+          "clip": "upCut",
           "type": "startup"
         },
         {
           "frame": 5,
-          "clip": "kiriage",
+          "clip": "upCut",
           "type": "active",
-          "move": "rising cut",
+          "move": "upward slash",
           "hitbox": [
             40,
-            8,
-            22,
-            30
+            6,
+            24,
+            42
           ],
           "damage": "light+"
         },
         {
           "frame": 6,
-          "clip": "kiriage",
+          "clip": "upCut",
           "type": "recovery",
           "chainWindow": true
         },
         {
           "frame": 7,
-          "clip": "kiriage",
+          "clip": "upCut",
           "type": "recovery",
           "chainWindow": true
         }

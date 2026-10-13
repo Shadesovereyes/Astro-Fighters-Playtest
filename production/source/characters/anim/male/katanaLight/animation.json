@@ -116,7 +116,7 @@
   },
   "clips": {
     "rule": "runtime playback: frames are sheet columns; each clip starts and ends in the two-handed stance (next: twoHandGuard) unless a press in its chain window continues the combo",
-    "kesa": {
+    "downCut": {
       "frames": [
         0,
         1,
@@ -130,7 +130,7 @@
         3
       ]
     },
-    "kiriage": {
+    "upCut": {
       "frames": [
         4,
         5,
@@ -150,61 +150,61 @@
     "E": [
       {
         "frame": 0,
-        "clip": "kesa",
+        "clip": "downCut",
         "type": "startup"
       },
       {
         "frame": 1,
-        "clip": "kesa",
+        "clip": "downCut",
         "type": "active",
-        "move": "diagonal cut",
+        "move": "downward slash",
         "hitbox": [
           40,
-          14,
-          22,
-          26
+          6,
+          24,
+          42
         ],
         "damage": "light"
       },
       {
         "frame": 2,
-        "clip": "kesa",
+        "clip": "downCut",
         "type": "recovery",
         "chainWindow": true
       },
       {
         "frame": 3,
-        "clip": "kesa",
+        "clip": "downCut",
         "type": "recovery",
         "chainWindow": true
       },
       {
         "frame": 4,
-        "clip": "kiriage",
+        "clip": "upCut",
         "type": "startup"
       },
       {
         "frame": 5,
-        "clip": "kiriage",
+        "clip": "upCut",
         "type": "active",
-        "move": "rising cut",
+        "move": "upward slash",
         "hitbox": [
           40,
-          8,
-          22,
-          30
+          6,
+          24,
+          42
         ],
         "damage": "light+"
       },
       {
         "frame": 6,
-        "clip": "kiriage",
+        "clip": "upCut",
         "type": "recovery",
         "chainWindow": true
       },
       {
         "frame": 7,
-        "clip": "kiriage",
+        "clip": "upCut",
         "type": "recovery",
         "chainWindow": true
       }
@@ -220,20 +220,20 @@
     "offPalette": {},
     "outlineNotches": {
       "E:0": 2,
-      "E:1": 2,
+      "E:1": 4,
       "E:2": 3,
       "E:3": 4,
-      "E:4": 3,
+      "E:4": 5,
       "E:5": 2,
-      "E:6": 4,
+      "E:6": 3,
       "E:7": 4,
       "W:0": 2,
-      "W:1": 2,
+      "W:1": 4,
       "W:2": 3,
       "W:3": 4,
-      "W:4": 3,
+      "W:4": 5,
       "W:5": 2,
-      "W:6": 4,
+      "W:6": 3,
       "W:7": 4
     },
     "referenceEdges": {
@@ -242,13 +242,13 @@
     },
     "cleanup": {
       "cleanupRemoved": [
-        5,
-        7,
+        4,
+        8,
+        8,
+        6,
         11,
         6,
-        4,
-        4,
-        7,
+        6,
         6
       ],
       "cleanupMerged": [
@@ -267,8 +267,8 @@
         "male-gi E:0": 0,
         "male-blue-armor E:0": 0,
         "male-red-armor E:0": 0,
-        "blue-armor-shoulders E:0": 1,
-        "red-armor-shoulders E:0": 1,
+        "blue-armor-shoulders E:0": 0,
+        "red-armor-shoulders E:0": 0,
         "male-gi E:1": 0,
         "male-blue-armor E:1": 0,
         "male-red-armor E:1": 0,
@@ -297,8 +297,8 @@
         "male-gi E:6": 0,
         "male-blue-armor E:6": 0,
         "male-red-armor E:6": 0,
-        "blue-armor-shoulders E:6": 2,
-        "red-armor-shoulders E:6": 2,
+        "blue-armor-shoulders E:6": 1,
+        "red-armor-shoulders E:6": 1,
         "male-gi E:7": 0,
         "male-blue-armor E:7": 0,
         "male-red-armor E:7": 0,
@@ -307,8 +307,8 @@
         "male-gi W:0": 0,
         "male-blue-armor W:0": 0,
         "male-red-armor W:0": 0,
-        "blue-armor-shoulders W:0": 1,
-        "red-armor-shoulders W:0": 1,
+        "blue-armor-shoulders W:0": 0,
+        "red-armor-shoulders W:0": 0,
         "male-gi W:1": 0,
         "male-blue-armor W:1": 0,
         "male-red-armor W:1": 0,
@@ -337,8 +337,8 @@
         "male-gi W:6": 0,
         "male-blue-armor W:6": 0,
         "male-red-armor W:6": 0,
-        "blue-armor-shoulders W:6": 2,
-        "red-armor-shoulders W:6": 2,
+        "blue-armor-shoulders W:6": 1,
+        "red-armor-shoulders W:6": 1,
         "male-gi W:7": 0,
         "male-blue-armor W:7": 0,
         "male-red-armor W:7": 0,
