@@ -15,7 +15,9 @@
     95
   ],
   "rows": [
+    "S",
     "E",
+    "N",
     "W"
   ],
   "frames": 12,
@@ -27,11 +29,63 @@
       "default": true,
       "hand": "arms",
       "layers": {
+        "behind": "main-wakizashi-behind.png",
         "front": "main-wakizashi-front.png",
+        "top": "main-wakizashi-top.png",
         "trail": "main-wakizashi-trail.png"
       },
       "status": "candidate",
       "z": {
+        "S": [
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          }
+        ],
         "E": [
           "front",
           "front",
@@ -45,6 +99,20 @@
           "front",
           "front",
           "front"
+        ],
+        "N": [
+          "behind",
+          "behind",
+          "behind",
+          "behind",
+          "behind",
+          "behind",
+          "behind",
+          "behind",
+          "behind",
+          "behind",
+          "behind",
+          "behind"
         ],
         "W": [
           "front",
@@ -62,6 +130,56 @@
         ]
       },
       "grips": {
+        "S": [
+          [
+            25,
+            29
+          ],
+          [
+            30,
+            28
+          ],
+          [
+            29,
+            28
+          ],
+          [
+            25,
+            35
+          ],
+          [
+            24,
+            27
+          ],
+          [
+            30,
+            24
+          ],
+          [
+            29,
+            23
+          ],
+          [
+            25,
+            35
+          ],
+          [
+            25,
+            33
+          ],
+          [
+            30,
+            30
+          ],
+          [
+            29,
+            30
+          ],
+          [
+            25,
+            35
+          ]
+        ],
         "E": [
           [
             38,
@@ -110,6 +228,56 @@
           [
             43,
             35
+          ]
+        ],
+        "N": [
+          [
+            39,
+            32
+          ],
+          [
+            34,
+            31
+          ],
+          [
+            34,
+            31
+          ],
+          [
+            40,
+            38
+          ],
+          [
+            39,
+            29
+          ],
+          [
+            34,
+            25
+          ],
+          [
+            34,
+            25
+          ],
+          [
+            40,
+            38
+          ],
+          [
+            39,
+            36
+          ],
+          [
+            34,
+            33
+          ],
+          [
+            34,
+            33
+          ],
+          [
+            40,
+            38
           ]
         ],
         "W": [
@@ -170,11 +338,63 @@
       "default": false,
       "hand": "arms",
       "layers": {
+        "behind": "main-tanto-behind.png",
         "front": "main-tanto-front.png",
+        "top": "main-tanto-top.png",
         "trail": "main-tanto-trail.png"
       },
       "status": "candidate",
       "z": {
+        "S": [
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          }
+        ],
         "E": [
           "front",
           "front",
@@ -188,6 +408,20 @@
           "front",
           "front",
           "front"
+        ],
+        "N": [
+          "behind",
+          "behind",
+          "behind",
+          "behind",
+          "behind",
+          "behind",
+          "behind",
+          "behind",
+          "behind",
+          "behind",
+          "behind",
+          "behind"
         ],
         "W": [
           "front",
@@ -205,6 +439,56 @@
         ]
       },
       "grips": {
+        "S": [
+          [
+            25,
+            29
+          ],
+          [
+            30,
+            28
+          ],
+          [
+            29,
+            28
+          ],
+          [
+            25,
+            35
+          ],
+          [
+            24,
+            27
+          ],
+          [
+            30,
+            24
+          ],
+          [
+            29,
+            23
+          ],
+          [
+            25,
+            35
+          ],
+          [
+            25,
+            33
+          ],
+          [
+            30,
+            30
+          ],
+          [
+            29,
+            30
+          ],
+          [
+            25,
+            35
+          ]
+        ],
         "E": [
           [
             38,
@@ -253,6 +537,56 @@
           [
             43,
             35
+          ]
+        ],
+        "N": [
+          [
+            39,
+            32
+          ],
+          [
+            34,
+            31
+          ],
+          [
+            34,
+            31
+          ],
+          [
+            40,
+            38
+          ],
+          [
+            39,
+            29
+          ],
+          [
+            34,
+            25
+          ],
+          [
+            34,
+            25
+          ],
+          [
+            40,
+            38
+          ],
+          [
+            39,
+            36
+          ],
+          [
+            34,
+            33
+          ],
+          [
+            34,
+            33
+          ],
+          [
+            40,
+            38
           ]
         ],
         "W": [
@@ -310,6 +644,18 @@
   ],
   "qc": {
     "gripOnFist": {
+      "main/wakizashi S:0": true,
+      "main/wakizashi S:1": true,
+      "main/wakizashi S:2": true,
+      "main/wakizashi S:3": true,
+      "main/wakizashi S:4": true,
+      "main/wakizashi S:5": true,
+      "main/wakizashi S:6": true,
+      "main/wakizashi S:7": true,
+      "main/wakizashi S:8": true,
+      "main/wakizashi S:9": true,
+      "main/wakizashi S:10": true,
+      "main/wakizashi S:11": true,
       "main/wakizashi E:0": true,
       "main/wakizashi E:1": true,
       "main/wakizashi E:2": true,
@@ -322,6 +668,18 @@
       "main/wakizashi E:9": true,
       "main/wakizashi E:10": true,
       "main/wakizashi E:11": true,
+      "main/wakizashi N:0": "hidden",
+      "main/wakizashi N:1": "hidden",
+      "main/wakizashi N:2": "hidden",
+      "main/wakizashi N:3": "hidden",
+      "main/wakizashi N:4": "hidden",
+      "main/wakizashi N:5": "hidden",
+      "main/wakizashi N:6": "hidden",
+      "main/wakizashi N:7": "hidden",
+      "main/wakizashi N:8": "hidden",
+      "main/wakizashi N:9": "hidden",
+      "main/wakizashi N:10": "hidden",
+      "main/wakizashi N:11": "hidden",
       "main/wakizashi W:0": true,
       "main/wakizashi W:1": true,
       "main/wakizashi W:2": true,
@@ -334,6 +692,18 @@
       "main/wakizashi W:9": true,
       "main/wakizashi W:10": true,
       "main/wakizashi W:11": true,
+      "main/tanto S:0": true,
+      "main/tanto S:1": true,
+      "main/tanto S:2": true,
+      "main/tanto S:3": true,
+      "main/tanto S:4": true,
+      "main/tanto S:5": true,
+      "main/tanto S:6": true,
+      "main/tanto S:7": true,
+      "main/tanto S:8": true,
+      "main/tanto S:9": true,
+      "main/tanto S:10": true,
+      "main/tanto S:11": true,
       "main/tanto E:0": true,
       "main/tanto E:1": true,
       "main/tanto E:2": true,
@@ -346,6 +716,18 @@
       "main/tanto E:9": true,
       "main/tanto E:10": true,
       "main/tanto E:11": true,
+      "main/tanto N:0": "hidden",
+      "main/tanto N:1": "hidden",
+      "main/tanto N:2": "hidden",
+      "main/tanto N:3": "hidden",
+      "main/tanto N:4": "hidden",
+      "main/tanto N:5": "hidden",
+      "main/tanto N:6": "hidden",
+      "main/tanto N:7": "hidden",
+      "main/tanto N:8": "hidden",
+      "main/tanto N:9": "hidden",
+      "main/tanto N:10": "hidden",
+      "main/tanto N:11": "hidden",
       "main/tanto W:0": true,
       "main/tanto W:1": true,
       "main/tanto W:2": true,
