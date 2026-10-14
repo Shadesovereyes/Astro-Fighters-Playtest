@@ -1179,7 +1179,14 @@
             ]
           }
         },
-        "headDy": -1,
+        "headDy": [
+          -2,
+          -3,
+          -2,
+          -1,
+          -1,
+          -1
+        ],
         "armRule": "S matches E by projection lines: the rows follow the E bob; the slip back runs along the line of sight, as in E the guard is knocked open: the shoulders widen (pivots 1 px out) and the elbows and fists swing out to the sides (user 2026-10-14), then close back to the guard",
         "twist": {
           "pelvis": [
@@ -1248,7 +1255,8 @@
         "footFrom": {
           "R": 56,
           "L": 56
-        }
+        },
+        "headRule": "the slip back is a backward lean: the head rises 1-2 px on the neck in S (away from the viewer) and sinks 1-2 px into the shoulders in N (toward the viewer), as far as the E head is thrown back"
       },
       "N": {
         "legPose": {
@@ -1412,7 +1420,14 @@
             ]
           }
         },
-        "headDy": -1,
+        "headDy": [
+          0,
+          1,
+          0,
+          -1,
+          -1,
+          -1
+        ],
         "armRule": "N: the fists are hidden in front of the body; the shoulders widen and the upper arms swing out to the sides as the guard opens, then back in (user 2026-10-14)",
         "twist": {
           "pelvis": [
@@ -1481,7 +1496,8 @@
         "footFrom": {
           "R": 56,
           "L": 56
-        }
+        },
+        "headRule": "the slip back is a backward lean: the head rises 1-2 px on the neck in S (away from the viewer) and sinks 1-2 px into the shoulders in N (toward the viewer), as far as the E head is thrown back"
       }
     }
   }

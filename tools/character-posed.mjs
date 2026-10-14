@@ -685,9 +685,10 @@ function frontalMove(d, k, part, y, x) {
     const vis = typeof d.armVisibleTo === 'object' ? d.armVisibleTo?.[s] : d.armVisibleTo;
     if (vis !== undefined && vis !== null && y > vis) rows = [];
   } else if (part === 'head' || overlays.overlayParts?.[part]?.lagFrames !== undefined) {
-    // a view may lower the head further (headDy) and draw it in front of the torso (headZ above 3) or behind it
+    // a view may lower the head further (headDy, one value or per frame) and draw it in front of the torso (headZ above
+    // 3) or behind it
     const g = leanGroup(part);
-    rows = [leanY(g, y) + dyOf[lagOf(part)] + (g === 'head' ? (d.headDy || 0) + headDelta(k) : 0)];
+    rows = [leanY(g, y) + dyOf[lagOf(part)] + (g === 'head' ? (Array.isArray(d.headDy) ? d.headDy[k] : d.headDy || 0) + headDelta(k) : 0)];
     if (g === 'head' && d.headZ !== undefined) z = d.headZ;
   }
   else if (part === 'torso') { const ny = leanY('torso', y); rows = ny === null ? [] : [ny + b]; }
