@@ -6249,6 +6249,156 @@
           }
         ]
       }
+    },
+    "exhausted": {
+      "frames": 6,
+      "fps": 6,
+      "rows": [
+        "S",
+        "E",
+        "N",
+        "W"
+      ],
+      "status": "approved by user 2026-10-14 (S, E, N, W; W mirrors E; S/N by projection lines)",
+      "rootMotion": {
+        "S": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "E": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "N": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "W": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "layers": {
+        "body": "assets/characters/male/exhausted/body.png",
+        "arms": "assets/characters/male/exhausted/arms.png",
+        "long-hair": "assets/characters/male/exhausted/long-hair.png",
+        "fade-hair": "assets/characters/male/exhausted/fade-hair.png",
+        "afro-hair": "assets/characters/male/exhausted/afro-hair.png",
+        "brown-eyes": "assets/characters/male/exhausted/brown-eyes.png",
+        "purple-eyes": "assets/characters/male/exhausted/purple-eyes.png",
+        "male-gi": "assets/characters/male/exhausted/male-gi.png",
+        "male-blue-armor": "assets/characters/male/exhausted/male-blue-armor.png",
+        "male-red-armor": "assets/characters/male/exhausted/male-red-armor.png",
+        "blue-armor-shoulders": "assets/characters/male/exhausted/blue-armor-shoulders.png",
+        "red-armor-shoulders": "assets/characters/male/exhausted/red-armor-shoulders.png"
+      },
+      "clips": {
+        "rule": "loops while the fighter has no stamina (combo.json stamina); replaces the guard or weapon stance; any allowed action leaves it",
+        "exhausted": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "fps": 6,
+          "loop": true
+        }
+      },
+      "events": {
+        "rule": "no gameplay events",
+        "E": []
+      }
     }
   },
   "combo": {
@@ -6287,7 +6437,7 @@
         "exhaustedAttackSpeed": 0.7,
         "recoverAt": 100
       },
-      "valuesStatus": "starting values to tune in the lab (not set by the user): two weaves in a row leave 30 stamina, a third is refused; regeneration starts 1 s after the last spend; exhausted attacks play at 0.7 of their fps; the exhausted state ends when stamina is full again",
+      "valuesStatus": "starting values to tune in the lab (not set by the user): a weave needs stamina above 0 and spends 35 (never below 0), so the third weave in a row from full spends the last of it and exhausts the fighter; regeneration starts 1 s after the last spend; exhausted attacks play at 0.7 of their fps; the exhausted state ends when stamina is full again (5 s from empty)",
       "exhausted": {
         "blocks": [
           "sprint",
@@ -6295,7 +6445,7 @@
           "standing dodge"
         ],
         "attacks": "play at exhaustedAttackSpeed",
-        "rest": "exhausted idle stance (state exhausted, to author) in place of the guard or weapon stance"
+        "rest": "the exhausted idle stance (state exhausted) replaces the guard and the idle; in a weapon mode the weapon stance stays until exhausted weapon variants exist (the weapon must not disappear)"
       }
     },
     "hitArea": {

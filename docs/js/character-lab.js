@@ -37,6 +37,8 @@
       this.guardTimer = opts.guard ? GUARD_TIMEOUT : 0; this.alwaysGuard = !!opts.guard;
       this.buffered = null; this.target = null; this.lastHit = null; this.flash = 0; this.autoFace = !!opts.autoFace;
       this.pressQueue = []; this.move = { x: 0, y: 0, sprint: false };   // scripted input (the keyboard player reads keys)
+      // stamina (combo.json stamina): weaves spend it; at 0 the fighter is exhausted until it is full again
+      this.stamina = def.combo.stamina.values.max; this.exhausted = false; this.sinceSpend = Infinity;
       // paper doll: one sprite per slot, in draw order, inside a container placed at the pivot
       this.doll = scene.add.container(this.pos.x, this.pos.y);
       this.layers = {};
@@ -239,7 +241,23 @@
       if (s.kind !== 'hit') return true;
       return this.events(s.anim).some((e) => e.frame === s.frame && e.type === 'recover');
     }
-    toRest() { const st = MODES[this.mode].stance || 'guard'; this.state = { kind: 'guard', anim: st, frame: 0, t: 0 }; }
+    // the rest pose: the exhausted stance while exhausted (unarmed only: a weapon mode keeps its stance so the weapon
+    // never disappears), otherwise the guard or weapon stance
+    restAnim() { return this.exhausted && !MODES[this.mode].items && this.def.states.exhausted ? 'exhausted' : (MODES[this.mode].stance || 'guard'); }
+    toRest() { this.state = { kind: 'guard', anim: this.restAnim(), frame: 0, t: 0 }; }
+
+    spend(cost) {
+      const S = this.def.combo.stamina.values;
+      this.stamina = Math.max(0, this.stamina - cost); this.sinceSpend = 0;
+      if (this.stamina === 0) this.exhausted = true;
+    }
+
+    tickStamina(dt) {
+      const S = this.def.combo.stamina.values;
+      this.sinceSpend += dt;
+      if (this.sinceSpend >= S.regenDelaySeconds) this.stamina = Math.min(S.max, this.stamina + S.regenPerSecond * dt);
+      if (this.exhausted && this.stamina >= S.recoverAt) this.exhausted = false;
+    }
 
     // weapon combos: transitions keyed by the combo path (presses so far, L light / H heavy)
     weaponCombo() { const m = MODES[this.mode]; return m.combo ? this.def.combo.weapons[m.combo] : null; }
@@ -257,10 +275,15 @@
     // goes through the combo table (jab -> weave -> heavy = spin roundhouse). From rest it is a solo weave in the current
     // facing: its root motion carries the body back, it ends in the guard and presses during it do nothing.
     weave() {
-      if (MODES[this.mode].items || !this.canAct()) return;
+      // exhausted fighters cannot dodge; a weave needs stamina above 0 and spends its cost
+      if (MODES[this.mode].items || !this.canAct() || this.exhausted || this.stamina <= 0) return;
       if (this.state.kind === 'hit') this.toRest();
       const s = this.state;
-      if (s.kind === 'attack' || s.kind === 'evade') { this.press('weave'); return; }
+      if (s.kind === 'attack' || s.kind === 'evade') {
+        if (this.press('weave')) this.spend(this.def.combo.stamina.values.weaveCost);
+        return;
+      }
+      this.spend(this.def.combo.stamina.values.weaveCost);
       const c = this.clipDef('weave/weave');
       this.state = { kind: 'evade', solo: true, anim: c.state, clipKey: 'weave/weave', clip: c, i: 0, frame: c.frames[0], t: 0, path: '' };
       this.buffered = null;
@@ -283,7 +306,8 @@
         return;
       }
       // presses from the clip's active frame on are buffered and taken at its chain window
-      if (s.frame >= this.activeFrame(s.clip)) this.buffered = input;
+      if (s.frame >= this.activeFrame(s.clip)) { this.buffered = input; return !!this.nextClip(s, input).key; }
+      return false;
     }
 
     // one update: input (actions queued since the last frame, and the movement vector), then the state machine
@@ -303,11 +327,14 @@
         else if (action.startsWith('outfit')) this.outfit = OUTFIT_KEYS[Number(action.slice(6))];
       }
       this.flash = Math.max(0, this.flash - dt);
+      this.tickStamina(dt);
 
       const s = this.state;
       if (s.kind === 'attack' || s.kind === 'evade' || s.kind === 'hit') {
         s.t += dt;
-        const step = 1 / s.clip.fps;
+        // exhausted attacks play slowed (combo.json stamina.values.exhaustedAttackSpeed)
+        const slow = s.kind === 'attack' && this.exhausted ? this.def.combo.stamina.values.exhaustedAttackSpeed : 1;
+        const step = 1 / (s.clip.fps * slow);
         while (s.t >= step && this.state === s) {
           s.t -= step;
           const win = s.clip.chainWindow, next = this.buffered && win && s.frame >= win[0] && s.frame <= win[1]
@@ -324,14 +351,15 @@
         const { vx, vy, sprint } = input;
         const moving = vx !== 0 || vy !== 0;
         if (moving) {
-          const len = Math.hypot(vx, vy), anim = sprint ? 'sprint' : 'walk', sp = this.scene.speed[anim];
+          const len = Math.hypot(vx, vy), anim = sprint && !this.exhausted ? 'sprint' : 'walk', sp = this.scene.speed[anim];
           this.faceFrom(vx, vy);
           this.moveBy(vx / len * sp * dt, vy / len * sp * dt);
           if (s.anim !== anim) { this.state = { kind: anim, anim, frame: 0, t: 0 }; }
         } else {
           if (!this.alwaysGuard) this.guardTimer = Math.max(0, this.guardTimer - dt);
-          const rest = this.guardTimer > 0 ? (MODES[this.mode].stance || 'guard') : 'idle';
-          if (s.anim !== rest) this.state = { kind: this.guardTimer > 0 ? 'guard' : 'idle', anim: rest, frame: 0, t: 0 };
+          const tired = this.restAnim() === 'exhausted';
+          const rest = tired || this.guardTimer > 0 ? this.restAnim() : 'idle';
+          if (s.anim !== rest) this.state = { kind: rest === 'idle' ? 'idle' : 'guard', anim: rest, frame: 0, t: 0 };
           // the sparring partner keeps facing the player while it stands
           if (this.autoFace) { const o = this.others()[0]; if (o) this.facePoint(o.pos); }
         }
@@ -457,6 +485,12 @@
       for (const p of this.posts) { p.flash = Math.max(0, p.flash - dt); this.drawPost(p); }
 
       this.hitG.clear();
+      // lab HUD (not world art): a stamina bar above each fighter, red while exhausted
+      for (const f of this.fighters) {
+        const max = this.def.combo.stamina.values.max, x = Math.round(f.pos.x) - 10, y = Math.round(f.pos.y) - 62;
+        this.hitG.fillStyle(0x1c1b18, 0.8).fillRect(x - 1, y - 1, 22, 4);
+        this.hitG.fillStyle(f.exhausted ? 0xc04030 : 0x8fd06a, 1).fillRect(x, y, Math.round(20 * f.stamina / max), 2);
+      }
       if (this.showHits) {
         const a = this.def.combo.hitArea, R = Phaser.Math.DegToRad;
         for (const b of this.solids) this.hitG.lineStyle(1, 0x40c0ff, 1).strokeRect(b.x + 0.5, b.y + 0.5, b.w - 1, b.h - 1);
@@ -481,6 +515,7 @@
         ['outfit', pl.outfit],
         ['buffered', pl.buffered || '—'],
         ['guard timer', pl.guardTimer.toFixed(1) + ' s'],
+        ['stamina', `${Math.round(pl.stamina)}${pl.exhausted ? ' (exhausted)' : ''}`],
         ['target', pl.target ? pl.label(pl.target) : 'none'],
         ['last hit', pl.lastHit || '—'],
         ['partner', pt ? `${pt.state.anim} (frame ${pt.state.frame})${pt.lastHit ? ', last hit ' + pt.lastHit : ''}` : '—']
