@@ -17,7 +17,7 @@
     },
     "rule": "W mirrors E frame for frame (an attack is not a cycle, so no half-cycle shift)."
   },
-  "intent": "Taijutsu lead hook from the orthodox guard, its own animation. The lead (far) fist dips and draws back as the hips coil, then the arm comes round bent at chin height with the hips turning in, follows through across the line, and returns to the guard. The arm never straightens, so it reads apart from the jab. Built only from existing band-arm, fist and leg-pose parts.",
+  "intent": "Taijutsu hook thrown with the main (rear, near) hand from the orthodox guard, its own animation (user 2026-10-14: main hand, extends out more). The rear fist dips and draws back as the hips coil; the arm then swings round wide at chin height, elbow up and only slightly bent so it reaches nearly a jab's length, the rear heel lifting as the hips turn through; it follows through and returns to the guard. Built only from existing band-arm, fist and leg-pose parts.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -87,12 +87,12 @@
     "pending": []
   },
   "bob": {
-    "rule": "whole-pixel dy above the legs; the stance sits 1 px low throughout",
+    "rule": "whole-pixel dy above the legs; the stance sits 1 px low; the body drops 1 more as the hips turn through the hook (as on the cross)",
     "dy": [
       1,
       1,
-      1,
-      1,
+      2,
+      2,
       1,
       1
     ]
@@ -120,7 +120,7 @@
     }
   },
   "rootMotion": {
-    "rule": "the hook pivots in place",
+    "rule": "the hook drives the fighter 1 px forward as it lands",
     "E": [
       [
         0,
@@ -131,7 +131,7 @@
         0
       ],
       [
-        0,
+        1,
         0
       ],
       [
@@ -157,7 +157,7 @@
         0
       ],
       [
-        0,
+        -1,
         0
       ],
       [
@@ -304,16 +304,16 @@
     "near": [
       1,
       1,
-      1,
-      1,
+      3,
+      3,
       1,
       1
     ],
     "far": [
       0,
       0,
-      0,
-      0,
+      2,
+      2,
       0,
       0
     ]
@@ -344,34 +344,34 @@
       },
       {
         "construction": "band",
-        "angle": -20,
+        "angle": -5,
         "elbow": {
           "at": 8,
-          "angle": 212
+          "angle": 215
         }
       },
       {
         "construction": "band",
-        "angle": -20,
+        "angle": -92,
         "elbow": {
           "at": 8,
-          "angle": 212
+          "angle": -112
         }
       },
       {
         "construction": "band",
-        "angle": -20,
+        "angle": -96,
         "elbow": {
           "at": 8,
-          "angle": 212
+          "angle": -128
         }
       },
       {
         "construction": "band",
-        "angle": -20,
+        "angle": -55,
         "elbow": {
           "at": 8,
-          "angle": 212
+          "angle": 230
         }
       },
       {
@@ -394,34 +394,34 @@
       },
       {
         "construction": "band",
-        "angle": -30,
+        "angle": -45,
         "elbow": {
           "at": 8,
-          "angle": 248
+          "angle": 222
         }
       },
       {
         "construction": "band",
-        "angle": -90,
+        "angle": -45,
         "elbow": {
           "at": 8,
-          "angle": -128
+          "angle": 222
         }
       },
       {
         "construction": "band",
-        "angle": -102,
+        "angle": -45,
         "elbow": {
           "at": 8,
-          "angle": -150
+          "angle": 222
         }
       },
       {
         "construction": "band",
-        "angle": -58,
+        "angle": -45,
         "elbow": {
           "at": 8,
-          "angle": 236
+          "angle": 222
         }
       },
       {
@@ -719,7 +719,7 @@
         "hitbox": [
           40,
           14,
-          10,
+          14,
           10
         ],
         "damage": "light+",
@@ -759,9 +759,9 @@
         "type": "active",
         "move": "hook",
         "hitbox": [
-          14,
-          14,
           10,
+          14,
+          14,
           10
         ],
         "damage": "light+",
