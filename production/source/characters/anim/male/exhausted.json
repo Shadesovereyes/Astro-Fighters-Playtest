@@ -1171,27 +1171,33 @@
             "elbow": [
               {
                 "at": 7,
-                "angle": 350
+                "angle": 350,
+                "fistDy": 2
               },
               {
                 "at": 7,
-                "angle": 346
+                "angle": 346,
+                "fistDy": 2
               },
               {
                 "at": 7,
-                "angle": 346
+                "angle": 346,
+                "fistDy": 2
               },
               {
                 "at": 7,
-                "angle": 350
+                "angle": 350,
+                "fistDy": 2
               },
               {
                 "at": 7,
-                "angle": 354
+                "angle": 354,
+                "fistDy": 2
               },
               {
                 "at": 7,
-                "angle": 354
+                "angle": 354,
+                "fistDy": 2
               }
             ],
             "scale": [
@@ -1236,27 +1242,33 @@
             "elbow": [
               {
                 "at": 7,
-                "angle": 10
+                "angle": 10,
+                "fistDy": 2
               },
               {
                 "at": 7,
-                "angle": 14
+                "angle": 14,
+                "fistDy": 2
               },
               {
                 "at": 7,
-                "angle": 14
+                "angle": 14,
+                "fistDy": 2
               },
               {
                 "at": 7,
-                "angle": 10
+                "angle": 10,
+                "fistDy": 2
               },
               {
                 "at": 7,
-                "angle": 6
+                "angle": 6,
+                "fistDy": 2
               },
               {
                 "at": 7,
-                "angle": 6
+                "angle": 6,
+                "fistDy": 2
               }
             ],
             "scale": [
