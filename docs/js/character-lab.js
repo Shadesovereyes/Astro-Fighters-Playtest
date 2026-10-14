@@ -89,7 +89,7 @@
       this.keys = kb.addKeys('W,A,S,D,UP,DOWN,LEFT,RIGHT,SHIFT');
       // discrete actions are queued from key events so a tap shorter than one frame is never lost
       this.pressQueue = [];
-      const onKey = { J: 'light', K: 'heavy', L: 'weave', H: 'hitboxes', T: 'target', Q: 'weapon', ONE: 'outfit0', TWO: 'outfit1', THREE: 'outfit2', FOUR: 'outfit3', FIVE: 'hair', SIX: 'eyes' };
+      const onKey = { J: 'light', K: 'heavy', L: 'weave', P: 'partner', H: 'hitboxes', T: 'target', Q: 'weapon', ONE: 'outfit0', TWO: 'outfit1', THREE: 'outfit2', FOUR: 'outfit3', FIVE: 'hair', SIX: 'eyes' };
       for (const [key, action] of Object.entries(onKey)) kb.on(`keydown-${key}`, (e) => { if (!e.repeat) this.pressQueue.push(action); });
       // walk and sprint speeds come from the sheets' root motion so the planted foot stays planted
       this.speed = {};
@@ -112,10 +112,87 @@
       g.setDepth(p.y);
     }
 
-    // T cycles the selected target through the posts and back to none
+    // hit targets: the training posts and the sparring partner (when present)
+    targets() { return this.partner ? [...this.posts, this.partner] : this.posts; }
+
+    // T cycles the selected target through the targets and back to none
     cycleTarget() {
-      const i = this.target ? this.posts.indexOf(this.target) + 1 : 0;
-      this.target = i < this.posts.length ? this.posts[i] : null;
+      const t = this.targets(), i = this.target ? t.indexOf(this.target) + 1 : 0;
+      this.target = i < t.length ? t[i] : null;
+    }
+
+    // ---- sparring partner (P): a second character in red armour that faces the player from its guard and plays the
+    // hit recoil (hitReact, when the runtime export carries it for its facing) on every hit that lands on it
+    togglePartner() {
+      if (this.partner) {
+        this.partner.doll.destroy(); if (this.target === this.partner) this.target = null; this.partner = null; return;
+      }
+      const C = this.def.combo.bodyCollision, [fx, fy] = { S: [0, 1], E: [1, 0], N: [0, -1], W: [-1, 0] }[this.facing];
+      const o = this.partner = { id: 'partner', x: this.pos.x + fx * 2 * C.rx, y: this.pos.y + fy * 2 * C.ry, r: C.hurtRadius, h: 54,
+        facing: this.facing, anim: 'guard', frame: 0, t: 0, flash: 0, doll: this.add.container(0, 0), spr: {} };
+      o.x = Phaser.Math.Clamp(o.x, 16, VIEW_W - 16); o.y = Phaser.Math.Clamp(o.y, 40, VIEW_H - 4);
+      o.spr.shadow = this.add.sprite(0, 0, 'shadow', 0).setOrigin(0.5, 63 / 64); o.doll.add(o.spr.shadow);
+      for (const slot of ['body', 'clothing', 'arms', 'armAccessories', 'hair', 'eyes', 'fx']) {
+        o.spr[slot] = this.add.sprite(0, 0, 'idle|body', 0).setOrigin(0.5, 63 / 64); o.doll.add(o.spr[slot]);
+      }
+      this.facePartner(); this.drawPartner();
+    }
+
+    facePartner() {
+      const o = this.partner, dx = this.pos.x - o.x, dy = this.pos.y - o.y;
+      if (dx || dy) o.facing = Math.abs(dx) >= Math.abs(dy) ? (dx > 0 ? 'E' : 'W') : (dy > 0 ? 'S' : 'N');
+    }
+
+    drawPartner() {
+      const o = this.partner, def = this.def, st = def.states[o.anim], idx = st.rows.indexOf(o.facing) * st.frames + o.frame;
+      const pick = { body: 'body', clothing: 'male-red-armor', arms: 'arms', armAccessories: 'red-armor-shoulders', hair: 'fade-hair', eyes: 'purple-eyes', fx: 'impact-fx' };
+      for (const [slot, layer] of Object.entries(pick)) {
+        const has = st.layers[layer];
+        o.spr[slot].setVisible(!!has);
+        if (has) o.spr[slot].setTexture(`${o.anim}|${layer}`, idx);
+        if (slot !== 'fx') { if (o.flash > 0) o.spr[slot].setTintFill(0xffffff); else o.spr[slot].clearTint(); }
+      }
+      o.spr.shadow.setFrame(def.referenceFrameOrder.indexOf(o.facing));
+      o.doll.setPosition(Math.round(o.x), Math.round(o.y)).setDepth(o.y);
+    }
+
+    partnerHit() {
+      const o = this.partner, hr = this.def.states.hitReact;
+      this.facePartner();
+      if (hr && hr.rows.includes(o.facing)) { o.anim = 'hitReact'; o.frame = 0; o.t = 0; this.partnerMove(0); }
+      else o.flash = 0.08;   // no hit recoil for this facing in the export: a one-frame flash instead
+    }
+
+    partnerMove(frame) {
+      const o = this.partner, rm = this.def.states[o.anim].rootMotion[o.facing];
+      if (!rm) return;
+      const [dx, dy] = rm[frame] || [0, 0];
+      const x = Phaser.Math.Clamp(o.x + dx, 16, VIEW_W - 16), y = Phaser.Math.Clamp(o.y + dy, 40, VIEW_H - 4);
+      const solid = (px, py) => this.solids.some((b) => px > b.x && px < b.x + b.w && py > b.y && py < b.y + b.h);
+      if (!solid(x, o.y) && !this.actorBlocked(o, x, o.y, this.pos)) o.x = x;
+      if (!solid(o.x, y) && !this.actorBlocked(o, o.x, y, this.pos)) o.y = y;
+    }
+
+    tickPartner(dt) {
+      const o = this.partner;
+      o.flash = Math.max(0, o.flash - dt);
+      o.t += dt;
+      const st = this.def.states[o.anim];
+      while (o.t >= 1 / st.fps) {
+        o.t -= 1 / st.fps; o.frame++;
+        if (o.anim === 'hitReact') { if (o.frame >= st.frames) { o.anim = 'guard'; o.frame = 0; break; } this.partnerMove(o.frame); }
+        else o.frame %= st.frames;
+      }
+      if (o.anim === 'guard') this.facePartner();
+      this.drawPartner();
+    }
+
+    // body collision (combo.json bodyCollision): a's foot point moving to (x, y) is refused when it would lie inside the
+    // doubled ellipse around b and closer to b than before (two overlapping bodies may only separate)
+    actorBlocked(a, x, y, b) {
+      const C = this.def.combo.bodyCollision, q = (px, py) => ((px - b.x) / (2 * C.rx)) ** 2 + ((py - b.y) / (2 * C.ry)) ** 2;
+      const n = q(x, y);
+      return n < 1 && n < q(a.x, a.y);
     }
 
     // frame index in a state's sheet for the current facing row
@@ -187,7 +264,10 @@
       this.moveBy(dx, dy);
     }
 
-    blocked(x, y) { return this.solids.some((b) => x > b.x && x < b.x + b.w && y > b.y && y < b.y + b.h); }
+    blocked(x, y) {
+      return this.solids.some((b) => x > b.x && x < b.x + b.w && y > b.y && y < b.y + b.h)
+        || (this.partner && this.actorBlocked(this.pos, x, y, this.partner));
+    }
 
     // move the foot point, sliding along solids axis by axis
     moveBy(dx, dy) {
@@ -234,12 +314,12 @@
       const e = this.activeEvent();
       if (!e) return;
       const [, y, , h] = e.hitbox, band = [63 - (y + h), 63 - y];
-      const inside = this.posts.map((p) => ({ p, d: this.inArc(p) }))
+      const inside = this.targets().map((p) => ({ p, d: this.inArc(p) }))
         .filter(({ p, d }) => d !== null && band[0] < p.h && band[1] > 0);
       if (!inside.length) { this.lastHit = `${e.move} → miss`; return; }
       const pick = inside.find(({ p }) => p === this.target) || inside.sort((a, b) => a.d - b.d)[0];
-      pick.p.flash = 0.25;
-      this.lastHit = `${e.move} → post ${pick.p.id}${pick.p === this.target ? ' (target)' : ''}`;
+      if (pick.p === this.partner) this.partnerHit(); else pick.p.flash = 0.25;
+      this.lastHit = `${e.move} → ${pick.p === this.partner ? 'partner' : `post ${pick.p.id}`}${pick.p === this.target ? ' (target)' : ''}`;
     }
 
     // weapon combos: transitions keyed by the combo path (presses so far, L light / H heavy)
@@ -289,6 +369,7 @@
       for (const action of this.pressQueue.splice(0)) {
         if (action === 'light' || action === 'heavy') this.press(action);
         else if (action === 'weave') this.weave();
+        else if (action === 'partner') this.togglePartner();
         else if (action === 'hitboxes') this.showHits = !this.showHits;
         else if (action === 'target') this.cycleTarget();
         else if (action === 'hair') this.hair = (this.hair + 1) % HAIRS.length;
@@ -342,6 +423,7 @@
         while (st.t >= 1 / sd.fps) { st.t -= 1 / sd.fps; st.frame = (st.frame + 1) % sd.frames; }
       }
       for (const p of this.posts) { p.flash = Math.max(0, p.flash - dt); this.drawPost(p); }
+      if (this.partner) this.tickPartner(dt);
 
       this.applyLayers();
       this.hitG.clear();
@@ -366,7 +448,8 @@
         ['outfit', this.outfit],
         ['buffered', this.buffered || '—'],
         ['guard timer', this.guardTimer.toFixed(1) + ' s'],
-        ['target', this.target ? `post ${this.target.id}` : 'none'],
+        ['target', this.target ? (this.target === this.partner ? 'partner' : `post ${this.target.id}`) : 'none'],
+        ['partner', this.partner ? `${this.partner.anim} (frame ${this.partner.frame})` : '—'],
         ['last hit', this.lastHit || '—']
       ];
       const html = rows.map(([a, b]) => `<tr><td>${a}</td><td>${b}</td></tr>`).join('');

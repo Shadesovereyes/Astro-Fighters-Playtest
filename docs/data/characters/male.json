@@ -6422,6 +6422,13 @@
           }
         ]
       }
+    },
+    "bodyCollision": {
+      "rule": "set by the user 2026-10-14: characters never overlap. Each character's body is a ground-plane ellipse at its foot pivot; two characters' foot points stay outside the doubled ellipse, so side by side they stand at least 2 rx apart and front to back at least 2 ry. rx 15 is the guard's reach from the pivot in E/W (fists 15 px ahead), so two facing guards meet fist to fist without crossing. Movement, attack root motion and hit knockback all stop at it (a move that would bring two overlapping bodies closer is refused, one that separates them is allowed). It is authored here, independent of the sprites.",
+      "rx": 15,
+      "ry": 6,
+      "hurtRadius": 8,
+      "hurtRule": "a character's footprint for the hit arc (hitArea.targetContact) is a circle of radius 8 at its foot pivot: its body without the guard"
     }
   }
 }

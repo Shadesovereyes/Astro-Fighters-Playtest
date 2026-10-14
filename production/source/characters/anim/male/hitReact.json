@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Hit recoil (unarmed, user 2026-10-14; distinct from the approved weave): struck in the face while in the guard. Frame 0 impact: the head is snapped back past upright, the hips pushed forward, the guard is broken (both fists knocked down and out from the face, elbows flung back), the body is driven back 3 px and drops; frame 1 the furthest point, arms loose; frame 2 the stagger; frames 3-4 the head comes forward and the hands come back up; frames 5-6 back in the guard. Hitstun on frames 0-4.",
+  "intent": "Hit recoil (unarmed, user 2026-10-14; distinct from the approved weave): struck in the face while in the guard. Frame 0 impact: the head is snapped back past upright, the hips pushed forward, the guard is broken (both fists knocked down and out from the face, elbows flung back), the body is driven back 2 px and drops; frame 1 the furthest point, arms loose; frame 2 the stagger; frames 3-4 the head comes forward and the hands come back up; frames 5-6 back in the guard. Hitstun on frames 0-4.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -141,12 +141,8 @@
     }
   },
   "rootMotion": {
-    "rule": "knocked back by the hit: the body is driven back 3, 2, 1 px (against the facing) on the first frames",
+    "rule": "knocked back by the hit: the body is driven back 2 px then 1 px (against the facing) on the first frames, so a light chain keeps the target in reach (user 2026-10-14: bodies never overlap, hits stay in range)",
     "E": [
-      [
-        -3,
-        0
-      ],
       [
         -2,
         0
@@ -170,19 +166,23 @@
       [
         0,
         0
+      ],
+      [
+        0,
+        0
       ]
     ],
     "W": [
-      [
-        3,
-        0
-      ],
       [
         2,
         0
       ],
       [
         1,
+        0
+      ],
+      [
+        0,
         0
       ],
       [
@@ -883,7 +883,7 @@
   },
   "keyPoses": {
     "fps": 12,
-    "intent": "Hit recoil (unarmed, user 2026-10-14; distinct from the approved weave): struck in the face while in the guard. Frame 0 impact: the head is snapped back past upright, the hips pushed forward, the guard is broken (both fists knocked down and out from the face, elbows flung back), the body is driven back 3 px and drops; frame 1 the furthest point, arms loose; frame 2 the stagger; frames 3-4 the head comes forward and the hands come back up; frames 5-6 back in the guard. Hitstun on frames 0-4.",
+    "intent": "Hit recoil (unarmed, user 2026-10-14; distinct from the approved weave): struck in the face while in the guard. Frame 0 impact: the head is snapped back past upright, the hips pushed forward, the guard is broken (both fists knocked down and out from the face, elbows flung back), the body is driven back 2 px and drops; frame 1 the furthest point, arms loose; frame 2 the stagger; frames 3-4 the head comes forward and the hands come back up; frames 5-6 back in the guard. Hitstun on frames 0-4.",
     "bobRule": "the knees give under the blow (body 2 px low) and come back up to the guard height; the head drops with the body a frame late",
     "dy": [
       2,
@@ -992,15 +992,15 @@
     ],
     "root": [
       [
-        -3,
-        0
-      ],
-      [
         -2,
         0
       ],
       [
         -1,
+        0
+      ],
+      [
+        0,
         0
       ],
       [
