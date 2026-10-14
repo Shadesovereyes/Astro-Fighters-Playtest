@@ -11,13 +11,13 @@
     "W"
   ],
   "mirror": {
+    "rule": "W mirrors E frame for frame (both bob phases are the same).",
     "W": {
       "from": "E",
       "frameShift": 0
-    },
-    "rule": "W mirrors E frame for frame (an attack is not a cycle, so no half-cycle shift)."
+    }
   },
-  "intent": "Taijutsu clinch uppercut, its own animation. The lead (far) hand reaches out and hooks down over the opponent's neck, pulls them in as the fighter steps 1 px forward, the knees dip with the rear (near) fist dropped to the ribs, then the body rises and the rear fist drives straight up while the lead hand keeps hold; the hold releases on the recover and both hands return to the guard. The gripping hand uses the existing fist shape (no open-hand part has been approved). Built only from existing band-arm, fist and leg-pose parts.",
+  "intent": "Clinch uppercut, played from the approved clinch idle (clinchHold) and back to it. The lead (far) hand keeps the collar tie the whole time; the rear (near) hand lets go of the neck, drops to the ribs as the knees dip, then drives straight up into the held fighter's lowered face as the body rises and the rear heel lifts; it holds a beat on the impact and returns to the tie. Paired with clinchUppercutHit on the held fighter, frame for frame.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -87,12 +87,12 @@
     "pending": []
   },
   "bob": {
-    "rule": "whole-pixel dy above the legs; the stance sits 1 px low; the knees dip 1 more before the uppercut; as it lands the body returns to stance height and the head rises 1 px above it",
+    "rule": "from the idle height (1 px low) the knees dip 1 more as the fist drops, then the body comes back up through the strike and the head rises 1 px above it on the impact; the arms ride with the body",
     "dy": [
       1,
       1,
-      1,
       2,
+      1,
       1,
       1,
       1,
@@ -101,42 +101,52 @@
     "head": [
       1,
       1,
-      1,
       2,
+      0,
       0,
       0,
       1,
       1
+    ],
+    "arms": [
+      2,
+      1,
+      2,
+      1,
+      1,
+      1,
+      1,
+      2
     ]
   },
   "lean": {
-    "rule": "the head comes forward into the clinch and stays over the opponent through the pull and the uppercut, then eases back to the guard lean",
+    "rule": "leaning in over the held opponent as in the idle; the head drops into the dip and drives forward with the strike",
     "torsoShear": true,
     "dx": {
       "pelvis": [
-        0,
-        0,
-        1,
-        0,
         1,
         1,
-        0,
-        0
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
       ],
       "head": [
-        2,
-        3,
-        4,
-        2,
         4,
         4,
-        3,
-        2
+        5,
+        4,
+        5,
+        5,
+        4,
+        4
       ]
     }
   },
   "rootMotion": {
-    "rule": "the pull steps the fighter in 1 px",
+    "rule": "in place (the pair keeps its spacing)",
     "E": [
       [
         0,
@@ -147,7 +157,7 @@
         0
       ],
       [
-        1,
+        0,
         0
       ],
       [
@@ -181,7 +191,7 @@
         0
       ],
       [
-        -1,
+        0,
         0
       ],
       [
@@ -311,6 +321,28 @@
         "foot": "flat"
       },
       {
+        "name": "guard-low-lead",
+        "construction": "band",
+        "hipX": 32,
+        "kneeX": 36,
+        "footX": 37,
+        "hipRow": 43,
+        "kneeRow": 51,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "guard-low-rear",
+        "construction": "band",
+        "hipX": 31,
+        "kneeX": 30,
+        "footX": 25,
+        "hipRow": 43,
+        "kneeRow": 51,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
         "name": "cross-lead",
         "construction": "band",
         "hipX": 33,
@@ -338,8 +370,8 @@
       1,
       1,
       1,
-      3,
-      3,
+      5,
+      5,
       1,
       1
     ],
@@ -348,8 +380,8 @@
       0,
       0,
       0,
-      2,
-      2,
+      4,
+      4,
       0,
       0
     ]
@@ -372,34 +404,50 @@
     "near": [
       {
         "construction": "band",
-        "angle": -20,
+        "angle": -82,
         "elbow": {
           "at": 8,
-          "angle": 212
+          "angle": -118
         }
       },
       {
         "construction": "band",
-        "angle": -20,
+        "angle": -30,
         "elbow": {
           "at": 8,
-          "angle": 212
+          "angle": 215
         }
       },
       {
         "construction": "band",
-        "angle": -20,
+        "angle": -5,
         "elbow": {
           "at": 8,
-          "angle": 212
+          "angle": 200
         }
       },
       {
         "construction": "band",
-        "angle": -8,
+        "angle": -55,
         "elbow": {
           "at": 8,
-          "angle": 205
+          "angle": -165
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -80,
+        "elbow": {
+          "at": 8,
+          "angle": -174
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -78,
+        "elbow": {
+          "at": 8,
+          "angle": -172
         }
       },
       {
@@ -407,57 +455,25 @@
         "angle": -70,
         "elbow": {
           "at": 8,
-          "angle": -168
+          "angle": -140
         }
       },
       {
         "construction": "band",
-        "angle": -66,
+        "angle": -82,
         "elbow": {
           "at": 8,
-          "angle": -160
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -40,
-        "elbow": {
-          "at": 8,
-          "angle": 222
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -20,
-        "elbow": {
-          "at": 8,
-          "angle": 212
+          "angle": -118
         }
       }
     ],
     "far": [
       {
         "construction": "band",
-        "angle": -45,
+        "angle": -90,
         "elbow": {
           "at": 8,
-          "angle": 222
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -95,
-        "elbow": {
-          "at": 8,
-          "angle": -95
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -92,
-        "elbow": {
-          "at": 8,
-          "angle": -55
+          "angle": -126
         }
       },
       {
@@ -465,15 +481,7 @@
         "angle": -90,
         "elbow": {
           "at": 8,
-          "angle": -50
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -88,
-        "elbow": {
-          "at": 8,
-          "angle": -48
+          "angle": -126
         }
       },
       {
@@ -481,23 +489,47 @@
         "angle": -90,
         "elbow": {
           "at": 8,
-          "angle": -50
+          "angle": -126
         }
       },
       {
         "construction": "band",
-        "angle": -58,
+        "angle": -90,
         "elbow": {
           "at": 8,
-          "angle": 236
+          "angle": -126
         }
       },
       {
         "construction": "band",
-        "angle": -45,
+        "angle": -90,
         "elbow": {
           "at": 8,
-          "angle": 222
+          "angle": -126
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -90,
+        "elbow": {
+          "at": 8,
+          "angle": -126
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -90,
+        "elbow": {
+          "at": 8,
+          "angle": -126
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -90,
+        "elbow": {
+          "at": 8,
+          "angle": -126
         }
       }
     ],
@@ -563,7 +595,8 @@
       }
     },
     "guardRule": "boxing guard: elbows down in front of the ribs, forearms angled up and forward, fists at chin height with knuckles forward; the lead (far) hand sits further forward",
-    "outlineRaised": true
+    "outlineRaised": true,
+    "farLayer": true
   },
   "clothing": {
     "rule": "Layer 2 clothing follows the body it is registered to. Front, back and diagonal views move each clothing pixel exactly like the body pixel of the same part. In the authored profile (E) each trouser row is resampled onto the posed leg (thigh rows onto the pose's thigh rows, shin rows onto its shin rows) and shifted by the leg's back edge; wrap and shoe follow the ankle (reference-ankle poses) or the shin line and the authored foot (line poses), where a toe-down foot is drawn as the foot's own shape in the shoe colours. The far trouser leg is the near one on the far pose, shaded one step darker and drawn behind. A mirrored direction whose clothing is not an exact mirror is built from its own clothing frame, flipped through its source's motion. Where clothing newly meets empty space it gets the clothing's outline colour.",
@@ -584,8 +617,8 @@
           -1,
           -1,
           -1,
-          -2,
-          -2,
+          -1,
+          -1,
           -1,
           -1
         ]
@@ -770,125 +803,8 @@
     "looseFromRow": 40,
     "looseRule": "from row 40 down, cloth specks of 1-2 px cut off from the garment and outline pixels that no longer border any cloth are removed (they are left between the legs where a direction's own clothing frame does not register exactly with its source's motion)"
   },
-  "events": {
-    "rule": "per-frame gameplay data per facing (W mirrors E: x -> 64 - x - w): hitbox [x, y, w, h] on active frames (provisional until the frames are approved)",
-    "E": [
-      {
-        "frame": 0,
-        "type": "startup",
-        "clip": "clinchUppercut"
-      },
-      {
-        "frame": 1,
-        "type": "startup",
-        "move": "clinch",
-        "clip": "clinchUppercut"
-      },
-      {
-        "frame": 2,
-        "type": "startup",
-        "grip": true,
-        "clip": "clinchUppercut"
-      },
-      {
-        "frame": 3,
-        "type": "startup",
-        "grip": true,
-        "clip": "clinchUppercut"
-      },
-      {
-        "frame": 4,
-        "type": "active",
-        "move": "uppercut",
-        "grip": true,
-        "hitbox": [
-          38,
-          8,
-          10,
-          14
-        ],
-        "damage": "medium",
-        "clip": "clinchUppercut"
-      },
-      {
-        "frame": 5,
-        "type": "recovery",
-        "grip": true,
-        "clip": "clinchUppercut"
-      },
-      {
-        "frame": 6,
-        "type": "recovery",
-        "chainWindow": true,
-        "clip": "clinchUppercut"
-      },
-      {
-        "frame": 7,
-        "type": "recovery",
-        "chainWindow": true,
-        "clip": "clinchUppercut"
-      }
-    ],
-    "W": [
-      {
-        "frame": 0,
-        "type": "startup",
-        "clip": "clinchUppercut"
-      },
-      {
-        "frame": 1,
-        "type": "startup",
-        "move": "clinch",
-        "clip": "clinchUppercut"
-      },
-      {
-        "frame": 2,
-        "type": "startup",
-        "grip": true,
-        "clip": "clinchUppercut"
-      },
-      {
-        "frame": 3,
-        "type": "startup",
-        "grip": true,
-        "clip": "clinchUppercut"
-      },
-      {
-        "frame": 4,
-        "type": "active",
-        "move": "uppercut",
-        "grip": true,
-        "hitbox": [
-          16,
-          8,
-          10,
-          14
-        ],
-        "damage": "medium",
-        "clip": "clinchUppercut"
-      },
-      {
-        "frame": 5,
-        "type": "recovery",
-        "grip": true,
-        "clip": "clinchUppercut"
-      },
-      {
-        "frame": 6,
-        "type": "recovery",
-        "chainWindow": true,
-        "clip": "clinchUppercut"
-      },
-      {
-        "frame": 7,
-        "type": "recovery",
-        "chainWindow": true,
-        "clip": "clinchUppercut"
-      }
-    ]
-  },
   "clips": {
-    "rule": "runtime playback: frames are sheet columns; each clip starts and ends in the orthodox guard; at the end of a clip the character returns to the guard idle (next: guard) unless a press in the clip's chain window continues the combo (combo.json lists the allowed combos)",
+    "rule": "plays from clinchHold and returns to it (next: clinchHold); the held fighter plays clinchUppercutHit on the same frames",
     "clinchUppercut": {
       "frames": [
         0,
@@ -901,11 +817,108 @@
         7
       ],
       "fps": 12,
-      "next": "guard",
-      "chainWindow": [
-        6,
-        7
-      ]
+      "next": "clinchHold"
     }
+  },
+  "pair": {
+    "rule": "paired idle: drawn with its partner state facing it; the partner's pivot sits 'partnerDx' px ahead along the facing (provisional until approved) (user 2026-10-14: 3 px further apart than the first draft)",
+    "partner": "clinchUppercutHit",
+    "partnerDx": 27,
+    "layering": [
+      "clinchHold far-arm",
+      "clinchHeld far-arm",
+      "clinchHold body, clothing, hair, eyes",
+      "clinchHeld body, clothing, shoulders, hair, eyes",
+      "clinchHeld arms",
+      "clinchHold arms"
+    ],
+    "layeringRule": "back to front (user 2026-10-14): the holder's far arm is the bottom layer (it wraps behind the held head to the back of the neck) and the holder's near arm the top layer (it wraps over the held head); between them the held fighter's far arm, the holder's body, the held fighter's body (its head is pulled down in front of the holder's chest) and the held fighter's near arm (pushing on the holder's chest)"
+  },
+  "events": {
+    "rule": "per-frame gameplay data per facing (W mirrors E: x -> 64 - x - w); the hitbox is the held fighter's lowered head (provisional)",
+    "E": [
+      {
+        "frame": 0,
+        "type": "startup"
+      },
+      {
+        "frame": 1,
+        "type": "startup"
+      },
+      {
+        "frame": 2,
+        "type": "startup"
+      },
+      {
+        "frame": 3,
+        "type": "startup"
+      },
+      {
+        "frame": 4,
+        "type": "active",
+        "move": "clinchUppercut",
+        "hitbox": [
+          38,
+          10,
+          10,
+          12
+        ],
+        "damage": "medium"
+      },
+      {
+        "frame": 5,
+        "type": "recovery"
+      },
+      {
+        "frame": 6,
+        "type": "recovery"
+      },
+      {
+        "frame": 7,
+        "type": "recovery"
+      }
+    ],
+    "W": [
+      {
+        "frame": 0,
+        "type": "startup"
+      },
+      {
+        "frame": 1,
+        "type": "startup"
+      },
+      {
+        "frame": 2,
+        "type": "startup"
+      },
+      {
+        "frame": 3,
+        "type": "startup"
+      },
+      {
+        "frame": 4,
+        "type": "active",
+        "move": "clinchUppercut",
+        "hitbox": [
+          16,
+          10,
+          10,
+          12
+        ],
+        "damage": "medium"
+      },
+      {
+        "frame": 5,
+        "type": "recovery"
+      },
+      {
+        "frame": 6,
+        "type": "recovery"
+      },
+      {
+        "frame": 7,
+        "type": "recovery"
+      }
+    ]
   }
 }

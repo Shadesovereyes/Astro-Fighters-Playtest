@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "clinchHold",
-  "status": "candidate E/W drafted 2026-10-14, awaiting user approval (S/N to author after E/W is approved)",
+  "status": "E/W approved by user 2026-10-14 (paired, 27 px apart, layered holder far arm bottom / holder near arm top); S/N to author",
   "frames": 4,
   "fps": 6,
   "sourceDirection": "E",
@@ -679,5 +679,9 @@
       "clinchHold arms"
     ],
     "layeringRule": "back to front (user 2026-10-14): the holder's far arm is the bottom layer (it wraps behind the held head to the back of the neck) and the holder's near arm the top layer (it wraps over the held head); between them the held fighter's far arm, the holder's body, the held fighter's body (its head is pulled down in front of the holder's chest) and the held fighter's near arm (pushing on the holder's chest)"
+  },
+  "approved": {
+    "E": "2026-10-14",
+    "W": "2026-10-14 (mirror of E)"
   }
 }
