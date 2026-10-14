@@ -402,6 +402,7 @@ const overlayLayers = spec.overlays.layers.map((name) => {
 });
 const lagOf = (part) => (part === 'head' ? 0 : overlays.overlayParts?.[part]?.lagFrames);
 
+const OUTLINE_RAISED = !!spec.arms?.outlineRaised || process.env.OUTLINE_RAISED === '1';
 const bob = spec.bob.dy;
 // ---- frames -------------------------------------------------------------------------------------------
 const FAR_ARM_PX = [];   // positions where the posed far arm shows (for far-arm accessories)
@@ -430,9 +431,19 @@ function frame(k) {
       if (bodyRest.has(key(x + dx, y + dy)) && !rest.has(q)) rest.set(q, 'o');
     }
   }
-  // a raised (band) near arm crosses the torso, so it is outlined over the body as well
-  const na = closeArm(shifted(buildArm(A.near[k])), (x, y, q) => y < AR.shoulder + DROP || (A.near[k].construction !== 'band' && rest.has(q)));
-  const fa = closeArm(shifted(buildArm(A.far[k])), (x, y) => y < AR.shoulder + DROP);
+  // a raised (band) near arm crosses the torso, so it is outlined over the body as well. Above the shoulder row an arm
+  // gets no outline (it joins the shoulder there); with arms.outlineRaised a band arm raised above the shoulder row
+  // (forearm and fist over the face) is outlined there too, except at the shoulder joint itself (within the arm's
+  // thickness of its pivot), so overlapping parts keep reading (outlineRule, user 2026-10-14)
+  const joint = (p) => (x, y) => {
+    if (y >= AR.shoulder + DROP) return false;
+    if (!(OUTLINE_RAISED && p.construction === 'band')) return true;
+    const B = { ...A.band, ...(p.band || {}) };
+    return Math.hypot(x + 0.5 - T - B.pivot[0], y + 0.5 - DROP - B.pivot[1]) <= B.thickness / 2 + 1.5;
+  };
+  const nj = joint(A.near[k]), fj = joint(A.far[k]);
+  const na = closeArm(shifted(buildArm(A.near[k])), (x, y, q) => nj(x, y) || (A.near[k].construction !== 'band' && rest.has(q)));
+  const fa = closeArm(shifted(buildArm(A.far[k])), (x, y) => fj(x, y));
   for (const [p, c] of far) bodyL.set(p, colourOf(farShade[c]));
   for (const [p, c] of fa) { const [x, y] = unkey(p); bodyL.set(key(x, y + b + AD), colourOf(farShade[c])); }
   const farKeys = new Set(bodyL.keys());
