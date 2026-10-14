@@ -89,7 +89,7 @@
       this.keys = kb.addKeys('W,A,S,D,UP,DOWN,LEFT,RIGHT,SHIFT');
       // discrete actions are queued from key events so a tap shorter than one frame is never lost
       this.pressQueue = [];
-      const onKey = { J: 'light', K: 'heavy', H: 'hitboxes', T: 'target', Q: 'weapon', ONE: 'outfit0', TWO: 'outfit1', THREE: 'outfit2', FOUR: 'outfit3', FIVE: 'hair', SIX: 'eyes' };
+      const onKey = { J: 'light', K: 'heavy', L: 'weave', H: 'hitboxes', T: 'target', Q: 'weapon', ONE: 'outfit0', TWO: 'outfit1', THREE: 'outfit2', FOUR: 'outfit3', FIVE: 'hair', SIX: 'eyes' };
       for (const [key, action] of Object.entries(onKey)) kb.on(`keydown-${key}`, (e) => { if (!e.repeat) this.pressQueue.push(action); });
       // walk and sprint speeds come from the sheets' root motion so the planted foot stays planted
       this.speed = {};
@@ -254,8 +254,19 @@
       return { key, path: s.path + (input === 'light' ? 'L' : 'H'), startAt: entry && entry.atFrames.includes(s.frame) ? entry.start : null };
     }
 
+    // the unarmed weave/dodge (weave state): from rest, in the current facing; its root motion carries the body back
+    // and it ends in the guard; unarmed only (the weave has no weapon sheets yet), attack presses wait for its end
+    weave() {
+      if (this.state.kind === 'attack' || this.state.kind === 'evade' || MODES[this.mode].items) return;
+      const c = this.clipDef('weave/weave');
+      this.state = { kind: 'evade', anim: c.state, clipKey: 'weave/weave', clip: c, i: 0, frame: c.frames[0], t: 0, path: '' };
+      this.buffered = null;
+      this.applyRootMotion();
+    }
+
     press(input) {
       const s = this.state, tr = this.def.combo.transitions, wc = this.weaponCombo();
+      if (s.kind === 'evade') return;
       if (s.kind !== 'attack' && wc) {
         const key = (wc.paths[''] || {})[input];
         if (key) this.startClip(key, input === 'light' ? 'L' : 'H');
@@ -274,13 +285,14 @@
       const dt = Math.min(deltaMs / 1000, 0.05), k = this.keys;
       for (const action of this.pressQueue.splice(0)) {
         if (action === 'light' || action === 'heavy') this.press(action);
+        else if (action === 'weave') this.weave();
         else if (action === 'hitboxes') this.showHits = !this.showHits;
         else if (action === 'target') this.cycleTarget();
         else if (action === 'hair') this.hair = (this.hair + 1) % HAIRS.length;
         else if (action === 'eyes') this.eyes = (this.eyes + 1) % EYES.length;
         else if (action === 'weapon') {
           // a mode change waits for rest (an attack in progress finishes with its own weapon)
-          if (this.state.kind === 'attack') continue;
+          if (this.state.kind === 'attack' || this.state.kind === 'evade') continue;
           this.mode = (this.mode + 1) % MODES.length;
           if (this.state.kind === 'guard') { const st = MODES[this.mode].stance || 'guard'; this.state = { kind: 'guard', anim: st, frame: 0, t: 0 }; }
         }
@@ -288,7 +300,7 @@
       }
 
       const s = this.state;
-      if (s.kind === 'attack') {
+      if (s.kind === 'attack' || s.kind === 'evade') {
         s.t += dt;
         const step = 1 / s.clip.fps;
         while (s.t >= step && this.state === s) {

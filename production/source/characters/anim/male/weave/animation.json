@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-animation-output/v1",
   "body": "male",
   "state": "weave",
-  "status": "E/W approved by user 2026-10-14 (as the unarmed weave/dodge); S/N candidate",
+  "status": "approved by user 2026-10-14 (S, E, N, W; as the unarmed weave/dodge; W mirrors E; S/N by projection lines with the rigid upper-body lean)",
   "frames": 6,
   "fps": 12,
   "frameSize": [

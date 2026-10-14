@@ -69,6 +69,7 @@ jobs:
           node tools/character-weapon.mjs male oneHandHeavy --check
           node tools/character-posed.mjs male dualHeavy --check
           node tools/character-weapon.mjs male dualHeavy --check
+          node tools/character-posed.mjs male weave --check
 
       - name: Check the character runtime export is current
         run: node tools/export-character-runtime.mjs male --check

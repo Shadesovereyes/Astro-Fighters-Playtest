@@ -5922,6 +5922,187 @@
           }
         ]
       }
+    },
+    "weave": {
+      "frames": 6,
+      "fps": 12,
+      "rows": [
+        "S",
+        "E",
+        "N",
+        "W"
+      ],
+      "status": "approved by user 2026-10-14 (S, E, N, W; as the unarmed weave/dodge; W mirrors E; S/N by projection lines with the rigid upper-body lean)",
+      "rootMotion": {
+        "S": [
+          [
+            0,
+            -2
+          ],
+          [
+            0,
+            -1
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "E": [
+          [
+            -2,
+            0
+          ],
+          [
+            -1,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "N": [
+          [
+            0,
+            2
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "W": [
+          [
+            2,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "layers": {
+        "body": "assets/characters/male/weave/body.png",
+        "arms": "assets/characters/male/weave/arms.png",
+        "long-hair": "assets/characters/male/weave/long-hair.png",
+        "fade-hair": "assets/characters/male/weave/fade-hair.png",
+        "afro-hair": "assets/characters/male/weave/afro-hair.png",
+        "brown-eyes": "assets/characters/male/weave/brown-eyes.png",
+        "purple-eyes": "assets/characters/male/weave/purple-eyes.png",
+        "male-gi": "assets/characters/male/weave/male-gi.png",
+        "male-blue-armor": "assets/characters/male/weave/male-blue-armor.png",
+        "male-red-armor": "assets/characters/male/weave/male-red-armor.png",
+        "blue-armor-shoulders": "assets/characters/male/weave/blue-armor-shoulders.png",
+        "red-armor-shoulders": "assets/characters/male/weave/red-armor-shoulders.png"
+      },
+      "clips": {
+        "rule": "a defensive move from the guard (or neutral); ends in the guard",
+        "weave": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "fps": 12,
+          "next": "guard"
+        }
+      },
+      "events": {
+        "rule": "per-frame gameplay data: evade frames (attacks that land on them miss), then recovery",
+        "E": [
+          {
+            "frame": 0,
+            "clip": "weave",
+            "type": "evade"
+          },
+          {
+            "frame": 1,
+            "clip": "weave",
+            "type": "evade"
+          },
+          {
+            "frame": 2,
+            "clip": "weave",
+            "type": "evade"
+          },
+          {
+            "frame": 3,
+            "clip": "weave",
+            "type": "evade"
+          },
+          {
+            "frame": 4,
+            "clip": "weave",
+            "type": "recovery"
+          },
+          {
+            "frame": 5,
+            "clip": "weave",
+            "type": "recovery"
+          }
+        ]
+      }
     }
   },
   "combo": {
