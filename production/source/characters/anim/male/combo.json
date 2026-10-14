@@ -6,7 +6,7 @@
     "light": "light attack: one key/button for the punch combo (jab, cross)",
     "heavy": "heavy attack: a separate key/button for the kick combo (low kick, snap kick, spin roundhouse)",
     "weave": "weave/dodge: a third key/button (lab: L); unarmed only for now (user 2026-10-14)",
-    "block": "block: hold to keep the block stance (key to be set; lab: to add); unarmed first (user 2026-10-14)"
+    "block": "block: hold to keep the block stance (lab: I); unarmed first (user 2026-10-14)"
   },
   "rules": [
     "Light attack and heavy attack are two separate inputs, each bound to its own key/button.",
@@ -51,24 +51,32 @@
     "values": {
       "staminaPerBlockedHit": 15,
       "healthDamageScale": 0.3,
-      "poiseDamageScale": 1.5
+      "poiseDamageScale": 1.5,
+      "frontHalfAngleDeg": 90,
+      "blockedKnockback": 1
     },
-    "valuesStatus": "starting values to tune in the lab (not set by the user): a blocked hit spends 15 stamina (a weave 35), deals 0.3 of its health damage and 1.5 of its poise damage; an exhausted fighter cannot block (block is a defensive action like the dodge) - to confirm",
+    "valuesStatus": "starting values to tune in the lab (not set by the user): a blocked hit spends 15 stamina (a weave 35), deals 0.3 of its health damage and 1.5 of its poise damage, and pushes the blocker back 1 px; the block covers hits from the front half (within 90 degrees of the facing), a hit from behind lands normally; the block is held from rest (not while moving, attacking or in hit recoil), attacks wait until it is released; exhausted fighters and fighters without stamina cannot block (to confirm)",
     "stance": "block stance (state block, to author): a held high cover from the guard, both forearms up in front of the face, elbows tucked over the body, chin down"
   },
   "health": {
     "rule": "recorded 2026-10-14 for the block trade-off: every fighter has health; a landed hit deals its move's health damage (scaled by the block when blocked); values per move to set",
     "values": {
-      "max": 100
+      "max": 100,
+      "lightDamage": 8,
+      "heavyDamage": 14
     },
-    "valuesStatus": "to set: per-move health damage"
+    "valuesStatus": "starting values to tune (not set by the user): every light clip deals 8, every heavy clip 14 (heavy = clips reached by the heavy input: kicks and weapon heavies); at 0 health the fighter stays at 0 (no knockout state yet)"
   },
   "poise": {
     "rule": "recorded 2026-10-14 for the block trade-off: every fighter has poise; hits deal poise damage (scaled up when blocked); when poise runs out the guard breaks (stagger state, to author); poise recovers over time",
     "values": {
-      "max": 100
+      "max": 100,
+      "lightDamage": 10,
+      "heavyDamage": 25,
+      "regenPerSecond": 15,
+      "regenDelaySeconds": 1.5
     },
-    "valuesStatus": "to set: per-move poise damage, recovery rate, guard-break stagger"
+    "valuesStatus": "starting values to tune (not set by the user): lights 10, heavies 25 poise damage; poise regenerates 15/s from 1.5 s after the last poise damage; at 0 poise the guard breaks: the block is knocked open and the fighter plays the hit recoil as a stand-in for the guard-break stagger (to author), then poise refills to full"
   },
   "hitArea": {
     "rule": "set by the user 2026-10-12: every attack's hit area is an arc on the ground plane in front of the character, so targets that are not exactly aligned still connect",

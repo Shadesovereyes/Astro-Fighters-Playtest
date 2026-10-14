@@ -39,6 +39,8 @@
       this.pressQueue = []; this.move = { x: 0, y: 0, sprint: false };   // scripted input (the keyboard player reads keys)
       // stamina (combo.json stamina): weaves spend it; at 0 the fighter is exhausted until it is full again
       this.stamina = def.combo.stamina.values.max; this.exhausted = false; this.sinceSpend = Infinity;
+      // health and poise (combo.json health, poise): hits deal both; a blocked hit less health and more poise
+      this.health = def.combo.health.values.max; this.poise = def.combo.poise.values.max; this.sincePoise = Infinity;
       // paper doll: one sprite per slot, in draw order, inside a container placed at the pivot
       this.doll = scene.add.container(this.pos.x, this.pos.y);
       this.layers = {};
@@ -118,10 +120,10 @@
     faceTarget() { const t = this.target?.pos || this.target; if (t) this.facePoint(t); }
 
     // startAt: a clip entered from another clip's hold may start later (its entry rule, e.g. at the smear frame)
-    startClip(key, path = '', startAt = null) {
+    startClip(key, path = '', startAt = null, input = null) {
       const c = this.clipDef(key), i = startAt !== null && c.frames.includes(startAt) ? c.frames.indexOf(startAt) : 0;
       if (c.state !== 'weave') this.faceTarget();
-      this.state = { kind: c.state === 'weave' ? 'evade' : 'attack', anim: c.state, clipKey: key, clip: c, i, frame: c.frames[i], t: 0, path };
+      this.state = { kind: c.state === 'weave' ? 'evade' : 'attack', anim: c.state, clipKey: key, clip: c, i, frame: c.frames[i], t: 0, path, input };
       this.buffered = null;
       this.applyRootMotion();
       this.checkHit();
@@ -208,17 +210,43 @@
       const pick = inside.find(({ p }) => p === this.target) || inside.sort((a, b) => a.d - b.d)[0];
       const tgt = this.label(pick.p) + (pick.p === this.target ? ' (target)' : '');
       if (pick.p instanceof Fighter) {
-        const res = pick.p.takeHit(this);
-        this.lastHit = `${e.move} → ${tgt}${res === 'evaded' ? ' evaded (weave)' : ''}`;
+        const res = pick.p.takeHit(this, this.state.input === 'light' ? 'light' : 'heavy');
+        this.lastHit = `${e.move} → ${tgt}${res === 'evaded' ? ' evaded (weave)' : res === 'blocked' ? ' blocked' : res === 'guardBreak' ? ' guard broken' : ''}`;
       } else { pick.p.flash = 0.25; this.lastHit = `${e.move} → ${tgt}`; }
     }
 
     // a hit lands on this fighter: during the weave's evade frames it misses; otherwise the hit recoil (hitReact, when
     // exported for this facing) starts from its first frame, interrupting whatever was playing, and the attacker
     // follows the knockback (combo.json hitFollow); without hitReact a one-frame flash
-    takeHit(attacker) {
-      const s = this.state;
+    takeHit(attacker, weight = 'light') {
+      const s = this.state, C = this.def.combo, Bk = C.block.values;
       if (s.kind === 'evade' && this.events(s.anim).some((e) => e.frame === s.frame && e.type === 'evade')) return 'evaded';
+      const hp = weight === 'light' ? C.health.values.lightDamage : C.health.values.heavyDamage;
+      const pd = weight === 'light' ? C.poise.values.lightDamage : C.poise.values.heavyDamage;
+      // block (combo.json block): a hit from the front half lands on the block: stamina is spent, less health and
+      // more poise damage, a small push back; at 0 poise the guard breaks (the hit recoil stands in for the stagger)
+      if (s.kind === 'block') {
+        const [fx, fy] = DIRV[this.facing], dx = attacker.pos.x - this.pos.x, dy = attacker.pos.y - this.pos.y, d = Math.hypot(dx, dy) || 1;
+        if ((dx * fx + dy * fy) / d >= Math.cos(Bk.frontHalfAngleDeg * Math.PI / 180) - 1e-9) {
+          this.spend(Bk.staminaPerBlockedHit);
+          this.damage(hp * Bk.healthDamageScale, pd * Bk.poiseDamageScale);
+          if (this.poise > 0 && !this.exhausted) { this.moveBy(-fx * Bk.blockedKnockback, -fy * Bk.blockedKnockback); return 'blocked'; }
+          this.poise = this.def.combo.poise.values.max;
+          this.recoil(attacker);
+          return 'guardBreak';
+        }
+      }
+      this.damage(hp, pd);
+      if (this.poise <= 0) this.poise = this.def.combo.poise.values.max;
+      return this.recoil(attacker);
+    }
+
+    damage(hp, pd) {
+      this.health = Math.max(0, this.health - hp);
+      this.poise = Math.max(0, this.poise - pd); this.sincePoise = 0;
+    }
+
+    recoil(attacker) {
       this.facePoint(attacker.pos);
       const hr = this.def.states.hitReact;
       if (!hr || !hr.rows.includes(this.facing)) { this.flash = 0.08; return 'hit'; }
@@ -257,6 +285,15 @@
       this.sinceSpend += dt;
       if (this.sinceSpend >= S.regenDelaySeconds) this.stamina = Math.min(S.max, this.stamina + S.regenPerSecond * dt);
       if (this.exhausted && this.stamina >= S.recoverAt) this.exhausted = false;
+      const P = this.def.combo.poise.values;
+      this.sincePoise += dt;
+      if (this.sincePoise >= P.regenDelaySeconds) this.poise = Math.min(P.max, this.poise + P.regenPerSecond * dt);
+    }
+
+    // the block is held from rest (not while moving, attacking or in hit recoil); unarmed only (no weapon block sheets
+    // yet), and not while exhausted or without stamina
+    canBlock() {
+      return !this.exhausted && this.stamina > 0 && !MODES[this.mode].items && !!this.def.states.block;
     }
 
     // weapon combos: transitions keyed by the combo path (presses so far, L light / H heavy)
@@ -277,7 +314,7 @@
     weave() {
       // exhausted fighters cannot dodge; a weave needs stamina above 0 and spends its cost
       if (MODES[this.mode].items || !this.canAct() || this.exhausted || this.stamina <= 0) return;
-      if (this.state.kind === 'hit') this.toRest();
+      if (this.state.kind === 'hit' || this.state.kind === 'block') this.toRest();
       const s = this.state;
       if (s.kind === 'attack' || s.kind === 'evade') {
         if (this.press('weave')) this.spend(this.def.combo.stamina.values.weaveCost);
@@ -291,18 +328,18 @@
     }
 
     press(input) {
-      if (!this.canAct()) return;
+      if (!this.canAct() || this.state.kind === 'block') return;
       if (this.state.kind === 'hit') this.toRest();
       const s = this.state, tr = this.def.combo.transitions, wc = this.weaponCombo();
       if (s.kind === 'evade' && s.solo) return;
       if (s.kind !== 'attack' && s.kind !== 'evade' && wc) {
         const key = (wc.paths[''] || {})[input];
-        if (key) this.startClip(key, input === 'light' ? 'L' : 'H');
+        if (key) this.startClip(key, input === 'light' ? 'L' : 'H', null, input);
         return;
       }
       if (s.kind !== 'attack' && s.kind !== 'evade') {
         const from = s.kind === 'guard' ? (tr.guard || tr.neutral) : tr.neutral;
-        if (from[input]) this.startClip(from[input]);
+        if (from[input]) this.startClip(from[input], '', null, input);
         return;
       }
       // presses from the clip's active frame on are buffered and taken at its chain window
@@ -339,7 +376,7 @@
           s.t -= step;
           const win = s.clip.chainWindow, next = this.buffered && win && s.frame >= win[0] && s.frame <= win[1]
             ? this.nextClip(s, this.buffered) : null;
-          if (next && next.key) { this.startClip(next.key, next.path, next.startAt); break; }
+          if (next && next.key) { this.startClip(next.key, next.path, next.startAt, this.buffered); break; }
           if (this.buffered && win && s.frame >= win[0] && s.frame <= win[1]) this.buffered = null;   // invalid press: dropped
           s.i += 1;
           if (s.i >= s.clip.frames.length) { this.toRest(); this.guardTimer = GUARD_TIMEOUT; break; }
@@ -347,6 +384,13 @@
           if (s.kind === 'hit') this.knock();
           else { this.applyRootMotion(); this.checkHit(); }
         }
+      } else if (s.kind === 'block' || input.block && this.canBlock()) {
+        // holding the block: the block stance loops in place; releasing it (or losing the stamina) returns to rest
+        if (s.kind !== 'block') this.state = { kind: 'block', anim: 'block', frame: 0, t: 0 };
+        else if (!input.block || !this.canBlock()) { this.toRest(); this.guardTimer = GUARD_TIMEOUT; }
+        const st = this.state, sd = this.def.states[st.anim];
+        st.t += dt;
+        while (st.t >= 1 / sd.fps) { st.t -= 1 / sd.fps; st.frame = (st.frame + 1) % sd.frames; }
       } else {
         const { vx, vy, sprint } = input;
         const moving = vx !== 0 || vy !== 0;
@@ -420,7 +464,7 @@
       this.posts.forEach((p) => this.drawPost(p));
 
       const kb = this.input.keyboard;
-      this.keys = kb.addKeys('W,A,S,D,UP,DOWN,LEFT,RIGHT,SHIFT');
+      this.keys = kb.addKeys('W,A,S,D,UP,DOWN,LEFT,RIGHT,SHIFT,I');
       // discrete actions are queued from key events so a tap shorter than one frame is never lost
       this.pressQueue = [];
       const onKey = { J: 'light', K: 'heavy', L: 'weave', P: 'partner', H: 'hitboxes', T: 'target', Q: 'weapon', ONE: 'outfit0', TWO: 'outfit1', THREE: 'outfit2', FOUR: 'outfit3', FIVE: 'hair', SIX: 'eyes' };
@@ -480,16 +524,17 @@
       }
       const vx = (k.D.isDown || k.RIGHT.isDown ? 1 : 0) - (k.A.isDown || k.LEFT.isDown ? 1 : 0);
       const vy = (k.S.isDown || k.DOWN.isDown ? 1 : 0) - (k.W.isDown || k.UP.isDown ? 1 : 0);
-      pl.step(dt, { vx, vy, sprint: k.SHIFT.isDown });
-      if (this.partner) { const m = this.partner.move; this.partner.step(dt, { vx: m.x, vy: m.y, sprint: m.sprint }); }
+      pl.step(dt, { vx, vy, sprint: k.SHIFT.isDown, block: k.I.isDown });
+      if (this.partner) { const m = this.partner.move; this.partner.step(dt, { vx: m.x, vy: m.y, sprint: m.sprint, block: !!m.block }); }
       for (const p of this.posts) { p.flash = Math.max(0, p.flash - dt); this.drawPost(p); }
 
       this.hitG.clear();
-      // lab HUD (not world art): a stamina bar above each fighter, red while exhausted
+      // lab HUD (not world art): health, poise and stamina bars above each fighter (stamina red while exhausted)
       for (const f of this.fighters) {
-        const max = this.def.combo.stamina.values.max, x = Math.round(f.pos.x) - 10, y = Math.round(f.pos.y) - 62;
-        this.hitG.fillStyle(0x1c1b18, 0.8).fillRect(x - 1, y - 1, 22, 4);
-        this.hitG.fillStyle(f.exhausted ? 0xc04030 : 0x8fd06a, 1).fillRect(x, y, Math.round(20 * f.stamina / max), 2);
+        const C = this.def.combo, x = Math.round(f.pos.x) - 10, y = Math.round(f.pos.y) - 66;
+        this.hitG.fillStyle(0x1c1b18, 0.8).fillRect(x - 1, y - 1, 22, 10);
+        const bars = [[f.health / C.health.values.max, 0xd05a4a], [f.poise / C.poise.values.max, 0xe0c048], [f.stamina / C.stamina.values.max, f.exhausted ? 0xc04030 : 0x8fd06a]];
+        bars.forEach(([v, col], i) => this.hitG.fillStyle(col, 1).fillRect(x, y + i * 3, Math.round(20 * v), 2));
       }
       if (this.showHits) {
         const a = this.def.combo.hitArea, R = Phaser.Math.DegToRad;
@@ -515,10 +560,11 @@
         ['outfit', pl.outfit],
         ['buffered', pl.buffered || '—'],
         ['guard timer', pl.guardTimer.toFixed(1) + ' s'],
+        ['health / poise', `${Math.round(pl.health)} / ${Math.round(pl.poise)}`],
         ['stamina', `${Math.round(pl.stamina)}${pl.exhausted ? ' (exhausted)' : ''}`],
         ['target', pl.target ? pl.label(pl.target) : 'none'],
         ['last hit', pl.lastHit || '—'],
-        ['partner', pt ? `${pt.state.anim} (frame ${pt.state.frame})${pt.lastHit ? ', last hit ' + pt.lastHit : ''}` : '—']
+        ['partner', pt ? `${pt.state.anim} (frame ${pt.state.frame}), health ${Math.round(pt.health)}, poise ${Math.round(pt.poise)}, stamina ${Math.round(pt.stamina)}${pt.lastHit ? ', last hit ' + pt.lastHit : ''}` : '—']
       ];
       const html = rows.map(([a, b]) => `<tr><td>${a}</td><td>${b}</td></tr>`).join('');
       if (html !== this.lastStatus) { this.statusEl.innerHTML = html; this.lastStatus = html; }
