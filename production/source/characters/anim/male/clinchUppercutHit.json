@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "clinchUppercutHit",
-  "status": "E/W approved by user 2026-10-14 (paired; hit-recoil eyes on the held fighter); S/N to author",
+  "status": "E/W candidate 2026-10-14 (re-render of the approved pair with the hands kept on the holder's chest); S/N to author",
   "frames": 8,
   "fps": 12,
   "sourceDirection": "E",
@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "The held fighter's side of the clinch uppercut, played from the approved clinch idle (clinchHeld) and back to it, frame for frame with clinchUppercut. Still bent over in the tie and working with the hands until the strike lands; on the impact frame the head snaps up and back and the hands fly off the holder's chest; the head then sinks back under the tie and the hands return to the chest.",
+  "intent": "The held fighter's side of the clinch uppercut, played from the approved clinch idle (clinchHeld) and back to it, frame for frame with clinchUppercut. Still bent over in the tie and working with the hands until the strike lands; on the impact frame the head snaps up and back while the hands stay on the holder's chest (user 2026-10-14: the held fighter's arms do not drop when hit); the head then sinks back under the tie.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -113,8 +113,8 @@
       2,
       2,
       2,
-      1,
-      1,
+      2,
+      2,
       2,
       2
     ]
@@ -414,26 +414,26 @@
       },
       {
         "construction": "band",
-        "angle": -50,
+        "angle": -66,
         "elbow": {
           "at": 8,
-          "angle": -80
+          "angle": -104
         }
       },
       {
         "construction": "band",
-        "angle": -52,
+        "angle": -65,
         "elbow": {
           "at": 8,
-          "angle": -84
+          "angle": -103
         }
       },
       {
         "construction": "band",
-        "angle": -60,
+        "angle": -64,
         "elbow": {
           "at": 8,
-          "angle": -96
+          "angle": -102
         }
       },
       {
@@ -480,26 +480,26 @@
       },
       {
         "construction": "band",
-        "angle": -44,
+        "angle": -58,
         "elbow": {
           "at": 8,
-          "angle": -74
+          "angle": -96
         }
       },
       {
         "construction": "band",
-        "angle": -46,
+        "angle": -58,
         "elbow": {
           "at": 8,
-          "angle": -78
+          "angle": -96
         }
       },
       {
         "construction": "band",
-        "angle": -54,
+        "angle": -58,
         "elbow": {
           "at": 8,
-          "angle": -90
+          "angle": -96
         }
       },
       {
@@ -896,9 +896,5 @@
       ]
     },
     "intent": "the hit-recoil expression (user 2026-10-14: the eyes briefly change when the uppercut lands, as in the hit recoil): eyes squeezed shut with the brow pulled down on the impact frames 4-5, a squint on frame 6, open again on frame 7 as the head sinks back under the tie"
-  },
-  "approved": {
-    "E": "2026-10-14",
-    "W": "2026-10-14 (mirror of E)"
   }
 }

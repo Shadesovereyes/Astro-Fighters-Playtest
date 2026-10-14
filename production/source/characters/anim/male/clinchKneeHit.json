@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "clinchKneeHit",
-  "status": "E/W approved by user 2026-10-14 (paired; held fighter pulled 2 px in; hit-recoil eyes); S/N to author",
+  "status": "E/W candidate 2026-10-14 (re-render of the approved pair with the hands kept on the holder's chest); S/N to author",
   "frames": 8,
   "fps": 12,
   "sourceDirection": "E",
@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "The held fighter's side of the clinch knee, played from the approved clinchHeld idle and back to it, frame for frame with clinchKnee. The tie pulls the head further down; on the impact frame the body folds around the knee (knees sag, back rounds, head down), the hands drop off the holder's chest toward the body, and the eyes squeeze shut; then the fighter straightens back into the idle and the hands return to the chest.",
+  "intent": "The held fighter's side of the clinch knee, played from the approved clinchHeld idle and back to it, frame for frame with clinchKnee. The tie pulls the head further down; on the impact frame the body folds around the knee (knees sag, back rounds, head down), the hands stay on the holder's chest (user 2026-10-14: the held fighter's arms do not drop when hit) and the eyes squeeze shut; then the fighter straightens back into the idle.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -87,7 +87,7 @@
     "pending": []
   },
   "bob": {
-    "rule": "knees bent at the idle height (2 px low); the pull sinks the head 1 more; on the impact the body folds (head down 2 more, arms drop with it), then it rises back to the idle",
+    "rule": "knees bent at the idle height (2 px low); the pull sinks the head 1 more; on the impact the body folds (head down 2 more; the hands stay on the holder's chest), then it rises back to the idle",
     "dy": [
       2,
       2,
@@ -113,8 +113,8 @@
       2,
       2,
       2,
-      3,
-      3,
+      2,
+      2,
       2,
       2
     ]
@@ -414,26 +414,26 @@
       },
       {
         "construction": "band",
-        "angle": -35,
+        "angle": -60,
         "elbow": {
           "at": 8,
-          "angle": -70
+          "angle": -98
         }
       },
       {
         "construction": "band",
-        "angle": -36,
+        "angle": -60,
         "elbow": {
           "at": 8,
-          "angle": -72
+          "angle": -98
         }
       },
       {
         "construction": "band",
-        "angle": -52,
+        "angle": -61,
         "elbow": {
           "at": 8,
-          "angle": -90
+          "angle": -99
         }
       },
       {
@@ -480,26 +480,26 @@
       },
       {
         "construction": "band",
-        "angle": -32,
+        "angle": -58,
         "elbow": {
           "at": 8,
-          "angle": -66
+          "angle": -96
         }
       },
       {
         "construction": "band",
-        "angle": -34,
+        "angle": -58,
         "elbow": {
           "at": 8,
-          "angle": -68
+          "angle": -96
         }
       },
       {
         "construction": "band",
-        "angle": -50,
+        "angle": -58,
         "elbow": {
           "at": 8,
-          "angle": -88
+          "angle": -96
         }
       },
       {
@@ -896,9 +896,5 @@
       ]
     },
     "intent": "the hit-recoil expression when the knee lands: eyes squeezed shut on the impact frames 4-5, a squint on frame 6, open again on frame 7"
-  },
-  "approved": {
-    "E": "2026-10-14",
-    "W": "2026-10-14 (mirror of E)"
   }
 }
