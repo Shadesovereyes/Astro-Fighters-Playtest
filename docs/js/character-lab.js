@@ -166,9 +166,9 @@
 
     // startAt: a clip entered from another clip's hold may start later (its entry rule, e.g. at the smear frame)
     startClip(key, path = '', startAt = null) {
-      this.faceTarget();
       const c = this.clipDef(key), i = startAt !== null && c.frames.includes(startAt) ? c.frames.indexOf(startAt) : 0;
-      this.state = { kind: 'attack', anim: c.state, clipKey: key, clip: c, i, frame: c.frames[i], t: 0, path };
+      if (c.state !== 'weave') this.faceTarget();
+      this.state = { kind: c.state === 'weave' ? 'evade' : 'attack', anim: c.state, clipKey: key, clip: c, i, frame: c.frames[i], t: 0, path };
       this.buffered = null;
       this.applyRootMotion();
       this.checkHit();
@@ -254,25 +254,28 @@
       return { key, path: s.path + (input === 'light' ? 'L' : 'H'), startAt: entry && entry.atFrames.includes(s.frame) ? entry.start : null };
     }
 
-    // the unarmed weave/dodge (weave state): from rest, in the current facing; its root motion carries the body back
-    // and it ends in the guard; unarmed only (the weave has no weapon sheets yet), attack presses wait for its end
+    // the unarmed weave/dodge (weave state), unarmed only (the weave has no weapon sheets yet). During a clip the press
+    // goes through the combo table (jab -> weave -> heavy = spin roundhouse). From rest it is a solo weave in the current
+    // facing: its root motion carries the body back, it ends in the guard and presses during it do nothing.
     weave() {
-      if (this.state.kind === 'attack' || this.state.kind === 'evade' || MODES[this.mode].items) return;
+      if (MODES[this.mode].items) return;
+      const s = this.state;
+      if (s.kind === 'attack' || s.kind === 'evade') { this.press('weave'); return; }
       const c = this.clipDef('weave/weave');
-      this.state = { kind: 'evade', anim: c.state, clipKey: 'weave/weave', clip: c, i: 0, frame: c.frames[0], t: 0, path: '' };
+      this.state = { kind: 'evade', solo: true, anim: c.state, clipKey: 'weave/weave', clip: c, i: 0, frame: c.frames[0], t: 0, path: '' };
       this.buffered = null;
       this.applyRootMotion();
     }
 
     press(input) {
       const s = this.state, tr = this.def.combo.transitions, wc = this.weaponCombo();
-      if (s.kind === 'evade') return;
-      if (s.kind !== 'attack' && wc) {
+      if (s.kind === 'evade' && s.solo) return;
+      if (s.kind !== 'attack' && s.kind !== 'evade' && wc) {
         const key = (wc.paths[''] || {})[input];
         if (key) this.startClip(key, input === 'light' ? 'L' : 'H');
         return;
       }
-      if (s.kind !== 'attack') {
+      if (s.kind !== 'attack' && s.kind !== 'evade') {
         const from = s.kind === 'guard' ? (tr.guard || tr.neutral) : tr.neutral;
         if (from[input]) this.startClip(from[input]);
         return;

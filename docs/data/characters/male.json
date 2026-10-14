@@ -6054,7 +6054,7 @@
         "red-armor-shoulders": "assets/characters/male/weave/red-armor-shoulders.png"
       },
       "clips": {
-        "rule": "a defensive move from the guard (or neutral); ends in the guard",
+        "rule": "a defensive move from the guard (or neutral), or a combo step after the jab (combo.json); ends in the guard; chain window = its recovery frames 4-5",
         "weave": {
           "frames": [
             0,
@@ -6065,7 +6065,11 @@
             5
           ],
           "fps": 12,
-          "next": "guard"
+          "next": "guard",
+          "chainWindow": [
+            4,
+            5
+          ]
         }
       },
       "events": {
@@ -6111,13 +6115,15 @@
     "status": "candidate; input mapping and allowed combos set by the user 2026-10-12",
     "inputs": {
       "light": "light attack: one key/button for the punch combo (jab, cross)",
-      "heavy": "heavy attack: a separate key/button for the kick combo (low kick, snap kick, spin roundhouse)"
+      "heavy": "heavy attack: a separate key/button for the kick combo (low kick, snap kick, spin roundhouse)",
+      "weave": "weave/dodge: a third key/button (lab: L); unarmed only for now (user 2026-10-14)"
     },
     "rules": [
       "Light attack and heavy attack are two separate inputs, each bound to its own key/button.",
       "One press plays one clip; every step of a chain needs its own press, in rhythm (inside the playing clip's chain window, its last two frames).",
-      "Only these combos exist: light, light = jab, cross; light, light, heavy = jab, cross, spin roundhouse; light, heavy = jab, spin roundhouse; heavy, heavy, heavy = low kick, snap kick, spin roundhouse (and their opening steps: light = jab; heavy = low kick; heavy, heavy = low kick, snap kick).",
+      "Only these combos exist: light, light = jab, cross; light, light, heavy = jab, cross, spin roundhouse; light, heavy = jab, spin roundhouse; heavy, heavy, heavy = low kick, snap kick, spin roundhouse; light, weave, heavy = jab, weave, spin roundhouse (user 2026-10-14) (and their opening steps: light = jab; heavy = low kick; heavy, heavy = low kick, snap kick).",
       "A heavy press after a punch (in the jab's or the cross's chain window) plays the spin roundhouse finisher.",
+      "A weave press in the jab's chain window plays the weave as a combo step; a heavy press in that weave's chain window (its recovery frames 4-5) plays the spin roundhouse finisher; a light or weave press there does nothing. A weave started from the guard or neutral is not a combo step: it ends in the guard and the next press starts a combo as from the guard (user 2026-10-14).",
       "A light press after a kick does nothing: kicks never lead into punches. A light press after the cross does nothing.",
       "The spin roundhouse is the finisher and ends the combo.",
       "A clip that finishes with no valid press in its window returns to the guard idle (guard.json) and ends the combo.",
@@ -6152,31 +6158,43 @@
       "rule": "the next clip for a press in each clip's chain window (null: the press does nothing); this table is the complete set of allowed combos",
       "neutral": {
         "light": "lightAttack/jab",
-        "heavy": "heavyAttack/lowKick"
+        "heavy": "heavyAttack/lowKick",
+        "weave": null
       },
       "lightAttack/jab": {
         "light": "lightAttack/cross",
-        "heavy": "heavyAttack/spinRoundhouse"
+        "heavy": "heavyAttack/spinRoundhouse",
+        "weave": "weave/weave"
       },
       "lightAttack/cross": {
         "light": null,
-        "heavy": "heavyAttack/spinRoundhouse"
+        "heavy": "heavyAttack/spinRoundhouse",
+        "weave": null
+      },
+      "weave/weave": {
+        "light": null,
+        "heavy": "heavyAttack/spinRoundhouse",
+        "weave": null
       },
       "heavyAttack/lowKick": {
         "light": null,
-        "heavy": "heavyAttack/snapKick"
+        "heavy": "heavyAttack/snapKick",
+        "weave": null
       },
       "heavyAttack/snapKick": {
         "light": null,
-        "heavy": "heavyAttack/spinRoundhouse"
+        "heavy": "heavyAttack/spinRoundhouse",
+        "weave": null
       },
       "heavyAttack/spinRoundhouse": {
         "light": null,
-        "heavy": null
+        "heavy": null,
+        "weave": null
       },
       "guard": {
         "light": "lightAttack/jab",
-        "heavy": "heavyAttack/lowKick"
+        "heavy": "heavyAttack/lowKick",
+        "weave": null
       }
     },
     "examples": {
@@ -6196,6 +6214,11 @@
       "kick combo": [
         "heavy",
         "heavy",
+        "heavy"
+      ],
+      "jab, weave, roundhouse": [
+        "light",
+        "weave",
         "heavy"
       ]
     },

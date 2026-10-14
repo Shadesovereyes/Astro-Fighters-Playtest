@@ -786,7 +786,7 @@
     "looseRule": "from row 40 down, cloth specks of 1-2 px cut off from the garment and outline pixels that no longer border any cloth are removed (they are left between the legs where a direction's own clothing frame does not register exactly with its source's motion)"
   },
   "clips": {
-    "rule": "a defensive move from the guard (or neutral); ends in the guard",
+    "rule": "a defensive move from the guard (or neutral), or a combo step after the jab (combo.json); ends in the guard; chain window = its recovery frames 4-5",
     "weave": {
       "frames": [
         0,
@@ -797,7 +797,11 @@
         5
       ],
       "fps": 12,
-      "next": "guard"
+      "next": "guard",
+      "chainWindow": [
+        4,
+        5
+      ]
     }
   },
   "events": {
