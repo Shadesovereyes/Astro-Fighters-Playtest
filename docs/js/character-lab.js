@@ -124,6 +124,8 @@
       const c = this.clipDef(key), i = startAt !== null && c.frames.includes(startAt) ? c.frames.indexOf(startAt) : 0;
       if (c.state !== 'weave') this.faceTarget();
       this.state = { kind: c.state === 'weave' ? 'evade' : 'attack', anim: c.state, clipKey: key, clip: c, i, frame: c.frames[i], t: 0, path, input };
+      // attacks spend the attacker's stamina (combo.json stamina.values light/heavyAttackCost)
+      if (c.state !== 'weave') { const V = this.def.combo.stamina.values; this.spend(input === 'light' ? V.lightAttackCost : V.heavyAttackCost); }
       this.buffered = null;
       this.applyRootMotion();
       this.checkHit();

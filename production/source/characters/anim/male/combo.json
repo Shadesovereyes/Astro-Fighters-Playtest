@@ -26,16 +26,18 @@
     "current": "unarmed: jab 4 frames and cross 4 frames at 12 fps (0.33 s each); low kick and snap kick 5 frames, spin roundhouse 6 frames at 12 fps (0.42 s, 0.50 s); weapon lights at 12 fps, weapon heavies at 10 fps; every new heavy clip must stay slower than the light it pairs with"
   },
   "stamina": {
-    "rule": "set by the user 2026-10-14: weaves and standing dodges cost a meaningful amount of stamina so they cannot be spammed; when stamina is spent the fighter is exhausted: it cannot sprint or dodge (weave) and all its attack actions are slowed; while exhausted it rests in the exhausted idle stance instead of the guard",
+    "rule": "set by the user 2026-10-14: weaves and standing dodges cost a meaningful amount of stamina so they cannot be spammed; when stamina is spent the fighter is exhausted: it cannot sprint or dodge (weave) and all its attack actions are slowed; while exhausted it rests in the exhausted idle stance instead of the guard; attacks also spend the attacker's stamina (user 2026-10-14), so offence wears a fighter down as well",
     "values": {
       "max": 100,
       "weaveCost": 35,
       "regenPerSecond": 20,
       "regenDelaySeconds": 1.0,
       "exhaustedAttackSpeed": 0.7,
-      "recoverAt": 100
+      "recoverAt": 100,
+      "lightAttackCost": 8,
+      "heavyAttackCost": 15
     },
-    "valuesStatus": "starting values to tune in the lab (not set by the user): a weave needs stamina above 0 and spends 35 (never below 0), so the third weave in a row from full spends the last of it and exhausts the fighter; regeneration starts 1 s after the last spend; exhausted attacks play at 0.7 of their fps; the exhausted state ends when stamina is full again (5 s from empty)",
+    "valuesStatus": "starting values to tune in the lab (not set by the user): a weave needs stamina above 0 and spends 35 (never below 0), so the third weave in a row from full spends the last of it and exhausts the fighter; regeneration starts 1 s after the last spend; exhausted attacks play at 0.7 of their fps; the exhausted state ends when stamina is full again (5 s from empty); attacks: every light clip spends 8 and every heavy clip 15 when it starts (chained steps included); an attack is allowed while exhausted (slowed) and its cost keeps the stamina at 0 and restarts the regeneration delay, so attacking does not recover a fighter",
     "exhausted": {
       "blocks": [
         "sprint",
