@@ -1058,9 +1058,9 @@
               24
             ],
             "angle": [
-              5,
-              0,
-              5,
+              20,
+              26,
+              16,
               10,
               10,
               10
@@ -1068,15 +1068,15 @@
             "elbow": [
               {
                 "at": 7,
-                "angle": 196
-              },
-              {
-                "at": 7,
                 "angle": 200
               },
               {
                 "at": 7,
-                "angle": 196
+                "angle": 206
+              },
+              {
+                "at": 7,
+                "angle": 198
               },
               {
                 "at": 7,
@@ -1107,8 +1107,8 @@
             ],
             "z": 4,
             "pivotDx": [
-              0,
-              0,
+              -1,
+              -1,
               0,
               0,
               0,
@@ -1121,9 +1121,9 @@
               24
             ],
             "angle": [
-              -5,
-              0,
-              -5,
+              -20,
+              -26,
+              -16,
               -10,
               -10,
               -10
@@ -1131,15 +1131,15 @@
             "elbow": [
               {
                 "at": 7,
-                "angle": 164
-              },
-              {
-                "at": 7,
                 "angle": 160
               },
               {
                 "at": 7,
-                "angle": 164
+                "angle": 154
+              },
+              {
+                "at": 7,
+                "angle": 162
               },
               {
                 "at": 7,
@@ -1170,8 +1170,8 @@
             ],
             "z": 4,
             "pivotDx": [
-              0,
-              0,
+              1,
+              1,
               0,
               0,
               0,
@@ -1180,7 +1180,7 @@
           }
         },
         "headDy": -1,
-        "armRule": "S matches E by projection lines: the rows follow the E bob; the slip back runs along the line of sight, so in S it shows as the guard rising and closing in front of the face (the fists keep their E rows, which the bob lifts 1-2 px, and close in 1-2 px toward the face: upper arm toward vertical, forearm tipped in), then opening back to the guard",
+        "armRule": "S matches E by projection lines: the rows follow the E bob; the slip back runs along the line of sight, as in E the guard is knocked open: the shoulders widen (pivots 1 px out) and the elbows and fists swing out to the sides (user 2026-10-14), then close back to the guard",
         "twist": {
           "pelvis": [
             0,
@@ -1335,9 +1335,9 @@
               24
             ],
             "angle": [
-              -4,
-              4,
-              -8,
+              -20,
+              -26,
+              -17,
               -12,
               -12,
               -12
@@ -1362,8 +1362,8 @@
             "z": -1,
             "showTo": 7,
             "pivotDx": [
-              0,
-              0,
+              1,
+              1,
               0,
               0,
               0,
@@ -1376,9 +1376,9 @@
               24
             ],
             "angle": [
-              4,
-              -4,
-              8,
+              20,
+              26,
+              17,
               12,
               12,
               12
@@ -1403,8 +1403,8 @@
             "z": -1,
             "showTo": 7,
             "pivotDx": [
-              0,
-              0,
+              -1,
+              -1,
               0,
               0,
               0,
@@ -1413,7 +1413,7 @@
           }
         },
         "headDy": -1,
-        "armRule": "N: the fists are in front of the face and hidden; the upper arms swing in toward them as the guard closes, then back out",
+        "armRule": "N: the fists are hidden in front of the body; the shoulders widen and the upper arms swing out to the sides as the guard opens, then back in (user 2026-10-14)",
         "twist": {
           "pelvis": [
             0,
