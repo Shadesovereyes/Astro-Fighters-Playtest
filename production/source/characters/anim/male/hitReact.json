@@ -1045,21 +1045,6 @@
             1,
             2,
             "#70241d"
-          ],
-          [
-            0,
-            5,
-            "#000000"
-          ],
-          [
-            1,
-            5,
-            "#000000"
-          ],
-          [
-            -1,
-            6,
-            "#70241d"
           ]
         ]
       },
@@ -1119,7 +1104,7 @@
         null
       ]
     },
-    "intent": "eyes squeezed shut with the brow pulled down and the mouth drawn back in a grimace on the impact frames 0-2, a squint on frame 3, open again from frame 4 (user 2026-10-14)"
+    "intent": "eyes squeezed shut with the brow pulled down on the impact frames 0-2 (no mouth: user 2026-10-14), a squint on frame 3, open again from frame 4 (user 2026-10-14)"
   },
   "fx": {
     "rule": "impact burst: its own layer drawn over every character layer; a small burst in front of the face on the impact frame, spread to sparks on the next frame, gone after; placed from the eye block, x toward the facing",
