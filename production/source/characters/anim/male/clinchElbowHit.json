@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "clinchElbowHit",
-  "status": "E/W candidate 2026-10-14 (re-render of the approved pair with the hands kept on the holder's chest); S/N to author",
+  "status": "E/W approved by user 2026-10-14 (paired; held fighter keeps the hands on the chest; hit-recoil eyes); S/N to author",
   "frames": 8,
   "fps": 12,
   "sourceDirection": "E",
@@ -896,5 +896,9 @@
       ]
     },
     "intent": "the hit-recoil expression when the elbow lands: eyes squeezed shut on the impact frames 4-5, a squint on frame 6, open again on frame 7"
+  },
+  "approved": {
+    "E": "2026-10-14",
+    "W": "2026-10-14 (mirror of E)"
   }
 }

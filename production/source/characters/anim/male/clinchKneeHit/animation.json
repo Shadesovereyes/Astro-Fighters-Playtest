@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-animation-output/v1",
   "body": "male",
   "state": "clinchKneeHit",
-  "status": "E/W candidate 2026-10-14 (re-render of the approved pair with the hands kept on the holder's chest); S/N to author",
+  "status": "E/W approved by user 2026-10-14 (paired; held fighter keeps the hands on the chest; hit-recoil eyes); S/N to author",
   "frames": 8,
   "fps": 12,
   "frameSize": [
