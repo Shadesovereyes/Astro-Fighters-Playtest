@@ -1,8 +1,8 @@
 {
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
-  "state": "hitReact",
-  "status": "candidate (E/W first)",
+  "state": "weave",
+  "status": "E/W approved by user 2026-10-14 (as the unarmed weave/dodge); S/N to follow",
   "frames": 6,
   "fps": 12,
   "sourceDirection": "E",
@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Hit recoil (unarmed, user 2026-10-14): struck from the front while in the guard. Frame 0 impact: the head snaps back and the guard is knocked open (both fists pushed up and back), the body is shoved back 2 px; frame 1 the furthest point of the recoil; frames 2-4 the head and hands come forward again; frame 5 back in the guard. It plays from any state when a hit lands and returns to the guard.",
+  "intent": "Unarmed weave/dodge (user 2026-10-14: approved as a weave from the first hit-recoil candidate): from the guard the head and shoulders slip back out of the line of an incoming strike while the guard rises to cover the face and the body slides back 2-3 px, then everything comes forward into the guard again. Frame 0 the slip starts (head back, fists up, body shoved back 2 px); frame 1 the deepest point; frames 2-4 coming forward (1 px further back on frame 1); frame 5 back in the guard.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -114,7 +114,7 @@
     ]
   },
   "lean": {
-    "rule": "the head and shoulders are thrown back from the guard's forward lean (head dx below the guard's 2) and come forward again; the pelvis stays over the planted feet, the torso is sheared between them",
+    "rule": "the head and shoulders slip back from the guard's forward lean (head dx below the guard's 2) and come forward again; the pelvis stays over the planted feet, the torso is sheared between them",
     "torsoShear": true,
     "dx": {
       "pelvis": [
@@ -136,7 +136,7 @@
     }
   },
   "rootMotion": {
-    "rule": "pushed back from the hit: the body slides back (against the facing) on the first frames, feet planted",
+    "rule": "the weave carries the body back (against the facing) on the first frames, feet planted",
     "E": [
       [
         -2,
@@ -784,8 +784,8 @@
     "looseRule": "from row 40 down, cloth specks of 1-2 px cut off from the garment and outline pixels that no longer border any cloth are removed (they are left between the legs where a direction's own clothing frame does not register exactly with its source's motion)"
   },
   "clips": {
-    "rule": "plays when the character takes a hit (any facing, interrupts an attack); then the guard",
-    "hitReact": {
+    "rule": "a defensive move from the guard (or neutral); ends in the guard",
+    "weave": {
       "frames": [
         0,
         1,
@@ -799,43 +799,43 @@
     }
   },
   "events": {
-    "rule": "per-frame gameplay data: hitstun (no attack or movement input is taken) until the recover frame",
+    "rule": "per-frame gameplay data: evade frames (attacks that land on them miss), then recovery",
     "E": [
       {
         "frame": 0,
-        "clip": "hitReact",
-        "type": "hitstun"
+        "clip": "weave",
+        "type": "evade"
       },
       {
         "frame": 1,
-        "clip": "hitReact",
-        "type": "hitstun"
+        "clip": "weave",
+        "type": "evade"
       },
       {
         "frame": 2,
-        "clip": "hitReact",
-        "type": "hitstun"
+        "clip": "weave",
+        "type": "evade"
       },
       {
         "frame": 3,
-        "clip": "hitReact",
-        "type": "hitstun"
+        "clip": "weave",
+        "type": "evade"
       },
       {
         "frame": 4,
-        "clip": "hitReact",
-        "type": "recover"
+        "clip": "weave",
+        "type": "recovery"
       },
       {
         "frame": 5,
-        "clip": "hitReact",
-        "type": "recover"
+        "clip": "weave",
+        "type": "recovery"
       }
     ]
   },
   "keyPoses": {
     "fps": 12,
-    "intent": "Hit recoil (unarmed, user 2026-10-14): struck from the front while in the guard. Frame 0 impact: the head snaps back and the guard is knocked open (both fists pushed up and back), the body is shoved back 2 px; frame 1 the furthest point of the recoil; frames 2-4 the head and hands come forward again; frame 5 back in the guard. It plays from any state when a hit lands and returns to the guard.",
+    "intent": "Unarmed weave/dodge (user 2026-10-14: approved as a weave from the first hit-recoil candidate): from the guard the head and shoulders slip back out of the line of an incoming strike while the guard rises to cover the face and the body slides back 2-3 px, then everything comes forward into the guard again. Frame 0 the slip starts (head back, fists up, body shoved back 2 px); frame 1 the deepest point; frames 2-4 coming forward (1 px further back on frame 1); frame 5 back in the guard.",
     "bobRule": "the body drops 1 px under the blow and comes back up; the head lags the body",
     "dy": [
       2,

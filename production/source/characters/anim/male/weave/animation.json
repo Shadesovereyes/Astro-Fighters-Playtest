@@ -1,8 +1,8 @@
 {
   "schema": "astro-fighters-character-animation-output/v1",
   "body": "male",
-  "state": "hitReact",
-  "status": "candidate (E/W first)",
+  "state": "weave",
+  "status": "E/W approved by user 2026-10-14 (as the unarmed weave/dodge); S/N to follow",
   "frames": 6,
   "fps": 12,
   "frameSize": [
@@ -99,8 +99,8 @@
     ]
   },
   "clips": {
-    "rule": "plays when the character takes a hit (any facing, interrupts an attack); then the guard",
-    "hitReact": {
+    "rule": "a defensive move from the guard (or neutral); ends in the guard",
+    "weave": {
       "frames": [
         0,
         1,
@@ -114,37 +114,37 @@
     }
   },
   "events": {
-    "rule": "per-frame gameplay data: hitstun (no attack or movement input is taken) until the recover frame",
+    "rule": "per-frame gameplay data: evade frames (attacks that land on them miss), then recovery",
     "E": [
       {
         "frame": 0,
-        "clip": "hitReact",
-        "type": "hitstun"
+        "clip": "weave",
+        "type": "evade"
       },
       {
         "frame": 1,
-        "clip": "hitReact",
-        "type": "hitstun"
+        "clip": "weave",
+        "type": "evade"
       },
       {
         "frame": 2,
-        "clip": "hitReact",
-        "type": "hitstun"
+        "clip": "weave",
+        "type": "evade"
       },
       {
         "frame": 3,
-        "clip": "hitReact",
-        "type": "hitstun"
+        "clip": "weave",
+        "type": "evade"
       },
       {
         "frame": 4,
-        "clip": "hitReact",
-        "type": "recover"
+        "clip": "weave",
+        "type": "recovery"
       },
       {
         "frame": 5,
-        "clip": "hitReact",
-        "type": "recover"
+        "clip": "weave",
+        "type": "recovery"
       }
     ]
   },
