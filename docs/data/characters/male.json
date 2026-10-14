@@ -6107,6 +6107,148 @@
           }
         ]
       }
+    },
+    "hitReact": {
+      "frames": 7,
+      "fps": 12,
+      "rows": [
+        "E",
+        "W"
+      ],
+      "status": "E/W approved by user 2026-10-14 (S/N to author)",
+      "rootMotion": {
+        "E": [
+          [
+            -2,
+            0
+          ],
+          [
+            -1,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "W": [
+          [
+            2,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "layers": {
+        "body": "assets/characters/male/hitReact/body.png",
+        "arms": "assets/characters/male/hitReact/arms.png",
+        "long-hair": "assets/characters/male/hitReact/long-hair.png",
+        "fade-hair": "assets/characters/male/hitReact/fade-hair.png",
+        "afro-hair": "assets/characters/male/hitReact/afro-hair.png",
+        "brown-eyes": "assets/characters/male/hitReact/brown-eyes.png",
+        "purple-eyes": "assets/characters/male/hitReact/purple-eyes.png",
+        "male-gi": "assets/characters/male/hitReact/male-gi.png",
+        "male-blue-armor": "assets/characters/male/hitReact/male-blue-armor.png",
+        "male-red-armor": "assets/characters/male/hitReact/male-red-armor.png",
+        "blue-armor-shoulders": "assets/characters/male/hitReact/blue-armor-shoulders.png",
+        "red-armor-shoulders": "assets/characters/male/hitReact/red-armor-shoulders.png",
+        "impact-fx": "assets/characters/male/hitReact/impact-fx.png"
+      },
+      "clips": {
+        "rule": "plays when the character takes a hit (any facing, interrupts an attack); then the guard",
+        "hitReact": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "fps": 12,
+          "next": "guard"
+        }
+      },
+      "events": {
+        "rule": "per-frame gameplay data: hitstun (no attack or movement input is taken) until the recover frame",
+        "E": [
+          {
+            "frame": 0,
+            "clip": "hitReact",
+            "type": "hitstun"
+          },
+          {
+            "frame": 1,
+            "clip": "hitReact",
+            "type": "hitstun"
+          },
+          {
+            "frame": 2,
+            "clip": "hitReact",
+            "type": "hitstun"
+          },
+          {
+            "frame": 3,
+            "clip": "hitReact",
+            "type": "hitstun"
+          },
+          {
+            "frame": 4,
+            "clip": "hitReact",
+            "type": "hitstun"
+          },
+          {
+            "frame": 5,
+            "clip": "hitReact",
+            "type": "recover"
+          },
+          {
+            "frame": 6,
+            "clip": "hitReact",
+            "type": "recover"
+          }
+        ]
+      }
     }
   },
   "combo": {
@@ -6429,6 +6571,12 @@
       "ry": 6,
       "hurtRadius": 8,
       "hurtRule": "a character's footprint for the hit arc (hitArea.targetContact) is a circle of radius 8 at its foot pivot: its body without the guard"
+    },
+    "hitFollow": {
+      "rule": "set 2026-10-14 so a chain keeps its distance once bodies cannot overlap: when a hit lands and the target is knocked back by its hit recoil, the attacker (still in its attack, or back in its guard) follows by the same amount, so the next step of the chain is still in reach; the body collision still applies"
+    },
+    "hitReaction": {
+      "rule": "a landed hit plays the target's hit recoil (hitReact) from its first frame, interrupting whatever was playing (an attack, a weave outside its evade frames, or an earlier recoil); hitstun frames take no input; its recover frames take a press or a weave, which cancels the rest of the recoil; a hit during the weave's evade frames (0-3) misses (user 2026-10-14)"
     }
   }
 }

@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-animation-output/v1",
   "body": "male",
   "state": "hitReact",
-  "status": "candidate (E/W first)",
+  "status": "E/W approved by user 2026-10-14 (S/N to author)",
   "frames": 7,
   "fps": 12,
   "frameSize": [

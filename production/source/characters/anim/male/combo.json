@@ -318,5 +318,11 @@
     "ry": 6,
     "hurtRadius": 8,
     "hurtRule": "a character's footprint for the hit arc (hitArea.targetContact) is a circle of radius 8 at its foot pivot: its body without the guard"
+  },
+  "hitFollow": {
+    "rule": "set 2026-10-14 so a chain keeps its distance once bodies cannot overlap: when a hit lands and the target is knocked back by its hit recoil, the attacker (still in its attack, or back in its guard) follows by the same amount, so the next step of the chain is still in reach; the body collision still applies"
+  },
+  "hitReaction": {
+    "rule": "a landed hit plays the target's hit recoil (hitReact) from its first frame, interrupting whatever was playing (an attack, a weave outside its evade frames, or an earlier recoil); hitstun frames take no input; its recover frames take a press or a weave, which cancels the rest of the recoil; a hit during the weave's evade frames (0-3) misses (user 2026-10-14)"
   }
 }
