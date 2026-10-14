@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-animation-output/v1",
   "body": "male",
   "state": "clinchHoldHit",
-  "status": "candidate E/W drafted 2026-10-14, awaiting user approval (S/N to author after E/W is approved)",
+  "status": "E/W approved by user 2026-10-14 (paired; hit-recoil eyes on the holder); S/N to author",
   "frames": 8,
   "fps": 12,
   "frameSize": [
