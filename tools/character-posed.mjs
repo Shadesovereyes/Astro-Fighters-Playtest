@@ -1366,7 +1366,7 @@ const definition = JSON.stringify({
   body: bodyName, state, status: spec.status, frames: F, fps: spec.fps,
   frameSize: [FRAME, FRAME], pivot: [32, 63],
   sheetLayout: { rows: spec.directions, columns: `frames 0–${F - 1}` },
-  layers: Object.fromEntries(layerNames.map((n) => [n, `${n}.png`])),
+  layers: Object.fromEntries([...layerNames, ...(spec.arms.farLayer ? ["far-arm"] : [])].map((n) => [n, `${n}.png`])),
   pendingLayers: spec.overlays.pending,
   drawOrder: overlays.drawOrder,
   rootMotion: Object.fromEntries(spec.directions.map((d) => [d, spec.rootMotion[d]])),
@@ -1375,6 +1375,25 @@ const definition = JSON.stringify({
   qc
 }, null, 2) + '\n';
 
+// arms.farLayer: in the side view the far arm is drawn in the body layer; for paired animations (the clinch) it is
+// split out into its own 'far-arm' sheet, so the partner's body can be drawn between it and this body
+if (spec.arms.farLayer) {
+  const far = Buffer.alloc(W * H * 4), bodyBuf = sheets.body;
+  for (const dir of spec.directions) {
+    if (FR?.views?.[dir]) continue;
+    const m = mirrors[dir], shift = m?.frameShift || 0, r = spec.directions.indexOf(dir);
+    for (let k = 0; k < F; k++) {
+      const ks = m ? (k + shift) % F : k;
+      for (const q of FAR_ARM_PX[ks] || []) {
+        let [x, y] = unkey(q); if (m) x = FRAME - 1 - x;
+        if (x < 0 || y < 0 || x >= FRAME || y >= FRAME) continue;
+        const i = ((r * FRAME + y) * W + k * FRAME + x) * 4;
+        bodyBuf.copy(far, i, i, i + 4); bodyBuf.fill(0, i, i + 4);
+      }
+    }
+  }
+  sheets['far-arm'] = far;
+}
 const outDir = path.join(animDir, state);
 const files = { ...Object.fromEntries(Object.entries(sheets).map(([n, buf]) => [`${n}.png`, encodePng(W, H, buf)])), 'animation.json': definition };
 // arms.farWeaponOver (per frame): in the side view the far arm is drawn in the body layer, so its showing pixels go

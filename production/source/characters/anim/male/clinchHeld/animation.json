@@ -32,7 +32,8 @@
     "male-blue-armor": "male-blue-armor.png",
     "male-red-armor": "male-red-armor.png",
     "blue-armor-shoulders": "blue-armor-shoulders.png",
-    "red-armor-shoulders": "red-armor-shoulders.png"
+    "red-armor-shoulders": "red-armor-shoulders.png",
+    "far-arm": "far-arm.png"
   },
   "pendingLayers": [],
   "drawOrder": [

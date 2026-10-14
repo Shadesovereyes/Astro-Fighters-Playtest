@@ -449,7 +449,8 @@
       }
     },
     "guardRule": "boxing guard: elbows down in front of the ribs, forearms angled up and forward, fists at chin height with knuckles forward; the lead (far) hand sits further forward",
-    "outlineRaised": true
+    "outlineRaised": true,
+    "farLayer": true
   },
   "clothing": {
     "rule": "Layer 2 clothing follows the body it is registered to. Front, back and diagonal views move each clothing pixel exactly like the body pixel of the same part. In the authored profile (E) each trouser row is resampled onto the posed leg (thigh rows onto the pose's thigh rows, shin rows onto its shin rows) and shifted by the leg's back edge; wrap and shoe follow the ankle (reference-ankle poses) or the shin line and the authored foot (line poses), where a toe-down foot is drawn as the foot's own shape in the shoe colours. The far trouser leg is the near one on the far pose, shaded one step darker and drawn behind. A mirrored direction whose clothing is not an exact mirror is built from its own clothing frame, flipped through its source's motion. Where clothing newly meets empty space it gets the clothing's outline colour.",
@@ -668,6 +669,15 @@
   "pair": {
     "rule": "paired idle: drawn with its partner state facing it; the partner's pivot sits 'partnerDx' px ahead along the facing (provisional until approved) (user 2026-10-14: 3 px further apart than the first draft)",
     "partner": "clinchHeld",
-    "partnerDx": 27
+    "partnerDx": 27,
+    "layering": [
+      "clinchHold far-arm",
+      "clinchHeld far-arm",
+      "clinchHold body, clothing, hair, eyes",
+      "clinchHeld body, clothing, shoulders, hair, eyes",
+      "clinchHeld arms",
+      "clinchHold arms"
+    ],
+    "layeringRule": "back to front (user 2026-10-14): the holder's far arm is the bottom layer (it wraps behind the held head to the back of the neck) and the holder's near arm the top layer (it wraps over the held head); between them the held fighter's far arm, the holder's body, the held fighter's body (its head is pulled down in front of the holder's chest) and the held fighter's near arm (pushing on the holder's chest)"
   }
 }
