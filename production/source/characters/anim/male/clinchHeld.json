@@ -666,8 +666,8 @@
     }
   },
   "pair": {
-    "rule": "paired idle: drawn with its partner state facing it; the partner's pivot sits 'partnerDx' px ahead along the facing (provisional until approved)",
+    "rule": "paired idle: drawn with its partner state facing it; the partner's pivot sits 'partnerDx' px ahead along the facing (provisional until approved) (user 2026-10-14: 3 px further apart than the first draft)",
     "partner": "clinchHold",
-    "partnerDx": 24
+    "partnerDx": 27
   }
 }
