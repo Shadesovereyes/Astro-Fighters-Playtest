@@ -6273,6 +6273,31 @@
       "Every clip starts and ends in the orthodox guard, so any allowed clip can follow another without a transition frame.",
       "After any attack the character holds the guard idle (hands up, slight bob) while in combat; with no attack for 15 seconds (user 2026-10-13) it returns to the normal idle; with a weapon the weapon's stance takes the guard's place. A press from the guard idle starts a combo like a press from neutral."
     ],
+    "attackSpeed": {
+      "rule": "set by the user 2026-10-14: light attacks are faster than heavy attacks; a light that lands interrupts a heavy in progress (the struck fighter's heavy stops and its hit recoil plays)",
+      "current": "unarmed: jab 4 frames and cross 4 frames at 12 fps (0.33 s each); low kick and snap kick 5 frames, spin roundhouse 6 frames at 12 fps (0.42 s, 0.50 s); weapon lights at 12 fps, weapon heavies at 10 fps; every new heavy clip must stay slower than the light it pairs with"
+    },
+    "stamina": {
+      "rule": "set by the user 2026-10-14: weaves and standing dodges cost a meaningful amount of stamina so they cannot be spammed; when stamina is spent the fighter is exhausted: it cannot sprint or dodge (weave) and all its attack actions are slowed; while exhausted it rests in the exhausted idle stance instead of the guard",
+      "values": {
+        "max": 100,
+        "weaveCost": 35,
+        "regenPerSecond": 20,
+        "regenDelaySeconds": 1,
+        "exhaustedAttackSpeed": 0.7,
+        "recoverAt": 100
+      },
+      "valuesStatus": "starting values to tune in the lab (not set by the user): two weaves in a row leave 30 stamina, a third is refused; regeneration starts 1 s after the last spend; exhausted attacks play at 0.7 of their fps; the exhausted state ends when stamina is full again",
+      "exhausted": {
+        "blocks": [
+          "sprint",
+          "weave",
+          "standing dodge"
+        ],
+        "attacks": "play at exhaustedAttackSpeed",
+        "rest": "exhausted idle stance (state exhausted, to author) in place of the guard or weapon stance"
+      }
+    },
     "hitArea": {
       "rule": "set by the user 2026-10-12: every attack's hit area is an arc on the ground plane in front of the character, so targets that are not exactly aligned still connect",
       "shape": "arc (circular sector) centred on the facing direction (S, E, N, W), origin at the attacker's foot pivot [32, 63]",
