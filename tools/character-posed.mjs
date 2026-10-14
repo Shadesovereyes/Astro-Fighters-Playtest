@@ -1250,6 +1250,29 @@ report.clothingOutlineAdded = {}; report.clothingGapFill = {}; report.clothingLo
 // ---- sheets ---------------------------------------------------------------------------------------------
 const W = F * FRAME, H = spec.directions.length * FRAME;
 layerNames.push(...clothingLayers.map((l) => l.name));
+// ---- expressions and impact FX (optional, per frame) ---------------------------------------------------
+// expressions: a facial expression per frame (eyes shut, grimace) drawn in the eye layers: on a listed frame each eye
+// layer's pixels are replaced by the named shape, placed at the top-left of that frame's eye pixels (mirrored about the
+// eye block in a mirrored direction). Shapes hold only eye, lid, brow and mouth pixels, never skin, so the face under
+// them is the untouched body. fx: an effect layer of its own (drawn over every character layer), a named shape per
+// frame placed at the eye block plus the shape's own offsets (x toward the facing).
+const EX = spec.expressions, FX = spec.fx;
+if (FX) layerNames.push(FX.layer);
+function applyFace(dir, k, fr) {
+  const m = mirrors[dir], srcDir = m?.from ?? dir, kk = (k + (m?.frameShift || 0)) % F, flip = !!m;
+  if (FX) fr[FX.layer] = new Map();
+  const eyes = fr[(EX || FX)?.eyeLayers?.[0]];
+  if (!eyes || !eyes.size) return;
+  const xs = [...eyes.keys()].map((p) => unkey(p)[0]), ys = [...eyes.keys()].map((p) => unkey(p)[1]);
+  const ax = flip ? Math.max(...xs) : Math.min(...xs), ay = Math.min(...ys);
+  // a shape colour '@dx,dy' keeps the layer's own pixel at that offset (an iris keeps its eye colour)
+  const at = (dx, dy) => key(flip ? ax - dx : ax + dx, ay + dy);
+  const place = (shape, own = new Map()) => new Map(shape.map(([dx, dy, c]) => [at(dx, dy), c.startsWith('@') ? own.get(at(...c.slice(1).split(',').map(Number))) : c.replace(/^#/, '')]).filter(([, c]) => c));
+  const ex = EX?.frames?.[srcDir]?.[kk];
+  if (ex) { const sh = EX.shapes[ex]?.[srcDir]; if (!sh) throw new Error(`expression ${ex} has no ${srcDir} shape`); for (const n of EX.eyeLayers) fr[n] = place(sh, fr[n]); }
+  const fx = FX?.frames?.[srcDir]?.[kk];
+  if (fx) { const sh = FX.shapes[fx]; if (!sh) throw new Error(`fx shape ${fx} not defined`); fr[FX.layer] = place(sh); }
+}
 const sheets = Object.fromEntries(layerNames.map((n) => [n, Buffer.alloc(W * H * 4)]));
 const all = {};
 spec.directions.forEach((dir, r) => {
@@ -1274,6 +1297,7 @@ spec.directions.forEach((dir, r) => {
     all[dir][Number(kk)] = fr;
   }
   all[dir].forEach((fr, k) => {
+    if (EX || FX) applyFace(dir, k, fr);
     for (const n of layerNames) for (const [p, c] of fr[n]) {
       const [x, y] = unkey(p);
       if (!(x >= 0 && y >= 0 && x < FRAME && y < FRAME)) throw new Error(`${n} ${dir}:${k} leaves the 64x64 frame at ${p}`);

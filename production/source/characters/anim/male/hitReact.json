@@ -1021,5 +1021,205 @@
       ]
     ],
     "recoverFrom": 5
+  },
+  "expressions": {
+    "rule": "facial expression per frame, drawn in the eye layers (eye, lid, brow and mouth lines only, no skin): coordinates from the top-left of the frame's eye block, x toward the facing; '@dx,dy' keeps the layer's own pixel (the iris colour)",
+    "eyeLayers": [
+      "brown-eyes",
+      "purple-eyes"
+    ],
+    "shapes": {
+      "pain": {
+        "E": [
+          [
+            0,
+            1,
+            "#000000"
+          ],
+          [
+            1,
+            1,
+            "#000000"
+          ],
+          [
+            1,
+            2,
+            "#70241d"
+          ],
+          [
+            0,
+            5,
+            "#000000"
+          ],
+          [
+            1,
+            5,
+            "#000000"
+          ],
+          [
+            -1,
+            6,
+            "#70241d"
+          ]
+        ]
+      },
+      "squint": {
+        "E": [
+          [
+            0,
+            0,
+            "#000000"
+          ],
+          [
+            1,
+            0,
+            "#000000"
+          ],
+          [
+            0,
+            1,
+            "#000000"
+          ],
+          [
+            1,
+            1,
+            "#000000"
+          ],
+          [
+            0,
+            2,
+            "#e3e3e3"
+          ],
+          [
+            1,
+            2,
+            "@1,2"
+          ],
+          [
+            0,
+            3,
+            "#ffffff"
+          ],
+          [
+            1,
+            3,
+            "@1,3"
+          ]
+        ]
+      }
+    },
+    "frames": {
+      "E": [
+        "pain",
+        "pain",
+        "pain",
+        "squint",
+        null,
+        null,
+        null
+      ]
+    },
+    "intent": "eyes squeezed shut with the brow pulled down and the mouth drawn back in a grimace on the impact frames 0-2, a squint on frame 3, open again from frame 4 (user 2026-10-14)"
+  },
+  "fx": {
+    "rule": "impact burst: its own layer drawn over every character layer; a small burst in front of the face on the impact frame, spread to sparks on the next frame, gone after; placed from the eye block, x toward the facing",
+    "layer": "impact-fx",
+    "eyeLayers": [
+      "brown-eyes",
+      "purple-eyes"
+    ],
+    "shapes": {
+      "burst": [
+        [
+          4,
+          0,
+          "#f2b544"
+        ],
+        [
+          8,
+          0,
+          "#f2b544"
+        ],
+        [
+          6,
+          1,
+          "#fff0b0"
+        ],
+        [
+          5,
+          2,
+          "#fff0b0"
+        ],
+        [
+          6,
+          2,
+          "#ffffff"
+        ],
+        [
+          7,
+          2,
+          "#fff0b0"
+        ],
+        [
+          6,
+          3,
+          "#fff0b0"
+        ],
+        [
+          4,
+          4,
+          "#f2b544"
+        ],
+        [
+          8,
+          4,
+          "#f2b544"
+        ]
+      ],
+      "sparks": [
+        [
+          3,
+          -1,
+          "#f2b544"
+        ],
+        [
+          9,
+          -1,
+          "#f2b544"
+        ],
+        [
+          3,
+          2,
+          "#fff0b0"
+        ],
+        [
+          9,
+          2,
+          "#fff0b0"
+        ],
+        [
+          3,
+          5,
+          "#f2b544"
+        ],
+        [
+          9,
+          5,
+          "#f2b544"
+        ]
+      ]
+    },
+    "offset": "applied in the shapes: burst centre 6 px ahead of the eye and 2 px down",
+    "frames": {
+      "E": [
+        "burst",
+        "sparks",
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
   }
 }
