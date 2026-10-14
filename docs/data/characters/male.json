@@ -6515,6 +6515,254 @@
         "rule": "no gameplay events",
         "E": []
       }
+    },
+    "guardBreak": {
+      "frames": 9,
+      "fps": 10,
+      "rows": [
+        "S",
+        "E",
+        "N",
+        "W"
+      ],
+      "status": "approved by user 2026-10-14 (S, E, N, W; W mirrors E; S/N by projection lines)",
+      "rootMotion": {
+        "S": [
+          [
+            0,
+            -2
+          ],
+          [
+            0,
+            -1
+          ],
+          [
+            0,
+            -1
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "E": [
+          [
+            -2,
+            0
+          ],
+          [
+            -1,
+            0
+          ],
+          [
+            -1,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "N": [
+          [
+            0,
+            2
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "W": [
+          [
+            2,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "layers": {
+        "body": "assets/characters/male/guardBreak/body.png",
+        "arms": "assets/characters/male/guardBreak/arms.png",
+        "long-hair": "assets/characters/male/guardBreak/long-hair.png",
+        "fade-hair": "assets/characters/male/guardBreak/fade-hair.png",
+        "afro-hair": "assets/characters/male/guardBreak/afro-hair.png",
+        "brown-eyes": "assets/characters/male/guardBreak/brown-eyes.png",
+        "purple-eyes": "assets/characters/male/guardBreak/purple-eyes.png",
+        "male-gi": "assets/characters/male/guardBreak/male-gi.png",
+        "male-blue-armor": "assets/characters/male/guardBreak/male-blue-armor.png",
+        "male-red-armor": "assets/characters/male/guardBreak/male-red-armor.png",
+        "blue-armor-shoulders": "assets/characters/male/guardBreak/blue-armor-shoulders.png",
+        "red-armor-shoulders": "assets/characters/male/guardBreak/red-armor-shoulders.png",
+        "impact-fx": "assets/characters/male/guardBreak/impact-fx.png"
+      },
+      "clips": {
+        "rule": "plays when the guard breaks (poise 0 while blocking, combo.json poise); then the guard",
+        "guardBreak": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "fps": 10,
+          "next": "guard"
+        }
+      },
+      "events": {
+        "rule": "per-frame gameplay data: stagger (no input, open to hits) until the recover frames",
+        "E": [
+          {
+            "frame": 0,
+            "clip": "guardBreak",
+            "type": "stagger"
+          },
+          {
+            "frame": 1,
+            "clip": "guardBreak",
+            "type": "stagger"
+          },
+          {
+            "frame": 2,
+            "clip": "guardBreak",
+            "type": "stagger"
+          },
+          {
+            "frame": 3,
+            "clip": "guardBreak",
+            "type": "stagger"
+          },
+          {
+            "frame": 4,
+            "clip": "guardBreak",
+            "type": "stagger"
+          },
+          {
+            "frame": 5,
+            "clip": "guardBreak",
+            "type": "stagger"
+          },
+          {
+            "frame": 6,
+            "clip": "guardBreak",
+            "type": "stagger"
+          },
+          {
+            "frame": 7,
+            "clip": "guardBreak",
+            "type": "recover"
+          },
+          {
+            "frame": 8,
+            "clip": "guardBreak",
+            "type": "recover"
+          }
+        ]
+      }
     }
   },
   "combo": {
@@ -6597,7 +6845,7 @@
         "regenPerSecond": 15,
         "regenDelaySeconds": 1.5
       },
-      "valuesStatus": "starting values to tune (not set by the user): lights 10, heavies 25 poise damage; poise regenerates 15/s from 1.5 s after the last poise damage; at 0 poise the guard breaks: the block is knocked open and the fighter plays the hit recoil as a stand-in for the guard-break stagger (to author), then poise refills to full"
+      "valuesStatus": "starting values to tune (not set by the user): lights 10, heavies 25 poise damage; poise regenerates 15/s from 1.5 s after the last poise damage; at 0 poise the guard breaks: the block is knocked open and the fighter plays the guard-break stagger (guardBreak: no input on frames 0-6, open to hits, which land in full with the hit recoil), then poise refills to full"
     },
     "hitArea": {
       "rule": "set by the user 2026-10-12: every attack's hit area is an arc on the ground plane in front of the character, so targets that are not exactly aligned still connect",

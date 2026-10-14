@@ -73,6 +73,7 @@ jobs:
           node tools/character-posed.mjs male hitReact --check
           node tools/character-posed.mjs male exhausted --check
           node tools/character-posed.mjs male block --check
+          node tools/character-posed.mjs male guardBreak --check
 
       - name: Check the character runtime export is current
         run: node tools/export-character-runtime.mjs male --check

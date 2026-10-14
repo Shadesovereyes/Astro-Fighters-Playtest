@@ -226,7 +226,7 @@
       const hp = weight === 'light' ? C.health.values.lightDamage : C.health.values.heavyDamage;
       const pd = weight === 'light' ? C.poise.values.lightDamage : C.poise.values.heavyDamage;
       // block (combo.json block): a hit from the front half lands on the block: stamina is spent, less health and
-      // more poise damage, a small push back; at 0 poise the guard breaks (the hit recoil stands in for the stagger)
+      // more poise damage, a small push back; at 0 poise (or out of stamina) the guard breaks: the guard-break stagger
       if (s.kind === 'block') {
         const [fx, fy] = DIRV[this.facing], dx = attacker.pos.x - this.pos.x, dy = attacker.pos.y - this.pos.y, d = Math.hypot(dx, dy) || 1;
         if ((dx * fx + dy * fy) / d >= Math.cos(Bk.frontHalfAngleDeg * Math.PI / 180) - 1e-9) {
@@ -234,7 +234,7 @@
           this.damage(hp * Bk.healthDamageScale, pd * Bk.poiseDamageScale);
           if (this.poise > 0 && !this.exhausted) { this.moveBy(-fx * Bk.blockedKnockback, -fy * Bk.blockedKnockback); return 'blocked'; }
           this.poise = this.def.combo.poise.values.max;
-          this.recoil(attacker);
+          this.recoil(attacker, 'guardBreak');
           return 'guardBreak';
         }
       }
@@ -248,12 +248,14 @@
       this.poise = Math.max(0, this.poise - pd); this.sincePoise = 0;
     }
 
-    recoil(attacker) {
+    // the hit recoil (hitReact) or the guard-break stagger (guardBreak): no input until its recover frames, root motion
+    // back with the attacker following; a facing the export has no row for flashes for one frame instead
+    recoil(attacker, anim = 'hitReact') {
       this.facePoint(attacker.pos);
-      const hr = this.def.states.hitReact;
+      const hr = this.def.states[anim];
       if (!hr || !hr.rows.includes(this.facing)) { this.flash = 0.08; return 'hit'; }
-      const c = this.clipDef('hitReact/hitReact');
-      this.state = { kind: 'hit', anim: 'hitReact', clipKey: 'hitReact/hitReact', clip: c, i: 0, frame: c.frames[0], t: 0, path: '', by: attacker };
+      const c = this.clipDef(`${anim}/${anim}`);
+      this.state = { kind: 'hit', anim, clipKey: `${anim}/${anim}`, clip: c, i: 0, frame: c.frames[0], t: 0, path: '', by: attacker };
       this.buffered = null; this.guardTimer = GUARD_TIMEOUT;
       this.knock();
       return 'hit';

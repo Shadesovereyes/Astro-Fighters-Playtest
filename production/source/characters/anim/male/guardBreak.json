@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "guardBreak",
-  "status": "E/W approved by user 2026-10-14; S/N candidate",
+  "status": "approved by user 2026-10-14 (S, E, N, W; W mirrors E; S/N by projection lines)",
   "frames": 9,
   "fps": 10,
   "sourceDirection": "E",

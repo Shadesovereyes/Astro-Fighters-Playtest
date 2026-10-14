@@ -78,7 +78,7 @@
       "regenPerSecond": 15,
       "regenDelaySeconds": 1.5
     },
-    "valuesStatus": "starting values to tune (not set by the user): lights 10, heavies 25 poise damage; poise regenerates 15/s from 1.5 s after the last poise damage; at 0 poise the guard breaks: the block is knocked open and the fighter plays the hit recoil as a stand-in for the guard-break stagger (to author), then poise refills to full"
+    "valuesStatus": "starting values to tune (not set by the user): lights 10, heavies 25 poise damage; poise regenerates 15/s from 1.5 s after the last poise damage; at 0 poise the guard breaks: the block is knocked open and the fighter plays the guard-break stagger (guardBreak: no input on frames 0-6, open to hits, which land in full with the hit recoil), then poise refills to full"
   },
   "hitArea": {
     "rule": "set by the user 2026-10-12: every attack's hit area is an arc on the ground plane in front of the character, so targets that are not exactly aligned still connect",
