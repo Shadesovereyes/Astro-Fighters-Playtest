@@ -1,9 +1,9 @@
 {
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
-  "state": "hookUppercut",
+  "state": "hook",
   "status": "candidate E/W drafted 2026-10-14, awaiting user approval (S/N to author after E/W is approved)",
-  "frames": 8,
+  "frames": 6,
   "fps": 12,
   "sourceDirection": "E",
   "directions": [
@@ -17,7 +17,7 @@
     },
     "rule": "W mirrors E frame for frame (an attack is not a cycle, so no half-cycle shift)."
   },
-  "intent": "Taijutsu lead hook / rear uppercut from the orthodox guard, two clips like the jab/cross. Hook: the lead (far) arm stays bent and comes round at head height with the hips turning in (no straight extension, so it reads apart from the jab). Uppercut: the knees dip and the rear (near) fist drops to the ribs, then the body rises and the fist drives straight up under the chin, rear heel lifting. Each clip starts and ends in the guard. Built only from existing band-arm, fist and leg-pose parts (no new part variants).",
+  "intent": "Taijutsu lead hook from the orthodox guard, its own animation. The lead (far) fist dips and draws back as the hips coil, then the arm comes round bent at chin height with the hips turning in, follows through across the line, and returns to the guard. The arm never straightens, so it reads apart from the jab. Built only from existing band-arm, fist and leg-pose parts.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -87,56 +87,40 @@
     "pending": []
   },
   "bob": {
-    "rule": "whole-pixel dy above the legs; the stance sits 1 px low; the uppercut dips 1 more on its wind-up; as it lands the body returns to stance height and the head rises 1 px above it (the body cannot rise further without opening the trunk above the hips)",
+    "rule": "whole-pixel dy above the legs; the stance sits 1 px low throughout",
     "dy": [
       1,
       1,
       1,
       1,
-      2,
-      1,
-      1,
-      1
-    ],
-    "head": [
-      1,
-      1,
-      1,
-      1,
-      2,
-      0,
       1,
       1
     ]
   },
   "lean": {
-    "rule": "forward lean toward the facing: pelvis and head blocks, torso sheared between them; the hook turns the head over the lead leg, the uppercut drives the head up and forward",
+    "rule": "the head draws back as the hips coil, turns over the lead leg through the hook and its follow-through, then settles into the guard lean",
     "torsoShear": true,
     "dx": {
       "pelvis": [
         0,
+        0,
         1,
-        0,
-        0,
-        0,
         1,
         0,
         0
       ],
       "head": [
-        3,
-        5,
-        3,
         2,
         1,
-        4,
+        5,
+        5,
         3,
         2
       ]
     }
   },
   "rootMotion": {
-    "rule": "the uppercut steps in 1 px as it lands; the hook pivots in place",
+    "rule": "the hook pivots in place",
     "E": [
       [
         0,
@@ -152,14 +136,6 @@
       ],
       [
         0,
-        0
-      ],
-      [
-        0,
-        0
-      ],
-      [
-        1,
         0
       ],
       [
@@ -186,14 +162,6 @@
       ],
       [
         0,
-        0
-      ],
-      [
-        0,
-        0
-      ],
-      [
-        -1,
         0
       ],
       [
@@ -339,8 +307,6 @@
       1,
       1,
       1,
-      3,
-      1,
       1
     ],
     "far": [
@@ -348,8 +314,6 @@
       0,
       0,
       0,
-      0,
-      2,
       0,
       0
     ]
@@ -380,14 +344,6 @@
       },
       {
         "construction": "band",
-        "angle": -24,
-        "elbow": {
-          "at": 8,
-          "angle": 214
-        }
-      },
-      {
-        "construction": "band",
         "angle": -20,
         "elbow": {
           "at": 8,
@@ -404,26 +360,18 @@
       },
       {
         "construction": "band",
-        "angle": -8,
+        "angle": -20,
         "elbow": {
           "at": 8,
-          "angle": 205
+          "angle": 212
         }
       },
       {
         "construction": "band",
-        "angle": -70,
+        "angle": -20,
         "elbow": {
           "at": 8,
-          "angle": -168
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -40,
-        "elbow": {
-          "at": 8,
-          "angle": 222
+          "angle": 212
         }
       },
       {
@@ -436,6 +384,14 @@
       }
     ],
     "far": [
+      {
+        "construction": "band",
+        "angle": -45,
+        "elbow": {
+          "at": 8,
+          "angle": 222
+        }
+      },
       {
         "construction": "band",
         "angle": -30,
@@ -454,42 +410,18 @@
       },
       {
         "construction": "band",
-        "angle": -60,
+        "angle": -102,
+        "elbow": {
+          "at": 8,
+          "angle": -150
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -58,
         "elbow": {
           "at": 8,
           "angle": 236
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -45,
-        "elbow": {
-          "at": 8,
-          "angle": 222
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -45,
-        "elbow": {
-          "at": 8,
-          "angle": 222
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -45,
-        "elbow": {
-          "at": 8,
-          "angle": 222
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -45,
-        "elbow": {
-          "at": 8,
-          "angle": 222
         }
       },
       {
@@ -580,10 +512,8 @@
       "sway": {
         "E": [
           -1,
+          -1,
           -2,
-          -1,
-          -1,
-          -1,
           -2,
           -1,
           -1
@@ -774,12 +704,16 @@
     "E": [
       {
         "frame": 0,
-        "clip": "hook",
-        "type": "startup"
+        "type": "startup",
+        "clip": "hook"
       },
       {
         "frame": 1,
-        "clip": "hook",
+        "type": "startup",
+        "clip": "hook"
+      },
+      {
+        "frame": 2,
         "type": "active",
         "move": "hook",
         "hitbox": [
@@ -788,60 +722,40 @@
           10,
           10
         ],
-        "damage": "light+"
-      },
-      {
-        "frame": 2,
-        "clip": "hook",
-        "type": "recovery",
-        "chainWindow": true
+        "damage": "light+",
+        "clip": "hook"
       },
       {
         "frame": 3,
-        "clip": "hook",
         "type": "recovery",
-        "chainWindow": true
+        "clip": "hook"
       },
       {
         "frame": 4,
-        "clip": "uppercut",
-        "type": "startup"
+        "type": "recovery",
+        "chainWindow": true,
+        "clip": "hook"
       },
       {
         "frame": 5,
-        "clip": "uppercut",
-        "type": "active",
-        "move": "uppercut",
-        "hitbox": [
-          38,
-          8,
-          10,
-          14
-        ],
-        "damage": "medium"
-      },
-      {
-        "frame": 6,
-        "clip": "uppercut",
         "type": "recovery",
-        "chainWindow": true
-      },
-      {
-        "frame": 7,
-        "clip": "uppercut",
-        "type": "recovery",
-        "chainWindow": true
+        "chainWindow": true,
+        "clip": "hook"
       }
     ],
     "W": [
       {
         "frame": 0,
-        "clip": "hook",
-        "type": "startup"
+        "type": "startup",
+        "clip": "hook"
       },
       {
         "frame": 1,
-        "clip": "hook",
+        "type": "startup",
+        "clip": "hook"
+      },
+      {
+        "frame": 2,
         "type": "active",
         "move": "hook",
         "hitbox": [
@@ -850,49 +764,25 @@
           10,
           10
         ],
-        "damage": "light+"
-      },
-      {
-        "frame": 2,
-        "clip": "hook",
-        "type": "recovery",
-        "chainWindow": true
+        "damage": "light+",
+        "clip": "hook"
       },
       {
         "frame": 3,
-        "clip": "hook",
         "type": "recovery",
-        "chainWindow": true
+        "clip": "hook"
       },
       {
         "frame": 4,
-        "clip": "uppercut",
-        "type": "startup"
+        "type": "recovery",
+        "chainWindow": true,
+        "clip": "hook"
       },
       {
         "frame": 5,
-        "clip": "uppercut",
-        "type": "active",
-        "move": "uppercut",
-        "hitbox": [
-          16,
-          8,
-          10,
-          14
-        ],
-        "damage": "medium"
-      },
-      {
-        "frame": 6,
-        "clip": "uppercut",
         "type": "recovery",
-        "chainWindow": true
-      },
-      {
-        "frame": 7,
-        "clip": "uppercut",
-        "type": "recovery",
-        "chainWindow": true
+        "chainWindow": true,
+        "clip": "hook"
       }
     ]
   },
@@ -903,27 +793,15 @@
         0,
         1,
         2,
-        3
-      ],
-      "fps": 12,
-      "next": "guard",
-      "chainWindow": [
-        2,
-        3
-      ]
-    },
-    "uppercut": {
-      "frames": [
+        3,
         4,
-        5,
-        6,
-        7
+        5
       ],
       "fps": 12,
       "next": "guard",
       "chainWindow": [
-        6,
-        7
+        4,
+        5
       ]
     }
   }
