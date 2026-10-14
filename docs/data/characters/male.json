@@ -6450,7 +6450,7 @@
       }
     },
     "block": {
-      "rule": "set by the user 2026-10-14: the block stance is a substitute for the weave: it costs less stamina than a weave, and the trade-off is that a blocked hit still lands on the blocker with reduced health damage and increased poise damage (the weave avoids the hit entirely but costs more stamina)",
+      "rule": "set by the user 2026-10-14: the block is a second defensive option next to the weave, not a replacement: a player can hold the block against attacks or try to time a weave. The block costs less stamina than a weave; the trade-off is that a blocked hit still lands on the blocker with reduced health damage and increased poise damage, while a well-timed weave avoids the hit entirely at a higher stamina cost",
       "values": {
         "staminaPerBlockedHit": 15,
         "healthDamageScale": 0.3,

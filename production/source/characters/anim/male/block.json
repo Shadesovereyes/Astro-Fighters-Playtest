@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Block stance (unarmed, user 2026-10-14): a held high cover from the guard, the substitute for the weave (less stamina, more poise damage, less health damage). Both forearms upright in front of the face with the fists at the brow, elbows in front of the chest to cover the body, chin tucked, knees bent as in the guard; it keeps the guard's slight bob while held.",
+  "intent": "Block stance (unarmed, user 2026-10-14): a held high cover from the guard, a defensive option next to the weave (less stamina, more poise damage, less health damage). Both forearms upright in front of the face with the fists at the brow, elbows in front of the chest to cover the body, chin tucked, knees bent as in the guard; it keeps the guard's slight bob while held.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -719,7 +719,7 @@
   },
   "keyPoses": {
     "fps": 6,
-    "intent": "Block stance (unarmed, user 2026-10-14): a held high cover from the guard, the substitute for the weave (less stamina, more poise damage, less health damage). Both forearms upright in front of the face with the fists at the brow, elbows in front of the chest to cover the body, chin tucked, knees bent as in the guard; it keeps the guard's slight bob while held.",
+    "intent": "Block stance (unarmed, user 2026-10-14): a held high cover from the guard, a defensive option next to the weave (less stamina, more poise damage, less health damage). Both forearms upright in front of the face with the fists at the brow, elbows in front of the chest to cover the body, chin tucked, knees bent as in the guard; it keeps the guard's slight bob while held.",
     "bobRule": "the guard's slight bob (body 1, 1, 2, 2 px), the head 1 px lower (chin tucked), the arms a frame behind the body",
     "dy": [
       1,
