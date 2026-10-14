@@ -596,7 +596,9 @@ function twistOf(d, k, g, y) {
 //   hike    pelvis raised on one side: a whole-pixel column shear, dy at the left and right ends of span (the torso,
 //           head and shoulders above ride on it)
 //   tilt    torso tilt: a further column shear growing from 0 at the trunk top to full at the shoulder row (head and
-//           shoulders follow at their own column)
+//           shoulders follow at their own column); with rigid (a reference torso row) the torso above that row and the
+//           head move as one block and that row is the only seam: raised, it repeats down to its own place; lowered, the
+//           torso rows just below it are dropped; the torso below it stays on the pelvis
 //   turn    hips turned: the shorts lose one column on that side (the column at 'col' is dropped, the outer ones move in)
 //   knee    the bent standing leg's knee moves dx sideways (rows: hip, knee, ankle; full at the knee)
 //   plant   the standing leg (side) moves dx as a whole, toward the centre line
@@ -611,7 +613,7 @@ function variantShear(d, k, x, y, group) {
   for (const v of variantsOf(d, k)) {
     if (v.hike && group !== 'leg') dy += lerp(v.span, v.hike, group === 'head' ? v.headX : x);
     if (v.tilt && (group === 'torso' || group === 'head')) {
-      const f = group === 'head' ? 1 : Math.max(0, Math.min(1, (R.torsoMaxRow + 1 - y) / (R.torsoMaxRow + 1 - AR.shoulder)));
+      const f = group === 'head' ? 1 : v.rigid !== undefined ? (y <= v.rigid ? 1 : 0) : Math.max(0, Math.min(1, (R.torsoMaxRow + 1 - y) / (R.torsoMaxRow + 1 - AR.shoulder)));
       dy += lerp(v.span, v.tilt, group === 'head' ? v.headX : x) * f;
     }
   }
@@ -706,6 +708,13 @@ function frontalMove(d, k, part, y, x) {
     if (group) {
       const sh = variantShear(d, k, x, y, group), tn = variantTurn(d, k, x, part), rt = variantRotate(d, k, x, part);
       rows = tn === null || rt === null ? [] : rows.map((r) => r + sh);
+      // a rigid tilt's seam row: raised, it repeats down to its own place; lowered, the torso rows below it are dropped
+      const seam = variantsOf(d, k).find((v) => v.tilt && v.rigid !== undefined)?.rigid;
+      if (seam !== undefined && group === 'torso' && rows.length) {
+        const lift = variantShear(d, k, x, seam, 'torso');
+        if (lift < 0 && y === seam) { const r0 = Math.max(...rows); for (let i = 1; i <= -lift; i++) rows.push(r0 + i); }
+        if (lift > 0 && y > seam && y <= seam + lift) rows = [];
+      }
       if (tn) dx += tn;
       if (rt) dx += rt;
     }

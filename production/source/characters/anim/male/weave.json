@@ -1263,7 +1263,7 @@
           [],
           []
         ],
-        "leanRule": "the slip back is a backward lean of the upper body: the shoulders and head tilt together (up in S, down in N), 1 px, 2 px, 1 px on frames 0-2; the head stays on the torso"
+        "leanRule": "the slip back is a backward lean of the upper body: the shoulders and head tilt together (up in S, down in N), 1 px, 2 px, 1 px on frames 0-2, as one rigid block above torso row 30 (the only seam: S repeats that row, N drops the rows under it); the head stays on the torso and the torso never splits (user 2026-10-14)"
       },
       "N": {
         "legPose": {
@@ -1511,7 +1511,7 @@
           [],
           []
         ],
-        "leanRule": "the slip back is a backward lean of the upper body: the shoulders and head tilt together (up in S, down in N), 1 px, 2 px, 1 px on frames 0-2; the head stays on the torso"
+        "leanRule": "the slip back is a backward lean of the upper body: the shoulders and head tilt together (up in S, down in N), 1 px, 2 px, 1 px on frames 0-2, as one rigid block above torso row 30 (the only seam: S repeats that row, N drops the rows under it); the head stays on the torso and the torso never splits (user 2026-10-14)"
       }
     },
     "partVariants": {
@@ -1524,7 +1524,8 @@
         "tilt": [
           -1,
           -1
-        ]
+        ],
+        "rigid": 30
       },
       "S-lean2": {
         "span": [
@@ -1535,7 +1536,8 @@
         "tilt": [
           -2,
           -2
-        ]
+        ],
+        "rigid": 30
       },
       "N-lean1": {
         "span": [
@@ -1546,7 +1548,8 @@
         "tilt": [
           1,
           1
-        ]
+        ],
+        "rigid": 30
       },
       "N-lean2": {
         "span": [
@@ -1557,7 +1560,8 @@
         "tilt": [
           2,
           2
-        ]
+        ],
+        "rigid": 30
       }
     }
   }
