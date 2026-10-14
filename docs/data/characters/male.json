@@ -5621,7 +5621,6 @@
             "default": true,
             "hand": "body",
             "layers": {
-              "behind": "assets/characters/male/dualHeavy/off-tanto-behind.png",
               "front": "assets/characters/male/dualHeavy/off-tanto-front.png",
               "top": "assets/characters/male/dualHeavy/off-tanto-top.png",
               "trail": "assets/characters/male/dualHeavy/off-tanto-trail.png",
@@ -5687,11 +5686,11 @@
                 "front",
                 {
                   "hilt": "front",
-                  "blade": "behind"
+                  "blade": "aboveArm"
                 },
                 {
                   "hilt": "front",
-                  "blade": "behind"
+                  "blade": "aboveArm"
                 },
                 {
                   "hilt": "front",
@@ -5766,11 +5765,11 @@
                 "front",
                 {
                   "hilt": "front",
-                  "blade": "behind"
+                  "blade": "aboveArm"
                 },
                 {
                   "hilt": "front",
-                  "blade": "behind"
+                  "blade": "aboveArm"
                 },
                 {
                   "hilt": "front",

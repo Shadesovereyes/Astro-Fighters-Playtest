@@ -406,7 +406,6 @@
       "grip": "normal",
       "hand": "body",
       "layers": {
-        "behind": "off-tanto-behind.png",
         "front": "off-tanto-front.png",
         "top": "off-tanto-top.png",
         "trail": "off-tanto-trail.png",
@@ -473,11 +472,11 @@
           "front",
           {
             "hilt": "front",
-            "blade": "behind"
+            "blade": "aboveArm"
           },
           {
             "hilt": "front",
-            "blade": "behind"
+            "blade": "aboveArm"
           },
           {
             "hilt": "front",
@@ -552,11 +551,11 @@
           "front",
           {
             "hilt": "front",
-            "blade": "behind"
+            "blade": "aboveArm"
           },
           {
             "hilt": "front",
-            "blade": "behind"
+            "blade": "aboveArm"
           },
           {
             "hilt": "front",

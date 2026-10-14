@@ -1332,6 +1332,19 @@ const definition = JSON.stringify({
 
 const outDir = path.join(animDir, state);
 const files = { ...Object.fromEntries(Object.entries(sheets).map(([n, buf]) => [`${n}.png`, encodePng(W, H, buf)])), 'animation.json': definition };
+// arms.farWeaponOver (per frame): in the side view the far arm is drawn in the body layer, so its showing pixels go
+// into the same helper mask (mirrored for a mirrored direction) and the far hand's blade can be drawn over it
+const fwo = spec.arms.farWeaponOver;
+if (fwo) for (const dir of spec.directions) {
+  if (FR?.views?.[dir]) continue;
+  const m = mirrors[dir], shift = m?.frameShift || 0;
+  for (let k = 0; k < F; k++) {
+    const ks = m ? (k + shift) % F : k;
+    if (!(Array.isArray(fwo) ? fwo[ks] : fwo)) continue;
+    const S = (WEAPON_ARM[`${dir}:${k}`] ??= new Set());
+    for (const q of FAR_ARM_PX[ks] || []) { const [x, y] = unkey(q); S.add(m ? key(FRAME - 1 - x, y) : q); }
+  }
+}
 // helper (not a runtime layer): where a weaponOver band arm shows, per direction row and frame column
 if (Object.keys(WEAPON_ARM).length) {
   const mask = Buffer.alloc(W * H * 4);
