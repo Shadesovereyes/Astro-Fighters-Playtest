@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "prone",
-  "status": "E/W candidate 2026-10-15; S/N to author",
+  "status": "E/W approved by user 2026-10-15; S/N to author",
   "frames": 4,
   "fps": 6,
   "sourceDirection": "E",
@@ -798,5 +798,9 @@
       "fps": 6,
       "loop": true
     }
+  },
+  "approved": {
+    "E": "2026-10-15",
+    "W": "2026-10-15 (mirror of E)"
   }
 }

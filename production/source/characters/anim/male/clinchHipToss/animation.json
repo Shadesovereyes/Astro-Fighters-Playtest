@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-animation-output/v1",
   "body": "male",
   "state": "clinchHipToss",
-  "status": "E/W candidate 2026-10-14 (paired with clinchHipTossHit); S/N to author",
+  "status": "E/W approved by user 2026-10-15 (paired with clinchHipTossHit); S/N to author",
   "frames": 13,
   "fps": 12,
   "frameSize": [
@@ -305,7 +305,11 @@
         "frame": 12,
         "type": "recovery"
       }
-    ]
+    ],
+    "tactical": {
+      "rule": "user 2026-10-15: on the hex grid the thrown fighter lands in the tile adjacent to the holder on the opposite side from where they started (1 tile behind the holder); no other displacement",
+      "landingTile": "behind holder (1)"
+    }
   },
   "qc": {
     "mirrorValid": {
