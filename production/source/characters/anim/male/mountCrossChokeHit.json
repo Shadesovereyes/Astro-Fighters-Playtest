@@ -412,7 +412,7 @@
       },
       {
         "construction": "band",
-        "angle": -100,
+        "angle": -80,
         "elbow": {
           "at": 8,
           "angle": -165
@@ -420,50 +420,50 @@
       },
       {
         "construction": "band",
-        "angle": -110,
+        "angle": -65,
         "elbow": {
           "at": 8,
-          "angle": -135
+          "angle": -170
         }
       },
       {
         "construction": "band",
-        "angle": -105,
+        "angle": -60,
         "elbow": {
           "at": 8,
-          "angle": -125
+          "angle": -172
         }
       },
       {
         "construction": "band",
-        "angle": -105,
+        "angle": -60,
         "elbow": {
           "at": 8,
-          "angle": -125
+          "angle": -172
         }
       },
       {
         "construction": "band",
-        "angle": -100,
+        "angle": -62,
         "elbow": {
           "at": 8,
-          "angle": -120
+          "angle": -175
         }
       },
       {
         "construction": "band",
-        "angle": -105,
+        "angle": -60,
         "elbow": {
           "at": 8,
-          "angle": -125
+          "angle": -172
         }
       },
       {
         "construction": "band",
-        "angle": -100,
+        "angle": -62,
         "elbow": {
           "at": 8,
-          "angle": -120
+          "angle": -175
         }
       }
     ],
@@ -478,7 +478,7 @@
       },
       {
         "construction": "band",
-        "angle": -95,
+        "angle": -75,
         "elbow": {
           "at": 8,
           "angle": -160
@@ -486,50 +486,50 @@
       },
       {
         "construction": "band",
-        "angle": -105,
+        "angle": -60,
         "elbow": {
           "at": 8,
-          "angle": -130
+          "angle": -168
         }
       },
       {
         "construction": "band",
-        "angle": -100,
+        "angle": -56,
         "elbow": {
           "at": 8,
-          "angle": -122
+          "angle": -170
         }
       },
       {
         "construction": "band",
-        "angle": -100,
+        "angle": -56,
         "elbow": {
           "at": 8,
-          "angle": -122
+          "angle": -170
         }
       },
       {
         "construction": "band",
-        "angle": -96,
+        "angle": -58,
         "elbow": {
           "at": 8,
-          "angle": -118
+          "angle": -172
         }
       },
       {
         "construction": "band",
-        "angle": -100,
+        "angle": -56,
         "elbow": {
           "at": 8,
-          "angle": -122
+          "angle": -170
         }
       },
       {
         "construction": "band",
-        "angle": -96,
+        "angle": -58,
         "elbow": {
           "at": 8,
-          "angle": -118
+          "angle": -172
         }
       }
     ],
@@ -959,23 +959,24 @@
     }
   },
   "pair": {
-    "rule": "paired Mount move: top (E) chokes, bottom (W) is choked",
+    "rule": "paired Mount move: top (E) chokes, bottom (W) is choked; the mounted fighter's arms are the highest layer (user 2026-10-15)",
     "partner": "mountCrossChoke",
     "partnerDx": 2,
     "layering": [
       "mountBottom body, clothing, hair, eyes",
       "mountTop body, clothing, hair, eyes, far arm",
-      "mountBottom arms",
-      "mountTop arms"
+      "mountTop arms",
+      "mountBottom arms (highest: the hands at the neck)"
     ],
     "mountLayering": {
       "fromFrame": 0,
       "order": [
         "mountBottom body, clothing, hair, eyes",
         "mountTop body, clothing, hair, eyes, far arm",
-        "mountBottom arms",
-        "mountTop arms"
-      ]
+        "mountTop arms",
+        "mountBottom arms (highest: the hands at the neck)"
+      ],
+      "bottomArmsOver": true
     }
   },
   "fx": {

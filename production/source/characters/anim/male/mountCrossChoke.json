@@ -90,33 +90,33 @@
     "rule": "sitting low (the knees are on the ground); breathing 1 px; the arms settle a frame behind",
     "dy": [
       10,
-      11,
       12,
-      12,
-      12,
-      12,
-      12,
-      12
+      14,
+      15,
+      15,
+      15,
+      15,
+      15
     ],
     "head": [
       10,
-      11,
       12,
-      12,
-      12,
-      12,
-      12,
-      12
+      14,
+      15,
+      15,
+      15,
+      15,
+      15
     ],
     "arms": [
       11,
-      12,
       13,
-      13,
-      13,
-      13,
-      13,
-      13
+      15,
+      16,
+      16,
+      16,
+      16,
+      16
     ]
   },
   "lean": {
@@ -125,23 +125,23 @@
     "dx": {
       "pelvis": [
         0,
-        0,
         1,
-        1,
-        1,
-        1,
-        1,
-        1
+        2,
+        2,
+        2,
+        2,
+        2,
+        2
       ],
       "head": [
         4,
-        7,
         9,
-        11,
-        11,
         12,
-        11,
-        12
+        14,
+        14,
+        15,
+        14,
+        15
       ]
     }
   },
@@ -628,55 +628,55 @@
         "angle": -50,
         "elbow": {
           "at": 8,
-          "angle": -60
+          "angle": -40
         }
       },
       {
         "construction": "band",
-        "angle": -30,
+        "angle": -45,
         "elbow": {
           "at": 8,
-          "angle": -60
+          "angle": 0
         }
       },
       {
         "construction": "band",
-        "angle": -25,
+        "angle": -45,
         "elbow": {
           "at": 8,
-          "angle": -55
+          "angle": 20
         }
       },
       {
         "construction": "band",
-        "angle": -25,
+        "angle": -46,
         "elbow": {
           "at": 8,
-          "angle": -56
+          "angle": 21
         }
       },
       {
         "construction": "band",
-        "angle": -24,
+        "angle": -44,
         "elbow": {
           "at": 8,
-          "angle": -58
+          "angle": 23
         }
       },
       {
         "construction": "band",
-        "angle": -25,
+        "angle": -46,
         "elbow": {
           "at": 8,
-          "angle": -56
+          "angle": 21
         }
       },
       {
         "construction": "band",
-        "angle": -24,
+        "angle": -44,
         "elbow": {
           "at": 8,
-          "angle": -58
+          "angle": 23
         }
       }
     ],
@@ -691,26 +691,18 @@
       },
       {
         "construction": "band",
-        "angle": -55,
+        "angle": -40,
         "elbow": {
           "at": 8,
-          "angle": -65
+          "angle": -30
         }
       },
       {
         "construction": "band",
-        "angle": -34,
+        "angle": -32,
         "elbow": {
           "at": 8,
-          "angle": -64
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -30,
-        "elbow": {
-          "at": 8,
-          "angle": -60
+          "angle": -20
         }
       },
       {
@@ -718,7 +710,15 @@
         "angle": -30,
         "elbow": {
           "at": 8,
-          "angle": -61
+          "angle": -10
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -31,
+        "elbow": {
+          "at": 8,
+          "angle": -9
         }
       },
       {
@@ -726,15 +726,15 @@
         "angle": -29,
         "elbow": {
           "at": 8,
-          "angle": -63
+          "angle": -7
         }
       },
       {
         "construction": "band",
-        "angle": -30,
+        "angle": -31,
         "elbow": {
           "at": 8,
-          "angle": -61
+          "angle": -9
         }
       },
       {
@@ -742,7 +742,7 @@
         "angle": -29,
         "elbow": {
           "at": 8,
-          "angle": -63
+          "angle": -7
         }
       }
     ],
@@ -1041,23 +1041,24 @@
     }
   },
   "pair": {
-    "rule": "paired Mount move: top (E) chokes, bottom (W) is choked",
+    "rule": "paired Mount move: top (E) chokes, bottom (W) is choked; the mounted fighter's arms are the highest layer (user 2026-10-15)",
     "partner": "mountCrossChokeHit",
     "partnerDx": 2,
     "layering": [
       "mountBottom body, clothing, hair, eyes",
       "mountTop body, clothing, hair, eyes, far arm",
-      "mountBottom arms",
-      "mountTop arms"
+      "mountTop arms",
+      "mountBottom arms (highest: the hands at the neck)"
     ],
     "mountLayering": {
       "fromFrame": 0,
       "order": [
         "mountBottom body, clothing, hair, eyes",
         "mountTop body, clothing, hair, eyes, far arm",
-        "mountBottom arms",
-        "mountTop arms"
-      ]
+        "mountTop arms",
+        "mountBottom arms (highest: the hands at the neck)"
+      ],
+      "bottomArmsOver": true
     }
   },
   "events": {
