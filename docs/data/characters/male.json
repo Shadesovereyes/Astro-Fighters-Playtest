@@ -10210,6 +10210,80 @@
           "next": "guard"
         }
       }
+    },
+    "downed": {
+      "frames": 4,
+      "fps": 4,
+      "rows": [
+        "E",
+        "W"
+      ],
+      "status": "E/W candidate 2026-10-15, awaiting user approval; S/N to author",
+      "rootMotion": {
+        "E": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "W": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "layers": {
+        "body": "assets/characters/male/downed/body.png",
+        "arms": "assets/characters/male/downed/arms.png",
+        "long-hair": "assets/characters/male/downed/long-hair.png",
+        "fade-hair": "assets/characters/male/downed/fade-hair.png",
+        "afro-hair": "assets/characters/male/downed/afro-hair.png",
+        "brown-eyes": "assets/characters/male/downed/brown-eyes.png",
+        "purple-eyes": "assets/characters/male/downed/purple-eyes.png",
+        "male-gi": "assets/characters/male/downed/male-gi.png",
+        "male-blue-armor": "assets/characters/male/downed/male-blue-armor.png",
+        "male-red-armor": "assets/characters/male/downed/male-red-armor.png",
+        "blue-armor-shoulders": "assets/characters/male/downed/blue-armor-shoulders.png",
+        "red-armor-shoulders": "assets/characters/male/downed/red-armor-shoulders.png"
+      },
+      "clips": {
+        "rule": "entered when a fighter is defeated (after its hit reaction); loops for the rest of the fight and the recap. No getUp.",
+        "downed": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 4,
+          "loop": true
+        }
+      }
     }
   },
   "combo": {
