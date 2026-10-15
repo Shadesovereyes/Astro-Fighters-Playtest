@@ -10284,6 +10284,564 @@
           "loop": true
         }
       }
+    },
+    "clinchSweepingShoulder": {
+      "frames": 12,
+      "fps": 12,
+      "rows": [
+        "E",
+        "W"
+      ],
+      "status": "E/W candidate 2026-10-15 (paired with clinchSweepingShoulderHit; ends in Mount), awaiting user approval; S/N to author",
+      "rootMotion": {
+        "E": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            3,
+            0
+          ],
+          [
+            4,
+            0
+          ],
+          [
+            6,
+            0
+          ],
+          [
+            6,
+            0
+          ],
+          [
+            5,
+            0
+          ],
+          [
+            3,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "W": [
+          [
+            0,
+            0
+          ],
+          [
+            -1,
+            0
+          ],
+          [
+            -3,
+            0
+          ],
+          [
+            -4,
+            0
+          ],
+          [
+            -6,
+            0
+          ],
+          [
+            -6,
+            0
+          ],
+          [
+            -5,
+            0
+          ],
+          [
+            -3,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "layers": {
+        "body": "assets/characters/male/clinchSweepingShoulder/body.png",
+        "arms": "assets/characters/male/clinchSweepingShoulder/arms.png",
+        "long-hair": "assets/characters/male/clinchSweepingShoulder/long-hair.png",
+        "fade-hair": "assets/characters/male/clinchSweepingShoulder/fade-hair.png",
+        "afro-hair": "assets/characters/male/clinchSweepingShoulder/afro-hair.png",
+        "brown-eyes": "assets/characters/male/clinchSweepingShoulder/brown-eyes.png",
+        "purple-eyes": "assets/characters/male/clinchSweepingShoulder/purple-eyes.png",
+        "male-gi": "assets/characters/male/clinchSweepingShoulder/male-gi.png",
+        "male-blue-armor": "assets/characters/male/clinchSweepingShoulder/male-blue-armor.png",
+        "male-red-armor": "assets/characters/male/clinchSweepingShoulder/male-red-armor.png",
+        "blue-armor-shoulders": "assets/characters/male/clinchSweepingShoulder/blue-armor-shoulders.png",
+        "red-armor-shoulders": "assets/characters/male/clinchSweepingShoulder/red-armor-shoulders.png",
+        "far-arm": "assets/characters/male/clinchSweepingShoulder/far-arm.png"
+      },
+      "clips": {
+        "rule": "plays from clinchHold; the held fighter plays clinchSweepingShoulderHit on the same frames; ends Mounting (next: mountTop, same facing)",
+        "clinchSweepingShoulder": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 12,
+          "next": "mountTop"
+        }
+      },
+      "events": {
+        "rule": "per-frame gameplay data per facing; the active frame is the landing (provisional)",
+        "E": [
+          {
+            "frame": 0,
+            "type": "startup"
+          },
+          {
+            "frame": 1,
+            "type": "startup"
+          },
+          {
+            "frame": 2,
+            "type": "startup"
+          },
+          {
+            "frame": 3,
+            "type": "startup"
+          },
+          {
+            "frame": 4,
+            "type": "startup"
+          },
+          {
+            "frame": 5,
+            "type": "active",
+            "move": "clinchSweepingShoulder",
+            "damage": "throw",
+            "effect": "Mount: holder Mounting, thrown fighter Mounted"
+          },
+          {
+            "frame": 6,
+            "type": "recovery"
+          },
+          {
+            "frame": 7,
+            "type": "recovery"
+          },
+          {
+            "frame": 8,
+            "type": "recovery"
+          },
+          {
+            "frame": 9,
+            "type": "recovery"
+          },
+          {
+            "frame": 10,
+            "type": "recovery"
+          },
+          {
+            "frame": 11,
+            "type": "recovery"
+          }
+        ],
+        "tactical": {
+          "rule": "no displacement: both fighters keep their cells; the Mount is drawn between them"
+        },
+        "W": [
+          {
+            "frame": 0,
+            "type": "startup"
+          },
+          {
+            "frame": 1,
+            "type": "startup"
+          },
+          {
+            "frame": 2,
+            "type": "startup"
+          },
+          {
+            "frame": 3,
+            "type": "startup"
+          },
+          {
+            "frame": 4,
+            "type": "startup"
+          },
+          {
+            "frame": 5,
+            "type": "active",
+            "move": "clinchSweepingShoulder",
+            "damage": "throw",
+            "effect": "Mount: holder Mounting, thrown fighter Mounted"
+          },
+          {
+            "frame": 6,
+            "type": "recovery"
+          },
+          {
+            "frame": 7,
+            "type": "recovery"
+          },
+          {
+            "frame": 8,
+            "type": "recovery"
+          },
+          {
+            "frame": 9,
+            "type": "recovery"
+          },
+          {
+            "frame": 10,
+            "type": "recovery"
+          },
+          {
+            "frame": 11,
+            "type": "recovery"
+          }
+        ]
+      }
+    },
+    "clinchSweepingShoulderHit": {
+      "frames": 12,
+      "fps": 12,
+      "rows": [
+        "E",
+        "W"
+      ],
+      "status": "E/W candidate 2026-10-15 (paired with clinchSweepingShoulder; ends in Mount), awaiting user approval; S/N to author",
+      "rootMotion": {
+        "E": [
+          [
+            0,
+            0
+          ],
+          [
+            -1,
+            0
+          ],
+          [
+            -1,
+            0
+          ],
+          [
+            -1,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "W": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "layers": {
+        "body": "assets/characters/male/clinchSweepingShoulderHit/body.png",
+        "arms": "assets/characters/male/clinchSweepingShoulderHit/arms.png",
+        "long-hair": "assets/characters/male/clinchSweepingShoulderHit/long-hair.png",
+        "fade-hair": "assets/characters/male/clinchSweepingShoulderHit/fade-hair.png",
+        "afro-hair": "assets/characters/male/clinchSweepingShoulderHit/afro-hair.png",
+        "brown-eyes": "assets/characters/male/clinchSweepingShoulderHit/brown-eyes.png",
+        "purple-eyes": "assets/characters/male/clinchSweepingShoulderHit/purple-eyes.png",
+        "male-gi": "assets/characters/male/clinchSweepingShoulderHit/male-gi.png",
+        "male-blue-armor": "assets/characters/male/clinchSweepingShoulderHit/male-blue-armor.png",
+        "male-red-armor": "assets/characters/male/clinchSweepingShoulderHit/male-red-armor.png",
+        "blue-armor-shoulders": "assets/characters/male/clinchSweepingShoulderHit/blue-armor-shoulders.png",
+        "red-armor-shoulders": "assets/characters/male/clinchSweepingShoulderHit/red-armor-shoulders.png",
+        "far-arm": "assets/characters/male/clinchSweepingShoulderHit/far-arm.png",
+        "fx": "assets/characters/male/clinchSweepingShoulderHit/fx.png"
+      },
+      "clips": {
+        "rule": "plays on the held fighter when the holder plays clinchSweepingShoulder; ends Mounted (next: mountBottom)",
+        "clinchSweepingShoulderHit": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 12,
+          "next": "mountBottom"
+        }
+      }
+    },
+    "mountTop": {
+      "frames": 4,
+      "fps": 6,
+      "rows": [
+        "E",
+        "W"
+      ],
+      "status": "E/W candidate 2026-10-15 (Mounting: kneeling astride the mounted fighter), awaiting user approval; S/N to author",
+      "rootMotion": {
+        "E": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "W": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "layers": {
+        "body": "assets/characters/male/mountTop/body.png",
+        "arms": "assets/characters/male/mountTop/arms.png",
+        "long-hair": "assets/characters/male/mountTop/long-hair.png",
+        "fade-hair": "assets/characters/male/mountTop/fade-hair.png",
+        "afro-hair": "assets/characters/male/mountTop/afro-hair.png",
+        "brown-eyes": "assets/characters/male/mountTop/brown-eyes.png",
+        "purple-eyes": "assets/characters/male/mountTop/purple-eyes.png",
+        "male-gi": "assets/characters/male/mountTop/male-gi.png",
+        "male-blue-armor": "assets/characters/male/mountTop/male-blue-armor.png",
+        "male-red-armor": "assets/characters/male/mountTop/male-red-armor.png",
+        "blue-armor-shoulders": "assets/characters/male/mountTop/blue-armor-shoulders.png",
+        "red-armor-shoulders": "assets/characters/male/mountTop/red-armor-shoulders.png",
+        "far-arm": "assets/characters/male/mountTop/far-arm.png"
+      },
+      "clips": {
+        "rule": "loops while the fighter is Mounting (entered from clinchSweepingShoulder or any Mount transition); the mounted fighter plays mountBottom",
+        "mountTop": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 5,
+          "loop": true,
+          "next": "guard"
+        }
+      }
+    },
+    "mountBottom": {
+      "frames": 4,
+      "fps": 6,
+      "rows": [
+        "E",
+        "W"
+      ],
+      "status": "E/W candidate 2026-10-15 (Mounted: pinned on the back under the mounting fighter), awaiting user approval; S/N to author",
+      "rootMotion": {
+        "E": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "W": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "layers": {
+        "body": "assets/characters/male/mountBottom/body.png",
+        "arms": "assets/characters/male/mountBottom/arms.png",
+        "long-hair": "assets/characters/male/mountBottom/long-hair.png",
+        "fade-hair": "assets/characters/male/mountBottom/fade-hair.png",
+        "afro-hair": "assets/characters/male/mountBottom/afro-hair.png",
+        "brown-eyes": "assets/characters/male/mountBottom/brown-eyes.png",
+        "purple-eyes": "assets/characters/male/mountBottom/purple-eyes.png",
+        "male-gi": "assets/characters/male/mountBottom/male-gi.png",
+        "male-blue-armor": "assets/characters/male/mountBottom/male-blue-armor.png",
+        "male-red-armor": "assets/characters/male/mountBottom/male-red-armor.png",
+        "blue-armor-shoulders": "assets/characters/male/mountBottom/blue-armor-shoulders.png",
+        "red-armor-shoulders": "assets/characters/male/mountBottom/red-armor-shoulders.png"
+      },
+      "clips": {
+        "rule": "loops while the fighter is Mounted (entered from clinchSweepingShoulderHit or any Mount transition); leaving the Mount plays getUp",
+        "mountBottom": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 5,
+          "loop": true,
+          "next": "getUp"
+        }
+      }
     }
   },
   "combo": {
