@@ -155,13 +155,13 @@
         2,
         -4,
         0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
+        3,
+        4,
+        5,
+        5,
+        5,
+        5,
+        5
       ]
     }
   },
@@ -856,10 +856,10 @@
       },
       {
         "construction": "band",
-        "angle": -30,
+        "angle": -24,
         "elbow": {
           "at": 8,
-          "angle": -40
+          "angle": -80
         }
       },
       {
@@ -867,47 +867,47 @@
         "angle": -20,
         "elbow": {
           "at": 8,
-          "angle": -30
+          "angle": -72
         }
       },
       {
         "construction": "band",
-        "angle": -14,
+        "angle": -18,
         "elbow": {
           "at": 8,
-          "angle": -24
+          "angle": -70
         }
       },
       {
         "construction": "band",
-        "angle": -14,
+        "angle": -18,
         "elbow": {
           "at": 8,
-          "angle": -24
+          "angle": -70
         }
       },
       {
         "construction": "band",
-        "angle": -16,
+        "angle": -18,
         "elbow": {
           "at": 8,
-          "angle": -26
+          "angle": -74
         }
       },
       {
         "construction": "band",
-        "angle": -14,
+        "angle": -18,
         "elbow": {
           "at": 8,
-          "angle": -24
+          "angle": -70
         }
       },
       {
         "construction": "band",
-        "angle": -12,
+        "angle": -18,
         "elbow": {
           "at": 8,
-          "angle": -22
+          "angle": -68
         }
       }
     ],
@@ -954,10 +954,10 @@
       },
       {
         "construction": "band",
-        "angle": -24,
+        "angle": -20,
         "elbow": {
           "at": 8,
-          "angle": -34
+          "angle": -70
         }
       },
       {
@@ -965,47 +965,47 @@
         "angle": -16,
         "elbow": {
           "at": 8,
-          "angle": -26
+          "angle": -62
         }
       },
       {
         "construction": "band",
-        "angle": -10,
+        "angle": -14,
         "elbow": {
           "at": 8,
-          "angle": -20
+          "angle": -60
         }
       },
       {
         "construction": "band",
-        "angle": -10,
+        "angle": -14,
         "elbow": {
           "at": 8,
-          "angle": -20
+          "angle": -60
         }
       },
       {
         "construction": "band",
-        "angle": -12,
+        "angle": -14,
         "elbow": {
           "at": 8,
-          "angle": -22
+          "angle": -64
         }
       },
       {
         "construction": "band",
-        "angle": -10,
+        "angle": -14,
         "elbow": {
           "at": 8,
-          "angle": -20
+          "angle": -60
         }
       },
       {
         "construction": "band",
-        "angle": -10,
+        "angle": -14,
         "elbow": {
           "at": 8,
-          "angle": -20
+          "angle": -58
         }
       }
     ],
@@ -1307,6 +1307,139 @@
       "bottomOver": true,
       "note": "for the triangle the bottom fighter is drawn over the top fighter so the locked legs cross in front of the trapped head"
     }
+  },
+  "expressions": {
+    "rule": "facial expression per frame, drawn in the eye layers (eye, lid, brow and mouth lines only, no skin): coordinates from the top-left of the frame's eye block, x toward the facing; '@dx,dy' keeps the layer's own pixel (the iris colour)",
+    "eyeLayers": [
+      "brown-eyes",
+      "purple-eyes"
+    ],
+    "shapes": {
+      "pain": {
+        "E": [
+          [
+            0,
+            1,
+            "#000000"
+          ],
+          [
+            1,
+            1,
+            "#000000"
+          ],
+          [
+            1,
+            2,
+            "#70241d"
+          ]
+        ]
+      },
+      "squint": {
+        "E": [
+          [
+            0,
+            0,
+            "#000000"
+          ],
+          [
+            1,
+            0,
+            "#000000"
+          ],
+          [
+            0,
+            1,
+            "#000000"
+          ],
+          [
+            1,
+            1,
+            "#000000"
+          ],
+          [
+            0,
+            2,
+            "#e3e3e3"
+          ],
+          [
+            1,
+            2,
+            "@1,2"
+          ],
+          [
+            0,
+            3,
+            "#ffffff"
+          ],
+          [
+            1,
+            3,
+            "@1,3"
+          ]
+        ]
+      },
+      "lookDown": {
+        "E": [
+          [
+            0,
+            0,
+            "#000000"
+          ],
+          [
+            1,
+            0,
+            "#000000"
+          ],
+          [
+            0,
+            1,
+            "#000000"
+          ],
+          [
+            1,
+            1,
+            "#000000"
+          ],
+          [
+            0,
+            2,
+            "#ffffff"
+          ],
+          [
+            1,
+            2,
+            "@1,2"
+          ],
+          [
+            0,
+            3,
+            "#ffffff"
+          ],
+          [
+            1,
+            3,
+            "#000000"
+          ]
+        ]
+      }
+    },
+    "frames": {
+      "E": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        "lookDown",
+        "lookDown",
+        "lookDown",
+        "lookDown",
+        "lookDown",
+        "lookDown",
+        "lookDown"
+      ]
+    },
+    "intent": "once on the back the eyes look down the body (toward the trapped opponent): lid lowered, pupil at the bottom of the eye"
   },
   "bodyRotation": {
     "rule": "quarter turns only (user ruling 2026-10-15): upright through the leap (lifted by dy), frame 4 is a blur frame already turned flat on the back (270 clockwise in E: the head goes to the back side) still in the air; from frame 5 it rests on the ground as in mountBottom with the legs locked up round the trapped head",
