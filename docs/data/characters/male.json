@@ -11716,7 +11716,7 @@
         "E",
         "W"
       ],
-      "status": "E/W candidate 2026-10-15 (paired with clinchFlyingTriangleHit; ends in Mount with the user Mounted holding the choke), awaiting user approval; S/N to author",
+      "status": "E/W approved by user 2026-10-15 (paired with clinchFlyingTriangleHit; ends in Mount with the user Mounted holding the choke); S/N to author",
       "rootMotion": {
         "E": [
           [
@@ -11983,7 +11983,7 @@
         "E",
         "W"
       ],
-      "status": "E/W candidate 2026-10-15 (paired with clinchFlyingTriangle; ends kneeling in Mount on top, head trapped in the choke), awaiting user approval; S/N to author",
+      "status": "E/W approved by user 2026-10-15 (paired with clinchFlyingTriangle; ends kneeling in Mount on top, head trapped in the choke); S/N to author",
       "rootMotion": {
         "E": [
           [

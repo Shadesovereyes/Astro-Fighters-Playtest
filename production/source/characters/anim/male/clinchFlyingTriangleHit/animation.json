@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-animation-output/v1",
   "body": "male",
   "state": "clinchFlyingTriangleHit",
-  "status": "E/W candidate 2026-10-15 (paired with clinchFlyingTriangle; ends kneeling in Mount on top, head trapped in the choke), awaiting user approval; S/N to author",
+  "status": "E/W approved by user 2026-10-15 (paired with clinchFlyingTriangle; ends kneeling in Mount on top, head trapped in the choke); S/N to author",
   "frames": 12,
   "fps": 12,
   "frameSize": [
