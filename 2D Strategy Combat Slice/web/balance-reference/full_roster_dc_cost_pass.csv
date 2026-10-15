@@ -1,0 +1,171 @@
+scope,kit,disc,name,family,tier,statuses,special_control,resource_drains,guard_break,authored_stamina,authored_chakra,effective_stamina,effective_chakra,current_slots,candidate_slots,candidate_effective_floor,candidate_authored_floor,flags
+Sign,Aries,Taijutsu,Mach Lunge,melee stamina,C,Burn,,,False,10,0,10,0,1,1,10,10,convert automatic hostile status to tier DC
+Sign,Aries,Taijutsu,Shatter Punch,melee stamina,S,Stun,,,True,12,0,12,0,1,2,25,25,below base resource floor; slots 1→2
+Sign,Aries,Taijutsu,Inner Gate: Adrenaline,melee stamina,,,,,False,10,0,10,0,1,1,,,
+Sign,Aries,Ninjutsu,Blast Wave,chakra,,,,,False,0,18,0,32,1,1,,,elemental ×1.75 counts toward chakra spend
+Sign,Aries,Ninjutsu,Explosive Runes,chakra,,,,,False,0,18,0,32,1,1,,,elemental ×1.75 counts toward chakra spend
+Sign,Aries,Ninjutsu,Meteor,chakra,,,,,False,0,40,0,70,2,2,,,elemental ×1.75 counts toward chakra spend
+Sign,Aries,Genjutsu,Blind Rage,chakra,A,Confusion,,,False,0,18,0,18,1,2,30,30,below base resource floor; slots 1→2; single-gate A/S premium
+Sign,Aries,Genjutsu,Killing Intent,chakra,S,Stun,,,False,0,18,0,18,1,3,45,45,below base resource floor; slots 1→3; single-gate A/S premium
+Sign,Taurus,Taijutsu,Mountain Stance,melee stamina,,,,,False,8,0,8,0,1,1,,,
+Sign,Taurus,Taijutsu,Sumo Palm,melee stamina,B,Slow,,,False,10,0,10,0,1,1,12,12,below base resource floor
+Sign,Taurus,Taijutsu,Bull Rush,melee stamina,,,,,False,12,0,12,0,1,1,,,
+Sign,Taurus,Ninjutsu,Oak Flesh,chakra,,,,,False,0,18,0,18,2,2,,,
+Sign,Taurus,Ninjutsu,Ironwood Kanabo,chakra,,,,,False,0,18,0,18,2,2,,,
+Sign,Taurus,Ninjutsu,Root Sanctuary,chakra,,,,,False,0,22,0,22,2,2,,,
+Sign,Taurus,Genjutsu,Material Fixation,chakra,B,Disarm,,,False,0,18,0,18,1,1,18,18,
+Sign,Taurus,Genjutsu,Planetary Pressure,chakra,B,Slow,,,False,0,18,0,18,1,1,18,18,
+Sign,Gemini,Taijutsu,Mach Dash,melee stamina,,,,,False,8,0,8,0,1,1,,,
+Sign,Gemini,Taijutsu,Echo Fist,melee stamina,,,,,False,10,0,10,0,1,1,,,
+Sign,Gemini,Taijutsu,Sonic Sweep,melee stamina,S,Prone,,,False,12,0,12,0,1,2,20,20,below base resource floor; slots 1→2
+Sign,Gemini,Ninjutsu,Howling Blast,chakra,B,Silence,,,False,0,18,0,32,1,1,18,11,elemental ×1.75 counts toward chakra spend
+Sign,Gemini,Ninjutsu,Mirage Clone,chakra,,,,,False,0,18,0,18,1,1,,,
+Sign,Gemini,Ninjutsu,Resonance Chamber,chakra,,,,,False,0,22,0,38,2,2,,,elemental ×1.75 counts toward chakra spend
+Sign,Gemini,Genjutsu,Tinnitus,chakra,B,Bleed,,,False,0,18,0,18,1,1,18,18,
+Sign,Gemini,Genjutsu,Phantom Legion,chakra,A,Blind,,,False,0,18,0,18,1,2,30,30,below base resource floor; slots 1→2; single-gate A/S premium
+Sign,Cancer,Taijutsu,Tidal Slam,melee stamina,B,Slow,,,False,12,0,12,0,1,1,12,12,
+Sign,Cancer,Taijutsu,Vice Grip,melee stamina,,,,Stamina:15,False,12,0,12,0,1,1,,,
+Sign,Cancer,Taijutsu,Hydro Cannon Palm,melee stamina,S,Stun,,,False,10,0,10,0,1,2,20,20,below base resource floor; slots 1→2
+Sign,Cancer,Ninjutsu,Water Cutter,chakra,,,,,False,0,22,0,38,1,1,,,elemental ×1.75 counts toward chakra spend
+Sign,Cancer,Ninjutsu,Whirlpool,chakra,A,Root,,,False,0,22,0,38,2,2,30,18,elemental ×1.75 counts toward chakra spend; single-gate A/S premium
+Sign,Cancer,Ninjutsu,Tsunami,chakra,,,,,False,0,30,0,52,2,2,,,elemental ×1.75 counts toward chakra spend
+Sign,Cancer,Genjutsu,Regression,chakra,B,Slow,,,False,0,18,0,18,1,1,18,18,
+Sign,Cancer,Genjutsu,Pacification,chakra,B,Disarm,,,False,0,18,0,18,1,1,18,18,
+Sign,Leo,Taijutsu,King's Posture,melee stamina,,,,,False,8,0,8,0,1,1,,,
+Sign,Leo,Taijutsu,Sun Palm,melee stamina,B,Burn,,,False,8,0,8,0,1,1,12,12,convert automatic hostile status to tier DC; below base resource floor
+Sign,Leo,Taijutsu,Battle Roar,melee stamina,B,Slow,,,False,10,0,10,0,1,1,12,12,below base resource floor
+Sign,Leo,Ninjutsu,Solar Lance,chakra,,,,,False,0,25,0,44,1,1,,,elemental ×1.75 counts toward chakra spend
+Sign,Leo,Ninjutsu,Radiance,chakra,,,,,False,0,20,0,20,2,2,,,
+Sign,Leo,Ninjutsu,Supernova,chakra,,,,,False,0,30,0,52,2,2,,,elemental ×1.75 counts toward chakra spend
+Sign,Leo,Genjutsu,Spotlight,chakra,A,Blind,,,False,0,18,0,18,1,2,30,30,below base resource floor; slots 1→2; single-gate A/S premium
+Sign,Leo,Genjutsu,Kneel,chakra,S,Stun,,,False,0,18,0,18,1,3,45,45,below base resource floor; slots 1→3; single-gate A/S premium
+Sign,Virgo,Taijutsu,Silica Strike,melee stamina,A,Blind,,,False,6,0,6,0,1,2,15,15,below base resource floor; slots 1→2
+Sign,Virgo,Taijutsu,Flowing Sand Parry,melee stamina,,,,,False,8,0,8,0,1,1,,,
+Sign,Virgo,Taijutsu,Wither Grasp,melee stamina,,,,Stamina:15,False,12,0,12,0,1,1,,,
+Sign,Virgo,Ninjutsu,Sand Burial,chakra,,,,,False,0,22,0,38,1,1,,,elemental ×1.75 counts toward chakra spend
+Sign,Virgo,Ninjutsu,Sandstorm,chakra,A,Blind|Bleed,,,False,0,22,0,38,2,2,30,18,convert automatic hostile status to tier DC; elemental ×1.75 counts toward chakra spend; single-gate A/S premium
+Sign,Virgo,Genjutsu,Phantom Plague,chakra,B,Psychosomatic,,,False,0,18,0,18,1,1,18,18,
+Sign,Virgo,Genjutsu,Coffin Syndrome,chakra,A,Confusion,,,False,0,18,0,18,1,2,30,30,below base resource floor; slots 1→2; single-gate A/S premium
+Sign,Libra,Taijutsu,Aero Palm,ranged stamina,C,Bleed,,,False,8,0,8,0,1,1,13,13,convert automatic hostile status to tier DC; below base resource floor
+Sign,Libra,Taijutsu,Flow Parry,melee stamina,,,,,False,8,0,8,0,1,1,,,
+Sign,Libra,Taijutsu,Feather Step,melee stamina,,,,,False,6,0,6,0,1,1,,,
+Sign,Libra,Ninjutsu,Gale Slicer,chakra,,,,,False,0,18,0,32,1,1,,,elemental ×1.75 counts toward chakra spend
+Sign,Libra,Ninjutsu,Pressure Blast,chakra,,,,,False,0,18,0,32,1,1,,,elemental ×1.75 counts toward chakra spend
+Sign,Libra,Ninjutsu,Singularity Sphere,chakra,A,Root,,,False,0,25,0,44,2,2,30,18,elemental ×1.75 counts toward chakra spend; single-gate A/S premium
+Sign,Libra,Genjutsu,Indecision,chakra,B,Silence,,,False,0,18,0,18,1,1,18,18,
+Sign,Libra,Genjutsu,Vertigo,chakra,A,Blind,,,False,0,18,0,18,1,2,30,30,below base resource floor; slots 1→2; single-gate A/S premium
+Sign,Scorpio,Taijutsu,Numbing Strike,melee stamina,B,Slow,,,False,8,0,8,0,1,1,12,12,convert automatic hostile status to tier DC; below base resource floor
+Sign,Scorpio,Taijutsu,Shadow Step,melee stamina,,,,,False,8,0,8,0,1,1,,,
+Sign,Scorpio,Taijutsu,Kidney Shot,melee stamina,,,,,False,10,0,10,0,1,1,,,
+Sign,Scorpio,Ninjutsu,Ice Shard,chakra,,,,,False,0,12,0,21,1,1,,,elemental ×1.75 counts toward chakra spend
+Sign,Scorpio,Ninjutsu,Frost Armor,chakra,,,,,False,0,18,0,18,2,2,,,
+Sign,Scorpio,Ninjutsu,Blizzard,chakra,B,Slow,,,False,0,25,0,44,2,2,18,11,elemental ×1.75 counts toward chakra spend
+Sign,Scorpio,Genjutsu,Paranoia,chakra,A,Confusion,,,False,0,18,0,18,1,2,30,30,below base resource floor; slots 1→2; single-gate A/S premium
+Sign,Scorpio,Genjutsu,Betrayal,chakra,A,Confusion,,,False,0,18,0,18,1,2,30,30,below base resource floor; slots 1→2; single-gate A/S premium
+Sign,Sagittarius,Taijutsu,Spinning Top,melee stamina,,,,Chakra:15,False,12,0,12,0,1,1,,,
+Sign,Sagittarius,Taijutsu,Flow Dodge,melee stamina,,,,,False,8,0,8,0,1,1,,,
+Sign,Sagittarius,Taijutsu,Leash Kick,melee stamina,A,Root,,,False,10,0,10,0,1,2,15,15,below base resource floor; slots 1→2
+Sign,Sagittarius,Ninjutsu,Wisp Fire,chakra,,,,,False,0,15,0,26,1,1,,,elemental ×1.75 counts toward chakra spend
+Sign,Sagittarius,Ninjutsu,Cauterize,chakra,,,,,False,0,25,0,25,1,1,,,
+Sign,Sagittarius,Genjutsu,Dogma,chakra,A,Confusion,,,False,0,18,0,18,1,2,30,30,below base resource floor; slots 1→2; single-gate A/S premium
+Sign,Sagittarius,Genjutsu,Soul Pressure,chakra,B,Silence,,,False,0,18,0,18,1,1,18,18,
+Sign,Capricorn,Taijutsu,Adamantine Shin,melee stamina,C,Bleed,,,True,12,0,12,0,1,1,13,13,convert automatic hostile status to tier DC; below base resource floor
+Sign,Capricorn,Taijutsu,Diamond Finger,melee stamina,,,,,False,10,0,10,0,1,1,,,
+Sign,Capricorn,Taijutsu,Prismatic Skin,melee stamina,,,,,False,8,0,8,0,1,1,,,
+Sign,Capricorn,Ninjutsu,Geode Blast,chakra,,,,,False,0,20,0,35,1,1,,,elemental ×1.75 counts toward chakra spend
+Sign,Capricorn,Ninjutsu,Mausoleum,chakra,S,Stun,,,False,0,22,0,38,1,2,30,18,slots 1→2; elemental ×1.75 counts toward chakra spend
+Sign,Capricorn,Ninjutsu,Stalactite Rain,chakra,,,,,False,0,30,0,52,2,2,,,elemental ×1.75 counts toward chakra spend
+Sign,Capricorn,Genjutsu,Atlas's Regret,chakra,B,Slow,,,False,0,18,0,18,1,1,18,18,
+Sign,Capricorn,Genjutsu,Titan's Gaze,chakra,B,Slow,,,False,0,18,0,18,1,1,18,18,
+Sign,Aquarius,Taijutsu,Nerve Disruptor,melee stamina,B,Silence,,,False,8,0,8,0,1,1,12,12,below base resource floor
+Sign,Aquarius,Taijutsu,Static Shell,melee stamina,,,,,False,8,0,8,0,1,1,,,
+Sign,Aquarius,Taijutsu,Shock Palm,melee stamina,,,,,False,12,0,12,0,1,1,,,
+Sign,Aquarius,Ninjutsu,Voltaic Orb,chakra,,,,,False,0,20,0,35,1,1,,,elemental ×1.75 counts toward chakra spend
+Sign,Aquarius,Ninjutsu,Lightning Cutter,chakra,,,,,False,0,25,0,25,1,1,,,
+Sign,Aquarius,Ninjutsu,EMP Field,chakra,B,Slow,,,False,0,22,0,38,2,2,18,11,elemental ×1.75 counts toward chakra spend
+Sign,Aquarius,Genjutsu,System Crash,chakra,A,Blind,,,False,0,18,0,18,1,2,30,30,below base resource floor; slots 1→2; single-gate A/S premium
+Sign,Aquarius,Genjutsu,Lag Switch,chakra,B,Slow,,,False,0,18,0,18,1,1,18,18,
+Sign,Pisces,Taijutsu,Evasive Sway,melee stamina,,,,,False,8,0,8,0,1,1,,,
+Sign,Pisces,Taijutsu,Slide Counter,melee stamina,,,,,False,8,0,8,0,1,1,,,
+Sign,Pisces,Taijutsu,Flow Strike,melee stamina,,,,,False,10,0,10,0,1,1,,,
+Sign,Pisces,Ninjutsu,Bubble Prison,chakra,S,Stun,,,False,0,22,0,38,1,2,30,18,slots 1→2; elemental ×1.75 counts toward chakra spend
+Sign,Pisces,Ninjutsu,Hidden Mist,chakra,,,,,False,0,20,0,20,1,1,,,
+Sign,Pisces,Ninjutsu,Water Dragon,chakra,,,,,False,0,25,0,44,1,1,,,elemental ×1.75 counts toward chakra spend
+Sign,Pisces,Genjutsu,Siren's Lure,chakra,S,Fear,,,False,0,18,0,18,1,3,45,45,below base resource floor; slots 1→3; single-gate A/S premium
+Sign,Pisces,Genjutsu,Escapism,chakra,S,Sleep,,,False,0,18,0,18,1,3,45,45,below base resource floor; slots 1→3; single-gate A/S premium
+Universal,General,Ninjutsu,Chakra Bullet,chakra,,,,,False,0,12,0,21,1,1,,,elemental ×1.75 counts toward chakra spend
+Universal,General,Ninjutsu,Charge Chakra,free/other,,,,,False,0,0,0,0,1,1,,,
+Universal,General,Taijutsu,Catch Breath,free/other,,,,,False,0,0,0,0,1,1,,,
+Universal,General,Taijutsu,Iron Mountain,melee stamina,,,,,True,10,0,10,0,1,1,,,
+Universal,General,Taijutsu,Heavenly Kick,melee stamina,S,Stun,,,False,10,0,10,0,1,2,20,20,below base resource floor; slots 1→2
+Universal,General,Ninjutsu,Guardian Barrier,chakra,,,,,False,0,18,0,18,1,1,,,
+Universal,General,Ninjutsu,Solar Flare,chakra,A,Blind,,,False,0,15,0,26,1,2,23,14,convert automatic hostile status to tier DC; slots 1→2; elemental ×1.75 counts toward chakra spend
+Universal,General,Taijutsu,Viper Strike,melee stamina,B,Bleed,,,False,8,0,8,0,1,1,12,12,convert automatic hostile status to tier DC; below base resource floor
+Universal,General,Ninjutsu,Chakra Drain,chakra,,,,Chakra:15,False,0,12,0,21,1,1,,,elemental ×1.75 counts toward chakra spend
+Universal,General,Ninjutsu,Gloom Shroud,chakra,,,,,False,0,18,0,18,1,1,,,
+Universal,General,Ninjutsu,Earth Wall,chakra,,,,,False,0,20,0,20,1,1,,,
+Universal,General,Ninjutsu,Shadow Possession,chakra,,,Grapple,,False,0,20,0,20,1,1,,,
+Universal,Medical,Medical,Palm Healing,chakra,,,,,False,0,25,0,25,1,1,,,
+Universal,Medical,Medical,Cellular Activation,chakra,,,,,False,0,18,0,18,1,1,,,
+Universal,Medical,Medical,Chakra Transfer,free/other,,,,,False,0,0,0,0,1,1,,,
+Universal,Medical,Medical,Chakra Scalpel,melee stamina,B,Slow,,,False,8,0,8,0,1,1,12,12,below base resource floor
+Universal,Medical,Medical,Nerve Rupture,melee stamina,A,Confusion,,,False,8,0,8,0,1,2,20,20,below base resource floor; slots 1→2; single-gate A/S premium
+Universal,Trap,Trap,Explosive Tag,chakra,,,,,False,0,15,0,26,1,1,,,elemental ×1.75 counts toward chakra spend
+Universal,Trap,Trap,Flash Bomb,chakra,A,Blind,,,False,0,12,0,12,1,2,30,30,convert automatic hostile status to tier DC; below base resource floor; slots 1→2; harmful trap supply premium also required; single-gate A/S premium
+Universal,Trap,Trap,Spike Pit,chakra,A,Root|Bleed,,,False,0,12,0,12,1,2,30,30,convert automatic hostile status to tier DC; below base resource floor; slots 1→2; harmful trap supply premium also required; single-gate A/S premium
+Universal,Trap,Trap,Smoke Screen,chakra,,,,,False,0,12,0,12,1,1,,,
+Universal,Trap,Trap,Smoke Bomb,chakra,,,,,False,0,10,0,10,1,1,,,
+Universal,Trap,Trap,Caltrops,chakra,B,Slow,,,False,0,10,0,10,1,1,18,18,below base resource floor; harmful trap supply premium also required
+Universal,Summon,Summon,Summon Companion,chakra,,,,,False,0,50,0,50,1,1,,,
+Universal,Genjutsu,Genjutsu,Phantom Haunt,chakra,,,,,False,0,45,0,45,2,2,,,
+Martial,Boxing,Martial,Boxing Stance,melee stamina,,,,,False,4,0,4,0,1,1,,,
+Martial,Boxing,Martial,Jab-Cross,melee stamina,,,,,False,8,0,8,0,1,1,,,
+Martial,Boxing,Martial,Haymaker,melee stamina,,,,,True,10,0,10,0,1,1,,,
+Martial,Boxing,Martial,Bob and Weave,melee stamina,,,,,False,15,0,15,0,1,1,,,
+Martial,Boxing,Martial,Defensive Stance,melee stamina,,,,,False,15,0,15,0,1,1,,,
+Martial,Boxing,Martial,Clinch,melee stamina,,,Grapple,,False,15,0,15,0,1,1,,,
+Martial,Boxing,Martial,Dirty Boxing,melee stamina,,,,,False,25,0,25,0,1,1,,,
+Martial,Boxing,Martial,Body Shot,melee stamina,,,,Stamina:10,False,10,0,10,0,1,1,,,
+Martial,MuayThai,Martial,Muay Thai Stance,melee stamina,,,,,False,4,0,4,0,1,1,,,
+Martial,MuayThai,Martial,Roundhouse Kick,melee stamina,,,,,False,8,0,8,0,1,1,,,
+Martial,MuayThai,Martial,Teep Kick,melee stamina,B,Slow,,,True,12,0,12,0,1,1,15,15,below base resource floor
+Martial,MuayThai,Martial,Elbow Strike,melee stamina,C,Bleed,,,False,10,0,10,0,1,1,10,10,
+Martial,MuayThai,Martial,Calf Kick,melee stamina,B,Slow,,,False,10,0,10,0,1,1,12,12,below base resource floor
+Martial,MuayThai,Martial,Clinch,melee stamina,,,Grapple,,False,15,0,15,0,1,1,,,
+Martial,MuayThai,Martial,Knee Strikes,melee stamina,,,,,True,30,0,30,0,1,1,,,
+Martial,Judo,Martial,Judo Stance,melee stamina,,,,,False,4,0,4,0,1,1,,,
+Martial,Judo,Martial,Clinch,melee stamina,,,Grapple,,False,15,0,15,0,1,1,,,
+Martial,Judo,Martial,Hip Toss,melee stamina,,,GrappleTech:Prone,,False,12,0,12,0,1,1,,,
+Martial,Judo,Martial,Rolling Throw,melee stamina,,,,,False,10,0,10,0,1,1,,,
+Martial,Judo,Martial,Sweeping Shoulder,melee stamina,,,Mount,,False,10,0,10,0,1,1,,,
+Martial,JiuJitsu,Martial,Jiu-Jitsu Stance,melee stamina,,,,,False,4,0,4,0,1,1,,,
+Martial,JiuJitsu,Martial,Clinch,melee stamina,,,Grapple,,False,15,0,15,0,1,1,,,
+Martial,JiuJitsu,Martial,Pull Guard,melee stamina,,,Mount,,False,10,0,10,0,1,1,,,
+Martial,JiuJitsu,Martial,Strangle,melee stamina,,,GrappleTech:Silence,,False,15,0,15,0,2,2,,,
+Martial,JiuJitsu,Martial,Flying Triangle,melee stamina,,,Mount|GrappleTech:Silence,,False,25,0,25,0,2,2,,,
+Martial,JiuJitsu,Martial,Arm bar,melee stamina,,,GrappleTech:Cripple,,False,15,0,15,0,1,1,,,
+Martial,Karate,Martial,Karate Stance,melee stamina,,,,,False,4,0,4,0,1,1,,,
+Martial,Karate,Martial,Sweeping Low,melee stamina,S,Prone,,,False,8,0,8,0,1,1,20,20,below base resource floor
+Martial,Karate,Martial,Defensive Stance,melee stamina,,,,,False,15,0,15,0,1,1,,,
+Martial,Karate,Martial,Karate Blitz,melee stamina,,,,,False,10,0,10,0,1,1,,,
+Martial,Karate,Martial,Side Kick,melee stamina,,,,,False,8,0,8,0,1,1,,,
+Martial,Karate,Martial,Hammer Fist,melee stamina,,,,,True,10,0,10,0,1,1,,,
+Martial,Karate,Martial,Whirlwind Kick,melee stamina,,,,,False,15,0,15,0,1,1,,,
+Martial,Wrestling,Martial,Wrestling Stance,melee stamina,,,,,False,4,0,4,0,1,1,,,
+Martial,Wrestling,Martial,Single Leg Shot,melee stamina,,,Grapple,,False,15,0,15,0,1,1,,,
+Martial,Wrestling,Martial,Clinch,melee stamina,,,Grapple,,False,15,0,15,0,1,1,,,
+Martial,Wrestling,Martial,Sumo Palm,melee stamina,,,,,True,10,0,10,0,1,1,,,
+Martial,Wrestling,Martial,Horse Stance,melee stamina,,,,,False,15,0,15,0,1,1,,,
+Martial,Wrestling,Martial,Suplex,melee stamina,,,,,True,30,0,30,0,2,2,,,
+Weapon,Kenjutsu,Weapon,Kenjutsu Stance,melee stamina,,,,,False,4,0,4,0,1,1,,,
+Weapon,Kenjutsu,Weapon,Kenjutsu Slash,melee stamina,C,Bleed,,,False,20,0,20,0,1,1,10,10,
+Weapon,Kenjutsu,Weapon,Parry,melee stamina,,,,,False,50,0,50,0,1,1,,,
+Weapon,Kenjutsu,Weapon,Hilt Bash,melee stamina,S,Stun,,,True,25,0,25,0,1,2,25,25,slots 1→2
+Weapon,Kenjutsu,Weapon,Precision Thrust,melee stamina,,,,,True,20,0,20,0,1,1,,,
+Weapon,Kyudo,Weapon,Kyudo Stance,melee stamina,,,,,False,4,0,4,0,1,1,,,
+Weapon,Kyudo,Weapon,Kyudo Shot,ranged stamina,,,,,False,20,0,20,0,2,2,,,
+Weapon,Kyudo,Weapon,Arrow Rain,ranged stamina,,,,,False,20,0,20,0,2,2,,,
+Weapon,Kobudo,Weapon,Kobudo Stance,melee stamina,,,,,False,4,0,4,0,1,1,,,
+Weapon,Kobudo,Weapon,Shuriken Throw,ranged stamina,C,Bleed,,,False,15,0,15,0,1,1,13,13,
+Weapon,Kobudo,Weapon,Kusari Chain Snare,ranged stamina,,,Grapple,,False,20,0,20,0,1,1,,,
+Weapon,Kobudo,Weapon,Chain Yank,ranged stamina,,,,,False,25,0,25,0,1,1,,,
