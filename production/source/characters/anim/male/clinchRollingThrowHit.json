@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "clinchRollingThrowHit",
-  "status": "E/W candidate 2026-10-15 (paired with clinchRollingThrow); S/N to author",
+  "status": "E/W approved by user 2026-10-15 (paired with clinchRollingThrow); S/N to author",
   "frames": 14,
   "fps": 12,
   "sourceDirection": "E",
@@ -176,7 +176,7 @@
     }
   },
   "rootMotion": {
-    "rule": "per-frame step (screen px): pulled in over the dropping holder, then hurled over the holder's head and far beyond (the replay places the landing 3 tiles from the holder)",
+    "rule": "per-frame step (screen px): pulled in over the dropping holder, then hurled over the holder head and far beyond, about 120 px (user 2026-10-15: lands further away; the replay places the landing 3 tiles from the holder)",
     "W": [
       [
         0,
@@ -191,19 +191,19 @@
         0
       ],
       [
-        -14,
+        -18,
         0
       ],
       [
-        -24,
+        -32,
+        0
+      ],
+      [
+        -36,
         0
       ],
       [
         -26,
-        0
-      ],
-      [
-        -18,
         0
       ],
       [
@@ -249,19 +249,19 @@
         0
       ],
       [
-        14,
+        18,
         0
       ],
       [
-        24,
+        32,
+        0
+      ],
+      [
+        36,
         0
       ],
       [
         26,
-        0
-      ],
-      [
-        18,
         0
       ],
       [
@@ -1380,5 +1380,9 @@
         ]
       }
     ]
+  },
+  "approved": {
+    "E": "2026-10-15",
+    "W": "2026-10-15 (mirror of E)"
   }
 }

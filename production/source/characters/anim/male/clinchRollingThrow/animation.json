@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-animation-output/v1",
   "body": "male",
   "state": "clinchRollingThrow",
-  "status": "E/W candidate 2026-10-15 (paired with clinchRollingThrowHit); S/N to author",
+  "status": "E/W approved by user 2026-10-15 (paired with clinchRollingThrowHit); S/N to author",
   "frames": 14,
   "fps": 12,
   "frameSize": [

@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "clinchRollingThrow",
-  "status": "E/W candidate 2026-10-15 (paired with clinchRollingThrowHit); S/N to author",
+  "status": "E/W approved by user 2026-10-15 (paired with clinchRollingThrowHit); S/N to author",
   "frames": 14,
   "fps": 12,
   "sourceDirection": "E",
@@ -1582,5 +1582,9 @@
       false
     ]
   },
-  "faceFlipRule": "frames 11-13: the holder turns round to face the thrown fighter, who landed beyond the holder's head (the clip ends facing the other way)"
+  "faceFlipRule": "frames 11-13: the holder turns round to face the thrown fighter, who landed beyond the holder's head (the clip ends facing the other way)",
+  "approved": {
+    "E": "2026-10-15",
+    "W": "2026-10-15 (mirror of E)"
+  }
 }
