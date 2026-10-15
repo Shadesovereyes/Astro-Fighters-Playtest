@@ -1,0 +1,1299 @@
+<title>Astro Fighters — Combat Console</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+  /* ============ Cosmic combat console — deliberately dark single-theme ============ */
+  :root{
+    color-scheme: dark;
+    --bg:#0b0a17; --bg-2:#12102a; --bg-3:#1b1838; --bg-4:#241f47;
+    --line:#2c2856; --line-2:#3b3670;
+    --ink:#e9e6ff; --ink-dim:#a9a3d6; --ink-faint:#6f6a9c;
+    --accent:#4fd6e0;        /* chakra cyan — the awareness ring hue */
+    --accent-2:#a06bff;      /* astral violet */
+    --fire:#ff6b4a; --earth:#d6a34b; --air:#79cbff; --water:#5a83ff;
+    --hp:#e8536b; --stam:#56d364; --chakra:#4f8dff; --poise:#f0b429; --strain:#ff7a4a;
+    --good:#56d364; --warn:#f0b429; --crit:#e8536b;
+    --mono:ui-monospace,"SF Mono","Cascadia Code",Menlo,Consolas,monospace;
+    --sans:"Segoe UI",system-ui,-apple-system,Roboto,"Helvetica Neue",sans-serif;
+    --r:10px; --r-sm:6px;
+    /* discipline accents */
+    --d-General:#9aa0c9; --d-Taijutsu:#ff8a5c; --d-Ninjutsu:#5a9bff; --d-Genjutsu:#c07bff;
+    --d-Weapon:#d6a34b; --d-Martial:#ff6b8a; --d-Medical:#56d364; --d-Trap:#e0c04f;
+    --d-Summon:#4fd6e0; --d-Dojutsu:#ff5e5e; --d-Bloodline:#b06bff;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{
+    background:
+      radial-gradient(1200px 700px at 80% -10%, #1a1440 0%, transparent 60%),
+      radial-gradient(900px 600px at -10% 110%, #14263f 0%, transparent 55%),
+      var(--bg);
+    color:var(--ink); font-family:var(--sans); line-height:1.5;
+    -webkit-font-smoothing:antialiased; min-height:100vh;
+  }
+  .stars{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.5}
+  .wrap{position:relative;z-index:1;max-width:1220px;margin:0 auto;padding:22px 18px 60px}
+  h1,h2,h3{margin:0;text-wrap:balance;font-weight:800}
+  .eyebrow{font:600 11px/1 var(--mono);letter-spacing:.32em;text-transform:uppercase;color:var(--ink-faint)}
+  .num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+  header.mast{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:18px}
+  .mast .title{font-size:clamp(26px,5vw,42px);letter-spacing:.06em;text-transform:uppercase;line-height:.95;
+    background:linear-gradient(180deg,#fff,#b9b2ea 70%,#8f88c9);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .mast .sub{color:var(--ink-dim);font-size:13px;margin-top:6px;max-width:56ch}
+  .mast .glyphs{font-size:20px;color:var(--accent-2);letter-spacing:.18em;opacity:.8}
+  .card{background:linear-gradient(180deg,var(--bg-2),#100e26);border:1px solid var(--line);border-radius:var(--r);
+    box-shadow:0 1px 0 rgba(255,255,255,.03) inset,0 18px 40px -30px #000}
+  .pad{padding:16px}
+  button{font-family:var(--sans);cursor:pointer;color:var(--ink);background:var(--bg-3);border:1px solid var(--line-2);
+    border-radius:var(--r-sm);padding:8px 12px;font-size:13px;font-weight:600;transition:.12s}
+  button:hover:not(:disabled){border-color:var(--accent);color:#fff}
+  button:disabled{opacity:.4;cursor:not-allowed}
+  button:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  .btn-primary{background:linear-gradient(180deg,#155c66,#0e3f47);border-color:var(--accent);color:#eafcff}
+  .btn-primary:hover:not(:disabled){box-shadow:0 0 0 1px var(--accent),0 8px 24px -12px var(--accent)}
+  .btn-ghost{background:transparent}
+  .seg{display:inline-flex;border:1px solid var(--line-2);border-radius:var(--r-sm);overflow:hidden;flex-wrap:wrap}
+  .seg button{border:0;border-radius:0;background:transparent}
+  .seg button.on{background:var(--bg-4);color:#fff;box-shadow:inset 0 -2px 0 var(--accent)}
+
+  /* ---- Setup ---- */
+  .setup-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:900px){.setup-grid{grid-template-columns:1fr}.mast .glyphs{display:none}}
+  .zwheel{display:grid;grid-template-columns:repeat(6,1fr);gap:6px}
+  .zbtn{display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 4px;background:var(--bg-3);
+    border:1px solid var(--line);border-radius:var(--r-sm);transition:.12s}
+  .zbtn .g{font-size:20px}
+  .zbtn .n{font:600 10px/1 var(--mono);letter-spacing:.04em;color:var(--ink-dim);text-transform:uppercase}
+  .zbtn small{font:600 9px/1.1 var(--mono);color:var(--ink-faint)}
+  .zbtn.on{border-color:var(--accent);background:var(--bg-4);color:#fff}
+  .zbtn.on .n{color:#fff}
+  .ele-fire{box-shadow:inset 0 -3px 0 var(--fire)} .ele-earth{box-shadow:inset 0 -3px 0 var(--earth)}
+  .ele-air{box-shadow:inset 0 -3px 0 var(--air)} .ele-water{box-shadow:inset 0 -3px 0 var(--water)}
+  .statrow{display:flex;align-items:center;gap:10px;padding:6px 0;border-bottom:1px dashed var(--line)}
+  .statrow:last-child{border-bottom:0}
+  .statrow .lbl{width:42px;font:700 12px/1 var(--mono);letter-spacing:.06em}
+  .statrow .desc{flex:1;font-size:11px;color:var(--ink-faint)}
+  .stepper{display:inline-flex;align-items:center;gap:8px}
+  .stepper button{width:26px;height:26px;padding:0;font-size:15px;line-height:1}
+  .stepper .v{width:26px;text-align:center;font:700 15px/1 var(--mono)}
+  .derived{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+  .dchip{background:var(--bg-3);border:1px solid var(--line);border-radius:var(--r-sm);padding:8px}
+  .dchip .k{font:600 9px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint)}
+  .dchip .val{font:700 17px/1.2 var(--mono);margin-top:4px}
+  .points{font:700 13px/1 var(--mono)} .points b{color:var(--accent)}
+  .toggle{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--ink-dim);cursor:pointer}
+  .toggle input{accent-color:var(--accent);width:16px;height:16px}
+  .load-row{display:flex;flex-direction:column;gap:5px;margin:10px 0}
+  .load-row .ll{font:600 10px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-faint)}
+  .load-row .lsub{font-size:11px;color:var(--ink-faint);text-transform:none;letter-spacing:0}
+  .picker{display:flex;gap:5px;flex-wrap:wrap}
+  .pk{padding:5px 9px;font:600 11px/1.2 var(--mono);border:1px solid var(--line);background:var(--bg-3);border-radius:5px}
+  .pk.on{border-color:var(--accent);background:var(--bg-4);color:#fff}
+  .pk small{display:block;font-size:9px;color:var(--ink-faint);font-weight:400}
+
+  /* ---- Battle ---- */
+  #battle{display:none}
+  .roster{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:760px){.roster{grid-template-columns:1fr}}
+  .fighter{position:relative;overflow:hidden}
+  .fighter .fhead{display:flex;align-items:center;gap:10px}
+  .fighter .fg{width:44px;height:44px;display:grid;place-items:center;font-size:24px;border-radius:10px;border:1px solid var(--line-2)}
+  .fighter.f0 .fg{color:var(--accent);box-shadow:0 0 22px -6px var(--accent)}
+  .fighter.f1 .fg{color:var(--fire);box-shadow:0 0 22px -6px var(--fire)}
+  .fighter .fname{font-size:15px;font-weight:800;letter-spacing:.02em}
+  .fighter .fmeta{font:600 10px/1.3 var(--mono);color:var(--ink-faint);text-transform:uppercase;letter-spacing:.08em}
+  .fighter.f0{border-color:#1d5560}.fighter.f1{border-color:#5a2a22}
+  .bars{display:flex;flex-direction:column;gap:5px;margin-top:10px}
+  .bar{display:grid;grid-template-columns:34px 1fr 66px;align-items:center;gap:8px}
+  .bar .bl{font:700 9px/1 var(--mono);letter-spacing:.08em;color:var(--ink-dim)}
+  .bar .track{height:11px;background:#0a0918;border:1px solid var(--line);border-radius:6px;overflow:hidden;position:relative}
+  .bar .fill{height:100%;transition:width .5s cubic-bezier(.2,.8,.2,1)}
+  .bar .bv{font:700 10px/1 var(--mono);text-align:right;color:var(--ink-dim)}
+  .f-hp{background:linear-gradient(90deg,#8f2740,var(--hp))}
+  .f-stam{background:linear-gradient(90deg,#1f6e34,var(--stam))}
+  .f-chakra{background:linear-gradient(90deg,#23407e,var(--chakra))}
+  .f-poise{background:linear-gradient(90deg,#8a6410,var(--poise))}
+  .f-strain{background:linear-gradient(90deg,#8a3417,var(--strain))}
+  .chips{display:flex;flex-wrap:wrap;gap:4px;margin-top:9px;min-height:8px}
+  .chip{font:600 9px/1 var(--mono);letter-spacing:.04em;text-transform:uppercase;padding:4px 6px;border-radius:5px;
+    border:1px solid var(--line-2);background:var(--bg-3);color:var(--ink-dim)}
+  .chip.bad{color:#ffb4a8;border-color:#6b332a;background:#241110}
+  .chip.good{color:#b9f5c4;border-color:#245c33;background:#0f2417}
+  .chip.buff{color:#cbb6ff;border-color:#4a3a7a;background:#191233}
+  .chip.eye{color:#ffd0c8;border-color:#7a2d2d;background:#2a1113}
+  .summon-tag{position:absolute;top:12px;right:12px;font:700 9px/1 var(--mono);color:var(--accent);letter-spacing:.08em}
+  .minis{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+  .mini{flex:1;min-width:150px;border:1px solid var(--line);border-radius:var(--r-sm);padding:8px;background:#0d0b1e}
+  .mini .mh{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:700}
+  .mini .mg{font-size:16px}
+
+  .axis-wrap{margin-top:14px}
+  .axis-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;flex-wrap:wrap;gap:6px}
+  .axis{display:flex;gap:3px;padding:10px;background:#0a0918;border:1px solid var(--line);border-radius:var(--r);overflow-x:auto}
+  .tile{flex:1;min-width:24px;height:52px;border-radius:6px;background:#131029;border:1px solid #211d40;position:relative;display:grid;place-items:center;transition:.2s}
+  .tile.short{background:#241120;border-color:#48213a}
+  .tile.medium{background:#1a1c30;border-color:#2c3352}
+  .tile.long{background:#101a26;border-color:#1f3346}
+  .tile .idx{position:absolute;bottom:2px;right:3px;font:600 8px/1 var(--mono);color:var(--ink-faint)}
+  .token{font-size:20px;filter:drop-shadow(0 0 8px currentColor)}
+  .token.t0{color:var(--accent)} .token.t1{color:var(--fire)} .token.ts{color:#8fe6ee;font-size:15px}
+  .axis-legend{display:flex;gap:14px;margin-top:8px;font:600 10px/1 var(--mono);color:var(--ink-faint);flex-wrap:wrap}
+  .axis-legend span{display:inline-flex;align-items:center;gap:5px}
+  .dot{width:9px;height:9px;border-radius:3px;display:inline-block}
+  .movebar{display:flex;align-items:center;gap:10px;margin-top:12px;flex-wrap:wrap}
+  .movebar .mc{font:700 11px/1 var(--mono);color:var(--ink-dim)}
+
+  .builder{margin-top:14px}
+  .disc-tabs{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px}
+  .disc-tabs button{padding:6px 10px;font:600 11px/1 var(--mono);letter-spacing:.03em}
+  .disc-tabs button .cnt{opacity:.5;margin-left:4px}
+  .abgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(198px,1fr));gap:8px}
+  .ab{text-align:left;padding:9px 10px;background:var(--bg-3);border:1px solid var(--line);border-radius:var(--r-sm);
+    display:flex;flex-direction:column;gap:5px;position:relative}
+  .ab:hover:not(:disabled){border-color:var(--accent)}
+  .ab .an{font-size:12.5px;font-weight:700;color:var(--ink)}
+  .ab .af{font:600 9px/1.3 var(--mono);color:var(--ink-faint);text-transform:uppercase;letter-spacing:.03em}
+  .ab .costs{display:flex;gap:5px;flex-wrap:wrap;font:600 9px/1 var(--mono)}
+  .ab .cst{padding:2px 5px;border-radius:4px;border:1px solid var(--line-2)}
+  .cst.slot{color:#d8d2ff} .cst.stam{color:var(--stam)} .cst.chak{color:var(--chakra)}
+  .cst.dmg{color:var(--fire)} .cst.rng{color:var(--ink-dim)} .cst.gb{color:var(--poise)}
+  .ab .tag{position:absolute;top:8px;right:8px;font:700 8px/1 var(--mono);letter-spacing:.05em;color:var(--accent-2);text-transform:uppercase}
+  .ab .lockmsg{font:600 9px/1.2 var(--mono);color:#ffa08a}
+
+  .queue-wrap{margin-top:14px;display:flex;flex-direction:column;gap:10px}
+  .slots{display:flex;gap:8px;flex-wrap:wrap}
+  .slot{flex:1;min-width:96px;min-height:56px;border:1px dashed var(--line-2);border-radius:var(--r-sm);
+    background:#0d0b1e;display:flex;flex-direction:column;justify-content:center;gap:2px;padding:7px;position:relative}
+  .slot.filled{border-style:solid;background:var(--bg-3)}
+  .slot .sn{font:700 8px/1 var(--mono);color:var(--ink-faint)}
+  .slot .st{font-size:11px;font-weight:700;line-height:1.2}
+  .slot .rm{position:absolute;top:3px;right:4px;font-size:12px;color:var(--ink-faint);background:none;border:0;padding:2px}
+  .slot .rm:hover{color:var(--crit)}
+  .slot.wide{outline:1px solid var(--accent-2)}
+  .qbtns{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  .qhint{font:600 11px/1.4 var(--mono);color:var(--ink-faint)}
+
+  .log{background:#080715;border:1px solid var(--line);border-radius:var(--r);padding:12px;height:340px;overflow-y:auto;
+    font-family:var(--mono);font-size:12px;line-height:1.55}
+  .log .ln{padding:1px 0;color:var(--ink-dim);white-space:pre-wrap;word-break:break-word}
+  .log .ln.rnd{color:var(--accent);margin-top:8px;border-top:1px solid var(--line);padding-top:6px;letter-spacing:.06em}
+  .log .ln.f0{color:#bfeef2}.log .ln.f1{color:#ffcdc2}.log .ln.sys{color:var(--ink-faint)}
+  .log .dm{color:var(--hp);font-weight:700}.log .hl{color:var(--good);font-weight:700}
+  .log b.k{color:#fff}
+  .battle-cols{display:grid;grid-template-columns:1fr 350px;gap:16px;margin-top:16px}
+  @media(max-width:980px){.battle-cols{grid-template-columns:1fr}}
+
+  .debug{margin-top:16px}
+  .debug summary{cursor:pointer;font:700 12px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--accent-2);
+    padding:10px 12px;background:var(--bg-2);border:1px solid var(--line);border-radius:var(--r-sm);list-style:none}
+  .debug summary::-webkit-details-marker{display:none}
+  .debug summary::before{content:"⚙ ";}
+  .dbg-body{border:1px solid var(--line);border-top:0;border-radius:0 0 var(--r) var(--r);padding:14px;background:var(--bg-2)}
+  .dbg-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px}
+  .dbg-field{display:flex;flex-direction:column;gap:4px}
+  .dbg-field label{font:600 10px/1.2 var(--mono);color:var(--ink-dim);display:flex;justify-content:space-between}
+  .dbg-field label b{color:var(--accent)}
+  .dbg-field input[type=range]{accent-color:var(--accent-2);width:100%}
+  .dbg-btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+  .dbg-note{font-size:11px;color:var(--ink-faint);margin-top:10px}
+  .overlay{position:fixed;inset:0;z-index:20;background:rgba(6,5,15,.86);display:none;place-items:center;padding:20px}
+  .overlay.on{display:grid}
+  .ovcard{max-width:440px;text-align:center;padding:28px}
+  .ovcard .res{font-size:34px;font-weight:800;letter-spacing:.04em;text-transform:uppercase}
+  .ovcard.win .res{color:var(--good)}.ovcard.lose .res{color:var(--crit)}
+  .ovcard p{color:var(--ink-dim);font-size:13px}
+  .flash{animation:fl .5s}
+  @keyframes fl{0%{filter:brightness(1)}30%{filter:brightness(1.6)}100%{filter:brightness(1)}}
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+  .foot{margin-top:26px;color:var(--ink-faint);font-size:11px;text-align:center;line-height:1.7}
+</style>
+
+<canvas class="stars" id="stars"></canvas>
+<div class="wrap">
+  <header class="mast">
+    <div>
+      <div class="eyebrow">Zodiac Chronicles · vertical slice</div>
+      <h1 class="title">Astro&nbsp;Fighters</h1>
+      <p class="sub">A turn-based tactical duel driven by your birth sign and a full arsenal — zodiac kits, general/weapon/medical/trap/martial arts, Seigan eyes, Nakshatra summons and Kekkei Genkai bloodlines. A faithful port of the Unity combat engine; every formula is tunable in the console below.</p>
+    </div>
+    <div class="glyphs">♈ ♉ ♊ ♋ ♌ ♍ ♎ ♏ ♐ ♑ ♒ ♓</div>
+  </header>
+
+  <section id="setup">
+    <div class="setup-grid">
+      <div class="card pad">
+        <div class="eyebrow" style="margin-bottom:10px">Your sign — grants a zodiac kit</div>
+        <div class="zwheel" id="yourWheel"></div>
+        <div style="margin-top:16px" class="eyebrow">Opponent</div>
+        <div class="zwheel" id="foeWheel" style="margin-top:10px"></div>
+        <label class="toggle" style="margin-top:14px"><input type="checkbox" id="foeRandom" checked> Randomize opponent each duel</label>
+        <div class="load-row">
+          <span class="ll">Martial style <span class="lsub">— unlocks its striking &amp; grappling techniques</span></span>
+          <div class="picker" id="pickMartial"></div>
+        </div>
+        <div class="load-row">
+          <span class="ll">Weapon kit</span>
+          <div class="picker" id="pickWeapon"></div>
+        </div>
+      </div>
+
+      <div class="card pad">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+          <div class="eyebrow">Attributes — 14 points over base 6</div>
+          <div class="points">Left: <b id="ptsLeft">14</b></div>
+        </div>
+        <div id="statList"></div>
+        <div class="derived" id="derived"></div>
+        <div class="load-row" style="margin-top:14px">
+          <span class="ll">Seigan eye <span class="lsub">— activate for a signature jutsu (builds strain)</span></span>
+          <div class="picker" id="pickEye"></div>
+        </div>
+        <div class="load-row">
+          <span class="ll">Nakshatra summon</span>
+          <div class="picker" id="pickSummon"></div>
+        </div>
+        <div class="load-row">
+          <span class="ll">Kekkei Genkai bloodline <span class="lsub">— one destiny ultimate</span></span>
+          <div class="picker" id="pickBlood"></div>
+        </div>
+        <div style="display:flex;gap:8px;margin-top:12px;align-items:center;flex-wrap:wrap">
+          <span class="eyebrow">Difficulty</span>
+          <div class="seg" id="diffSeg">
+            <button data-d="0.35">Padawan</button>
+            <button data-d="0.15" class="on">Adept</button>
+            <button data-d="0.0">Grandmaster</button>
+          </div>
+        </div>
+        <label class="toggle" style="margin-top:12px"><input type="checkbox" id="unlockAll"> Debug: unlock all 12 zodiac kits + every eye/bloodline</label>
+        <button class="btn-primary" id="startBtn" style="margin-top:16px;width:100%;padding:12px;font-size:15px">Begin Duel ⚔</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="battle">
+    <div class="roster" id="roster"></div>
+    <div class="card pad axis-wrap">
+      <div class="axis-head">
+        <div class="eyebrow">Battlefield axis <span id="prevAb" style="color:var(--accent);text-transform:none;letter-spacing:0"></span></div>
+        <div class="num" style="font-size:12px;color:var(--ink-dim)">round <b id="roundNo" style="color:var(--accent)">1</b></div>
+      </div>
+      <div class="axis" id="axis"></div>
+      <div class="axis-legend">
+        <span><i class="dot" style="background:#48213a"></i>Short 0–1</span>
+        <span><i class="dot" style="background:#2c3352"></i>Medium 2–4</span>
+        <span><i class="dot" style="background:#1f3346"></i>Long 5+</span>
+        <span style="margin-left:auto">1 tile ≈ 2 m</span>
+      </div>
+      <div class="movebar">
+        <span class="mc">Move credits: <b id="mcLeft" class="num">0</b></span>
+        <button id="retreatBtn">◀ Retreat</button>
+        <span class="num" id="planMove" style="min-width:70px;text-align:center;color:var(--ink-dim)">hold</span>
+        <button id="advanceBtn">Advance ▶</button>
+        <span class="qhint" style="margin-left:auto">Reposition spends credits at round start.</span>
+      </div>
+    </div>
+
+    <div class="battle-cols">
+      <div>
+        <div class="card pad builder">
+          <div class="disc-tabs" id="discTabs"></div>
+          <div class="abgrid" id="abGrid"></div>
+        </div>
+        <div class="card pad queue-wrap">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div class="eyebrow">Action stack — up to 5 slots</div>
+            <div class="qhint" id="slotInfo">0 / 5 slots</div>
+          </div>
+          <div class="slots" id="slots"></div>
+          <div class="qbtns">
+            <button class="btn-primary" id="resolveBtn" style="padding:11px 20px">Resolve Round ▸</button>
+            <button id="clearBtn" class="btn-ghost">Clear</button>
+            <span class="qhint" id="whyDisabled"></span>
+          </div>
+        </div>
+      </div>
+      <div class="card pad">
+        <div class="eyebrow" style="margin-bottom:8px">Combat log</div>
+        <div class="log" id="log"></div>
+      </div>
+    </div>
+
+    <details class="debug" id="debug">
+      <summary>Balance & debug console — tune the engine live</summary>
+      <div class="dbg-body">
+        <div class="dbg-grid" id="dbgGrid"></div>
+        <div class="dbg-btns">
+          <button id="godBtn">God mode: you</button>
+          <button id="healBtn">Heal both</button>
+          <button id="reseedBtn">Reseed RNG</button>
+          <button id="unlockLiveBtn">Unlock all kits</button>
+          <button id="newFighterBtn" class="btn-ghost">↺ New fighter</button>
+        </div>
+        <p class="dbg-note">These map 1:1 to <code>BalanceConfig.cs</code>. Changes apply on the next resolved round.</p>
+      </div>
+    </details>
+  </section>
+
+  <p class="foot">
+    Playable slice of the Unity tactical-RPG, ported from the latest integrated branch. Included: zodiac kits · General Neutral/Yang/Yin · Weapon (Kenjutsu/Kyudo/Kobudo) · Medical · Trap · six Martial styles with grappling · Nakshatra summons · 10 Seigan eyes (activation + strain/burnout + signature jutsu) · 16 Kekkei Genkai · True damage · Fortified · elemental family economy · depleting-initiative scheduler.<br>
+    Simplified for the 1-D testbed: terrain line-of-sight &amp; walls (thematic stand-ins), eye stage-passives (shown as flavor), morality/awakening chart augments, and the real-ephemeris birth-chart builder (pick a sign directly).
+  </p>
+</div>
+
+<div class="overlay" id="overlay"><div class="card ovcard" id="ovcard">
+  <div class="res" id="ovRes">Victory</div>
+  <p id="ovText"></p>
+  <div style="display:flex;gap:10px;justify-content:center;margin-top:14px">
+    <button class="btn-primary" id="rematchBtn">Rematch</button>
+    <button id="backBtn" class="btn-ghost">New fighter</button>
+  </div>
+</div></div>
+
+<script>
+/* =========================================================================
+   ASTRO FIGHTERS — combat engine (JS port of AstroFighters.Combat / Core)
+   Mirrors DerivedResources, CombatMath, TurnResolver, InitiativeRules,
+   AbilityEconomy, AspectCalculator, and the content catalogs
+   (KitCatalog, GeneralArtsCatalog, DojutsuCatalog, SummonCatalog/Factory,
+   KekkiGenkaiCatalog) from the latest integrated branch.
+   ========================================================================= */
+
+// ---- BalanceConfig.cs defaults (all tunable) ----
+const BAL = {
+  hpBase:100, hpPerFort:10, staminaBase:20, staminaPerFort:5, chakraBase:50, chakraPerCha:10,
+  poisePerFort:10, poisePerCha:5,
+  staminaRegenBase:5, staminaRegenPerFort:0.5, chakraRegenBase:5, chakraRegenPerCha:0.5,
+  baseHitChance:75, accAgiWeight:0.7, accChaWeight:0.3, evaAgiWeight:0.7, evaChaWeight:0.3,
+  blindAccuracyPenalty:-50, proneHitBonus:30, grappleHitBonus:30, clumsyHitPenalty:-40, clumsyDamageMultiplier:0.8,
+  movementAgiBreakpoints:[6,20,40,80,100], movementTilesAtBreakpoint:[2,3,5,9,12],
+  initDie:10, slotDecay:[0,20,40,60,80],
+  mitigationCap:0.75, mitigationPerPoint:0.015,
+  shortBandTiles:1, mediumBandTiles:4,
+  aoeFriendlyFireMultiplier:0.5, aoeFalloffPerTarget:0.05, ultimateAoeRadius:3, normalAoeRadiusCap:1,
+  poiseRatioPhysical:1.0, poiseRatioElemental:0.5, poiseDmgMultMax:1.5, staggerCancelsNextAction:1,
+  poiseRegenMaxPercent:0.25, exhaustionDamageMultiplier:2, damageScale:0.7,
+  confusionFizzleChance:35,
+  slowInitiativePenalty:15, ccInitHeavy:25, ccInitLight:8, ccInitStealthBonus:10,
+  initBaseActionCost:20, initPriorityWeight:8, initStanceExtra:12, initAoeExtra:10, initSummonExtra:30,
+  initUltimateExtra:40, initPerExtraSlot:10, initMinWeight:8, initMaxWeight:70,
+  ccBreakDefaultDC:14, ccBreakDecay:2,
+  repetitionFreeUses:2, repetitionStrainPerExtra:0.5,
+  elementalCostMult:1.75, elementalDamageMult:1.4, generalCostMult:1.0, generalDamageMult:1.0,
+  eyeUpkeepChakraPerTurn:10, summonReservePerTier:15, trapUsesPerBattle:3, baseSupplies:5,
+  strainOnActivate:10, strainPerTurnActive:5, strainPerEyeJutsu:15, strainDecayPerTurn:5,
+  burnoutDurationTurns:3, burnoutAccuracyCap:5,
+  grappleLandDC:12, grappleEscapeBaseDC:12, grappleEscapeEasing:2, grappleEscapeFloorDC:8,
+  grappleHoldUpkeepStamina:5, mountGenjutsuDcBonus:4,
+  hauntUpkeepChakraPerTurn:8, hauntChakraPerAction:4, hauntTickMental:6,
+};
+
+// ---- Seeded RNG ----
+function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+let RNG=mulberry32(0xC0FFEE);
+const rand=()=>RNG();
+const d=n=>1+Math.floor(rand()*n);
+const clamp=(v,lo,hi)=>Math.max(lo,Math.min(hi,v));
+const {round,floor,max,min,abs}=Math;
+const lerp=(a,b,t)=>a+(b-a)*t;
+
+// ---- Zodiac ----
+const SIGNS=["Aries","Taurus","Gemini","Cancer","Leo","Virgo","Libra","Scorpio","Sagittarius","Capricorn","Aquarius","Pisces"];
+const GLYPH={Aries:"♈",Taurus:"♉",Gemini:"♊",Cancer:"♋",Leo:"♌",Virgo:"♍",Libra:"♎",Scorpio:"♏",Sagittarius:"♐",Capricorn:"♑",Aquarius:"♒",Pisces:"♓"};
+const ELEM={Aries:"Fire",Leo:"Fire",Sagittarius:"Fire",Taurus:"Earth",Virgo:"Earth",Capricorn:"Earth",Gemini:"Air",Libra:"Air",Aquarius:"Air",Cancer:"Water",Scorpio:"Water",Pisces:"Water"};
+const RULER={Aries:"Mars",Taurus:"Venus",Gemini:"Mercury",Cancer:"Moon",Leo:"Sun",Virgo:"Mercury",Libra:"Venus",Scorpio:"Mars",Sagittarius:"Jupiter",Capricorn:"Saturn",Aquarius:"Saturn",Pisces:"Jupiter"};
+
+// ---- DerivedResources.cs ----
+function mcurve(agi){
+  const xs=BAL.movementAgiBreakpoints, ys=BAL.movementTilesAtBreakpoint, n=Math.min(xs.length,ys.length);
+  if(agi<=xs[0])return max(0,ys[0]);
+  for(let i=1;i<n;i++)if(agi<=xs[i]){const t=(agi-xs[i-1])/max(1,xs[i]-xs[i-1]);return round(lerp(ys[i-1],ys[i],t));}
+  const slope=n>=2?(ys[n-1]-ys[n-2])/max(1,xs[n-1]-xs[n-2]):0;
+  return round(ys[n-1]+slope*(agi-xs[n-1]));
+}
+const D={
+  maxHp:s=>BAL.hpBase+s.FORT*BAL.hpPerFort,
+  maxStam:s=>BAL.staminaBase+s.FORT*BAL.staminaPerFort,
+  maxChakra:s=>BAL.chakraBase+s.CHA*BAL.chakraPerCha,
+  maxPoise:s=>s.FORT*BAL.poisePerFort+s.CHA*BAL.poisePerCha,
+  acc:s=>s.AGI*BAL.accAgiWeight+s.CHA*BAL.accChaWeight,
+  eva:s=>s.AGI*BAL.evaAgiWeight+s.CHA*BAL.evaChaWeight,
+  mc:s=>mcurve(s.AGI),
+  baseInit:s=>s.AGI,
+  stamRegen:s=>round(BAL.staminaRegenBase+s.FORT*BAL.staminaRegenPerFort),
+  chakRegen:s=>round(BAL.chakraRegenBase+s.CHA*BAL.chakraRegenPerCha),
+  poiseRegen:s=>round(D.maxPoise(s)*BAL.poiseRegenMaxPercent),
+  perception:s=>s.CHA*0.8+s.INT*0.2,
+  physMit:str=>1-min(BAL.mitigationCap,str*BAL.mitigationPerPoint),
+  elemMit:i=>1-min(BAL.mitigationCap,i*BAL.mitigationPerPoint),
+};
+
+// ---- CombatMath.cs ----
+function bandFor(dist){return dist<=BAL.shortBandTiles?"Short":dist<=BAL.mediumBandTiles?"Medium":"Long";}
+function rangeMatrix(atk,band){switch(atk){
+  case"Melee":return band==="Short"?100:0;
+  case"Reach":return band==="Short"?70:band==="Medium"?100:0;
+  case"Projectile":return band==="Short"?50:band==="Medium"?90:100;
+  case"Magic":return band==="Short"?90:band==="Medium"?100:80;
+  case"GenTouch":return band==="Short"?100:0;
+  case"GenVisual":return band==="Short"?100:band==="Medium"?90:0;
+  default:return 0;}}
+function evalRange(ab,dist){
+  const bandMod=rangeMatrix(ab.atk,bandFor(dist));
+  if(dist>ab.maxR)return{outcome:"Impossible",bandMod};
+  if(bandMod<=0)return{outcome:"Impossible",bandMod};
+  if(dist<ab.minR)return{outcome:"Clumsy",bandMod};
+  return{outcome:"Normal",bandMod};
+}
+function baseDamage(type,power,atk,tgt,mitigates){
+  if(type==="Physical")return max(0,round((power+atk.STR)*(mitigates?D.physMit(tgt.STR):1)));
+  if(type==="Elemental")return max(0,round((power+atk.INT)*(mitigates?D.elemMit(tgt.INT):1)));
+  if(type==="Mental")return max(0,round(power+atk.CHA+atk.INT));
+  if(type==="True")return max(0,round(power+atk.STR));
+  return 0;
+}
+function poiseDamage(hp,type,abilityPoiseMult){
+  const ratio=type==="Physical"?BAL.poiseRatioPhysical:type==="Elemental"?BAL.poiseRatioElemental:0;
+  if(ratio<=0)return 0;
+  return round(hp*ratio*clamp(abilityPoiseMult||1,0,BAL.poiseDmgMultMax));
+}
+
+// ---- AspectCalculator.cs ----
+function aspectBetween(a,b){let s=((SIGNS.indexOf(b)-SIGNS.indexOf(a))%12+12)%12;const dist=s>6?12-s:s;return{0:"Conjunction",2:"Sextile",3:"Square",4:"Trine",6:"Opposition"}[dist]||"None";}
+function affinity(self,opp){let dmgDone=1,healDone=1,dmgTaken=1;switch(aspectBetween(self,opp)){
+  case"Square":dmgDone=.98;healDone=.98;break;case"Trine":healDone=1.05;dmgDone=.98;break;case"Opposition":dmgTaken=1.05;break;}
+  return{dmgDone,healDone,dmgTaken,aspect:aspectBetween(self,opp)};}
+
+// ---- InitiativeRules.cs ----
+function initWeight(ab){
+  if(!ab)return BAL.initBaseActionCost;
+  if(ab.tags.includes("Priority"))return BAL.initPriorityWeight;
+  let w=BAL.initBaseActionCost;
+  if(ab.tags.includes("Stance"))w+=BAL.initStanceExtra;
+  if(ab.targeting==="PointRadius")w+=BAL.initAoeExtra;
+  if(ab.effects.some(e=>e.k==="SpawnSummon"))w+=BAL.initSummonExtra;
+  if(ab.tags.includes("Ultimate"))w+=BAL.initUltimateExtra;
+  if(ab.slots>1)w+=(ab.slots-1)*BAL.initPerExtraSlot;
+  return clamp(w,BAL.initMinWeight,BAL.initMaxWeight);
+}
+const selOffset=ab=>initWeight(ab)-BAL.initBaseActionCost;
+const depletion=ab=>initWeight(ab);
+
+// ---- AbilityEconomy.cs (family curve) ----
+const isElemental=ab=>ab.dmg==="Elemental";
+const costMult=ab=>isElemental(ab)?BAL.elementalCostMult:BAL.generalCostMult;
+const dmgMult=ab=>isElemental(ab)?BAL.elementalDamageMult:BAL.generalDamageMult;
+
+/* =========================================================================
+   CONTENT — ability builders
+   ========================================================================= */
+let ABID=0;
+const E={
+  dmg:p=>({k:"Damage",power:p}),
+  st:(status,dur,tick=0,stacks=1)=>({k:"Status",status,dur,stacks,tick}),
+  save:(status,dur,stat,dc,tick=0,stacks=1)=>({k:"Status",status,dur,stacks,tick,save:{stat,dc}}),
+  mc:m=>({k:"MC",amt:m}),
+  move:t=>({k:"Move",tiles:t}),
+  heal:p=>({k:"Heal",power:p}),
+  res:(res,amt,pct=0,overcap=false)=>({k:"Res",res,amt,pct,overcap}),
+  buff:(stat,pct,dur)=>({k:"Buff",stat,pct,dur}),
+  grapple:(crush,resistStat,dc,dur,drain=0,lifesteal=false)=>({k:"Grapple",crush,resistStat,dc,dur,drain,lifesteal}),
+  gtech:(o)=>({k:"GrappleTech",power:o.power||0,dc:o.dc||8,dur:o.dur||0,status:o.status||null,best:!!o.best,mount:!!o.mount,breakHold:!!o.breakHold,throw:o.throw||0,drain:o.drain||0,selfAgi:o.selfAgi||0}),
+  summon:()=>({k:"SpawnSummon",tier:"Guardian"}),
+  haunt:()=>({k:"Haunt"}),
+  eye:planet=>({k:"ActivateEye",planet}),
+};
+function mk(o){o.id="A"+(ABID++);o.minR=o.minR??0;o.radius=o.radius??0;o.tags=o.tags||[];o.poiseMult=o.poiseMult||1;o.supply=o.supply||0;return o;}
+function guardBreak(a){a.poiseMult=1.5;if(a.disc==="Taijutsu"||a.disc==="Weapon"||a.disc==="Martial")a.stam=max(a.stam,20);return a;}
+
+// ---- Zodiac kit builders ----
+const tai=(g,name,power,slots,stam,tags,...e)=>mk({group:g,disc:"Taijutsu",name,atk:"Melee",dmg:"Physical",maxR:1,targeting:"SingleEnemy",slots,stam,chakra:0,tags,effects:[E.dmg(power),...e]});
+const taiReach=(g,name,power,slots,stam,tags,...e)=>mk({group:g,disc:"Taijutsu",name,atk:"Reach",dmg:"Physical",maxR:2,targeting:"SingleEnemy",slots,stam,chakra:0,tags,effects:[E.dmg(power),...e]});
+const taiTrue=(g,name,power,slots,stam,tags,...e)=>mk({group:g,disc:"Taijutsu",name,atk:"Melee",dmg:"True",maxR:1,targeting:"SingleEnemy",slots,stam,chakra:0,tags,effects:[E.dmg(power),...e]});
+const stanceZ=(g,name,slots,stam,tags,...e)=>mk({group:g,disc:"Taijutsu",name,atk:"Melee",dmg:"None",maxR:1,targeting:"Self",slots,stam,chakra:0,tags:["Stance",...tags],effects:e});
+const nin=(g,name,power,slots,chakra,tags,...e)=>mk({group:g,disc:"Ninjutsu",name,atk:"Projectile",dmg:"Elemental",maxR:10,targeting:"SingleEnemy",slots,stam:0,chakra,tags,effects:[E.dmg(power),...e]});
+const ninTrue=(g,name,power,slots,chakra,tags,...e)=>mk({group:g,disc:"Ninjutsu",name,atk:"Projectile",dmg:"Mental",maxR:10,targeting:"SingleEnemy",slots,stam:0,chakra,tags,effects:[E.dmg(power),...e]});
+const ninZone=(g,name,power,slots,chakra,tags,...e)=>mk({group:g,disc:"Ninjutsu",name,atk:"Magic",dmg:"Elemental",maxR:10,targeting:"PointRadius",slots,stam:0,chakra,tags,effects:[E.dmg(power),...e]});
+const ninSelf=(g,name,slots,chakra,tags,...e)=>mk({group:g,disc:"Ninjutsu",name,atk:"Magic",dmg:"None",maxR:1,targeting:"Self",slots,stam:0,chakra,tags,effects:e});
+const gen=(g,name,saveStat,dc,status,dur,tick=0)=>mk({group:g,disc:"Genjutsu",name,atk:"GenVisual",dmg:"None",maxR:6,targeting:"SingleEnemy",slots:1,stam:0,chakra:18,tags:[],effects:[E.save(status,dur,saveStat,dc,tick)]});
+
+const KITS={
+  Aries:{tai:[tai("Taijutsu","Mach Lunge",14,1,10,["Priority","GapCloser"],E.mc(8),E.st("Burn",1,4)),
+              guardBreak(tai("Taijutsu","Shatter Punch",20,1,12,[],E.save("Stun",1,"FORT",13))),
+              stanceZ("Taijutsu","Inner Gate: Adrenaline",1,10,[],E.buff("AGI",30,3),E.buff("STR",10,3),E.st("Burn",3,3))],
+        nin:[ninZone("Ninjutsu","Blast Wave",8,1,18,[]),nin("Ninjutsu","Explosive Runes",12,1,18,["Trap"]),ninZone("Ninjutsu","Meteor",35,2,40,["Ultimate","Charge"])],
+        gen:[gen("Genjutsu","Blind Rage","INT",12,"Confusion",1),gen("Genjutsu","Killing Intent","STR",13,"Stun",1)]},
+  Leo:{tai:[stanceZ("Taijutsu","King's Posture",1,8,[],E.buff("FORT",30,3)),tai("Taijutsu","Sun Palm",14,1,8,[],E.st("Burn",2,4)),tai("Taijutsu","Battle Roar",10,1,10,[],E.save("Slow",2,"STR",12))],
+       nin:[nin("Ninjutsu","Solar Lance",22,1,25,[]),ninSelf("Ninjutsu","Radiance",2,20,["Stance"],E.buff("STR",10,3)),ninZone("Ninjutsu","Supernova",30,2,30,["Ultimate"])],
+       gen:[gen("Genjutsu","Spotlight","INT",12,"Blind",1),gen("Genjutsu","Kneel","STR",14,"Stun",1)]},
+  Sagittarius:{tai:[tai("Taijutsu","Spinning Top",8,1,12,[],E.res("Chakra",-15)),stanceZ("Taijutsu","Flow Dodge",1,8,[],E.buff("AGI",30,2),E.mc(5)),tai("Taijutsu","Leash Kick",12,1,10,[],E.save("Root",2,"AGI",12))],
+               nin:[nin("Ninjutsu","Wisp Fire",10,1,15,[]),ninSelf("Ninjutsu","Cauterize",1,20,[],E.heal(20))],
+               gen:[gen("Genjutsu","Dogma","INT",13,"Confusion",2),gen("Genjutsu","Soul Pressure","STR",12,"Silence",3)]},
+  Taurus:{tai:[stanceZ("Taijutsu","Mountain Stance",1,8,[],E.buff("FORT",30,3)),tai("Taijutsu","Sumo Palm",16,1,10,[],E.save("Slow",1,"FORT",12)),tai("Taijutsu","Bull Rush",14,1,12,["GapCloser","Priority"],E.mc(6))],
+          nin:[ninSelf("Ninjutsu","Oak Flesh",2,18,[],E.buff("FORT",50,3)),ninSelf("Ninjutsu","Ironwood Kanabo",2,18,[],E.buff("STR",20,3)),ninSelf("Ninjutsu","Root Sanctuary",2,22,[],E.buff("FORT",20,2))],
+          gen:[gen("Genjutsu","Material Fixation","INT",12,"Disarm",3),gen("Genjutsu","Planetary Pressure","STR",13,"Slow",2)]},
+  Virgo:{tai:[tai("Taijutsu","Silica Strike",8,1,6,[],E.save("Blind",3,"INT",12)),stanceZ("Taijutsu","Flowing Sand Parry",1,8,["Counter"],E.buff("AGI",20,1)),tai("Taijutsu","Wither Grasp",12,1,12,[],E.res("Stamina",-15))],
+         nin:[ninZone("Ninjutsu","Sand Burial",22,1,22,[]),ninZone("Ninjutsu","Sandstorm",10,2,22,[],E.save("Blind",2,"INT",12),E.st("Bleed",2,4))],
+         gen:[gen("Genjutsu","Phantom Plague","INT",12,"Psychosomatic",3,4),gen("Genjutsu","Coffin Syndrome","STR",13,"Confusion",1)]},
+  Capricorn:{tai:[guardBreak(tai("Taijutsu","Adamantine Shin",16,1,12,[],E.st("Bleed",2,3))),taiTrue("Taijutsu","Diamond Finger",14,1,10,[]),stanceZ("Taijutsu","Prismatic Skin",1,8,[],E.buff("FORT",50,2))],
+             nin:[ninZone("Ninjutsu","Geode Blast",18,1,20,[]),nin("Ninjutsu","Mausoleum",6,1,22,[],E.save("Stun",2,"FORT",14)),ninZone("Ninjutsu","Stalactite Rain",30,2,30,["Ultimate","Charge"])],
+             gen:[gen("Genjutsu","Atlas's Regret","STR",13,"Slow",2),gen("Genjutsu","Titan's Gaze","INT",12,"Slow",2)]},
+  Aquarius:{tai:[tai("Taijutsu","Nerve Disruptor",10,1,8,[],E.save("Silence",1,"CHA",12)),stanceZ("Taijutsu","Static Shell",1,8,["Counter"],E.buff("FORT",10,1)),tai("Taijutsu","Shock Palm",16,1,12,[])],
+            nin:[ninZone("Ninjutsu","Voltaic Orb",14,1,20,[]),ninTrue("Ninjutsu","Lightning Cutter",24,1,25,["Priority","GapCloser"],E.mc(6)),ninZone("Ninjutsu","EMP Field",6,2,22,[],E.save("Slow",2,"INT",12))],
+            gen:[gen("Genjutsu","System Crash","STR",13,"Blind",2),gen("Genjutsu","Lag Switch","INT",12,"Slow",2)]},
+  Libra:{tai:[taiReach("Taijutsu","Aero Palm",12,1,8,[],E.st("Bleed",2,3)),stanceZ("Taijutsu","Flow Parry",1,8,["Counter"],E.buff("AGI",20,1)),stanceZ("Taijutsu","Feather Step",1,6,[],E.buff("AGI",20,2),E.mc(5))],
+         nin:[nin("Ninjutsu","Gale Slicer",16,1,18,[]),ninZone("Ninjutsu","Pressure Blast",8,1,18,[]),ninZone("Ninjutsu","Singularity Sphere",12,2,25,[],E.save("Root",1,"STR",12))],
+         gen:[gen("Genjutsu","Indecision","INT",12,"Silence",1),gen("Genjutsu","Vertigo","STR",13,"Blind",2)]},
+  Gemini:{tai:[stanceZ("Taijutsu","Mach Dash",1,8,[],E.mc(15),E.buff("AGI",10,1)),tai("Taijutsu","Echo Fist",14,1,10,[]),tai("Taijutsu","Sonic Sweep",10,1,12,[],E.save("Prone",1,"AGI",12))],
+          nin:[ninZone("Ninjutsu","Howling Blast",8,1,18,[],E.save("Silence",1,"INT",12)),ninSelf("Ninjutsu","Mirage Clone",1,18,[],E.buff("AGI",50,2)),ninZone("Ninjutsu","Resonance Chamber",6,2,22,[])],
+          gen:[gen("Genjutsu","Tinnitus","STR",12,"Bleed",3,4),gen("Genjutsu","Phantom Legion","INT",12,"Blind",1)]},
+  Cancer:{tai:[tai("Taijutsu","Tidal Slam",16,1,12,["GapCloser"],E.mc(6),E.save("Slow",1,"FORT",12)),tai("Taijutsu","Vice Grip",12,1,12,[],E.res("Stamina",-15)),tai("Taijutsu","Hydro Cannon Palm",14,1,10,[],E.save("Stun",1,"STR",13))],
+          nin:[nin("Ninjutsu","Water Cutter",20,1,22,[]),ninZone("Ninjutsu","Whirlpool",8,2,22,[],E.save("Root",1,"STR",12)),ninZone("Ninjutsu","Tsunami",28,2,30,["Ultimate","Charge"])],
+          gen:[gen("Genjutsu","Regression","INT",12,"Slow",2),gen("Genjutsu","Pacification","STR",13,"Disarm",2)]},
+  Scorpio:{tai:[tai("Taijutsu","Numbing Strike",14,1,8,[],E.st("Slow",2)),stanceZ("Taijutsu","Shadow Step",1,8,["Priority","GapCloser"],E.mc(10),E.st("Stealth",1)),tai("Taijutsu","Kidney Shot",16,1,10,[])],
+           nin:[nin("Ninjutsu","Ice Shard",10,1,12,["Priority"]),ninSelf("Ninjutsu","Frost Armor",2,18,[],E.buff("FORT",20,2)),ninZone("Ninjutsu","Blizzard",10,2,25,[],E.save("Slow",2,"INT",12))],
+           gen:[gen("Genjutsu","Paranoia","STR",13,"Confusion",2),gen("Genjutsu","Betrayal","INT",13,"Confusion",1)]},
+  Pisces:{tai:[stanceZ("Taijutsu","Evasive Sway",1,8,[],E.buff("AGI",50,2)),stanceZ("Taijutsu","Slide Counter",1,8,["Counter"],E.mc(6)),taiTrue("Taijutsu","Flow Strike",14,1,10,[])],
+          nin:[nin("Ninjutsu","Bubble Prison",6,1,22,[],E.save("Stun",2,"CHA",14)),ninSelf("Ninjutsu","Hidden Mist",1,20,[],E.st("Stealth",2)),nin("Ninjutsu","Water Dragon",22,1,25,[])],
+          gen:[gen("Genjutsu","Siren's Lure","STR",13,"Fear",1),gen("Genjutsu","Escapism","INT",13,"Sleep",2)]},
+};
+function zodiacAbilities(sign){const k=KITS[sign];return[...k.tai,...k.nin,...k.gen].map(a=>({...a,effects:a.effects.map(e=>({...e})),tags:[...a.tags],kitSign:sign}));}
+
+// ---- General Arts (Neutral / Yang / Yin) + Medical + Trap + Summon + Phantom ----
+function generalArts(){
+  const g=(o)=>mk({group:o.group||"General",disc:o.disc,name:o.name,atk:o.atk,dmg:o.dmg,maxR:o.maxR??1,minR:0,
+    targeting:o.tg,slots:o.slots||1,stam:o.stam||0,chakra:o.chakra||0,tags:o.tags||[],radius:o.radius||0,supply:o.supply||0,effects:o.fx});
+  const L=[];
+  // Neutral
+  L.push(g({disc:"Ninjutsu",name:"Chakra Bullet",atk:"Projectile",dmg:"Elemental",maxR:10,tg:"SingleEnemy",chakra:12,fx:[E.dmg(14)]}));
+  L.push(g({disc:"Ninjutsu",name:"Charge Chakra",atk:"Magic",dmg:"None",tg:"Self",tags:["Focus"],fx:[E.res("Chakra",30),E.res("Poise",0,0.25)]}));
+  L.push(g({disc:"Taijutsu",name:"Catch Breath",atk:"Melee",dmg:"None",tg:"Self",tags:["Focus"],fx:[E.res("Stamina",30),E.res("Poise",0,0.25)]}));
+  // Yang
+  L.push(guardBreak(g({disc:"Taijutsu",name:"Solar Plexus Strike",atk:"Melee",dmg:"Physical",tg:"SingleEnemy",stam:8,fx:[E.dmg(12),E.res("Stamina",-10)]})));
+  L.push(guardBreak(g({disc:"Taijutsu",name:"Iron Mountain",atk:"Melee",dmg:"Physical",tg:"SingleEnemy",stam:10,fx:[E.dmg(16)]})));
+  L.push(g({disc:"Taijutsu",name:"Heavenly Kick",atk:"Melee",dmg:"Physical",tg:"SingleEnemy",stam:10,fx:[E.dmg(12),E.save("Stun",1,"FORT",13)]}));
+  L.push(g({disc:"Ninjutsu",name:"Guardian Barrier",atk:"Magic",dmg:"None",tg:"AlliesInRadius",radius:4,chakra:18,fx:[E.st("Fortified",2,20)]}));
+  L.push(g({disc:"Ninjutsu",name:"Solar Flare",atk:"Magic",dmg:"Elemental",maxR:3,tg:"SingleEnemy",chakra:15,fx:[E.dmg(6),E.st("Blind",1)]}));
+  // Yin
+  L.push(g({disc:"Taijutsu",name:"Viper Strike",atk:"Melee",dmg:"Physical",tg:"SingleEnemy",stam:8,fx:[E.dmg(8),E.st("Bleed",3,4)]}));
+  L.push(g({disc:"Ninjutsu",name:"Chakra Drain",atk:"Magic",dmg:"Elemental",maxR:6,tg:"SingleEnemy",chakra:12,fx:[E.dmg(8),E.res("Chakra",-15)]}));
+  L.push(g({disc:"Ninjutsu",name:"Gloom Shroud",atk:"Magic",dmg:"None",tg:"Self",chakra:18,fx:[E.st("Stealth",2)]}));
+  L.push(g({disc:"Ninjutsu",name:"Earth Wall",atk:"Magic",dmg:"None",tg:"Self",chakra:20,fx:[E.st("Fortified",3,25)]})); // 1-D stand-in for terrain cover
+  L.push(g({disc:"Ninjutsu",name:"Shadow Possession",atk:"Magic",dmg:"None",maxR:6,tg:"SingleEnemy",chakra:20,fx:[E.grapple(3,"FORT",13,2)]}));
+  // Medical
+  L.push(g({group:"Medical",disc:"Medical",name:"Palm Healing",atk:"Magic",dmg:"None",maxR:6,tg:"SingleAlly",chakra:15,fx:[E.heal(25)]}));
+  L.push(g({group:"Medical",disc:"Medical",name:"Cellular Activation",atk:"Magic",dmg:"None",maxR:6,tg:"SingleAlly",chakra:18,fx:[E.st("Regen",3,8)]}));
+  L.push(g({group:"Medical",disc:"Medical",name:"Chakra Transfer",atk:"Magic",dmg:"None",maxR:6,tg:"SingleAlly",fx:[E.res("Chakra",25)]}));
+  L.push(g({group:"Medical",disc:"Medical",name:"Chakra Scalpel",atk:"Melee",dmg:"True",tg:"SingleEnemy",stam:8,fx:[E.dmg(8),E.save("Slow",2,"AGI",12)]}));
+  L.push(g({group:"Medical",disc:"Medical",name:"Nerve Rupture",atk:"Melee",dmg:"None",tg:"SingleEnemy",stam:8,fx:[E.save("Confusion",1,"INT",13)]}));
+  // Trap
+  L.push(g({group:"Trap",disc:"Trap",name:"Explosive Tag",atk:"Magic",dmg:"Elemental",maxR:8,tg:"PointRadius",radius:1,chakra:15,tags:["Trap"],supply:1,fx:[E.dmg(16)]}));
+  L.push(g({group:"Trap",disc:"Trap",name:"Flash Bomb",atk:"Magic",dmg:"None",maxR:8,tg:"PointRadius",radius:1,chakra:12,tags:["Priority","Trap"],supply:1,fx:[E.st("Blind",1)]}));
+  L.push(g({group:"Trap",disc:"Trap",name:"Spike Pit",atk:"Magic",dmg:"Physical",maxR:5,tg:"PointRadius",radius:1,chakra:12,tags:["Trap"],supply:1,fx:[E.dmg(6),E.save("Root",1,"AGI",12),E.st("Bleed",2,3)]}));
+  L.push(g({group:"Trap",disc:"Trap",name:"Smoke Bomb",atk:"Magic",dmg:"None",tg:"Self",chakra:10,fx:[E.st("Stealth",2)]}));
+  L.push(g({group:"Trap",disc:"Trap",name:"Caltrops",atk:"Magic",dmg:"Physical",maxR:5,tg:"PointRadius",radius:1,chakra:10,tags:["Trap"],supply:1,fx:[E.dmg(4),E.save("Slow",2,"AGI",11)]}));
+  // Summon
+  L.push(g({group:"Summon",disc:"Summon",name:"Summon Companion",atk:"Magic",dmg:"None",tg:"Self",chakra:50,fx:[E.summon()]}));
+  // Phantom Haunt (genjutsu)
+  L.push(g({group:"Genjutsu",disc:"Genjutsu",name:"Phantom Haunt",atk:"GenVisual",dmg:"None",maxR:6,tg:"SingleEnemy",slots:2,chakra:45,fx:[E.haunt()]}));
+  return L;
+}
+
+// ---- Martial styles (stances + techniques; grapple-gated follow-ups) ----
+function martialStyles(){
+  const t=(name,power,stam,tags,...e)=>mk({group:"Martial",disc:"Martial",name,atk:"Melee",dmg:"Physical",maxR:1,targeting:"SingleEnemy",slots:1,stam,chakra:0,tags,effects:[E.dmg(power),...e]});
+  const tReach=(name,power,stam,...e)=>mk({group:"Martial",disc:"Martial",name,atk:"Reach",dmg:"Physical",maxR:2,targeting:"SingleEnemy",slots:1,stam,chakra:0,tags:[],effects:[E.dmg(power),...e]});
+  const tSelf=(name,stam,tags,...e)=>mk({group:"Martial",disc:"Martial",name,atk:"Melee",dmg:"None",maxR:1,targeting:"Self",slots:1,stam,chakra:0,tags,effects:e});
+  const tTrue=(name,power,stam,...e)=>mk({group:"Martial",disc:"Martial",name,atk:"Melee",dmg:"True",maxR:1,targeting:"SingleEnemy",slots:1,stam,chakra:0,tags:[],effects:[E.dmg(power),...e]});
+  const stance=(name,style)=>mk({group:"Martial",disc:"Martial",name,atk:"Melee",dmg:"None",maxR:1,targeting:"Self",slots:1,stam:4,chakra:0,tags:["Stance","MartialStance"],effects:[E.res("Poise",0)],style});
+  const clinch=()=>mk({group:"Martial",disc:"Martial",name:"Clinch",atk:"Melee",dmg:"None",maxR:1,targeting:"SingleEnemy",slots:1,stam:12,chakra:0,tags:[],effects:[E.grapple(6,"FORT",13,3)]});
+  const gfu=(name,stam,tech)=>mk({group:"Martial",disc:"Martial",name,atk:"Melee",dmg:tech.power?"Physical":"None",maxR:1,targeting:"SingleEnemy",slots:tech.slots||1,stam,chakra:0,tags:["RequiresGrapple",...(tech.mounted?["RequiresMounted"]:[])],effects:[E.gtech(tech)]});
+  const dirty=guardBreak(t("Dirty Boxing",20,22,["RequiresGrapple"]));
+  const knee=guardBreak(t("Knee Strikes",24,26,["RequiresGrapple"]));
+  const styles={
+    Boxing:{stance:stance("Boxing Stance","Boxing"),moves:[t("Jab-Cross",10,5,[]),guardBreak(t("Haymaker",18,10,[])),tSelf("Bob and Weave",6,[],E.mc(8),E.buff("AGI",20,1)),tSelf("Defensive Stance",6,[],E.res("Poise",0,0.25,true)),clinch(),dirty]},
+    MuayThai:{stance:stance("Muay Thai Stance","MuayThai"),moves:[t("Roundhouse Kick",12,6,[]),guardBreak(t("Teep Kick",10,8,[],E.save("Slow",1,"FORT",12))),t("Elbow Strike",12,9,[],E.save("Bleed",2,"FORT",12,3)),t("Calf Kick",10,8,[],E.save("Slow",2,"AGI",13)),clinch(),knee]},
+    Judo:{stance:stance("Judo Stance","Judo"),moves:[clinch(),gfu("Hip Toss",14,{power:18,dc:8,dur:1,status:"Prone",breakHold:true}),gfu("Rolling Throw",14,{power:16,dc:8,throw:3,breakHold:true}),gfu("Sweeping Shoulder",12,{power:8,dc:8,mount:true})]},
+    JiuJitsu:{stance:stance("Jiu-Jitsu Stance","JiuJitsu"),moves:[clinch(),gfu("Pull Guard",10,{dc:8,best:true,mount:true,selfAgi:30}),gfu("Strangle",14,{power:4,dc:8,dur:2,status:"Sleep",best:true,drain:18,mounted:true,slots:2}),gfu("Flying Triangle",18,{power:8,dc:10,dur:2,status:"Sleep",best:true,mount:true,drain:14,slots:2})]},
+    Karate:{stance:stance("Karate Stance","Karate"),moves:[t("Sweeping Low",8,6,[],E.save("Prone",1,"AGI",12)),tSelf("Defensive Stance",6,[],E.res("Poise",0,0.25,true)),t("Karate Blitz",8,8,["Priority"],E.buff("AGI",25,1),E.save("Stagger",1,"FORT",11)),tReach("Side Kick",12,8),guardBreak(t("Hammer Fist",12,12,[])),mk({group:"Martial",disc:"Martial",name:"Whirlwind Kick",atk:"Melee",dmg:"Physical",maxR:2,targeting:"PointRadius",radius:1,slots:1,stam:12,chakra:0,tags:[],effects:[E.dmg(12)]})]},
+    Wrestling:{stance:stance("Wrestling Stance","Wrestling"),moves:[mk({group:"Martial",disc:"Martial",name:"Single Leg Shot",atk:"Melee",dmg:"None",maxR:1,targeting:"SingleEnemy",slots:1,stam:14,chakra:0,tags:["Priority"],effects:[E.grapple(4,"AGI",13,3),E.buff("AGI",20,1)]}),clinch(),tTrue("Sumo Palm",12,10),tSelf("Horse Stance",8,[],E.buff("STR",20,1),E.buff("AGI",20,1))]},
+  };
+  return styles;
+}
+const MARTIAL=martialStyles();
+
+// ---- Weapon kits ----
+function weaponKits(){
+  const w=(name,power,atk,dmg,maxR,stam,tags,...e)=>mk({group:"Weapon",disc:"Weapon",name,atk,dmg,maxR,targeting:"SingleEnemy",slots:1,stam,chakra:0,tags,effects:[E.dmg(power),...e]});
+  const wSelf=(name,stam,tags,...e)=>mk({group:"Weapon",disc:"Weapon",name,atk:"Melee",dmg:"None",maxR:1,targeting:"Self",slots:1,stam,chakra:0,tags,effects:e});
+  const stance=(name)=>mk({group:"Weapon",disc:"Weapon",name,atk:"Melee",dmg:"None",maxR:1,targeting:"Self",slots:1,stam:4,chakra:0,tags:["Stance","WeaponStance"],effects:[E.res("Poise",0)]});
+  const chainSnare=mk({group:"Weapon",disc:"Weapon",name:"Kusari Chain Snare",atk:"Projectile",dmg:"None",maxR:4,targeting:"SingleEnemy",slots:1,stam:14,chakra:0,tags:[],effects:[E.grapple(2,"AGI",13,2)]});
+  return{
+    Kenjutsu:{stance:stance("Kenjutsu Stance"),moves:[w("Kenjutsu Slash",16,"Melee","Physical",1,8,[]),wSelf("Parry",6,["Counter"],E.buff("AGI",20,1)),guardBreak(w("Hilt Bash",8,"Melee","Physical",1,6,["Priority"],E.save("Stun",1,"FORT",12))),w("Precision Thrust",12,"Melee","True",1,8,[])]},
+    Kyudo:{stance:stance("Kyudo Stance"),moves:[w("Kyudo Shot",26,"Projectile","Physical",40,10,[])]},
+    Kobudo:{stance:stance("Kobudo Stance"),moves:[w("Shuriken Throw",10,"Projectile","Physical",8,6,["Priority"]),chainSnare,mk({group:"Weapon",disc:"Weapon",name:"Chain Yank",atk:"Projectile",dmg:"Physical",maxR:4,targeting:"SingleEnemy",slots:1,stam:18,chakra:0,tags:["RequiresGrapple"],effects:[E.dmg(14)]})]},
+  };
+}
+const WEAPONS=weaponKits();
+
+// ---- Dojutsu eyes (activation + strain + signature jutsu) ----
+const EYES={
+  Sun:{deity:"Amaterasu",arch:"Sun / Sniper",jutsu:{name:"Yata Beam",atk:"Projectile",dmg:"True",maxR:10,tg:"SingleEnemy",fx:[E.dmg(18)]}},
+  Moon:{deity:"Tsukuyomi",arch:"Moon / Counter",jutsu:{name:"Lunar Bind",atk:"GenVisual",dmg:"None",maxR:6,tg:"SingleEnemy",fx:[E.save("Stun",1,"INT",13)]}},
+  Mars:{deity:"Hachiman",arch:"Mars / Duelist",jutsu:{name:"Death Line",atk:"Projectile",dmg:"True",maxR:6,tg:"SingleEnemy",fx:[E.dmg(20)]}},
+  Mercury:{deity:"Omoikane",arch:"Mercury / Speed",jutsu:{name:"Lag Spike",atk:"Projectile",dmg:"True",maxR:10,tg:"SingleEnemy",fx:[E.dmg(12),E.mc(8)]}},
+  Jupiter:{deity:"Daikokuten",arch:"Jupiter / Tank",jutsu:{name:"Grand Cross",atk:"Magic",dmg:"Elemental",maxR:6,tg:"SingleEnemy",fx:[E.dmg(8),E.save("Root",2,"STR",14)]}},
+  Venus:{deity:"Benzaiten",arch:"Venus / Support",jutsu:{name:"Red String",atk:"GenVisual",dmg:"None",maxR:6,tg:"SingleEnemy",fx:[E.save("Snare",2,"INT",13)]}},
+  Saturn:{deity:"Taizan",arch:"Saturn / Warden",jutsu:{name:"Gravity Well",atk:"Magic",dmg:"Elemental",maxR:8,tg:"PointRadius",radius:1,fx:[E.dmg(14),E.save("Snare",2,"STR",13)]}},
+  Uranus:{deity:"Raijin",arch:"Uranus / Tech",jutsu:{name:"Polarity Switch",atk:"Magic",dmg:"Elemental",maxR:8,tg:"SingleEnemy",fx:[E.dmg(12),E.save("Confusion",1,"INT",13)]}},
+  Neptune:{deity:"Ryujin",arch:"Neptune / Scout",jutsu:{name:"Sleep Walk",atk:"GenVisual",dmg:"None",maxR:6,tg:"SingleEnemy",fx:[E.save("Sleep",2,"INT",13)]}},
+  Pluto:{deity:"Izanami",arch:"Pluto / Reaper",jutsu:{name:"Soul Rip",atk:"Magic",dmg:"True",maxR:6,tg:"SingleEnemy",fx:[E.dmg(14),E.res("Chakra",-20)]}},
+};
+const EYE_PLANETS=Object.keys(EYES);
+function eyeAbilities(planet){
+  const e=EYES[planet];
+  const open=mk({group:"Dojutsu",disc:"Dojutsu",name:"Open "+e.deity,atk:"Magic",dmg:"None",maxR:1,targeting:"Self",slots:1,stam:0,chakra:40,tags:["EyeOpen"],effects:[E.eye(planet)],eyePlanet:planet});
+  const j=e.jutsu;
+  const jutsu=mk({group:"Dojutsu",disc:"Dojutsu",name:j.name,atk:j.atk,dmg:j.dmg,maxR:j.maxR,radius:j.radius||0,targeting:j.tg,slots:1,stam:0,chakra:15,tags:["EyeJutsu"],effects:j.fx.map(x=>({...x})),eyePlanet:planet});
+  return[open,jutsu];
+}
+
+// ---- Kekkei Genkai ----
+const BLOODLINES={
+  Blaze:{name:"Blaze Release: Kagutsuchi",kind:"Zone",power:30,fx:[E.st("Burn",3,6)]},
+  Steel:{name:"Steel Release: Impervious",kind:"Self",fx:[E.st("Fortified",3,25),E.st("Shield",3,30)]},
+  Typhoon:{name:"Typhoon Release: Skysplitter",kind:"Zone",power:24,fx:[E.save("Slow",2,"FORT",14)]},
+  Abyss:{name:"Abyss Release: Drowning Dark",kind:"Zone",power:24,fx:[E.save("Root",2,"STR",14)]},
+  Lava:{name:"Lava Release: Molten Field",kind:"Zone",power:28,fx:[E.st("Burn",2,5),E.save("Slow",2,"FORT",13)]},
+  Scorch:{name:"Scorch Release: Solar Mummification",kind:"Bolt",power:26,fx:[E.save("Blind",2,"FORT",13)]},
+  Boil:{name:"Boil Release: Corrosive Vapor",kind:"Bolt",power:24,fx:[E.res("Stamina",-15)]},
+  Crystal:{name:"Crystal Release: Jade Bulwark",kind:"Self",fx:[E.st("Fortified",3,20),E.st("Shield",3,40)]},
+  Magnet:{name:"Magnet Release: Iron Verdict",kind:"Bolt",power:16,fx:[E.save("Disarm",2,"STR",14)]},
+  Wood:{name:"Wood Release: World Tree",kind:"Self",fx:[E.heal(25),E.st("Regen",3,8)]},
+  Explosion:{name:"Explosion Release: Landmine Fist",kind:"Zone",power:34,fx:[]},
+  Sand:{name:"Sand Release: Desert Shroud",kind:"Zone",power:20,fx:[E.save("Blind",2,"INT",13)]},
+  Ice:{name:"Ice Release: Absolute Zero",kind:"Bolt",power:20,fx:[E.save("Stun",1,"FORT",14)]},
+  Corrosion:{name:"Corrosion Release: Rust Plague",kind:"Bolt",power:18,fx:[E.st("Poison",3,6)]},
+  Flux:{name:"Flux Release: Ebb Tide",kind:"Bolt",power:20,fx:[E.res("Chakra",-20)]},
+  Storm:{name:"Storm Release: Laser Circus",kind:"Zone",power:26,fx:[E.save("Slow",2,"AGI",13)]},
+};
+const BLOOD_KEYS=Object.keys(BLOODLINES);
+function bloodlineAbility(key){
+  const b=BLOODLINES[key];const isZone=b.kind==="Zone",isSelf=b.kind==="Self";
+  const fx=[];if(b.power)fx.push(E.dmg(b.power));fx.push(...b.fx.map(x=>({...x})));
+  return mk({group:"Bloodline",disc:"Ninjutsu",name:b.name,atk:isSelf?"Magic":isZone?"Magic":"Projectile",
+    dmg:isSelf?"None":"Elemental",maxR:isSelf?1:10,radius:isZone?3:0,
+    targeting:isSelf?"Self":isZone?"PointRadius":"SingleEnemy",slots:2,stam:0,chakra:35,tags:["Ultimate"],effects:fx});
+}
+
+// ---- Assemble a loadout ----
+function buildLoadout(opt){
+  const L=[];const signs=opt.unlockAll?SIGNS:[opt.sign];const seen=new Set();
+  for(const s of signs)for(const a of zodiacAbilities(s)){if(seen.has(a.group+a.name))continue;seen.add(a.group+a.name);L.push(a);}
+  for(const a of generalArts())L.push(a);
+  if(opt.martial&&MARTIAL[opt.martial]){L.push(MARTIAL[opt.martial].stance);MARTIAL[opt.martial].moves.forEach(m=>L.push(m));}
+  if(opt.weapon&&WEAPONS[opt.weapon]){L.push(WEAPONS[opt.weapon].stance);WEAPONS[opt.weapon].moves.forEach(m=>L.push(m));}
+  const eyes=opt.unlockAll?EYE_PLANETS:(opt.eye?[opt.eye]:[]);
+  for(const p of eyes)for(const a of eyeAbilities(p))L.push(a);
+  const bloods=opt.unlockAll?BLOOD_KEYS:(opt.bloodline?[opt.bloodline]:[]);
+  for(const k of bloods)L.push(bloodlineAbility(k));
+  return L.map(a=>({...a,effects:a.effects.map(e=>({...e})),tags:[...a.tags]}));
+}
+
+/* =========================================================================
+   COMBATANT
+   ========================================================================= */
+function makeFighter(name,sign,stats,faction,pos,loadout,summonSpecies){
+  const f={name,sign,faction,stats,pos,abilities:loadout,
+    statuses:[],buffs:[],pendingSkips:0,chargingAction:null,chargeTarget:null,repeat:{},trapUses:{},
+    strain:0,eyeActive:false,activeEye:null,noChakraRegen:0,chakraReserved:0,activeSummon:null,summonSpecies:summonSpecies||null,
+    grappledBy:null,grappleTarget:null,grappleAge:0,grappleLanded:false,grappleAttempts:0,grappleFollowUps:[],
+    hauntTarget:null,hauntedBy:null,stealthAge:0,poiseRecoverDelay:0,isSummon:false,supplies:BAL.baseSupplies,
+    prefersRange:false,isPlayer:faction===0};
+  f.maxHp=D.maxHp(stats);f.hp=f.maxHp;
+  f.maxStam=D.maxStam(stats);f.stam=f.maxStam;
+  f.maxChakra=D.maxChakra(stats);f.chakra=f.maxChakra;
+  f.maxPoise=D.maxPoise(stats);f.poise=f.maxPoise;
+  return f;
+}
+const alive=f=>f.hp>0;
+function eff(f){const s={...f.stats};for(const b of f.buffs)s[b.stat]=round(s[b.stat]*(1+b.pct/100));return s;}
+const hasStatus=(f,k)=>f.statuses.some(s=>s.kind===k);
+const getStatus=(f,k)=>f.statuses.find(s=>s.kind===k);
+function removeStatus(f,k){f.statuses=f.statuses.filter(s=>s.kind!==k);}
+const isExhausted=f=>f.stam<=0;
+const isRooted=f=>hasStatus(f,"Root")||hasStatus(f,"Grappled")||hasStatus(f,"Grappling");
+const effMaxChakra=f=>max(0,f.maxChakra-f.chakraReserved);
+function ccInitPenalty(f){let p=0;for(const s of f.statuses){
+  if(s.kind==="Slow"||s.kind==="Confusion"||s.kind==="Root")p+=BAL.slowInitiativePenalty;
+  else if(s.kind==="Prone")p+=BAL.ccInitHeavy;else if(s.kind==="Snare"||s.kind==="Blind")p+=BAL.ccInitLight;
+  else if(s.kind==="Stealth")p-=BAL.ccInitStealthBonus;}
+  if(isExhausted(f))p+=BAL.ccInitHeavy;return p;}
+
+/* =========================================================================
+   TURN RESOLVER
+   ========================================================================= */
+const LOG=[];
+function logLine(text,cls){LOG.push({text,cls});}
+const RED=n=>`<span class="dm">${n}</span>`,GRN=n=>`<span class="hl">${n}</span>`;
+let ALL=[],YOU=null,FOE=null,ROUND=1,GOD=false,DIFF=0.15,PENDING_SPAWNS=[];
+
+function startRound(f){
+  if(!alive(f))return;
+  if(hasStatus(f,"Mounted"))f.poise=0;
+  else if(f.poiseRecoverDelay>0)f.poiseRecoverDelay--;
+  else if(f.poise<=0)f.poise=f.maxPoise;
+  else f.poise=min(f.maxPoise,f.poise+D.poiseRegen(f.stats));
+  f.mc=D.mc(eff(f));
+  if(isRooted(f))f.mc=0;else if(hasStatus(f,"Snare"))f.mc=floor(f.mc*0.5);
+  f.repeat={};
+  if(hasStatus(f,"Dazed")){f.pendingSkips+=1;removeStatus(f,"Dazed");}
+}
+function repetitionExtra(f,ab){const uses=f.repeat[ab.id]||0;if(uses<BAL.repetitionFreeUses)return{stam:0,chak:0};
+  const over=uses-BAL.repetitionFreeUses+1;return{stam:round(ab.stam*BAL.repetitionStrainPerExtra*over),chak:round(ab.chakra*BAL.repetitionStrainPerExtra*over)};}
+function savingThrow(def,stat,dc){return eff(def)[stat]+d(20)>=dc;}
+const enemiesOf=f=>ALL.filter(c=>alive(c)&&c.faction!==f.faction);
+const alliesOf=f=>ALL.filter(c=>alive(c)&&c.faction===f.faction);
+function nearestEnemy(f){let best=null,bd=1e9;for(const e of enemiesOf(f)){const dd=abs(e.pos-f.pos);if(dd<bd){bd=dd;best=e;}}return best;}
+function battleDecided(){const fac=new Set(ALL.filter(alive).map(c=>c.faction));return fac.size<=1;}
+
+function resolveAction(owner,ab){
+  const cls="f"+owner.faction;if(!ab)return;let target=null;
+  if(hasStatus(owner,"Grappled")&&!canUseWhileGrappled(owner,ab)){attemptEscape(owner);return;}
+  if(deniedByCc(owner))return;
+  if(ab.tags.includes("GrappleFollowUp")||ab.tags.includes("RequiresGrapple")||ab.tags.includes("RequiresMounted")){
+    const linked=owner.grappleTarget&&alive(owner.grappleTarget)?owner.grappleTarget:(owner.grappledBy&&alive(owner.grappledBy)?owner.grappledBy:null);
+    if(!linked){logLine(`${owner.name} has no live clinch — ${ab.name} needs body contact.`,cls);return;}
+    if(ab.tags.includes("RequiresMounted")&&!(hasStatus(linked,"Mounted")&&linked.grappledBy===owner)){logLine(`${owner.name} needs a mounted position for ${ab.name}.`,cls);return;}
+    target=linked;
+  }
+  if(ab.tags.includes("EyeJutsu")&&!owner.eyeActive){logLine(`${owner.name} can't use ${ab.name} — no eye is open.`,cls);return;}
+  if(hasStatus(owner,"Silence")&&ab.chakra>0){logLine(`${owner.name} is Silenced — ${ab.name} won't channel.`,cls);return;}
+  if(hasStatus(owner,"Disarm")&&ab.disc==="Weapon"){logLine(`${owner.name} is Disarmed.`,cls);return;}
+  if(hasStatus(owner,"Confusion")&&rand()*100<BAL.confusionFizzleChance){logLine(`${owner.name} is too disoriented — ${ab.name} goes nowhere.`,cls);return;}
+  if(ab.tags.includes("Trap")&&(owner.trapUses[ab.id]||0)>=BAL.trapUsesPerBattle){logLine(`${owner.name} reaches for another ${ab.name} — the pouch is empty.`,cls);return;}
+  const ex=repetitionExtra(owner,ab);
+  const needStam=round(ab.stam*costMult(ab))+ex.stam,needChak=round(ab.chakra*costMult(ab))+ex.chak;
+  if(owner.stam<needStam||owner.chakra<needChak||owner.supplies<ab.supply){logLine(`${owner.name}'s ${ab.name} fizzles (not enough resources).`,cls);return;}
+  owner.stam-=needStam;owner.chakra-=needChak;owner.supplies-=ab.supply;
+  owner.repeat[ab.id]=(owner.repeat[ab.id]||0)+1;
+  if(ab.tags.includes("Trap"))owner.trapUses[ab.id]=(owner.trapUses[ab.id]||0)+1;
+  if(ab.tags.includes("MartialStance")){owner.activeMartial=ab;owner.activeWeapon=null;}
+  if(ab.tags.includes("WeaponStance")){owner.activeWeapon=ab;owner.activeMartial=null;}
+  if(ab.tags.includes("Charge")){owner.chargingAction=ab;owner.chargeTarget=nearestEnemy(owner);logLine(`${owner.name} begins channelling ${ab.name} — it erupts at the start of next round!`,cls);}
+  else executeAbility(owner,ab,target);
+  if(owner.grappleTarget&&owner.stam<=0){logLine(`${owner.name} is spent — the hold on ${owner.grappleTarget.name} slips!`,cls);releaseGrapple(owner.grappleTarget);}
+  if(owner.hauntTarget){owner.chakra=max(0,owner.chakra-BAL.hauntChakraPerAction);if(owner.chakra<=0)dispelHaunt(owner,"its caster's chakra has run dry");}
+}
+function canUseWhileGrappled(owner,ab){
+  if(ab.tags.includes("Focus")||ab.tags.includes("Stance"))return true;
+  if(ab.targeting==="Self"||ab.targeting==="SingleAlly"||ab.targeting==="AlliesInRadius")return false;
+  if(ab.tags.includes("GrappleFollowUp")||ab.tags.includes("Charge")||ab.targeting==="PointRadius")return false;
+  return ab.targeting==="SingleEnemy";
+}
+function executeAbility(owner,ab,forcedTarget){
+  const cls="f"+owner.faction;
+  const quiet=ab.tags.includes("Focus")||ab.tags.includes("MartialStance")||ab.tags.includes("WeaponStance");
+  if(hasStatus(owner,"Stealth")&&!quiet){removeStatus(owner,"Stealth");owner.stealthAge=0;}
+  if(ab.targeting==="Self"){logLine(`${owner.name} flows into ${ab.name}.`,cls);applyEffects(owner,ab,owner,1,false);}
+  else if(ab.targeting==="SingleAlly"){const allies=alliesOf(owner).sort((a,b)=>(a.hp/a.maxHp)-(b.hp/b.maxHp));const t=allies[0]||owner;logLine(`${owner.name} channels ${ab.name} into ${t.name}.`,cls);applyEffects(owner,ab,t,1,false);}
+  else if(ab.targeting==="AlliesInRadius"){const reach=max(1,round(ab.radius));logLine(`${owner.name} projects ${ab.name} over nearby allies.`,cls);for(const c of alliesOf(owner))if(abs(c.pos-owner.pos)<=reach)applyEffects(owner,ab,c,1,false);}
+  else if(ab.targeting==="PointRadius")resolveAoe(owner,ab);
+  else resolveSingleEnemy(owner,ab,forcedTarget);
+  if(ab.tags.includes("EyeJutsu")&&owner.eyeActive){owner.strain+=BAL.strainPerEyeJutsu;checkBurnout(owner);}
+}
+function resolveSingleEnemy(owner,ab,forced){
+  const cls="f"+owner.faction;
+  let target=forced||((hasStatus(owner,"Grappled")&&owner.grappledBy)?owner.grappledBy:nearestEnemy(owner));
+  if(!target||!alive(target)){logLine(`${owner.name}'s ${ab.name} has no target.`,cls);return;}
+  let dist=abs(owner.pos-target.pos);
+  if(hasStatus(target,"Stealth")){logLine(`${owner.name} can't find ${target.name} to strike.`,cls);return;}
+  if(!isRooted(owner)&&owner.mc>0){
+    if(owner.prefersRange&&ab.maxR>=2){const standoff=clamp(4,2,ab.maxR);
+      if(dist<standoff){const step=min(owner.mc,standoff-dist);owner.pos+=(owner.pos<target.pos?-1:1)*step;owner.mc-=step;dist=abs(owner.pos-target.pos);logLine(`${owner.name} backs off to ${dist} tiles.`,cls);}
+      else if(dist>ab.maxR){const step=min(owner.mc,dist-standoff);owner.pos+=(target.pos>owner.pos?1:-1)*step;owner.mc-=step;dist=abs(owner.pos-target.pos);logLine(`${owner.name} closes to ${dist} tiles.`,cls);}
+    } else if(dist>ab.maxR){const step=min(owner.mc,dist-1);owner.pos+=(target.pos>owner.pos?1:-1)*step;owner.mc-=step;dist=abs(owner.pos-target.pos);logLine(`${owner.name} closes to ${dist} tile${dist===1?"":"s"}.`,cls);}
+  }
+  const {outcome,bandMod}=evalRange(ab,dist);
+  if(outcome==="Impossible"){logLine(`${owner.name} is too far to land ${ab.name} on ${target.name}.`,cls);return;}
+  const clumsy=outcome==="Clumsy";
+  if(ab.dmg!=="None"){
+    let statusMod=hasStatus(owner,"Blind")?BAL.blindAccuracyPenalty:0;
+    if(hasStatus(target,"Prone"))statusMod+=BAL.proneHitBonus;
+    if(hasStatus(target,"Grappled"))statusMod+=BAL.grappleHitBonus;
+    if(clumsy)statusMod+=BAL.clumsyHitPenalty;
+    const hit=clamp(BAL.baseHitChance+D.acc(eff(owner))-D.eva(eff(target))+statusMod,0,100)*(bandMod/100);
+    if(!(rand()*100<hit)){logLine(`${owner.name}'s ${ab.name} is evaded by ${target.name}.`,cls);return;}
+  }
+  applyEffects(owner,ab,target,1,clumsy);
+}
+function resolveAoe(owner,ab){
+  const cls="f"+owner.faction;const target=nearestEnemy(owner);const center=target?target.pos:owner.pos;
+  if(target&&hasStatus(target,"Stealth")){logLine(`${owner.name} can't pinpoint ${target.name} to place ${ab.name}.`,cls);return;}
+  const radius=ab.tags.includes("Ultimate")?BAL.ultimateAoeRadius:BAL.normalAoeRadiusCap;
+  if(evalRange(ab,abs(owner.pos-center)).outcome==="Impossible"){logLine(`${owner.name}'s ${ab.name} can't reach that area.`,cls);return;}
+  const hits=ALL.filter(c=>alive(c)&&abs(c.pos-center)<=radius&&c!==owner);
+  if(hits.length>=2)logLine(`${owner.name} unleashes ${ab.name}, catching ${hits.length} in the blast!`,cls);
+  hits.forEach((t,i)=>{const wasHidden=hasStatus(t,"Stealth");let scale=1-BAL.aoeFalloffPerTarget*i;if(t.faction===owner.faction)scale*=BAL.aoeFriendlyFireMultiplier;
+    applyEffects(owner,ab,t,max(0.1,scale),false);
+    if(wasHidden&&alive(t)){removeStatus(t,"Stealth");t.stealthAge=0;logLine(`${t.name} is blasted out of hiding!`,cls);}});
+}
+function applyEffects(owner,ab,target,extraScale,clumsy){
+  for(const e of ab.effects){switch(e.k){
+    case"Damage":applyDamage(owner,ab,target,e,extraScale,clumsy);break;
+    case"Heal":{const h=max(0,round((e.power+eff(owner).CHA)*affinity(owner.sign,target.sign).healDone));target.hp=min(target.maxHp,target.hp+h);logLine(`${owner.name} mends ${target.name}, restoring ${GRN(h)}.`,"f"+owner.faction);break;}
+    case"Status":applyStatus(owner,target,e);break;
+    case"Res":applyResource(target,e);break;
+    case"MC":if(!isRooted(owner))owner.mc=(owner.mc||0)+round(e.amt);break;
+    case"Move":moveSelf(owner,target,e.tiles);break;
+    case"Buff":target.buffs.push({stat:e.stat,pct:e.pct,rounds:max(1,e.dur)});break;
+    case"Grapple":applyGrapple(owner,target,e,ab);break;
+    case"GrappleTech":applyGrappleTech(owner,target,e,ab);break;
+    case"SpawnSummon":spawnSummon(owner);break;
+    case"Haunt":applyHaunt(owner,target);break;
+    case"ActivateEye":activateEye(owner,e.planet);break;
+  }}
+}
+function applyDamage(owner,ab,target,e,extraScale,clumsy){
+  if(GOD&&target.isPlayer)return;
+  const os=eff(owner),ts=eff(target);const mitigates=target.poise>0;
+  const base=baseDamage(ab.dmg,e.power,os,ts,mitigates);
+  let mult=extraScale*affinity(owner.sign,target.sign).dmgDone*affinity(target.sign,owner.sign).dmgTaken;
+  if(clumsy)mult*=BAL.clumsyDamageMultiplier;
+  if(isExhausted(target))mult*=BAL.exhaustionDamageMultiplier;
+  mult*=BAL.damageScale;mult*=dmgMult(ab);
+  const fort=getStatus(target,"Fortified");if(fort)mult*=clamp(1-fort.mag/100,0,1);
+  const dmg=max(0,round(base*mult));
+  const poiseBasis=mitigates?max(0,round(baseDamage(ab.dmg,e.power,os,ts,false)*mult)):dmg;
+  const pd=poiseDamage(poiseBasis,ab.dmg,ab.poiseMult);
+  let broke=false;if(pd>0){target.poise-=pd;if(target.poise<=0){target.poise=0;broke=true;target.poiseRecoverDelay=1;}}
+  let hpDmg=dmg;const sh=target.statuses.find(s=>s.kind==="Shield"&&s.mag>0);
+  if(sh&&hpDmg>0){const soak=min(hpDmg,round(sh.mag));sh.mag-=soak;hpDmg-=soak;logLine(`  ${target.name}'s shield absorbs ${soak}.`);if(sh.mag<=0)sh.rounds=0;}
+  target.hp=max(0,target.hp-hpDmg);target._flash=true;const killed=!alive(target);
+  logLine(`${owner.name} · ${ab.name} → ${target.name} for ${RED(hpDmg)}${killed?" — <b class='k'>DOWN</b>":""}.`,"f"+owner.faction);
+  if(pd>0&&alive(target))logLine(`  ${target.name}'s guard loses ${pd} poise (${max(0,target.poise)}/${target.maxPoise}).`);
+  if(hpDmg>0&&hasStatus(target,"Sleep")){removeStatus(target,"Sleep");logLine(`${target.name} jolts awake!`);}
+  if(broke){target.pendingSkips+=BAL.staggerCancelsNextAction;logLine(`${target.name} reels — their guard shatters!`,"sys");}
+}
+function applyStatus(owner,target,e){
+  if(e.status==="Blind"&&target.eyeActive&&target.activeEye==="Sun"){logLine(`  ${target.name}'s solar eye burns through the dark — Blind resisted.`);return;}
+  if(e.save){let dc=e.save.dc;if(hasStatus(target,"Mounted"))dc+=BAL.mountGenjutsuDcBonus;if(savingThrow(target,e.save.stat,dc))return;}
+  const st={kind:e.status,rounds:e.dur,stacks:max(1,e.stacks),tick:e.tick||0,mag:e.tick||0,source:owner};
+  if(["Stun","Fear","Sleep"].includes(e.status))st.breakDC=e.save?e.save.dc:BAL.ccBreakDefaultDC;
+  if(["Stun","Fear"].includes(e.status))st.freeDenials=max(1,e.stacks);
+  const wasHidden=hasStatus(target,"Stealth");target.statuses.push(st);
+  if(e.status==="Prone")target.pendingSkips+=1;
+  if(e.status==="Stealth"&&!wasHidden)target.stealthAge=0;
+  if(target.hauntTarget&&["Stun","Fear","Sleep","Confusion","Prone"].includes(e.status))dispelHaunt(target,"its caster's concentration is shattered");
+  logLine(owner===target?`${target.name} takes on ${e.status}.`:`${target.name} is gripped by ${e.status}.`,"sys");
+}
+function applyResource(c,e){
+  let amt=e.amt+(e.pct?round(maxRes(c,e.res)*e.pct):0);
+  if(e.res==="Hp")c.hp=clamp(c.hp+amt,0,c.maxHp);
+  else if(e.res==="Stamina")c.stam=clamp(c.stam+amt,0,c.maxStam);
+  else if(e.res==="Chakra")c.chakra=clamp(c.chakra+amt,0,effMaxChakra(c));
+  else if(e.res==="Poise"){if(amt>0&&hasStatus(c,"Mounted"))return;const wasUp=c.poise>0;const cap=(e.overcap&&c.poise>=c.maxPoise)?c.maxPoise+amt:c.maxPoise;c.poise=amt>0?min(cap,c.poise+amt):c.poise+amt;if(wasUp&&c.poise<=0){c.poiseRecoverDelay=1;c.pendingSkips+=BAL.staggerCancelsNextAction;logLine(`${c.name}'s guard is crushed outright!`);}}
+}
+function maxRes(c,r){return r==="Hp"?c.maxHp:r==="Stamina"?c.maxStam:r==="Chakra"?effMaxChakra(c):r==="Poise"?c.maxPoise:0;}
+function moveSelf(owner,ref,tiles){if(isRooted(owner))return;const steps=round(abs(tiles));if(steps<=0)return;const dir=tiles<0?(ref.pos>owner.pos?1:-1):(ref.pos>owner.pos?-1:1);for(let i=0;i<steps;i++){const np=owner.pos+dir;if(np<0||np>=AXIS)break;if(ALL.some(c=>c!==owner&&alive(c)&&c.pos===np))break;owner.pos=np;}}
+
+// grapple
+function applyGrapple(owner,target,e,ab){
+  const cls="f"+owner.faction;if(hasStatus(owner,"Grappling")){logLine(`${owner.name} already has a hold.`,cls);return;}
+  const os=eff(owner),ts=eff(target);
+  if(ts.STR+ts.AGI+d(20)>=os.STR+os.AGI+BAL.grappleLandDC){logLine(`${target.name} shrugs off ${owner.name}'s grab.`,cls);return;}
+  owner.grappleTarget=target;target.grappledBy=owner;target.grappleAge=0;target.grappleLanded=true;target.grappleAttempts=0;
+  target.statuses.push({kind:"Grappled",rounds:max(1,e.dur),stacks:1,tick:e.crush,mag:0,drain:e.drain,lifesteal:e.lifesteal,source:owner});
+  owner.statuses.push({kind:"Grappling",rounds:max(1,e.dur),stacks:1,tick:0,mag:0,source:owner});
+  owner.mc=0;target.mc=0;
+  logLine(`${owner.name} locks ${target.name} in a grapple!`,cls);
+}
+function applyGrappleTech(owner,target,e,ab){
+  const cls="f"+owner.faction;
+  if(!(owner.grappleTarget===target&&target.grappledBy===owner)){logLine(`${owner.name}'s ${ab.name} needs a live clinch.`,cls);return;}
+  const os=eff(owner),ts=eff(target);
+  const atk=e.best?max(os.STR+os.AGI,os.AGI+os.INT):os.STR+os.AGI;
+  const def=e.best?max(ts.STR+ts.AGI,ts.AGI+ts.INT):ts.STR+ts.AGI;
+  if(def+d(20)>=atk+e.dc){logLine(`${target.name} denies ${owner.name}'s ${ab.name}.`,cls);return;}
+  if(e.power>0)applyDamage(owner,ab,target,{power:e.power},1,false);
+  if(e.dur>0&&e.status){const st={kind:e.status,rounds:e.dur,stacks:1,tick:0,mag:0,source:owner};if(e.status==="Sleep")st.breakDC=e.dc+4;target.statuses.push(st);logLine(`${target.name} is gripped by ${e.status}.`,cls);}
+  if(e.drain>0){target.stam=max(0,target.stam-e.drain);logLine(`  ${ab.name} drains ${e.drain} stamina from ${target.name}.`);}
+  if(e.selfAgi>0){owner.buffs.push({stat:"AGI",pct:e.selfAgi,rounds:1});logLine(`  ${owner.name} gains the angle.`);}
+  if(e.mount)applyMounted(owner,target,max(2,e.dur));
+  if(e.throw>0){const dir=owner.pos<target.pos?1:-1;for(let i=0;i<e.throw;i++){const np=target.pos+dir;if(np<0||np>=AXIS||ALL.some(c=>c!==target&&alive(c)&&c.pos===np))break;target.pos=np;}logLine(`${target.name} is thrown clear!`,cls);releaseGrapple(target);}
+  if(e.breakHold)releaseGrapple(target);
+}
+function applyMounted(owner,target,rounds){
+  owner.grappleTarget=target;target.grappledBy=owner;target.grappleAge=0;target.grappleLanded=true;target.grappleAttempts=0;
+  if(!hasStatus(target,"Grappled"))target.statuses.push({kind:"Grappled",rounds,stacks:1,tick:0,mag:0,source:owner});
+  target.statuses.push({kind:"Mounted",rounds,stacks:1,tick:0,mag:0,source:owner});
+  if(!hasStatus(owner,"Grappling"))owner.statuses.push({kind:"Grappling",rounds,stacks:1,tick:0,mag:0,source:owner});
+  owner.mc=0;target.mc=0;target.poise=0;
+  logLine(`${owner.name} advances to mount on ${target.name}, guard shattered!`,"f"+owner.faction);
+}
+function attemptEscape(victim){
+  const g=victim.grappledBy;if(!g||!alive(g)){releaseGrapple(victim);return;}
+  if(g.stam<=0){logLine(`${g.name} has nothing left — ${victim.name} shoves the exhausted hold apart!`);releaseGrapple(victim);return;}
+  if(victim.grappleAge===0){if(!victim.grappleLanded)victim.grappleAttempts++;logLine(`${victim.name} thrashes in ${g.name}'s fresh hold — no leverage yet.`);return;}
+  const gs=eff(g),vs=eff(victim);const dc=max(BAL.grappleEscapeFloorDC,gs.STR+gs.AGI+BAL.grappleEscapeBaseDC-victim.grappleAttempts*BAL.grappleEscapeEasing);
+  const roll=hasStatus(victim,"Mounted")?min(d(20),d(20)):d(20);
+  if(vs.STR+vs.AGI+roll>=dc){logLine(`${victim.name} wrenches free of ${g.name}'s grip!`);releaseGrapple(victim);}
+  else{victim.grappleAttempts++;logLine(hasStatus(victim,"Mounted")?`${victim.name} bucks under ${g.name}'s mount.`:`${victim.name} strains against ${g.name}'s hold.`);}
+}
+function releaseGrapple(victim){const g=victim.grappledBy;removeStatus(victim,"Grappled");removeStatus(victim,"Mounted");victim.grappledBy=null;victim.grappleAge=0;victim.grappleLanded=false;victim.grappleAttempts=0;if(g){removeStatus(g,"Grappling");g.grappleTarget=null;g.grappleFollowUps=[];}}
+
+// haunt
+function applyHaunt(owner,target){if(owner.hauntTarget){logLine(`${owner.name}'s phantom is already bound.`,"f"+owner.faction);return;}if(target.hauntedBy){logLine(`${target.name} is already haunted.`);return;}owner.hauntTarget=target;target.hauntedBy=owner;logLine(`Something slips out of ${target.name}'s shadow — a phantom only they and ${owner.name} can see.`,"f"+owner.faction);}
+function dispelHaunt(caster,reason){const v=caster.hauntTarget;if(!v)return;caster.hauntTarget=null;if(v.hauntedBy===caster)v.hauntedBy=null;logLine(`${caster.name}'s phantom unravels — ${reason}.`);}
+
+// cc
+function deniedByCc(owner){const stun=getStatus(owner,"Stun");if(stun&&denyOne(owner,stun,null))return true;const fear=getStatus(owner,"Fear");if(fear&&denyOne(owner,fear,fear.source))return true;return false;}
+function denyOne(owner,s,fleeFrom){if((s.freeDenials||0)<=0&&eff(owner).STR+d(20)>=s.breakDC){removeStatus(owner,s.kind);logLine(`${owner.name} shakes off the ${s.kind}!`);return false;}if(s.freeDenials>0)s.freeDenials--;else s.breakDC-=BAL.ccBreakDecay;if(fleeFrom&&alive(fleeFrom)){owner.pos=clamp(owner.pos+(owner.pos<fleeFrom.pos?-1:1),0,AXIS-1);logLine(`${owner.name} recoils from ${fleeFrom.name} in fear.`);}else logLine(`${owner.name} is ${s.kind} — the action is lost.`);return true;}
+
+// dojutsu
+function activateEye(owner,planet){owner.activeEye=planet;owner.eyeActive=true;owner.strain+=BAL.strainOnActivate;logLine(`  ${owner.name} opens the ${EYES[planet].deity} (strain ${round(owner.strain)}%).`,"f"+owner.faction);checkBurnout(owner);}
+function checkBurnout(c){if(c.strain<100)return;c.strain=100;c.eyeActive=false;c.activeEye=null;c.statuses.push({kind:"Blind",rounds:BAL.burnoutDurationTurns,stacks:1,tick:0,mag:0});c.noChakraRegen=BAL.burnoutDurationTurns;logLine(`  ${c.name}'s optic nerves scorch — Burnout! Blinded ${BAL.burnoutDurationTurns} rounds.`);}
+
+// summon
+const SUMMON_STATS={Tank:{STR:10,AGI:6,FORT:14,INT:4,CHA:6},DPS:{STR:16,AGI:16,FORT:8,INT:6,CHA:6},Assassin:{STR:16,AGI:18,FORT:6,INT:6,CHA:6},Bleed:{STR:12,AGI:14,FORT:8,INT:6,CHA:6},Healer:{STR:6,AGI:8,FORT:8,INT:12,CHA:14},Support:{STR:8,AGI:10,FORT:10,INT:8,CHA:10},Scout:{STR:10,AGI:16,FORT:8,INT:6,CHA:6},Generic:{STR:10,AGI:10,FORT:10,INT:6,CHA:6}};
+const SUMMON_SPECIES=[["Ashwini (Horse)","Scout"],["Bharani (Elephant)","Tank"],["Krittika (Razor Goat)","Bleed"],["Rohini (Serpent)","Assassin"],["Mrigashira (Deer)","Scout"],["Ardra (Wolf)","Support"],["Punarvasu (Cat)","DPS"],["Pushya (Ram)","Tank"],["Ashlesha (Naga)","DPS"],["Magha (Lion)","DPS"],["Hasta (Buffalo)","Tank"],["Chitra (Tiger)","Assassin"],["Shatabhisha (Mare)","Healer"],["Revati (Fish)","Support"]].map(([name,role])=>({name,role}));
+function summonAbilities(sp){
+  const pow={DPS:16,Assassin:16,Tank:8,Bleed:10,Healer:6}[sp.role]||12;
+  const fx=[E.dmg(pow)];if(sp.role==="Bleed")fx.push(E.st("Bleed",2,3));
+  const list=[mk({group:"Summon",disc:"Summon",name:sp.name+" Strike",atk:"Melee",dmg:"Physical",maxR:1,targeting:"SingleEnemy",slots:1,stam:0,chakra:0,tags:[],effects:fx})];
+  if(sp.role==="Tank"||sp.role==="Support")list.push(mk({group:"Summon",disc:"Summon",name:sp.name+" Bulwark",atk:"Melee",dmg:"None",maxR:1,targeting:"Self",slots:1,stam:0,chakra:0,tags:[],effects:[E.st("Fortified",1,sp.role==="Tank"?20:12),E.mc(2)]}));
+  if(sp.role==="Healer")list.push(mk({group:"Summon",disc:"Summon",name:sp.name+" Mend",atk:"Magic",dmg:"None",maxR:6,targeting:"SingleAlly",slots:1,stam:0,chakra:0,tags:[],effects:[E.heal(16)]}));
+  return list;
+}
+function spawnSummon(owner){
+  if(owner.isSummon)return;
+  if(owner.activeSummon&&alive(owner.activeSummon)){logLine(`  ${owner.name}'s ${owner.activeSummon.name} is already out.`);return;}
+  const sp=owner.summonSpecies||SUMMON_SPECIES[0];const st=SUMMON_STATS[sp.role];
+  const s=makeFighter(sp.name,owner.sign,{...st},owner.faction,clamp(owner.pos+(owner.pos<AXIS/2?1:-1),0,AXIS-1),[],null);
+  s.isSummon=true;s.role=sp.role;s.abilities=summonAbilities(sp);
+  owner.activeSummon=s;owner.chakraReserved=2*BAL.summonReservePerTier;owner.chakra=min(owner.chakra,effMaxChakra(owner));
+  PENDING_SPAWNS.push(s);
+  logLine(`  ${owner.name} summons ${s.name}! (chakra reserved ${owner.chakraReserved})`,"f"+owner.faction);
+}
+
+function postRound(c){
+  if(!alive(c))return;
+  for(let i=c.statuses.length-1;i>=0;i--){const s=c.statuses[i];
+    if(["Bleed","Burn","Poison","Psychosomatic"].includes(s.kind)&&s.tick>0){const t=round(s.tick*s.stacks);c.hp=max(0,c.hp-t);logLine(`${s.kind} gnaws at ${c.name} for ${RED(t)}.`);}
+    else if(s.kind==="Regen"&&s.tick>0)c.hp=min(c.maxHp,c.hp+round(s.tick*s.stacks));
+    if(s.kind!=="Stealth"&&--s.rounds<=0)c.statuses.splice(i,1);}
+  if(hasStatus(c,"Stealth")){c.stealthAge++;const det=enemiesOf(c).sort((a,b)=>D.perception(eff(b))-D.perception(eff(a)))[0];
+    if(det&&c.stealthAge>=2){const hide=D.perception(eff(c))+d(20);const dc=D.perception(eff(det))+BAL.stealthBaseDC+(c.stealthAge-2)*BAL.stealthDcPerRound;if(hide<dc){removeStatus(c,"Stealth");c.stealthAge=0;logLine(`  ${det.name} sees through ${c.name}'s concealment!`);}}}
+  else c.stealthAge=0;
+  const sleep=getStatus(c,"Sleep");if(sleep){if(eff(c).FORT+d(20)>=sleep.breakDC){removeStatus(c,"Sleep");logLine(`  ${c.name} stirs awake.`);}else sleep.breakDC-=BAL.ccBreakDecay;}
+  if(c.grappledBy){const g=c.grappledBy;const upkeep=hasStatus(c,"Mounted")?BAL.grappleHoldUpkeepStamina*2:BAL.grappleHoldUpkeepStamina;
+    if(!alive(g)||!hasStatus(c,"Grappled"))releaseGrapple(c);
+    else if(g.stam<upkeep){logLine(`${g.name} is too exhausted to keep the hold — ${c.name} slips free!`);releaseGrapple(c);}
+    else{g.stam-=upkeep;c.grappleAge++;const gs=getStatus(c,"Grappled");if(gs&&gs.tick>0){const crush=round(gs.tick);c.hp=max(0,c.hp-crush);logLine(`${g.name} crushes ${c.name} for ${RED(crush)}.`);if(gs.lifesteal){g.hp=min(g.maxHp,g.hp+crush);logLine(`  ${g.name} drinks the strength from the hold (+${GRN(crush)}).`);}}if(gs&&gs.drain>0){c.stam=max(0,c.stam-round(gs.drain));logLine(`  The hold wrings ${round(gs.drain)} stamina out of ${c.name}.`);}}}
+  if(c.hauntTarget){if(!alive(c)||!alive(c.hauntTarget))dispelHaunt(c,"its anchor is gone");else{const v=c.hauntTarget;const claw=round((BAL.hauntTickMental+eff(c).CHA*0.5)*BAL.damageScale);v.hp=max(0,v.hp-claw);logLine(`The phantom claws at ${v.name} for ${RED(claw)} — no guard can turn what only they can see.`);c.chakra=max(0,c.chakra-BAL.hauntUpkeepChakraPerTurn);if(c.chakra<=0)dispelHaunt(c,"its caster's chakra has run dry");}}
+  if(c.grappleTarget&&(!alive(c.grappleTarget)||!hasStatus(c.grappleTarget,"Grappled"))){removeStatus(c,"Grappling");c.grappleTarget=null;c.grappleFollowUps=[];}
+  for(let i=c.buffs.length-1;i>=0;i--)if(--c.buffs[i].rounds<=0)c.buffs.splice(i,1);
+  const maintainingMount=c.grappleTarget&&hasStatus(c.grappleTarget,"Mounted");
+  if(!hasStatus(c,"Grappled")&&!maintainingMount)c.stam=min(c.maxStam,c.stam+D.stamRegen(c.stats));
+  if(c.noChakraRegen<=0&&!c.eyeActive)c.chakra=min(effMaxChakra(c),c.chakra+D.chakRegen(c.stats));
+  if(c.eyeActive){if(c.chakra>=BAL.eyeUpkeepChakraPerTurn){c.chakra-=BAL.eyeUpkeepChakraPerTurn;c.strain=min(100,c.strain+BAL.strainPerTurnActive);checkBurnout(c);}else{c.eyeActive=false;c.activeEye=null;logLine(`  ${c.name}'s eye flickers shut — not enough chakra.`);}}
+  else if(c.strain>0)c.strain=max(0,c.strain-BAL.strainDecayPerTurn);
+  if(c.activeSummon&&!alive(c.activeSummon)){c.activeSummon=null;c.chakraReserved=0;logLine(`  ${c.name}'s summon falls; reserved chakra returns.`);}
+  if(c.noChakraRegen>0)c.noChakraRegen--;
+}
+
+function resolveRound(plans){
+  PENDING_SPAWNS=[];ALL.forEach(startRound);const live=!battleDecided();
+  for(const p of plans){const o=p.owner;if(p.move){const foe=nearestEnemy(o);if(foe){const dir=p.move<0?(foe.pos>o.pos?1:-1):(foe.pos>o.pos?-1:1);let steps=min(abs(p.move),o.mc||0);for(let i=0;i<steps;i++){const np=o.pos+dir;if(np<0||np>=AXIS)break;if(ALL.some(c=>c!==o&&alive(c)&&c.pos===np))break;o.pos=np;o.mc--;}}}}
+  for(const c of ALL){if(!alive(c)||!c.chargingAction)continue;const ab=c.chargingAction;c.chargingAction=null;logLine(`${c.name}'s ${ab.name} erupts!`,"f"+c.faction);resolveAoe(c,ab);if(live&&battleDecided())break;}
+  const sched=plans.filter(p=>alive(p.owner)&&p.actions.length).map(p=>({owner:p.owner,actions:p.actions.slice(),next:0,init:D.baseInit(eff(p.owner))+d(BAL.initDie)}));
+  while(true){
+    if(live&&battleDecided())break;
+    let best=null,bestKey=-1e9;
+    for(const s of sched){if(s.next>=s.actions.length||!alive(s.owner))continue;const key=s.init-ccInitPenalty(s.owner)-selOffset(s.actions[s.next]);if(key>bestKey){bestKey=key;best=s;}}
+    if(!best)break;
+    const ab=best.actions[best.next];best.next++;const o=best.owner;
+    if(hasStatus(o,"Sleep")){logLine(`${o.name} is fast asleep.`);best.next=best.actions.length;continue;}
+    if(o.pendingSkips>0){o.pendingSkips--;logLine(`${o.name} is staggered — action canceled.`,"sys");continue;}
+    best.init-=depletion(ab);resolveAction(o,ab);
+    if(live&&battleDecided())break;
+  }
+  if(!(live&&battleDecided()))ALL.forEach(postRound);
+  if(PENDING_SPAWNS.length){ALL.push(...PENDING_SPAWNS);PENDING_SPAWNS=[];}
+}
+
+/* =========================================================================
+   AI
+   ========================================================================= */
+function planFor(actor,difficulty){
+  const foe=nearestEnemy(actor);if(!foe)return{owner:actor,actions:[],move:0};
+  const plan=[];let slots=0,stam=actor.stam,chak=actor.chakra;
+  const dist0=abs(actor.pos-foe.pos);const usedSelf=new Set();
+  const A=affinity(actor.sign,foe.sign);const noise=difficulty;
+  function score(ab){
+    if((ab.tags.includes("RequiresGrapple")||ab.tags.includes("GrappleFollowUp")||ab.tags.includes("RequiresMounted"))&&!actor.grappleTarget)return -1;
+    if(ab.tags.includes("EyeJutsu")&&!actor.eyeActive)return -1;
+    if(ab.tags.includes("Trap")&&(actor.trapUses[ab.id]||0)>=BAL.trapUsesPerBattle)return -1;
+    if((ab.targeting==="Self"||ab.targeting==="AlliesInRadius")&&usedSelf.has(ab.name))return -1;
+    let s=0;const dmgE=ab.effects.find(e=>e.k==="Damage");
+    if(dmgE&&ab.dmg!=="None"){
+      const reachOk=ab.maxR>=dist0||(actor.mc>0&&ab.atk==="Melee");
+      const dEval=min(ab.maxR>=dist0?dist0:ab.maxR,ab.maxR)||1;const rr=evalRange(ab,ab.atk==="Melee"?1:dEval);
+      if(rr.outcome==="Impossible"&&!(reachOk&&ab.atk==="Melee"))return 0.2;
+      const base=baseDamage(ab.dmg,dmgE.power,eff(actor),eff(foe),foe.poise>0)*BAL.damageScale*dmgMult(ab)*A.dmgDone;
+      const hit=clamp(BAL.baseHitChance+D.acc(eff(actor))-D.eva(eff(foe)),0,100)/100*(rr.bandMod||60)/100;
+      s=base*(0.4+hit)+(ab.tags.includes("Ultimate")?18:0);
+    } else {
+      for(const e of ab.effects){
+        if(e.k==="Status"&&!hasStatus(foe,e.status)&&(ab.targeting==="SingleEnemy"||ab.targeting==="PointRadius"))s+=["Stun","Sleep","Fear"].includes(e.status)?15:["Silence","Slow","Blind","Confusion","Root"].includes(e.status)?8:4;
+        if(e.k==="Buff")s+=4;
+        if(e.k==="Heal"&&actor.hp<actor.maxHp*0.5)s+=e.power*1.0;
+        if(e.k==="Status"&&e.status==="Fortified")s+=(actor.hp<actor.maxHp*0.5?7:0);
+        if(e.k==="Status"&&e.status==="Stealth"&&actor.hp<actor.maxHp*0.4)s+=10;
+        if(e.k==="Grapple"&&!actor.grappleTarget)s+=(eff(actor).STR>eff(foe).STR?9:3);
+        if(e.k==="SpawnSummon"&&!actor.activeSummon)s+=10;
+        if(e.k==="ActivateEye"&&!actor.eyeActive&&actor.strain<30)s+=9;
+        if(e.k==="Haunt"&&!actor.hauntTarget&&eff(actor).CHA>=12)s+=11;
+      }
+      if(ab.name==="Charge Chakra")s=(chak<actor.maxChakra*0.3)?9:1.5;
+      if(ab.name==="Catch Breath")s=(stam<actor.maxStam*0.3)?9:1.5;
+    }
+    if(ab.tags.includes("Priority"))s+=3;
+    return s*(1+(rand()*2-1)*noise);
+  }
+  for(let guard=0;guard<9&&slots<5;guard++){
+    let best=null,bs=1.0;
+    for(const ab of actor.abilities){if(slots+ab.slots>5)continue;const ex=repetitionExtra(actor,ab);if(stam<round(ab.stam*costMult(ab))+ex.stam||chak<round(ab.chakra*costMult(ab))+ex.chak)continue;const sc=score(ab);if(sc>bs){bs=sc;best=ab;}}
+    if(!best)break;
+    plan.push(best);slots+=best.slots;stam-=round(best.stam*costMult(best));chak-=round(best.chakra*costMult(best));
+    if(best.targeting==="Self"||best.targeting==="AlliesInRadius")usedSelf.add(best.name);
+    if(best.tags.includes("Charge"))break;
+  }
+  // Aggression floor: a plan must always press SOME damage — otherwise two sustain-heavy AIs turtle
+  // forever. If nothing offensive got queued, slot the best affordable, in-reach attack.
+  const hasAttack=plan.some(a=>a.effects.some(e=>e.k==="Damage")&&a.dmg!=="None");
+  if(!hasAttack){
+    let best=null,bv=-1;
+    for(const ab of actor.abilities){
+      const de=ab.effects.find(e=>e.k==="Damage");if(!de||ab.dmg==="None")continue;
+      if(round(ab.stam*costMult(ab))>actor.stam||round(ab.chakra*costMult(ab))>actor.chakra)continue;
+      if(ab.tags.includes("RequiresGrapple")||ab.tags.includes("GrappleFollowUp")||ab.tags.includes("RequiresMounted")||(ab.tags.includes("EyeJutsu")&&!actor.eyeActive))continue;
+      const v=baseDamage(ab.dmg,de.power,eff(actor),eff(foe),foe.poise>0)*dmgMult(ab);
+      if(v>bv){bv=v;best=ab;}
+    }
+    if(best){if(plan.length>=5)plan.pop();plan.unshift(best);}
+  }
+  if(!plan.length){const strike=actor.abilities.find(a=>a.name==="Chakra Bullet"||a.disc==="Summon");if(strike)plan.push(strike);}
+  return{owner:actor,actions:plan,move:0};
+}
+
+/* =========================================================================
+   UI
+   ========================================================================= */
+let AXIS=9;
+let queue=[],plannedMove=0,activeDisc="General",previewAb=null;
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const STAT_DESC={STR:"Physical & True dmg, mitigation",AGI:"Accuracy, evasion, initiative, movement",FORT:"HP, stamina, poise",INT:"Elemental dmg, healing",CHA:"Chakra, poise, potency"};
+let stats={STR:6,AGI:6,FORT:6,INT:6,CHA:6};
+let yourSign="Aries",foeSign="Leo",pickMartial=null,pickWeapon=null,pickEye=null,pickSummon=SUMMON_SPECIES[6],pickBlood=null;
+const BASE=6,POOL=14;
+const ptsUsed=()=>Object.values(stats).reduce((a,v)=>a+(v-BASE),0);
+
+function buildWheels(){
+  for(const[id,cur,set]of[["yourWheel",()=>yourSign,s=>yourSign=s],["foeWheel",()=>foeSign,s=>foeSign=s]]){
+    const el=$("#"+id);el.innerHTML="";
+    SIGNS.forEach(s=>{const b=document.createElement("button");b.className="zbtn ele-"+ELEM[s].toLowerCase()+(cur()===s?" on":"");
+      b.innerHTML=`<span class="g">${GLYPH[s]}</span><span class="n">${s.slice(0,3)}</span><small>${ELEM[s]}</small>`;
+      b.onclick=()=>{set(s);buildWheels();};el.appendChild(b);});
+  }
+}
+function pickerRow(el,items,cur,set,noneLabel){
+  el.innerHTML="";
+  const none=document.createElement("button");none.className="pk"+(cur()==null?" on":"");none.textContent=noneLabel;none.onclick=()=>{set(null);buildPickers();};el.appendChild(none);
+  items.forEach(([key,label,sub])=>{const b=document.createElement("button");b.className="pk"+(cur()===key?" on":"");b.innerHTML=label+(sub?`<small>${sub}</small>`:"");b.onclick=()=>{set(key);buildPickers();};el.appendChild(b);});
+}
+function buildPickers(){
+  pickerRow($("#pickMartial"),Object.keys(MARTIAL).map(k=>[k,k.replace("JiuJitsu","Jiu-Jitsu").replace("MuayThai","Muay Thai")]),()=>pickMartial,v=>pickMartial=v,"None");
+  pickerRow($("#pickWeapon"),Object.keys(WEAPONS).map(k=>[k,k]),()=>pickWeapon,v=>pickWeapon=v,"None");
+  pickerRow($("#pickEye"),EYE_PLANETS.map(p=>[p,EYES[p].deity,EYES[p].arch]),()=>pickEye,v=>pickEye=v,"None");
+  pickerRow($("#pickSummon"),SUMMON_SPECIES.map(s=>[s,s.name.split(" ")[0],s.role]),()=>pickSummon,v=>pickSummon=v,"None");
+  pickerRow($("#pickBlood"),BLOOD_KEYS.map(k=>[k,k,BLOODLINES[k].name.split(":")[1]]),()=>pickBlood,v=>pickBlood=v,"None");
+}
+function buildStats(){
+  const el=$("#statList");el.innerHTML="";
+  for(const k of["STR","AGI","FORT","INT","CHA"]){
+    const row=document.createElement("div");row.className="statrow";
+    row.innerHTML=`<span class="lbl">${k}</span><span class="desc">${STAT_DESC[k]}</span>`;
+    const step=document.createElement("div");step.className="stepper";
+    const minus=document.createElement("button");minus.textContent="−";const val=document.createElement("span");val.className="v";val.textContent=stats[k];const plus=document.createElement("button");plus.textContent="+";
+    minus.disabled=stats[k]<=BASE;plus.disabled=ptsUsed()>=POOL;
+    minus.onclick=()=>{if(stats[k]>BASE){stats[k]--;buildStats();}};plus.onclick=()=>{if(ptsUsed()<POOL){stats[k]++;buildStats();}};
+    step.append(minus,val,plus);row.appendChild(step);el.appendChild(row);
+  }
+  $("#ptsLeft").textContent=POOL-ptsUsed();
+  const dd=[["HP",D.maxHp(stats)],["Stamina",D.maxStam(stats)],["Chakra",D.maxChakra(stats)],["Poise",D.maxPoise(stats)],["Move",D.mc(stats)+"t"],["Init",Math.round(D.baseInit(stats))]];
+  $("#derived").innerHTML=dd.map(([k,v])=>`<div class="dchip"><div class="k">${k}</div><div class="val num">${v}</div></div>`).join("");
+}
+const DIFFNAME=()=>DIFF>=0.3?"Padawan":DIFF>=0.1?"Adept":"Grandmaster";
+function elemColor(sign){return{Fire:"var(--fire)",Earth:"var(--earth)",Air:"var(--air)",Water:"var(--water)"}[ELEM[sign]];}
+
+function renderRoster(){
+  const r=$("#roster");r.innerHTML="";
+  [YOU,FOE].forEach(f=>{
+    const asp=affinity(YOU.sign,FOE.sign).aspect;
+    const bars=[["HP","hp",f.hp,f.maxHp],["STA","stam",f.stam,f.maxStam],["CHK","chakra",f.chakra,effMaxChakra(f)],["POI","poise",f.poise,f.maxPoise]];
+    if(f.strain>0||f.eyeActive)bars.push(["STR","strain",f.strain,100]);
+    const chips=[];
+    f.statuses.forEach(s=>{const good=["Regen","Shield","Stealth","Fortified"].includes(s.kind);const cls=(s.kind==="Grappling"||s.kind==="Grappled"||s.kind==="Mounted")?"bad":good?"good":"bad";chips.push(`<span class="chip ${cls}">${s.kind}${s.stacks>1?"×"+s.stacks:""} ${s.rounds}r</span>`);});
+    f.buffs.forEach(b=>chips.push(`<span class="chip buff">${b.stat}+${b.pct}% ${b.rounds}r</span>`));
+    if(f.eyeActive)chips.push(`<span class="chip eye">◉ ${EYES[f.activeEye].deity}</span>`);
+    if(f.chargingAction)chips.push(`<span class="chip good">⚡ ${f.chargingAction.name}</span>`);
+    if(f.hauntTarget)chips.push(`<span class="chip bad">phantom bound</span>`);
+    const summon=ALL.find(c=>c.isSummon&&c.faction===f.faction&&alive(c));
+    const card=document.createElement("div");card.className=`card pad fighter f${f.faction}`+(f._flash?" flash":"");f._flash=false;
+    card.innerHTML=`
+      <div class="summon-tag">${f.isPlayer?"YOU":"AI · "+DIFFNAME()}</div>
+      <div class="fhead"><div class="fg" style="border-color:${elemColor(f.sign)}">${GLYPH[f.sign]}</div>
+      <div><div class="fname">${f.name}</div><div class="fmeta">${f.sign} · ${ELEM[f.sign]} · ${f.isPlayer?("aspect "+asp):("HP "+f.hp+"/"+f.maxHp)}</div></div></div>
+      <div class="bars">${bars.map(([l,c,v,m])=>`<div class="bar"><span class="bl">${l}</span><div class="track"><div class="fill f-${c}" style="width:${clamp(v/m*100,0,100)}%"></div></div><span class="bv num">${max(0,round(v))}/${round(m)}</span></div>`).join("")}</div>
+      <div class="chips">${chips.join("")||'<span class="chip" style="opacity:.4">clear</span>'}</div>
+      ${summon?`<div class="minis"><div class="mini"><div class="mh"><span class="mg token ts">${GLYPH[summon.sign]}</span> ${summon.name} <span style="color:var(--ink-faint);font-weight:400">${summon.role}</span></div><div class="bar" style="margin-top:5px"><span class="bl">HP</span><div class="track"><div class="fill f-hp" style="width:${clamp(summon.hp/summon.maxHp*100,0,100)}%"></div></div><span class="bv num">${summon.hp}/${summon.maxHp}</span></div></div></div>`:""}`;
+    r.appendChild(card);
+  });
+}
+function renderAxis(){
+  const ax=$("#axis");ax.innerHTML="";
+  const foeDist=abs((nearestEnemy(YOU)||FOE).pos-YOU.pos);
+  for(let i=0;i<AXIS;i++){
+    const dist=abs(i-YOU.pos);const t=document.createElement("div");
+    let bc=bandFor(dist).toLowerCase();
+    if(previewAb){const rr=evalRange(previewAb,dist);bc=rr.outcome==="Impossible"?"":bandFor(dist).toLowerCase();}
+    t.className="tile "+bc;
+    let tok="";ALL.filter(c=>alive(c)&&c.pos===i).forEach(c=>{const kind=c.isSummon?"ts":"t"+c.faction;tok+=`<span class="token ${kind}">${GLYPH[c.sign]}</span>`;});
+    t.innerHTML=tok+`<span class="idx">${i}</span>`;ax.appendChild(t);
+  }
+  $("#mcLeft").textContent=(D.mc(eff(YOU))-abs(plannedMove));
+  $("#planMove").textContent=plannedMove===0?"hold":plannedMove<0?`advance ${-plannedMove}`:`retreat ${plannedMove}`;
+  $("#roundNo").textContent=ROUND;
+  $("#prevAb").textContent=previewAb?`— ${previewAb.name} · ${previewAb.atk} · reach ${previewAb.maxR}t`:` — distance ${foeDist} tiles (${bandFor(foeDist)})`;
+}
+function usedSlots(){return queue.reduce((a,ab)=>a+ab.slots,0);}
+function canAfford(ab){let stam=0,chak=0;for(const q of queue){stam+=round(q.stam*costMult(q));chak+=round(q.chakra*costMult(q));}return YOU.stam-stam>=round(ab.stam*costMult(ab))&&YOU.chakra-chak>=round(ab.chakra*costMult(ab))&&usedSlots()+ab.slots<=5;}
+function lockReason(ab){
+  if(ab.tags.includes("EyeJutsu")&&!YOU.eyeActive&&!queue.some(q=>q.tags.includes("EyeOpen")))return "needs an open eye";
+  if((ab.tags.includes("RequiresGrapple")||ab.tags.includes("GrappleFollowUp"))&&!YOU.grappleTarget)return "needs a live grapple";
+  if(ab.tags.includes("RequiresMounted")&&!(YOU.grappleTarget&&hasStatus(YOU.grappleTarget,"Mounted")))return "needs a mount";
+  if(ab.tags.includes("Trap")&&(YOU.trapUses[ab.id]||0)>=BAL.trapUsesPerBattle)return "pouch empty";
+  return null;
+}
+const DISC_ORDER=["General","Taijutsu","Ninjutsu","Genjutsu","Weapon","Martial","Medical","Trap","Summon","Dojutsu","Bloodline"];
+function renderBuilder(){
+  const groups={};YOU.abilities.forEach(a=>{(groups[a.group]=groups[a.group]||[]).push(a);});
+  const tabs=$("#discTabs");tabs.innerHTML="";
+  const present=DISC_ORDER.filter(g=>groups[g]&&groups[g].length);
+  if(!present.includes(activeDisc))activeDisc=present[0];
+  present.forEach(g=>{const b=document.createElement("button");b.innerHTML=`${g}<span class="cnt">${groups[g].length}</span>`;
+    b.className=activeDisc===g?"on":"";b.style.cssText=activeDisc===g?`border-color:var(--d-${g});color:#fff;box-shadow:inset 0 -2px 0 var(--d-${g})`:"";
+    b.onclick=()=>{activeDisc=g;renderBuilder();};tabs.appendChild(b);});
+  const grid=$("#abGrid");grid.innerHTML="";
+  (groups[activeDisc]||[]).forEach(ab=>{
+    const b=document.createElement("button");b.className="ab";b.style.boxShadow=`inset 3px 0 0 var(--d-${ab.group})`;
+    const lock=lockReason(ab);b.disabled=!canAfford(ab)||!!lock;
+    const costs=[`<span class="cst slot">${ab.slots}◆</span>`];
+    if(ab.stam)costs.push(`<span class="cst stam">${round(ab.stam*costMult(ab))} sta</span>`);
+    if(ab.chakra)costs.push(`<span class="cst chak">${round(ab.chakra*costMult(ab))} chk</span>`);
+    const dmgE=ab.effects.find(e=>e.k==="Damage");if(dmgE)costs.push(`<span class="cst dmg">${ab.dmg[0]}·${dmgE.power}</span>`);
+    if(ab.poiseMult>1)costs.push(`<span class="cst gb">GB</span>`);
+    if(ab.maxR>1||ab.targeting!=="Self")costs.push(`<span class="cst rng">≤${ab.maxR}t</span>`);
+    const tag=ab.tags.find(t=>["Ultimate","Priority","Charge","GapCloser","Trap","Counter","Stance"].includes(t));
+    b.innerHTML=`<span class="an">${ab.name}</span><span class="af">${ab.disc} · ${ab.atk}${ab.kitSign&&ab.kitSign!==YOU.sign?" · "+ab.kitSign:""}</span>
+      <span class="costs">${costs.join("")}</span>${tag?`<span class="tag">${tag}</span>`:""}${lock?`<span class="lockmsg">${lock}</span>`:""}`;
+    b.onmouseenter=()=>{previewAb=ab;renderAxis();};b.onmouseleave=()=>{previewAb=null;renderAxis();};
+    b.onclick=()=>{if(canAfford(ab)&&!lock){queue.push(ab);renderAll();}};
+    grid.appendChild(b);
+  });
+}
+function renderSlots(){
+  const s=$("#slots");s.innerHTML="";
+  for(let i=0;i<5;i++){const slot=document.createElement("div");let acc=0,ab=null,isStart=false;
+    for(const q of queue){if(i>=acc&&i<acc+q.slots){ab=q;isStart=(i===acc);break;}acc+=q.slots;}
+    slot.className="slot"+(ab?" filled":"")+(ab&&ab.slots>1?" wide":"");
+    if(ab&&isStart){slot.innerHTML=`<span class="sn">SLOT ${i+1}${ab.slots>1?"–"+(i+ab.slots):""}</span><span class="st">${ab.name}</span><button class="rm" title="remove">✕</button>`;slot.querySelector(".rm").onclick=()=>{queue.splice(queue.indexOf(ab),1);renderAll();};}
+    else if(ab)slot.innerHTML=`<span class="sn">↳ ${ab.name}</span>`;
+    else slot.innerHTML=`<span class="sn">SLOT ${i+1}</span><span class="st" style="opacity:.3;font-weight:400">empty</span>`;
+    s.appendChild(slot);}
+  $("#slotInfo").textContent=`${usedSlots()} / 5 slots`;
+  $("#resolveBtn").disabled=queue.length===0&&plannedMove===0;
+  $("#whyDisabled").textContent=queue.length?"":"Queue an action (or reposition) to resolve.";
+}
+function renderAll(){renderRoster();renderAxis();renderBuilder();renderSlots();}
+function renderLog(){const el=$("#log");el.innerHTML=LOG.map(l=>`<div class="ln ${l.cls||""}">${l.text}</div>`).join("");el.scrollTop=el.scrollHeight;}
+
+function foeArchetype(sign){const e=ELEM[sign];const sp={Fire:{STR:5,AGI:4,FORT:2,INT:1,CHA:2},Earth:{STR:3,AGI:1,FORT:6,INT:2,CHA:2},Air:{STR:1,AGI:6,FORT:2,INT:3,CHA:2},Water:{STR:2,AGI:2,FORT:2,INT:5,CHA:3}}[e];const st={};for(const k in sp)st[k]=BASE+sp[k];return st;}
+function startBattle(){
+  ABID=0;
+  const youLoad=buildLoadout({sign:yourSign,martial:pickMartial,weapon:pickWeapon,eye:pickEye,bloodline:pickBlood,unlockAll:$("#unlockAll").checked});
+  YOU=makeFighter("You",yourSign,{...stats},0,2,youLoad,pickSummon);YOU.prefersRange=false;
+  const fs=$("#foeRandom").checked?SIGNS[floor(rand()*12)]:foeSign;
+  const foeStats=foeArchetype(fs);
+  const foeMartial=Object.keys(MARTIAL)[floor(rand()*Object.keys(MARTIAL).length)];
+  const foeEye=rand()<0.5?EYE_PLANETS[floor(rand()*EYE_PLANETS.length)]:null;
+  const foeLoad=buildLoadout({sign:fs,martial:foeMartial,weapon:null,eye:foeEye,bloodline:(rand()<0.4?BLOOD_KEYS[floor(rand()*BLOOD_KEYS.length)]:null),unlockAll:false});
+  FOE=makeFighter("Rival",fs,foeStats,1,AXIS-3,foeLoad,SUMMON_SPECIES[floor(rand()*SUMMON_SPECIES.length)]);
+  FOE.prefersRange=false;   // 1-D slice: fighters stand and trade rather than kite (kiting needs the 2-D arena)
+  ALL=[YOU,FOE];ROUND=1;queue=[];plannedMove=0;GOD=false;LOG.length=0;
+  logLine(`⚔ ${YOU.sign} vs ${FOE.sign} — aspect: ${affinity(YOU.sign,FOE.sign).aspect}. Round 1.`,"rnd");
+  $("#setup").style.display="none";$("#battle").style.display="block";
+  activeDisc="General";buildDebug();renderAll();renderLog();
+}
+function doResolve(){
+  const you={owner:YOU,actions:queue.slice(),move:plannedMove};
+  const others=ALL.filter(c=>c!==YOU&&alive(c)).map(c=>planFor(c,c.faction===0?0:DIFF));
+  logLine(`— Round ${ROUND} —`,"rnd");
+  resolveRound([you,...others]);
+  queue=[];plannedMove=0;previewAb=null;
+  if(battleDecided()){renderAll();renderLog();endBattle();return;}
+  ROUND++;renderAll();renderLog();
+}
+function endBattle(){
+  const win=alive(YOU)&&!enemiesOf(YOU).length;
+  const ov=$("#overlay"),card=$("#ovcard");card.className="card ovcard "+(win?"win":"lose");
+  $("#ovRes").textContent=win?"Victory":"Defeat";
+  $("#ovText").textContent=win?`You broke the ${FOE.sign} rival in ${ROUND} round${ROUND===1?"":"s"}. The stars aligned.`:`The ${FOE.sign} rival dropped you in ${ROUND} round${ROUND===1?"":"s"}. Reallocate and try again.`;
+  ov.classList.add("on");
+}
+
+// debug
+const DBG_FIELDS=[
+  ["damageScale","Damage scale",0.1,2,0.05],["baseHitChance","Base hit %",0,100,1],
+  ["mitigationPerPoint","Mitigation / point",0,0.03,0.001],["hpPerFort","HP per FORT",1,25,1],
+  ["elementalDamageMult","Elemental dmg ×",0.5,3,0.05],["elementalCostMult","Elemental cost ×",1,3,0.05],
+  ["poiseRegenMaxPercent","Poise regen /round",0,1,0.05],["initDie","Initiative die",2,20,1],
+  ["staggerCancelsNextAction","Stagger cancels",0,3,1],["aoeFriendlyFireMultiplier","AoE friendly-fire",0,1,0.05],
+  ["strainPerEyeJutsu","Eye-jutsu strain",0,40,1],["grappleEscapeBaseDC","Grapple escape DC",4,30,1],
+];
+function buildDebug(){
+  const g=$("#dbgGrid");g.innerHTML="";
+  DBG_FIELDS.forEach(([key,label,mn,mx,st])=>{const wrap=document.createElement("div");wrap.className="dbg-field";
+    wrap.innerHTML=`<label>${label} <b class="num" id="dv_${key}">${BAL[key]}</b></label><input type="range" min="${mn}" max="${mx}" step="${st}" value="${BAL[key]}">`;
+    const inp=wrap.querySelector("input");inp.oninput=()=>{BAL[key]=parseFloat(inp.value);$("#dv_"+key).textContent=BAL[key];
+      [YOU,FOE].forEach(f=>{const nm=D.maxHp(f.stats);f.hp=round(f.hp*nm/f.maxHp);f.maxHp=nm;});renderRoster();};
+    g.appendChild(wrap);});
+}
+function backToSetup(){$("#battle").style.display="none";$("#setup").style.display="block";buildWheels();buildStats();buildPickers();}
+function wire(){
+  buildWheels();buildStats();buildPickers();
+  $$("#diffSeg button").forEach(b=>b.onclick=()=>{$$("#diffSeg button").forEach(x=>x.classList.remove("on"));b.classList.add("on");DIFF=parseFloat(b.dataset.d);});
+  $("#startBtn").onclick=startBattle;$("#resolveBtn").onclick=doResolve;
+  $("#clearBtn").onclick=()=>{queue=[];plannedMove=0;renderAll();};
+  $("#advanceBtn").onclick=()=>{const m=D.mc(eff(YOU));if(plannedMove>-m){plannedMove--;renderAxis();}};
+  $("#retreatBtn").onclick=()=>{const m=D.mc(eff(YOU));if(plannedMove<m){plannedMove++;renderAxis();}};
+  $("#godBtn").onclick=()=>{GOD=!GOD;$("#godBtn").textContent="God mode: you "+(GOD?"ON":"OFF");$("#godBtn").style.borderColor=GOD?"var(--good)":"";};
+  $("#healBtn").onclick=()=>{[YOU,FOE].forEach(f=>{f.hp=f.maxHp;f.stam=f.maxStam;f.chakra=effMaxChakra(f);f.poise=f.maxPoise;});renderRoster();};
+  $("#reseedBtn").onclick=()=>{RNG=mulberry32((Math.random()*1e9)|0);logLine("· RNG reseeded.","sys");renderLog();};
+  $("#unlockLiveBtn").onclick=()=>{YOU.abilities=buildLoadout({sign:YOU.sign,martial:pickMartial,weapon:pickWeapon,eye:pickEye,bloodline:pickBlood,unlockAll:true});renderBuilder();logLine("· All kits, eyes & bloodlines unlocked on your fighter.","sys");renderLog();};
+  $("#newFighterBtn").onclick=backToSetup;
+  $("#rematchBtn").onclick=()=>{$("#overlay").classList.remove("on");startBattle();};
+  $("#backBtn").onclick=()=>{$("#overlay").classList.remove("on");backToSetup();};
+}
+(function stars(){const c=$("#stars"),x=c.getContext("2d");function draw(){c.width=innerWidth;c.height=innerHeight;x.clearRect(0,0,c.width,c.height);const n=Math.min(160,(c.width*c.height)/12000);for(let i=0;i<n;i++){const px=Math.random()*c.width,py=Math.random()*c.height,r=Math.random()*1.3;x.globalAlpha=.2+Math.random()*.6;x.fillStyle=Math.random()<.15?"#a06bff":Math.random()<.3?"#4fd6e0":"#cfd0ff";x.beginPath();x.arc(px,py,r,0,7);x.fill();}}draw();addEventListener("resize",draw);})();
+wire();
+</script>

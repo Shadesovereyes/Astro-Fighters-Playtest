@@ -1,0 +1,96 @@
+{
+  "schema": "astro-fighters-character-item/v1",
+  "item": "wakizashi",
+  "kind": "rigid weapon (AGENTS.md: rigid items are placed by anchor with integer offsets)",
+  "status": "approved by user 2026-10-13 (with the one-handed stance)",
+  "construction": "band: a straight band along the weapon axis from the grip point (the centre of the near fist); every pixel takes its colour from the cross-section pattern (back/spine to front/edge) of the segment it falls in, so the weapon keeps its thickness at any angle; pixels are rasterised from the authored data, never rotated or resampled from an image",
+  "palette": {
+    "#": "#000000",
+    "a": "#adadad",
+    "W": "#ffffff",
+    "t": "#3b2014",
+    "s": "#a9977d",
+    "h": "#ddcdb4"
+  },
+  "paletteSource": "colours already in the approved male clothing layers: #adadad armour grey (blade steel, guard, pommel), #ffffff armour/Gi white (edge), #3b2014 Gi shoe brown (hilt wrap), #a9977d Gi trouser shade (hilt diamonds), #ddcdb4 Gi trouser mid (blade collar)",
+  "units": "pixels along the axis from the grip point (u, positive toward the tip) and across it (v)",
+  "segments": [
+    {
+      "name": "pommel",
+      "from": -4,
+      "to": -3,
+      "thickness": 4,
+      "pattern": [
+        "#aa#"
+      ]
+    },
+    {
+      "name": "hilt",
+      "from": -3,
+      "to": 2.5,
+      "thickness": 4,
+      "pattern": [
+        "#ts#",
+        "#st#"
+      ],
+      "patternRule": "the wrap alternates every pixel along the hilt (diamond wrap)"
+    },
+    {
+      "name": "guard",
+      "from": 2.5,
+      "to": 3.5,
+      "thickness": 6,
+      "pattern": [
+        "#aaaa#"
+      ]
+    },
+    {
+      "name": "collar",
+      "from": 3.5,
+      "to": 4.5,
+      "thickness": 4,
+      "pattern": [
+        "#hh#"
+      ]
+    },
+    {
+      "name": "blade",
+      "from": 4.5,
+      "to": 16,
+      "thickness": 3.5,
+      "pattern": [
+        "#aW#"
+      ]
+    },
+    {
+      "name": "tip",
+      "from": 16,
+      "to": 19,
+      "thickness": 2.5,
+      "pattern": [
+        "#W#"
+      ],
+      "taper": "spine side cut back toward the edge"
+    }
+  ],
+  "outline": "every coloured pixel touching empty space gets an outline pixel (#) if it is not already one",
+  "grip": "one-handed: the hilt holds the near fist only",
+  "note": "the katana construction shortened for one hand: hilt 5 px instead of 9.5, blade 11 px instead of 16.5",
+  "trail": {
+    "rule": "swing smear colours, from the blade tip inward (pixels from the outer edge): colours already in the approved palette (Gi/armour white, body wrap grey, armour grey); hard alpha",
+    "bands": [
+      {
+        "to": 1.5,
+        "colour": "#ffffff"
+      },
+      {
+        "to": 3,
+        "colour": "#e3e3e3"
+      },
+      {
+        "to": 99,
+        "colour": "#adadad"
+      }
+    ]
+  }
+}

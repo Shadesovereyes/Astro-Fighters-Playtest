@@ -81,7 +81,7 @@ Verify in Phaser:
 - separate runtime assets are loaded and assembled as world layers;
 - the player moves continuously in real time;
 - collision is authored independently from appearance imagery;
-- eight-direction facing/animation responds to movement;
+- four-direction facing/animation (S, E, N, W) responds to eight-direction movement;
 - foreground/background depth ordering works;
 - the player can pass in front of and behind appropriate objects;
 - authored cutaways/roof behavior works where applicable;
@@ -102,10 +102,12 @@ Ordinary exploration uses continuous real-time movement:
 - velocity in pixels/second;
 - delta-time update;
 - normalized diagonal movement;
-- eight-direction facing from movement vector;
+- four-direction facing (S, E, N, W) from the movement vector: any horizontal component faces E or W (NE/SE use E, NW/SW use W), pure vertical faces N or S, no input keeps the last facing;
 - idle/walk/ready state from real movement state;
 - authored world collision;
 - pixel-snapped rendering where appropriate.
+
+Four-direction facing was adopted by the user on 2026-10-12 and replaces eight-direction facing. Character runtime animation sheets have the rows S, E, N, W; W mirrors E. The locked reference sheets keep all eight frames unchanged, and the rig, anchors and overlay registration stay valid for all eight, so diagonal facings can return only by an explicit user relock. Attacks play and resolve in the current facing; an attack press with a selected target first turns the character to face it (user, 2026-10-12).
 
 The logical 32×32 grid may still support AI, navigation sectors, authored placement, combat telegraphs, encounter logic, or abilities. It is structural, not graphical.
 
@@ -125,24 +127,67 @@ Do not smooth or photographically interpolate production pixel art.
 
 ---
 
-# Locked character-sheet preservation standard
+# Locked base geometry — change control
 
-The finalized male and female character sheets are **production geometry, not inspiration**. When creating clothing, armor, equipment, accessories, or inspection previews, preserve the approved character pixels rather than regenerating or reinterpreting them.
+The finalized male and female character sheets are **production geometry, not inspiration**. Approved base frames are never regenerated, reinterpreted, smoothed, or redrawn. Base geometry may grow only through the approval gate below; it is never changed casually.
 
-Mandatory rules:
+The rule exists for two reasons, and both must keep holding:
 
-- **Never regenerate the base character.** Do not redraw the body, hair, face, anatomy, stance, proportions, directional pose, silhouette, or frame placement.
-- **Never reinterpret the pixel style.** Match the approved sprite vocabulary exactly; do not smooth, modernize, increase detail density, or introduce a different shading language.
-- Work on the native **512×64 character sheet**, consisting of **eight contiguous 64×64 frames**. Do not reorder, resize, reposition, warp, or resample the approved base frames.
-- Preserve every existing source pixel unless the user explicitly authorizes changing the base character itself.
-- Clothing/equipment must be built as **separate transparent pixel overlays** fitted to the existing silhouette. Do not alter the body to make a garment fit.
-- Enlarged inspection versions must be derived only from the native asset using **integer nearest-neighbor scaling**. A 10× inspection sheet is therefore **5120×640**.
-- Do not use an AI-generated dressed-character image as a composite preview. Composite previews must be made mechanically by placing the approved overlay over the untouched approved base sheet.
-- Do not add extra shading, contour detail, texture density, or anatomical information beyond the established source-sprite vocabulary merely because a generator can produce it.
-- If a garment or equipment layer cannot be placed without guessing hidden body geometry, stop at the specific ambiguous frame/area and identify the uncertainty rather than inventing anatomy, pose changes, or replacement pixels.
-- High-contrast-background inspection may be used to find holes, stray transparency, floating pixels, broken seams, and routing errors, but QC corrections belong in the overlay—not in the locked base character.
+1. **no drift** — generators and redraws must not reinterpret the character; approved pixels are authored data, not a style suggestion;
+2. **exact registration** — every clothing, armor, equipment, and accessory overlay is registered pixel-for-pixel to the base. Interchangeable equipment depends on base geometry that does not move.
 
-For character-sheet asset work, these preservation rules override older experimental source-lattice assumptions or branch/package notes that would require redrawing the approved base geometry. Do not silently convert the locked 512×64 sheets into a different source format.
+## Reference poses
+
+- The existing native **512×64** sheets (**eight contiguous 64×64 frames**) remain untouched as the reference poses and as frame 0 of the `ready` state for each direction.
+- Sheet frame order, left to right (frames 0–7): **S, SE, E, NE, N, NW, W, SW**. Every character sheet and overlay uses this order.
+- Do not reorder, resize, reposition, warp, or resample the reference frames.
+- Preserve every reference-pose pixel unless the user explicitly authorizes a base-character edit.
+
+## Approval gate for new base frames (animation bases)
+
+New body frames for animation states (idle, walk, ready, attack, and later states) may be authored only when they:
+
+- are authored as data specs rendered deterministically — never converted from generator output;
+- use only the locked body palette, hard alpha, and no shading, texture density, contour, or anatomy beyond the established sprite vocabulary;
+- keep the shared 64×64 frame and pivot/foot contact unless the motion intends otherwise (jump, lunge);
+- trace every part to reference-pose pixels or to an approved part variant (cut-out rig moves are whole-pixel only; no rotation or resampling);
+- carry committed anchor and per-frame draw-order metadata;
+- receive user approval, recorded per state per direction.
+
+On approval, a new base frame becomes **locked production geometry** with protection identical to the reference poses. Changing any approved frame requires an explicit user unlock, a recorded reason, and re-verification of every overlay registered to it.
+
+## Body geometry and skin variants
+
+- Each body (male, female) has one canonical geometry. Skin-tone variants are palette swaps of that geometry, not separate sheets.
+- **Body1 is the only base geometry for both bodies.** All animation bases and overlays register to Body1.
+- Male Body1 was replaced by the user's updated sheet (authorized 2026-10-06): straighter, narrower legs in S and N, and small foot changes in NE and NW (6 px each); head, torso, arms and the other frames are unchanged. Its two retired near-duplicate colours were mapped onto the locked ramp on intake.
+- Female Body1 is the user's corrected sheet (2026-10-02), which removes 4 stray pixels outside the outline (frames 0, 1, 7).
+- **Body2 sheets are skin-tone references only**, not geometry, not animation bases, and not runtime assets. They are kept unmodified as the colour authority for the second skin tone; their silhouette and interior shading are not binding.
+- Body1 and Arms1 (male and female) share one locked 5-step skin ramp: `#f6a35b` light, `#c87845` mid, `#9e4a31` shadow, `#70241d` dark, `#3f0505` deep, plus `#000000` outline and `#ffffff`/`#e3e3e3` wraps (consolidated 2026-10-02; colour-only edit, no pixel moved). Hair layers keep their own colours.
+- Skin-tone variants are produced by mapping that ramp step-for-step to a target ramp. Tone 2 (approved 2026-10-02): `#e0764b` light, `#b24b36` mid, `#96392b` shadow, `#7b2b21` dark, `#4a1510` deep; recorded in `production/asset-manifest.json`.
+
+## Equipment and overlays
+
+- Clothing, armor, equipment, and accessories are separate transparent pixel overlays fitted to approved base frames. Never alter the body to make a garment fit.
+- Overlays contain no replacement skin, body, hair, face, or background pixels.
+- **Rigid items** (helmets, shoulder pieces, weapons, shields) are authored per direction plus approved variants and placed by anchor with integer offsets.
+- **Deformable items** (garments, armor bodies, sleeves, trousers, hair) are authored per body-part pose (torso, head, near/far arm, near/far leg) and reused wherever that part pose appears.
+- Draw order comes from per-frame metadata and follows the character's anatomical side.
+- An equipment item is not runtime-eligible until its coverage table shows every direction × state × frame covered by an overlay, an anchor placement, or a reused part pose.
+- QC corrections belong in the overlay — never in a locked base frame.
+- If fitting an item requires hidden or unapproved body geometry, stop at the specific frame/area and report it rather than inventing anatomy or pose changes.
+
+## Generated imagery
+
+AI-generated images are reference only (pose ideas, silhouettes, palette studies). No production pixel may come from converting a generated image, including palette-matched or downsampled conversions. Production pixels come only from authored specs or direct pixel authoring.
+
+## Inspection and previews
+
+- Enlarged inspection versions use **integer nearest-neighbor scaling** only. A 10× inspection sheet is **5120×640**.
+- Composite previews are mechanical: approved overlays placed over untouched approved base frames. Never present an AI-generated dressed-character image as a composite.
+- High-contrast-background inspection may be used to find holes, stray transparency, floating pixels, broken seams, and routing errors.
+
+These rules override older experimental `480×640` source-lattice / `48×64` runtime assumptions, which are retired for character production. Do not silently convert the locked sheets into a different source format.
 
 ---
 

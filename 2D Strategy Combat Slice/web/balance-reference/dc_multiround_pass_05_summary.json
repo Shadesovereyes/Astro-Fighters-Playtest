@@ -1,0 +1,54 @@
+{
+  "date": "2026-08-13",
+  "scope": {
+    "kits": 22,
+    "screenBattles": 19184,
+    "bands": ["L10/A0", "L20/A5", "L45/A10", "L90/A10"],
+    "profiles": ["Balanced", "PhysicalOffense", "ControlOffense", "PhysicalDefense", "MentalDefense"]
+  },
+  "overall": {
+    "legacy": {"battles": 9240, "avgRounds": 5.9685, "drawRate": 0.07565, "statusLandsPerBattle": 4.2338, "resistsPerBattle": 26.2885, "hardDenialsPerBattle": 0.00022, "resourceFizzlesPerBattle": 0.00823},
+    "candidate": {"battles": 9240, "avgRounds": 7.9503, "drawRate": 0.18041, "statusLandsPerBattle": 14.1715, "resistsPerBattle": 15.0943, "hardDenialsPerBattle": 0.80162, "resourceFizzlesPerBattle": 0.06775}
+  },
+  "highSampleBuildStress": {
+    "physicalOffense_vs_physicalDefense": {
+      "legacy": {"n": 1056, "offenseWin": 0.42519, "defenseWin": 0.57386, "draw": 0.00095, "avgRounds": 5.3419},
+      "candidate": {"n": 1056, "offenseWin": 0.16761, "defenseWin": 0.83239, "draw": 0.0, "avgRounds": 6.3182}
+    },
+    "controlOffense_vs_mentalDefense": {
+      "legacy": {"n": 1056, "offenseWin": 0.30398, "defenseWin": 0.48011, "draw": 0.21591, "avgRounds": 7.7206},
+      "candidate": {"n": 1056, "offenseWin": 0.26799, "defenseWin": 0.46970, "draw": 0.26231, "avgRounds": 8.9517}
+    }
+  },
+  "roundCap24FlaggedCandidateDrawRates": {
+    "Sign:Scorpio ControlOffense": 0.4940,
+    "Weapon:Kyudo MentalDefense": 0.4821,
+    "Sign:Sagittarius ControlOffense": 0.4524,
+    "Martial:Judo MentalDefense": 0.5000,
+    "Martial:MuayThai MentalDefense": 0.4762,
+    "Martial:Karate MentalDefense": 0.5298
+  },
+  "slotResourceAblationDrawRates": {
+    "Weapon:Kyudo MentalDefense": {"legacy": 0.1190, "dcOnly": 0.0833, "dcSlots": 0.1667, "dcResources": 0.4286, "full": 0.5357},
+    "Sign:Sagittarius ControlOffense": {"legacy": 0.0, "dcOnly": 0.0476, "dcSlots": 0.3810, "dcResources": 0.2976, "full": 0.4643},
+    "Martial:Judo MentalDefense": {"legacy": 0.1667, "dcOnly": 0.1310, "dcSlots": 0.2024, "dcResources": 0.4524, "full": 0.5238},
+    "Martial:MuayThai MentalDefense": {"legacy": 0.1429, "dcOnly": 0.0595, "dcSlots": 0.3214, "dcResources": 0.4762, "full": 0.5119},
+    "Martial:Karate MentalDefense": {"legacy": 0.1190, "dcOnly": 0.1786, "dcSlots": 0.1667, "dcResources": 0.4762, "full": 0.5714}
+  },
+  "conclusions": [
+    "Candidate /5 stat-edge +/-6 DC remains suitable for further test implementation.",
+    "Full candidate DC + slots + resources is too slow at high mastery and must remain default-off.",
+    "Resource floor/mastery/family scaling is generally the dominant high-level pacing brake.",
+    "Owner base melee-Stamina anchors C10/B12/A15/S20/S+GB25 remain calibration anchors.",
+    "A/S action-slot direction should not be discarded based on this pass; resource scaling should be recalibrated first.",
+    "Runtime AI planner must budget within-round repetition strain, Supplies and cumulative slots before broad AI win/pick evidence is final.",
+    "Next resource formula should test scaled clean comparator + effect premium + range/resource-family premium rather than multiplying the full harmful floor through all scaling layers."
+  ],
+  "limitations": [
+    "Local execution snapshot was normalized from a slightly older standalone to the current 170-ability audit/current approved Martial/Weapon state.",
+    "Karate Blitz and Single Leg reach were approximated; exact current gap-close behavior should be rerun from a current checkout before final lock.",
+    "Neutral Libra fighter sign removed affinity as a confounder.",
+    "Open arena only; terrain/LoS is a later balance layer.",
+    "Grapples remain on their separate contest system."
+  ]
+}

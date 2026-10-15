@@ -12,7 +12,8 @@ function usage(message) {
   if (message) console.error(message);
   console.error('Usage:');
   console.error('  node tools/validate-source-png.mjs world <asset-id> <source|runtime> <png-file>');
-  console.error('  node tools/validate-source-png.mjs character <direction> <source|runtime> <png-file> [base|dressed|layer]');
+  console.error('  node tools/validate-source-png.mjs character <direction|sheet> <source|runtime> <png-file> [base|dressed|layer]');
+  console.error('    direction = one 64×64 frame; sheet = 512×64 strip of eight 64×64 frames');
   process.exit(2);
 }
 
@@ -100,19 +101,19 @@ function parsePng(filePath) {
   return { ...ihdr, pixels };
 }
 
-function inspect(image) {
+function inspect(image, region = { x: 0, width: image.width }) {
   let opaque = 0;
   let transparent = 0;
   let softAlpha = 0;
-  let minX = image.width;
+  let minX = region.width;
   let minY = image.height;
   let maxX = -1;
   let maxY = -1;
   const colors = new Set();
 
   for (let y = 0; y < image.height; y += 1) {
-    for (let x = 0; x < image.width; x += 1) {
-      const i = (y * image.width + x) * 4;
+    for (let x = 0; x < region.width; x += 1) {
+      const i = (y * image.width + region.x + x) * 4;
       const r = image.pixels[i];
       const g = image.pixels[i + 1];
       const b = image.pixels[i + 2];
@@ -156,14 +157,16 @@ function expectedContract(scope, key, stage) {
   }
 
   if (scope === 'character') {
-    if (!manifest.canonical.directions.includes(key)) usage(`Invalid canonical character direction: ${key}`);
+    if (key !== 'sheet' && !manifest.canonical.directions.includes(key)) usage(`Invalid canonical character direction: ${key}`);
     const ch = manifest.activePackage.characterDependencies;
+    // Native pixel art: source and runtime share the 64×64 frame; there is no reduction step.
     return {
       label: `${ch.benchmarkId} — ${key}`,
-      dimensions: stage === 'source' ? ch.sourceCanvas : ch.runtimeFrame,
+      dimensions: key === 'sheet' ? ch.sheetCanvas : ch.frame,
+      frameWidth: ch.frame[0],
       requireTransparency: true,
-      contactY: stage === 'source' ? ch.footContactY : ch.runtimePivot[1],
-      centerX: stage === 'source' ? ch.bodyCenter[0] : ch.runtimePivot[0],
+      contactY: ch.pivot[1],
+      centerX: ch.pivot[0],
       paletteFamilies: ch.paletteFamilies
     };
   }
@@ -197,20 +200,26 @@ if (stats.opaque === 0) errors.push('Asset contains no visible pixels.');
 if (stats.softAlpha > 0) errors.push(`Asset contains ${stats.softAlpha} pixels with soft alpha; production art requires hard alpha.`);
 if (contract.requireTransparency && stats.transparent === 0) errors.push('Asset has no transparent unused pixels.');
 
-if (stats.bbox) {
+if (stats.bbox && scope === 'world') {
   const [minX, minY, maxX, maxY] = stats.bbox;
   const touchesEdge = minX === 0 || minY === 0 || maxX === image.width - 1 || maxY === image.height - 1;
   if (touchesEdge && contract.requireTransparency) warnings.push('Opaque bounding box touches a canvas edge; inspect for clipping or neighboring-item contamination.');
+}
 
-  if (scope === 'character') {
-    const bboxCenter = (minX + maxX) / 2;
-    const tolerance = stage === 'source' ? 60 : 6;
-    if (Math.abs(bboxCenter - contract.centerX) > tolerance) warnings.push(`Visible bounding-box center ${bboxCenter.toFixed(1)} is far from shared center x=${contract.centerX}; inspect registration.`);
-
-    if (characterKind !== 'layer') {
-      const contactTolerance = stage === 'source' ? 8 : 1;
-      if (Math.abs(maxY - contract.contactY) > contactTolerance) warnings.push(`Lowest visible pixel y=${maxY} does not closely match foot/contact authority y=${contract.contactY}; inspect baseline/contact shadow.`);
+if (scope === 'character' && image.width % contract.frameWidth === 0) {
+  for (let f = 0; f < image.width / contract.frameWidth; f += 1) {
+    const frame = inspect(image, { x: f * contract.frameWidth, width: contract.frameWidth });
+    const tag = key === 'sheet' ? `frame ${f}: ` : '';
+    if (!frame.bbox) {
+      if (characterKind !== 'layer') errors.push(`${tag}frame contains no visible pixels.`);
+      continue;
     }
+    const [minX, minY, maxX, maxY] = frame.bbox;
+    // Feet resting on the pivot row legitimately touch the bottom edge.
+    if (minX === 0 || minY === 0 || maxX === contract.frameWidth - 1) warnings.push(`${tag}opaque pixels touch a frame edge; inspect for clipping or bleed into a neighboring frame.`);
+    const bboxCenter = (minX + maxX) / 2;
+    if (Math.abs(bboxCenter - contract.centerX) > 6) warnings.push(`${tag}visible bounding-box center ${bboxCenter.toFixed(1)} is far from shared center x=${contract.centerX}; inspect registration.`);
+    if (characterKind !== 'layer' && maxY !== contract.contactY) warnings.push(`${tag}lowest visible pixel y=${maxY} does not match foot/contact authority y=${contract.contactY}; inspect baseline.`);
   }
 }
 

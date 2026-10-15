@@ -131,13 +131,12 @@ Create only enough shared props to make the early route feel inhabited:
 
 Complete the contracted male benchmark source authorities:
 
-- eight-direction base-underlayer turnaround;
-- eight-direction fully dressed benchmark turnaround;
-- modular layer source set;
-- clean source assembly matching the benchmark;
-- source isolation/anchor QA;
-- target-resolution derivation and manual pixel cleanup;
-- idle/walk/ready coverage;
+- locked 512×64 reference poses (existing; unchanged);
+- part split and anchors (frame order `S, SE, E, NE, N, NW, W, SW` is recorded);
+- approval-gated idle/walk/ready animation base frames, locked on approval;
+- benchmark overlays authored per body-part pose and anchor;
+- mechanical composite matching the benchmark intent;
+- coverage, isolation, anchor, hard-alpha, and palette QA;
 - actual Phaser paper-doll integration.
 
 Benchmark identity:
@@ -153,17 +152,17 @@ Benchmark identity:
 - neck cord/charm;
 - no weapon required for this first benchmark.
 
-Locked contract facts remain in the manifest: `480×640`, center `[240,600]`, foot-contact `y=600`, runtime `48×64`, pivot `[24,60]`, canonical eight directions.
+Locked contract facts remain in the manifest: `512×64` reference sheets, `64×64` frames, pivot/foot contact `[32,63]`, eight reference frames, four-direction facing (S, E, N, W) for runtime animation. Base geometry is under change control: animation base frames are authored from the reference poses and locked on approval (see `AGENTS.md`).
 
 ### P0-E — Female base parity
 
-Produce the corresponding female base-underlayer on the same lattice and direction system:
+Female Body1 is the only female base geometry; Body2 is a skin-tone reference only. Produce female animation bases from Body1 on the same frame, pivot, and direction system:
 
 - body/skin;
 - hair/face;
 - base shorts;
 - sports bra;
-- all eight directions;
+- the four facing directions (S, E, N, W) for animation, on the eight locked reference frames;
 - same anchor/contact rules;
 - compatibility with the shared modular clothing contract.
 
@@ -342,7 +341,7 @@ Controlled modular reuse is allowed when role identity remains clear. Do not pop
 
 ## Traversal
 
-- correct eight-direction facing;
+- correct four-direction facing under eight-direction movement (diagonals use the E or W side view);
 - no pivot drift;
 - continuous movement;
 - credible collision at doors, bridges, stairs, alleys, quay edges, and verandas;
@@ -464,17 +463,20 @@ This is the current execution order. It is not a second checklist.
 
 ### Queue B — Player benchmark
 
-19. male base-underlayer turnaround
-20. female base-underlayer turnaround
-21. short Afro turnaround
-22. dressed player benchmark turnaround
-23. modular layer isolation
-24. source QA
-25. runtime 48×64 cleanup
-26. idle animation
-27. walk animation
-28. ready animation
-29. Phaser paper-doll integration
+19. female part split + anchors
+20. part split + anchors
+21. male long-hair sway split (cap / upper fall / lower fall)
+22. male idle, 8 frames, S, E, N, W (approval-gated, then locked)
+23. male walk, 8 frames, E/W first
+24. male light attack (jab / cross), 4 frames, E/W first
+25. male sprint, 8 frames, E/W first
+26. male heavy attack (kick chain → roundhouse), 16 frames, E/W first
+27. male ready animation base
+28. remaining facings (S, N) for walk, sprint and attacks
+29. short Afro and dressed benchmark overlays per part pose
+30. coverage table + overlay QA
+31. female animation bases and overlays
+32. Phaser paper-doll integration
 
 ### Queue C — Harbor
 

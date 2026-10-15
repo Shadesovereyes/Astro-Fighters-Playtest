@@ -26,8 +26,54 @@ jobs:
         run: |
           node --check tools/validate-production.mjs
           node --check tools/validate-source-png.mjs
+          node --check tools/character-rig.mjs
+          node --check tools/character-animate.mjs
+          node --check tools/character-posed.mjs
+          node --check tools/lib/png.mjs
+          node --check tools/export-character-runtime.mjs
+          node --check tools/character-weapon.mjs
+          node --check docs/js/character-lab.js
           node --check docs/js/art-review.js
           node --check docs/js/playtest-v4-patch.js
 
       - name: Validate production manifest and art rubric
         run: node tools/validate-production.mjs
+
+      - name: Check character rig outputs are current
+        run: node tools/character-rig.mjs male --check
+
+      - name: Check character animation outputs are current and pass QC
+        run: |
+          node tools/character-animate.mjs male idle --check
+          node tools/character-posed.mjs male walk --check
+          node tools/character-posed.mjs male sprint --check
+          node tools/character-posed.mjs male guard --check
+          node tools/character-posed.mjs male lightAttack --check
+          node tools/character-posed.mjs male spinPivot --check
+          node tools/character-posed.mjs male heavyAttack --check
+          node tools/character-posed.mjs male oneHandDualGuard --check
+          node tools/character-weapon.mjs male oneHandDualGuard --check
+          node tools/character-posed.mjs male oneHandGuard --check
+          node tools/character-weapon.mjs male oneHandGuard --check
+          node tools/character-posed.mjs male twoHandGuard --check
+          node tools/character-weapon.mjs male twoHandGuard --check
+          node tools/character-posed.mjs male katanaLight --check
+          node tools/character-weapon.mjs male katanaLight --check
+          node tools/character-posed.mjs male katanaHeavy --check
+          node tools/character-weapon.mjs male katanaHeavy --check
+          node tools/character-posed.mjs male oneHandLight --check
+          node tools/character-weapon.mjs male oneHandLight --check
+          node tools/character-posed.mjs male dualLight --check
+          node tools/character-weapon.mjs male dualLight --check
+          node tools/character-posed.mjs male oneHandHeavy --check
+          node tools/character-weapon.mjs male oneHandHeavy --check
+          node tools/character-posed.mjs male dualHeavy --check
+          node tools/character-weapon.mjs male dualHeavy --check
+          node tools/character-posed.mjs male weave --check
+          node tools/character-posed.mjs male hitReact --check
+          node tools/character-posed.mjs male exhausted --check
+          node tools/character-posed.mjs male block --check
+          node tools/character-posed.mjs male guardBreak --check
+
+      - name: Check the character runtime export is current
+        run: node tools/export-character-runtime.mjs male --check

@@ -23,6 +23,7 @@ Stable invariants:
 - Collages, presentation boards, source assemblies, PIL/Python composites, and mock renderers are reference/QA only.
 - Collision is independent from appearance imagery and actors must pass in front of/behind appropriate world objects.
 - Keep crisp pixel rendering (`pixelArt: true`, `antialias: false`, `roundPixels: true`) unless explicitly changed.
+- Character base geometry is under change control: locked 512×64 reference sheets and approved animation base frames are never redrawn; equipment is overlays by anchor or body-part pose; AI-generated images are reference only (see `AGENTS.md`).
 - Follow the generation-vocabulary restrictions in `AGENTS.md` and the Master Art Direction; do not reintroduce generic cyberpunk/steampunk/wet-reflective drift.
 - Checklist completion requires 42+, zero automatic failures, and all critical minimums passing.
 - Do not duplicate completion state across planning/status documents; Git history is the iteration archive.

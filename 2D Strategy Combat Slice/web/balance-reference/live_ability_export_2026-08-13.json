@@ -1,0 +1,5579 @@
+{
+  "generated": "2026-08-13T17:09:24.316Z",
+  "rows": [
+    {
+      "section": "Sign Kits",
+      "source": "Aries",
+      "group": "Taijutsu",
+      "disc": "Taijutsu",
+      "name": "Mach Lunge",
+      "dmgType": "Physical",
+      "power": 14,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 10,
+      "chakra": 0,
+      "effectiveStam": 10,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [
+        "Priority",
+        "GapCloser"
+      ],
+      "balanceTier": "C",
+      "effects": [
+        {
+          "k": "Damage",
+          "power": 14
+        },
+        {
+          "k": "MC",
+          "amt": 8
+        },
+        {
+          "k": "Status",
+          "status": "Burn",
+          "dur": 1,
+          "stacks": 1,
+          "tick": 4
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Aries",
+      "group": "Taijutsu",
+      "disc": "Taijutsu",
+      "name": "Shatter Punch",
+      "dmgType": "Physical",
+      "power": 20,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 2,
+      "stam": 25,
+      "chakra": 0,
+      "effectiveStam": 25,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": "S",
+      "effects": [
+        {
+          "k": "Damage",
+          "power": 20
+        },
+        {
+          "k": "Status",
+          "status": "Stun",
+          "dur": 1,
+          "stacks": 1,
+          "tick": 0,
+          "save": {
+            "stat": "FORT",
+            "dc": 13
+          }
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Aries",
+      "group": "Taijutsu",
+      "disc": "Taijutsu",
+      "name": "Inner Gate: Adrenaline",
+      "dmgType": "None",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 10,
+      "chakra": 0,
+      "effectiveStam": 10,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [
+        "Stance"
+      ],
+      "balanceTier": "C",
+      "effects": [
+        {
+          "k": "Buff",
+          "stat": "AGI",
+          "pct": 30,
+          "dur": 3
+        },
+        {
+          "k": "Buff",
+          "stat": "STR",
+          "pct": 10,
+          "dur": 3
+        },
+        {
+          "k": "Status",
+          "status": "Burn",
+          "dur": 3,
+          "stacks": 1,
+          "tick": 3
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Aries",
+      "group": "Ninjutsu",
+      "disc": "Ninjutsu",
+      "name": "Blast Wave",
+      "dmgType": "Elemental",
+      "power": 8,
+      "healOutputMult": 1,
+      "range": 10,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 0,
+      "chakra": 18,
+      "effectiveStam": 0,
+      "effectiveChakra": 32,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Damage",
+          "power": 8
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Aries",
+      "group": "Ninjutsu",
+      "disc": "Ninjutsu",
+      "name": "Explosive Runes",
+      "dmgType": "Elemental",
+      "power": 12,
+      "healOutputMult": 1,
+      "range": 10,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 0,
+      "chakra": 18,
+      "effectiveStam": 0,
+      "effectiveChakra": 32,
+      "supply": 0,
+      "tags": [
+        "Trap"
+      ],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Damage",
+          "power": 12
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Aries",
+      "group": "Ninjutsu",
+      "disc": "Ninjutsu",
+      "name": "Meteor",
+      "dmgType": "Elemental",
+      "power": 35,
+      "healOutputMult": 1,
+      "range": 10,
+      "reach": 0,
+      "radius": 0,
+      "slots": 2,
+      "stam": 0,
+      "chakra": 40,
+      "effectiveStam": 0,
+      "effectiveChakra": 70,
+      "supply": 0,
+      "tags": [
+        "Ultimate",
+        "Charge"
+      ],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Damage",
+          "power": 35
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Aries",
+      "group": "Genjutsu",
+      "disc": "Genjutsu",
+      "name": "Blind Rage",
+      "dmgType": "None",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 6,
+      "reach": 0,
+      "radius": 0,
+      "slots": 2,
+      "stam": 0,
+      "chakra": 30,
+      "effectiveStam": 0,
+      "effectiveChakra": 30,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": "A",
+      "effects": [
+        {
+          "k": "Status",
+          "status": "Confusion",
+          "dur": 1,
+          "stacks": 1,
+          "tick": 0,
+          "save": {
+            "stat": "INT",
+            "dc": 12
+          }
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Aries",
+      "group": "Genjutsu",
+      "disc": "Genjutsu",
+      "name": "Killing Intent",
+      "dmgType": "None",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 6,
+      "reach": 0,
+      "radius": 0,
+      "slots": 3,
+      "stam": 0,
+      "chakra": 45,
+      "effectiveStam": 0,
+      "effectiveChakra": 45,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": "S",
+      "effects": [
+        {
+          "k": "Status",
+          "status": "Stun",
+          "dur": 1,
+          "stacks": 1,
+          "tick": 0,
+          "save": {
+            "stat": "STR",
+            "dc": 13
+          }
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Taurus",
+      "group": "Taijutsu",
+      "disc": "Taijutsu",
+      "name": "Mountain Stance",
+      "dmgType": "None",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 8,
+      "chakra": 0,
+      "effectiveStam": 8,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [
+        "Stance"
+      ],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Buff",
+          "stat": "FORT",
+          "pct": 30,
+          "dur": 3
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Taurus",
+      "group": "Taijutsu",
+      "disc": "Taijutsu",
+      "name": "Sumo Palm",
+      "dmgType": "Physical",
+      "power": 16,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 12,
+      "chakra": 0,
+      "effectiveStam": 12,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": "B",
+      "effects": [
+        {
+          "k": "Damage",
+          "power": 16
+        },
+        {
+          "k": "Status",
+          "status": "Slow",
+          "dur": 1,
+          "stacks": 1,
+          "tick": 0,
+          "save": {
+            "stat": "FORT",
+            "dc": 12
+          }
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Taurus",
+      "group": "Taijutsu",
+      "disc": "Taijutsu",
+      "name": "Bull Rush",
+      "dmgType": "Physical",
+      "power": 14,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 12,
+      "chakra": 0,
+      "effectiveStam": 12,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [
+        "GapCloser",
+        "Priority"
+      ],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Damage",
+          "power": 14
+        },
+        {
+          "k": "MC",
+          "amt": 6
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Taurus",
+      "group": "Ninjutsu",
+      "disc": "Ninjutsu",
+      "name": "Oak Flesh",
+      "dmgType": "None",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 2,
+      "stam": 0,
+      "chakra": 18,
+      "effectiveStam": 0,
+      "effectiveChakra": 18,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Buff",
+          "stat": "FORT",
+          "pct": 50,
+          "dur": 3
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Taurus",
+      "group": "Ninjutsu",
+      "disc": "Ninjutsu",
+      "name": "Ironwood Kanabo",
+      "dmgType": "None",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 2,
+      "stam": 0,
+      "chakra": 18,
+      "effectiveStam": 0,
+      "effectiveChakra": 18,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Buff",
+          "stat": "STR",
+          "pct": 20,
+          "dur": 3
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Taurus",
+      "group": "Ninjutsu",
+      "disc": "Ninjutsu",
+      "name": "Root Sanctuary",
+      "dmgType": "None",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 2,
+      "stam": 0,
+      "chakra": 22,
+      "effectiveStam": 0,
+      "effectiveChakra": 22,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Buff",
+          "stat": "FORT",
+          "pct": 20,
+          "dur": 2
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Taurus",
+      "group": "Genjutsu",
+      "disc": "Genjutsu",
+      "name": "Material Fixation",
+      "dmgType": "None",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 6,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 0,
+      "chakra": 18,
+      "effectiveStam": 0,
+      "effectiveChakra": 18,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": "B",
+      "effects": [
+        {
+          "k": "Status",
+          "status": "Disarm",
+          "dur": 3,
+          "stacks": 1,
+          "tick": 0,
+          "save": {
+            "stat": "INT",
+            "dc": 12
+          }
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Taurus",
+      "group": "Genjutsu",
+      "disc": "Genjutsu",
+      "name": "Planetary Pressure",
+      "dmgType": "None",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 6,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 0,
+      "chakra": 18,
+      "effectiveStam": 0,
+      "effectiveChakra": 18,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": "B",
+      "effects": [
+        {
+          "k": "Status",
+          "status": "Slow",
+          "dur": 2,
+          "stacks": 1,
+          "tick": 0,
+          "save": {
+            "stat": "STR",
+            "dc": 13
+          }
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Gemini",
+      "group": "Taijutsu",
+      "disc": "Taijutsu",
+      "name": "Mach Dash",
+      "dmgType": "None",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 8,
+      "chakra": 0,
+      "effectiveStam": 8,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [
+        "Stance"
+      ],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "MC",
+          "amt": 15
+        },
+        {
+          "k": "Buff",
+          "stat": "AGI",
+          "pct": 10,
+          "dur": 1
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Gemini",
+      "group": "Taijutsu",
+      "disc": "Taijutsu",
+      "name": "Echo Fist",
+      "dmgType": "Physical",
+      "power": 14,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 10,
+      "chakra": 0,
+      "effectiveStam": 10,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Damage",
+          "power": 14
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Gemini",
+      "group": "Taijutsu",
+      "disc": "Taijutsu",
+      "name": "Sonic Sweep",
+      "dmgType": "Physical",
+      "power": 10,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 2,
+      "stam": 20,
+      "chakra": 0,
+      "effectiveStam": 20,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": "S",
+      "effects": [
+        {
+          "k": "Damage",
+          "power": 10
+        },
+        {
+          "k": "Status",
+          "status": "Prone",
+          "dur": 1,
+          "stacks": 1,
+          "tick": 0,
+          "save": {
+            "stat": "AGI",
+            "dc": 12
+          }
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Gemini",
+      "group": "Ninjutsu",
+      "disc": "Ninjutsu",
+      "name": "Howling Blast",
+      "dmgType": "Elemental",
+      "power": 8,
+      "healOutputMult": 1,
+      "range": 10,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 0,
+      "chakra": 18,
+      "effectiveStam": 0,
+      "effectiveChakra": 32,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": "B",
+      "effects": [
+        {
+          "k": "Damage",
+          "power": 8
+        },
+        {
+          "k": "Status",
+          "status": "Silence",
+          "dur": 1,
+          "stacks": 1,
+          "tick": 0,
+          "save": {
+            "stat": "INT",
+            "dc": 12
+          }
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Gemini",
+      "group": "Ninjutsu",
+      "disc": "Ninjutsu",
+      "name": "Mirage Clone",
+      "dmgType": "None",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 0,
+      "chakra": 18,
+      "effectiveStam": 0,
+      "effectiveChakra": 18,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Buff",
+          "stat": "AGI",
+          "pct": 50,
+          "dur": 2
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Gemini",
+      "group": "Ninjutsu",
+      "disc": "Ninjutsu",
+      "name": "Resonance Chamber",
+      "dmgType": "Elemental",
+      "power": 6,
+      "healOutputMult": 1,
+      "range": 10,
+      "reach": 0,
+      "radius": 0,
+      "slots": 2,
+      "stam": 0,
+      "chakra": 22,
+      "effectiveStam": 0,
+      "effectiveChakra": 39,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Damage",
+          "power": 6
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Gemini",
+      "group": "Genjutsu",
+      "disc": "Genjutsu",
+      "name": "Tinnitus",
+      "dmgType": "None",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 6,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 0,
+      "chakra": 18,
+      "effectiveStam": 0,
+      "effectiveChakra": 18,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": "C",
+      "effects": [
+        {
+          "k": "Status",
+          "status": "Bleed",
+          "dur": 3,
+          "stacks": 1,
+          "tick": 4,
+          "save": {
+            "stat": "STR",
+            "dc": 12
+          }
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Gemini",
+      "group": "Genjutsu",
+      "disc": "Genjutsu",
+      "name": "Phantom Legion",
+      "dmgType": "None",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 6,
+      "reach": 0,
+      "radius": 0,
+      "slots": 2,
+      "stam": 0,
+      "chakra": 30,
+      "effectiveStam": 0,
+      "effectiveChakra": 30,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": "A",
+      "effects": [
+        {
+          "k": "Status",
+          "status": "Blind",
+          "dur": 1,
+          "stacks": 1,
+          "tick": 0,
+          "save": {
+            "stat": "INT",
+            "dc": 12
+          }
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Cancer",
+      "group": "Taijutsu",
+      "disc": "Taijutsu",
+      "name": "Tidal Slam",
+      "dmgType": "Physical",
+      "power": 16,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 12,
+      "chakra": 0,
+      "effectiveStam": 12,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [
+        "GapCloser"
+      ],
+      "balanceTier": "B",
+      "effects": [
+        {
+          "k": "Damage",
+          "power": 16
+        },
+        {
+          "k": "MC",
+          "amt": 6
+        },
+        {
+          "k": "Status",
+          "status": "Slow",
+          "dur": 1,
+          "stacks": 1,
+          "tick": 0,
+          "save": {
+            "stat": "FORT",
+            "dc": 12
+          }
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Cancer",
+      "group": "Taijutsu",
+      "disc": "Taijutsu",
+      "name": "Vice Grip",
+      "dmgType": "Physical",
+      "power": 12,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 12,
+      "chakra": 0,
+      "effectiveStam": 12,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Damage",
+          "power": 12
+        },
+        {
+          "k": "Res",
+          "res": "Stamina",
+          "amt": -15,
+          "pct": 0,
+          "overcap": false
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Cancer",
+      "group": "Taijutsu",
+      "disc": "Taijutsu",
+      "name": "Hydro Cannon Palm",
+      "dmgType": "Physical",
+      "power": 14,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 2,
+      "stam": 20,
+      "chakra": 0,
+      "effectiveStam": 20,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": "S",
+      "effects": [
+        {
+          "k": "Damage",
+          "power": 14
+        },
+        {
+          "k": "Status",
+          "status": "Stun",
+          "dur": 1,
+          "stacks": 1,
+          "tick": 0,
+          "save": {
+            "stat": "STR",
+            "dc": 13
+          }
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Cancer",
+      "group": "Ninjutsu",
+      "disc": "Ninjutsu",
+      "name": "Water Cutter",
+      "dmgType": "Elemental",
+      "power": 20,
+      "healOutputMult": 1,
+      "range": 10,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 0,
+      "chakra": 22,
+      "effectiveStam": 0,
+      "effectiveChakra": 39,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Damage",
+          "power": 20
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Cancer",
+      "group": "Ninjutsu",
+      "disc": "Ninjutsu",
+      "name": "Whirlpool",
+      "dmgType": "Elemental",
+      "power": 8,
+      "healOutputMult": 1,
+      "range": 10,
+      "reach": 0,
+      "radius": 0,
+      "slots": 2,
+      "stam": 0,
+      "chakra": 22,
+      "effectiveStam": 0,
+      "effectiveChakra": 39,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": "A",
+      "effects": [
+        {
+          "k": "Damage",
+          "power": 8
+        },
+        {
+          "k": "Status",
+          "status": "Root",
+          "dur": 1,
+          "stacks": 1,
+          "tick": 0,
+          "save": {
+            "stat": "STR",
+            "dc": 12
+          }
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Cancer",
+      "group": "Ninjutsu",
+      "disc": "Ninjutsu",
+      "name": "Tsunami",
+      "dmgType": "Elemental",
+      "power": 28,
+      "healOutputMult": 1,
+      "range": 10,
+      "reach": 0,
+      "radius": 0,
+      "slots": 2,
+      "stam": 0,
+      "chakra": 30,
+      "effectiveStam": 0,
+      "effectiveChakra": 53,
+      "supply": 0,
+      "tags": [
+        "Ultimate",
+        "Charge"
+      ],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Damage",
+          "power": 28
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Cancer",
+      "group": "Genjutsu",
+      "disc": "Genjutsu",
+      "name": "Regression",
+      "dmgType": "None",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 6,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 0,
+      "chakra": 18,
+      "effectiveStam": 0,
+      "effectiveChakra": 18,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": "B",
+      "effects": [
+        {
+          "k": "Status",
+          "status": "Slow",
+          "dur": 2,
+          "stacks": 1,
+          "tick": 0,
+          "save": {
+            "stat": "INT",
+            "dc": 12
+          }
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Cancer",
+      "group": "Genjutsu",
+      "disc": "Genjutsu",
+      "name": "Pacification",
+      "dmgType": "None",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 6,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 0,
+      "chakra": 18,
+      "effectiveStam": 0,
+      "effectiveChakra": 18,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": "B",
+      "effects": [
+        {
+          "k": "Status",
+          "status": "Disarm",
+          "dur": 2,
+          "stacks": 1,
+          "tick": 0,
+          "save": {
+            "stat": "STR",
+            "dc": 13
+          }
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Leo",
+      "group": "Taijutsu",
+      "disc": "Taijutsu",
+      "name": "King's Posture",
+      "dmgType": "None",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 8,
+      "chakra": 0,
+      "effectiveStam": 8,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [
+        "Stance"
+      ],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Buff",
+          "stat": "FORT",
+          "pct": 30,
+          "dur": 3
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Leo",
+      "group": "Taijutsu",
+      "disc": "Taijutsu",
+      "name": "Sun Palm",
+      "dmgType": "Physical",
+      "power": 14,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 10,
+      "chakra": 0,
+      "effectiveStam": 10,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": "C",
+      "effects": [
+        {
+          "k": "Damage",
+          "power": 14
+        },
+        {
+          "k": "Status",
+          "status": "Burn",
+          "dur": 2,
+          "stacks": 1,
+          "tick": 4
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Leo",
+      "group": "Taijutsu",
+      "disc": "Taijutsu",
+      "name": "Battle Roar",
+      "dmgType": "Physical",
+      "power": 10,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 12,
+      "chakra": 0,
+      "effectiveStam": 12,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": "B",
+      "effects": [
+        {
+          "k": "Damage",
+          "power": 10
+        },
+        {
+          "k": "Status",
+          "status": "Slow",
+          "dur": 2,
+          "stacks": 1,
+          "tick": 0,
+          "save": {
+            "stat": "STR",
+            "dc": 12
+          }
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Leo",
+      "group": "Ninjutsu",
+      "disc": "Ninjutsu",
+      "name": "Solar Lance",
+      "dmgType": "Elemental",
+      "power": 22,
+      "healOutputMult": 1,
+      "range": 10,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 0,
+      "chakra": 25,
+      "effectiveStam": 0,
+      "effectiveChakra": 44,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Damage",
+          "power": 22
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Leo",
+      "group": "Ninjutsu",
+      "disc": "Ninjutsu",
+      "name": "Radiance",
+      "dmgType": "None",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 2,
+      "stam": 0,
+      "chakra": 20,
+      "effectiveStam": 0,
+      "effectiveChakra": 20,
+      "supply": 0,
+      "tags": [
+        "Stance"
+      ],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Buff",
+          "stat": "STR",
+          "pct": 10,
+          "dur": 3
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Leo",
+      "group": "Ninjutsu",
+      "disc": "Ninjutsu",
+      "name": "Supernova",
+      "dmgType": "Elemental",
+      "power": 30,
+      "healOutputMult": 1,
+      "range": 10,
+      "reach": 0,
+      "radius": 0,
+      "slots": 2,
+      "stam": 0,
+      "chakra": 30,
+      "effectiveStam": 0,
+      "effectiveChakra": 53,
+      "supply": 0,
+      "tags": [
+        "Ultimate"
+      ],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Damage",
+          "power": 30
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Leo",
+      "group": "Genjutsu",
+      "disc": "Genjutsu",
+      "name": "Spotlight",
+      "dmgType": "None",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 6,
+      "reach": 0,
+      "radius": 0,
+      "slots": 2,
+      "stam": 0,
+      "chakra": 30,
+      "effectiveStam": 0,
+      "effectiveChakra": 30,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": "A",
+      "effects": [
+        {
+          "k": "Status",
+          "status": "Blind",
+          "dur": 1,
+          "stacks": 1,
+          "tick": 0,
+          "save": {
+            "stat": "INT",
+            "dc": 12
+          }
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Leo",
+      "group": "Genjutsu",
+      "disc": "Genjutsu",
+      "name": "Kneel",
+      "dmgType": "None",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 6,
+      "reach": 0,
+      "radius": 0,
+      "slots": 3,
+      "stam": 0,
+      "chakra": 45,
+      "effectiveStam": 0,
+      "effectiveChakra": 45,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": "S",
+      "effects": [
+        {
+          "k": "Status",
+          "status": "Stun",
+          "dur": 1,
+          "stacks": 1,
+          "tick": 0,
+          "save": {
+            "stat": "STR",
+            "dc": 14
+          }
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Virgo",
+      "group": "Taijutsu",
+      "disc": "Taijutsu",
+      "name": "Silica Strike",
+      "dmgType": "Physical",
+      "power": 8,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 2,
+      "stam": 15,
+      "chakra": 0,
+      "effectiveStam": 15,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": "A",
+      "effects": [
+        {
+          "k": "Damage",
+          "power": 8
+        },
+        {
+          "k": "Status",
+          "status": "Blind",
+          "dur": 3,
+          "stacks": 1,
+          "tick": 0,
+          "save": {
+            "stat": "INT",
+            "dc": 12
+          }
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Virgo",
+      "group": "Taijutsu",
+      "disc": "Taijutsu",
+      "name": "Flowing Sand Parry",
+      "dmgType": "None",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 8,
+      "chakra": 0,
+      "effectiveStam": 8,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [
+        "Stance",
+        "Counter"
+      ],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Buff",
+          "stat": "AGI",
+          "pct": 20,
+          "dur": 1
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Virgo",
+      "group": "Taijutsu",
+      "disc": "Taijutsu",
+      "name": "Wither Grasp",
+      "dmgType": "Physical",
+      "power": 12,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 12,
+      "chakra": 0,
+      "effectiveStam": 12,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Damage",
+          "power": 12
+        },
+        {
+          "k": "Res",
+          "res": "Stamina",
+          "amt": -15,
+          "pct": 0,
+          "overcap": false
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Virgo",
+      "group": "Ninjutsu",
+      "disc": "Ninjutsu",
+      "name": "Sand Burial",
+      "dmgType": "Elemental",
+      "power": 22,
+      "healOutputMult": 1,
+      "range": 10,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 0,
+      "chakra": 22,
+      "effectiveStam": 0,
+      "effectiveChakra": 39,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Damage",
+          "power": 22
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Virgo",
+      "group": "Ninjutsu",
+      "disc": "Ninjutsu",
+      "name": "Sandstorm",
+      "dmgType": "Elemental",
+      "power": 10,
+      "healOutputMult": 1,
+      "range": 10,
+      "reach": 0,
+      "radius": 0,
+      "slots": 2,
+      "stam": 0,
+      "chakra": 22,
+      "effectiveStam": 0,
+      "effectiveChakra": 39,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": "A",
+      "effects": [
+        {
+          "k": "Damage",
+          "power": 10
+        },
+        {
+          "k": "Status",
+          "status": "Blind",
+          "dur": 2,
+          "stacks": 1,
+          "tick": 0,
+          "save": {
+            "stat": "INT",
+            "dc": 12
+          }
+        },
+        {
+          "k": "Status",
+          "status": "Bleed",
+          "dur": 2,
+          "stacks": 1,
+          "tick": 4
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Virgo",
+      "group": "Genjutsu",
+      "disc": "Genjutsu",
+      "name": "Phantom Plague",
+      "dmgType": "None",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 6,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 0,
+      "chakra": 18,
+      "effectiveStam": 0,
+      "effectiveChakra": 18,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": "C",
+      "effects": [
+        {
+          "k": "Status",
+          "status": "Psychosomatic",
+          "dur": 3,
+          "stacks": 1,
+          "tick": 4,
+          "save": {
+            "stat": "INT",
+            "dc": 12
+          }
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Virgo",
+      "group": "Genjutsu",
+      "disc": "Genjutsu",
+      "name": "Coffin Syndrome",
+      "dmgType": "None",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 6,
+      "reach": 0,
+      "radius": 0,
+      "slots": 2,
+      "stam": 0,
+      "chakra": 30,
+      "effectiveStam": 0,
+      "effectiveChakra": 30,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": "A",
+      "effects": [
+        {
+          "k": "Status",
+          "status": "Confusion",
+          "dur": 1,
+          "stacks": 1,
+          "tick": 0,
+          "save": {
+            "stat": "STR",
+            "dc": 13
+          }
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Libra",
+      "group": "Taijutsu",
+      "disc": "Taijutsu",
+      "name": "Aero Palm",
+      "dmgType": "Physical",
+      "power": 12,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 2,
+      "radius": 0,
+      "slots": 1,
+      "stam": 10,
+      "chakra": 0,
+      "effectiveStam": 10,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": "C",
+      "effects": [
+        {
+          "k": "Damage",
+          "power": 12
+        },
+        {
+          "k": "Status",
+          "status": "Bleed",
+          "dur": 2,
+          "stacks": 1,
+          "tick": 3
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Libra",
+      "group": "Taijutsu",
+      "disc": "Taijutsu",
+      "name": "Flow Parry",
+      "dmgType": "None",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 8,
+      "chakra": 0,
+      "effectiveStam": 8,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [
+        "Stance",
+        "Counter"
+      ],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Buff",
+          "stat": "AGI",
+          "pct": 20,
+          "dur": 1
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Libra",
+      "group": "Taijutsu",
+      "disc": "Taijutsu",
+      "name": "Feather Step",
+      "dmgType": "None",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 6,
+      "chakra": 0,
+      "effectiveStam": 6,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [
+        "Stance"
+      ],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Buff",
+          "stat": "AGI",
+          "pct": 20,
+          "dur": 2
+        },
+        {
+          "k": "MC",
+          "amt": 5
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Libra",
+      "group": "Ninjutsu",
+      "disc": "Ninjutsu",
+      "name": "Gale Slicer",
+      "dmgType": "Elemental",
+      "power": 16,
+      "healOutputMult": 1,
+      "range": 10,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 0,
+      "chakra": 18,
+      "effectiveStam": 0,
+      "effectiveChakra": 32,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Damage",
+          "power": 16
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Libra",
+      "group": "Ninjutsu",
+      "disc": "Ninjutsu",
+      "name": "Pressure Blast",
+      "dmgType": "Elemental",
+      "power": 8,
+      "healOutputMult": 1,
+      "range": 10,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 0,
+      "chakra": 18,
+      "effectiveStam": 0,
+      "effectiveChakra": 32,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Damage",
+          "power": 8
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Libra",
+      "group": "Ninjutsu",
+      "disc": "Ninjutsu",
+      "name": "Singularity Sphere",
+      "dmgType": "Elemental",
+      "power": 12,
+      "healOutputMult": 1,
+      "range": 10,
+      "reach": 0,
+      "radius": 0,
+      "slots": 2,
+      "stam": 0,
+      "chakra": 25,
+      "effectiveStam": 0,
+      "effectiveChakra": 44,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": "A",
+      "effects": [
+        {
+          "k": "Damage",
+          "power": 12
+        },
+        {
+          "k": "Status",
+          "status": "Root",
+          "dur": 1,
+          "stacks": 1,
+          "tick": 0,
+          "save": {
+            "stat": "STR",
+            "dc": 12
+          }
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Libra",
+      "group": "Genjutsu",
+      "disc": "Genjutsu",
+      "name": "Indecision",
+      "dmgType": "None",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 6,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 0,
+      "chakra": 18,
+      "effectiveStam": 0,
+      "effectiveChakra": 18,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": "B",
+      "effects": [
+        {
+          "k": "Status",
+          "status": "Silence",
+          "dur": 1,
+          "stacks": 1,
+          "tick": 0,
+          "save": {
+            "stat": "INT",
+            "dc": 12
+          }
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Libra",
+      "group": "Genjutsu",
+      "disc": "Genjutsu",
+      "name": "Vertigo",
+      "dmgType": "None",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 6,
+      "reach": 0,
+      "radius": 0,
+      "slots": 2,
+      "stam": 0,
+      "chakra": 30,
+      "effectiveStam": 0,
+      "effectiveChakra": 30,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": "A",
+      "effects": [
+        {
+          "k": "Status",
+          "status": "Blind",
+          "dur": 2,
+          "stacks": 1,
+          "tick": 0,
+          "save": {
+            "stat": "STR",
+            "dc": 13
+          }
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Scorpio",
+      "group": "Taijutsu",
+      "disc": "Taijutsu",
+      "name": "Numbing Strike",
+      "dmgType": "Physical",
+      "power": 14,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 12,
+      "chakra": 0,
+      "effectiveStam": 12,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": "B",
+      "effects": [
+        {
+          "k": "Damage",
+          "power": 14
+        },
+        {
+          "k": "Status",
+          "status": "Slow",
+          "dur": 2,
+          "stacks": 1,
+          "tick": 0
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Scorpio",
+      "group": "Taijutsu",
+      "disc": "Taijutsu",
+      "name": "Shadow Step",
+      "dmgType": "None",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 8,
+      "chakra": 0,
+      "effectiveStam": 8,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [
+        "Stance",
+        "Priority",
+        "GapCloser"
+      ],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "MC",
+          "amt": 10
+        },
+        {
+          "k": "Status",
+          "status": "Stealth",
+          "dur": 1,
+          "stacks": 1,
+          "tick": 0
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Scorpio",
+      "group": "Taijutsu",
+      "disc": "Taijutsu",
+      "name": "Kidney Shot",
+      "dmgType": "Physical",
+      "power": 16,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 10,
+      "chakra": 0,
+      "effectiveStam": 10,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Damage",
+          "power": 16
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Scorpio",
+      "group": "Ninjutsu",
+      "disc": "Ninjutsu",
+      "name": "Ice Shard",
+      "dmgType": "Elemental",
+      "power": 10,
+      "healOutputMult": 1,
+      "range": 10,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 0,
+      "chakra": 12,
+      "effectiveStam": 0,
+      "effectiveChakra": 21,
+      "supply": 0,
+      "tags": [
+        "Priority"
+      ],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Damage",
+          "power": 10
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Scorpio",
+      "group": "Ninjutsu",
+      "disc": "Ninjutsu",
+      "name": "Frost Armor",
+      "dmgType": "None",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 2,
+      "stam": 0,
+      "chakra": 18,
+      "effectiveStam": 0,
+      "effectiveChakra": 18,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Buff",
+          "stat": "FORT",
+          "pct": 20,
+          "dur": 2
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Scorpio",
+      "group": "Ninjutsu",
+      "disc": "Ninjutsu",
+      "name": "Blizzard",
+      "dmgType": "Elemental",
+      "power": 10,
+      "healOutputMult": 1,
+      "range": 10,
+      "reach": 0,
+      "radius": 0,
+      "slots": 2,
+      "stam": 0,
+      "chakra": 25,
+      "effectiveStam": 0,
+      "effectiveChakra": 44,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": "B",
+      "effects": [
+        {
+          "k": "Damage",
+          "power": 10
+        },
+        {
+          "k": "Status",
+          "status": "Slow",
+          "dur": 2,
+          "stacks": 1,
+          "tick": 0,
+          "save": {
+            "stat": "INT",
+            "dc": 12
+          }
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Scorpio",
+      "group": "Genjutsu",
+      "disc": "Genjutsu",
+      "name": "Paranoia",
+      "dmgType": "None",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 6,
+      "reach": 0,
+      "radius": 0,
+      "slots": 2,
+      "stam": 0,
+      "chakra": 30,
+      "effectiveStam": 0,
+      "effectiveChakra": 30,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": "A",
+      "effects": [
+        {
+          "k": "Status",
+          "status": "Confusion",
+          "dur": 2,
+          "stacks": 1,
+          "tick": 0,
+          "save": {
+            "stat": "STR",
+            "dc": 13
+          }
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Scorpio",
+      "group": "Genjutsu",
+      "disc": "Genjutsu",
+      "name": "Betrayal",
+      "dmgType": "None",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 6,
+      "reach": 0,
+      "radius": 0,
+      "slots": 2,
+      "stam": 0,
+      "chakra": 30,
+      "effectiveStam": 0,
+      "effectiveChakra": 30,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": "A",
+      "effects": [
+        {
+          "k": "Status",
+          "status": "Confusion",
+          "dur": 1,
+          "stacks": 1,
+          "tick": 0,
+          "save": {
+            "stat": "INT",
+            "dc": 13
+          }
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Sagittarius",
+      "group": "Taijutsu",
+      "disc": "Taijutsu",
+      "name": "Spinning Top",
+      "dmgType": "Physical",
+      "power": 8,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 12,
+      "chakra": 0,
+      "effectiveStam": 12,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Damage",
+          "power": 8
+        },
+        {
+          "k": "Res",
+          "res": "Chakra",
+          "amt": -15,
+          "pct": 0,
+          "overcap": false
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Sagittarius",
+      "group": "Taijutsu",
+      "disc": "Taijutsu",
+      "name": "Flow Dodge",
+      "dmgType": "None",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 8,
+      "chakra": 0,
+      "effectiveStam": 8,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [
+        "Stance"
+      ],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Buff",
+          "stat": "AGI",
+          "pct": 30,
+          "dur": 2
+        },
+        {
+          "k": "MC",
+          "amt": 5
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Sagittarius",
+      "group": "Taijutsu",
+      "disc": "Taijutsu",
+      "name": "Leash Kick",
+      "dmgType": "Physical",
+      "power": 12,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 2,
+      "stam": 15,
+      "chakra": 0,
+      "effectiveStam": 15,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": "A",
+      "effects": [
+        {
+          "k": "Damage",
+          "power": 12
+        },
+        {
+          "k": "Status",
+          "status": "Root",
+          "dur": 2,
+          "stacks": 1,
+          "tick": 0,
+          "save": {
+            "stat": "AGI",
+            "dc": 12
+          }
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Sagittarius",
+      "group": "Ninjutsu",
+      "disc": "Ninjutsu",
+      "name": "Wisp Fire",
+      "dmgType": "Elemental",
+      "power": 10,
+      "healOutputMult": 1,
+      "range": 10,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 0,
+      "chakra": 15,
+      "effectiveStam": 0,
+      "effectiveChakra": 26,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Damage",
+          "power": 10
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Sagittarius",
+      "group": "Ninjutsu",
+      "disc": "Ninjutsu",
+      "name": "Cauterize",
+      "dmgType": "None",
+      "power": 15,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 0,
+      "chakra": 25,
+      "effectiveStam": 0,
+      "effectiveChakra": 25,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Heal",
+          "power": 15
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Sagittarius",
+      "group": "Genjutsu",
+      "disc": "Genjutsu",
+      "name": "Dogma",
+      "dmgType": "None",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 6,
+      "reach": 0,
+      "radius": 0,
+      "slots": 2,
+      "stam": 0,
+      "chakra": 30,
+      "effectiveStam": 0,
+      "effectiveChakra": 30,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": "A",
+      "effects": [
+        {
+          "k": "Status",
+          "status": "Confusion",
+          "dur": 2,
+          "stacks": 1,
+          "tick": 0,
+          "save": {
+            "stat": "INT",
+            "dc": 13
+          }
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Sagittarius",
+      "group": "Genjutsu",
+      "disc": "Genjutsu",
+      "name": "Soul Pressure",
+      "dmgType": "None",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 6,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 0,
+      "chakra": 18,
+      "effectiveStam": 0,
+      "effectiveChakra": 18,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": "B",
+      "effects": [
+        {
+          "k": "Status",
+          "status": "Silence",
+          "dur": 3,
+          "stacks": 1,
+          "tick": 0,
+          "save": {
+            "stat": "STR",
+            "dc": 12
+          }
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Capricorn",
+      "group": "Taijutsu",
+      "disc": "Taijutsu",
+      "name": "Adamantine Shin",
+      "dmgType": "Physical",
+      "power": 16,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 12,
+      "chakra": 0,
+      "effectiveStam": 12,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": "C",
+      "effects": [
+        {
+          "k": "Damage",
+          "power": 16
+        },
+        {
+          "k": "Status",
+          "status": "Bleed",
+          "dur": 2,
+          "stacks": 1,
+          "tick": 3
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Capricorn",
+      "group": "Taijutsu",
+      "disc": "Taijutsu",
+      "name": "Diamond Finger",
+      "dmgType": "True",
+      "power": 14,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 10,
+      "chakra": 0,
+      "effectiveStam": 10,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Damage",
+          "power": 14
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Capricorn",
+      "group": "Taijutsu",
+      "disc": "Taijutsu",
+      "name": "Prismatic Skin",
+      "dmgType": "None",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 8,
+      "chakra": 0,
+      "effectiveStam": 8,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [
+        "Stance"
+      ],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Buff",
+          "stat": "FORT",
+          "pct": 50,
+          "dur": 2
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Capricorn",
+      "group": "Ninjutsu",
+      "disc": "Ninjutsu",
+      "name": "Geode Blast",
+      "dmgType": "Elemental",
+      "power": 18,
+      "healOutputMult": 1,
+      "range": 10,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 0,
+      "chakra": 20,
+      "effectiveStam": 0,
+      "effectiveChakra": 35,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Damage",
+          "power": 18
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Capricorn",
+      "group": "Ninjutsu",
+      "disc": "Ninjutsu",
+      "name": "Mausoleum",
+      "dmgType": "Elemental",
+      "power": 6,
+      "healOutputMult": 1,
+      "range": 10,
+      "reach": 0,
+      "radius": 0,
+      "slots": 2,
+      "stam": 0,
+      "chakra": 22,
+      "effectiveStam": 0,
+      "effectiveChakra": 39,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": "S",
+      "effects": [
+        {
+          "k": "Damage",
+          "power": 6
+        },
+        {
+          "k": "Status",
+          "status": "Stun",
+          "dur": 2,
+          "stacks": 1,
+          "tick": 0,
+          "save": {
+            "stat": "FORT",
+            "dc": 14
+          }
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Capricorn",
+      "group": "Ninjutsu",
+      "disc": "Ninjutsu",
+      "name": "Stalactite Rain",
+      "dmgType": "Elemental",
+      "power": 30,
+      "healOutputMult": 1,
+      "range": 10,
+      "reach": 0,
+      "radius": 0,
+      "slots": 2,
+      "stam": 0,
+      "chakra": 30,
+      "effectiveStam": 0,
+      "effectiveChakra": 53,
+      "supply": 0,
+      "tags": [
+        "Ultimate",
+        "Charge"
+      ],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Damage",
+          "power": 30
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Capricorn",
+      "group": "Genjutsu",
+      "disc": "Genjutsu",
+      "name": "Atlas's Regret",
+      "dmgType": "None",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 6,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 0,
+      "chakra": 18,
+      "effectiveStam": 0,
+      "effectiveChakra": 18,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": "B",
+      "effects": [
+        {
+          "k": "Status",
+          "status": "Slow",
+          "dur": 2,
+          "stacks": 1,
+          "tick": 0,
+          "save": {
+            "stat": "STR",
+            "dc": 13
+          }
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Capricorn",
+      "group": "Genjutsu",
+      "disc": "Genjutsu",
+      "name": "Titan's Gaze",
+      "dmgType": "None",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 6,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 0,
+      "chakra": 18,
+      "effectiveStam": 0,
+      "effectiveChakra": 18,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": "B",
+      "effects": [
+        {
+          "k": "Status",
+          "status": "Slow",
+          "dur": 2,
+          "stacks": 1,
+          "tick": 0,
+          "save": {
+            "stat": "INT",
+            "dc": 12
+          }
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Aquarius",
+      "group": "Taijutsu",
+      "disc": "Taijutsu",
+      "name": "Nerve Disruptor",
+      "dmgType": "Physical",
+      "power": 10,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 12,
+      "chakra": 0,
+      "effectiveStam": 12,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": "B",
+      "effects": [
+        {
+          "k": "Damage",
+          "power": 10
+        },
+        {
+          "k": "Status",
+          "status": "Silence",
+          "dur": 1,
+          "stacks": 1,
+          "tick": 0,
+          "save": {
+            "stat": "CHA",
+            "dc": 12
+          }
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Aquarius",
+      "group": "Taijutsu",
+      "disc": "Taijutsu",
+      "name": "Static Shell",
+      "dmgType": "None",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 8,
+      "chakra": 0,
+      "effectiveStam": 8,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [
+        "Stance",
+        "Counter"
+      ],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Buff",
+          "stat": "FORT",
+          "pct": 10,
+          "dur": 1
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Aquarius",
+      "group": "Taijutsu",
+      "disc": "Taijutsu",
+      "name": "Shock Palm",
+      "dmgType": "Physical",
+      "power": 16,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 12,
+      "chakra": 0,
+      "effectiveStam": 12,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Damage",
+          "power": 16
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Aquarius",
+      "group": "Ninjutsu",
+      "disc": "Ninjutsu",
+      "name": "Voltaic Orb",
+      "dmgType": "Elemental",
+      "power": 14,
+      "healOutputMult": 1,
+      "range": 10,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 0,
+      "chakra": 20,
+      "effectiveStam": 0,
+      "effectiveChakra": 35,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Damage",
+          "power": 14
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Aquarius",
+      "group": "Ninjutsu",
+      "disc": "Ninjutsu",
+      "name": "Lightning Cutter",
+      "dmgType": "Mental",
+      "power": 24,
+      "healOutputMult": 1,
+      "range": 10,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 0,
+      "chakra": 25,
+      "effectiveStam": 0,
+      "effectiveChakra": 25,
+      "supply": 0,
+      "tags": [
+        "Priority",
+        "GapCloser"
+      ],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Damage",
+          "power": 24
+        },
+        {
+          "k": "MC",
+          "amt": 6
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Aquarius",
+      "group": "Ninjutsu",
+      "disc": "Ninjutsu",
+      "name": "EMP Field",
+      "dmgType": "Elemental",
+      "power": 6,
+      "healOutputMult": 1,
+      "range": 10,
+      "reach": 0,
+      "radius": 0,
+      "slots": 2,
+      "stam": 0,
+      "chakra": 22,
+      "effectiveStam": 0,
+      "effectiveChakra": 39,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": "B",
+      "effects": [
+        {
+          "k": "Damage",
+          "power": 6
+        },
+        {
+          "k": "Status",
+          "status": "Slow",
+          "dur": 2,
+          "stacks": 1,
+          "tick": 0,
+          "save": {
+            "stat": "INT",
+            "dc": 12
+          }
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Aquarius",
+      "group": "Genjutsu",
+      "disc": "Genjutsu",
+      "name": "System Crash",
+      "dmgType": "None",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 6,
+      "reach": 0,
+      "radius": 0,
+      "slots": 2,
+      "stam": 0,
+      "chakra": 30,
+      "effectiveStam": 0,
+      "effectiveChakra": 30,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": "A",
+      "effects": [
+        {
+          "k": "Status",
+          "status": "Blind",
+          "dur": 2,
+          "stacks": 1,
+          "tick": 0,
+          "save": {
+            "stat": "STR",
+            "dc": 13
+          }
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Aquarius",
+      "group": "Genjutsu",
+      "disc": "Genjutsu",
+      "name": "Lag Switch",
+      "dmgType": "None",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 6,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 0,
+      "chakra": 18,
+      "effectiveStam": 0,
+      "effectiveChakra": 18,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": "B",
+      "effects": [
+        {
+          "k": "Status",
+          "status": "Slow",
+          "dur": 2,
+          "stacks": 1,
+          "tick": 0,
+          "save": {
+            "stat": "INT",
+            "dc": 12
+          }
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Pisces",
+      "group": "Taijutsu",
+      "disc": "Taijutsu",
+      "name": "Evasive Sway",
+      "dmgType": "None",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 8,
+      "chakra": 0,
+      "effectiveStam": 8,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [
+        "Stance"
+      ],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Buff",
+          "stat": "AGI",
+          "pct": 50,
+          "dur": 2
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Pisces",
+      "group": "Taijutsu",
+      "disc": "Taijutsu",
+      "name": "Slide Counter",
+      "dmgType": "None",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 8,
+      "chakra": 0,
+      "effectiveStam": 8,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [
+        "Stance",
+        "Counter"
+      ],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "MC",
+          "amt": 6
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Pisces",
+      "group": "Taijutsu",
+      "disc": "Taijutsu",
+      "name": "Flow Strike",
+      "dmgType": "True",
+      "power": 14,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 10,
+      "chakra": 0,
+      "effectiveStam": 10,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Damage",
+          "power": 14
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Pisces",
+      "group": "Ninjutsu",
+      "disc": "Ninjutsu",
+      "name": "Bubble Prison",
+      "dmgType": "Elemental",
+      "power": 6,
+      "healOutputMult": 1,
+      "range": 10,
+      "reach": 0,
+      "radius": 0,
+      "slots": 2,
+      "stam": 0,
+      "chakra": 22,
+      "effectiveStam": 0,
+      "effectiveChakra": 39,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": "S",
+      "effects": [
+        {
+          "k": "Damage",
+          "power": 6
+        },
+        {
+          "k": "Status",
+          "status": "Stun",
+          "dur": 2,
+          "stacks": 1,
+          "tick": 0,
+          "save": {
+            "stat": "CHA",
+            "dc": 14
+          }
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Pisces",
+      "group": "Ninjutsu",
+      "disc": "Ninjutsu",
+      "name": "Hidden Mist",
+      "dmgType": "None",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 0,
+      "chakra": 20,
+      "effectiveStam": 0,
+      "effectiveChakra": 20,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Status",
+          "status": "Stealth",
+          "dur": 2,
+          "stacks": 1,
+          "tick": 0
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Pisces",
+      "group": "Ninjutsu",
+      "disc": "Ninjutsu",
+      "name": "Water Dragon",
+      "dmgType": "Elemental",
+      "power": 22,
+      "healOutputMult": 1,
+      "range": 10,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 0,
+      "chakra": 25,
+      "effectiveStam": 0,
+      "effectiveChakra": 44,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Damage",
+          "power": 22
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Pisces",
+      "group": "Genjutsu",
+      "disc": "Genjutsu",
+      "name": "Siren's Lure",
+      "dmgType": "None",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 6,
+      "reach": 0,
+      "radius": 0,
+      "slots": 3,
+      "stam": 0,
+      "chakra": 45,
+      "effectiveStam": 0,
+      "effectiveChakra": 45,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": "S",
+      "effects": [
+        {
+          "k": "Status",
+          "status": "Fear",
+          "dur": 1,
+          "stacks": 1,
+          "tick": 0,
+          "save": {
+            "stat": "STR",
+            "dc": 13
+          }
+        }
+      ]
+    },
+    {
+      "section": "Sign Kits",
+      "source": "Pisces",
+      "group": "Genjutsu",
+      "disc": "Genjutsu",
+      "name": "Escapism",
+      "dmgType": "None",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 6,
+      "reach": 0,
+      "radius": 0,
+      "slots": 3,
+      "stam": 0,
+      "chakra": 45,
+      "effectiveStam": 0,
+      "effectiveChakra": 45,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": "S",
+      "effects": [
+        {
+          "k": "Status",
+          "status": "Sleep",
+          "dur": 2,
+          "stacks": 1,
+          "tick": 0,
+          "save": {
+            "stat": "INT",
+            "dc": 13
+          }
+        }
+      ]
+    },
+    {
+      "section": "Universal Arts",
+      "source": "General",
+      "group": "General",
+      "disc": "Ninjutsu",
+      "name": "Chakra Bullet",
+      "dmgType": "Elemental",
+      "power": 14,
+      "healOutputMult": 1,
+      "range": 10,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 0,
+      "chakra": 12,
+      "effectiveStam": 0,
+      "effectiveChakra": 21,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Damage",
+          "power": 14
+        }
+      ]
+    },
+    {
+      "section": "Universal Arts",
+      "source": "General",
+      "group": "General",
+      "disc": "Ninjutsu",
+      "name": "Charge Chakra",
+      "dmgType": "None",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 0,
+      "chakra": 0,
+      "effectiveStam": 0,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [
+        "Focus"
+      ],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Res",
+          "res": "Chakra",
+          "amt": 30,
+          "pct": 0,
+          "overcap": false
+        },
+        {
+          "k": "Res",
+          "res": "Poise",
+          "amt": 0,
+          "pct": 0.25,
+          "overcap": false
+        }
+      ]
+    },
+    {
+      "section": "Universal Arts",
+      "source": "General",
+      "group": "General",
+      "disc": "Taijutsu",
+      "name": "Catch Breath",
+      "dmgType": "None",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 0,
+      "chakra": 0,
+      "effectiveStam": 0,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [
+        "Focus"
+      ],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Res",
+          "res": "Stamina",
+          "amt": 30,
+          "pct": 0,
+          "overcap": false
+        },
+        {
+          "k": "Res",
+          "res": "Poise",
+          "amt": 0,
+          "pct": 0.25,
+          "overcap": false
+        }
+      ]
+    },
+    {
+      "section": "Universal Arts",
+      "source": "General",
+      "group": "General",
+      "disc": "Taijutsu",
+      "name": "Iron Mountain",
+      "dmgType": "Physical",
+      "power": 16,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 10,
+      "chakra": 0,
+      "effectiveStam": 10,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Damage",
+          "power": 16
+        }
+      ]
+    },
+    {
+      "section": "Universal Arts",
+      "source": "General",
+      "group": "General",
+      "disc": "Taijutsu",
+      "name": "Heavenly Kick",
+      "dmgType": "Physical",
+      "power": 12,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 2,
+      "stam": 20,
+      "chakra": 0,
+      "effectiveStam": 20,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": "S",
+      "effects": [
+        {
+          "k": "Damage",
+          "power": 12
+        },
+        {
+          "k": "Status",
+          "status": "Stun",
+          "dur": 1,
+          "stacks": 1,
+          "tick": 0,
+          "save": {
+            "stat": "FORT",
+            "dc": 13
+          }
+        }
+      ]
+    },
+    {
+      "section": "Universal Arts",
+      "source": "General",
+      "group": "General",
+      "disc": "Ninjutsu",
+      "name": "Guardian Barrier",
+      "dmgType": "None",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 4,
+      "slots": 1,
+      "stam": 0,
+      "chakra": 18,
+      "effectiveStam": 0,
+      "effectiveChakra": 18,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Status",
+          "status": "Fortified",
+          "dur": 2,
+          "stacks": 1,
+          "tick": 20
+        }
+      ]
+    },
+    {
+      "section": "Universal Arts",
+      "source": "General",
+      "group": "General",
+      "disc": "Ninjutsu",
+      "name": "Solar Flare",
+      "dmgType": "Elemental",
+      "power": 6,
+      "healOutputMult": 1,
+      "range": 3,
+      "reach": 0,
+      "radius": 0,
+      "slots": 2,
+      "stam": 0,
+      "chakra": 15,
+      "effectiveStam": 0,
+      "effectiveChakra": 26,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": "A",
+      "effects": [
+        {
+          "k": "Damage",
+          "power": 6
+        },
+        {
+          "k": "Status",
+          "status": "Blind",
+          "dur": 1,
+          "stacks": 1,
+          "tick": 0
+        }
+      ]
+    },
+    {
+      "section": "Universal Arts",
+      "source": "General",
+      "group": "General",
+      "disc": "Taijutsu",
+      "name": "Viper Strike",
+      "dmgType": "Physical",
+      "power": 8,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 10,
+      "chakra": 0,
+      "effectiveStam": 10,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": "C",
+      "effects": [
+        {
+          "k": "Damage",
+          "power": 8
+        },
+        {
+          "k": "Status",
+          "status": "Bleed",
+          "dur": 3,
+          "stacks": 1,
+          "tick": 4
+        }
+      ]
+    },
+    {
+      "section": "Universal Arts",
+      "source": "General",
+      "group": "General",
+      "disc": "Ninjutsu",
+      "name": "Chakra Drain",
+      "dmgType": "Elemental",
+      "power": 8,
+      "healOutputMult": 1,
+      "range": 6,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 0,
+      "chakra": 12,
+      "effectiveStam": 0,
+      "effectiveChakra": 21,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Damage",
+          "power": 8
+        },
+        {
+          "k": "Res",
+          "res": "Chakra",
+          "amt": -15,
+          "pct": 0,
+          "overcap": false
+        }
+      ]
+    },
+    {
+      "section": "Universal Arts",
+      "source": "General",
+      "group": "General",
+      "disc": "Ninjutsu",
+      "name": "Gloom Shroud",
+      "dmgType": "None",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 0,
+      "chakra": 18,
+      "effectiveStam": 0,
+      "effectiveChakra": 18,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Status",
+          "status": "Stealth",
+          "dur": 2,
+          "stacks": 1,
+          "tick": 0
+        }
+      ]
+    },
+    {
+      "section": "Universal Arts",
+      "source": "General",
+      "group": "General",
+      "disc": "Ninjutsu",
+      "name": "Earth Wall",
+      "dmgType": "None",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 6,
+      "reach": 0,
+      "radius": 2,
+      "slots": 1,
+      "stam": 0,
+      "chakra": 20,
+      "effectiveStam": 0,
+      "effectiveChakra": 20,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Terrain",
+          "kind": "Wall",
+          "dur": 3
+        }
+      ]
+    },
+    {
+      "section": "Universal Arts",
+      "source": "General",
+      "group": "General",
+      "disc": "Ninjutsu",
+      "name": "Shadow Possession",
+      "dmgType": "None",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 6,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 0,
+      "chakra": 20,
+      "effectiveStam": 0,
+      "effectiveChakra": 20,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Grapple",
+          "crush": 3,
+          "resistStat": "FORT",
+          "dc": 13,
+          "dur": 2,
+          "drain": 0,
+          "lifesteal": false
+        }
+      ]
+    },
+    {
+      "section": "Medical Kit",
+      "source": "Medical",
+      "group": "Medical",
+      "disc": "Medical",
+      "name": "Palm Healing",
+      "dmgType": "None",
+      "power": 15,
+      "healOutputMult": 0.7,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 0,
+      "chakra": 25,
+      "effectiveStam": 0,
+      "effectiveChakra": 25,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Heal",
+          "power": 15
+        }
+      ]
+    },
+    {
+      "section": "Medical Kit",
+      "source": "Medical",
+      "group": "Medical",
+      "disc": "Medical",
+      "name": "Cellular Activation",
+      "dmgType": "None",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 6,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 0,
+      "chakra": 18,
+      "effectiveStam": 0,
+      "effectiveChakra": 18,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Status",
+          "status": "Regen",
+          "dur": 3,
+          "stacks": 1,
+          "tick": 8
+        }
+      ]
+    },
+    {
+      "section": "Medical Kit",
+      "source": "Medical",
+      "group": "Medical",
+      "disc": "Medical",
+      "name": "Chakra Transfer",
+      "dmgType": "None",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 6,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 0,
+      "chakra": 0,
+      "effectiveStam": 0,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Res",
+          "res": "Chakra",
+          "amt": 25,
+          "pct": 0,
+          "overcap": false
+        }
+      ]
+    },
+    {
+      "section": "Medical Kit",
+      "source": "Medical",
+      "group": "Medical",
+      "disc": "Medical",
+      "name": "Chakra Scalpel",
+      "dmgType": "True",
+      "power": 8,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 12,
+      "chakra": 0,
+      "effectiveStam": 12,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": "B",
+      "effects": [
+        {
+          "k": "Damage",
+          "power": 8
+        },
+        {
+          "k": "Status",
+          "status": "Slow",
+          "dur": 2,
+          "stacks": 1,
+          "tick": 0,
+          "save": {
+            "stat": "AGI",
+            "dc": 12
+          }
+        }
+      ]
+    },
+    {
+      "section": "Medical Kit",
+      "source": "Medical",
+      "group": "Medical",
+      "disc": "Medical",
+      "name": "Nerve Rupture",
+      "dmgType": "None",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 2,
+      "stam": 20,
+      "chakra": 0,
+      "effectiveStam": 20,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": "A",
+      "effects": [
+        {
+          "k": "Status",
+          "status": "Confusion",
+          "dur": 1,
+          "stacks": 1,
+          "tick": 0,
+          "save": {
+            "stat": "INT",
+            "dc": 13
+          }
+        }
+      ]
+    },
+    {
+      "section": "Universal Arts",
+      "source": "Trap",
+      "group": "Trap",
+      "disc": "Trap",
+      "name": "Explosive Tag",
+      "dmgType": "Elemental",
+      "power": 16,
+      "healOutputMult": 1,
+      "range": 8,
+      "reach": 0,
+      "radius": 1,
+      "slots": 1,
+      "stam": 0,
+      "chakra": 15,
+      "effectiveStam": 0,
+      "effectiveChakra": 26,
+      "supply": 1,
+      "tags": [
+        "Trap"
+      ],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Damage",
+          "power": 16
+        }
+      ]
+    },
+    {
+      "section": "Universal Arts",
+      "source": "Trap",
+      "group": "Trap",
+      "disc": "Trap",
+      "name": "Flash Bomb",
+      "dmgType": "None",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 8,
+      "reach": 0,
+      "radius": 1,
+      "slots": 2,
+      "stam": 0,
+      "chakra": 30,
+      "effectiveStam": 0,
+      "effectiveChakra": 30,
+      "supply": 1,
+      "tags": [
+        "Priority",
+        "Trap"
+      ],
+      "balanceTier": "A",
+      "effects": [
+        {
+          "k": "Status",
+          "status": "Blind",
+          "dur": 1,
+          "stacks": 1,
+          "tick": 0
+        }
+      ]
+    },
+    {
+      "section": "Universal Arts",
+      "source": "Trap",
+      "group": "Trap",
+      "disc": "Trap",
+      "name": "Spike Pit",
+      "dmgType": "Physical",
+      "power": 6,
+      "healOutputMult": 1,
+      "range": 5,
+      "reach": 0,
+      "radius": 1,
+      "slots": 2,
+      "stam": 0,
+      "chakra": 23,
+      "effectiveStam": 0,
+      "effectiveChakra": 23,
+      "supply": 1,
+      "tags": [
+        "Trap"
+      ],
+      "balanceTier": "A",
+      "effects": [
+        {
+          "k": "Damage",
+          "power": 6
+        },
+        {
+          "k": "Status",
+          "status": "Root",
+          "dur": 1,
+          "stacks": 1,
+          "tick": 0,
+          "save": {
+            "stat": "AGI",
+            "dc": 12
+          }
+        },
+        {
+          "k": "Status",
+          "status": "Bleed",
+          "dur": 2,
+          "stacks": 1,
+          "tick": 3
+        }
+      ]
+    },
+    {
+      "section": "Universal Arts",
+      "source": "Trap",
+      "group": "Trap",
+      "disc": "Trap",
+      "name": "Smoke Screen",
+      "dmgType": "None",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 6,
+      "reach": 0,
+      "radius": 2,
+      "slots": 1,
+      "stam": 0,
+      "chakra": 12,
+      "effectiveStam": 0,
+      "effectiveChakra": 12,
+      "supply": 1,
+      "tags": [
+        "Trap"
+      ],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Terrain",
+          "kind": "Smoke",
+          "dur": 2
+        }
+      ]
+    },
+    {
+      "section": "Universal Arts",
+      "source": "Trap",
+      "group": "Trap",
+      "disc": "Trap",
+      "name": "Smoke Bomb",
+      "dmgType": "None",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 0,
+      "chakra": 10,
+      "effectiveStam": 0,
+      "effectiveChakra": 10,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Status",
+          "status": "Stealth",
+          "dur": 2,
+          "stacks": 1,
+          "tick": 0
+        }
+      ]
+    },
+    {
+      "section": "Universal Arts",
+      "source": "Trap",
+      "group": "Trap",
+      "disc": "Trap",
+      "name": "Caltrops",
+      "dmgType": "Physical",
+      "power": 4,
+      "healOutputMult": 1,
+      "range": 5,
+      "reach": 0,
+      "radius": 1,
+      "slots": 1,
+      "stam": 0,
+      "chakra": 18,
+      "effectiveStam": 0,
+      "effectiveChakra": 18,
+      "supply": 1,
+      "tags": [
+        "Trap"
+      ],
+      "balanceTier": "B",
+      "effects": [
+        {
+          "k": "Damage",
+          "power": 4
+        },
+        {
+          "k": "Status",
+          "status": "Slow",
+          "dur": 2,
+          "stacks": 1,
+          "tick": 0,
+          "save": {
+            "stat": "AGI",
+            "dc": 11
+          }
+        }
+      ]
+    },
+    {
+      "section": "Universal Arts",
+      "source": "Summon",
+      "group": "Summon",
+      "disc": "Summon",
+      "name": "Summon Companion",
+      "dmgType": "None",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 0,
+      "chakra": 50,
+      "effectiveStam": 0,
+      "effectiveChakra": 50,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "SpawnSummon",
+          "tier": "Guardian"
+        }
+      ]
+    },
+    {
+      "section": "Universal Arts",
+      "source": "Genjutsu",
+      "group": "Genjutsu",
+      "disc": "Genjutsu",
+      "name": "Phantom Haunt",
+      "dmgType": "None",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 6,
+      "reach": 0,
+      "radius": 0,
+      "slots": 2,
+      "stam": 0,
+      "chakra": 45,
+      "effectiveStam": 0,
+      "effectiveChakra": 45,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Haunt"
+        }
+      ]
+    },
+    {
+      "section": "Martial & Weapon Styles",
+      "source": "Boxing",
+      "group": "Martial",
+      "disc": "Martial",
+      "name": "Boxing Stance",
+      "dmgType": "None",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 4,
+      "chakra": 0,
+      "effectiveStam": 4,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [
+        "Stance",
+        "MartialStance"
+      ],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Res",
+          "res": "Poise",
+          "amt": 0,
+          "pct": 0,
+          "overcap": false
+        }
+      ]
+    },
+    {
+      "section": "Martial & Weapon Styles",
+      "source": "Boxing",
+      "group": "Martial",
+      "disc": "Martial",
+      "name": "Jab-Cross",
+      "dmgType": "Physical",
+      "power": 10,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 8,
+      "chakra": 0,
+      "effectiveStam": 8,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Damage",
+          "power": 10
+        }
+      ]
+    },
+    {
+      "section": "Martial & Weapon Styles",
+      "source": "Boxing",
+      "group": "Martial",
+      "disc": "Martial",
+      "name": "Haymaker",
+      "dmgType": "Physical",
+      "power": 10,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 10,
+      "chakra": 0,
+      "effectiveStam": 10,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Damage",
+          "power": 10
+        }
+      ]
+    },
+    {
+      "section": "Martial & Weapon Styles",
+      "source": "Boxing",
+      "group": "Martial",
+      "disc": "Martial",
+      "name": "Bob and Weave",
+      "dmgType": "None",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 15,
+      "chakra": 0,
+      "effectiveStam": 15,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Buff",
+          "stat": "AGI",
+          "pct": 20,
+          "dur": 1
+        }
+      ]
+    },
+    {
+      "section": "Martial & Weapon Styles",
+      "source": "Boxing",
+      "group": "Martial",
+      "disc": "Martial",
+      "name": "Defensive Stance",
+      "dmgType": "None",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 15,
+      "chakra": 0,
+      "effectiveStam": 15,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Res",
+          "res": "Poise",
+          "amt": 0,
+          "pct": 0.25,
+          "overcap": true
+        }
+      ]
+    },
+    {
+      "section": "Martial & Weapon Styles",
+      "source": "Boxing",
+      "group": "Martial",
+      "disc": "Martial",
+      "name": "Clinch",
+      "dmgType": "None",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 15,
+      "chakra": 0,
+      "effectiveStam": 15,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Grapple",
+          "crush": 0,
+          "resistStat": "AGI",
+          "dc": 13,
+          "dur": 5,
+          "drain": 0,
+          "lifesteal": false
+        }
+      ]
+    },
+    {
+      "section": "Martial & Weapon Styles",
+      "source": "Boxing",
+      "group": "Martial",
+      "disc": "Martial",
+      "name": "Dirty Boxing",
+      "dmgType": "Physical",
+      "power": 20,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 25,
+      "chakra": 0,
+      "effectiveStam": 25,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [
+        "RequiresGrapple"
+      ],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Damage",
+          "power": 20
+        }
+      ]
+    },
+    {
+      "section": "Martial & Weapon Styles",
+      "source": "Boxing",
+      "group": "Martial",
+      "disc": "Martial",
+      "name": "Body Shot",
+      "dmgType": "Physical",
+      "power": 8,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 10,
+      "chakra": 0,
+      "effectiveStam": 10,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Damage",
+          "power": 8
+        },
+        {
+          "k": "Res",
+          "res": "Stamina",
+          "amt": -10,
+          "pct": 0,
+          "overcap": false
+        }
+      ]
+    },
+    {
+      "section": "Martial & Weapon Styles",
+      "source": "MuayThai",
+      "group": "Martial",
+      "disc": "Martial",
+      "name": "Muay Thai Stance",
+      "dmgType": "None",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 4,
+      "chakra": 0,
+      "effectiveStam": 4,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [
+        "Stance",
+        "MartialStance"
+      ],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Res",
+          "res": "Poise",
+          "amt": 0,
+          "pct": 0,
+          "overcap": false
+        }
+      ]
+    },
+    {
+      "section": "Martial & Weapon Styles",
+      "source": "MuayThai",
+      "group": "Martial",
+      "disc": "Martial",
+      "name": "Roundhouse Kick",
+      "dmgType": "Physical",
+      "power": 10,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 8,
+      "chakra": 0,
+      "effectiveStam": 8,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Damage",
+          "power": 10
+        }
+      ]
+    },
+    {
+      "section": "Martial & Weapon Styles",
+      "source": "MuayThai",
+      "group": "Martial",
+      "disc": "Martial",
+      "name": "Teep Kick",
+      "dmgType": "Physical",
+      "power": 10,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 12,
+      "chakra": 0,
+      "effectiveStam": 12,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": "B",
+      "effects": [
+        {
+          "k": "Damage",
+          "power": 10
+        },
+        {
+          "k": "Status",
+          "status": "Slow",
+          "dur": 1,
+          "stacks": 1,
+          "tick": 0,
+          "save": {
+            "stat": "AGI",
+            "dc": 12
+          }
+        }
+      ]
+    },
+    {
+      "section": "Martial & Weapon Styles",
+      "source": "MuayThai",
+      "group": "Martial",
+      "disc": "Martial",
+      "name": "Elbow Strike",
+      "dmgType": "Physical",
+      "power": 10,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 10,
+      "chakra": 0,
+      "effectiveStam": 10,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": "C",
+      "effects": [
+        {
+          "k": "Damage",
+          "power": 10
+        },
+        {
+          "k": "Status",
+          "status": "Bleed",
+          "dur": 2,
+          "stacks": 1,
+          "tick": 3,
+          "save": {
+            "stat": "AGI",
+            "dc": 12
+          }
+        }
+      ]
+    },
+    {
+      "section": "Martial & Weapon Styles",
+      "source": "MuayThai",
+      "group": "Martial",
+      "disc": "Martial",
+      "name": "Calf Kick",
+      "dmgType": "Physical",
+      "power": 10,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 12,
+      "chakra": 0,
+      "effectiveStam": 12,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": "B",
+      "effects": [
+        {
+          "k": "Damage",
+          "power": 10
+        },
+        {
+          "k": "Status",
+          "status": "Slow",
+          "dur": 2,
+          "stacks": 1,
+          "tick": 0,
+          "save": {
+            "stat": "AGI",
+            "dc": 13
+          }
+        }
+      ]
+    },
+    {
+      "section": "Martial & Weapon Styles",
+      "source": "MuayThai",
+      "group": "Martial",
+      "disc": "Martial",
+      "name": "Clinch",
+      "dmgType": "None",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 15,
+      "chakra": 0,
+      "effectiveStam": 15,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Grapple",
+          "crush": 0,
+          "resistStat": "AGI",
+          "dc": 13,
+          "dur": 5,
+          "drain": 0,
+          "lifesteal": false
+        }
+      ]
+    },
+    {
+      "section": "Martial & Weapon Styles",
+      "source": "MuayThai",
+      "group": "Martial",
+      "disc": "Martial",
+      "name": "Knee Strikes",
+      "dmgType": "Physical",
+      "power": 20,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 30,
+      "chakra": 0,
+      "effectiveStam": 30,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [
+        "RequiresGrapple"
+      ],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Damage",
+          "power": 20
+        }
+      ]
+    },
+    {
+      "section": "Martial & Weapon Styles",
+      "source": "Judo",
+      "group": "Martial",
+      "disc": "Martial",
+      "name": "Judo Stance",
+      "dmgType": "None",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 4,
+      "chakra": 0,
+      "effectiveStam": 4,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [
+        "Stance",
+        "MartialStance"
+      ],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Res",
+          "res": "Poise",
+          "amt": 0,
+          "pct": 0,
+          "overcap": false
+        }
+      ]
+    },
+    {
+      "section": "Martial & Weapon Styles",
+      "source": "Judo",
+      "group": "Martial",
+      "disc": "Martial",
+      "name": "Clinch",
+      "dmgType": "None",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 15,
+      "chakra": 0,
+      "effectiveStam": 15,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Grapple",
+          "crush": 0,
+          "resistStat": "AGI",
+          "dc": 13,
+          "dur": 5,
+          "drain": 0,
+          "lifesteal": false
+        }
+      ]
+    },
+    {
+      "section": "Martial & Weapon Styles",
+      "source": "Judo",
+      "group": "Martial",
+      "disc": "Martial",
+      "name": "Hip Toss",
+      "dmgType": "Physical",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 2,
+      "stam": 20,
+      "chakra": 0,
+      "effectiveStam": 20,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [
+        "RequiresGrapple"
+      ],
+      "balanceTier": "S",
+      "effects": [
+        {
+          "k": "GrappleTech",
+          "power": 8,
+          "dc": 8,
+          "dur": 1,
+          "status": "Prone",
+          "best": false,
+          "mount": false,
+          "breakHold": true,
+          "throw": 0,
+          "drain": 0,
+          "selfAgi": 0
+        }
+      ]
+    },
+    {
+      "section": "Martial & Weapon Styles",
+      "source": "Judo",
+      "group": "Martial",
+      "disc": "Martial",
+      "name": "Rolling Throw",
+      "dmgType": "Physical",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 10,
+      "chakra": 0,
+      "effectiveStam": 10,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [
+        "RequiresGrapple"
+      ],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "GrappleTech",
+          "power": 8,
+          "dc": 8,
+          "dur": 0,
+          "status": null,
+          "best": false,
+          "mount": false,
+          "breakHold": true,
+          "throw": 3,
+          "drain": 0,
+          "selfAgi": 0
+        }
+      ]
+    },
+    {
+      "section": "Martial & Weapon Styles",
+      "source": "Judo",
+      "group": "Martial",
+      "disc": "Martial",
+      "name": "Sweeping Shoulder",
+      "dmgType": "Physical",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 10,
+      "chakra": 0,
+      "effectiveStam": 10,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [
+        "RequiresGrapple"
+      ],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "GrappleTech",
+          "power": 6,
+          "dc": 8,
+          "dur": 0,
+          "status": null,
+          "best": false,
+          "mount": true,
+          "breakHold": false,
+          "throw": 0,
+          "drain": 0,
+          "selfAgi": 0
+        }
+      ]
+    },
+    {
+      "section": "Martial & Weapon Styles",
+      "source": "JiuJitsu",
+      "group": "Martial",
+      "disc": "Martial",
+      "name": "Jiu-Jitsu Stance",
+      "dmgType": "None",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 4,
+      "chakra": 0,
+      "effectiveStam": 4,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [
+        "Stance",
+        "MartialStance"
+      ],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Res",
+          "res": "Poise",
+          "amt": 0,
+          "pct": 0,
+          "overcap": false
+        }
+      ]
+    },
+    {
+      "section": "Martial & Weapon Styles",
+      "source": "JiuJitsu",
+      "group": "Martial",
+      "disc": "Martial",
+      "name": "Clinch",
+      "dmgType": "None",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 15,
+      "chakra": 0,
+      "effectiveStam": 15,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Grapple",
+          "crush": 0,
+          "resistStat": "AGI",
+          "dc": 13,
+          "dur": 5,
+          "drain": 0,
+          "lifesteal": false
+        }
+      ]
+    },
+    {
+      "section": "Martial & Weapon Styles",
+      "source": "JiuJitsu",
+      "group": "Martial",
+      "disc": "Martial",
+      "name": "Pull Guard",
+      "dmgType": "None",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 10,
+      "chakra": 0,
+      "effectiveStam": 10,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [
+        "RequiresGrapple",
+        "Priority"
+      ],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "GrappleTech",
+          "power": 0,
+          "dc": 8,
+          "dur": 0,
+          "status": null,
+          "best": true,
+          "mount": true,
+          "breakHold": false,
+          "throw": 0,
+          "drain": 0,
+          "selfAgi": 30
+        }
+      ]
+    },
+    {
+      "section": "Martial & Weapon Styles",
+      "source": "JiuJitsu",
+      "group": "Martial",
+      "disc": "Martial",
+      "name": "Strangle",
+      "dmgType": "Physical",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 2,
+      "stam": 15,
+      "chakra": 0,
+      "effectiveStam": 15,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [
+        "RequiresGrapple",
+        "RequiresMounted"
+      ],
+      "balanceTier": "B",
+      "effects": [
+        {
+          "k": "GrappleTech",
+          "power": 15,
+          "dc": 13,
+          "dur": 2,
+          "status": "Silence",
+          "best": true,
+          "mount": false,
+          "breakHold": false,
+          "throw": 0,
+          "drain": 0,
+          "selfAgi": 0
+        }
+      ]
+    },
+    {
+      "section": "Martial & Weapon Styles",
+      "source": "JiuJitsu",
+      "group": "Martial",
+      "disc": "Martial",
+      "name": "Flying Triangle",
+      "dmgType": "Physical",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 2,
+      "stam": 25,
+      "chakra": 0,
+      "effectiveStam": 25,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [
+        "RequiresGrapple"
+      ],
+      "balanceTier": "B",
+      "effects": [
+        {
+          "k": "GrappleTech",
+          "power": 15,
+          "dc": 13,
+          "dur": 2,
+          "status": "Silence",
+          "best": true,
+          "mount": true,
+          "breakHold": false,
+          "throw": 0,
+          "drain": 0,
+          "selfAgi": 0
+        }
+      ]
+    },
+    {
+      "section": "Martial & Weapon Styles",
+      "source": "JiuJitsu",
+      "group": "Martial",
+      "disc": "Martial",
+      "name": "Arm bar",
+      "dmgType": "Physical",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 15,
+      "chakra": 0,
+      "effectiveStam": 15,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [
+        "RequiresGrapple",
+        "RequiresMounted"
+      ],
+      "balanceTier": "C",
+      "effects": [
+        {
+          "k": "GrappleTech",
+          "power": 15,
+          "dc": 13,
+          "dur": 2,
+          "status": "Cripple",
+          "best": true,
+          "mount": false,
+          "breakHold": false,
+          "throw": 0,
+          "drain": 0,
+          "selfAgi": 0
+        }
+      ]
+    },
+    {
+      "section": "Martial & Weapon Styles",
+      "source": "Karate",
+      "group": "Martial",
+      "disc": "Martial",
+      "name": "Karate Stance",
+      "dmgType": "None",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 4,
+      "chakra": 0,
+      "effectiveStam": 4,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [
+        "Stance",
+        "MartialStance"
+      ],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Res",
+          "res": "Poise",
+          "amt": 0,
+          "pct": 0,
+          "overcap": false
+        }
+      ]
+    },
+    {
+      "section": "Martial & Weapon Styles",
+      "source": "Karate",
+      "group": "Martial",
+      "disc": "Martial",
+      "name": "Sweeping Low",
+      "dmgType": "Physical",
+      "power": 8,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 20,
+      "chakra": 0,
+      "effectiveStam": 20,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": "S",
+      "effects": [
+        {
+          "k": "Damage",
+          "power": 8
+        },
+        {
+          "k": "Status",
+          "status": "Prone",
+          "dur": 1,
+          "stacks": 1,
+          "tick": 0,
+          "save": {
+            "stat": "AGI",
+            "dc": 12
+          }
+        }
+      ]
+    },
+    {
+      "section": "Martial & Weapon Styles",
+      "source": "Karate",
+      "group": "Martial",
+      "disc": "Martial",
+      "name": "Defensive Stance",
+      "dmgType": "None",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 15,
+      "chakra": 0,
+      "effectiveStam": 15,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Res",
+          "res": "Poise",
+          "amt": 0,
+          "pct": 0.25,
+          "overcap": true
+        }
+      ]
+    },
+    {
+      "section": "Martial & Weapon Styles",
+      "source": "Karate",
+      "group": "Martial",
+      "disc": "Martial",
+      "name": "Karate Blitz",
+      "dmgType": "Physical",
+      "power": 8,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 2,
+      "radius": 0,
+      "slots": 1,
+      "stam": 10,
+      "chakra": 0,
+      "effectiveStam": 10,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [
+        "Priority"
+      ],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Damage",
+          "power": 8
+        }
+      ]
+    },
+    {
+      "section": "Martial & Weapon Styles",
+      "source": "Karate",
+      "group": "Martial",
+      "disc": "Martial",
+      "name": "Side Kick",
+      "dmgType": "Physical",
+      "power": 10,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 8,
+      "chakra": 0,
+      "effectiveStam": 8,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Damage",
+          "power": 10
+        }
+      ]
+    },
+    {
+      "section": "Martial & Weapon Styles",
+      "source": "Karate",
+      "group": "Martial",
+      "disc": "Martial",
+      "name": "Hammer Fist",
+      "dmgType": "Physical",
+      "power": 10,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 10,
+      "chakra": 0,
+      "effectiveStam": 10,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Damage",
+          "power": 10
+        }
+      ]
+    },
+    {
+      "section": "Martial & Weapon Styles",
+      "source": "Karate",
+      "group": "Martial",
+      "disc": "Martial",
+      "name": "Whirlwind Kick",
+      "dmgType": "Physical",
+      "power": 10,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 1,
+      "slots": 1,
+      "stam": 15,
+      "chakra": 0,
+      "effectiveStam": 15,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Damage",
+          "power": 10
+        }
+      ]
+    },
+    {
+      "section": "Martial & Weapon Styles",
+      "source": "Wrestling",
+      "group": "Martial",
+      "disc": "Martial",
+      "name": "Wrestling Stance",
+      "dmgType": "None",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 4,
+      "chakra": 0,
+      "effectiveStam": 4,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [
+        "Stance",
+        "MartialStance"
+      ],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Res",
+          "res": "Poise",
+          "amt": 0,
+          "pct": 0,
+          "overcap": false
+        }
+      ]
+    },
+    {
+      "section": "Martial & Weapon Styles",
+      "source": "Wrestling",
+      "group": "Martial",
+      "disc": "Martial",
+      "name": "Single Leg Shot",
+      "dmgType": "None",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 2,
+      "radius": 0,
+      "slots": 1,
+      "stam": 15,
+      "chakra": 0,
+      "effectiveStam": 15,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Grapple",
+          "crush": 0,
+          "resistStat": "AGI",
+          "dc": 13,
+          "dur": 3,
+          "drain": 0,
+          "lifesteal": false
+        }
+      ]
+    },
+    {
+      "section": "Martial & Weapon Styles",
+      "source": "Wrestling",
+      "group": "Martial",
+      "disc": "Martial",
+      "name": "Clinch",
+      "dmgType": "None",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 15,
+      "chakra": 0,
+      "effectiveStam": 15,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Grapple",
+          "crush": 0,
+          "resistStat": "AGI",
+          "dc": 13,
+          "dur": 5,
+          "drain": 0,
+          "lifesteal": false
+        }
+      ]
+    },
+    {
+      "section": "Martial & Weapon Styles",
+      "source": "Wrestling",
+      "group": "Martial",
+      "disc": "Martial",
+      "name": "Sumo Palm",
+      "dmgType": "Physical",
+      "power": 10,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 10,
+      "chakra": 0,
+      "effectiveStam": 10,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Damage",
+          "power": 10
+        }
+      ]
+    },
+    {
+      "section": "Martial & Weapon Styles",
+      "source": "Wrestling",
+      "group": "Martial",
+      "disc": "Martial",
+      "name": "Horse Stance",
+      "dmgType": "None",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 15,
+      "chakra": 0,
+      "effectiveStam": 15,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Buff",
+          "stat": "STR",
+          "pct": 20,
+          "dur": 1
+        }
+      ]
+    },
+    {
+      "section": "Martial & Weapon Styles",
+      "source": "Wrestling",
+      "group": "Martial",
+      "disc": "Martial",
+      "name": "Suplex",
+      "dmgType": "Physical",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 2,
+      "stam": 30,
+      "chakra": 0,
+      "effectiveStam": 30,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [
+        "RequiresGrapple"
+      ],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "GrappleTech",
+          "power": 15,
+          "dc": 8,
+          "dur": 0,
+          "status": null,
+          "best": false,
+          "mount": false,
+          "breakHold": false,
+          "throw": 0,
+          "drain": 0,
+          "selfAgi": 0
+        }
+      ]
+    },
+    {
+      "section": "Martial & Weapon Styles",
+      "source": "Kenjutsu (Weapon)",
+      "group": "Weapon",
+      "disc": "Weapon",
+      "name": "Kenjutsu Stance",
+      "dmgType": "None",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 4,
+      "chakra": 0,
+      "effectiveStam": 4,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [
+        "Stance",
+        "WeaponStance"
+      ],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Res",
+          "res": "Poise",
+          "amt": 0,
+          "pct": 0,
+          "overcap": false
+        }
+      ]
+    },
+    {
+      "section": "Martial & Weapon Styles",
+      "source": "Kenjutsu (Weapon)",
+      "group": "Weapon",
+      "disc": "Weapon",
+      "name": "Kenjutsu Slash",
+      "dmgType": "Physical",
+      "power": 10,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 20,
+      "chakra": 0,
+      "effectiveStam": 20,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": "C",
+      "effects": [
+        {
+          "k": "Damage",
+          "power": 10
+        },
+        {
+          "k": "Status",
+          "status": "Bleed",
+          "dur": 2,
+          "stacks": 1,
+          "tick": 3,
+          "save": {
+            "stat": "AGI",
+            "dc": 12
+          }
+        }
+      ]
+    },
+    {
+      "section": "Martial & Weapon Styles",
+      "source": "Kenjutsu (Weapon)",
+      "group": "Weapon",
+      "disc": "Weapon",
+      "name": "Parry",
+      "dmgType": "None",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 50,
+      "chakra": 0,
+      "effectiveStam": 50,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [
+        "Counter"
+      ],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "WardNext"
+        }
+      ]
+    },
+    {
+      "section": "Martial & Weapon Styles",
+      "source": "Kenjutsu (Weapon)",
+      "group": "Weapon",
+      "disc": "Weapon",
+      "name": "Hilt Bash",
+      "dmgType": "Physical",
+      "power": 5,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 2,
+      "stam": 25,
+      "chakra": 0,
+      "effectiveStam": 25,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": "S",
+      "effects": [
+        {
+          "k": "Damage",
+          "power": 5
+        },
+        {
+          "k": "Status",
+          "status": "Stun",
+          "dur": 1,
+          "stacks": 1,
+          "tick": 0,
+          "save": {
+            "stat": "FORT",
+            "dc": 12
+          }
+        }
+      ]
+    },
+    {
+      "section": "Martial & Weapon Styles",
+      "source": "Kenjutsu (Weapon)",
+      "group": "Weapon",
+      "disc": "Weapon",
+      "name": "Precision Thrust",
+      "dmgType": "True",
+      "power": 10,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 20,
+      "chakra": 0,
+      "effectiveStam": 20,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Damage",
+          "power": 10
+        }
+      ]
+    },
+    {
+      "section": "Martial & Weapon Styles",
+      "source": "Kyudo (Weapon)",
+      "group": "Weapon",
+      "disc": "Weapon",
+      "name": "Kyudo Stance",
+      "dmgType": "None",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 4,
+      "chakra": 0,
+      "effectiveStam": 4,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [
+        "Stance",
+        "WeaponStance"
+      ],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Res",
+          "res": "Poise",
+          "amt": 0,
+          "pct": 0,
+          "overcap": false
+        }
+      ]
+    },
+    {
+      "section": "Martial & Weapon Styles",
+      "source": "Kyudo (Weapon)",
+      "group": "Weapon",
+      "disc": "Weapon",
+      "name": "Kyudo Shot",
+      "dmgType": "Physical",
+      "power": 15,
+      "healOutputMult": 1,
+      "range": 10,
+      "reach": 0,
+      "radius": 0,
+      "slots": 2,
+      "stam": 20,
+      "chakra": 0,
+      "effectiveStam": 20,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Damage",
+          "power": 15
+        }
+      ]
+    },
+    {
+      "section": "Martial & Weapon Styles",
+      "source": "Kyudo (Weapon)",
+      "group": "Weapon",
+      "disc": "Weapon",
+      "name": "Arrow Rain",
+      "dmgType": "Physical",
+      "power": 10,
+      "healOutputMult": 1,
+      "range": 10,
+      "reach": 0,
+      "radius": 2,
+      "slots": 2,
+      "stam": 20,
+      "chakra": 0,
+      "effectiveStam": 20,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Damage",
+          "power": 10
+        }
+      ]
+    },
+    {
+      "section": "Martial & Weapon Styles",
+      "source": "Kobudo (Weapon)",
+      "group": "Weapon",
+      "disc": "Weapon",
+      "name": "Kobudo Stance",
+      "dmgType": "None",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 1,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 4,
+      "chakra": 0,
+      "effectiveStam": 4,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [
+        "Stance",
+        "WeaponStance"
+      ],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Res",
+          "res": "Poise",
+          "amt": 0,
+          "pct": 0,
+          "overcap": false
+        }
+      ]
+    },
+    {
+      "section": "Martial & Weapon Styles",
+      "source": "Kobudo (Weapon)",
+      "group": "Weapon",
+      "disc": "Weapon",
+      "name": "Shuriken Throw",
+      "dmgType": "Physical",
+      "power": 15,
+      "healOutputMult": 1,
+      "range": 5,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 15,
+      "chakra": 0,
+      "effectiveStam": 15,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": "C",
+      "effects": [
+        {
+          "k": "Damage",
+          "power": 15
+        },
+        {
+          "k": "Status",
+          "status": "Bleed",
+          "dur": 2,
+          "stacks": 1,
+          "tick": 3,
+          "save": {
+            "stat": "AGI",
+            "dc": 12
+          }
+        }
+      ]
+    },
+    {
+      "section": "Martial & Weapon Styles",
+      "source": "Kobudo (Weapon)",
+      "group": "Weapon",
+      "disc": "Weapon",
+      "name": "Kusari Chain Snare",
+      "dmgType": "None",
+      "power": null,
+      "healOutputMult": 1,
+      "range": 6,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 20,
+      "chakra": 0,
+      "effectiveStam": 20,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Grapple",
+          "crush": 0,
+          "resistStat": "AGI",
+          "dc": 13,
+          "dur": 2,
+          "drain": 0,
+          "lifesteal": false
+        }
+      ]
+    },
+    {
+      "section": "Martial & Weapon Styles",
+      "source": "Kobudo (Weapon)",
+      "group": "Weapon",
+      "disc": "Weapon",
+      "name": "Chain Yank",
+      "dmgType": "Physical",
+      "power": 20,
+      "healOutputMult": 1,
+      "range": 6,
+      "reach": 0,
+      "radius": 0,
+      "slots": 1,
+      "stam": 25,
+      "chakra": 0,
+      "effectiveStam": 25,
+      "effectiveChakra": 0,
+      "supply": 0,
+      "tags": [
+        "RequiresGrapple"
+      ],
+      "balanceTier": null,
+      "effects": [
+        {
+          "k": "Damage",
+          "power": 20
+        }
+      ]
+    }
+  ]
+}

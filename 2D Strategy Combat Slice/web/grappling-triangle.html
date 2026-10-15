@@ -1,0 +1,511 @@
+<title>Grappling Triangle</title>
+<style>
+:root{
+  --ground:#080a14;
+  --panel:#11162a;
+  --panel-2:#161d33;
+  --raise:#1c2440;
+  --line:#28324f;
+  --line-hi:#3d4a76;
+  --ink:#eef2ff;
+  --ink-2:#c3cbe6;
+  --dim:#8f9abb;
+  --cyan:#66e6ff;
+  --violet:#9b84ff;
+  --gold:#ffd166;
+  --mint:#72f1b8;
+  --rose:#ff7188;
+  --amber:#ffac66;
+  --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  --sans:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:
+    radial-gradient(ellipse at 78% -8%, #1d2450 0%, transparent 46%),
+    radial-gradient(ellipse at -8% 102%, #0e2b40 0%, transparent 40%),
+    var(--ground);
+  color:var(--ink);
+  font:15px/1.55 var(--sans);
+  font-variant-numeric:tabular-nums;
+}
+.wrap{max-width:1180px;margin:0 auto;padding:34px 20px 80px}
+
+/* ---------- masthead ---------- */
+.mast{border-bottom:1px solid var(--line);padding-bottom:22px;margin-bottom:30px}
+.eyebrow{
+  font:600 10px/1 var(--sans);letter-spacing:.22em;text-transform:uppercase;
+  color:var(--cyan);margin-bottom:14px;
+}
+h1{
+  margin:0 0 12px;font:800 34px/1.05 var(--sans);
+  letter-spacing:.14em;text-transform:uppercase;text-wrap:balance;
+}
+.sub{margin:0;max-width:62ch;color:var(--ink-2);font-size:15px}
+.stamp{
+  margin-top:16px;display:flex;flex-wrap:wrap;gap:8px;
+  font:500 10.5px/1 var(--mono);letter-spacing:.06em;
+}
+.stamp span{
+  border:1px solid var(--line-hi);border-radius:99px;padding:6px 11px;
+  color:var(--dim);background:#0b1122;
+}
+
+/* ---------- section frame ---------- */
+section{margin-top:42px}
+h2{
+  margin:0 0 6px;font:700 12px/1 var(--sans);letter-spacing:.19em;
+  text-transform:uppercase;color:var(--gold);
+}
+.lede{margin:0 0 18px;color:var(--dim);font-size:13.5px;max-width:74ch}
+
+/* ---------- verdict banner ---------- */
+.verdict{
+  display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;
+  background:linear-gradient(180deg,#2a1723,#1a1020);
+  border:1px solid #6d3049;border-left:3px solid var(--rose);
+  border-radius:12px;padding:16px 18px;margin-bottom:26px;
+}
+.verdict.warn{background:linear-gradient(180deg,#2a2416,#1a1710);border-color:#6d5b30;border-left-color:var(--gold)}
+.verdict .icon{font-size:19px;line-height:1.3}
+.verdict h3{margin:0 0 5px;font:700 14px/1.3 var(--sans);color:var(--ink)}
+.verdict p{margin:0;color:var(--ink-2);font-size:13.5px}
+.verdict p+p{margin-top:8px}
+
+/* ---------- triangle diagram ---------- */
+.tri-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.tri-card{
+  background:linear-gradient(180deg,rgba(23,30,54,.95),rgba(12,17,33,.95));
+  border:1px solid var(--line);border-radius:14px;padding:16px 14px 12px;
+}
+.tri-card h3{
+  margin:0 0 2px;font:700 11px/1 var(--sans);letter-spacing:.17em;
+  text-transform:uppercase;color:var(--ink-2);text-align:center;
+}
+.tri-card .cap{
+  margin:0 0 6px;text-align:center;font:500 11px/1.4 var(--mono);color:var(--dim);
+}
+.tri-card svg{display:block;width:100%;height:auto}
+
+/* ---------- scorecard ---------- */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}
+.card{
+  background:var(--panel);border:1px solid var(--line);border-radius:12px;
+  padding:14px;position:relative;overflow:hidden;
+}
+.card::before{content:"";position:absolute;inset:0 auto 0 0;width:3px;background:var(--rose)}
+.card.ok::before{background:var(--mint)}
+.card.near::before{background:var(--gold)}
+.card .who{font:600 10.5px/1.3 var(--sans);letter-spacing:.11em;text-transform:uppercase;color:var(--dim);margin-bottom:9px}
+.card .val{font:700 32px/1 var(--mono);letter-spacing:-.02em}
+.card.ok .val{color:var(--mint)}
+.card.near .val{color:var(--gold)}
+.card:not(.ok):not(.near) .val{color:var(--rose)}
+.card .delta{margin-top:7px;font:500 11.5px/1.4 var(--mono);color:var(--dim)}
+
+/* ---------- tables ---------- */
+.scroll{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--panel)}
+table{border-collapse:collapse;width:100%;min-width:640px;font:12.5px/1.45 var(--mono)}
+caption{
+  text-align:left;padding:13px 15px 11px;font:600 11px/1.4 var(--sans);
+  letter-spacing:.13em;text-transform:uppercase;color:var(--cyan);
+  border-bottom:1px solid var(--line);background:var(--panel-2);
+}
+th{
+  text-align:left;padding:9px 12px;font:600 10px/1.3 var(--sans);
+  letter-spacing:.1em;text-transform:uppercase;color:var(--dim);
+  background:#0c1223;border-bottom:1px solid var(--line);white-space:nowrap;
+}
+td{padding:8px 12px;border-bottom:1px solid #1b2238;color:var(--ink-2);white-space:nowrap}
+tbody tr:last-child td{border-bottom:0}
+tbody tr:hover td{background:#151d36}
+td.name{color:var(--ink);font-weight:600;white-space:nowrap}
+td.num{text-align:right}
+td.note{white-space:normal;min-width:210px;color:var(--dim);font-size:11.5px}
+.sub-tag{color:var(--violet);font-weight:700}
+.hi{color:var(--gold);font-weight:700}
+.good{color:var(--mint);font-weight:700}
+.bad{color:var(--rose);font-weight:700}
+tr.rule td{background:#0c1223;color:var(--cyan);font-weight:700;letter-spacing:.09em;font-size:11px}
+tr.win td{background:#12281f}
+tr.win td.name{color:var(--mint)}
+
+/* ---------- callout ---------- */
+.note-box{
+  background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--cyan);
+  border-radius:10px;padding:15px 17px;margin-top:16px;
+}
+.note-box h4{margin:0 0 7px;font:700 11px/1 var(--sans);letter-spacing:.15em;text-transform:uppercase;color:var(--cyan)}
+.note-box p{margin:0;color:var(--ink-2);font-size:13.5px}
+.note-box p+p{margin-top:9px}
+.note-box code{
+  font:600 12.5px/1 var(--mono);background:#0a1020;border:1px solid var(--line-hi);
+  border-radius:4px;padding:2px 5px;color:var(--gold);
+}
+.formula{
+  font:12.5px/1.9 var(--mono);color:var(--ink-2);background:#0a1020;
+  border:1px solid var(--line);border-radius:8px;padding:12px 14px;margin-top:12px;
+  overflow-x:auto;white-space:pre;
+}
+.formula b{color:var(--cyan);font-weight:700}
+
+ul.pts{margin:12px 0 0;padding-left:19px;color:var(--ink-2);font-size:13.5px}
+ul.pts li{margin-bottom:8px}
+ul.pts li::marker{color:var(--cyan)}
+ul.pts b{color:var(--ink)}
+
+footer{
+  margin-top:52px;padding-top:20px;border-top:1px solid var(--line);
+  color:var(--dim);font:11.5px/1.7 var(--mono);
+}
+
+@media(max-width:820px){
+  .tri-grid{grid-template-columns:1fr}
+  .cards{grid-template-columns:1fr}
+  h1{font-size:25px}
+}
+</style>
+
+<div class="wrap">
+
+<header class="mast">
+  <div class="eyebrow">Astro Fighters · V3.4 · Grappling archetype</div>
+  <h1>Grappling Triangle</h1>
+  <p class="sub">Every number governing the Wrestler / Judoka / Jiu-Jitsu matchups, plus what each tuning lever actually moves — measured, not estimated.</p>
+  <div class="stamp">
+    <span>AI vs AI · elimination only</span>
+    <span>sides alternated per seed</span>
+    <span>headline figures n=250</span>
+    <span>commit dfd3ef4</span>
+  </div>
+</header>
+
+<section>
+  <h2>Where it stands</h2>
+  <p class="lede">Goal is a soft cycle — Wrestler beats Judoka, Judoka beats Jiu-Jitsu, Jiu-Jitsu beats Wrestler, each around 55–60%. What exists today is not a cycle at all.</p>
+
+  <div class="verdict">
+    <div class="icon">⚠</div>
+    <div>
+      <h3>The current build is a ranking, not a triangle</h3>
+      <p>Judoka beats both other styles; Wrestler beats Jiu-Jitsu; Jiu-Jitsu beats nobody. Two of the three arrows point the wrong way, and both are off by 15–16 points rather than a nudge.</p>
+    </div>
+  </div>
+
+  <div class="tri-grid">
+    <div class="tri-card">
+      <h3>Now</h3>
+      <p class="cap">Judoka &gt; Wrestler &gt; Jiu-Jitsu</p>
+      <svg viewBox="0 0 300 250" role="img" aria-label="Current state: Judoka beats Wrestler 58 percent, Wrestler beats Jiu-Jitsu 58 percent, Judoka beats Jiu-Jitsu 52 percent">
+        <defs>
+          <marker id="ar-bad" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" fill="#ff7188"/>
+          </marker>
+          <marker id="ar-weak" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" fill="#ffd166"/>
+          </marker>
+        </defs>
+        <!-- Judoka -> Wrestler (wrong direction) -->
+        <line x1="133" y1="66" x2="77" y2="158" stroke="#ff7188" stroke-width="2.2" marker-end="url(#ar-bad)"/>
+        <text x="79" y="106" fill="#ff7188" font-family="ui-monospace,monospace" font-size="13" font-weight="700" text-anchor="middle">58%</text>
+        <!-- Wrestler -> JiuJitsu (wrong direction) -->
+        <line x1="97" y1="188" x2="203" y2="188" stroke="#ff7188" stroke-width="2.2" marker-end="url(#ar-bad)"/>
+        <text x="150" y="207" fill="#ff7188" font-family="ui-monospace,monospace" font-size="13" font-weight="700" text-anchor="middle">58%</text>
+        <!-- Judoka -> JiuJitsu (right direction, weak) -->
+        <line x1="167" y1="66" x2="223" y2="158" stroke="#ffd166" stroke-width="2.2" marker-end="url(#ar-weak)"/>
+        <text x="222" y="106" fill="#ffd166" font-family="ui-monospace,monospace" font-size="13" font-weight="700" text-anchor="middle">52%</text>
+        <!-- nodes -->
+        <circle cx="150" cy="48" r="27" fill="#1c2440" stroke="#9b84ff" stroke-width="2"/>
+        <text x="150" y="53" fill="#eef2ff" font-family="Inter,sans-serif" font-size="11" font-weight="700" text-anchor="middle">JUDO</text>
+        <circle cx="70" cy="188" r="27" fill="#1c2440" stroke="#66e6ff" stroke-width="2"/>
+        <text x="70" y="193" fill="#eef2ff" font-family="Inter,sans-serif" font-size="11" font-weight="700" text-anchor="middle">WRES</text>
+        <circle cx="230" cy="188" r="27" fill="#1c2440" stroke="#72f1b8" stroke-width="2"/>
+        <text x="230" y="193" fill="#eef2ff" font-family="Inter,sans-serif" font-size="11" font-weight="700" text-anchor="middle">JIU</text>
+      </svg>
+    </div>
+
+    <div class="tri-card">
+      <h3>Goal</h3>
+      <p class="cap">a closed loop, 55–60% each</p>
+      <svg viewBox="0 0 300 250" role="img" aria-label="Target state: Wrestler beats Judoka, Judoka beats Jiu-Jitsu, Jiu-Jitsu beats Wrestler, each 57 percent">
+        <defs>
+          <marker id="ar-good" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" fill="#72f1b8"/>
+          </marker>
+        </defs>
+        <!-- Wrestler -> Judoka -->
+        <line x1="77" y1="158" x2="133" y2="66" stroke="#72f1b8" stroke-width="2.2" marker-end="url(#ar-good)"/>
+        <text x="79" y="106" fill="#72f1b8" font-family="ui-monospace,monospace" font-size="13" font-weight="700" text-anchor="middle">57%</text>
+        <!-- Judoka -> JiuJitsu -->
+        <line x1="167" y1="66" x2="223" y2="158" stroke="#72f1b8" stroke-width="2.2" marker-end="url(#ar-good)"/>
+        <text x="222" y="106" fill="#72f1b8" font-family="ui-monospace,monospace" font-size="13" font-weight="700" text-anchor="middle">57%</text>
+        <!-- JiuJitsu -> Wrestler -->
+        <line x1="203" y1="188" x2="97" y2="188" stroke="#72f1b8" stroke-width="2.2" marker-end="url(#ar-good)"/>
+        <text x="150" y="207" fill="#72f1b8" font-family="ui-monospace,monospace" font-size="13" font-weight="700" text-anchor="middle">57%</text>
+        <circle cx="150" cy="48" r="27" fill="#1c2440" stroke="#9b84ff" stroke-width="2"/>
+        <text x="150" y="53" fill="#eef2ff" font-family="Inter,sans-serif" font-size="11" font-weight="700" text-anchor="middle">JUDO</text>
+        <circle cx="70" cy="188" r="27" fill="#1c2440" stroke="#66e6ff" stroke-width="2"/>
+        <text x="70" y="193" fill="#eef2ff" font-family="Inter,sans-serif" font-size="11" font-weight="700" text-anchor="middle">WRES</text>
+        <circle cx="230" cy="188" r="27" fill="#1c2440" stroke="#72f1b8" stroke-width="2"/>
+        <text x="230" y="193" fill="#eef2ff" font-family="Inter,sans-serif" font-size="11" font-weight="700" text-anchor="middle">JIU</text>
+      </svg>
+    </div>
+  </div>
+
+  <div class="cards">
+    <div class="card">
+      <div class="who">Wrestler → Judoka</div>
+      <div class="val">42%</div>
+      <div class="delta">need 57% · <span class="bad">−15</span></div>
+    </div>
+    <div class="card">
+      <div class="who">Jiu-Jitsu → Wrestler</div>
+      <div class="val">42%</div>
+      <div class="delta">need 57% · <span class="bad">−15</span></div>
+    </div>
+    <div class="card near">
+      <div class="who">Judoka → Jiu-Jitsu</div>
+      <div class="val">52%</div>
+      <div class="delta">need 57% · <span class="hi">−5</span></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Read this before trusting any number</h2>
+  <div class="verdict warn">
+    <div class="icon">◈</div>
+    <div>
+      <h3>Short runs produced a cycle that wasn't real</h3>
+      <p>A 60-seed grid search found one configuration that looked like a clean cycle — 58 / 58 / 52. Re-run at 250 seeds on an independent seed base, the same configuration collapsed to <b>51 / 49 / 49</b>. It was noise.</p>
+      <p>At n=60 the standard error is roughly ±6.5 points, so a two-sigma swing is ±13 — larger than the entire 55–60 target band. Only the 250-seed figures on this page (±3.1 SE) are decision-grade. Treat the sensitivity sweep below as <b>directional evidence only</b>.</p>
+    </div>
+  </div>
+  <div class="note-box">
+    <h4>One more measurement correction</h4>
+    <p>Earlier in this session I reported Wrestler vs Jiu-Jitsu as roughly even at 52/48. That run did not alternate spawn sides. With sides alternated, the real figure is <b>Wrestler 58 / Jiu-Jitsu 42</b> — Jiu-Jitsu is not holding even against Wrestling, it is losing clearly. Every figure on this page alternates sides.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Verified candidates · n=250 each</h2>
+  <p class="lede">Four configurations run head-to-head on a fresh seed base. Only Sumo Palm power, Hip Toss stamina, Arm bar power and Cross Choke power vary; everything else is the committed build.</p>
+  <div class="scroll">
+    <table>
+      <caption>250 seeds per matchup · ±3.1 standard error · sides alternated</caption>
+      <thead>
+        <tr>
+          <th>Config</th><th class="num">Sumo pwr</th><th class="num">HipToss stam</th><th class="num">Armbar pwr</th><th class="num">Cross pwr</th>
+          <th class="num">W→Ju</th><th class="num">JJ→W</th><th class="num">Ju→JJ</th><th class="num">Err</th><th>Cycle?</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="name">Committed today</td>
+          <td class="num">5</td><td class="num">15</td><td class="num">30</td><td class="num">31</td>
+          <td class="num bad">42</td><td class="num bad">42</td><td class="num hi">52</td><td class="num">35</td><td class="bad">no</td>
+        </tr>
+        <tr>
+          <td class="name">Grid winner</td>
+          <td class="num">5</td><td class="num">22</td><td class="num">36</td><td class="num">36</td>
+          <td class="num hi">51</td><td class="num bad">49</td><td class="num bad">49</td><td class="num">22</td><td class="bad">no</td>
+        </tr>
+        <tr>
+          <td class="name">Candidate 2</td>
+          <td class="num">5</td><td class="num">22</td><td class="num">36</td><td class="num">31</td>
+          <td class="num good">59</td><td class="num bad">49</td><td class="num bad">40</td><td class="num">27</td><td class="bad">no</td>
+        </tr>
+        <tr class="win">
+          <td class="name">Candidate 3 — best found</td>
+          <td class="num">8</td><td class="num">22</td><td class="num">36</td><td class="num">36</td>
+          <td class="num good">57</td><td class="num good">53</td><td class="num hi">49</td><td class="num">12</td><td class="hi">near</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="note-box">
+    <h4>Closest reachable so far</h4>
+    <p>Candidate 3 lands two arrows inside the band — Wrestler over Judoka at 57%, Jiu-Jitsu over Wrestler at 53%. The third sits at 49%, meaning Judoka and Jiu-Jitsu are a coin flip rather than Judoka holding a slight edge. That is one arrow short of a true loop, but it is a genuine improvement over a flat hierarchy.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Why the third arrow keeps resisting</h2>
+  <p class="lede">Each style's damage rests on one dominant technique, and that technique is loaded in <em>both</em> of its matchups. Buffing it helps one arrow and hurts the other by roughly the same amount.</p>
+  <div class="scroll">
+    <table>
+      <caption>Coupling map — the lever conflict</caption>
+      <thead><tr><th>Style</th><th>Carries its offence</th><th class="num">Share of damage</th><th>Buffing it helps</th><th>…but hurts</th></tr></thead>
+      <tbody>
+        <tr><td class="name">Wrestling</td><td>Sumo Palm</td><td class="num">85–87%</td><td class="good">W→Ju</td><td class="bad">JJ→W</td></tr>
+        <tr><td class="name">Judo</td><td>Cross Choke</td><td class="num">82–92%</td><td class="good">Ju→JJ</td><td class="bad">W→Ju</td></tr>
+        <tr><td class="name">Jiu-Jitsu</td><td>Arm bar</td><td class="num">43–63%</td><td class="good">JJ→W</td><td class="bad">Ju→JJ</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <ul class="pts">
+    <li><b>Hip Toss is the one clean lever.</b> It fires 228 times against Wrestler but only 41 times against Jiu-Jitsu, because Jiu-Jitsu pulls guard and drags the fight to the ground before the standing grapple matters. That makes its stamina cost a near-pure Wrestler-matchup dial — the only lever measured that moves one arrow without dragging another.</li>
+    <li><b>Sumo Palm's power number is mostly decorative.</b> True damage is <code>(power + STR) × 0.7</code>, and Wrestler has STR 14. At power 5 that is (5+14)×0.7 = 13.3 per hit — the power term supplies 26% of it, the raw STR supplies 74%. That is why cutting power 5→2 earlier barely registered, and why cost and slot changes hit far harder than power changes.</li>
+    <li><b>Rock-paper-scissors normally comes from mechanics, not magnitudes.</b> With one dominant move per style and no matchup-specific interaction, the three arrows are mathematically tied together. Arm bar being legal from the bottom is the one real asymmetry in the set — leaning on that kind of positional rule is more likely to close the loop than more number tuning.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Single-lever sensitivity</h2>
+  <p class="lede">One value changed at a time from the committed build. n=80, sides alternated — directional only, not decision-grade. Every column reads as "attacker wins X%"; all three want to sit near 57.</p>
+  <div class="scroll">
+    <table>
+      <caption>80 seeds per matchup · ±5.5 SE · read trends, not exact values</caption>
+      <thead><tr><th>Change</th><th class="num">W→Ju</th><th class="num">JJ→W</th><th class="num">Ju→JJ</th><th class="num">Err</th></tr></thead>
+      <tbody>
+        <tr><td class="name">baseline (committed)</td><td class="num">34</td><td class="num">44</td><td class="num">56</td><td class="num">37</td></tr>
+        <tr class="rule"><td colspan="5">WRESTLING</td></tr>
+        <tr><td class="name">Sumo Palm power 5 → 8</td><td class="num good">51</td><td class="num">43</td><td class="num">56</td><td class="num">21</td></tr>
+        <tr><td class="name">Sumo Palm power 5 → 12</td><td class="num good">54</td><td class="num bad">36</td><td class="num">56</td><td class="num">25</td></tr>
+        <tr><td class="name">Sumo Palm power 5 → 16</td><td class="num">66</td><td class="num bad">30</td><td class="num">56</td><td class="num">37</td></tr>
+        <tr><td class="name">Sumo Palm power 5 → 20</td><td class="num">71</td><td class="num bad">25</td><td class="num">56</td><td class="num">47</td></tr>
+        <tr><td class="name">Sumo Palm stam 15 → 10</td><td class="num">34</td><td class="num">45</td><td class="num">56</td><td class="num">36</td></tr>
+        <tr><td class="name">Sumo Palm stam 15 → 12</td><td class="num">34</td><td class="num">49</td><td class="num">56</td><td class="num">32</td></tr>
+        <tr><td class="name">Sumo Palm stam 15 → 20</td><td class="num bad">16</td><td class="num good">56</td><td class="num">56</td><td class="num">43</td></tr>
+        <tr><td class="name">Sumo Palm slots 2 → 1</td><td class="num">40</td><td class="num">40</td><td class="num">56</td><td class="num">35</td></tr>
+        <tr><td class="name">Ground and Pound pwr 12 → 16</td><td class="num">36</td><td class="num">43</td><td class="num">56</td><td class="num">36</td></tr>
+        <tr><td class="name">Ground and Pound pwr 12 → 20</td><td class="num">38</td><td class="num">39</td><td class="num">56</td><td class="num">38</td></tr>
+        <tr><td class="name">Ground and Pound pwr 12 → 24</td><td class="num">40</td><td class="num bad">35</td><td class="num">56</td><td class="num">40</td></tr>
+        <tr><td class="name">Choke Slam stam 50 → 30</td><td class="num">44</td><td class="num">49</td><td class="num">56</td><td class="num">22</td></tr>
+        <tr><td class="name">Choke Slam stam 50 → 40</td><td class="num">38</td><td class="num">43</td><td class="num">56</td><td class="num">34</td></tr>
+        <tr class="rule"><td colspan="5">JUDO</td></tr>
+        <tr><td class="name">Cross Choke power 31 → 20</td><td class="num">49</td><td class="num">44</td><td class="num bad">34</td><td class="num">44</td></tr>
+        <tr><td class="name">Cross Choke power 31 → 25</td><td class="num">43</td><td class="num">44</td><td class="num">49</td><td class="num">35</td></tr>
+        <tr><td class="name">Cross Choke power 31 → 28</td><td class="num">38</td><td class="num">44</td><td class="num">51</td><td class="num">38</td></tr>
+        <tr><td class="name">Cross Choke stam 13 → 16</td><td class="num good">55</td><td class="num">44</td><td class="num bad">41</td><td class="num">31</td></tr>
+        <tr><td class="name">Cross Choke stam 13 → 20</td><td class="num good">57</td><td class="num">44</td><td class="num bad">20</td><td class="num">50</td></tr>
+        <tr><td class="name">Hip Toss power 15 → 8</td><td class="num">38</td><td class="num">44</td><td class="num">56</td><td class="num">33</td></tr>
+        <tr><td class="name">Hip Toss power 15 → 20</td><td class="num">30</td><td class="num">44</td><td class="num good">59</td><td class="num">42</td></tr>
+        <tr><td class="name">Hip Toss stam 15 → 20</td><td class="num">46</td><td class="num">44</td><td class="num good">59</td><td class="num">26</td></tr>
+        <tr><td class="name">Hip Toss stam 15 → 25</td><td class="num good">53</td><td class="num">44</td><td class="num good">55</td><td class="num">19</td></tr>
+        <tr><td class="name">Hip Toss slots 1 → 2</td><td class="num">46</td><td class="num">44</td><td class="num good">60</td><td class="num">27</td></tr>
+        <tr class="rule"><td colspan="5">JIU-JITSU</td></tr>
+        <tr><td class="name">Arm bar power 30 → 34</td><td class="num">34</td><td class="num">47</td><td class="num">50</td><td class="num">40</td></tr>
+        <tr><td class="name">Arm bar power 30 → 38</td><td class="num">34</td><td class="num good">54</td><td class="num">48</td><td class="num">35</td></tr>
+        <tr><td class="name">Arm bar power 30 → 42</td><td class="num">34</td><td class="num">79</td><td class="num bad">35</td><td class="num">67</td></tr>
+        <tr><td class="name">Arm bar stam 11 → 8</td><td class="num">34</td><td class="num">52</td><td class="num">50</td><td class="num">35</td></tr>
+        <tr><td class="name">Arm bar stam 11 → 14</td><td class="num">34</td><td class="num">43</td><td class="num good">61</td><td class="num">41</td></tr>
+        <tr><td class="name">Strangle power 38 → 42</td><td class="num">34</td><td class="num">46</td><td class="num">55</td><td class="num">36</td></tr>
+        <tr><td class="name">Strangle power 38 → 46</td><td class="num">34</td><td class="num">47</td><td class="num">55</td><td class="num">35</td></tr>
+        <tr><td class="name">Flying Triangle pwr 38 → 32</td><td class="num">34</td><td class="num bad">39</td><td class="num">56</td><td class="num">42</td></tr>
+        <tr><td class="name">Flying Triangle pwr 38 → 44</td><td class="num">34</td><td class="num">47</td><td class="num">54</td><td class="num">36</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section>
+  <h2>Ability reference · as committed</h2>
+  <p class="lede">Every technique in the three grappling kits. <b>Pwr/stam</b> is power divided by stamina — the efficiency figure that has predicted matchup swings better than raw power throughout this pass.</p>
+
+  <div class="scroll">
+    <table>
+      <caption>Wrestling</caption>
+      <thead><tr><th>Ability</th><th class="num">Pwr</th><th class="num">Stam</th><th class="num">Slots</th><th>Type</th><th class="num">Pwr/stam</th><th>Access</th><th>Requires</th><th>Riders</th></tr></thead>
+      <tbody>
+        <tr><td class="name">Wrestling Stance</td><td class="num">—</td><td class="num">4</td><td class="num">1</td><td>None</td><td class="num">—</td><td>Both</td><td>—</td><td class="note">Poise 0</td></tr>
+        <tr><td class="name">Single Leg Shot</td><td class="num">—</td><td class="num">15</td><td class="num">1</td><td>None</td><td class="num">—</td><td>Neither</td><td>—</td><td class="note">grapple entry, reach 2</td></tr>
+        <tr><td class="name">Clinch</td><td class="num">—</td><td class="num">15</td><td class="num">1</td><td>None</td><td class="num">—</td><td>Neither</td><td>—</td><td class="note">grapple entry</td></tr>
+        <tr><td class="name">Sumo Palm</td><td class="num">5</td><td class="num">15</td><td class="num">2</td><td class="hi">True</td><td class="num">0.33</td><td>Mounting only</td><td>—</td><td class="note">ignores mitigation · no poise damage · 85–87% of Wrestling's output</td></tr>
+        <tr><td class="name">Wrestler's Prowess</td><td class="num">—</td><td class="num">15</td><td class="num">1</td><td>None</td><td class="num">—</td><td>Both</td><td>—</td><td class="note">STR +20% for 1 round</td></tr>
+        <tr><td class="name">Suplex</td><td class="num">30</td><td class="num">50</td><td class="num">3</td><td>Physical</td><td class="num">0.60</td><td>Neither</td><td>Standing grapple</td><td class="note">DC 13 · → mount · poise ×2</td></tr>
+        <tr><td class="name">Choke Slam</td><td class="num">32</td><td class="num">50</td><td class="num">2</td><td>Physical</td><td class="num">0.64</td><td>Neither</td><td>Standing grapple</td><td class="note">poise ×2 · guard break</td></tr>
+        <tr><td class="name">Ground and Pound</td><td class="num">12</td><td class="num">10</td><td class="num">2</td><td>Physical</td><td class="num good">1.20</td><td>Mounting only</td><td>Mounting</td><td class="note">no riders</td></tr>
+        <tr><td class="name">Reversal</td><td class="num">—</td><td class="num">30</td><td class="num">3</td><td>None</td><td class="num">—</td><td>Mounted only</td><td>Mounted</td><td class="note">DC 10 · flips Mounted → Mounting · breaks the hold on you</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="scroll" style="margin-top:16px">
+    <table>
+      <caption>Judo</caption>
+      <thead><tr><th>Ability</th><th class="num">Pwr</th><th class="num">Stam</th><th class="num">Slots</th><th>Type</th><th class="num">Pwr/stam</th><th>Access</th><th>Requires</th><th>Riders</th></tr></thead>
+      <tbody>
+        <tr><td class="name">Judo Stance</td><td class="num">—</td><td class="num">4</td><td class="num">1</td><td>None</td><td class="num">—</td><td>Both</td><td>—</td><td class="note">Poise 0</td></tr>
+        <tr><td class="name">Clinch</td><td class="num">—</td><td class="num">15</td><td class="num">1</td><td>None</td><td class="num">—</td><td>Neither</td><td>—</td><td class="note">grapple entry</td></tr>
+        <tr><td class="name">Hip Toss</td><td class="num">15</td><td class="num">15</td><td class="num">1</td><td>Physical</td><td class="num good">1.00</td><td>Neither</td><td>Standing grapple</td><td class="note">poise ×1.5 · 228 uses vs Wrestler, 41 vs Jiu-Jitsu — the one matchup-specific lever</td></tr>
+        <tr><td class="name">Rolling Throw</td><td class="num">8</td><td class="num">10</td><td class="num">1</td><td>Physical</td><td class="num">0.80</td><td>Neither</td><td>Standing grapple</td><td class="note">DC 8 · throw 3 tiles · breaks hold — kept as a hazard-combo escape</td></tr>
+        <tr><td class="name">Sweeping Shoulder</td><td class="num">6</td><td class="num">10</td><td class="num">1</td><td>Physical</td><td class="num">0.60</td><td>Neither</td><td>Standing grapple</td><td class="note">DC 8 · → mount (the transition step)</td></tr>
+        <tr><td class="name">Cross Choke</td><td class="num">31</td><td class="num">13</td><td class="num">2</td><td>Physical</td><td class="num good">2.38</td><td>Mounting only</td><td>Mounting</td><td class="note"><span class="sub-tag">SUBMISSION</span> · DC 13 · best-stat · Silence 2r · focus lock · 82–92% of Judo's output</td></tr>
+        <tr><td class="name">Hip Escape</td><td class="num">—</td><td class="num">20</td><td class="num">2</td><td>None</td><td class="num">—</td><td>Mounted only</td><td>Mounted</td><td class="note">drains 15 stamina · once per round · no roll, never resisted</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="scroll" style="margin-top:16px">
+    <table>
+      <caption>Jiu-Jitsu</caption>
+      <thead><tr><th>Ability</th><th class="num">Pwr</th><th class="num">Stam</th><th class="num">Slots</th><th>Type</th><th class="num">Pwr/stam</th><th>Access</th><th>Requires</th><th>Riders</th></tr></thead>
+      <tbody>
+        <tr><td class="name">Jiu-Jitsu Stance</td><td class="num">—</td><td class="num">4</td><td class="num">1</td><td>None</td><td class="num">—</td><td>Both</td><td>—</td><td class="note">Poise 0</td></tr>
+        <tr><td class="name">Clinch</td><td class="num">—</td><td class="num">15</td><td class="num">1</td><td>None</td><td class="num">—</td><td>Neither</td><td>—</td><td class="note">grapple entry</td></tr>
+        <tr><td class="name">Pull Guard</td><td class="num">—</td><td class="num">10</td><td class="num">1</td><td>None</td><td class="num">—</td><td>Neither</td><td>Standing grapple</td><td class="note">DC 14 · user goes to bottom voluntarily · keeps poise · self AGI +30%</td></tr>
+        <tr><td class="name">Strangle</td><td class="num">38</td><td class="num">11</td><td class="num">2</td><td>Physical</td><td class="num good">3.45</td><td>Mounting only</td><td>Mounting</td><td class="note"><span class="sub-tag">SUBMISSION</span> · DC 13 · best-stat · Silence 2r · focus lock · most efficient move in the archetype</td></tr>
+        <tr><td class="name">Flying Triangle</td><td class="num">38</td><td class="num">19</td><td class="num">2</td><td>Physical</td><td class="num good">2.00</td><td>Neither</td><td>Standing grapple</td><td class="note"><span class="sub-tag">SUBMISSION</span> · DC 13 · → mount · Silence 2r · focus lock</td></tr>
+        <tr><td class="name">Arm bar</td><td class="num">30</td><td class="num">11</td><td class="num">1</td><td>Physical</td><td class="num good">2.73</td><td class="hi">Both</td><td>Mount (either side)</td><td class="note"><span class="sub-tag">SUBMISSION</span> · DC 13 · Cripple 2r · <b>the only submission legal from the bottom</b></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section>
+  <h2>Fighter stat blocks</h2>
+  <div class="scroll">
+    <table>
+      <caption>NPC attributes and derived pools</caption>
+      <thead><tr><th>Fighter</th><th class="num">STR</th><th class="num">AGI</th><th class="num">FORT</th><th class="num">INT</th><th class="num">CHA</th><th class="num">HP</th><th class="num">Stam</th><th class="num">Poise</th><th class="num">Stam/rd</th><th class="num">Phys. mit.</th></tr></thead>
+      <tbody>
+        <tr><td class="name">Wrestler</td><td class="num hi">14</td><td class="num">10</td><td class="num hi">12</td><td class="num">6</td><td class="num">6</td><td class="num hi">220</td><td class="num hi">110</td><td class="num hi">150</td><td class="num">11</td><td class="num hi">21.0%</td></tr>
+        <tr><td class="name">Judoka</td><td class="num">13</td><td class="num">11</td><td class="num">11</td><td class="num">7</td><td class="num">6</td><td class="num">210</td><td class="num">105</td><td class="num">140</td><td class="num">11</td><td class="num">19.5%</td></tr>
+        <tr><td class="name">Jiu-Jitsu Fighter</td><td class="num bad">11</td><td class="num hi">13</td><td class="num bad">10</td><td class="num hi">9</td><td class="num">6</td><td class="num bad">200</td><td class="num bad">100</td><td class="num bad">130</td><td class="num">10</td><td class="num bad">16.5%</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="note-box">
+    <h4>Jiu-Jitsu is bottom of every defensive column</h4>
+    <p>Lowest HP, lowest stamina pool, lowest poise, worst mitigation — and its damage type is Physical, so it eats the opponent's mitigation while Wrestling's Sumo Palm ignores mitigation entirely. Its stat block is doing none of the work its win rate needs.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Formulas and global constants</h2>
+  <div class="formula">Physical  = (power + attacker.STR) × (1 − min(0.75, target.STR × 0.015)) × <b>0.7</b>
+True      = (power + attacker.STR) × <b>0.7</b>                      <b>← no mitigation, no poise damage</b>
+Poise     = damage × ratio, where ratio = Physical 1.0 · Elemental 0.5 · True 0.0</div>
+  <div class="scroll" style="margin-top:16px">
+    <table>
+      <caption>Balance constants in force</caption>
+      <thead><tr><th>Constant</th><th class="num">Value</th><th>Effect</th></tr></thead>
+      <tbody>
+        <tr><td class="name">actionSlotsPerRound</td><td class="num">5</td><td class="note">total action budget per round</td></tr>
+        <tr><td class="name">damageScale</td><td class="num">0.7</td><td class="note">global multiplier on all damage</td></tr>
+        <tr><td class="name">mountUpkeepStamina</td><td class="num">10</td><td class="note">paid every round by the Mounting fighter</td></tr>
+        <tr><td class="name">grappleHoldUpkeepStamina</td><td class="num">5</td><td class="note">paid every round by the standing-grapple controller</td></tr>
+        <tr><td class="name">submissionCostEscalation</td><td class="num">0.5</td><td class="note">×1, ×1.5, ×2.0, ×2.5 … per consecutive round held</td></tr>
+        <tr><td class="name">submissionDamageEscalation</td><td class="num">0.5</td><td class="note">same curve applied to damage</td></tr>
+        <tr><td class="name">submissionEscapeDcPerRound</td><td class="num">2</td><td class="note">Reversal gets harder the longer a hold has been worked</td></tr>
+        <tr><td class="name">repetitionFreeUses</td><td class="num">2</td><td class="note">uses before repeat-strain surcharge begins</td></tr>
+        <tr><td class="name">repetitionStrainPerExtra</td><td class="num">0.5</td><td class="note">+50% cost per use beyond the free ones</td></tr>
+        <tr><td class="name">passive stamina regen</td><td class="num">1 / 0.5 / 0.25</td><td class="note">free / grappling / in mount — position throttles recovery</td></tr>
+        <tr><td class="name">staminaBase + perFort</td><td class="num">50 + 5</td><td class="note">max stamina formula</td></tr>
+        <tr><td class="name">mitigationPerPoint</td><td class="num">0.015</td><td class="note">per point of STR, capped at 0.75</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<footer>
+  Astro Fighters V3.4 · grappling parity pass · 2026-08-15<br>
+  Branches claude/astrofighters-v3-4-web-qw2utw and claude/astrofighters-test-version-p1sw5a, commit dfd3ef4.<br>
+  Headline and candidate figures: 250 seeds per matchup, sides alternated, seed base 90000. Sensitivity sweep: 80 seeds, seed base 5000.<br>
+  All simulations are AI vs AI at zero planning noise; human play will differ.
+</footer>
+
+</div>

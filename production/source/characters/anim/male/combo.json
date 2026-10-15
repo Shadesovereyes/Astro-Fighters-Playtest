@@ -1,0 +1,388 @@
+{
+  "schema": "astro-fighters-character-combo/v1",
+  "body": "male",
+  "status": "candidate; input mapping and allowed combos set by the user 2026-10-12",
+  "inputs": {
+    "light": "light attack: one key/button for the punch combo (jab, cross)",
+    "heavy": "heavy attack: a separate key/button for the kick combo (low kick, snap kick, spin roundhouse)",
+    "weave": "weave/dodge: a third key/button (lab: L); unarmed only for now (user 2026-10-14)",
+    "block": "block: hold to keep the block stance (lab: I); unarmed first (user 2026-10-14)"
+  },
+  "rules": [
+    "Light attack and heavy attack are two separate inputs, each bound to its own key/button.",
+    "One press plays one clip; every step of a chain needs its own press, in rhythm (inside the playing clip's chain window, its last two frames).",
+    "Only these combos exist: light, light = jab, cross; light, light, heavy = jab, cross, spin roundhouse; light, heavy = jab, spin roundhouse; heavy, heavy, heavy = low kick, snap kick, spin roundhouse; light, weave, heavy = jab, weave, spin roundhouse (user 2026-10-14) (and their opening steps: light = jab; heavy = low kick; heavy, heavy = low kick, snap kick).",
+    "A heavy press after a punch (in the jab's or the cross's chain window) plays the spin roundhouse finisher.",
+    "A weave press in the jab's chain window plays the weave as a combo step; a heavy press in that weave's chain window (its recovery frames 4-5) plays the spin roundhouse finisher; a light or weave press there does nothing. A weave started from the guard or neutral is not a combo step: it ends in the guard and the next press starts a combo as from the guard (user 2026-10-14).",
+    "A light press after a kick does nothing: kicks never lead into punches. A light press after the cross does nothing.",
+    "The spin roundhouse is the finisher and ends the combo.",
+    "A clip that finishes with no valid press in its window returns to the guard idle (guard.json) and ends the combo.",
+    "A press during a clip's active frame or later is buffered and taken at its chain window.",
+    "Every clip starts and ends in the orthodox guard, so any allowed clip can follow another without a transition frame.",
+    "After any attack the character holds the guard idle (hands up, slight bob) while in combat; with no attack for 15 seconds (user 2026-10-13) it returns to the normal idle; with a weapon the weapon's stance takes the guard's place. A press from the guard idle starts a combo like a press from neutral."
+  ],
+  "attackSpeed": {
+    "rule": "set by the user 2026-10-14: light attacks are faster than heavy attacks; a light that lands interrupts a heavy in progress (the struck fighter's heavy stops and its hit recoil plays)",
+    "current": "unarmed: jab 4 frames and cross 4 frames at 12 fps (0.33 s each); low kick and snap kick 5 frames, spin roundhouse 6 frames at 12 fps (0.42 s, 0.50 s); weapon lights at 12 fps, weapon heavies at 10 fps; every new heavy clip must stay slower than the light it pairs with"
+  },
+  "stamina": {
+    "rule": "set by the user 2026-10-14: weaves and standing dodges cost a meaningful amount of stamina so they cannot be spammed; when stamina is spent the fighter is exhausted: it cannot sprint or dodge (weave) and all its attack actions are slowed; while exhausted it rests in the exhausted idle stance instead of the guard; attacks also spend the attacker's stamina (user 2026-10-14), so offence wears a fighter down as well",
+    "values": {
+      "max": 100,
+      "weaveCost": 35,
+      "regenPerSecond": 20,
+      "regenDelaySeconds": 1.0,
+      "exhaustedAttackSpeed": 0.7,
+      "recoverAt": 100,
+      "lightAttackCost": 8,
+      "heavyAttackCost": 15
+    },
+    "valuesStatus": "starting values to tune in the lab (not set by the user): a weave needs stamina above 0 and spends 35 (never below 0), so the third weave in a row from full spends the last of it and exhausts the fighter; regeneration starts 1 s after the last spend; exhausted attacks play at 0.7 of their fps; the exhausted state ends when stamina is full again (5 s from empty); attacks: every light clip spends 8 and every heavy clip 15 when it starts (chained steps included); an attack is allowed while exhausted (slowed) and its cost keeps the stamina at 0 and restarts the regeneration delay, so attacking does not recover a fighter",
+    "exhausted": {
+      "blocks": [
+        "sprint",
+        "weave",
+        "standing dodge"
+      ],
+      "attacks": "play at exhaustedAttackSpeed",
+      "rest": "the exhausted idle stance (state exhausted) replaces the guard and the idle; in a weapon mode the weapon stance stays until exhausted weapon variants exist (the weapon must not disappear)"
+    }
+  },
+  "block": {
+    "rule": "set by the user 2026-10-14: the block is a second defensive option next to the weave, not a replacement: a player can hold the block against attacks or try to time a weave. The block costs less stamina than a weave; the trade-off is that a blocked hit still lands on the blocker with reduced health damage and increased poise damage, while a well-timed weave avoids the hit entirely at a higher stamina cost",
+    "values": {
+      "staminaPerBlockedHit": 15,
+      "healthDamageScale": 0.3,
+      "poiseDamageScale": 1.5,
+      "frontHalfAngleDeg": 90,
+      "blockedKnockback": 1
+    },
+    "valuesStatus": "starting values to tune in the lab (not set by the user): a blocked hit spends 15 stamina (a weave 35), deals 0.3 of its health damage and 1.5 of its poise damage, and pushes the blocker back 1 px; the block covers hits from the front half (within 90 degrees of the facing), a hit from behind lands normally; the block is held from rest (not while moving, attacking or in hit recoil), attacks wait until it is released; exhausted fighters and fighters without stamina cannot block (to confirm)",
+    "stance": "block stance (state block, to author): a held high cover from the guard, both forearms up in front of the face, elbows tucked over the body, chin down"
+  },
+  "health": {
+    "rule": "recorded 2026-10-14 for the block trade-off: every fighter has health; a landed hit deals its move's health damage (scaled by the block when blocked); values per move to set",
+    "values": {
+      "max": 100,
+      "lightDamage": 8,
+      "heavyDamage": 14
+    },
+    "valuesStatus": "starting values to tune (not set by the user): every light clip deals 8, every heavy clip 14 (heavy = clips reached by the heavy input: kicks and weapon heavies); at 0 health the fighter stays at 0 (no knockout state yet)"
+  },
+  "poise": {
+    "rule": "recorded 2026-10-14 for the block trade-off: every fighter has poise; hits deal poise damage (scaled up when blocked); when poise runs out the guard breaks (stagger state, to author); poise recovers over time",
+    "values": {
+      "max": 100,
+      "lightDamage": 10,
+      "heavyDamage": 25,
+      "regenPerSecond": 15,
+      "regenDelaySeconds": 1.5
+    },
+    "valuesStatus": "starting values to tune (not set by the user): lights 10, heavies 25 poise damage; poise regenerates 15/s from 1.5 s after the last poise damage; at 0 poise the guard breaks: the block is knocked open and the fighter plays the guard-break stagger (guardBreak: no input on frames 0-6, open to hits, which land in full with the hit recoil), then poise refills to full"
+  },
+  "hitArea": {
+    "rule": "set by the user 2026-10-12: every attack's hit area is an arc on the ground plane in front of the character, so targets that are not exactly aligned still connect",
+    "shape": "arc (circular sector) centred on the facing direction (S, E, N, W), origin at the attacker's foot pivot [32, 63]",
+    "radius": 25,
+    "halfAngleDeg": 60,
+    "units": "ground pixels; the cabinet projection maps ground depth 1:1 to screen y, so the arc is a true circle on screen",
+    "targetContact": "a target is inside when its ground footprint (circle at its foot point) overlaps the arc",
+    "heightBand": "the active event's E hitbox gives the height band above the ground: from 63 - (y + h) to 63 - y px; the target's body must overlap it (a low kick misses what is above it); the authored S/N boxes are on-screen debug only",
+    "activeFrames": "the arc is live on each active event frame; each active frame hits at most one target",
+    "status": "approved by the user 2026-10-12 (25 px radius, 60 degree half-angle)"
+  },
+  "targeting": {
+    "rule": "set by the user 2026-10-12: damage goes to one target per active frame; the target is chosen again on every active frame, so a combo keeps hitting the same target from move to move while it is the selected target inside the arc or still the closest target inside the arc",
+    "order": [
+      "the player's selected target, if it is inside the hit area",
+      "otherwise (no target selected, or the selected target outside the hit area) the target inside the hit area closest to the player (ground distance from foot point to footprint edge)",
+      "otherwise nothing is hit"
+    ],
+    "faceTarget": "each attack press with a selected target first turns the character to face it (the target's dominant axis: E/W when the horizontal offset is at least the vertical, otherwise N/S), so the target sits inside the hit arc's centre half; this applies to every press that starts a clip, including each chained step of a combo; with no target selected the facing is unchanged"
+  },
+  "finishers": [
+    "heavyAttack/spinRoundhouse"
+  ],
+  "transitions": {
+    "rule": "the next clip for a press in each clip's chain window (null: the press does nothing); this table is the complete set of allowed combos",
+    "neutral": {
+      "light": "lightAttack/jab",
+      "heavy": "heavyAttack/lowKick",
+      "weave": null
+    },
+    "lightAttack/jab": {
+      "light": "lightAttack/cross",
+      "heavy": "heavyAttack/spinRoundhouse",
+      "weave": "weave/weave"
+    },
+    "lightAttack/cross": {
+      "light": null,
+      "heavy": "heavyAttack/spinRoundhouse",
+      "weave": null
+    },
+    "weave/weave": {
+      "light": null,
+      "heavy": "heavyAttack/spinRoundhouse",
+      "weave": null
+    },
+    "heavyAttack/lowKick": {
+      "light": null,
+      "heavy": "heavyAttack/snapKick",
+      "weave": null
+    },
+    "heavyAttack/snapKick": {
+      "light": null,
+      "heavy": "heavyAttack/spinRoundhouse",
+      "weave": null
+    },
+    "heavyAttack/spinRoundhouse": {
+      "light": null,
+      "heavy": null,
+      "weave": null
+    },
+    "guard": {
+      "light": "lightAttack/jab",
+      "heavy": "heavyAttack/lowKick",
+      "weave": null
+    }
+  },
+  "examples": {
+    "punch combo": [
+      "light",
+      "light"
+    ],
+    "jab, cross, roundhouse": [
+      "light",
+      "light",
+      "heavy"
+    ],
+    "jab, roundhouse": [
+      "light",
+      "heavy"
+    ],
+    "kick combo": [
+      "heavy",
+      "heavy",
+      "heavy"
+    ],
+    "jab, weave, roundhouse": [
+      "light",
+      "weave",
+      "heavy"
+    ]
+  },
+  "weapons": {
+    "twoHanded": {
+      "status": "combos confirmed by the user 2026-10-13",
+      "stance": "twoHandGuard",
+      "weapon": "katana",
+      "inputs": {
+        "light": "light attack key/button: katana vertical slashes (katanaLight)",
+        "heavy": "heavy attack key/button: katana side swings (katanaHeavy)"
+      },
+      "rules": [
+        "Same input rules as unarmed: one press per clip, pressed in rhythm inside the playing clip's chain window (presses from its active frame are buffered); every clip starts and ends in the two-handed stance (twoHandGuard) and returns to it when no valid press continues the combo.",
+        "Transitions are keyed by the combo path (the presses so far, L = light, H = heavy), because the same clip continues differently in different combos: after the up-cut a heavy press plays the forehand in L L H H but the backhand in L H L H.",
+        "The confirmed combos: L L (down-cut, up-cut); H H (forehand, backhand); L L H H (down-cut, up-cut, forehand, backhand); L H L H (down-cut, forehand, up-cut, backhand). Their opening steps are valid on their own. Any press with no entry for the current path does nothing; the backhand ends every combo (finisher).",
+        "A clip entered from the clip named in its entry rule while that clip shows one of the listed frames starts at the given frame (up-cut from the down-cut's low hold starts at its smear frame; backhand from the forehand's hold starts at its smear frame); otherwise it plays from its first frame (wind-up)."
+      ],
+      "clips": {
+        "downCut": "katanaLight/downCut",
+        "upCut": "katanaLight/upCut",
+        "sideCutR": "katanaHeavy/sideCutR",
+        "sideCutL": "katanaHeavy/sideCutL"
+      },
+      "paths": {
+        "rule": "path -> { light, heavy }: the clip a press plays from that point of the combo (null: the press does nothing)",
+        "": {
+          "light": "katanaLight/downCut",
+          "heavy": "katanaHeavy/sideCutR"
+        },
+        "L": {
+          "light": "katanaLight/upCut",
+          "heavy": "katanaHeavy/sideCutR"
+        },
+        "LL": {
+          "light": null,
+          "heavy": "katanaHeavy/sideCutR"
+        },
+        "LLH": {
+          "light": null,
+          "heavy": "katanaHeavy/sideCutL"
+        },
+        "LH": {
+          "light": "katanaLight/upCut",
+          "heavy": null
+        },
+        "LHL": {
+          "light": null,
+          "heavy": "katanaHeavy/sideCutL"
+        },
+        "H": {
+          "light": null,
+          "heavy": "katanaHeavy/sideCutL"
+        }
+      },
+      "combos": [
+        {
+          "inputs": "L L",
+          "clips": [
+            "katanaLight/downCut",
+            "katanaLight/upCut"
+          ]
+        },
+        {
+          "inputs": "H H",
+          "clips": [
+            "katanaHeavy/sideCutR",
+            "katanaHeavy/sideCutL"
+          ]
+        },
+        {
+          "inputs": "L L H H",
+          "clips": [
+            "katanaLight/downCut",
+            "katanaLight/upCut",
+            "katanaHeavy/sideCutR",
+            "katanaHeavy/sideCutL"
+          ]
+        },
+        {
+          "inputs": "L H L H",
+          "clips": [
+            "katanaLight/downCut",
+            "katanaHeavy/sideCutR",
+            "katanaLight/upCut",
+            "katanaHeavy/sideCutL"
+          ]
+        }
+      ],
+      "notes": "A clip that follows another without an entry rule plays its own wind-up, so the hand-offs up-cut -> forehand, forehand -> up-cut and up-cut -> backhand jump between poses; transition frames or connecting variants can smooth them later."
+    },
+    "oneHanded": {
+      "status": "light chain (three stabs) and heavy chain (two horizontal swipes) approved by the user 2026-10-13",
+      "stance": "oneHandGuard",
+      "weapon": "wakizashi (default) or tanto",
+      "inputs": {
+        "light": "light attack key/button: three stabs (oneHandLight)",
+        "heavy": "heavy attack key/button: two wide horizontal swipes (oneHandHeavy)"
+      },
+      "rules": [
+        "Same input rules as the two-handed combos: one press per clip in rhythm inside the playing clip's chain window; every clip starts and ends in the one-handed stance (oneHandGuard); each stab plays from its own chamber; stab3 ends the chain (finisher).",
+        "Heavy: H H plays the forehand then the backhand (finisher); the backhand chained from the forehand's hold starts at its smear frame. Mixed light/heavy combos are not defined yet (a press with no entry does nothing)."
+      ],
+      "clips": {
+        "stab1": "oneHandLight/stab1",
+        "stab2": "oneHandLight/stab2",
+        "stab3": "oneHandLight/stab3",
+        "swipeR": "oneHandHeavy/swipeR",
+        "swipeL": "oneHandHeavy/swipeL"
+      },
+      "paths": {
+        "rule": "path -> { light, heavy }: the clip a press plays from that point of the combo (null: the press does nothing)",
+        "": {
+          "light": "oneHandLight/stab1",
+          "heavy": "oneHandHeavy/swipeR"
+        },
+        "L": {
+          "light": "oneHandLight/stab2",
+          "heavy": null
+        },
+        "LL": {
+          "light": "oneHandLight/stab3",
+          "heavy": null
+        },
+        "H": {
+          "light": null,
+          "heavy": "oneHandHeavy/swipeL"
+        }
+      },
+      "combos": [
+        {
+          "inputs": "L L L",
+          "clips": [
+            "oneHandLight/stab1",
+            "oneHandLight/stab2",
+            "oneHandLight/stab3"
+          ]
+        },
+        {
+          "inputs": "H H",
+          "clips": [
+            "oneHandHeavy/swipeR",
+            "oneHandHeavy/swipeL"
+          ]
+        }
+      ]
+    },
+    "dualWield": {
+      "status": "light chain and heavy chain approved by the user 2026-10-13",
+      "stance": "oneHandDualGuard",
+      "weapon": "tanto in each hand",
+      "inputs": {
+        "light": "light attack key/button: two main-hand stabs and an off-hand slash (dualLight)",
+        "heavy": "heavy attack key/button: main-hand then off-hand horizontal swipe (dualHeavy)"
+      },
+      "rules": [
+        "Same input rules as the one-handed combos; every clip starts and ends in the dual-wield stance (oneHandDualGuard); stab2 chained from stab1's hold plays from its chamber; the offSlash chained from stab2's hold starts at its smear frame (the off hand is already raised); the offSlash ends the chain (finisher).",
+        "Heavy: H H plays the main-hand swipe then the off-hand swipe (finisher); the off-hand swipe chained from the main swipe's hold starts at its coil frame. Mixed light/heavy combos are not defined yet."
+      ],
+      "clips": {
+        "stab1": "dualLight/stab1",
+        "stab2": "dualLight/stab2",
+        "offSlash": "dualLight/offSlash",
+        "mainSwipe": "dualHeavy/mainSwipe",
+        "offSwipe": "dualHeavy/offSwipe"
+      },
+      "paths": {
+        "rule": "path -> { light, heavy }: the clip a press plays from that point of the combo (null: the press does nothing)",
+        "": {
+          "light": "dualLight/stab1",
+          "heavy": "dualHeavy/mainSwipe"
+        },
+        "L": {
+          "light": "dualLight/stab2",
+          "heavy": null
+        },
+        "LL": {
+          "light": "dualLight/offSlash",
+          "heavy": null
+        },
+        "H": {
+          "light": null,
+          "heavy": "dualHeavy/offSwipe"
+        }
+      },
+      "combos": [
+        {
+          "inputs": "L L L",
+          "clips": [
+            "dualLight/stab1",
+            "dualLight/stab2",
+            "dualLight/offSlash"
+          ]
+        },
+        {
+          "inputs": "H H",
+          "clips": [
+            "dualHeavy/mainSwipe",
+            "dualHeavy/offSwipe"
+          ]
+        }
+      ]
+    }
+  },
+  "bodyCollision": {
+    "rule": "set by the user 2026-10-14: characters never overlap. Each character's body is a ground-plane ellipse at its foot pivot; two characters' foot points stay outside the doubled ellipse, so side by side they stand at least 2 rx apart and front to back at least 2 ry. rx 15 is the guard's reach from the pivot in E/W (fists 15 px ahead), so two facing guards meet fist to fist without crossing. Movement, attack root motion and hit knockback all stop at it (a move that would bring two overlapping bodies closer is refused, one that separates them is allowed). It is authored here, independent of the sprites.",
+    "rx": 15,
+    "ry": 6,
+    "hurtRadius": 8,
+    "hurtRule": "a character's footprint for the hit arc (hitArea.targetContact) is a circle of radius 8 at its foot pivot: its body without the guard"
+  },
+  "hitFollow": {
+    "rule": "set 2026-10-14 so a chain keeps its distance once bodies cannot overlap: when a hit lands and the target is knocked back by its hit recoil, the attacker (still in its attack, or back in its guard) follows by the same amount, so the next step of the chain is still in reach; the body collision still applies"
+  },
+  "hitReaction": {
+    "rule": "a landed hit plays the target's hit recoil (hitReact) from its first frame, interrupting whatever was playing (an attack, a weave outside its evade frames, or an earlier recoil); hitstun frames take no input; its recover frames take a press or a weave, which cancels the rest of the recoil; a hit during the weave's evade frames (0-3) misses (user 2026-10-14)"
+  }
+}

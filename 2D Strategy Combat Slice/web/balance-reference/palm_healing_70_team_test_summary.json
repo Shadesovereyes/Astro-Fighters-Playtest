@@ -1,0 +1,24 @@
+{
+  "date": "2026-08-13",
+  "palmOutput": 0.70,
+  "level": "L45/A10",
+  "uncapped": true,
+  "duel70": {"battles": 840, "winRate": 0.44285714285714284, "avgRounds": 7.623809523809523},
+  "duel75": {"battles": 840, "winRate": 0.5, "avgRounds": 8.220238095238095},
+  "team2v2": {
+    "format": "Support + K vs K + K",
+    "battlesPerPalm": 336,
+    "noPalm": {"winRate": 0.43154761904761907, "avgRounds": 7.785714285714286},
+    "palm70": {"winRate": 0.5922619047619048, "avgRounds": 8.44047619047619, "avgPalmCasts": 1.6845238095238095},
+    "palm75": {"winRate": 0.6160714285714286, "avgRounds": 8.461309523809524, "avgPalmCasts": 1.9345238095238095}
+  },
+  "team3v3": {
+    "format": "Support + 2K vs 3K",
+    "battlesPerPalm": 168,
+    "noPalm": {"winRate": 0.6607142857142857, "avgRounds": 7.059523809523809},
+    "palm70": {"winRate": 0.7440476190476191, "avgRounds": 7.244047619047619, "avgPalmCasts": 1.8452380952380953},
+    "palm75": {"winRate": 0.75, "avgRounds": 7.261904761904762, "avgPalmCasts": 2.0}
+  },
+  "teamAiTestCorrection": "Heal scoring considers any living ally below 55% HP; runtime currently checks healer HP only.",
+  "recommendation": "70% preferred test candidate over 75%; not owner-locked."
+}
