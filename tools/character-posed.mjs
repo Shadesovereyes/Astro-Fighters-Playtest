@@ -1366,7 +1366,7 @@ const definition = JSON.stringify({
   body: bodyName, state, status: spec.status, frames: F, fps: spec.fps,
   frameSize: [FRAME, FRAME], pivot: [32, 63],
   sheetLayout: { rows: spec.directions, columns: `frames 0–${F - 1}` },
-  layers: Object.fromEntries([...layerNames, ...(spec.arms.farLayer ? ["far-arm"] : [])].map((n) => [n, `${n}.png`])),
+  layers: Object.fromEntries([...layerNames, ...(spec.arms.farLayer ? ["far-arm"] : []), ...(spec.fx ? ["fx"] : [])].map((n) => [n, `${n}.png`])),
   pendingLayers: spec.overlays.pending,
   drawOrder: overlays.drawOrder,
   rootMotion: Object.fromEntries(spec.directions.map((d) => [d, spec.rootMotion[d]])),
@@ -1444,6 +1444,45 @@ if (BR || FF) {
   }
 }
 const outDir = path.join(animDir, state);
+// fx (per frame): effect pixels in their own 'fx' sheet, drawn over the fighter; never part of the body geometry.
+//   smear  motion streaks for a throw: arcs about the turned fighter's pivot (bodyRotation pivot + dy of that frame),
+//          sweeping from 'from' to 'to' degrees (0 = straight up, clockwise in the source direction) at each radius;
+//          each streak is a hard 1 px line (radii are paired into 2 px bands); every other band is broken toward the trailing end
+//   splash an authored pixel pattern (rows, palette keys) placed with its bottom-left at 'at' (x, bottom row)
+if (spec.fx) {
+  const fx = Buffer.alloc(W * H * 4), FP = spec.fx.palette;
+  const hex = (h) => [parseInt(h.slice(1, 3), 16), parseInt(h.slice(3, 5), 16), parseInt(h.slice(5, 7), 16)];
+  for (const dir of spec.directions) {
+    if (FR?.views?.[dir]) continue;
+    const m = !!mirrors[dir], r = spec.directions.indexOf(dir);
+    const put = (k, x, y, c) => {
+      x = Math.round(x); y = Math.round(y); if (m) x = FRAME - 1 - x;
+      if (x < 0 || y < 0 || x >= FRAME || y >= FRAME) return;
+      const i = ((r * FRAME + y) * W + k * FRAME + x) * 4, [R, G, B] = hex(c);
+      fx[i] = R; fx[i + 1] = G; fx[i + 2] = B; fx[i + 3] = 255;
+    };
+    for (const e of spec.fx.frames) {
+      const k = e.frame;
+      if (e.smear) {
+        const pv = spec.bodyRotation?.pivot || [32, 44], cx = pv[0] + (spec.bodyRotation?.dx?.[k] || 0), cy = pv[1] + (spec.bodyRotation?.dy?.[k] || 0);
+        e.smear.radii.forEach((rad, j) => {
+          const span = e.smear.to - e.smear.from, gap = (j >> 1) % 2 ? 0.35 : 0; // every other pair of streaks stops short of the trailing end
+          const steps = Math.ceil(Math.abs(span) * Math.PI / 180 * rad * 2);
+          for (let t = 0; t <= steps; t++) {
+            const f = t / steps; if (f < gap) continue;
+            const a = (e.smear.from + span * f) * Math.PI / 180;
+            put(k, cx + rad * Math.sin(a), cy - rad * Math.cos(a), f < 0.5 ? FP[e.smear.tail] : FP[e.smear.head]);
+          }
+        });
+      }
+      for (const sp of e.splash || []) {
+        const rows = spec.fx.patterns[sp.pattern], h = rows.length;
+        rows.forEach((row, y) => [...row].forEach((ch, x) => { if (ch !== '.') put(k, sp.at[0] + x, sp.at[1] - (h - 1) + y, FP[ch]); }));
+      }
+    }
+  }
+  sheets.fx = fx;
+}
 const files = { ...Object.fromEntries(Object.entries(sheets).map(([n, buf]) => [`${n}.png`, encodePng(W, H, buf)])), 'animation.json': definition };
 // arms.farWeaponOver (per frame): in the side view the far arm is drawn in the body layer, so its showing pixels go
 // into the same helper mask (mirrored for a mirrored direction) and the far hand's blade can be drawn over it

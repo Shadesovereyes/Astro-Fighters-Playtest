@@ -3,7 +3,7 @@
   "body": "male",
   "state": "clinchHipToss",
   "status": "E/W candidate 2026-10-14 (paired with clinchHipTossHit); S/N to author",
-  "frames": 12,
+  "frames": 13,
   "fps": 12,
   "sourceDirection": "E",
   "directions": [
@@ -95,6 +95,7 @@
       4,
       4,
       4,
+      4,
       3,
       3,
       2,
@@ -109,6 +110,7 @@
       5,
       5,
       5,
+      5,
       4,
       4,
       3,
@@ -120,6 +122,7 @@
       2,
       2,
       3,
+      4,
       4,
       4,
       4,
@@ -147,6 +150,7 @@
         0,
         0,
         0,
+        0,
         0
       ],
       "head": [
@@ -154,6 +158,7 @@
         5,
         4,
         9,
+        10,
         10,
         10,
         9,
@@ -215,9 +220,17 @@
       [
         0,
         0
+      ],
+      [
+        0,
+        0
       ]
     ],
     "W": [
+      [
+        0,
+        0
+      ],
       [
         0,
         0
@@ -405,6 +418,7 @@
       3,
       3,
       3,
+      3,
       1,
       1,
       1
@@ -412,6 +426,7 @@
     "far": [
       0,
       0,
+      2,
       2,
       2,
       2,
@@ -470,6 +485,14 @@
         "elbow": {
           "at": 8,
           "angle": -80
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -35,
+        "elbow": {
+          "at": 8,
+          "angle": -55
         }
       },
       {
@@ -568,6 +591,14 @@
         "elbow": {
           "at": 8,
           "angle": -85
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -40,
+        "elbow": {
+          "at": 8,
+          "angle": -60
         }
       },
       {
@@ -715,6 +746,7 @@
       "bandFollowsBody": true,
       "sway": {
         "E": [
+          -1,
           -1,
           -1,
           -1,
@@ -909,6 +941,36 @@
     "looseFromRow": 40,
     "looseRule": "from row 40 down, cloth specks of 1-2 px cut off from the garment and outline pixels that no longer border any cloth are removed (they are left between the legs where a direction's own clothing frame does not register exactly with its source's motion)"
   },
+  "pair": {
+    "rule": "paired idle: drawn with its partner state facing it; the partner's pivot sits 'partnerDx' px ahead along the facing (provisional until approved) (user 2026-10-14: 3 px further apart than the first draft)",
+    "partner": "clinchHipTossHit",
+    "partnerDx": 27,
+    "layering": [
+      "clinchHold far-arm",
+      "clinchHeld far-arm",
+      "clinchHold body, clothing, hair, eyes",
+      "clinchHeld body, clothing, shoulders, hair, eyes",
+      "clinchHeld arms",
+      "clinchHold arms"
+    ],
+    "layeringRule": "back to front (user 2026-10-14): the holder's far arm is the bottom layer (it wraps behind the held head to the back of the neck) and the holder's near arm the top layer (it wraps over the held head); between them the held fighter's far arm, the holder's body, the held fighter's body (its head is pulled down in front of the holder's chest) and the held fighter's near arm (pushing on the holder's chest)"
+  },
+  "faceFlip": [
+    false,
+    false,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+  ],
+  "faceFlipRule": "frames 2-11: the holder has turned in (back to the held fighter), so the frame faces the other way; the clip ends facing the thrown fighter (the runtime facing turns with it)",
   "clips": {
     "rule": "plays from clinchHold; the hold is broken, so it ends in the guard facing the thrown fighter (next: guard; facing turns); the held fighter plays clinchHipTossHit on the same frames",
     "clinchHipToss": {
@@ -924,26 +986,13 @@
         8,
         9,
         10,
-        11
+        11,
+        12
       ],
       "fps": 12,
       "next": "guard",
       "endFacing": "flipped"
     }
-  },
-  "pair": {
-    "rule": "paired idle: drawn with its partner state facing it; the partner's pivot sits 'partnerDx' px ahead along the facing (provisional until approved) (user 2026-10-14: 3 px further apart than the first draft)",
-    "partner": "clinchHipTossHit",
-    "partnerDx": 27,
-    "layering": [
-      "clinchHold far-arm",
-      "clinchHeld far-arm",
-      "clinchHold body, clothing, hair, eyes",
-      "clinchHeld body, clothing, shoulders, hair, eyes",
-      "clinchHeld arms",
-      "clinchHold arms"
-    ],
-    "layeringRule": "back to front (user 2026-10-14): the holder's far arm is the bottom layer (it wraps behind the held head to the back of the neck) and the holder's near arm the top layer (it wraps over the held head); between them the held fighter's far arm, the holder's body, the held fighter's body (its head is pulled down in front of the holder's chest) and the held fighter's near arm (pushing on the holder's chest)"
   },
   "events": {
     "rule": "per-frame gameplay data per facing (W mirrors E: x -> 64 - x - w); the active frame is the landing, the hitbox the ground behind the holder where the thrown fighter lands (provisional)",
@@ -970,6 +1019,10 @@
       },
       {
         "frame": 5,
+        "type": "startup"
+      },
+      {
+        "frame": 6,
         "type": "active",
         "move": "clinchHipToss",
         "hitbox": [
@@ -980,10 +1033,6 @@
         ],
         "damage": "throw",
         "effect": "prone 1rd; breaks the hold"
-      },
-      {
-        "frame": 6,
-        "type": "recovery"
       },
       {
         "frame": 7,
@@ -1003,6 +1052,10 @@
       },
       {
         "frame": 11,
+        "type": "recovery"
+      },
+      {
+        "frame": 12,
         "type": "recovery"
       }
     ],
@@ -1029,6 +1082,10 @@
       },
       {
         "frame": 5,
+        "type": "startup"
+      },
+      {
+        "frame": 6,
         "type": "active",
         "move": "clinchHipToss",
         "hitbox": [
@@ -1039,10 +1096,6 @@
         ],
         "damage": "throw",
         "effect": "prone 1rd; breaks the hold"
-      },
-      {
-        "frame": 6,
-        "type": "recovery"
       },
       {
         "frame": 7,
@@ -1063,22 +1116,11 @@
       {
         "frame": 11,
         "type": "recovery"
+      },
+      {
+        "frame": 12,
+        "type": "recovery"
       }
     ]
-  },
-  "faceFlip": [
-    false,
-    false,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true
-  ],
-  "faceFlipRule": "frames 2-11: the holder has turned in (back to the held fighter), so the frame faces the other way; the clip ends facing the thrown fighter (the runtime facing turns with it)"
+  }
 }

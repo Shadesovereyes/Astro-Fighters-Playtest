@@ -3,7 +3,7 @@
   "body": "male",
   "state": "clinchHipTossHit",
   "status": "E/W candidate 2026-10-14 (paired with clinchHipToss; whole-body rotation); S/N to author",
-  "frames": 12,
+  "frames": 13,
   "fps": 12,
   "sourceDirection": "E",
   "directions": [
@@ -100,6 +100,7 @@
       2,
       2,
       2,
+      2,
       2
     ],
     "head": [
@@ -114,9 +115,11 @@
       5,
       5,
       5,
+      5,
       5
     ],
     "arms": [
+      2,
       2,
       2,
       2,
@@ -147,12 +150,14 @@
         0,
         0,
         0,
+        0,
         0
       ],
       "head": [
         5,
         6,
         7,
+        6,
         6,
         6,
         6,
@@ -189,7 +194,11 @@
         0
       ],
       [
-        -22,
+        -10,
+        0
+      ],
+      [
+        -12,
         0
       ],
       [
@@ -219,7 +228,7 @@
     ],
     "E": [
       [
-        -0,
+        0,
         0
       ],
       [
@@ -239,7 +248,7 @@
         0
       ],
       [
-        22,
+        10,
         0
       ],
       [
@@ -247,23 +256,27 @@
         0
       ],
       [
-        -0,
+        12,
         0
       ],
       [
-        -0,
+        0,
         0
       ],
       [
-        -0,
+        0,
         0
       ],
       [
-        -0,
+        0,
         0
       ],
       [
-        -0,
+        0,
+        0
+      ],
+      [
+        0,
         0
       ]
     ]
@@ -407,9 +420,11 @@
       3,
       3,
       3,
+      3,
       3
     ],
     "far": [
+      2,
       2,
       2,
       2,
@@ -535,6 +550,14 @@
           "at": 8,
           "angle": -16
         }
+      },
+      {
+        "construction": "band",
+        "angle": -10,
+        "elbow": {
+          "at": 8,
+          "angle": -16
+        }
       }
     ],
     "far": [
@@ -576,6 +599,14 @@
         "elbow": {
           "at": 8,
           "angle": -96
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -8,
+        "elbow": {
+          "at": 8,
+          "angle": -12
         }
       },
       {
@@ -715,6 +746,7 @@
       "bandFollowsBody": true,
       "sway": {
         "E": [
+          -1,
           -1,
           -1,
           -1,
@@ -909,27 +941,6 @@
     "looseFromRow": 40,
     "looseRule": "from row 40 down, cloth specks of 1-2 px cut off from the garment and outline pixels that no longer border any cloth are removed (they are left between the legs where a direction's own clothing frame does not register exactly with its source's motion)"
   },
-  "clips": {
-    "rule": "plays on the held fighter when the holder plays clinchHipToss; the hold is broken and the fighter is prone (prone/get-up not yet authored; holds the last frame)",
-    "clinchHipTossHit": {
-      "frames": [
-        0,
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9,
-        10,
-        11
-      ],
-      "fps": 12,
-      "next": null
-    }
-  },
   "pair": {
     "rule": "paired idle: drawn with its partner state facing it; the partner's pivot sits 'partnerDx' px ahead along the facing (provisional until approved) (user 2026-10-14: 3 px further apart than the first draft)",
     "partner": "clinchHipToss",
@@ -1022,6 +1033,7 @@
         "squint",
         "squint",
         "squint",
+        "squint",
         "pain",
         "pain",
         "pain",
@@ -1034,7 +1046,7 @@
     "intent": "eyes squeeze as they are loaded and thrown, shut on the landing (frames 5-7), squinting while lying"
   },
   "bodyRotation": {
-    "rule": "quarter turns about the hips (clockwise on screen in E, so the W-facing held fighter goes over forward, head first): horizontal across the holder's hip (90), upside down (180), flat on the back (270); the landing frames rest on the ground",
+    "rule": "quarter turns about the hips (clockwise on screen in E, so the W-facing held fighter goes over forward, head first): horizontal across the holder's hip (90), upside down (180), flat on the back (270); the landing frames rest on the ground; frame 5 is a blur frame, already turned flat but still in the air",
     "pivot": [
       32,
       44
@@ -1045,6 +1057,7 @@
       0,
       90,
       180,
+      270,
       270,
       270,
       270,
@@ -1065,6 +1078,7 @@
       0,
       0,
       0,
+      0,
       0
     ],
     "dy": [
@@ -1073,6 +1087,7 @@
       -2,
       -16,
       -17,
+      -3,
       0,
       0,
       0,
@@ -1087,6 +1102,7 @@
       false,
       false,
       false,
+      false,
       true,
       true,
       true,
@@ -1094,6 +1110,210 @@
       true,
       true,
       true
+    ]
+  },
+  "clips": {
+    "rule": "plays on the held fighter when the holder plays clinchHipToss; the hold is broken and the fighter is prone (prone/get-up not yet authored; holds the last frame)",
+    "clinchHipTossHit": {
+      "frames": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "fps": 12,
+      "next": null
+    }
+  },
+  "fx": {
+    "rule": "user 2026-10-15: blur frames and an impact splash on the landing. Smear streaks trail the head and feet through each quarter turn (frames 3-5); the landing (frame 6) throws a dust cloud with impact lines, which breaks into two puffs (7) and specks (8)",
+    "palette": {
+      "W": "#ffffff",
+      "w": "#e3e3e3",
+      "#": "#000000"
+    },
+    "patterns": {
+      "dustBig": [
+        "......##.........##.....",
+        ".....#WW#..##...#WW#....",
+        "..##.#WWw##WW#.#WWWw#.#.",
+        ".#WW##WWwwWWWw##WWwww#W#",
+        "#WWWwWWwwwWWwwwWWWwwwWw#",
+        "#wWWwwwwWWWWwwwwWWwwwww#",
+        "#wwwwwWWWWWWWwwwwwwwwww#",
+        ".#wwwwwwwwwwwwwwwwwwww#.",
+        "..####################.."
+      ],
+      "lines": [
+        "#.....#.....#",
+        ".#....#....#.",
+        "..#...#...#..",
+        "......#......",
+        "...#.....#..."
+      ],
+      "puff": [
+        "..##..",
+        ".#WW#.",
+        "#WWww#",
+        "#wwww#",
+        ".####."
+      ],
+      "speck": [
+        "#w#",
+        ".#."
+      ]
+    },
+    "frames": [
+      {
+        "frame": 3,
+        "smear": {
+          "from": 10,
+          "to": 80,
+          "radii": [
+            30,
+            29,
+            26,
+            25
+          ],
+          "tail": "w",
+          "head": "W"
+        }
+      },
+      {
+        "frame": 3,
+        "smear": {
+          "from": 190,
+          "to": 260,
+          "radii": [
+            18,
+            17
+          ],
+          "tail": "w",
+          "head": "W"
+        }
+      },
+      {
+        "frame": 4,
+        "smear": {
+          "from": 100,
+          "to": 170,
+          "radii": [
+            30,
+            29,
+            26,
+            25
+          ],
+          "tail": "w",
+          "head": "W"
+        }
+      },
+      {
+        "frame": 4,
+        "smear": {
+          "from": 280,
+          "to": 350,
+          "radii": [
+            18,
+            17
+          ],
+          "tail": "w",
+          "head": "W"
+        }
+      },
+      {
+        "frame": 5,
+        "smear": {
+          "from": 190,
+          "to": 260,
+          "radii": [
+            30,
+            29,
+            26,
+            25
+          ],
+          "tail": "w",
+          "head": "W"
+        }
+      },
+      {
+        "frame": 5,
+        "smear": {
+          "from": 10,
+          "to": 80,
+          "radii": [
+            18,
+            17
+          ],
+          "tail": "w",
+          "head": "W"
+        }
+      },
+      {
+        "frame": 6,
+        "splash": [
+          {
+            "pattern": "dustBig",
+            "at": [
+              18,
+              63
+            ]
+          },
+          {
+            "pattern": "lines",
+            "at": [
+              24,
+              45
+            ]
+          }
+        ]
+      },
+      {
+        "frame": 7,
+        "splash": [
+          {
+            "pattern": "puff",
+            "at": [
+              8,
+              62
+            ]
+          },
+          {
+            "pattern": "puff",
+            "at": [
+              48,
+              62
+            ]
+          }
+        ]
+      },
+      {
+        "frame": 8,
+        "splash": [
+          {
+            "pattern": "speck",
+            "at": [
+              5,
+              60
+            ]
+          },
+          {
+            "pattern": "speck",
+            "at": [
+              54,
+              60
+            ]
+          }
+        ]
+      }
     ]
   }
 }
