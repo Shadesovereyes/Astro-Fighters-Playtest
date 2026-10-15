@@ -131,15 +131,31 @@ function reactFacing(state,facing,a,b,def){
 // plays the holder's side of the pair.
 const CLINCH_CLIPS={
   Grappling:{"Uppercut":["clinchUppercut","clinchUppercutHit"],"Knee Strikes":["clinchKnee","clinchKneeHit"],"Elbow Strike":["clinchElbow","clinchElbowHit"],
-    "Body Shot":["clinchBodyShot","clinchBodyShotHit"],"Hip Toss":["clinchHipToss","clinchHipTossHit"],"Rolling Throw":["clinchRollingThrow","clinchRollingThrowHit"]},
+    "Body Shot":["clinchBodyShot","clinchBodyShotHit"],"Hip Toss":["clinchHipToss","clinchHipTossHit"],"Rolling Throw":["clinchRollingThrow","clinchRollingThrowHit"],
+    "Sweeping Shoulder":["clinchSweepingShoulder","clinchSweepingShoulderHit"]},
   Grappled:{"Uppercut":["clinchHeldUppercut","clinchHoldHit"],"Knee Strikes":["clinchHeldKnee","clinchHoldKneeHit"],"Elbow Strike":["clinchHeldElbow","clinchHoldElbowHit"],
     "Rolling Throw":["clinchRollingThrow","clinchRollingThrowHit"]}
 };
 const THROWS=new Set(["Hip Toss","Rolling Throw"]);
+// standing grapple techniques that take the pair to the ground in Mount (engine TRANSITION.TO_MOUNT): the clip ends
+// with the holder astride, then the pair idles mountTop / mountBottom (candidates, 2026-10-15)
+const TO_MOUNT=new Set(["Sweeping Shoulder"]);
+const MOUNT_CLIP="clinchSweepingShoulder";
+const MOUNT_GAP=2,MOUNT_LAYER_FROM=6;   // the specs' pair.partnerDx (mountTop) and pair.mountLayering.fromFrame (not exported)
 function clinchClips(role,ab){const t=CLINCH_CLIPS[role];return t&&ab?t[ab.name]||null:null;}
 const PAIR_GAP=27;          // holder and held pivots, px apart along E/W (the approved pair previews)
 // where a clinched pair stands: pulled together around the midpoint of their cells, side by side, the holder
 // facing the held fighter along E/W
+// where a Mount pair lies: the held fighter's clinch spot moved by the Sweeping Shoulder clip's root motion, and
+// the top fighter the mount pair's partnerDx short of it, so the static Mount matches the end of the takedown
+function mountGeometry(){
+  const tot=n=>{const st=def&&def.states[n],rm=st&&st.rootMotion,l=rm&&(Array.isArray(rm)?rm:rm.E)||[];return Math.abs(l.reduce((a,v)=>a+v[0],0));};
+  return{bottom:tot(MOUNT_CLIP+"Hit"),gap:MOUNT_GAP};
+}
+function mountSpots(h,d){
+  const P=pairSpots(h,d),sx=P.holder.facing==="E"?1:-1,g=mountGeometry(),bx=P.held.x+sx*g.bottom;
+  return{holder:{x:bx-sx*g.gap,y:P.holder.y,facing:P.holder.facing},held:{x:bx,y:P.held.y,facing:P.held.facing}};
+}
 function pairSpots(h,d){
   const mx=(h.x+d.x)/2,my=Math.round((h.y+d.y)/2),sx=d.x>=h.x?1:-1;
   const hx=Math.round(mx-sx*PAIR_GAP/2);
@@ -236,7 +252,7 @@ function GifEncoder(width,height){
   };
 }
 
-const API={FRAME,PIVOT,isHumanoid,appearanceFor,weaponFor,basePose,attackClip,hitReaction,faceToward,faceIn,reactFacing,planBeats,clinchClips,pairSpots,
+const API={FRAME,PIVOT,isHumanoid,appearanceFor,weaponFor,basePose,attackClip,hitReaction,faceToward,faceIn,reactFacing,planBeats,clinchClips,pairSpots,mountSpots,
   PALETTES,GifEncoder,ready:false,handles:()=>false,attach(){},beginRound(){},playRound(){return null;},cancel(){},sync(){}};
 root.AFSprites=API;
 if(typeof module!=="undefined"&&module.exports)module.exports=API;
@@ -340,15 +356,17 @@ function play(sp,state,clip,opts){
 function holdBase(sp){
   if(sp.dead&&canDown(sp)){goDown(sp);return;}
   if(!sp.glyph&&sp.f&&sp.f.drowning&&root.AF&&root.AF.alive(sp.f)&&root.AF.onWater&&root.AF.onWater(sp.f)){startDrown(sp);return;}
+  if(sp.pair&&sp.pair.kind==="mount"&&def.states.mountTop){play(sp,sp.pair.role==="holder"?"mountTop":"mountBottom",null,{loop:true});return;}
   if(sp.pair){play(sp,sp.pair.role==="holder"?"clinchHold":"clinchHeld",null,{loop:true});return;}
   const b=basePose(sp.pose||sp.f);play(sp,b.state,null,{loop:true,weapon:b.weapon});
 }
 // clinch pairing on the canvas (presentation only: the engine's relationship decides who is paired)
 // h holds d; hp and dp are where each stands unpaired (their cells). Returns the paired spots.
-function setPair(h,d,hp,dp){
-  h.pair={other:d,role:"holder"};d.pair={other:h,role:"held"};
+function setPair(h,d,hp,dp,kind){
+  kind=kind||"clinch";
+  h.pair={other:d,role:"holder",kind};d.pair={other:h,role:"held",kind};
   h.home={x:hp.x,y:hp.y};d.home={x:dp.x,y:dp.y};
-  const P=pairSpots(hp,dp);
+  const P=kind==="mount"?mountSpots(hp,dp):pairSpots(hp,dp);
   h.facing=P.holder.facing;d.facing=P.held.facing;
   return P;
 }
@@ -357,10 +375,10 @@ function setPair(h,d,hp,dp){
 function applyStaticPairs(relOf,cellOf){
   for(const sp of sprites.values()){sp.pair=null;sp.home=null;}
   for(const [f,sp] of sprites){
-    const r=relOf(f);if(!r||r.role!=="Grappling"||sp.glyph||!sp.visible)continue;
+    const r=relOf(f);if(!r||(r.role!=="Grappling"&&r.role!=="Mounting")||sp.glyph||!sp.visible)continue;
     const o=sprites.get(r.partner);if(!o||o.glyph||!o.visible||o.pair)continue;
     const a=cellOf(f),b=cellOf(r.partner);if(!a||!b||!root.AF||root.AF.hdist(a,b)>1)continue;
-    const P=setPair(sp,o,px(a),px(b));
+    const P=setPair(sp,o,px(a),px(b),r.role==="Mounting"&&def.states.mountTop?"mount":"clinch");
     sp.x=P.holder.x;sp.y=P.holder.y;o.x=P.held.x;o.y=P.held.y;
     if(!sp.anim||sp.anim.loop)holdBase(sp);if(!o.anim||o.anim.loop)holdBase(o);
   }
@@ -450,6 +468,13 @@ function foamRing(cx,cy,now){
 // a clinched pair, back to front (approved layering): holder far arm, held far arm, holder body, held body, held
 // near arm, holder near arm, then the impact FX
 function drawPair(h,d,now){
+  // on the ground (Mount, and the Sweeping Shoulder takedown from its pair.mountLayering frame) the mounted fighter lies
+  // under the top fighter: bottom body, top far arm and body, then both arms
+  const a=h.anim,fr=a&&a.state===MOUNT_CLIP?frameOf(h,now):null;
+  if(h.pair.kind==="mount"&&!fr||fr&&fr.col>=MOUNT_LAYER_FROM){
+    drawSprite(d,now,"far");drawSprite(d,now,"body");drawSprite(h,now,"far");drawSprite(h,now,"body");
+    drawSprite(d,now,"arms");drawSprite(h,now,"arms");drawSprite(d,now,"fx");drawSprite(h,now,"fx");return;
+  }
   drawSprite(h,now,"far");drawSprite(d,now,"far");drawSprite(h,now,"body");drawSprite(d,now,"body");
   drawSprite(d,now,"arms");drawSprite(h,now,"arms");drawSprite(d,now,"fx");drawSprite(h,now,"fx");
 }
@@ -565,7 +590,11 @@ async function react(e,token){
   if(e.type==="release"){
     const a=drawn(e.who)?spriteFor(e.who):null,b=drawn(e.partner)?spriteFor(e.partner):null;
     if(!a||!b||!paired(a,b))return;
-    unpair(a);holdBase(a);holdBase(b);
+    const mount=a.pair.kind==="mount",bot=mount?(a.pair.role==="held"?a:b):null;
+    unpair(a);
+    if(bot&&def.states.getUp){const top=bot===a?b:a;holdBase(top);await Promise.all([top.home&&glide(top,top.home,GLIDE_MS,token),wait(play(bot,"getUp","getUp",{hold:true}))]);
+      if(token!==playToken)return;holdBase(bot);if(bot.home)await glide(bot,bot.home,GLIDE_MS,token);return;}
+    holdBase(a);holdBase(b);
     await Promise.all([a.home&&glide(a,a.home,GLIDE_MS,token),b.home&&glide(b,b.home,GLIDE_MS,token)]);return;
   }
   if(!drawn(e.who)){return;}
@@ -594,6 +623,7 @@ async function act(beat,counters,token){
   }
   const sp=spriteFor(who);
   if(target)sp.lastTarget=target;
+  if(target&&sp.pair&&sp.pair.kind==="mount"&&sp.pair.other.f===target){await mountAct(beat,sp,sp.pair.other,token);return;}
   if(target&&sp.pair&&sp.pair.other.f===target){
     const cc=clinchClips(sp.pair.role==="holder"?"Grappling":"Grappled",ab);
     if(cc){await clinchAct(beat,sp,sp.pair.other,cc,ab,token);return;}
@@ -644,6 +674,17 @@ async function clinchAct(beat,sp,o,cc,ab,token){
   const knock=beat.reactions.find(r=>r.type==="knock"&&r.who===o.f);
   const own=r=>r===hit||r===knock||r.type==="release"&&(r.who===sp.f||r.who===o.f)||(r.type==="evade"||r.type==="parry")&&r.who===o.f;
   const rest=beat.reactions.filter(r=>!own(r));
+  if(TO_MOUNT.has(ab.name)&&def.states.mountTop){
+    if(!hit||sp.pair.role!=="holder"){await wait(BLOCK_MS);await Promise.all(rest.map(r=>react(r,token)));return;}
+    const h=sp,d=o,hHome=h.home||{x:h.x,y:h.y},dHome=d.home||{x:d.x,y:d.y},M=mountSpots(hHome,dHome);
+    const msH=play(h,cc[0],cc[0],{hold:true,path:{from:{x:h.x,y:h.y},to:M.holder,total:rootTotal(cc[0],h.facing)}});
+    const msD=play(d,cc[1],cc[1],{hold:true,path:{from:{x:d.x,y:d.y},to:M.held,total:rootTotal(cc[1],d.facing)}});
+    await wait(Math.max(msH,msD));if(token!==playToken)return;
+    h.x=M.holder.x;h.y=M.holder.y;d.x=M.held.x;d.y=M.held.y;h.pair.kind=d.pair.kind="mount";
+    if(hit.killed){unpair(h);holdBase(h);d.dead=true;goDown(d);}
+    else{holdBase(h);holdBase(d);}
+    await Promise.all(rest.map(r=>react(r,token)));return;
+  }
   if(THROWS.has(ab.name)){
     if(!hit){await wait(BLOCK_MS);await Promise.all(rest.map(r=>react(r,token)));return;}   // missed or denied: the hold stays
     // the thrower plays the holder's side of the pair
@@ -674,6 +715,14 @@ async function clinchAct(beat,sp,o,cc,ab,token){
   if(hit&&hit.killed){unpair(sp);holdBase(sp);after.push(react(hit,token));}
   await Promise.all([wait(ms*0.45),...after,...rest.map(r=>react(r,token))]);
   for(const r of beat.reactions)if(r.type==="release"&&(r.who===sp.f||r.who===o.f))await react(r,token);
+}
+// a move inside the Mount (Ground and Pound, chokes, escapes) has no authored clip yet: the pair holds its idle,
+// the struck fighter flashes in place, and a finishing blow leaves the bottom fighter downed where they lie
+async function mountAct(beat,sp,o,token){
+  const mine=r=>(r.who===o.f||r.who===sp.f)&&r.type!=="release";
+  await wait(BLOCK_MS);if(token!==playToken)return;
+  for(const r of beat.reactions)if(mine(r)&&r.type==="hit"&&r.killed){const v=r.who===o.f?o:sp;unpair(v);holdBase(v===o?sp:o);v.dead=true;goDown(v);}
+  await Promise.all(beat.reactions.filter(r=>!mine(r)).map(r=>react(r,token)));
 }
 async function replay(events,token){
   const counters=new Map();

@@ -62,7 +62,13 @@ plain browser page, **not** the Phaser runtime and not Phaser-integrated gamepla
   the waist and cut at the waterline, with a foam ring). Animals (bear, tiger, crab, bat), summons and the caravan
   cannot enter water. Charge Chakra cannot be used while standing in water.
 
-To see the moves: train Judo or Muay Thai, Clinch an adjacent foe, then queue Hip Toss, Rolling Throw, Knee Strikes,
+- Sweeping Shoulder and Mount (2026-10-15, candidate art): Sweeping Shoulder from the clinch plays a paired takedown.
+  The holder drives in with the shoulder and reaps the lead leg, the held fighter falls on their back and the holder
+  lands astride. While the engine has a Mount, the pair idles in the new `mountTop` / `mountBottom` stance, drawn
+  where the takedown ended. Moves inside the Mount (Ground and Pound, chokes, escapes) have no clips yet, so the pair
+  holds the stance while the hits register. When the Mount ends, the bottom fighter kips up.
+
+To see the moves: train Judo or Muay Thai, Clinch an adjacent foe, then queue Hip Toss, Rolling Throw, Sweeping Shoulder, Knee Strikes,
 Elbow Strike, Uppercut or Body Shot.
 
 ## Layout
