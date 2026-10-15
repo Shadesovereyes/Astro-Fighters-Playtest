@@ -3,7 +3,7 @@
   "body": "male",
   "state": "clinchHipTossHit",
   "status": "E/W candidate 2026-10-14 (paired with clinchHipToss; whole-body rotation); S/N to author",
-  "frames": 10,
+  "frames": 12,
   "fps": 12,
   "sourceDirection": "E",
   "directions": [
@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "The held fighter's side of the Hip Toss, frame for frame with clinchHipToss. Loaded onto the holder's hip with the hands still on the chest, the feet leave the ground and the body turns over backward (head down and away, feet up over the holder's hip), lands flat on the back with pain eyes and lies prone: the hold is broken. On the landing the arms fall along the body.",
+  "intent": "The held fighter's side of the Hip Toss, frame for frame with clinchHipToss (user's reference, 2026-10-15). As the holder turns in, they are pulled onto the holder's back; loaded across the hip lying horizontal, belly down; carried over head first until upside down beside the holder; landing flat on the back on the far side of the holder, head toward the holder's feet, with pain eyes; the hold is broken and they lie prone.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -87,8 +87,10 @@
     "pending": []
   },
   "bob": {
-    "rule": "the idle pull, then the body is carried by the whole-body rotation",
+    "rule": "the idle pull; the turns are carried by bodyRotation",
     "dy": [
+      2,
+      2,
       2,
       2,
       2,
@@ -110,9 +112,13 @@
       5,
       5,
       5,
+      5,
+      5,
       5
     ],
     "arms": [
+      2,
+      2,
       2,
       2,
       2,
@@ -126,10 +132,12 @@
     ]
   },
   "lean": {
-    "rule": "bent under the tie and pulled over the hip",
+    "rule": "bent under the tie and pulled onto the holder's back",
     "torsoShear": true,
     "dx": {
       "pelvis": [
+        0,
+        0,
         0,
         0,
         0,
@@ -144,6 +152,8 @@
       "head": [
         5,
         6,
+        7,
+        6,
         6,
         6,
         6,
@@ -156,18 +166,34 @@
     }
   },
   "rootMotion": {
-    "rule": "per-frame step (screen px): pulled 2 px in onto the holder's hip, carried over it, then landing 12 px out past the idle spacing so the lying body clears the holder's feet",
-    "E": [
+    "rule": "per-frame step (screen px): pulled in onto the holder's back, carried over the hip and landing on the far side of the holder",
+    "W": [
       [
         0,
         0
       ],
       [
-        1,
+        -1,
         0
       ],
       [
-        1,
+        -6,
+        0
+      ],
+      [
+        -10,
+        0
+      ],
+      [
+        -20,
+        0
+      ],
+      [
+        -22,
+        0
+      ],
+      [
+        -12,
         0
       ],
       [
@@ -176,14 +202,6 @@
       ],
       [
         0,
-        0
-      ],
-      [
-        -8,
-        0
-      ],
-      [
-        -4,
         0
       ],
       [
@@ -199,45 +217,53 @@
         0
       ]
     ],
-    "W": [
+    "E": [
       [
-        0,
+        -0,
         0
       ],
       [
-        -1,
+        1,
         0
       ],
       [
-        -1,
+        6,
         0
       ],
       [
-        0,
+        10,
         0
       ],
       [
-        0,
+        20,
         0
       ],
       [
-        8,
+        22,
         0
       ],
       [
-        4,
+        12,
         0
       ],
       [
-        0,
+        -0,
         0
       ],
       [
-        0,
+        -0,
         0
       ],
       [
-        0,
+        -0,
+        0
+      ],
+      [
+        -0,
+        0
+      ],
+      [
+        -0,
         0
       ]
     ]
@@ -379,9 +405,13 @@
       3,
       3,
       3,
+      3,
+      3,
       3
     ],
     "far": [
+      2,
+      2,
       2,
       2,
       2,
@@ -444,26 +474,42 @@
       },
       {
         "construction": "band",
-        "angle": -70,
+        "angle": -62,
         "elbow": {
           "at": 8,
-          "angle": -108
+          "angle": -100
         }
       },
       {
         "construction": "band",
-        "angle": -15,
+        "angle": -10,
         "elbow": {
           "at": 8,
-          "angle": -25
+          "angle": -16
         }
       },
       {
         "construction": "band",
-        "angle": -12,
+        "angle": -10,
         "elbow": {
           "at": 8,
-          "angle": -20
+          "angle": -16
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -10,
+        "elbow": {
+          "at": 8,
+          "angle": -16
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -10,
+        "elbow": {
+          "at": 8,
+          "angle": -16
         }
       },
       {
@@ -534,18 +580,34 @@
       },
       {
         "construction": "band",
-        "angle": -12,
+        "angle": -8,
         "elbow": {
           "at": 8,
-          "angle": -20
+          "angle": -12
         }
       },
       {
         "construction": "band",
-        "angle": -10,
+        "angle": -8,
         "elbow": {
           "at": 8,
-          "angle": -16
+          "angle": -12
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -8,
+        "elbow": {
+          "at": 8,
+          "angle": -12
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -8,
+        "elbow": {
+          "at": 8,
+          "angle": -12
         }
       },
       {
@@ -653,6 +715,8 @@
       "bandFollowsBody": true,
       "sway": {
         "E": [
+          -1,
+          -1,
           -1,
           -1,
           -1,
@@ -846,7 +910,7 @@
     "looseRule": "from row 40 down, cloth specks of 1-2 px cut off from the garment and outline pixels that no longer border any cloth are removed (they are left between the legs where a direction's own clothing frame does not register exactly with its source's motion)"
   },
   "clips": {
-    "rule": "plays on the held fighter when the holder plays clinchHipToss; the hold is broken and the fighter is prone (next: prone, not yet authored; holds the last frame)",
+    "rule": "plays on the held fighter when the holder plays clinchHipToss; the hold is broken and the fighter is prone (prone/get-up not yet authored; holds the last frame)",
     "clinchHipTossHit": {
       "frames": [
         0,
@@ -858,7 +922,9 @@
         6,
         7,
         8,
-        9
+        9,
+        10,
+        11
       ],
       "fps": 12,
       "next": null
@@ -953,20 +1019,22 @@
       "E": [
         null,
         null,
-        null,
         "squint",
         "squint",
+        "squint",
         "pain",
         "pain",
         "pain",
+        "squint",
+        "squint",
         "squint",
         "squint"
       ]
     },
-    "intent": "eyes squeeze as the feet leave the ground, shut on the landing (frames 5-7), squinting while lying"
+    "intent": "eyes squeeze as they are loaded and thrown, shut on the landing (frames 5-7), squinting while lying"
   },
   "bodyRotation": {
-    "rule": "whole-body turn about the hips for the throw (clockwise on screen in E, so a W-facing fighter goes over backward): lifted onto the hip, turned past horizontal at the top with the feet highest, slammed flat on the back, a small bounce, then lying still; the landing frames rest on the ground",
+    "rule": "quarter turns about the hips (clockwise on screen in E, so the W-facing held fighter goes over forward, head first): horizontal across the holder's hip (90), upside down (180), flat on the back (270); the landing frames rest on the ground",
     "pivot": [
       32,
       44
@@ -974,16 +1042,20 @@
     "angle": [
       0,
       0,
-      -20,
-      -65,
-      -125,
-      -95,
-      -90,
-      -90,
-      -90,
-      -90
+      0,
+      90,
+      180,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270
     ],
     "dx": [
+      0,
+      0,
       0,
       0,
       0,
@@ -998,9 +1070,11 @@
     "dy": [
       0,
       0,
-      -4,
-      -12,
-      -15,
+      -2,
+      -16,
+      -17,
+      0,
+      0,
       0,
       0,
       0,
@@ -1013,6 +1087,8 @@
       false,
       false,
       false,
+      true,
+      true,
       true,
       true,
       true,

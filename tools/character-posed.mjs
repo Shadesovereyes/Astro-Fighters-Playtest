@@ -1394,62 +1394,49 @@ if (spec.arms.farLayer) {
   }
   sheets['far-arm'] = far;
 }
-// bodyRotation (per frame): the whole fighter turned about a pivot (a throw), applied to every runtime layer with one
-// shared mapping, so the layers stay registered. RotSprite-style: the frame's layer stack is upscaled 8x with Scale2x
-// (on the stacked colours, so all layers split alike), rotated by nearest sampling and read back at pixel centres.
-// angle is in degrees, clockwise on screen in the source direction (a mirrored direction turns the other way);
-// dx/dy move the turned fighter; groundSnap drops the frame so its lowest pixel sits on the bottom row.
-const BR = spec.bodyRotation;
-if (BR) {
+// bodyRotation (per frame): the whole fighter turned about a pivot for a throw (thrown over the hip, upside down, lying).
+// Quarter turns only (0, 90, 180, 270 degrees), so every pixel moves whole and none is resampled (locked base-geometry
+// rule: no rotation or resampling of parts); all runtime layers take the same mapping and stay registered. angle is
+// clockwise on screen in the source direction (a mirrored direction turns the other way); dx/dy move the turned fighter;
+// groundSnap drops the frame so its lowest pixel sits on the bottom row.
+// faceFlip (per frame): the fighter turned around (a throw that turns its back in): the frame is mirrored about the
+// pivot column, so it faces the other way.
+const BR = spec.bodyRotation, FF = spec.faceFlip;
+if (BR || FF) {
   const names = Object.keys(sheets);
-  const scale2x = (g, n) => {
-    const o = new Int32Array(4 * n * n), at = (x, y) => g[Math.min(n - 1, Math.max(0, y)) * n + Math.min(n - 1, Math.max(0, x))];
-    for (let y = 0; y < n; y++) for (let x = 0; x < n; x++) {
-      const P = g[y * n + x], A = at(x, y - 1), B = at(x + 1, y), C = at(x - 1, y), D = at(x, y + 1);
-      const e = [C === A && C !== D && A !== B ? A : P, A === B && A !== C && B !== D ? B : P,
-        D === C && D !== B && C !== A ? C : P, B === D && B !== A && D !== C ? D : P];
-      const i = (2 * y) * 2 * n + 2 * x;
-      o[i] = e[0]; o[i + 1] = e[1]; o[i + 2 * n] = e[2]; o[i + 2 * n + 1] = e[3];
-    }
-    return o;
-  };
   for (const dir of spec.directions) {
     if (FR?.views?.[dir]) continue;
     const m = !!mirrors[dir], r = spec.directions.indexOf(dir);
     for (let k = 0; k < F; k++) {
-      const ang = (BR.angle?.[k] || 0) * (m ? -1 : 1), ddx = (BR.dx?.[k] || 0) * (m ? -1 : 1), ddy = BR.dy?.[k] || 0;
-      if (!ang && !ddx && !ddy && !BR.groundSnap?.[k]) continue;
-      const px = m ? FRAME - 1 - BR.pivot[0] : BR.pivot[0], py = BR.pivot[1];
+      const a0 = BR?.angle?.[k] || 0;
+      if (((a0 % 90) + 90) % 90) throw new Error(`bodyRotation.angle[${k}] = ${a0}: quarter turns only`);
+      const q = ((((m ? -a0 : a0) / 90) % 4) + 4) % 4, ddx = (BR?.dx?.[k] || 0) * (m ? -1 : 1), ddy = BR?.dy?.[k] || 0;
+      const flip = !!FF?.[k], snap = !!BR?.groundSnap?.[k];
+      if (!q && !ddx && !ddy && !flip && !snap) continue;
+      const pv = BR?.pivot || [32, 44], px = m ? FRAME - 1 - pv[0] : pv[0], py = pv[1];
       const idx = (x, y) => ((r * FRAME + y) * W + k * FRAME + x) * 4;
-      const ids = new Int32Array(FRAME * FRAME), seen = new Map(), src = [-1];
+      // destination pixel -> source pixel (or -1)
+      const map = new Int32Array(FRAME * FRAME).fill(-1);
       for (let y = 0; y < FRAME; y++) for (let x = 0; x < FRAME; x++) {
-        const i = idx(x, y); let kk = '', any = false;
-        for (const n of names) { const b = sheets[n]; kk += b.readUInt32BE(i) + ','; any ||= b[i + 3] > 0; }
-        if (!any) continue;
-        if (!seen.has(kk)) { seen.set(kk, src.length); src.push(i); }
-        ids[y * FRAME + x] = seen.get(kk);
-      }
-      let g = ids, n = FRAME;
-      for (let s2 = 0; s2 < 3; s2++) { g = scale2x(g, n); n *= 2; }
-      const c = Math.cos(-ang * Math.PI / 180), sn = Math.sin(-ang * Math.PI / 180), S = n / FRAME;
-      const out = new Int32Array(FRAME * FRAME);
-      for (let y = 0; y < FRAME; y++) for (let x = 0; x < FRAME; x++) {
-        const ux = x + 0.5 - ddx - (px + 0.5), uy = y + 0.5 - ddy - (py + 0.5);
-        const sx = (c * ux - sn * uy + px + 0.5) * S, sy = (sn * ux + c * uy + py + 0.5) * S;
-        const ix = Math.floor(sx), iy = Math.floor(sy);
-        if (ix >= 0 && iy >= 0 && ix < n && iy < n) out[y * FRAME + x] = g[iy * n + ix];
+        let ux = x - ddx - px, uy = y - ddy - py;
+        for (let t = 0; t < q; t++) [ux, uy] = [uy, -ux]; // undo clockwise quarter turns
+        let sx = ux + px; const sy = uy + py;
+        if (flip) sx = FRAME - 1 - sx;
+        if (sx >= 0 && sy >= 0 && sx < FRAME && sy < FRAME) map[y * FRAME + x] = sy * FRAME + sx;
       }
       let shift = 0;
-      if (BR.groundSnap?.[k]) {
+      if (snap) {
         let low = -1;
-        for (let y = 0; y < FRAME; y++) for (let x = 0; x < FRAME; x++) if (out[y * FRAME + x]) low = y;
+        for (let i = 0; i < FRAME * FRAME; i++) if (map[i] >= 0 && names.some((n) => sheets[n][idx(map[i] % FRAME, Math.floor(map[i] / FRAME)) + 3])) low = Math.floor(i / FRAME);
         if (low >= 0) shift = FRAME - 1 - low;
       }
       for (const nm of names) {
         const b = sheets[nm], cell = Buffer.alloc(FRAME * FRAME * 4);
-        for (let y = 0; y < FRAME; y++) for (let x = 0; x < FRAME; x++) {
-          const id = out[y * FRAME + x], ty = y + shift;
-          if (id && ty >= 0 && ty < FRAME) b.copy(cell, (ty * FRAME + x) * 4, src[id], src[id] + 4);
+        for (let i = 0; i < FRAME * FRAME; i++) {
+          const ty = Math.floor(i / FRAME) + shift;
+          if (map[i] < 0 || ty < 0 || ty >= FRAME) continue;
+          const si = idx(map[i] % FRAME, Math.floor(map[i] / FRAME));
+          b.copy(cell, (ty * FRAME + (i % FRAME)) * 4, si, si + 4);
         }
         for (let y = 0; y < FRAME; y++) cell.copy(b, idx(0, y), y * FRAME * 4, (y + 1) * FRAME * 4);
       }

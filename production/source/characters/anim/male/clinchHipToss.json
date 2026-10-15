@@ -3,7 +3,7 @@
   "body": "male",
   "state": "clinchHipToss",
   "status": "E/W candidate 2026-10-14 (paired with clinchHipTossHit); S/N to author",
-  "frames": 10,
+  "frames": 12,
   "fps": 12,
   "sourceDirection": "E",
   "directions": [
@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Judo Hip Toss from the clinch (Astro Fighter doc: throw a held foe to the ground; Prone 1rd; breaks the hold). From the approved clinchHold idle the holder dips and drives the hips in under the held fighter, lifts with the legs, pulls the head over the hip with both arms and follows the throw down, bent over the landing; the hold is broken, so the holder rises out of the clinch into the guard.",
+  "intent": "Judo Hip Toss from the clinch (Astro Fighter doc: throw a held foe to the ground; Prone 1rd; breaks the hold), staged on the user's reference (2026-10-15): from the approved clinchHold idle the holder steps in and turns in, putting the back and hip under the held fighter, bends forward to load them across the hip, pulls them over head first and stays bent over the landing; the hold is broken, so the holder rises into the guard facing the downed fighter.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -87,16 +87,18 @@
     "pending": []
   },
   "bob": {
-    "rule": "dips 1-2 px to load the hips, rises to lift, sinks deepest on the follow-through, then rises into the guard height",
+    "rule": "steps in with a dip, sinks lowest while loading and throwing, stays low over the landing, then rises into the guard",
     "dy": [
       1,
       2,
       3,
+      4,
+      4,
+      4,
+      3,
+      3,
       2,
       1,
-      3,
-      3,
-      2,
       1,
       1
     ],
@@ -104,11 +106,13 @@
       1,
       2,
       3,
-      2,
-      2,
+      5,
+      5,
+      5,
       4,
       4,
       3,
+      2,
       1,
       1
     ],
@@ -116,40 +120,46 @@
       2,
       2,
       3,
-      2,
-      2,
+      4,
+      4,
+      4,
       3,
       3,
+      2,
       2,
       1,
       2
     ]
   },
   "lean": {
-    "rule": "hips driven in under the held fighter (pelvis forward), shoulders over the throw, bent furthest over the landing, then upright into the guard",
+    "rule": "hips driven back into the held fighter, shoulders bent forward over the hip to load and throw, bent over the landing, then upright",
     "torsoShear": true,
     "dx": {
       "pelvis": [
         1,
         2,
-        3,
-        3,
-        2,
-        1,
-        1,
-        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
         0,
         0
       ],
       "head": [
         4,
         5,
-        5,
-        6,
+        4,
+        9,
+        10,
+        10,
+        9,
         8,
-        10,
-        10,
-        7,
+        6,
+        4,
         3,
         2
       ]
@@ -197,9 +207,25 @@
       [
         0,
         0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
       ]
     ],
     "W": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
       [
         0,
         0
@@ -374,10 +400,12 @@
       1,
       3,
       3,
+      3,
+      3,
+      3,
+      3,
+      3,
       1,
-      3,
-      3,
-      3,
       1,
       1
     ],
@@ -386,10 +414,12 @@
       0,
       2,
       2,
+      2,
+      2,
+      2,
+      2,
+      2,
       0,
-      2,
-      2,
-      2,
       0,
       0
     ]
@@ -428,26 +458,18 @@
       },
       {
         "construction": "band",
-        "angle": -84,
-        "elbow": {
-          "at": 8,
-          "angle": -118
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -95,
-        "elbow": {
-          "at": 8,
-          "angle": -125
-        }
-      },
-      {
-        "construction": "band",
         "angle": -70,
         "elbow": {
           "at": 8,
-          "angle": -100
+          "angle": -110
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -50,
+        "elbow": {
+          "at": 8,
+          "angle": -80
         }
       },
       {
@@ -455,15 +477,39 @@
         "angle": -35,
         "elbow": {
           "at": 8,
-          "angle": -50
+          "angle": -55
         }
       },
       {
         "construction": "band",
-        "angle": -30,
+        "angle": -25,
         "elbow": {
           "at": 8,
-          "angle": -44
+          "angle": -35
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -20,
+        "elbow": {
+          "at": 8,
+          "angle": -30
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -20,
+        "elbow": {
+          "at": 8,
+          "angle": -30
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -22,
+        "elbow": {
+          "at": 8,
+          "angle": -60
         }
       },
       {
@@ -471,7 +517,7 @@
         "angle": -24,
         "elbow": {
           "at": 8,
-          "angle": -36
+          "angle": 230
         }
       },
       {
@@ -510,26 +556,18 @@
       },
       {
         "construction": "band",
-        "angle": -92,
+        "angle": -75,
         "elbow": {
           "at": 8,
-          "angle": -126
+          "angle": -115
         }
       },
       {
         "construction": "band",
-        "angle": -100,
+        "angle": -55,
         "elbow": {
           "at": 8,
-          "angle": -130
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -78,
-        "elbow": {
-          "at": 8,
-          "angle": -108
+          "angle": -85
         }
       },
       {
@@ -537,20 +575,44 @@
         "angle": -40,
         "elbow": {
           "at": 8,
-          "angle": -58
+          "angle": -60
         }
       },
       {
         "construction": "band",
-        "angle": -36,
+        "angle": -30,
         "elbow": {
           "at": 8,
-          "angle": -52
+          "angle": -40
         }
       },
       {
         "construction": "band",
-        "angle": -42,
+        "angle": -25,
+        "elbow": {
+          "at": 8,
+          "angle": -35
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -25,
+        "elbow": {
+          "at": 8,
+          "angle": -35
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -30,
+        "elbow": {
+          "at": 8,
+          "angle": -70
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -40,
         "elbow": {
           "at": 8,
           "angle": 230
@@ -653,6 +715,8 @@
       "bandFollowsBody": true,
       "sway": {
         "E": [
+          -1,
+          -1,
           -1,
           -1,
           -1,
@@ -846,7 +910,7 @@
     "looseRule": "from row 40 down, cloth specks of 1-2 px cut off from the garment and outline pixels that no longer border any cloth are removed (they are left between the legs where a direction's own clothing frame does not register exactly with its source's motion)"
   },
   "clips": {
-    "rule": "plays from clinchHold; the hold is broken, so it ends in the guard (next: guard); the held fighter plays clinchHipTossHit on the same frames",
+    "rule": "plays from clinchHold; the hold is broken, so it ends in the guard facing the thrown fighter (next: guard; facing turns); the held fighter plays clinchHipTossHit on the same frames",
     "clinchHipToss": {
       "frames": [
         0,
@@ -858,10 +922,13 @@
         6,
         7,
         8,
-        9
+        9,
+        10,
+        11
       ],
       "fps": 12,
-      "next": "guard"
+      "next": "guard",
+      "endFacing": "flipped"
     }
   },
   "pair": {
@@ -879,59 +946,8 @@
     "layeringRule": "back to front (user 2026-10-14): the holder's far arm is the bottom layer (it wraps behind the held head to the back of the neck) and the holder's near arm the top layer (it wraps over the held head); between them the held fighter's far arm, the holder's body, the held fighter's body (its head is pulled down in front of the holder's chest) and the held fighter's near arm (pushing on the holder's chest)"
   },
   "events": {
-    "rule": "per-frame gameplay data per facing (W mirrors E: x -> 64 - x - w); the active frame is the landing, the hitbox the ground the thrown fighter lands on (provisional)",
+    "rule": "per-frame gameplay data per facing (W mirrors E: x -> 64 - x - w); the active frame is the landing, the hitbox the ground behind the holder where the thrown fighter lands (provisional)",
     "E": [
-      {
-        "frame": 0,
-        "type": "startup"
-      },
-      {
-        "frame": 1,
-        "type": "startup"
-      },
-      {
-        "frame": 2,
-        "type": "startup"
-      },
-      {
-        "frame": 3,
-        "type": "startup"
-      },
-      {
-        "frame": 4,
-        "type": "startup"
-      },
-      {
-        "frame": 5,
-        "type": "active",
-        "move": "clinchHipToss",
-        "hitbox": [
-          36,
-          48,
-          24,
-          14
-        ],
-        "damage": "throw",
-        "effect": "prone 1rd; breaks the hold"
-      },
-      {
-        "frame": 6,
-        "type": "recovery"
-      },
-      {
-        "frame": 7,
-        "type": "recovery"
-      },
-      {
-        "frame": 8,
-        "type": "recovery"
-      },
-      {
-        "frame": 9,
-        "type": "recovery"
-      }
-    ],
-    "W": [
       {
         "frame": 0,
         "type": "startup"
@@ -980,7 +996,89 @@
       {
         "frame": 9,
         "type": "recovery"
+      },
+      {
+        "frame": 10,
+        "type": "recovery"
+      },
+      {
+        "frame": 11,
+        "type": "recovery"
+      }
+    ],
+    "W": [
+      {
+        "frame": 0,
+        "type": "startup"
+      },
+      {
+        "frame": 1,
+        "type": "startup"
+      },
+      {
+        "frame": 2,
+        "type": "startup"
+      },
+      {
+        "frame": 3,
+        "type": "startup"
+      },
+      {
+        "frame": 4,
+        "type": "startup"
+      },
+      {
+        "frame": 5,
+        "type": "active",
+        "move": "clinchHipToss",
+        "hitbox": [
+          36,
+          48,
+          24,
+          14
+        ],
+        "damage": "throw",
+        "effect": "prone 1rd; breaks the hold"
+      },
+      {
+        "frame": 6,
+        "type": "recovery"
+      },
+      {
+        "frame": 7,
+        "type": "recovery"
+      },
+      {
+        "frame": 8,
+        "type": "recovery"
+      },
+      {
+        "frame": 9,
+        "type": "recovery"
+      },
+      {
+        "frame": 10,
+        "type": "recovery"
+      },
+      {
+        "frame": 11,
+        "type": "recovery"
       }
     ]
-  }
+  },
+  "faceFlip": [
+    false,
+    false,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+  ],
+  "faceFlipRule": "frames 2-11: the holder has turned in (back to the held fighter), so the frame faces the other way; the clip ends facing the thrown fighter (the runtime facing turns with it)"
 }
