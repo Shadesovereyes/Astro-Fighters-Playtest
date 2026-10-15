@@ -330,6 +330,7 @@ function play(sp,state,clip,opts){
   return sp.anim.loop?0:c.frames.length*1000/sp.anim.fps;
 }
 function holdBase(sp){
+  if(sp.dead&&canDown(sp)){goDown(sp);return;}
   if(sp.pair){play(sp,sp.pair.role==="holder"?"clinchHold":"clinchHeld",null,{loop:true});return;}
   const b=basePose(sp.pose||sp.f);play(sp,b.state,null,{loop:true,weapon:b.weapon});
 }
@@ -486,7 +487,19 @@ function tween(sp,to,ms,token){
 }
 const px=c=>{const p=hooks.cellPx(c);return{x:p.x,y:p.y+feet()};};
 function hexes(a,b){return root.AF?Math.max(1,root.AF.hdist(a,b)):1;}
+// defeated humanoids stay on the field lying in the downed state (user 2026-10-15: "a downed stance for when players
+// are defeated instead of them disappearing ... similar to the prone stance but with the eyes closed"); glyph fighters
+// (beasts, summons) still fade out
+const canDown=sp=>!!(sp&&!sp.glyph&&def&&def.states.downed);
+function goDown(sp){
+  sp.dead=true;sp.alpha=1;sp.pair=null;
+  if(sp.anim&&sp.anim.state==="downed")return;
+  const rows=def.states.downed.rows;
+  if(!rows.includes(sp.facing)){const foe=foeOf(sp);sp.facing=foe?(foe.x>=sp.x?"E":"W"):(sp.facing==="W"?"W":"E");}
+  play(sp,"downed",null,{loop:true});
+}
 async function fadeOut(sp,token){
+  if(canDown(sp)){goDown(sp);return;}
   sp.dead=true;const t0=performance.now();
   while(token===playToken&&sp.alpha>0){await wait(16);sp.alpha=Math.max(0,1-(performance.now()-t0)/FADE_MS);}
 }
@@ -634,7 +647,7 @@ function settle(){
   for(const sp of sprites.values()){sp.pose=null;sp.pair=null;}
   if(hooks&&hooks.onRecap)hooks.onRecap(null);
   for(const [f,sp] of sprites){
-    if(!root.AF||!root.AF.alive(f)){sprites.delete(f);continue;}
+    if(!root.AF||!root.AF.alive(f)){if(canDown(sp)){const p=px(f.cell);sp.x=p.x;sp.y=p.y;goDown(sp);}else sprites.delete(f);continue;}
     const p=px(f.cell);sp.x=p.x;sp.y=p.y;sp.alpha=1;holdBase(sp);
   }
   API.sync(battle,viewer);
@@ -659,9 +672,10 @@ API.sync=function(B,player){
   for(const f of B.all){
     if(!API.handles(f))continue;
     const alive=root.AF.alive(f);
-    if(!alive&&!(frozen&&sprites.has(f)))continue;
+    if(!alive&&!(frozen&&sprites.has(f))&&!def.states.downed)continue;
     const sp=spriteFor(f);seen.add(f);
     sp.visible=!player||!root.AFUI||!alive||root.AFUI.canRenderFighter(B,player,f);
+    if(!alive&&!frozen){const p=px(f.cell);sp.x=p.x;sp.y=p.y;sp.pair=null;goDown(sp);continue;}
     if(!frozen){const p=px(f.cell);sp.x=p.x;sp.y=p.y;sp.pair=null;if(!sp.anim||sp.anim.loop)holdBase(sp);}
   }
   for(const f of [...sprites.keys()])if(!seen.has(f))sprites.delete(f);
@@ -677,10 +691,11 @@ API.playRecap=function(B,player){
   const place=h=>{
     const keep=new Set();
     for(const s of h.start){
-      if(!s.alive||!drawn(s.f))continue;keep.add(s.f);
+      if(!drawn(s.f)||(!s.alive&&!(API.handles(s.f)&&def.states.downed)))continue;keep.add(s.f);
       const sp=spriteFor(s.f),p=px(s.cell);
       sp.x=p.x;sp.y=p.y;sp.alpha=1;sp.dead=false;sp.pose={stam:s.stam,activeWeapon:s.activeWeapon};
       sp.visible=true;                   // the fight is over: the recap shows everyone
+      if(!s.alive){sp.pair=null;goDown(sp);continue;}
       holdBase(sp);
     }
     for(const f of [...sprites.keys()])if(!keep.has(f))sprites.delete(f);
