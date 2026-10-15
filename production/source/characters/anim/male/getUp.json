@@ -3,7 +3,7 @@
   "body": "male",
   "state": "getUp",
   "status": "E/W candidate 2026-10-15; S/N to author",
-  "frames": 9,
+  "frames": 11,
   "fps": 12,
   "sourceDirection": "E",
   "directions": [
@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Back to standing from prone (user 2026-10-15), as a kip-up: from the approved prone pose the knees pull to the chest and the hands plant by the ears; the fighter rocks back onto the shoulders with the hips up and the legs piked over the face; the legs whip up and the hands push, the body arches through the air coming over, lands in a squat and rises into the guard. Whole-body turns are quarter turns only.",
+  "intent": "Back to standing from prone (user 2026-10-15), as a kip-up: from the approved prone pose the knees pull to the chest and the hands plant by the ears; the legs swing up and over the face while the back is still flat (user 2026-10-15), then the fighter rocks back onto the shoulders with the hips up and the legs piked over the face; the legs whip up and the hands push, the body arches through the air coming over, lands in a squat and rises into the guard. Whole-body turns are quarter turns only.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -94,6 +94,8 @@
       0,
       0,
       0,
+      0,
+      0,
       5,
       3,
       1,
@@ -105,12 +107,16 @@
       0,
       0,
       0,
+      0,
+      0,
       5,
       3,
       1,
       1
     ],
     "arms": [
+      0,
+      0,
       0,
       0,
       0,
@@ -135,9 +141,13 @@
         0,
         0,
         0,
+        0,
+        0,
         0
       ],
       "head": [
+        0,
+        0,
         0,
         0,
         0,
@@ -153,6 +163,14 @@
   "rootMotion": {
     "rule": "in place",
     "E": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
       [
         0,
         0
@@ -226,6 +244,14 @@
       [
         0,
         0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
       ]
     ]
   },
@@ -233,7 +259,9 @@
     1,
     2,
     3,
-    4
+    4,
+    5,
+    6
   ],
   "legs": {
     "source": "The reference near leg (R-thigh, R-shin-foot) of the E frame is replaced by row-span legs. Every leg is outlined; the reference wrap+foot block (R-shin-foot rows 56-63) is reused unchanged by the reference-ankle construction.",
@@ -680,11 +708,65 @@
         "kneeRow": 50,
         "wrapRow": 56,
         "foot": "flat"
+      },
+      {
+        "name": "raise-near",
+        "construction": "band",
+        "hipX": 34,
+        "hipRow": 40,
+        "kneeX": 41,
+        "kneeRow": 35,
+        "ankle": [
+          49,
+          30
+        ],
+        "foot": "pointFwd"
+      },
+      {
+        "name": "raise-far",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 40,
+        "kneeX": 40,
+        "kneeRow": 36,
+        "ankle": [
+          48,
+          31
+        ],
+        "foot": "pointFwd"
+      },
+      {
+        "name": "over-near",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 40,
+        "kneeX": 39,
+        "kneeRow": 29,
+        "ankle": [
+          47,
+          21
+        ],
+        "foot": "pointFwd"
+      },
+      {
+        "name": "over-far",
+        "construction": "band",
+        "hipX": 32,
+        "hipRow": 40,
+        "kneeX": 38,
+        "kneeRow": 30,
+        "ankle": [
+          46,
+          22
+        ],
+        "foot": "pointFwd"
       }
     ],
     "near": [
       4,
       6,
+      13,
+      15,
       8,
       4,
       10,
@@ -696,6 +778,8 @@
     "far": [
       5,
       7,
+      14,
+      16,
       9,
       12,
       11,
@@ -727,6 +811,22 @@
         "elbow": {
           "at": 8,
           "angle": 4
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -170,
+        "elbow": {
+          "at": 8,
+          "angle": -170
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -170,
+        "elbow": {
+          "at": 8,
+          "angle": -170
         }
       },
       {
@@ -801,6 +901,22 @@
         "elbow": {
           "at": 8,
           "angle": -4
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -165,
+        "elbow": {
+          "at": 8,
+          "angle": -165
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -165,
+        "elbow": {
+          "at": 8,
+          "angle": -165
         }
       },
       {
@@ -947,6 +1063,8 @@
       "bandFollowsBody": true,
       "sway": {
         "E": [
+          0,
+          0,
           0,
           0,
           0,
@@ -1219,18 +1337,22 @@
         null,
         null,
         null,
+        null,
+        null,
         null
       ]
     },
     "intent": "still dazed as the hands plant, eyes open for the kip"
   },
   "bodyRotation": {
-    "rule": "quarter turns about the hips: on the back (270), rocked back onto the shoulders with the hips up (180), kicking up (180), arched in the air coming over (270), on the feet (0)",
+    "rule": "quarter turns about the hips: on the back (270) while the knees tuck and the legs swing up and over (frames 1-3), rocked back onto the shoulders with the hips up (180), kicking up (180), arched in the air coming over (270), on the feet (0)",
     "pivot": [
       32,
       44
     ],
     "angle": [
+      270,
+      270,
       270,
       270,
       180,
@@ -1244,6 +1366,8 @@
     "dx": [
       10,
       10,
+      10,
+      10,
       -4,
       -10,
       0,
@@ -1255,6 +1379,8 @@
     "dy": [
       0,
       0,
+      0,
+      0,
       -20,
       -20,
       -10,
@@ -1264,6 +1390,8 @@
       0
     ],
     "groundSnap": [
+      true,
+      true,
       true,
       true,
       true,
@@ -1287,7 +1415,9 @@
         5,
         6,
         7,
-        8
+        8,
+        9,
+        10
       ],
       "fps": 12,
       "next": "guard"
@@ -1302,10 +1432,12 @@
     false,
     false,
     false,
+    false,
+    false,
     false
   ],
   "fx": {
-    "rule": "smear streaks trail the feet as they whip up (frame 3) and come over (frame 4); dust puffs at the feet on the squat landing (frame 5)",
+    "rule": "smear streaks trail the feet as they whip up (frame 5) and come over (frame 6); dust puffs at the feet on the squat landing (frame 7)",
     "palette": {
       "W": "#ffffff",
       "w": "#e3e3e3",
@@ -1322,7 +1454,7 @@
     },
     "frames": [
       {
-        "frame": 3,
+        "frame": 5,
         "smear": {
           "from": 270,
           "to": 350,
@@ -1335,7 +1467,7 @@
         }
       },
       {
-        "frame": 4,
+        "frame": 6,
         "smear": {
           "from": 100,
           "to": 170,
@@ -1348,7 +1480,7 @@
         }
       },
       {
-        "frame": 5,
+        "frame": 7,
         "splash": [
           {
             "pattern": "puff",
