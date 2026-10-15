@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "mountBottom",
-  "status": "E/W candidate 2026-10-15 (Mounted: pinned on the back under the mounting fighter), awaiting user approval; S/N to author",
+  "status": "E/W approved by user 2026-10-15 (Mounted: pinned on the back under the mounting fighter); S/N to author",
   "frames": 4,
   "fps": 6,
   "sourceDirection": "E",

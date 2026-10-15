@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "clinchSweepingShoulderHit",
-  "status": "E/W candidate 2026-10-15 (paired with clinchSweepingShoulder; ends in Mount), awaiting user approval; S/N to author",
+  "status": "E/W approved by user 2026-10-15 (paired with clinchSweepingShoulder; ends in Mount); S/N to author",
   "frames": 12,
   "fps": 12,
   "sourceDirection": "E",
