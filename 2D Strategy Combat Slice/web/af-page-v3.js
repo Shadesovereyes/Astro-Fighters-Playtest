@@ -675,7 +675,7 @@ function renderArena(){
   const viewer=AF.alive(S.player)?S.player:null;
   S.B.all.filter(AF.alive).forEach(f=>{const p=pointy(f.cell.q,f.cell.r),cls=f===S.player?"player":f.faction===S.player.faction?"ally":"enemy";svg.insertAdjacentHTML("beforeend",`<text class="token ${cls}${SPR&&SPR.handles(f)?" sprited":""}" x="${p.x}" y="${p.y}">${f.glyph}</text>`);if(!viewer||AFUI.canRenderFighter(S.B,viewer,f))svg.insertAdjacentHTML("beforeend",fighterIndicators(f,p));});
   if(mainCellK){const mc=pointy(S.mainTarget.cell.q,S.mainTarget.cell.r);svg.insertAdjacentHTML("beforeend",`<circle class="main-ring" cx="${mc.x}" cy="${mc.y}" r="${Math.round(ARENA.hexStep*0.65)}"></circle>`);}
-  if(SPR)SPR.sync(S.B,S.player);
+  if(SPR){if(SPR.setTerrain)SPR.setTerrain(S.B.grid.cells().map(c=>{const p=pointy(c.q,c.r);return{x:p.x,y:p.y,t:S.B.grid.terrainAt(c)};}));SPR.sync(S.B,S.player);}
   renderTargetBar();
   $("moveReadout").textContent=S.targeting?`Aiming ${tgtAb.name} — click ${S.targeting.mode==="enemy"?"a visible enemy":S.targeting.mode==="ally"?"a friendly fighter":S.targeting.mode==="throw"?"a landing tile for the throw":"a highlighted tile"} (✕ in the target bar to cancel)`:(S.moveTo?`Planned ${AF.hdist(S.player.cell,S.moveTo)} hex move to ${S.moveTo.q},${S.moveTo.r}`:`Movement ${AF.moveBudget(S.player)} · Awareness ${aware}`);
 }

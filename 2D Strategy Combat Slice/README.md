@@ -36,6 +36,14 @@ plain browser page, **not** the Phaser runtime and not Phaser-integrated gamepla
   - "Record the fight (video + GIF)" on the result screen replays the recap and offers a WebM (or MP4) at 2x and a
     10 fps GIF at 1x for download.
 
+- Environment props (2026-10-15, `web/af-props-v3.js`, candidate art awaiting approval): every engine terrain kind is
+  drawn as pixel art instead of a glyph, with 2 or 3 variants picked per cell (pine, oak and autumn trees; boulder,
+  standing stone and sandstone rocks; shrub, berry and flowering bushes; stone and plank rubble; pond; Earth Wall;
+  felled log and stump; animated smoke; spike pit; caltrops), plus grass, pebbles, flowers and mushrooms on open cells.
+  Each prop is a deterministic pixel spec rendered at the rig's density; nothing is generated or resampled. Standing
+  props are depth sorted with the fighters and turn see-through while a fighter is behind one. The recap video and GIF
+  include them. Gameplay is unchanged: the hex outlines still mark what blocks movement and sight.
+
 To see the moves: train Judo or Muay Thai, Clinch an adjacent foe, then queue Hip Toss, Rolling Throw, Knee Strikes,
 Elbow Strike, Uppercut or Body Shot.
 

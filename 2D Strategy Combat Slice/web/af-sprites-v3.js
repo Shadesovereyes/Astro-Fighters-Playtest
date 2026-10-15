@@ -436,10 +436,19 @@ function drawPair(h,d,now){
   drawSprite(d,now,"arms");drawSprite(h,now,"arms");drawSprite(d,now,"fx");drawSprite(h,now,"fx");
 }
 // every fighter and projectile, back to front, onto ctx (its transform already maps viewBox units)
+// environment props (af-props-v3.js): ground pieces under everything, standing props depth sorted with the fighters
+// and drawn see-through while a fighter stands behind one
+let terrain=null;
+function propScene(){const P=root.AFProps;return terrain&&P&&P.ready?P.scene(terrain,feet()):null;}
 function drawScene(now){
   const list=[...sprites.values()].filter(sp=>sp.visible&&sp.alpha>0).sort((a,b)=>a.y-b.y);
-  const done=new Set();
-  for(const sp of list){
+  const done=new Set(),P=root.AFProps,env=propScene();
+  if(env){for(const it of env.flat)P.draw(ctx,it,now);for(const it of env.stand)P.drawShadow(ctx,it);}
+  const order=env?[...env.stand.map(it=>({prop:it,y:it.y-0.5})),...list.map(sp=>({sp,y:sp.y}))].sort((a,b)=>a.y-b.y):list.map(sp=>({sp}));
+  for(const e of order){
+    if(e.prop){const b=P.box(e.prop),behind=list.some(sp=>!sp.glyph&&sp.y<e.prop.y&&sp.x+12>b.x0&&sp.x-12<b.x1&&sp.y>b.y0+6&&sp.y-44<b.y1);
+      P.draw(ctx,e.prop,now,behind?0.45:1);continue;}
+    const sp=e.sp;
     if(done.has(sp))continue;
     const o=sp.pair&&sp.pair.other;
     if(o&&o.pair&&o.pair.other===sp&&o.visible&&o.alpha>0&&!sp.glyph&&!o.glyph){
@@ -709,9 +718,11 @@ function drawBoard(c,b){
     const [fill,stroke]=TERRAIN_STYLE[cell.kind]||TERRAIN_STYLE.open;
     c.beginPath();for(let i=0;i<6;i++){const a=(60*i-30)*Math.PI/180,x=cell.x+s*Math.cos(a),y=cell.y+s*Math.sin(a);i?c.lineTo(x,y):c.moveTo(x,y);}c.closePath();
     c.fillStyle=fill;c.fill();c.strokeStyle=stroke;c.stroke();
-    if(cell.glyph){c.fillStyle="#fff";c.fillText(cell.glyph,cell.x,cell.y);}
+    if(cell.glyph&&!propScene()){c.fillStyle="#fff";c.fillText(cell.glyph,cell.x,cell.y);}
   }
 }
+// the page hands over every cell [{x,y,t}] whenever it redraws the arena; the SVG glyphs hide while props draw
+API.setTerrain=function(cells){terrain=cells||null;const on=!!(API.ready&&propScene()),w=canvas&&canvas.parentElement;if(w)w.classList.toggle("props-on",on);};
 API.canRecord=()=>API.ready;API.videoType=videoType;
 // plays the recap while recording it; resolves {video:{blob,ext}|null, gif:Blob|null, complete}
 API.recordRecap=function(B,player,opt={}){
