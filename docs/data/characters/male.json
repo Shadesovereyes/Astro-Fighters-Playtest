@@ -12129,6 +12129,1341 @@
           "next": "mountTop"
         }
       }
+    },
+    "mountGroundPound": {
+      "frames": 10,
+      "fps": 6,
+      "rows": [
+        "E",
+        "W"
+      ],
+      "status": "E/W candidate 2026-10-15 (Ground and Pound from Mount, paired with mountGroundPoundHit), awaiting user approval; S/N to author",
+      "rootMotion": {
+        "E": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            3,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            -3,
+            0
+          ],
+          [
+            3,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            -3,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "W": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            -3,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            3,
+            0
+          ],
+          [
+            -3,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            3,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "layers": {
+        "body": "assets/characters/male/mountGroundPound/body.png",
+        "arms": "assets/characters/male/mountGroundPound/arms.png",
+        "long-hair": "assets/characters/male/mountGroundPound/long-hair.png",
+        "fade-hair": "assets/characters/male/mountGroundPound/fade-hair.png",
+        "afro-hair": "assets/characters/male/mountGroundPound/afro-hair.png",
+        "brown-eyes": "assets/characters/male/mountGroundPound/brown-eyes.png",
+        "purple-eyes": "assets/characters/male/mountGroundPound/purple-eyes.png",
+        "male-gi": "assets/characters/male/mountGroundPound/male-gi.png",
+        "male-blue-armor": "assets/characters/male/mountGroundPound/male-blue-armor.png",
+        "male-red-armor": "assets/characters/male/mountGroundPound/male-red-armor.png",
+        "blue-armor-shoulders": "assets/characters/male/mountGroundPound/blue-armor-shoulders.png",
+        "red-armor-shoulders": "assets/characters/male/mountGroundPound/red-armor-shoulders.png",
+        "far-arm": "assets/characters/male/mountGroundPound/far-arm.png"
+      },
+      "clips": {
+        "rule": "plays from mountTop; the mounted fighter plays mountGroundPoundHit on the same frames; returns to mountTop",
+        "mountGroundPound": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
+          "fps": 12,
+          "next": "mountTop"
+        }
+      },
+      "events": {
+        "rule": "per-frame gameplay data per facing (provisional)",
+        "E": [
+          {
+            "frame": 0,
+            "type": "startup"
+          },
+          {
+            "frame": 1,
+            "type": "startup"
+          },
+          {
+            "frame": 2,
+            "type": "active",
+            "move": "Ground and Pound",
+            "effect": "12 Physical per hit (provisional split); Target Stamina -12"
+          },
+          {
+            "frame": 3,
+            "type": "recovery"
+          },
+          {
+            "frame": 4,
+            "type": "recovery"
+          },
+          {
+            "frame": 5,
+            "type": "active",
+            "move": "Ground and Pound",
+            "effect": "12 Physical per hit (provisional split); Target Stamina -12"
+          },
+          {
+            "frame": 6,
+            "type": "recovery"
+          },
+          {
+            "frame": 7,
+            "type": "recovery"
+          },
+          {
+            "frame": 8,
+            "type": "recovery"
+          },
+          {
+            "frame": 9,
+            "type": "recovery"
+          }
+        ],
+        "W": [
+          {
+            "frame": 0,
+            "type": "startup"
+          },
+          {
+            "frame": 1,
+            "type": "startup"
+          },
+          {
+            "frame": 2,
+            "type": "active",
+            "move": "Ground and Pound",
+            "effect": "12 Physical per hit (provisional split); Target Stamina -12"
+          },
+          {
+            "frame": 3,
+            "type": "recovery"
+          },
+          {
+            "frame": 4,
+            "type": "recovery"
+          },
+          {
+            "frame": 5,
+            "type": "active",
+            "move": "Ground and Pound",
+            "effect": "12 Physical per hit (provisional split); Target Stamina -12"
+          },
+          {
+            "frame": 6,
+            "type": "recovery"
+          },
+          {
+            "frame": 7,
+            "type": "recovery"
+          },
+          {
+            "frame": 8,
+            "type": "recovery"
+          },
+          {
+            "frame": 9,
+            "type": "recovery"
+          }
+        ],
+        "tactical": {
+          "rule": "no displacement: the pair stays in Mount on its cells"
+        }
+      }
+    },
+    "mountGroundPoundHit": {
+      "frames": 10,
+      "fps": 6,
+      "rows": [
+        "E",
+        "W"
+      ],
+      "status": "E/W candidate 2026-10-15 (mounted side of Ground and Pound, paired with mountGroundPound), awaiting user approval; S/N to author",
+      "rootMotion": {
+        "E": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "W": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "layers": {
+        "body": "assets/characters/male/mountGroundPoundHit/body.png",
+        "arms": "assets/characters/male/mountGroundPoundHit/arms.png",
+        "long-hair": "assets/characters/male/mountGroundPoundHit/long-hair.png",
+        "fade-hair": "assets/characters/male/mountGroundPoundHit/fade-hair.png",
+        "afro-hair": "assets/characters/male/mountGroundPoundHit/afro-hair.png",
+        "brown-eyes": "assets/characters/male/mountGroundPoundHit/brown-eyes.png",
+        "purple-eyes": "assets/characters/male/mountGroundPoundHit/purple-eyes.png",
+        "male-gi": "assets/characters/male/mountGroundPoundHit/male-gi.png",
+        "male-blue-armor": "assets/characters/male/mountGroundPoundHit/male-blue-armor.png",
+        "male-red-armor": "assets/characters/male/mountGroundPoundHit/male-red-armor.png",
+        "blue-armor-shoulders": "assets/characters/male/mountGroundPoundHit/blue-armor-shoulders.png",
+        "red-armor-shoulders": "assets/characters/male/mountGroundPoundHit/red-armor-shoulders.png",
+        "fx": "assets/characters/male/mountGroundPoundHit/fx.png"
+      },
+      "clips": {
+        "rule": "plays on the mounted fighter when the top plays mountGroundPound; returns to mountBottom",
+        "mountGroundPoundHit": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
+          "fps": 12,
+          "next": "mountBottom"
+        }
+      }
+    },
+    "mountCrossChoke": {
+      "frames": 8,
+      "fps": 6,
+      "rows": [
+        "E",
+        "W"
+      ],
+      "status": "E/W candidate 2026-10-15 (Cross Choke from Mount, paired with mountCrossChokeHit), awaiting user approval; S/N to author",
+      "rootMotion": {
+        "E": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "W": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "layers": {
+        "body": "assets/characters/male/mountCrossChoke/body.png",
+        "arms": "assets/characters/male/mountCrossChoke/arms.png",
+        "long-hair": "assets/characters/male/mountCrossChoke/long-hair.png",
+        "fade-hair": "assets/characters/male/mountCrossChoke/fade-hair.png",
+        "afro-hair": "assets/characters/male/mountCrossChoke/afro-hair.png",
+        "brown-eyes": "assets/characters/male/mountCrossChoke/brown-eyes.png",
+        "purple-eyes": "assets/characters/male/mountCrossChoke/purple-eyes.png",
+        "male-gi": "assets/characters/male/mountCrossChoke/male-gi.png",
+        "male-blue-armor": "assets/characters/male/mountCrossChoke/male-blue-armor.png",
+        "male-red-armor": "assets/characters/male/mountCrossChoke/male-red-armor.png",
+        "blue-armor-shoulders": "assets/characters/male/mountCrossChoke/blue-armor-shoulders.png",
+        "red-armor-shoulders": "assets/characters/male/mountCrossChoke/red-armor-shoulders.png",
+        "far-arm": "assets/characters/male/mountCrossChoke/far-arm.png"
+      },
+      "clips": {
+        "rule": "plays from mountTop; the mounted fighter plays mountCrossChokeHit; loops crossChokeHold while the Maintained Submission holds, then mountTop",
+        "mountCrossChoke": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 12,
+          "next": "crossChokeHold"
+        },
+        "crossChokeHold": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 6,
+          "loop": true,
+          "next": "mountTop"
+        }
+      },
+      "events": {
+        "rule": "per-frame gameplay data per facing (provisional)",
+        "E": [
+          {
+            "frame": 0,
+            "type": "startup"
+          },
+          {
+            "frame": 1,
+            "type": "startup"
+          },
+          {
+            "frame": 2,
+            "type": "startup"
+          },
+          {
+            "frame": 3,
+            "type": "active",
+            "move": "Cross Choke",
+            "effect": "Silence 2rd (STR or INT save DC13); no Focus 1rd; Maintained Submission"
+          },
+          {
+            "frame": 4,
+            "type": "recovery"
+          },
+          {
+            "frame": 5,
+            "type": "recovery"
+          },
+          {
+            "frame": 6,
+            "type": "recovery"
+          },
+          {
+            "frame": 7,
+            "type": "recovery"
+          }
+        ],
+        "W": [
+          {
+            "frame": 0,
+            "type": "startup"
+          },
+          {
+            "frame": 1,
+            "type": "startup"
+          },
+          {
+            "frame": 2,
+            "type": "startup"
+          },
+          {
+            "frame": 3,
+            "type": "active",
+            "move": "Cross Choke",
+            "effect": "Silence 2rd (STR or INT save DC13); no Focus 1rd; Maintained Submission"
+          },
+          {
+            "frame": 4,
+            "type": "recovery"
+          },
+          {
+            "frame": 5,
+            "type": "recovery"
+          },
+          {
+            "frame": 6,
+            "type": "recovery"
+          },
+          {
+            "frame": 7,
+            "type": "recovery"
+          }
+        ],
+        "tactical": {
+          "rule": "no displacement: the pair stays in Mount on its cells"
+        }
+      }
+    },
+    "mountCrossChokeHit": {
+      "frames": 8,
+      "fps": 6,
+      "rows": [
+        "E",
+        "W"
+      ],
+      "status": "E/W candidate 2026-10-15 (mounted side of Cross Choke, paired with mountCrossChoke), awaiting user approval; S/N to author",
+      "rootMotion": {
+        "E": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "W": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "layers": {
+        "body": "assets/characters/male/mountCrossChokeHit/body.png",
+        "arms": "assets/characters/male/mountCrossChokeHit/arms.png",
+        "long-hair": "assets/characters/male/mountCrossChokeHit/long-hair.png",
+        "fade-hair": "assets/characters/male/mountCrossChokeHit/fade-hair.png",
+        "afro-hair": "assets/characters/male/mountCrossChokeHit/afro-hair.png",
+        "brown-eyes": "assets/characters/male/mountCrossChokeHit/brown-eyes.png",
+        "purple-eyes": "assets/characters/male/mountCrossChokeHit/purple-eyes.png",
+        "male-gi": "assets/characters/male/mountCrossChokeHit/male-gi.png",
+        "male-blue-armor": "assets/characters/male/mountCrossChokeHit/male-blue-armor.png",
+        "male-red-armor": "assets/characters/male/mountCrossChokeHit/male-red-armor.png",
+        "blue-armor-shoulders": "assets/characters/male/mountCrossChokeHit/blue-armor-shoulders.png",
+        "red-armor-shoulders": "assets/characters/male/mountCrossChokeHit/red-armor-shoulders.png",
+        "fx": "assets/characters/male/mountCrossChokeHit/fx.png"
+      },
+      "clips": {
+        "rule": "plays on the mounted fighter when the top plays mountCrossChoke; loops crossChokedHold, then mountBottom",
+        "mountCrossChokeHit": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 12,
+          "next": "crossChokedHold"
+        },
+        "crossChokedHold": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 6,
+          "loop": true,
+          "next": "mountBottom"
+        }
+      }
+    },
+    "mountStrangle": {
+      "frames": 8,
+      "fps": 6,
+      "rows": [
+        "E",
+        "W"
+      ],
+      "status": "E/W candidate 2026-10-15 (Strangle from Mount, paired with mountStrangleHit), awaiting user approval; S/N to author",
+      "rootMotion": {
+        "E": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "W": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "layers": {
+        "body": "assets/characters/male/mountStrangle/body.png",
+        "arms": "assets/characters/male/mountStrangle/arms.png",
+        "long-hair": "assets/characters/male/mountStrangle/long-hair.png",
+        "fade-hair": "assets/characters/male/mountStrangle/fade-hair.png",
+        "afro-hair": "assets/characters/male/mountStrangle/afro-hair.png",
+        "brown-eyes": "assets/characters/male/mountStrangle/brown-eyes.png",
+        "purple-eyes": "assets/characters/male/mountStrangle/purple-eyes.png",
+        "male-gi": "assets/characters/male/mountStrangle/male-gi.png",
+        "male-blue-armor": "assets/characters/male/mountStrangle/male-blue-armor.png",
+        "male-red-armor": "assets/characters/male/mountStrangle/male-red-armor.png",
+        "blue-armor-shoulders": "assets/characters/male/mountStrangle/blue-armor-shoulders.png",
+        "red-armor-shoulders": "assets/characters/male/mountStrangle/red-armor-shoulders.png",
+        "far-arm": "assets/characters/male/mountStrangle/far-arm.png"
+      },
+      "clips": {
+        "rule": "plays from mountTop; the mounted fighter plays mountStrangleHit; loops strangleHold while the Maintained Submission holds, then mountTop",
+        "mountStrangle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 12,
+          "next": "strangleHold"
+        },
+        "strangleHold": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 6,
+          "loop": true,
+          "next": "mountTop"
+        }
+      },
+      "events": {
+        "rule": "per-frame gameplay data per facing (provisional)",
+        "E": [
+          {
+            "frame": 0,
+            "type": "startup"
+          },
+          {
+            "frame": 1,
+            "type": "startup"
+          },
+          {
+            "frame": 2,
+            "type": "active",
+            "move": "Strangle",
+            "effect": "Silence 2rd (STR or INT save DC13); no Focus 1rd; Maintained Submission"
+          },
+          {
+            "frame": 3,
+            "type": "recovery"
+          },
+          {
+            "frame": 4,
+            "type": "recovery"
+          },
+          {
+            "frame": 5,
+            "type": "recovery"
+          },
+          {
+            "frame": 6,
+            "type": "recovery"
+          },
+          {
+            "frame": 7,
+            "type": "recovery"
+          }
+        ],
+        "W": [
+          {
+            "frame": 0,
+            "type": "startup"
+          },
+          {
+            "frame": 1,
+            "type": "startup"
+          },
+          {
+            "frame": 2,
+            "type": "active",
+            "move": "Strangle",
+            "effect": "Silence 2rd (STR or INT save DC13); no Focus 1rd; Maintained Submission"
+          },
+          {
+            "frame": 3,
+            "type": "recovery"
+          },
+          {
+            "frame": 4,
+            "type": "recovery"
+          },
+          {
+            "frame": 5,
+            "type": "recovery"
+          },
+          {
+            "frame": 6,
+            "type": "recovery"
+          },
+          {
+            "frame": 7,
+            "type": "recovery"
+          }
+        ],
+        "tactical": {
+          "rule": "no displacement: the pair stays in Mount on its cells"
+        }
+      }
+    },
+    "mountStrangleHit": {
+      "frames": 8,
+      "fps": 6,
+      "rows": [
+        "E",
+        "W"
+      ],
+      "status": "E/W candidate 2026-10-15 (mounted side of Strangle, paired with mountStrangle), awaiting user approval; S/N to author",
+      "rootMotion": {
+        "E": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "W": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "layers": {
+        "body": "assets/characters/male/mountStrangleHit/body.png",
+        "arms": "assets/characters/male/mountStrangleHit/arms.png",
+        "long-hair": "assets/characters/male/mountStrangleHit/long-hair.png",
+        "fade-hair": "assets/characters/male/mountStrangleHit/fade-hair.png",
+        "afro-hair": "assets/characters/male/mountStrangleHit/afro-hair.png",
+        "brown-eyes": "assets/characters/male/mountStrangleHit/brown-eyes.png",
+        "purple-eyes": "assets/characters/male/mountStrangleHit/purple-eyes.png",
+        "male-gi": "assets/characters/male/mountStrangleHit/male-gi.png",
+        "male-blue-armor": "assets/characters/male/mountStrangleHit/male-blue-armor.png",
+        "male-red-armor": "assets/characters/male/mountStrangleHit/male-red-armor.png",
+        "blue-armor-shoulders": "assets/characters/male/mountStrangleHit/blue-armor-shoulders.png",
+        "red-armor-shoulders": "assets/characters/male/mountStrangleHit/red-armor-shoulders.png",
+        "fx": "assets/characters/male/mountStrangleHit/fx.png"
+      },
+      "clips": {
+        "rule": "plays on the mounted fighter when the top plays mountStrangle; loops strangledHold, then mountBottom",
+        "mountStrangleHit": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 12,
+          "next": "strangledHold"
+        },
+        "strangledHold": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 6,
+          "loop": true,
+          "next": "mountBottom"
+        }
+      }
+    },
+    "mountHipEscape": {
+      "frames": 10,
+      "fps": 6,
+      "rows": [
+        "E",
+        "W"
+      ],
+      "status": "E/W candidate 2026-10-15 (Hip Escape from under Mount, paired with mountHipEscapeHit), awaiting user approval; S/N to author",
+      "rootMotion": {
+        "E": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            -2,
+            0
+          ],
+          [
+            -2,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "W": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            -2,
+            0
+          ],
+          [
+            -2,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "layers": {
+        "body": "assets/characters/male/mountHipEscape/body.png",
+        "arms": "assets/characters/male/mountHipEscape/arms.png",
+        "long-hair": "assets/characters/male/mountHipEscape/long-hair.png",
+        "fade-hair": "assets/characters/male/mountHipEscape/fade-hair.png",
+        "afro-hair": "assets/characters/male/mountHipEscape/afro-hair.png",
+        "brown-eyes": "assets/characters/male/mountHipEscape/brown-eyes.png",
+        "purple-eyes": "assets/characters/male/mountHipEscape/purple-eyes.png",
+        "male-gi": "assets/characters/male/mountHipEscape/male-gi.png",
+        "male-blue-armor": "assets/characters/male/mountHipEscape/male-blue-armor.png",
+        "male-red-armor": "assets/characters/male/mountHipEscape/male-red-armor.png",
+        "blue-armor-shoulders": "assets/characters/male/mountHipEscape/blue-armor-shoulders.png",
+        "red-armor-shoulders": "assets/characters/male/mountHipEscape/red-armor-shoulders.png"
+      },
+      "clips": {
+        "rule": "plays from mountBottom; the top fighter plays mountHipEscapeHit on the same frames; returns to mountBottom (the Mount does not end)",
+        "mountHipEscape": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
+          "fps": 12,
+          "next": "mountBottom"
+        }
+      },
+      "events": {
+        "rule": "per-frame gameplay data per facing (provisional)",
+        "E": [
+          {
+            "frame": 0,
+            "type": "startup"
+          },
+          {
+            "frame": 1,
+            "type": "startup"
+          },
+          {
+            "frame": 2,
+            "type": "startup"
+          },
+          {
+            "frame": 3,
+            "type": "active",
+            "move": "Hip Escape",
+            "effect": "Target (Mounter) Stamina -15; no damage; Mount unchanged"
+          },
+          {
+            "frame": 4,
+            "type": "recovery"
+          },
+          {
+            "frame": 5,
+            "type": "recovery"
+          },
+          {
+            "frame": 6,
+            "type": "recovery"
+          },
+          {
+            "frame": 7,
+            "type": "recovery"
+          },
+          {
+            "frame": 8,
+            "type": "recovery"
+          },
+          {
+            "frame": 9,
+            "type": "recovery"
+          }
+        ],
+        "W": [
+          {
+            "frame": 0,
+            "type": "startup"
+          },
+          {
+            "frame": 1,
+            "type": "startup"
+          },
+          {
+            "frame": 2,
+            "type": "startup"
+          },
+          {
+            "frame": 3,
+            "type": "active",
+            "move": "Hip Escape",
+            "effect": "Target (Mounter) Stamina -15; no damage; Mount unchanged"
+          },
+          {
+            "frame": 4,
+            "type": "recovery"
+          },
+          {
+            "frame": 5,
+            "type": "recovery"
+          },
+          {
+            "frame": 6,
+            "type": "recovery"
+          },
+          {
+            "frame": 7,
+            "type": "recovery"
+          },
+          {
+            "frame": 8,
+            "type": "recovery"
+          },
+          {
+            "frame": 9,
+            "type": "recovery"
+          }
+        ],
+        "tactical": {
+          "rule": "no displacement: the pair stays in Mount on its cells"
+        }
+      }
+    },
+    "mountHipEscapeHit": {
+      "frames": 10,
+      "fps": 6,
+      "rows": [
+        "E",
+        "W"
+      ],
+      "status": "E/W candidate 2026-10-15 (top side of Hip Escape, paired with mountHipEscape), awaiting user approval; S/N to author",
+      "rootMotion": {
+        "E": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "W": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "layers": {
+        "body": "assets/characters/male/mountHipEscapeHit/body.png",
+        "arms": "assets/characters/male/mountHipEscapeHit/arms.png",
+        "long-hair": "assets/characters/male/mountHipEscapeHit/long-hair.png",
+        "fade-hair": "assets/characters/male/mountHipEscapeHit/fade-hair.png",
+        "afro-hair": "assets/characters/male/mountHipEscapeHit/afro-hair.png",
+        "brown-eyes": "assets/characters/male/mountHipEscapeHit/brown-eyes.png",
+        "purple-eyes": "assets/characters/male/mountHipEscapeHit/purple-eyes.png",
+        "male-gi": "assets/characters/male/mountHipEscapeHit/male-gi.png",
+        "male-blue-armor": "assets/characters/male/mountHipEscapeHit/male-blue-armor.png",
+        "male-red-armor": "assets/characters/male/mountHipEscapeHit/male-red-armor.png",
+        "blue-armor-shoulders": "assets/characters/male/mountHipEscapeHit/blue-armor-shoulders.png",
+        "red-armor-shoulders": "assets/characters/male/mountHipEscapeHit/red-armor-shoulders.png",
+        "far-arm": "assets/characters/male/mountHipEscapeHit/far-arm.png"
+      },
+      "clips": {
+        "rule": "plays on the top fighter when the mounted fighter plays mountHipEscape; returns to mountTop",
+        "mountHipEscapeHit": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
+          "fps": 12,
+          "next": "mountTop"
+        }
+      }
     }
   },
   "combo": {
