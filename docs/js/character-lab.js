@@ -24,6 +24,15 @@
   const OUTFIT_KEYS = ['base', 'gi', 'blueArmor', 'redArmor'];
   const DIRV = { S: [0, 1], E: [1, 0], N: [0, -1], W: [-1, 0] };
   const NO_KEYS = { isDown: false };
+  // clinch (grapple) moves: the key's action per role -> [this fighter's state, the partner's state, played on the same
+  // frames]; the holder's keys while holding, the held fighter's keys (partner Y/U/O) while held
+  const CLINCH_MOVES = {
+    holder: { light: ['clinchUppercut', 'clinchUppercutHit'], heavy: ['clinchKnee', 'clinchKneeHit'], weave: ['clinchElbow', 'clinchElbowHit'],
+      bodyShot: ['clinchBodyShot', 'clinchBodyShotHit'], hipToss: ['clinchHipToss', 'clinchHipTossHit'], rollingThrow: ['clinchRollingThrow', 'clinchRollingThrowHit'] },
+    held: { heldUppercut: ['clinchHeldUppercut', 'clinchHoldHit'], heldKnee: ['clinchHeldKnee', 'clinchHoldKneeHit'], heldElbow: ['clinchHeldElbow', 'clinchHoldElbowHit'] }
+  };
+  const CLINCH_GAP = 27;              // holder and held foot pivots, px apart along E/W (the approved pair previews)
+  const OPPOSITE = { E: 'W', W: 'E', N: 'S', S: 'N' };
 
   // ---- fighter: one character (paper doll, state machine, combos, hits taken and dealt) ------------------------
   class Fighter {
@@ -59,13 +68,15 @@
         this.doll.add(spr); this.layers[slot] = spr;
       }
       for (const depth of ['top', 'trail']) for (const h of HANDS) wsprite(h, depth);
-      // the impact burst (impact-fx, in states that carry it) over every character layer
-      this.layers.fx = scene.add.sprite(0, 0, `idle|body`, 0).setOrigin(0.5, 63 / 64).setVisible(false);
-      this.doll.add(this.layers.fx);
+      // scene-level sprites so a clinch can interleave two fighters: the far arm (behind the body), the arms drawn over
+      // both bodies while paired, and the impact burst / smear and dust (impact-fx or fx) over every character layer
+      const free = () => scene.add.sprite(0, 0, `idle|body`, 0).setOrigin(0.5, 63 / 64).setVisible(false);
+      this.farArm = free(); this.topArms = free(); this.layers.fx = free();
+      this.pair = null;   // while clinched: { other, role: 'holder' | 'held', base: depth }
       this.applyLayers();
     }
 
-    destroy() { this.doll.destroy(); }
+    destroy() { this.doll.destroy(); this.farArm.destroy(); this.topArms.destroy(); this.layers.fx.destroy(); }
     others() { return this.scene.fighters.filter((f) => f !== this); }
     // hit targets: the training posts and the other fighters
     targets() { return [...this.scene.posts, ...this.others()]; }
@@ -79,14 +90,21 @@
     applyLayers() {
       const { anim, frame } = this.state, def = this.def, outfit = def.outfits[this.outfit], st = def.states[anim];
       const pick = { body: 'body', arms: 'arms', clothing: outfit.clothing, armAccessories: outfit.armAccessories, hair: HAIRS[this.hair], eyes: EYES[this.eyes] };
-      const idx = this.frameIndex(anim, frame);
+      const idx = this.frameIndex(anim, frame), paired = !!this.pair;
+      const tint = (spr) => { if (this.flash > 0) spr.setTintFill(0xffffff); else spr.clearTint(); };
       for (const { slot } of def.slots) {
         const spr = this.layers[slot], layer = pick[slot];
-        if (!layer) { spr.setVisible(false); continue; }
-        spr.setVisible(true).setTexture(`${anim}|${layer}`, idx);
-        if (this.flash > 0) spr.setTintFill(0xffffff); else spr.clearTint();
+        if (!layer || (slot === 'arms' && paired)) { spr.setVisible(false); continue; }
+        spr.setVisible(true).setTexture(`${anim}|${layer}`, idx); tint(spr);
       }
-      if (st.layers['impact-fx']) this.layers.fx.setVisible(true).setTexture(`${anim}|impact-fx`, idx); else this.layers.fx.setVisible(false);
+      const x = Math.round(this.pos.x), y = Math.round(this.pos.y);
+      // paired: the near arms leave the doll and draw over both bodies (holder's on top), as in the approved pair previews
+      if (paired) { this.topArms.setVisible(true).setTexture(`${anim}|arms`, idx).setPosition(x, y); tint(this.topArms); }
+      else this.topArms.setVisible(false);
+      if (st.layers['far-arm']) { this.farArm.setVisible(true).setTexture(`${anim}|far-arm`, idx).setPosition(x, y); tint(this.farArm); }
+      else this.farArm.setVisible(false);
+      const fxl = st.layers['impact-fx'] ? 'impact-fx' : st.layers.fx ? 'fx' : null;
+      if (fxl) this.layers.fx.setVisible(true).setTexture(`${anim}|${fxl}`, idx).setPosition(x, y); else this.layers.fx.setVisible(false);
       this.layers.shadow.setFrame(def.referenceFrameOrder.indexOf(this.facing));
       // weapons: the mode's item per hand, from the state's weapon sheets (none in unarmed states)
       const mode = MODES[this.mode], W = st.weapons;
@@ -98,7 +116,88 @@
           else spr.setVisible(false);
         }
       }
-      this.doll.setPosition(Math.round(this.pos.x), Math.round(this.pos.y)).setDepth(this.pos.y);
+      this.doll.setPosition(x, y);
+      // depth: y-sorted; a clinched pair draws back to front holder far arm, held far arm, holder body, held body,
+      // held near arm, holder near arm, impact FX
+      if (paired) {
+        const b = this.pair.base, h = this.pair.role === 'holder';
+        this.farArm.setDepth(b + (h ? 0.1 : 0.2)); this.doll.setDepth(b + (h ? 0.3 : 0.4)); this.topArms.setDepth(b + (h ? 0.6 : 0.5)); this.layers.fx.setDepth(b + 0.7);
+      } else { this.farArm.setDepth(this.pos.y - 0.05); this.doll.setDepth(this.pos.y); this.layers.fx.setDepth(this.pos.y + 0.05); }
+    }
+
+    // ---- clinch (grapple): paired clips played on the same frames by both fighters, driven by the holder ----------
+    grappleState(anim, kind = 'grapple') {
+      const c = this.def.states[anim].clips[anim];
+      return { kind, anim, clip: { ...c, state: anim, clip: anim }, i: 0, frame: c.frames[0], t: 0, hold: c.holdSeconds || 0 };
+    }
+
+    // this fighter takes hold of `other`: it is pulled in to the pair spacing on this fighter's facing (E or W)
+    clinch(other) {
+      const dx = other.pos.x - this.pos.x, sx = Math.sign(dx) || 1;
+      this.facing = sx > 0 ? 'E' : 'W'; other.facing = OPPOSITE[this.facing];
+      other.pos.x = Phaser.Math.Clamp(this.pos.x + sx * CLINCH_GAP, 16, VIEW_W - 16); other.pos.y = this.pos.y;
+      this.pos.x = other.pos.x - sx * CLINCH_GAP;
+      const base = Math.max(this.pos.y, other.pos.y);
+      this.pair = { other, role: 'holder', base }; other.pair = { other: this, role: 'held', base };
+      this.state = this.grappleState('clinchHold'); other.state = other.grappleState('clinchHeld');
+      this.buffered = other.buffered = null; this.lastHit = 'clinch';
+    }
+
+    unpair() { if (this.pair) { const o = this.pair.other; this.pair = null; if (o.pair?.other === this) o.pair = null; } }
+
+    release() {
+      const o = this.pair?.other;
+      this.unpair(); this.toRest(); this.guardTimer = GUARD_TIMEOUT;
+      if (o) { o.toRest(); o.guardTimer = GUARD_TIMEOUT; }
+      this.lastHit = 'released';
+    }
+
+    // a clinch move from the hold loop: this fighter plays its clip, the partner the paired reaction
+    pairMove(mine, theirs) {
+      const o = this.pair?.other, s = this.state;
+      if (!o || s.kind !== 'grapple' || !s.clip.loop || o.state.kind !== 'grapple' || !o.state.clip.loop) return;
+      this.state = this.grappleState(mine); o.state = o.grappleState(theirs);
+      this.enterFrame(); o.enterFrame();
+    }
+
+    // a new frame of a grapple clip: its root motion (the pair ignores body collision), and on the active frame the hit
+    enterFrame() {
+      this.applyRootMotion();
+      const s = this.state, e = this.events(s.anim).find((x) => x.frame === s.frame && x.type === 'active');
+      const o = this.pair?.other;
+      if (e && o) {
+        const V = this.def.combo.health.values, P = this.def.combo.poise.values;
+        const w = e.damage === 'throw' ? 1 : e.damage === 'medium' ? 0.5 : 0;   // lab damage: medium halfway light-heavy, throws heavy
+        o.damage(V.lightDamage + w * (V.heavyDamage - V.lightDamage), P.lightDamage + w * (P.heavyDamage - P.lightDamage));
+        this.lastHit = `${e.move} → ${o.name}${e.effect ? ' (' + e.effect + ')' : ''}`;
+      }
+    }
+
+    advanceClip(dt) {
+      const s = this.state, step = 1 / s.clip.fps, n = s.clip.frames.length;
+      s.t += dt;
+      while (s.t >= step && this.state === s) {
+        s.t -= step;
+        if (s.clip.loop) { s.i = (s.i + 1) % n; s.frame = s.clip.frames[s.i]; continue; }
+        s.i += 1;
+        if (s.i >= n) { this.endClip(); break; }
+        s.frame = s.clip.frames[s.i];
+        this.enterFrame();
+      }
+      // prone holds for its holdSeconds (looping), then the get-up plays (user 2026-10-15: 1.5 s)
+      if (this.state === s && s.anim === 'prone') { s.hold -= dt; if (s.hold <= 0) { this.state = this.grappleState(s.clip.next, 'down'); this.enterFrame(); } }
+    }
+
+    endClip() {
+      const s = this.state, next = s.clip.next;
+      if (next === 'clinchHold' || next === 'clinchHeld') { this.state = this.grappleState(next); return; }
+      if (next === 'prone') { this.unpair(); this.state = this.grappleState('prone', 'down'); return; }
+      // the throw breaks the hold: the holder ends in the guard turned toward the thrown fighter; the get-up ends in the
+      // guard turned to the opponent (the kip-up finishes facing away)
+      this.unpair();
+      if (s.clip.endFacing === 'flipped') this.facing = OPPOSITE[this.facing];
+      if (s.anim === 'getUp') { const o = this.others()[0]; if (o) this.facePoint(o.pos); }
+      this.toRest(); this.guardTimer = GUARD_TIMEOUT;
     }
 
     // four-direction facing: any horizontal component faces E or W, pure vertical faces N or S, no input keeps it
@@ -155,6 +254,7 @@
     }
 
     blocked(x, y) {
+      if (this.state.kind === 'grapple') return false;   // the clinch pair and its throws ignore body and post collision
       return this.scene.solids.some((b) => x > b.x && x < b.x + b.w && y > b.y && y < b.y + b.h)
         || this.others().some((f) => this.actorBlocked(x, y, f.pos));
     }
@@ -213,7 +313,7 @@
       const tgt = this.label(pick.p) + (pick.p === this.target ? ' (target)' : '');
       if (pick.p instanceof Fighter) {
         const res = pick.p.takeHit(this, this.state.input === 'light' ? 'light' : 'heavy');
-        this.lastHit = `${e.move} → ${tgt}${res === 'evaded' ? ' evaded (weave)' : res === 'blocked' ? ' blocked' : res === 'guardBreak' ? ' guard broken' : ''}`;
+        this.lastHit = `${e.move} → ${tgt}${res === 'evaded' ? ' evaded (weave)' : res === 'down' ? ' (down or clinched: no hit)' : res === 'blocked' ? ' blocked' : res === 'guardBreak' ? ' guard broken' : ''}`;
       } else { pick.p.flash = 0.25; this.lastHit = `${e.move} → ${tgt}`; }
     }
 
@@ -222,6 +322,7 @@
     // follows the knockback (combo.json hitFollow); without hitReact a one-frame flash
     takeHit(attacker, weight = 'light') {
       const s = this.state, C = this.def.combo, Bk = C.block.values;
+      if (s.kind === 'down' || s.kind === 'grapple') return 'down';
       if (s.kind === 'evade' && this.events(s.anim).some((e) => e.frame === s.frame && e.type === 'evade')) return 'evaded';
       const hp = weight === 'light' ? C.health.values.lightDamage : C.health.values.heavyDamage;
       const pd = weight === 'light' ? C.poise.values.lightDamage : C.poise.values.heavyDamage;
@@ -270,6 +371,7 @@
     // in the hit recoil only its recover frames take input (they cancel it); hitstun frames take none
     canAct() {
       const s = this.state;
+      if (s.kind === 'grapple' || s.kind === 'down') return false;
       if (s.kind !== 'hit') return true;
       return this.events(s.anim).some((e) => e.frame === s.frame && e.type === 'recover');
     }
@@ -354,6 +456,7 @@
     // one update: input (actions queued since the last frame, and the movement vector), then the state machine
     step(dt, input) {
       for (const action of this.pressQueue.splice(0)) {
+        if (this.pair) { const m = CLINCH_MOVES[this.pair.role][action]; if (m) this.pairMove(...m); continue; }
         if (action === 'light' || action === 'heavy') this.press(action);
         else if (action === 'weave') this.weave();
         else if (action === 'hair') this.hair = (this.hair + 1) % HAIRS.length;
@@ -361,7 +464,7 @@
         else if (action === 'weapon') {
           // a mode change waits for rest (an attack in progress finishes with its own weapon)
           const k = this.state.kind;
-          if (k === 'attack' || k === 'evade' || k === 'hit') continue;
+          if (k === 'attack' || k === 'evade' || k === 'hit' || k === 'grapple' || k === 'down') continue;
           this.mode = (this.mode + 1) % MODES.length;
           if (k === 'guard') this.toRest();
         }
@@ -371,7 +474,15 @@
       this.tickStamina(dt);
 
       const s = this.state;
-      if (s.kind === 'attack' || s.kind === 'evade' || s.kind === 'hit') {
+      if (s.kind === 'grapple' || s.kind === 'down') {
+        // the holder drives both fighters' clips so the pair stays frame-locked; the held fighter only follows
+        if (!(this.pair && this.pair.role === 'held' && s.kind === 'grapple')) {
+          const o = s.kind === 'grapple' && this.pair ? this.pair.other : null;
+          if (o && o.state.kind === 'grapple') o.advanceClip(dt);
+          this.advanceClip(dt);
+          if (o) o.applyLayers();
+        }
+      } else if (s.kind === 'attack' || s.kind === 'evade' || s.kind === 'hit') {
         s.t += dt;
         // exhausted attacks play slowed (combo.json stamina.values.exhaustedAttackSpeed)
         const slow = s.kind === 'attack' && this.exhausted ? this.def.combo.stamina.values.exhaustedAttackSpeed : 1;
@@ -471,7 +582,8 @@
       this.keys = kb.addKeys('W,A,S,D,UP,DOWN,LEFT,RIGHT,SHIFT,I');
       // discrete actions are queued from key events so a tap shorter than one frame is never lost
       this.pressQueue = [];
-      const onKey = { J: 'light', K: 'heavy', L: 'weave', P: 'partner', H: 'hitboxes', T: 'target', Q: 'weapon', ONE: 'outfit0', TWO: 'outfit1', THREE: 'outfit2', FOUR: 'outfit3', FIVE: 'hair', SIX: 'eyes' };
+      const onKey = { J: 'light', K: 'heavy', L: 'weave', P: 'partner', H: 'hitboxes', T: 'target', Q: 'weapon', ONE: 'outfit0', TWO: 'outfit1', THREE: 'outfit2', FOUR: 'outfit3', FIVE: 'hair', SIX: 'eyes',
+        C: 'clinch', B: 'bodyShot', G: 'hipToss', R: 'rollingThrow', Y: 'partner:heldUppercut', U: 'partner:heldKnee', O: 'partner:heldElbow' };
       for (const [key, action] of Object.entries(onKey)) kb.on(`keydown-${key}`, (e) => { if (!e.repeat) this.pressQueue.push(action); });
       this.statusEl = document.getElementById('state');
     }
@@ -508,6 +620,7 @@
     // in front of the player at the body-collision distance, stays in its guard and faces the player while it stands
     togglePartner() {
       if (this.partner) {
+        this.partner.unpair(); if (this.player.state.kind === 'grapple') this.player.toRest();
         if (this.player.target === this.partner) this.player.target = null;
         this.partner.destroy(); this.fighters = this.fighters.filter((f) => f !== this.partner); this.partner = null; return;
       }
@@ -518,12 +631,25 @@
       this.fighters.push(this.partner);
     }
 
+    // C: take hold of the partner when it stands beside the player (E or W, within reach), or let go
+    toggleClinch() {
+      const pl = this.player, pt = this.partner;
+      if (pl.pair) { if (pl.state.kind === 'grapple' && pl.state.clip.loop) pl.release(); return; }
+      const free = (f) => ['idle', 'guard', 'walk', 'sprint'].includes(f.state.kind);
+      if (!pt) { pl.lastHit = 'clinch: no partner (P)'; return; }
+      const dx = pt.pos.x - pl.pos.x, dy = pt.pos.y - pl.pos.y;
+      if (!free(pl) || !free(pt) || Math.abs(dy) > 12 || Math.abs(dx) > 44 || Math.abs(dx) < 1) { pl.lastHit = 'clinch: stand beside the partner (east or west of it, within reach)'; return; }
+      pl.clinch(pt); pl.applyLayers(); pt.applyLayers();
+    }
+
     update(time, deltaMs) {
       const dt = Math.min(deltaMs / 1000, 0.05), k = this.keys, pl = this.player;
       for (const action of this.pressQueue.splice(0)) {
         if (action === 'partner') this.togglePartner();
         else if (action === 'hitboxes') this.showHits = !this.showHits;
         else if (action === 'target') this.cycleTarget();
+        else if (action === 'clinch') this.toggleClinch();
+        else if (action.startsWith('partner:')) { if (this.partner) this.partner.pressQueue.push(action.slice(8)); }
         else pl.pressQueue.push(action);
       }
       const vx = (k.D.isDown || k.RIGHT.isDown ? 1 : 0) - (k.A.isDown || k.LEFT.isDown ? 1 : 0);
@@ -557,7 +683,8 @@
 
     renderStatus() {
       const pl = this.player, s = pl.state, pt = this.partner, rows = [
-        ['state', s.kind === 'attack' ? `${s.clipKey} (frame ${s.frame})` : s.anim],
+        ['state', s.kind === 'attack' ? `${s.clipKey} (frame ${s.frame})` : s.kind === 'grapple' || s.kind === 'down' ? `${s.anim} (frame ${s.frame})` : s.anim],
+        ['clinch', pl.pair ? `holding ${pl.pair.other.name}` : '—'],
         ['facing', pl.facing],
         ['weapon', MODES[pl.mode].label],
         ['combo path', s.kind === 'attack' && s.path ? s.path.split('').join(' ') : '—'],
