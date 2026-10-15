@@ -55,6 +55,13 @@ plain browser page, **not** the Phaser runtime and not Phaser-integrated gamepla
   the SVG hex grid. While planning, the grid shows faintly over it with the move, target and area highlights; while a
   round or the recap plays the grid fades out. The recap video and GIF draw the ground with no grid.
 
+- Water (2026-10-15): lakes of at least 7 connected tiles (a centre and its ring, grown a little; 2 lakes on large
+  maps), painted into the ground so the water fills whole tiles and runs between them. Characters can walk on water
+  but pay 10 chakra each round they end on it (`BAL.waterChakraPerRound`); with too little chakra they drown for 12% of
+  max HP a round (`BAL.waterDrownPercent`) and show the drowning loop (the approved guard-break arms-up frames, sunk to
+  the waist and cut at the waterline, with a foam ring). Animals (bear, tiger, crab, bat), summons and the caravan
+  cannot enter water. Charge Chakra cannot be used while standing in water.
+
 To see the moves: train Judo or Muay Thai, Clinch an adjacent foe, then queue Hip Toss, Rolling Throw, Knee Strikes,
 Elbow Strike, Uppercut or Body Shot.
 

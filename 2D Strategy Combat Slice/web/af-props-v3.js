@@ -154,12 +154,12 @@ const SPEC={
       for(let i=0;i<6;i++){const ph=(i/6+f/4)%1,x=18+(hash(i,1,81)-0.5)*16+Math.sin(ph*6.28+i)*2,y=31-ph*22,r=4+ph*6+hash(i,2,81)*2;
         blob(p,x,y,r,r*0.85,RAMP.smoke,{noise:0.35,seed:82+i,bias:0.12});}}},
   ]},
-  Water:{kind:"flat",frames:3,frameMs:520,outline:"#1b1612",variants:[
-    {name:"pond",w:36,h:28,ax:18,ay:14,draw(p,f){
-      for(let y=0;y<28;y++)for(let x=0;x<36;x++){const dx=(x+0.5-18)/15,dy=(y+0.5-14)/11,a=Math.atan2(dy,dx),k=Math.round((a+Math.PI)*10/(Math.PI*2));
-        const d=Math.sqrt(dx*dx+dy*dy)/(1-0.16*hash(k,91,9));if(d>1)continue;
-        let v=0.15+Math.pow(d,1.6)*0.55;if(d>0.88)v=0.78;p.set(x,y,pick(RAMP.water,v,x,y,0.5));}
-      for(let i=0;i<6;i++){const x=6+Math.floor(hash(i,f,92)*22),y=6+Math.floor(hash(i,f+7,92)*14);if(p.get(x,y)&&p.get(x+2,y)){p.set(x,y,RAMP.water[4]);p.set(x+1,y,RAMP.water[4]);if(hash(i,f,93)<0.5)p.set(x+2,y,RAMP.water[3]);}}}},
+  // water fills its whole tile and runs on into the next one: the lake itself is painted into the arena ground; this is
+  // only the moving glints on top of it
+  Water:{kind:"flat",frames:3,frameMs:520,outline:false,variants:[
+    {name:"glints",w:34,h:30,ax:17,ay:15,draw(p,f){
+      for(let i=0;i<7;i++){const x=4+Math.floor(hash(i,f,92)*25),y=4+Math.floor(hash(i,f+7,92)*21),l=2+Math.floor(hash(i,f,94)*2);
+        for(let k=0;k<l;k++)p.set(x+k,y,k===0||k===l-1?RAMP.water[3]:RAMP.water[4]);}}},
   ]},
   Spikes:{kind:"flat",variants:[
     {name:"spike pit",w:30,h:22,ax:15,ay:13,draw(p){
@@ -190,7 +190,7 @@ function build(){
   if(built||typeof document==="undefined")return built;
   built={};
   for(const[t,spec]of Object.entries(SPEC)){
-    built[t]=spec.variants.map(v=>{const frames=[];for(let f=0;f<(spec.frames||1);f++){const p=new Pix(v.w,v.h);v.draw(p,f);p.outline(spec.outline||OUT);frames.push(toCanvas(p));}
+    built[t]=spec.variants.map(v=>{const frames=[];for(let f=0;f<(spec.frames||1);f++){const p=new Pix(v.w,v.h);v.draw(p,f);if(spec.outline!==false)p.outline(spec.outline||OUT);frames.push(toCanvas(p));}
       return{name:v.name,ax:v.ax,ay:v.ay,w:v.w,h:v.h,frames,kind:spec.kind,alpha:spec.alpha||1,frameMs:spec.frameMs||0,shadow:spec.shadow?shadow(...spec.shadow):null};});
   }
   built.decor=[];for(let s=0;s<3;s++)DECOR.forEach(d=>{const p=new Pix(d.w,d.h);d.draw(p,s+1);p.outline(d.outline);const c=toCanvas(p);built.decor.push({name:d.name,ax:d.w>>1,ay:d.h-1,w:d.w,h:d.h,frames:[c],kind:"flat",alpha:1,frameMs:0});});
@@ -231,25 +231,40 @@ const box=it=>({x0:it.x-it.v.ax+3,x1:it.x-it.v.ax+it.v.w-3,y0:it.y-it.v.ay+2,y1:
    under it as a faint planning aid and vanish while rounds play. A raised plateau: grass with darker and lighter
    patches and worn dirt, an outline round the island and an earth cliff face under its southern edge. --- */
 const GROUND={grass:["#1c2e17","#24391d","#2c4523","#36522a","#435f31"],dirt:["#2e2219","#3b2c20","#4a3828","#5a4532"],
-  cliff:["#47321f","#3a2919","#2c1f13","#21170e"],lip:"#52703a"};
+  cliff:["#47321f","#3a2919","#2c1f13","#21170e"],lip:"#52703a",bank:["#3d3324","#4d4130","#5e5039"],
+  water:["#0b1d38","#12305a","#1a467e","#2a68a6","#4f93c8"],foam:"#a8d8ec"};
 function vnoise(x,y,sc,seed){const gx=x/sc,gy=y/sc,x0=Math.floor(gx),y0=Math.floor(gy),fx=gx-x0,fy=gy-y0,sx=fx*fx*(3-2*fx),sy=fy*fy*(3-2*fy);
   const a=hash(x0,y0,seed),b=hash(x0+1,y0,seed),c=hash(x0,y0+1,seed),d=hash(x0+1,y0+1,seed);return a+(b-a)*sx+(c-a)*sy+(a-b-c+d)*sx*sy;}
 let groundKey="",groundImg=null;
 // cells [{x,y}] hex centres, s the hex step, W x H the viewBox size; returns a W x H canvas (transparent off the island)
 function ground(cells,s,W,H){
   if(typeof document==="undefined"||!cells||!cells.length)return null;
-  const o=cells[0],key=[W,H,s,cells.length,o.x,o.y].join("|");if(key===groundKey)return groundImg;
+  const o=cells[0],key=[W,H,s,cells.length,o.x,o.y,cells.filter(c=>c.t==="Water").map(c=>c.x+","+c.y).join(";")].join("|");if(key===groundKey)return groundImg;
   const SQ=Math.sqrt(3),cellKey=(x,y)=>{const dx=x-o.x,dy=y-o.y,q=(SQ/3*dx-dy/3)/s,r=(2/3*dy)/s,yy=-q-r;
     let rq=Math.round(q),rr=Math.round(r),ry=Math.round(yy);const eq=Math.abs(rq-q),er=Math.abs(rr-r),ey=Math.abs(ry-yy);
     if(eq>er&&eq>ey)rq=-ry-rr;else if(er>ey)rr=-rq-ry;return rq+","+rr;};
-  const set=new Set(cells.map(c=>cellKey(c.x,c.y))),inside=new Uint8Array(W*H);
-  for(let y=0;y<H;y++)for(let x=0;x<W;x++)inside[y*W+x]=set.has(cellKey(x+0.5,y+0.5))?1:0;
-  const at=(x,y)=>x>=0&&y>=0&&x<W&&y<H&&inside[y*W+x]===1;
+  const set=new Set(cells.map(c=>cellKey(c.x,c.y))),wet=new Set(cells.filter(c=>c.t==="Water").map(c=>cellKey(c.x,c.y))),inside=new Uint8Array(W*H);
+  for(let y=0;y<H;y++)for(let x=0;x<W;x++){const k=cellKey(x+0.5,y+0.5);inside[y*W+x]=wet.has(k)?2:set.has(k)?1:0;}
+  // distance (in px, 4-neighbour) from the shore inside the water, and from the water on dry ground
+  const dist=new Int16Array(W*H).fill(99),q=[];
+  for(let i=0;i<W*H;i++){if(inside[i]!==2)continue;const x=i%W,y=(i/W)|0;
+    if([[1,0],[-1,0],[0,1],[0,-1]].some(([dx,dy])=>{const xx=x+dx,yy=y+dy;return xx>=0&&yy>=0&&xx<W&&yy<H&&inside[yy*W+xx]===1;})){dist[i]=1;q.push(i);}}
+  for(let h=0;h<q.length;h++){const i=q[h],x=i%W,y=(i/W)|0;if(dist[i]>=14)continue;
+    for(const[dx,dy]of[[1,0],[-1,0],[0,1],[0,-1]]){const xx=x+dx,yy=y+dy;if(xx<0||yy<0||xx>=W||yy>=H)continue;const j=yy*W+xx;if(inside[j]===2&&dist[j]>dist[i]+1){dist[j]=dist[i]+1;q.push(j);}}}
+  const nearWater=(x,y)=>{for(let dy=-2;dy<=2;dy++)for(let dx=-2;dx<=2;dx++){if(Math.abs(dx)+Math.abs(dy)>2)continue;const xx=x+dx,yy=y+dy;if(xx>=0&&yy>=0&&xx<W&&yy<H&&inside[yy*W+xx]===2)return true;}return false;};
+  const at=(x,y)=>x>=0&&y>=0&&x<W&&y<H&&inside[y*W+x]>0;
   const c=document.createElement("canvas");c.width=W;c.height=H;const g=c.getContext("2d"),id=g.createImageData(W,H),D=id.data;
   const put=(i,col)=>{const n=parseInt(col.slice(1),16);D[i*4]=n>>16;D[i*4+1]=(n>>8)&255;D[i*4+2]=n&255;D[i*4+3]=255;};
   const CLIFF=9;
   for(let y=0;y<H;y++)for(let x=0;x<W;x++){const i=y*W+x;
+    if(inside[i]===2){
+      const d=dist[i],n=vnoise(x,y,11,8)*0.6+vnoise(x,y,4,9)*0.4;let col;
+      if(d<=1)col=GROUND.foam;
+      else{const depth=clamp((d-1)/11,0,1);col=GROUND.water[clamp(Math.round(4-depth*3.4-(n-0.5)*1.1+bay(x,y)*0.8),0,4)];}
+      if(!at(x,y-1))col=GROUND.foam;
+      put(i,col);continue;}
     if(inside[i]){
+      if(nearWater(x,y)){put(i,GROUND.bank[clamp(Math.round(1+bay(x,y)*1.4+(hash(x,y,10)-0.5)),0,2)]);continue;}
       const n=vnoise(x,y,26,1)*0.5+vnoise(x,y,9,2)*0.32+vnoise(x,y,3,3)*0.18,dn=vnoise(x+311,y+97,34,4)+(vnoise(x,y,6,5)-0.5)*0.18;
       let col;
       if(dn>0.7)col=GROUND.dirt[clamp(Math.round((n-0.2)*4+bay(x,y)*0.8),0,3)];

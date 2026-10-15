@@ -151,6 +151,7 @@ function planBeats(events){
   const beats=[];let moves=[],cur=null;
   for(const e of events||[]){
     if(e.type==="move"&&e.phase==="move"){moves.push(e);continue;}
+    if(e.type==="drown"){let b=beats.find(x=>x.drown);if(!b){b={drown:[]};beats.push(b);}b.drown.push(e);continue;}
     if(e.type==="move"&&e.phase==="action"){if(cur&&!cur.act)cur.approach.push(e);else{cur={approach:[e],act:null,reactions:[]};beats.push(cur);}continue;}
     if(e.type==="act"){if(cur&&!cur.act&&cur.approach.length)cur.act=e;else{cur={approach:[],act:e,reactions:[]};beats.push(cur);}continue;}
     if(!cur){cur={approach:[],act:null,reactions:[]};beats.push(cur);}
@@ -250,7 +251,7 @@ const STEP_MS=260;          // walk time per hex
 const KNOCK_MS=200,PROJECTILE_MS=230,PARRY_MS=520,BLOCK_MS=420,FADE_MS=420;
 const RECAP_GAP_MS=450;     // pause between rounds of the post-fight recap
 const STORE="af.sprites.animate";
-let def=null,images=new Map(),hooks=null,canvas=null,ctx=null,groundC=null,gctx=null,groundDrawn="",sprites=new Map(),frozen=false,playToken=0;
+let def=null,images=new Map(),hooks=null,canvas=null,ctx=null,groundC=null,gctx=null,groundDrawn="",groundImgDrawn=null,sprites=new Map(),frozen=false,playToken=0;
 let battle=null,viewer=null,recap=false,recorder=null;
 const projectiles=[];
 
@@ -331,12 +332,14 @@ function spriteFor(f){
 }
 function play(sp,state,clip,opts){
   const st=def.states[state];if(!st)return 0;
+  sp.sink=0;
   const c=clip&&st.clips&&st.clips[clip]?st.clips[clip]:{frames:[...Array(st.frames).keys()],fps:st.fps};
   sp.anim={state,frames:c.frames,fps:c.fps||st.fps,loop:!!(opts&&opts.loop)||!!c.loop,hold:!!(opts&&opts.hold),t0:performance.now(),weapon:opts&&opts.weapon||null,motion:!(opts&&opts.loop),path:opts&&opts.path||null};
   return sp.anim.loop?0:c.frames.length*1000/sp.anim.fps;
 }
 function holdBase(sp){
   if(sp.dead&&canDown(sp)){goDown(sp);return;}
+  if(!sp.glyph&&sp.f&&sp.f.drowning&&root.AF&&root.AF.alive(sp.f)&&root.AF.onWater&&root.AF.onWater(sp.f)){startDrown(sp);return;}
   if(sp.pair){play(sp,sp.pair.role==="holder"?"clinchHold":"clinchHeld",null,{loop:true});return;}
   const b=basePose(sp.pose||sp.f);play(sp,b.state,null,{loop:true,weapon:b.weapon});
 }
@@ -411,8 +414,9 @@ function drawSprite(sp,now,part){
   if(sp.glyph){if(recap&&(!part||part==="body"))drawGlyph(sp);return;}
   const fr=frameOf(sp,now);if(!fr)return;
   const st=def.states[fr.state];let row=st.rows.indexOf(sp.facing);if(row<0)row=0;
-  const [ax,ay]=pathOffset(st,sp,fr);
+  const [ax,ay0]=pathOffset(st,sp,fr),sink=sp.sink||0,ay=ay0+sink;
   const x=Math.round(ax-PIVOT[0]),y=Math.round(ay-PIVOT[1]);
+  if(sink){ctx.save();ctx.beginPath();ctx.rect(Math.round(ax)-80,Math.round(ay0)-140,160,140-2);ctx.clip();}
   const isPair=!!part,want=k=>!part||part===k;
   const outfit=def.outfits[sp.look.outfit]||def.outfits.gi;
   const pick={body:"body",arms:"arms",clothing:outfit.clothing,armAccessories:outfit.armAccessories,hair:sp.look.hair,eyes:sp.look.eyes};
@@ -423,7 +427,7 @@ function drawSprite(sp,now,part){
   const pal=layer=>paletteFor(layer,sp.look);
   if(want("far")&&st.layers["far-arm"])blit(st.layers["far-arm"],fr.col,row,FRAME,x,y,pal("far-arm"));
   if(want("body")){
-    blit(def.contactShadow,def.referenceFrameOrder.indexOf(sp.facing),0,FRAME,Math.round(ax-PIVOT[0]),Math.round(ay-PIVOT[1]));
+    if(!sink)blit(def.contactShadow,def.referenceFrameOrder.indexOf(sp.facing),0,FRAME,Math.round(ax-PIVOT[0]),Math.round(ay-PIVOT[1]));
     WDEPTH_UNDER.forEach(weapon);
     for(const {slot} of def.slots){
       if(slot==="arms"){weapon("front");if(isPair)continue;}
@@ -433,8 +437,15 @@ function drawSprite(sp,now,part){
   }
   if(want("arms")&&isPair&&st.layers.arms)blit(st.layers.arms,fr.col,row,FRAME,x,y,pal("arms"));
   const fx=st.layers["impact-fx"]||st.layers.fx;
-  if(want("fx")&&fx)blit(fx,fr.col,row,FRAME,x,y);
+  if(want("fx")&&fx&&!sink)blit(fx,fr.col,row,FRAME,x,y);
   ctx.globalAlpha=1;
+  if(sink){ctx.restore();foamRing(Math.round(ax),Math.round(ay0)-2,now);}
+}
+// a pixel ring of foam where a drowning fighter meets the water
+function foamRing(cx,cy,now){
+  const r=11+((Math.floor(now/220))%2),ry=3;ctx.fillStyle="#a8d8ec";
+  for(let a=0;a<64;a++){const t=a/64*Math.PI*2,px=Math.round(cx+Math.cos(t)*r),py=Math.round(cy+Math.sin(t)*ry);if((a+Math.floor(now/160))%5===0)continue;ctx.fillRect(px,py,1,1);}
+  ctx.fillStyle="#ffffff";for(const k of[0,1,2]){const t=(now/700+k*2.1)%(Math.PI*2);ctx.fillRect(Math.round(cx+Math.cos(t)*(r-3)),Math.round(cy+Math.sin(t)*ry)-1,1,1);}
 }
 // a clinched pair, back to front (approved layering): holder far arm, held far arm, holder body, held body, held
 // near arm, holder near arm, then the impact FX
@@ -482,8 +493,8 @@ function frame(now){
 function arenaGround(vbW,vbH){const P=root.AFProps;if(!terrain||!P||!P.ground||!propScene())return null;return P.ground(terrain,hexStep(),Math.round(vbW),Math.round(vbH));}
 function paintBackdrop(c,vbW,vbH){const g=c.createRadialGradient(vbW/2,vbH/2,0,vbW/2,vbH/2,Math.max(vbW,vbH)*0.72);g.addColorStop(0,"#121a32");g.addColorStop(1,"#070b17");c.fillStyle=g;c.fillRect(0,0,vbW,vbH);}
 function drawGround(L){
-  if(!gctx)return;const img=arenaGround(L.vbW,L.vbH),key=img?[groundC.width,groundC.height,L.s,L.ox,L.oy,img.width,img.height,terrain.length].join("|"):"";
-  if(key===groundDrawn)return;groundDrawn=key;
+  if(!gctx)return;const img=arenaGround(L.vbW,L.vbH),key=img?[groundC.width,groundC.height,L.s,L.ox,L.oy].join("|"):"";
+  if(key===groundDrawn&&img===groundImgDrawn)return;groundDrawn=key;groundImgDrawn=img;
   gctx.setTransform(1,0,0,1,0,0);gctx.clearRect(0,0,groundC.width,groundC.height);if(!img)return;
   gctx.setTransform(L.s,0,0,L.s,L.ox,L.oy);gctx.imageSmoothingEnabled=false;paintBackdrop(gctx,L.vbW,L.vbH);gctx.drawImage(img,0,0);
 }
@@ -505,6 +516,21 @@ function tween(sp,to,ms,token){
 }
 const px=c=>{const p=hooks.cellPx(c);return{x:p.x,y:p.y+feet()};};
 function hexes(a,b){return root.AF?Math.max(1,root.AF.hdist(a,b)):1;}
+// drowning (user, 2026-10-15): a fighter out of chakra on water sinks to the waist and flails, arms up over the head.
+// Built from the approved guard-break frames (arms flung up), whole-pixel sunk and cut off at the waterline, with a ring
+// of foam round the body; no new body pixels.
+const DROWN_SINK=22,DROWN_FRAMES=[0,1,2,1],DROWN_FPS=5,DROWN_MS=1600;
+function startDrown(sp){
+  if(sp.anim&&sp.anim.drown){sp.sink=DROWN_SINK;return;}
+  play(sp,"guardBreak",null,{loop:true});
+  sp.anim.frames=DROWN_FRAMES;sp.anim.fps=DROWN_FPS;sp.anim.motion=false;sp.anim.drown=true;sp.sink=DROWN_SINK;
+  if(def.states.guardBreak.rows.includes("S"))sp.facing="S";   // face the viewer: both arms show above the water
+}
+async function drown(e,token){
+  if(!drawn(e.who))return;const sp=spriteFor(e.who);if(sp.glyph)return;
+  startDrown(sp);await wait(DROWN_MS);if(token!==playToken)return;
+  if(e.killed){sp.sink=0;sp.anim=null;goDown(sp);}
+}
 // defeated humanoids stay on the field lying in the downed state (user 2026-10-15: "a downed stance for when players
 // are defeated instead of them disappearing ... similar to the prone stance but with the eyes closed"); glyph fighters
 // (beasts, summons) still fade out
@@ -604,7 +630,7 @@ function faceFoes(){
   if(!def)return;
   for(const sp of sprites.values()){
     if(sp.glyph||sp.dead||sp.pair||!sp.f)continue;
-    const a=sp.anim;if(a&&(!a.loop||a.state==="prone"))continue;
+    const a=sp.anim;if(a&&(!a.loop||a.state==="prone"||a.drown))continue;
     const o=foeOf(sp);if(!o)continue;
     const st=def.states[a?a.state:"guard"];sp.facing=faceIn(st&&st.rows,sp,o,sp.facing);
   }
@@ -654,6 +680,7 @@ async function replay(events,token){
   for(const beat of planBeats(events)){
     if(token!==playToken)return;
     if(beat.moves){await Promise.all(beat.moves.map(m=>walk(m,token)));continue;}
+    if(beat.drown){await Promise.all(beat.drown.map(e=>drown(e,token)));continue;}
     for(const m of beat.approach)await walk(m,token);
     await act(beat,counters,token);
     if(token===playToken)faceFoes();
