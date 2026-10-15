@@ -1398,7 +1398,8 @@ if (spec.arms.farLayer) {
 // Quarter turns only (0, 90, 180, 270 degrees), so every pixel moves whole and none is resampled (locked base-geometry
 // rule: no rotation or resampling of parts); all runtime layers take the same mapping and stay registered. angle is
 // clockwise on screen in the source direction (a mirrored direction turns the other way); dx/dy move the turned fighter;
-// groundSnap drops the frame so its lowest pixel sits on the bottom row.
+// groundSnap drops the frame so the body's lowest pixel sits on the bottom row (hair and clothing follow; a hair layer
+// that hangs lower is cut at the frame edge).
 // faceFlip (per frame): the fighter turned around (a throw that turns its back in): the frame is mirrored about the
 // pivot column, so it faces the other way.
 const BR = spec.bodyRotation, FF = spec.faceFlip;
@@ -1427,7 +1428,7 @@ if (BR || FF) {
       let shift = 0;
       if (snap) {
         let low = -1;
-        for (let i = 0; i < FRAME * FRAME; i++) if (map[i] >= 0 && names.some((n) => sheets[n][idx(map[i] % FRAME, Math.floor(map[i] / FRAME)) + 3])) low = Math.floor(i / FRAME);
+        for (let i = 0; i < FRAME * FRAME; i++) if (map[i] >= 0 && sheets.body[idx(map[i] % FRAME, Math.floor(map[i] / FRAME)) + 3]) low = Math.floor(i / FRAME);
         if (low >= 0) shift = FRAME - 1 - low;
       }
       for (const nm of names) {
