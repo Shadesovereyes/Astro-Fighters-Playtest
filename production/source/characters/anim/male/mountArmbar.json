@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Jiu-Jitsu Arm bar from the top of Mount (Positional Rules: Both; Maintained Submission; Cripple): from the mountTop idle the top fighter traps the near arm at the wrist, rises, swings back and falls flat on the back across the mounted fighter (a quarter turn, legs over the chest), pulls the trapped arm straight up between the legs and lifts the hips to lock the elbow; frames 6-9 loop while the submission is maintained, then the pair returns to the Mount idles.",
+  "intent": "Jiu-Jitsu Arm bar from the top of Mount (Positional Rules: Both; Maintained Submission; Cripple), redesigned per user ruling 2026-10-15: the top fighter stays mounted, leans forward over the mounted fighter, catches the near wrist with both hands and pins the straightened arm above the mounted fighter's head, cranking it; frames 6-9 loop while the submission is maintained, then the pair returns to the Mount idles.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -91,38 +91,38 @@
     "dy": [
       10,
       12,
-      7,
-      11,
-      10,
-      10,
-      11,
-      11,
-      10,
-      10
+      13,
+      14,
+      15,
+      15,
+      15,
+      15,
+      15,
+      15
     ],
     "head": [
       10,
       12,
-      7,
-      11,
-      10,
-      10,
-      11,
-      11,
-      10,
-      10
+      13,
+      14,
+      15,
+      15,
+      15,
+      15,
+      15,
+      15
     ],
     "arms": [
       11,
       13,
-      7,
-      12,
-      11,
-      10,
-      11,
-      12,
-      11,
-      10
+      14,
+      15,
+      16,
+      16,
+      16,
+      16,
+      16,
+      16
     ]
   },
   "lean": {
@@ -132,26 +132,26 @@
       "pelvis": [
         0,
         1,
-        0,
-        0,
-        0,
         2,
-        3,
         2,
-        3,
+        2,
+        2,
+        2,
+        2,
+        2,
         2
       ],
       "head": [
         4,
-        9,
-        2,
-        0,
-        0,
-        1,
-        1,
-        1,
-        1,
-        1
+        8,
+        11,
+        13,
+        14,
+        14,
+        14,
+        15,
+        14,
+        15
       ]
     }
   },
@@ -602,53 +602,31 @@
           57
         ],
         "foot": "levelL"
-      },
-      {
-        "name": "lying-near",
-        "construction": "band",
-        "hipX": 32,
-        "kneeX": 34,
-        "footX": 34,
-        "hipRow": 42,
-        "kneeRow": 50,
-        "wrapRow": 56,
-        "foot": "flat"
-      },
-      {
-        "name": "lying-far",
-        "construction": "band",
-        "hipX": 31,
-        "kneeX": 32,
-        "footX": 31,
-        "hipRow": 42,
-        "kneeRow": 50,
-        "wrapRow": 56,
-        "foot": "flat"
       }
     ],
     "near": [
       4,
       4,
       4,
-      6,
-      6,
-      6,
-      6,
-      6,
-      6,
-      6
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4
     ],
     "far": [
       5,
       5,
       5,
-      7,
-      7,
-      7,
-      7,
-      7,
-      7,
-      7
+      5,
+      5,
+      5,
+      5,
+      5,
+      5,
+      5
     ]
   },
   "arms": {
@@ -677,34 +655,10 @@
       },
       {
         "construction": "band",
-        "angle": -35,
+        "angle": -50,
         "elbow": {
           "at": 8,
-          "angle": -60
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -60,
-        "elbow": {
-          "at": 8,
-          "angle": -120
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -70,
-        "elbow": {
-          "at": 8,
-          "angle": -110
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -60,
-        "elbow": {
-          "at": 8,
-          "angle": -90
+          "angle": -70
         }
       },
       {
@@ -712,7 +666,7 @@
         "angle": -55,
         "elbow": {
           "at": 8,
-          "angle": -80
+          "angle": -68
         }
       },
       {
@@ -720,7 +674,7 @@
         "angle": -55,
         "elbow": {
           "at": 8,
-          "angle": -78
+          "angle": -68
         }
       },
       {
@@ -728,7 +682,7 @@
         "angle": -55,
         "elbow": {
           "at": 8,
-          "angle": -80
+          "angle": -68
         }
       },
       {
@@ -736,7 +690,7 @@
         "angle": -55,
         "elbow": {
           "at": 8,
-          "angle": -78
+          "angle": -68
         }
       },
       {
@@ -744,7 +698,31 @@
         "angle": -55,
         "elbow": {
           "at": 8,
-          "angle": -80
+          "angle": -68
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -53,
+        "elbow": {
+          "at": 8,
+          "angle": -66
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -55,
+        "elbow": {
+          "at": 8,
+          "angle": -68
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -53,
+        "elbow": {
+          "at": 8,
+          "angle": -66
         }
       }
     ],
@@ -759,58 +737,50 @@
       },
       {
         "construction": "band",
-        "angle": -30,
+        "angle": -45,
         "elbow": {
           "at": 8,
-          "angle": -55
+          "angle": -65
         }
       },
       {
         "construction": "band",
-        "angle": -55,
+        "angle": -52,
         "elbow": {
           "at": 8,
-          "angle": -115
+          "angle": -65
         }
       },
       {
         "construction": "band",
-        "angle": -66,
+        "angle": -52,
         "elbow": {
           "at": 8,
-          "angle": -106
+          "angle": -65
         }
       },
       {
         "construction": "band",
-        "angle": -56,
+        "angle": -52,
         "elbow": {
           "at": 8,
-          "angle": -86
+          "angle": -65
         }
       },
       {
         "construction": "band",
-        "angle": -50,
+        "angle": -52,
         "elbow": {
           "at": 8,
-          "angle": -76
+          "angle": -65
         }
       },
       {
         "construction": "band",
-        "angle": -50,
+        "angle": -52,
         "elbow": {
           "at": 8,
-          "angle": -74
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -50,
-        "elbow": {
-          "at": 8,
-          "angle": -76
+          "angle": -65
         }
       },
       {
@@ -818,7 +788,15 @@
         "angle": -50,
         "elbow": {
           "at": 8,
-          "angle": -74
+          "angle": -63
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -52,
+        "elbow": {
+          "at": 8,
+          "angle": -65
         }
       },
       {
@@ -826,7 +804,7 @@
         "angle": -50,
         "elbow": {
           "at": 8,
-          "angle": -76
+          "angle": -63
         }
       }
     ],
@@ -1129,7 +1107,7 @@
     }
   },
   "pair": {
-    "rule": "paired Mount move: top (E) falls back into the arm bar, bottom (W) has the arm trapped; the trapped arm is drawn over the top fighter's legs",
+    "rule": "paired Mount move: top (E) leans over and pins the arm above the bottom fighter's head, bottom (W) has the arm trapped",
     "partner": "mountArmbarHit",
     "partnerDx": 2,
     "layering": [
@@ -1147,61 +1125,6 @@
         "mountTop arms"
       ]
     }
-  },
-  "bodyRotation": {
-    "rule": "quarter turns only",
-    "pivot": [
-      32,
-      44
-    ],
-    "angle": [
-      0,
-      0,
-      0,
-      270,
-      270,
-      270,
-      270,
-      270,
-      270,
-      270
-    ],
-    "dx": [
-      0,
-      0,
-      0,
-      12,
-      12,
-      12,
-      12,
-      12,
-      12,
-      12
-    ],
-    "dy": [
-      0,
-      0,
-      0,
-      -5,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "groundSnap": [
-      false,
-      false,
-      false,
-      false,
-      true,
-      true,
-      true,
-      true,
-      true,
-      true
-    ]
   },
   "events": {
     "rule": "per-frame gameplay data per facing (provisional)",

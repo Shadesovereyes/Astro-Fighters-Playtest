@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "The top fighter's side of the bottom Elbow Strike: the head snaps back and up with pain eyes and a hit star at the chin, then settles into the mountTop idle.",
+  "intent": "The top fighter's side of the 12-to-6 bottom Elbow Strike: the thigh is hit, the body dips and flinches with pain eyes and a hit star at the thigh, then settles into the mountTop idle.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -92,9 +92,9 @@
       10,
       10,
       11,
-      9,
-      9,
-      10,
+      12,
+      12,
+      11,
       11,
       11
     ],
@@ -102,9 +102,9 @@
       10,
       10,
       11,
-      8,
-      8,
-      10,
+      13,
+      13,
+      12,
       11,
       11
     ],
@@ -112,8 +112,8 @@
       11,
       10,
       11,
-      10,
-      10,
+      12,
+      12,
       11,
       11,
       12
@@ -127,8 +127,8 @@
         0,
         0,
         0,
-        0,
-        0,
+        1,
+        1,
         0,
         0,
         0
@@ -137,9 +137,9 @@
         4,
         4,
         4,
-        1,
-        2,
         3,
+        3,
+        2,
         4,
         4
       ]
@@ -1034,7 +1034,7 @@
     }
   },
   "pair": {
-    "rule": "paired Mount move: bottom (W) strikes up with the elbow, top (E) takes it",
+    "rule": "paired Mount move: bottom (W) chops the elbow down 12-to-6, top (E) takes it",
     "partner": "mountBottomElbow",
     "partnerDx": 2,
     "layering": [
@@ -1139,7 +1139,7 @@
     "intent": "strained: eyes squeezed under the weight"
   },
   "fx": {
-    "rule": "a hit star at the top fighter's chin as the elbow lands",
+    "rule": "a hit star at the top fighter's thigh as the elbow lands",
     "frames": [
       {
         "frame": 3,
@@ -1147,8 +1147,8 @@
           {
             "pattern": "hitStar",
             "at": [
-              33,
-              22
+              38,
+              52
             ]
           }
         ]
@@ -1159,8 +1159,8 @@
           {
             "pattern": "strain",
             "at": [
-              34,
-              20
+              39,
+              50
             ]
           }
         ]

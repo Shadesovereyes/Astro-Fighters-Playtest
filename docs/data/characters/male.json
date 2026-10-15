@@ -12800,6 +12800,1337 @@
         }
       }
     },
+    "mountElbow": {
+      "frames": 8,
+      "fps": 6,
+      "rows": [
+        "E",
+        "W"
+      ],
+      "status": "E/W candidate 2026-10-15 (Elbow Strike from the top of Mount, paired with mountElbowHit), awaiting user approval; S/N to author",
+      "rootMotion": {
+        "E": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            -2,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "W": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            -2,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "layers": {
+        "body": "assets/characters/male/mountElbow/body.png",
+        "arms": "assets/characters/male/mountElbow/arms.png",
+        "long-hair": "assets/characters/male/mountElbow/long-hair.png",
+        "fade-hair": "assets/characters/male/mountElbow/fade-hair.png",
+        "afro-hair": "assets/characters/male/mountElbow/afro-hair.png",
+        "brown-eyes": "assets/characters/male/mountElbow/brown-eyes.png",
+        "purple-eyes": "assets/characters/male/mountElbow/purple-eyes.png",
+        "male-gi": "assets/characters/male/mountElbow/male-gi.png",
+        "male-blue-armor": "assets/characters/male/mountElbow/male-blue-armor.png",
+        "male-red-armor": "assets/characters/male/mountElbow/male-red-armor.png",
+        "blue-armor-shoulders": "assets/characters/male/mountElbow/blue-armor-shoulders.png",
+        "red-armor-shoulders": "assets/characters/male/mountElbow/red-armor-shoulders.png",
+        "far-arm": "assets/characters/male/mountElbow/far-arm.png"
+      },
+      "clips": {
+        "rule": "plays from mountTop; the mounted fighter plays mountElbowHit; returns to mountTop",
+        "mountElbow": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 12,
+          "next": "mountTop"
+        }
+      },
+      "events": {
+        "rule": "per-frame gameplay data per facing (provisional)",
+        "E": [
+          {
+            "frame": 0,
+            "type": "startup"
+          },
+          {
+            "frame": 1,
+            "type": "startup"
+          },
+          {
+            "frame": 2,
+            "type": "startup"
+          },
+          {
+            "frame": 3,
+            "type": "active",
+            "move": "Elbow Strike",
+            "effect": "Accuracy-based Bleed DoT"
+          },
+          {
+            "frame": 4,
+            "type": "recovery"
+          },
+          {
+            "frame": 5,
+            "type": "recovery"
+          },
+          {
+            "frame": 6,
+            "type": "recovery"
+          },
+          {
+            "frame": 7,
+            "type": "recovery"
+          }
+        ],
+        "W": [
+          {
+            "frame": 0,
+            "type": "startup"
+          },
+          {
+            "frame": 1,
+            "type": "startup"
+          },
+          {
+            "frame": 2,
+            "type": "startup"
+          },
+          {
+            "frame": 3,
+            "type": "active",
+            "move": "Elbow Strike",
+            "effect": "Accuracy-based Bleed DoT"
+          },
+          {
+            "frame": 4,
+            "type": "recovery"
+          },
+          {
+            "frame": 5,
+            "type": "recovery"
+          },
+          {
+            "frame": 6,
+            "type": "recovery"
+          },
+          {
+            "frame": 7,
+            "type": "recovery"
+          }
+        ],
+        "tactical": {
+          "rule": "no displacement: the pair stays in Mount on its cells"
+        }
+      }
+    },
+    "mountElbowHit": {
+      "frames": 8,
+      "fps": 6,
+      "rows": [
+        "E",
+        "W"
+      ],
+      "status": "E/W candidate 2026-10-15 (mounted side of Elbow Strike (top), paired with mountElbow), awaiting user approval; S/N to author",
+      "rootMotion": {
+        "E": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "W": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "layers": {
+        "body": "assets/characters/male/mountElbowHit/body.png",
+        "arms": "assets/characters/male/mountElbowHit/arms.png",
+        "long-hair": "assets/characters/male/mountElbowHit/long-hair.png",
+        "fade-hair": "assets/characters/male/mountElbowHit/fade-hair.png",
+        "afro-hair": "assets/characters/male/mountElbowHit/afro-hair.png",
+        "brown-eyes": "assets/characters/male/mountElbowHit/brown-eyes.png",
+        "purple-eyes": "assets/characters/male/mountElbowHit/purple-eyes.png",
+        "male-gi": "assets/characters/male/mountElbowHit/male-gi.png",
+        "male-blue-armor": "assets/characters/male/mountElbowHit/male-blue-armor.png",
+        "male-red-armor": "assets/characters/male/mountElbowHit/male-red-armor.png",
+        "blue-armor-shoulders": "assets/characters/male/mountElbowHit/blue-armor-shoulders.png",
+        "red-armor-shoulders": "assets/characters/male/mountElbowHit/red-armor-shoulders.png",
+        "fx": "assets/characters/male/mountElbowHit/fx.png"
+      },
+      "clips": {
+        "rule": "plays on the mounted fighter when the top plays mountElbow; returns to mountBottom",
+        "mountElbowHit": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 12,
+          "next": "mountBottom"
+        }
+      }
+    },
+    "mountBottomElbow": {
+      "frames": 8,
+      "fps": 6,
+      "rows": [
+        "E",
+        "W"
+      ],
+      "status": "E/W candidate 2026-10-15 (Elbow Strike from the bottom of Mount, paired with mountBottomElbowHit), awaiting user approval; S/N to author",
+      "rootMotion": {
+        "E": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "W": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "layers": {
+        "body": "assets/characters/male/mountBottomElbow/body.png",
+        "arms": "assets/characters/male/mountBottomElbow/arms.png",
+        "long-hair": "assets/characters/male/mountBottomElbow/long-hair.png",
+        "fade-hair": "assets/characters/male/mountBottomElbow/fade-hair.png",
+        "afro-hair": "assets/characters/male/mountBottomElbow/afro-hair.png",
+        "brown-eyes": "assets/characters/male/mountBottomElbow/brown-eyes.png",
+        "purple-eyes": "assets/characters/male/mountBottomElbow/purple-eyes.png",
+        "male-gi": "assets/characters/male/mountBottomElbow/male-gi.png",
+        "male-blue-armor": "assets/characters/male/mountBottomElbow/male-blue-armor.png",
+        "male-red-armor": "assets/characters/male/mountBottomElbow/male-red-armor.png",
+        "blue-armor-shoulders": "assets/characters/male/mountBottomElbow/blue-armor-shoulders.png",
+        "red-armor-shoulders": "assets/characters/male/mountBottomElbow/red-armor-shoulders.png"
+      },
+      "clips": {
+        "rule": "plays from mountBottom; the top fighter plays mountBottomElbowHit; returns to mountBottom",
+        "mountBottomElbow": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 12,
+          "next": "mountBottom"
+        }
+      },
+      "events": {
+        "rule": "per-frame gameplay data per facing (provisional)",
+        "E": [
+          {
+            "frame": 0,
+            "type": "startup"
+          },
+          {
+            "frame": 1,
+            "type": "startup"
+          },
+          {
+            "frame": 2,
+            "type": "startup"
+          },
+          {
+            "frame": 3,
+            "type": "active",
+            "move": "Elbow Strike",
+            "effect": "Accuracy-based Bleed DoT"
+          },
+          {
+            "frame": 4,
+            "type": "recovery"
+          },
+          {
+            "frame": 5,
+            "type": "recovery"
+          },
+          {
+            "frame": 6,
+            "type": "recovery"
+          },
+          {
+            "frame": 7,
+            "type": "recovery"
+          }
+        ],
+        "W": [
+          {
+            "frame": 0,
+            "type": "startup"
+          },
+          {
+            "frame": 1,
+            "type": "startup"
+          },
+          {
+            "frame": 2,
+            "type": "startup"
+          },
+          {
+            "frame": 3,
+            "type": "active",
+            "move": "Elbow Strike",
+            "effect": "Accuracy-based Bleed DoT"
+          },
+          {
+            "frame": 4,
+            "type": "recovery"
+          },
+          {
+            "frame": 5,
+            "type": "recovery"
+          },
+          {
+            "frame": 6,
+            "type": "recovery"
+          },
+          {
+            "frame": 7,
+            "type": "recovery"
+          }
+        ],
+        "tactical": {
+          "rule": "no displacement: the pair stays in Mount on its cells"
+        }
+      }
+    },
+    "mountBottomElbowHit": {
+      "frames": 8,
+      "fps": 6,
+      "rows": [
+        "E",
+        "W"
+      ],
+      "status": "E/W candidate 2026-10-15 (top side of the bottom Elbow Strike, paired with mountBottomElbow), awaiting user approval; S/N to author",
+      "rootMotion": {
+        "E": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "W": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "layers": {
+        "body": "assets/characters/male/mountBottomElbowHit/body.png",
+        "arms": "assets/characters/male/mountBottomElbowHit/arms.png",
+        "long-hair": "assets/characters/male/mountBottomElbowHit/long-hair.png",
+        "fade-hair": "assets/characters/male/mountBottomElbowHit/fade-hair.png",
+        "afro-hair": "assets/characters/male/mountBottomElbowHit/afro-hair.png",
+        "brown-eyes": "assets/characters/male/mountBottomElbowHit/brown-eyes.png",
+        "purple-eyes": "assets/characters/male/mountBottomElbowHit/purple-eyes.png",
+        "male-gi": "assets/characters/male/mountBottomElbowHit/male-gi.png",
+        "male-blue-armor": "assets/characters/male/mountBottomElbowHit/male-blue-armor.png",
+        "male-red-armor": "assets/characters/male/mountBottomElbowHit/male-red-armor.png",
+        "blue-armor-shoulders": "assets/characters/male/mountBottomElbowHit/blue-armor-shoulders.png",
+        "red-armor-shoulders": "assets/characters/male/mountBottomElbowHit/red-armor-shoulders.png",
+        "far-arm": "assets/characters/male/mountBottomElbowHit/far-arm.png",
+        "fx": "assets/characters/male/mountBottomElbowHit/fx.png"
+      },
+      "clips": {
+        "rule": "plays on the top fighter when the mounted fighter plays mountBottomElbow; returns to mountTop",
+        "mountBottomElbowHit": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 12,
+          "next": "mountTop"
+        }
+      }
+    },
+    "mountArmbar": {
+      "frames": 10,
+      "fps": 6,
+      "rows": [
+        "E",
+        "W"
+      ],
+      "status": "E/W candidate 2026-10-15 (Arm bar from the top of Mount, paired with mountArmbarHit), awaiting user approval; S/N to author",
+      "rootMotion": {
+        "E": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "W": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "layers": {
+        "body": "assets/characters/male/mountArmbar/body.png",
+        "arms": "assets/characters/male/mountArmbar/arms.png",
+        "long-hair": "assets/characters/male/mountArmbar/long-hair.png",
+        "fade-hair": "assets/characters/male/mountArmbar/fade-hair.png",
+        "afro-hair": "assets/characters/male/mountArmbar/afro-hair.png",
+        "brown-eyes": "assets/characters/male/mountArmbar/brown-eyes.png",
+        "purple-eyes": "assets/characters/male/mountArmbar/purple-eyes.png",
+        "male-gi": "assets/characters/male/mountArmbar/male-gi.png",
+        "male-blue-armor": "assets/characters/male/mountArmbar/male-blue-armor.png",
+        "male-red-armor": "assets/characters/male/mountArmbar/male-red-armor.png",
+        "blue-armor-shoulders": "assets/characters/male/mountArmbar/blue-armor-shoulders.png",
+        "red-armor-shoulders": "assets/characters/male/mountArmbar/red-armor-shoulders.png",
+        "far-arm": "assets/characters/male/mountArmbar/far-arm.png"
+      },
+      "clips": {
+        "rule": "plays from mountTop; the mounted fighter plays mountArmbarHit; loops armbarHold while the Maintained Submission holds, then mountTop",
+        "mountArmbar": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "fps": 12,
+          "next": "armbarHold"
+        },
+        "armbarHold": {
+          "frames": [
+            6,
+            7,
+            8,
+            9
+          ],
+          "fps": 6,
+          "loop": true,
+          "next": "mountTop"
+        }
+      },
+      "events": {
+        "rule": "per-frame gameplay data per facing (provisional)",
+        "E": [
+          {
+            "frame": 0,
+            "type": "startup"
+          },
+          {
+            "frame": 1,
+            "type": "startup"
+          },
+          {
+            "frame": 2,
+            "type": "startup"
+          },
+          {
+            "frame": 3,
+            "type": "startup"
+          },
+          {
+            "frame": 4,
+            "type": "startup"
+          },
+          {
+            "frame": 5,
+            "type": "active",
+            "move": "Arm bar",
+            "effect": "Cripple 2 rounds (DC13); Maintained Submission"
+          },
+          {
+            "frame": 6,
+            "type": "recovery"
+          },
+          {
+            "frame": 7,
+            "type": "recovery"
+          },
+          {
+            "frame": 8,
+            "type": "recovery"
+          },
+          {
+            "frame": 9,
+            "type": "recovery"
+          }
+        ],
+        "W": [
+          {
+            "frame": 0,
+            "type": "startup"
+          },
+          {
+            "frame": 1,
+            "type": "startup"
+          },
+          {
+            "frame": 2,
+            "type": "startup"
+          },
+          {
+            "frame": 3,
+            "type": "startup"
+          },
+          {
+            "frame": 4,
+            "type": "startup"
+          },
+          {
+            "frame": 5,
+            "type": "active",
+            "move": "Arm bar",
+            "effect": "Cripple 2 rounds (DC13); Maintained Submission"
+          },
+          {
+            "frame": 6,
+            "type": "recovery"
+          },
+          {
+            "frame": 7,
+            "type": "recovery"
+          },
+          {
+            "frame": 8,
+            "type": "recovery"
+          },
+          {
+            "frame": 9,
+            "type": "recovery"
+          }
+        ],
+        "tactical": {
+          "rule": "no displacement: the pair stays in Mount on its cells"
+        }
+      }
+    },
+    "mountArmbarHit": {
+      "frames": 10,
+      "fps": 6,
+      "rows": [
+        "E",
+        "W"
+      ],
+      "status": "E/W candidate 2026-10-15 (mounted side of the top Arm bar, paired with mountArmbar), awaiting user approval; S/N to author",
+      "rootMotion": {
+        "E": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "W": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "layers": {
+        "body": "assets/characters/male/mountArmbarHit/body.png",
+        "arms": "assets/characters/male/mountArmbarHit/arms.png",
+        "long-hair": "assets/characters/male/mountArmbarHit/long-hair.png",
+        "fade-hair": "assets/characters/male/mountArmbarHit/fade-hair.png",
+        "afro-hair": "assets/characters/male/mountArmbarHit/afro-hair.png",
+        "brown-eyes": "assets/characters/male/mountArmbarHit/brown-eyes.png",
+        "purple-eyes": "assets/characters/male/mountArmbarHit/purple-eyes.png",
+        "male-gi": "assets/characters/male/mountArmbarHit/male-gi.png",
+        "male-blue-armor": "assets/characters/male/mountArmbarHit/male-blue-armor.png",
+        "male-red-armor": "assets/characters/male/mountArmbarHit/male-red-armor.png",
+        "blue-armor-shoulders": "assets/characters/male/mountArmbarHit/blue-armor-shoulders.png",
+        "red-armor-shoulders": "assets/characters/male/mountArmbarHit/red-armor-shoulders.png",
+        "fx": "assets/characters/male/mountArmbarHit/fx.png"
+      },
+      "clips": {
+        "rule": "plays on the mounted fighter when the top plays mountArmbar; loops armbarTrapped, then mountBottom",
+        "mountArmbarHit": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "fps": 12,
+          "next": "armbarTrapped"
+        },
+        "armbarTrapped": {
+          "frames": [
+            6,
+            7,
+            8,
+            9
+          ],
+          "fps": 6,
+          "loop": true,
+          "next": "mountBottom"
+        }
+      }
+    },
+    "mountBottomArmbar": {
+      "frames": 10,
+      "fps": 6,
+      "rows": [
+        "E",
+        "W"
+      ],
+      "status": "E/W candidate 2026-10-15 (Arm bar from the bottom of Mount, paired with mountBottomArmbarHit), awaiting user approval; S/N to author",
+      "rootMotion": {
+        "E": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "W": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "layers": {
+        "body": "assets/characters/male/mountBottomArmbar/body.png",
+        "arms": "assets/characters/male/mountBottomArmbar/arms.png",
+        "long-hair": "assets/characters/male/mountBottomArmbar/long-hair.png",
+        "fade-hair": "assets/characters/male/mountBottomArmbar/fade-hair.png",
+        "afro-hair": "assets/characters/male/mountBottomArmbar/afro-hair.png",
+        "brown-eyes": "assets/characters/male/mountBottomArmbar/brown-eyes.png",
+        "purple-eyes": "assets/characters/male/mountBottomArmbar/purple-eyes.png",
+        "male-gi": "assets/characters/male/mountBottomArmbar/male-gi.png",
+        "male-blue-armor": "assets/characters/male/mountBottomArmbar/male-blue-armor.png",
+        "male-red-armor": "assets/characters/male/mountBottomArmbar/male-red-armor.png",
+        "blue-armor-shoulders": "assets/characters/male/mountBottomArmbar/blue-armor-shoulders.png",
+        "red-armor-shoulders": "assets/characters/male/mountBottomArmbar/red-armor-shoulders.png"
+      },
+      "clips": {
+        "rule": "plays from mountBottom; the top fighter plays mountBottomArmbarHit; loops bottomArmbarHold while the Maintained Submission holds, then mountBottom",
+        "mountBottomArmbar": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "fps": 12,
+          "next": "bottomArmbarHold"
+        },
+        "bottomArmbarHold": {
+          "frames": [
+            6,
+            7,
+            8,
+            9
+          ],
+          "fps": 6,
+          "loop": true,
+          "next": "mountBottom"
+        }
+      },
+      "events": {
+        "rule": "per-frame gameplay data per facing (provisional)",
+        "E": [
+          {
+            "frame": 0,
+            "type": "startup"
+          },
+          {
+            "frame": 1,
+            "type": "startup"
+          },
+          {
+            "frame": 2,
+            "type": "startup"
+          },
+          {
+            "frame": 3,
+            "type": "startup"
+          },
+          {
+            "frame": 4,
+            "type": "startup"
+          },
+          {
+            "frame": 5,
+            "type": "active",
+            "move": "Arm bar",
+            "effect": "Cripple 2 rounds (DC13); Maintained Submission"
+          },
+          {
+            "frame": 6,
+            "type": "recovery"
+          },
+          {
+            "frame": 7,
+            "type": "recovery"
+          },
+          {
+            "frame": 8,
+            "type": "recovery"
+          },
+          {
+            "frame": 9,
+            "type": "recovery"
+          }
+        ],
+        "W": [
+          {
+            "frame": 0,
+            "type": "startup"
+          },
+          {
+            "frame": 1,
+            "type": "startup"
+          },
+          {
+            "frame": 2,
+            "type": "startup"
+          },
+          {
+            "frame": 3,
+            "type": "startup"
+          },
+          {
+            "frame": 4,
+            "type": "startup"
+          },
+          {
+            "frame": 5,
+            "type": "active",
+            "move": "Arm bar",
+            "effect": "Cripple 2 rounds (DC13); Maintained Submission"
+          },
+          {
+            "frame": 6,
+            "type": "recovery"
+          },
+          {
+            "frame": 7,
+            "type": "recovery"
+          },
+          {
+            "frame": 8,
+            "type": "recovery"
+          },
+          {
+            "frame": 9,
+            "type": "recovery"
+          }
+        ],
+        "tactical": {
+          "rule": "no displacement: the pair stays in Mount on its cells"
+        }
+      }
+    },
+    "mountBottomArmbarHit": {
+      "frames": 10,
+      "fps": 6,
+      "rows": [
+        "E",
+        "W"
+      ],
+      "status": "E/W candidate 2026-10-15 (top side of the bottom Arm bar, paired with mountBottomArmbar), awaiting user approval; S/N to author",
+      "rootMotion": {
+        "E": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "W": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "layers": {
+        "body": "assets/characters/male/mountBottomArmbarHit/body.png",
+        "arms": "assets/characters/male/mountBottomArmbarHit/arms.png",
+        "long-hair": "assets/characters/male/mountBottomArmbarHit/long-hair.png",
+        "fade-hair": "assets/characters/male/mountBottomArmbarHit/fade-hair.png",
+        "afro-hair": "assets/characters/male/mountBottomArmbarHit/afro-hair.png",
+        "brown-eyes": "assets/characters/male/mountBottomArmbarHit/brown-eyes.png",
+        "purple-eyes": "assets/characters/male/mountBottomArmbarHit/purple-eyes.png",
+        "male-gi": "assets/characters/male/mountBottomArmbarHit/male-gi.png",
+        "male-blue-armor": "assets/characters/male/mountBottomArmbarHit/male-blue-armor.png",
+        "male-red-armor": "assets/characters/male/mountBottomArmbarHit/male-red-armor.png",
+        "blue-armor-shoulders": "assets/characters/male/mountBottomArmbarHit/blue-armor-shoulders.png",
+        "red-armor-shoulders": "assets/characters/male/mountBottomArmbarHit/red-armor-shoulders.png",
+        "far-arm": "assets/characters/male/mountBottomArmbarHit/far-arm.png"
+      },
+      "clips": {
+        "rule": "plays on the top fighter when the mounted fighter plays mountBottomArmbar; loops bottomArmbarTrapped, then mountTop",
+        "mountBottomArmbarHit": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "fps": 12,
+          "next": "bottomArmbarTrapped"
+        },
+        "bottomArmbarTrapped": {
+          "frames": [
+            6,
+            7,
+            8,
+            9
+          ],
+          "fps": 6,
+          "loop": true,
+          "next": "mountTop"
+        }
+      }
+    },
     "mountStrangle": {
       "frames": 8,
       "fps": 6,

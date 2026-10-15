@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Muay Thai Elbow Strike from under Mount (Positional Rules: Both): from the mountBottom idle the mounted fighter draws the near elbow back to the ground, then whips it up across into the top fighter's chin (the approved clinchElbow fold, which points up once laid down), then frames again.",
+  "intent": "Muay Thai Elbow Strike from under Mount (Positional Rules: Both), a 12-to-6 elbow (user ruling 2026-10-15): from the mountBottom idle the mounted fighter raises the near elbow straight up to 12 o'clock, fist folded back by the ear, then chops it straight down into the top fighter's thigh beside the ribs, then frames again.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -137,8 +137,8 @@
         0,
         0,
         -1,
-        2,
-        2,
+        1,
+        1,
         0,
         1,
         1
@@ -412,42 +412,42 @@
       },
       {
         "construction": "band",
-        "angle": 40,
+        "angle": -80,
+        "elbow": {
+          "at": 8,
+          "angle": -140
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -92,
+        "elbow": {
+          "at": 8,
+          "angle": -128
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -25,
+        "elbow": {
+          "at": 8,
+          "angle": -175
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -22,
+        "elbow": {
+          "at": 8,
+          "angle": -172
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -60,
         "elbow": {
           "at": 8,
           "angle": -150
-        }
-      },
-      {
-        "construction": "band",
-        "angle": 50,
-        "elbow": {
-          "at": 8,
-          "angle": -155
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -100,
-        "elbow": {
-          "at": 8,
-          "angle": 115
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -98,
-        "elbow": {
-          "at": 8,
-          "angle": 118
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -75,
-        "elbow": {
-          "at": 8,
-          "angle": -145
         }
       },
       {
@@ -486,7 +486,7 @@
       },
       {
         "construction": "band",
-        "angle": -60,
+        "angle": -62,
         "elbow": {
           "at": 8,
           "angle": -140
@@ -952,7 +952,7 @@
     }
   },
   "pair": {
-    "rule": "paired Mount move: bottom (W) strikes up with the elbow, top (E) takes it",
+    "rule": "paired Mount move: bottom (W) chops the elbow down 12-to-6, top (E) takes it",
     "partner": "mountBottomElbowHit",
     "partnerDx": 2,
     "layering": [
