@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-animation-output/v1",
   "body": "male",
   "state": "prone",
-  "status": "E/W candidate 2026-10-15; S/N to author",
+  "status": "E/W approved by user 2026-10-15; S/N to author",
   "frames": 4,
   "fps": 6,
   "frameSize": [
@@ -83,7 +83,7 @@
     ]
   },
   "clips": {
-    "rule": "loops while the fighter is prone (Prone status); a get-up clip will leave it",
+    "rule": "entered from clinchHipTossHit (and any knockdown). Loops while the fighter is prone; user 2026-10-15: after a throw the fighter stays down for holdSeconds (looping), then plays getUp while the Prone status still shows; on the tactical grid the get-up plays at the end of that hold, not on the next turn",
     "prone": {
       "frames": [
         0,
@@ -92,7 +92,9 @@
         3
       ],
       "fps": 6,
-      "loop": true
+      "loop": true,
+      "holdSeconds": 3,
+      "next": "getUp"
     }
   },
   "qc": {

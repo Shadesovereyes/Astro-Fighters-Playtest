@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-animation-output/v1",
   "body": "male",
   "state": "getUp",
-  "status": "E/W candidate 2026-10-15; S/N to author",
+  "status": "E/W approved by user 2026-10-15; S/N to author",
   "frames": 11,
   "fps": 12,
   "frameSize": [
@@ -141,7 +141,7 @@
     ]
   },
   "clips": {
-    "rule": "plays from prone when the Prone status ends, then the guard (next: guard)",
+    "rule": "plays from prone after its holdSeconds (3 s), then the guard (next: guard)",
     "getUp": {
       "frames": [
         0,
