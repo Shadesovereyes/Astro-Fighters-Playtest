@@ -51,6 +51,10 @@ plain browser page, **not** the Phaser runtime and not Phaser-integrated gamepla
 - Pinned battle layout (2026-10-15): on screens wider than 1100 px the health bars and the arena map stay on screen
   while the controls column on the right scrolls; the arena is fitted to the height left under the health bars.
 
+- Seamless arena ground (2026-10-15): one painted plateau (grass, worn dirt, an earth cliff on the south edge) under
+  the SVG hex grid. While planning, the grid shows faintly over it with the move, target and area highlights; while a
+  round or the recap plays the grid fades out. The recap video and GIF draw the ground with no grid.
+
 To see the moves: train Judo or Muay Thai, Clinch an adjacent foe, then queue Hip Toss, Rolling Throw, Knee Strikes,
 Elbow Strike, Uppercut or Body Shot.
 

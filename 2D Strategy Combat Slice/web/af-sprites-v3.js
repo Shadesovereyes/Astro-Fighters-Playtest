@@ -250,7 +250,7 @@ const STEP_MS=260;          // walk time per hex
 const KNOCK_MS=200,PROJECTILE_MS=230,PARRY_MS=520,BLOCK_MS=420,FADE_MS=420;
 const RECAP_GAP_MS=450;     // pause between rounds of the post-fight recap
 const STORE="af.sprites.animate";
-let def=null,images=new Map(),hooks=null,canvas=null,ctx=null,sprites=new Map(),frozen=false,playToken=0;
+let def=null,images=new Map(),hooks=null,canvas=null,ctx=null,groundC=null,gctx=null,groundDrawn="",sprites=new Map(),frozen=false,playToken=0;
 let battle=null,viewer=null,recap=false,recorder=null;
 const projectiles=[];
 
@@ -285,9 +285,14 @@ function ensureCanvas(){
   if(canvas&&canvas.isConnected)return true;
   canvas=document.createElement("canvas");canvas.className="sprite-layer";canvas.setAttribute("aria-hidden","true");
   svg.insertAdjacentElement("afterend",canvas);ctx=canvas.getContext("2d");
+  // the painted arena ground sits under the SVG grid, which draws over it faintly (af-props-v3.js ground)
+  groundC=document.createElement("canvas");groundC.className="ground-layer";groundC.setAttribute("aria-hidden","true");
+  svg.insertAdjacentElement("beforebegin",groundC);gctx=groundC.getContext("2d");groundDrawn="";
   if(!document.getElementById("af-sprite-style")){
     const st=document.createElement("style");st.id="af-sprite-style";
     st.textContent=".sprite-layer{position:absolute;pointer-events:none;image-rendering:pixelated;z-index:2}"
+      +".ground-layer{position:absolute;pointer-events:none;image-rendering:pixelated;z-index:0;display:none}.props-on .ground-layer{display:block}"
+      +".props-on .arena{position:relative;z-index:1}"
       +".arena text.token.sprited{opacity:0}.sprite-toggle{display:inline-flex;gap:5px;align-items:center;font-size:11px;color:var(--muted);cursor:pointer}";
     document.head.appendChild(st);
   }
@@ -312,7 +317,8 @@ function layout(){
   if(canvas.width!==W)canvas.width=W;if(canvas.height!==H)canvas.height=H;
   const s=Math.min(box.width/vb.width,box.height/vb.height)*dpr;
   const ox=(W-vb.width*s)/2-vb.x*s,oy=(H-vb.height*s)/2-vb.y*s;
-  return{s,ox,oy};
+  if(groundC){groundC.style.cssText=canvas.style.cssText;if(groundC.width!==W)groundC.width=W;if(groundC.height!==H)groundC.height=H;}
+  return{s,ox,oy,vbW:vb.width,vbH:vb.height};
 }
 
 /* --- sprite state --- */
@@ -447,7 +453,7 @@ function drawScene(now){
   if(env){for(const it of env.flat)P.draw(ctx,it,now);for(const it of env.stand)P.drawShadow(ctx,it);}
   const order=env?[...env.stand.map(it=>({prop:it,y:it.y-0.5})),...list.map(sp=>({sp,y:sp.y}))].sort((a,b)=>a.y-b.y):list.map(sp=>({sp}));
   for(const e of order){
-    if(e.prop){const b=P.box(e.prop),behind=list.some(sp=>!sp.glyph&&sp.y<e.prop.y&&sp.x+12>b.x0&&sp.x-12<b.x1&&sp.y>b.y0+6&&sp.y-44<b.y1);
+    if(e.prop){const b=P.box(e.prop),behind=list.some(sp=>!sp.glyph&&sp.y<e.prop.y&&sp.x+7>b.x0&&sp.x-7<b.x1&&sp.y>b.y0+6&&sp.y-44<b.y1);
       P.draw(ctx,e.prop,now,behind?0.45:1);continue;}
     const sp=e.sp;
     if(done.has(sp))continue;
@@ -469,8 +475,20 @@ function frame(now){
   const L=layout();if(!L)return;
   ctx.setTransform(1,0,0,1,0,0);ctx.clearRect(0,0,canvas.width,canvas.height);
   ctx.setTransform(L.s,0,0,L.s,L.ox,L.oy);ctx.imageSmoothingEnabled=false;
+  drawGround(L);
   drawScene(now);
 }
+// the ground canvas only repaints when the arena, its size or the ground image changes
+function arenaGround(vbW,vbH){const P=root.AFProps;if(!terrain||!P||!P.ground||!propScene())return null;return P.ground(terrain,hexStep(),Math.round(vbW),Math.round(vbH));}
+function paintBackdrop(c,vbW,vbH){const g=c.createRadialGradient(vbW/2,vbH/2,0,vbW/2,vbH/2,Math.max(vbW,vbH)*0.72);g.addColorStop(0,"#121a32");g.addColorStop(1,"#070b17");c.fillStyle=g;c.fillRect(0,0,vbW,vbH);}
+function drawGround(L){
+  if(!gctx)return;const img=arenaGround(L.vbW,L.vbH),key=img?[groundC.width,groundC.height,L.s,L.ox,L.oy,img.width,img.height,terrain.length].join("|"):"";
+  if(key===groundDrawn)return;groundDrawn=key;
+  gctx.setTransform(1,0,0,1,0,0);gctx.clearRect(0,0,groundC.width,groundC.height);if(!img)return;
+  gctx.setTransform(L.s,0,0,L.s,L.ox,L.oy);gctx.imageSmoothingEnabled=false;paintBackdrop(gctx,L.vbW,L.vbH);gctx.drawImage(img,0,0);
+}
+// the grid hides while a round or the recap plays (user, 2026-10-15) and comes back for planning
+function gridOff(on){const w=canvas&&canvas.parentElement;if(w)w.classList.toggle("grid-off",!!on);}
 // draws onto another context (the recorder, the character-creator preview) with the same routines
 function withCtx(other,fn){const keep=ctx;ctx=other;try{fn();}finally{ctx=keep;}}
 requestAnimationFrame(frame);
@@ -642,7 +660,7 @@ async function replay(events,token){
   }
 }
 function settle(){
-  frozen=false;recap=false;
+  frozen=false;recap=false;gridOff(false);
   for(const [f,sp] of sprites)if(sp.glyph)sprites.delete(f);
   for(const sp of sprites.values()){sp.pose=null;sp.pair=null;}
   if(hooks&&hooks.onRecap)hooks.onRecap(null);
@@ -657,7 +675,7 @@ function skip(){playToken++;projectiles.length=0;settle();}
 
 API.attach=function(h){hooks=h;};
 API.cancel=function(){if(frozen)skip();};
-API.beginRound=function(){if(API.ready&&animateOn()&&ensureCanvas())frozen=true;};
+API.beginRound=function(){if(API.ready&&animateOn()&&ensureCanvas()){frozen=true;gridOff(true);}};
 API.playRound=function(B){
   if(!frozen||!API.ready){frozen=false;return Promise.resolve();}
   const token=++playToken;
@@ -687,7 +705,7 @@ API.playRecap=function(B,player){
   const rounds=(B&&B.history||[]).filter(h=>h.events.length);
   if(!API.ready||!rounds.length||!hooks||!ensureCanvas())return Promise.resolve(false);
   battle=B;viewer=player||viewer;
-  const token=++playToken;projectiles.length=0;frozen=true;recap=true;sprites.clear();
+  const token=++playToken;projectiles.length=0;frozen=true;recap=true;sprites.clear();gridOff(true);
   const place=h=>{
     const keep=new Set();
     for(const s of h.start){
@@ -744,7 +762,8 @@ API.recordRecap=function(B,player,opt={}){
   if(!API.ready||!hooks||!hooks.board)return Promise.resolve(null);
   const b=hooks.board();if(!b)return Promise.resolve(null);
   const W=b.vbW*REC_SCALE,H=b.vbH*REC_SCALE;
-  const boardC=document.createElement("canvas");boardC.width=b.vbW;boardC.height=b.vbH;drawBoard(boardC.getContext("2d"),b);
+  const boardC=document.createElement("canvas");boardC.width=b.vbW;boardC.height=b.vbH;
+  {const bc=boardC.getContext("2d"),img=arenaGround(b.vbW,b.vbH);if(img){paintBackdrop(bc,b.vbW,b.vbH);bc.drawImage(img,0,0);}else drawBoard(bc,b);}
   const rec=document.createElement("canvas");rec.width=W;rec.height=H;const rc=rec.getContext("2d");
   const small=document.createElement("canvas");small.width=b.vbW;small.height=b.vbH;const sc=small.getContext("2d",{willReadFrequently:true});
   let label="";

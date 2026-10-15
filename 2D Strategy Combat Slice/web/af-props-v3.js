@@ -227,7 +227,51 @@ function drawShadow(ctx,it){const s=it.v.shadow;if(!s)return;ctx.globalAlpha=0.3
 // the box a standing prop covers, for the see-through test against fighters behind it
 const box=it=>({x0:it.x-it.v.ax+3,x1:it.x-it.v.ax+it.v.w-3,y0:it.y-it.v.ay+2,y1:it.y-2});
 
-const API={RAMP,SPEC,build,scene,draw,drawShadow,box,hash,get ready(){return!!build();}};
+/* --- the seamless arena ground (user, 2026-10-15): one painted surface over the whole hex island, so the grid can sit
+   under it as a faint planning aid and vanish while rounds play. A raised plateau: grass with darker and lighter
+   patches and worn dirt, an outline round the island and an earth cliff face under its southern edge. --- */
+const GROUND={grass:["#1c2e17","#24391d","#2c4523","#36522a","#435f31"],dirt:["#2e2219","#3b2c20","#4a3828","#5a4532"],
+  cliff:["#47321f","#3a2919","#2c1f13","#21170e"],lip:"#52703a"};
+function vnoise(x,y,sc,seed){const gx=x/sc,gy=y/sc,x0=Math.floor(gx),y0=Math.floor(gy),fx=gx-x0,fy=gy-y0,sx=fx*fx*(3-2*fx),sy=fy*fy*(3-2*fy);
+  const a=hash(x0,y0,seed),b=hash(x0+1,y0,seed),c=hash(x0,y0+1,seed),d=hash(x0+1,y0+1,seed);return a+(b-a)*sx+(c-a)*sy+(a-b-c+d)*sx*sy;}
+let groundKey="",groundImg=null;
+// cells [{x,y}] hex centres, s the hex step, W x H the viewBox size; returns a W x H canvas (transparent off the island)
+function ground(cells,s,W,H){
+  if(typeof document==="undefined"||!cells||!cells.length)return null;
+  const o=cells[0],key=[W,H,s,cells.length,o.x,o.y].join("|");if(key===groundKey)return groundImg;
+  const SQ=Math.sqrt(3),cellKey=(x,y)=>{const dx=x-o.x,dy=y-o.y,q=(SQ/3*dx-dy/3)/s,r=(2/3*dy)/s,yy=-q-r;
+    let rq=Math.round(q),rr=Math.round(r),ry=Math.round(yy);const eq=Math.abs(rq-q),er=Math.abs(rr-r),ey=Math.abs(ry-yy);
+    if(eq>er&&eq>ey)rq=-ry-rr;else if(er>ey)rr=-rq-ry;return rq+","+rr;};
+  const set=new Set(cells.map(c=>cellKey(c.x,c.y))),inside=new Uint8Array(W*H);
+  for(let y=0;y<H;y++)for(let x=0;x<W;x++)inside[y*W+x]=set.has(cellKey(x+0.5,y+0.5))?1:0;
+  const at=(x,y)=>x>=0&&y>=0&&x<W&&y<H&&inside[y*W+x]===1;
+  const c=document.createElement("canvas");c.width=W;c.height=H;const g=c.getContext("2d"),id=g.createImageData(W,H),D=id.data;
+  const put=(i,col)=>{const n=parseInt(col.slice(1),16);D[i*4]=n>>16;D[i*4+1]=(n>>8)&255;D[i*4+2]=n&255;D[i*4+3]=255;};
+  const CLIFF=9;
+  for(let y=0;y<H;y++)for(let x=0;x<W;x++){const i=y*W+x;
+    if(inside[i]){
+      const n=vnoise(x,y,26,1)*0.5+vnoise(x,y,9,2)*0.32+vnoise(x,y,3,3)*0.18,dn=vnoise(x+311,y+97,34,4)+(vnoise(x,y,6,5)-0.5)*0.18;
+      let col;
+      if(dn>0.7)col=GROUND.dirt[clamp(Math.round((n-0.2)*4+bay(x,y)*0.8),0,3)];
+      else if(dn>0.66&&bay(x,y)>0)col=GROUND.dirt[1];
+      else{col=GROUND.grass[clamp(Math.round((n-0.18)*5.2+bay(x,y)*0.7),0,4)];
+        const h=hash(x,y,6);if(h<0.012)col=GROUND.grass[4];else if(h<0.02)col=GROUND.grass[0];
+        if(h>0.995&&at(x,y+1))col=GROUND.lip;}
+      if(!at(x,y-1))col=GROUND.lip;                                       // a light lip along the top edge
+      put(i,col);continue;}
+    // under the island: the cliff face, then an outline
+    let k=0;for(let d=1;d<=CLIFF+1;d++)if(at(x,y-d)){k=d;break;}
+    if(k&&k<=CLIFF){const above=at(x,y-k)?0:1;void above;
+      put(i,(hash(x>>1,y,7)<0.12&&k>1)?GROUND.cliff[3]:GROUND.cliff[clamp(Math.floor((k-1)/2.5+bay(x,y)*0.5),0,3)]);continue;}
+    if(k===CLIFF+1||at(x-1,y)||at(x+1,y)||at(x,y+1)||at(x,y-1)){put(i,OUT);continue;}
+    // the cliff's own side outline
+    let side=false;for(let d=1;d<=CLIFF&&!side;d++)if(at(x-1,y-d)||at(x+1,y-d))side=true;
+    if(side)put(i,OUT);
+  }
+  g.putImageData(id,0,0);groundKey=key;groundImg=c;return c;
+}
+
+const API={RAMP,SPEC,GROUND,build,scene,draw,drawShadow,box,hash,ground,get ready(){return!!build();}};
 root.AFProps=API;
 if(typeof module!=="undefined"&&module.exports)module.exports=API;
 })(typeof globalThis!=="undefined"?globalThis:this);

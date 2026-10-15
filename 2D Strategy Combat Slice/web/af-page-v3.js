@@ -234,7 +234,7 @@ function fitArena(){
   const svg=$("arena"),wrap=svg&&svg.parentElement;if(!svg||!ARENA.vbW)return;
   const hudH=pinLayout();
   let avail=(wrap&&wrap.clientWidth)||ARENA.vbW*2;
-  if(hudH&&wrap){const chrome=[...wrap.children].filter(el=>el!==svg&&!el.classList.contains("sprite-layer")&&!el.classList.contains("overlay")&&!el.classList.contains("recap-bar")&&!el.classList.contains("hidden")).reduce((a,el)=>a+el.offsetHeight,0);
+  if(hudH&&wrap){const chrome=[...wrap.querySelectorAll(":scope>.toolbar,:scope>.map-legend")].reduce((a,el)=>a+el.offsetHeight,0);
     avail=Math.min(avail,(window.innerHeight-hudH-chrome-16)*ARENA.vbW/ARENA.vbH);}
   const z=avail>=ARENA.vbW*2?2:Math.max(0.5,avail/ARENA.vbW);ARENA.zoom=z;
   svg.style.width=Math.floor(ARENA.vbW*z)+"px";svg.style.height=Math.floor(ARENA.vbH*z)+"px";svg.style.margin="0 auto";
