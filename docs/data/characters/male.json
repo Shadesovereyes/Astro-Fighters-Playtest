@@ -12493,7 +12493,7 @@
         "E",
         "W"
       ],
-      "status": "E/W candidate 2026-10-15 (Cross Choke from Mount, paired with mountCrossChokeHit), awaiting user approval; S/N to author",
+      "status": "E/W approved by user 2026-10-15 (Cross Choke from Mount, paired with mountCrossChokeHit); S/N to author",
       "rootMotion": {
         "E": [
           [
@@ -12689,7 +12689,7 @@
         "E",
         "W"
       ],
-      "status": "E/W candidate 2026-10-15 (mounted side of Cross Choke, paired with mountCrossChoke), awaiting user approval; S/N to author",
+      "status": "E/W approved by user 2026-10-15 (mounted side of Cross Choke, paired with mountCrossChoke); S/N to author",
       "rootMotion": {
         "E": [
           [
@@ -12807,7 +12807,7 @@
         "E",
         "W"
       ],
-      "status": "E/W candidate 2026-10-15 (Strangle from Mount, paired with mountStrangleHit), awaiting user approval; S/N to author",
+      "status": "E/W approved by user 2026-10-15 (Strangle from Mount, paired with mountStrangleHit); S/N to author",
       "rootMotion": {
         "E": [
           [
@@ -12930,13 +12930,13 @@
           },
           {
             "frame": 2,
-            "type": "active",
-            "move": "Strangle",
-            "effect": "Silence 2rd (STR or INT save DC13); no Focus 1rd; Maintained Submission"
+            "type": "startup"
           },
           {
             "frame": 3,
-            "type": "recovery"
+            "type": "active",
+            "move": "Strangle",
+            "effect": "Silence 2rd (STR or INT save DC13); no Focus 1rd; Maintained Submission"
           },
           {
             "frame": 4,
@@ -12966,13 +12966,13 @@
           },
           {
             "frame": 2,
-            "type": "active",
-            "move": "Strangle",
-            "effect": "Silence 2rd (STR or INT save DC13); no Focus 1rd; Maintained Submission"
+            "type": "startup"
           },
           {
             "frame": 3,
-            "type": "recovery"
+            "type": "active",
+            "move": "Strangle",
+            "effect": "Silence 2rd (STR or INT save DC13); no Focus 1rd; Maintained Submission"
           },
           {
             "frame": 4,
@@ -13003,7 +13003,7 @@
         "E",
         "W"
       ],
-      "status": "E/W candidate 2026-10-15 (mounted side of Strangle, paired with mountStrangle), awaiting user approval; S/N to author",
+      "status": "E/W approved by user 2026-10-15 (mounted side of Strangle, paired with mountStrangle); S/N to author",
       "rootMotion": {
         "E": [
           [

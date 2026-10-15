@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "mountStrangleHit",
-  "status": "E/W candidate 2026-10-15 (mounted side of Strangle, paired with mountStrangle), awaiting user approval; S/N to author",
+  "status": "E/W approved by user 2026-10-15 (mounted side of Strangle, paired with mountStrangle); S/N to author",
   "frames": 8,
   "fps": 6,
   "sourceDirection": "E",
@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "The mounted fighter's side of Strangle: head driven back as the hands land, both forearms up pulling at the locked wrists; frames 4-7 loop (strangledHold) while the submission is maintained.",
+  "intent": "The mounted fighter's side of Strangle, the same animation as mountCrossChokeHit (user 2026-10-15): the hands come up to the neck on the highest layer; frames 4-7 loop (strangledHold) while the submission is maintained.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -136,12 +136,12 @@
       "head": [
         0,
         0,
-        -1,
+        1,
         1,
         0,
-        -1,
         1,
-        -1
+        1,
+        1
       ]
     }
   },
@@ -412,58 +412,58 @@
       },
       {
         "construction": "band",
-        "angle": -90,
+        "angle": -80,
         "elbow": {
           "at": 8,
-          "angle": -150
+          "angle": -165
         }
       },
       {
         "construction": "band",
-        "angle": -120,
+        "angle": -65,
         "elbow": {
           "at": 8,
-          "angle": -150
+          "angle": -170
         }
       },
       {
         "construction": "band",
-        "angle": -125,
+        "angle": -60,
         "elbow": {
           "at": 8,
-          "angle": -150
+          "angle": -172
         }
       },
       {
         "construction": "band",
-        "angle": -125,
+        "angle": -60,
         "elbow": {
           "at": 8,
-          "angle": -150
+          "angle": -172
         }
       },
       {
         "construction": "band",
-        "angle": -120,
+        "angle": -62,
         "elbow": {
           "at": 8,
-          "angle": -148
+          "angle": -175
         }
       },
       {
         "construction": "band",
-        "angle": -125,
+        "angle": -60,
         "elbow": {
           "at": 8,
-          "angle": -150
+          "angle": -172
         }
       },
       {
         "construction": "band",
-        "angle": -120,
+        "angle": -62,
         "elbow": {
           "at": 8,
-          "angle": -148
+          "angle": -175
         }
       }
     ],
@@ -478,58 +478,58 @@
       },
       {
         "construction": "band",
-        "angle": -85,
+        "angle": -75,
         "elbow": {
           "at": 8,
-          "angle": -145
+          "angle": -160
         }
       },
       {
         "construction": "band",
-        "angle": -115,
+        "angle": -60,
         "elbow": {
           "at": 8,
-          "angle": -145
+          "angle": -168
         }
       },
       {
         "construction": "band",
-        "angle": -118,
+        "angle": -56,
         "elbow": {
           "at": 8,
-          "angle": -146
+          "angle": -170
         }
       },
       {
         "construction": "band",
-        "angle": -118,
+        "angle": -56,
         "elbow": {
           "at": 8,
-          "angle": -146
+          "angle": -170
         }
       },
       {
         "construction": "band",
-        "angle": -114,
+        "angle": -58,
         "elbow": {
           "at": 8,
-          "angle": -144
+          "angle": -172
         }
       },
       {
         "construction": "band",
-        "angle": -118,
+        "angle": -56,
         "elbow": {
           "at": 8,
-          "angle": -146
+          "angle": -170
         }
       },
       {
         "construction": "band",
-        "angle": -114,
+        "angle": -58,
         "elbow": {
           "at": 8,
-          "angle": -144
+          "angle": -172
         }
       }
     ],
@@ -879,10 +879,10 @@
         "squint",
         "pain",
         "pain",
-        "pain",
         "squint",
         "pain",
-        "squint"
+        "squint",
+        "pain"
       ]
     },
     "intent": "strained: eyes squeezed under the weight"
@@ -959,23 +959,24 @@
     }
   },
   "pair": {
-    "rule": "paired Mount move: top (E) strangles, bottom (W) is strangled",
+    "rule": "paired Mount move: top (E) strangles, bottom (W) is strangled; the mounted fighter's arms are the highest layer",
     "partner": "mountStrangle",
     "partnerDx": 2,
     "layering": [
       "mountBottom body, clothing, hair, eyes",
       "mountTop body, clothing, hair, eyes, far arm",
-      "mountBottom arms",
-      "mountTop arms"
+      "mountTop arms",
+      "mountBottom arms (highest: the hands at the neck)"
     ],
     "mountLayering": {
       "fromFrame": 0,
       "order": [
         "mountBottom body, clothing, hair, eyes",
         "mountTop body, clothing, hair, eyes, far arm",
-        "mountBottom arms",
-        "mountTop arms"
-      ]
+        "mountTop arms",
+        "mountBottom arms (highest: the hands at the neck)"
+      ],
+      "bottomArmsOver": true
     }
   },
   "fx": {
