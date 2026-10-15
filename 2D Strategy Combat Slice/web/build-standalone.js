@@ -6,7 +6,7 @@ const fs = require("fs");
 const path = require("path");
 const dir = __dirname + path.sep;
 const ENTRY = "astro-fighters-2d-v3.4.html";
-const MODULES = ["af-core.js", "af-dc-model-v3.js", "af-core-v3-patch.js", "af-ui-v3.js", "af-anim-map-v3.js", "af-sprites-v3.js", "af-page-v3.js", "af-map-v3.js", "af-progression-v3.js"];
+const MODULES = ["af-core.js", "af-dc-model-v3.js", "af-core-v3-patch.js", "af-ui-v3.js", "af-anim-map-v3.js", "af-sprites-v3.js", "af-creator-v3.js", "af-page-v3.js", "af-map-v3.js", "af-progression-v3.js"];
 
 let html = fs.readFileSync(dir + ENTRY, "utf8");
 const inlined = MODULES.map(m => `<script>\n/* ${m} */\n` + fs.readFileSync(dir + m, "utf8") + `\n</script>`).join("\n");

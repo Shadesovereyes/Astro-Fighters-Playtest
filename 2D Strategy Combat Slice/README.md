@@ -24,6 +24,18 @@ plain browser page, **not** the Phaser runtime and not Phaser-integrated gamepla
 - Rolling Throw follows the sheet ("Throw target 3 tiles away from user; Ends Grapple"): the victim lands 3 tiles away on
   the holder's far side.
 
+- Version 9 (2026-10-15):
+  - Hex step 20 (was 34), drawn at an integer 2x when the panel fits, so adjacent fighters stand close enough for a
+    jab (reach +23 px past the pivot) to visibly land.
+  - Fighters turn to face their main target (else last target, else nearest foe) after every beat, throw and recap.
+  - Appearance section (`web/af-creator-v3.js`): skin tone, hair style, hair colour, eye colour, outfit. All are palette
+    swaps or layer picks over the approved sheets; nothing is redrawn. Tones 1 and 2 are approved, tones 3 and 4 are
+    candidates awaiting approval. Hair and eye colours share one ramp rule (`colorRamp` in `af-sprites-v3.js`): the
+    picked colour is the base, highlights shift lighter and warmer, the iris shadow darker and cooler. The look is kept
+    in the browser's localStorage (`af.look.v1`).
+  - "Record the fight (video + GIF)" on the result screen replays the recap and offers a WebM (or MP4) at 2x and a
+    10 fps GIF at 1x for download.
+
 To see the moves: train Judo or Muay Thai, Clinch an adjacent foe, then queue Hip Toss, Rolling Throw, Knee Strikes,
 Elbow Strike, Uppercut or Body Shot.
 
