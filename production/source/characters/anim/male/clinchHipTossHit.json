@@ -95,13 +95,13 @@
       2,
       2,
       2,
-      2,
-      2,
-      2,
-      2,
-      2,
-      2,
-      2
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
     ],
     "head": [
       4,
@@ -110,13 +110,13 @@
       5,
       5,
       5,
-      5,
-      5,
-      5,
-      5,
-      5,
-      5,
-      5
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
     ],
     "arms": [
       2,
@@ -125,13 +125,13 @@
       2,
       2,
       2,
-      2,
-      2,
-      2,
-      2,
-      2,
-      2,
-      2
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
     ]
   },
   "lean": {
@@ -160,13 +160,13 @@
         6,
         6,
         6,
-        6,
-        6,
-        6,
-        6,
-        6,
-        6,
-        6
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
       ]
     }
   },
@@ -198,7 +198,7 @@
         0
       ],
       [
-        -12,
+        -6,
         0
       ],
       [
@@ -228,7 +228,7 @@
     ],
     "E": [
       [
-        0,
+        -0,
         0
       ],
       [
@@ -252,7 +252,7 @@
         0
       ],
       [
-        12,
+        6,
         0
       ],
       [
@@ -260,23 +260,23 @@
         0
       ],
       [
-        0,
+        -0,
         0
       ],
       [
-        0,
+        -0,
         0
       ],
       [
-        0,
+        -0,
         0
       ],
       [
-        0,
+        -0,
         0
       ],
       [
-        0,
+        -0,
         0
       ]
     ]
@@ -406,6 +406,28 @@
         "kneeRow": 51,
         "wrapRow": 56,
         "foot": "flat"
+      },
+      {
+        "name": "lying-near",
+        "construction": "band",
+        "hipX": 32,
+        "kneeX": 34,
+        "footX": 34,
+        "hipRow": 42,
+        "kneeRow": 50,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "lying-far",
+        "construction": "band",
+        "hipX": 31,
+        "kneeX": 32,
+        "footX": 31,
+        "hipRow": 42,
+        "kneeRow": 50,
+        "wrapRow": 56,
+        "foot": "flat"
       }
     ],
     "near": [
@@ -415,13 +437,13 @@
       3,
       3,
       3,
-      3,
-      3,
-      3,
-      3,
-      3,
-      3,
-      3
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4
     ],
     "far": [
       2,
@@ -430,13 +452,13 @@
       2,
       2,
       2,
-      2,
-      2,
-      2,
-      2,
-      2,
-      2,
-      2
+      5,
+      5,
+      5,
+      5,
+      5,
+      5,
+      5
     ]
   },
   "arms": {
@@ -505,58 +527,58 @@
       },
       {
         "construction": "band",
-        "angle": -10,
+        "angle": 4,
         "elbow": {
           "at": 8,
-          "angle": -16
+          "angle": 4
         }
       },
       {
         "construction": "band",
-        "angle": -10,
+        "angle": 4,
         "elbow": {
           "at": 8,
-          "angle": -16
+          "angle": 4
         }
       },
       {
         "construction": "band",
-        "angle": -10,
+        "angle": 4,
         "elbow": {
           "at": 8,
-          "angle": -16
+          "angle": 4
         }
       },
       {
         "construction": "band",
-        "angle": -10,
+        "angle": 4,
         "elbow": {
           "at": 8,
-          "angle": -16
+          "angle": 4
         }
       },
       {
         "construction": "band",
-        "angle": -10,
+        "angle": 4,
         "elbow": {
           "at": 8,
-          "angle": -16
+          "angle": 4
         }
       },
       {
         "construction": "band",
-        "angle": -10,
+        "angle": 4,
         "elbow": {
           "at": 8,
-          "angle": -16
+          "angle": 4
         }
       },
       {
         "construction": "band",
-        "angle": -10,
+        "angle": 4,
         "elbow": {
           "at": 8,
-          "angle": -16
+          "angle": 4
         }
       }
     ],
@@ -611,58 +633,58 @@
       },
       {
         "construction": "band",
-        "angle": -8,
+        "angle": -4,
         "elbow": {
           "at": 8,
-          "angle": -12
+          "angle": -4
         }
       },
       {
         "construction": "band",
-        "angle": -8,
+        "angle": -4,
         "elbow": {
           "at": 8,
-          "angle": -12
+          "angle": -4
         }
       },
       {
         "construction": "band",
-        "angle": -8,
+        "angle": -4,
         "elbow": {
           "at": 8,
-          "angle": -12
+          "angle": -4
         }
       },
       {
         "construction": "band",
-        "angle": -8,
+        "angle": -4,
         "elbow": {
           "at": 8,
-          "angle": -12
+          "angle": -4
         }
       },
       {
         "construction": "band",
-        "angle": -8,
+        "angle": -4,
         "elbow": {
           "at": 8,
-          "angle": -12
+          "angle": -4
         }
       },
       {
         "construction": "band",
-        "angle": -8,
+        "angle": -4,
         "elbow": {
           "at": 8,
-          "angle": -12
+          "angle": -4
         }
       },
       {
         "construction": "band",
-        "angle": -8,
+        "angle": -4,
         "elbow": {
           "at": 8,
-          "angle": -12
+          "angle": -4
         }
       }
     ],
@@ -1072,14 +1094,14 @@
       0,
       0,
       0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
+      10,
+      10,
+      10,
+      10,
+      10,
+      10,
+      10,
+      10
     ],
     "dy": [
       0,
@@ -1113,7 +1135,7 @@
     ]
   },
   "clips": {
-    "rule": "plays on the held fighter when the holder plays clinchHipToss; the hold is broken and the fighter is prone (prone/get-up not yet authored; holds the last frame)",
+    "rule": "plays on the held fighter when the holder plays clinchHipToss; the hold is broken and the fighter is prone: from the landing (frame 6) the body takes the prone pose, and the last frame is prone frame 0 (next: prone)",
     "clinchHipTossHit": {
       "frames": [
         0,
@@ -1131,7 +1153,7 @@
         12
       ],
       "fps": 12,
-      "next": null
+      "next": "prone"
     }
   },
   "fx": {
