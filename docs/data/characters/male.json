@@ -6763,6 +6763,3453 @@
           }
         ]
       }
+    },
+    "clinchHold": {
+      "frames": 4,
+      "fps": 6,
+      "rows": [
+        "E",
+        "W"
+      ],
+      "status": "E/W approved by user 2026-10-14 (paired, 27 px apart, layered holder far arm bottom / holder near arm top); S/N to author",
+      "rootMotion": {
+        "E": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "W": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "layers": {
+        "body": "assets/characters/male/clinchHold/body.png",
+        "arms": "assets/characters/male/clinchHold/arms.png",
+        "long-hair": "assets/characters/male/clinchHold/long-hair.png",
+        "fade-hair": "assets/characters/male/clinchHold/fade-hair.png",
+        "afro-hair": "assets/characters/male/clinchHold/afro-hair.png",
+        "brown-eyes": "assets/characters/male/clinchHold/brown-eyes.png",
+        "purple-eyes": "assets/characters/male/clinchHold/purple-eyes.png",
+        "male-gi": "assets/characters/male/clinchHold/male-gi.png",
+        "male-blue-armor": "assets/characters/male/clinchHold/male-blue-armor.png",
+        "male-red-armor": "assets/characters/male/clinchHold/male-red-armor.png",
+        "blue-armor-shoulders": "assets/characters/male/clinchHold/blue-armor-shoulders.png",
+        "red-armor-shoulders": "assets/characters/male/clinchHold/red-armor-shoulders.png",
+        "far-arm": "assets/characters/male/clinchHold/far-arm.png"
+      },
+      "clips": {
+        "rule": "loops while this fighter holds a clinch; clinch moves start and end here",
+        "clinchHold": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 6,
+          "loop": true
+        }
+      }
+    },
+    "clinchHeld": {
+      "frames": 4,
+      "fps": 6,
+      "rows": [
+        "E",
+        "W"
+      ],
+      "status": "E/W approved by user 2026-10-14 (paired, 27 px apart, layered holder far arm bottom / holder near arm top); S/N to author",
+      "rootMotion": {
+        "E": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "W": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "layers": {
+        "body": "assets/characters/male/clinchHeld/body.png",
+        "arms": "assets/characters/male/clinchHeld/arms.png",
+        "long-hair": "assets/characters/male/clinchHeld/long-hair.png",
+        "fade-hair": "assets/characters/male/clinchHeld/fade-hair.png",
+        "afro-hair": "assets/characters/male/clinchHeld/afro-hair.png",
+        "brown-eyes": "assets/characters/male/clinchHeld/brown-eyes.png",
+        "purple-eyes": "assets/characters/male/clinchHeld/purple-eyes.png",
+        "male-gi": "assets/characters/male/clinchHeld/male-gi.png",
+        "male-blue-armor": "assets/characters/male/clinchHeld/male-blue-armor.png",
+        "male-red-armor": "assets/characters/male/clinchHeld/male-red-armor.png",
+        "blue-armor-shoulders": "assets/characters/male/clinchHeld/blue-armor-shoulders.png",
+        "red-armor-shoulders": "assets/characters/male/clinchHeld/red-armor-shoulders.png",
+        "far-arm": "assets/characters/male/clinchHeld/far-arm.png"
+      },
+      "clips": {
+        "rule": "loops while this fighter is held in a clinch; it breaks or is thrown from here",
+        "clinchHeld": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 6,
+          "loop": true
+        }
+      }
+    },
+    "clinchUppercut": {
+      "frames": 8,
+      "fps": 12,
+      "rows": [
+        "E",
+        "W"
+      ],
+      "status": "E/W approved by user 2026-10-14 (paired; hit-recoil eyes on the held fighter); S/N to author",
+      "rootMotion": {
+        "E": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "W": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "layers": {
+        "body": "assets/characters/male/clinchUppercut/body.png",
+        "arms": "assets/characters/male/clinchUppercut/arms.png",
+        "long-hair": "assets/characters/male/clinchUppercut/long-hair.png",
+        "fade-hair": "assets/characters/male/clinchUppercut/fade-hair.png",
+        "afro-hair": "assets/characters/male/clinchUppercut/afro-hair.png",
+        "brown-eyes": "assets/characters/male/clinchUppercut/brown-eyes.png",
+        "purple-eyes": "assets/characters/male/clinchUppercut/purple-eyes.png",
+        "male-gi": "assets/characters/male/clinchUppercut/male-gi.png",
+        "male-blue-armor": "assets/characters/male/clinchUppercut/male-blue-armor.png",
+        "male-red-armor": "assets/characters/male/clinchUppercut/male-red-armor.png",
+        "blue-armor-shoulders": "assets/characters/male/clinchUppercut/blue-armor-shoulders.png",
+        "red-armor-shoulders": "assets/characters/male/clinchUppercut/red-armor-shoulders.png",
+        "far-arm": "assets/characters/male/clinchUppercut/far-arm.png"
+      },
+      "clips": {
+        "rule": "plays from clinchHold and returns to it (next: clinchHold); the held fighter plays clinchUppercutHit on the same frames",
+        "clinchUppercut": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 12,
+          "next": "clinchHold"
+        }
+      },
+      "events": {
+        "rule": "per-frame gameplay data per facing (W mirrors E: x -> 64 - x - w); the hitbox is the held fighter's lowered head (provisional)",
+        "E": [
+          {
+            "frame": 0,
+            "type": "startup"
+          },
+          {
+            "frame": 1,
+            "type": "startup"
+          },
+          {
+            "frame": 2,
+            "type": "startup"
+          },
+          {
+            "frame": 3,
+            "type": "startup"
+          },
+          {
+            "frame": 4,
+            "type": "active",
+            "move": "clinchUppercut",
+            "hitbox": [
+              38,
+              10,
+              10,
+              12
+            ],
+            "damage": "medium"
+          },
+          {
+            "frame": 5,
+            "type": "recovery"
+          },
+          {
+            "frame": 6,
+            "type": "recovery"
+          },
+          {
+            "frame": 7,
+            "type": "recovery"
+          }
+        ],
+        "W": [
+          {
+            "frame": 0,
+            "type": "startup"
+          },
+          {
+            "frame": 1,
+            "type": "startup"
+          },
+          {
+            "frame": 2,
+            "type": "startup"
+          },
+          {
+            "frame": 3,
+            "type": "startup"
+          },
+          {
+            "frame": 4,
+            "type": "active",
+            "move": "clinchUppercut",
+            "hitbox": [
+              16,
+              10,
+              10,
+              12
+            ],
+            "damage": "medium"
+          },
+          {
+            "frame": 5,
+            "type": "recovery"
+          },
+          {
+            "frame": 6,
+            "type": "recovery"
+          },
+          {
+            "frame": 7,
+            "type": "recovery"
+          }
+        ]
+      }
+    },
+    "clinchUppercutHit": {
+      "frames": 8,
+      "fps": 12,
+      "rows": [
+        "E",
+        "W"
+      ],
+      "status": "E/W approved by user 2026-10-14 (paired; held fighter keeps the hands on the chest; hit-recoil eyes); S/N to author",
+      "rootMotion": {
+        "E": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "W": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "layers": {
+        "body": "assets/characters/male/clinchUppercutHit/body.png",
+        "arms": "assets/characters/male/clinchUppercutHit/arms.png",
+        "long-hair": "assets/characters/male/clinchUppercutHit/long-hair.png",
+        "fade-hair": "assets/characters/male/clinchUppercutHit/fade-hair.png",
+        "afro-hair": "assets/characters/male/clinchUppercutHit/afro-hair.png",
+        "brown-eyes": "assets/characters/male/clinchUppercutHit/brown-eyes.png",
+        "purple-eyes": "assets/characters/male/clinchUppercutHit/purple-eyes.png",
+        "male-gi": "assets/characters/male/clinchUppercutHit/male-gi.png",
+        "male-blue-armor": "assets/characters/male/clinchUppercutHit/male-blue-armor.png",
+        "male-red-armor": "assets/characters/male/clinchUppercutHit/male-red-armor.png",
+        "blue-armor-shoulders": "assets/characters/male/clinchUppercutHit/blue-armor-shoulders.png",
+        "red-armor-shoulders": "assets/characters/male/clinchUppercutHit/red-armor-shoulders.png",
+        "far-arm": "assets/characters/male/clinchUppercutHit/far-arm.png"
+      },
+      "clips": {
+        "rule": "plays on the held fighter when the holder plays clinchUppercut, then returns to clinchHeld",
+        "clinchUppercutHit": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 12,
+          "next": "clinchHeld"
+        }
+      }
+    },
+    "clinchKnee": {
+      "frames": 8,
+      "fps": 12,
+      "rows": [
+        "E",
+        "W"
+      ],
+      "status": "E/W approved by user 2026-10-14 (paired; held fighter pulled 2 px in; hit-recoil eyes); S/N to author",
+      "rootMotion": {
+        "E": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "W": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "layers": {
+        "body": "assets/characters/male/clinchKnee/body.png",
+        "arms": "assets/characters/male/clinchKnee/arms.png",
+        "long-hair": "assets/characters/male/clinchKnee/long-hair.png",
+        "fade-hair": "assets/characters/male/clinchKnee/fade-hair.png",
+        "afro-hair": "assets/characters/male/clinchKnee/afro-hair.png",
+        "brown-eyes": "assets/characters/male/clinchKnee/brown-eyes.png",
+        "purple-eyes": "assets/characters/male/clinchKnee/purple-eyes.png",
+        "male-gi": "assets/characters/male/clinchKnee/male-gi.png",
+        "male-blue-armor": "assets/characters/male/clinchKnee/male-blue-armor.png",
+        "male-red-armor": "assets/characters/male/clinchKnee/male-red-armor.png",
+        "blue-armor-shoulders": "assets/characters/male/clinchKnee/blue-armor-shoulders.png",
+        "red-armor-shoulders": "assets/characters/male/clinchKnee/red-armor-shoulders.png",
+        "far-arm": "assets/characters/male/clinchKnee/far-arm.png"
+      },
+      "clips": {
+        "rule": "plays from clinchHold and returns to it (next: clinchHold); the held fighter plays clinchKneeHit on the same frames",
+        "clinchKnee": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 12,
+          "next": "clinchHold"
+        }
+      },
+      "events": {
+        "rule": "per-frame gameplay data per facing (W mirrors E: x -> 64 - x - w); the hitbox is the knee at the held fighter's body (provisional)",
+        "E": [
+          {
+            "frame": 0,
+            "type": "startup"
+          },
+          {
+            "frame": 1,
+            "type": "startup"
+          },
+          {
+            "frame": 2,
+            "type": "startup"
+          },
+          {
+            "frame": 3,
+            "type": "startup"
+          },
+          {
+            "frame": 4,
+            "type": "active",
+            "move": "clinchKnee",
+            "hitbox": [
+              40,
+              30,
+              10,
+              10
+            ],
+            "damage": "medium"
+          },
+          {
+            "frame": 5,
+            "type": "recovery"
+          },
+          {
+            "frame": 6,
+            "type": "recovery"
+          },
+          {
+            "frame": 7,
+            "type": "recovery"
+          }
+        ],
+        "W": [
+          {
+            "frame": 0,
+            "type": "startup"
+          },
+          {
+            "frame": 1,
+            "type": "startup"
+          },
+          {
+            "frame": 2,
+            "type": "startup"
+          },
+          {
+            "frame": 3,
+            "type": "startup"
+          },
+          {
+            "frame": 4,
+            "type": "active",
+            "move": "clinchKnee",
+            "hitbox": [
+              14,
+              30,
+              10,
+              10
+            ],
+            "damage": "medium"
+          },
+          {
+            "frame": 5,
+            "type": "recovery"
+          },
+          {
+            "frame": 6,
+            "type": "recovery"
+          },
+          {
+            "frame": 7,
+            "type": "recovery"
+          }
+        ]
+      }
+    },
+    "clinchKneeHit": {
+      "frames": 8,
+      "fps": 12,
+      "rows": [
+        "E",
+        "W"
+      ],
+      "status": "E/W approved by user 2026-10-14 (paired; held fighter keeps the hands on the chest; hit-recoil eyes); S/N to author",
+      "rootMotion": {
+        "E": [
+          [
+            0,
+            0
+          ],
+          [
+            -1,
+            0
+          ],
+          [
+            -1,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "W": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            -1,
+            0
+          ],
+          [
+            -1,
+            0
+          ]
+        ]
+      },
+      "layers": {
+        "body": "assets/characters/male/clinchKneeHit/body.png",
+        "arms": "assets/characters/male/clinchKneeHit/arms.png",
+        "long-hair": "assets/characters/male/clinchKneeHit/long-hair.png",
+        "fade-hair": "assets/characters/male/clinchKneeHit/fade-hair.png",
+        "afro-hair": "assets/characters/male/clinchKneeHit/afro-hair.png",
+        "brown-eyes": "assets/characters/male/clinchKneeHit/brown-eyes.png",
+        "purple-eyes": "assets/characters/male/clinchKneeHit/purple-eyes.png",
+        "male-gi": "assets/characters/male/clinchKneeHit/male-gi.png",
+        "male-blue-armor": "assets/characters/male/clinchKneeHit/male-blue-armor.png",
+        "male-red-armor": "assets/characters/male/clinchKneeHit/male-red-armor.png",
+        "blue-armor-shoulders": "assets/characters/male/clinchKneeHit/blue-armor-shoulders.png",
+        "red-armor-shoulders": "assets/characters/male/clinchKneeHit/red-armor-shoulders.png",
+        "far-arm": "assets/characters/male/clinchKneeHit/far-arm.png"
+      },
+      "clips": {
+        "rule": "plays on the held fighter when the holder plays clinchKnee, then returns to clinchHeld",
+        "clinchKneeHit": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 12,
+          "next": "clinchHeld"
+        }
+      }
+    },
+    "clinchElbow": {
+      "frames": 8,
+      "fps": 12,
+      "rows": [
+        "E",
+        "W"
+      ],
+      "status": "E/W approved by user 2026-10-14 (paired; hit-recoil eyes on the held fighter); S/N to author",
+      "rootMotion": {
+        "E": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "W": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "layers": {
+        "body": "assets/characters/male/clinchElbow/body.png",
+        "arms": "assets/characters/male/clinchElbow/arms.png",
+        "long-hair": "assets/characters/male/clinchElbow/long-hair.png",
+        "fade-hair": "assets/characters/male/clinchElbow/fade-hair.png",
+        "afro-hair": "assets/characters/male/clinchElbow/afro-hair.png",
+        "brown-eyes": "assets/characters/male/clinchElbow/brown-eyes.png",
+        "purple-eyes": "assets/characters/male/clinchElbow/purple-eyes.png",
+        "male-gi": "assets/characters/male/clinchElbow/male-gi.png",
+        "male-blue-armor": "assets/characters/male/clinchElbow/male-blue-armor.png",
+        "male-red-armor": "assets/characters/male/clinchElbow/male-red-armor.png",
+        "blue-armor-shoulders": "assets/characters/male/clinchElbow/blue-armor-shoulders.png",
+        "red-armor-shoulders": "assets/characters/male/clinchElbow/red-armor-shoulders.png",
+        "far-arm": "assets/characters/male/clinchElbow/far-arm.png"
+      },
+      "clips": {
+        "rule": "plays from clinchHold and returns to it (next: clinchHold); the held fighter plays clinchElbowHit on the same frames",
+        "clinchElbow": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 12,
+          "next": "clinchHold"
+        }
+      },
+      "events": {
+        "rule": "per-frame gameplay data per facing (W mirrors E: x -> 64 - x - w); the hitbox is the elbow at the held fighter's head (provisional)",
+        "E": [
+          {
+            "frame": 0,
+            "type": "startup"
+          },
+          {
+            "frame": 1,
+            "type": "startup"
+          },
+          {
+            "frame": 2,
+            "type": "startup"
+          },
+          {
+            "frame": 3,
+            "type": "startup"
+          },
+          {
+            "frame": 4,
+            "type": "active",
+            "move": "clinchElbow",
+            "hitbox": [
+              38,
+              14,
+              10,
+              10
+            ],
+            "damage": "light+"
+          },
+          {
+            "frame": 5,
+            "type": "recovery"
+          },
+          {
+            "frame": 6,
+            "type": "recovery"
+          },
+          {
+            "frame": 7,
+            "type": "recovery"
+          }
+        ],
+        "W": [
+          {
+            "frame": 0,
+            "type": "startup"
+          },
+          {
+            "frame": 1,
+            "type": "startup"
+          },
+          {
+            "frame": 2,
+            "type": "startup"
+          },
+          {
+            "frame": 3,
+            "type": "startup"
+          },
+          {
+            "frame": 4,
+            "type": "active",
+            "move": "clinchElbow",
+            "hitbox": [
+              16,
+              14,
+              10,
+              10
+            ],
+            "damage": "light+"
+          },
+          {
+            "frame": 5,
+            "type": "recovery"
+          },
+          {
+            "frame": 6,
+            "type": "recovery"
+          },
+          {
+            "frame": 7,
+            "type": "recovery"
+          }
+        ]
+      }
+    },
+    "clinchElbowHit": {
+      "frames": 8,
+      "fps": 12,
+      "rows": [
+        "E",
+        "W"
+      ],
+      "status": "E/W approved by user 2026-10-14 (paired; held fighter keeps the hands on the chest; hit-recoil eyes); S/N to author",
+      "rootMotion": {
+        "E": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "W": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "layers": {
+        "body": "assets/characters/male/clinchElbowHit/body.png",
+        "arms": "assets/characters/male/clinchElbowHit/arms.png",
+        "long-hair": "assets/characters/male/clinchElbowHit/long-hair.png",
+        "fade-hair": "assets/characters/male/clinchElbowHit/fade-hair.png",
+        "afro-hair": "assets/characters/male/clinchElbowHit/afro-hair.png",
+        "brown-eyes": "assets/characters/male/clinchElbowHit/brown-eyes.png",
+        "purple-eyes": "assets/characters/male/clinchElbowHit/purple-eyes.png",
+        "male-gi": "assets/characters/male/clinchElbowHit/male-gi.png",
+        "male-blue-armor": "assets/characters/male/clinchElbowHit/male-blue-armor.png",
+        "male-red-armor": "assets/characters/male/clinchElbowHit/male-red-armor.png",
+        "blue-armor-shoulders": "assets/characters/male/clinchElbowHit/blue-armor-shoulders.png",
+        "red-armor-shoulders": "assets/characters/male/clinchElbowHit/red-armor-shoulders.png",
+        "far-arm": "assets/characters/male/clinchElbowHit/far-arm.png"
+      },
+      "clips": {
+        "rule": "plays on the held fighter when the holder plays clinchElbow, then returns to clinchHeld",
+        "clinchElbowHit": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 12,
+          "next": "clinchHeld"
+        }
+      }
+    },
+    "clinchBodyShot": {
+      "frames": 8,
+      "fps": 12,
+      "rows": [
+        "E",
+        "W"
+      ],
+      "status": "E/W approved by user 2026-10-14 (paired; held fighter keeps the hands on the chest; hit-recoil eyes); S/N to author",
+      "rootMotion": {
+        "E": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "W": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "layers": {
+        "body": "assets/characters/male/clinchBodyShot/body.png",
+        "arms": "assets/characters/male/clinchBodyShot/arms.png",
+        "long-hair": "assets/characters/male/clinchBodyShot/long-hair.png",
+        "fade-hair": "assets/characters/male/clinchBodyShot/fade-hair.png",
+        "afro-hair": "assets/characters/male/clinchBodyShot/afro-hair.png",
+        "brown-eyes": "assets/characters/male/clinchBodyShot/brown-eyes.png",
+        "purple-eyes": "assets/characters/male/clinchBodyShot/purple-eyes.png",
+        "male-gi": "assets/characters/male/clinchBodyShot/male-gi.png",
+        "male-blue-armor": "assets/characters/male/clinchBodyShot/male-blue-armor.png",
+        "male-red-armor": "assets/characters/male/clinchBodyShot/male-red-armor.png",
+        "blue-armor-shoulders": "assets/characters/male/clinchBodyShot/blue-armor-shoulders.png",
+        "red-armor-shoulders": "assets/characters/male/clinchBodyShot/red-armor-shoulders.png",
+        "far-arm": "assets/characters/male/clinchBodyShot/far-arm.png"
+      },
+      "clips": {
+        "rule": "plays from clinchHold and returns to it (next: clinchHold); the held fighter plays clinchBodyShotHit on the same frames",
+        "clinchBodyShot": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 12,
+          "next": "clinchHold"
+        }
+      },
+      "events": {
+        "rule": "per-frame gameplay data per facing (W mirrors E: x -> 64 - x - w); the hitbox is the held fighter's midsection (provisional)",
+        "E": [
+          {
+            "frame": 0,
+            "type": "startup"
+          },
+          {
+            "frame": 1,
+            "type": "startup"
+          },
+          {
+            "frame": 2,
+            "type": "startup"
+          },
+          {
+            "frame": 3,
+            "type": "startup"
+          },
+          {
+            "frame": 4,
+            "type": "active",
+            "move": "clinchBodyShot",
+            "hitbox": [
+              40,
+              26,
+              10,
+              10
+            ],
+            "damage": "light+"
+          },
+          {
+            "frame": 5,
+            "type": "recovery"
+          },
+          {
+            "frame": 6,
+            "type": "recovery"
+          },
+          {
+            "frame": 7,
+            "type": "recovery"
+          }
+        ],
+        "W": [
+          {
+            "frame": 0,
+            "type": "startup"
+          },
+          {
+            "frame": 1,
+            "type": "startup"
+          },
+          {
+            "frame": 2,
+            "type": "startup"
+          },
+          {
+            "frame": 3,
+            "type": "startup"
+          },
+          {
+            "frame": 4,
+            "type": "active",
+            "move": "clinchBodyShot",
+            "hitbox": [
+              14,
+              26,
+              10,
+              10
+            ],
+            "damage": "light+"
+          },
+          {
+            "frame": 5,
+            "type": "recovery"
+          },
+          {
+            "frame": 6,
+            "type": "recovery"
+          },
+          {
+            "frame": 7,
+            "type": "recovery"
+          }
+        ]
+      }
+    },
+    "clinchBodyShotHit": {
+      "frames": 8,
+      "fps": 12,
+      "rows": [
+        "E",
+        "W"
+      ],
+      "status": "E/W approved by user 2026-10-14 (paired; held fighter keeps the hands on the chest; hit-recoil eyes); S/N to author",
+      "rootMotion": {
+        "E": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "W": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "layers": {
+        "body": "assets/characters/male/clinchBodyShotHit/body.png",
+        "arms": "assets/characters/male/clinchBodyShotHit/arms.png",
+        "long-hair": "assets/characters/male/clinchBodyShotHit/long-hair.png",
+        "fade-hair": "assets/characters/male/clinchBodyShotHit/fade-hair.png",
+        "afro-hair": "assets/characters/male/clinchBodyShotHit/afro-hair.png",
+        "brown-eyes": "assets/characters/male/clinchBodyShotHit/brown-eyes.png",
+        "purple-eyes": "assets/characters/male/clinchBodyShotHit/purple-eyes.png",
+        "male-gi": "assets/characters/male/clinchBodyShotHit/male-gi.png",
+        "male-blue-armor": "assets/characters/male/clinchBodyShotHit/male-blue-armor.png",
+        "male-red-armor": "assets/characters/male/clinchBodyShotHit/male-red-armor.png",
+        "blue-armor-shoulders": "assets/characters/male/clinchBodyShotHit/blue-armor-shoulders.png",
+        "red-armor-shoulders": "assets/characters/male/clinchBodyShotHit/red-armor-shoulders.png",
+        "far-arm": "assets/characters/male/clinchBodyShotHit/far-arm.png"
+      },
+      "clips": {
+        "rule": "plays on the held fighter when the holder plays clinchBodyShot, then returns to clinchHeld",
+        "clinchBodyShotHit": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 12,
+          "next": "clinchHeld"
+        }
+      }
+    },
+    "clinchHeldUppercut": {
+      "frames": 8,
+      "fps": 12,
+      "rows": [
+        "E",
+        "W"
+      ],
+      "status": "E/W approved by user 2026-10-14 (paired; hit-recoil eyes on the holder); S/N to author",
+      "rootMotion": {
+        "E": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "W": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "layers": {
+        "body": "assets/characters/male/clinchHeldUppercut/body.png",
+        "arms": "assets/characters/male/clinchHeldUppercut/arms.png",
+        "long-hair": "assets/characters/male/clinchHeldUppercut/long-hair.png",
+        "fade-hair": "assets/characters/male/clinchHeldUppercut/fade-hair.png",
+        "afro-hair": "assets/characters/male/clinchHeldUppercut/afro-hair.png",
+        "brown-eyes": "assets/characters/male/clinchHeldUppercut/brown-eyes.png",
+        "purple-eyes": "assets/characters/male/clinchHeldUppercut/purple-eyes.png",
+        "male-gi": "assets/characters/male/clinchHeldUppercut/male-gi.png",
+        "male-blue-armor": "assets/characters/male/clinchHeldUppercut/male-blue-armor.png",
+        "male-red-armor": "assets/characters/male/clinchHeldUppercut/male-red-armor.png",
+        "blue-armor-shoulders": "assets/characters/male/clinchHeldUppercut/blue-armor-shoulders.png",
+        "red-armor-shoulders": "assets/characters/male/clinchHeldUppercut/red-armor-shoulders.png",
+        "far-arm": "assets/characters/male/clinchHeldUppercut/far-arm.png"
+      },
+      "clips": {
+        "rule": "plays from clinchHeld and returns to it (next: clinchHeld); the holder plays clinchHoldHit on the same frames",
+        "clinchHeldUppercut": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 12,
+          "next": "clinchHeld"
+        }
+      },
+      "events": {
+        "rule": "per-frame gameplay data per facing (W mirrors E: x -> 64 - x - w); the hitbox is the holder's chin (provisional)",
+        "E": [
+          {
+            "frame": 0,
+            "type": "startup"
+          },
+          {
+            "frame": 1,
+            "type": "startup"
+          },
+          {
+            "frame": 2,
+            "type": "startup"
+          },
+          {
+            "frame": 3,
+            "type": "startup"
+          },
+          {
+            "frame": 4,
+            "type": "active",
+            "move": "clinchHeldUppercut",
+            "hitbox": [
+              38,
+              8,
+              10,
+              12
+            ],
+            "damage": "medium"
+          },
+          {
+            "frame": 5,
+            "type": "recovery"
+          },
+          {
+            "frame": 6,
+            "type": "recovery"
+          },
+          {
+            "frame": 7,
+            "type": "recovery"
+          }
+        ],
+        "W": [
+          {
+            "frame": 0,
+            "type": "startup"
+          },
+          {
+            "frame": 1,
+            "type": "startup"
+          },
+          {
+            "frame": 2,
+            "type": "startup"
+          },
+          {
+            "frame": 3,
+            "type": "startup"
+          },
+          {
+            "frame": 4,
+            "type": "active",
+            "move": "clinchHeldUppercut",
+            "hitbox": [
+              16,
+              8,
+              10,
+              12
+            ],
+            "damage": "medium"
+          },
+          {
+            "frame": 5,
+            "type": "recovery"
+          },
+          {
+            "frame": 6,
+            "type": "recovery"
+          },
+          {
+            "frame": 7,
+            "type": "recovery"
+          }
+        ]
+      }
+    },
+    "clinchHoldHit": {
+      "frames": 8,
+      "fps": 12,
+      "rows": [
+        "E",
+        "W"
+      ],
+      "status": "E/W approved by user 2026-10-14 (paired; hit-recoil eyes on the holder); S/N to author",
+      "rootMotion": {
+        "E": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "W": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "layers": {
+        "body": "assets/characters/male/clinchHoldHit/body.png",
+        "arms": "assets/characters/male/clinchHoldHit/arms.png",
+        "long-hair": "assets/characters/male/clinchHoldHit/long-hair.png",
+        "fade-hair": "assets/characters/male/clinchHoldHit/fade-hair.png",
+        "afro-hair": "assets/characters/male/clinchHoldHit/afro-hair.png",
+        "brown-eyes": "assets/characters/male/clinchHoldHit/brown-eyes.png",
+        "purple-eyes": "assets/characters/male/clinchHoldHit/purple-eyes.png",
+        "male-gi": "assets/characters/male/clinchHoldHit/male-gi.png",
+        "male-blue-armor": "assets/characters/male/clinchHoldHit/male-blue-armor.png",
+        "male-red-armor": "assets/characters/male/clinchHoldHit/male-red-armor.png",
+        "blue-armor-shoulders": "assets/characters/male/clinchHoldHit/blue-armor-shoulders.png",
+        "red-armor-shoulders": "assets/characters/male/clinchHoldHit/red-armor-shoulders.png",
+        "far-arm": "assets/characters/male/clinchHoldHit/far-arm.png"
+      },
+      "clips": {
+        "rule": "plays on the holder when the held fighter plays clinchHeldUppercut, then returns to clinchHold",
+        "clinchHoldHit": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 12,
+          "next": "clinchHold"
+        }
+      }
+    },
+    "clinchHeldKnee": {
+      "frames": 8,
+      "fps": 12,
+      "rows": [
+        "E",
+        "W"
+      ],
+      "status": "E/W approved by user 2026-10-14 (paired; holder drawn 2 px in; hit-recoil eyes on the holder); S/N to author",
+      "rootMotion": {
+        "E": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "W": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "layers": {
+        "body": "assets/characters/male/clinchHeldKnee/body.png",
+        "arms": "assets/characters/male/clinchHeldKnee/arms.png",
+        "long-hair": "assets/characters/male/clinchHeldKnee/long-hair.png",
+        "fade-hair": "assets/characters/male/clinchHeldKnee/fade-hair.png",
+        "afro-hair": "assets/characters/male/clinchHeldKnee/afro-hair.png",
+        "brown-eyes": "assets/characters/male/clinchHeldKnee/brown-eyes.png",
+        "purple-eyes": "assets/characters/male/clinchHeldKnee/purple-eyes.png",
+        "male-gi": "assets/characters/male/clinchHeldKnee/male-gi.png",
+        "male-blue-armor": "assets/characters/male/clinchHeldKnee/male-blue-armor.png",
+        "male-red-armor": "assets/characters/male/clinchHeldKnee/male-red-armor.png",
+        "blue-armor-shoulders": "assets/characters/male/clinchHeldKnee/blue-armor-shoulders.png",
+        "red-armor-shoulders": "assets/characters/male/clinchHeldKnee/red-armor-shoulders.png",
+        "far-arm": "assets/characters/male/clinchHeldKnee/far-arm.png"
+      },
+      "clips": {
+        "rule": "plays from clinchHeld and returns to it (next: clinchHeld); the holder plays clinchHoldKneeHit on the same frames",
+        "clinchHeldKnee": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 12,
+          "next": "clinchHeld"
+        }
+      },
+      "events": {
+        "rule": "per-frame gameplay data per facing (W mirrors E: x -> 64 - x - w); the hitbox is the knee at the holder's midsection (provisional)",
+        "E": [
+          {
+            "frame": 0,
+            "type": "startup"
+          },
+          {
+            "frame": 1,
+            "type": "startup"
+          },
+          {
+            "frame": 2,
+            "type": "startup"
+          },
+          {
+            "frame": 3,
+            "type": "startup"
+          },
+          {
+            "frame": 4,
+            "type": "active",
+            "move": "clinchHeldKnee",
+            "hitbox": [
+              40,
+              34,
+              10,
+              10
+            ],
+            "damage": "medium"
+          },
+          {
+            "frame": 5,
+            "type": "recovery"
+          },
+          {
+            "frame": 6,
+            "type": "recovery"
+          },
+          {
+            "frame": 7,
+            "type": "recovery"
+          }
+        ],
+        "W": [
+          {
+            "frame": 0,
+            "type": "startup"
+          },
+          {
+            "frame": 1,
+            "type": "startup"
+          },
+          {
+            "frame": 2,
+            "type": "startup"
+          },
+          {
+            "frame": 3,
+            "type": "startup"
+          },
+          {
+            "frame": 4,
+            "type": "active",
+            "move": "clinchHeldKnee",
+            "hitbox": [
+              14,
+              34,
+              10,
+              10
+            ],
+            "damage": "medium"
+          },
+          {
+            "frame": 5,
+            "type": "recovery"
+          },
+          {
+            "frame": 6,
+            "type": "recovery"
+          },
+          {
+            "frame": 7,
+            "type": "recovery"
+          }
+        ]
+      }
+    },
+    "clinchHoldKneeHit": {
+      "frames": 8,
+      "fps": 12,
+      "rows": [
+        "E",
+        "W"
+      ],
+      "status": "E/W approved by user 2026-10-14 (paired; holder drawn 2 px in; hit-recoil eyes on the holder); S/N to author",
+      "rootMotion": {
+        "E": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            -1,
+            0
+          ],
+          [
+            -1,
+            0
+          ]
+        ],
+        "W": [
+          [
+            0,
+            0
+          ],
+          [
+            -1,
+            0
+          ],
+          [
+            -1,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            0
+          ]
+        ]
+      },
+      "layers": {
+        "body": "assets/characters/male/clinchHoldKneeHit/body.png",
+        "arms": "assets/characters/male/clinchHoldKneeHit/arms.png",
+        "long-hair": "assets/characters/male/clinchHoldKneeHit/long-hair.png",
+        "fade-hair": "assets/characters/male/clinchHoldKneeHit/fade-hair.png",
+        "afro-hair": "assets/characters/male/clinchHoldKneeHit/afro-hair.png",
+        "brown-eyes": "assets/characters/male/clinchHoldKneeHit/brown-eyes.png",
+        "purple-eyes": "assets/characters/male/clinchHoldKneeHit/purple-eyes.png",
+        "male-gi": "assets/characters/male/clinchHoldKneeHit/male-gi.png",
+        "male-blue-armor": "assets/characters/male/clinchHoldKneeHit/male-blue-armor.png",
+        "male-red-armor": "assets/characters/male/clinchHoldKneeHit/male-red-armor.png",
+        "blue-armor-shoulders": "assets/characters/male/clinchHoldKneeHit/blue-armor-shoulders.png",
+        "red-armor-shoulders": "assets/characters/male/clinchHoldKneeHit/red-armor-shoulders.png",
+        "far-arm": "assets/characters/male/clinchHoldKneeHit/far-arm.png"
+      },
+      "clips": {
+        "rule": "plays on the holder when the held fighter plays clinchHeldKnee, then returns to clinchHold",
+        "clinchHoldKneeHit": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 12,
+          "next": "clinchHold"
+        }
+      }
+    },
+    "clinchHeldElbow": {
+      "frames": 8,
+      "fps": 12,
+      "rows": [
+        "E",
+        "W"
+      ],
+      "status": "E/W approved by user 2026-10-14 (paired; hit-recoil eyes on the holder); S/N to author",
+      "rootMotion": {
+        "E": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            -1,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "W": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            -1,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "layers": {
+        "body": "assets/characters/male/clinchHeldElbow/body.png",
+        "arms": "assets/characters/male/clinchHeldElbow/arms.png",
+        "long-hair": "assets/characters/male/clinchHeldElbow/long-hair.png",
+        "fade-hair": "assets/characters/male/clinchHeldElbow/fade-hair.png",
+        "afro-hair": "assets/characters/male/clinchHeldElbow/afro-hair.png",
+        "brown-eyes": "assets/characters/male/clinchHeldElbow/brown-eyes.png",
+        "purple-eyes": "assets/characters/male/clinchHeldElbow/purple-eyes.png",
+        "male-gi": "assets/characters/male/clinchHeldElbow/male-gi.png",
+        "male-blue-armor": "assets/characters/male/clinchHeldElbow/male-blue-armor.png",
+        "male-red-armor": "assets/characters/male/clinchHeldElbow/male-red-armor.png",
+        "blue-armor-shoulders": "assets/characters/male/clinchHeldElbow/blue-armor-shoulders.png",
+        "red-armor-shoulders": "assets/characters/male/clinchHeldElbow/red-armor-shoulders.png",
+        "far-arm": "assets/characters/male/clinchHeldElbow/far-arm.png"
+      },
+      "clips": {
+        "rule": "plays from clinchHeld and returns to it (next: clinchHeld); the holder plays clinchHoldElbowHit on the same frames",
+        "clinchHeldElbow": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 12,
+          "next": "clinchHeld"
+        }
+      },
+      "events": {
+        "rule": "per-frame gameplay data per facing (W mirrors E: x -> 64 - x - w); the hitbox is the elbow at the holder's chin (provisional)",
+        "E": [
+          {
+            "frame": 0,
+            "type": "startup"
+          },
+          {
+            "frame": 1,
+            "type": "startup"
+          },
+          {
+            "frame": 2,
+            "type": "startup"
+          },
+          {
+            "frame": 3,
+            "type": "startup"
+          },
+          {
+            "frame": 4,
+            "type": "active",
+            "move": "clinchHeldElbow",
+            "hitbox": [
+              38,
+              12,
+              10,
+              10
+            ],
+            "damage": "light+"
+          },
+          {
+            "frame": 5,
+            "type": "recovery"
+          },
+          {
+            "frame": 6,
+            "type": "recovery"
+          },
+          {
+            "frame": 7,
+            "type": "recovery"
+          }
+        ],
+        "W": [
+          {
+            "frame": 0,
+            "type": "startup"
+          },
+          {
+            "frame": 1,
+            "type": "startup"
+          },
+          {
+            "frame": 2,
+            "type": "startup"
+          },
+          {
+            "frame": 3,
+            "type": "startup"
+          },
+          {
+            "frame": 4,
+            "type": "active",
+            "move": "clinchHeldElbow",
+            "hitbox": [
+              16,
+              12,
+              10,
+              10
+            ],
+            "damage": "light+"
+          },
+          {
+            "frame": 5,
+            "type": "recovery"
+          },
+          {
+            "frame": 6,
+            "type": "recovery"
+          },
+          {
+            "frame": 7,
+            "type": "recovery"
+          }
+        ]
+      }
+    },
+    "clinchHoldElbowHit": {
+      "frames": 8,
+      "fps": 12,
+      "rows": [
+        "E",
+        "W"
+      ],
+      "status": "E/W approved by user 2026-10-14 (paired; hit-recoil eyes on the holder); S/N to author",
+      "rootMotion": {
+        "E": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "W": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "layers": {
+        "body": "assets/characters/male/clinchHoldElbowHit/body.png",
+        "arms": "assets/characters/male/clinchHoldElbowHit/arms.png",
+        "long-hair": "assets/characters/male/clinchHoldElbowHit/long-hair.png",
+        "fade-hair": "assets/characters/male/clinchHoldElbowHit/fade-hair.png",
+        "afro-hair": "assets/characters/male/clinchHoldElbowHit/afro-hair.png",
+        "brown-eyes": "assets/characters/male/clinchHoldElbowHit/brown-eyes.png",
+        "purple-eyes": "assets/characters/male/clinchHoldElbowHit/purple-eyes.png",
+        "male-gi": "assets/characters/male/clinchHoldElbowHit/male-gi.png",
+        "male-blue-armor": "assets/characters/male/clinchHoldElbowHit/male-blue-armor.png",
+        "male-red-armor": "assets/characters/male/clinchHoldElbowHit/male-red-armor.png",
+        "blue-armor-shoulders": "assets/characters/male/clinchHoldElbowHit/blue-armor-shoulders.png",
+        "red-armor-shoulders": "assets/characters/male/clinchHoldElbowHit/red-armor-shoulders.png",
+        "far-arm": "assets/characters/male/clinchHoldElbowHit/far-arm.png"
+      },
+      "clips": {
+        "rule": "plays on the holder when the held fighter plays clinchHeldElbow, then returns to clinchHold",
+        "clinchHoldElbowHit": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 12,
+          "next": "clinchHold"
+        }
+      }
+    },
+    "clinchHipToss": {
+      "frames": 13,
+      "fps": 12,
+      "rows": [
+        "E",
+        "W"
+      ],
+      "status": "E/W approved by user 2026-10-15 (paired with clinchHipTossHit); S/N to author",
+      "rootMotion": {
+        "E": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "W": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "layers": {
+        "body": "assets/characters/male/clinchHipToss/body.png",
+        "arms": "assets/characters/male/clinchHipToss/arms.png",
+        "long-hair": "assets/characters/male/clinchHipToss/long-hair.png",
+        "fade-hair": "assets/characters/male/clinchHipToss/fade-hair.png",
+        "afro-hair": "assets/characters/male/clinchHipToss/afro-hair.png",
+        "brown-eyes": "assets/characters/male/clinchHipToss/brown-eyes.png",
+        "purple-eyes": "assets/characters/male/clinchHipToss/purple-eyes.png",
+        "male-gi": "assets/characters/male/clinchHipToss/male-gi.png",
+        "male-blue-armor": "assets/characters/male/clinchHipToss/male-blue-armor.png",
+        "male-red-armor": "assets/characters/male/clinchHipToss/male-red-armor.png",
+        "blue-armor-shoulders": "assets/characters/male/clinchHipToss/blue-armor-shoulders.png",
+        "red-armor-shoulders": "assets/characters/male/clinchHipToss/red-armor-shoulders.png",
+        "far-arm": "assets/characters/male/clinchHipToss/far-arm.png"
+      },
+      "clips": {
+        "rule": "plays from clinchHold; the hold is broken, so it ends in the guard facing the thrown fighter (next: guard; facing turns); the held fighter plays clinchHipTossHit on the same frames",
+        "clinchHipToss": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "fps": 12,
+          "next": "guard",
+          "endFacing": "flipped"
+        }
+      },
+      "events": {
+        "rule": "per-frame gameplay data per facing (W mirrors E: x -> 64 - x - w); the active frame is the landing, the hitbox the ground behind the holder where the thrown fighter lands (provisional)",
+        "E": [
+          {
+            "frame": 0,
+            "type": "startup"
+          },
+          {
+            "frame": 1,
+            "type": "startup"
+          },
+          {
+            "frame": 2,
+            "type": "startup"
+          },
+          {
+            "frame": 3,
+            "type": "startup"
+          },
+          {
+            "frame": 4,
+            "type": "startup"
+          },
+          {
+            "frame": 5,
+            "type": "startup"
+          },
+          {
+            "frame": 6,
+            "type": "active",
+            "move": "clinchHipToss",
+            "hitbox": [
+              4,
+              48,
+              24,
+              14
+            ],
+            "damage": "throw",
+            "effect": "prone 1rd; breaks the hold"
+          },
+          {
+            "frame": 7,
+            "type": "recovery"
+          },
+          {
+            "frame": 8,
+            "type": "recovery"
+          },
+          {
+            "frame": 9,
+            "type": "recovery"
+          },
+          {
+            "frame": 10,
+            "type": "recovery"
+          },
+          {
+            "frame": 11,
+            "type": "recovery"
+          },
+          {
+            "frame": 12,
+            "type": "recovery"
+          }
+        ],
+        "W": [
+          {
+            "frame": 0,
+            "type": "startup"
+          },
+          {
+            "frame": 1,
+            "type": "startup"
+          },
+          {
+            "frame": 2,
+            "type": "startup"
+          },
+          {
+            "frame": 3,
+            "type": "startup"
+          },
+          {
+            "frame": 4,
+            "type": "startup"
+          },
+          {
+            "frame": 5,
+            "type": "startup"
+          },
+          {
+            "frame": 6,
+            "type": "active",
+            "move": "clinchHipToss",
+            "hitbox": [
+              36,
+              48,
+              24,
+              14
+            ],
+            "damage": "throw",
+            "effect": "prone 1rd; breaks the hold"
+          },
+          {
+            "frame": 7,
+            "type": "recovery"
+          },
+          {
+            "frame": 8,
+            "type": "recovery"
+          },
+          {
+            "frame": 9,
+            "type": "recovery"
+          },
+          {
+            "frame": 10,
+            "type": "recovery"
+          },
+          {
+            "frame": 11,
+            "type": "recovery"
+          },
+          {
+            "frame": 12,
+            "type": "recovery"
+          }
+        ],
+        "tactical": {
+          "rule": "user 2026-10-15: on the hex grid the thrown fighter lands in the tile adjacent to the holder on the opposite side from where they started (1 tile behind the holder); no other displacement",
+          "landingTile": "behind holder (1)"
+        }
+      }
+    },
+    "clinchHipTossHit": {
+      "frames": 13,
+      "fps": 12,
+      "rows": [
+        "E",
+        "W"
+      ],
+      "status": "E/W approved by user 2026-10-15 (paired with clinchHipToss; whole-body rotation); S/N to author",
+      "rootMotion": {
+        "E": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            6,
+            0
+          ],
+          [
+            10,
+            0
+          ],
+          [
+            20,
+            0
+          ],
+          [
+            10,
+            0
+          ],
+          [
+            6,
+            0
+          ],
+          [
+            12,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "W": [
+          [
+            0,
+            0
+          ],
+          [
+            -1,
+            0
+          ],
+          [
+            -6,
+            0
+          ],
+          [
+            -10,
+            0
+          ],
+          [
+            -20,
+            0
+          ],
+          [
+            -10,
+            0
+          ],
+          [
+            -6,
+            0
+          ],
+          [
+            -12,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "layers": {
+        "body": "assets/characters/male/clinchHipTossHit/body.png",
+        "arms": "assets/characters/male/clinchHipTossHit/arms.png",
+        "long-hair": "assets/characters/male/clinchHipTossHit/long-hair.png",
+        "fade-hair": "assets/characters/male/clinchHipTossHit/fade-hair.png",
+        "afro-hair": "assets/characters/male/clinchHipTossHit/afro-hair.png",
+        "brown-eyes": "assets/characters/male/clinchHipTossHit/brown-eyes.png",
+        "purple-eyes": "assets/characters/male/clinchHipTossHit/purple-eyes.png",
+        "male-gi": "assets/characters/male/clinchHipTossHit/male-gi.png",
+        "male-blue-armor": "assets/characters/male/clinchHipTossHit/male-blue-armor.png",
+        "male-red-armor": "assets/characters/male/clinchHipTossHit/male-red-armor.png",
+        "blue-armor-shoulders": "assets/characters/male/clinchHipTossHit/blue-armor-shoulders.png",
+        "red-armor-shoulders": "assets/characters/male/clinchHipTossHit/red-armor-shoulders.png",
+        "far-arm": "assets/characters/male/clinchHipTossHit/far-arm.png",
+        "fx": "assets/characters/male/clinchHipTossHit/fx.png"
+      },
+      "clips": {
+        "rule": "plays on the held fighter when the holder plays clinchHipToss; the hold is broken and the fighter is prone: from the landing (frame 6) the body takes the prone pose, and the last frame is prone frame 0 (next: prone)",
+        "clinchHipTossHit": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "fps": 12,
+          "next": "prone"
+        }
+      }
+    },
+    "clinchRollingThrow": {
+      "frames": 14,
+      "fps": 12,
+      "rows": [
+        "E",
+        "W"
+      ],
+      "status": "E/W approved by user 2026-10-15 (paired with clinchRollingThrowHit); S/N to author",
+      "rootMotion": {
+        "E": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            -4,
+            0
+          ],
+          [
+            -6,
+            0
+          ],
+          [
+            -4,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "W": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            4,
+            0
+          ],
+          [
+            6,
+            0
+          ],
+          [
+            4,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "layers": {
+        "body": "assets/characters/male/clinchRollingThrow/body.png",
+        "arms": "assets/characters/male/clinchRollingThrow/arms.png",
+        "long-hair": "assets/characters/male/clinchRollingThrow/long-hair.png",
+        "fade-hair": "assets/characters/male/clinchRollingThrow/fade-hair.png",
+        "afro-hair": "assets/characters/male/clinchRollingThrow/afro-hair.png",
+        "brown-eyes": "assets/characters/male/clinchRollingThrow/brown-eyes.png",
+        "purple-eyes": "assets/characters/male/clinchRollingThrow/purple-eyes.png",
+        "male-gi": "assets/characters/male/clinchRollingThrow/male-gi.png",
+        "male-blue-armor": "assets/characters/male/clinchRollingThrow/male-blue-armor.png",
+        "male-red-armor": "assets/characters/male/clinchRollingThrow/male-red-armor.png",
+        "blue-armor-shoulders": "assets/characters/male/clinchRollingThrow/blue-armor-shoulders.png",
+        "red-armor-shoulders": "assets/characters/male/clinchRollingThrow/red-armor-shoulders.png",
+        "far-arm": "assets/characters/male/clinchRollingThrow/far-arm.png"
+      },
+      "clips": {
+        "rule": "plays from clinchHold; the grapple ends, so it finishes in the guard facing the thrown fighter (next: guard; facing turns); the held fighter plays clinchRollingThrowHit on the same frames",
+        "clinchRollingThrow": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13
+          ],
+          "fps": 12,
+          "next": "guard",
+          "endFacing": "flipped"
+        }
+      },
+      "events": {
+        "rule": "per-frame gameplay data per facing (W mirrors E: x -> 64 - x - w); the active frame is the launch, the hitbox the held fighter's belly over the planted feet (provisional)",
+        "E": [
+          {
+            "frame": 0,
+            "type": "startup"
+          },
+          {
+            "frame": 1,
+            "type": "startup"
+          },
+          {
+            "frame": 2,
+            "type": "startup"
+          },
+          {
+            "frame": 3,
+            "type": "active",
+            "move": "clinchRollingThrow",
+            "hitbox": [
+              30,
+              20,
+              16,
+              20
+            ],
+            "damage": "throw",
+            "effect": "throw target 3 tiles; ends the grapple"
+          },
+          {
+            "frame": 4,
+            "type": "recovery"
+          },
+          {
+            "frame": 5,
+            "type": "recovery"
+          },
+          {
+            "frame": 6,
+            "type": "recovery"
+          },
+          {
+            "frame": 7,
+            "type": "recovery"
+          },
+          {
+            "frame": 8,
+            "type": "recovery"
+          },
+          {
+            "frame": 9,
+            "type": "recovery"
+          },
+          {
+            "frame": 10,
+            "type": "recovery"
+          },
+          {
+            "frame": 11,
+            "type": "recovery"
+          },
+          {
+            "frame": 12,
+            "type": "recovery"
+          },
+          {
+            "frame": 13,
+            "type": "recovery"
+          }
+        ],
+        "W": [
+          {
+            "frame": 0,
+            "type": "startup"
+          },
+          {
+            "frame": 1,
+            "type": "startup"
+          },
+          {
+            "frame": 2,
+            "type": "startup"
+          },
+          {
+            "frame": 3,
+            "type": "active",
+            "move": "clinchRollingThrow",
+            "hitbox": [
+              18,
+              20,
+              16,
+              20
+            ],
+            "damage": "throw",
+            "effect": "throw target 3 tiles; ends the grapple"
+          },
+          {
+            "frame": 4,
+            "type": "recovery"
+          },
+          {
+            "frame": 5,
+            "type": "recovery"
+          },
+          {
+            "frame": 6,
+            "type": "recovery"
+          },
+          {
+            "frame": 7,
+            "type": "recovery"
+          },
+          {
+            "frame": 8,
+            "type": "recovery"
+          },
+          {
+            "frame": 9,
+            "type": "recovery"
+          },
+          {
+            "frame": 10,
+            "type": "recovery"
+          },
+          {
+            "frame": 11,
+            "type": "recovery"
+          },
+          {
+            "frame": 12,
+            "type": "recovery"
+          },
+          {
+            "frame": 13,
+            "type": "recovery"
+          }
+        ],
+        "tactical": {
+          "rule": "Astro Fighter doc: throw target 3 tiles away from user; ends the grapple. The thrown fighter flies over the holder's head and lands 3 tiles away on the holder's far side (behind the holder's starting facing)",
+          "landingTile": "behind holder (3)"
+        }
+      }
+    },
+    "clinchRollingThrowHit": {
+      "frames": 14,
+      "fps": 12,
+      "rows": [
+        "E",
+        "W"
+      ],
+      "status": "E/W approved by user 2026-10-15 (paired with clinchRollingThrow); S/N to author",
+      "rootMotion": {
+        "E": [
+          [
+            0,
+            0
+          ],
+          [
+            3,
+            0
+          ],
+          [
+            4,
+            0
+          ],
+          [
+            18,
+            0
+          ],
+          [
+            32,
+            0
+          ],
+          [
+            36,
+            0
+          ],
+          [
+            26,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "W": [
+          [
+            0,
+            0
+          ],
+          [
+            -3,
+            0
+          ],
+          [
+            -4,
+            0
+          ],
+          [
+            -18,
+            0
+          ],
+          [
+            -32,
+            0
+          ],
+          [
+            -36,
+            0
+          ],
+          [
+            -26,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "layers": {
+        "body": "assets/characters/male/clinchRollingThrowHit/body.png",
+        "arms": "assets/characters/male/clinchRollingThrowHit/arms.png",
+        "long-hair": "assets/characters/male/clinchRollingThrowHit/long-hair.png",
+        "fade-hair": "assets/characters/male/clinchRollingThrowHit/fade-hair.png",
+        "afro-hair": "assets/characters/male/clinchRollingThrowHit/afro-hair.png",
+        "brown-eyes": "assets/characters/male/clinchRollingThrowHit/brown-eyes.png",
+        "purple-eyes": "assets/characters/male/clinchRollingThrowHit/purple-eyes.png",
+        "male-gi": "assets/characters/male/clinchRollingThrowHit/male-gi.png",
+        "male-blue-armor": "assets/characters/male/clinchRollingThrowHit/male-blue-armor.png",
+        "male-red-armor": "assets/characters/male/clinchRollingThrowHit/male-red-armor.png",
+        "blue-armor-shoulders": "assets/characters/male/clinchRollingThrowHit/blue-armor-shoulders.png",
+        "red-armor-shoulders": "assets/characters/male/clinchRollingThrowHit/red-armor-shoulders.png",
+        "far-arm": "assets/characters/male/clinchRollingThrowHit/far-arm.png",
+        "fx": "assets/characters/male/clinchRollingThrowHit/fx.png"
+      },
+      "clips": {
+        "rule": "plays on the held fighter when the holder plays clinchRollingThrow; the grapple ends and the fighter lies in the prone pose from the landing; the last frame is prone frame 0 (next: prone, which holds and plays getUp)",
+        "clinchRollingThrowHit": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13
+          ],
+          "fps": 12,
+          "next": "prone"
+        }
+      }
+    },
+    "prone": {
+      "frames": 4,
+      "fps": 6,
+      "rows": [
+        "E",
+        "W"
+      ],
+      "status": "E/W approved by user 2026-10-15; S/N to author",
+      "rootMotion": {
+        "E": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "W": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "layers": {
+        "body": "assets/characters/male/prone/body.png",
+        "arms": "assets/characters/male/prone/arms.png",
+        "long-hair": "assets/characters/male/prone/long-hair.png",
+        "fade-hair": "assets/characters/male/prone/fade-hair.png",
+        "afro-hair": "assets/characters/male/prone/afro-hair.png",
+        "brown-eyes": "assets/characters/male/prone/brown-eyes.png",
+        "purple-eyes": "assets/characters/male/prone/purple-eyes.png",
+        "male-gi": "assets/characters/male/prone/male-gi.png",
+        "male-blue-armor": "assets/characters/male/prone/male-blue-armor.png",
+        "male-red-armor": "assets/characters/male/prone/male-red-armor.png",
+        "blue-armor-shoulders": "assets/characters/male/prone/blue-armor-shoulders.png",
+        "red-armor-shoulders": "assets/characters/male/prone/red-armor-shoulders.png"
+      },
+      "clips": {
+        "rule": "entered from clinchHipTossHit (and any knockdown). Loops while the fighter is prone; user 2026-10-15: after a throw the fighter stays down for holdSeconds (looping), then plays getUp while the Prone status still shows; on the tactical grid the get-up plays at the end of that hold, not on the next turn",
+        "prone": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 6,
+          "loop": true,
+          "holdSeconds": 1.5,
+          "next": "getUp"
+        }
+      }
+    },
+    "getUp": {
+      "frames": 11,
+      "fps": 12,
+      "rows": [
+        "E",
+        "W"
+      ],
+      "status": "E/W approved by user 2026-10-15; S/N to author",
+      "rootMotion": {
+        "E": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "W": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "layers": {
+        "body": "assets/characters/male/getUp/body.png",
+        "arms": "assets/characters/male/getUp/arms.png",
+        "long-hair": "assets/characters/male/getUp/long-hair.png",
+        "fade-hair": "assets/characters/male/getUp/fade-hair.png",
+        "afro-hair": "assets/characters/male/getUp/afro-hair.png",
+        "brown-eyes": "assets/characters/male/getUp/brown-eyes.png",
+        "purple-eyes": "assets/characters/male/getUp/purple-eyes.png",
+        "male-gi": "assets/characters/male/getUp/male-gi.png",
+        "male-blue-armor": "assets/characters/male/getUp/male-blue-armor.png",
+        "male-red-armor": "assets/characters/male/getUp/male-red-armor.png",
+        "blue-armor-shoulders": "assets/characters/male/getUp/blue-armor-shoulders.png",
+        "red-armor-shoulders": "assets/characters/male/getUp/red-armor-shoulders.png",
+        "fx": "assets/characters/male/getUp/fx.png"
+      },
+      "clips": {
+        "rule": "plays from prone after its holdSeconds (1.5 s), then the guard (next: guard)",
+        "getUp": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ],
+          "fps": 12,
+          "next": "guard"
+        }
+      }
     }
   },
   "combo": {

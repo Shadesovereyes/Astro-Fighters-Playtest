@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-animation-output/v1",
   "body": "male",
   "state": "clinchHipTossHit",
-  "status": "E/W candidate 2026-10-14 (paired with clinchHipToss; whole-body rotation); S/N to author",
+  "status": "E/W approved by user 2026-10-15 (paired with clinchHipToss; whole-body rotation); S/N to author",
   "frames": 13,
   "fps": 12,
   "frameSize": [
@@ -33,7 +33,6 @@
     "male-red-armor": "male-red-armor.png",
     "blue-armor-shoulders": "blue-armor-shoulders.png",
     "red-armor-shoulders": "red-armor-shoulders.png",
-    "undefined": "undefined.png",
     "far-arm": "far-arm.png",
     "fx": "fx.png"
   },

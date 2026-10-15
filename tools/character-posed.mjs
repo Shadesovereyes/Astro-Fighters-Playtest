@@ -1267,7 +1267,8 @@ layerNames.push(...clothingLayers.map((l) => l.name));
 // eye block in a mirrored direction). Shapes hold only eye, lid, brow and mouth pixels, never skin, so the face under
 // them is the untouched body. fx: an effect layer of its own (drawn over every character layer), a named shape per
 // frame placed at the eye block plus the shape's own offsets (x toward the facing).
-const EX = spec.expressions, FX = spec.fx;
+// spec.fx with a layer name is the per-frame shape FX (impact-fx); spec.fx without one is the smear/splash layer below
+const EX = spec.expressions, FX = spec.fx?.layer ? spec.fx : null, SFX = spec.fx && !spec.fx.layer ? spec.fx : null;
 if (FX) layerNames.push(FX.layer);
 function applyFace(dir, k, fr) {
   const m = mirrors[dir], srcDir = m?.from ?? dir, kk = (k + (m?.frameShift || 0)) % F, flip = !!m;
@@ -1366,7 +1367,7 @@ const definition = JSON.stringify({
   body: bodyName, state, status: spec.status, frames: F, fps: spec.fps,
   frameSize: [FRAME, FRAME], pivot: [32, 63],
   sheetLayout: { rows: spec.directions, columns: `frames 0–${F - 1}` },
-  layers: Object.fromEntries([...layerNames, ...(spec.arms.farLayer ? ["far-arm"] : []), ...(spec.fx ? ["fx"] : [])].map((n) => [n, `${n}.png`])),
+  layers: Object.fromEntries([...layerNames, ...(spec.arms.farLayer ? ["far-arm"] : []), ...(SFX ? ["fx"] : [])].map((n) => [n, `${n}.png`])),
   pendingLayers: spec.overlays.pending,
   drawOrder: overlays.drawOrder,
   rootMotion: Object.fromEntries(spec.directions.map((d) => [d, spec.rootMotion[d]])),
@@ -1450,7 +1451,7 @@ const outDir = path.join(animDir, state);
 //          sweeping from 'from' to 'to' degrees (0 = straight up, clockwise in the source direction) at each radius;
 //          each streak is a hard 1 px line (radii are paired into 2 px bands); every other band is broken toward the trailing end
 //   splash an authored pixel pattern (rows, palette keys) placed with its bottom-left at 'at' (x, bottom row)
-if (spec.fx) {
+if (SFX) {
   const fx = Buffer.alloc(W * H * 4), FP = spec.fx.palette;
   const hex = (h) => [parseInt(h.slice(1, 3), 16), parseInt(h.slice(3, 5), 16), parseInt(h.slice(5, 7), 16)];
   for (const dir of spec.directions) {
