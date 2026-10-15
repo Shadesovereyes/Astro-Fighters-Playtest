@@ -48,6 +48,9 @@ plain browser page, **not** the Phaser runtime and not Phaser-integrated gamepla
   `downed` state (the approved prone pose with the eyes closed, `production/source/characters/anim/male/downed.json`)
   where it fell, for the rest of the fight and in the recap. Beasts and summons drawn as glyphs still fade.
 
+- Pinned battle layout (2026-10-15): on screens wider than 1100 px the health bars and the arena map stay on screen
+  while the controls column on the right scrolls; the arena is fitted to the height left under the health bars.
+
 To see the moves: train Judo or Muay Thai, Clinch an adjacent foe, then queue Hip Toss, Rolling Throw, Knee Strikes,
 Elbow Strike, Uppercut or Body Shot.
 

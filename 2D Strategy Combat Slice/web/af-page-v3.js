@@ -222,13 +222,24 @@ function computeArenaGeometry(radius){
   return{cx,cy,hexStep:s,vbW:cx*2,vbH:cy*2};
 }
 // Display size: an integer 2x when the arena fits its panel at 2x, otherwise scaled to fit the panel width.
+// Pinned battle layout (user, 2026-10-15): on a wide screen the health bars and the arena stay on screen while the
+// controls column scrolls, so the arena is also fitted to the viewport height left under the health bars
+const PINNED=typeof matchMedia==="function"?matchMedia("(min-width:1101px)"):null;
+function pinLayout(){
+  const b=$("battle"),hud=$("hud");if(!b||!hud)return 0;
+  const h=PINNED&&PINNED.matches?hud.offsetHeight+10:0;b.style.setProperty("--hud-h",h+"px");return h;
+}
 function fitArena(){
   const svg=$("arena"),wrap=svg&&svg.parentElement;if(!svg||!ARENA.vbW)return;
-  const avail=(wrap&&wrap.clientWidth)||ARENA.vbW*2;
+  const hudH=pinLayout();
+  let avail=(wrap&&wrap.clientWidth)||ARENA.vbW*2;
+  if(hudH&&wrap){const chrome=[...wrap.children].filter(el=>el!==svg&&!el.classList.contains("sprite-layer")&&!el.classList.contains("overlay")&&!el.classList.contains("recap-bar")&&!el.classList.contains("hidden")).reduce((a,el)=>a+el.offsetHeight,0);
+    avail=Math.min(avail,(window.innerHeight-hudH-chrome-16)*ARENA.vbW/ARENA.vbH);}
   const z=avail>=ARENA.vbW*2?2:Math.max(0.5,avail/ARENA.vbW);ARENA.zoom=z;
   svg.style.width=Math.floor(ARENA.vbW*z)+"px";svg.style.height=Math.floor(ARENA.vbH*z)+"px";svg.style.margin="0 auto";
 }
 window.addEventListener("resize",()=>{if(S.B)fitArena();});
+if(typeof ResizeObserver==="function")window.addEventListener("DOMContentLoaded",()=>{const hud=$("hud");if(hud)new ResizeObserver(()=>{if(S.B&&!$("battle").classList.contains("hidden"))fitArena();}).observe(hud);});
 // what the recap recorder redraws: every hex centre with its terrain kind and glyph
 const TERRAIN_KIND={Tree:"hard",Rock:"hard",Wall:"hard",Bush:"soft",Rubble:"soft",Smoke:"soft",FelledTree:"fell",Spikes:"hazard",Caltrops:"hazard"};
 function boardForRecording(){
