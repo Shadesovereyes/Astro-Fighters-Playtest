@@ -625,7 +625,39 @@
       },
       {
         "construction": "band",
-        "angle": -50,
+        "angle": -40,
+        "elbow": {
+          "at": 8,
+          "angle": -60
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -10,
+        "elbow": {
+          "at": 8,
+          "angle": -50
+        }
+      },
+      {
+        "construction": "band",
+        "angle": 10,
+        "elbow": {
+          "at": 8,
+          "angle": -42
+        }
+      },
+      {
+        "construction": "band",
+        "angle": 11,
+        "elbow": {
+          "at": 8,
+          "angle": -41
+        }
+      },
+      {
+        "construction": "band",
+        "angle": 13,
         "elbow": {
           "at": 8,
           "angle": -40
@@ -633,50 +665,18 @@
       },
       {
         "construction": "band",
-        "angle": -45,
+        "angle": 11,
         "elbow": {
           "at": 8,
-          "angle": 0
+          "angle": -41
         }
       },
       {
         "construction": "band",
-        "angle": -45,
+        "angle": 13,
         "elbow": {
           "at": 8,
-          "angle": 20
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -46,
-        "elbow": {
-          "at": 8,
-          "angle": 21
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -44,
-        "elbow": {
-          "at": 8,
-          "angle": 23
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -46,
-        "elbow": {
-          "at": 8,
-          "angle": 21
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -44,
-        "elbow": {
-          "at": 8,
-          "angle": 23
+          "angle": -40
         }
       }
     ],
@@ -691,58 +691,58 @@
       },
       {
         "construction": "band",
-        "angle": -40,
+        "angle": -34,
         "elbow": {
           "at": 8,
-          "angle": -30
+          "angle": -56
         }
       },
       {
         "construction": "band",
-        "angle": -32,
+        "angle": -6,
         "elbow": {
           "at": 8,
-          "angle": -20
+          "angle": -54
         }
       },
       {
         "construction": "band",
-        "angle": -30,
+        "angle": 6,
         "elbow": {
           "at": 8,
-          "angle": -10
+          "angle": -50
         }
       },
       {
         "construction": "band",
-        "angle": -31,
+        "angle": 7,
         "elbow": {
           "at": 8,
-          "angle": -9
+          "angle": -49
         }
       },
       {
         "construction": "band",
-        "angle": -29,
+        "angle": 9,
         "elbow": {
           "at": 8,
-          "angle": -7
+          "angle": -47
         }
       },
       {
         "construction": "band",
-        "angle": -31,
+        "angle": 7,
         "elbow": {
           "at": 8,
-          "angle": -9
+          "angle": -49
         }
       },
       {
         "construction": "band",
-        "angle": -29,
+        "angle": 9,
         "elbow": {
           "at": 8,
-          "angle": -7
+          "angle": -47
         }
       }
     ],
