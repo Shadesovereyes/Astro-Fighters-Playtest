@@ -856,58 +856,58 @@
       },
       {
         "construction": "band",
-        "angle": -90,
+        "angle": -30,
         "elbow": {
           "at": 8,
-          "angle": -150
+          "angle": -40
         }
       },
       {
         "construction": "band",
-        "angle": -90,
+        "angle": -20,
         "elbow": {
           "at": 8,
-          "angle": -150
+          "angle": -30
         }
       },
       {
         "construction": "band",
-        "angle": -100,
+        "angle": -14,
         "elbow": {
           "at": 8,
-          "angle": -160
+          "angle": -24
         }
       },
       {
         "construction": "band",
-        "angle": -100,
+        "angle": -14,
         "elbow": {
           "at": 8,
-          "angle": -160
+          "angle": -24
         }
       },
       {
         "construction": "band",
-        "angle": -104,
+        "angle": -16,
         "elbow": {
           "at": 8,
-          "angle": -162
+          "angle": -26
         }
       },
       {
         "construction": "band",
-        "angle": -100,
+        "angle": -14,
         "elbow": {
           "at": 8,
-          "angle": -160
+          "angle": -24
         }
       },
       {
         "construction": "band",
-        "angle": -96,
+        "angle": -12,
         "elbow": {
           "at": 8,
-          "angle": -158
+          "angle": -22
         }
       }
     ],
@@ -954,58 +954,58 @@
       },
       {
         "construction": "band",
-        "angle": -80,
+        "angle": -24,
         "elbow": {
           "at": 8,
-          "angle": -140
+          "angle": -34
         }
       },
       {
         "construction": "band",
-        "angle": -80,
+        "angle": -16,
         "elbow": {
           "at": 8,
-          "angle": -140
+          "angle": -26
         }
       },
       {
         "construction": "band",
-        "angle": -90,
+        "angle": -10,
         "elbow": {
           "at": 8,
-          "angle": -150
+          "angle": -20
         }
       },
       {
         "construction": "band",
-        "angle": -90,
+        "angle": -10,
         "elbow": {
           "at": 8,
-          "angle": -150
+          "angle": -20
         }
       },
       {
         "construction": "band",
-        "angle": -92,
+        "angle": -12,
         "elbow": {
           "at": 8,
-          "angle": -152
+          "angle": -22
         }
       },
       {
         "construction": "band",
-        "angle": -90,
+        "angle": -10,
         "elbow": {
           "at": 8,
-          "angle": -150
+          "angle": -20
         }
       },
       {
         "construction": "band",
-        "angle": -88,
+        "angle": -10,
         "elbow": {
           "at": 8,
-          "angle": -148
+          "angle": -20
         }
       }
     ],
@@ -1490,7 +1490,7 @@
           {
             "pattern": "speck",
             "at": [
-              0,
+              3,
               60
             ]
           },
