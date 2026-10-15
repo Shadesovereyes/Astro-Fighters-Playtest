@@ -218,8 +218,9 @@ function computeArenaGeometry(radius){
   for(let q=-radius;q<=radius;q++)for(let r=Math.max(-radius,-q-radius);r<=Math.min(radius,-q+radius);r++){
     maxX=Math.max(maxX,Math.abs(s*Math.sqrt(3)*(q+r/2)));maxY=Math.max(maxY,Math.abs(s*1.5*r));
   }
-  const cx=Math.round(maxX+pad),cy=Math.round(maxY+pad);
-  return{cx,cy,hexStep:s,vbW:cx*2,vbH:cy*2};
+  // headroom above the top row for tall props: trees stand about 100 px over their cell (af-props-v3.js)
+  const head=Math.round(s*3.6),cx=Math.round(maxX+pad),cy=Math.round(maxY+pad+head);
+  return{cx,cy,hexStep:s,vbW:cx*2,vbH:Math.round(cy+maxY+pad)};
 }
 // Display size: an integer 2x when the arena fits its panel at 2x, otherwise scaled to fit the panel width.
 // Pinned battle layout (user, 2026-10-15): on a wide screen the health bars and the arena stay on screen while the

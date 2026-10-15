@@ -4200,7 +4200,7 @@ function blob(p,cx,cy,rx,ry,ramp,opt={}){
     if(opt.facets){const st=Math.PI*2/opt.facets,a=Math.round((Math.atan2(dy,dx)-rot)/st)*st+rot,r=Math.sqrt(d2)<0.42?0.2:0.78;
       nx=Math.cos(a)*r;ny=Math.sin(a)*r;nz=Math.sqrt(1-r*r);}
     let v=lam(nx,ny,nz)*1.12-0.08+(opt.bias||0);
-    if(opt.noise)v+=(hash(x>>1,y>>1,seed)-0.5)*opt.noise;
+    if(opt.noise){const k=opt.cell||2;v+=(hash(Math.floor(x/k),Math.floor(y/k),seed)-0.5)*opt.noise;}
     p.set(x,y,pick(ramp,v,x,y,opt.dither==null?0.55:opt.dither));
   }
 }
@@ -4240,12 +4240,15 @@ function shadow(rx,ry){
 
 /* --- the props: each variant is {w,h,ax,ay,draw(p)}; ax/ay is the foot point, set on the cell's ground point --- */
 const SPEC={
-  Tree:{kind:"stand",shadow:[13,4],variants:[
-    {name:"pine",w:40,h:50,ax:20,ay:46,draw(p){trunk(p,18,37,4,10,RAMP.bark,1,1);tier(p,20,21,38,16,RAMP.pine,3);tier(p,20,12,29,12,RAMP.pine,4);tier(p,20,4,19,8,RAMP.pine,5);tier(p,20,1,9,3,RAMP.pine,6);}},
-    {name:"oak",w:42,h:50,ax:21,ay:46,draw(p){trunk(p,18,30,6,17,RAMP.bark,2,1);line(p,20,32,13,27,RAMP.bark[1],2);line(p,22,31,29,26,RAMP.bark[2],2);
-      for(const[x,y,rx,ry,s]of[[12,25,8,7,1],[30,25,8,7,2],[21,28,10,6,3],[14,15,8,8,4],[28,15,8,8,5],[21,12,10,9,6],[21,21,11,8,7]])blob(p,x,y,rx,ry,RAMP.oak,{noise:0.6,seed:s,wobble:0.18,wobbleN:9});}},
-    {name:"autumn",w:38,h:46,ax:19,ay:42,draw(p){trunk(p,17,28,5,15,RAMP.bark,3,1);line(p,19,30,12,24,RAMP.bark[1],1);
-      for(const[x,y,rx,ry,s]of[[11,22,7,6,8],[27,22,7,6,9],[19,24,9,6,10],[13,13,7,7,11],[25,13,7,7,12],[19,10,9,8,13],[19,18,10,7,14]])blob(p,x,y,rx,ry,RAMP.autumn,{noise:0.6,seed:s,wobble:0.18,wobbleN:9});}},
+  // trees stand about 2 to 2.4 fighters tall (user, 2026-10-15): the fighter figure is ~46 px, so 96-112 px
+  Tree:{kind:"stand",shadow:[22,6],variants:[
+    {name:"pine",w:64,h:112,ax:32,ay:108,draw(p){trunk(p,29,88,6,21,RAMP.bark,1,1);
+      tier(p,32,58,92,29,RAMP.pine,3);tier(p,32,40,74,23,RAMP.pine,4);tier(p,32,23,56,17,RAMP.pine,5);tier(p,32,9,37,11,RAMP.pine,6);tier(p,32,1,18,5,RAMP.pine,7);}},
+    {name:"oak",w:76,h:104,ax:38,ay:101,draw(p){trunk(p,33,58,10,44,RAMP.bark,2,2);
+      line(p,37,64,22,50,RAMP.bark[1],3);line(p,41,62,55,48,RAMP.bark[2],3);line(p,38,60,36,44,RAMP.bark[2],2);
+      for(const[x,y,rx,ry,s,b]of[[38,38,22,16,7,-0.25],[20,56,15,12,1,-0.1],[56,56,15,12,2,-0.1],[38,62,19,9,3,-0.15],[23,36,15,14,4,0],[53,36,15,14,5,0],[38,28,19,16,6,0.08]])blob(p,x,y,rx,ry,RAMP.oak,{noise:0.5,cell:2,seed:s,bias:b,wobble:0.16,wobbleN:12});}},
+    {name:"autumn",w:70,h:96,ax:35,ay:93,draw(p){trunk(p,31,54,8,40,RAMP.bark,3,2);line(p,34,60,21,46,RAMP.bark[1],2);line(p,38,58,49,47,RAMP.bark[2],2);
+      for(const[x,y,rx,ry,s,b]of[[35,36,19,14,14,-0.25],[19,51,13,11,8,-0.1],[51,51,13,11,9,-0.1],[35,56,17,9,10,-0.15],[22,33,13,13,11,0],[48,33,13,13,12,0],[35,25,17,14,13,0.08]])blob(p,x,y,rx,ry,RAMP.autumn,{noise:0.5,cell:2,seed:s,bias:b,wobble:0.16,wobbleN:12});}},
   ]},
   Rock:{kind:"stand",shadow:[13,4],variants:[
     {name:"boulder",w:34,h:26,ax:17,ay:22,draw(p){blob(p,17,14,13,10,RAMP.stone,{facets:7,seed:21,clipBottom:22});
@@ -4682,8 +4685,9 @@ function computeArenaGeometry(radius){
   for(let q=-radius;q<=radius;q++)for(let r=Math.max(-radius,-q-radius);r<=Math.min(radius,-q+radius);r++){
     maxX=Math.max(maxX,Math.abs(s*Math.sqrt(3)*(q+r/2)));maxY=Math.max(maxY,Math.abs(s*1.5*r));
   }
-  const cx=Math.round(maxX+pad),cy=Math.round(maxY+pad);
-  return{cx,cy,hexStep:s,vbW:cx*2,vbH:cy*2};
+  // headroom above the top row for tall props: trees stand about 100 px over their cell (af-props-v3.js)
+  const head=Math.round(s*3.6),cx=Math.round(maxX+pad),cy=Math.round(maxY+pad+head);
+  return{cx,cy,hexStep:s,vbW:cx*2,vbH:Math.round(cy+maxY+pad)};
 }
 // Display size: an integer 2x when the arena fits its panel at 2x, otherwise scaled to fit the panel width.
 // Pinned battle layout (user, 2026-10-15): on a wide screen the health bars and the arena stay on screen while the
