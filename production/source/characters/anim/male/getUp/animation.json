@@ -141,7 +141,7 @@
     ]
   },
   "clips": {
-    "rule": "plays from prone after its holdSeconds (3 s), then the guard (next: guard)",
+    "rule": "plays from prone after its holdSeconds (1.5 s), then the guard (next: guard)",
     "getUp": {
       "frames": [
         0,

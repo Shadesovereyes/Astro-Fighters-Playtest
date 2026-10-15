@@ -797,7 +797,7 @@
       ],
       "fps": 6,
       "loop": true,
-      "holdSeconds": 3,
+      "holdSeconds": 1.5,
       "next": "getUp"
     }
   },
