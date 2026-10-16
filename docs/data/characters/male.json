@@ -12130,6 +12130,1274 @@
         }
       }
     },
+    "clinchJab": {
+      "frames": 8,
+      "fps": 12,
+      "rows": [
+        "E",
+        "W"
+      ],
+      "status": "E/W candidate 2026-10-16 (Jab-Cross in the clinch, paired with clinchJabHit), awaiting user approval; S/N to author",
+      "rootMotion": {
+        "E": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "W": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "layers": {
+        "body": "assets/characters/male/clinchJab/body.png",
+        "arms": "assets/characters/male/clinchJab/arms.png",
+        "long-hair": "assets/characters/male/clinchJab/long-hair.png",
+        "fade-hair": "assets/characters/male/clinchJab/fade-hair.png",
+        "afro-hair": "assets/characters/male/clinchJab/afro-hair.png",
+        "brown-eyes": "assets/characters/male/clinchJab/brown-eyes.png",
+        "purple-eyes": "assets/characters/male/clinchJab/purple-eyes.png",
+        "male-gi": "assets/characters/male/clinchJab/male-gi.png",
+        "male-blue-armor": "assets/characters/male/clinchJab/male-blue-armor.png",
+        "male-red-armor": "assets/characters/male/clinchJab/male-red-armor.png",
+        "blue-armor-shoulders": "assets/characters/male/clinchJab/blue-armor-shoulders.png",
+        "red-armor-shoulders": "assets/characters/male/clinchJab/red-armor-shoulders.png",
+        "far-arm": "assets/characters/male/clinchJab/far-arm.png"
+      },
+      "clips": {
+        "rule": "plays from clinchHold and returns to it; the partner plays clinchJabHit on the same frames",
+        "clinchJab": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 12,
+          "next": "clinchHold"
+        }
+      },
+      "events": {
+        "rule": "per-frame gameplay data per facing (W mirrors E: x -> 64 - x - w) (provisional)",
+        "E": [
+          {
+            "frame": 0,
+            "type": "startup"
+          },
+          {
+            "frame": 1,
+            "type": "startup"
+          },
+          {
+            "frame": 2,
+            "type": "active",
+            "move": "clinchJab",
+            "hitbox": [
+              38,
+              12,
+              10,
+              10
+            ],
+            "damage": "light"
+          },
+          {
+            "frame": 3,
+            "type": "recovery"
+          },
+          {
+            "frame": 4,
+            "type": "recovery"
+          },
+          {
+            "frame": 5,
+            "type": "active",
+            "move": "clinchJab",
+            "hitbox": [
+              38,
+              12,
+              10,
+              10
+            ],
+            "damage": "light"
+          },
+          {
+            "frame": 6,
+            "type": "recovery"
+          },
+          {
+            "frame": 7,
+            "type": "recovery"
+          }
+        ],
+        "W": [
+          {
+            "frame": 0,
+            "type": "startup"
+          },
+          {
+            "frame": 1,
+            "type": "startup"
+          },
+          {
+            "frame": 2,
+            "type": "active",
+            "move": "clinchJab",
+            "hitbox": [
+              16,
+              12,
+              10,
+              10
+            ],
+            "damage": "light"
+          },
+          {
+            "frame": 3,
+            "type": "recovery"
+          },
+          {
+            "frame": 4,
+            "type": "recovery"
+          },
+          {
+            "frame": 5,
+            "type": "active",
+            "move": "clinchJab",
+            "hitbox": [
+              16,
+              12,
+              10,
+              10
+            ],
+            "damage": "light"
+          },
+          {
+            "frame": 6,
+            "type": "recovery"
+          },
+          {
+            "frame": 7,
+            "type": "recovery"
+          }
+        ]
+      }
+    },
+    "clinchJabHit": {
+      "frames": 8,
+      "fps": 12,
+      "rows": [
+        "E",
+        "W"
+      ],
+      "status": "E/W candidate 2026-10-16 (held side of the clinch jab, paired with clinchJab), awaiting user approval; S/N to author",
+      "rootMotion": {
+        "E": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "W": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "layers": {
+        "body": "assets/characters/male/clinchJabHit/body.png",
+        "arms": "assets/characters/male/clinchJabHit/arms.png",
+        "long-hair": "assets/characters/male/clinchJabHit/long-hair.png",
+        "fade-hair": "assets/characters/male/clinchJabHit/fade-hair.png",
+        "afro-hair": "assets/characters/male/clinchJabHit/afro-hair.png",
+        "brown-eyes": "assets/characters/male/clinchJabHit/brown-eyes.png",
+        "purple-eyes": "assets/characters/male/clinchJabHit/purple-eyes.png",
+        "male-gi": "assets/characters/male/clinchJabHit/male-gi.png",
+        "male-blue-armor": "assets/characters/male/clinchJabHit/male-blue-armor.png",
+        "male-red-armor": "assets/characters/male/clinchJabHit/male-red-armor.png",
+        "blue-armor-shoulders": "assets/characters/male/clinchJabHit/blue-armor-shoulders.png",
+        "red-armor-shoulders": "assets/characters/male/clinchJabHit/red-armor-shoulders.png",
+        "far-arm": "assets/characters/male/clinchJabHit/far-arm.png"
+      },
+      "clips": {
+        "rule": "plays from clinchHeld and returns to it; the partner plays clinchJab on the same frames",
+        "clinchJabHit": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 12,
+          "next": "clinchHeld"
+        }
+      }
+    },
+    "clinchHook": {
+      "frames": 8,
+      "fps": 12,
+      "rows": [
+        "E",
+        "W"
+      ],
+      "status": "E/W candidate 2026-10-16 (Haymaker in the clinch (short hook), paired with clinchHookHit), awaiting user approval; S/N to author",
+      "rootMotion": {
+        "E": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "W": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "layers": {
+        "body": "assets/characters/male/clinchHook/body.png",
+        "arms": "assets/characters/male/clinchHook/arms.png",
+        "long-hair": "assets/characters/male/clinchHook/long-hair.png",
+        "fade-hair": "assets/characters/male/clinchHook/fade-hair.png",
+        "afro-hair": "assets/characters/male/clinchHook/afro-hair.png",
+        "brown-eyes": "assets/characters/male/clinchHook/brown-eyes.png",
+        "purple-eyes": "assets/characters/male/clinchHook/purple-eyes.png",
+        "male-gi": "assets/characters/male/clinchHook/male-gi.png",
+        "male-blue-armor": "assets/characters/male/clinchHook/male-blue-armor.png",
+        "male-red-armor": "assets/characters/male/clinchHook/male-red-armor.png",
+        "blue-armor-shoulders": "assets/characters/male/clinchHook/blue-armor-shoulders.png",
+        "red-armor-shoulders": "assets/characters/male/clinchHook/red-armor-shoulders.png",
+        "far-arm": "assets/characters/male/clinchHook/far-arm.png"
+      },
+      "clips": {
+        "rule": "plays from clinchHold and returns to it; the partner plays clinchHookHit on the same frames",
+        "clinchHook": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 12,
+          "next": "clinchHold"
+        }
+      },
+      "events": {
+        "rule": "per-frame gameplay data per facing (W mirrors E: x -> 64 - x - w) (provisional)",
+        "E": [
+          {
+            "frame": 0,
+            "type": "startup"
+          },
+          {
+            "frame": 1,
+            "type": "startup"
+          },
+          {
+            "frame": 2,
+            "type": "startup"
+          },
+          {
+            "frame": 3,
+            "type": "active",
+            "move": "clinchHook",
+            "hitbox": [
+              36,
+              10,
+              12,
+              12
+            ],
+            "damage": "medium"
+          },
+          {
+            "frame": 4,
+            "type": "recovery"
+          },
+          {
+            "frame": 5,
+            "type": "recovery"
+          },
+          {
+            "frame": 6,
+            "type": "recovery"
+          },
+          {
+            "frame": 7,
+            "type": "recovery"
+          }
+        ],
+        "W": [
+          {
+            "frame": 0,
+            "type": "startup"
+          },
+          {
+            "frame": 1,
+            "type": "startup"
+          },
+          {
+            "frame": 2,
+            "type": "startup"
+          },
+          {
+            "frame": 3,
+            "type": "active",
+            "move": "clinchHook",
+            "hitbox": [
+              16,
+              10,
+              12,
+              12
+            ],
+            "damage": "medium"
+          },
+          {
+            "frame": 4,
+            "type": "recovery"
+          },
+          {
+            "frame": 5,
+            "type": "recovery"
+          },
+          {
+            "frame": 6,
+            "type": "recovery"
+          },
+          {
+            "frame": 7,
+            "type": "recovery"
+          }
+        ]
+      }
+    },
+    "clinchHookHit": {
+      "frames": 8,
+      "fps": 12,
+      "rows": [
+        "E",
+        "W"
+      ],
+      "status": "E/W candidate 2026-10-16 (held side of the clinch hook, paired with clinchHook), awaiting user approval; S/N to author",
+      "rootMotion": {
+        "E": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "W": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "layers": {
+        "body": "assets/characters/male/clinchHookHit/body.png",
+        "arms": "assets/characters/male/clinchHookHit/arms.png",
+        "long-hair": "assets/characters/male/clinchHookHit/long-hair.png",
+        "fade-hair": "assets/characters/male/clinchHookHit/fade-hair.png",
+        "afro-hair": "assets/characters/male/clinchHookHit/afro-hair.png",
+        "brown-eyes": "assets/characters/male/clinchHookHit/brown-eyes.png",
+        "purple-eyes": "assets/characters/male/clinchHookHit/purple-eyes.png",
+        "male-gi": "assets/characters/male/clinchHookHit/male-gi.png",
+        "male-blue-armor": "assets/characters/male/clinchHookHit/male-blue-armor.png",
+        "male-red-armor": "assets/characters/male/clinchHookHit/male-red-armor.png",
+        "blue-armor-shoulders": "assets/characters/male/clinchHookHit/blue-armor-shoulders.png",
+        "red-armor-shoulders": "assets/characters/male/clinchHookHit/red-armor-shoulders.png",
+        "far-arm": "assets/characters/male/clinchHookHit/far-arm.png"
+      },
+      "clips": {
+        "rule": "plays from clinchHeld and returns to it; the partner plays clinchHook on the same frames",
+        "clinchHookHit": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 12,
+          "next": "clinchHeld"
+        }
+      }
+    },
+    "clinchHeldJab": {
+      "frames": 8,
+      "fps": 12,
+      "rows": [
+        "E",
+        "W"
+      ],
+      "status": "E/W candidate 2026-10-16 (Jab-Cross from the held side of the clinch, paired with clinchHoldJabHit), awaiting user approval; S/N to author",
+      "rootMotion": {
+        "E": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "W": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "layers": {
+        "body": "assets/characters/male/clinchHeldJab/body.png",
+        "arms": "assets/characters/male/clinchHeldJab/arms.png",
+        "long-hair": "assets/characters/male/clinchHeldJab/long-hair.png",
+        "fade-hair": "assets/characters/male/clinchHeldJab/fade-hair.png",
+        "afro-hair": "assets/characters/male/clinchHeldJab/afro-hair.png",
+        "brown-eyes": "assets/characters/male/clinchHeldJab/brown-eyes.png",
+        "purple-eyes": "assets/characters/male/clinchHeldJab/purple-eyes.png",
+        "male-gi": "assets/characters/male/clinchHeldJab/male-gi.png",
+        "male-blue-armor": "assets/characters/male/clinchHeldJab/male-blue-armor.png",
+        "male-red-armor": "assets/characters/male/clinchHeldJab/male-red-armor.png",
+        "blue-armor-shoulders": "assets/characters/male/clinchHeldJab/blue-armor-shoulders.png",
+        "red-armor-shoulders": "assets/characters/male/clinchHeldJab/red-armor-shoulders.png",
+        "far-arm": "assets/characters/male/clinchHeldJab/far-arm.png"
+      },
+      "clips": {
+        "rule": "plays from clinchHeld and returns to it; the partner plays clinchHoldJabHit on the same frames",
+        "clinchHeldJab": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 12,
+          "next": "clinchHeld"
+        }
+      },
+      "events": {
+        "rule": "per-frame gameplay data per facing (W mirrors E: x -> 64 - x - w) (provisional)",
+        "E": [
+          {
+            "frame": 0,
+            "type": "startup"
+          },
+          {
+            "frame": 1,
+            "type": "startup"
+          },
+          {
+            "frame": 2,
+            "type": "active",
+            "move": "clinchHeldJab",
+            "hitbox": [
+              18,
+              8,
+              10,
+              10
+            ],
+            "damage": "light"
+          },
+          {
+            "frame": 3,
+            "type": "recovery"
+          },
+          {
+            "frame": 4,
+            "type": "recovery"
+          },
+          {
+            "frame": 5,
+            "type": "active",
+            "move": "clinchHeldJab",
+            "hitbox": [
+              18,
+              8,
+              10,
+              10
+            ],
+            "damage": "light"
+          },
+          {
+            "frame": 6,
+            "type": "recovery"
+          },
+          {
+            "frame": 7,
+            "type": "recovery"
+          }
+        ],
+        "W": [
+          {
+            "frame": 0,
+            "type": "startup"
+          },
+          {
+            "frame": 1,
+            "type": "startup"
+          },
+          {
+            "frame": 2,
+            "type": "active",
+            "move": "clinchHeldJab",
+            "hitbox": [
+              36,
+              8,
+              10,
+              10
+            ],
+            "damage": "light"
+          },
+          {
+            "frame": 3,
+            "type": "recovery"
+          },
+          {
+            "frame": 4,
+            "type": "recovery"
+          },
+          {
+            "frame": 5,
+            "type": "active",
+            "move": "clinchHeldJab",
+            "hitbox": [
+              36,
+              8,
+              10,
+              10
+            ],
+            "damage": "light"
+          },
+          {
+            "frame": 6,
+            "type": "recovery"
+          },
+          {
+            "frame": 7,
+            "type": "recovery"
+          }
+        ]
+      }
+    },
+    "clinchHoldJabHit": {
+      "frames": 8,
+      "fps": 12,
+      "rows": [
+        "E",
+        "W"
+      ],
+      "status": "E/W candidate 2026-10-16 (holder side of the held jab, paired with clinchHeldJab), awaiting user approval; S/N to author",
+      "rootMotion": {
+        "E": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "W": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "layers": {
+        "body": "assets/characters/male/clinchHoldJabHit/body.png",
+        "arms": "assets/characters/male/clinchHoldJabHit/arms.png",
+        "long-hair": "assets/characters/male/clinchHoldJabHit/long-hair.png",
+        "fade-hair": "assets/characters/male/clinchHoldJabHit/fade-hair.png",
+        "afro-hair": "assets/characters/male/clinchHoldJabHit/afro-hair.png",
+        "brown-eyes": "assets/characters/male/clinchHoldJabHit/brown-eyes.png",
+        "purple-eyes": "assets/characters/male/clinchHoldJabHit/purple-eyes.png",
+        "male-gi": "assets/characters/male/clinchHoldJabHit/male-gi.png",
+        "male-blue-armor": "assets/characters/male/clinchHoldJabHit/male-blue-armor.png",
+        "male-red-armor": "assets/characters/male/clinchHoldJabHit/male-red-armor.png",
+        "blue-armor-shoulders": "assets/characters/male/clinchHoldJabHit/blue-armor-shoulders.png",
+        "red-armor-shoulders": "assets/characters/male/clinchHoldJabHit/red-armor-shoulders.png",
+        "far-arm": "assets/characters/male/clinchHoldJabHit/far-arm.png"
+      },
+      "clips": {
+        "rule": "plays from clinchHold and returns to it; the partner plays clinchHeldJab on the same frames",
+        "clinchHoldJabHit": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 12,
+          "next": "clinchHold"
+        }
+      }
+    },
+    "clinchHeldHook": {
+      "frames": 8,
+      "fps": 12,
+      "rows": [
+        "E",
+        "W"
+      ],
+      "status": "E/W candidate 2026-10-16 (Haymaker from the held side of the clinch (short hook), paired with clinchHoldHookHit), awaiting user approval; S/N to author",
+      "rootMotion": {
+        "E": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "W": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "layers": {
+        "body": "assets/characters/male/clinchHeldHook/body.png",
+        "arms": "assets/characters/male/clinchHeldHook/arms.png",
+        "long-hair": "assets/characters/male/clinchHeldHook/long-hair.png",
+        "fade-hair": "assets/characters/male/clinchHeldHook/fade-hair.png",
+        "afro-hair": "assets/characters/male/clinchHeldHook/afro-hair.png",
+        "brown-eyes": "assets/characters/male/clinchHeldHook/brown-eyes.png",
+        "purple-eyes": "assets/characters/male/clinchHeldHook/purple-eyes.png",
+        "male-gi": "assets/characters/male/clinchHeldHook/male-gi.png",
+        "male-blue-armor": "assets/characters/male/clinchHeldHook/male-blue-armor.png",
+        "male-red-armor": "assets/characters/male/clinchHeldHook/male-red-armor.png",
+        "blue-armor-shoulders": "assets/characters/male/clinchHeldHook/blue-armor-shoulders.png",
+        "red-armor-shoulders": "assets/characters/male/clinchHeldHook/red-armor-shoulders.png",
+        "far-arm": "assets/characters/male/clinchHeldHook/far-arm.png"
+      },
+      "clips": {
+        "rule": "plays from clinchHeld and returns to it; the partner plays clinchHoldHookHit on the same frames",
+        "clinchHeldHook": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 12,
+          "next": "clinchHeld"
+        }
+      },
+      "events": {
+        "rule": "per-frame gameplay data per facing (W mirrors E: x -> 64 - x - w) (provisional)",
+        "E": [
+          {
+            "frame": 0,
+            "type": "startup"
+          },
+          {
+            "frame": 1,
+            "type": "startup"
+          },
+          {
+            "frame": 2,
+            "type": "startup"
+          },
+          {
+            "frame": 3,
+            "type": "active",
+            "move": "clinchHeldHook",
+            "hitbox": [
+              18,
+              6,
+              12,
+              12
+            ],
+            "damage": "medium"
+          },
+          {
+            "frame": 4,
+            "type": "recovery"
+          },
+          {
+            "frame": 5,
+            "type": "recovery"
+          },
+          {
+            "frame": 6,
+            "type": "recovery"
+          },
+          {
+            "frame": 7,
+            "type": "recovery"
+          }
+        ],
+        "W": [
+          {
+            "frame": 0,
+            "type": "startup"
+          },
+          {
+            "frame": 1,
+            "type": "startup"
+          },
+          {
+            "frame": 2,
+            "type": "startup"
+          },
+          {
+            "frame": 3,
+            "type": "active",
+            "move": "clinchHeldHook",
+            "hitbox": [
+              34,
+              6,
+              12,
+              12
+            ],
+            "damage": "medium"
+          },
+          {
+            "frame": 4,
+            "type": "recovery"
+          },
+          {
+            "frame": 5,
+            "type": "recovery"
+          },
+          {
+            "frame": 6,
+            "type": "recovery"
+          },
+          {
+            "frame": 7,
+            "type": "recovery"
+          }
+        ]
+      }
+    },
+    "clinchHoldHookHit": {
+      "frames": 8,
+      "fps": 12,
+      "rows": [
+        "E",
+        "W"
+      ],
+      "status": "E/W candidate 2026-10-16 (holder side of the held hook, paired with clinchHeldHook), awaiting user approval; S/N to author",
+      "rootMotion": {
+        "E": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "W": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "layers": {
+        "body": "assets/characters/male/clinchHoldHookHit/body.png",
+        "arms": "assets/characters/male/clinchHoldHookHit/arms.png",
+        "long-hair": "assets/characters/male/clinchHoldHookHit/long-hair.png",
+        "fade-hair": "assets/characters/male/clinchHoldHookHit/fade-hair.png",
+        "afro-hair": "assets/characters/male/clinchHoldHookHit/afro-hair.png",
+        "brown-eyes": "assets/characters/male/clinchHoldHookHit/brown-eyes.png",
+        "purple-eyes": "assets/characters/male/clinchHoldHookHit/purple-eyes.png",
+        "male-gi": "assets/characters/male/clinchHoldHookHit/male-gi.png",
+        "male-blue-armor": "assets/characters/male/clinchHoldHookHit/male-blue-armor.png",
+        "male-red-armor": "assets/characters/male/clinchHoldHookHit/male-red-armor.png",
+        "blue-armor-shoulders": "assets/characters/male/clinchHoldHookHit/blue-armor-shoulders.png",
+        "red-armor-shoulders": "assets/characters/male/clinchHoldHookHit/red-armor-shoulders.png",
+        "far-arm": "assets/characters/male/clinchHoldHookHit/far-arm.png"
+      },
+      "clips": {
+        "rule": "plays from clinchHold and returns to it; the partner plays clinchHeldHook on the same frames",
+        "clinchHoldHookHit": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 12,
+          "next": "clinchHold"
+        }
+      }
+    },
     "mountGroundPound": {
       "frames": 10,
       "fps": 6,
