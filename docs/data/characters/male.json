@@ -12800,6 +12800,306 @@
         }
       }
     },
+    "mountBottomHeadbutt": {
+      "frames": 8,
+      "fps": 6,
+      "rows": [
+        "E",
+        "W"
+      ],
+      "status": "E/W candidate 2026-10-15 (Headbutt from the bottom of Mount, paired with mountBottomHeadbuttHit), awaiting user approval; S/N to author",
+      "rootMotion": {
+        "E": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "W": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "layers": {
+        "body": "assets/characters/male/mountBottomHeadbutt/body.png",
+        "arms": "assets/characters/male/mountBottomHeadbutt/arms.png",
+        "long-hair": "assets/characters/male/mountBottomHeadbutt/long-hair.png",
+        "fade-hair": "assets/characters/male/mountBottomHeadbutt/fade-hair.png",
+        "afro-hair": "assets/characters/male/mountBottomHeadbutt/afro-hair.png",
+        "brown-eyes": "assets/characters/male/mountBottomHeadbutt/brown-eyes.png",
+        "purple-eyes": "assets/characters/male/mountBottomHeadbutt/purple-eyes.png",
+        "male-gi": "assets/characters/male/mountBottomHeadbutt/male-gi.png",
+        "male-blue-armor": "assets/characters/male/mountBottomHeadbutt/male-blue-armor.png",
+        "male-red-armor": "assets/characters/male/mountBottomHeadbutt/male-red-armor.png",
+        "blue-armor-shoulders": "assets/characters/male/mountBottomHeadbutt/blue-armor-shoulders.png",
+        "red-armor-shoulders": "assets/characters/male/mountBottomHeadbutt/red-armor-shoulders.png"
+      },
+      "clips": {
+        "rule": "plays from mountBottom; the top fighter plays mountBottomHeadbuttHit; returns to mountBottom",
+        "mountBottomHeadbutt": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 12,
+          "next": "mountBottom"
+        }
+      },
+      "events": {
+        "rule": "per-frame gameplay data per facing (provisional)",
+        "E": [
+          {
+            "frame": 0,
+            "type": "startup"
+          },
+          {
+            "frame": 1,
+            "type": "startup"
+          },
+          {
+            "frame": 2,
+            "type": "startup"
+          },
+          {
+            "frame": 3,
+            "type": "active",
+            "move": "Headbutt",
+            "effect": "per the abilities sheet"
+          },
+          {
+            "frame": 4,
+            "type": "recovery"
+          },
+          {
+            "frame": 5,
+            "type": "recovery"
+          },
+          {
+            "frame": 6,
+            "type": "recovery"
+          },
+          {
+            "frame": 7,
+            "type": "recovery"
+          }
+        ],
+        "W": [
+          {
+            "frame": 0,
+            "type": "startup"
+          },
+          {
+            "frame": 1,
+            "type": "startup"
+          },
+          {
+            "frame": 2,
+            "type": "startup"
+          },
+          {
+            "frame": 3,
+            "type": "active",
+            "move": "Headbutt",
+            "effect": "per the abilities sheet"
+          },
+          {
+            "frame": 4,
+            "type": "recovery"
+          },
+          {
+            "frame": 5,
+            "type": "recovery"
+          },
+          {
+            "frame": 6,
+            "type": "recovery"
+          },
+          {
+            "frame": 7,
+            "type": "recovery"
+          }
+        ],
+        "tactical": {
+          "rule": "no displacement: the pair stays in Mount on its cells"
+        }
+      }
+    },
+    "mountBottomHeadbuttHit": {
+      "frames": 8,
+      "fps": 6,
+      "rows": [
+        "E",
+        "W"
+      ],
+      "status": "E/W candidate 2026-10-15 (top side of the bottom Headbutt, paired with mountBottomHeadbutt), awaiting user approval; S/N to author",
+      "rootMotion": {
+        "E": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "W": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "layers": {
+        "body": "assets/characters/male/mountBottomHeadbuttHit/body.png",
+        "arms": "assets/characters/male/mountBottomHeadbuttHit/arms.png",
+        "long-hair": "assets/characters/male/mountBottomHeadbuttHit/long-hair.png",
+        "fade-hair": "assets/characters/male/mountBottomHeadbuttHit/fade-hair.png",
+        "afro-hair": "assets/characters/male/mountBottomHeadbuttHit/afro-hair.png",
+        "brown-eyes": "assets/characters/male/mountBottomHeadbuttHit/brown-eyes.png",
+        "purple-eyes": "assets/characters/male/mountBottomHeadbuttHit/purple-eyes.png",
+        "male-gi": "assets/characters/male/mountBottomHeadbuttHit/male-gi.png",
+        "male-blue-armor": "assets/characters/male/mountBottomHeadbuttHit/male-blue-armor.png",
+        "male-red-armor": "assets/characters/male/mountBottomHeadbuttHit/male-red-armor.png",
+        "blue-armor-shoulders": "assets/characters/male/mountBottomHeadbuttHit/blue-armor-shoulders.png",
+        "red-armor-shoulders": "assets/characters/male/mountBottomHeadbuttHit/red-armor-shoulders.png",
+        "far-arm": "assets/characters/male/mountBottomHeadbuttHit/far-arm.png",
+        "fx": "assets/characters/male/mountBottomHeadbuttHit/fx.png"
+      },
+      "clips": {
+        "rule": "plays on the top fighter when the mounted fighter plays mountBottomHeadbutt; returns to mountTop",
+        "mountBottomHeadbuttHit": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 12,
+          "next": "mountTop"
+        }
+      }
+    },
     "mountElbow": {
       "frames": 8,
       "fps": 6,
