@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "mountReversalHit",
-  "status": "E/W candidate 2026-10-16 (top side of the Wrestler Reversal), awaiting user approval; S/N to author",
+  "status": "E/W approved by user 2026-10-16 (top side of the Wrestler Reversal); S/N to author",
   "frames": 15,
   "fps": 6,
   "sourceDirection": "E",
@@ -1552,5 +1552,9 @@
         ]
       }
     ]
+  },
+  "approved": {
+    "E": "2026-10-16",
+    "W": "2026-10-16 (mirror of E)"
   }
 }
