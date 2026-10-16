@@ -1086,12 +1086,63 @@
     }
   },
   "fx": {
-    "rule": "a hit star and impact lines at the mounted fighter's face on each landed punch",
-    "frames": [],
+    "rule": "a subtle red slash streak at the mounted fighter's chest on each landed stab, fading the frame after",
+    "frames": [
+      {
+        "frame": 4,
+        "splash": [
+          {
+            "pattern": "slash",
+            "at": [
+              17,
+              56
+            ]
+          }
+        ]
+      },
+      {
+        "frame": 7,
+        "splash": [
+          {
+            "pattern": "slash",
+            "at": [
+              17,
+              56
+            ]
+          }
+        ]
+      },
+      {
+        "frame": 5,
+        "splash": [
+          {
+            "pattern": "slashFade",
+            "at": [
+              18,
+              57
+            ]
+          }
+        ]
+      },
+      {
+        "frame": 8,
+        "splash": [
+          {
+            "pattern": "slashFade",
+            "at": [
+              18,
+              57
+            ]
+          }
+        ]
+      }
+    ],
     "palette": {
       "W": "#ffffff",
       "w": "#e3e3e3",
-      "#": "#000000"
+      "#": "#000000",
+      "R": "#a01818",
+      "r": "#d04030"
     },
     "patterns": {
       "dustBig": [
@@ -1134,7 +1185,21 @@
         "#.#",
         "...",
         "#.#"
+      ],
+      "slash": [
+        "r.....",
+        ".Rr...",
+        "..RR..",
+        "...rR.",
+        ".....r"
+      ],
+      "slashFade": [
+        "r....",
+        ".R...",
+        "..r..",
+        "...r."
       ]
-    }
+    },
+    "top": true
   }
 }

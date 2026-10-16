@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "mountPalmHit",
-  "status": "E/W candidate 2026-10-16 (mounted side of the top Sumo Palm, paired with mountPalm), awaiting user approval; S/N to author",
+  "status": "E/W approved by user 2026-10-16 (mounted side of the two-strike top Sumo Palm, paired with mountPalm); S/N to author",
   "frames": 11,
   "fps": 6,
   "sourceDirection": "E",
