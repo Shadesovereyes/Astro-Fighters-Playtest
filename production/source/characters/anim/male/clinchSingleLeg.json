@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "clinchSingleLeg",
-  "status": "E/W candidate 2026-10-16 (Single Leg Shot from the holder, success (target failed the DC), shooter), awaiting user approval; S/N to author",
+  "status": "E/W approved by user 2026-10-16 (Single Leg Shot from the holder, success (target failed the DC), shooter); S/N to author",
   "frames": 15,
   "fps": 12,
   "sourceDirection": "E",
@@ -1534,5 +1534,9 @@
         "type": "recovery"
       }
     ]
+  },
+  "approved": {
+    "E": "2026-10-16",
+    "W": "2026-10-16 (mirror of E)"
   }
 }
