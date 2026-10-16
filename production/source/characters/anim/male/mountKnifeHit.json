@@ -3,7 +3,7 @@
   "body": "male",
   "state": "mountKnifeHit",
   "status": "E/W candidate 2026-10-16 (mounted side of the top knife stab, paired with mountKnife), awaiting user approval; S/N to author",
-  "frames": 9,
+  "frames": 11,
   "fps": 6,
   "sourceDirection": "E",
   "directions": [
@@ -97,6 +97,8 @@
       0,
       0,
       0,
+      0,
+      0,
       0
     ],
     "head": [
@@ -108,9 +110,13 @@
       0,
       0,
       0,
+      0,
+      0,
       0
     ],
     "arms": [
+      0,
+      0,
       0,
       0,
       0,
@@ -135,15 +141,19 @@
         0,
         0,
         0,
+        0,
+        0,
         0
       ],
       "head": [
         0,
         0,
         0,
+        0,
         1,
         1,
         0,
+        1,
         1,
         0,
         0
@@ -188,9 +198,25 @@
       [
         0,
         0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
       ]
     ],
     "W": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
       [
         0,
         0
@@ -387,9 +413,13 @@
       4,
       4,
       4,
+      4,
+      4,
       4
     ],
     "far": [
+      5,
+      5,
       5,
       5,
       5,
@@ -443,7 +473,15 @@
       },
       {
         "construction": "band",
-        "angle": -50,
+        "angle": -75,
+        "elbow": {
+          "at": 8,
+          "angle": -160
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -40,
         "elbow": {
           "at": 8,
           "angle": -120
@@ -467,10 +505,18 @@
       },
       {
         "construction": "band",
-        "angle": -50,
+        "angle": -40,
         "elbow": {
           "at": 8,
           "angle": -120
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -52,
+        "elbow": {
+          "at": 8,
+          "angle": -124
         }
       },
       {
@@ -562,6 +608,22 @@
           "at": 8,
           "angle": -140
         }
+      },
+      {
+        "construction": "band",
+        "angle": -60,
+        "elbow": {
+          "at": 8,
+          "angle": -140
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -60,
+        "elbow": {
+          "at": 8,
+          "angle": -140
+        }
       }
     ],
     "outline": "Arm pixels touching empty space get an outline, except above the shoulder row; the near arm is not outlined where it lies over the body (its dark back column separates it).",
@@ -643,6 +705,8 @@
       "bandFollowsBody": true,
       "sway": {
         "E": [
+          -1,
+          -1,
           -1,
           -1,
           -1,
@@ -910,9 +974,11 @@
         null,
         "squint",
         "squint",
+        "squint",
         "pain",
         "pain",
         "squint",
+        "pain",
         "pain",
         "squint",
         null
@@ -935,9 +1001,13 @@
       270,
       270,
       270,
+      270,
+      270,
       270
     ],
     "dx": [
+      10,
+      10,
       10,
       10,
       10,
@@ -957,9 +1027,13 @@
       0,
       0,
       0,
+      0,
+      0,
       0
     ],
     "groundSnap": [
+      true,
+      true,
       true,
       true,
       true,
@@ -983,7 +1057,9 @@
         5,
         6,
         7,
-        8
+        8,
+        9,
+        10
       ],
       "fps": 12,
       "next": "mountBottom"

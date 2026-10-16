@@ -3,7 +3,7 @@
   "body": "male",
   "state": "mountPalmHit",
   "status": "E/W candidate 2026-10-16 (mounted side of the top Sumo Palm, paired with mountPalm), awaiting user approval; S/N to author",
-  "frames": 8,
+  "frames": 11,
   "fps": 6,
   "sourceDirection": "E",
   "directions": [
@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "The mounted fighter's side of the top Sumo Palm: the forearms frame up, the palm drives the head back into the ground with pain eyes and the arms are knocked aside, then come back up to frame.",
+  "intent": "The mounted fighter's side of the two-strike top Sumo Palm: the forearms frame up; each palm drives the head back into the ground with pain eyes and knocks the arms aside, and they come back up to frame between and after the strikes.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -96,6 +96,9 @@
       0,
       0,
       0,
+      0,
+      0,
+      0,
       0
     ],
     "head": [
@@ -106,9 +109,15 @@
       0,
       0,
       0,
+      0,
+      0,
+      0,
       0
     ],
     "arms": [
+      0,
+      0,
+      0,
       0,
       0,
       0,
@@ -131,6 +140,9 @@
         0,
         0,
         0,
+        0,
+        0,
+        0,
         0
       ],
       "head": [
@@ -141,6 +153,9 @@
         -2,
         -1,
         0,
+        -2,
+        -2,
+        -1,
         0
       ]
     }
@@ -179,9 +194,33 @@
       [
         0,
         0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
       ]
     ],
     "W": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
       [
         0,
         0
@@ -373,9 +412,15 @@
       4,
       4,
       4,
+      4,
+      4,
+      4,
       4
     ],
     "far": [
+      5,
+      5,
+      5,
       5,
       5,
       5,
@@ -448,6 +493,30 @@
         "elbow": {
           "at": 8,
           "angle": -130
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -75,
+        "elbow": {
+          "at": 8,
+          "angle": -158
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -40,
+        "elbow": {
+          "at": 8,
+          "angle": -120
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -45,
+        "elbow": {
+          "at": 8,
+          "angle": -125
         }
       },
       {
@@ -531,6 +600,30 @@
           "at": 8,
           "angle": -138
         }
+      },
+      {
+        "construction": "band",
+        "angle": -60,
+        "elbow": {
+          "at": 8,
+          "angle": -140
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -60,
+        "elbow": {
+          "at": 8,
+          "angle": -140
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -60,
+        "elbow": {
+          "at": 8,
+          "angle": -140
+        }
       }
     ],
     "outline": "Arm pixels touching empty space get an outline, except above the shoulder row; the near arm is not outlined where it lies over the body (its dark back column separates it).",
@@ -612,6 +705,9 @@
       "bandFollowsBody": true,
       "sway": {
         "E": [
+          -1,
+          -1,
+          -1,
           -1,
           -1,
           -1,
@@ -880,6 +976,9 @@
         "squint",
         "pain",
         "pain",
+        "squint",
+        "squint",
+        "pain",
         "pain",
         "squint",
         null
@@ -901,9 +1000,15 @@
       270,
       270,
       270,
+      270,
+      270,
+      270,
       270
     ],
     "dx": [
+      10,
+      10,
+      10,
       10,
       10,
       10,
@@ -921,9 +1026,15 @@
       0,
       0,
       0,
+      0,
+      0,
+      0,
       0
     ],
     "groundSnap": [
+      true,
+      true,
+      true,
       true,
       true,
       true,
@@ -945,7 +1056,10 @@
         4,
         5,
         6,
-        7
+        7,
+        8,
+        9,
+        10
       ],
       "fps": 12,
       "next": "mountBottom"
@@ -994,7 +1108,38 @@
         ]
       },
       {
+        "frame": 7,
+        "splash": [
+          {
+            "pattern": "hitStar",
+            "at": [
+              6,
+              52
+            ]
+          },
+          {
+            "pattern": "lines",
+            "at": [
+              2,
+              44
+            ]
+          }
+        ]
+      },
+      {
         "frame": 4,
+        "splash": [
+          {
+            "pattern": "strain",
+            "at": [
+              7,
+              50
+            ]
+          }
+        ]
+      },
+      {
+        "frame": 8,
         "splash": [
           {
             "pattern": "strain",

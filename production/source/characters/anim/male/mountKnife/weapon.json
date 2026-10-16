@@ -18,7 +18,7 @@
     "E",
     "W"
   ],
-  "frames": 9,
+  "frames": 11,
   "depthRule": "each weapon is split into depth slots, one sheet each: behind = under the body; front = over body and clothing, under the arms (the fists close over the hilt); top = over every character layer (a blade pointing at the viewer, a hand in front of the head). z per frame is one slot or { hilt, blade } split at the grip",
   "weapons": [
     {
@@ -40,9 +40,13 @@
           "front",
           "front",
           "front",
+          "front",
+          "front",
           "front"
         ],
         "W": [
+          "front",
+          "front",
           "front",
           "front",
           "front",
@@ -61,28 +65,36 @@
             36
           ],
           [
-            24,
-            24
+            41,
+            28
           ],
           [
-            30,
-            14
+            41,
+            18
           ],
           [
-            43,
-            49
+            41,
+            18
           ],
           [
-            43,
-            49
+            41,
+            50
           ],
           [
-            31,
-            14
+            41,
+            50
           ],
           [
-            43,
-            49
+            41,
+            18
+          ],
+          [
+            41,
+            50
+          ],
+          [
+            41,
+            50
           ],
           [
             42,
@@ -99,28 +111,36 @@
             36
           ],
           [
-            39,
-            24
+            22,
+            28
           ],
           [
-            33,
-            14
+            22,
+            18
           ],
           [
-            20,
-            49
+            22,
+            18
           ],
           [
-            20,
-            49
+            22,
+            50
           ],
           [
-            32,
-            14
+            22,
+            50
           ],
           [
-            20,
-            49
+            22,
+            18
+          ],
+          [
+            22,
+            50
+          ],
+          [
+            22,
+            50
           ],
           [
             21,
@@ -145,6 +165,8 @@
       "main/tanto E:6": true,
       "main/tanto E:7": true,
       "main/tanto E:8": true,
+      "main/tanto E:9": true,
+      "main/tanto E:10": true,
       "main/tanto W:0": true,
       "main/tanto W:1": true,
       "main/tanto W:2": true,
@@ -153,7 +175,9 @@
       "main/tanto W:5": true,
       "main/tanto W:6": true,
       "main/tanto W:7": true,
-      "main/tanto W:8": true
+      "main/tanto W:8": true,
+      "main/tanto W:9": true,
+      "main/tanto W:10": true
     },
     "inFrame": true,
     "pass": true

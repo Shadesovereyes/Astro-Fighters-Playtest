@@ -3,7 +3,7 @@
   "body": "male",
   "state": "mountKnifeHit",
   "status": "E/W candidate 2026-10-16 (mounted side of the top knife stab, paired with mountKnife), awaiting user approval; S/N to author",
-  "frames": 9,
+  "frames": 11,
   "fps": 6,
   "frameSize": [
     64,
@@ -18,7 +18,7 @@
       "E",
       "W"
     ],
-    "columns": "frames 0–8"
+    "columns": "frames 0–10"
   },
   "layers": {
     "body": "body.png",
@@ -47,6 +47,14 @@
   ],
   "rootMotion": {
     "E": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
       [
         0,
         0
@@ -120,6 +128,14 @@
       [
         0,
         0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
       ]
     ]
   },
@@ -135,7 +151,9 @@
         5,
         6,
         7,
-        8
+        8,
+        9,
+        10
       ],
       "fps": 12,
       "next": "mountBottom"
@@ -155,6 +173,8 @@
       "E:6": 2,
       "E:7": 2,
       "E:8": 2,
+      "E:9": 2,
+      "E:10": 2,
       "W:0": 2,
       "W:1": 2,
       "W:2": 2,
@@ -163,7 +183,9 @@
       "W:5": 2,
       "W:6": 2,
       "W:7": 2,
-      "W:8": 2
+      "W:8": 2,
+      "W:9": 2,
+      "W:10": 2
     },
     "holes": {},
     "groundContact": true,
@@ -172,21 +194,25 @@
       "E:0": 3,
       "E:1": 2,
       "E:2": 2,
-      "E:3": 4,
-      "E:4": 3,
-      "E:5": 2,
-      "E:6": 4,
-      "E:7": 3,
+      "E:3": 3,
+      "E:4": 2,
+      "E:5": 3,
+      "E:6": 3,
+      "E:7": 2,
       "E:8": 3,
+      "E:9": 3,
+      "E:10": 3,
       "W:0": 3,
       "W:1": 2,
       "W:2": 2,
-      "W:3": 4,
-      "W:4": 3,
-      "W:5": 2,
-      "W:6": 4,
-      "W:7": 3,
-      "W:8": 3
+      "W:3": 3,
+      "W:4": 2,
+      "W:5": 3,
+      "W:6": 3,
+      "W:7": 2,
+      "W:8": 3,
+      "W:9": 3,
+      "W:10": 3
     },
     "referenceEdges": {
       "E": 0,
@@ -197,10 +223,12 @@
         14,
         10,
         7,
-        15,
+        8,
+        8,
+        13,
+        8,
         9,
-        7,
-        15,
+        10,
         8,
         14
       ],
@@ -210,7 +238,9 @@
         0,
         0,
         0,
-        1,
+        0,
+        0,
+        0,
         0,
         0,
         0
@@ -263,6 +293,16 @@
         "male-red-armor E:8": 3,
         "blue-armor-shoulders E:8": 0,
         "red-armor-shoulders E:8": 0,
+        "male-gi E:9": 3,
+        "male-blue-armor E:9": 3,
+        "male-red-armor E:9": 3,
+        "blue-armor-shoulders E:9": 0,
+        "red-armor-shoulders E:9": 0,
+        "male-gi E:10": 3,
+        "male-blue-armor E:10": 3,
+        "male-red-armor E:10": 3,
+        "blue-armor-shoulders E:10": 0,
+        "red-armor-shoulders E:10": 0,
         "male-gi W:0": 3,
         "male-blue-armor W:0": 3,
         "male-red-armor W:0": 3,
@@ -307,7 +347,17 @@
         "male-blue-armor W:8": 3,
         "male-red-armor W:8": 3,
         "blue-armor-shoulders W:8": 0,
-        "red-armor-shoulders W:8": 0
+        "red-armor-shoulders W:8": 0,
+        "male-gi W:9": 3,
+        "male-blue-armor W:9": 3,
+        "male-red-armor W:9": 3,
+        "blue-armor-shoulders W:9": 0,
+        "red-armor-shoulders W:9": 0,
+        "male-gi W:10": 3,
+        "male-blue-armor W:10": 3,
+        "male-red-armor W:10": 3,
+        "blue-armor-shoulders W:10": 0,
+        "red-armor-shoulders W:10": 0
       },
       "clothingGapFill": {
         "male-gi E:0": 0,
@@ -355,6 +405,16 @@
         "male-red-armor E:8": 0,
         "blue-armor-shoulders E:8": 0,
         "red-armor-shoulders E:8": 0,
+        "male-gi E:9": 0,
+        "male-blue-armor E:9": 0,
+        "male-red-armor E:9": 0,
+        "blue-armor-shoulders E:9": 0,
+        "red-armor-shoulders E:9": 0,
+        "male-gi E:10": 0,
+        "male-blue-armor E:10": 0,
+        "male-red-armor E:10": 0,
+        "blue-armor-shoulders E:10": 0,
+        "red-armor-shoulders E:10": 0,
         "male-gi W:0": 0,
         "male-blue-armor W:0": 0,
         "male-red-armor W:0": 0,
@@ -399,7 +459,17 @@
         "male-blue-armor W:8": 0,
         "male-red-armor W:8": 0,
         "blue-armor-shoulders W:8": 0,
-        "red-armor-shoulders W:8": 0
+        "red-armor-shoulders W:8": 0,
+        "male-gi W:9": 0,
+        "male-blue-armor W:9": 0,
+        "male-red-armor W:9": 0,
+        "blue-armor-shoulders W:9": 0,
+        "red-armor-shoulders W:9": 0,
+        "male-gi W:10": 0,
+        "male-blue-armor W:10": 0,
+        "male-red-armor W:10": 0,
+        "blue-armor-shoulders W:10": 0,
+        "red-armor-shoulders W:10": 0
       },
       "clothingLooseRemoved": {
         "male-gi E:0": 0,
@@ -447,6 +517,16 @@
         "male-red-armor E:8": 0,
         "blue-armor-shoulders E:8": 0,
         "red-armor-shoulders E:8": 0,
+        "male-gi E:9": 0,
+        "male-blue-armor E:9": 0,
+        "male-red-armor E:9": 0,
+        "blue-armor-shoulders E:9": 0,
+        "red-armor-shoulders E:9": 0,
+        "male-gi E:10": 0,
+        "male-blue-armor E:10": 0,
+        "male-red-armor E:10": 0,
+        "blue-armor-shoulders E:10": 0,
+        "red-armor-shoulders E:10": 0,
         "male-gi W:0": 0,
         "male-blue-armor W:0": 0,
         "male-red-armor W:0": 0,
@@ -491,7 +571,17 @@
         "male-blue-armor W:8": 0,
         "male-red-armor W:8": 0,
         "blue-armor-shoulders W:8": 0,
-        "red-armor-shoulders W:8": 0
+        "red-armor-shoulders W:8": 0,
+        "male-gi W:9": 0,
+        "male-blue-armor W:9": 0,
+        "male-red-armor W:9": 0,
+        "blue-armor-shoulders W:9": 0,
+        "red-armor-shoulders W:9": 0,
+        "male-gi W:10": 0,
+        "male-blue-armor W:10": 0,
+        "male-red-armor W:10": 0,
+        "blue-armor-shoulders W:10": 0,
+        "red-armor-shoulders W:10": 0
       }
     },
     "pass": false

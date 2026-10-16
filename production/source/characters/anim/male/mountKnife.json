@@ -3,7 +3,7 @@
   "body": "male",
   "state": "mountKnife",
   "status": "E/W candidate 2026-10-16 (Viper Strike (knife) from the top of the Mount, paired with mountKnifeHit), awaiting user approval; S/N to author",
-  "frames": 9,
+  "frames": 11,
   "fps": 6,
   "sourceDirection": "E",
   "directions": [
@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Knife stab while Mounting (audit 2026-10-16: kept on top, banned from the bottom): the far hand stays posted; the near hand raises the tanto overhead in an ice-pick grip and drives it down twice into the mounted fighter's chest, then returns to the idle.",
+  "intent": "Knife stab while Mounting (audit 2026-10-16: kept on top, banned from the bottom; Christopher 2026-10-16: two hands on the knife): the far hand leaves its post and joins the near hand on the tanto handle; both hands raise it in front of the face, blade down, and drive it straight down into the mounted fighter's chest, twice, then the far hand returns to the post.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -91,10 +91,12 @@
     "dy": [
       10,
       9,
-      9,
+      8,
+      8,
       12,
       12,
-      9,
+      8,
+      12,
       12,
       11,
       10
@@ -102,10 +104,12 @@
     "head": [
       10,
       9,
-      9,
+      8,
+      8,
       12,
       12,
-      9,
+      8,
+      12,
       12,
       11,
       10
@@ -114,9 +118,11 @@
       11,
       9,
       8,
+      8,
       13,
       13,
       8,
+      13,
       13,
       11,
       11
@@ -130,9 +136,11 @@
         0,
         0,
         0,
+        0,
         2,
         2,
         0,
+        2,
         2,
         1,
         0
@@ -141,9 +149,11 @@
         4,
         3,
         2,
+        2,
         8,
         8,
-        3,
+        2,
+        8,
         8,
         5,
         4
@@ -188,9 +198,25 @@
       [
         0,
         0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
       ]
     ],
     "W": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
       [
         0,
         0
@@ -600,9 +626,13 @@
       4,
       4,
       4,
+      4,
+      4,
       4
     ],
     "far": [
+      5,
+      5,
       5,
       5,
       5,
@@ -640,50 +670,66 @@
       },
       {
         "construction": "band",
-        "angle": 100,
+        "angle": -68,
         "elbow": {
           "at": 8,
-          "angle": 165
+          "angle": -179
         }
       },
       {
         "construction": "band",
-        "angle": 155,
+        "angle": -142,
         "elbow": {
           "at": 8,
-          "angle": 178
+          "angle": -155
         }
       },
       {
         "construction": "band",
-        "angle": -28,
+        "angle": -142,
         "elbow": {
           "at": 8,
-          "angle": -22
+          "angle": -155
         }
       },
       {
         "construction": "band",
-        "angle": -28,
+        "angle": -27,
         "elbow": {
           "at": 8,
-          "angle": -22
+          "angle": -11
         }
       },
       {
         "construction": "band",
-        "angle": 155,
+        "angle": -27,
         "elbow": {
           "at": 8,
-          "angle": 178
+          "angle": -11
         }
       },
       {
         "construction": "band",
-        "angle": -28,
+        "angle": -142,
         "elbow": {
           "at": 8,
-          "angle": -22
+          "angle": -155
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -27,
+        "elbow": {
+          "at": 8,
+          "angle": -11
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -27,
+        "elbow": {
+          "at": 8,
+          "angle": -11
         }
       },
       {
@@ -714,58 +760,74 @@
       },
       {
         "construction": "band",
-        "angle": -40,
+        "angle": -35,
         "elbow": {
           "at": 8,
-          "angle": -25
+          "angle": -90
         }
       },
       {
         "construction": "band",
-        "angle": -40,
+        "angle": -142,
         "elbow": {
           "at": 8,
-          "angle": -25
+          "angle": -155
         }
       },
       {
         "construction": "band",
-        "angle": -40,
+        "angle": -142,
         "elbow": {
           "at": 8,
-          "angle": -25
+          "angle": -155
         }
       },
       {
         "construction": "band",
-        "angle": -40,
+        "angle": -27,
         "elbow": {
           "at": 8,
-          "angle": -25
+          "angle": -11
         }
       },
       {
         "construction": "band",
-        "angle": -40,
+        "angle": -27,
         "elbow": {
           "at": 8,
-          "angle": -25
+          "angle": -11
         }
       },
       {
         "construction": "band",
-        "angle": -40,
+        "angle": -142,
         "elbow": {
           "at": 8,
-          "angle": -25
+          "angle": -155
         }
       },
       {
         "construction": "band",
-        "angle": -40,
+        "angle": -27,
         "elbow": {
           "at": 8,
-          "angle": -25
+          "angle": -11
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -27,
+        "elbow": {
+          "at": 8,
+          "angle": -11
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -35,
+        "elbow": {
+          "at": 8,
+          "angle": -60
         }
       },
       {
@@ -857,6 +919,8 @@
       "bandFollowsBody": true,
       "sway": {
         "E": [
+          -1,
+          -1,
           -1,
           -1,
           -1,
@@ -1060,7 +1124,9 @@
         5,
         6,
         7,
-        8
+        8,
+        9,
+        10
       ],
       "fps": 12,
       "next": "mountTop"
@@ -1103,6 +1169,10 @@
       },
       {
         "frame": 3,
+        "type": "startup"
+      },
+      {
+        "frame": 4,
         "type": "active",
         "move": "mountKnife",
         "hitbox": [
@@ -1112,10 +1182,6 @@
           8
         ],
         "damage": "medium"
-      },
-      {
-        "frame": 4,
-        "type": "recovery"
       },
       {
         "frame": 5,
@@ -1123,6 +1189,10 @@
       },
       {
         "frame": 6,
+        "type": "recovery"
+      },
+      {
+        "frame": 7,
         "type": "active",
         "move": "mountKnife",
         "hitbox": [
@@ -1134,11 +1204,15 @@
         "damage": "medium"
       },
       {
-        "frame": 7,
+        "frame": 8,
         "type": "recovery"
       },
       {
-        "frame": 8,
+        "frame": 9,
+        "type": "recovery"
+      },
+      {
+        "frame": 10,
         "type": "recovery"
       }
     ],
@@ -1157,6 +1231,10 @@
       },
       {
         "frame": 3,
+        "type": "startup"
+      },
+      {
+        "frame": 4,
         "type": "active",
         "move": "mountKnife",
         "hitbox": [
@@ -1166,10 +1244,6 @@
           8
         ],
         "damage": "medium"
-      },
-      {
-        "frame": 4,
-        "type": "recovery"
       },
       {
         "frame": 5,
@@ -1177,6 +1251,10 @@
       },
       {
         "frame": 6,
+        "type": "recovery"
+      },
+      {
+        "frame": 7,
         "type": "active",
         "move": "mountKnife",
         "hitbox": [
@@ -1188,11 +1266,15 @@
         "damage": "medium"
       },
       {
-        "frame": 7,
+        "frame": 8,
         "type": "recovery"
       },
       {
-        "frame": 8,
+        "frame": 9,
+        "type": "recovery"
+      },
+      {
+        "frame": 10,
         "type": "recovery"
       }
     ]
@@ -1218,50 +1300,66 @@
         },
         {
           "grip": [
-            24,
-            24
-          ],
-          "angle": -110,
-          "z": "front"
-        },
-        {
-          "grip": [
-            30,
-            14
+            41,
+            28
           ],
           "angle": -100,
           "z": "front"
         },
         {
           "grip": [
-            43,
-            49
+            41,
+            18
           ],
-          "angle": -95,
+          "angle": -90,
           "z": "front"
         },
         {
           "grip": [
-            43,
-            49
+            41,
+            18
           ],
-          "angle": -95,
+          "angle": -90,
           "z": "front"
         },
         {
           "grip": [
-            31,
-            14
+            41,
+            50
           ],
-          "angle": -100,
+          "angle": -90,
           "z": "front"
         },
         {
           "grip": [
-            43,
-            49
+            41,
+            50
           ],
-          "angle": -95,
+          "angle": -90,
+          "z": "front"
+        },
+        {
+          "grip": [
+            41,
+            18
+          ],
+          "angle": -90,
+          "z": "front"
+        },
+        {
+          "grip": [
+            41,
+            50
+          ],
+          "angle": -90,
+          "z": "front"
+        },
+        {
+          "grip": [
+            41,
+            50
+          ],
+          "angle": -90,
           "z": "front"
         },
         {

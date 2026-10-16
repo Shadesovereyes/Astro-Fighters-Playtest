@@ -3,7 +3,7 @@
   "body": "male",
   "state": "mountPalm",
   "status": "E/W candidate 2026-10-16 (Sumo Palm from the top of the Mount, paired with mountPalmHit), awaiting user approval; S/N to author",
-  "frames": 8,
+  "frames": 11,
   "fps": 6,
   "sourceDirection": "E",
   "directions": [
@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Sumo Palm while Mounting (sheet: top-control strike): from the mountTop idle the rider sits back and pulls the near hand to the shoulder, then drops the body weight into one straight thrust of the heel of the hand down into the mounted fighter's face, holds it, and settles back to the idle. The rig has no open-hand shape yet, so the hand reads as a fist.",
+  "intent": "Sumo Palm while Mounting (sheet: top-control strike; Christopher 2026-10-16: two strikes): from the mountTop idle the rider pulls the near hand to the shoulder and drops the body weight into a straight thrust of the heel of the hand down into the mounted fighter's face; as the near hand comes back, the far hand leaves its post, chambers and drives the same thrust, then returns to the post. The rig has no open-hand shape yet, so the hands read as fists.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -94,7 +94,10 @@
       8,
       13,
       13,
-      12,
+      10,
+      8,
+      13,
+      13,
       11,
       10
     ],
@@ -104,7 +107,10 @@
       8,
       13,
       13,
-      12,
+      10,
+      8,
+      13,
+      13,
       11,
       10
     ],
@@ -114,7 +120,10 @@
       8,
       14,
       14,
-      13,
+      10,
+      8,
+      14,
+      14,
       11,
       11
     ]
@@ -129,6 +138,9 @@
         -1,
         2,
         2,
+        0,
+        -1,
+        2,
         2,
         1,
         0
@@ -139,7 +151,10 @@
         1,
         11,
         11,
-        10,
+        4,
+        1,
+        11,
+        11,
         6,
         4
       ]
@@ -179,9 +194,33 @@
       [
         0,
         0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
       ]
     ],
     "W": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
       [
         0,
         0
@@ -586,9 +625,15 @@
       4,
       4,
       4,
+      4,
+      4,
+      4,
       4
     ],
     "far": [
+      5,
+      5,
+      5,
       5,
       5,
       5,
@@ -657,18 +702,42 @@
       },
       {
         "construction": "band",
-        "angle": -38,
-        "elbow": {
-          "at": 8,
-          "angle": -42
-        }
-      },
-      {
-        "construction": "band",
         "angle": -25,
         "elbow": {
           "at": 8,
           "angle": -140
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -15,
+        "elbow": {
+          "at": 8,
+          "angle": -150
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -15,
+        "elbow": {
+          "at": 8,
+          "angle": -150
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -15,
+        "elbow": {
+          "at": 8,
+          "angle": -150
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -15,
+        "elbow": {
+          "at": 8,
+          "angle": -150
         }
       },
       {
@@ -723,10 +792,18 @@
       },
       {
         "construction": "band",
-        "angle": -40,
+        "angle": -25,
         "elbow": {
           "at": 8,
-          "angle": -25
+          "angle": 205
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -22,
+        "elbow": {
+          "at": 8,
+          "angle": 200
         }
       },
       {
@@ -734,7 +811,23 @@
         "angle": -40,
         "elbow": {
           "at": 8,
-          "angle": -25
+          "angle": -38
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -40,
+        "elbow": {
+          "at": 8,
+          "angle": -38
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -35,
+        "elbow": {
+          "at": 8,
+          "angle": -60
         }
       },
       {
@@ -826,6 +919,9 @@
       "bandFollowsBody": true,
       "sway": {
         "E": [
+          -1,
+          -1,
+          -1,
           -1,
           -1,
           -1,
@@ -1027,7 +1123,10 @@
         4,
         5,
         6,
-        7
+        7,
+        8,
+        9,
+        10
       ],
       "fps": 12,
       "next": "mountTop"
@@ -1094,6 +1193,26 @@
       },
       {
         "frame": 7,
+        "type": "active",
+        "move": "mountPalm",
+        "hitbox": [
+          4,
+          46,
+          12,
+          10
+        ],
+        "damage": "heavy"
+      },
+      {
+        "frame": 8,
+        "type": "recovery"
+      },
+      {
+        "frame": 9,
+        "type": "recovery"
+      },
+      {
+        "frame": 10,
         "type": "recovery"
       }
     ],
@@ -1136,6 +1255,26 @@
       },
       {
         "frame": 7,
+        "type": "active",
+        "move": "mountPalm",
+        "hitbox": [
+          48,
+          46,
+          12,
+          10
+        ],
+        "damage": "heavy"
+      },
+      {
+        "frame": 8,
+        "type": "recovery"
+      },
+      {
+        "frame": 9,
+        "type": "recovery"
+      },
+      {
+        "frame": 10,
         "type": "recovery"
       }
     ]
