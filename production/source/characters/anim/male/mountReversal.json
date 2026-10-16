@@ -3,7 +3,7 @@
   "body": "male",
   "state": "mountReversal",
   "status": "E/W candidate 2026-10-16 (Wrestler Reversal from the bottom of the Mount), awaiting user approval; S/N to author",
-  "frames": 12,
+  "frames": 15,
   "fps": 6,
   "sourceDirection": "E",
   "directions": [
@@ -94,7 +94,10 @@
       0,
       0,
       0,
-      9,
+      14,
+      12,
+      11,
+      11,
       11,
       10,
       10,
@@ -108,8 +111,11 @@
       0,
       0,
       0,
-      10,
+      15,
+      13,
       12,
+      12,
+      11,
       10,
       10,
       10,
@@ -122,7 +128,10 @@
       0,
       0,
       0,
-      9,
+      14,
+      12,
+      11,
+      11,
       11,
       11,
       11,
@@ -140,7 +149,10 @@
         0,
         2,
         4,
-        3,
+        4,
+        0,
+        0,
+        0,
         0,
         0,
         0,
@@ -155,7 +167,10 @@
         1,
         3,
         4,
+        10,
+        9,
         8,
+        7,
         6,
         5,
         4,
@@ -215,9 +230,33 @@
       [
         0,
         0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
       ]
     ],
     "W": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
       [
         0,
         0
@@ -711,6 +750,9 @@
       6,
       6,
       10,
+      10,
+      8,
+      8,
       8,
       8,
       8,
@@ -725,6 +767,9 @@
       7,
       7,
       11,
+      11,
+      9,
+      9,
       9,
       9,
       9,
@@ -791,6 +836,22 @@
       },
       {
         "construction": "band",
+        "angle": -60,
+        "elbow": {
+          "at": 8,
+          "angle": -40
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -50,
+        "elbow": {
+          "at": 8,
+          "angle": -30
+        }
+      },
+      {
+        "construction": "band",
         "angle": -45,
         "elbow": {
           "at": 8,
@@ -799,10 +860,18 @@
       },
       {
         "construction": "band",
-        "angle": -30,
+        "angle": -35,
         "elbow": {
           "at": 8,
-          "angle": -60
+          "angle": -50
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -28,
+        "elbow": {
+          "at": 8,
+          "angle": -80
         }
       },
       {
@@ -889,10 +958,26 @@
       },
       {
         "construction": "band",
-        "angle": -50,
+        "angle": -65,
+        "elbow": {
+          "at": 8,
+          "angle": -45
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -55,
         "elbow": {
           "at": 8,
           "angle": -35
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -50,
+        "elbow": {
+          "at": 8,
+          "angle": -30
         }
       },
       {
@@ -901,6 +986,14 @@
         "elbow": {
           "at": 8,
           "angle": -30
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -42,
+        "elbow": {
+          "at": 8,
+          "angle": -28
         }
       },
       {
@@ -1023,6 +1116,9 @@
       "bandFollowsBody": true,
       "sway": {
         "E": [
+          -1,
+          -1,
+          -1,
           -1,
           -1,
           -1,
@@ -1301,6 +1397,9 @@
         null,
         null,
         null,
+        null,
+        null,
+        null,
         null
       ]
     },
@@ -1324,6 +1423,9 @@
       0,
       0,
       0,
+      0,
+      0,
+      0,
       0
     ],
     "dx": [
@@ -1338,9 +1440,15 @@
       0,
       0,
       0,
+      0,
+      0,
+      0,
       0
     ],
     "dy": [
+      0,
+      0,
+      0,
       0,
       0,
       0,
@@ -1366,6 +1474,9 @@
       false,
       false,
       false,
+      false,
+      false,
+      false,
       false
     ]
   },
@@ -1384,7 +1495,10 @@
         8,
         9,
         10,
-        11
+        11,
+        12,
+        13,
+        14
       ],
       "fps": 12,
       "next": "mountTop"
@@ -1460,6 +1574,18 @@
       {
         "frame": 11,
         "type": "recovery"
+      },
+      {
+        "frame": 12,
+        "type": "recovery"
+      },
+      {
+        "frame": 13,
+        "type": "recovery"
+      },
+      {
+        "frame": 14,
+        "type": "recovery"
       }
     ],
     "W": [
@@ -1512,6 +1638,18 @@
       },
       {
         "frame": 11,
+        "type": "recovery"
+      },
+      {
+        "frame": 12,
+        "type": "recovery"
+      },
+      {
+        "frame": 13,
+        "type": "recovery"
+      },
+      {
+        "frame": 14,
         "type": "recovery"
       }
     ]

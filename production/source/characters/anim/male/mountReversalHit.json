@@ -3,7 +3,7 @@
   "body": "male",
   "state": "mountReversalHit",
   "status": "E/W candidate 2026-10-16 (top side of the Wrestler Reversal), awaiting user approval; S/N to author",
-  "frames": 12,
+  "frames": 15,
   "fps": 6,
   "sourceDirection": "E",
   "directions": [
@@ -100,6 +100,9 @@
       0,
       0,
       0,
+      0,
+      0,
+      0,
       0
     ],
     "head": [
@@ -114,6 +117,9 @@
       0,
       0,
       0,
+      0,
+      0,
+      0,
       0
     ],
     "arms": [
@@ -122,6 +128,9 @@
       11,
       10,
       9,
+      0,
+      0,
+      0,
       0,
       0,
       0,
@@ -147,6 +156,9 @@
         0,
         0,
         0,
+        0,
+        0,
+        0,
         0
       ],
       "head": [
@@ -156,6 +168,9 @@
         0,
         -3,
         0,
+        1,
+        1,
+        1,
         1,
         1,
         0,
@@ -168,6 +183,18 @@
   "rootMotion": {
     "rule": "in place",
     "E": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
       [
         0,
         0
@@ -265,12 +292,25 @@
       [
         0,
         0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
       ]
     ]
   },
   "airborneFrames": [
     3,
-    4
+    4,
+    5
   ],
   "legs": {
     "source": "The reference near leg (R-thigh, R-shin-foot) of the E frame is replaced by row-span legs. Every leg is outlined; the reference wrap+foot block (R-shin-foot rows 56-63) is reused unchanged by the reference-ankle construction.",
@@ -667,6 +707,9 @@
       6,
       6,
       6,
+      6,
+      6,
+      6,
       6
     ],
     "far": [
@@ -675,6 +718,9 @@
       5,
       5,
       5,
+      7,
+      7,
+      7,
       7,
       7,
       7,
@@ -742,10 +788,34 @@
       },
       {
         "construction": "band",
-        "angle": -80,
+        "angle": -95,
         "elbow": {
           "at": 8,
-          "angle": -160
+          "angle": -175
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -85,
+        "elbow": {
+          "at": 8,
+          "angle": -165
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -78,
+        "elbow": {
+          "at": 8,
+          "angle": -158
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -70,
+        "elbow": {
+          "at": 8,
+          "angle": -150
         }
       },
       {
@@ -840,10 +910,34 @@
       },
       {
         "construction": "band",
-        "angle": -70,
+        "angle": -85,
         "elbow": {
           "at": 8,
-          "angle": -150
+          "angle": -165
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -75,
+        "elbow": {
+          "at": 8,
+          "angle": -155
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -68,
+        "elbow": {
+          "at": 8,
+          "angle": -148
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -60,
+        "elbow": {
+          "at": 8,
+          "angle": -140
         }
       },
       {
@@ -975,6 +1069,9 @@
       "bandFollowsBody": true,
       "sway": {
         "E": [
+          -1,
+          -1,
+          -1,
           -1,
           -1,
           -1,
@@ -1184,7 +1281,10 @@
         8,
         9,
         10,
-        11
+        11,
+        12,
+        13,
+        14
       ],
       "fps": 12,
       "next": "mountBottom"
@@ -1225,6 +1325,9 @@
       270,
       270,
       270,
+      270,
+      270,
+      270,
       270
     ],
     "dx": [
@@ -1239,6 +1342,9 @@
       10,
       10,
       10,
+      10,
+      10,
+      10,
       10
     ],
     "dy": [
@@ -1247,6 +1353,9 @@
       -3,
       -5,
       -6,
+      -3,
+      0,
+      0,
       0,
       0,
       0,
@@ -1261,6 +1370,9 @@
       false,
       false,
       false,
+      true,
+      true,
+      true,
       true,
       true,
       true,
@@ -1348,8 +1460,11 @@
         "squint",
         "squint",
         "squint",
+        "squint",
         "pain",
         "pain",
+        "pain",
+        "squint",
         "squint",
         null,
         null,
@@ -1358,5 +1473,84 @@
       ]
     },
     "intent": "strained: eyes squeezed under the weight"
+  },
+  "fx": {
+    "rule": "a light dust puff where the back meets the ground",
+    "palette": {
+      "W": "#ffffff",
+      "w": "#e3e3e3",
+      "#": "#000000"
+    },
+    "patterns": {
+      "dustBig": [
+        "......##.........##.....",
+        ".....#WW#..##...#WW#....",
+        "..##.#WWw##WW#.#WWWw#.#.",
+        ".#WW##WWwwWWWw##WWwww#W#",
+        "#WWWwWWwwwWWwwwWWWwwwWw#",
+        "#wWWwwwwWWWWwwwwWWwwwww#",
+        "#wwwwwWWWWWWWwwwwwwwwww#",
+        ".#wwwwwwwwwwwwwwwwwwww#.",
+        "..####################.."
+      ],
+      "lines": [
+        "#.....#.....#",
+        ".#....#....#.",
+        "..#...#...#..",
+        "......#......",
+        "...#.....#..."
+      ],
+      "puff": [
+        "..##..",
+        ".#WW#.",
+        "#WWww#",
+        "#wwww#",
+        ".####."
+      ],
+      "speck": [
+        "#w#",
+        ".#."
+      ]
+    },
+    "frames": [
+      {
+        "frame": 6,
+        "splash": [
+          {
+            "pattern": "puff",
+            "at": [
+              8,
+              62
+            ]
+          },
+          {
+            "pattern": "puff",
+            "at": [
+              48,
+              62
+            ]
+          }
+        ]
+      },
+      {
+        "frame": 7,
+        "splash": [
+          {
+            "pattern": "speck",
+            "at": [
+              5,
+              60
+            ]
+          },
+          {
+            "pattern": "speck",
+            "at": [
+              54,
+              60
+            ]
+          }
+        ]
+      }
+    ]
   }
 }

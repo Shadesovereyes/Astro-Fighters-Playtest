@@ -2,8 +2,8 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "clinchHeldSingleLeg",
-  "status": "E/W candidate 2026-10-16 (Single Leg Shot from the held side), awaiting user approval; S/N to author",
-  "frames": 10,
+  "status": "E/W candidate 2026-10-16 (Single Leg Shot from the held side, success (target failed the DC), shooter), awaiting user approval; S/N to author",
+  "frames": 15,
   "fps": 12,
   "sourceDirection": "E",
   "directions": [
@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Single Leg Shot while Grappled (ruling 2026-10-16: legal while held): bent under the collar tie, the held fighter drops under the holder's arms straight to the near leg, lifts it, stands with it and takes the collar tie; the roles swap and it ends Grappling.",
+  "intent": "Single Leg Shot while Grappled, success: bent under the collar tie, the held fighter drops under the holder's arms to the near leg, lifts it, drives through so the holder falls on the back, and lands kneeling astride; ends Mounting.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -96,9 +96,14 @@
       9,
       6,
       3,
-      2,
-      2,
-      1
+      5,
+      8,
+      10,
+      10,
+      10,
+      10,
+      11,
+      11
     ],
     "head": [
       4,
@@ -108,9 +113,14 @@
       10,
       7,
       4,
-      3,
-      2,
-      1
+      5,
+      8,
+      10,
+      10,
+      10,
+      10,
+      11,
+      11
     ],
     "arms": [
       2,
@@ -120,9 +130,14 @@
       8,
       5,
       3,
-      2,
-      2,
-      2
+      5,
+      8,
+      11,
+      11,
+      11,
+      10,
+      11,
+      12
     ]
   },
   "lean": {
@@ -139,7 +154,12 @@
         1,
         1,
         1,
-        1
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
       ],
       "head": [
         5,
@@ -149,8 +169,13 @@
         10,
         8,
         6,
+        8,
+        7,
         6,
         5,
+        4,
+        4,
+        4,
         4
       ]
     }
@@ -180,6 +205,26 @@
       ],
       [
         0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        9,
+        0
+      ],
+      [
+        9,
+        0
+      ],
+      [
+        8,
+        0
+      ],
+      [
+        5,
         0
       ],
       [
@@ -222,6 +267,26 @@
       ],
       [
         0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        -9,
+        0
+      ],
+      [
+        -9,
+        0
+      ],
+      [
+        -8,
+        0
+      ],
+      [
+        -5,
         0
       ],
       [
@@ -727,9 +792,14 @@
       4,
       11,
       3,
-      3,
-      1,
-      1
+      9,
+      11,
+      13,
+      13,
+      13,
+      13,
+      13,
+      13
     ],
     "far": [
       2,
@@ -739,9 +809,14 @@
       6,
       6,
       2,
-      2,
-      0,
-      0
+      10,
+      12,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14
     ]
   },
   "arms": {
@@ -818,26 +893,66 @@
       },
       {
         "construction": "band",
+        "angle": -50,
+        "elbow": {
+          "at": 8,
+          "angle": -50
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -45,
+        "elbow": {
+          "at": 8,
+          "angle": -30
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -40,
+        "elbow": {
+          "at": 8,
+          "angle": -20
+        }
+      },
+      {
+        "construction": "band",
         "angle": -30,
         "elbow": {
           "at": 8,
-          "angle": -10
+          "angle": -60
         }
       },
       {
         "construction": "band",
-        "angle": -60,
+        "angle": -15,
         "elbow": {
           "at": 8,
-          "angle": -90
+          "angle": -150
         }
       },
       {
         "construction": "band",
-        "angle": -82,
+        "angle": -15,
         "elbow": {
           "at": 8,
-          "angle": -118
+          "angle": -150
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -15,
+        "elbow": {
+          "at": 8,
+          "angle": -150
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -15,
+        "elbow": {
+          "at": 8,
+          "angle": -150
         }
       }
     ],
@@ -900,26 +1015,66 @@
       },
       {
         "construction": "band",
-        "angle": -35,
+        "angle": -55,
         "elbow": {
           "at": 8,
-          "angle": -15
+          "angle": -55
         }
       },
       {
         "construction": "band",
-        "angle": -70,
+        "angle": -50,
         "elbow": {
           "at": 8,
-          "angle": -100
+          "angle": -35
         }
       },
       {
         "construction": "band",
-        "angle": -90,
+        "angle": -46,
         "elbow": {
           "at": 8,
-          "angle": -126
+          "angle": -26
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -44,
+        "elbow": {
+          "at": 8,
+          "angle": -26
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -40,
+        "elbow": {
+          "at": 8,
+          "angle": -25
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -40,
+        "elbow": {
+          "at": 8,
+          "angle": -25
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -40,
+        "elbow": {
+          "at": 8,
+          "angle": -25
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -40,
+        "elbow": {
+          "at": 8,
+          "angle": -25
         }
       }
     ],
@@ -1003,6 +1158,11 @@
       "bandFollowsBody": true,
       "sway": {
         "E": [
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
           -1,
           -1,
           -1,
@@ -1196,7 +1356,7 @@
     "looseRule": "from row 40 down, cloth specks of 1-2 px cut off from the garment and outline pixels that no longer border any cloth are removed (they are left between the legs where a direction's own clothing frame does not register exactly with its source's motion)"
   },
   "clips": {
-    "rule": "plays from clinchHeld; the opponent plays clinchHoldSingleLegHit on the same frames; the clip ends in the clinch (next: clinchHold)",
+    "rule": "plays from clinchHeld; the partner plays clinchHoldSingleLegHit on the same frames; the target failed the DC, so it ends in the Mount (next: mountTop)",
     "clinchHeldSingleLeg": {
       "frames": [
         0,
@@ -1208,10 +1368,15 @@
         6,
         7,
         8,
-        9
+        9,
+        10,
+        11,
+        12,
+        13,
+        14
       ],
       "fps": 12,
-      "next": "clinchHold"
+      "next": "mountTop"
     }
   },
   "pair": {
@@ -1226,12 +1391,20 @@
       "clinchHeld arms",
       "clinchHold arms"
     ],
-    "layeringRule": "the shooter takes the holder layers throughout: its arms wrap the caught leg in front",
-    "heldLayeringUntil": 2,
-    "heldLayeringRule": "before this frame the clinch layering roles are reversed (the shooter starts held)"
+    "layeringRule": "the shooter takes the holder layers until the Mount layering starts",
+    "mountLayering": {
+      "fromFrame": 9,
+      "order": [
+        "mountBottom body, clothing, hair, eyes",
+        "mountTop body, clothing, hair, eyes, far arm",
+        "mountBottom arms",
+        "mountTop arms"
+      ]
+    },
+    "heldLayeringUntil": 2
   },
   "events": {
-    "rule": "per-frame gameplay data per facing; the active frame is the leg catch (provisional)",
+    "rule": "per-frame gameplay data per facing; the active frame is the landing (provisional)",
     "E": [
       {
         "frame": 0,
@@ -1251,29 +1424,49 @@
       },
       {
         "frame": 4,
-        "type": "active",
-        "move": "clinchHeldSingleLeg",
-        "damage": "none",
-        "effect": "grapple entry (Grappling / Grappled)"
+        "type": "startup"
       },
       {
         "frame": 5,
-        "type": "recovery"
+        "type": "startup"
       },
       {
         "frame": 6,
-        "type": "recovery"
+        "type": "startup"
       },
       {
         "frame": 7,
-        "type": "recovery"
+        "type": "startup"
       },
       {
         "frame": 8,
-        "type": "recovery"
+        "type": "active",
+        "move": "clinchHeldSingleLeg",
+        "damage": "throw",
+        "effect": "takedown to Mount (user Mounting, target Mounted)"
       },
       {
         "frame": 9,
+        "type": "recovery"
+      },
+      {
+        "frame": 10,
+        "type": "recovery"
+      },
+      {
+        "frame": 11,
+        "type": "recovery"
+      },
+      {
+        "frame": 12,
+        "type": "recovery"
+      },
+      {
+        "frame": 13,
+        "type": "recovery"
+      },
+      {
+        "frame": 14,
         "type": "recovery"
       }
     ],
@@ -1296,29 +1489,49 @@
       },
       {
         "frame": 4,
-        "type": "active",
-        "move": "clinchHeldSingleLeg",
-        "damage": "none",
-        "effect": "grapple entry (Grappling / Grappled)"
+        "type": "startup"
       },
       {
         "frame": 5,
-        "type": "recovery"
+        "type": "startup"
       },
       {
         "frame": 6,
-        "type": "recovery"
+        "type": "startup"
       },
       {
         "frame": 7,
-        "type": "recovery"
+        "type": "startup"
       },
       {
         "frame": 8,
-        "type": "recovery"
+        "type": "active",
+        "move": "clinchHeldSingleLeg",
+        "damage": "throw",
+        "effect": "takedown to Mount (user Mounting, target Mounted)"
       },
       {
         "frame": 9,
+        "type": "recovery"
+      },
+      {
+        "frame": 10,
+        "type": "recovery"
+      },
+      {
+        "frame": 11,
+        "type": "recovery"
+      },
+      {
+        "frame": 12,
+        "type": "recovery"
+      },
+      {
+        "frame": 13,
+        "type": "recovery"
+      },
+      {
+        "frame": 14,
         "type": "recovery"
       }
     ]

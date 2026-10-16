@@ -2,8 +2,8 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "clinchSingleLegHit",
-  "status": "E/W candidate 2026-10-16 (Single Leg Shot from the holder, opponent), awaiting user approval; S/N to author",
-  "frames": 10,
+  "status": "E/W candidate 2026-10-16 (Single Leg Shot from the holder, success (target failed the DC), target), awaiting user approval; S/N to author",
+  "frames": 15,
   "fps": 12,
   "sourceDirection": "E",
   "directions": [
@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Held side of the clinch Single Leg Shot: released from the collar tie the fighter straightens, the near leg is caught and lifted, it hops on the far leg, then is bent back into the collar tie.",
+  "intent": "Held side of the successful clinch Single Leg Shot: released, the near leg is caught and lifted, then the fighter is driven onto the back; ends Mounted.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -96,9 +96,14 @@
       0,
       -1,
       0,
-      -1,
-      1,
-      2
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
     ],
     "head": [
       4,
@@ -108,9 +113,14 @@
       0,
       -1,
       0,
-      -1,
-      2,
-      4
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
     ],
     "arms": [
       2,
@@ -120,9 +130,14 @@
       0,
       -1,
       0,
-      -1,
-      1,
-      2
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
     ]
   },
   "lean": {
@@ -130,6 +145,11 @@
     "torsoShear": true,
     "dx": {
       "pelvis": [
+        0,
+        0,
+        0,
+        0,
+        0,
         0,
         0,
         0,
@@ -149,9 +169,14 @@
         2,
         1,
         2,
-        2,
-        4,
-        5
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
       ]
     }
   },
@@ -197,9 +222,49 @@
       [
         0,
         0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
       ]
     ],
     "W": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
       [
         0,
         0
@@ -660,9 +725,14 @@
       6,
       9,
       9,
-      9,
-      3,
-      3
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4
     ],
     "far": [
       2,
@@ -672,9 +742,14 @@
       8,
       8,
       2,
-      8,
-      2,
-      2
+      5,
+      5,
+      5,
+      5,
+      5,
+      5,
+      5,
+      5
     ]
   },
   "arms": {
@@ -751,6 +826,30 @@
       },
       {
         "construction": "band",
+        "angle": -30,
+        "elbow": {
+          "at": 8,
+          "angle": -150
+        }
+      },
+      {
+        "construction": "band",
+        "angle": 4,
+        "elbow": {
+          "at": 8,
+          "angle": 4
+        }
+      },
+      {
+        "construction": "band",
+        "angle": 4,
+        "elbow": {
+          "at": 8,
+          "angle": 4
+        }
+      },
+      {
+        "construction": "band",
         "angle": -40,
         "elbow": {
           "at": 8,
@@ -759,18 +858,34 @@
       },
       {
         "construction": "band",
-        "angle": -55,
+        "angle": -70,
         "elbow": {
           "at": 8,
-          "angle": -95
+          "angle": -150
         }
       },
       {
         "construction": "band",
-        "angle": -62,
+        "angle": -70,
         "elbow": {
           "at": 8,
-          "angle": -100
+          "angle": -150
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -70,
+        "elbow": {
+          "at": 8,
+          "angle": -150
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -70,
+        "elbow": {
+          "at": 8,
+          "angle": -150
         }
       }
     ],
@@ -833,26 +948,66 @@
       },
       {
         "construction": "band",
-        "angle": 10,
+        "angle": -26,
         "elbow": {
           "at": 8,
-          "angle": -160
+          "angle": -140
         }
       },
       {
         "construction": "band",
-        "angle": -55,
+        "angle": -4,
         "elbow": {
           "at": 8,
-          "angle": -95
+          "angle": -4
         }
       },
       {
         "construction": "band",
-        "angle": -58,
+        "angle": -4,
         "elbow": {
           "at": 8,
-          "angle": -96
+          "angle": -4
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -30,
+        "elbow": {
+          "at": 8,
+          "angle": -110
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -60,
+        "elbow": {
+          "at": 8,
+          "angle": -140
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -60,
+        "elbow": {
+          "at": 8,
+          "angle": -140
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -60,
+        "elbow": {
+          "at": 8,
+          "angle": -140
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -60,
+        "elbow": {
+          "at": 8,
+          "angle": -140
         }
       }
     ],
@@ -936,6 +1091,11 @@
       "bandFollowsBody": true,
       "sway": {
         "E": [
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
           -1,
           -1,
           -1,
@@ -1140,7 +1300,16 @@
       "clinchHeld arms",
       "clinchHold arms"
     ],
-    "layeringRule": "the shooter takes the holder layers throughout: its arms wrap the caught leg in front"
+    "layeringRule": "the shooter takes the holder layers until the Mount layering starts",
+    "mountLayering": {
+      "fromFrame": 9,
+      "order": [
+        "mountBottom body, clothing, hair, eyes",
+        "mountTop body, clothing, hair, eyes, far arm",
+        "mountBottom arms",
+        "mountTop arms"
+      ]
+    }
   },
   "expressions": {
     "rule": "facial expression per frame, drawn in the eye layers (eye, lid, brow and mouth lines only, no skin): coordinates from the top-left of the frame's eye block, x toward the facing; '@dx,dy' keeps the layer's own pixel (the iris colour)",
@@ -1223,14 +1392,94 @@
         "pain",
         "squint",
         "squint",
+        "pain",
+        "pain",
+        "pain",
         "squint",
-        null
+        "squint",
+        "squint",
+        "squint"
       ]
     },
     "intent": "eyes squeeze as the leg is reaped, shut on the landing, strained under the Mount"
   },
+  "bodyRotation": {
+    "rule": "quarter turns only (user ruling 2026-10-15): upright while driven back and reaped; frame 4 is a blur frame already turned flat on the back (270 clockwise in E: the head goes to the back side) but still in the air; from the landing it rests on the ground as in prone",
+    "pivot": [
+      32,
+      44
+    ],
+    "angle": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270
+    ],
+    "dx": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      10,
+      10,
+      10,
+      10,
+      10,
+      10,
+      10,
+      10
+    ],
+    "dy": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      -4,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "groundSnap": [
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ]
+  },
   "clips": {
-    "rule": "plays from clinchHeld; the opponent plays clinchSingleLeg on the same frames; the clip ends in the clinch (next: clinchHeld)",
+    "rule": "plays from clinchHeld; the partner plays clinchSingleLeg on the same frames; the target failed the DC, so it ends in the Mount (next: mountBottom)",
     "clinchSingleLegHit": {
       "frames": [
         0,
@@ -1242,10 +1491,128 @@
         6,
         7,
         8,
-        9
+        9,
+        10,
+        11,
+        12,
+        13,
+        14
       ],
       "fps": 12,
-      "next": "clinchHeld"
+      "next": "mountBottom"
     }
+  },
+  "fx": {
+    "rule": "a smear trails the head through the fall (blur frame); the landing throws a dust cloud with impact lines, which breaks into two puffs and specks",
+    "palette": {
+      "W": "#ffffff",
+      "w": "#e3e3e3",
+      "#": "#000000"
+    },
+    "patterns": {
+      "dustBig": [
+        "......##.........##.....",
+        ".....#WW#..##...#WW#....",
+        "..##.#WWw##WW#.#WWWw#.#.",
+        ".#WW##WWwwWWWw##WWwww#W#",
+        "#WWWwWWwwwWWwwwWWWwwwWw#",
+        "#wWWwwwwWWWWwwwwWWwwwww#",
+        "#wwwwwWWWWWWWwwwwwwwwww#",
+        ".#wwwwwwwwwwwwwwwwwwww#.",
+        "..####################.."
+      ],
+      "lines": [
+        "#.....#.....#",
+        ".#....#....#.",
+        "..#...#...#..",
+        "......#......",
+        "...#.....#..."
+      ],
+      "puff": [
+        "..##..",
+        ".#WW#.",
+        "#WWww#",
+        "#wwww#",
+        ".####."
+      ],
+      "speck": [
+        "#w#",
+        ".#."
+      ]
+    },
+    "frames": [
+      {
+        "frame": 7,
+        "smear": {
+          "from": 10,
+          "to": 80,
+          "radii": [
+            30,
+            29,
+            26,
+            25
+          ],
+          "tail": "w",
+          "head": "W"
+        }
+      },
+      {
+        "frame": 8,
+        "splash": [
+          {
+            "pattern": "dustBig",
+            "at": [
+              18,
+              63
+            ]
+          },
+          {
+            "pattern": "lines",
+            "at": [
+              24,
+              45
+            ]
+          }
+        ]
+      },
+      {
+        "frame": 9,
+        "splash": [
+          {
+            "pattern": "puff",
+            "at": [
+              8,
+              62
+            ]
+          },
+          {
+            "pattern": "puff",
+            "at": [
+              48,
+              62
+            ]
+          }
+        ]
+      },
+      {
+        "frame": 10,
+        "splash": [
+          {
+            "pattern": "speck",
+            "at": [
+              5,
+              60
+            ]
+          },
+          {
+            "pattern": "speck",
+            "at": [
+              54,
+              60
+            ]
+          }
+        ]
+      }
+    ]
   }
 }
