@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "clinchChop",
-  "status": "E/W candidate 2026-10-16 (Judo Chop / Hammer Fist in the clinch, paired with clinchChopHit), awaiting user approval; S/N to author",
+  "status": "E/W approved by user 2026-10-16 (Judo Chop / Hammer Fist in the clinch, paired with clinchChopHit); S/N to author",
   "frames": 9,
   "fps": 12,
   "sourceDirection": "E",
@@ -961,5 +961,9 @@
         "type": "recovery"
       }
     ]
+  },
+  "approved": {
+    "E": "2026-10-16",
+    "W": "2026-10-16 (mirror of E)"
   }
 }

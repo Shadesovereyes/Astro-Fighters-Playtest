@@ -920,5 +920,85 @@
         "type": "recovery"
       }
     ]
+  },
+  "fx": {
+    "rule": "impact flash where the heads meet (Christopher 2026-10-16): a white burst with rays on contact, a small star the next frame, specks after; top: drawn over both fighters",
+    "top": true,
+    "palette": {
+      "W": "#ffffff",
+      "w": "#e3e3e3",
+      "#": "#000000"
+    },
+    "patterns": {
+      "flash": [
+        ".....#.....",
+        ".#...W...#.",
+        "..W..W..W..",
+        "...wWWWw...",
+        "...WWWWW...",
+        "#WWWWWWWWW#",
+        "...WWWWW...",
+        "...wWWWw...",
+        "..W..W..W..",
+        ".#...W...#.",
+        ".....#....."
+      ],
+      "flashSmall": [
+        "..#..",
+        ".#W#.",
+        "#WWW#",
+        ".#W#.",
+        "..#.."
+      ],
+      "speck": [
+        "#w#",
+        ".#."
+      ]
+    },
+    "frames": [
+      {
+        "frame": 3,
+        "splash": [
+          {
+            "pattern": "flash",
+            "at": [
+              41,
+              19
+            ]
+          }
+        ]
+      },
+      {
+        "frame": 4,
+        "splash": [
+          {
+            "pattern": "flashSmall",
+            "at": [
+              43,
+              21
+            ]
+          }
+        ]
+      },
+      {
+        "frame": 5,
+        "splash": [
+          {
+            "pattern": "speck",
+            "at": [
+              40,
+              20
+            ]
+          },
+          {
+            "pattern": "speck",
+            "at": [
+              47,
+              23
+            ]
+          }
+        ]
+      }
+    ]
   }
 }
