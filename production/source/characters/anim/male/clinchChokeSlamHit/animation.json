@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-animation-output/v1",
   "body": "male",
   "state": "clinchChokeSlamHit",
-  "status": "E/W candidate 2026-10-16 (paired with clinchChokeSlam; returns to the clinch), awaiting user approval; S/N to author",
+  "status": "E/W approved by user 2026-10-16 (held side of Choke Slam, paired with clinchChokeSlam; returns to the clinch); S/N to author",
   "frames": 14,
   "fps": 12,
   "frameSize": [

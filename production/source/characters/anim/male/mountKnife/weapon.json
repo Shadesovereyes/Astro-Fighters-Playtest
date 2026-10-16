@@ -29,7 +29,7 @@
       "layers": {
         "front": "main-tanto-front.png"
       },
-      "status": "E/W candidate 2026-10-16 (Viper Strike (knife) from the top of the Mount, paired with mountKnifeHit), awaiting user approval; S/N to author",
+      "status": "E/W candidate 2026-10-16 (Viper Strike (knife) from the top of the Mount in Kyoketsu-Shoge Stance, paired with mountKnifeHit), awaiting user approval; S/N to author",
       "z": {
         "E": [
           "front",
@@ -61,16 +61,12 @@
       "grips": {
         "E": [
           [
-            40,
-            36
+            44,
+            44
           ],
           [
             41,
-            28
-          ],
-          [
-            41,
-            18
+            30
           ],
           [
             41,
@@ -78,10 +74,14 @@
           ],
           [
             41,
+            18
+          ],
+          [
+            43,
             50
           ],
           [
-            41,
+            43,
             50
           ],
           [
@@ -89,34 +89,30 @@
             18
           ],
           [
-            41,
+            43,
             50
           ],
           [
-            41,
+            43,
             50
           ],
           [
             42,
-            36
+            37
           ],
           [
-            40,
-            36
+            44,
+            44
           ]
         ],
         "W": [
           [
-            23,
-            36
+            19,
+            44
           ],
           [
             22,
-            28
-          ],
-          [
-            22,
-            18
+            30
           ],
           [
             22,
@@ -124,10 +120,14 @@
           ],
           [
             22,
+            18
+          ],
+          [
+            20,
             50
           ],
           [
-            22,
+            20,
             50
           ],
           [
@@ -135,20 +135,20 @@
             18
           ],
           [
-            22,
+            20,
             50
           ],
           [
-            22,
+            20,
             50
           ],
           [
             21,
-            36
+            37
           ],
           [
-            23,
-            36
+            19,
+            44
           ]
         ]
       }

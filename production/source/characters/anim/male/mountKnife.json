@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "mountKnife",
-  "status": "E/W candidate 2026-10-16 (Viper Strike (knife) from the top of the Mount, paired with mountKnifeHit), awaiting user approval; S/N to author",
+  "status": "E/W candidate 2026-10-16 (Viper Strike (knife) from the top of the Mount in Kyoketsu-Shoge Stance, paired with mountKnifeHit), awaiting user approval; S/N to author",
   "frames": 11,
   "fps": 6,
   "sourceDirection": "E",
@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Knife stab while Mounting (audit 2026-10-16: kept on top, banned from the bottom; Christopher 2026-10-16: two hands on the knife): the far hand leaves its post and joins the near hand on the tanto handle; both hands raise it in front of the face, blade down, and drive it straight down into the mounted fighter's chest, twice, then the far hand returns to the post.",
+  "intent": "Knife stab while Mounting (audit 2026-10-16: kept on top, banned from the bottom; Christopher 2026-10-16: two hands on the knife, from the Mount-top tanto stance): from mountTopTantoGuard the far hand leaves its post and joins the near hand on the handle; both hands raise the tanto in front of the face with the blade pointing forward and down at the mounted fighter, then drive it straight down into the chest, twice, and settle back into the stance.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -146,17 +146,17 @@
         0
       ],
       "head": [
-        4,
-        3,
-        2,
-        2,
-        8,
-        8,
-        2,
-        8,
-        8,
         5,
-        4
+        4,
+        2,
+        2,
+        8,
+        8,
+        2,
+        8,
+        8,
+        6,
+        5
       ]
     }
   },
@@ -662,27 +662,21 @@
     "near": [
       {
         "construction": "band",
-        "angle": -15,
+        "angle": -25,
         "elbow": {
           "at": 8,
-          "angle": -150
-        }
+          "angle": -70
+        },
+        "fistKind": "forward"
       },
       {
         "construction": "band",
-        "angle": -68,
+        "angle": -52,
         "elbow": {
           "at": 8,
-          "angle": -179
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -142,
-        "elbow": {
-          "at": 8,
-          "angle": -155
-        }
+          "angle": -174
+        },
+        "fistKind": "forward"
       },
       {
         "construction": "band",
@@ -690,23 +684,8 @@
         "elbow": {
           "at": 8,
           "angle": -155
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -27,
-        "elbow": {
-          "at": 8,
-          "angle": -11
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -27,
-        "elbow": {
-          "at": 8,
-          "angle": -11
-        }
+        },
+        "fistKind": "forward"
       },
       {
         "construction": "band",
@@ -714,7 +693,8 @@
         "elbow": {
           "at": 8,
           "angle": -155
-        }
+        },
+        "fistKind": "forward"
       },
       {
         "construction": "band",
@@ -722,7 +702,8 @@
         "elbow": {
           "at": 8,
           "angle": -11
-        }
+        },
+        "fistKind": "forward"
       },
       {
         "construction": "band",
@@ -730,23 +711,53 @@
         "elbow": {
           "at": 8,
           "angle": -11
-        }
+        },
+        "fistKind": "forward"
+      },
+      {
+        "construction": "band",
+        "angle": -142,
+        "elbow": {
+          "at": 8,
+          "angle": -155
+        },
+        "fistKind": "forward"
+      },
+      {
+        "construction": "band",
+        "angle": -27,
+        "elbow": {
+          "at": 8,
+          "angle": -11
+        },
+        "fistKind": "forward"
+      },
+      {
+        "construction": "band",
+        "angle": -27,
+        "elbow": {
+          "at": 8,
+          "angle": -11
+        },
+        "fistKind": "forward"
+      },
+      {
+        "construction": "band",
+        "angle": -111,
+        "elbow": {
+          "at": 8,
+          "angle": 12
+        },
+        "fistKind": "forward"
       },
       {
         "construction": "band",
         "angle": -25,
         "elbow": {
           "at": 8,
-          "angle": -140
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -15,
-        "elbow": {
-          "at": 8,
-          "angle": -150
-        }
+          "angle": -70
+        },
+        "fistKind": "forward"
       }
     ],
     "far": [
@@ -772,7 +783,8 @@
         "elbow": {
           "at": 8,
           "angle": -155
-        }
+        },
+        "fistKind": "forward"
       },
       {
         "construction": "band",
@@ -780,7 +792,8 @@
         "elbow": {
           "at": 8,
           "angle": -155
-        }
+        },
+        "fistKind": "forward"
       },
       {
         "construction": "band",
@@ -788,7 +801,8 @@
         "elbow": {
           "at": 8,
           "angle": -11
-        }
+        },
+        "fistKind": "forward"
       },
       {
         "construction": "band",
@@ -796,7 +810,8 @@
         "elbow": {
           "at": 8,
           "angle": -11
-        }
+        },
+        "fistKind": "forward"
       },
       {
         "construction": "band",
@@ -804,7 +819,8 @@
         "elbow": {
           "at": 8,
           "angle": -155
-        }
+        },
+        "fistKind": "forward"
       },
       {
         "construction": "band",
@@ -812,7 +828,8 @@
         "elbow": {
           "at": 8,
           "angle": -11
-        }
+        },
+        "fistKind": "forward"
       },
       {
         "construction": "band",
@@ -820,7 +837,8 @@
         "elbow": {
           "at": 8,
           "angle": -11
-        }
+        },
+        "fistKind": "forward"
       },
       {
         "construction": "band",
@@ -1113,7 +1131,7 @@
     "looseRule": "from row 40 down, cloth specks of 1-2 px cut off from the garment and outline pixels that no longer border any cloth are removed (they are left between the legs where a direction's own clothing frame does not register exactly with its source's motion)"
   },
   "clips": {
-    "rule": "plays from mountTop and returns to it; the partner plays mountKnifeHit on the same frames",
+    "rule": "plays from mountTopTantoGuard and returns to it; the partner plays mountKnifeHit on the same frames",
     "mountKnife": {
       "frames": [
         0,
@@ -1129,7 +1147,7 @@
         10
       ],
       "fps": 12,
-      "next": "mountTop"
+      "next": "mountTopTantoGuard"
     }
   },
   "pair": {
@@ -1286,32 +1304,24 @@
       "items": [
         "tanto"
       ],
-      "status": "E/W candidate 2026-10-16 (Viper Strike (knife) from the top of the Mount, paired with mountKnifeHit), awaiting user approval; S/N to author",
+      "status": "E/W candidate 2026-10-16 (Viper Strike (knife) from the top of the Mount in Kyoketsu-Shoge Stance, paired with mountKnifeHit), awaiting user approval; S/N to author",
       "rule": "per frame: grip = pixel at the centre of the near fist (snapped to the rendered fist), angle = blade direction in degrees above the facing horizontal, z = depth slot",
       "depthRule": "front: drawn over body and clothing, under the arms layer (the fist closes over the hilt)",
       "E": [
         {
           "grip": [
-            40,
-            36
+            44,
+            44
           ],
-          "angle": -120,
+          "angle": -55,
           "z": "front"
         },
         {
           "grip": [
             41,
-            28
+            30
           ],
-          "angle": -100,
-          "z": "front"
-        },
-        {
-          "grip": [
-            41,
-            18
-          ],
-          "angle": -90,
+          "angle": -50,
           "z": "front"
         },
         {
@@ -1319,23 +1329,7 @@
             41,
             18
           ],
-          "angle": -90,
-          "z": "front"
-        },
-        {
-          "grip": [
-            41,
-            50
-          ],
-          "angle": -90,
-          "z": "front"
-        },
-        {
-          "grip": [
-            41,
-            50
-          ],
-          "angle": -90,
+          "angle": -45,
           "z": "front"
         },
         {
@@ -1343,39 +1337,63 @@
             41,
             18
           ],
-          "angle": -90,
+          "angle": -45,
+          "z": "front"
+        },
+        {
+          "grip": [
+            43,
+            50
+          ],
+          "angle": -85,
+          "z": "front"
+        },
+        {
+          "grip": [
+            43,
+            50
+          ],
+          "angle": -88,
           "z": "front"
         },
         {
           "grip": [
             41,
-            50
+            18
           ],
-          "angle": -90,
+          "angle": -45,
           "z": "front"
         },
         {
           "grip": [
-            41,
+            43,
             50
           ],
-          "angle": -90,
+          "angle": -85,
+          "z": "front"
+        },
+        {
+          "grip": [
+            43,
+            50
+          ],
+          "angle": -88,
           "z": "front"
         },
         {
           "grip": [
             42,
-            36
+            37
           ],
-          "angle": -110,
+          "angle": -60,
           "z": "front"
         },
         {
           "grip": [
-            40,
-            36
+            44,
+            44
           ],
-          "angle": -120,
+          "angle": -55,
           "z": "front"
         }
       ],

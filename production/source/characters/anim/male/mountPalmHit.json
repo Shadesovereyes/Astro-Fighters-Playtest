@@ -497,34 +497,34 @@
       },
       {
         "construction": "band",
-        "angle": -75,
+        "angle": -30,
         "elbow": {
           "at": 8,
-          "angle": -158
+          "angle": -100
         }
       },
       {
         "construction": "band",
-        "angle": -40,
+        "angle": -10,
         "elbow": {
           "at": 8,
-          "angle": -120
+          "angle": -50
         }
       },
       {
         "construction": "band",
-        "angle": -45,
+        "angle": -12,
         "elbow": {
           "at": 8,
-          "angle": -125
+          "angle": -55
         }
       },
       {
         "construction": "band",
-        "angle": -65,
+        "angle": -50,
         "elbow": {
           "at": 8,
-          "angle": -145
+          "angle": -130
         }
       },
       {
