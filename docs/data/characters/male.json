@@ -10285,6 +10285,345 @@
         }
       }
     },
+    "knockout": {
+      "frames": 10,
+      "fps": 12,
+      "rows": [
+        "E",
+        "W"
+      ],
+      "status": "E/W candidate 2026-10-16 (knockout: the defeating hit drops the fighter into downed), awaiting user approval; S/N to author",
+      "rootMotion": {
+        "E": [
+          [
+            -2,
+            0
+          ],
+          [
+            -1,
+            0
+          ],
+          [
+            -1,
+            0
+          ],
+          [
+            -1,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            -2
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "W": [
+          [
+            2,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            -2
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "layers": {
+        "body": "assets/characters/male/knockout/body.png",
+        "arms": "assets/characters/male/knockout/arms.png",
+        "long-hair": "assets/characters/male/knockout/long-hair.png",
+        "fade-hair": "assets/characters/male/knockout/fade-hair.png",
+        "afro-hair": "assets/characters/male/knockout/afro-hair.png",
+        "brown-eyes": "assets/characters/male/knockout/brown-eyes.png",
+        "purple-eyes": "assets/characters/male/knockout/purple-eyes.png",
+        "male-gi": "assets/characters/male/knockout/male-gi.png",
+        "male-blue-armor": "assets/characters/male/knockout/male-blue-armor.png",
+        "male-red-armor": "assets/characters/male/knockout/male-red-armor.png",
+        "blue-armor-shoulders": "assets/characters/male/knockout/blue-armor-shoulders.png",
+        "red-armor-shoulders": "assets/characters/male/knockout/red-armor-shoulders.png",
+        "far-arm": "assets/characters/male/knockout/far-arm.png",
+        "fx": "assets/characters/male/knockout/fx.png"
+      },
+      "clips": {
+        "rule": "played on the defeating hit in place of hitReact; ends in the downed loop",
+        "knockout": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
+          "fps": 12,
+          "next": "downed"
+        }
+      }
+    },
+    "cast": {
+      "frames": 9,
+      "fps": 12,
+      "rows": [
+        "E",
+        "W"
+      ],
+      "status": "E/W candidate 2026-10-16 (generic spell cast: seal, charge, palm release), awaiting user approval; S/N to author",
+      "rootMotion": {
+        "E": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            -1,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "W": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            -1,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "layers": {
+        "body": "assets/characters/male/cast/body.png",
+        "arms": "assets/characters/male/cast/arms.png",
+        "long-hair": "assets/characters/male/cast/long-hair.png",
+        "fade-hair": "assets/characters/male/cast/fade-hair.png",
+        "afro-hair": "assets/characters/male/cast/afro-hair.png",
+        "brown-eyes": "assets/characters/male/cast/brown-eyes.png",
+        "purple-eyes": "assets/characters/male/cast/purple-eyes.png",
+        "male-gi": "assets/characters/male/cast/male-gi.png",
+        "male-blue-armor": "assets/characters/male/cast/male-blue-armor.png",
+        "male-red-armor": "assets/characters/male/cast/male-red-armor.png",
+        "blue-armor-shoulders": "assets/characters/male/cast/blue-armor-shoulders.png",
+        "red-armor-shoulders": "assets/characters/male/cast/red-armor-shoulders.png",
+        "fx": "assets/characters/male/cast/fx.png"
+      },
+      "clips": {
+        "rule": "played for any ability tagged as a spell or chakra technique that has no clip of its own; returns to guard",
+        "cast": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "fps": 12,
+          "next": "guard"
+        }
+      },
+      "events": {
+        "rule": "per-frame gameplay data per facing; the projectile or effect starts on the release frame from the palm",
+        "E": [
+          {
+            "frame": 0,
+            "type": "startup"
+          },
+          {
+            "frame": 1,
+            "type": "startup"
+          },
+          {
+            "frame": 2,
+            "type": "startup"
+          },
+          {
+            "frame": 3,
+            "type": "startup"
+          },
+          {
+            "frame": 4,
+            "type": "startup"
+          },
+          {
+            "frame": 5,
+            "type": "active",
+            "move": "cast",
+            "release": [
+              52,
+              22
+            ]
+          },
+          {
+            "frame": 6,
+            "type": "recovery"
+          },
+          {
+            "frame": 7,
+            "type": "recovery"
+          },
+          {
+            "frame": 8,
+            "type": "recovery"
+          }
+        ],
+        "W": [
+          {
+            "frame": 0,
+            "type": "startup"
+          },
+          {
+            "frame": 1,
+            "type": "startup"
+          },
+          {
+            "frame": 2,
+            "type": "startup"
+          },
+          {
+            "frame": 3,
+            "type": "startup"
+          },
+          {
+            "frame": 4,
+            "type": "startup"
+          },
+          {
+            "frame": 5,
+            "type": "active",
+            "move": "cast",
+            "release": [
+              12,
+              22
+            ]
+          },
+          {
+            "frame": 6,
+            "type": "recovery"
+          },
+          {
+            "frame": 7,
+            "type": "recovery"
+          },
+          {
+            "frame": 8,
+            "type": "recovery"
+          }
+        ]
+      }
+    },
     "clinchSweepingShoulder": {
       "frames": 12,
       "fps": 12,
