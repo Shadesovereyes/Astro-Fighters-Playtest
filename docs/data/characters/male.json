@@ -14669,15 +14669,23 @@
       }
     },
     "mountBottomElbow": {
-      "frames": 8,
+      "frames": 10,
       "fps": 6,
       "rows": [
         "E",
         "W"
       ],
-      "status": "E/W candidate 2026-10-15 (Elbow Strike from the bottom of Mount, paired with mountBottomElbowHit), awaiting user approval; S/N to author",
+      "status": "E/W candidate 2026-10-15 (Elbow Strike from the bottom of Mount, paired with mountBottomElbowHit; revisit 2026-10-16), awaiting user approval; S/N to author",
       "rootMotion": {
         "E": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
           [
             0,
             0
@@ -14712,6 +14720,14 @@
           ]
         ],
         "W": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
           [
             0,
             0
@@ -14771,7 +14787,9 @@
             4,
             5,
             6,
-            7
+            7,
+            8,
+            9
           ],
           "fps": 12,
           "next": "mountBottom"
@@ -14794,13 +14812,13 @@
           },
           {
             "frame": 3,
-            "type": "active",
-            "move": "Elbow Strike",
-            "effect": "Accuracy-based Bleed DoT"
+            "type": "startup"
           },
           {
             "frame": 4,
-            "type": "recovery"
+            "type": "active",
+            "move": "Elbow Strike",
+            "effect": "Accuracy-based Bleed DoT"
           },
           {
             "frame": 5,
@@ -14812,6 +14830,14 @@
           },
           {
             "frame": 7,
+            "type": "recovery"
+          },
+          {
+            "frame": 8,
+            "type": "recovery"
+          },
+          {
+            "frame": 9,
             "type": "recovery"
           }
         ],
@@ -14830,13 +14856,13 @@
           },
           {
             "frame": 3,
-            "type": "active",
-            "move": "Elbow Strike",
-            "effect": "Accuracy-based Bleed DoT"
+            "type": "startup"
           },
           {
             "frame": 4,
-            "type": "recovery"
+            "type": "active",
+            "move": "Elbow Strike",
+            "effect": "Accuracy-based Bleed DoT"
           },
           {
             "frame": 5,
@@ -14849,6 +14875,14 @@
           {
             "frame": 7,
             "type": "recovery"
+          },
+          {
+            "frame": 8,
+            "type": "recovery"
+          },
+          {
+            "frame": 9,
+            "type": "recovery"
           }
         ],
         "tactical": {
@@ -14857,15 +14891,23 @@
       }
     },
     "mountBottomElbowHit": {
-      "frames": 8,
+      "frames": 10,
       "fps": 6,
       "rows": [
         "E",
         "W"
       ],
-      "status": "E/W candidate 2026-10-15 (top side of the bottom Elbow Strike, paired with mountBottomElbow), awaiting user approval; S/N to author",
+      "status": "E/W candidate 2026-10-15 (top side of the bottom Elbow Strike, paired with mountBottomElbow; revisit 2026-10-16), awaiting user approval; S/N to author",
       "rootMotion": {
         "E": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
           [
             0,
             0
@@ -14900,6 +14942,14 @@
           ]
         ],
         "W": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
           [
             0,
             0
@@ -14961,7 +15011,9 @@
             4,
             5,
             6,
-            7
+            7,
+            8,
+            9
           ],
           "fps": 12,
           "next": "mountTop"
@@ -14975,7 +15027,7 @@
         "E",
         "W"
       ],
-      "status": "E/W candidate 2026-10-15 (Arm bar from the top of Mount, paired with mountArmbarHit), awaiting user approval; S/N to author",
+      "status": "E/W candidate 2026-10-15 (Arm bar from the top of Mount, paired with mountArmbarHit; revisit 2026-10-16), awaiting user approval; S/N to author",
       "rootMotion": {
         "E": [
           [
@@ -15205,7 +15257,7 @@
         "E",
         "W"
       ],
-      "status": "E/W candidate 2026-10-15 (mounted side of the top Arm bar, paired with mountArmbar), awaiting user approval; S/N to author",
+      "status": "E/W candidate 2026-10-15 (mounted side of the top Arm bar, paired with mountArmbar; revisit 2026-10-16), awaiting user approval; S/N to author",
       "rootMotion": {
         "E": [
           [

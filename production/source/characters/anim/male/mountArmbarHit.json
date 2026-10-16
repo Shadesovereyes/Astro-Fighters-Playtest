@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "mountArmbarHit",
-  "status": "E/W approved by user 2026-10-16 (mounted side of the top Arm bar, paired with mountArmbar); flagged by user to revisit later; S/N to author",
+  "status": "E/W candidate 2026-10-15 (mounted side of the top Arm bar, paired with mountArmbar; revisit 2026-10-16), awaiting user approval; S/N to author",
   "frames": 10,
   "fps": 6,
   "sourceDirection": "E",
@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "The mounted fighter's side of the top Arm bar: the near arm is caught at the wrist and forced straight above the head while the far hand pushes at the top fighter's hip to defend, pain eyes; frames 6-9 loop (armbarTrapped) while the submission is maintained.",
+  "intent": "The mounted fighter's side of the top Arm bar: the near arm is caught at the wrist and forced straight up above the head while the far hand pushes at the rider's hip to defend, pain eyes and strain marks at the elbow on each crank; frames 6-9 loop (armbarTrapped) while the submission is maintained.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -442,15 +442,7 @@
       },
       {
         "construction": "band",
-        "angle": -110,
-        "elbow": {
-          "at": 8,
-          "angle": -140
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -140,
+        "angle": -95,
         "elbow": {
           "at": 8,
           "angle": -150
@@ -458,10 +450,10 @@
       },
       {
         "construction": "band",
-        "angle": -135,
+        "angle": -120,
         "elbow": {
           "at": 8,
-          "angle": -139
+          "angle": -145
         }
       },
       {
@@ -469,7 +461,7 @@
         "angle": -135,
         "elbow": {
           "at": 8,
-          "angle": -139
+          "angle": -135
         }
       },
       {
@@ -477,7 +469,15 @@
         "angle": -135,
         "elbow": {
           "at": 8,
-          "angle": -141
+          "angle": -135
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -130,
+        "elbow": {
+          "at": 8,
+          "angle": -130
         }
       },
       {
@@ -485,7 +485,15 @@
         "angle": -135,
         "elbow": {
           "at": 8,
-          "angle": -139
+          "angle": -135
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -130,
+        "elbow": {
+          "at": 8,
+          "angle": -130
         }
       },
       {
@@ -493,23 +501,15 @@
         "angle": -135,
         "elbow": {
           "at": 8,
-          "angle": -141
+          "angle": -135
         }
       },
       {
         "construction": "band",
-        "angle": -135,
+        "angle": -130,
         "elbow": {
           "at": 8,
-          "angle": -139
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -135,
-        "elbow": {
-          "at": 8,
-          "angle": -141
+          "angle": -130
         }
       }
     ],
@@ -527,7 +527,7 @@
         "angle": -70,
         "elbow": {
           "at": 8,
-          "angle": -160
+          "angle": -150
         }
       },
       {
@@ -535,63 +535,63 @@
         "angle": -80,
         "elbow": {
           "at": 8,
-          "angle": -150
+          "angle": -140
         }
       },
       {
         "construction": "band",
-        "angle": -90,
+        "angle": -40,
         "elbow": {
           "at": 8,
-          "angle": -150
+          "angle": -60
         }
       },
       {
         "construction": "band",
-        "angle": -95,
+        "angle": -38,
         "elbow": {
           "at": 8,
-          "angle": -150
+          "angle": -58
         }
       },
       {
         "construction": "band",
-        "angle": -100,
+        "angle": -42,
         "elbow": {
           "at": 8,
-          "angle": -150
+          "angle": -62
         }
       },
       {
         "construction": "band",
-        "angle": -95,
+        "angle": -38,
         "elbow": {
           "at": 8,
-          "angle": -150
+          "angle": -58
         }
       },
       {
         "construction": "band",
-        "angle": -100,
+        "angle": -42,
         "elbow": {
           "at": 8,
-          "angle": -150
+          "angle": -62
         }
       },
       {
         "construction": "band",
-        "angle": -95,
+        "angle": -38,
         "elbow": {
           "at": 8,
-          "angle": -150
+          "angle": -58
         }
       },
       {
         "construction": "band",
-        "angle": -100,
+        "angle": -42,
         "elbow": {
           "at": 8,
-          "angle": -150
+          "angle": -62
         }
       }
     ],
@@ -941,7 +941,7 @@
       "E": [
         null,
         "squint",
-        "squint",
+        "pain",
         "pain",
         "pain",
         "pain",
@@ -1055,7 +1055,8 @@
     }
   },
   "fx": {
-    "rule": "strain marks at the locked elbow while the arm bar is held",
+    "rule": "strain marks at the locked elbow while the arm bar is cranked",
+    "top": true,
     "frames": [
       {
         "frame": 5,
@@ -1063,8 +1064,8 @@
           {
             "pattern": "strain",
             "at": [
-              18,
-              52
+              14,
+              44
             ]
           }
         ]
@@ -1075,8 +1076,8 @@
           {
             "pattern": "strain",
             "at": [
-              18,
-              52
+              14,
+              44
             ]
           }
         ]
@@ -1087,8 +1088,8 @@
           {
             "pattern": "strain",
             "at": [
-              18,
-              52
+              14,
+              44
             ]
           }
         ]
