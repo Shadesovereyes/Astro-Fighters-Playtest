@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "clinchHeldPalm",
-  "status": "E/W approved by user 2026-10-16 (Sumo Palm from the held side of the clinch, paired with clinchHoldPalmHit); S/N to author",
+  "status": "E/W approved by user 2026-10-16 (Sumo Palm from the held side of the clinch, paired with clinchHoldPalmHit); S/N to author; open-hand revision 2026-10-16 is a candidate awaiting user approval",
   "frames": 8,
   "fps": 12,
   "sourceDirection": "E",
@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Sumo Palm while Grappled: the held fighter sinks, then drives up off the legs with a straight thrust of the heel of the hand under the holder's chin, shoving the head back; the far hand stays on the chest.",
+  "intent": "Sumo Palm while Grappled: the held fighter sinks, then drives up off the legs with a straight thrust of the heel of the hand under the holder's chin, shoving the head back; the far hand stays on the chest. The striking hand is open (palmUp/palmDown hand shapes, user 2026-10-16) from the chamber through the strike.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -416,7 +416,8 @@
         "elbow": {
           "at": 8,
           "angle": 220
-        }
+        },
+        "fistKind": "palm"
       },
       {
         "construction": "band",
@@ -424,7 +425,8 @@
         "elbow": {
           "at": 8,
           "angle": 210
-        }
+        },
+        "fistKind": "palm"
       },
       {
         "construction": "band",
@@ -432,7 +434,8 @@
         "elbow": {
           "at": 8,
           "angle": -118
-        }
+        },
+        "fistKind": "palm"
       },
       {
         "construction": "band",
@@ -440,7 +443,8 @@
         "elbow": {
           "at": 8,
           "angle": -118
-        }
+        },
+        "fistKind": "palm"
       },
       {
         "construction": "band",
@@ -448,7 +452,8 @@
         "elbow": {
           "at": 8,
           "angle": -118
-        }
+        },
+        "fistKind": "palm"
       },
       {
         "construction": "band",
@@ -456,7 +461,8 @@
         "elbow": {
           "at": 8,
           "angle": -110
-        }
+        },
+        "fistKind": "palm"
       },
       {
         "construction": "band",
@@ -591,6 +597,35 @@
           "LLmLLs",
           "mLLLms",
           ".sDDs."
+        ]
+      },
+      "palmUp": {
+        "use": "open hand, heel of the palm leading a forward thrust, fingers up and bent slightly back (palm strikes)",
+        "anchor": [
+          0,
+          4
+        ],
+        "rows": [
+          "Lm..",
+          "LLm.",
+          "LLm.",
+          "LLLm",
+          "LLLm",
+          "mLLs",
+          ".sDs"
+        ]
+      },
+      "palmDown": {
+        "use": "open hand, heel of the palm leading a downward thrust, fingers pointing forward (palm strikes from Mount)",
+        "anchor": [
+          0,
+          1
+        ],
+        "rows": [
+          "mLLLLm.",
+          "LLLLLLm",
+          "mLLms..",
+          ".sDs..."
         ]
       }
     },

@@ -13405,7 +13405,7 @@
         "E",
         "W"
       ],
-      "status": "E/W candidate 2026-10-15 (Ground and Pound from Mount, paired with mountGroundPoundHit), awaiting user approval; S/N to author",
+      "status": "E/W approved by user 2026-10-16 (Ground and Pound from Mount, paired with mountGroundPoundHit); S/N to author",
       "rootMotion": {
         "E": [
           [
@@ -13632,7 +13632,7 @@
         "E",
         "W"
       ],
-      "status": "E/W candidate 2026-10-15 (mounted side of Ground and Pound, paired with mountGroundPound), awaiting user approval; S/N to author",
+      "status": "E/W approved by user 2026-10-16 (mounted side of Ground and Pound, paired with mountGroundPound); S/N to author",
       "rootMotion": {
         "E": [
           [
@@ -14075,7 +14075,7 @@
         "E",
         "W"
       ],
-      "status": "E/W candidate 2026-10-15 (Headbutt from the bottom of Mount, paired with mountBottomHeadbuttHit), awaiting user approval; S/N to author",
+      "status": "E/W approved by user 2026-10-16 (Headbutt from the bottom of Mount, paired with mountBottomHeadbuttHit); S/N to author",
       "rootMotion": {
         "E": [
           [
@@ -14263,7 +14263,7 @@
         "E",
         "W"
       ],
-      "status": "E/W candidate 2026-10-15 (top side of the bottom Headbutt, paired with mountBottomHeadbutt), awaiting user approval; S/N to author",
+      "status": "E/W approved by user 2026-10-16 (top side of the bottom Headbutt, paired with mountBottomHeadbutt); S/N to author",
       "rootMotion": {
         "E": [
           [
@@ -14375,7 +14375,7 @@
         "E",
         "W"
       ],
-      "status": "E/W candidate 2026-10-15 (Elbow Strike from the top of Mount, paired with mountElbowHit), awaiting user approval; S/N to author",
+      "status": "E/W approved by user 2026-10-15 (Elbow Strike from the top of Mount, paired with mountElbowHit); S/N to author",
       "rootMotion": {
         "E": [
           [
@@ -14564,7 +14564,7 @@
         "E",
         "W"
       ],
-      "status": "E/W candidate 2026-10-15 (mounted side of Elbow Strike (top), paired with mountElbow), awaiting user approval; S/N to author",
+      "status": "E/W approved by user 2026-10-15 (mounted side of Elbow Strike (top), paired with mountElbow); S/N to author",
       "rootMotion": {
         "E": [
           [
@@ -15393,7 +15393,7 @@
         "E",
         "W"
       ],
-      "status": "E/W candidate 2026-10-15 (Arm bar from the bottom of Mount, paired with mountBottomArmbarHit), awaiting user approval; S/N to author",
+      "status": "E/W approved by user 2026-10-15 (Arm bar from the bottom of Mount, paired with mountBottomArmbarHit); S/N to author",
       "rootMotion": {
         "E": [
           [
@@ -15622,7 +15622,7 @@
         "E",
         "W"
       ],
-      "status": "E/W candidate 2026-10-15 (top side of the bottom Arm bar, paired with mountBottomArmbar), awaiting user approval; S/N to author",
+      "status": "E/W approved by user 2026-10-15 (top side of the bottom Arm bar, paired with mountBottomArmbar); S/N to author",
       "rootMotion": {
         "E": [
           [
@@ -16072,7 +16072,7 @@
         "E",
         "W"
       ],
-      "status": "E/W candidate 2026-10-15 (Hip Escape from under Mount, paired with mountHipEscapeHit), awaiting user approval; S/N to author",
+      "status": "E/W approved by user 2026-10-16 (Hip Escape from under Mount, paired with mountHipEscapeHit); S/N to author",
       "rootMotion": {
         "E": [
           [
@@ -16294,7 +16294,7 @@
         "E",
         "W"
       ],
-      "status": "E/W candidate 2026-10-15 (top side of Hip Escape, paired with mountHipEscape), awaiting user approval; S/N to author",
+      "status": "E/W approved by user 2026-10-16 (top side of Hip Escape, paired with mountHipEscape); S/N to author",
       "rootMotion": {
         "E": [
           [

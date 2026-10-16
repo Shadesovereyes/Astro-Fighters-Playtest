@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "mountPalm",
-  "status": "E/W approved by user 2026-10-16 (two-strike Sumo Palm from the top of the Mount, paired with mountPalmHit); S/N to author",
+  "status": "E/W approved by user 2026-10-16 (two-strike Sumo Palm from the top of the Mount, paired with mountPalmHit); S/N to author; open-hand revision 2026-10-16 is a candidate awaiting user approval",
   "frames": 11,
   "fps": 6,
   "sourceDirection": "E",
@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Sumo Palm while Mounting (sheet: top-control strike; Christopher 2026-10-16: two strikes): from the mountTop idle the rider pulls the near hand to the shoulder and drops the body weight into a straight thrust of the heel of the hand down into the mounted fighter's face; as the near hand comes back, the far hand leaves its post, chambers and drives the same thrust, then returns to the post. The rig has no open-hand shape yet, so the hands read as fists.",
+  "intent": "Sumo Palm while Mounting (sheet: top-control strike; Christopher 2026-10-16: two strikes): from the mountTop idle the rider pulls the near hand to the shoulder and drops the body weight into a straight thrust of the heel of the hand down into the mounted fighter's face; as the near hand comes back, the far hand leaves its post, chambers and drives the same thrust, then returns to the post. The striking hand is open (palmUp/palmDown hand shapes, user 2026-10-16) from the chamber through the strike.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -674,7 +674,8 @@
         "elbow": {
           "at": 8,
           "angle": 205
-        }
+        },
+        "fistKind": "palm"
       },
       {
         "construction": "band",
@@ -682,7 +683,8 @@
         "elbow": {
           "at": 8,
           "angle": 200
-        }
+        },
+        "fistKind": "palm"
       },
       {
         "construction": "band",
@@ -690,7 +692,8 @@
         "elbow": {
           "at": 8,
           "angle": -38
-        }
+        },
+        "fistKind": "palm"
       },
       {
         "construction": "band",
@@ -698,7 +701,8 @@
         "elbow": {
           "at": 8,
           "angle": -38
-        }
+        },
+        "fistKind": "palm"
       },
       {
         "construction": "band",
@@ -706,7 +710,8 @@
         "elbow": {
           "at": 8,
           "angle": -140
-        }
+        },
+        "fistKind": "palm"
       },
       {
         "construction": "band",
@@ -796,7 +801,8 @@
         "elbow": {
           "at": 8,
           "angle": 200
-        }
+        },
+        "fistKind": "palm"
       },
       {
         "construction": "band",
@@ -804,7 +810,8 @@
         "elbow": {
           "at": 8,
           "angle": 190
-        }
+        },
+        "fistKind": "palm"
       },
       {
         "construction": "band",
@@ -812,7 +819,8 @@
         "elbow": {
           "at": 8,
           "angle": -26
-        }
+        },
+        "fistKind": "palm"
       },
       {
         "construction": "band",
@@ -820,7 +828,8 @@
         "elbow": {
           "at": 8,
           "angle": -26
-        }
+        },
+        "fistKind": "palm"
       },
       {
         "construction": "band",
@@ -828,7 +837,8 @@
         "elbow": {
           "at": 8,
           "angle": -70
-        }
+        },
+        "fistKind": "palm"
       },
       {
         "construction": "band",
@@ -897,6 +907,35 @@
           "LLmLLs",
           "mLLLms",
           ".sDDs."
+        ]
+      },
+      "palmUp": {
+        "use": "open hand, heel of the palm leading a forward thrust, fingers up and bent slightly back (palm strikes)",
+        "anchor": [
+          0,
+          4
+        ],
+        "rows": [
+          "Lm..",
+          "LLm.",
+          "LLm.",
+          "LLLm",
+          "LLLm",
+          "mLLs",
+          ".sDs"
+        ]
+      },
+      "palmDown": {
+        "use": "open hand, heel of the palm leading a downward thrust, fingers pointing forward (palm strikes from Mount)",
+        "anchor": [
+          0,
+          1
+        ],
+        "rows": [
+          "mLLLLm.",
+          "LLLLLLm",
+          "mLLms..",
+          ".sDs..."
         ]
       }
     },
