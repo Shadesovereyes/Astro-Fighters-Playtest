@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "clinchPalm",
-  "status": "E/W approved by user 2026-10-16 (Sumo Palm in the clinch, paired with clinchPalmHit); S/N to author; open-hand revision 2026-10-16 is a candidate awaiting user approval",
+  "status": "E/W approved by user 2026-10-16 (Sumo Palm in the clinch, paired with clinchPalmHit); S/N to author; open-hand revision approved by user 2026-10-16",
   "frames": 8,
   "fps": 12,
   "sourceDirection": "E",

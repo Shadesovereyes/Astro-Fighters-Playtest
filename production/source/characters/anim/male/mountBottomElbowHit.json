@@ -2,8 +2,8 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "mountBottomElbowHit",
-  "status": "E/W candidate 2026-10-15 (top side of the bottom Elbow Strike, paired with mountBottomElbow; revisit 2026-10-16), awaiting user approval; S/N to author",
-  "frames": 10,
+  "status": "E/W approved by user 2026-10-16 (top side of the bottom Elbow Strike, paired with mountBottomElbow); flagged by user to revisit later; S/N to author",
+  "frames": 8,
   "fps": 6,
   "sourceDirection": "E",
   "directions": [
@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "The top fighter's side of the 12-to-6 bottom Elbow Strike: holds the Mount while the elbow chambers, then the thigh is hit and the body dips and flinches (pain eyes, hit star drawn over both fighters), then settles into the mountTop idle.",
+  "intent": "The top fighter's side of the 12-to-6 bottom Elbow Strike: the thigh is hit, the body dips and flinches with pain eyes and a hit star at the thigh, then settles into the mountTop idle.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -92,25 +92,21 @@
       10,
       10,
       11,
-      11,
       12,
       12,
       11,
       11,
-      10,
-      10
+      11
     ],
     "head": [
       10,
       10,
       11,
-      11,
       13,
       13,
       12,
       11,
-      10,
-      10
+      11
     ],
     "arms": [
       11,
@@ -118,11 +114,9 @@
       11,
       12,
       12,
-      12,
       11,
-      12,
       11,
-      10
+      12
     ]
   },
   "lean": {
@@ -133,10 +127,8 @@
         0,
         0,
         0,
-        0,
         1,
         1,
-        0,
         0,
         0,
         0
@@ -145,11 +137,9 @@
         4,
         4,
         4,
-        4,
         3,
         3,
         2,
-        4,
         4,
         4
       ]
@@ -189,25 +179,9 @@
       [
         0,
         0
-      ],
-      [
-        0,
-        0
-      ],
-      [
-        0,
-        0
       ]
     ],
     "W": [
-      [
-        0,
-        0
-      ],
-      [
-        0,
-        0
-      ],
       [
         0,
         0
@@ -612,13 +586,9 @@
       4,
       4,
       4,
-      4,
-      4,
       4
     ],
     "far": [
-      5,
-      5,
       5,
       5,
       5,
@@ -655,50 +625,34 @@
       },
       {
         "construction": "band",
-        "angle": -125,
+        "angle": -15,
         "elbow": {
           "at": 8,
-          "angle": -175
+          "angle": -150
         }
       },
       {
         "construction": "band",
-        "angle": -125,
+        "angle": -15,
         "elbow": {
           "at": 8,
-          "angle": -175
+          "angle": -150
         }
       },
       {
         "construction": "band",
-        "angle": -125,
+        "angle": -15,
         "elbow": {
           "at": 8,
-          "angle": -175
+          "angle": -150
         }
       },
       {
         "construction": "band",
-        "angle": -135,
+        "angle": -15,
         "elbow": {
           "at": 8,
-          "angle": -178
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -135,
-        "elbow": {
-          "at": 8,
-          "angle": -178
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -80,
-        "elbow": {
-          "at": 8,
-          "angle": -160
+          "angle": -150
         }
       },
       {
@@ -727,22 +681,6 @@
       }
     ],
     "far": [
-      {
-        "construction": "band",
-        "angle": -40,
-        "elbow": {
-          "at": 8,
-          "angle": -25
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -40,
-        "elbow": {
-          "at": 8,
-          "angle": -25
-        }
-      },
       {
         "construction": "band",
         "angle": -40,
@@ -888,8 +826,6 @@
       "bandFollowsBody": true,
       "sway": {
         "E": [
-          -1,
-          -1,
           -1,
           -1,
           -1,
@@ -1091,9 +1027,7 @@
         4,
         5,
         6,
-        7,
-        8,
-        9
+        7
       ],
       "fps": 12,
       "next": "mountTop"
@@ -1106,18 +1040,17 @@
     "layering": [
       "mountBottom body, clothing, hair, eyes",
       "mountTop body, clothing, hair, eyes, far arm",
-      "mountTop arms",
-      "mountBottom arms (highest: the striking or trapped arm reads over the rider)"
+      "mountBottom arms",
+      "mountTop arms"
     ],
     "mountLayering": {
       "fromFrame": 0,
       "order": [
         "mountBottom body, clothing, hair, eyes",
         "mountTop body, clothing, hair, eyes, far arm",
-        "mountTop arms",
-        "mountBottom arms (highest: the striking or trapped arm reads over the rider)"
-      ],
-      "bottomArmsOver": true
+        "mountBottom arms",
+        "mountTop arms"
+      ]
     }
   },
   "expressions": {
@@ -1196,11 +1129,9 @@
         null,
         null,
         null,
-        null,
         "pain",
         "pain",
         "squint",
-        null,
         null,
         null
       ]
@@ -1208,29 +1139,28 @@
     "intent": "strained: eyes squeezed under the weight"
   },
   "fx": {
-    "rule": "a hit star at the rider's thigh as the elbow lands",
-    "top": true,
+    "rule": "a hit star at the top fighter's thigh as the elbow lands",
     "frames": [
       {
-        "frame": 4,
+        "frame": 3,
         "splash": [
           {
             "pattern": "hitStar",
             "at": [
-              36,
-              45
+              38,
+              52
             ]
           }
         ]
       },
       {
-        "frame": 5,
+        "frame": 4,
         "splash": [
           {
             "pattern": "strain",
             "at": [
-              37,
-              43
+              39,
+              50
             ]
           }
         ]

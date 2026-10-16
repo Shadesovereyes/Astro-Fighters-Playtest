@@ -2,8 +2,8 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "mountBottomElbow",
-  "status": "E/W candidate 2026-10-15 (Elbow Strike from the bottom of Mount, paired with mountBottomElbowHit; revisit 2026-10-16), awaiting user approval; S/N to author",
-  "frames": 10,
+  "status": "E/W approved by user 2026-10-16 (Elbow Strike from the bottom of Mount, paired with mountBottomElbowHit); flagged by user to revisit later; S/N to author",
+  "frames": 8,
   "fps": 6,
   "sourceDirection": "E",
   "directions": [
@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Muay Thai Elbow Strike from under Mount (Positional Rules: Both), a 12-to-6 elbow (user ruling 2026-10-15; revisited 2026-10-16): from the mountBottom idle the mounted fighter raises the near upper arm straight up so the elbow points at 12 o'clock with the fist folded down by the ear, holds the chamber, then chops the elbow straight down onto the rider's thigh with the fist trailing; the striking arm is drawn over the rider so it reads the whole way.",
+  "intent": "Muay Thai Elbow Strike from under Mount (Positional Rules: Both), a 12-to-6 elbow (user ruling 2026-10-15): from the mountBottom idle the mounted fighter raises the near elbow straight up to 12 o'clock, fist folded back by the ear, then chops it straight down into the top fighter's thigh beside the ribs, then frames again.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -96,8 +96,6 @@
       0,
       0,
       0,
-      0,
-      0,
       0
     ],
     "head": [
@@ -108,13 +106,9 @@
       0,
       0,
       0,
-      0,
-      0,
       0
     ],
     "arms": [
-      0,
-      0,
       0,
       0,
       0,
@@ -133,10 +127,8 @@
         0,
         0,
         0,
-        0,
         1,
         1,
-        0,
         0,
         0,
         0
@@ -144,14 +136,12 @@
       "head": [
         0,
         0,
-        4,
-        5,
-        3,
-        2,
+        -1,
         1,
         1,
         0,
-        0
+        1,
+        1
       ]
     }
   },
@@ -189,25 +179,9 @@
       [
         0,
         0
-      ],
-      [
-        0,
-        0
-      ],
-      [
-        0,
-        0
       ]
     ],
     "W": [
-      [
-        0,
-        0
-      ],
-      [
-        0,
-        0
-      ],
       [
         0,
         0
@@ -399,13 +373,9 @@
       4,
       4,
       4,
-      4,
-      4,
       4
     ],
     "far": [
-      5,
-      5,
       5,
       5,
       5,
@@ -442,10 +412,10 @@
       },
       {
         "construction": "band",
-        "angle": -85,
+        "angle": -80,
         "elbow": {
           "at": 8,
-          "angle": 150
+          "angle": -140
         }
       },
       {
@@ -453,36 +423,12 @@
         "angle": -92,
         "elbow": {
           "at": 8,
-          "angle": 112
+          "angle": -128
         }
       },
       {
         "construction": "band",
-        "angle": -96,
-        "elbow": {
-          "at": 8,
-          "angle": 118
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -40,
-        "elbow": {
-          "at": 8,
-          "angle": 170
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -38,
-        "elbow": {
-          "at": 8,
-          "angle": 172
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -55,
+        "angle": -25,
         "elbow": {
           "at": 8,
           "angle": -175
@@ -490,10 +436,18 @@
       },
       {
         "construction": "band",
-        "angle": -65,
+        "angle": -22,
         "elbow": {
           "at": 8,
-          "angle": -155
+          "angle": -172
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -60,
+        "elbow": {
+          "at": 8,
+          "angle": -150
         }
       },
       {
@@ -532,7 +486,7 @@
       },
       {
         "construction": "band",
-        "angle": -60,
+        "angle": -62,
         "elbow": {
           "at": 8,
           "angle": -140
@@ -540,39 +494,23 @@
       },
       {
         "construction": "band",
-        "angle": -60,
+        "angle": -70,
         "elbow": {
           "at": 8,
-          "angle": -140
+          "angle": -150
         }
       },
       {
         "construction": "band",
-        "angle": -60,
+        "angle": -70,
         "elbow": {
           "at": 8,
-          "angle": -140
+          "angle": -150
         }
       },
       {
         "construction": "band",
-        "angle": -60,
-        "elbow": {
-          "at": 8,
-          "angle": -140
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -60,
-        "elbow": {
-          "at": 8,
-          "angle": -140
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -60,
+        "angle": -62,
         "elbow": {
           "at": 8,
           "angle": -140
@@ -674,8 +612,6 @@
       "bandFollowsBody": true,
       "sway": {
         "E": [
-          -1,
-          -1,
           -1,
           -1,
           -1,
@@ -942,8 +878,6 @@
         null,
         "squint",
         "squint",
-        "squint",
-        null,
         null,
         null,
         null,
@@ -967,13 +901,9 @@
       270,
       270,
       270,
-      270,
-      270,
       270
     ],
     "dx": [
-      10,
-      10,
       10,
       10,
       10,
@@ -991,13 +921,9 @@
       0,
       0,
       0,
-      0,
-      0,
       0
     ],
     "groundSnap": [
-      true,
-      true,
       true,
       true,
       true,
@@ -1019,33 +945,30 @@
         4,
         5,
         6,
-        7,
-        8,
-        9
+        7
       ],
       "fps": 12,
       "next": "mountBottom"
     }
   },
   "pair": {
-    "rule": "paired Mount move: bottom (W) chops the elbow down 12-to-6 over the rider, top (E) takes it on the thigh",
+    "rule": "paired Mount move: bottom (W) chops the elbow down 12-to-6, top (E) takes it",
     "partner": "mountBottomElbowHit",
     "partnerDx": 2,
     "layering": [
       "mountBottom body, clothing, hair, eyes",
       "mountTop body, clothing, hair, eyes, far arm",
-      "mountTop arms",
-      "mountBottom arms (highest: the striking or trapped arm reads over the rider)"
+      "mountBottom arms",
+      "mountTop arms"
     ],
     "mountLayering": {
       "fromFrame": 0,
       "order": [
         "mountBottom body, clothing, hair, eyes",
         "mountTop body, clothing, hair, eyes, far arm",
-        "mountTop arms",
-        "mountBottom arms (highest: the striking or trapped arm reads over the rider)"
-      ],
-      "bottomArmsOver": true
+        "mountBottom arms",
+        "mountTop arms"
+      ]
     }
   },
   "events": {
@@ -1065,13 +988,13 @@
       },
       {
         "frame": 3,
-        "type": "startup"
-      },
-      {
-        "frame": 4,
         "type": "active",
         "move": "Elbow Strike",
         "effect": "Accuracy-based Bleed DoT"
+      },
+      {
+        "frame": 4,
+        "type": "recovery"
       },
       {
         "frame": 5,
@@ -1083,14 +1006,6 @@
       },
       {
         "frame": 7,
-        "type": "recovery"
-      },
-      {
-        "frame": 8,
-        "type": "recovery"
-      },
-      {
-        "frame": 9,
         "type": "recovery"
       }
     ],
@@ -1109,13 +1024,13 @@
       },
       {
         "frame": 3,
-        "type": "startup"
-      },
-      {
-        "frame": 4,
         "type": "active",
         "move": "Elbow Strike",
         "effect": "Accuracy-based Bleed DoT"
+      },
+      {
+        "frame": 4,
+        "type": "recovery"
       },
       {
         "frame": 5,
@@ -1127,14 +1042,6 @@
       },
       {
         "frame": 7,
-        "type": "recovery"
-      },
-      {
-        "frame": 8,
-        "type": "recovery"
-      },
-      {
-        "frame": 9,
         "type": "recovery"
       }
     ],

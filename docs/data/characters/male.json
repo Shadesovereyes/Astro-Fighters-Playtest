@@ -14669,23 +14669,15 @@
       }
     },
     "mountBottomElbow": {
-      "frames": 10,
+      "frames": 8,
       "fps": 6,
       "rows": [
         "E",
         "W"
       ],
-      "status": "E/W candidate 2026-10-15 (Elbow Strike from the bottom of Mount, paired with mountBottomElbowHit; revisit 2026-10-16), awaiting user approval; S/N to author",
+      "status": "E/W candidate 2026-10-15 (Elbow Strike from the bottom of Mount, paired with mountBottomElbowHit), awaiting user approval; S/N to author",
       "rootMotion": {
         "E": [
-          [
-            0,
-            0
-          ],
-          [
-            0,
-            0
-          ],
           [
             0,
             0
@@ -14720,14 +14712,6 @@
           ]
         ],
         "W": [
-          [
-            0,
-            0
-          ],
-          [
-            0,
-            0
-          ],
           [
             0,
             0
@@ -14787,9 +14771,7 @@
             4,
             5,
             6,
-            7,
-            8,
-            9
+            7
           ],
           "fps": 12,
           "next": "mountBottom"
@@ -14812,13 +14794,13 @@
           },
           {
             "frame": 3,
-            "type": "startup"
-          },
-          {
-            "frame": 4,
             "type": "active",
             "move": "Elbow Strike",
             "effect": "Accuracy-based Bleed DoT"
+          },
+          {
+            "frame": 4,
+            "type": "recovery"
           },
           {
             "frame": 5,
@@ -14830,14 +14812,6 @@
           },
           {
             "frame": 7,
-            "type": "recovery"
-          },
-          {
-            "frame": 8,
-            "type": "recovery"
-          },
-          {
-            "frame": 9,
             "type": "recovery"
           }
         ],
@@ -14856,13 +14830,13 @@
           },
           {
             "frame": 3,
-            "type": "startup"
-          },
-          {
-            "frame": 4,
             "type": "active",
             "move": "Elbow Strike",
             "effect": "Accuracy-based Bleed DoT"
+          },
+          {
+            "frame": 4,
+            "type": "recovery"
           },
           {
             "frame": 5,
@@ -14875,14 +14849,6 @@
           {
             "frame": 7,
             "type": "recovery"
-          },
-          {
-            "frame": 8,
-            "type": "recovery"
-          },
-          {
-            "frame": 9,
-            "type": "recovery"
           }
         ],
         "tactical": {
@@ -14891,23 +14857,15 @@
       }
     },
     "mountBottomElbowHit": {
-      "frames": 10,
+      "frames": 8,
       "fps": 6,
       "rows": [
         "E",
         "W"
       ],
-      "status": "E/W candidate 2026-10-15 (top side of the bottom Elbow Strike, paired with mountBottomElbow; revisit 2026-10-16), awaiting user approval; S/N to author",
+      "status": "E/W candidate 2026-10-15 (top side of the bottom Elbow Strike, paired with mountBottomElbow), awaiting user approval; S/N to author",
       "rootMotion": {
         "E": [
-          [
-            0,
-            0
-          ],
-          [
-            0,
-            0
-          ],
           [
             0,
             0
@@ -14942,14 +14900,6 @@
           ]
         ],
         "W": [
-          [
-            0,
-            0
-          ],
-          [
-            0,
-            0
-          ],
           [
             0,
             0
@@ -15011,9 +14961,7 @@
             4,
             5,
             6,
-            7,
-            8,
-            9
+            7
           ],
           "fps": 12,
           "next": "mountTop"

@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "The mounted fighter's side of the top Arm bar: the near arm is caught at the wrist and forced straight up above the head while the far hand pushes at the rider's hip to defend, pain eyes and strain marks at the elbow on each crank; frames 6-9 loop (armbarTrapped) while the submission is maintained.",
+  "intent": "The mounted fighter's side of the top Arm bar: the near arm is caught at the wrist and pulled straight up toward the rider while the far hand pushes at the rider's hip to defend, pain eyes and strain marks at the elbow on each crank; frames 6-9 loop (armbarTrapped) while the submission is maintained.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -450,66 +450,66 @@
       },
       {
         "construction": "band",
-        "angle": -120,
+        "angle": -93,
         "elbow": {
           "at": 8,
-          "angle": -145
+          "angle": -103
         }
       },
       {
         "construction": "band",
-        "angle": -135,
+        "angle": -78,
         "elbow": {
           "at": 8,
-          "angle": -135
+          "angle": -78
         }
       },
       {
         "construction": "band",
-        "angle": -135,
+        "angle": -78,
         "elbow": {
           "at": 8,
-          "angle": -135
+          "angle": -78
         }
       },
       {
         "construction": "band",
-        "angle": -130,
+        "angle": -74,
         "elbow": {
           "at": 8,
-          "angle": -130
+          "angle": -74
         }
       },
       {
         "construction": "band",
-        "angle": -135,
+        "angle": -78,
         "elbow": {
           "at": 8,
-          "angle": -135
+          "angle": -78
         }
       },
       {
         "construction": "band",
-        "angle": -130,
+        "angle": -74,
         "elbow": {
           "at": 8,
-          "angle": -130
+          "angle": -74
         }
       },
       {
         "construction": "band",
-        "angle": -135,
+        "angle": -78,
         "elbow": {
           "at": 8,
-          "angle": -135
+          "angle": -78
         }
       },
       {
         "construction": "band",
-        "angle": -130,
+        "angle": -74,
         "elbow": {
           "at": 8,
-          "angle": -130
+          "angle": -74
         }
       }
     ],
@@ -1035,7 +1035,7 @@
     }
   },
   "pair": {
-    "rule": "paired Mount move: top (E) leans over and pins the arm, bottom (W) has the arm trapped",
+    "rule": "paired Mount move: top (E) sits back pulling the arm, bottom (W) has the arm trapped",
     "partner": "mountArmbar",
     "partnerDx": 2,
     "layering": [
@@ -1064,8 +1064,8 @@
           {
             "pattern": "strain",
             "at": [
-              14,
-              44
+              23,
+              45
             ]
           }
         ]
@@ -1076,8 +1076,8 @@
           {
             "pattern": "strain",
             "at": [
-              14,
-              44
+              23,
+              45
             ]
           }
         ]
@@ -1088,8 +1088,8 @@
           {
             "pattern": "strain",
             "at": [
-              14,
-              44
+              23,
+              45
             ]
           }
         ]

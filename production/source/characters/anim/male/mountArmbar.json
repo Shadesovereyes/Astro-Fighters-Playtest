@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Jiu-Jitsu Arm bar from the top of Mount (Positional Rules: Both; Maintained Submission; Cripple), per user ruling 2026-10-15 (revisited 2026-10-16): the top fighter stays mounted and leans forward over the mounted fighter, catches the near wrist with both hands and pins the straightened arm up above the mounted fighter's head, cranking it back in pulses; the trapped arm crosses the rider's forearms so both read; frames 6-9 loop while the submission is maintained, then the pair returns to the Mount idles.",
+  "intent": "Jiu-Jitsu Arm bar from the top of Mount (Positional Rules: Both; Maintained Submission; Cripple), per user ruling 2026-10-15 (revisited 2026-10-16): the top fighter stays mounted, catches the near wrist with both hands and sits back, pulling the straightened arm up toward his chest (user 2026-10-16: pull backward on the arm instead of leaning forward), cranking it with pulses of leaning further back; frames 6-9 loop while the submission is maintained, then the pair returns to the Mount idles.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -90,39 +90,39 @@
     "rule": "sitting low (the knees are on the ground); breathing 1 px; the arms settle a frame behind",
     "dy": [
       10,
-      12,
-      13,
-      14,
-      14,
-      14,
-      14,
-      14,
-      14,
-      14
+      11,
+      10,
+      10,
+      10,
+      10,
+      10,
+      10,
+      10,
+      10
     ],
     "head": [
       10,
-      12,
-      13,
-      14,
-      14,
-      14,
-      14,
-      14,
-      14,
-      14
+      11,
+      10,
+      10,
+      10,
+      10,
+      10,
+      10,
+      10,
+      10
     ],
     "arms": [
       11,
-      13,
-      14,
-      15,
-      15,
-      15,
-      15,
-      15,
-      15,
-      15
+      12,
+      11,
+      11,
+      11,
+      11,
+      11,
+      11,
+      11,
+      11
     ]
   },
   "lean": {
@@ -132,26 +132,26 @@
       "pelvis": [
         0,
         1,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2
+        0,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1
       ],
       "head": [
         4,
-        6,
-        9,
-        12,
-        12,
-        11,
-        12,
-        11,
-        12,
-        11
+        4,
+        0,
+        -4,
+        -4,
+        -6,
+        -4,
+        -6,
+        -4,
+        -6
       ]
     }
   },
@@ -655,15 +655,39 @@
       },
       {
         "construction": "band",
-        "angle": -70,
+        "angle": -50,
         "elbow": {
           "at": 8,
-          "angle": -100
+          "angle": -70
         }
       },
       {
         "construction": "band",
-        "angle": -42,
+        "angle": -72,
+        "elbow": {
+          "at": 8,
+          "angle": -72
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -62,
+        "elbow": {
+          "at": 8,
+          "angle": -62
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -62,
+        "elbow": {
+          "at": 8,
+          "angle": -62
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -56,
         "elbow": {
           "at": 8,
           "angle": -56
@@ -671,58 +695,34 @@
       },
       {
         "construction": "band",
-        "angle": -52,
+        "angle": -62,
         "elbow": {
           "at": 8,
-          "angle": -66
+          "angle": -62
         }
       },
       {
         "construction": "band",
-        "angle": -52,
+        "angle": -56,
         "elbow": {
           "at": 8,
-          "angle": -66
+          "angle": -56
         }
       },
       {
         "construction": "band",
-        "angle": -49,
+        "angle": -62,
         "elbow": {
           "at": 8,
-          "angle": -63
+          "angle": -62
         }
       },
       {
         "construction": "band",
-        "angle": -52,
+        "angle": -56,
         "elbow": {
           "at": 8,
-          "angle": -66
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -49,
-        "elbow": {
-          "at": 8,
-          "angle": -63
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -52,
-        "elbow": {
-          "at": 8,
-          "angle": -66
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -49,
-        "elbow": {
-          "at": 8,
-          "angle": -63
+          "angle": -56
         }
       }
     ],
@@ -737,15 +737,39 @@
       },
       {
         "construction": "band",
-        "angle": -60,
+        "angle": -45,
         "elbow": {
           "at": 8,
-          "angle": -90
+          "angle": -65
         }
       },
       {
         "construction": "band",
-        "angle": -38,
+        "angle": -68,
+        "elbow": {
+          "at": 8,
+          "angle": -68
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -58,
+        "elbow": {
+          "at": 8,
+          "angle": -58
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -58,
+        "elbow": {
+          "at": 8,
+          "angle": -58
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -52,
         "elbow": {
           "at": 8,
           "angle": -52
@@ -753,58 +777,34 @@
       },
       {
         "construction": "band",
-        "angle": -48,
+        "angle": -58,
         "elbow": {
           "at": 8,
-          "angle": -62
+          "angle": -58
         }
       },
       {
         "construction": "band",
-        "angle": -48,
+        "angle": -52,
         "elbow": {
           "at": 8,
-          "angle": -62
+          "angle": -52
         }
       },
       {
         "construction": "band",
-        "angle": -45,
+        "angle": -58,
         "elbow": {
           "at": 8,
-          "angle": -59
+          "angle": -58
         }
       },
       {
         "construction": "band",
-        "angle": -48,
+        "angle": -52,
         "elbow": {
           "at": 8,
-          "angle": -62
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -45,
-        "elbow": {
-          "at": 8,
-          "angle": -59
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -48,
-        "elbow": {
-          "at": 8,
-          "angle": -62
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -45,
-        "elbow": {
-          "at": 8,
-          "angle": -59
+          "angle": -52
         }
       }
     ],
@@ -1107,7 +1107,7 @@
     }
   },
   "pair": {
-    "rule": "paired Mount move: top (E) leans over and pins the arm above the bottom fighter's head, bottom (W) has the arm trapped",
+    "rule": "paired Mount move: top (E) sits back and pulls the straight arm up toward himself, bottom (W) has the arm trapped",
     "partner": "mountArmbarHit",
     "partnerDx": 2,
     "layering": [
