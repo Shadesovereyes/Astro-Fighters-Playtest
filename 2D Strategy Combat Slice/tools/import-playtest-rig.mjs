@@ -16,7 +16,7 @@ const git = (...args) => execFileSync('git', ['-C', root, ...args], { maxBuffer:
 
 const commit = git('rev-parse', '--short', ref).toString().trim();
 const def = JSON.parse(git('show', `${ref}:docs/data/characters/${body}.json`).toString());
-const files = git('ls-tree', '-r', '--name-only', ref, `docs/assets/characters/${body}/`).toString().trim().split('\n').filter(Boolean);
+const files = git('ls-tree', '-r', '--full-tree', '--name-only', ref, `docs/assets/characters/${body}/`).toString().trim().split('\n').filter(Boolean);
 
 const outDir = path.join(root, 'web/characters', body);
 fs.rmSync(outDir, { recursive: true, force: true });

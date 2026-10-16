@@ -82,7 +82,7 @@ const BAL={
   submissionEscapeDcPerRound:2,
   positionalDcFree:0,positionalDcGrappling:1,positionalDcGrappled:1,positionalDcMounting:2,positionalDcMounted:-2,
   passiveStamFree:1,passiveStamGrappling:0.5,passiveStamGrappled:0.5,passiveStamMounting:0.25,passiveStamMounted:0.25,
-  standingGrapplePriorityWeight:1,focusRestorePercent:0.20,recomposeCostPercent:0.10,actionSlotsPerRound:5,
+  standingGrapplePriorityWeight:1,focusRestorePercent:0.20,waterChakraPerRound:10,waterDrownPercent:0.12,waterLakeMin:7,recomposeCostPercent:0.10,actionSlotsPerRound:5,
   // Opponent/ally level scaling (2026-08-17): canonical ENEMIES stats are the level-20
   // baseline (scale ×1.0 exactly there) — that's the default in the setup UI, and every style-
   // NPC balance pass this session was tuned and round-robin-tested at that baseline, so picking
@@ -958,6 +958,7 @@ function positionalLegality(actor,ab,roleOverride){
   // Focus is never blocked by the relationship itself — only by explicit Focus denial.
   if(isFocusAbility(ab)){
     if(hasStatus(actor,"FocusLock"))return{ok:false,code:"focus-denied",reason:"Focus actions are locked"};
+    if(isChargeChakra(ab)&&onWater(actor))return{ok:false,code:"water-no-charge",reason:"Cannot charge chakra while standing in water"};
     return{ok:true};
   }
   if(ab.oncePerRound&&(actor.roundUses&&actor.roundUses[ab.id]))return{ok:false,code:"once-per-round",reason:`${ab.name} is once per round`};
@@ -1058,8 +1059,23 @@ const effMaxChakra=f=>max(0,f.maxChakra-f.chakraReserved);
 function ccInitPenalty(f){let p=0;for(const s of f.statuses){if(s.kind==="Slow"||s.kind==="Confusion"||s.kind==="Root")p+=BAL.slowInitiativePenalty;else if(s.kind==="Prone")p+=BAL.ccInitHeavy;else if(s.kind==="Snare"||s.kind==="Blind")p+=BAL.ccInitLight;else if(s.kind==="Stealth")p-=BAL.ccInitStealthBonus;}if(isExhausted(f))p+=BAL.ccInitHeavy;return p;}
 
 // Battle state container so tests + UI share resolution
+// Water (user, 2026-10-15): characters may walk on water, paying chakra every round they end on it; out of chakra
+// they drown (HP loss each round). Animals, summons and the caravan cannot enter water at all. Charge Chakra cannot
+// be used while standing in water. The battle in progress is kept so legality checks can read its terrain.
+const ANIMAL_GLYPHS=new Set(["🐻","🐯","🦀","🦇"]);
+function canWade(f){return !!f&&!f.isSummon&&!f.isCaravan&&!ANIMAL_GLYPHS.has(f.glyph);}
+let ACTIVE_BATTLE=null;
+function onWater(f){return !!(f&&f.cell&&ACTIVE_BATTLE&&ACTIVE_BATTLE.all.includes(f)&&ACTIVE_BATTLE.grid.terrainAt(f.cell)==="Water");}
+const isChargeChakra=ab=>!!ab&&(ab.name==="Charge Chakra"||ab.name==="Focus");
+function waterUpkeep(B,c){
+  if(!alive(c)||B.grid.terrainAt(c.cell)!=="Water"||!canWade(c)){c.drowning=false;return;}
+  const cost=BAL.waterChakraPerRound;
+  if(c.chakra>=cost){c.chakra-=cost;c.drowning=false;B.line(`  ${c.name} keeps above the water (${cost} chakra).`,"sys");return;}
+  c.chakra=0;c.drowning=true;const dmg=max(1,round(c.maxHp*BAL.waterDrownPercent));c.hp=max(0,c.hp-dmg);
+  B.line(`${c.name} is out of chakra and drowning for ${RED(dmg)}!`);B.ev("drown",{who:c,hp:dmg,killed:!alive(c)});
+}
 class Battle{
-  constructor(fighters,grid){this.all=fighters;this.grid=grid;this.round=1;this.log=[];this.pending=[];this.god=false;this.onLog=null;this.xp=new Map();this.events=[];this.history=[];
+  constructor(fighters,grid){ACTIVE_BATTLE=this;this.all=fighters;this.grid=grid;this.round=1;this.log=[];this.pending=[];this.god=false;this.onLog=null;this.xp=new Map();this.events=[];this.history=[];
     // Combatants have at least glimpsed each other take the field, so every fighter's
     // fog-of-war memory starts seeded with each enemy's spawn cell — a one-time "saw them line
     // up" grant, not ongoing tracking. Without this, a start further apart than anyone's
@@ -1073,7 +1089,7 @@ class Battle{
   ev(type,data){this.events.push({type,round:this.round,...data});}
   enemies(f){return this.all.filter(c=>alive(c)&&c.faction!==f.faction);}
   allies(f){return this.all.filter(c=>alive(c)&&c.faction===f.faction);}
-  occupied(cell,except){if(this.grid.blocksMove(cell))return true;return this.all.some(c=>c!==except&&alive(c)&&c.cell.q===cell.q&&c.cell.r===cell.r);}
+  occupied(cell,except){if(this.grid.blocksMove(cell))return true;if(except&&!canWade(except)&&this.grid.terrainAt(cell)==="Water")return true;return this.all.some(c=>c!==except&&alive(c)&&c.cell.q===cell.q&&c.cell.r===cell.r);}
   // piercing: a Called Shot can be aimed through the same destructible brush (Tree/Bush) its
   // own attack roll ignores — see Grid.losHard — without that relaxing awareness/fog-of-war for
   // anything else. Stealth and the awareness-radius check are untouched either way.
@@ -1833,6 +1849,7 @@ function passiveRecovery(B,c,snapshotRole){
 
 // Kept for callers that want the whole tail of a round in canonical order.
 function endOfRound(B){
+  B.all.forEach(c=>waterUpkeep(B,c));
   B.all.forEach(c=>postRoundEffects(B,c));
   const snapshot=relationshipMaintenance(B);
   B.all.forEach(c=>passiveRecovery(B,c,snapshot.get(c)));
@@ -2255,8 +2272,21 @@ function stepCaravan(B,car){
   return{alive:true,reachedGoal:!!(car.path&&car.pathIndex>=car.path.length-1)};
 }
 function generateTerrain(grid,avoidCells){
-  grid.clearTerrain();const kinds=["Tree","Rock","Bush","Rubble","Water"];const cells=grid.cells();const avoid=new Set(avoidCells.map(hkey));
-  const n=round(cells.length*0.14);let placed=0;
+  grid.clearTerrain();const kinds=["Tree","Rock","Bush","Rubble"];const cells=grid.cells();const avoid=new Set(avoidCells.map(hkey));
+  // water comes as lakes of at least BAL.waterLakeMin connected cells (user, 2026-10-15): a centre and its ring, grown a little
+  const lakes=cells.length>=120?2:1;let placed=0;
+  for(let L=0;L<lakes;L++){
+    for(let tries=0;tries<40;tries++){
+      const c=cells[Math.floor(rand()*cells.length)];if(hdist(grid.center,c)<2)continue;
+      const ring=[c,...neighbors(c)];if(!ring.every(x=>grid.inBounds(x)&&!avoid.has(hkey(x))&&grid.terrainAt(x)==="Open"))continue;
+      if(ring.some(x=>neighbors(x).some(nb=>grid.inBounds(nb)&&grid.terrainAt(nb)==="Water")))continue;   // lakes stay apart
+      const lake=[...ring];
+      for(let g=Math.floor(rand()*4);g>0;g--){const from=lake[Math.floor(rand()*lake.length)],nb=neighbors(from).filter(x=>grid.inBounds(x)&&!avoid.has(hkey(x))&&grid.terrainAt(x)==="Open"&&!lake.some(y=>hkey(y)===hkey(x)));if(nb.length)lake.push(nb[Math.floor(rand()*nb.length)]);}
+      if(lake.length<BAL.waterLakeMin)continue;
+      for(const x of lake)grid.set(x,"Water");placed+=lake.length;break;
+    }
+  }
+  const n=round(cells.length*0.14);
   for(let i=0;i<cells.length&&placed<n;i++){const c=cells[Math.floor(rand()*cells.length)];const k=hkey(c);if(avoid.has(k)||grid.terrainAt(c)!=="Open")continue;if(hdist(grid.center,c)===0)continue;grid.set(c,kinds[Math.floor(rand()*kinds.length)]);placed++;}
   ensureNavigable(grid);
 }
@@ -2285,7 +2315,7 @@ function ensureNavigable(grid){
 root.AF={BAL,setSeed,rand,mulberry32,setRNG:fn=>{RNG=fn;},
   SIGNS,PLANETS,ELEM,RULER,GLYPH,NAKSHATRA,NAK_ROLE,PADA,
   julianDay,buildChart,chartToLoadout,placement,signOf,nakOf,padaOf,decanOf,sunLon,moonLon,planetLon,ascendantLon,
-  Grid,makeArena,hx,hdist,hkey,neighbors,cubeRound,generateTerrain,
+  Grid,makeArena,hx,hdist,hkey,neighbors,cubeRound,generateTerrain,canWade,onWater,waterUpkeep,
   DR,mcurve,moveBudget,bandFor,evalRange,baseDamage,poiseDamage,affinity,aspectBetween,costMult,dmgMult,initWeight,
   KITS,MARTIAL,WEAPONS,EYES,EYE_PLANETS,BLOODLINES,BLOOD_KEYS,SUMMON_STATS,zodiacAbilities,generalArts,buildLoadout,
   ENEMIES,ENEMY_KEYS,enemyLoadout,

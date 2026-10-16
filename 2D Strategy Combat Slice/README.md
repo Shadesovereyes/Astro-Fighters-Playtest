@@ -24,7 +24,51 @@ plain browser page, **not** the Phaser runtime and not Phaser-integrated gamepla
 - Rolling Throw follows the sheet ("Throw target 3 tiles away from user; Ends Grapple"): the victim lands 3 tiles away on
   the holder's far side.
 
-To see the moves: train Judo or Muay Thai, Clinch an adjacent foe, then queue Hip Toss, Rolling Throw, Knee Strikes,
+- Version 9 (2026-10-15):
+  - Hex step 20 (was 34), drawn at an integer 2x when the panel fits, so adjacent fighters stand close enough for a
+    jab (reach +23 px past the pivot) to visibly land.
+  - Fighters turn to face their main target (else last target, else nearest foe) after every beat, throw and recap.
+  - Appearance section (`web/af-creator-v3.js`): skin tone, hair style, hair colour, eye colour, outfit. All are palette
+    swaps or layer picks over the approved sheets; nothing is redrawn. Tones 1 and 2 are approved, tones 3 and 4 are
+    candidates awaiting approval. Hair and eye colours share one ramp rule (`colorRamp` in `af-sprites-v3.js`): the
+    picked colour is the base, highlights shift lighter and warmer, the iris shadow darker and cooler. The look is kept
+    in the browser's localStorage (`af.look.v1`).
+  - "Record the fight (video + GIF)" on the result screen replays the recap and offers a WebM (or MP4) at 2x and a
+    10 fps GIF at 1x for download.
+
+- Environment props (2026-10-15, `web/af-props-v3.js`, candidate art awaiting approval): every engine terrain kind is
+  drawn as pixel art instead of a glyph, with 2 or 3 variants picked per cell (pine, oak and autumn trees about 2 to 2.4 fighters tall, with headroom above the top row; boulder,
+  standing stone and sandstone rocks; shrub, berry and flowering bushes; stone and plank rubble; pond; Earth Wall;
+  felled log and stump; animated smoke; spike pit; caltrops), plus grass, pebbles, flowers and mushrooms on open cells.
+  Each prop is a deterministic pixel spec rendered at the rig's density; nothing is generated or resampled. Standing
+  props are depth sorted with the fighters and turn see-through while a fighter is behind one. The recap video and GIF
+  include them. Gameplay is unchanged: the hex outlines still mark what blocks movement and sight.
+
+- Downed state (2026-10-15, candidate awaiting approval): a defeated fighter no longer fades out. It lies in the new
+  `downed` state (the approved prone pose with the eyes closed, `production/source/characters/anim/male/downed.json`)
+  where it fell, for the rest of the fight and in the recap. Beasts and summons drawn as glyphs still fade.
+
+- Pinned battle layout (2026-10-15): on screens wider than 1100 px the health bars and the arena map stay on screen
+  while the controls column on the right scrolls; the arena is fitted to the height left under the health bars.
+
+- Seamless arena ground (2026-10-15): one painted plateau (grass, worn dirt, an earth cliff on the south edge) under
+  the SVG hex grid. While planning, the grid shows faintly over it with the move, target and area highlights; while a
+  round or the recap plays the grid fades out. The recap video and GIF draw the ground with no grid.
+
+- Water (2026-10-15): lakes of at least 7 connected tiles (a centre and its ring, grown a little; 2 lakes on large
+  maps), painted into the ground so the water fills whole tiles and runs between them. Characters can walk on water
+  but pay 10 chakra each round they end on it (`BAL.waterChakraPerRound`); with too little chakra they drown for 12% of
+  max HP a round (`BAL.waterDrownPercent`) and show the drowning loop (the approved guard-break arms-up frames, sunk to
+  the waist and cut at the waterline, with a foam ring). Animals (bear, tiger, crab, bat), summons and the caravan
+  cannot enter water. Charge Chakra cannot be used while standing in water.
+
+- Sweeping Shoulder and Mount (2026-10-15, candidate art): Sweeping Shoulder from the clinch plays a paired takedown.
+  The holder drives in with the shoulder and reaps the lead leg, the held fighter falls on their back and the holder
+  lands astride. While the engine has a Mount, the pair idles in the new `mountTop` / `mountBottom` stance, drawn
+  where the takedown ended. Moves inside the Mount (Ground and Pound, chokes, escapes) have no clips yet, so the pair
+  holds the stance while the hits register. When the Mount ends, the bottom fighter kips up.
+
+To see the moves: train Judo or Muay Thai, Clinch an adjacent foe, then queue Hip Toss, Rolling Throw, Sweeping Shoulder, Knee Strikes,
 Elbow Strike, Uppercut or Body Shot.
 
 ## Layout

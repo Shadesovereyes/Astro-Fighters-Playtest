@@ -118,7 +118,7 @@ function installMap(){
       const cell=cells.get(coord(token));if(!cell)return;
       const kind=token.classList.contains("player")?"player":token.classList.contains("ally")?"ally":"enemy";
       cell.polygon.classList.add(`occupied-${kind}`);
-      const ring=document.createElementNS("http://www.w3.org/2000/svg","circle");ring.setAttribute("class",`occupant-ring ${kind}`);ring.setAttribute("cx",token.getAttribute("x"));ring.setAttribute("cy",token.getAttribute("y"));ring.setAttribute("r","20");cell.group.insertBefore(ring,cell.terrain);
+      const ring=document.createElementNS("http://www.w3.org/2000/svg","circle");ring.setAttribute("class",`occupant-ring ${kind}`);ring.setAttribute("cx",token.getAttribute("x"));ring.setAttribute("cy",token.getAttribute("y"));ring.setAttribute("r",String(Math.round((AFUI.arenaHexStep?AFUI.arenaHexStep():34)*0.59)));cell.group.insertBefore(ring,cell.terrain);
     });
     arena.dataset.visibleHostiles=String(visibleHostiles);arena.dataset.hiddenHostiles=String(hiddenHostiles);
     observer.observe(arena,{childList:true,subtree:true});

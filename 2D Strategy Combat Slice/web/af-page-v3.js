@@ -139,9 +139,10 @@ function fighterIndicators(f,p){
   if(!badges.length)return"";
   const cap=5;let list=badges,extra=0;
   if(badges.length>cap){list=badges.slice(0,cap-1);extra=badges.length-(cap-1);}
-  const step=12,n=list.length+(extra?1:0),startX=p.x-(n-1)*step/2,y=p.y-23;
+  // above the sprite's head when the rig draws this fighter, else above the glyph token
+  const k=ARENA.hexStep/34,step=Math.round(12*k),n=list.length+(extra?1:0),startX=p.x-(n-1)*step/2,y=SPR&&SPR.handles(f)?p.y-Math.round(ARENA.hexStep*0.4)-60:p.y-Math.round(23*k);
   let out="";
-  list.forEach((b,i)=>{const x=startX+i*step;out+=`<g class="statind ${b.cls}"><rect class="statind-bar" x="${x-5.5}" y="${y+7}" width="11" height="2.3" rx="1"></rect><text class="statind-g" x="${x}" y="${y}">${b.g}</text></g>`;});
+  list.forEach((b,i)=>{const x=startX+i*step;out+=`<g class="statind ${b.cls}"><rect class="statind-bar" x="${x-5.5*k}" y="${y+7*k}" width="${11*k}" height="${2.3*k}" rx="${k}"></rect><text class="statind-g" x="${x}" y="${y}">${b.g}</text></g>`;});
   if(extra){const x=startX+list.length*step;out+=`<text class="statind-more" x="${x}" y="${y}">+${extra}</text>`;}
   return out;
 }
@@ -197,24 +198,54 @@ function planActions(){return S.queue.map(e=>{const ab=e.ab;let target=e.target,
 // old fixed canvas (which would defeat the point of a "less cramped" bigger map). ARENA is
 // (re)computed by computeArenaGeometry() at battle start and applied to the SVG element there;
 // pointy() just reads whatever is current.
-let ARENA={cx:380,cy:305,hexStep:34};
+// Hex step 20 (was 34; user, 2026-10-15: adjacent fighters stood too far apart for melee to read as connecting). At
+// step 20 adjacent cells are ~35 px apart, so a jab (23 px past the pivot) meets an adjacent opponent's guard. The
+// arena is drawn at an integer 2x when it fits (fitArena), so the pixel-art sprites stay crisp.
+let ARENA={cx:380,cy:305,hexStep:20,zoom:2};
 const pointy=(q,r,s=ARENA.hexStep)=>({x:ARENA.cx+s*Math.sqrt(3)*(q+r/2),y:ARENA.cy+s*1.5*r});
-const poly=(x,y,s=32)=>Array.from({length:6},(_,i)=>{const a=(60*i-30)*Math.PI/180;return`${x+s*Math.cos(a)},${y+s*Math.sin(a)}`}).join(" ");
+const poly=(x,y,s=ARENA.hexStep-1)=>Array.from({length:6},(_,i)=>{const a=(60*i-30)*Math.PI/180;return`${x+s*Math.cos(a)},${y+s*Math.sin(a)}`}).join(" ");
 // Sprite layer (af-sprites-v3.js): playtest rig drawn over the arena; rounds replay from B.events.
 const SPR=window.AFSprites||null;
-if(SPR)SPR.attach({cellPx:c=>pointy(c.q,c.r),rerender:()=>{if(S.B&&!$("battle").classList.contains("hidden"))renderArena();},onRecap:showRecapProgress});
-const hexCorners=(x,y,s=32)=>Array.from({length:6},(_,i)=>{const a=(60*i-30)*Math.PI/180;return{x:x+s*Math.cos(a),y:y+s*Math.sin(a)};});
+AFUI.arenaHexStep=()=>ARENA.hexStep;
+if(SPR)SPR.attach({cellPx:c=>pointy(c.q,c.r),hexStep:()=>ARENA.hexStep,focusOf:f=>f===S.player&&S.mainTarget&&AF.alive(S.mainTarget)?S.mainTarget:null,board:boardForRecording,rerender:()=>{if(S.B&&!$("battle").classList.contains("hidden"))renderArena();},onRecap:showRecapProgress});
+const hexCorners=(x,y,s=ARENA.hexStep-1)=>Array.from({length:6},(_,i)=>{const a=(60*i-30)*Math.PI/180;return{x:x+s*Math.cos(a),y:y+s*Math.sin(a)};});
 // Exact half-extents of a radius-R hex grid at the current hex step, so the viewBox fits every
 // cell with a fixed margin — computed directly rather than approximated, so it's exact at any
 // radius instead of needing a per-tier magic number.
 function computeArenaGeometry(radius){
-  const s=ARENA.hexStep,pad=48;
+  const s=ARENA.hexStep,pad=Math.round(s*1.4);
   let maxX=0,maxY=0;
   for(let q=-radius;q<=radius;q++)for(let r=Math.max(-radius,-q-radius);r<=Math.min(radius,-q+radius);r++){
     maxX=Math.max(maxX,Math.abs(s*Math.sqrt(3)*(q+r/2)));maxY=Math.max(maxY,Math.abs(s*1.5*r));
   }
-  const cx=Math.round(maxX+pad),cy=Math.round(maxY+pad);
-  return{cx,cy,hexStep:s,vbW:cx*2,vbH:cy*2};
+  // headroom above the top row for tall props: trees stand about 100 px over their cell (af-props-v3.js)
+  const head=Math.round(s*3.6),cx=Math.round(maxX+pad),cy=Math.round(maxY+pad+head);
+  return{cx,cy,hexStep:s,vbW:cx*2,vbH:Math.round(cy+maxY+pad)};
+}
+// Display size: an integer 2x when the arena fits its panel at 2x, otherwise scaled to fit the panel width.
+// Pinned battle layout (user, 2026-10-15): on a wide screen the health bars and the arena stay on screen while the
+// controls column scrolls, so the arena is also fitted to the viewport height left under the health bars
+const PINNED=typeof matchMedia==="function"?matchMedia("(min-width:1101px)"):null;
+function pinLayout(){
+  const b=$("battle"),hud=$("hud");if(!b||!hud)return 0;
+  const h=PINNED&&PINNED.matches?hud.offsetHeight+10:0;b.style.setProperty("--hud-h",h+"px");return h;
+}
+function fitArena(){
+  const svg=$("arena"),wrap=svg&&svg.parentElement;if(!svg||!ARENA.vbW)return;
+  const hudH=pinLayout();
+  let avail=(wrap&&wrap.clientWidth)||ARENA.vbW*2;
+  if(hudH&&wrap){const chrome=[...wrap.querySelectorAll(":scope>.toolbar,:scope>.map-legend")].reduce((a,el)=>a+el.offsetHeight,0);
+    avail=Math.min(avail,(window.innerHeight-hudH-chrome-16)*ARENA.vbW/ARENA.vbH);}
+  const z=avail>=ARENA.vbW*2?2:Math.max(0.5,avail/ARENA.vbW);ARENA.zoom=z;
+  svg.style.width=Math.floor(ARENA.vbW*z)+"px";svg.style.height=Math.floor(ARENA.vbH*z)+"px";svg.style.margin="0 auto";
+}
+window.addEventListener("resize",()=>{if(S.B)fitArena();});
+if(typeof ResizeObserver==="function")window.addEventListener("DOMContentLoaded",()=>{const hud=$("hud");if(hud)new ResizeObserver(()=>{if(S.B&&!$("battle").classList.contains("hidden"))fitArena();}).observe(hud);});
+// what the recap recorder redraws: every hex centre with its terrain kind and glyph
+const TERRAIN_KIND={Tree:"hard",Rock:"hard",Wall:"hard",Bush:"soft",Rubble:"soft",Smoke:"soft",FelledTree:"fell",Spikes:"hazard",Caltrops:"hazard"};
+function boardForRecording(){
+  if(!S.B)return null;
+  return{vbW:ARENA.vbW,vbH:ARENA.vbH,hexStep:ARENA.hexStep,cells:[...S.B.grid.cells()].map(c=>{const p=pointy(c.q,c.r),t=S.B.grid.terrainAt(c);return{x:p.x,y:p.y,kind:TERRAIN_KIND[t]||"open",glyph:TERRAIN_GLYPH[t]||""};})};
 }
 // Map-size tiers (owner request, 2026-08-18): a small 1v1/2v2 stays on the original radius-5
 // arena; larger rosters get genuinely more room instead of feeling cramped. "Auto" sizes off the
@@ -330,7 +361,7 @@ function init(){
   $("addOpponent").onclick=()=>{if(rosterTotal()<ROSTER_CAP){S.roster.opponents.push({key:"StreetThug",level:playerLevel(),auto:true});renderRoster();}};
   for(const id of["enemy1Level","enemy2Level","allyLevel"])$(id).addEventListener("input",()=>{$(id).dataset.autoLevel="0";});
   $("clearQueue").onclick=()=>{S.queue=[];exitTargeting();renderQueue();renderAbilityBrowser();renderArena();};
-  $("resolve").onclick=resolveRound;$("recapSkip").onclick=()=>SPR&&SPR.skip();$("watchRecap").onclick=watchRecap;$("rematch").onclick=()=>location.reload();$("newBtn").onclick=()=>location.reload();
+  $("resolve").onclick=resolveRound;$("recapSkip").onclick=()=>SPR&&SPR.skip();$("watchRecap").onclick=watchRecap;$("recordRecap").onclick=recordRecap;$("rematch").onclick=()=>location.reload();$("newBtn").onclick=()=>location.reload();
   $("abilitySearch").oninput=e=>{S.query=e.target.value;renderAbilityBrowser();};
   $("sourceFilter").onchange=e=>{S.source=e.target.value;renderAbilityBrowser(false);};
   $("showLocked").onchange=e=>{S.showLocked=e.target.checked;renderAbilityBrowser();};
@@ -542,7 +573,7 @@ function startBattle(){
   ARENA=Object.assign(ARENA,computeArenaGeometry(mapRadius));
   const arenaSvg=$("arena");
   arenaSvg.setAttribute("viewBox",`0 0 ${ARENA.vbW} ${ARENA.vbH}`);
-  arenaSvg.style.height=ARENA.vbH+"px";
+  fitArena();
   const taken=[];
   S.player=AF.makeFighter({name:$("name").value.trim()||"Starfighter",sign:S.chart.placements.Sun.sign,stats:st,faction:0,cell:randomNear(grid,sc(AF.hx(-4,2)),spawnSpread,taken),isPlayer:true,summonSpecies:AF.chartToLoadout(S.chart).summonSpecies,abilities:runtime.abilities,glyph:AF.GLYPH[S.chart.placements.Sun.sign]});
   S.player.level=runtime.profile.level;
@@ -585,7 +616,7 @@ function startBattle(){
   S.queue=[];S.moveTo=null;S.category="Ready";S.source="All";S.query="";S.mainTarget=null;S.targeting=null;S.lastKnown=new Map();$("abilitySearch").value="";
   const mapSizeName=Object.keys(MAP_SIZES).find(k=>MAP_SIZES[k]===mapRadius)||`radius ${mapRadius}`;
   log(`Scenario started: ${scenarioLabel(scenario)}. Level ${S.player.level} ${runtime.profile.phase}. ${mapSizeName} map.`,"sys");
-  $("setup").classList.add("hidden");$("battle").classList.remove("hidden");renderAll();
+  $("setup").classList.add("hidden");$("battle").classList.remove("hidden");fitArena();renderAll();
 }
 function scenarioLabel(v){
   if(v==="duel")return"1v1 duel";
@@ -655,8 +686,8 @@ function renderArena(){
   if(S.lastKnown)for(const[f,cell]of S.lastKnown){if(f.faction===S.player.faction||!AF.alive(f)||S.B.perceives(S.player,f))continue;const gp=pointy(cell.q,cell.r);svg.insertAdjacentHTML("beforeend",`<text class="ghost-mark" x="${gp.x}" y="${gp.y}">?</text>`);}
   const viewer=AF.alive(S.player)?S.player:null;
   S.B.all.filter(AF.alive).forEach(f=>{const p=pointy(f.cell.q,f.cell.r),cls=f===S.player?"player":f.faction===S.player.faction?"ally":"enemy";svg.insertAdjacentHTML("beforeend",`<text class="token ${cls}${SPR&&SPR.handles(f)?" sprited":""}" x="${p.x}" y="${p.y}">${f.glyph}</text>`);if(!viewer||AFUI.canRenderFighter(S.B,viewer,f))svg.insertAdjacentHTML("beforeend",fighterIndicators(f,p));});
-  if(mainCellK){const mc=pointy(S.mainTarget.cell.q,S.mainTarget.cell.r);svg.insertAdjacentHTML("beforeend",`<circle class="main-ring" cx="${mc.x}" cy="${mc.y}" r="22"></circle>`);}
-  if(SPR)SPR.sync(S.B,S.player);
+  if(mainCellK){const mc=pointy(S.mainTarget.cell.q,S.mainTarget.cell.r);svg.insertAdjacentHTML("beforeend",`<circle class="main-ring" cx="${mc.x}" cy="${mc.y}" r="${Math.round(ARENA.hexStep*0.65)}"></circle>`);}
+  if(SPR){if(SPR.setTerrain)SPR.setTerrain(S.B.grid.cells().map(c=>{const p=pointy(c.q,c.r);return{x:p.x,y:p.y,t:S.B.grid.terrainAt(c)};}));SPR.sync(S.B,S.player);}
   renderTargetBar();
   $("moveReadout").textContent=S.targeting?`Aiming ${tgtAb.name} — click ${S.targeting.mode==="enemy"?"a visible enemy":S.targeting.mode==="ally"?"a friendly fighter":S.targeting.mode==="throw"?"a landing tile for the throw":"a highlighted tile"} (✕ in the target bar to cancel)`:(S.moveTo?`Planned ${AF.hdist(S.player.cell,S.moveTo)} hex move to ${S.moveTo.q},${S.moveTo.r}`:`Movement ${AF.moveBudget(S.player)} · Awareness ${aware}`);
 }
@@ -867,14 +898,43 @@ function playRecap(){
 function showRecapProgress(p){
   const wrap=document.querySelector(".arena-wrap");if(wrap)wrap.classList.toggle("recapping",!!p);
   $("recapBar").classList.toggle("hidden",!p);
-  if(p)$("recapRound").textContent=`Round ${p.round} · ${p.index} of ${p.total}`;
+  if(p)$("recapRound").textContent=`${p.recording?"Recording · ":""}Round ${p.round} · ${p.index} of ${p.total}`;
 }
 function watchRecap(){$("resultOverlay").classList.add("hidden");playRecap().then(()=>$("resultOverlay").classList.remove("hidden"));}
+// Recap export (user, 2026-10-15): the recap plays while it is recorded, then the result card offers the files.
+function recordRecap(){
+  if(!SPR||!S.B)return;
+  $("resultOverlay").classList.add("hidden");$("resolve").disabled=true;
+  SPR.recordRecap(S.B,S.player).then(out=>{S.recording=out;renderRecording();}).finally(()=>{$("resolve").disabled=false;$("resultOverlay").classList.remove("hidden");});
+}
+const kb=b=>b.size>=1048576?`${(b.size/1048576).toFixed(1)} MB`:`${Math.max(1,Math.round(b.size/1024))} KB`;
+function renderRecording(){
+  const el=$("recordOut"),o=S.recording;if(!el)return;
+  if(!o||(!o.video&&!o.gif)){el.className="record-out note";el.textContent=o?"Nothing was recorded.":"";return;}
+  el.className="record-out";
+  el.innerHTML=`${o.complete?"":'<div class="note">Recording stopped early; the files hold what played.</div>'}<div class="actions" style="justify-content:center">`
+    +(o.video?`<button class="secondary" id="saveVideo" type="button">Save video (.${o.video.ext}, ${kb(o.video.blob)})</button>`:"")
+    +(o.gif?`<button class="secondary" id="saveGif" type="button">Save GIF (${kb(o.gif)})</button>`:"")+`</div><div class="note" id="saveNote"></div>`;
+  const stamp=new Date().toISOString().slice(0,16).replace(/[:T]/g,"-");
+  const bind=(id,name,blob)=>{const b=$(id);if(b)b.onclick=()=>saveBlob(name,blob).then(msg=>{$("saveNote").textContent=msg;});};
+  if(o.video)bind("saveVideo",`astro-fighters-recap-${stamp}.${o.video.ext}`,o.video.blob);
+  if(o.gif)bind("saveGif",`astro-fighters-recap-${stamp}.gif`,o.gif);
+}
+// saves through the Artifact host's downloads capability when it is there, else a plain browser download
+async function saveBlob(name,blob){
+  const host=window.claude&&typeof window.claude.use==="function"?await window.claude.use("downloads").catch(()=>null):null;
+  if(host){
+    try{await host.save({filename:name,data:blob});return`Saved ${name}.`;}
+    catch(e){if(e&&e.code==="declined")return"Save cancelled.";if(e&&e.code==="rate_limited")return"A save prompt is already open.";if(e&&e.code&&!["unavailable","not_granted","capability_disabled","capability_removed"].includes(e.code))return`Could not save: ${e.message||e.code}`;}
+  }
+  const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();
+  setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},5000);return`Downloading ${name}.`;
+}
 function finishBattle(won,title,text){
   $("resultTitle").textContent=title;
   let sum=null;
   if(S.career){sum=AFUI.commitProgress(S.B,S.progress,{god:S.god,won});saveCareer();renderCareerPanel();}
-  $("resultText").textContent=text;renderResultXp(sum);$("watchRecap").classList.toggle("hidden",!(SPR&&SPR.ready&&S.B.history&&S.B.history.length));$("resultOverlay").classList.remove("hidden");
+  $("resultText").textContent=text;renderResultXp(sum);const canRecap=!!(SPR&&SPR.ready&&S.B.history&&S.B.history.length);$("watchRecap").classList.toggle("hidden",!canRecap);$("recordRecap").classList.toggle("hidden",!canRecap);S.recording=null;renderRecording();$("resultOverlay").classList.remove("hidden");
 }
 function restoreRoster(){for(const f of S.B.all){f.hp=f.maxHp;f.stam=f.maxStam;f.chakra=AF.effMaxChakra(f);f.poise=f.maxPoise;}log("Roster restored by debug console.","sys");renderAll();}
 function regenerateTerrain(){AF.generateTerrain(S.B.grid,S.B.all.filter(AF.alive).map(f=>f.cell));S.moveTo=null;log("Terrain regenerated.","sys");renderAll();}

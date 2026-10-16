@@ -500,7 +500,10 @@ function frame(k) {
   for (const layer of [bodyL, armsL]) for (const [p, c] of layer) if (c === GEN) layer.set(p, BLACK);
   // overlays follow the head; lagging falls never sit higher than the part above them
   const hb = (kk) => bob[kk] + headDelta(kk);
-  const cap = hb(k), up = Math.min(hb((k - 1 + F) % F), cap), lo = Math.min(hb((k - 2 + F) % F), up), dyOf = [cap, up, lo];
+  // spec.overlays.noLagFrames: frames whose hair falls (and sash flaps, below) follow with no lag (e.g. the first upright frame after a
+  // lying frame, where the earlier bob belongs to a rotated body and would leave the falls detached)
+  const noLag = spec.overlays?.noLagFrames?.includes(k);
+  const cap = hb(k), up = noLag ? cap : Math.min(hb((k - 1 + F) % F), cap), lo = noLag ? cap : Math.min(hb((k - 2 + F) % F), up), dyOf = [cap, up, lo];
   const ov = {};
   for (const l of overlayLayers) {
     const m = new Map();
@@ -1039,7 +1042,8 @@ function kickGarment(l, items, isFar, z, legMap, col) {
   }
 }
 function posedClothing(l, px, k) {
-  const b = bob[k], cap = b, up = Math.min(bob[(k - 1 + F) % F], cap), lo = Math.min(bob[(k - 2 + F) % F], up), dyOf = [cap, up, lo];
+  const noLag = spec.overlays?.noLagFrames?.includes(k);   // the sash flaps follow the body with no lag on these frames too
+  const b = bob[k], cap = b, up = noLag ? cap : Math.min(bob[(k - 1 + F) % F], cap), lo = noLag ? cap : Math.min(bob[(k - 2 + F) % F], up), dyOf = [cap, up, lo];
   const items = [];
   // In the profile the trousers are drawn as one silhouette (the far leg's slivers are its back edge), so every
   // leg pixel forms the trouser that is placed on each posed leg.
