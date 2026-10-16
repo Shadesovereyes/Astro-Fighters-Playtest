@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-animation-output/v1",
   "body": "male",
   "state": "cast",
-  "status": "E/W candidate 2026-10-16 (generic spell cast: seal, charge, palm release), awaiting user approval; S/N to author",
+  "status": "E/W approved by user 2026-10-16 (generic spell cast: seal, charge, palm release); S/N to author",
   "frames": 9,
   "fps": 12,
   "frameSize": [

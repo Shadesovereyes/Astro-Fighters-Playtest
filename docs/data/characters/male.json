@@ -6112,11 +6112,43 @@
       "frames": 7,
       "fps": 12,
       "rows": [
+        "S",
         "E",
+        "N",
         "W"
       ],
-      "status": "E/W approved by user 2026-10-14 (S/N to author)",
+      "status": "E/W approved by user 2026-10-14; S/N candidate 2026-10-16 (frontal hit recoil), awaiting user approval",
       "rootMotion": {
+        "S": [
+          [
+            0,
+            -2
+          ],
+          [
+            0,
+            -1
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
         "E": [
           [
             -2,
@@ -6125,6 +6157,36 @@
           [
             -1,
             0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "N": [
+          [
+            0,
+            2
+          ],
+          [
+            0,
+            1
           ],
           [
             0,
@@ -10292,7 +10354,7 @@
         "E",
         "W"
       ],
-      "status": "E/W candidate 2026-10-16 (knockout: the defeating hit drops the fighter into downed), awaiting user approval; S/N to author",
+      "status": "E/W approved by user 2026-10-16 (knockout: the defeating hit drops the fighter into downed); S/N to author",
       "rootMotion": {
         "E": [
           [
@@ -10422,7 +10484,7 @@
         "E",
         "W"
       ],
-      "status": "E/W candidate 2026-10-16 (generic spell cast: seal, charge, palm release), awaiting user approval; S/N to author",
+      "status": "E/W approved by user 2026-10-16 (generic spell cast: seal, charge, palm release); S/N to author",
       "rootMotion": {
         "E": [
           [
