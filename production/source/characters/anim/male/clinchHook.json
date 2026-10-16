@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "clinchHook",
-  "status": "E/W candidate 2026-10-16 (Haymaker in the clinch (short hook), paired with clinchHookHit), awaiting user approval; S/N to author",
+  "status": "E/W approved by user 2026-10-16 (Haymaker in the clinch (short hook), paired with clinchHookHit); S/N to author",
   "frames": 8,
   "fps": 12,
   "sourceDirection": "E",
