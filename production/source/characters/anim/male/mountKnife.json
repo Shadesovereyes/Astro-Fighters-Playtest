@@ -671,10 +671,10 @@
       },
       {
         "construction": "band",
-        "angle": -52,
+        "angle": -51,
         "elbow": {
           "at": 8,
-          "angle": -174
+          "angle": -137
         },
         "fistKind": "forward"
       },
@@ -743,10 +743,10 @@
       },
       {
         "construction": "band",
-        "angle": -111,
+        "angle": -49,
         "elbow": {
           "at": 8,
-          "angle": 12
+          "angle": -37
         },
         "fistKind": "forward"
       },
@@ -1310,88 +1310,88 @@
       "E": [
         {
           "grip": [
-            44,
-            44
+            48,
+            42
           ],
           "angle": -55,
           "z": "front"
         },
         {
           "grip": [
-            41,
+            47,
             30
           ],
-          "angle": -50,
-          "z": "front"
-        },
-        {
-          "grip": [
-            41,
-            18
-          ],
-          "angle": -45,
-          "z": "front"
-        },
-        {
-          "grip": [
-            41,
-            18
-          ],
-          "angle": -45,
-          "z": "front"
-        },
-        {
-          "grip": [
-            43,
-            50
-          ],
-          "angle": -85,
-          "z": "front"
-        },
-        {
-          "grip": [
-            43,
-            50
-          ],
-          "angle": -88,
-          "z": "front"
-        },
-        {
-          "grip": [
-            41,
-            18
-          ],
-          "angle": -45,
-          "z": "front"
-        },
-        {
-          "grip": [
-            43,
-            50
-          ],
-          "angle": -85,
-          "z": "front"
-        },
-        {
-          "grip": [
-            43,
-            50
-          ],
-          "angle": -88,
+          "angle": -55,
           "z": "front"
         },
         {
           "grip": [
             42,
-            37
+            16
+          ],
+          "angle": -55,
+          "z": "front"
+        },
+        {
+          "grip": [
+            42,
+            16
+          ],
+          "angle": -55,
+          "z": "front"
+        },
+        {
+          "grip": [
+            43,
+            50
+          ],
+          "angle": -82,
+          "z": "front"
+        },
+        {
+          "grip": [
+            43,
+            50
+          ],
+          "angle": -85,
+          "z": "front"
+        },
+        {
+          "grip": [
+            42,
+            16
+          ],
+          "angle": -55,
+          "z": "front"
+        },
+        {
+          "grip": [
+            43,
+            50
+          ],
+          "angle": -82,
+          "z": "front"
+        },
+        {
+          "grip": [
+            43,
+            50
+          ],
+          "angle": -85,
+          "z": "front"
+        },
+        {
+          "grip": [
+            48,
+            46
           ],
           "angle": -60,
           "z": "front"
         },
         {
           "grip": [
-            44,
-            44
+            48,
+            42
           ],
           "angle": -55,
           "z": "front"
