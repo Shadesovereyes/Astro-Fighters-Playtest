@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "clinchHoldPullGuardHit",
-  "status": "E/W candidate 2026-10-16 (held-side Pull Guard, thrown; frames 3.. reuse approved clinchPullGuardHit), awaiting user approval; S/N to author",
+  "status": "E/W approved by user 2026-10-16 (held-side Pull Guard, thrown; frames 3.. reuse approved clinchPullGuardHit); S/N to author",
   "frames": 15,
   "fps": 12,
   "sourceDirection": "E",
@@ -1495,5 +1495,9 @@
       ]
     },
     "intent": "eyes squeeze as they are loaded and thrown, shut on the landing (frames 5-7), squinting while lying"
+  },
+  "approved": {
+    "E": "2026-10-16",
+    "W": "2026-10-16 (mirror of E)"
   }
 }

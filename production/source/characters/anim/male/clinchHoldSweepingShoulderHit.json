@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "clinchHoldSweepingShoulderHit",
-  "status": "E/W candidate 2026-10-16 (held-side Sweeping Shoulder, thrown; frames 3.. reuse approved clinchSweepingShoulderHit), awaiting user approval; S/N to author",
+  "status": "E/W approved by user 2026-10-16 (held-side Sweeping Shoulder, thrown; frames 3.. reuse approved clinchSweepingShoulderHit); S/N to author",
   "frames": 15,
   "fps": 12,
   "sourceDirection": "E",
@@ -1602,5 +1602,9 @@
         ]
       }
     ]
+  },
+  "approved": {
+    "E": "2026-10-16",
+    "W": "2026-10-16 (mirror of E)"
   }
 }

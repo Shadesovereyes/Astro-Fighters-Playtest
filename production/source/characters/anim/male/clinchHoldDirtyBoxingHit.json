@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "clinchHoldDirtyBoxingHit",
-  "status": "E/W candidate 2026-10-16 (holder side of held Dirty Boxing), awaiting user approval; S/N to author",
+  "status": "E/W approved by user 2026-10-16 (holder side of held Dirty Boxing); S/N to author",
   "frames": 15,
   "fps": 12,
   "sourceDirection": "E",
@@ -1134,5 +1134,9 @@
       ]
     },
     "intent": "the hit-recoil expression on the holder when the held fighter's uppercut lands: eyes squeezed shut on the impact frames 4-5, a squint on frame 6, open again on frame 7"
+  },
+  "approved": {
+    "E": "2026-10-16",
+    "W": "2026-10-16 (mirror of E)"
   }
 }

@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "clinchDirtyBoxingHit",
-  "status": "E/W candidate 2026-10-16 (held side of clinch Dirty Boxing), awaiting user approval; S/N to author",
+  "status": "E/W approved by user 2026-10-16 (held side of clinch Dirty Boxing); S/N to author",
   "frames": 15,
   "fps": 12,
   "sourceDirection": "E",
@@ -1134,5 +1134,9 @@
       ]
     },
     "intent": "the hit-recoil expression (user 2026-10-14: the eyes briefly change when the uppercut lands, as in the hit recoil): eyes squeezed shut with the brow pulled down on the impact frames 4-5, a squint on frame 6, open again on frame 7 as the head sinks back under the tie"
+  },
+  "approved": {
+    "E": "2026-10-16",
+    "W": "2026-10-16 (mirror of E)"
   }
 }

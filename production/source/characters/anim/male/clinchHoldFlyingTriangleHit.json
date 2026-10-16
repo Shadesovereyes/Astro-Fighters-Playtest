@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "clinchHoldFlyingTriangleHit",
-  "status": "E/W candidate 2026-10-16 (held-side Flying Triangle, thrown; frames 3.. reuse approved clinchFlyingTriangleHit), awaiting user approval; S/N to author",
+  "status": "E/W approved by user 2026-10-16 (held-side Flying Triangle, thrown; frames 3.. reuse approved clinchFlyingTriangleHit); S/N to author",
   "frames": 15,
   "fps": 12,
   "sourceDirection": "E",
@@ -1504,5 +1504,9 @@
       ]
     },
     "intent": "eyes squeeze as the legs lock, shut as the head is dragged down, strained under the choke"
+  },
+  "approved": {
+    "E": "2026-10-16",
+    "W": "2026-10-16 (mirror of E)"
   }
 }

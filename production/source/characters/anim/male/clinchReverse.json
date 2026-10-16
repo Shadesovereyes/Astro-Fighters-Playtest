@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "clinchReverse",
-  "status": "E/W candidate 2026-10-16 (held-side Clinch reversal), awaiting user approval; S/N to author",
+  "status": "E/W approved by user 2026-10-16 (held-side Clinch reversal); S/N to author",
   "frames": 4,
   "fps": 6,
   "sourceDirection": "E",
@@ -681,5 +681,9 @@
     "layeringRule": "back to front (user 2026-10-14): the holder's far arm is the bottom layer (it wraps behind the held head to the back of the neck) and the holder's near arm the top layer (it wraps over the held head); between them the held fighter's far arm, the holder's body, the held fighter's body (its head is pulled down in front of the holder's chest) and the held fighter's near arm (pushing on the holder's chest)",
     "heldLayeringUntil": 2,
     "heldLayeringRule": "before this frame the clinch layering roles are reversed (this fighter starts held)"
+  },
+  "approved": {
+    "E": "2026-10-16",
+    "W": "2026-10-16 (mirror of E)"
   }
 }

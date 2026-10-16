@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "clinchDirtyBoxing",
-  "status": "E/W candidate 2026-10-16 (Dirty Boxing in the clinch, holder; jab, hook, hook from the approved clinch jab and hook), awaiting user approval; S/N to author",
+  "status": "E/W approved by user 2026-10-16 (Dirty Boxing in the clinch, holder; jab, hook, hook from the approved clinch jab and hook); S/N to author",
   "frames": 15,
   "fps": 12,
   "sourceDirection": "E",
@@ -1239,5 +1239,9 @@
         "type": "recovery"
       }
     ]
+  },
+  "approved": {
+    "E": "2026-10-16",
+    "W": "2026-10-16 (mirror of E)"
   }
 }
