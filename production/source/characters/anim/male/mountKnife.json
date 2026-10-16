@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "mountKnife",
-  "status": "E/W candidate 2026-10-16 (Viper Strike (knife) from the top of the Mount in Kyoketsu-Shoge Stance, paired with mountKnifeHit), awaiting user approval; S/N to author",
+  "status": "E/W approved by user 2026-10-16 (two-handed knife stab from the Mount-top tanto stance, paired with mountKnifeHit); S/N to author",
   "frames": 11,
   "fps": 6,
   "sourceDirection": "E",
@@ -1304,7 +1304,7 @@
       "items": [
         "tanto"
       ],
-      "status": "E/W candidate 2026-10-16 (Viper Strike (knife) from the top of the Mount in Kyoketsu-Shoge Stance, paired with mountKnifeHit), awaiting user approval; S/N to author",
+      "status": "E/W approved by user 2026-10-16 (two-handed knife stab from the Mount-top tanto stance, paired with mountKnifeHit); S/N to author",
       "rule": "per frame: grip = pixel at the centre of the near fist (snapped to the rendered fist), angle = blade direction in degrees above the facing horizontal, z = depth slot",
       "depthRule": "front: drawn over body and clothing, under the arms layer (the fist closes over the hilt)",
       "E": [

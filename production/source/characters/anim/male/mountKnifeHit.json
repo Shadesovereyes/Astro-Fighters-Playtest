@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "mountKnifeHit",
-  "status": "E/W candidate 2026-10-16 (mounted side of the top knife stab, paired with mountKnife), awaiting user approval; S/N to author",
+  "status": "E/W approved by user 2026-10-16 (mounted side of the top knife stab, paired with mountKnife); S/N to author",
   "frames": 11,
   "fps": 6,
   "sourceDirection": "E",
