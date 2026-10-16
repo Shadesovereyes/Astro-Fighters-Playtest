@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-animation-output/v1",
   "body": "male",
   "state": "clinchHeldPalm",
-  "status": "E/W candidate 2026-10-16 (Sumo Palm from the held side of the clinch, paired with clinchHoldPalmHit), awaiting user approval; S/N to author",
+  "status": "E/W approved by user 2026-10-16 (Sumo Palm from the held side of the clinch, paired with clinchHoldPalmHit); S/N to author",
   "frames": 8,
   "fps": 12,
   "frameSize": [

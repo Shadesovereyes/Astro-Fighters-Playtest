@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-animation-output/v1",
   "body": "male",
   "state": "clinchHoldBodyShotHit",
-  "status": "E/W candidate 2026-10-16 (holder side of the held Body Shot, paired with clinchHeldBodyShot), awaiting user approval; S/N to author",
+  "status": "E/W approved by user 2026-10-16 (holder side of the held Body Shot, paired with clinchHeldBodyShot); S/N to author",
   "frames": 8,
   "fps": 12,
   "frameSize": [
