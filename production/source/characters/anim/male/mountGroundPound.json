@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "mountGroundPound",
-  "status": "E/W candidate 2026-10-15 (Ground and Pound from Mount, paired with mountGroundPoundHit), awaiting user approval; S/N to author",
+  "status": "E/W approved by user 2026-10-16 (Ground and Pound from Mount, paired with mountGroundPoundHit); S/N to author",
   "frames": 10,
   "fps": 6,
   "sourceDirection": "E",
