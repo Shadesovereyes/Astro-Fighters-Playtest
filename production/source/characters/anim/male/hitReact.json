@@ -1795,10 +1795,22 @@
               -12
             ],
             "elbow": [
-              null,
-              null,
-              null,
-              null,
+              {
+                "at": 7,
+                "angle": 238
+              },
+              {
+                "at": 7,
+                "angle": 224
+              },
+              {
+                "at": 7,
+                "angle": 208
+              },
+              {
+                "at": 7,
+                "angle": 192
+              },
               null,
               null,
               null
@@ -1814,7 +1826,15 @@
             ],
             "fist": "up",
             "z": -1,
-            "showTo": 7,
+            "showTo": [
+              null,
+              null,
+              null,
+              null,
+              7,
+              7,
+              7
+            ],
             "pivotDx": [
               0,
               0,
@@ -1840,10 +1860,22 @@
               12
             ],
             "elbow": [
-              null,
-              null,
-              null,
-              null,
+              {
+                "at": 7,
+                "angle": 122
+              },
+              {
+                "at": 7,
+                "angle": 136
+              },
+              {
+                "at": 7,
+                "angle": 152
+              },
+              {
+                "at": 7,
+                "angle": 168
+              },
               null,
               null,
               null
@@ -1859,7 +1891,15 @@
             ],
             "fist": "up",
             "z": -1,
-            "showTo": 7,
+            "showTo": [
+              null,
+              null,
+              null,
+              null,
+              7,
+              7,
+              7
+            ],
             "pivotDx": [
               0,
               0,
@@ -1872,7 +1912,7 @@
           }
         },
         "headDy": -1,
-        "armRule": "from behind: only the upper arms show (cut at 7 px); they swing out wide as the guard is broken and back in to the guard",
+        "armRule": "from behind: the broken guard flings both arms out wide past the body edge, fists knocked out, then they close back in behind the body into the guard",
         "twist": {
           "pelvis": [
             0,

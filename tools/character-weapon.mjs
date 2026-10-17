@@ -32,18 +32,30 @@ const F = spec.frames, dirs = spec.directions;
 function draw(item, pose) {
   const t = pose.angle * Math.PI / 180, d = [Math.cos(t), -Math.sin(t)], n = [Math.sin(t), Math.cos(t)];
   const gx = pose.grip[0] + 0.5, gy = pose.grip[1] + 0.5, out = new Map();
-  const lo = Math.min(...item.segments.map((s) => s.from)), hi = Math.max(...item.segments.map((s) => s.to));
+  // branch segments (a sickle's blade, a hook): each lies on its own axis that starts at branch.at = [u, v] in the
+  // weapon's axis coordinates and turns branch.angle degrees from the weapon axis (positive toward +v, i.e. below the
+  // axis in E); from/to run along that branch axis. Main segments have no branch.
+  const main = item.segments.filter((s) => !s.branch), branches = item.segments.filter((s) => s.branch);
+  const lo = Math.min(...main.map((s) => s.from)), hi = Math.max(...main.map((s) => s.to)), sc = pose.scale ?? 1;
+  const paint = (s, u, v) => {
+    const h = s.thickness / 2;
+    if (v < -h || v >= h) return null;
+    const row = s.pattern[Math.floor(u - s.from) % s.pattern.length];
+    return row[Math.min(row.length - 1, Math.floor((v + h) * row.length / s.thickness))];
+  };
   for (let y = -ORIGIN[1]; y < WF - ORIGIN[1]; y++) for (let x = -ORIGIN[0]; x < WF - ORIGIN[0]; x++) {
     // scale foreshortens the weapon's length (a blade pointing toward or away from the viewer), never its thickness
-    const cx = x + 0.5 - gx, cy = y + 0.5 - gy, u = (cx * d[0] + cy * d[1]) / (pose.scale ?? 1), v = cx * n[0] + cy * n[1];
-    if (u < lo || u >= hi) continue;
+    const cx = x + 0.5 - gx, cy = y + 0.5 - gy, u = (cx * d[0] + cy * d[1]) / sc, v = cx * n[0] + cy * n[1];
+    let c = null;
     // a gap between segments (a hilt hidden inside the fist) draws nothing
-    const s = item.segments.find((g) => u >= g.from && u < g.to);
-    if (!s) continue;
-    const h = s.thickness / 2;
-    if (v < -h || v >= h) continue;
-    const row = s.pattern[Math.floor(u - s.from) % s.pattern.length];
-    out.set(key(x, y), row[Math.min(row.length - 1, Math.floor((v + h) * row.length / s.thickness))]);
+    if (u >= lo && u < hi) { const s = main.find((g) => u >= g.from && u < g.to); if (s) c = paint(s, u, v); }
+    for (const s of branches) {
+      if (c) break;
+      const b = s.branch, ba = b.angle * Math.PI / 180, du = u - b.at[0], dv = v - b.at[1];
+      const bu = du * Math.cos(ba) + dv * Math.sin(ba), bv = -du * Math.sin(ba) + dv * Math.cos(ba);
+      if (bu >= s.from && bu < s.to) c = paint(s, bu, bv);
+    }
+    if (c) out.set(key(x, y), c);
   }
   // outline: coloured pixels touching empty space
   for (const [q, c] of [...out]) {
