@@ -5065,6 +5065,208 @@
                 "front"
               ]
             }
+          },
+          {
+            "slot": "main",
+            "item": "kama",
+            "default": false,
+            "hand": "arms",
+            "layers": {
+              "front": "assets/characters/male/oneHandHeavy/main-kama-front.png",
+              "top": "assets/characters/male/oneHandHeavy/main-kama-top.png",
+              "trail": "assets/characters/male/oneHandHeavy/main-kama-trail.png",
+              "trailBehind": "assets/characters/male/oneHandHeavy/main-kama-trail-behind.png"
+            },
+            "z": {
+              "S": [
+                {
+                  "hilt": "front",
+                  "blade": "aboveArm"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "aboveArm"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "aboveArm"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "aboveArm"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                }
+              ],
+              "E": [
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "aboveArm"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "aboveArm"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "aboveArm"
+                },
+                "front",
+                {
+                  "hilt": "front",
+                  "blade": "aboveArm"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "aboveArm"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                "front"
+              ],
+              "N": [
+                {
+                  "hilt": "aboveArm",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "aboveArm",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "aboveArm",
+                  "blade": "aboveArm"
+                },
+                {
+                  "hilt": "aboveArm",
+                  "blade": "aboveArm"
+                },
+                {
+                  "hilt": "aboveArm",
+                  "blade": "aboveArm"
+                },
+                {
+                  "hilt": "aboveArm",
+                  "blade": "aboveArm"
+                },
+                {
+                  "hilt": "aboveArm",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "aboveArm",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "aboveArm",
+                  "blade": "aboveArm"
+                },
+                {
+                  "hilt": "aboveArm",
+                  "blade": "aboveArm"
+                },
+                {
+                  "hilt": "aboveArm",
+                  "blade": "aboveArm"
+                },
+                {
+                  "hilt": "aboveArm",
+                  "blade": "aboveArm"
+                }
+              ],
+              "W": [
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "aboveArm"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "aboveArm"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "aboveArm"
+                },
+                "front",
+                {
+                  "hilt": "front",
+                  "blade": "aboveArm"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "aboveArm"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                "front"
+              ]
+            }
           }
         ]
       },

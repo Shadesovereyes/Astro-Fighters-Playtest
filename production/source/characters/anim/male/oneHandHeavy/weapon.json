@@ -832,6 +832,411 @@
           ]
         ]
       }
+    },
+    {
+      "slot": "main",
+      "item": "kama",
+      "default": false,
+      "hand": "arms",
+      "layers": {
+        "front": "main-kama-front.png",
+        "top": "main-kama-top.png",
+        "trail": "main-kama-trail.png",
+        "trailBehind": "main-kama-trail-behind.png"
+      },
+      "status": "approved by user 2026-10-13",
+      "z": {
+        "S": [
+          {
+            "hilt": "front",
+            "blade": "aboveArm"
+          },
+          {
+            "hilt": "front",
+            "blade": "aboveArm"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "aboveArm"
+          },
+          {
+            "hilt": "front",
+            "blade": "aboveArm"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          }
+        ],
+        "E": [
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "aboveArm"
+          },
+          {
+            "hilt": "front",
+            "blade": "aboveArm"
+          },
+          {
+            "hilt": "front",
+            "blade": "aboveArm"
+          },
+          "front",
+          {
+            "hilt": "front",
+            "blade": "aboveArm"
+          },
+          {
+            "hilt": "front",
+            "blade": "aboveArm"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          "front"
+        ],
+        "N": [
+          {
+            "hilt": "aboveArm",
+            "blade": "top"
+          },
+          {
+            "hilt": "aboveArm",
+            "blade": "top"
+          },
+          {
+            "hilt": "aboveArm",
+            "blade": "aboveArm"
+          },
+          {
+            "hilt": "aboveArm",
+            "blade": "aboveArm"
+          },
+          {
+            "hilt": "aboveArm",
+            "blade": "aboveArm"
+          },
+          {
+            "hilt": "aboveArm",
+            "blade": "aboveArm"
+          },
+          {
+            "hilt": "aboveArm",
+            "blade": "top"
+          },
+          {
+            "hilt": "aboveArm",
+            "blade": "top"
+          },
+          {
+            "hilt": "aboveArm",
+            "blade": "aboveArm"
+          },
+          {
+            "hilt": "aboveArm",
+            "blade": "aboveArm"
+          },
+          {
+            "hilt": "aboveArm",
+            "blade": "aboveArm"
+          },
+          {
+            "hilt": "aboveArm",
+            "blade": "aboveArm"
+          }
+        ],
+        "W": [
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "aboveArm"
+          },
+          {
+            "hilt": "front",
+            "blade": "aboveArm"
+          },
+          {
+            "hilt": "front",
+            "blade": "aboveArm"
+          },
+          "front",
+          {
+            "hilt": "front",
+            "blade": "aboveArm"
+          },
+          {
+            "hilt": "front",
+            "blade": "aboveArm"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          "front"
+        ]
+      },
+      "grips": {
+        "S": [
+          [
+            24,
+            29
+          ],
+          [
+            24,
+            30
+          ],
+          [
+            40,
+            30
+          ],
+          [
+            40,
+            30
+          ],
+          [
+            38,
+            31
+          ],
+          [
+            25,
+            35
+          ],
+          [
+            39,
+            28
+          ],
+          [
+            39,
+            28
+          ],
+          [
+            23,
+            30
+          ],
+          [
+            23,
+            30
+          ],
+          [
+            25,
+            32
+          ],
+          [
+            25,
+            35
+          ]
+        ],
+        "E": [
+          [
+            38,
+            30
+          ],
+          [
+            37,
+            31
+          ],
+          [
+            44,
+            30
+          ],
+          [
+            43,
+            30
+          ],
+          [
+            45,
+            32
+          ],
+          [
+            43,
+            35
+          ],
+          [
+            40,
+            28
+          ],
+          [
+            39,
+            28
+          ],
+          [
+            46,
+            31
+          ],
+          [
+            45,
+            31
+          ],
+          [
+            44,
+            33
+          ],
+          [
+            43,
+            35
+          ]
+        ],
+        "N": [
+          [
+            39,
+            29
+          ],
+          [
+            39,
+            30
+          ],
+          [
+            23,
+            30
+          ],
+          [
+            23,
+            30
+          ],
+          [
+            25,
+            31
+          ],
+          [
+            38,
+            35
+          ],
+          [
+            24,
+            28
+          ],
+          [
+            24,
+            28
+          ],
+          [
+            40,
+            30
+          ],
+          [
+            40,
+            30
+          ],
+          [
+            38,
+            32
+          ],
+          [
+            38,
+            35
+          ]
+        ],
+        "W": [
+          [
+            25,
+            30
+          ],
+          [
+            26,
+            31
+          ],
+          [
+            19,
+            30
+          ],
+          [
+            20,
+            30
+          ],
+          [
+            18,
+            32
+          ],
+          [
+            20,
+            35
+          ],
+          [
+            23,
+            28
+          ],
+          [
+            24,
+            28
+          ],
+          [
+            17,
+            31
+          ],
+          [
+            18,
+            31
+          ],
+          [
+            19,
+            33
+          ],
+          [
+            20,
+            35
+          ]
+        ]
+      }
     }
   ],
   "qc": {
@@ -931,7 +1336,55 @@
       "main/tanto W:8": true,
       "main/tanto W:9": true,
       "main/tanto W:10": true,
-      "main/tanto W:11": true
+      "main/tanto W:11": true,
+      "main/kama S:0": true,
+      "main/kama S:1": true,
+      "main/kama S:2": true,
+      "main/kama S:3": true,
+      "main/kama S:4": true,
+      "main/kama S:5": true,
+      "main/kama S:6": true,
+      "main/kama S:7": true,
+      "main/kama S:8": true,
+      "main/kama S:9": true,
+      "main/kama S:10": true,
+      "main/kama S:11": true,
+      "main/kama E:0": true,
+      "main/kama E:1": true,
+      "main/kama E:2": true,
+      "main/kama E:3": true,
+      "main/kama E:4": true,
+      "main/kama E:5": true,
+      "main/kama E:6": true,
+      "main/kama E:7": true,
+      "main/kama E:8": true,
+      "main/kama E:9": true,
+      "main/kama E:10": true,
+      "main/kama E:11": true,
+      "main/kama N:0": "hidden",
+      "main/kama N:1": "hidden",
+      "main/kama N:2": "hidden",
+      "main/kama N:3": "hidden",
+      "main/kama N:4": "hidden",
+      "main/kama N:5": "hidden",
+      "main/kama N:6": "hidden",
+      "main/kama N:7": "hidden",
+      "main/kama N:8": "hidden",
+      "main/kama N:9": "hidden",
+      "main/kama N:10": "hidden",
+      "main/kama N:11": "hidden",
+      "main/kama W:0": true,
+      "main/kama W:1": true,
+      "main/kama W:2": true,
+      "main/kama W:3": true,
+      "main/kama W:4": true,
+      "main/kama W:5": true,
+      "main/kama W:6": true,
+      "main/kama W:7": true,
+      "main/kama W:8": true,
+      "main/kama W:9": true,
+      "main/kama W:10": true,
+      "main/kama W:11": true
     },
     "inFrame": true,
     "pass": true

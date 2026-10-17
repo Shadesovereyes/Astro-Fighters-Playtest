@@ -1101,7 +1101,8 @@
       "layer": "arms",
       "items": [
         "wakizashi",
-        "tanto"
+        "tanto",
+        "kama"
       ],
       "status": "approved by user 2026-10-13",
       "rule": "per frame: grip = pixel at the centre of the near fist (body-frame coordinates; it follows the arm bob, 0, -1, 0, +1), angle = blade direction in degrees above the facing's horizontal, z = depth slot",

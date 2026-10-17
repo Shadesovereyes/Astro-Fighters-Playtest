@@ -1,0 +1,99 @@
+{
+  "schema": "astro-fighters-character-item/v1",
+  "item": "kama",
+  "kind": "rigid weapon (AGENTS.md: rigid items are placed by anchor with integer offsets)",
+  "status": "candidate 2026-10-16 (user chose a separate kama for Sickle Strike; the tanto stays for the Kyoketsu-Shoge stance, stabs and throws), awaiting user approval",
+  "construction": "band: a straight band along the weapon axis from the grip point (the centre of the near fist); every pixel takes its colour from the cross-section pattern (back/spine to front/edge) of the segment it falls in, so the weapon keeps its thickness at any angle; pixels are rasterised from the authored data, never rotated or resampled from an image; the sickle blade is two branch segments (character-weapon.mjs branch: own axis from a point on the handle, turned from the handle axis toward +v), the second bent further in so the blade curves back toward the handle",
+  "palette": {
+    "#": "#000000",
+    "a": "#adadad",
+    "W": "#ffffff",
+    "t": "#3b2014",
+    "s": "#a9977d",
+    "h": "#ddcdb4",
+    "w": "#9e4a31",
+    "d": "#70241d"
+  },
+  "paletteSource": "colours already in the approved male clothing layers: #adadad armour grey (blade steel, guard, pommel), #ffffff armour/Gi white (edge), #3b2014 Gi shoe brown (hilt wrap), #a9977d Gi trouser shade (hilt diamonds), #ddcdb4 Gi trouser mid (blade collar); the wooden handle uses the locked skin-ramp shadow and dark (#9e4a31, #70241d) as wood, with the shoe brown (#3b2014) butt cap",
+  "units": "pixels along the axis from the grip point (u, positive toward the tip) and across it (v)",
+  "outline": "every coloured pixel touching empty space gets an outline pixel (#) if it is not already one",
+  "grip": "one-handed sickle held at the lower handle: the fist covers u -2.5 to 2.5, the butt cap shows below it, the handle runs 9 px past the fist to an iron collar, and the blade leaves the collar at nearly a right angle on the +v side (the inner edge, white, faces the handle)",
+  "segments": [
+    {
+      "name": "butt",
+      "from": -4,
+      "to": -2.5,
+      "thickness": 3,
+      "pattern": [
+        "ttt"
+      ]
+    },
+    {
+      "name": "handle",
+      "from": 2.5,
+      "to": 11,
+      "thickness": 3,
+      "pattern": [
+        "wwd"
+      ]
+    },
+    {
+      "name": "collar",
+      "from": 11,
+      "to": 12.5,
+      "thickness": 4,
+      "pattern": [
+        "aaaa"
+      ]
+    },
+    {
+      "name": "blade",
+      "from": 0,
+      "to": 6,
+      "thickness": 3,
+      "pattern": [
+        "Waa"
+      ],
+      "branch": {
+        "at": [
+          11.75,
+          0
+        ],
+        "angle": 85
+      }
+    },
+    {
+      "name": "bladeTip",
+      "from": 0,
+      "to": 4,
+      "thickness": 2,
+      "pattern": [
+        "Wa"
+      ],
+      "branch": {
+        "at": [
+          12.27,
+          5.98
+        ],
+        "angle": 115
+      }
+    }
+  ],
+  "trail": {
+    "rule": "swing smear colours, from the blade tip inward (pixels from the outer edge): colours already in the approved palette (Gi/armour white, body wrap grey, armour grey); hard alpha",
+    "bands": [
+      {
+        "to": 1.5,
+        "colour": "#ffffff"
+      },
+      {
+        "to": 3,
+        "colour": "#e3e3e3"
+      },
+      {
+        "to": 99,
+        "colour": "#adadad"
+      }
+    ]
+  }
+}
