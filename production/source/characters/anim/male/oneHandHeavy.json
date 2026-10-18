@@ -1408,6 +1408,28 @@
               "scale": 0.574
             }
           ]
+        },
+        "kama": {
+          "S": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            {
+              "angle": -90,
+              "scale": 1
+            },
+            null,
+            null,
+            null,
+            null,
+            null,
+            {
+              "angle": -90,
+              "scale": 1
+            }
+          ]
         }
       },
       "S": [
