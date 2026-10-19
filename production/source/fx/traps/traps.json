@@ -1,6 +1,6 @@
 {
  "rule": "trap landing sheets; play at the target cell when the thrown item arrives; ground layer under fighters, air layer over; anchor = cell centre on the ground (scale with the testbed hex size)",
- "status": "candidate 2026-10-19, awaiting user approval",
+ "status": "approved by user 2026-10-19 (Christopher: approve and wire in the trap animations); lingering traps last their ability duration",
  "explosiveTag": {
   "frameSize": [
    96,
@@ -81,6 +81,39 @@
   },
   "note": "Smoke Screen (radius 2): pellet lands, smoke billows out into a bank that covers the area; loop the linger frames while the Smoke terrain lasts (2 rounds), then play the two dispersal frames."
  },
+ "smokeBomb": {
+  "frameSize": [
+   112,
+   80
+  ],
+  "frames": 6,
+  "anchor": [
+   56,
+   72
+  ],
+  "fps": 10,
+  "burst": {},
+  "linger": {
+   "frames": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "loop": true,
+   "fps": 6,
+   "rounds": 2,
+   "then": [
+    4,
+    5
+   ]
+  },
+  "layers": {
+   "ground": "smokeBomb-ground.png (under fighters)",
+   "air": "smokeBomb-air.png (over fighters)"
+  },
+  "note": "Smoke Bomb / Smoke Escape (radius 1 round the user): starts when the smokeDrop clip ends; loop the linger frames while the Smoke terrain lasts (2 rounds), then the two dispersal frames. Everyone inside is hidden."
+ },
  "caltrops": {
   "frameSize": [
    96,
@@ -147,7 +180,9 @@
   "Smoke Screen": "smokeScreen",
   "Spike Pit": "spikePit",
   "Caltrops": "caltrops",
-  "Scatter Nails": "caltrops"
+  "Scatter Nails": "caltrops",
+  "Smoke Bomb": "smokeBomb",
+  "Smoke Escape": "smokeBomb"
  },
  "inFlight": {
   "rule": "item drawn along the flight from the thrower release event to the cell: arc height 0.35 x distance for pellets and the stake, 0.15 for the tag kunai (spins nose-first), caltrops fan into 4 singles",

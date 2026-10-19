@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "smokeDrop",
-  "status": "E/W candidate 2026-10-19 (smoke bomb dropped at the feet), awaiting user approval; S/N to author",
+  "status": "E/W approved by user 2026-10-19 (smoke bomb dropped at the feet); S/N to author",
   "frames": 9,
   "fps": 12,
   "sourceDirection": "E",
@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Smoke Bomb (self; bandit Smoke Escape): a pellet from the pouch is raised overhead and slammed down at the feet in a crouch (frame 3, event release); it bursts into a puff that grows into a cloud swallowing the fighter, who is in Stealth from frame 5 (the testbed fades the fighter under the cloud and keeps its own Stealth look afterwards).",
+  "intent": "Smoke Bomb (self; bandit Smoke Escape): a pellet from the pouch is raised overhead and slammed down at the feet in a crouch (frame 3, event release); it bursts into a puff that grows into a cloud swallowing the fighter; the Smoke it leaves (radius 1, 2 rounds) is the smokeBomb landing sheet, and everyone inside it is hidden until they step out (ruling 2026-10-19).",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",

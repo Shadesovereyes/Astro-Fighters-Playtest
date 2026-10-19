@@ -16,7 +16,7 @@ FXD = R + 'production/source/fx/traps/'
 CAST = load(D + 'cast.json')
 band = lambda a, e, **k: {'construction': 'band', 'angle': a, 'elbow': {'at': 8, 'angle': e}, **k}
 def tf(src=6, **k): return dict(src=src, **k)
-STAT = 'E/W candidate 2026-10-19 ({}), awaiting user approval; S/N to author'
+STAT = 'E/W approved by user 2026-10-19 ({}); S/N to author'
 G_N, G_F = CAST['arms']['near'][0], CAST['arms']['far'][0]
 GL = dict(ln='guard-low-rear', lf='guard-low-lead'); ST = dict(ln='stance-rear', lf='stance-lead')
 AIM = band(-70, -105)                          # far hand points the way at the target while the near arm throws
@@ -116,7 +116,7 @@ def specs():
        SCAT_REL, 'trapScatter', ['Caltrops', 'Scatter Nails'], expr=[None, None, None, 'squint', 'squint', None, None, None, None])
     pats, fr = drop_fx()
     mk('smokeDrop', DROP, 12, 'smoke bomb dropped at the feet',
-       'Smoke Bomb (self; bandit Smoke Escape): a pellet from the pouch is raised overhead and slammed down at the feet in a crouch (frame 3, event release); it bursts into a puff that grows into a cloud swallowing the fighter, who is in Stealth from frame 5 (the testbed fades the fighter under the cloud and keeps its own Stealth look afterwards).',
+       'Smoke Bomb (self; bandit Smoke Escape): a pellet from the pouch is raised overhead and slammed down at the feet in a crouch (frame 3, event release); it bursts into a puff that grows into a cloud swallowing the fighter; the Smoke it leaves (radius 1, 2 rounds) is the smokeBomb landing sheet, and everyone inside it is hidden until they step out (ruling 2026-10-19).',
        DROP_REL, 'smokeBomb', ['Smoke Bomb', 'Smoke Escape'],
        fx={'rule': 'smoke from the pellet at the feet, over the fighter', 'top': True, 'palette': PAL, 'patterns': pats, 'frames': fr},
        expr=[None, None, 'squint', 'squint', 'squint', 'squint', None, None, None])
@@ -162,7 +162,19 @@ def items(variant=None):
         s['events']['heldItem'] = {'rule': 'item drawn in the fist on these frames (fx); the testbed swaps the pattern per trap', 'frames': list(hold), 'byTrap': {t: v[1] for t, v in TRAPS.items() if v[0] == st}}
         save(s, D + st + '.json')
 
+def variants():
+    """the held item per trap for the testbed: trapThrow re-rendered once per item, fx.png kept as fx-<item>.png
+    (needs the playtest renderer: node tools/character-posed.mjs); the shipped fx.png keeps pelletSmoke"""
+    import subprocess, shutil
+    for it in sorted({v[1] for v in TRAPS.values() if v[0] == 'trapThrow'}) + ['pelletSmoke']:
+        items(it); subprocess.run(['node', 'tools/character-posed.mjs', 'male', 'trapThrow'], cwd=R, check=True, capture_output=True)
+        shutil.copy(D + 'trapThrow/fx.png', D + 'trapThrow/fx-%s.png' % it)
+    for st in ('trapScatter', 'smokeDrop'):
+        subprocess.run(['node', 'tools/character-posed.mjs', 'male', st], cwd=R, check=True, capture_output=True)
+        shutil.copy(D + st + '/fx.png', D + st + '/fx-%s.png' % ('caltrops' if st == 'trapScatter' else 'pelletSmoke'))
+
 if __name__ == '__main__':
-    if '--items' in sys.argv: items(sys.argv[sys.argv.index('--items') + 1] if len(sys.argv) > sys.argv.index('--items') + 1 else None)
+    if '--variants' in sys.argv: variants()
+    elif '--items' in sys.argv: items(sys.argv[sys.argv.index('--items') + 1] if len(sys.argv) > sys.argv.index('--items') + 1 else None)
     else: specs()
     print('ok')

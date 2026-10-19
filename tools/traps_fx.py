@@ -165,6 +165,22 @@ def smoke():
     return sheet('smokeScreen', W, H, F, 10, {'land': 0, 'smoke': 4}, linger={'frames': list(range(burst, burst + 4)), 'loop': True, 'fps': 6, 'rounds': 2, 'then': [burst + 4, burst + 5]},
                  note='Smoke Screen (radius 2): pellet lands, smoke billows out into a bank that covers the area; loop the linger frames while the Smoke terrain lasts (2 rounds), then play the two dispersal frames.')
 
+def smokebomb():
+    # Smoke Bomb / Smoke Escape (radius 1 round the thrower, 2 rounds; ruling 2026-10-19): the smokeDrop clip is the burst,
+    # this sheet is the bank it leaves: a linger loop over the 7 cells, then the dispersal
+    W, H = 112, 80; ax, ay = W // 2, H - 8; F = []
+    for s in range(4):
+        a = {}; stamp(a, cloud(100, 56, 61), ax - 50 + (1 if s in (1, 2) else 0), ay - 52 - (1 if s == 2 else 0))
+        stamp(a, cloud(12, 8, 62 + s), ax - 40 + s * 5, ay - 62 - s, under=True); stamp(a, cloud(10, 7, 70 + s), ax + 24 - s * 4, ay - 60 - s, under=True)
+        F.append(({}, a))
+    for w, h, s in ((80, 36, 66), (44, 20, 67)):
+        a = {}; stamp(a, cloud(w, h, s), ax - w // 2, ay - h + 2)
+        for q in list(a):
+            if (q[0] + q[1]) % 3 == 0 and a[q] != '#': del a[q]
+        F.append(({}, a))
+    return sheet('smokeBomb', W, H, F, 10, {}, linger={'frames': [0, 1, 2, 3], 'loop': True, 'fps': 6, 'rounds': 2, 'then': [4, 5]},
+                 note='Smoke Bomb / Smoke Escape (radius 1 round the user): starts when the smokeDrop clip ends; loop the linger frames while the Smoke terrain lasts (2 rounds), then the two dispersal frames. Everyone inside is hidden.')
+
 CAL_AT = [(-26, -2), (-14, 3), (-4, -5), (7, 2), (18, -3), (28, 1), (-18, -9), (12, -10), (0, 5)]
 def caltrops():
     W, H = 96, 40; ax, ay = W // 2, H - 8; F = []
@@ -215,8 +231,8 @@ def spikepit():
 
 if __name__ == '__main__':
     meta = {'rule': 'trap landing sheets; play at the target cell when the thrown item arrives; ground layer under fighters, air layer over; anchor = cell centre on the ground (scale with the testbed hex size)',
-            'status': 'candidate 2026-10-19, awaiting user approval',
-            'explosiveTag': explosive(), 'flashBomb': flash(), 'smokeScreen': smoke(), 'caltrops': caltrops(), 'spikePit': spikepit(),
-            'abilities': {'Explosive Tag': 'explosiveTag', 'Flash Bomb': 'flashBomb', 'Smoke Screen': 'smokeScreen', 'Spike Pit': 'spikePit', 'Caltrops': 'caltrops', 'Scatter Nails': 'caltrops'},
+            'status': 'approved by user 2026-10-19 (Christopher: approve and wire in the trap animations); lingering traps last their ability duration',
+            'explosiveTag': explosive(), 'flashBomb': flash(), 'smokeScreen': smoke(), 'smokeBomb': smokebomb(), 'caltrops': caltrops(), 'spikePit': spikepit(),
+            'abilities': {'Explosive Tag': 'explosiveTag', 'Flash Bomb': 'flashBomb', 'Smoke Screen': 'smokeScreen', 'Spike Pit': 'spikePit', 'Caltrops': 'caltrops', 'Scatter Nails': 'caltrops', 'Smoke Bomb': 'smokeBomb', 'Smoke Escape': 'smokeBomb'},
             'inFlight': {'rule': 'item drawn along the flight from the thrower release event to the cell: arc height 0.35 x distance for pellets and the stake, 0.15 for the tag kunai (spins nose-first), caltrops fan into 4 singles', 'patterns': {k: ITEM[k] for k in ('pellet', 'pelletF', 'stake', 'caltrop')}, 'palette': PAL}}
     json.dump(meta, open(OUT + 'traps.json', 'w'), indent=1); print('ok')
