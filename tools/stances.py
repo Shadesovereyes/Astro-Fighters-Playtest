@@ -115,6 +115,84 @@ def outline(states=None):
                             (a if lay == 'arms' else b).putpixel((ox + q[0], oy + q[1]), (0, 0, 0, 255)); fig[q] = (lay, (0, 0, 0)); n += 1
         b.save(D + st + '/body.png'); a.save(D + st + '/arms.png'); print(st, 'outline +', n)
 
+# ---------- S/N (frontal views), after E/W approval (all six approved 2026-10-19) ----------
+# arm: (angle, elbow angle or None, scale, fist) seen from the front (S) or behind (N); R = the character's right (rear)
+# hand, on the viewer's left in S. Legs: 'plant' keeps the reference legs (bob rows dropped); crouched stances use
+# band legs authored per view (hipRow = 40 + body bob; the ankle stays planted so the knee takes the bob).
+GA = {'R': (10, 192, 1, 'up'), 'L': (-10, 168, 1, 'up')}                   # the approved boxing guard (S)
+GN = {'R': (-12, None, 1, 'up'), 'L': (12, None, 1, 'up')}                 # its back view: upper arms only
+CHAMBER_S = {'R': (14, -12, 0.85, 'up'), 'L': (-14, 12, 0.85, 'up')}      # fists pulled back to the hips
+CHAMBER_N = {'R': (-18, None, 1, 'up'), 'L': (18, None, 1, 'up')}
+FRONT = {
+    'muayThaiGuard': dict(S=GA, N=GN, legs='plant', lift={'L': ('mt-lead-up',)}),
+    'karateGuard': dict(S={'R': CHAMBER_S['R'], 'L': (88, None, 0.45, 'front')}, N={'R': CHAMBER_N['R'], 'L': (-15, None, 1, 'up')}, legs='plant'),
+    'horseStance': dict(S=CHAMBER_S, N=CHAMBER_N, legs=dict(hip=(28, 36), knee=(22, 42), ankle=(24, 40))),
+    'judoGuard': dict(S={'R': (-20, None, 0.4, 'front'), 'L': (20, None, 0.4, 'front')}, N={'R': (-14, None, 1, 'up'), 'L': (14, None, 1, 'up')}, legs='plant'),
+    'jiuJitsuGuard': dict(S={'R': (-20, None, 0.4, 'front'), 'L': (8, None, 0.6, 'front')}, N={'R': (-14, None, 1, 'up'), 'L': (10, None, 1, 'up')}, legs=dict(hip=(29, 35), knee=(26, 38), ankle=(27, 37))),
+    'wrestlingGuard': dict(S={'R': (-20, None, 0.4, 'front'), 'L': (8, None, 0.6, 'front')}, N={'R': (-16, None, 1, 'up'), 'L': (12, None, 1, 'up')}, legs=dict(hip=(29, 35), knee=(24, 40), ankle=(25, 39))),
+}
+
+def frontal(st, spec):
+    """S and N views on the guard's frontal template, one arm and leg set per stance (constant pose, the body bob
+    from the E spec carries it)."""
+    F = spec['frames']; cfg = FRONT[st]; fr = copy.deepcopy(GUARD['frontal']); dy = spec['bob']['dy']
+    HA = load(D + 'heavyAttack.json')['legs']; spec['legs']['sections'] = copy.deepcopy(HA['sections'])
+    for f, v in HA['feet'].items(): spec['legs']['feet'].setdefault(f, copy.deepcopy(v))
+    rep = lambda v: [copy.deepcopy(v) for _ in range(F)]
+    names = [q['name'] for q in spec['legs']['poses']]
+    for d in ('S', 'N'):
+        v = fr['views'][d]
+        for key in ('handDy', 'hipDx', 'footDx'): v[key] = {'R': [0] * F, 'L': [0] * F}
+        v['twist'] = {'pelvis': [0] * F, 'shoulders': [0] * F, 'head': [0] * F}
+        v['legPose'] = {'R': ['plant'] * F, 'L': ['plant'] * F}
+        for sd in ('R', 'L'):
+            a, e, sc, fist = cfg[d][sd]; ab = v['armBand'][sd]
+            ab['angle'] = [a] * F; ab['elbow'] = rep({'at': 7, 'angle': e} if e is not None else None)
+            ab['scale'] = [sc] * F; ab['fist'] = [fist] * F; ab['pivotDx'] = [0] * F
+            if d == 'N': ab['showTo'] = 7
+        sides = {'R': [False] * F, 'L': [False] * F}; pose = {'R': [None] * F, 'L': [None] * F}
+        mx = (lambda x: x) if d == 'S' else (lambda x: 64 - x)
+        def add(name, hip, knee, ankle, foot='sFoot'):
+            if name not in names:
+                spec['legs']['poses'].append({'name': name, 'construction': 'band', 'hipX': hip[0], 'hipRow': hip[1], 'kneeX': knee[0],
+                                              'kneeRow': knee[1], 'ankle': list(ankle), 'foot': foot, 'section': d}); names.append(name)
+        L = cfg['legs']
+        if isinstance(L, dict):   # crouched: both legs band legs, knees out over the feet
+            for k in range(F):
+                for i, sd in enumerate(('R', 'L')):
+                    b = dy[k]; n = '%s-%s-%s%d' % (d, st, sd, b)
+                    add(n, (mx(L['hip'][i]), 40 + b), (mx(L['knee'][i]), 46 + b // 2 + 2), (mx(L['ankle'][i]), 60))
+                    sides[sd][k] = True; pose[sd][k] = n
+            v['bobRows'] = list(range(42, 42 + max(dy) + 2))
+        for sd, lifted in (cfg.get('lift') or {}).items():   # the lead knee lift (Muay Thai): band leg on those frames
+            far = [spec['legs']['poses'][i]['name'] for i in spec['legs']['far']]
+            for k in range(F):
+                if far[k] in lifted:
+                    b = dy[k]; n = '%s-%s-lift%s%d' % (d, st, sd, b); x = 34 if d == 'S' else 30
+                    add(n, (x, 40 + b), (x + (1 if d == 'S' else -1), 45 + b), (x + (1 if d == 'S' else -1), 52 + b))
+                    sides[sd][k] = True; pose[sd][k] = n
+        if any(sides['R']) or any(sides['L']):
+            v['legBand'] = {'sides': sides, 'pose': pose, 'z': {'R': [2] * F, 'L': [2] * F}, 'offset': {'R': 0, 'L': 0}}
+    fr['legLift'] = {'R': [0] * F, 'L': [0] * F}
+    spec['frontal'] = fr; spec['directions'] = ['S', 'E', 'N', 'W']
+    if any(cfg['S'][sd][3] == 'front' for sd in 'RL') and st != 'karateGuard':   # open hand, palm to the viewer (grappling stances seen from the front)
+        spec['arms']['band']['fistFront'] = {'use': 'open hand seen from the front, palm toward the viewer, fingers up (grappling stance S view)', 'anchor': [2, 4],
+                                            'rows': ['mLmL.', 'LLLLm', 'LLLLm', 'mLLLs', '.sDs.']}
+    for g in ('S', 'N'): spec['clothing']['sash']['sway'][g] = (GUARD['clothing']['sash']['sway'][g] * F)[:F]
+    spec['rootMotion']['S'] = [[0, 0]] * F; spec['rootMotion']['N'] = [[0, 0]] * F
+    return spec
+
+def specs4(only=None):
+    """E/W specs plus S/N (status: S/N candidates)"""
+    specs(only)
+    for st in STANCES:
+        if only and st not in only: continue
+        sp = frontal(st, load(D + st + '.json'))
+        for k in ('handDy', 'legRows', 'legRepeatRows', 'armRows', 'armRepeatRows'): pass
+        sp['status'] = sp['status'].replace('S/N to author', 'S/N CANDIDATE 2026-10-19')
+        save(sp, D + st + '.json')
+
 if __name__ == '__main__':
+    if '--four' in sys.argv: specs4([a for a in sys.argv[1:] if a != '--four'] or None); sys.exit()
     if '--outline' in sys.argv: outline([a for a in sys.argv[1:] if a != '--outline'] or None)
     else: specs(sys.argv[1:] or None)

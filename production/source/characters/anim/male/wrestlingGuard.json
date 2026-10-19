@@ -2,12 +2,14 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "wrestlingGuard",
-  "status": "E/W approved by user 2026-10-19 (W mirrors E); S/N to author",
+  "status": "E/W approved by user 2026-10-19 (W mirrors E); S/N CANDIDATE 2026-10-19",
   "frames": 4,
   "fps": 6,
   "sourceDirection": "E",
   "directions": [
+    "S",
     "E",
+    "N",
     "W"
   ],
   "mirror": {
@@ -146,6 +148,42 @@
       ]
     ],
     "W": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "S": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "N": [
       [
         0,
         0
@@ -542,6 +580,118 @@
         "footX": 23,
         "wrapRow": 56,
         "foot": "flat"
+      },
+      {
+        "name": "S-wrestlingGuard-R6",
+        "construction": "band",
+        "hipX": 29,
+        "hipRow": 46,
+        "kneeX": 24,
+        "kneeRow": 51,
+        "ankle": [
+          25,
+          60
+        ],
+        "foot": "sFoot",
+        "section": "S"
+      },
+      {
+        "name": "S-wrestlingGuard-L6",
+        "construction": "band",
+        "hipX": 35,
+        "hipRow": 46,
+        "kneeX": 40,
+        "kneeRow": 51,
+        "ankle": [
+          39,
+          60
+        ],
+        "foot": "sFoot",
+        "section": "S"
+      },
+      {
+        "name": "S-wrestlingGuard-R7",
+        "construction": "band",
+        "hipX": 29,
+        "hipRow": 47,
+        "kneeX": 24,
+        "kneeRow": 51,
+        "ankle": [
+          25,
+          60
+        ],
+        "foot": "sFoot",
+        "section": "S"
+      },
+      {
+        "name": "S-wrestlingGuard-L7",
+        "construction": "band",
+        "hipX": 35,
+        "hipRow": 47,
+        "kneeX": 40,
+        "kneeRow": 51,
+        "ankle": [
+          39,
+          60
+        ],
+        "foot": "sFoot",
+        "section": "S"
+      },
+      {
+        "name": "N-wrestlingGuard-R6",
+        "construction": "band",
+        "hipX": 35,
+        "hipRow": 46,
+        "kneeX": 40,
+        "kneeRow": 51,
+        "ankle": [
+          39,
+          60
+        ],
+        "foot": "sFoot",
+        "section": "N"
+      },
+      {
+        "name": "N-wrestlingGuard-L6",
+        "construction": "band",
+        "hipX": 29,
+        "hipRow": 46,
+        "kneeX": 24,
+        "kneeRow": 51,
+        "ankle": [
+          25,
+          60
+        ],
+        "foot": "sFoot",
+        "section": "N"
+      },
+      {
+        "name": "N-wrestlingGuard-R7",
+        "construction": "band",
+        "hipX": 35,
+        "hipRow": 47,
+        "kneeX": 40,
+        "kneeRow": 51,
+        "ankle": [
+          39,
+          60
+        ],
+        "foot": "sFoot",
+        "section": "N"
+      },
+      {
+        "name": "N-wrestlingGuard-L7",
+        "construction": "band",
+        "hipX": 29,
+        "hipRow": 47,
+        "kneeX": 24,
+        "kneeRow": 51,
+        "ankle": [
+          25,
+          60
+        ],
+        "foot": "sFoot",
+        "section": "N"
       }
     ],
     "near": [
@@ -555,7 +705,48 @@
       4,
       6,
       6
-    ]
+    ],
+    "sections": {
+      "rule": "front/back-view kick-leg cross-sections read from the S and N reference legs (thigh rows 40-43, knee rows 44-46, calf rows 48-51, lower shin rows 52-54, wrap rows 55-57), lit in the centre; patterns are read back to front across the limb",
+      "S": {
+        "thigh": "mLLLs",
+        "shin": [
+          {
+            "from": 0,
+            "rows": "mmms"
+          },
+          {
+            "from": 2.5,
+            "rows": "mLmms"
+          },
+          {
+            "from": 6,
+            "rows": "sLs"
+          }
+        ],
+        "wrap": "wWw",
+        "wrapLen": 3
+      },
+      "N": {
+        "thigh": "mLLLm",
+        "shin": [
+          {
+            "from": 0,
+            "rows": "msms"
+          },
+          {
+            "from": 2.5,
+            "rows": "sLLLs"
+          },
+          {
+            "from": 6,
+            "rows": "dLL"
+          }
+        ],
+        "wrap": "wWw",
+        "wrapLen": 3
+      }
+    }
   },
   "arms": {
     "source": "The reference near arm (Arms1, E frame). Every row keeps its reference pixels and only moves sideways. The far arm (hidden in the reference) is the same arm, far-shaded and drawn behind the body.",
@@ -695,17 +886,17 @@
       "bentFistDy": -1,
       "bentFistRule": "on a bent arm (guard, recoil, wind-up, recover) the fist sits 1 px higher on the wrist",
       "fistFront": {
-        "use": "fist seen knuckles-on, punching toward the viewer: wider than the profile fist because the arm behind it is foreshortened",
+        "use": "open hand seen from the front, palm toward the viewer, fingers up (grappling stance S view)",
         "anchor": [
           2,
-          2
+          4
         ],
         "rows": [
-          ".mLLm.",
-          "mLLLLm",
-          "LLmLLs",
-          "mLLLms",
-          ".sDDs."
+          "mLmL.",
+          "LLLLm",
+          "LLLLm",
+          "mLLLs",
+          ".sDs."
         ]
       },
       "palmUp": {
@@ -966,5 +1157,539 @@
       "loop": true
     }
   },
-  "stance": "Wrestling Stance"
+  "stance": "Wrestling Stance",
+  "frontal": {
+    "rule": "S and N are built from their reference frames: legs keep their rows (every leg drops the frame's bob rows so the feet stay down); the arms are authored band arms from each shoulder (bent guard arms with the fists up at the chin; a punch toward or away from the viewer is a short, foreshortened straight arm). In S the arms are in front of the body; in N they are behind it.",
+    "legLift": {
+      "R": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "L": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "legLiftRule": "not used (named leg poses)",
+    "views": {
+      "S": {
+        "legPose": {
+          "R": [
+            "plant",
+            "plant",
+            "plant",
+            "plant"
+          ],
+          "L": [
+            "plant",
+            "plant",
+            "plant",
+            "plant"
+          ]
+        },
+        "legPoseRows": {
+          "plant": []
+        },
+        "bobRows": [
+          42,
+          43,
+          44,
+          45,
+          46,
+          47,
+          48,
+          49,
+          50
+        ],
+        "legRows": {
+          "R": [
+            41
+          ],
+          "L": [
+            41
+          ]
+        },
+        "legRepeatRows": {
+          "R": [
+            41
+          ],
+          "L": [
+            41
+          ]
+        },
+        "handDy": {
+          "R": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "L": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "armRows": {
+          "R": [
+            35
+          ],
+          "L": [
+            35
+          ]
+        },
+        "armRepeatRows": {
+          "R": [
+            35
+          ],
+          "L": [
+            35
+          ]
+        },
+        "armBand": {
+          "R": {
+            "pivot": [
+              25,
+              24
+            ],
+            "angle": [
+              -20,
+              -20,
+              -20,
+              -20
+            ],
+            "elbow": [
+              null,
+              null,
+              null,
+              null
+            ],
+            "scale": [
+              0.4,
+              0.4,
+              0.4,
+              0.4
+            ],
+            "fist": [
+              "front",
+              "front",
+              "front",
+              "front"
+            ],
+            "z": 4,
+            "pivotDx": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "L": {
+            "pivot": [
+              38,
+              24
+            ],
+            "angle": [
+              8,
+              8,
+              8,
+              8
+            ],
+            "elbow": [
+              null,
+              null,
+              null,
+              null
+            ],
+            "scale": [
+              0.6,
+              0.6,
+              0.6,
+              0.6
+            ],
+            "fist": [
+              "front",
+              "front",
+              "front",
+              "front"
+            ],
+            "z": 4,
+            "pivotDx": [
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "headDy": -1,
+        "armRule": "guard seen from the front: elbows down at the sides, forearms nearly upright, the fists in front of each shoulder at the top of the chest, just below where the long hair hangs (the hair layer draws over the arms); a punch toward the viewer is a short straight arm (50% length) bringing the fist in front of the chest centre; on the jab and cross the punching arm points at the viewer: the arm crosses in front of the chest at shoulder height (45%) to a knuckles-on fist (fistFront) just off the chest centre, outlined over the body",
+        "twist": {
+          "pelvis": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "shoulders": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "twistRule": "the body rotates into each punch: hips, shoulders and head shift sideways (shoulders most, torso sheared between hips and shoulders), toward the punching side's centre on the jab and further on the cross; the legs swing from the hip to the planted feet with the hips (hipDx), and the punching shoulder moves 1 px further in",
+        "hipDx": {
+          "R": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "L": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "footDx": {
+          "R": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "L": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "legPivot": 39,
+        "footFrom": {
+          "R": 56,
+          "L": 56
+        },
+        "legBand": {
+          "sides": {
+            "R": [
+              true,
+              true,
+              true,
+              true
+            ],
+            "L": [
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          "pose": {
+            "R": [
+              "S-wrestlingGuard-R6",
+              "S-wrestlingGuard-R6",
+              "S-wrestlingGuard-R7",
+              "S-wrestlingGuard-R7"
+            ],
+            "L": [
+              "S-wrestlingGuard-L6",
+              "S-wrestlingGuard-L6",
+              "S-wrestlingGuard-L7",
+              "S-wrestlingGuard-L7"
+            ]
+          },
+          "z": {
+            "R": [
+              2,
+              2,
+              2,
+              2
+            ],
+            "L": [
+              2,
+              2,
+              2,
+              2
+            ]
+          },
+          "offset": {
+            "R": 0,
+            "L": 0
+          }
+        }
+      },
+      "N": {
+        "legPose": {
+          "R": [
+            "plant",
+            "plant",
+            "plant",
+            "plant"
+          ],
+          "L": [
+            "plant",
+            "plant",
+            "plant",
+            "plant"
+          ]
+        },
+        "legPoseRows": {
+          "plant": []
+        },
+        "bobRows": [
+          42,
+          43,
+          44,
+          45,
+          46,
+          47,
+          48,
+          49,
+          50
+        ],
+        "legRows": {
+          "R": [
+            50
+          ],
+          "L": [
+            50
+          ]
+        },
+        "legRepeatRows": {
+          "R": [
+            50
+          ],
+          "L": [
+            50
+          ]
+        },
+        "handDy": {
+          "R": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "L": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "armRows": {
+          "R": [
+            35
+          ],
+          "L": [
+            35
+          ]
+        },
+        "armRepeatRows": {
+          "R": [
+            35
+          ],
+          "L": [
+            35
+          ]
+        },
+        "armBand": {
+          "R": {
+            "pivot": [
+              39,
+              24
+            ],
+            "angle": [
+              -16,
+              -16,
+              -16,
+              -16
+            ],
+            "elbow": [
+              null,
+              null,
+              null,
+              null
+            ],
+            "scale": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "fist": [
+              "up",
+              "up",
+              "up",
+              "up"
+            ],
+            "z": -1,
+            "showTo": 7,
+            "pivotDx": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "L": {
+            "pivot": [
+              24,
+              24
+            ],
+            "angle": [
+              12,
+              12,
+              12,
+              12
+            ],
+            "elbow": [
+              null,
+              null,
+              null,
+              null
+            ],
+            "scale": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "fist": [
+              "up",
+              "up",
+              "up",
+              "up"
+            ],
+            "z": -1,
+            "showTo": 7,
+            "pivotDx": [
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "headDy": -1,
+        "armRule": "from behind the forearms, wrists and fists are in front of the body: only the shoulders and upper arms show (straight band arms cut at 7 px, showTo), hanging slightly out in guard, swinging in when that arm punches away from the viewer",
+        "twist": {
+          "pelvis": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "shoulders": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "twistRule": "the body rotates into each punch: hips, shoulders and head shift sideways (shoulders most, torso sheared between hips and shoulders), toward the punching side's centre on the jab and further on the cross; the legs swing from the hip to the planted feet with the hips (hipDx), and the punching shoulder moves 1 px further in",
+        "hipDx": {
+          "R": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "L": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "footDx": {
+          "R": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "L": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "legPivot": 39,
+        "footFrom": {
+          "R": 56,
+          "L": 56
+        },
+        "legBand": {
+          "sides": {
+            "R": [
+              true,
+              true,
+              true,
+              true
+            ],
+            "L": [
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          "pose": {
+            "R": [
+              "N-wrestlingGuard-R6",
+              "N-wrestlingGuard-R6",
+              "N-wrestlingGuard-R7",
+              "N-wrestlingGuard-R7"
+            ],
+            "L": [
+              "N-wrestlingGuard-L6",
+              "N-wrestlingGuard-L6",
+              "N-wrestlingGuard-L7",
+              "N-wrestlingGuard-L7"
+            ]
+          },
+          "z": {
+            "R": [
+              2,
+              2,
+              2,
+              2
+            ],
+            "L": [
+              2,
+              2,
+              2,
+              2
+            ]
+          },
+          "offset": {
+            "R": 0,
+            "L": 0
+          }
+        }
+      }
+    }
+  }
 }
