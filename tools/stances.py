@@ -13,21 +13,22 @@ def leg(name, hip, knee, foot, wrap=56, kind='flat', hipX=None):
     return {'name': name, 'construction': 'band', 'hipX': hip[0], 'hipRow': hip[1], 'kneeX': knee[0], 'kneeRow': knee[1],
             'footX': foot, 'wrapRow': wrap, 'foot': kind}
 STAT = 'CANDIDATE 2026-10-19 (E/W; W mirrors E; S/N to author after approval)'
+APPROVED = {'karateGuard': 'E/W approved by user 2026-10-19 (W mirrors E); S/N to author'}
 
 STANCES = {}
 def stance(state, ability, fps, intent, frames, poses):
     STANCES[state] = (ability, fps, intent, frames, poses)
 
 # Muay Thai: tall and square, weight on the rear leg, lead heel up and the lead knee tapping, long high guard
-MT = [leg('mt-lead', (32, 41), (36, 48), 38, 54, 'toe60'), leg('mt-lead-up', (32, 41), (37, 47), 39, 52, 'toe60'),
+MT = [leg('mt-lead', (32, 41), (36, 48), 38, 54, 'toe60'), {'name': 'mt-lead-up', 'construction': 'band', 'hipX': 33, 'hipRow': 41, 'kneeX': 40, 'kneeRow': 42, 'ankle': [39, 50], 'foot': 'toe30k'},
       leg('mt-rear', (31, 41), (29, 49), 25)]
-mt_n, mt_f = band(-8, 198), band(-50, 200)
+mt_n, mt_f = band(-20, 212), band(-45, 222)   # the boxing guard's hands-up arms (Christopher 2026-10-19)
 stance('muayThaiGuard', 'Muay Thai Stance', 6,
-       'Muay Thai stance idle: tall and square, weight sitting on the rear leg, the lead heel off the ground with the lead knee tapping up on the beat; long high guard, the lead fist reaching out at eye height and the rear fist at the temple.',
-       [dict(an=mt_n, af=mt_f, bob=(0, 0, 1), lean=(0, 0), root=(0, 0), ln='mt-rear', lf='mt-lead'),
-        dict(an=mt_n, af=mt_f, bob=(0, 0, 0), lean=(0, 0), root=(0, 0), ln='mt-rear', lf='mt-lead-up'),
-        dict(an=mt_n, af=mt_f, bob=(1, 1, 1), lean=(0, 0), root=(0, 0), ln='mt-rear', lf='mt-lead'),
-        dict(an=mt_n, af=mt_f, bob=(1, 1, 2), lean=(0, 0), root=(0, 0), ln='mt-rear', lf='mt-lead')], MT)
+       'Muay Thai stance idle: tall and square, weight sitting on the rear leg, the lead heel off the ground and the lead knee lifting high on the beat; the boxing hands-up guard (Christopher 2026-10-19).',
+       [dict(an=mt_n, af=mt_f, bob=(1, 1, 2), lean=(0, 2), root=(0, 0), ln='mt-rear', lf='mt-lead'),
+        dict(an=mt_n, af=mt_f, bob=(1, 1, 1), lean=(0, 2), root=(0, 0), ln='mt-rear', lf='mt-lead-up'),
+        dict(an=mt_n, af=mt_f, bob=(1, 1, 1), lean=(0, 2), root=(0, 0), ln='mt-rear', lf='mt-lead-up'),
+        dict(an=mt_n, af=mt_f, bob=(1, 1, 2), lean=(0, 2), root=(0, 0), ln='mt-rear', lf='mt-lead')], MT)
 
 # Karate: long front stance, lead hand out at chest height, rear fist chambered at the hip (hikite)
 KA = [leg('ka-lead', (33, 43), (38, 49), 40), leg('ka-rear', (31, 43), (27, 50), 21)]
@@ -79,9 +80,10 @@ def specs(only=None):
     base = copy.deepcopy(GUARD)
     base.pop('frontal', None); base['directions'] = ['E', 'W']
     base['arms']['band'].update(copy.deepcopy(PALM))
+    for f, v in load(D + 'clinchKnee.json')['legs']['feet'].items(): base['legs']['feet'].setdefault(f, copy.deepcopy(v))   # toe30k etc. for a lifted lead leg
     for st, (ab, fps, intent, frames, poses) in STANCES.items():
         if only and st not in only: continue
-        s = build(base, st, [dict(src=0, **f) for f in frames], status=STAT, intent=intent, newPoses=poses,
+        s = build(base, st, [dict(src=0, **f) for f in frames], status=APPROVED.get(st, STAT), intent=intent, newPoses=poses,
                   clips={'rule': 'martial stance idle: loops while that stance is active; attacks of the style start and end in the guard', st: {'frames': list(range(len(frames))), 'fps': fps, 'loop': True}},
                   rmRule='in place', extra={'stance': ab})
         s['fps'] = fps; s.pop('approved', None); s.pop('keyPoses', None)
