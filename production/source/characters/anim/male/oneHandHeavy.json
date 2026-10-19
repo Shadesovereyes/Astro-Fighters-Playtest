@@ -1417,8 +1417,20 @@
             null,
             null,
             {
-              "angle": -90,
-              "scale": 1
+              "angle": 90,
+              "scale": 1,
+              "branchScale": 0.2,
+              "z": {
+                "hilt": "front",
+                "blade": "aboveArm"
+              },
+              "chain": {
+                "to": [
+                  3,
+                  13
+                ],
+                "sag": 2
+              }
             },
             null,
             null,
@@ -1426,8 +1438,20 @@
             null,
             null,
             {
-              "angle": -90,
-              "scale": 1
+              "angle": 90,
+              "scale": 1,
+              "branchScale": 0.2,
+              "z": {
+                "hilt": "front",
+                "blade": "aboveArm"
+              },
+              "chain": {
+                "to": [
+                  3,
+                  13
+                ],
+                "sag": 2
+              }
             }
           ]
         }

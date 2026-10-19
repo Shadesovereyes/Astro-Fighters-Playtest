@@ -35,6 +35,7 @@ function draw(item, pose) {
   // branch segments (a sickle's blade, a hook): each lies on its own axis that starts at branch.at = [u, v] in the
   // weapon's axis coordinates and turns branch.angle degrees from the weapon axis (positive toward +v, i.e. below the
   // axis in E); from/to run along that branch axis. Main segments have no branch.
+  // pose.branchScale foreshortens the branches across the axis (a sickle blade turned toward the viewer shows only its edge)
   const main = item.segments.filter((s) => !s.branch), branches = item.segments.filter((s) => s.branch);
   const lo = Math.min(...main.map((s) => s.from)), hi = Math.max(...main.map((s) => s.to)), sc = pose.scale ?? 1;
   const paint = (s, u, v) => {
@@ -51,7 +52,7 @@ function draw(item, pose) {
     if (u >= lo && u < hi) { const s = main.find((g) => u >= g.from && u < g.to); if (s) c = paint(s, u, v); }
     for (const s of branches) {
       if (c) break;
-      const b = s.branch, ba = b.angle * Math.PI / 180, du = u - b.at[0], dv = v - b.at[1];
+      const b = s.branch, ba = b.angle * Math.PI / 180, du = u - b.at[0], dv = v / (pose.branchScale ?? 1) - b.at[1];
       const bu = du * Math.cos(ba) + dv * Math.sin(ba), bv = -du * Math.sin(ba) + dv * Math.cos(ba);
       if (bu >= s.from && bu < s.to) c = paint(s, bu, bv);
     }

@@ -278,15 +278,28 @@
       "hand": "arms",
       "layers": {
         "behind": "main-kama-behind.png",
-        "front": "main-kama-front.png"
+        "front": "main-kama-front.png",
+        "top": "main-kama-top.png"
       },
       "status": "approved by user 2026-10-13",
       "z": {
         "S": [
-          "front",
-          "front",
-          "front",
-          "front"
+          {
+            "hilt": "front",
+            "blade": "aboveArm"
+          },
+          {
+            "hilt": "front",
+            "blade": "aboveArm"
+          },
+          {
+            "hilt": "front",
+            "blade": "aboveArm"
+          },
+          {
+            "hilt": "front",
+            "blade": "aboveArm"
+          }
         ],
         "E": [
           "front",
