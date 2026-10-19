@@ -1309,12 +1309,12 @@
                   45,
                   26
                 ],
-                "droop": 12,
+                "droop": 6,
                 "to": [
-                  3,
-                  18
+                  0,
+                  9
                 ],
-                "sag": 2,
+                "sag": 0,
                 "z": "front"
               }
             },
@@ -1325,12 +1325,12 @@
                   45,
                   25
                 ],
-                "droop": 12,
+                "droop": 6,
                 "to": [
-                  3,
-                  18
+                  -7,
+                  -1
                 ],
-                "sag": 2,
+                "sag": 0,
                 "z": "front"
               }
             },
@@ -1341,12 +1341,12 @@
                   45,
                   26
                 ],
-                "droop": 12,
+                "droop": 6,
                 "to": [
-                  3,
-                  18
+                  0,
+                  -11
                 ],
-                "sag": 2,
+                "sag": 0,
                 "z": "front"
               }
             },
@@ -1357,12 +1357,12 @@
                   45,
                   27
                 ],
-                "droop": 12,
+                "droop": 6,
                 "to": [
-                  3,
-                  18
+                  7,
+                  -1
                 ],
-                "sag": 2,
+                "sag": 0,
                 "z": "front"
               }
             }
@@ -1380,12 +1380,12 @@
                   37,
                   25
                 ],
-                "droop": 10,
+                "droop": 6,
                 "to": [
-                  1,
-                  17
+                  0,
+                  9
                 ],
-                "sag": 1,
+                "sag": 0,
                 "z": "front"
               },
               "branches": {
@@ -1426,12 +1426,12 @@
                   37,
                   24
                 ],
-                "droop": 10,
+                "droop": 6,
                 "to": [
-                  1,
-                  17
+                  -8,
+                  -1
                 ],
-                "sag": 1,
+                "sag": 0,
                 "z": "front"
               },
               "branches": {
@@ -1472,12 +1472,12 @@
                   37,
                   25
                 ],
-                "droop": 10,
+                "droop": 6,
                 "to": [
-                  1,
-                  17
+                  0,
+                  -11
                 ],
-                "sag": 1,
+                "sag": 0,
                 "z": "front"
               },
               "branches": {
@@ -1518,12 +1518,12 @@
                   37,
                   26
                 ],
-                "droop": 10,
+                "droop": 6,
                 "to": [
-                  1,
-                  17
+                  8,
+                  -1
                 ],
-                "sag": 1,
+                "sag": 0,
                 "z": "front"
               },
               "branches": {
@@ -1561,15 +1561,15 @@
               "chainOnly": true,
               "chain": {
                 "via": [
-                  25,
-                  24
+                  26,
+                  26
                 ],
-                "droop": 9,
+                "droop": 6,
                 "to": [
-                  -8,
-                  24
+                  0,
+                  9
                 ],
-                "sag": -2,
+                "sag": 0,
                 "z": "behind"
               }
             },
@@ -1580,53 +1580,53 @@
               "chainOnly": true,
               "chain": {
                 "via": [
-                  25,
-                  23
-                ],
-                "droop": 9,
-                "to": [
-                  -8,
-                  24
-                ],
-                "sag": -2,
-                "z": "behind"
-              }
-            },
-            {
-              "angle": 90,
-              "scale": 1,
-              "z": "behind",
-              "chainOnly": true,
-              "chain": {
-                "via": [
-                  25,
-                  24
-                ],
-                "droop": 9,
-                "to": [
-                  -8,
-                  24
-                ],
-                "sag": -2,
-                "z": "behind"
-              }
-            },
-            {
-              "angle": 90,
-              "scale": 1,
-              "z": "behind",
-              "chainOnly": true,
-              "chain": {
-                "via": [
-                  25,
+                  26,
                   25
                 ],
-                "droop": 9,
+                "droop": 6,
                 "to": [
-                  -8,
-                  24
+                  -11,
+                  -1
                 ],
-                "sag": -2,
+                "sag": 0,
+                "z": "behind"
+              }
+            },
+            {
+              "angle": 90,
+              "scale": 1,
+              "z": "behind",
+              "chainOnly": true,
+              "chain": {
+                "via": [
+                  26,
+                  26
+                ],
+                "droop": 6,
+                "to": [
+                  0,
+                  -11
+                ],
+                "sag": 0,
+                "z": "behind"
+              }
+            },
+            {
+              "angle": 90,
+              "scale": 1,
+              "z": "behind",
+              "chainOnly": true,
+              "chain": {
+                "via": [
+                  26,
+                  27
+                ],
+                "droop": 6,
+                "to": [
+                  11,
+                  -1
+                ],
+                "sag": 0,
                 "z": "behind"
               }
             }
