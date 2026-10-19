@@ -169,9 +169,9 @@ STR = [tf(0, an=PN, af=PF, bob=(1, 1, 1), lean=(0, -1), root=(0, 0), **ST),
        tf(0, an=PN, af=PF, bob=(1, 1, 1), lean=(0, -1), root=(0, 0), **ST),                           # the coils hold
        tf(0, an=PN, af=PF, bob=(2, 1, 1), lean=(0, -1), root=(0, 0), **ST)]
 BRK = STR[:3] + [
-       tf(0, an=band(-60, -110), af=band(25, 60), bob=(2, 2, 2), lean=(0, 2), root=(0, 0), **GL),     # coils burst: arms fling free
-       tf(0, an=band(-55, -120), af=band(20, 70), bob=(1, 1, 1), lean=(0, 1), root=(0, 0), **ST),
-       tf(0, an=band(-30, -150), af=band(-20, 200), bob=(1, 1, 1), lean=(0, 2), root=(0, 0), **ST),
+       tf(0, an=band(-70, -100), af=band(-50, -80), bob=(2, 2, 2), lean=(0, 2), root=(0, 0), **GL),    # coils burst: both arms fling forward and out, free
+       tf(0, an=band(-65, -115), af=band(-45, -100), bob=(1, 1, 1), lean=(0, 1), root=(0, 0), **ST),
+       tf(0, an=band(-35, -145), af=band(-40, 215), bob=(1, 1, 1), lean=(0, 2), root=(0, 0), **ST),
        tf(0, an=G_N, af=G_F, bob=(1, 1, 2), lean=(0, 2), root=(0, 0), **ST),
        tf(0, an=G_N, af=G_F, bob=(1, 1, 2), lean=(0, 2), root=(0, 0), **ST)]
 RCL = [tf(0, an=KN, af=band(-82, -80), bob=(1, 1, 1), lean=(0, 2), root=(0, 0), **ST),
