@@ -13,7 +13,7 @@ def leg(name, hip, knee, foot, wrap=56, kind='flat', hipX=None):
     return {'name': name, 'construction': 'band', 'hipX': hip[0], 'hipRow': hip[1], 'kneeX': knee[0], 'kneeRow': knee[1],
             'footX': foot, 'wrapRow': wrap, 'foot': kind}
 STAT = 'CANDIDATE 2026-10-19 (E/W; W mirrors E; S/N to author after approval)'
-APPROVED = {s: 'E/W approved by user 2026-10-19 (W mirrors E); S/N to author' for s in ('karateGuard', 'judoGuard')}
+APPROVED = {s: 'E/W approved by user 2026-10-19 (W mirrors E); S/N to author' for s in ('karateGuard', 'judoGuard', 'muayThaiGuard')}
 
 STANCES = {}
 def stance(state, ability, fps, intent, frames, poses):
