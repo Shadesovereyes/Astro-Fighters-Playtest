@@ -2,8 +2,8 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "mountBottomArmbarHit",
-  "status": "E/W approved by user 2026-10-15 (top side of the bottom Arm bar, paired with mountBottomArmbar); S/N to author",
-  "frames": 10,
+  "status": "E/W CANDIDATE: extended 2026-10-19, previous approved version in git 652b7e8 (10 frames: E/W approved by user 2026-10-15 (top side of the bottom Arm bar, paired with mountBottomArmbar); S/N to author); top side of the bottom Arm bar, extended with mountBottomArmbar; awaiting user approval; S/N to author",
+  "frames": 16,
   "fps": 6,
   "sourceDirection": "E",
   "directions": [
@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "The top fighter's side of the bottom Arm bar: the posted near arm is caught and pulled straight, the body is dragged forward and down over the mounted fighter, the far hand posts on the ground, pain eyes; frames 6-9 loop (bottomArmbarTrapped) while the submission is maintained.",
+  "intent": "The top fighter's side of the bottom Arm bar: the posted near arm is caught and pulled straight, the body is dragged forward and down over the mounted fighter, the far hand posts on the ground, pain eyes; frames 6-9 loop (bottomArmbarTrapped) while the submission is maintained. Extended candidate (2026-10-19): entry frames 0-9 (12 fps) smooth the approved keys at 0, 2, 4, 7, 8, 9 (the legs swing up through two in-between leg poses); hold frames 10-15 (6 fps) loop settle, extend, a harder extension peak, settle, and the trapped top fighter tapping with the posted hand.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -90,8 +90,14 @@
     "rule": "sitting low (the knees are on the ground); breathing 1 px; the arms settle a frame behind",
     "dy": [
       10,
+      10,
       11,
       12,
+      12,
+      12,
+      13,
+      13,
+      13,
       13,
       13,
       13,
@@ -102,12 +108,18 @@
     ],
     "head": [
       10,
+      10,
       11,
+      12,
+      12,
       12,
       13,
       13,
       13,
       13,
+      13,
+      13,
+      14,
       13,
       13,
       13
@@ -115,7 +127,13 @@
     "arms": [
       11,
       12,
+      12,
+      12,
       13,
+      13,
+      14,
+      14,
+      14,
       14,
       14,
       14,
@@ -131,7 +149,13 @@
     "dx": {
       "pelvis": [
         0,
+        0,
         1,
+        2,
+        2,
+        2,
+        2,
+        2,
         2,
         2,
         2,
@@ -143,9 +167,15 @@
       ],
       "head": [
         4,
+        5,
         6,
+        8,
         9,
+        10,
+        10,
         11,
+        12,
+        12,
         12,
         12,
         12,
@@ -197,9 +227,57 @@
       [
         0,
         0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
       ]
     ],
     "W": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
       [
         0,
         0
@@ -614,9 +692,21 @@
       4,
       4,
       4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
       4
     ],
     "far": [
+      5,
+      5,
+      5,
+      5,
+      5,
+      5,
       5,
       5,
       5,
@@ -655,6 +745,14 @@
       },
       {
         "construction": "band",
+        "angle": -28,
+        "elbow": {
+          "at": 8,
+          "angle": -95
+        }
+      },
+      {
+        "construction": "band",
         "angle": -40,
         "elbow": {
           "at": 8,
@@ -663,10 +761,34 @@
       },
       {
         "construction": "band",
+        "angle": -38,
+        "elbow": {
+          "at": 8,
+          "angle": -38
+        }
+      },
+      {
+        "construction": "band",
         "angle": -35,
         "elbow": {
           "at": 8,
           "angle": -35
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -33,
+        "elbow": {
+          "at": 8,
+          "angle": -33
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -32,
+        "elbow": {
+          "at": 8,
+          "angle": -32
         }
       },
       {
@@ -699,6 +821,22 @@
         "elbow": {
           "at": 8,
           "angle": -28
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -28,
+        "elbow": {
+          "at": 8,
+          "angle": -28
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -26,
+        "elbow": {
+          "at": 8,
+          "angle": -26
         }
       },
       {
@@ -753,6 +891,38 @@
       },
       {
         "construction": "band",
+        "angle": -40,
+        "elbow": {
+          "at": 8,
+          "angle": -25
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -40,
+        "elbow": {
+          "at": 8,
+          "angle": -25
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -47,
+        "elbow": {
+          "at": 8,
+          "angle": -23
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -53,
+        "elbow": {
+          "at": 8,
+          "angle": -22
+        }
+      },
+      {
+        "construction": "band",
         "angle": -60,
         "elbow": {
           "at": 8,
@@ -793,10 +963,26 @@
       },
       {
         "construction": "band",
+        "angle": -64,
+        "elbow": {
+          "at": 8,
+          "angle": -24
+        }
+      },
+      {
+        "construction": "band",
         "angle": -60,
         "elbow": {
           "at": 8,
           "angle": -20
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -45,
+        "elbow": {
+          "at": 8,
+          "angle": -60
         }
       },
       {
@@ -888,6 +1074,12 @@
       "bandFollowsBody": true,
       "sway": {
         "E": [
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
           -1,
           -1,
           -1,
@@ -1089,17 +1281,23 @@
         2,
         3,
         4,
-        5
+        5,
+        6,
+        7,
+        8,
+        9
       ],
       "fps": 12,
       "next": "bottomArmbarTrapped"
     },
     "bottomArmbarTrapped": {
       "frames": [
-        6,
-        7,
-        8,
-        9
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
       ],
       "fps": 6,
       "loop": true,
@@ -1202,15 +1400,121 @@
         null,
         "squint",
         "squint",
+        "squint",
+        "squint",
+        "squint",
+        "pain",
         "pain",
         "pain",
         "pain",
         "squint",
         "pain",
+        "pain",
+        "squint",
         "squint",
         "pain"
       ]
     },
     "intent": "strained: eyes squeezed under the weight"
+  },
+  "extension": {
+    "date": "2026-10-19",
+    "previousApproved": {
+      "git": "652b7e8ffd0f6f61a981e96722166aaf61f95e1e",
+      "frames": 10,
+      "clips": {
+        "mountBottomArmbarHit": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "bottomArmbarTrapped": [
+          6,
+          7,
+          8,
+          9
+        ]
+      }
+    },
+    "rule": "longer candidate (Christopher 2026-10-19): in-between frames smooth the approved entry keys (no new choreography); the hold loop keeps every approved hold frame and adds squeeze / struggle frames; the partner clip uses the same frame plan",
+    "plan": [
+      [
+        "k",
+        0
+      ],
+      [
+        "m",
+        0,
+        1,
+        0.5
+      ],
+      [
+        "k",
+        1
+      ],
+      [
+        "m",
+        1,
+        2,
+        0.5
+      ],
+      [
+        "k",
+        2
+      ],
+      [
+        "m",
+        2,
+        3,
+        0.3333333333333333
+      ],
+      [
+        "m",
+        2,
+        3,
+        0.6666666666666666
+      ],
+      [
+        "k",
+        3
+      ],
+      [
+        "k",
+        4
+      ],
+      [
+        "k",
+        5
+      ],
+      [
+        "k",
+        6
+      ],
+      [
+        "k",
+        7
+      ],
+      [
+        "k",
+        7,
+        "hold variant"
+      ],
+      [
+        "k",
+        8
+      ],
+      [
+        "k",
+        8,
+        "hold variant"
+      ],
+      [
+        "k",
+        9
+      ]
+    ]
   }
 }

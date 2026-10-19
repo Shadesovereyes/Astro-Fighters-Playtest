@@ -2,8 +2,8 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "mountArmbar",
-  "status": "E/W approved by user 2026-10-16 (Arm bar from the top of Mount, paired with mountArmbarHit; pull-back redesign approved by user 2026-10-16); S/N to author",
-  "frames": 10,
+  "status": "E/W CANDIDATE: extended 2026-10-19, previous approved version in git 652b7e8 (10 frames: E/W approved by user 2026-10-16 (Arm bar from the top of Mount, paired with mountArmbarHit; pull-back redesign approved by user 2026-10-16); S/N to author); Arm bar from the top of Mount (pull-back), entry 6->10 frames, hold loop 4->6 frames (crank peak, receiver tap); awaiting user approval; S/N to author",
+  "frames": 16,
   "fps": 6,
   "sourceDirection": "E",
   "directions": [
@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Jiu-Jitsu Arm bar from the top of Mount (Positional Rules: Both; Maintained Submission; Cripple), per user ruling 2026-10-15 (revisited 2026-10-16): the top fighter stays mounted, catches the near wrist with both hands and sits back, pulling the straightened arm up toward his chest (user 2026-10-16: pull backward on the arm instead of leaning forward), cranking it with pulses of leaning further back; frames 6-9 loop while the submission is maintained, then the pair returns to the Mount idles.",
+  "intent": "Jiu-Jitsu Arm bar from the top of Mount (Positional Rules: Both; Maintained Submission; Cripple), per user ruling 2026-10-15 (revisited 2026-10-16): the top fighter stays mounted, catches the near wrist with both hands and sits back, pulling the straightened arm up toward his chest (user 2026-10-16: pull backward on the arm instead of leaning forward), cranking it with pulses of leaning further back; frames 6-9 loop while the submission is maintained, then the pair returns to the Mount idles. Extended candidate (2026-10-19): entry frames 0-9 (12 fps) smooth the approved keys at 0, 3, 5, 7, 8, 9; hold frames 10-15 (6 fps) loop settle, crank, a harder crank peak, settle, and the trapped fighter tapping the rider with the free hand.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -90,7 +90,13 @@
     "rule": "sitting low (the knees are on the ground); breathing 1 px; the arms settle a frame behind",
     "dy": [
       10,
+      10,
       11,
+      11,
+      10,
+      10,
+      10,
+      10,
       10,
       10,
       10,
@@ -102,7 +108,13 @@
     ],
     "head": [
       10,
+      10,
       11,
+      11,
+      10,
+      10,
+      10,
+      10,
       10,
       10,
       10,
@@ -114,7 +126,13 @@
     ],
     "arms": [
       11,
+      11,
       12,
+      12,
+      12,
+      11,
+      11,
+      11,
       11,
       11,
       11,
@@ -131,8 +149,14 @@
     "dx": {
       "pelvis": [
         0,
+        0,
+        1,
         1,
         0,
+        0,
+        0,
+        -1,
+        -1,
         -1,
         -1,
         -1,
@@ -144,13 +168,19 @@
       "head": [
         4,
         4,
+        4,
+        4,
+        2,
         0,
+        -2,
         -4,
         -4,
         -6,
         -4,
         -6,
+        -8,
         -4,
+        -5,
         -6
       ]
     }
@@ -197,9 +227,57 @@
       [
         0,
         0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
       ]
     ],
     "W": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
       [
         0,
         0
@@ -614,9 +692,21 @@
       4,
       4,
       4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
       4
     ],
     "far": [
+      5,
+      5,
+      5,
+      5,
+      5,
+      5,
       5,
       5,
       5,
@@ -655,10 +745,34 @@
       },
       {
         "construction": "band",
+        "angle": -27,
+        "elbow": {
+          "at": 8,
+          "angle": -123
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -38,
+        "elbow": {
+          "at": 8,
+          "angle": -97
+        }
+      },
+      {
+        "construction": "band",
         "angle": -50,
         "elbow": {
           "at": 8,
           "angle": -70
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -61,
+        "elbow": {
+          "at": 8,
+          "angle": -71
         }
       },
       {
@@ -671,6 +785,14 @@
       },
       {
         "construction": "band",
+        "angle": -67,
+        "elbow": {
+          "at": 8,
+          "angle": -67
+        }
+      },
+      {
+        "construction": "band",
         "angle": -62,
         "elbow": {
           "at": 8,
@@ -707,6 +829,22 @@
         "elbow": {
           "at": 8,
           "angle": -56
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -54,
+        "elbow": {
+          "at": 8,
+          "angle": -54
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -62,
+        "elbow": {
+          "at": 8,
+          "angle": -62
         }
       },
       {
@@ -737,10 +875,34 @@
       },
       {
         "construction": "band",
+        "angle": -42,
+        "elbow": {
+          "at": 8,
+          "angle": -38
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -43,
+        "elbow": {
+          "at": 8,
+          "angle": -52
+        }
+      },
+      {
+        "construction": "band",
         "angle": -45,
         "elbow": {
           "at": 8,
           "angle": -65
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -56,
+        "elbow": {
+          "at": 8,
+          "angle": -66
         }
       },
       {
@@ -753,6 +915,14 @@
       },
       {
         "construction": "band",
+        "angle": -63,
+        "elbow": {
+          "at": 8,
+          "angle": -63
+        }
+      },
+      {
+        "construction": "band",
         "angle": -58,
         "elbow": {
           "at": 8,
@@ -789,6 +959,22 @@
         "elbow": {
           "at": 8,
           "angle": -52
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -50,
+        "elbow": {
+          "at": 8,
+          "angle": -50
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -58,
+        "elbow": {
+          "at": 8,
+          "angle": -58
         }
       },
       {
@@ -888,6 +1074,12 @@
       "bandFollowsBody": true,
       "sway": {
         "E": [
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
           -1,
           -1,
           -1,
@@ -1089,17 +1281,23 @@
         2,
         3,
         4,
-        5
+        5,
+        6,
+        7,
+        8,
+        9
       ],
       "fps": 12,
       "next": "armbarHold"
     },
     "armbarHold": {
       "frames": [
-        6,
-        7,
-        8,
-        9
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
       ],
       "fps": 6,
       "loop": true,
@@ -1151,24 +1349,48 @@
       },
       {
         "frame": 5,
+        "type": "startup"
+      },
+      {
+        "frame": 6,
+        "type": "startup"
+      },
+      {
+        "frame": 7,
+        "type": "startup"
+      },
+      {
+        "frame": 8,
+        "type": "startup"
+      },
+      {
+        "frame": 9,
         "type": "active",
         "move": "Arm bar",
         "effect": "Cripple 2 rounds (DC13); Maintained Submission"
       },
       {
-        "frame": 6,
+        "frame": 10,
         "type": "recovery"
       },
       {
-        "frame": 7,
+        "frame": 11,
         "type": "recovery"
       },
       {
-        "frame": 8,
+        "frame": 12,
         "type": "recovery"
       },
       {
-        "frame": 9,
+        "frame": 13,
+        "type": "recovery"
+      },
+      {
+        "frame": 14,
+        "type": "recovery"
+      },
+      {
+        "frame": 15,
         "type": "recovery"
       }
     ],
@@ -1195,29 +1417,153 @@
       },
       {
         "frame": 5,
+        "type": "startup"
+      },
+      {
+        "frame": 6,
+        "type": "startup"
+      },
+      {
+        "frame": 7,
+        "type": "startup"
+      },
+      {
+        "frame": 8,
+        "type": "startup"
+      },
+      {
+        "frame": 9,
         "type": "active",
         "move": "Arm bar",
         "effect": "Cripple 2 rounds (DC13); Maintained Submission"
       },
       {
-        "frame": 6,
+        "frame": 10,
         "type": "recovery"
       },
       {
-        "frame": 7,
+        "frame": 11,
         "type": "recovery"
       },
       {
-        "frame": 8,
+        "frame": 12,
         "type": "recovery"
       },
       {
-        "frame": 9,
+        "frame": 13,
+        "type": "recovery"
+      },
+      {
+        "frame": 14,
+        "type": "recovery"
+      },
+      {
+        "frame": 15,
         "type": "recovery"
       }
     ],
     "tactical": {
       "rule": "no displacement: the pair stays in Mount on its cells"
     }
+  },
+  "extension": {
+    "date": "2026-10-19",
+    "previousApproved": {
+      "git": "652b7e8ffd0f6f61a981e96722166aaf61f95e1e",
+      "frames": 10,
+      "clips": {
+        "mountArmbar": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "armbarHold": [
+          6,
+          7,
+          8,
+          9
+        ]
+      }
+    },
+    "rule": "longer candidate (Christopher 2026-10-19): in-between frames smooth the approved entry keys (no new choreography); the hold loop keeps every approved hold frame and adds squeeze / struggle frames; the partner clip uses the same frame plan",
+    "plan": [
+      [
+        "k",
+        0
+      ],
+      [
+        "m",
+        0,
+        1,
+        0.3333333333333333
+      ],
+      [
+        "m",
+        0,
+        1,
+        0.6666666666666666
+      ],
+      [
+        "k",
+        1
+      ],
+      [
+        "m",
+        1,
+        2,
+        0.5
+      ],
+      [
+        "k",
+        2
+      ],
+      [
+        "m",
+        2,
+        3,
+        0.5
+      ],
+      [
+        "k",
+        3
+      ],
+      [
+        "k",
+        4
+      ],
+      [
+        "k",
+        5
+      ],
+      [
+        "k",
+        6
+      ],
+      [
+        "k",
+        7
+      ],
+      [
+        "k",
+        7,
+        "hold variant"
+      ],
+      [
+        "k",
+        8
+      ],
+      [
+        "k",
+        8,
+        "hold variant"
+      ],
+      [
+        "k",
+        9
+      ]
+    ]
   }
 }

@@ -2,8 +2,8 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "clinchFlyingTriangleHit",
-  "status": "E/W approved by user 2026-10-15 (paired with clinchFlyingTriangle; ends kneeling in Mount on top, head trapped in the choke); S/N to author",
-  "frames": 12,
+  "status": "E/W CANDIDATE: extended 2026-10-19, previous approved version in git 652b7e8 (12 frames: E/W approved by user 2026-10-15 (paired with clinchFlyingTriangle; ends kneeling in Mount on top, head trapped in the choke); S/N to author); opponent side of Flying Triangle, extended with clinchFlyingTriangle; awaiting user approval; S/N to author",
+  "frames": 16,
   "fps": 12,
   "sourceDirection": "E",
   "directions": [
@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "The opponent's side of Flying Triangle, frame for frame with clinchFlyingTriangle: the far arm is trapped up inside the triangle as the user leaps, the locked legs drag the head forward and down, the opponent drops to the knees bent over the user, strained under the choke. Frames 8-11 are the triangleTrapped loop; when the submission ends the pair returns to mountTop.",
+  "intent": "The opponent's side of Flying Triangle, frame for frame with clinchFlyingTriangle: the far arm is trapped up inside the triangle as the user leaps, the locked legs drag the head forward and down, the opponent drops to the knees bent over the user, strained under the choke. Frames 8-11 are the triangleTrapped loop; when the submission ends the pair returns to mountTop. Extended candidate (2026-10-19): entry frames 0-9 (12 fps) smooth the approved keys at 0-2, 4, 5, 7-9 with an in-between in the air before the lock and one in the fall; hold frames 10-15 (6 fps) loop rest, squeeze, a harder squeeze peak, rest, and the trapped fighter tapping with the free hand.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -92,10 +92,14 @@
       2,
       2,
       2,
+      3,
       4,
       8,
+      9,
       10,
       10,
+      11,
+      11,
       11,
       11,
       11,
@@ -106,13 +110,17 @@
       4,
       4,
       3,
+      5,
       7,
       12,
+      14,
       17,
       19,
       20,
       20,
       21,
+      22,
+      20,
       20,
       21
     ],
@@ -120,10 +128,14 @@
       2,
       2,
       2,
+      3,
       4,
       8,
+      10,
       11,
       11,
+      12,
+      12,
       12,
       12,
       12,
@@ -147,15 +159,23 @@
         1,
         1,
         1,
+        1,
+        1,
+        1,
+        1,
         1
       ],
       "head": [
         5,
         5,
         3,
+        7,
         8,
         11,
         11,
+        11,
+        12,
+        12,
         12,
         12,
         12,
@@ -181,7 +201,15 @@
         0
       ],
       [
-        3,
+        2,
+        0
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        0,
         0
       ],
       [
@@ -190,6 +218,14 @@
       ],
       [
         -1,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
         0
       ],
       [
@@ -231,7 +267,15 @@
         0
       ],
       [
-        -3,
+        -2,
+        0
+      ],
+      [
+        -1,
+        0
+      ],
+      [
+        0,
         0
       ],
       [
@@ -240,6 +284,14 @@
       ],
       [
         1,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
         0
       ],
       [
@@ -743,14 +795,70 @@
           57
         ],
         "foot": "levelL"
+      },
+      {
+        "name": "guard-low-rear~stance-lead@50",
+        "construction": "band",
+        "inBetween": "interpolated from guard-low-rear and stance-lead at 0.50 (2026-10-19)",
+        "hipX": 32,
+        "hipRow": 42,
+        "kneeX": 32,
+        "kneeRow": 50,
+        "footX": 31,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "guard-low-lead~drive-rear@50",
+        "construction": "band",
+        "inBetween": "interpolated from guard-low-lead and drive-rear at 0.50 (2026-10-19)",
+        "hipX": 32,
+        "hipRow": 44,
+        "kneeX": 32,
+        "kneeRow": 51,
+        "footX": 30,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "half-near~kneel-near@50",
+        "construction": "band",
+        "inBetween": "interpolated from half-near and kneel-near at 0.50 (2026-10-19)",
+        "hipX": 33,
+        "hipRow": 51,
+        "kneeX": 41,
+        "kneeRow": 56,
+        "ankle": [
+          28,
+          58
+        ],
+        "foot": "levelL"
+      },
+      {
+        "name": "half-far~kneel-far@50",
+        "construction": "band",
+        "inBetween": "interpolated from half-far and kneel-far at 0.50 (2026-10-19)",
+        "hipX": 31,
+        "hipRow": 51,
+        "kneeX": 39,
+        "kneeRow": 56,
+        "ankle": [
+          26,
+          57
+        ],
+        "foot": "levelL"
       }
     ],
     "near": [
       3,
       3,
       3,
+      15,
       0,
       11,
+      17,
+      13,
+      13,
       13,
       13,
       13,
@@ -763,8 +871,12 @@
       2,
       2,
       2,
+      16,
       6,
       12,
+      18,
+      14,
+      14,
       14,
       14,
       14,
@@ -816,6 +928,14 @@
       },
       {
         "construction": "band",
+        "angle": -125,
+        "elbow": {
+          "at": 8,
+          "angle": -165
+        }
+      },
+      {
+        "construction": "band",
         "angle": -130,
         "elbow": {
           "at": 8,
@@ -828,6 +948,14 @@
         "elbow": {
           "at": 8,
           "angle": -170
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -80,
+        "elbow": {
+          "at": 8,
+          "angle": -105
         }
       },
       {
@@ -868,6 +996,22 @@
         "elbow": {
           "at": 8,
           "angle": -34
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -36,
+        "elbow": {
+          "at": 8,
+          "angle": -36
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -30,
+        "elbow": {
+          "at": 8,
+          "angle": -30
         }
       },
       {
@@ -914,6 +1058,14 @@
       },
       {
         "construction": "band",
+        "angle": -55,
+        "elbow": {
+          "at": 8,
+          "angle": -80
+        }
+      },
+      {
+        "construction": "band",
         "angle": -50,
         "elbow": {
           "at": 8,
@@ -930,10 +1082,10 @@
       },
       {
         "construction": "band",
-        "angle": -60,
+        "angle": -50,
         "elbow": {
           "at": 8,
-          "angle": -90
+          "angle": -60
         }
       },
       {
@@ -974,6 +1126,30 @@
         "elbow": {
           "at": 8,
           "angle": -90
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -60,
+        "elbow": {
+          "at": 8,
+          "angle": -90
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -60,
+        "elbow": {
+          "at": 8,
+          "angle": -90
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -80,
+        "elbow": {
+          "at": 8,
+          "angle": -120
         }
       },
       {
@@ -1065,6 +1241,10 @@
       "bandFollowsBody": true,
       "sway": {
         "E": [
+          -1,
+          -1,
+          -1,
+          -1,
           -1,
           -1,
           -1,
@@ -1270,17 +1450,21 @@
         4,
         5,
         6,
-        7
+        7,
+        8,
+        9
       ],
       "fps": 12,
       "next": "triangleTrapped"
     },
     "triangleTrapped": {
       "frames": [
-        8,
-        9,
         10,
-        11
+        11,
+        12,
+        13,
+        14,
+        15
       ],
       "fps": 6,
       "loop": true,
@@ -1389,6 +1573,8 @@
         null,
         "squint",
         "squint",
+        "squint",
+        "pain",
         "pain",
         "pain",
         "pain",
@@ -1396,9 +1582,109 @@
         "pain",
         "squint",
         "pain",
+        "pain",
+        "squint",
         "squint"
       ]
     },
     "intent": "eyes squeeze as the legs lock, shut as the head is dragged down, strained under the choke"
+  },
+  "extension": {
+    "date": "2026-10-19",
+    "previousApproved": {
+      "git": "652b7e8ffd0f6f61a981e96722166aaf61f95e1e",
+      "frames": 12,
+      "clips": {
+        "clinchFlyingTriangleHit": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "triangleTrapped": [
+          8,
+          9,
+          10,
+          11
+        ]
+      }
+    },
+    "rule": "longer candidate (Christopher 2026-10-19): in-between frames smooth the approved entry keys (no new choreography); the hold loop keeps every approved hold frame and adds squeeze / struggle frames; the partner clip uses the same frame plan",
+    "plan": [
+      [
+        "k",
+        0
+      ],
+      [
+        "k",
+        1
+      ],
+      [
+        "k",
+        2
+      ],
+      [
+        "m",
+        2,
+        3,
+        0.5
+      ],
+      [
+        "k",
+        3
+      ],
+      [
+        "k",
+        4
+      ],
+      [
+        "m",
+        4,
+        5,
+        0.5
+      ],
+      [
+        "k",
+        5
+      ],
+      [
+        "k",
+        6
+      ],
+      [
+        "k",
+        7
+      ],
+      [
+        "k",
+        8
+      ],
+      [
+        "k",
+        9
+      ],
+      [
+        "k",
+        9,
+        "hold variant"
+      ],
+      [
+        "k",
+        10
+      ],
+      [
+        "k",
+        10,
+        "hold variant"
+      ],
+      [
+        "k",
+        11
+      ]
+    ]
   }
 }

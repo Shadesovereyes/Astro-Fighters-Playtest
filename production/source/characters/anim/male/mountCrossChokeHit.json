@@ -2,8 +2,8 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "mountCrossChokeHit",
-  "status": "E/W approved by user 2026-10-15 (mounted side of Cross Choke, paired with mountCrossChoke); S/N to author",
-  "frames": 8,
+  "status": "E/W CANDIDATE: extended 2026-10-19, previous approved version in git 652b7e8 (8 frames: E/W approved by user 2026-10-15 (mounted side of Cross Choke, paired with mountCrossChoke); S/N to author); mounted side of Cross Choke, extended with mountCrossChoke; awaiting user approval; S/N to author",
+  "frames": 16,
   "fps": 6,
   "sourceDirection": "E",
   "directions": [
@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "The mounted fighter's side of Cross Choke: the forearms come up to grab the choking wrists and strain against them; frames 4-7 loop (chokedHold) while the submission is maintained.",
+  "intent": "The mounted fighter's side of Cross Choke: the forearms come up to grab the choking wrists and strain against them; frames 4-7 loop (chokedHold) while the submission is maintained. Extended candidate (2026-10-19): entry frames 0-7 (12 fps) smooth the approved keys at 0, 3, 5, 7; hold frames 8-15 (6 fps) loop settle, build, squeeze, a harder squeeze peak, settle, and the choked fighter letting go with the far hand to tap.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -96,6 +96,14 @@
       0,
       0,
       0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
       0
     ],
     "head": [
@@ -106,9 +114,25 @@
       0,
       0,
       0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
       0
     ],
     "arms": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
       0,
       0,
       0,
@@ -131,14 +155,30 @@
         0,
         0,
         0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
         0
       ],
       "head": [
         0,
         0,
+        0,
+        0,
+        0,
+        1,
         1,
         1,
         0,
+        0,
+        1,
+        2,
+        1,
         1,
         1,
         1
@@ -179,9 +219,73 @@
       [
         0,
         0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
       ]
     ],
     "W": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
       [
         0,
         0
@@ -373,9 +477,25 @@
       4,
       4,
       4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
       4
     ],
     "far": [
+      5,
+      5,
+      5,
+      5,
+      5,
+      5,
+      5,
+      5,
       5,
       5,
       5,
@@ -412,10 +532,34 @@
       },
       {
         "construction": "band",
+        "angle": -73,
+        "elbow": {
+          "at": 8,
+          "angle": -155
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -77,
+        "elbow": {
+          "at": 8,
+          "angle": -160
+        }
+      },
+      {
+        "construction": "band",
         "angle": -80,
         "elbow": {
           "at": 8,
           "angle": -165
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -72,
+        "elbow": {
+          "at": 8,
+          "angle": -168
         }
       },
       {
@@ -428,6 +572,14 @@
       },
       {
         "construction": "band",
+        "angle": -62,
+        "elbow": {
+          "at": 8,
+          "angle": -171
+        }
+      },
+      {
+        "construction": "band",
         "angle": -60,
         "elbow": {
           "at": 8,
@@ -440,6 +592,14 @@
         "elbow": {
           "at": 8,
           "angle": -172
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -61,
+        "elbow": {
+          "at": 8,
+          "angle": -173
         }
       },
       {
@@ -448,6 +608,30 @@
         "elbow": {
           "at": 8,
           "angle": -175
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -64,
+        "elbow": {
+          "at": 8,
+          "angle": -178
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -60,
+        "elbow": {
+          "at": 8,
+          "angle": -172
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -60,
+        "elbow": {
+          "at": 8,
+          "angle": -172
         }
       },
       {
@@ -478,10 +662,34 @@
       },
       {
         "construction": "band",
+        "angle": -65,
+        "elbow": {
+          "at": 8,
+          "angle": -147
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -70,
+        "elbow": {
+          "at": 8,
+          "angle": -153
+        }
+      },
+      {
+        "construction": "band",
         "angle": -75,
         "elbow": {
           "at": 8,
           "angle": -160
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -68,
+        "elbow": {
+          "at": 8,
+          "angle": -164
         }
       },
       {
@@ -494,6 +702,14 @@
       },
       {
         "construction": "band",
+        "angle": -58,
+        "elbow": {
+          "at": 8,
+          "angle": -169
+        }
+      },
+      {
+        "construction": "band",
         "angle": -56,
         "elbow": {
           "at": 8,
@@ -506,6 +722,14 @@
         "elbow": {
           "at": 8,
           "angle": -170
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -57,
+        "elbow": {
+          "at": 8,
+          "angle": -171
         }
       },
       {
@@ -518,10 +742,34 @@
       },
       {
         "construction": "band",
+        "angle": -60,
+        "elbow": {
+          "at": 8,
+          "angle": -176
+        }
+      },
+      {
+        "construction": "band",
         "angle": -56,
         "elbow": {
           "at": 8,
           "angle": -170
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -80,
+        "elbow": {
+          "at": 8,
+          "angle": -150
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -62,
+        "elbow": {
+          "at": 8,
+          "angle": -168
         }
       },
       {
@@ -612,6 +860,14 @@
       "bandFollowsBody": true,
       "sway": {
         "E": [
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
           -1,
           -1,
           -1,
@@ -876,12 +1132,20 @@
     "frames": {
       "E": [
         null,
+        null,
         "squint",
+        "squint",
+        "pain",
+        "pain",
         "pain",
         "pain",
         "squint",
         "pain",
+        "pain",
+        "pain",
         "squint",
+        "squint",
+        "pain",
         "pain"
       ]
     },
@@ -901,9 +1165,25 @@
       270,
       270,
       270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
       270
     ],
     "dx": [
+      10,
+      10,
+      10,
+      10,
+      10,
+      10,
+      10,
+      10,
       10,
       10,
       10,
@@ -921,9 +1201,25 @@
       0,
       0,
       0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
       0
     ],
     "groundSnap": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
       true,
       true,
       true,
@@ -941,17 +1237,25 @@
         0,
         1,
         2,
-        3
+        3,
+        4,
+        5,
+        6,
+        7
       ],
       "fps": 12,
       "next": "crossChokedHold"
     },
     "crossChokedHold": {
       "frames": [
-        4,
-        5,
-        6,
-        7
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
       ],
       "fps": 6,
       "loop": true,
@@ -983,7 +1287,7 @@
     "rule": "strain marks by the mounted fighter's face while the choke squeezes",
     "frames": [
       {
-        "frame": 3,
+        "frame": 7,
         "splash": [
           {
             "pattern": "strain",
@@ -995,7 +1299,7 @@
         ]
       },
       {
-        "frame": 5,
+        "frame": 10,
         "splash": [
           {
             "pattern": "strain",
@@ -1007,7 +1311,38 @@
         ]
       },
       {
-        "frame": 7,
+        "frame": 11,
+        "splash": [
+          {
+            "pattern": "strain",
+            "at": [
+              6,
+              49
+            ]
+          },
+          {
+            "pattern": "strain",
+            "at": [
+              10,
+              47
+            ]
+          }
+        ]
+      },
+      {
+        "frame": 14,
+        "splash": [
+          {
+            "pattern": "strain",
+            "at": [
+              7,
+              50
+            ]
+          }
+        ]
+      },
+      {
+        "frame": 15,
         "splash": [
           {
             "pattern": "strain",
@@ -1067,5 +1402,105 @@
         "#.#"
       ]
     }
+  },
+  "extension": {
+    "date": "2026-10-19",
+    "previousApproved": {
+      "git": "652b7e8ffd0f6f61a981e96722166aaf61f95e1e",
+      "frames": 8,
+      "clips": {
+        "mountCrossChokeHit": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "crossChokedHold": [
+          4,
+          5,
+          6,
+          7
+        ]
+      }
+    },
+    "rule": "longer candidate (Christopher 2026-10-19): in-between frames smooth the approved entry keys (no new choreography); the hold loop keeps every approved hold frame and adds squeeze / struggle frames; the partner clip uses the same frame plan",
+    "plan": [
+      [
+        "k",
+        0
+      ],
+      [
+        "m",
+        0,
+        1,
+        0.3333333333333333
+      ],
+      [
+        "m",
+        0,
+        1,
+        0.6666666666666666
+      ],
+      [
+        "k",
+        1
+      ],
+      [
+        "m",
+        1,
+        2,
+        0.5
+      ],
+      [
+        "k",
+        2
+      ],
+      [
+        "m",
+        2,
+        3,
+        0.5
+      ],
+      [
+        "k",
+        3
+      ],
+      [
+        "k",
+        4
+      ],
+      [
+        "k",
+        4,
+        "hold variant"
+      ],
+      [
+        "k",
+        5
+      ],
+      [
+        "k",
+        5,
+        "hold variant"
+      ],
+      [
+        "k",
+        6
+      ],
+      [
+        "k",
+        6,
+        "hold variant"
+      ],
+      [
+        "k",
+        6,
+        "hold variant"
+      ],
+      [
+        "k",
+        7
+      ]
+    ]
   }
 }

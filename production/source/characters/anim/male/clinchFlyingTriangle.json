@@ -2,8 +2,8 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "clinchFlyingTriangle",
-  "status": "E/W approved by user 2026-10-15 (paired with clinchFlyingTriangleHit; ends in Mount with the user Mounted holding the choke); S/N to author",
-  "frames": 12,
+  "status": "E/W CANDIDATE: extended 2026-10-19, previous approved version in git 652b7e8 (12 frames: E/W approved by user 2026-10-15 (paired with clinchFlyingTriangleHit; ends in Mount with the user Mounted holding the choke); S/N to author); Flying Triangle from the clinch, entry 8->10 frames, hold loop 4->6 frames (squeeze peak, receiver tap); awaiting user approval; S/N to author",
+  "frames": 16,
   "fps": 12,
   "sourceDirection": "E",
   "directions": [
@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Jiu-Jitsu Flying Triangle from the clinch (abilities sheet: standing-grapple transition into Mount, Maintained Submission after establishment): from the approved clinchHold idle the user crouches, leaps, throws one leg over the opponent's shoulder and the other under the arm, locks them round the neck, and falls flat on the back dragging the opponent down, then squeezes. Frames 8-11 are the triangleHold loop (choke maintained); when the submission ends the pair returns to mountBottom / mountTop.",
+  "intent": "Jiu-Jitsu Flying Triangle from the clinch (abilities sheet: standing-grapple transition into Mount, Maintained Submission after establishment): from the approved clinchHold idle the user crouches, leaps, throws one leg over the opponent's shoulder and the other under the arm, locks them round the neck, and falls flat on the back dragging the opponent down, then squeezes. Frames 8-11 are the triangleHold loop (choke maintained); when the submission ends the pair returns to mountBottom / mountTop. Extended candidate (2026-10-19): entry frames 0-9 (12 fps) smooth the approved keys at 0-2, 4, 5, 7-9 with an in-between in the air before the lock and one in the fall; hold frames 10-15 (6 fps) loop rest, squeeze, a harder squeeze peak, rest, and the trapped fighter tapping with the free hand.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -100,6 +100,10 @@
       0,
       0,
       0,
+      0,
+      0,
+      0,
+      0,
       0
     ],
     "head": [
@@ -114,11 +118,19 @@
       0,
       0,
       0,
+      0,
+      0,
+      0,
+      0,
       0
     ],
     "arms": [
       2,
       4,
+      0,
+      0,
+      0,
+      0,
       0,
       0,
       0,
@@ -147,18 +159,26 @@
         0,
         0,
         0,
+        0,
+        0,
+        0,
+        0,
         0
       ],
       "head": [
         4,
         5,
         2,
+        -1,
         -4,
         0,
+        2,
         3,
         4,
         5,
         5,
+        5,
+        6,
         5,
         5,
         5
@@ -181,7 +201,23 @@
         0
       ],
       [
-        2,
+        1,
+        0
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
         0
       ],
       [
@@ -231,7 +267,23 @@
         0
       ],
       [
-        -2,
+        -1,
+        0
+      ],
+      [
+        -1,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
         0
       ],
       [
@@ -271,7 +323,9 @@
   "airborneFrames": [
     2,
     3,
-    4
+    4,
+    5,
+    6
   ],
   "legs": {
     "source": "The reference near leg (R-thigh, R-shin-foot) of the E frame is replaced by row-span legs. Every leg is outlined; the reference wrap+foot block (R-shin-foot rows 56-63) is reused unchanged by the reference-ankle construction.",
@@ -767,14 +821,74 @@
           50
         ],
         "foot": "pointDL"
+      },
+      {
+        "name": "leap-high~lock-over@50",
+        "construction": "band",
+        "inBetween": "interpolated from leap-high and lock-over at 0.50 (2026-10-19)",
+        "hipX": 32,
+        "hipRow": 42,
+        "kneeX": 40,
+        "kneeRow": 36,
+        "ankle": [
+          46,
+          39
+        ],
+        "foot": "pointDR"
+      },
+      {
+        "name": "leap-tuck~lock-under@50",
+        "construction": "band",
+        "inBetween": "interpolated from leap-tuck and lock-under at 0.50 (2026-10-19)",
+        "hipX": 31,
+        "hipRow": 42,
+        "kneeX": 39,
+        "kneeRow": 44,
+        "ankle": [
+          40,
+          45
+        ],
+        "foot": "levelR"
+      },
+      {
+        "name": "lock-over~tri-over@50",
+        "construction": "band",
+        "inBetween": "interpolated from lock-over and tri-over at 0.50 (2026-10-19)",
+        "hipX": 32,
+        "hipRow": 42,
+        "kneeX": 45,
+        "kneeRow": 37,
+        "ankle": [
+          44,
+          46
+        ],
+        "foot": "pointDL"
+      },
+      {
+        "name": "lock-under~tri-under@50",
+        "construction": "band",
+        "inBetween": "interpolated from lock-under and tri-under at 0.50 (2026-10-19)",
+        "hipX": 31,
+        "hipRow": 42,
+        "kneeX": 44,
+        "kneeRow": 43,
+        "ankle": [
+          44,
+          44
+        ],
+        "foot": "pointDL"
       }
     ],
     "near": [
       1,
       9,
       11,
+      17,
       13,
       13,
+      19,
+      15,
+      15,
       15,
       15,
       15,
@@ -787,8 +901,12 @@
       0,
       10,
       12,
+      18,
       14,
       14,
+      20,
+      16,
+      16,
       16,
       16,
       16,
@@ -840,6 +958,14 @@
       },
       {
         "construction": "band",
+        "angle": -95,
+        "elbow": {
+          "at": 8,
+          "angle": -135
+        }
+      },
+      {
+        "construction": "band",
         "angle": -80,
         "elbow": {
           "at": 8,
@@ -852,6 +978,14 @@
         "elbow": {
           "at": 8,
           "angle": -130
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -52,
+        "elbow": {
+          "at": 8,
+          "angle": -105
         }
       },
       {
@@ -899,7 +1033,23 @@
         "angle": -18,
         "elbow": {
           "at": 8,
+          "angle": -78
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -18,
+        "elbow": {
+          "at": 8,
           "angle": -70
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -18,
+        "elbow": {
+          "at": 8,
+          "angle": -72
         }
       },
       {
@@ -938,6 +1088,14 @@
       },
       {
         "construction": "band",
+        "angle": -101,
+        "elbow": {
+          "at": 8,
+          "angle": -141
+        }
+      },
+      {
+        "construction": "band",
         "angle": -86,
         "elbow": {
           "at": 8,
@@ -950,6 +1108,14 @@
         "elbow": {
           "at": 8,
           "angle": -136
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -53,
+        "elbow": {
+          "at": 8,
+          "angle": -103
         }
       },
       {
@@ -997,7 +1163,23 @@
         "angle": -14,
         "elbow": {
           "at": 8,
+          "angle": -68
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -14,
+        "elbow": {
+          "at": 8,
           "angle": -60
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -14,
+        "elbow": {
+          "at": 8,
+          "angle": -62
         }
       },
       {
@@ -1089,6 +1271,10 @@
       "bandFollowsBody": true,
       "sway": {
         "E": [
+          -1,
+          -1,
+          -1,
+          -1,
           -1,
           -1,
           -1,
@@ -1430,6 +1616,10 @@
         null,
         null,
         null,
+        null,
+        "lookDown",
+        "lookDown",
+        "lookDown",
         "lookDown",
         "lookDown",
         "lookDown",
@@ -1452,6 +1642,10 @@
       0,
       0,
       0,
+      0,
+      270,
+      270,
+      270,
       270,
       270,
       270,
@@ -1465,7 +1659,11 @@
       0,
       0,
       3,
+      4,
       6,
+      10,
+      10,
+      10,
       10,
       10,
       10,
@@ -1480,7 +1678,11 @@
       0,
       -9,
       -9,
+      -9,
       -8,
+      -4,
+      0,
+      0,
       0,
       0,
       0,
@@ -1495,6 +1697,10 @@
       false,
       false,
       false,
+      false,
+      false,
+      true,
+      true,
       true,
       true,
       true,
@@ -1515,17 +1721,21 @@
         4,
         5,
         6,
-        7
+        7,
+        8,
+        9
       ],
       "fps": 12,
       "next": "triangleHold"
     },
     "triangleHold": {
       "frames": [
-        8,
-        9,
         10,
-        11
+        11,
+        12,
+        13,
+        14,
+        15
       ],
       "fps": 6,
       "loop": true,
@@ -1572,7 +1782,7 @@
     },
     "frames": [
       {
-        "frame": 4,
+        "frame": 5,
         "smear": {
           "from": 10,
           "to": 80,
@@ -1587,7 +1797,7 @@
         }
       },
       {
-        "frame": 5,
+        "frame": 7,
         "splash": [
           {
             "pattern": "dustBig",
@@ -1599,7 +1809,7 @@
         ]
       },
       {
-        "frame": 6,
+        "frame": 8,
         "splash": [
           {
             "pattern": "puff",
@@ -1618,7 +1828,7 @@
         ]
       },
       {
-        "frame": 7,
+        "frame": 9,
         "splash": [
           {
             "pattern": "speck",
@@ -1663,18 +1873,18 @@
       },
       {
         "frame": 5,
+        "type": "startup"
+      },
+      {
+        "frame": 6,
+        "type": "startup"
+      },
+      {
+        "frame": 7,
         "type": "active",
         "move": "clinchFlyingTriangle",
         "damage": "throw",
         "effect": "Silence 2rd (STR or INT save DC13); Mount with the user Mounted; Maintained Submission"
-      },
-      {
-        "frame": 6,
-        "type": "recovery"
-      },
-      {
-        "frame": 7,
-        "type": "recovery"
       },
       {
         "frame": 8,
@@ -1690,6 +1900,22 @@
       },
       {
         "frame": 11,
+        "type": "recovery"
+      },
+      {
+        "frame": 12,
+        "type": "recovery"
+      },
+      {
+        "frame": 13,
+        "type": "recovery"
+      },
+      {
+        "frame": 14,
+        "type": "recovery"
+      },
+      {
+        "frame": 15,
         "type": "recovery"
       }
     ],
@@ -1719,18 +1945,18 @@
       },
       {
         "frame": 5,
+        "type": "startup"
+      },
+      {
+        "frame": 6,
+        "type": "startup"
+      },
+      {
+        "frame": 7,
         "type": "active",
         "move": "clinchFlyingTriangle",
         "damage": "throw",
         "effect": "Silence 2rd (STR or INT save DC13); Mount with the user Mounted; Maintained Submission"
-      },
-      {
-        "frame": 6,
-        "type": "recovery"
-      },
-      {
-        "frame": 7,
-        "type": "recovery"
       },
       {
         "frame": 8,
@@ -1747,7 +1973,121 @@
       {
         "frame": 11,
         "type": "recovery"
+      },
+      {
+        "frame": 12,
+        "type": "recovery"
+      },
+      {
+        "frame": 13,
+        "type": "recovery"
+      },
+      {
+        "frame": 14,
+        "type": "recovery"
+      },
+      {
+        "frame": 15,
+        "type": "recovery"
       }
+    ]
+  },
+  "extension": {
+    "date": "2026-10-19",
+    "previousApproved": {
+      "git": "652b7e8ffd0f6f61a981e96722166aaf61f95e1e",
+      "frames": 12,
+      "clips": {
+        "clinchFlyingTriangle": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "triangleHold": [
+          8,
+          9,
+          10,
+          11
+        ]
+      }
+    },
+    "rule": "longer candidate (Christopher 2026-10-19): in-between frames smooth the approved entry keys (no new choreography); the hold loop keeps every approved hold frame and adds squeeze / struggle frames; the partner clip uses the same frame plan",
+    "plan": [
+      [
+        "k",
+        0
+      ],
+      [
+        "k",
+        1
+      ],
+      [
+        "k",
+        2
+      ],
+      [
+        "m",
+        2,
+        3,
+        0.5
+      ],
+      [
+        "k",
+        3
+      ],
+      [
+        "k",
+        4
+      ],
+      [
+        "m",
+        4,
+        5,
+        0.5
+      ],
+      [
+        "k",
+        5
+      ],
+      [
+        "k",
+        6
+      ],
+      [
+        "k",
+        7
+      ],
+      [
+        "k",
+        8
+      ],
+      [
+        "k",
+        9
+      ],
+      [
+        "k",
+        9,
+        "hold variant"
+      ],
+      [
+        "k",
+        10
+      ],
+      [
+        "k",
+        10,
+        "hold variant"
+      ],
+      [
+        "k",
+        11
+      ]
     ]
   }
 }

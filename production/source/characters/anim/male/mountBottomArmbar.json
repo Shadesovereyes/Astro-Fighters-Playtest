@@ -2,8 +2,8 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "mountBottomArmbar",
-  "status": "E/W approved by user 2026-10-15 (Arm bar from the bottom of Mount, paired with mountBottomArmbarHit); S/N to author",
-  "frames": 10,
+  "status": "E/W CANDIDATE: extended 2026-10-19, previous approved version in git 652b7e8 (10 frames: E/W approved by user 2026-10-15 (Arm bar from the bottom of Mount, paired with mountBottomArmbarHit); S/N to author); Arm bar from the bottom of Mount, entry 6->10 frames, hold loop 4->6 frames (extension peak, receiver tap); awaiting user approval; S/N to author",
+  "frames": 16,
   "fps": 6,
   "sourceDirection": "E",
   "directions": [
@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Jiu-Jitsu Arm bar from under Mount (Positional Rules: Both; Maintained Submission; Cripple): from the mountBottom idle the mounted fighter traps the top fighter's posted arm at the wrist with both hands, bridges, swings both legs up over the shoulder and head and lifts the hips into the straight arm; frames 6-9 loop while the submission is maintained, then the pair returns to the Mount idles.",
+  "intent": "Jiu-Jitsu Arm bar from under Mount (Positional Rules: Both; Maintained Submission; Cripple): from the mountBottom idle the mounted fighter traps the top fighter's posted arm at the wrist with both hands, bridges, swings both legs up over the shoulder and head and lifts the hips into the straight arm; frames 6-9 loop while the submission is maintained, then the pair returns to the Mount idles. Extended candidate (2026-10-19): entry frames 0-9 (12 fps) smooth the approved keys at 0, 2, 4, 7, 8, 9 (the legs swing up through two in-between leg poses); hold frames 10-15 (6 fps) loop settle, extend, a harder extension peak, settle, and the trapped top fighter tapping with the posted hand.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -98,9 +98,21 @@
       0,
       0,
       0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
       0
     ],
     "head": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
       0,
       0,
       0,
@@ -122,6 +134,12 @@
       0,
       0,
       0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
       0
     ]
   },
@@ -132,18 +150,30 @@
       "pelvis": [
         0,
         0,
+        0,
+        1,
+        2,
         2,
         3,
         3,
+        3,
         4,
         3,
         4,
+        5,
+        3,
         3,
         4
       ],
       "head": [
         0,
         0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
         1,
         1,
         1,
@@ -197,9 +227,57 @@
       [
         0,
         0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
       ]
     ],
     "W": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
       [
         0,
         0
@@ -650,12 +728,74 @@
           56
         ],
         "foot": "pointDL"
+      },
+      {
+        "name": "bridge-near~armbar-over@33",
+        "construction": "band",
+        "inBetween": "interpolated from bridge-near and armbar-over at 0.33 (2026-10-19)",
+        "hipX": 32,
+        "hipRow": 42,
+        "kneeX": 41,
+        "kneeRow": 44,
+        "ankle": [
+          41,
+          46
+        ],
+        "foot": "pointDL"
+      },
+      {
+        "name": "bridge-far~armbar-under@33",
+        "construction": "band",
+        "inBetween": "interpolated from bridge-far and armbar-under at 0.33 (2026-10-19)",
+        "hipX": 31,
+        "hipRow": 42,
+        "kneeX": 39,
+        "kneeRow": 45,
+        "ankle": [
+          39,
+          48
+        ],
+        "foot": "pointDL"
+      },
+      {
+        "name": "bridge-near~armbar-over@67",
+        "construction": "band",
+        "inBetween": "interpolated from bridge-near and armbar-over at 0.67 (2026-10-19)",
+        "hipX": 32,
+        "hipRow": 42,
+        "kneeX": 42,
+        "kneeRow": 40,
+        "ankle": [
+          46,
+          38
+        ],
+        "foot": "pointDL"
+      },
+      {
+        "name": "bridge-far~armbar-under@67",
+        "construction": "band",
+        "inBetween": "interpolated from bridge-far and armbar-under at 0.67 (2026-10-19)",
+        "hipX": 31,
+        "hipRow": 42,
+        "kneeX": 41,
+        "kneeRow": 43,
+        "ankle": [
+          44,
+          41
+        ],
+        "foot": "pointDL"
       }
     ],
     "near": [
       4,
       4,
+      4,
       8,
+      8,
+      10,
+      12,
+      6,
+      6,
       6,
       6,
       6,
@@ -667,7 +807,13 @@
     "far": [
       5,
       5,
+      5,
       9,
+      9,
+      11,
+      13,
+      7,
+      7,
       7,
       7,
       7,
@@ -703,6 +849,14 @@
       },
       {
         "construction": "band",
+        "angle": -90,
+        "elbow": {
+          "at": 8,
+          "angle": -140
+        }
+      },
+      {
+        "construction": "band",
         "angle": -110,
         "elbow": {
           "at": 8,
@@ -711,10 +865,34 @@
       },
       {
         "construction": "band",
+        "angle": -108,
+        "elbow": {
+          "at": 8,
+          "angle": -125
+        }
+      },
+      {
+        "construction": "band",
         "angle": -105,
         "elbow": {
           "at": 8,
           "angle": -120
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -100,
+        "elbow": {
+          "at": 8,
+          "angle": -117
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -95,
+        "elbow": {
+          "at": 8,
+          "angle": -113
         }
       },
       {
@@ -759,6 +937,22 @@
       },
       {
         "construction": "band",
+        "angle": -75,
+        "elbow": {
+          "at": 8,
+          "angle": -92
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -80,
+        "elbow": {
+          "at": 8,
+          "angle": -100
+        }
+      },
+      {
+        "construction": "band",
         "angle": -80,
         "elbow": {
           "at": 8,
@@ -785,6 +979,14 @@
       },
       {
         "construction": "band",
+        "angle": -82,
+        "elbow": {
+          "at": 8,
+          "angle": -132
+        }
+      },
+      {
+        "construction": "band",
         "angle": -105,
         "elbow": {
           "at": 8,
@@ -793,10 +995,34 @@
       },
       {
         "construction": "band",
+        "angle": -102,
+        "elbow": {
+          "at": 8,
+          "angle": -122
+        }
+      },
+      {
+        "construction": "band",
         "angle": -100,
         "elbow": {
           "at": 8,
           "angle": -118
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -95,
+        "elbow": {
+          "at": 8,
+          "angle": -114
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -91,
+        "elbow": {
+          "at": 8,
+          "angle": -110
         }
       },
       {
@@ -837,6 +1063,22 @@
         "elbow": {
           "at": 8,
           "angle": -92
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -71,
+        "elbow": {
+          "at": 8,
+          "angle": -88
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -76,
+        "elbow": {
+          "at": 8,
+          "angle": -96
         }
       },
       {
@@ -935,6 +1177,12 @@
       "bandFollowsBody": true,
       "sway": {
         "E": [
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
           -1,
           -1,
           -1,
@@ -1209,6 +1457,12 @@
         null,
         null,
         null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
         null
       ]
     },
@@ -1230,9 +1484,21 @@
       270,
       270,
       270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
       270
     ],
     "dx": [
+      10,
+      10,
+      10,
+      10,
+      10,
+      10,
       10,
       10,
       10,
@@ -1254,9 +1520,21 @@
       0,
       0,
       0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
       0
     ],
     "groundSnap": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
       true,
       true,
       true,
@@ -1278,17 +1556,23 @@
         2,
         3,
         4,
-        5
+        5,
+        6,
+        7,
+        8,
+        9
       ],
       "fps": 12,
       "next": "bottomArmbarHold"
     },
     "bottomArmbarHold": {
       "frames": [
-        6,
-        7,
-        8,
-        9
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
       ],
       "fps": 6,
       "loop": true,
@@ -1341,24 +1625,48 @@
       },
       {
         "frame": 5,
+        "type": "startup"
+      },
+      {
+        "frame": 6,
+        "type": "startup"
+      },
+      {
+        "frame": 7,
+        "type": "startup"
+      },
+      {
+        "frame": 8,
+        "type": "startup"
+      },
+      {
+        "frame": 9,
         "type": "active",
         "move": "Arm bar",
         "effect": "Cripple 2 rounds (DC13); Maintained Submission"
       },
       {
-        "frame": 6,
+        "frame": 10,
         "type": "recovery"
       },
       {
-        "frame": 7,
+        "frame": 11,
         "type": "recovery"
       },
       {
-        "frame": 8,
+        "frame": 12,
         "type": "recovery"
       },
       {
-        "frame": 9,
+        "frame": 13,
+        "type": "recovery"
+      },
+      {
+        "frame": 14,
+        "type": "recovery"
+      },
+      {
+        "frame": 15,
         "type": "recovery"
       }
     ],
@@ -1385,29 +1693,153 @@
       },
       {
         "frame": 5,
+        "type": "startup"
+      },
+      {
+        "frame": 6,
+        "type": "startup"
+      },
+      {
+        "frame": 7,
+        "type": "startup"
+      },
+      {
+        "frame": 8,
+        "type": "startup"
+      },
+      {
+        "frame": 9,
         "type": "active",
         "move": "Arm bar",
         "effect": "Cripple 2 rounds (DC13); Maintained Submission"
       },
       {
-        "frame": 6,
+        "frame": 10,
         "type": "recovery"
       },
       {
-        "frame": 7,
+        "frame": 11,
         "type": "recovery"
       },
       {
-        "frame": 8,
+        "frame": 12,
         "type": "recovery"
       },
       {
-        "frame": 9,
+        "frame": 13,
+        "type": "recovery"
+      },
+      {
+        "frame": 14,
+        "type": "recovery"
+      },
+      {
+        "frame": 15,
         "type": "recovery"
       }
     ],
     "tactical": {
       "rule": "no displacement: the pair stays in Mount on its cells"
     }
+  },
+  "extension": {
+    "date": "2026-10-19",
+    "previousApproved": {
+      "git": "652b7e8ffd0f6f61a981e96722166aaf61f95e1e",
+      "frames": 10,
+      "clips": {
+        "mountBottomArmbar": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "bottomArmbarHold": [
+          6,
+          7,
+          8,
+          9
+        ]
+      }
+    },
+    "rule": "longer candidate (Christopher 2026-10-19): in-between frames smooth the approved entry keys (no new choreography); the hold loop keeps every approved hold frame and adds squeeze / struggle frames; the partner clip uses the same frame plan",
+    "plan": [
+      [
+        "k",
+        0
+      ],
+      [
+        "m",
+        0,
+        1,
+        0.5
+      ],
+      [
+        "k",
+        1
+      ],
+      [
+        "m",
+        1,
+        2,
+        0.5
+      ],
+      [
+        "k",
+        2
+      ],
+      [
+        "m",
+        2,
+        3,
+        0.3333333333333333
+      ],
+      [
+        "m",
+        2,
+        3,
+        0.6666666666666666
+      ],
+      [
+        "k",
+        3
+      ],
+      [
+        "k",
+        4
+      ],
+      [
+        "k",
+        5
+      ],
+      [
+        "k",
+        6
+      ],
+      [
+        "k",
+        7
+      ],
+      [
+        "k",
+        7,
+        "hold variant"
+      ],
+      [
+        "k",
+        8
+      ],
+      [
+        "k",
+        8,
+        "hold variant"
+      ],
+      [
+        "k",
+        9
+      ]
+    ]
   }
 }

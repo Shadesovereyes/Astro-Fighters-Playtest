@@ -14012,13 +14012,13 @@
       }
     },
     "clinchFlyingTriangle": {
-      "frames": 12,
+      "frames": 16,
       "fps": 12,
       "rows": [
         "E",
         "W"
       ],
-      "status": "E/W approved by user 2026-10-15 (paired with clinchFlyingTriangleHit; ends in Mount with the user Mounted holding the choke); S/N to author",
+      "status": "E/W CANDIDATE: extended 2026-10-19, previous approved version in git 652b7e8 (12 frames: E/W approved by user 2026-10-15 (paired with clinchFlyingTriangleHit; ends in Mount with the user Mounted holding the choke); S/N to author); Flying Triangle from the clinch, entry 8->10 frames, hold loop 4->6 frames (squeeze peak, receiver tap); awaiting user approval; S/N to author",
       "rootMotion": {
         "E": [
           [
@@ -14034,7 +14034,23 @@
             0
           ],
           [
-            2,
+            1,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
             0
           ],
           [
@@ -14084,7 +14100,23 @@
             0
           ],
           [
-            -2,
+            -1,
+            0
+          ],
+          [
+            -1,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
             0
           ],
           [
@@ -14148,17 +14180,21 @@
             4,
             5,
             6,
-            7
+            7,
+            8,
+            9
           ],
           "fps": 12,
           "next": "triangleHold"
         },
         "triangleHold": {
           "frames": [
-            8,
-            9,
             10,
-            11
+            11,
+            12,
+            13,
+            14,
+            15
           ],
           "fps": 6,
           "loop": true,
@@ -14190,18 +14226,18 @@
           },
           {
             "frame": 5,
+            "type": "startup"
+          },
+          {
+            "frame": 6,
+            "type": "startup"
+          },
+          {
+            "frame": 7,
             "type": "active",
             "move": "clinchFlyingTriangle",
             "damage": "throw",
             "effect": "Silence 2rd (STR or INT save DC13); Mount with the user Mounted; Maintained Submission"
-          },
-          {
-            "frame": 6,
-            "type": "recovery"
-          },
-          {
-            "frame": 7,
-            "type": "recovery"
           },
           {
             "frame": 8,
@@ -14217,6 +14253,22 @@
           },
           {
             "frame": 11,
+            "type": "recovery"
+          },
+          {
+            "frame": 12,
+            "type": "recovery"
+          },
+          {
+            "frame": 13,
+            "type": "recovery"
+          },
+          {
+            "frame": 14,
+            "type": "recovery"
+          },
+          {
+            "frame": 15,
             "type": "recovery"
           }
         ],
@@ -14246,18 +14298,18 @@
           },
           {
             "frame": 5,
+            "type": "startup"
+          },
+          {
+            "frame": 6,
+            "type": "startup"
+          },
+          {
+            "frame": 7,
             "type": "active",
             "move": "clinchFlyingTriangle",
             "damage": "throw",
             "effect": "Silence 2rd (STR or INT save DC13); Mount with the user Mounted; Maintained Submission"
-          },
-          {
-            "frame": 6,
-            "type": "recovery"
-          },
-          {
-            "frame": 7,
-            "type": "recovery"
           },
           {
             "frame": 8,
@@ -14274,18 +14326,34 @@
           {
             "frame": 11,
             "type": "recovery"
+          },
+          {
+            "frame": 12,
+            "type": "recovery"
+          },
+          {
+            "frame": 13,
+            "type": "recovery"
+          },
+          {
+            "frame": 14,
+            "type": "recovery"
+          },
+          {
+            "frame": 15,
+            "type": "recovery"
           }
         ]
       }
     },
     "clinchFlyingTriangleHit": {
-      "frames": 12,
+      "frames": 16,
       "fps": 12,
       "rows": [
         "E",
         "W"
       ],
-      "status": "E/W approved by user 2026-10-15 (paired with clinchFlyingTriangle; ends kneeling in Mount on top, head trapped in the choke); S/N to author",
+      "status": "E/W CANDIDATE: extended 2026-10-19, previous approved version in git 652b7e8 (12 frames: E/W approved by user 2026-10-15 (paired with clinchFlyingTriangle; ends kneeling in Mount on top, head trapped in the choke); S/N to author); opponent side of Flying Triangle, extended with clinchFlyingTriangle; awaiting user approval; S/N to author",
       "rootMotion": {
         "E": [
           [
@@ -14301,7 +14369,15 @@
             0
           ],
           [
-            3,
+            2,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            0,
             0
           ],
           [
@@ -14310,6 +14386,14 @@
           ],
           [
             -1,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
             0
           ],
           [
@@ -14351,7 +14435,15 @@
             0
           ],
           [
-            -3,
+            -2,
+            0
+          ],
+          [
+            -1,
+            0
+          ],
+          [
+            0,
             0
           ],
           [
@@ -14360,6 +14452,14 @@
           ],
           [
             1,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
             0
           ],
           [
@@ -14414,17 +14514,21 @@
             4,
             5,
             6,
-            7
+            7,
+            8,
+            9
           ],
           "fps": 12,
           "next": "triangleTrapped"
         },
         "triangleTrapped": {
           "frames": [
-            8,
-            9,
             10,
-            11
+            11,
+            12,
+            13,
+            14,
+            15
           ],
           "fps": 6,
           "loop": true,
@@ -16057,15 +16161,47 @@
       }
     },
     "mountCrossChoke": {
-      "frames": 8,
+      "frames": 16,
       "fps": 6,
       "rows": [
         "E",
         "W"
       ],
-      "status": "E/W approved by user 2026-10-15 (Cross Choke from Mount, paired with mountCrossChokeHit); S/N to author",
+      "status": "E/W CANDIDATE: extended 2026-10-19, previous approved version in git 652b7e8 (8 frames: E/W approved by user 2026-10-15 (Cross Choke from Mount, paired with mountCrossChokeHit); S/N to author); Cross Choke from Mount, entry 4->8 frames (in-betweens), hold loop 4->8 frames (squeeze peak, receiver tap); awaiting user approval; S/N to author",
       "rootMotion": {
         "E": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
           [
             0,
             0
@@ -16100,6 +16236,38 @@
           ]
         ],
         "W": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
           [
             0,
             0
@@ -16156,17 +16324,25 @@
             0,
             1,
             2,
-            3
+            3,
+            4,
+            5,
+            6,
+            7
           ],
           "fps": 12,
           "next": "crossChokeHold"
         },
         "crossChokeHold": {
           "frames": [
-            4,
-            5,
-            6,
-            7
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15
           ],
           "fps": 6,
           "loop": true,
@@ -16190,24 +16366,56 @@
           },
           {
             "frame": 3,
+            "type": "startup"
+          },
+          {
+            "frame": 4,
+            "type": "startup"
+          },
+          {
+            "frame": 5,
+            "type": "startup"
+          },
+          {
+            "frame": 6,
+            "type": "startup"
+          },
+          {
+            "frame": 7,
             "type": "active",
             "move": "Cross Choke",
             "effect": "Silence 2rd (STR or INT save DC13); no Focus 1rd; Maintained Submission"
           },
           {
-            "frame": 4,
+            "frame": 8,
             "type": "recovery"
           },
           {
-            "frame": 5,
+            "frame": 9,
             "type": "recovery"
           },
           {
-            "frame": 6,
+            "frame": 10,
             "type": "recovery"
           },
           {
-            "frame": 7,
+            "frame": 11,
+            "type": "recovery"
+          },
+          {
+            "frame": 12,
+            "type": "recovery"
+          },
+          {
+            "frame": 13,
+            "type": "recovery"
+          },
+          {
+            "frame": 14,
+            "type": "recovery"
+          },
+          {
+            "frame": 15,
             "type": "recovery"
           }
         ],
@@ -16226,24 +16434,56 @@
           },
           {
             "frame": 3,
+            "type": "startup"
+          },
+          {
+            "frame": 4,
+            "type": "startup"
+          },
+          {
+            "frame": 5,
+            "type": "startup"
+          },
+          {
+            "frame": 6,
+            "type": "startup"
+          },
+          {
+            "frame": 7,
             "type": "active",
             "move": "Cross Choke",
             "effect": "Silence 2rd (STR or INT save DC13); no Focus 1rd; Maintained Submission"
           },
           {
-            "frame": 4,
+            "frame": 8,
             "type": "recovery"
           },
           {
-            "frame": 5,
+            "frame": 9,
             "type": "recovery"
           },
           {
-            "frame": 6,
+            "frame": 10,
             "type": "recovery"
           },
           {
-            "frame": 7,
+            "frame": 11,
+            "type": "recovery"
+          },
+          {
+            "frame": 12,
+            "type": "recovery"
+          },
+          {
+            "frame": 13,
+            "type": "recovery"
+          },
+          {
+            "frame": 14,
+            "type": "recovery"
+          },
+          {
+            "frame": 15,
             "type": "recovery"
           }
         ],
@@ -16253,15 +16493,47 @@
       }
     },
     "mountCrossChokeHit": {
-      "frames": 8,
+      "frames": 16,
       "fps": 6,
       "rows": [
         "E",
         "W"
       ],
-      "status": "E/W approved by user 2026-10-15 (mounted side of Cross Choke, paired with mountCrossChoke); S/N to author",
+      "status": "E/W CANDIDATE: extended 2026-10-19, previous approved version in git 652b7e8 (8 frames: E/W approved by user 2026-10-15 (mounted side of Cross Choke, paired with mountCrossChoke); S/N to author); mounted side of Cross Choke, extended with mountCrossChoke; awaiting user approval; S/N to author",
       "rootMotion": {
         "E": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
           [
             0,
             0
@@ -16296,6 +16568,38 @@
           ]
         ],
         "W": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
           [
             0,
             0
@@ -16352,17 +16656,25 @@
             0,
             1,
             2,
-            3
+            3,
+            4,
+            5,
+            6,
+            7
           ],
           "fps": 12,
           "next": "crossChokedHold"
         },
         "crossChokedHold": {
           "frames": [
-            4,
-            5,
-            6,
-            7
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15
           ],
           "fps": 6,
           "loop": true,
@@ -17271,15 +17583,39 @@
       }
     },
     "mountArmbar": {
-      "frames": 10,
+      "frames": 16,
       "fps": 6,
       "rows": [
         "E",
         "W"
       ],
-      "status": "E/W approved by user 2026-10-16 (Arm bar from the top of Mount, paired with mountArmbarHit; pull-back redesign approved by user 2026-10-16); S/N to author",
+      "status": "E/W CANDIDATE: extended 2026-10-19, previous approved version in git 652b7e8 (10 frames: E/W approved by user 2026-10-16 (Arm bar from the top of Mount, paired with mountArmbarHit; pull-back redesign approved by user 2026-10-16); S/N to author); Arm bar from the top of Mount (pull-back), entry 6->10 frames, hold loop 4->6 frames (crank peak, receiver tap); awaiting user approval; S/N to author",
       "rootMotion": {
         "E": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
           [
             0,
             0
@@ -17322,6 +17658,30 @@
           ]
         ],
         "W": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
           [
             0,
             0
@@ -17388,17 +17748,23 @@
             2,
             3,
             4,
-            5
+            5,
+            6,
+            7,
+            8,
+            9
           ],
           "fps": 12,
           "next": "armbarHold"
         },
         "armbarHold": {
           "frames": [
-            6,
-            7,
-            8,
-            9
+            10,
+            11,
+            12,
+            13,
+            14,
+            15
           ],
           "fps": 6,
           "loop": true,
@@ -17430,24 +17796,48 @@
           },
           {
             "frame": 5,
+            "type": "startup"
+          },
+          {
+            "frame": 6,
+            "type": "startup"
+          },
+          {
+            "frame": 7,
+            "type": "startup"
+          },
+          {
+            "frame": 8,
+            "type": "startup"
+          },
+          {
+            "frame": 9,
             "type": "active",
             "move": "Arm bar",
             "effect": "Cripple 2 rounds (DC13); Maintained Submission"
           },
           {
-            "frame": 6,
+            "frame": 10,
             "type": "recovery"
           },
           {
-            "frame": 7,
+            "frame": 11,
             "type": "recovery"
           },
           {
-            "frame": 8,
+            "frame": 12,
             "type": "recovery"
           },
           {
-            "frame": 9,
+            "frame": 13,
+            "type": "recovery"
+          },
+          {
+            "frame": 14,
+            "type": "recovery"
+          },
+          {
+            "frame": 15,
             "type": "recovery"
           }
         ],
@@ -17474,24 +17864,48 @@
           },
           {
             "frame": 5,
+            "type": "startup"
+          },
+          {
+            "frame": 6,
+            "type": "startup"
+          },
+          {
+            "frame": 7,
+            "type": "startup"
+          },
+          {
+            "frame": 8,
+            "type": "startup"
+          },
+          {
+            "frame": 9,
             "type": "active",
             "move": "Arm bar",
             "effect": "Cripple 2 rounds (DC13); Maintained Submission"
           },
           {
-            "frame": 6,
+            "frame": 10,
             "type": "recovery"
           },
           {
-            "frame": 7,
+            "frame": 11,
             "type": "recovery"
           },
           {
-            "frame": 8,
+            "frame": 12,
             "type": "recovery"
           },
           {
-            "frame": 9,
+            "frame": 13,
+            "type": "recovery"
+          },
+          {
+            "frame": 14,
+            "type": "recovery"
+          },
+          {
+            "frame": 15,
             "type": "recovery"
           }
         ],
@@ -17501,15 +17915,39 @@
       }
     },
     "mountArmbarHit": {
-      "frames": 10,
+      "frames": 16,
       "fps": 6,
       "rows": [
         "E",
         "W"
       ],
-      "status": "E/W approved by user 2026-10-16 (mounted side of the top Arm bar, paired with mountArmbar; pull-back redesign approved by user 2026-10-16); S/N to author",
+      "status": "E/W CANDIDATE: extended 2026-10-19, previous approved version in git 652b7e8 (10 frames: E/W approved by user 2026-10-16 (mounted side of the top Arm bar, paired with mountArmbar; pull-back redesign approved by user 2026-10-16); S/N to author); mounted side of the top Arm bar, extended with mountArmbar; awaiting user approval; S/N to author",
       "rootMotion": {
         "E": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
           [
             0,
             0
@@ -17552,6 +17990,30 @@
           ]
         ],
         "W": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
           [
             0,
             0
@@ -17618,17 +18080,23 @@
             2,
             3,
             4,
-            5
+            5,
+            6,
+            7,
+            8,
+            9
           ],
           "fps": 12,
           "next": "armbarTrapped"
         },
         "armbarTrapped": {
           "frames": [
-            6,
-            7,
-            8,
-            9
+            10,
+            11,
+            12,
+            13,
+            14,
+            15
           ],
           "fps": 6,
           "loop": true,
@@ -17637,15 +18105,39 @@
       }
     },
     "mountBottomArmbar": {
-      "frames": 10,
+      "frames": 16,
       "fps": 6,
       "rows": [
         "E",
         "W"
       ],
-      "status": "E/W approved by user 2026-10-15 (Arm bar from the bottom of Mount, paired with mountBottomArmbarHit); S/N to author",
+      "status": "E/W CANDIDATE: extended 2026-10-19, previous approved version in git 652b7e8 (10 frames: E/W approved by user 2026-10-15 (Arm bar from the bottom of Mount, paired with mountBottomArmbarHit); S/N to author); Arm bar from the bottom of Mount, entry 6->10 frames, hold loop 4->6 frames (extension peak, receiver tap); awaiting user approval; S/N to author",
       "rootMotion": {
         "E": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
           [
             0,
             0
@@ -17688,6 +18180,30 @@
           ]
         ],
         "W": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
           [
             0,
             0
@@ -17753,17 +18269,23 @@
             2,
             3,
             4,
-            5
+            5,
+            6,
+            7,
+            8,
+            9
           ],
           "fps": 12,
           "next": "bottomArmbarHold"
         },
         "bottomArmbarHold": {
           "frames": [
-            6,
-            7,
-            8,
-            9
+            10,
+            11,
+            12,
+            13,
+            14,
+            15
           ],
           "fps": 6,
           "loop": true,
@@ -17795,24 +18317,48 @@
           },
           {
             "frame": 5,
+            "type": "startup"
+          },
+          {
+            "frame": 6,
+            "type": "startup"
+          },
+          {
+            "frame": 7,
+            "type": "startup"
+          },
+          {
+            "frame": 8,
+            "type": "startup"
+          },
+          {
+            "frame": 9,
             "type": "active",
             "move": "Arm bar",
             "effect": "Cripple 2 rounds (DC13); Maintained Submission"
           },
           {
-            "frame": 6,
+            "frame": 10,
             "type": "recovery"
           },
           {
-            "frame": 7,
+            "frame": 11,
             "type": "recovery"
           },
           {
-            "frame": 8,
+            "frame": 12,
             "type": "recovery"
           },
           {
-            "frame": 9,
+            "frame": 13,
+            "type": "recovery"
+          },
+          {
+            "frame": 14,
+            "type": "recovery"
+          },
+          {
+            "frame": 15,
             "type": "recovery"
           }
         ],
@@ -17839,24 +18385,48 @@
           },
           {
             "frame": 5,
+            "type": "startup"
+          },
+          {
+            "frame": 6,
+            "type": "startup"
+          },
+          {
+            "frame": 7,
+            "type": "startup"
+          },
+          {
+            "frame": 8,
+            "type": "startup"
+          },
+          {
+            "frame": 9,
             "type": "active",
             "move": "Arm bar",
             "effect": "Cripple 2 rounds (DC13); Maintained Submission"
           },
           {
-            "frame": 6,
+            "frame": 10,
             "type": "recovery"
           },
           {
-            "frame": 7,
+            "frame": 11,
             "type": "recovery"
           },
           {
-            "frame": 8,
+            "frame": 12,
             "type": "recovery"
           },
           {
-            "frame": 9,
+            "frame": 13,
+            "type": "recovery"
+          },
+          {
+            "frame": 14,
+            "type": "recovery"
+          },
+          {
+            "frame": 15,
             "type": "recovery"
           }
         ],
@@ -17866,15 +18436,39 @@
       }
     },
     "mountBottomArmbarHit": {
-      "frames": 10,
+      "frames": 16,
       "fps": 6,
       "rows": [
         "E",
         "W"
       ],
-      "status": "E/W approved by user 2026-10-15 (top side of the bottom Arm bar, paired with mountBottomArmbar); S/N to author",
+      "status": "E/W CANDIDATE: extended 2026-10-19, previous approved version in git 652b7e8 (10 frames: E/W approved by user 2026-10-15 (top side of the bottom Arm bar, paired with mountBottomArmbar); S/N to author); top side of the bottom Arm bar, extended with mountBottomArmbar; awaiting user approval; S/N to author",
       "rootMotion": {
         "E": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
           [
             0,
             0
@@ -17917,6 +18511,30 @@
           ]
         ],
         "W": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
           [
             0,
             0
@@ -17983,17 +18601,23 @@
             2,
             3,
             4,
-            5
+            5,
+            6,
+            7,
+            8,
+            9
           ],
           "fps": 12,
           "next": "bottomArmbarTrapped"
         },
         "bottomArmbarTrapped": {
           "frames": [
-            6,
-            7,
-            8,
-            9
+            10,
+            11,
+            12,
+            13,
+            14,
+            15
           ],
           "fps": 6,
           "loop": true,
@@ -18002,15 +18626,47 @@
       }
     },
     "mountStrangle": {
-      "frames": 8,
+      "frames": 16,
       "fps": 6,
       "rows": [
         "E",
         "W"
       ],
-      "status": "E/W approved by user 2026-10-15 (Strangle from Mount, paired with mountStrangleHit); S/N to author",
+      "status": "E/W CANDIDATE: extended 2026-10-19, previous approved version in git 652b7e8 (8 frames: E/W approved by user 2026-10-15 (Strangle from Mount, paired with mountStrangleHit); S/N to author); Strangle from Mount (the extended Cross Choke art, copied as approved); awaiting user approval; S/N to author",
       "rootMotion": {
         "E": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
           [
             0,
             0
@@ -18045,6 +18701,38 @@
           ]
         ],
         "W": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
           [
             0,
             0
@@ -18101,17 +18789,25 @@
             0,
             1,
             2,
-            3
+            3,
+            4,
+            5,
+            6,
+            7
           ],
           "fps": 12,
           "next": "strangleHold"
         },
         "strangleHold": {
           "frames": [
-            4,
-            5,
-            6,
-            7
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15
           ],
           "fps": 6,
           "loop": true,
@@ -18135,24 +18831,56 @@
           },
           {
             "frame": 3,
+            "type": "startup"
+          },
+          {
+            "frame": 4,
+            "type": "startup"
+          },
+          {
+            "frame": 5,
+            "type": "startup"
+          },
+          {
+            "frame": 6,
+            "type": "startup"
+          },
+          {
+            "frame": 7,
             "type": "active",
             "move": "Strangle",
             "effect": "Silence 2rd (STR or INT save DC13); no Focus 1rd; Maintained Submission"
           },
           {
-            "frame": 4,
+            "frame": 8,
             "type": "recovery"
           },
           {
-            "frame": 5,
+            "frame": 9,
             "type": "recovery"
           },
           {
-            "frame": 6,
+            "frame": 10,
             "type": "recovery"
           },
           {
-            "frame": 7,
+            "frame": 11,
+            "type": "recovery"
+          },
+          {
+            "frame": 12,
+            "type": "recovery"
+          },
+          {
+            "frame": 13,
+            "type": "recovery"
+          },
+          {
+            "frame": 14,
+            "type": "recovery"
+          },
+          {
+            "frame": 15,
             "type": "recovery"
           }
         ],
@@ -18171,24 +18899,56 @@
           },
           {
             "frame": 3,
+            "type": "startup"
+          },
+          {
+            "frame": 4,
+            "type": "startup"
+          },
+          {
+            "frame": 5,
+            "type": "startup"
+          },
+          {
+            "frame": 6,
+            "type": "startup"
+          },
+          {
+            "frame": 7,
             "type": "active",
             "move": "Strangle",
             "effect": "Silence 2rd (STR or INT save DC13); no Focus 1rd; Maintained Submission"
           },
           {
-            "frame": 4,
+            "frame": 8,
             "type": "recovery"
           },
           {
-            "frame": 5,
+            "frame": 9,
             "type": "recovery"
           },
           {
-            "frame": 6,
+            "frame": 10,
             "type": "recovery"
           },
           {
-            "frame": 7,
+            "frame": 11,
+            "type": "recovery"
+          },
+          {
+            "frame": 12,
+            "type": "recovery"
+          },
+          {
+            "frame": 13,
+            "type": "recovery"
+          },
+          {
+            "frame": 14,
+            "type": "recovery"
+          },
+          {
+            "frame": 15,
             "type": "recovery"
           }
         ],
@@ -18198,15 +18958,47 @@
       }
     },
     "mountStrangleHit": {
-      "frames": 8,
+      "frames": 16,
       "fps": 6,
       "rows": [
         "E",
         "W"
       ],
-      "status": "E/W approved by user 2026-10-15 (mounted side of Strangle, paired with mountStrangle); S/N to author",
+      "status": "E/W CANDIDATE: extended 2026-10-19, previous approved version in git 652b7e8 (8 frames: E/W approved by user 2026-10-15 (mounted side of Strangle, paired with mountStrangle); S/N to author); mounted side of Strangle (the extended Cross Choke art); awaiting user approval; S/N to author",
       "rootMotion": {
         "E": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
           [
             0,
             0
@@ -18241,6 +19033,38 @@
           ]
         ],
         "W": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
           [
             0,
             0
@@ -18297,17 +19121,25 @@
             0,
             1,
             2,
-            3
+            3,
+            4,
+            5,
+            6,
+            7
           ],
           "fps": 12,
           "next": "strangledHold"
         },
         "strangledHold": {
           "frames": [
-            4,
-            5,
-            6,
-            7
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15
           ],
           "fps": 6,
           "loop": true,
