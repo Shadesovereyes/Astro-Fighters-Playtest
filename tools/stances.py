@@ -24,11 +24,10 @@ MT = [leg('mt-lead', (32, 41), (36, 48), 38, 54, 'toe60'), {'name': 'mt-lead-up'
       leg('mt-rear', (31, 41), (29, 49), 25)]
 mt_n, mt_f = band(-20, 212), band(-45, 222)   # the boxing guard's hands-up arms (Christopher 2026-10-19)
 stance('muayThaiGuard', 'Muay Thai Stance', 6,
-       'Muay Thai stance idle: tall and square, weight sitting on the rear leg, the lead heel off the ground and the lead knee lifting high on the beat; the boxing hands-up guard (Christopher 2026-10-19).',
-       [dict(an=mt_n, af=mt_f, bob=(1, 1, 2), lean=(0, 2), root=(0, 0), ln='mt-rear', lf='mt-lead'),
-        dict(an=mt_n, af=mt_f, bob=(1, 1, 1), lean=(0, 2), root=(0, 0), ln='mt-rear', lf='mt-lead-up'),
-        dict(an=mt_n, af=mt_f, bob=(1, 1, 1), lean=(0, 2), root=(0, 0), ln='mt-rear', lf='mt-lead-up'),
-        dict(an=mt_n, af=mt_f, bob=(1, 1, 2), lean=(0, 2), root=(0, 0), ln='mt-rear', lf='mt-lead')], MT)
+       'Muay Thai stance idle: tall and square, weight sitting on the rear leg, the lead heel off the ground and the lead knee lifting high once per loop; the boxing hands-up guard rocking on its own half-length rhythm, out of sync with the leg (Christopher 2026-10-19).',
+       [dict(an=band(-20 + dn, 212 + dn), af=band(-45 + df, 222 + df), bob=(dy, dy, ab), lean=(0, 2), root=(0, 0), ln='mt-rear', lf=lf)
+        for (dn, df, ab), (dy, lf) in zip([(0, 0, 2), (2, -3, 1), (4, -5, 1), (2, -3, 2)] * 2,
+                                          [(1, 'mt-lead'), (1, 'mt-lead'), (1, 'mt-lead'), (1, 'mt-lead-up'), (1, 'mt-lead-up'), (2, 'mt-lead'), (2, 'mt-lead'), (1, 'mt-lead')])], MT)
 
 # Karate: long front stance, lead hand out at chest height, rear fist chambered at the hip (hikite)
 KA = [leg('ka-lead', (33, 43), (38, 49), 40), leg('ka-rear', (31, 43), (27, 50), 21)]

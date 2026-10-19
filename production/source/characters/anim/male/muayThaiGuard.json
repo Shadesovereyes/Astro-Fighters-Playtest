@@ -3,7 +3,7 @@
   "body": "male",
   "state": "muayThaiGuard",
   "status": "CANDIDATE 2026-10-19 (E/W; W mirrors E; S/N to author after approval)",
-  "frames": 4,
+  "frames": 8,
   "fps": 6,
   "sourceDirection": "E",
   "directions": [
@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Muay Thai stance idle: tall and square, weight sitting on the rear leg, the lead heel off the ground and the lead knee lifting high on the beat; the boxing hands-up guard (Christopher 2026-10-19).",
+  "intent": "Muay Thai stance idle: tall and square, weight sitting on the rear leg, the lead heel off the ground and the lead knee lifting high once per loop; the boxing hands-up guard rocking on its own half-length rhythm, out of sync with the leg (Christopher 2026-10-19).",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -92,15 +92,27 @@
       1,
       1,
       1,
+      1,
+      1,
+      2,
+      2,
       1
     ],
     "head": [
       1,
       1,
       1,
+      1,
+      1,
+      2,
+      2,
       1
     ],
     "arms": [
+      2,
+      1,
+      1,
+      2,
       2,
       1,
       1,
@@ -115,9 +127,17 @@
         0,
         0,
         0,
+        0,
+        0,
+        0,
+        0,
         0
       ],
       "head": [
+        2,
+        2,
+        2,
+        2,
         2,
         2,
         2,
@@ -143,9 +163,41 @@
       [
         0,
         0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
       ]
     ],
     "W": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
       [
         0,
         0
@@ -539,12 +591,20 @@
       6,
       6,
       6,
+      6,
+      6,
+      6,
+      6,
       6
     ],
     "far": [
       4,
+      4,
+      4,
       5,
       5,
+      4,
+      4,
       4
     ]
   },
@@ -574,10 +634,26 @@
       },
       {
         "construction": "band",
-        "angle": -20,
+        "angle": -18,
         "elbow": {
           "at": 8,
-          "angle": 212
+          "angle": 214
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -16,
+        "elbow": {
+          "at": 8,
+          "angle": 216
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -18,
+        "elbow": {
+          "at": 8,
+          "angle": 214
         }
       },
       {
@@ -590,10 +666,26 @@
       },
       {
         "construction": "band",
-        "angle": -20,
+        "angle": -18,
         "elbow": {
           "at": 8,
-          "angle": 212
+          "angle": 214
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -16,
+        "elbow": {
+          "at": 8,
+          "angle": 216
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -18,
+        "elbow": {
+          "at": 8,
+          "angle": 214
         }
       }
     ],
@@ -608,10 +700,26 @@
       },
       {
         "construction": "band",
-        "angle": -45,
+        "angle": -48,
         "elbow": {
           "at": 8,
-          "angle": 222
+          "angle": 219
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -50,
+        "elbow": {
+          "at": 8,
+          "angle": 217
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -48,
+        "elbow": {
+          "at": 8,
+          "angle": 219
         }
       },
       {
@@ -624,10 +732,26 @@
       },
       {
         "construction": "band",
-        "angle": -45,
+        "angle": -48,
         "elbow": {
           "at": 8,
-          "angle": 222
+          "angle": 219
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -50,
+        "elbow": {
+          "at": 8,
+          "angle": 217
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -48,
+        "elbow": {
+          "at": 8,
+          "angle": 219
         }
       }
     ],
@@ -738,6 +862,10 @@
       "bandFollowsBody": true,
       "sway": {
         "E": [
+          -1,
+          -1,
+          -1,
+          -1,
           -1,
           -1,
           -1,
@@ -943,7 +1071,11 @@
         0,
         1,
         2,
-        3
+        3,
+        4,
+        5,
+        6,
+        7
       ],
       "fps": 6,
       "loop": true
