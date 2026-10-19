@@ -150,3 +150,9 @@ def weapons():
 if __name__ == '__main__':
     weapons() if '--weapons' in sys.argv else specs()
     print('ok')
+# approved by Christopher 2026-10-19: relabel after regenerating
+if __name__ == '__main__':
+    for _st in ('chainSnare', 'chainHold', 'chainYank', 'snared', 'chainYanked'):
+        _s = load(D + _st + '.json'); _s['status'] = _s['status'].replace('E/W candidate 2026-10-19', 'E/W approved by user 2026-10-19').replace(', awaiting user approval', '')
+        for _w in _s.get('weapons', []): _w['status'] = _s['status']
+        save(_s, D + _st + '.json')

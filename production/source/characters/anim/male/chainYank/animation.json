@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-animation-output/v1",
   "body": "male",
   "state": "chainYank",
-  "status": "E/W candidate 2026-10-19 (Chain Yank), awaiting user approval; S/N to author",
+  "status": "E/W approved by user 2026-10-19 (Chain Yank); S/N to author",
   "frames": 7,
   "fps": 12,
   "frameSize": [
@@ -121,6 +121,129 @@
       "fps": 12,
       "next": "chainHold"
     }
+  },
+  "events": {
+    "rule": "per-frame gameplay data per facing; chainHand = the off fist, where the testbed starts the chain line to the target",
+    "E": [
+      {
+        "frame": 0,
+        "type": "startup",
+        "chainHand": [
+          50,
+          26
+        ]
+      },
+      {
+        "frame": 1,
+        "type": "startup",
+        "chainHand": [
+          50,
+          24
+        ]
+      },
+      {
+        "frame": 2,
+        "type": "active",
+        "chainHand": [
+          40,
+          36
+        ],
+        "move": "chainYank",
+        "pull": true
+      },
+      {
+        "frame": 3,
+        "type": "recovery",
+        "chainHand": [
+          30,
+          39
+        ]
+      },
+      {
+        "frame": 4,
+        "type": "recovery",
+        "chainHand": [
+          30,
+          39
+        ]
+      },
+      {
+        "frame": 5,
+        "type": "recovery",
+        "chainHand": [
+          46,
+          32
+        ]
+      },
+      {
+        "frame": 6,
+        "type": "recovery",
+        "chainHand": [
+          50,
+          26
+        ]
+      }
+    ],
+    "W": [
+      {
+        "frame": 0,
+        "type": "startup",
+        "chainHand": [
+          13,
+          26
+        ]
+      },
+      {
+        "frame": 1,
+        "type": "startup",
+        "chainHand": [
+          13,
+          24
+        ]
+      },
+      {
+        "frame": 2,
+        "type": "active",
+        "chainHand": [
+          23,
+          36
+        ],
+        "move": "chainYank",
+        "pull": true
+      },
+      {
+        "frame": 3,
+        "type": "recovery",
+        "chainHand": [
+          33,
+          39
+        ]
+      },
+      {
+        "frame": 4,
+        "type": "recovery",
+        "chainHand": [
+          33,
+          39
+        ]
+      },
+      {
+        "frame": 5,
+        "type": "recovery",
+        "chainHand": [
+          17,
+          32
+        ]
+      },
+      {
+        "frame": 6,
+        "type": "recovery",
+        "chainHand": [
+          13,
+          26
+        ]
+      }
+    ]
   },
   "qc": {
     "mirrorValid": {

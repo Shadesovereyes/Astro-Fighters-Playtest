@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-animation-output/v1",
   "body": "male",
   "state": "chainSnare",
-  "status": "E/W candidate 2026-10-19 (Kusari Chain Snare throw), awaiting user approval; S/N to author",
+  "status": "E/W approved by user 2026-10-19 (Kusari Chain Snare throw); S/N to author",
   "frames": 8,
   "fps": 12,
   "frameSize": [
@@ -130,6 +130,151 @@
       "fps": 12,
       "next": "chainHold"
     }
+  },
+  "events": {
+    "rule": "per-frame gameplay data per facing; chainHand = the off fist, where the testbed starts the chain line to the target",
+    "E": [
+      {
+        "frame": 0,
+        "type": "startup",
+        "chainHand": [
+          45,
+          26
+        ]
+      },
+      {
+        "frame": 1,
+        "type": "startup",
+        "chainHand": [
+          47,
+          25
+        ]
+      },
+      {
+        "frame": 2,
+        "type": "startup",
+        "chainHand": [
+          44,
+          21
+        ]
+      },
+      {
+        "frame": 3,
+        "type": "startup",
+        "chainHand": [
+          50,
+          22
+        ]
+      },
+      {
+        "frame": 4,
+        "type": "active",
+        "chainHand": [
+          51,
+          24
+        ],
+        "move": "kusariChainSnare",
+        "release": [
+          51,
+          24
+        ]
+      },
+      {
+        "frame": 5,
+        "type": "recovery",
+        "chainHand": [
+          51,
+          24
+        ]
+      },
+      {
+        "frame": 6,
+        "type": "recovery",
+        "chainHand": [
+          50,
+          25
+        ]
+      },
+      {
+        "frame": 7,
+        "type": "recovery",
+        "chainHand": [
+          50,
+          26
+        ]
+      }
+    ],
+    "W": [
+      {
+        "frame": 0,
+        "type": "startup",
+        "chainHand": [
+          18,
+          26
+        ]
+      },
+      {
+        "frame": 1,
+        "type": "startup",
+        "chainHand": [
+          16,
+          25
+        ]
+      },
+      {
+        "frame": 2,
+        "type": "startup",
+        "chainHand": [
+          19,
+          21
+        ]
+      },
+      {
+        "frame": 3,
+        "type": "startup",
+        "chainHand": [
+          13,
+          22
+        ]
+      },
+      {
+        "frame": 4,
+        "type": "active",
+        "chainHand": [
+          12,
+          24
+        ],
+        "move": "kusariChainSnare",
+        "release": [
+          12,
+          24
+        ]
+      },
+      {
+        "frame": 5,
+        "type": "recovery",
+        "chainHand": [
+          12,
+          24
+        ]
+      },
+      {
+        "frame": 6,
+        "type": "recovery",
+        "chainHand": [
+          13,
+          25
+        ]
+      },
+      {
+        "frame": 7,
+        "type": "recovery",
+        "chainHand": [
+          13,
+          26
+        ]
+      }
+    ]
   },
   "qc": {
     "mirrorValid": {

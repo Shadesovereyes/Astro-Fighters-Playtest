@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "chainYanked",
-  "status": "E/W candidate 2026-10-19 (pulled by Chain Yank), awaiting user approval; S/N to author",
+  "status": "E/W approved by user 2026-10-19 (pulled by Chain Yank); S/N to author",
   "frames": 6,
   "fps": 12,
   "sourceDirection": "E",

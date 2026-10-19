@@ -10938,6 +10938,1110 @@
         ]
       }
     },
+    "chainSnare": {
+      "frames": 8,
+      "fps": 12,
+      "rows": [
+        "E",
+        "W"
+      ],
+      "status": "E/W approved by user 2026-10-19 (Kusari Chain Snare throw); S/N to author",
+      "rootMotion": {
+        "E": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            -1,
+            0
+          ],
+          [
+            -1,
+            0
+          ]
+        ],
+        "W": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            -1,
+            0
+          ],
+          [
+            -1,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            0
+          ]
+        ]
+      },
+      "layers": {
+        "body": "assets/characters/male/chainSnare/body.png",
+        "arms": "assets/characters/male/chainSnare/arms.png",
+        "long-hair": "assets/characters/male/chainSnare/long-hair.png",
+        "fade-hair": "assets/characters/male/chainSnare/fade-hair.png",
+        "afro-hair": "assets/characters/male/chainSnare/afro-hair.png",
+        "brown-eyes": "assets/characters/male/chainSnare/brown-eyes.png",
+        "purple-eyes": "assets/characters/male/chainSnare/purple-eyes.png",
+        "male-gi": "assets/characters/male/chainSnare/male-gi.png",
+        "male-blue-armor": "assets/characters/male/chainSnare/male-blue-armor.png",
+        "male-red-armor": "assets/characters/male/chainSnare/male-red-armor.png",
+        "blue-armor-shoulders": "assets/characters/male/chainSnare/blue-armor-shoulders.png",
+        "red-armor-shoulders": "assets/characters/male/chainSnare/red-armor-shoulders.png"
+      },
+      "weapons": {
+        "frameSize": [
+          128,
+          128
+        ],
+        "origin": [
+          32,
+          32
+        ],
+        "pivot": [
+          64,
+          95
+        ],
+        "depthRule": "each weapon is split into depth slots, one sheet each: behind = under the body; front = over body and clothing, under the arms (the fists close over the hilt); top = over every character layer (a blade pointing at the viewer, a hand in front of the head). z per frame is one slot or { hilt, blade } split at the grip",
+        "items": [
+          {
+            "slot": "main",
+            "item": "kama",
+            "default": true,
+            "hand": "arms",
+            "layers": {
+              "front": "assets/characters/male/chainSnare/main-kama-front.png"
+            },
+            "z": {
+              "E": [
+                "front",
+                "front",
+                "front",
+                "front",
+                "front",
+                "front",
+                "front",
+                "front"
+              ],
+              "W": [
+                "front",
+                "front",
+                "front",
+                "front",
+                "front",
+                "front",
+                "front",
+                "front"
+              ]
+            }
+          }
+        ]
+      },
+      "clips": {
+        "rule": "Kyoketsu-Shoge grapple (Kusari Chain Snare / Chain Yank)",
+        "chainSnare": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 12,
+          "next": "chainHold"
+        }
+      },
+      "events": {
+        "rule": "per-frame gameplay data per facing; chainHand = the off fist, where the testbed starts the chain line to the target",
+        "E": [
+          {
+            "frame": 0,
+            "type": "startup",
+            "chainHand": [
+              45,
+              26
+            ]
+          },
+          {
+            "frame": 1,
+            "type": "startup",
+            "chainHand": [
+              47,
+              25
+            ]
+          },
+          {
+            "frame": 2,
+            "type": "startup",
+            "chainHand": [
+              44,
+              21
+            ]
+          },
+          {
+            "frame": 3,
+            "type": "startup",
+            "chainHand": [
+              50,
+              22
+            ]
+          },
+          {
+            "frame": 4,
+            "type": "active",
+            "chainHand": [
+              51,
+              24
+            ],
+            "move": "kusariChainSnare",
+            "release": [
+              51,
+              24
+            ]
+          },
+          {
+            "frame": 5,
+            "type": "recovery",
+            "chainHand": [
+              51,
+              24
+            ]
+          },
+          {
+            "frame": 6,
+            "type": "recovery",
+            "chainHand": [
+              50,
+              25
+            ]
+          },
+          {
+            "frame": 7,
+            "type": "recovery",
+            "chainHand": [
+              50,
+              26
+            ]
+          }
+        ],
+        "W": [
+          {
+            "frame": 0,
+            "type": "startup",
+            "chainHand": [
+              18,
+              26
+            ]
+          },
+          {
+            "frame": 1,
+            "type": "startup",
+            "chainHand": [
+              16,
+              25
+            ]
+          },
+          {
+            "frame": 2,
+            "type": "startup",
+            "chainHand": [
+              19,
+              21
+            ]
+          },
+          {
+            "frame": 3,
+            "type": "startup",
+            "chainHand": [
+              13,
+              22
+            ]
+          },
+          {
+            "frame": 4,
+            "type": "active",
+            "chainHand": [
+              12,
+              24
+            ],
+            "move": "kusariChainSnare",
+            "release": [
+              12,
+              24
+            ]
+          },
+          {
+            "frame": 5,
+            "type": "recovery",
+            "chainHand": [
+              12,
+              24
+            ]
+          },
+          {
+            "frame": 6,
+            "type": "recovery",
+            "chainHand": [
+              13,
+              25
+            ]
+          },
+          {
+            "frame": 7,
+            "type": "recovery",
+            "chainHand": [
+              13,
+              26
+            ]
+          }
+        ]
+      }
+    },
+    "chainHold": {
+      "frames": 4,
+      "fps": 12,
+      "rows": [
+        "E",
+        "W"
+      ],
+      "status": "E/W approved by user 2026-10-19 (Kusari Chain Snare hold); S/N to author",
+      "rootMotion": {
+        "E": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "W": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "layers": {
+        "body": "assets/characters/male/chainHold/body.png",
+        "arms": "assets/characters/male/chainHold/arms.png",
+        "long-hair": "assets/characters/male/chainHold/long-hair.png",
+        "fade-hair": "assets/characters/male/chainHold/fade-hair.png",
+        "afro-hair": "assets/characters/male/chainHold/afro-hair.png",
+        "brown-eyes": "assets/characters/male/chainHold/brown-eyes.png",
+        "purple-eyes": "assets/characters/male/chainHold/purple-eyes.png",
+        "male-gi": "assets/characters/male/chainHold/male-gi.png",
+        "male-blue-armor": "assets/characters/male/chainHold/male-blue-armor.png",
+        "male-red-armor": "assets/characters/male/chainHold/male-red-armor.png",
+        "blue-armor-shoulders": "assets/characters/male/chainHold/blue-armor-shoulders.png",
+        "red-armor-shoulders": "assets/characters/male/chainHold/red-armor-shoulders.png"
+      },
+      "weapons": {
+        "frameSize": [
+          128,
+          128
+        ],
+        "origin": [
+          32,
+          32
+        ],
+        "pivot": [
+          64,
+          95
+        ],
+        "depthRule": "each weapon is split into depth slots, one sheet each: behind = under the body; front = over body and clothing, under the arms (the fists close over the hilt); top = over every character layer (a blade pointing at the viewer, a hand in front of the head). z per frame is one slot or { hilt, blade } split at the grip",
+        "items": [
+          {
+            "slot": "main",
+            "item": "kama",
+            "default": true,
+            "hand": "arms",
+            "layers": {
+              "front": "assets/characters/male/chainHold/main-kama-front.png"
+            },
+            "z": {
+              "E": [
+                "front",
+                "front",
+                "front",
+                "front"
+              ],
+              "W": [
+                "front",
+                "front",
+                "front",
+                "front"
+              ]
+            }
+          }
+        ]
+      },
+      "clips": {
+        "rule": "Kyoketsu-Shoge grapple (Kusari Chain Snare / Chain Yank)",
+        "chainHold": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 6,
+          "loop": true
+        }
+      },
+      "events": {
+        "rule": "per-frame gameplay data per facing; chainHand = the off fist, where the testbed starts the chain line to the target",
+        "E": [
+          {
+            "frame": 0,
+            "type": "startup",
+            "chainHand": [
+              50,
+              26
+            ]
+          },
+          {
+            "frame": 1,
+            "type": "startup",
+            "chainHand": [
+              49,
+              26
+            ]
+          },
+          {
+            "frame": 2,
+            "type": "startup",
+            "chainHand": [
+              50,
+              27
+            ]
+          },
+          {
+            "frame": 3,
+            "type": "recovery",
+            "chainHand": [
+              50,
+              26
+            ]
+          }
+        ],
+        "W": [
+          {
+            "frame": 0,
+            "type": "startup",
+            "chainHand": [
+              13,
+              26
+            ]
+          },
+          {
+            "frame": 1,
+            "type": "startup",
+            "chainHand": [
+              14,
+              26
+            ]
+          },
+          {
+            "frame": 2,
+            "type": "startup",
+            "chainHand": [
+              13,
+              27
+            ]
+          },
+          {
+            "frame": 3,
+            "type": "recovery",
+            "chainHand": [
+              13,
+              26
+            ]
+          }
+        ]
+      }
+    },
+    "chainYank": {
+      "frames": 7,
+      "fps": 12,
+      "rows": [
+        "E",
+        "W"
+      ],
+      "status": "E/W approved by user 2026-10-19 (Chain Yank); S/N to author",
+      "rootMotion": {
+        "E": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            -1,
+            0
+          ],
+          [
+            -1,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "W": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            -1,
+            0
+          ],
+          [
+            -1,
+            0
+          ]
+        ]
+      },
+      "layers": {
+        "body": "assets/characters/male/chainYank/body.png",
+        "arms": "assets/characters/male/chainYank/arms.png",
+        "long-hair": "assets/characters/male/chainYank/long-hair.png",
+        "fade-hair": "assets/characters/male/chainYank/fade-hair.png",
+        "afro-hair": "assets/characters/male/chainYank/afro-hair.png",
+        "brown-eyes": "assets/characters/male/chainYank/brown-eyes.png",
+        "purple-eyes": "assets/characters/male/chainYank/purple-eyes.png",
+        "male-gi": "assets/characters/male/chainYank/male-gi.png",
+        "male-blue-armor": "assets/characters/male/chainYank/male-blue-armor.png",
+        "male-red-armor": "assets/characters/male/chainYank/male-red-armor.png",
+        "blue-armor-shoulders": "assets/characters/male/chainYank/blue-armor-shoulders.png",
+        "red-armor-shoulders": "assets/characters/male/chainYank/red-armor-shoulders.png"
+      },
+      "weapons": {
+        "frameSize": [
+          128,
+          128
+        ],
+        "origin": [
+          32,
+          32
+        ],
+        "pivot": [
+          64,
+          95
+        ],
+        "depthRule": "each weapon is split into depth slots, one sheet each: behind = under the body; front = over body and clothing, under the arms (the fists close over the hilt); top = over every character layer (a blade pointing at the viewer, a hand in front of the head). z per frame is one slot or { hilt, blade } split at the grip",
+        "items": [
+          {
+            "slot": "main",
+            "item": "kama",
+            "default": true,
+            "hand": "arms",
+            "layers": {
+              "front": "assets/characters/male/chainYank/main-kama-front.png"
+            },
+            "z": {
+              "E": [
+                "front",
+                "front",
+                "front",
+                "front",
+                "front",
+                "front",
+                "front"
+              ],
+              "W": [
+                "front",
+                "front",
+                "front",
+                "front",
+                "front",
+                "front",
+                "front"
+              ]
+            }
+          }
+        ]
+      },
+      "clips": {
+        "rule": "Kyoketsu-Shoge grapple (Kusari Chain Snare / Chain Yank)",
+        "chainYank": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "fps": 12,
+          "next": "chainHold"
+        }
+      },
+      "events": {
+        "rule": "per-frame gameplay data per facing; chainHand = the off fist, where the testbed starts the chain line to the target",
+        "E": [
+          {
+            "frame": 0,
+            "type": "startup",
+            "chainHand": [
+              50,
+              26
+            ]
+          },
+          {
+            "frame": 1,
+            "type": "startup",
+            "chainHand": [
+              50,
+              24
+            ]
+          },
+          {
+            "frame": 2,
+            "type": "active",
+            "chainHand": [
+              40,
+              36
+            ],
+            "move": "chainYank",
+            "pull": true
+          },
+          {
+            "frame": 3,
+            "type": "recovery",
+            "chainHand": [
+              30,
+              39
+            ]
+          },
+          {
+            "frame": 4,
+            "type": "recovery",
+            "chainHand": [
+              30,
+              39
+            ]
+          },
+          {
+            "frame": 5,
+            "type": "recovery",
+            "chainHand": [
+              46,
+              32
+            ]
+          },
+          {
+            "frame": 6,
+            "type": "recovery",
+            "chainHand": [
+              50,
+              26
+            ]
+          }
+        ],
+        "W": [
+          {
+            "frame": 0,
+            "type": "startup",
+            "chainHand": [
+              13,
+              26
+            ]
+          },
+          {
+            "frame": 1,
+            "type": "startup",
+            "chainHand": [
+              13,
+              24
+            ]
+          },
+          {
+            "frame": 2,
+            "type": "active",
+            "chainHand": [
+              23,
+              36
+            ],
+            "move": "chainYank",
+            "pull": true
+          },
+          {
+            "frame": 3,
+            "type": "recovery",
+            "chainHand": [
+              33,
+              39
+            ]
+          },
+          {
+            "frame": 4,
+            "type": "recovery",
+            "chainHand": [
+              33,
+              39
+            ]
+          },
+          {
+            "frame": 5,
+            "type": "recovery",
+            "chainHand": [
+              17,
+              32
+            ]
+          },
+          {
+            "frame": 6,
+            "type": "recovery",
+            "chainHand": [
+              13,
+              26
+            ]
+          }
+        ]
+      }
+    },
+    "snared": {
+      "frames": 4,
+      "fps": 12,
+      "rows": [
+        "E",
+        "W"
+      ],
+      "status": "E/W approved by user 2026-10-19 (snared by the chain); S/N to author",
+      "rootMotion": {
+        "E": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "W": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "layers": {
+        "body": "assets/characters/male/snared/body.png",
+        "arms": "assets/characters/male/snared/arms.png",
+        "long-hair": "assets/characters/male/snared/long-hair.png",
+        "fade-hair": "assets/characters/male/snared/fade-hair.png",
+        "afro-hair": "assets/characters/male/snared/afro-hair.png",
+        "brown-eyes": "assets/characters/male/snared/brown-eyes.png",
+        "purple-eyes": "assets/characters/male/snared/purple-eyes.png",
+        "male-gi": "assets/characters/male/snared/male-gi.png",
+        "male-blue-armor": "assets/characters/male/snared/male-blue-armor.png",
+        "male-red-armor": "assets/characters/male/snared/male-red-armor.png",
+        "blue-armor-shoulders": "assets/characters/male/snared/blue-armor-shoulders.png",
+        "red-armor-shoulders": "assets/characters/male/snared/red-armor-shoulders.png",
+        "fx": "assets/characters/male/snared/fx.png"
+      },
+      "clips": {
+        "rule": "Kyoketsu-Shoge grapple (Kusari Chain Snare / Chain Yank)",
+        "snared": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 6,
+          "loop": true
+        }
+      },
+      "events": {
+        "rule": "per-frame gameplay data per facing; coil = where the chain from the thrower attaches",
+        "E": [
+          {
+            "frame": 0,
+            "type": "active",
+            "move": "snared",
+            "coil": [
+              39,
+              28
+            ]
+          },
+          {
+            "frame": 1,
+            "type": "recovery",
+            "coil": [
+              39,
+              28
+            ]
+          },
+          {
+            "frame": 2,
+            "type": "recovery",
+            "coil": [
+              39,
+              28
+            ]
+          },
+          {
+            "frame": 3,
+            "type": "recovery",
+            "coil": [
+              38,
+              29
+            ]
+          }
+        ],
+        "W": [
+          {
+            "frame": 0,
+            "type": "active",
+            "move": "snared",
+            "coil": [
+              24,
+              28
+            ]
+          },
+          {
+            "frame": 1,
+            "type": "recovery",
+            "coil": [
+              24,
+              28
+            ]
+          },
+          {
+            "frame": 2,
+            "type": "recovery",
+            "coil": [
+              24,
+              28
+            ]
+          },
+          {
+            "frame": 3,
+            "type": "recovery",
+            "coil": [
+              25,
+              29
+            ]
+          }
+        ]
+      }
+    },
+    "chainYanked": {
+      "frames": 6,
+      "fps": 12,
+      "rows": [
+        "E",
+        "W"
+      ],
+      "status": "E/W approved by user 2026-10-19 (pulled by Chain Yank); S/N to author",
+      "rootMotion": {
+        "E": [
+          [
+            0,
+            0
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            3,
+            0
+          ],
+          [
+            3,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "W": [
+          [
+            0,
+            0
+          ],
+          [
+            -2,
+            0
+          ],
+          [
+            -3,
+            0
+          ],
+          [
+            -3,
+            0
+          ],
+          [
+            -1,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "layers": {
+        "body": "assets/characters/male/chainYanked/body.png",
+        "arms": "assets/characters/male/chainYanked/arms.png",
+        "long-hair": "assets/characters/male/chainYanked/long-hair.png",
+        "fade-hair": "assets/characters/male/chainYanked/fade-hair.png",
+        "afro-hair": "assets/characters/male/chainYanked/afro-hair.png",
+        "brown-eyes": "assets/characters/male/chainYanked/brown-eyes.png",
+        "purple-eyes": "assets/characters/male/chainYanked/purple-eyes.png",
+        "male-gi": "assets/characters/male/chainYanked/male-gi.png",
+        "male-blue-armor": "assets/characters/male/chainYanked/male-blue-armor.png",
+        "male-red-armor": "assets/characters/male/chainYanked/male-red-armor.png",
+        "blue-armor-shoulders": "assets/characters/male/chainYanked/blue-armor-shoulders.png",
+        "red-armor-shoulders": "assets/characters/male/chainYanked/red-armor-shoulders.png",
+        "fx": "assets/characters/male/chainYanked/fx.png"
+      },
+      "clips": {
+        "rule": "Kyoketsu-Shoge grapple (Kusari Chain Snare / Chain Yank)",
+        "chainYanked": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "fps": 12,
+          "next": "snared"
+        }
+      },
+      "events": {
+        "rule": "per-frame gameplay data per facing; coil = where the chain from the thrower attaches",
+        "E": [
+          {
+            "frame": 0,
+            "type": "startup",
+            "coil": [
+              39,
+              28
+            ]
+          },
+          {
+            "frame": 1,
+            "type": "active",
+            "move": "chainYanked",
+            "coil": [
+              41,
+              29
+            ]
+          },
+          {
+            "frame": 2,
+            "type": "recovery",
+            "coil": [
+              41,
+              30
+            ]
+          },
+          {
+            "frame": 3,
+            "type": "recovery",
+            "coil": [
+              41,
+              29
+            ]
+          },
+          {
+            "frame": 4,
+            "type": "recovery",
+            "coil": [
+              39,
+              28
+            ]
+          },
+          {
+            "frame": 5,
+            "type": "recovery",
+            "coil": [
+              39,
+              28
+            ]
+          }
+        ],
+        "W": [
+          {
+            "frame": 0,
+            "type": "startup",
+            "coil": [
+              24,
+              28
+            ]
+          },
+          {
+            "frame": 1,
+            "type": "active",
+            "move": "chainYanked",
+            "coil": [
+              22,
+              29
+            ]
+          },
+          {
+            "frame": 2,
+            "type": "recovery",
+            "coil": [
+              22,
+              30
+            ]
+          },
+          {
+            "frame": 3,
+            "type": "recovery",
+            "coil": [
+              22,
+              29
+            ]
+          },
+          {
+            "frame": 4,
+            "type": "recovery",
+            "coil": [
+              24,
+              28
+            ]
+          },
+          {
+            "frame": 5,
+            "type": "recovery",
+            "coil": [
+              24,
+              28
+            ]
+          }
+        ]
+      }
+    },
     "clinchSweepingShoulder": {
       "frames": 12,
       "fps": 12,

@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-animation-output/v1",
   "body": "male",
   "state": "chainHold",
-  "status": "E/W candidate 2026-10-19 (Kusari Chain Snare hold), awaiting user approval; S/N to author",
+  "status": "E/W approved by user 2026-10-19 (Kusari Chain Snare hold); S/N to author",
   "frames": 4,
   "fps": 12,
   "frameSize": [
@@ -94,6 +94,77 @@
       "fps": 6,
       "loop": true
     }
+  },
+  "events": {
+    "rule": "per-frame gameplay data per facing; chainHand = the off fist, where the testbed starts the chain line to the target",
+    "E": [
+      {
+        "frame": 0,
+        "type": "startup",
+        "chainHand": [
+          50,
+          26
+        ]
+      },
+      {
+        "frame": 1,
+        "type": "startup",
+        "chainHand": [
+          49,
+          26
+        ]
+      },
+      {
+        "frame": 2,
+        "type": "startup",
+        "chainHand": [
+          50,
+          27
+        ]
+      },
+      {
+        "frame": 3,
+        "type": "recovery",
+        "chainHand": [
+          50,
+          26
+        ]
+      }
+    ],
+    "W": [
+      {
+        "frame": 0,
+        "type": "startup",
+        "chainHand": [
+          13,
+          26
+        ]
+      },
+      {
+        "frame": 1,
+        "type": "startup",
+        "chainHand": [
+          14,
+          26
+        ]
+      },
+      {
+        "frame": 2,
+        "type": "startup",
+        "chainHand": [
+          13,
+          27
+        ]
+      },
+      {
+        "frame": 3,
+        "type": "recovery",
+        "chainHand": [
+          13,
+          26
+        ]
+      }
+    ]
   },
   "qc": {
     "mirrorValid": {
