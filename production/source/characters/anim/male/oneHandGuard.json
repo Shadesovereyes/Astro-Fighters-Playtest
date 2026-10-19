@@ -1632,6 +1632,9 @@
             }
           ]
         }
+      },
+      "itemStatus": {
+        "kama": "approved by user 2026-10-19 (idle with the kusarigama chain twirl)"
       }
     }
   ]

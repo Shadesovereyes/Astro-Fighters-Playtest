@@ -2094,6 +2094,55 @@
                 "front"
               ]
             }
+          },
+          {
+            "slot": "main",
+            "item": "kama",
+            "default": false,
+            "hand": "arms",
+            "layers": {
+              "behind": "assets/characters/male/oneHandGuard/main-kama-behind.png",
+              "front": "assets/characters/male/oneHandGuard/main-kama-front.png",
+              "top": "assets/characters/male/oneHandGuard/main-kama-top.png"
+            },
+            "z": {
+              "S": [
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                },
+                {
+                  "hilt": "front",
+                  "blade": "top"
+                }
+              ],
+              "E": [
+                "front",
+                "front",
+                "front",
+                "front"
+              ],
+              "N": [
+                "behind",
+                "behind",
+                "behind",
+                "behind"
+              ],
+              "W": [
+                "front",
+                "front",
+                "front",
+                "front"
+              ]
+            }
           }
         ]
       },
@@ -5072,6 +5121,7 @@
             "default": false,
             "hand": "arms",
             "layers": {
+              "behind": "assets/characters/male/oneHandHeavy/main-kama-behind.png",
               "front": "assets/characters/male/oneHandHeavy/main-kama-front.png",
               "top": "assets/characters/male/oneHandHeavy/main-kama-top.png",
               "trail": "assets/characters/male/oneHandHeavy/main-kama-trail.png",
