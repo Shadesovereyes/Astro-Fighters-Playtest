@@ -1,0 +1,201 @@
+{
+ "rule": "trap landing sheets; play at the target cell when the thrown item arrives; ground layer under fighters, air layer over; anchor = cell centre on the ground (scale with the testbed hex size)",
+ "status": "candidate 2026-10-19, awaiting user approval",
+ "explosiveTag": {
+  "frameSize": [
+   96,
+   80
+  ],
+  "frames": 9,
+  "anchor": [
+   48,
+   72
+  ],
+  "fps": 12,
+  "burst": {
+   "land": 0,
+   "detonate": 3,
+   "damage": 3
+  },
+  "layers": {
+   "ground": "explosiveTag-ground.png (under fighters)",
+   "air": "explosiveTag-air.png (over fighters)"
+  },
+  "note": "Explosive Tag: kunai with a paper tag sticks in the ground, the tag sizzles, white flash, fireball, smoke rises, scorch mark fades with the last frame. Hit fighters play hitReact on frame 3."
+ },
+ "flashBomb": {
+  "frameSize": [
+   112,
+   88
+  ],
+  "frames": 7,
+  "anchor": [
+   56,
+   80
+  ],
+  "fps": 12,
+  "burst": {
+   "land": 0,
+   "flash": 2,
+   "blind": 2
+  },
+  "layers": {
+   "ground": "flashBomb-ground.png (under fighters)",
+   "air": "flashBomb-air.png (over fighters)"
+  },
+  "note": "Flash Bomb: pellet lands, a white star flash with yellow rays fills the area and fades to sparkles. Blinded fighters play hitReact (squint) on frame 2; the testbed may also white out the screen for one frame."
+ },
+ "smokeScreen": {
+  "frameSize": [
+   144,
+   88
+  ],
+  "frames": 11,
+  "anchor": [
+   72,
+   80
+  ],
+  "fps": 10,
+  "burst": {
+   "land": 0,
+   "smoke": 4
+  },
+  "linger": {
+   "frames": [
+    5,
+    6,
+    7,
+    8
+   ],
+   "loop": true,
+   "fps": 6,
+   "rounds": 2,
+   "then": [
+    9,
+    10
+   ]
+  },
+  "layers": {
+   "ground": "smokeScreen-ground.png (under fighters)",
+   "air": "smokeScreen-air.png (over fighters)"
+  },
+  "note": "Smoke Screen (radius 2): pellet lands, smoke billows out into a bank that covers the area; loop the linger frames while the Smoke terrain lasts (2 rounds), then play the two dispersal frames."
+ },
+ "caltrops": {
+  "frameSize": [
+   96,
+   40
+  ],
+  "frames": 5,
+  "anchor": [
+   48,
+   32
+  ],
+  "fps": 12,
+  "burst": {
+   "land": 0
+  },
+  "linger": {
+   "frames": [
+    3,
+    4
+   ],
+   "loop": true,
+   "fps": 3,
+   "rounds": 3
+  },
+  "layers": {
+   "ground": "caltrops-ground.png (under fighters)",
+   "air": "caltrops-air.png (over fighters)"
+  },
+  "note": "Caltrops / Scatter Nails: the handful lands, bouncing once, and lies across the cell; loop the linger frames (glints) while the hazard lasts (3 rounds). Fighters standing on it play hitReact when it bites."
+ },
+ "spikePit": {
+  "frameSize": [
+   96,
+   64
+  ],
+  "frames": 7,
+  "anchor": [
+   48,
+   56
+  ],
+  "fps": 12,
+  "burst": {
+   "land": 0,
+   "open": 2,
+   "damage": 3
+  },
+  "linger": {
+   "frames": [
+    5,
+    6
+   ],
+   "loop": true,
+   "fps": 3,
+   "rounds": 3
+  },
+  "layers": {
+   "ground": "spikePit-ground.png (under fighters)",
+   "air": "spikePit-air.png (over fighters)"
+  },
+  "note": "Spike Pit: an iron stake drives into the ground, cracks run out, the ground drops into a pit and spikes spring up (overshoot, settle). Loop the linger frames (glints) for the 3 rounds; spikes are an air layer so they stand in front of a fighter in the pit."
+ },
+ "abilities": {
+  "Explosive Tag": "explosiveTag",
+  "Flash Bomb": "flashBomb",
+  "Smoke Screen": "smokeScreen",
+  "Spike Pit": "spikePit",
+  "Caltrops": "caltrops",
+  "Scatter Nails": "caltrops"
+ },
+ "inFlight": {
+  "rule": "item drawn along the flight from the thrower release event to the cell: arc height 0.35 x distance for pellets and the stake, 0.15 for the tag kunai (spins nose-first), caltrops fan into 4 singles",
+  "patterns": {
+   "pellet": [
+    ".##.",
+    "#Gg#",
+    "#gd#",
+    ".##."
+   ],
+   "pelletF": [
+    ".##.",
+    "#Wy#",
+    "#yy#",
+    ".##."
+   ],
+   "stake": [
+    ".##.",
+    "#dd#",
+    "#da#",
+    ".#a#",
+    ".#a#",
+    "..#."
+   ],
+   "caltrop": [
+    ".#.#.",
+    "#a#a#",
+    ".#a#.",
+    "#a#a#",
+    ".#.#."
+   ]
+  },
+  "palette": {
+   "#": "#000000",
+   "W": "#ffffff",
+   "a": "#adadad",
+   "d": "#5a5a5a",
+   "g": "#8a8a8a",
+   "G": "#c4c4c4",
+   "p": "#f2e6c4",
+   "r": "#c8302c",
+   "y": "#ffe97a",
+   "Y": "#fff6c8",
+   "o": "#ff9a2e",
+   "O": "#e0561b",
+   "b": "#6b4a2b",
+   "k": "#3a2a1a",
+   "K": "#241a10"
+  }
+ }
+}
