@@ -553,10 +553,19 @@
     "near": [
       {
         "construction": "band",
-        "angle": -50,
+        "angle": -45,
         "elbow": {
           "at": 8,
-          "angle": -125
+          "angle": -105
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": -45,
+        "elbow": {
+          "at": 8,
+          "angle": -105
         },
         "fistKind": "palm"
       },
@@ -565,25 +574,16 @@
         "angle": -50,
         "elbow": {
           "at": 8,
-          "angle": -125
+          "angle": -110
         },
         "fistKind": "palm"
       },
       {
         "construction": "band",
-        "angle": -55,
+        "angle": -50,
         "elbow": {
           "at": 8,
-          "angle": -130
-        },
-        "fistKind": "palm"
-      },
-      {
-        "construction": "band",
-        "angle": -55,
-        "elbow": {
-          "at": 8,
-          "angle": -130
+          "angle": -110
         },
         "fistKind": "palm"
       }
