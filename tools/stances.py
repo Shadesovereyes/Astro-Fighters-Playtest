@@ -53,10 +53,10 @@ JU = [leg('ju-lead', (32, 42), (34, 50), 36), leg('ju-rear', (31, 42), (30, 50),
 P = dict(fistKind='palm')
 stance('judoGuard', 'Judo Stance', 6,
        'Judo stance idle: upright natural stance, knees soft; both hands open and out at chest height, the lead hand reaching for the sleeve and the rear hand for the lapel, pawing in and out.',
-       [dict(an=band(-35, -80, **P), af=band(-55, -95, **P), bob=(1, 1, 2), lean=(0, 2), root=(0, 0), ln='ju-rear', lf='ju-lead'),
-        dict(an=band(-35, -80, **P), af=band(-62, -100, **P), bob=(1, 1, 1), lean=(0, 2), root=(0, 0), ln='ju-rear', lf='ju-lead'),
-        dict(an=band(-42, -88, **P), af=band(-55, -95, **P), bob=(2, 2, 2), lean=(0, 2), root=(0, 0), ln='ju-rear', lf='ju-lead'),
-        dict(an=band(-35, -80, **P), af=band(-55, -95, **P), bob=(2, 2, 3), lean=(0, 2), root=(0, 0), ln='ju-rear', lf='ju-lead')], JU)
+       [dict(an=band(-55, -88, **P), af=band(-72, -96, **P), bob=(1, 1, 2), lean=(0, 2), root=(0, 0), ln='ju-rear', lf='ju-lead'),
+        dict(an=band(-55, -88, **P), af=band(-78, -100, **P), bob=(1, 1, 1), lean=(0, 2), root=(0, 0), ln='ju-rear', lf='ju-lead'),
+        dict(an=band(-60, -92, **P), af=band(-72, -96, **P), bob=(2, 2, 2), lean=(0, 2), root=(0, 0), ln='ju-rear', lf='ju-lead'),
+        dict(an=band(-55, -88, **P), af=band(-72, -96, **P), bob=(2, 2, 3), lean=(0, 2), root=(0, 0), ln='ju-rear', lf='ju-lead')], JU)
 
 # Jiu-Jitsu: crouched and leaning in, elbows tight to the ribs, open hands forward to frame and grab
 JJ = [leg('jj-lead', (33, 46), (38, 51), 38), leg('jj-rear', (31, 46), (30, 52), 24)]
@@ -87,6 +87,9 @@ def specs(only=None):
                   clips={'rule': 'martial stance idle: loops while that stance is active; attacks of the style start and end in the guard', st: {'frames': list(range(len(frames))), 'fps': fps, 'loop': True}},
                   rmRule='in place', extra={'stance': ab})
         s['fps'] = fps; s.pop('approved', None); s.pop('keyPoses', None)
+        if st == 'judoGuard':   # Christopher 2026-10-19: open hands angled forward, fingers leaning toward the opponent
+            s['arms']['band']['palmUp'] = {'use': 'open hand angled forward, fingers leaning toward the opponent (judo grip hunt)', 'anchor': [0, 4],
+                                           'rows': ['...Lm', '..LLm', '.LLLm', 'LLLLm', 'LLLms', 'mLLs.', '.sDs.']}
         save(s, D + st + '.json')
     print(' '.join(STANCES))
 
