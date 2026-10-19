@@ -839,6 +839,7 @@
       "default": false,
       "hand": "arms",
       "layers": {
+        "behind": "main-kama-behind.png",
         "front": "main-kama-front.png",
         "top": "main-kama-top.png",
         "trail": "main-kama-trail.png",

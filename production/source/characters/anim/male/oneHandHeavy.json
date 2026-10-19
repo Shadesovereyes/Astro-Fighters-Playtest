@@ -1411,11 +1411,81 @@
         },
         "kama": {
           "S": [
-            null,
-            null,
-            null,
-            null,
-            null,
+            {
+              "chain": {
+                "via": [
+                  37,
+                  26
+                ],
+                "droop": 6,
+                "to": [
+                  0,
+                  9
+                ],
+                "sag": 0,
+                "z": "front"
+              }
+            },
+            {
+              "chain": {
+                "via": [
+                  37,
+                  26
+                ],
+                "droop": 6,
+                "to": [
+                  -7,
+                  4
+                ],
+                "sag": 0,
+                "z": "behind"
+              }
+            },
+            {
+              "chain": {
+                "via": [
+                  39,
+                  26
+                ],
+                "droop": 6,
+                "to": [
+                  -7,
+                  -6
+                ],
+                "sag": 0,
+                "z": "behind"
+              }
+            },
+            {
+              "chain": {
+                "via": [
+                  39,
+                  26
+                ],
+                "droop": 6,
+                "to": [
+                  0,
+                  -11
+                ],
+                "sag": 0,
+                "z": "front"
+              }
+            },
+            {
+              "chain": {
+                "via": [
+                  38,
+                  26
+                ],
+                "droop": 6,
+                "to": [
+                  7,
+                  -6
+                ],
+                "sag": 0,
+                "z": "front"
+              }
+            },
             {
               "angle": 90,
               "scale": 1,
@@ -1424,11 +1494,17 @@
                 "blade": "top"
               },
               "chain": {
-                "to": [
-                  3,
-                  13
+                "via": [
+                  37,
+                  26
                 ],
-                "sag": 2
+                "droop": 6,
+                "to": [
+                  7,
+                  4
+                ],
+                "sag": 0,
+                "z": "front"
               },
               "branches": {
                 "blade": {
@@ -1461,11 +1537,81 @@
                 }
               }
             },
-            null,
-            null,
-            null,
-            null,
-            null,
+            {
+              "chain": {
+                "via": [
+                  39,
+                  26
+                ],
+                "droop": 6,
+                "to": [
+                  0,
+                  9
+                ],
+                "sag": 0,
+                "z": "front"
+              }
+            },
+            {
+              "chain": {
+                "via": [
+                  39,
+                  26
+                ],
+                "droop": 6,
+                "to": [
+                  -7,
+                  4
+                ],
+                "sag": 0,
+                "z": "behind"
+              }
+            },
+            {
+              "chain": {
+                "via": [
+                  37,
+                  26
+                ],
+                "droop": 6,
+                "to": [
+                  -7,
+                  -6
+                ],
+                "sag": 0,
+                "z": "behind"
+              }
+            },
+            {
+              "chain": {
+                "via": [
+                  37,
+                  26
+                ],
+                "droop": 6,
+                "to": [
+                  0,
+                  -11
+                ],
+                "sag": 0,
+                "z": "front"
+              }
+            },
+            {
+              "chain": {
+                "via": [
+                  37,
+                  26
+                ],
+                "droop": 6,
+                "to": [
+                  7,
+                  -6
+                ],
+                "sag": 0,
+                "z": "front"
+              }
+            },
             {
               "angle": 90,
               "scale": 1,
@@ -1474,11 +1620,17 @@
                 "blade": "top"
               },
               "chain": {
-                "to": [
-                  3,
-                  13
+                "via": [
+                  37,
+                  26
                 ],
-                "sag": 2
+                "droop": 6,
+                "to": [
+                  7,
+                  4
+                ],
+                "sag": 0,
+                "z": "front"
               },
               "branches": {
                 "blade": {
@@ -1510,6 +1662,382 @@
                   ]
                 }
               }
+            }
+          ],
+          "E": [
+            {
+              "chain": {
+                "via": [
+                  44,
+                  26
+                ],
+                "droop": 6,
+                "to": [
+                  0,
+                  9
+                ],
+                "sag": 0,
+                "z": "front"
+              }
+            },
+            {
+              "chain": {
+                "via": [
+                  44,
+                  26
+                ],
+                "droop": 6,
+                "to": [
+                  -6,
+                  4
+                ],
+                "sag": 0,
+                "z": "behind"
+              }
+            },
+            {
+              "chain": {
+                "via": [
+                  44,
+                  26
+                ],
+                "droop": 6,
+                "to": [
+                  -6,
+                  -6
+                ],
+                "sag": 0,
+                "z": "behind"
+              }
+            },
+            {
+              "chain": {
+                "via": [
+                  44,
+                  26
+                ],
+                "droop": 6,
+                "to": [
+                  0,
+                  -11
+                ],
+                "sag": 0,
+                "z": "front"
+              }
+            },
+            {
+              "chain": {
+                "via": [
+                  44,
+                  26
+                ],
+                "droop": 6,
+                "to": [
+                  6,
+                  -6
+                ],
+                "sag": 0,
+                "z": "front"
+              }
+            },
+            {
+              "chain": {
+                "via": [
+                  44,
+                  26
+                ],
+                "droop": 6,
+                "to": [
+                  6,
+                  4
+                ],
+                "sag": 0,
+                "z": "front"
+              }
+            },
+            {
+              "chain": {
+                "via": [
+                  44,
+                  26
+                ],
+                "droop": 6,
+                "to": [
+                  0,
+                  9
+                ],
+                "sag": 0,
+                "z": "front"
+              }
+            },
+            {
+              "chain": {
+                "via": [
+                  44,
+                  26
+                ],
+                "droop": 6,
+                "to": [
+                  -6,
+                  4
+                ],
+                "sag": 0,
+                "z": "behind"
+              }
+            },
+            {
+              "chain": {
+                "via": [
+                  44,
+                  26
+                ],
+                "droop": 6,
+                "to": [
+                  -6,
+                  -6
+                ],
+                "sag": 0,
+                "z": "behind"
+              }
+            },
+            {
+              "chain": {
+                "via": [
+                  44,
+                  26
+                ],
+                "droop": 6,
+                "to": [
+                  0,
+                  -11
+                ],
+                "sag": 0,
+                "z": "front"
+              }
+            },
+            {
+              "chain": {
+                "via": [
+                  44,
+                  26
+                ],
+                "droop": 6,
+                "to": [
+                  6,
+                  -6
+                ],
+                "sag": 0,
+                "z": "front"
+              }
+            },
+            {
+              "chain": {
+                "via": [
+                  44,
+                  26
+                ],
+                "droop": 6,
+                "to": [
+                  6,
+                  4
+                ],
+                "sag": 0,
+                "z": "front"
+              }
+            }
+          ],
+          "N": [
+            {
+              "chain": {
+                "via": [
+                  26,
+                  26
+                ],
+                "droop": 6,
+                "to": [
+                  0,
+                  9
+                ],
+                "sag": 0,
+                "z": "behind"
+              },
+              "chainOnly": true
+            },
+            {
+              "chain": {
+                "via": [
+                  26,
+                  26
+                ],
+                "droop": 6,
+                "to": [
+                  -10,
+                  4
+                ],
+                "sag": 0,
+                "z": "behind"
+              },
+              "chainOnly": true
+            },
+            {
+              "chain": {
+                "via": [
+                  26,
+                  26
+                ],
+                "droop": 6,
+                "to": [
+                  -10,
+                  -6
+                ],
+                "sag": 0,
+                "z": "behind"
+              },
+              "chainOnly": true
+            },
+            {
+              "chain": {
+                "via": [
+                  26,
+                  26
+                ],
+                "droop": 6,
+                "to": [
+                  0,
+                  -11
+                ],
+                "sag": 0,
+                "z": "behind"
+              },
+              "chainOnly": true
+            },
+            {
+              "chain": {
+                "via": [
+                  26,
+                  26
+                ],
+                "droop": 6,
+                "to": [
+                  10,
+                  -6
+                ],
+                "sag": 0,
+                "z": "behind"
+              },
+              "chainOnly": true
+            },
+            {
+              "chain": {
+                "via": [
+                  26,
+                  26
+                ],
+                "droop": 6,
+                "to": [
+                  10,
+                  4
+                ],
+                "sag": 0,
+                "z": "behind"
+              },
+              "chainOnly": true
+            },
+            {
+              "chain": {
+                "via": [
+                  26,
+                  26
+                ],
+                "droop": 6,
+                "to": [
+                  0,
+                  9
+                ],
+                "sag": 0,
+                "z": "behind"
+              },
+              "chainOnly": true
+            },
+            {
+              "chain": {
+                "via": [
+                  26,
+                  26
+                ],
+                "droop": 6,
+                "to": [
+                  -10,
+                  4
+                ],
+                "sag": 0,
+                "z": "behind"
+              },
+              "chainOnly": true
+            },
+            {
+              "chain": {
+                "via": [
+                  26,
+                  26
+                ],
+                "droop": 6,
+                "to": [
+                  -10,
+                  -6
+                ],
+                "sag": 0,
+                "z": "behind"
+              },
+              "chainOnly": true
+            },
+            {
+              "chain": {
+                "via": [
+                  26,
+                  26
+                ],
+                "droop": 6,
+                "to": [
+                  0,
+                  -11
+                ],
+                "sag": 0,
+                "z": "behind"
+              },
+              "chainOnly": true
+            },
+            {
+              "chain": {
+                "via": [
+                  26,
+                  26
+                ],
+                "droop": 6,
+                "to": [
+                  10,
+                  -6
+                ],
+                "sag": 0,
+                "z": "behind"
+              },
+              "chainOnly": true
+            },
+            {
+              "chain": {
+                "via": [
+                  26,
+                  26
+                ],
+                "droop": 6,
+                "to": [
+                  10,
+                  4
+                ],
+                "sag": 0,
+                "z": "behind"
+              },
+              "chainOnly": true
             }
           ]
         }
