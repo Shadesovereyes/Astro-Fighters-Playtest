@@ -67,13 +67,12 @@ stance('jiuJitsuGuard', 'Jiu-Jitsu Stance', 6,
         dict(an=band(-45, -90, **P), af=band(-38, -74, **P), bob=(6, 6, 7), lean=(1, 7), root=(0, 0), ln='jj-rear', lf='jj-lead')], JJ)
 
 # Wrestling: deep sprawl-ready crouch, chest over the lead knee, hands low and forward hand-fighting
-WR = [leg('wr-lead', (33, 47), (39, 51), 38), leg('wr-rear', (31, 47), (31, 52), 23)]
+WR = [leg('wr-lead', (33, 47), (39, 51), 38), leg('wr-rear', (31, 47), (31, 52), 23),
+      leg('wr-lead-low', (33, 48), (39, 52), 38), leg('wr-rear-low', (31, 48), (31, 53), 23)]
 stance('wrestlingGuard', 'Wrestling Stance', 6,
        'Wrestling stance idle: deep crouch with the chest over the lead knee and the rear leg driving behind; the off hand forward and away from the body with the elbow bent, the lead hand lower, both open hands leaning forward (redone like Jiu-Jitsu, Christopher 2026-10-19).',
-       [dict(an=band(-45, -105, **P), af=band(-35, -70, **P), bob=(6, 6, 6), lean=(2, 10), root=(0, 0), ln='wr-rear', lf='wr-lead'),
-        dict(an=band(-45, -105, **P), af=band(-35, -70, **P), bob=(6, 6, 6), lean=(2, 10), root=(0, 0), ln='wr-rear', lf='wr-lead'),
-        dict(an=band(-50, -110, **P), af=band(-38, -74, **P), bob=(6, 6, 7), lean=(2, 10), root=(0, 0), ln='wr-rear', lf='wr-lead'),
-        dict(an=band(-50, -110, **P), af=band(-38, -74, **P), bob=(6, 6, 7), lean=(2, 10), root=(0, 0), ln='wr-rear', lf='wr-lead')], WR)
+       [dict(an=band(-45, -105, **P), af=band(-35, -70, **P), bob=b, lean=(2, 10), root=(0, 0), ln='wr-rear' + lo, lf='wr-lead' + lo)
+        for b, lo in (((6, 6, 7), ''), ((6, 6, 6), ''), ((7, 8, 7), '-low'), ((7, 8, 8), '-low'))], WR)   # guard-style bob: body, head a beat deeper, arms a frame behind, whole arms riding it (Christopher 2026-10-19)
 
 def specs(only=None):
     base = copy.deepcopy(GUARD)

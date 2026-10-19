@@ -91,20 +91,20 @@
     "dy": [
       6,
       6,
-      6,
-      6
+      7,
+      7
     ],
     "head": [
       6,
       6,
-      6,
-      6
+      8,
+      8
     ],
     "arms": [
-      6,
+      7,
       6,
       7,
-      7
+      8
     ]
   },
   "lean": {
@@ -520,19 +520,41 @@
         "footX": 23,
         "wrapRow": 56,
         "foot": "flat"
+      },
+      {
+        "name": "wr-lead-low",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 48,
+        "kneeX": 39,
+        "kneeRow": 52,
+        "footX": 38,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "wr-rear-low",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 48,
+        "kneeX": 31,
+        "kneeRow": 53,
+        "footX": 23,
+        "wrapRow": 56,
+        "foot": "flat"
       }
     ],
     "near": [
       5,
       5,
-      5,
-      5
+      7,
+      7
     ],
     "far": [
       4,
       4,
-      4,
-      4
+      6,
+      6
     ]
   },
   "arms": {
@@ -571,19 +593,19 @@
       },
       {
         "construction": "band",
-        "angle": -50,
+        "angle": -45,
         "elbow": {
           "at": 8,
-          "angle": -110
+          "angle": -105
         },
         "fistKind": "palm"
       },
       {
         "construction": "band",
-        "angle": -50,
+        "angle": -45,
         "elbow": {
           "at": 8,
-          "angle": -110
+          "angle": -105
         },
         "fistKind": "palm"
       }
@@ -609,19 +631,19 @@
       },
       {
         "construction": "band",
-        "angle": -38,
+        "angle": -35,
         "elbow": {
           "at": 8,
-          "angle": -74
+          "angle": -70
         },
         "fistKind": "palm"
       },
       {
         "construction": "band",
-        "angle": -38,
+        "angle": -35,
         "elbow": {
           "at": 8,
-          "angle": -74
+          "angle": -70
         },
         "fistKind": "palm"
       }
