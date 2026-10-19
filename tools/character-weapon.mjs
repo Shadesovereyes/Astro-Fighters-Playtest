@@ -53,13 +53,15 @@ function draw(item, pose) {
     const cx = x + 0.5 - gx, cy = y + 0.5 - gy, u = (cx * d[0] + cy * d[1]) / sc, v = cx * n[0] + cy * n[1];
     let c = null;
     // a gap between segments (a hilt hidden inside the fist) draws nothing
-    if (u >= lo && u < hi) { const s = main.find((g) => u >= g.from && u < g.to); if (s) c = paint(s, u, v); }
+    // branchesOver: the branches are drawn over the main segments (a blade pointing at the viewer, in front of the shaft)
+    if (u >= lo && u < hi && !pose.branchesOver) { const s = main.find((g) => u >= g.from && u < g.to); if (s) c = paint(s, u, v); }
     for (const s of branches) {
       if (c) break;
       const b = s.branch, ba = b.angle * Math.PI / 180, du = u - b.at[0], dv = v / (pose.branchScale ?? 1) - b.at[1];
       const bu = du * Math.cos(ba) + dv * Math.sin(ba), bv = -du * Math.sin(ba) + dv * Math.cos(ba);
       if (bu >= s.from && bu < s.to) c = paint(s, bu, bv);
     }
+    if (!c && pose.branchesOver && u >= lo && u < hi) { const s = main.find((g) => u >= g.from && u < g.to); if (s) c = paint(s, u, v); }
     if (c) out.set(key(x, y), c);
   }
   // chain (a kusarigama's chain and weight): hangs from the point chain.at on the weapon axis in screen space, not along the
