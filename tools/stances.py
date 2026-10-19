@@ -61,10 +61,10 @@ stance('judoGuard', 'Judo Stance', 6,
 JJ = [leg('jj-lead', (33, 46), (38, 51), 38), leg('jj-rear', (31, 46), (30, 52), 24)]
 stance('jiuJitsuGuard', 'Jiu-Jitsu Stance', 6,
        'Jiu-Jitsu stance idle: crouched with the hips back and the head forward, elbows tight to the ribs and both open hands out in front to frame and grab; small weight shifts.',
-       [dict(an=band(-40, -85, **P), af=band(-35, -70, **P), bob=(5, 5, 5), lean=(1, 7), root=(0, 0), ln='jj-rear', lf='jj-lead'),
-        dict(an=band(-40, -85, **P), af=band(-35, -70, **P), bob=(5, 5, 6), lean=(1, 7), root=(0, 0), ln='jj-rear', lf='jj-lead'),
-        dict(an=band(-45, -90, **P), af=band(-38, -74, **P), bob=(6, 6, 6), lean=(1, 7), root=(0, 0), ln='jj-rear', lf='jj-lead'),
-        dict(an=band(-45, -90, **P), af=band(-38, -74, **P), bob=(6, 6, 7), lean=(1, 7), root=(0, 0), ln='jj-rear', lf='jj-lead')], JJ)
+       [dict(an=band(-40, -85, **P), af=band(-12, -38, **P), bob=(5, 5, 5), lean=(1, 7), root=(0, 0), ln='jj-rear', lf='jj-lead'),
+        dict(an=band(-40, -85, **P), af=band(-12, -38, **P), bob=(5, 5, 6), lean=(1, 7), root=(0, 0), ln='jj-rear', lf='jj-lead'),
+        dict(an=band(-45, -90, **P), af=band(-14, -42, **P), bob=(6, 6, 6), lean=(1, 7), root=(0, 0), ln='jj-rear', lf='jj-lead'),
+        dict(an=band(-45, -90, **P), af=band(-14, -42, **P), bob=(6, 6, 7), lean=(1, 7), root=(0, 0), ln='jj-rear', lf='jj-lead')], JJ)
 
 # Wrestling: deep sprawl-ready crouch, chest over the lead knee, hands low and forward hand-fighting
 WR = [leg('wr-lead', (33, 47), (39, 51), 38), leg('wr-rear', (31, 47), (31, 52), 23),

@@ -591,37 +591,37 @@
     "far": [
       {
         "construction": "band",
-        "angle": -35,
+        "angle": -12,
         "elbow": {
           "at": 8,
-          "angle": -70
+          "angle": -38
         },
         "fistKind": "palm"
       },
       {
         "construction": "band",
-        "angle": -35,
+        "angle": -12,
         "elbow": {
           "at": 8,
-          "angle": -70
+          "angle": -38
         },
         "fistKind": "palm"
       },
       {
         "construction": "band",
-        "angle": -38,
+        "angle": -14,
         "elbow": {
           "at": 8,
-          "angle": -74
+          "angle": -42
         },
         "fistKind": "palm"
       },
       {
         "construction": "band",
-        "angle": -38,
+        "angle": -14,
         "elbow": {
           "at": 8,
-          "angle": -74
+          "angle": -42
         },
         "fistKind": "palm"
       }
