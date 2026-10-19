@@ -412,7 +412,22 @@ function tinted(path,map){
   for(let i=0;i<d.length;i+=4){if(!d[i+3])continue;const n=d[i]<<16|d[i+1]<<8|d[i+2],t=rgb[n];if(t!==undefined){d[i]=t>>16&255;d[i+1]=t>>8&255;d[i+2]=t&255;}}
   x.putImageData(id,0,0);tints.set(key,c);return c;
 }
-function blit(path,col,row,size,dx,dy,map){const im=map?tinted(path,map):img(path);if(im)ctx.drawImage(im,col*size,row*size,size,size,dx,dy,size,size);}
+// every sheet is drawn from a copy with transparent gutters between its cells: at a fractional board scale the GPU
+// canvas samples past a cell's edge, so without them the feet on the bottom line of the row above (or a blade at a
+// cell's side) show as a thin line around the fighter
+const GUTTER=2,guttered=new WeakMap();
+function gutter(im,size){
+  let c=guttered.get(im);if(c)return c;
+  const w=im.naturalWidth||im.width,h=im.naturalHeight||im.height,cols=Math.ceil(w/size),rows=Math.ceil(h/size),step=size+GUTTER*2;
+  c=document.createElement("canvas");c.width=cols*step;c.height=rows*step;
+  const x=c.getContext("2d");
+  for(let r=0;r<rows;r++)for(let k=0;k<cols;k++)x.drawImage(im,k*size,r*size,size,size,k*step+GUTTER,r*step+GUTTER,size,size);
+  guttered.set(im,c);return c;
+}
+function blit(path,col,row,size,dx,dy,map){
+  const im=map?tinted(path,map):img(path);if(!im)return;
+  const step=size+GUTTER*2;ctx.drawImage(gutter(im,size),col*step+GUTTER,row*step+GUTTER,size,size,dx,dy,size,size);
+}
 function drawGlyph(sp){
   const cls=sp.f===viewer?"#2fe0ff":viewer&&sp.f.faction===viewer.faction?"#5fe08a":"#ff5d6c";
   ctx.globalAlpha=sp.alpha;ctx.font=Math.round(hexStep()*0.75)+"px system-ui,'Segoe UI Emoji','Apple Color Emoji',sans-serif";ctx.textAlign="center";ctx.textBaseline="middle";
