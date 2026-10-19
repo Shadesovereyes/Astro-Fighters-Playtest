@@ -36,7 +36,10 @@ function draw(item, pose) {
   // weapon's axis coordinates and turns branch.angle degrees from the weapon axis (positive toward +v, i.e. below the
   // axis in E); from/to run along that branch axis. Main segments have no branch.
   // pose.branchScale foreshortens the branches across the axis (a sickle blade turned toward the viewer shows only its edge)
-  const main = item.segments.filter((s) => !s.branch), branches = item.segments.filter((s) => s.branch);
+  // pose.branches overrides branch segments by name ({ <name>: { branch: { at, angle }, to, thickness, pattern } }), so a pose
+  // can show a blade turned toward the viewer as its edge folded along the shaft
+  const main = item.segments.filter((s) => !s.branch), branches = item.segments.filter((s) => s.branch)
+    .map((s) => (pose.branches?.[s.name] ? { ...s, ...pose.branches[s.name], branch: { ...s.branch, ...pose.branches[s.name].branch } } : s));
   const lo = Math.min(...main.map((s) => s.from)), hi = Math.max(...main.map((s) => s.to)), sc = pose.scale ?? 1;
   const paint = (s, u, v) => {
     const h = s.thickness / 2;
@@ -44,7 +47,8 @@ function draw(item, pose) {
     const row = s.pattern[Math.floor(u - s.from) % s.pattern.length];
     return row[Math.min(row.length - 1, Math.floor((v + h) * row.length / s.thickness))];
   };
-  for (let y = -ORIGIN[1]; y < WF - ORIGIN[1]; y++) for (let x = -ORIGIN[0]; x < WF - ORIGIN[0]; x++) {
+  // chainOnly: the weapon is hidden (its hand is out of sight) but the chain hanging from it shows
+  if (!pose.chainOnly) for (let y = -ORIGIN[1]; y < WF - ORIGIN[1]; y++) for (let x = -ORIGIN[0]; x < WF - ORIGIN[0]; x++) {
     // scale foreshortens the weapon's length (a blade pointing toward or away from the viewer), never its thickness
     const cx = x + 0.5 - gx, cy = y + 0.5 - gy, u = (cx * d[0] + cy * d[1]) / sc, v = cx * n[0] + cy * n[1];
     let c = null;

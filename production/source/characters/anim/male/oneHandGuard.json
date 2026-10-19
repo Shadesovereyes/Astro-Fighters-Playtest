@@ -1371,10 +1371,9 @@
             {
               "angle": 90,
               "scale": 1,
-              "branchScale": 0.2,
               "z": {
                 "hilt": "front",
-                "blade": "aboveArm"
+                "blade": "top"
               },
               "chain": {
                 "via": [
@@ -1388,15 +1387,44 @@
                 ],
                 "sag": 1,
                 "z": "front"
+              },
+              "branches": {
+                "blade": {
+                  "branch": {
+                    "at": [
+                      12.5,
+                      3.5
+                    ],
+                    "angle": 180
+                  },
+                  "to": 8,
+                  "thickness": 3,
+                  "pattern": [
+                    "aaW"
+                  ]
+                },
+                "bladeTip": {
+                  "branch": {
+                    "at": [
+                      4.5,
+                      3.5
+                    ],
+                    "angle": 205
+                  },
+                  "to": 3,
+                  "thickness": 2,
+                  "pattern": [
+                    "aW"
+                  ]
+                }
               }
             },
             {
               "angle": 90,
               "scale": 1,
-              "branchScale": 0.2,
               "z": {
                 "hilt": "front",
-                "blade": "aboveArm"
+                "blade": "top"
               },
               "chain": {
                 "via": [
@@ -1410,15 +1438,44 @@
                 ],
                 "sag": 1,
                 "z": "front"
+              },
+              "branches": {
+                "blade": {
+                  "branch": {
+                    "at": [
+                      12.5,
+                      3.5
+                    ],
+                    "angle": 180
+                  },
+                  "to": 8,
+                  "thickness": 3,
+                  "pattern": [
+                    "aaW"
+                  ]
+                },
+                "bladeTip": {
+                  "branch": {
+                    "at": [
+                      4.5,
+                      3.5
+                    ],
+                    "angle": 205
+                  },
+                  "to": 3,
+                  "thickness": 2,
+                  "pattern": [
+                    "aW"
+                  ]
+                }
               }
             },
             {
               "angle": 90,
               "scale": 1,
-              "branchScale": 0.2,
               "z": {
                 "hilt": "front",
-                "blade": "aboveArm"
+                "blade": "top"
               },
               "chain": {
                 "via": [
@@ -1432,15 +1489,44 @@
                 ],
                 "sag": 1,
                 "z": "front"
+              },
+              "branches": {
+                "blade": {
+                  "branch": {
+                    "at": [
+                      12.5,
+                      3.5
+                    ],
+                    "angle": 180
+                  },
+                  "to": 8,
+                  "thickness": 3,
+                  "pattern": [
+                    "aaW"
+                  ]
+                },
+                "bladeTip": {
+                  "branch": {
+                    "at": [
+                      4.5,
+                      3.5
+                    ],
+                    "angle": 205
+                  },
+                  "to": 3,
+                  "thickness": 2,
+                  "pattern": [
+                    "aW"
+                  ]
+                }
               }
             },
             {
               "angle": 90,
               "scale": 1,
-              "branchScale": 0.2,
               "z": {
                 "hilt": "front",
-                "blade": "aboveArm"
+                "blade": "top"
               },
               "chain": {
                 "via": [
@@ -1454,12 +1540,117 @@
                 ],
                 "sag": 1,
                 "z": "front"
+              },
+              "branches": {
+                "blade": {
+                  "branch": {
+                    "at": [
+                      12.5,
+                      3.5
+                    ],
+                    "angle": 180
+                  },
+                  "to": 8,
+                  "thickness": 3,
+                  "pattern": [
+                    "aaW"
+                  ]
+                },
+                "bladeTip": {
+                  "branch": {
+                    "at": [
+                      4.5,
+                      3.5
+                    ],
+                    "angle": 205
+                  },
+                  "to": 3,
+                  "thickness": 2,
+                  "pattern": [
+                    "aW"
+                  ]
+                }
               }
             }
           ],
-          "N": {
-            "omit": true
-          }
+          "N": [
+            {
+              "angle": 90,
+              "scale": 1,
+              "z": "behind",
+              "chainOnly": true,
+              "chain": {
+                "via": [
+                  25,
+                  24
+                ],
+                "droop": 9,
+                "to": [
+                  -8,
+                  24
+                ],
+                "sag": -2,
+                "z": "behind"
+              }
+            },
+            {
+              "angle": 90,
+              "scale": 1,
+              "z": "behind",
+              "chainOnly": true,
+              "chain": {
+                "via": [
+                  25,
+                  23
+                ],
+                "droop": 9,
+                "to": [
+                  -8,
+                  24
+                ],
+                "sag": -2,
+                "z": "behind"
+              }
+            },
+            {
+              "angle": 90,
+              "scale": 1,
+              "z": "behind",
+              "chainOnly": true,
+              "chain": {
+                "via": [
+                  25,
+                  24
+                ],
+                "droop": 9,
+                "to": [
+                  -8,
+                  24
+                ],
+                "sag": -2,
+                "z": "behind"
+              }
+            },
+            {
+              "angle": 90,
+              "scale": 1,
+              "z": "behind",
+              "chainOnly": true,
+              "chain": {
+                "via": [
+                  25,
+                  25
+                ],
+                "droop": 9,
+                "to": [
+                  -8,
+                  24
+                ],
+                "sag": -2,
+                "z": "behind"
+              }
+            }
+          ]
         }
       }
     }

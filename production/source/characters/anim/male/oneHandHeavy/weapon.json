@@ -869,7 +869,7 @@
           },
           {
             "hilt": "front",
-            "blade": "aboveArm"
+            "blade": "top"
           },
           {
             "hilt": "front",
@@ -893,7 +893,7 @@
           },
           {
             "hilt": "front",
-            "blade": "aboveArm"
+            "blade": "top"
           }
         ],
         "E": [

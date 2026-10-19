@@ -1419,10 +1419,9 @@
             {
               "angle": 90,
               "scale": 1,
-              "branchScale": 0.2,
               "z": {
                 "hilt": "front",
-                "blade": "aboveArm"
+                "blade": "top"
               },
               "chain": {
                 "to": [
@@ -1430,6 +1429,36 @@
                   13
                 ],
                 "sag": 2
+              },
+              "branches": {
+                "blade": {
+                  "branch": {
+                    "at": [
+                      12.5,
+                      3.5
+                    ],
+                    "angle": 180
+                  },
+                  "to": 8,
+                  "thickness": 3,
+                  "pattern": [
+                    "aaW"
+                  ]
+                },
+                "bladeTip": {
+                  "branch": {
+                    "at": [
+                      4.5,
+                      3.5
+                    ],
+                    "angle": 205
+                  },
+                  "to": 3,
+                  "thickness": 2,
+                  "pattern": [
+                    "aW"
+                  ]
+                }
               }
             },
             null,
@@ -1440,10 +1469,9 @@
             {
               "angle": 90,
               "scale": 1,
-              "branchScale": 0.2,
               "z": {
                 "hilt": "front",
-                "blade": "aboveArm"
+                "blade": "top"
               },
               "chain": {
                 "to": [
@@ -1451,6 +1479,36 @@
                   13
                 ],
                 "sag": 2
+              },
+              "branches": {
+                "blade": {
+                  "branch": {
+                    "at": [
+                      12.5,
+                      3.5
+                    ],
+                    "angle": 180
+                  },
+                  "to": 8,
+                  "thickness": 3,
+                  "pattern": [
+                    "aaW"
+                  ]
+                },
+                "bladeTip": {
+                  "branch": {
+                    "at": [
+                      4.5,
+                      3.5
+                    ],
+                    "angle": 205
+                  },
+                  "to": 3,
+                  "thickness": 2,
+                  "pattern": [
+                    "aW"
+                  ]
+                }
               }
             }
           ]
