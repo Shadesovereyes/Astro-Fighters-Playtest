@@ -147,12 +147,78 @@ def weapons():
         s['events'] = {'rule': 'per-frame gameplay data per facing; chainHand = the off fist, where the testbed starts the chain line to the target', 'E': E2, 'W': mirror(E2)}
         save(s, D + st + '.json')
 
-if __name__ == '__main__':
+if __name__ == '__main__' and not ({'--struggle', '--recall-weapons'} & set(sys.argv)):
     weapons() if '--weapons' in sys.argv else specs()
     print('ok')
 # approved by Christopher 2026-10-19: relabel after regenerating
-if __name__ == '__main__':
+if __name__ == '__main__' and not ({'--struggle', '--recall-weapons'} & set(sys.argv)):
     for _st in ('chainSnare', 'chainHold', 'chainYank', 'snared', 'chainYanked'):
         _s = load(D + _st + '.json'); _s['status'] = _s['status'].replace('E/W candidate 2026-10-19', 'E/W approved by user 2026-10-19').replace(', awaiting user approval', '')
         for _w in _s.get('weapons', []): _w['status'] = _s['status']
         save(_s, D + _st + '.json')
+
+# ---------- Struggle (Christopher 2026-10-19): a snared fighter cannot strike; its clinch strikes become Struggle, an
+# escape check whose DC drops each attempt. Fail: snaredStruggle -> snared. Success: snareBreak -> guard (thrower: chainRecall).
+STAT2 = 'E/W candidate 2026-10-19 ({}), awaiting user approval; S/N to author'
+G_N, G_F = CAST['arms']['near'][0], CAST['arms']['far'][0]
+STR = [tf(0, an=PN, af=PF, bob=(1, 1, 1), lean=(0, -1), root=(0, 0), **ST),
+       tf(0, an=band(-14, -10), af=band(-4, 0), bob=(2, 2, 2), lean=(1, 2), root=(0, 0), **GL),       # heave forward against the coils
+       tf(0, an=band(-16, -12), af=band(-2, 2), bob=(3, 3, 3), lean=(1, 3), root=(0, 0), **GL),
+       tf(0, an=band(-2, 2), af=band(-16, -12), bob=(2, 2, 2), lean=(-1, -3), root=(0, 0), **GL),     # twist back the other way
+       tf(0, an=band(0, 4), af=band(-18, -14), bob=(2, 2, 2), lean=(-1, -3), root=(0, 0), **GL),
+       tf(0, an=PN, af=PF, bob=(1, 1, 1), lean=(0, -1), root=(0, 0), **ST),                           # the coils hold
+       tf(0, an=PN, af=PF, bob=(2, 1, 1), lean=(0, -1), root=(0, 0), **ST)]
+BRK = STR[:3] + [
+       tf(0, an=band(-60, -110), af=band(25, 60), bob=(2, 2, 2), lean=(0, 2), root=(0, 0), **GL),     # coils burst: arms fling free
+       tf(0, an=band(-55, -120), af=band(20, 70), bob=(1, 1, 1), lean=(0, 1), root=(0, 0), **ST),
+       tf(0, an=band(-30, -150), af=band(-20, 200), bob=(1, 1, 1), lean=(0, 2), root=(0, 0), **ST),
+       tf(0, an=G_N, af=G_F, bob=(1, 1, 2), lean=(0, 2), root=(0, 0), **ST),
+       tf(0, an=G_N, af=G_F, bob=(1, 1, 2), lean=(0, 2), root=(0, 0), **ST)]
+RCL = [tf(0, an=KN, af=band(-82, -80), bob=(1, 1, 1), lean=(0, 2), root=(0, 0), **ST),
+       tf(0, an=KN, af=band(-75, -95), bob=(1, 1, 1), lean=(0, 1), root=(-1, 0), **ST),              # the chain goes slack, recalled hand over hand
+       tf(0, an=KN, af=band(-55, -120), bob=(1, 1, 1), lean=(0, 1), root=(0, 0), **ST),
+       tf(0, an=KN, af=KF, bob=(1, 1, 1), lean=(0, 2), root=(0, 0), **ST)]
+LINK = {'link': ['.#.', '#a#', '.#.'], 'linkW': ['.#.', '#W#', '.#.'], 'bar': ['.###.', '#aWa#', '.###.']}
+def break_fx():
+    fr = coil_fx(BRK[:3])
+    bursts = {3: [([22, 27], 'bar'), ([37, 25], 'bar'), ([28, 22], 'link'), ([33, 34], 'linkW')],
+              4: [([16, 24], 'link'), ([44, 22], 'linkW'), ([24, 16], 'link'), ([40, 38], 'link'), ([30, 40], 'linkW')],
+              5: [([10, 26], 'linkW'), ([50, 20], 'link'), ([46, 44], 'linkW')]}
+    for k, ps in bursts.items(): fr.append({'frame': k, 'splash': [{'pattern': p, 'at': a} for a, p in ps]})
+    return fr
+def struggle_specs():
+    pat = dict(CPAT, **LINK)
+    def mk(name, frames, fps, nxt, why, intent, fx=None, expr=None, events=None):
+        s = build(CAST, name, frames, status=STAT2.format(why), intent=intent,
+                  clips={'rule': 'Kyoketsu-Shoge grapple: Struggle (escape from Kusari Chain Snare)', name: {'frames': list(range(len(frames))), 'fps': fps, 'next': nxt}},
+                  events=events, fx=fx, rmRule='per-frame step (screen px)')
+        s.pop('keyPoses', None)
+        if expr: s['expressions'] = copy.deepcopy(CAST['expressions']); s['expressions']['frames'] = {'E': expr}
+        else: s.pop('expressions', None)
+        save(s, D + name + '.json')
+    mk('snaredStruggle', STR, 12, 'snared', 'Struggle, failed',
+       'Struggle that fails: the snared fighter heaves forward against the coils, twists back the other way, and the chain holds; back to snared. Coils follow the body (fx over the fighter).',
+       fx={'rule': 'chain coils round the chest and upper arms, over the fighter', 'top': True, 'palette': CP, 'patterns': pat, 'frames': coil_fx(STR)},
+       expr=['squint', 'pain', 'pain', 'pain', 'pain', 'squint', 'squint'],
+       events={'rule': 'per-frame gameplay data per facing; coil = where the chain from the thrower attaches', 'E': ev(STR, 'struggle', 2, lambda k, f: {'coil': coil_anchor(f)})})
+    mk('snareBreak', BRK, 12, 'guard', 'Struggle, breaks the snare',
+       'Struggle that succeeds: the same heave, then the coils burst apart (chain links fly off), the arms fling free and come back up into the guard. The thrower plays chainRecall.',
+       fx={'rule': 'coils over the fighter while they hold (frames 0-2); on the burst (frame 3) the coils break into links that fly outward and fall away', 'top': True, 'palette': CP, 'patterns': pat, 'frames': break_fx()},
+       expr=['squint', 'pain', 'pain', None, None, None, None, None],
+       events={'rule': 'per-frame gameplay data per facing; coil = where the chain from the thrower attaches until it breaks (frame 3, event snareBroken)', 'E': ev(BRK, 'snareBroken', 3, lambda k, f: {'coil': coil_anchor(f)} if k < 3 else {})})
+    mk('chainRecall', RCL, 10, 'oneHandGuard', 'chain recalled after the snare breaks',
+       'Thrower when the snare is broken: the chain goes slack and is pulled back in, the off hand returns to the kama idle (oneHandGuard). The testbed draws the slack chain shortening to the fist over frames 0-2.')
+    for n in ('snaredStruggle', 'snareBreak'):
+        s = load(D + n + '.json'); s['events']['W'] = mirror(s['events']['E']); save(s, D + n + '.json')
+def recall_weapons():
+    s = load(D + 'chainRecall.json'); E = []; e2 = []
+    for k in range(len(RCL)):
+        g, h = fist('chainRecall', k, 'near'), fist('chainRecall', k, 'far')
+        to = {0: [6, 0], 1: [4, 6], 2: [2, 8], 3: [0, 9]}[k]
+        E.append({'grip': g, 'angle': 55, 'z': 'front', 'chain': {'via': h, 'droop': 6, 'z': 'front', 'to': to, **({'noWeight': True} if k == 0 else {})}})
+        e2.append({'frame': k, 'type': 'recovery', 'chainHand': h})
+    s['weapons'] = [{'slot': 'main', 'layer': 'arms', 'items': ['kama'], 'status': s['status'], 'rule': 'as chainHold; the weight is back at the off fist from frame 1', 'depthRule': 'front', 'E': E, 'mirror': {'W': 'E'}}]
+    s['events'] = {'rule': 'chainHand = the off fist; the testbed shortens the slack chain to it over frames 0-2', 'E': e2, 'W': mirror(e2)}
+    save(s, D + 'chainRecall.json')
+if __name__ == '__main__' and '--struggle' in sys.argv: struggle_specs()
+if __name__ == '__main__' and '--recall-weapons' in sys.argv: recall_weapons()
