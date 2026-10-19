@@ -70,11 +70,11 @@ stance('jiuJitsuGuard', 'Jiu-Jitsu Stance', 6,
 # Wrestling: deep sprawl-ready crouch, chest over the lead knee, hands low and forward hand-fighting
 WR = [leg('wr-lead', (33, 47), (39, 51), 38), leg('wr-rear', (31, 47), (31, 52), 23)]
 stance('wrestlingGuard', 'Wrestling Stance', 6,
-       'Wrestling stance idle: deep crouch with the chest over the lead knee and the rear leg driving behind; both hands low and forward at knee height, open, hand-fighting in turn.',
-       [dict(an=band(-45, -60, **P), af=band(-45, -60, **P), bob=(6, 6, 6), lean=(2, 10), root=(0, 0), ln='wr-rear', lf='wr-lead'),
-        dict(an=band(-45, -60, **P), af=band(-52, -70, **P), bob=(6, 6, 6), lean=(2, 10), root=(0, 0), ln='wr-rear', lf='wr-lead'),
-        dict(an=band(-52, -70, **P), af=band(-45, -60, **P), bob=(6, 6, 7), lean=(2, 10), root=(0, 0), ln='wr-rear', lf='wr-lead'),
-        dict(an=band(-45, -60, **P), af=band(-45, -60, **P), bob=(6, 6, 7), lean=(2, 10), root=(0, 0), ln='wr-rear', lf='wr-lead')], WR)
+       'Wrestling stance idle: deep crouch with the chest over the lead knee and the rear leg driving behind; the off hand forward and away from the body with the elbow bent, the lead hand lower, both open hands leaning forward (redone like Jiu-Jitsu, Christopher 2026-10-19).',
+       [dict(an=band(-45, -105, **P), af=band(-35, -70, **P), bob=(6, 6, 6), lean=(2, 10), root=(0, 0), ln='wr-rear', lf='wr-lead'),
+        dict(an=band(-45, -105, **P), af=band(-35, -70, **P), bob=(6, 6, 6), lean=(2, 10), root=(0, 0), ln='wr-rear', lf='wr-lead'),
+        dict(an=band(-50, -110, **P), af=band(-38, -74, **P), bob=(6, 6, 7), lean=(2, 10), root=(0, 0), ln='wr-rear', lf='wr-lead'),
+        dict(an=band(-50, -110, **P), af=band(-38, -74, **P), bob=(6, 6, 7), lean=(2, 10), root=(0, 0), ln='wr-rear', lf='wr-lead')], WR)
 
 def specs(only=None):
     base = copy.deepcopy(GUARD)
@@ -87,7 +87,7 @@ def specs(only=None):
                   clips={'rule': 'martial stance idle: loops while that stance is active; attacks of the style start and end in the guard', st: {'frames': list(range(len(frames))), 'fps': fps, 'loop': True}},
                   rmRule='in place', extra={'stance': ab})
         s['fps'] = fps; s.pop('approved', None); s.pop('keyPoses', None)
-        if st in ('judoGuard', 'jiuJitsuGuard'):   # Christopher 2026-10-19: open hands angled forward, fingers leaning toward the opponent
+        if st in ('judoGuard', 'jiuJitsuGuard', 'wrestlingGuard'):   # Christopher 2026-10-19: open hands angled forward, fingers leaning toward the opponent
             s['arms']['band']['palmUp'] = {'use': 'open hand angled forward, fingers leaning toward the opponent (judo grip hunt)', 'anchor': [0, 4],
                                            'rows': ['...Lm', '..LLm', '.LLLm', 'LLLLm', 'LLLms', 'mLLs.', '.sDs.']}
         save(s, D + st + '.json')
