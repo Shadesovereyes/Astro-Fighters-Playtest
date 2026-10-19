@@ -102,19 +102,23 @@
     "unoutlinedEdges": {
       "E:0": 2,
       "E:1": 2,
+      "E:2": 2,
+      "E:3": 2,
       "W:0": 2,
-      "W:1": 2
+      "W:1": 2,
+      "W:2": 2,
+      "W:3": 2
     },
     "holes": {},
     "groundContact": true,
     "offPalette": {},
     "outlineNotches": {
-      "E:0": 6,
-      "E:1": 5,
+      "E:0": 7,
+      "E:1": 6,
       "E:2": 6,
       "E:3": 6,
-      "W:0": 6,
-      "W:1": 5,
+      "W:0": 7,
+      "W:1": 6,
       "W:2": 6,
       "W:3": 6
     },
@@ -124,16 +128,16 @@
     },
     "cleanup": {
       "cleanupRemoved": [
-        11,
-        10,
+        8,
+        7,
         6,
         6
       ],
       "cleanupMerged": [
-        0,
-        0,
         1,
-        1
+        1,
+        0,
+        0
       ],
       "frontalOutlineAdded": {},
       "frontalHoleFills": {},
