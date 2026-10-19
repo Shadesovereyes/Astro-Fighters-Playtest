@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-item/v1",
   "item": "kama",
   "kind": "rigid weapon (AGENTS.md: rigid items are placed by anchor with integer offsets)",
-  "status": "approved by user 2026-10-19 (kusarigama: kama with chain and weight; idle hold approved: S blade points at the viewer as a 1 px line, chain through the off hand, weight twirled one turn per idle loop). The tanto stays for the Kyoketsu-Shoge stance, stabs and throws; Sickle Strike (oneHandHeavy) awaiting approval",
+  "status": "approved by user 2026-10-19 (kusarigama: kama with chain and weight; idle: S blade points at the viewer as a 1 px line, chain through the off hand, weight twirled one turn per loop; Sickle Strike (oneHandHeavy): weight twirled two turns around the off hand). The tanto stays for the Kyoketsu-Shoge stance, stabs and throws",
   "construction": "band: a straight band along the weapon axis from the grip point (the centre of the near fist); every pixel takes its colour from the cross-section pattern (back/spine to front/edge) of the segment it falls in, so the weapon keeps its thickness at any angle; pixels are rasterised from the authored data, never rotated or resampled from an image; the sickle blade is two branch segments (character-weapon.mjs branch: own axis from a point on the handle, turned from the handle axis toward +v), the second bent further in so the blade curves back toward the handle; the chain and weight hang from the butt cap in screen space (character-weapon.mjs chain), not along the weapon axis",
   "palette": {
     "#": "#000000",

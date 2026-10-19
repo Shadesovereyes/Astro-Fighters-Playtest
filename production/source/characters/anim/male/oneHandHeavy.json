@@ -2398,7 +2398,10 @@
           "stanceHand": true
         }
       ],
-      "projectionRule": "S and N match E by projection lines: the horizontal swings (psi) are re-projected per view from the same swing angles (S: forward toward the viewer = down, the character's left = the viewer's right; N: the reverse), the fist keeps its E row and moves across the body with the swing, and the elliptical smear is re-projected with them (blade length + margin per item); in N the hand is hidden in front of the body; stance frames keep the stance's S/N pose N: the grip sits in the N fist (the S fist seen from behind: same row, x mirrored); the blade takes the swing angle projected for N (pointing back toward the viewer it runs down the screen over the body, pointing forward it runs up behind it); the smear follows the N projection and is drawn behind the body; stance frames keep the stance's S/N pose"
+      "projectionRule": "S and N match E by projection lines: the horizontal swings (psi) are re-projected per view from the same swing angles (S: forward toward the viewer = down, the character's left = the viewer's right; N: the reverse), the fist keeps its E row and moves across the body with the swing, and the elliptical smear is re-projected with them (blade length + margin per item); in N the hand is hidden in front of the body; stance frames keep the stance's S/N pose N: the grip sits in the N fist (the S fist seen from behind: same row, x mirrored); the blade takes the swing angle projected for N (pointing back toward the viewer it runs down the screen over the body, pointing forward it runs up behind it); the smear follows the N projection and is drawn behind the body; stance frames keep the stance's S/N pose",
+      "itemStatus": {
+        "kama": "approved by user 2026-10-19 (Sickle Strike with the kusarigama chain twirl)"
+      }
     }
   ],
   "events": {

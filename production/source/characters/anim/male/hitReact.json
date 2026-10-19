@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "hitReact",
-  "status": "E/W approved by user 2026-10-14; S/N candidate 2026-10-16 (frontal hit recoil), awaiting user approval",
+  "status": "approved by user (E/W 2026-10-14; S/N frontal hit recoil 2026-10-19, N arms flung outward like S)",
   "frames": 7,
   "fps": 12,
   "sourceDirection": "E",
