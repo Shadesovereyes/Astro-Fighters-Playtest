@@ -97,7 +97,8 @@ function draw(item, pose) {
         if (!out.has(q)) { out.set(q, C.links[n % C.links.length]); chainPx.add(q); }
       }
     }
-    const wx = Math.floor(bx), wy = Math.floor(by), W = C.weight, h = Math.floor(W[0].length / 2);
+    const wx = Math.floor(bx), wy = Math.floor(by), W = pc.noWeight ? [] : C.weight, h = Math.floor((W[0] || '').length / 2);
+    // noWeight: the weight is out of the frame (thrown at a target; the runtime draws the rest of the chain)
     W.forEach((row, j) => [...row].forEach((ch, i) => { if (ch === '.') return; const q = key(wx - h + i, wy + 1 + j); out.set(q, ch); chainPx.add(q); }));
   }
   // outline: coloured pixels touching empty space
