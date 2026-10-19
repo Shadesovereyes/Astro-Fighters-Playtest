@@ -1301,31 +1301,164 @@
           }
         },
         "kama": {
-          "E": {
-            "angle": 55,
-            "chain": {
-              "to": [
-                2,
-                15
-              ],
-              "sag": -3
-            }
-          },
-          "S": {
-            "angle": 90,
-            "scale": 1,
-            "branchScale": 0.2,
-            "z": {
-              "hilt": "front",
-              "blade": "aboveArm"
+          "E": [
+            {
+              "angle": 55,
+              "chain": {
+                "via": [
+                  45,
+                  26
+                ],
+                "droop": 12,
+                "to": [
+                  3,
+                  18
+                ],
+                "sag": 2,
+                "z": "front"
+              }
             },
-            "chain": {
-              "to": [
-                3,
-                13
-              ],
-              "sag": 2
+            {
+              "angle": 55,
+              "chain": {
+                "via": [
+                  45,
+                  25
+                ],
+                "droop": 12,
+                "to": [
+                  3,
+                  18
+                ],
+                "sag": 2,
+                "z": "front"
+              }
+            },
+            {
+              "angle": 55,
+              "chain": {
+                "via": [
+                  45,
+                  26
+                ],
+                "droop": 12,
+                "to": [
+                  3,
+                  18
+                ],
+                "sag": 2,
+                "z": "front"
+              }
+            },
+            {
+              "angle": 55,
+              "chain": {
+                "via": [
+                  45,
+                  27
+                ],
+                "droop": 12,
+                "to": [
+                  3,
+                  18
+                ],
+                "sag": 2,
+                "z": "front"
+              }
             }
+          ],
+          "S": [
+            {
+              "angle": 90,
+              "scale": 1,
+              "branchScale": 0.2,
+              "z": {
+                "hilt": "front",
+                "blade": "aboveArm"
+              },
+              "chain": {
+                "via": [
+                  37,
+                  25
+                ],
+                "droop": 10,
+                "to": [
+                  1,
+                  17
+                ],
+                "sag": 1,
+                "z": "front"
+              }
+            },
+            {
+              "angle": 90,
+              "scale": 1,
+              "branchScale": 0.2,
+              "z": {
+                "hilt": "front",
+                "blade": "aboveArm"
+              },
+              "chain": {
+                "via": [
+                  37,
+                  24
+                ],
+                "droop": 10,
+                "to": [
+                  1,
+                  17
+                ],
+                "sag": 1,
+                "z": "front"
+              }
+            },
+            {
+              "angle": 90,
+              "scale": 1,
+              "branchScale": 0.2,
+              "z": {
+                "hilt": "front",
+                "blade": "aboveArm"
+              },
+              "chain": {
+                "via": [
+                  37,
+                  25
+                ],
+                "droop": 10,
+                "to": [
+                  1,
+                  17
+                ],
+                "sag": 1,
+                "z": "front"
+              }
+            },
+            {
+              "angle": 90,
+              "scale": 1,
+              "branchScale": 0.2,
+              "z": {
+                "hilt": "front",
+                "blade": "aboveArm"
+              },
+              "chain": {
+                "via": [
+                  37,
+                  26
+                ],
+                "droop": 10,
+                "to": [
+                  1,
+                  17
+                ],
+                "sag": 1,
+                "z": "front"
+              }
+            }
+          ],
+          "N": {
+            "omit": true
           }
         }
       }

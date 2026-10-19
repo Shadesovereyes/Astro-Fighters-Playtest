@@ -64,18 +64,32 @@ function draw(item, pose) {
   // the weight is the item's weight pattern centred under the chain's end. Both get the same outline as the weapon.
   const chainPx = new Set();
   if (item.chain && !pose.chain?.off) {
+    // via (kusarigama held in two hands): the chain droops in a U from the butt (lowest droop px below the lower end),
+    // rises into the off hand at via ([x, y] in the frame, the off fist's centre) and hangs from it to the weight; the
+    // links inside the off fist (within 1 px of via) are left out so the fist closes over the chain
     const C = item.chain, pc = pose.chain || {};
     const ax = gx + d[0] * C.at * sc, ay = gy + d[1] * C.at * sc;
-    const [tx, ty] = pc.to || [0, C.length], bx = ax + tx, by = ay + ty, sag = pc.sag ?? 0;
-    const mx = (ax + bx) / 2 + sag, my = (ay + by) / 2, steps = 4 * Math.ceil(Math.hypot(tx, ty) + Math.abs(sag) + 1);
+    const curves = [];
+    let sx = ax, sy = ay;
+    if (pc.via) {
+      const vx = pc.via[0] + 0.5, vy = pc.via[1] + 0.5;
+      curves.push([sx, sy, (sx + vx) / 2, Math.max(sy, vy) + 2 * (pc.droop ?? 4), vx, vy]);
+      sx = vx; sy = vy;
+    }
+    const [tx, ty] = pc.to || [0, C.length], bx = sx + tx, by = sy + ty, sag = pc.sag ?? 0;
+    curves.push([sx, sy, (sx + bx) / 2 + sag, (sy + by) / 2, bx, by]);
     let n = 0, last = null;
-    for (let i = 0; i <= steps; i++) {
-      const t = i / steps, x = Math.floor((1 - t) ** 2 * ax + 2 * (1 - t) * t * mx + t * t * bx), y = Math.floor((1 - t) ** 2 * ay + 2 * (1 - t) * t * my + t * t * by);
-      const q = key(x, y);
-      if (q === last) continue;
-      last = q;
-      if (!out.has(q)) { out.set(q, C.links[n % C.links.length]); chainPx.add(q); }
-      n++;
+    for (const [x0, y0, x1, y1, x2, y2] of curves) {
+      const steps = 4 * Math.ceil(Math.hypot(x2 - x0, y2 - y0) + Math.hypot(x1 - x0, y1 - y0) + 1);
+      for (let i = 0; i <= steps; i++) {
+        const t = i / steps, x = Math.floor((1 - t) ** 2 * x0 + 2 * (1 - t) * t * x1 + t * t * x2), y = Math.floor((1 - t) ** 2 * y0 + 2 * (1 - t) * t * y1 + t * t * y2);
+        const q = key(x, y);
+        if (q === last) continue;
+        last = q;
+        n++;
+        if (pc.via && Math.abs(x - pc.via[0]) <= 1 && Math.abs(y - pc.via[1]) <= 1) continue;
+        if (!out.has(q)) { out.set(q, C.links[n % C.links.length]); chainPx.add(q); }
+      }
     }
     const wx = Math.floor(bx), wy = Math.floor(by), W = C.weight, h = Math.floor(W[0].length / 2);
     W.forEach((row, j) => [...row].forEach((ch, i) => { if (ch === '.') return; const q = key(wx - h + i, wy + 1 + j); out.set(q, ch); chainPx.add(q); }));
@@ -86,6 +100,7 @@ function draw(item, pose) {
     const [x, y] = unkey(q);
     for (const [dx, dy] of N4) if (!out.has(key(x + dx, y + dy))) { out.set(key(x + dx, y + dy), '#'); if (chainPx.has(q)) chainPx.add(key(x + dx, y + dy)); }
   }
+  if (pose.chain?.via) for (const q of [...chainPx]) { const [x, y] = unkey(q); if (Math.abs(x - pose.chain.via[0]) <= 1 && Math.abs(y - pose.chain.via[1]) <= 1) out.delete(q); }
   out.chain = chainPx;
   // u of every pixel (outline included), so a pose can split the weapon at the grip into two depths
   out.u = (q) => { const [x, y] = unkey(q), cx = x + 0.5 - gx, cy = y + 0.5 - gy; return (cx * d[0] + cy * d[1]) / (pose.scale ?? 1); };
