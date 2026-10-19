@@ -39,7 +39,7 @@ stance('karateGuard', 'Karate Stance', 6,
         dict(an=band(55, -60), af=band(-73, -93), bob=(3, 3, 4), lean=(0, 1), root=(0, 0), ln='ka-rear', lf='ka-lead')], KA)
 
 # Horse Stance: deep straddle, back upright, both fists chambered at the hips
-HS = [leg('hs-near', (32, 47), (38, 51), 35), leg('hs-far', (31, 47), (36, 51), 30)]
+HS = [leg('hs-near', (31, 45), (38, 50), 35), leg('hs-far', (30, 45), (36, 50), 30)]
 stance('horseStance', 'Horse Stance', 4,
        'Horse Stance idle: deep straddle with the knees bent out over the feet and the back upright; both fists chambered at the hips; slow, rooted breathing.',
        [dict(an=band(55, -60), af=band(55, -60), bob=(6, 6, 6), lean=(0, 0), root=(0, 0), ln='hs-near', lf='hs-far'),
