@@ -222,3 +222,9 @@ def recall_weapons():
     save(s, D + 'chainRecall.json')
 if __name__ == '__main__' and '--struggle' in sys.argv: struggle_specs()
 if __name__ == '__main__' and '--recall-weapons' in sys.argv: recall_weapons()
+# Struggle clips approved by Christopher 2026-10-19
+if __name__ == '__main__' and '--struggle' in sys.argv:
+    for _st in ('snaredStruggle', 'snareBreak', 'chainRecall'):
+        _s = load(D + _st + '.json'); _s['status'] = _s['status'].replace('E/W candidate 2026-10-19', 'E/W approved by user 2026-10-19').replace(', awaiting user approval', '')
+        for _w in _s.get('weapons', []): _w['status'] = _s['status']
+        save(_s, D + _st + '.json')

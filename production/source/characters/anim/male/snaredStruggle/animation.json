@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-animation-output/v1",
   "body": "male",
   "state": "snaredStruggle",
-  "status": "E/W candidate 2026-10-19 (Struggle, failed), awaiting user approval; S/N to author",
+  "status": "E/W approved by user 2026-10-19 (Struggle, failed); S/N to author",
   "frames": 7,
   "fps": 12,
   "frameSize": [

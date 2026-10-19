@@ -12042,6 +12042,551 @@
         ]
       }
     },
+    "snaredStruggle": {
+      "frames": 7,
+      "fps": 12,
+      "rows": [
+        "E",
+        "W"
+      ],
+      "status": "E/W approved by user 2026-10-19 (Struggle, failed); S/N to author",
+      "rootMotion": {
+        "E": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "W": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "layers": {
+        "body": "assets/characters/male/snaredStruggle/body.png",
+        "arms": "assets/characters/male/snaredStruggle/arms.png",
+        "long-hair": "assets/characters/male/snaredStruggle/long-hair.png",
+        "fade-hair": "assets/characters/male/snaredStruggle/fade-hair.png",
+        "afro-hair": "assets/characters/male/snaredStruggle/afro-hair.png",
+        "brown-eyes": "assets/characters/male/snaredStruggle/brown-eyes.png",
+        "purple-eyes": "assets/characters/male/snaredStruggle/purple-eyes.png",
+        "male-gi": "assets/characters/male/snaredStruggle/male-gi.png",
+        "male-blue-armor": "assets/characters/male/snaredStruggle/male-blue-armor.png",
+        "male-red-armor": "assets/characters/male/snaredStruggle/male-red-armor.png",
+        "blue-armor-shoulders": "assets/characters/male/snaredStruggle/blue-armor-shoulders.png",
+        "red-armor-shoulders": "assets/characters/male/snaredStruggle/red-armor-shoulders.png",
+        "fx": "assets/characters/male/snaredStruggle/fx.png"
+      },
+      "clips": {
+        "rule": "Kyoketsu-Shoge grapple: Struggle (escape from Kusari Chain Snare)",
+        "snaredStruggle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "fps": 12,
+          "next": "snared"
+        }
+      },
+      "events": {
+        "rule": "per-frame gameplay data per facing; coil = where the chain from the thrower attaches",
+        "E": [
+          {
+            "frame": 0,
+            "type": "startup",
+            "coil": [
+              39,
+              28
+            ]
+          },
+          {
+            "frame": 1,
+            "type": "startup",
+            "coil": [
+              40,
+              29
+            ]
+          },
+          {
+            "frame": 2,
+            "type": "active",
+            "move": "struggle",
+            "coil": [
+              41,
+              30
+            ]
+          },
+          {
+            "frame": 3,
+            "type": "recovery",
+            "coil": [
+              37,
+              29
+            ]
+          },
+          {
+            "frame": 4,
+            "type": "recovery",
+            "coil": [
+              37,
+              29
+            ]
+          },
+          {
+            "frame": 5,
+            "type": "recovery",
+            "coil": [
+              39,
+              28
+            ]
+          },
+          {
+            "frame": 6,
+            "type": "recovery",
+            "coil": [
+              39,
+              28
+            ]
+          }
+        ],
+        "W": [
+          {
+            "frame": 0,
+            "type": "startup",
+            "coil": [
+              24,
+              28
+            ]
+          },
+          {
+            "frame": 1,
+            "type": "startup",
+            "coil": [
+              23,
+              29
+            ]
+          },
+          {
+            "frame": 2,
+            "type": "active",
+            "move": "struggle",
+            "coil": [
+              22,
+              30
+            ]
+          },
+          {
+            "frame": 3,
+            "type": "recovery",
+            "coil": [
+              26,
+              29
+            ]
+          },
+          {
+            "frame": 4,
+            "type": "recovery",
+            "coil": [
+              26,
+              29
+            ]
+          },
+          {
+            "frame": 5,
+            "type": "recovery",
+            "coil": [
+              24,
+              28
+            ]
+          },
+          {
+            "frame": 6,
+            "type": "recovery",
+            "coil": [
+              24,
+              28
+            ]
+          }
+        ]
+      }
+    },
+    "snareBreak": {
+      "frames": 8,
+      "fps": 12,
+      "rows": [
+        "E",
+        "W"
+      ],
+      "status": "E/W approved by user 2026-10-19 (Struggle, breaks the snare); S/N to author",
+      "rootMotion": {
+        "E": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "W": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "layers": {
+        "body": "assets/characters/male/snareBreak/body.png",
+        "arms": "assets/characters/male/snareBreak/arms.png",
+        "long-hair": "assets/characters/male/snareBreak/long-hair.png",
+        "fade-hair": "assets/characters/male/snareBreak/fade-hair.png",
+        "afro-hair": "assets/characters/male/snareBreak/afro-hair.png",
+        "brown-eyes": "assets/characters/male/snareBreak/brown-eyes.png",
+        "purple-eyes": "assets/characters/male/snareBreak/purple-eyes.png",
+        "male-gi": "assets/characters/male/snareBreak/male-gi.png",
+        "male-blue-armor": "assets/characters/male/snareBreak/male-blue-armor.png",
+        "male-red-armor": "assets/characters/male/snareBreak/male-red-armor.png",
+        "blue-armor-shoulders": "assets/characters/male/snareBreak/blue-armor-shoulders.png",
+        "red-armor-shoulders": "assets/characters/male/snareBreak/red-armor-shoulders.png",
+        "fx": "assets/characters/male/snareBreak/fx.png"
+      },
+      "clips": {
+        "rule": "Kyoketsu-Shoge grapple: Struggle (escape from Kusari Chain Snare)",
+        "snareBreak": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 12,
+          "next": "guard"
+        }
+      },
+      "events": {
+        "rule": "per-frame gameplay data per facing; coil = where the chain from the thrower attaches until it breaks (frame 3, event snareBroken)",
+        "E": [
+          {
+            "frame": 0,
+            "type": "startup",
+            "coil": [
+              39,
+              28
+            ]
+          },
+          {
+            "frame": 1,
+            "type": "startup",
+            "coil": [
+              40,
+              29
+            ]
+          },
+          {
+            "frame": 2,
+            "type": "startup",
+            "coil": [
+              41,
+              30
+            ]
+          },
+          {
+            "frame": 3,
+            "type": "active",
+            "move": "snareBroken"
+          },
+          {
+            "frame": 4,
+            "type": "recovery"
+          },
+          {
+            "frame": 5,
+            "type": "recovery"
+          },
+          {
+            "frame": 6,
+            "type": "recovery"
+          },
+          {
+            "frame": 7,
+            "type": "recovery"
+          }
+        ],
+        "W": [
+          {
+            "frame": 0,
+            "type": "startup",
+            "coil": [
+              24,
+              28
+            ]
+          },
+          {
+            "frame": 1,
+            "type": "startup",
+            "coil": [
+              23,
+              29
+            ]
+          },
+          {
+            "frame": 2,
+            "type": "startup",
+            "coil": [
+              22,
+              30
+            ]
+          },
+          {
+            "frame": 3,
+            "type": "active",
+            "move": "snareBroken"
+          },
+          {
+            "frame": 4,
+            "type": "recovery"
+          },
+          {
+            "frame": 5,
+            "type": "recovery"
+          },
+          {
+            "frame": 6,
+            "type": "recovery"
+          },
+          {
+            "frame": 7,
+            "type": "recovery"
+          }
+        ]
+      }
+    },
+    "chainRecall": {
+      "frames": 4,
+      "fps": 12,
+      "rows": [
+        "E",
+        "W"
+      ],
+      "status": "E/W approved by user 2026-10-19 (chain recalled after the snare breaks); S/N to author",
+      "rootMotion": {
+        "E": [
+          [
+            0,
+            0
+          ],
+          [
+            -1,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "W": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "layers": {
+        "body": "assets/characters/male/chainRecall/body.png",
+        "arms": "assets/characters/male/chainRecall/arms.png",
+        "long-hair": "assets/characters/male/chainRecall/long-hair.png",
+        "fade-hair": "assets/characters/male/chainRecall/fade-hair.png",
+        "afro-hair": "assets/characters/male/chainRecall/afro-hair.png",
+        "brown-eyes": "assets/characters/male/chainRecall/brown-eyes.png",
+        "purple-eyes": "assets/characters/male/chainRecall/purple-eyes.png",
+        "male-gi": "assets/characters/male/chainRecall/male-gi.png",
+        "male-blue-armor": "assets/characters/male/chainRecall/male-blue-armor.png",
+        "male-red-armor": "assets/characters/male/chainRecall/male-red-armor.png",
+        "blue-armor-shoulders": "assets/characters/male/chainRecall/blue-armor-shoulders.png",
+        "red-armor-shoulders": "assets/characters/male/chainRecall/red-armor-shoulders.png"
+      },
+      "weapons": {
+        "frameSize": [
+          128,
+          128
+        ],
+        "origin": [
+          32,
+          32
+        ],
+        "pivot": [
+          64,
+          95
+        ],
+        "depthRule": "each weapon is split into depth slots, one sheet each: behind = under the body; front = over body and clothing, under the arms (the fists close over the hilt); top = over every character layer (a blade pointing at the viewer, a hand in front of the head). z per frame is one slot or { hilt, blade } split at the grip",
+        "items": [
+          {
+            "slot": "main",
+            "item": "kama",
+            "default": true,
+            "hand": "arms",
+            "layers": {
+              "front": "assets/characters/male/chainRecall/main-kama-front.png"
+            },
+            "z": {
+              "E": [
+                "front",
+                "front",
+                "front",
+                "front"
+              ],
+              "W": [
+                "front",
+                "front",
+                "front",
+                "front"
+              ]
+            }
+          }
+        ]
+      },
+      "clips": {
+        "rule": "Kyoketsu-Shoge grapple: Struggle (escape from Kusari Chain Snare)",
+        "chainRecall": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 10,
+          "next": "oneHandGuard"
+        }
+      }
+    },
     "clinchSweepingShoulder": {
       "frames": 12,
       "fps": 12,
