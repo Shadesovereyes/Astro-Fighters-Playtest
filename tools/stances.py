@@ -13,7 +13,7 @@ def leg(name, hip, knee, foot, wrap=56, kind='flat', hipX=None):
     return {'name': name, 'construction': 'band', 'hipX': hip[0], 'hipRow': hip[1], 'kneeX': knee[0], 'kneeRow': knee[1],
             'footX': foot, 'wrapRow': wrap, 'foot': kind}
 STAT = 'CANDIDATE 2026-10-19 (E/W; W mirrors E; S/N to author after approval)'
-APPROVED = {s: 'E/W approved by user 2026-10-19 (W mirrors E); S/N to author' for s in ('karateGuard', 'judoGuard', 'muayThaiGuard', 'horseStance', 'jiuJitsuGuard')}
+APPROVED = {s: 'E/W approved by user 2026-10-19 (W mirrors E); S/N to author' for s in ('karateGuard', 'muayThaiGuard', 'horseStance', 'jiuJitsuGuard')}
 
 STANCES = {}
 def stance(state, ability, fps, intent, frames, poses):
@@ -48,7 +48,7 @@ stance('horseStance', 'Horse Stance', 4,
         dict(an=band(55, -60), af=band(55, -60), bob=(6, 7, 7), lean=(0, 0), root=(0, 0), ln='hs-near', lf='hs-far')], HS)
 
 # Judo: upright natural stance, both open hands out at chest height hunting for the lapel and sleeve grip
-JU = [leg('ju-lead', (32, 42), (34, 50), 36), leg('ju-rear', (31, 42), (30, 50), 27)]
+JU = [leg('ju-lead', (32, 42), (36, 50), 39), leg('ju-rear', (31, 42), (29, 50), 24)]   # wider (Christopher 2026-10-19)
 P = dict(fistKind='palm')
 stance('judoGuard', 'Judo Stance', 6,
        'Judo stance idle: upright natural stance, knees soft; both hands open and out at chest height, the lead hand reaching for the sleeve and the rear hand for the lapel, pawing in and out.',

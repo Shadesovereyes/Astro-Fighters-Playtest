@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "judoGuard",
-  "status": "E/W approved by user 2026-10-19 (W mirrors E); S/N to author",
+  "status": "CANDIDATE 2026-10-19 (E/W; W mirrors E; S/N to author after approval)",
   "frames": 4,
   "fps": 6,
   "sourceDirection": "E",
@@ -504,9 +504,9 @@
         "construction": "band",
         "hipX": 32,
         "hipRow": 42,
-        "kneeX": 34,
+        "kneeX": 36,
         "kneeRow": 50,
-        "footX": 36,
+        "footX": 39,
         "wrapRow": 56,
         "foot": "flat"
       },
@@ -515,9 +515,9 @@
         "construction": "band",
         "hipX": 31,
         "hipRow": 42,
-        "kneeX": 30,
+        "kneeX": 29,
         "kneeRow": 50,
-        "footX": 27,
+        "footX": 24,
         "wrapRow": 56,
         "foot": "flat"
       }
