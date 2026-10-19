@@ -3,7 +3,7 @@
   "item": "kama",
   "kind": "rigid weapon (AGENTS.md: rigid items are placed by anchor with integer offsets)",
   "status": "candidate 2026-10-16 (user chose a separate kama for Sickle Strike; the tanto stays for the Kyoketsu-Shoge stance, stabs and throws), awaiting user approval",
-  "construction": "band: a straight band along the weapon axis from the grip point (the centre of the near fist); every pixel takes its colour from the cross-section pattern (back/spine to front/edge) of the segment it falls in, so the weapon keeps its thickness at any angle; pixels are rasterised from the authored data, never rotated or resampled from an image; the sickle blade is two branch segments (character-weapon.mjs branch: own axis from a point on the handle, turned from the handle axis toward +v), the second bent further in so the blade curves back toward the handle",
+  "construction": "band: a straight band along the weapon axis from the grip point (the centre of the near fist); every pixel takes its colour from the cross-section pattern (back/spine to front/edge) of the segment it falls in, so the weapon keeps its thickness at any angle; pixels are rasterised from the authored data, never rotated or resampled from an image; the sickle blade is two branch segments (character-weapon.mjs branch: own axis from a point on the handle, turned from the handle axis toward +v), the second bent further in so the blade curves back toward the handle; the chain and weight hang from the butt cap in screen space (character-weapon.mjs chain), not along the weapon axis",
   "palette": {
     "#": "#000000",
     "a": "#adadad",
@@ -95,5 +95,16 @@
         "colour": "#adadad"
       }
     ]
+  },
+  "chain": {
+    "at": -4,
+    "length": 14,
+    "links": "Wa",
+    "weight": [
+      "aWa",
+      "aaa",
+      ".a."
+    ],
+    "rule": "kusarigama (Christopher 2026-10-19: the kama has a chain with a weight at the end): the chain leaves the butt cap and hangs in screen space with gravity at any blade angle; a pose may set chain.to (weight offset), chain.sag and chain.z"
   }
 }

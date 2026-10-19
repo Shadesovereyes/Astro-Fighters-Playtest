@@ -57,12 +57,35 @@ function draw(item, pose) {
     }
     if (c) out.set(key(x, y), c);
   }
+  // chain (a kusarigama's chain and weight): hangs from the point chain.at on the weapon axis in screen space, not along the
+  // axis, so it falls with gravity at any blade angle; pose.chain = { to: [dx, dy] weight offset from that point, sag: px
+  // the middle bows sideways, z: depth } (default: straight down chain.length px). Links alternate chain.links colours;
+  // the weight is the item's weight pattern centred under the chain's end. Both get the same outline as the weapon.
+  const chainPx = new Set();
+  if (item.chain && !pose.chain?.off) {
+    const C = item.chain, pc = pose.chain || {};
+    const ax = gx + d[0] * C.at * sc, ay = gy + d[1] * C.at * sc;
+    const [tx, ty] = pc.to || [0, C.length], bx = ax + tx, by = ay + ty, sag = pc.sag ?? 0;
+    const mx = (ax + bx) / 2 + sag, my = (ay + by) / 2, steps = 4 * Math.ceil(Math.hypot(tx, ty) + Math.abs(sag) + 1);
+    let n = 0, last = null;
+    for (let i = 0; i <= steps; i++) {
+      const t = i / steps, x = Math.floor((1 - t) ** 2 * ax + 2 * (1 - t) * t * mx + t * t * bx), y = Math.floor((1 - t) ** 2 * ay + 2 * (1 - t) * t * my + t * t * by);
+      const q = key(x, y);
+      if (q === last) continue;
+      last = q;
+      if (!out.has(q)) { out.set(q, C.links[n % C.links.length]); chainPx.add(q); }
+      n++;
+    }
+    const wx = Math.floor(bx), wy = Math.floor(by), W = C.weight, h = Math.floor(W[0].length / 2);
+    W.forEach((row, j) => [...row].forEach((ch, i) => { if (ch === '.') return; const q = key(wx - h + i, wy + 1 + j); out.set(q, ch); chainPx.add(q); }));
+  }
   // outline: coloured pixels touching empty space
   for (const [q, c] of [...out]) {
     if (c === '#') continue;
     const [x, y] = unkey(q);
-    for (const [dx, dy] of N4) if (!out.has(key(x + dx, y + dy))) out.set(key(x + dx, y + dy), '#');
+    for (const [dx, dy] of N4) if (!out.has(key(x + dx, y + dy))) { out.set(key(x + dx, y + dy), '#'); if (chainPx.has(q)) chainPx.add(key(x + dx, y + dy)); }
   }
+  out.chain = chainPx;
   // u of every pixel (outline included), so a pose can split the weapon at the grip into two depths
   out.u = (q) => { const [x, y] = unkey(q), cx = x + 0.5 - gx, cy = y + 0.5 - gy; return (cx * d[0] + cy * d[1]) / (pose.scale ?? 1); };
   return out;
@@ -198,7 +221,7 @@ for (const W of weapons.flatMap((w) => (w.items || [w.item]).map((it, i) => ({ .
       // omit: the weapon is not drawn (N: a hand hidden in front of the body on the far side of the torso, so the blade
       // would show detached from the visible arm); its smear, if any, is still drawn
       const raw = p.omit ? Object.assign(new Map(), { u: () => 0 }) : draw(item, p.mirrored ? { ...p, grip: [FRAME - 1 - p.grip[0], p.grip[1]] } : p);
-      let m = new Map([...raw].map(([q, c]) => [q, [c, depthOf(p.z, raw.u(q))]]));
+      let m = new Map([...raw].map(([q, c]) => [q, [c, raw.chain?.has(q) ? (p.chain?.z ?? depthOf(p.z, -1)) : depthOf(p.z, raw.u(q))]]));
       // a mirrored facing draws the source facing's trail and mirrors its pixels, like the weapon
       let tr = p.trail ? trailOf(item, p.mirrored ? { ...p, grip: [FRAME - 1 - p.grip[0], p.grip[1]] } : p, raw) : new Map();
       if (p.mirrored) {

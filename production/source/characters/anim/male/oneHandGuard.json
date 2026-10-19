@@ -1154,7 +1154,8 @@
       "layer": "arms",
       "items": [
         "wakizashi",
-        "tanto"
+        "tanto",
+        "kama"
       ],
       "status": "approved by user 2026-10-13",
       "rule": "per frame: grip = pixel at the centre of the near fist (body-frame coordinates; it follows the arm bob, 0, -1, 0, +1), angle = blade direction in degrees above the facing's horizontal, z = depth slot",
@@ -1297,6 +1298,30 @@
           },
           "S": {
             "scale": 0.574
+          }
+        },
+        "kama": {
+          "E": {
+            "angle": 55,
+            "chain": {
+              "to": [
+                2,
+                15
+              ],
+              "sag": -3
+            }
+          },
+          "S": {
+            "angle": -90,
+            "scale": 1,
+            "z": "front",
+            "chain": {
+              "to": [
+                5,
+                14
+              ],
+              "sag": 3
+            }
           }
         }
       }

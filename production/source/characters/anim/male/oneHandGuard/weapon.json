@@ -270,6 +270,117 @@
           ]
         ]
       }
+    },
+    {
+      "slot": "main",
+      "item": "kama",
+      "default": false,
+      "hand": "arms",
+      "layers": {
+        "behind": "main-kama-behind.png",
+        "front": "main-kama-front.png"
+      },
+      "status": "approved by user 2026-10-13",
+      "z": {
+        "S": [
+          "front",
+          "front",
+          "front",
+          "front"
+        ],
+        "E": [
+          "front",
+          "front",
+          "front",
+          "front"
+        ],
+        "N": [
+          "behind",
+          "behind",
+          "behind",
+          "behind"
+        ],
+        "W": [
+          "front",
+          "front",
+          "front",
+          "front"
+        ]
+      },
+      "grips": {
+        "S": [
+          [
+            25,
+            35
+          ],
+          [
+            25,
+            34
+          ],
+          [
+            25,
+            35
+          ],
+          [
+            25,
+            36
+          ]
+        ],
+        "E": [
+          [
+            43,
+            35
+          ],
+          [
+            43,
+            34
+          ],
+          [
+            43,
+            35
+          ],
+          [
+            43,
+            36
+          ]
+        ],
+        "N": [
+          [
+            40,
+            38
+          ],
+          [
+            40,
+            37
+          ],
+          [
+            40,
+            38
+          ],
+          [
+            40,
+            39
+          ]
+        ],
+        "W": [
+          [
+            20,
+            35
+          ],
+          [
+            20,
+            34
+          ],
+          [
+            20,
+            35
+          ],
+          [
+            20,
+            36
+          ]
+        ]
+      }
     }
   ],
   "qc": {
@@ -305,7 +416,23 @@
       "main/tanto W:0": true,
       "main/tanto W:1": true,
       "main/tanto W:2": true,
-      "main/tanto W:3": true
+      "main/tanto W:3": true,
+      "main/kama S:0": true,
+      "main/kama S:1": true,
+      "main/kama S:2": true,
+      "main/kama S:3": true,
+      "main/kama E:0": true,
+      "main/kama E:1": true,
+      "main/kama E:2": true,
+      "main/kama E:3": true,
+      "main/kama N:0": "hidden",
+      "main/kama N:1": "hidden",
+      "main/kama N:2": "hidden",
+      "main/kama N:3": "hidden",
+      "main/kama W:0": true,
+      "main/kama W:1": true,
+      "main/kama W:2": true,
+      "main/kama W:3": true
     },
     "inFrame": true,
     "pass": true
