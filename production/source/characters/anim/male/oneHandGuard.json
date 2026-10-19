@@ -1393,28 +1393,28 @@
                   "branch": {
                     "at": [
                       12.5,
-                      3.5
+                      3
                     ],
                     "angle": 180
                   },
                   "to": 8,
                   "thickness": 3,
                   "pattern": [
-                    "aaW"
+                    "aWa"
                   ]
                 },
                 "bladeTip": {
                   "branch": {
                     "at": [
                       4.5,
-                      3.5
+                      3
                     ],
                     "angle": 205
                   },
                   "to": 3,
                   "thickness": 2,
                   "pattern": [
-                    "aW"
+                    "WW"
                   ]
                 }
               }
@@ -1444,28 +1444,28 @@
                   "branch": {
                     "at": [
                       12.5,
-                      3.5
+                      3
                     ],
                     "angle": 180
                   },
                   "to": 8,
                   "thickness": 3,
                   "pattern": [
-                    "aaW"
+                    "aWa"
                   ]
                 },
                 "bladeTip": {
                   "branch": {
                     "at": [
                       4.5,
-                      3.5
+                      3
                     ],
                     "angle": 205
                   },
                   "to": 3,
                   "thickness": 2,
                   "pattern": [
-                    "aW"
+                    "WW"
                   ]
                 }
               }
@@ -1495,28 +1495,28 @@
                   "branch": {
                     "at": [
                       12.5,
-                      3.5
+                      3
                     ],
                     "angle": 180
                   },
                   "to": 8,
                   "thickness": 3,
                   "pattern": [
-                    "aaW"
+                    "aWa"
                   ]
                 },
                 "bladeTip": {
                   "branch": {
                     "at": [
                       4.5,
-                      3.5
+                      3
                     ],
                     "angle": 205
                   },
                   "to": 3,
                   "thickness": 2,
                   "pattern": [
-                    "aW"
+                    "WW"
                   ]
                 }
               }
@@ -1546,28 +1546,28 @@
                   "branch": {
                     "at": [
                       12.5,
-                      3.5
+                      3
                     ],
                     "angle": 180
                   },
                   "to": 8,
                   "thickness": 3,
                   "pattern": [
-                    "aaW"
+                    "aWa"
                   ]
                 },
                 "bladeTip": {
                   "branch": {
                     "at": [
                       4.5,
-                      3.5
+                      3
                     ],
                     "angle": 205
                   },
                   "to": 3,
                   "thickness": 2,
                   "pattern": [
-                    "aW"
+                    "WW"
                   ]
                 }
               }
