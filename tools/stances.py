@@ -146,12 +146,20 @@ FRONT = {
     'wrestlingGuard': dict(S={'R': (36, -75, 0.75, 'front', 9), 'L': (-36, 50, 0.75, 'up', 10)}, pivotDx={'S': {'R': 1, 'L': -1}}, armSettle={'S': 1}, N=GR_N(40, 40), legs=dict(foot=0, knee=(0, 0), near=0, far=-1, nearKnee=0, stagger=3), lean=(1, 0), rise=3, blade=1, headUp=1),
 }
 
+# the Muay Thai raised lead foot seen from the front/back, toes pointing slightly down like E/W's toe30k (Christopher
+# 2026-10-20); same anchor and the same rows below the ankle as toe30k, so its toe lands on E/W's toe row (projection line)
+TOE_DOWN = {'sToeDown': {'use': 'front view raised foot, instep toward the viewer, toes pointing slightly down (E/W toe30k seen from the front)', 'anchor': [3, -1],
+                         'rows': ['#mLLm#', '#mLLLm#', '#dmLLm#', '.#dmd#', '..###']},
+            'nToeDown': {'use': 'back view raised foot: heel then the sole tilting down to the toes (E/W toe30k seen from behind)', 'anchor': [3, -1],
+                         'rows': ['#dmmd#', '#dmmmd#', '#ddmmd#', '.#ddd#', '..###']}}
+
 def frontal(st, spec):
     """S and N views on the guard's frontal template, one arm and leg set per stance (constant pose, the body bob
     from the E spec carries it)."""
     F = spec['frames']; cfg = FRONT[st]; fr = copy.deepcopy(GUARD['frontal']); dy = spec['bob']['dy']
     HA = load(D + 'heavyAttack.json')['legs']; spec['legs']['sections'] = copy.deepcopy(HA['sections'])
     for f, v in HA['feet'].items(): spec['legs']['feet'].setdefault(f, copy.deepcopy(v))
+    spec['legs']['feet'].update(TOE_DOWN)
     rep = lambda v: [copy.deepcopy(v) for _ in range(F)]
     names = [q['name'] for q in spec['legs']['poses']]
     for d in ('S', 'N'):
@@ -216,7 +224,7 @@ def frontal(st, spec):
             for k in range(F):
                 if far[k] in lifted:
                     b = dy[k]; n = '%s-%s-lift%s%d' % (d, st, sd, b); x = mx(HIPS[1])
-                    add(n, (x, 40 + b), (x - (1 if d == 'S' else -1), 42 + b), (x - (1 if d == 'S' else -1), 50 + b))   # knee up toward the viewer, shin hanging
+                    add(n, (x, 40 + b), (x - (1 if d == 'S' else -1), 42 + b), (x - (1 if d == 'S' else -1), 50 + b), 'sToeDown' if d == 'S' else 'nToeDown')   # knee up toward the viewer, shin hanging, toes down
                     sides[sd][k] = True; pose[sd][k] = n
         if any(sides['R']) or any(sides['L']):
             v['legBand'] = {'sides': sides, 'pose': pose, 'z': {'R': [2] * F, 'L': [2] * F}, 'offset': {'R': 0, 'L': 0}}
@@ -236,7 +244,7 @@ def frontal(st, spec):
     spec['rootMotion']['S'] = [[0, 0]] * F; spec['rootMotion']['N'] = [[0, 0]] * F
     return spec
 
-SN_APPROVED = {'karateGuard': 'S/N approved by user 2026-10-20 (v7, 5351ccd)', 'wrestlingGuard': 'S/N approved by user 2026-10-20 (v10, 0bd9356)', 'judoGuard': 'S/N approved by user 2026-10-20 (v6, d2d5943)', 'jiuJitsuGuard': 'S/N approved by user 2026-10-20 (v6, d2d5943)', 'muayThaiGuard': 'S/N CANDIDATE 2026-10-20 (v4, arms brought in; v3 approval revoked by user: hands/arms out too wide)'}
+SN_APPROVED = {'karateGuard': 'S/N approved by user 2026-10-20 (v7, 5351ccd)', 'wrestlingGuard': 'S/N approved by user 2026-10-20 (v10, 0bd9356)', 'judoGuard': 'S/N approved by user 2026-10-20 (v6, d2d5943)', 'jiuJitsuGuard': 'S/N approved by user 2026-10-20 (v6, d2d5943)', 'muayThaiGuard': 'S/N CANDIDATE 2026-10-20 (v5, raised foot toes pointing slightly down, aligned to E/W rows; v4 arms brought in)'}
 
 def specs4(only=None):
     """E/W specs plus S/N (status: S/N candidates)"""

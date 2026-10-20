@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "muayThaiGuard",
-  "status": "E/W approved by user 2026-10-19 (W mirrors E); S/N CANDIDATE 2026-10-20 (v4, arms brought in; v3 approval revoked by user: hands/arms out too wide)",
+  "status": "E/W approved by user 2026-10-19 (W mirrors E); S/N CANDIDATE 2026-10-20 (v5, raised foot toes pointing slightly down, aligned to E/W rows; v4 arms brought in)",
   "frames": 8,
   "fps": 6,
   "sourceDirection": "E",
@@ -569,6 +569,34 @@
           ".#dddddd",
           "..######"
         ]
+      },
+      "sToeDown": {
+        "use": "front view raised foot, instep toward the viewer, toes pointing slightly down (E/W toe30k seen from the front)",
+        "anchor": [
+          3,
+          -1
+        ],
+        "rows": [
+          "#mLLm#",
+          "#mLLLm#",
+          "#dmLLm#",
+          ".#dmd#",
+          "..###"
+        ]
+      },
+      "nToeDown": {
+        "use": "back view raised foot: heel then the sole tilting down to the toes (E/W toe30k seen from behind)",
+        "anchor": [
+          3,
+          -1
+        ],
+        "rows": [
+          "#dmmd#",
+          "#dmmmd#",
+          "#ddmmd#",
+          ".#ddd#",
+          "..###"
+        ]
       }
     },
     "constructions": {
@@ -667,7 +695,7 @@
           35,
           51
         ],
-        "foot": "sFoot",
+        "foot": "sToeDown",
         "section": "S",
         "crease": true
       },
@@ -682,7 +710,7 @@
           27,
           51
         ],
-        "foot": "sFoot",
+        "foot": "nToeDown",
         "section": "N",
         "crease": true
       }
