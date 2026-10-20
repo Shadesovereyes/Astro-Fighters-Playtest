@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "muayThaiGuard",
-  "status": "E/W approved by user 2026-10-19 (W mirrors E); S/N CANDIDATE 2026-10-20 (v6, lead heel up on every frame like E/W toe60; v5 raised foot toes down; v4 arms brought in)",
+  "status": "E/W approved by user 2026-10-19 (W mirrors E); S/N CANDIDATE 2026-10-20 (v7, knee lift from the reference trouser leg with row drops; v6 lead heel up; v4 arms brought in)",
   "frames": 8,
   "fps": 6,
   "sourceDirection": "E",
@@ -683,36 +683,6 @@
         "footX": 25,
         "wrapRow": 56,
         "foot": "flat"
-      },
-      {
-        "name": "S-muayThaiGuard-liftL1",
-        "construction": "band",
-        "hipX": 36,
-        "hipRow": 41,
-        "kneeX": 35,
-        "kneeRow": 43,
-        "ankle": [
-          35,
-          51
-        ],
-        "foot": "sToeDown",
-        "section": "S",
-        "crease": true
-      },
-      {
-        "name": "N-muayThaiGuard-liftL1",
-        "construction": "band",
-        "hipX": 26,
-        "hipRow": 41,
-        "kneeX": 27,
-        "kneeRow": 43,
-        "ankle": [
-          27,
-          51
-        ],
-        "foot": "nToeDown",
-        "section": "N",
-        "crease": true
       }
     ],
     "near": [
@@ -1636,11 +1606,13 @@
           ],
           "3": [
             "S-muayThaiGuard-kneeR0",
-            "S-muayThaiGuard-kneeL0"
+            "S-muayThaiGuard-kneeL0",
+            "S-muayThaiGuard-liftTip"
           ],
           "4": [
             "S-muayThaiGuard-kneeR0",
-            "S-muayThaiGuard-kneeL0"
+            "S-muayThaiGuard-kneeL0",
+            "S-muayThaiGuard-liftTip"
           ],
           "5": [
             "S-muayThaiGuard-kneeR0",
@@ -1657,78 +1629,6 @@
             "S-muayThaiGuard-kneeL0",
             "S-muayThaiGuard-tiptoe"
           ]
-        },
-        "legBand": {
-          "sides": {
-            "R": [
-              false,
-              false,
-              false,
-              false,
-              false,
-              false,
-              false,
-              false
-            ],
-            "L": [
-              false,
-              false,
-              false,
-              true,
-              true,
-              false,
-              false,
-              false
-            ]
-          },
-          "pose": {
-            "R": [
-              null,
-              null,
-              null,
-              null,
-              null,
-              null,
-              null,
-              null
-            ],
-            "L": [
-              null,
-              null,
-              null,
-              "S-muayThaiGuard-liftL1",
-              "S-muayThaiGuard-liftL1",
-              null,
-              null,
-              null
-            ]
-          },
-          "z": {
-            "R": [
-              2,
-              2,
-              2,
-              2,
-              2,
-              2,
-              2,
-              2
-            ],
-            "L": [
-              2,
-              2,
-              2,
-              2,
-              2,
-              2,
-              2,
-              2
-            ]
-          },
-          "offset": {
-            "R": 0,
-            "L": 0
-          }
         }
       },
       "N": {
@@ -2082,11 +1982,13 @@
           ],
           "3": [
             "N-muayThaiGuard-kneeR0",
-            "N-muayThaiGuard-kneeL0"
+            "N-muayThaiGuard-kneeL0",
+            "N-muayThaiGuard-liftTip"
           ],
           "4": [
             "N-muayThaiGuard-kneeR0",
-            "N-muayThaiGuard-kneeL0"
+            "N-muayThaiGuard-kneeL0",
+            "N-muayThaiGuard-liftTip"
           ],
           "5": [
             "N-muayThaiGuard-kneeR0",
@@ -2103,78 +2005,6 @@
             "N-muayThaiGuard-kneeL0",
             "N-muayThaiGuard-tiptoe"
           ]
-        },
-        "legBand": {
-          "sides": {
-            "R": [
-              false,
-              false,
-              false,
-              false,
-              false,
-              false,
-              false,
-              false
-            ],
-            "L": [
-              false,
-              false,
-              false,
-              true,
-              true,
-              false,
-              false,
-              false
-            ]
-          },
-          "pose": {
-            "R": [
-              null,
-              null,
-              null,
-              null,
-              null,
-              null,
-              null,
-              null
-            ],
-            "L": [
-              null,
-              null,
-              null,
-              "N-muayThaiGuard-liftL1",
-              "N-muayThaiGuard-liftL1",
-              null,
-              null,
-              null
-            ]
-          },
-          "z": {
-            "R": [
-              2,
-              2,
-              2,
-              2,
-              2,
-              2,
-              2,
-              2
-            ],
-            "L": [
-              2,
-              2,
-              2,
-              2,
-              2,
-              2,
-              2,
-              2
-            ]
-          },
-          "offset": {
-            "R": 0,
-            "L": 0
-          }
         }
       }
     },
@@ -2199,6 +2029,39 @@
             46,
             57
           ]
+        }
+      },
+      "S-muayThaiGuard-liftTip": {
+        "tiptoe": {
+          "side": "L",
+          "hem": 54,
+          "up": 10,
+          "shoe": 60,
+          "foot": {
+            "at": [
+              37,
+              50
+            ],
+            "sample": {
+              "#": [
+                36,
+                61
+              ],
+              "s": [
+                37,
+                61
+              ]
+            },
+            "rows": [
+              "#sss#.",
+              "#ssss#",
+              "#ssss#",
+              "#ssss#",
+              "#ssss#",
+              ".#ss#.",
+              "..##.."
+            ]
+          }
         }
       },
       "S-muayThaiGuard-tiptoe": {
@@ -2254,6 +2117,39 @@
             46,
             57
           ]
+        }
+      },
+      "N-muayThaiGuard-liftTip": {
+        "tiptoe": {
+          "side": "L",
+          "hem": 54,
+          "up": 10,
+          "shoe": 60,
+          "foot": {
+            "at": [
+              20,
+              50
+            ],
+            "sample": {
+              "#": [
+                21,
+                61
+              ],
+              "s": [
+                23,
+                61
+              ]
+            },
+            "rows": [
+              ".#sss#",
+              "#ssss#",
+              "#ssss#",
+              "#ssss#",
+              "#ssss#",
+              ".#ss#.",
+              "..##.."
+            ]
+          }
         }
       },
       "N-muayThaiGuard-tiptoe": {

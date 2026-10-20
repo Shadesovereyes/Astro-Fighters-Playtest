@@ -161,6 +161,15 @@ TIPTOE = {'S': {'side': 'L', 'hem': 54, 'up': 3, 'shoe': 60, 'foot': {'at': [37,
           'N': {'side': 'L', 'hem': 54, 'up': 3, 'shoe': 60, 'foot': {'at': [20, 57], 'sample': {'#': [21, 61], 's': [23, 61]},
                 'rows': ['.#sss#', '.#sss#', '#ssss#', '#ssss#', '#ssss#', '#ssss#', '######']}}}
 
+# the Muay Thai knee lift seen from the front/back (Christopher 2026-10-20: the lifted foot looked weird as a drawn band
+# leg crossing in under the body): the reference trouser leg stays in place and full width, its lower rows dropped so the
+# knee comes toward the viewer; by projection from E's lift frame the hem ends at row 46, the sock hangs below it and the
+# shoe points down from row 50 to its toe on row 56
+TIPTOE_LIFT = {'S': {'side': 'L', 'hem': 54, 'up': 10, 'shoe': 60, 'foot': {'at': [37, 50], 'sample': {'#': [36, 61], 's': [37, 61]},
+                     'rows': ['#sss#.', '#ssss#', '#ssss#', '#ssss#', '#ssss#', '.#ss#.', '..##..']}},
+               'N': {'side': 'L', 'hem': 54, 'up': 10, 'shoe': 60, 'foot': {'at': [20, 50], 'sample': {'#': [21, 61], 's': [23, 61]},
+                     'rows': ['.#sss#', '#ssss#', '#ssss#', '#ssss#', '#ssss#', '.#ss#.', '..##..']}}}
+
 def frontal(st, spec):
     """S and N views on the guard's frontal template, one arm and leg set per stance (constant pose, the body bob
     from the E spec carries it)."""
@@ -230,14 +239,16 @@ def frontal(st, spec):
         for sd, lifted in (cfg.get('lift') or {}).items():   # the lead knee lift (Muay Thai): band leg on those frames
             far = [spec['legs']['poses'][i]['name'] for i in spec['legs']['far']]
             for k in range(F):
-                if far[k] in lifted:
+                if far[k] in lifted and cfg.get('tiptoe'):   # the reference trouser leg, foreshortened by row drops (no drawn band leg)
+                    n = '%s-%s-liftTip' % (d, st); pv[n] = {'tiptoe': copy.deepcopy(TIPTOE_LIFT[d])}; v['variants'][str(k)].append(n)
+                elif far[k] in lifted:
                     b = dy[k]; n = '%s-%s-lift%s%d' % (d, st, sd, b); x = mx(HIPS[1])
                     add(n, (x, 40 + b), (x - (1 if d == 'S' else -1), 42 + b), (x - (1 if d == 'S' else -1), 50 + b), 'sToeDown' if d == 'S' else 'nToeDown')   # knee up toward the viewer, shin hanging, toes down
                     sides[sd][k] = True; pose[sd][k] = n
         if cfg.get('tiptoe'):   # the lead heel up on every frame the leg is not lifted
             n = '%s-%s-tiptoe' % (d, st); pv[n] = {'tiptoe': copy.deepcopy(TIPTOE[d])}
             for k in range(F):
-                if not sides[TIPTOE[d]['side']][k]: v['variants'][str(k)].append(n)
+                if not sides[TIPTOE[d]['side']][k] and not any('liftTip' in x for x in v['variants'][str(k)]): v['variants'][str(k)].append(n)
         if any(sides['R']) or any(sides['L']):
             v['legBand'] = {'sides': sides, 'pose': pose, 'z': {'R': [2] * F, 'L': [2] * F}, 'offset': {'R': 0, 'L': 0}}
     fr['legLift'] = {'R': [0] * F, 'L': [0] * F}
@@ -256,7 +267,7 @@ def frontal(st, spec):
     spec['rootMotion']['S'] = [[0, 0]] * F; spec['rootMotion']['N'] = [[0, 0]] * F
     return spec
 
-SN_APPROVED = {'karateGuard': 'S/N approved by user 2026-10-20 (v7, 5351ccd)', 'wrestlingGuard': 'S/N approved by user 2026-10-20 (v10, 0bd9356)', 'judoGuard': 'S/N approved by user 2026-10-20 (v6, d2d5943)', 'jiuJitsuGuard': 'S/N approved by user 2026-10-20 (v6, d2d5943)', 'muayThaiGuard': 'S/N CANDIDATE 2026-10-20 (v6, lead heel up on every frame like E/W toe60; v5 raised foot toes down; v4 arms brought in)'}
+SN_APPROVED = {'karateGuard': 'S/N approved by user 2026-10-20 (v7, 5351ccd)', 'wrestlingGuard': 'S/N approved by user 2026-10-20 (v10, 0bd9356)', 'judoGuard': 'S/N approved by user 2026-10-20 (v6, d2d5943)', 'jiuJitsuGuard': 'S/N approved by user 2026-10-20 (v6, d2d5943)', 'muayThaiGuard': 'S/N CANDIDATE 2026-10-20 (v7, knee lift from the reference trouser leg with row drops; v6 lead heel up; v4 arms brought in)'}
 
 def specs4(only=None):
     """E/W specs plus S/N (status: S/N candidates)"""
