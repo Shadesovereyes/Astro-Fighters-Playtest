@@ -2015,14 +2015,16 @@
           "1": [
             "S-hikeR1",
             "bend1",
-            "S-plantL1"
+            "S-plantL1",
+            "S-liftR50"
           ],
           "2": [
             "S-hikeR",
             "bend2",
             "S-kneeL",
             "S-rotR",
-            "S-plantL"
+            "S-plantL",
+            "S-liftR40"
           ],
           "3": [
             "S-hikeR",
@@ -2043,12 +2045,14 @@
             "bend2",
             "S-kneeL",
             "S-rotR",
-            "S-plantL"
+            "S-plantL",
+            "S-liftR40"
           ],
           "6": [
             "S-hikeR1",
             "bend1",
-            "S-plantL1"
+            "S-plantL1",
+            "S-liftR50"
           ],
           "7": [
             "S-muayThaiGuard-kneeR0",
@@ -2060,12 +2064,12 @@
           "sides": {
             "R": [
               false,
+              false,
+              false,
               true,
               true,
-              true,
-              true,
-              true,
-              true,
+              false,
+              false,
               false
             ],
             "L": [
@@ -2082,12 +2086,12 @@
           "pose": {
             "R": [
               null,
-              "S-lift-R",
-              "S-fold-R",
+              null,
+              null,
               "S-mtround-R-d-1",
               "S-mtround-R-d-1",
-              "S-fold-R",
-              "S-lift-R",
+              null,
+              null,
               null
             ],
             "L": [
@@ -2483,14 +2487,16 @@
           "1": [
             "N-hikeR1",
             "bend1",
-            "N-plantL1"
+            "N-plantL1",
+            "N-liftR50"
           ],
           "2": [
             "N-hikeR",
             "bend2",
             "N-kneeL",
             "N-rotR",
-            "N-plantL"
+            "N-plantL",
+            "N-liftR40"
           ],
           "3": [
             "N-hikeR",
@@ -2511,12 +2517,14 @@
             "bend2",
             "N-kneeL",
             "N-rotR",
-            "N-plantL"
+            "N-plantL",
+            "N-liftR40"
           ],
           "6": [
             "N-hikeR1",
             "bend1",
-            "N-plantL1"
+            "N-plantL1",
+            "N-liftR50"
           ],
           "7": [
             "N-muayThaiGuard-kneeR0",
@@ -2528,12 +2536,12 @@
           "sides": {
             "R": [
               false,
+              false,
+              false,
               true,
               true,
-              true,
-              true,
-              true,
-              true,
+              false,
+              false,
               false
             ],
             "L": [
@@ -2550,12 +2558,12 @@
           "pose": {
             "R": [
               null,
-              "N-lift-R",
-              "N-fold-R",
+              null,
+              null,
               "N-mtround-R-d-1",
               "N-mtround-R-d-1",
-              "N-fold-R",
-              "N-lift-R",
+              null,
+              null,
               null
             ],
             "L": [
@@ -2729,6 +2737,39 @@
           "dx": -1
         }
       },
+      "S-liftR50": {
+        "tiptoe": {
+          "side": "R",
+          "hem": 54,
+          "up": 6,
+          "shoe": 60,
+          "keep": 0,
+          "foot": {
+            "at": [
+              20,
+              54
+            ],
+            "sample": {
+              "#": [
+                21,
+                61
+              ],
+              "s": [
+                23,
+                61
+              ]
+            },
+            "rows": [
+              ".#sss#",
+              "#ssss#",
+              "#ssss#",
+              "#ssss#",
+              ".#ss#.",
+              "..##.."
+            ]
+          }
+        }
+      },
       "S-hikeR": {
         "span": [
           25,
@@ -2786,6 +2827,40 @@
           "dx": -2
         }
       },
+      "S-liftR40": {
+        "tiptoe": {
+          "side": "R",
+          "hem": 54,
+          "up": 16,
+          "shoe": 60,
+          "keep": 4,
+          "foot": {
+            "at": [
+              20,
+              44
+            ],
+            "sample": {
+              "#": [
+                21,
+                61
+              ],
+              "s": [
+                23,
+                61
+              ]
+            },
+            "rows": [
+              ".#sss#",
+              "#ssss#",
+              "#ssss#",
+              "#ssss#",
+              ".#ss#.",
+              "..##.."
+            ]
+          },
+          "z": 4
+        }
+      },
       "S-rotR2": {
         "rotate": {
           "center": 31,
@@ -2825,6 +2900,39 @@
         "plant": {
           "side": "L",
           "dx": 1
+        }
+      },
+      "N-liftR50": {
+        "tiptoe": {
+          "side": "R",
+          "hem": 54,
+          "up": 6,
+          "shoe": 60,
+          "keep": 0,
+          "foot": {
+            "at": [
+              37,
+              54
+            ],
+            "sample": {
+              "#": [
+                35,
+                61
+              ],
+              "s": [
+                37,
+                61
+              ]
+            },
+            "rows": [
+              "#sss#.",
+              "#ssss#",
+              "#ssss#",
+              "#ssss#",
+              ".#ss#.",
+              "..##.."
+            ]
+          }
         }
       },
       "N-hikeR": {
@@ -2879,6 +2987,39 @@
         "plant": {
           "side": "L",
           "dx": 2
+        }
+      },
+      "N-liftR40": {
+        "tiptoe": {
+          "side": "R",
+          "hem": 54,
+          "up": 16,
+          "shoe": 60,
+          "keep": 4,
+          "foot": {
+            "at": [
+              37,
+              44
+            ],
+            "sample": {
+              "#": [
+                35,
+                61
+              ],
+              "s": [
+                37,
+                61
+              ]
+            },
+            "rows": [
+              "#sss#.",
+              "#ssss#",
+              "#ssss#",
+              "#ssss#",
+              ".#ss#.",
+              "..##.."
+            ]
+          }
         }
       },
       "N-rotR2": {

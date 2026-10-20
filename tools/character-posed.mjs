@@ -676,7 +676,7 @@ function frontalMove(d, k, part, y, x) {
   // crouch: a view's whole figure sits lower by d.crouch rows (every leg drops that many more bob rows)
   const b = bobOf(d, k) + (d.crouch || 0), lift = d.legLift || FR.legLift, far = d.far, limb = LIMB[part];
   const c0 = d.crouch || 0, cap = b, up = Math.min(bobOf(d, (k - 1 + F) % F) + c0, cap), lo = Math.min(bobOf(d, (k - 2 + F) % F) + c0, up), dyOf = [cap, up, lo];
-  let rows, dx = 0, z = 3, legDrop = [];
+  let rows, dx = 0, z = 3, legDrop = [], zOver;
   if (limb?.[0] === 'leg') {
     const s = limb[1], n = lift[s][k] + b;
     if (bandSide(d, s, k)) rows = [];   // drawn as band legs instead (frontalLegs)
@@ -701,17 +701,20 @@ function frontalMove(d, k, part, y, x) {
     // tiptoe: the heel raised (Muay Thai lead foot seen from the front/back): the reference shoe rows (from shoe down)
     // are left out and drawn as the authored foot (frontalFrame); the hem and sock (from hem down) rise up rows, and the
     // trouser rows that would land in the up rows just above the risen hem are left out, so the shin shortens there
+    // keep: that many trouser rows just above the hem rise with it (a knee chambered toward the viewer shows as the
+    // knee block with the shin hanging below it); z: the leg's depth (in front of the torso when it comes at the viewer)
     for (const v of variantsOf(d, k)) if (v.tiptoe?.side === s) {
-      const t = v.tiptoe, pH = rowMap(t.hem, b, legDrop, [])[0];
+      const t = v.tiptoe, pH = rowMap(t.hem, b, legDrop, [])[0], top = t.hem - (t.keep || 0);
       if (y >= t.shoe) rows = [];
-      else if (y >= t.hem) rows = rows.map((r) => r - t.up);
-      else rows = rows.filter((r) => r < pH - t.up);
+      else if (y >= top) rows = rows.map((r) => r - t.up);
+      else rows = rows.filter((r) => r < pH - t.up - (t.keep || 0));
+      if (t.z !== undefined) zOver = t.z;
     }
     for (const v of variantsOf(d, k)) if (v.knee?.side === s) {
       const [h0, kn, a0] = v.knee.rows, t = y <= h0 || y >= a0 ? 0 : y <= kn ? (y - h0) / (kn - h0) : (a0 - y) / (a0 - kn);
       dx += roundHalfEven(v.knee.dx * t);
     }
-    z = s === far ? 0 : 2;
+    z = zOver ?? (s === far ? 0 : 2);
   } else if (limb?.[0] === 'arm') {
     const s = limb[1], h = d.handDy[s][k];
     rows = rowMap(y, b, h < 0 ? d.armRows[s].slice(0, -h) : [], h > 0 ? d.armRepeatRows[s].slice(0, h) : []);
@@ -838,7 +841,7 @@ function tiptoeFeet(d, k, img, fx, items) {
     const t = v.tiptoe, f = t.foot;
     if (!Object.values(f.sample).every(([sx, sy]) => opaque(img, fx + sx, sy))) continue;
     const cs = Object.fromEntries(Object.entries(f.sample).map(([c, [sx, sy]]) => [c, hexAt(img, fx + sx, sy)]));
-    f.rows.forEach((row, r) => [...row].forEach((c, j) => { if (c !== '.') items.push([t.side === d.far ? 0 : 2, f.at[0] + j, f.at[1] + r, cs[c], 'tiptoe']); }));
+    f.rows.forEach((row, r) => [...row].forEach((c, j) => { if (c !== '.') items.push([t.z ?? (t.side === d.far ? 0 : 2), f.at[0] + j, f.at[1] + r, cs[c], 'tiptoe']); }));
   }
 }
 function frontalFrame(dir, k) {

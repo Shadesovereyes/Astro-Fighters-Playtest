@@ -1768,7 +1768,8 @@
           "1": [
             "S-hikeR1",
             "bend1",
-            "S-plantL1"
+            "S-plantL1",
+            "S-liftR50"
           ],
           "2": [
             "S-hikeR",
@@ -1782,7 +1783,8 @@
             "bend2",
             "S-kneeL",
             "S-rotR",
-            "S-plantL"
+            "S-plantL",
+            "S-liftR49"
           ],
           "4": [
             "S-muayThaiGuard-kneeR0",
@@ -1794,9 +1796,9 @@
           "sides": {
             "R": [
               false,
+              false,
               true,
-              true,
-              true,
+              false,
               false
             ],
             "L": [
@@ -1810,9 +1812,9 @@
           "pose": {
             "R": [
               null,
-              "S-lift-R",
+              null,
               "S-low-R",
-              "S-recoil-R",
+              null,
               null
             ],
             "L": [
@@ -2114,7 +2116,8 @@
           "1": [
             "N-hikeR1",
             "bend1",
-            "N-plantL1"
+            "N-plantL1",
+            "N-liftR50"
           ],
           "2": [
             "N-hikeR",
@@ -2128,7 +2131,8 @@
             "bend2",
             "N-kneeL",
             "N-rotR",
-            "N-plantL"
+            "N-plantL",
+            "N-liftR49"
           ],
           "4": [
             "N-muayThaiGuard-kneeR0",
@@ -2140,9 +2144,9 @@
           "sides": {
             "R": [
               false,
+              false,
               true,
-              true,
-              true,
+              false,
               false
             ],
             "L": [
@@ -2156,9 +2160,9 @@
           "pose": {
             "R": [
               null,
-              "N-lift-R",
+              null,
               "N-low-R",
-              "N-recoil-R",
+              null,
               null
             ],
             "L": [
@@ -2323,6 +2327,39 @@
           "dx": -1
         }
       },
+      "S-liftR50": {
+        "tiptoe": {
+          "side": "R",
+          "hem": 54,
+          "up": 6,
+          "shoe": 60,
+          "keep": 0,
+          "foot": {
+            "at": [
+              20,
+              54
+            ],
+            "sample": {
+              "#": [
+                21,
+                61
+              ],
+              "s": [
+                23,
+                61
+              ]
+            },
+            "rows": [
+              ".#sss#",
+              "#ssss#",
+              "#ssss#",
+              "#ssss#",
+              ".#ss#.",
+              "..##.."
+            ]
+          }
+        }
+      },
       "S-hikeR": {
         "span": [
           25,
@@ -2380,6 +2417,39 @@
           "dx": -2
         }
       },
+      "S-liftR49": {
+        "tiptoe": {
+          "side": "R",
+          "hem": 54,
+          "up": 7,
+          "shoe": 60,
+          "keep": 0,
+          "foot": {
+            "at": [
+              20,
+              53
+            ],
+            "sample": {
+              "#": [
+                21,
+                61
+              ],
+              "s": [
+                23,
+                61
+              ]
+            },
+            "rows": [
+              ".#sss#",
+              "#ssss#",
+              "#ssss#",
+              "#ssss#",
+              ".#ss#.",
+              "..##.."
+            ]
+          }
+        }
+      },
       "N-hikeR1": {
         "span": [
           25,
@@ -2395,6 +2465,39 @@
         "plant": {
           "side": "L",
           "dx": 1
+        }
+      },
+      "N-liftR50": {
+        "tiptoe": {
+          "side": "R",
+          "hem": 54,
+          "up": 6,
+          "shoe": 60,
+          "keep": 0,
+          "foot": {
+            "at": [
+              37,
+              54
+            ],
+            "sample": {
+              "#": [
+                35,
+                61
+              ],
+              "s": [
+                37,
+                61
+              ]
+            },
+            "rows": [
+              "#sss#.",
+              "#ssss#",
+              "#ssss#",
+              "#ssss#",
+              ".#ss#.",
+              "..##.."
+            ]
+          }
         }
       },
       "N-hikeR": {
@@ -2449,6 +2552,39 @@
         "plant": {
           "side": "L",
           "dx": 2
+        }
+      },
+      "N-liftR49": {
+        "tiptoe": {
+          "side": "R",
+          "hem": 54,
+          "up": 7,
+          "shoe": 60,
+          "keep": 0,
+          "foot": {
+            "at": [
+              37,
+              53
+            ],
+            "sample": {
+              "#": [
+                35,
+                61
+              ],
+              "s": [
+                37,
+                61
+              ]
+            },
+            "rows": [
+              "#sss#.",
+              "#ssss#",
+              "#ssss#",
+              "#ssss#",
+              ".#ss#.",
+              "..##.."
+            ]
+          }
         }
       }
     }

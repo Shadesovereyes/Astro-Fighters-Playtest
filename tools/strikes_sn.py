@@ -51,21 +51,21 @@ SN = {
                       4: dict(R=(18, 192, 1, 'up'), tw=(0, -1, 0)), 5: dict(R=CROSS_S, NR=(15, None, 1, 'up'), pdx={'R': 1}, tw=(2, 3, 2)), 6: dict(R=(25, 190, 0.85, 'up'), tw=(1, 1, 1))},
  'muayThaiUppercut': {1: dict(R=(25, 150, 1, 'up'), tw=(0, -1, 0)), 2: dict(R=(-5, 185, 1, 'up'), tw=(1, 1, 1)), 3: dict(R=(-30, 192, 0.9, 'up'), pdx={'R': 1}, tw=(1, 2, 1)),
                       4: dict(R=(-10, 195, 1, 'up'), tw=(1, 1, 1))},
- 'muayThaiCalfKick': {1: dict(kick=('R', 'lift'), var=['S-hikeR1', 'bend1', 'S-plantL1']), 2: dict(R=(30, 15, 1, 'up'), kick=('R', 'low'), var=['S-hikeR', 'bend2', 'S-kneeL', 'S-rotR', 'S-plantL'], tw=(-1, 1, 2)),
-                      3: dict(kick=('R', 'recoil'), var=['S-hikeR', 'bend2', 'S-kneeL', 'S-rotR', 'S-plantL'], tw=(0, 1, 1))},
- 'muayThaiRoundhouse': {1: dict(R=(25, 185, 1, 'up'), kick=('R', 'lift'), var=['S-hikeR1', 'bend1', 'S-plantL1']),
-                        2: dict(R=(35, 60, 1, 'up'), kick=('R', 'fold'), var=['S-hikeR', 'bend2', 'S-kneeL', 'S-rotR', 'S-plantL'], tw=(1, -1, -1)),
+ 'muayThaiCalfKick': {1: dict(lift=('R', 50), var=['S-hikeR1', 'bend1', 'S-plantL1']), 2: dict(R=(30, 15, 1, 'up'), kick=('R', 'low'), var=['S-hikeR', 'bend2', 'S-kneeL', 'S-rotR', 'S-plantL'], tw=(-1, 1, 2)),
+                      3: dict(lift=('R', 49), var=['S-hikeR', 'bend2', 'S-kneeL', 'S-rotR', 'S-plantL'], tw=(0, 1, 1))},
+ 'muayThaiRoundhouse': {1: dict(R=(25, 185, 1, 'up'), lift=('R', 50), var=['S-hikeR1', 'bend1', 'S-plantL1']),
+                        2: dict(R=(35, 60, 1, 'up'), lift=('R', 40), var=['S-hikeR', 'bend2', 'S-kneeL', 'S-rotR', 'S-plantL'], tw=(1, -1, -1)),
                         3: dict(R=(40, 30, 1, 'up'), kick=('R', 'mtround-R'), var=['S-hikeR', 'bend2', 'S-kneeL', 'S-rotR2', 'S-plantL'], tw=(1, -2, -2)),
                         4: dict(R=(40, 30, 1, 'up'), kick=('R', 'mtround-R'), var=['S-hikeR', 'bend2', 'S-kneeL', 'S-rotR2', 'S-plantL'], tw=(1, -2, -2)),
-                        5: dict(R=(30, 70, 1, 'up'), kick=('R', 'fold'), var=['S-hikeR', 'bend2', 'S-kneeL', 'S-rotR', 'S-plantL'], tw=(0, -1, -1)),
-                        6: dict(R=(25, 190, 1, 'up'), kick=('R', 'lift'), var=['S-hikeR1', 'bend1', 'S-plantL1'])},
- 'muayThaiTeep': {1: dict(kick=('L', 'tchamber-L'), var=['bend1', 'S-plantR1']), 2: dict(kick=('L', 'teep-L'), var=['bend2', 'S-kneeR', 'S-plantR']),
-                  3: dict(kick=('L', 'teep-L'), var=['bend2', 'S-kneeR', 'S-plantR']), 4: dict(kick=('L', 'tchamber-L'), var=['bend1', 'S-plantR1'])},
- 'muayThaiKnee': {1: dict(R=(25, 178, 1, 'up'), L=(-25, 182, 1, 'up'), kick=('R', 'lift'), var=['S-hikeR1', 'bend1', 'S-plantL1']),
-                  2: dict(R=(30, 170, 0.9, 'up'), L=(-30, 190, 0.9, 'up'), kick=('R', 'chamber'), var=['S-hikeR', 'bend2', 'S-kneeL', 'S-plantL'], tw=(0, 1, 0)),
-                  3: dict(R=(20, 215, 0.85, 'up'), L=(-20, 145, 0.85, 'up'), kick=('R', 'chamber'), var=['S-hikeR', 'bend2', 'S-kneeL', 'S-rotR', 'S-plantL'], tw=(1, 1, 0)),
-                  4: dict(R=(20, 215, 0.85, 'up'), L=(-20, 145, 0.85, 'up'), kick=('R', 'chamber'), var=['S-hikeR', 'bend2', 'S-kneeL', 'S-rotR', 'S-plantL'], tw=(1, 1, 0)),
-                  5: dict(kick=('R', 'lift'), var=['S-hikeR1', 'bend1', 'S-plantL1'])},
+                        5: dict(R=(30, 70, 1, 'up'), lift=('R', 40), var=['S-hikeR', 'bend2', 'S-kneeL', 'S-rotR', 'S-plantL'], tw=(0, -1, -1)),
+                        6: dict(R=(25, 190, 1, 'up'), lift=('R', 50), var=['S-hikeR1', 'bend1', 'S-plantL1'])},
+ 'muayThaiTeep': {1: dict(lift=('L', 39), var=['bend1', 'S-plantR1']), 2: dict(kick=('L', 'teep-L'), var=['bend2', 'S-kneeR', 'S-plantR']),
+                  3: dict(kick=('L', 'teep-L'), var=['bend2', 'S-kneeR', 'S-plantR']), 4: dict(lift=('L', 39), var=['bend1', 'S-plantR1'])},
+ 'muayThaiKnee': {1: dict(R=(25, 178, 1, 'up'), L=(-25, 182, 1, 'up'), lift=('R', 50), var=['S-hikeR1', 'bend1', 'S-plantL1']),
+                  2: dict(R=(30, 170, 0.9, 'up'), L=(-30, 190, 0.9, 'up'), lift=('R', 43), var=['S-hikeR', 'bend2', 'S-kneeL', 'S-plantL'], tw=(0, 1, 0)),
+                  3: dict(R=(20, 215, 0.85, 'up'), L=(-20, 145, 0.85, 'up'), lift=('R', 40), var=['S-hikeR', 'bend2', 'S-kneeL', 'S-rotR', 'S-plantL'], tw=(1, 1, 0)),
+                  4: dict(R=(20, 215, 0.85, 'up'), L=(-20, 145, 0.85, 'up'), lift=('R', 40), var=['S-hikeR', 'bend2', 'S-kneeL', 'S-rotR', 'S-plantL'], tw=(1, 1, 0)),
+                  5: dict(lift=('R', 50), var=['S-hikeR1', 'bend1', 'S-plantL1'])},
  'muayThaiElbow': {1: dict(R=(45, 200, 1, 'up'), tw=(0, -1, 0)), 2: dict(R=(-70, 140, 0.8, 'up'), pdx={'R': 1}, tw=(2, 3, 2)), 3: dict(R=(-72, 138, 0.8, 'up'), pdx={'R': 1}, tw=(2, 3, 2)),
                    4: dict(R=(25, 195, 0.9, 'up'), tw=(1, 1, 1))},
  'karateHammerFist': {1: dict(R=(150, 175, 1, 'up'), tw=(0, -1, 0)), 2: dict(R=(170, 190, 1, 'up'), L=(40, None, 0.6, 'front'), tw=(0, 0, 0)),
@@ -94,6 +94,21 @@ SN = {
 # spin clips: the front/back views turn through other bodies (spinPivot frames), copied from heavyAttack's spinRoundhouse
 # borrow.byDirection (heavyAttack frame -> this state's frame)
 BORROW_SN = {'karateWhirlwind': {10: 1, 11: 2, 12: 3}}
+
+# knee lifts and chambers (Christopher 2026-10-20: the guard's knee-lift logic carried into the Muay Thai abilities): the
+# reference trouser leg stays in place, its hem and sock rise to E's rows by projection (hem outline on hemOut, sock the
+# 3 rows below it, the shoe pointing down for 5 rows with its outline on E's toe row); a knee chambered high (up >= 13)
+# keeps 4 trouser rows above the hem as the knee block and, in S, comes in front of the torso
+SOCK_X = {('S', 'L'): 37, ('S', 'R'): 21, ('N', 'L'): 21, ('N', 'R'): 37}   # the sock's left outline column (output)
+SAMPLE = {('S', 'L'): {'#': [36, 61], 's': [37, 61]}, ('S', 'R'): {'#': [21, 61], 's': [23, 61]},
+          ('N', 'L'): {'#': [21, 61], 's': [23, 61]}, ('N', 'R'): {'#': [35, 61], 's': [37, 61]}}
+FOOT_OUT = {'right': ['#sss#.', '#ssss#', '#ssss#', '#ssss#', '.#ss#.', '..##..'], 'left': ['.#sss#', '#ssss#', '#ssss#', '#ssss#', '.#ss#.', '..##..']}
+def lift_variant(d, side, hemOut):
+    up = 56 - hemOut; out = 'right' if (d, side) in (('S', 'L'), ('N', 'R')) else 'left'
+    t = {'side': side, 'hem': 54, 'up': up, 'shoe': 60, 'keep': 4 if up >= 13 else 0,
+         'foot': {'at': [SOCK_X[d, side] - (1 if out == 'left' else 0), hemOut + 4], 'sample': SAMPLE[d, side], 'rows': FOOT_OUT[out]}}
+    if d == 'S' and up >= 13: t['z'] = 4
+    return {'tiptoe': t}
 
 SN_APPROVED = {s: 'S/N approved by user 2026-10-20 (v1, b24f8f0)' for s in ('karateHammerFist', 'judoChop', 'wrestlingProwess')} | {'karateBlitz': 'S/N approved by user 2026-10-20 (v2 with motion blur, c46b181)', 'karateWhirlwind': 'S/N approved by user 2026-10-20 (v1 with swing arc, 31fb396)'}
 
@@ -138,6 +153,9 @@ def sn(state):
                 v['variants'][str(k)] = [n.replace('S-', d + '-', 1) for n in o['var']]
                 for n in v['variants'][str(k)]:
                     if n not in fr['partVariants']: fr['partVariants'][n] = copy.deepcopy(HEAVY['frontal']['partVariants'].get(n) or VARS[n])
+            if 'lift' in o:   # knee raised in front: the reference trouser leg, risen and foreshortened (stances tiptoe)
+                side, hemOut = o['lift']; tv = lift_variant(d, side, hemOut); n = '%s-lift%s%d' % (d, side, hemOut)
+                fr['partVariants'][n] = tv; v['variants'].setdefault(str(k), []).append(n)
     if state in BORROW_SN:
         hb = HEAVY['borrow']['byDirection']
         spec['borrow']['byDirection'] = {d: {str(BORROW_SN[state][int(k)]): copy.deepcopy(b) for k, b in hb[d].items()} for d in ('S', 'N')}

@@ -1822,7 +1822,8 @@
           ],
           "1": [
             "bend1",
-            "S-plantR1"
+            "S-plantR1",
+            "S-liftL39"
           ],
           "2": [
             "bend2",
@@ -1836,7 +1837,8 @@
           ],
           "4": [
             "bend1",
-            "S-plantR1"
+            "S-plantR1",
+            "S-liftL39"
           ],
           "5": [
             "S-muayThaiGuard-kneeR0",
@@ -1856,10 +1858,10 @@
             ],
             "L": [
               false,
+              false,
               true,
               true,
-              true,
-              true,
+              false,
               false
             ]
           },
@@ -1874,10 +1876,10 @@
             ],
             "L": [
               null,
-              "S-tchamber-L-d-1",
+              null,
               "S-teep-L-d-1",
               "S-teep-L-d-1",
-              "S-tchamber-L-d-1",
+              null,
               null
             ]
           },
@@ -2194,7 +2196,8 @@
           ],
           "1": [
             "bend1",
-            "N-plantR1"
+            "N-plantR1",
+            "N-liftL39"
           ],
           "2": [
             "bend2",
@@ -2208,7 +2211,8 @@
           ],
           "4": [
             "bend1",
-            "N-plantR1"
+            "N-plantR1",
+            "N-liftL39"
           ],
           "5": [
             "N-muayThaiGuard-kneeR0",
@@ -2228,10 +2232,10 @@
             ],
             "L": [
               false,
+              false,
               true,
               true,
-              true,
-              true,
+              false,
               false
             ]
           },
@@ -2246,10 +2250,10 @@
             ],
             "L": [
               null,
-              "N-tchamber-L-d-1",
+              null,
               "N-teep-L-d-1",
               "N-teep-L-d-1",
-              "N-tchamber-L-d-1",
+              null,
               null
             ]
           },
@@ -2398,6 +2402,40 @@
           "dx": 1
         }
       },
+      "S-liftL39": {
+        "tiptoe": {
+          "side": "L",
+          "hem": 54,
+          "up": 17,
+          "shoe": 60,
+          "keep": 4,
+          "foot": {
+            "at": [
+              37,
+              43
+            ],
+            "sample": {
+              "#": [
+                36,
+                61
+              ],
+              "s": [
+                37,
+                61
+              ]
+            },
+            "rows": [
+              "#sss#.",
+              "#ssss#",
+              "#ssss#",
+              "#ssss#",
+              ".#ss#.",
+              "..##.."
+            ]
+          },
+          "z": 4
+        }
+      },
       "bend2": {
         "bob": 2
       },
@@ -2422,6 +2460,39 @@
         "plant": {
           "side": "R",
           "dx": -1
+        }
+      },
+      "N-liftL39": {
+        "tiptoe": {
+          "side": "L",
+          "hem": 54,
+          "up": 17,
+          "shoe": 60,
+          "keep": 4,
+          "foot": {
+            "at": [
+              20,
+              43
+            ],
+            "sample": {
+              "#": [
+                21,
+                61
+              ],
+              "s": [
+                23,
+                61
+              ]
+            },
+            "rows": [
+              ".#sss#",
+              "#ssss#",
+              "#ssss#",
+              "#ssss#",
+              ".#ss#.",
+              "..##.."
+            ]
+          }
         }
       },
       "N-kneeR": {
