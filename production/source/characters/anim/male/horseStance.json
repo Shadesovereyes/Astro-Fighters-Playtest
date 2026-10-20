@@ -558,66 +558,6 @@
         "footX": 30,
         "wrapRow": 56,
         "foot": "flat"
-      },
-      {
-        "name": "S-horseStance-R6",
-        "construction": "band",
-        "hipX": 26,
-        "hipRow": 46,
-        "kneeX": 19,
-        "kneeRow": 49,
-        "ankle": [
-          20,
-          60
-        ],
-        "foot": "sFoot",
-        "section": "S",
-        "crease": true
-      },
-      {
-        "name": "S-horseStance-L6",
-        "construction": "band",
-        "hipX": 36,
-        "hipRow": 46,
-        "kneeX": 43,
-        "kneeRow": 49,
-        "ankle": [
-          42,
-          60
-        ],
-        "foot": "sFoot",
-        "section": "S",
-        "crease": true
-      },
-      {
-        "name": "N-horseStance-R6",
-        "construction": "band",
-        "hipX": 36,
-        "hipRow": 46,
-        "kneeX": 43,
-        "kneeRow": 49,
-        "ankle": [
-          42,
-          60
-        ],
-        "foot": "sFoot",
-        "section": "N",
-        "crease": true
-      },
-      {
-        "name": "N-horseStance-L6",
-        "construction": "band",
-        "hipX": 26,
-        "hipRow": 46,
-        "kneeX": 19,
-        "kneeRow": 49,
-        "ankle": [
-          20,
-          60
-        ],
-        "foot": "sFoot",
-        "section": "N",
-        "crease": true
       }
     ],
     "near": [
@@ -1110,17 +1050,16 @@
           ]
         },
         "legPoseRows": {
-          "plant": []
+          "plant": [],
+          "far": []
         },
         "bobRows": [
-          42,
-          43,
-          44,
-          45,
-          46,
+          49,
+          53,
           47,
-          48,
-          49
+          52,
+          45,
+          54
         ],
         "legRows": {
           "R": [
@@ -1307,16 +1246,16 @@
         },
         "footDx": {
           "R": [
-            0,
-            0,
-            0,
-            0
+            -2,
+            -2,
+            -2,
+            -2
           ],
           "L": [
-            0,
-            0,
-            0,
-            0
+            2,
+            2,
+            2,
+            2
           ]
         },
         "legPivot": 39,
@@ -1324,59 +1263,31 @@
           "R": 56,
           "L": 56
         },
-        "seat": {
-          "top": 35,
-          "depth": 1,
-          "out": 3,
-          "seam": 2
-        },
-        "legBand": {
-          "sides": {
-            "R": [
-              true,
-              true,
-              true,
-              true
-            ],
-            "L": [
-              true,
-              true,
-              true,
-              true
-            ]
-          },
-          "pose": {
-            "R": [
-              "S-horseStance-R6",
-              "S-horseStance-R6",
-              "S-horseStance-R6",
-              "S-horseStance-R6"
-            ],
-            "L": [
-              "S-horseStance-L6",
-              "S-horseStance-L6",
-              "S-horseStance-L6",
-              "S-horseStance-L6"
-            ]
-          },
-          "z": {
-            "R": [
-              1.9,
-              1.9,
-              1.9,
-              1.9
-            ],
-            "L": [
-              2,
-              2,
-              2,
-              2
-            ]
-          },
-          "offset": {
-            "R": 0,
-            "L": 0
-          }
+        "variants": {
+          "0": [
+            "S-horseStance-kneeR0",
+            "S-horseStance-kneeR1",
+            "S-horseStance-kneeL0",
+            "S-horseStance-kneeL1"
+          ],
+          "1": [
+            "S-horseStance-kneeR0",
+            "S-horseStance-kneeR1",
+            "S-horseStance-kneeL0",
+            "S-horseStance-kneeL1"
+          ],
+          "2": [
+            "S-horseStance-kneeR0",
+            "S-horseStance-kneeR1",
+            "S-horseStance-kneeL0",
+            "S-horseStance-kneeL1"
+          ],
+          "3": [
+            "S-horseStance-kneeR0",
+            "S-horseStance-kneeR1",
+            "S-horseStance-kneeL0",
+            "S-horseStance-kneeL1"
+          ]
         }
       },
       "N": {
@@ -1395,17 +1306,16 @@
           ]
         },
         "legPoseRows": {
-          "plant": []
+          "plant": [],
+          "far": []
         },
         "bobRows": [
-          42,
-          43,
-          44,
-          45,
-          46,
+          49,
+          53,
           47,
-          48,
-          49
+          52,
+          45,
+          54
         ],
         "legRows": {
           "R": [
@@ -1570,16 +1480,16 @@
         },
         "footDx": {
           "R": [
-            0,
-            0,
-            0,
-            0
+            2,
+            2,
+            2,
+            2
           ],
           "L": [
-            0,
-            0,
-            0,
-            0
+            -2,
+            -2,
+            -2,
+            -2
           ]
         },
         "legPivot": 39,
@@ -1587,59 +1497,121 @@
           "R": 56,
           "L": 56
         },
-        "seat": {
-          "top": 35,
-          "depth": 1,
-          "out": 3,
-          "seam": 2
-        },
-        "legBand": {
-          "sides": {
-            "R": [
-              true,
-              true,
-              true,
-              true
-            ],
-            "L": [
-              true,
-              true,
-              true,
-              true
-            ]
-          },
-          "pose": {
-            "R": [
-              "N-horseStance-R6",
-              "N-horseStance-R6",
-              "N-horseStance-R6",
-              "N-horseStance-R6"
-            ],
-            "L": [
-              "N-horseStance-L6",
-              "N-horseStance-L6",
-              "N-horseStance-L6",
-              "N-horseStance-L6"
-            ]
-          },
-          "z": {
-            "R": [
-              2,
-              2,
-              2,
-              2
-            ],
-            "L": [
-              1.9,
-              1.9,
-              1.9,
-              1.9
-            ]
-          },
-          "offset": {
-            "R": 0,
-            "L": 0
-          }
+        "variants": {
+          "0": [
+            "N-horseStance-kneeR0",
+            "N-horseStance-kneeR1",
+            "N-horseStance-kneeL0",
+            "N-horseStance-kneeL1"
+          ],
+          "1": [
+            "N-horseStance-kneeR0",
+            "N-horseStance-kneeR1",
+            "N-horseStance-kneeL0",
+            "N-horseStance-kneeL1"
+          ],
+          "2": [
+            "N-horseStance-kneeR0",
+            "N-horseStance-kneeR1",
+            "N-horseStance-kneeL0",
+            "N-horseStance-kneeL1"
+          ],
+          "3": [
+            "N-horseStance-kneeR0",
+            "N-horseStance-kneeR1",
+            "N-horseStance-kneeL0",
+            "N-horseStance-kneeL1"
+          ]
+        }
+      }
+    },
+    "partVariants": {
+      "S-horseStance-kneeR0": {
+        "knee": {
+          "side": "R",
+          "dx": -3,
+          "rows": [
+            41,
+            46,
+            57
+          ]
+        }
+      },
+      "S-horseStance-kneeR1": {
+        "knee": {
+          "side": "R",
+          "dx": -3,
+          "rows": [
+            41,
+            51,
+            57
+          ]
+        }
+      },
+      "S-horseStance-kneeL0": {
+        "knee": {
+          "side": "L",
+          "dx": 3,
+          "rows": [
+            41,
+            46,
+            57
+          ]
+        }
+      },
+      "S-horseStance-kneeL1": {
+        "knee": {
+          "side": "L",
+          "dx": 3,
+          "rows": [
+            41,
+            51,
+            57
+          ]
+        }
+      },
+      "N-horseStance-kneeR0": {
+        "knee": {
+          "side": "R",
+          "dx": 3,
+          "rows": [
+            41,
+            46,
+            57
+          ]
+        }
+      },
+      "N-horseStance-kneeR1": {
+        "knee": {
+          "side": "R",
+          "dx": 3,
+          "rows": [
+            41,
+            51,
+            57
+          ]
+        }
+      },
+      "N-horseStance-kneeL0": {
+        "knee": {
+          "side": "L",
+          "dx": -3,
+          "rows": [
+            41,
+            46,
+            57
+          ]
+        }
+      },
+      "N-horseStance-kneeL1": {
+        "knee": {
+          "side": "L",
+          "dx": -3,
+          "rows": [
+            41,
+            51,
+            57
+          ]
         }
       }
     }

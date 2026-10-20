@@ -657,66 +657,6 @@
         "foot": "flat"
       },
       {
-        "name": "S-muayThaiGuard-R1",
-        "construction": "band",
-        "hipX": 26,
-        "hipRow": 41,
-        "kneeX": 23,
-        "kneeRow": 51,
-        "ankle": [
-          25,
-          60
-        ],
-        "foot": "sFoot",
-        "section": "S",
-        "crease": true
-      },
-      {
-        "name": "S-muayThaiGuard-L1",
-        "construction": "band",
-        "hipX": 36,
-        "hipRow": 41,
-        "kneeX": 39,
-        "kneeRow": 51,
-        "ankle": [
-          37,
-          60
-        ],
-        "foot": "sFoot",
-        "section": "S",
-        "crease": true
-      },
-      {
-        "name": "S-muayThaiGuard-R2",
-        "construction": "band",
-        "hipX": 26,
-        "hipRow": 42,
-        "kneeX": 24,
-        "kneeRow": 51,
-        "ankle": [
-          25,
-          60
-        ],
-        "foot": "sFoot",
-        "section": "S",
-        "crease": true
-      },
-      {
-        "name": "S-muayThaiGuard-L2",
-        "construction": "band",
-        "hipX": 36,
-        "hipRow": 42,
-        "kneeX": 38,
-        "kneeRow": 51,
-        "ankle": [
-          37,
-          60
-        ],
-        "foot": "sFoot",
-        "section": "S",
-        "crease": true
-      },
-      {
         "name": "S-muayThaiGuard-liftL1",
         "construction": "band",
         "hipX": 36,
@@ -729,66 +669,6 @@
         ],
         "foot": "sFoot",
         "section": "S",
-        "crease": true
-      },
-      {
-        "name": "N-muayThaiGuard-R1",
-        "construction": "band",
-        "hipX": 36,
-        "hipRow": 41,
-        "kneeX": 39,
-        "kneeRow": 51,
-        "ankle": [
-          37,
-          60
-        ],
-        "foot": "sFoot",
-        "section": "N",
-        "crease": true
-      },
-      {
-        "name": "N-muayThaiGuard-L1",
-        "construction": "band",
-        "hipX": 26,
-        "hipRow": 41,
-        "kneeX": 23,
-        "kneeRow": 51,
-        "ankle": [
-          25,
-          60
-        ],
-        "foot": "sFoot",
-        "section": "N",
-        "crease": true
-      },
-      {
-        "name": "N-muayThaiGuard-R2",
-        "construction": "band",
-        "hipX": 36,
-        "hipRow": 42,
-        "kneeX": 38,
-        "kneeRow": 51,
-        "ankle": [
-          37,
-          60
-        ],
-        "foot": "sFoot",
-        "section": "N",
-        "crease": true
-      },
-      {
-        "name": "N-muayThaiGuard-L2",
-        "construction": "band",
-        "hipX": 26,
-        "hipRow": 42,
-        "kneeX": 24,
-        "kneeRow": 51,
-        "ankle": [
-          25,
-          60
-        ],
-        "foot": "sFoot",
-        "section": "N",
         "crease": true
       },
       {
@@ -1401,13 +1281,12 @@
           ]
         },
         "legPoseRows": {
-          "plant": []
+          "plant": [],
+          "far": []
         },
         "bobRows": [
-          42,
-          43,
-          44,
-          45
+          49,
+          53
         ],
         "legRows": {
           "R": [
@@ -1686,24 +1565,24 @@
         },
         "footDx": {
           "R": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
+            -1,
+            -1,
+            -1,
+            -1,
+            -1,
+            -1,
+            -1,
+            -1
           ],
           "L": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
           ]
         },
         "legPivot": 39,
@@ -1711,67 +1590,95 @@
           "R": 56,
           "L": 56
         },
-        "seat": {
-          "top": 35,
-          "depth": 1,
-          "out": 3,
-          "seam": 2
+        "variants": {
+          "0": [
+            "S-muayThaiGuard-kneeR0",
+            "S-muayThaiGuard-kneeL0"
+          ],
+          "1": [
+            "S-muayThaiGuard-kneeR0",
+            "S-muayThaiGuard-kneeL0"
+          ],
+          "2": [
+            "S-muayThaiGuard-kneeR0",
+            "S-muayThaiGuard-kneeL0"
+          ],
+          "3": [
+            "S-muayThaiGuard-kneeR0",
+            "S-muayThaiGuard-kneeL0"
+          ],
+          "4": [
+            "S-muayThaiGuard-kneeR0",
+            "S-muayThaiGuard-kneeL0"
+          ],
+          "5": [
+            "S-muayThaiGuard-kneeR0",
+            "S-muayThaiGuard-kneeL0"
+          ],
+          "6": [
+            "S-muayThaiGuard-kneeR0",
+            "S-muayThaiGuard-kneeL0"
+          ],
+          "7": [
+            "S-muayThaiGuard-kneeR0",
+            "S-muayThaiGuard-kneeL0"
+          ]
         },
         "legBand": {
           "sides": {
             "R": [
-              true,
-              true,
-              true,
-              true,
-              true,
-              true,
-              true,
-              true
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false
             ],
             "L": [
+              false,
+              false,
+              false,
               true,
               true,
-              true,
-              true,
-              true,
-              true,
-              true,
-              true
+              false,
+              false,
+              false
             ]
           },
           "pose": {
             "R": [
-              "S-muayThaiGuard-R1",
-              "S-muayThaiGuard-R1",
-              "S-muayThaiGuard-R1",
-              "S-muayThaiGuard-R1",
-              "S-muayThaiGuard-R1",
-              "S-muayThaiGuard-R2",
-              "S-muayThaiGuard-R2",
-              "S-muayThaiGuard-R1"
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null
             ],
             "L": [
-              "S-muayThaiGuard-L1",
-              "S-muayThaiGuard-L1",
-              "S-muayThaiGuard-L1",
+              null,
+              null,
+              null,
               "S-muayThaiGuard-liftL1",
               "S-muayThaiGuard-liftL1",
-              "S-muayThaiGuard-L2",
-              "S-muayThaiGuard-L2",
-              "S-muayThaiGuard-L1"
+              null,
+              null,
+              null
             ]
           },
           "z": {
             "R": [
-              1.9,
-              1.9,
-              1.9,
-              1.9,
-              1.9,
-              1.9,
-              1.9,
-              1.9
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2
             ],
             "L": [
               2,
@@ -1814,13 +1721,12 @@
           ]
         },
         "legPoseRows": {
-          "plant": []
+          "plant": [],
+          "far": []
         },
         "bobRows": [
-          42,
-          43,
-          44,
-          45
+          49,
+          53
         ],
         "legRows": {
           "R": [
@@ -2099,24 +2005,24 @@
         },
         "footDx": {
           "R": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
           ],
           "L": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
+            -1,
+            -1,
+            -1,
+            -1,
+            -1,
+            -1,
+            -1,
+            -1
           ]
         },
         "legPivot": 39,
@@ -2124,55 +2030,83 @@
           "R": 56,
           "L": 56
         },
-        "seat": {
-          "top": 35,
-          "depth": 1,
-          "out": 3,
-          "seam": 2
+        "variants": {
+          "0": [
+            "N-muayThaiGuard-kneeR0",
+            "N-muayThaiGuard-kneeL0"
+          ],
+          "1": [
+            "N-muayThaiGuard-kneeR0",
+            "N-muayThaiGuard-kneeL0"
+          ],
+          "2": [
+            "N-muayThaiGuard-kneeR0",
+            "N-muayThaiGuard-kneeL0"
+          ],
+          "3": [
+            "N-muayThaiGuard-kneeR0",
+            "N-muayThaiGuard-kneeL0"
+          ],
+          "4": [
+            "N-muayThaiGuard-kneeR0",
+            "N-muayThaiGuard-kneeL0"
+          ],
+          "5": [
+            "N-muayThaiGuard-kneeR0",
+            "N-muayThaiGuard-kneeL0"
+          ],
+          "6": [
+            "N-muayThaiGuard-kneeR0",
+            "N-muayThaiGuard-kneeL0"
+          ],
+          "7": [
+            "N-muayThaiGuard-kneeR0",
+            "N-muayThaiGuard-kneeL0"
+          ]
         },
         "legBand": {
           "sides": {
             "R": [
-              true,
-              true,
-              true,
-              true,
-              true,
-              true,
-              true,
-              true
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false
             ],
             "L": [
+              false,
+              false,
+              false,
               true,
               true,
-              true,
-              true,
-              true,
-              true,
-              true,
-              true
+              false,
+              false,
+              false
             ]
           },
           "pose": {
             "R": [
-              "N-muayThaiGuard-R1",
-              "N-muayThaiGuard-R1",
-              "N-muayThaiGuard-R1",
-              "N-muayThaiGuard-R1",
-              "N-muayThaiGuard-R1",
-              "N-muayThaiGuard-R2",
-              "N-muayThaiGuard-R2",
-              "N-muayThaiGuard-R1"
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null
             ],
             "L": [
-              "N-muayThaiGuard-L1",
-              "N-muayThaiGuard-L1",
-              "N-muayThaiGuard-L1",
+              null,
+              null,
+              null,
               "N-muayThaiGuard-liftL1",
               "N-muayThaiGuard-liftL1",
-              "N-muayThaiGuard-L2",
-              "N-muayThaiGuard-L2",
-              "N-muayThaiGuard-L1"
+              null,
+              null,
+              null
             ]
           },
           "z": {
@@ -2187,20 +2121,66 @@
               2
             ],
             "L": [
-              1.9,
-              1.9,
-              1.9,
-              1.9,
-              1.9,
-              1.9,
-              1.9,
-              1.9
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2
             ]
           },
           "offset": {
             "R": 0,
             "L": 0
           }
+        }
+      }
+    },
+    "partVariants": {
+      "S-muayThaiGuard-kneeR0": {
+        "knee": {
+          "side": "R",
+          "dx": -1,
+          "rows": [
+            41,
+            46,
+            57
+          ]
+        }
+      },
+      "S-muayThaiGuard-kneeL0": {
+        "knee": {
+          "side": "L",
+          "dx": 1,
+          "rows": [
+            41,
+            46,
+            57
+          ]
+        }
+      },
+      "N-muayThaiGuard-kneeR0": {
+        "knee": {
+          "side": "R",
+          "dx": 1,
+          "rows": [
+            41,
+            46,
+            57
+          ]
+        }
+      },
+      "N-muayThaiGuard-kneeL0": {
+        "knee": {
+          "side": "L",
+          "dx": -1,
+          "rows": [
+            41,
+            46,
+            57
+          ]
         }
       }
     }

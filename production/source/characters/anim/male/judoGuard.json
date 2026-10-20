@@ -558,126 +558,6 @@
         "footX": 24,
         "wrapRow": 56,
         "foot": "flat"
-      },
-      {
-        "name": "S-judoGuard-R1",
-        "construction": "band",
-        "hipX": 26,
-        "hipRow": 41,
-        "kneeX": 21,
-        "kneeRow": 49,
-        "ankle": [
-          24,
-          57
-        ],
-        "foot": "sFoot",
-        "section": "S",
-        "crease": true
-      },
-      {
-        "name": "S-judoGuard-L1",
-        "construction": "band",
-        "hipX": 36,
-        "hipRow": 41,
-        "kneeX": 41,
-        "kneeRow": 51,
-        "ankle": [
-          39,
-          60
-        ],
-        "foot": "sFoot",
-        "section": "S",
-        "crease": true
-      },
-      {
-        "name": "S-judoGuard-R2",
-        "construction": "band",
-        "hipX": 26,
-        "hipRow": 42,
-        "kneeX": 21,
-        "kneeRow": 50,
-        "ankle": [
-          24,
-          57
-        ],
-        "foot": "sFoot",
-        "section": "S",
-        "crease": true
-      },
-      {
-        "name": "S-judoGuard-L2",
-        "construction": "band",
-        "hipX": 36,
-        "hipRow": 42,
-        "kneeX": 41,
-        "kneeRow": 51,
-        "ankle": [
-          39,
-          60
-        ],
-        "foot": "sFoot",
-        "section": "S",
-        "crease": true
-      },
-      {
-        "name": "N-judoGuard-R1",
-        "construction": "band",
-        "hipX": 36,
-        "hipRow": 41,
-        "kneeX": 41,
-        "kneeRow": 51,
-        "ankle": [
-          39,
-          60
-        ],
-        "foot": "sFoot",
-        "section": "N",
-        "crease": true
-      },
-      {
-        "name": "N-judoGuard-L1",
-        "construction": "band",
-        "hipX": 26,
-        "hipRow": 41,
-        "kneeX": 21,
-        "kneeRow": 49,
-        "ankle": [
-          24,
-          57
-        ],
-        "foot": "sFoot",
-        "section": "N",
-        "crease": true
-      },
-      {
-        "name": "N-judoGuard-R2",
-        "construction": "band",
-        "hipX": 36,
-        "hipRow": 42,
-        "kneeX": 41,
-        "kneeRow": 51,
-        "ankle": [
-          39,
-          60
-        ],
-        "foot": "sFoot",
-        "section": "N",
-        "crease": true
-      },
-      {
-        "name": "N-judoGuard-L2",
-        "construction": "band",
-        "hipX": 26,
-        "hipRow": 42,
-        "kneeX": 21,
-        "kneeRow": 50,
-        "ankle": [
-          24,
-          57
-        ],
-        "foot": "sFoot",
-        "section": "N",
-        "crease": true
       }
     ],
     "near": [
@@ -1165,10 +1045,10 @@
       "S": {
         "legPose": {
           "R": [
-            "plant",
-            "plant",
-            "plant",
-            "plant"
+            "far",
+            "far",
+            "far",
+            "far"
           ],
           "L": [
             "plant",
@@ -1178,13 +1058,15 @@
           ]
         },
         "legPoseRows": {
-          "plant": []
+          "plant": [],
+          "far": [
+            47,
+            52
+          ]
         },
         "bobRows": [
-          42,
-          43,
-          44,
-          45
+          49,
+          53
         ],
         "legRows": {
           "R": [
@@ -1347,16 +1229,16 @@
         },
         "footDx": {
           "R": [
-            0,
-            0,
-            0,
-            0
+            -2,
+            -2,
+            -2,
+            -2
           ],
           "L": [
-            0,
-            0,
-            0,
-            0
+            2,
+            2,
+            2,
+            2
           ]
         },
         "legPivot": 39,
@@ -1364,59 +1246,31 @@
           "R": 56,
           "L": 56
         },
-        "seat": {
-          "top": 35,
-          "depth": 1,
-          "out": 3,
-          "seam": 2
-        },
-        "legBand": {
-          "sides": {
-            "R": [
-              true,
-              true,
-              true,
-              true
-            ],
-            "L": [
-              true,
-              true,
-              true,
-              true
-            ]
-          },
-          "pose": {
-            "R": [
-              "S-judoGuard-R1",
-              "S-judoGuard-R1",
-              "S-judoGuard-R2",
-              "S-judoGuard-R2"
-            ],
-            "L": [
-              "S-judoGuard-L1",
-              "S-judoGuard-L1",
-              "S-judoGuard-L2",
-              "S-judoGuard-L2"
-            ]
-          },
-          "z": {
-            "R": [
-              1.9,
-              1.9,
-              1.9,
-              1.9
-            ],
-            "L": [
-              2,
-              2,
-              2,
-              2
-            ]
-          },
-          "offset": {
-            "R": 0,
-            "L": 0
-          }
+        "variants": {
+          "0": [
+            "S-judoGuard-kneeR0",
+            "S-judoGuard-kneeR1",
+            "S-judoGuard-kneeL0",
+            "S-judoGuard-kneeL1"
+          ],
+          "1": [
+            "S-judoGuard-kneeR0",
+            "S-judoGuard-kneeR1",
+            "S-judoGuard-kneeL0",
+            "S-judoGuard-kneeL1"
+          ],
+          "2": [
+            "S-judoGuard-kneeR0",
+            "S-judoGuard-kneeR1",
+            "S-judoGuard-kneeL0",
+            "S-judoGuard-kneeL1"
+          ],
+          "3": [
+            "S-judoGuard-kneeR0",
+            "S-judoGuard-kneeR1",
+            "S-judoGuard-kneeL0",
+            "S-judoGuard-kneeL1"
+          ]
         },
         "torsoDrop": 1
       },
@@ -1429,20 +1283,22 @@
             "plant"
           ],
           "L": [
-            "plant",
-            "plant",
-            "plant",
-            "plant"
+            "far",
+            "far",
+            "far",
+            "far"
           ]
         },
         "legPoseRows": {
-          "plant": []
+          "plant": [],
+          "far": [
+            47,
+            52
+          ]
         },
         "bobRows": [
-          42,
-          43,
-          44,
-          45
+          49,
+          53
         ],
         "legRows": {
           "R": [
@@ -1607,16 +1463,16 @@
         },
         "footDx": {
           "R": [
-            0,
-            0,
-            0,
-            0
+            2,
+            2,
+            2,
+            2
           ],
           "L": [
-            0,
-            0,
-            0,
-            0
+            -2,
+            -2,
+            -2,
+            -2
           ]
         },
         "legPivot": 39,
@@ -1624,61 +1480,123 @@
           "R": 56,
           "L": 56
         },
-        "seat": {
-          "top": 35,
-          "depth": 1,
-          "out": 3,
-          "seam": 2
-        },
-        "legBand": {
-          "sides": {
-            "R": [
-              true,
-              true,
-              true,
-              true
-            ],
-            "L": [
-              true,
-              true,
-              true,
-              true
-            ]
-          },
-          "pose": {
-            "R": [
-              "N-judoGuard-R1",
-              "N-judoGuard-R1",
-              "N-judoGuard-R2",
-              "N-judoGuard-R2"
-            ],
-            "L": [
-              "N-judoGuard-L1",
-              "N-judoGuard-L1",
-              "N-judoGuard-L2",
-              "N-judoGuard-L2"
-            ]
-          },
-          "z": {
-            "R": [
-              2,
-              2,
-              2,
-              2
-            ],
-            "L": [
-              1.9,
-              1.9,
-              1.9,
-              1.9
-            ]
-          },
-          "offset": {
-            "R": 0,
-            "L": 0
-          }
+        "variants": {
+          "0": [
+            "N-judoGuard-kneeR0",
+            "N-judoGuard-kneeR1",
+            "N-judoGuard-kneeL0",
+            "N-judoGuard-kneeL1"
+          ],
+          "1": [
+            "N-judoGuard-kneeR0",
+            "N-judoGuard-kneeR1",
+            "N-judoGuard-kneeL0",
+            "N-judoGuard-kneeL1"
+          ],
+          "2": [
+            "N-judoGuard-kneeR0",
+            "N-judoGuard-kneeR1",
+            "N-judoGuard-kneeL0",
+            "N-judoGuard-kneeL1"
+          ],
+          "3": [
+            "N-judoGuard-kneeR0",
+            "N-judoGuard-kneeR1",
+            "N-judoGuard-kneeL0",
+            "N-judoGuard-kneeL1"
+          ]
         },
         "torsoDrop": 1
+      }
+    },
+    "partVariants": {
+      "S-judoGuard-kneeR0": {
+        "knee": {
+          "side": "R",
+          "dx": -2,
+          "rows": [
+            41,
+            46,
+            57
+          ]
+        }
+      },
+      "S-judoGuard-kneeR1": {
+        "knee": {
+          "side": "R",
+          "dx": -1,
+          "rows": [
+            41,
+            51,
+            57
+          ]
+        }
+      },
+      "S-judoGuard-kneeL0": {
+        "knee": {
+          "side": "L",
+          "dx": 1,
+          "rows": [
+            41,
+            46,
+            57
+          ]
+        }
+      },
+      "S-judoGuard-kneeL1": {
+        "knee": {
+          "side": "L",
+          "dx": 1,
+          "rows": [
+            41,
+            51,
+            57
+          ]
+        }
+      },
+      "N-judoGuard-kneeR0": {
+        "knee": {
+          "side": "R",
+          "dx": 1,
+          "rows": [
+            41,
+            46,
+            57
+          ]
+        }
+      },
+      "N-judoGuard-kneeR1": {
+        "knee": {
+          "side": "R",
+          "dx": 1,
+          "rows": [
+            41,
+            51,
+            57
+          ]
+        }
+      },
+      "N-judoGuard-kneeL0": {
+        "knee": {
+          "side": "L",
+          "dx": -2,
+          "rows": [
+            41,
+            46,
+            57
+          ]
+        }
+      },
+      "N-judoGuard-kneeL1": {
+        "knee": {
+          "side": "L",
+          "dx": -1,
+          "rows": [
+            41,
+            51,
+            57
+          ]
+        }
       }
     }
   }

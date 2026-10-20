@@ -1140,22 +1140,6 @@ function frontalClothing(l, geom, px, k) {
     const byRow = {};
     for (const p of clothingPixels(l, spec.sourceDirection, false)) if (LIMB[p.part]?.[0] === 'leg') (byRow[p.y] ??= []).push(p);
     if (Object.keys(byRow).length) for (const lg of frontalLegs(d, k)) legGarment(l, items, byRow, lg.isFar, lg.z, lg.pose, lg.legMap);
-    // seat: one trouser piece over the pelvis and the tops of both thighs (from seat.top, a reference row moved with the
-    // bob, to seat.depth rows below the hips, seat.out px past each hip), drawn over the leg garments and the reference
-    // pelvis cloth, so the thighs come out from under it with no outline across the seat; a short seam marks the crotch
-    const lgs = frontalLegs(d, k), T = l.trouser;
-    if (d.seat && T && lgs.length === 2) {
-      const hx = lgs.map((g) => g.pose.hipX), hr = Math.min(...lgs.map((g) => g.pose.hipRow));
-      const x0 = Math.min(...hx) - d.seat.out, x1 = Math.max(...hx) + d.seat.out, y0 = d.seat.top + bobOf(d, k) + (d.crouch || 0), y1 = hr + d.seat.depth;
-      const mid = (x0 + x1) / 2, seam = d.seat.seam ?? 2;
-      for (let y = y0; y <= y1; y++) for (let x = x0; x <= x1; x++) {
-        const e = Math.min(x - x0, x1 - x);
-        if (y === y1 && e === 0) continue;   // rounded bottom corners
-        let c = e <= 1 ? 'c' : Math.abs(x - mid) <= 2 ? 'b' : 'c';
-        if (y > y1 - seam && Math.abs(x - mid) < 0.75) c = 'd';
-        items.push([2.6, x, y, T.colours[c], null]);
-      }
-    }
   }
   for (const p of px) {
     const part = p.part === 'sash' && isBand(p, l) ? 'pelvis' : p.part;

@@ -580,126 +580,6 @@
         "footX": 23,
         "wrapRow": 56,
         "foot": "flat"
-      },
-      {
-        "name": "S-wrestlingGuard-R6",
-        "construction": "band",
-        "hipX": 26,
-        "hipRow": 46,
-        "kneeX": 18,
-        "kneeRow": 51,
-        "ankle": [
-          23,
-          56
-        ],
-        "foot": "sFoot",
-        "section": "S",
-        "crease": true
-      },
-      {
-        "name": "S-wrestlingGuard-L6",
-        "construction": "band",
-        "hipX": 36,
-        "hipRow": 46,
-        "kneeX": 43,
-        "kneeRow": 53,
-        "ankle": [
-          40,
-          60
-        ],
-        "foot": "sFoot",
-        "section": "S",
-        "crease": true
-      },
-      {
-        "name": "S-wrestlingGuard-R7",
-        "construction": "band",
-        "hipX": 26,
-        "hipRow": 47,
-        "kneeX": 18,
-        "kneeRow": 52,
-        "ankle": [
-          23,
-          56
-        ],
-        "foot": "sFoot",
-        "section": "S",
-        "crease": true
-      },
-      {
-        "name": "S-wrestlingGuard-L7",
-        "construction": "band",
-        "hipX": 36,
-        "hipRow": 47,
-        "kneeX": 43,
-        "kneeRow": 54,
-        "ankle": [
-          40,
-          60
-        ],
-        "foot": "sFoot",
-        "section": "S",
-        "crease": true
-      },
-      {
-        "name": "N-wrestlingGuard-R6",
-        "construction": "band",
-        "hipX": 36,
-        "hipRow": 46,
-        "kneeX": 43,
-        "kneeRow": 53,
-        "ankle": [
-          40,
-          60
-        ],
-        "foot": "sFoot",
-        "section": "N",
-        "crease": true
-      },
-      {
-        "name": "N-wrestlingGuard-L6",
-        "construction": "band",
-        "hipX": 26,
-        "hipRow": 46,
-        "kneeX": 18,
-        "kneeRow": 51,
-        "ankle": [
-          23,
-          56
-        ],
-        "foot": "sFoot",
-        "section": "N",
-        "crease": true
-      },
-      {
-        "name": "N-wrestlingGuard-R7",
-        "construction": "band",
-        "hipX": 36,
-        "hipRow": 47,
-        "kneeX": 43,
-        "kneeRow": 54,
-        "ankle": [
-          40,
-          60
-        ],
-        "foot": "sFoot",
-        "section": "N",
-        "crease": true
-      },
-      {
-        "name": "N-wrestlingGuard-L7",
-        "construction": "band",
-        "hipX": 26,
-        "hipRow": 47,
-        "kneeX": 18,
-        "kneeRow": 52,
-        "ankle": [
-          23,
-          56
-        ],
-        "foot": "sFoot",
-        "section": "N",
-        "crease": true
       }
     ],
     "near": [
@@ -1187,10 +1067,10 @@
       "S": {
         "legPose": {
           "R": [
-            "plant",
-            "plant",
-            "plant",
-            "plant"
+            "far",
+            "far",
+            "far",
+            "far"
           ],
           "L": [
             "plant",
@@ -1200,18 +1080,21 @@
           ]
         },
         "legPoseRows": {
-          "plant": []
+          "plant": [],
+          "far": [
+            51,
+            46,
+            55
+          ]
         },
         "bobRows": [
-          42,
-          43,
-          44,
-          45,
-          46,
-          47,
-          48,
           49,
-          50
+          53,
+          47,
+          52,
+          45,
+          54,
+          48
         ],
         "legRows": {
           "R": [
@@ -1374,16 +1257,16 @@
         },
         "footDx": {
           "R": [
-            0,
-            0,
-            0,
-            0
+            -2,
+            -2,
+            -2,
+            -2
           ],
           "L": [
-            0,
-            0,
-            0,
-            0
+            2,
+            2,
+            2,
+            2
           ]
         },
         "legPivot": 39,
@@ -1391,59 +1274,31 @@
           "R": 56,
           "L": 56
         },
-        "seat": {
-          "top": 35,
-          "depth": 1,
-          "out": 3,
-          "seam": 2
-        },
-        "legBand": {
-          "sides": {
-            "R": [
-              true,
-              true,
-              true,
-              true
-            ],
-            "L": [
-              true,
-              true,
-              true,
-              true
-            ]
-          },
-          "pose": {
-            "R": [
-              "S-wrestlingGuard-R6",
-              "S-wrestlingGuard-R6",
-              "S-wrestlingGuard-R7",
-              "S-wrestlingGuard-R7"
-            ],
-            "L": [
-              "S-wrestlingGuard-L6",
-              "S-wrestlingGuard-L6",
-              "S-wrestlingGuard-L7",
-              "S-wrestlingGuard-L7"
-            ]
-          },
-          "z": {
-            "R": [
-              1.9,
-              1.9,
-              1.9,
-              1.9
-            ],
-            "L": [
-              2,
-              2,
-              2,
-              2
-            ]
-          },
-          "offset": {
-            "R": 0,
-            "L": 0
-          }
+        "variants": {
+          "0": [
+            "S-wrestlingGuard-kneeR0",
+            "S-wrestlingGuard-kneeR1",
+            "S-wrestlingGuard-kneeL0",
+            "S-wrestlingGuard-kneeL1"
+          ],
+          "1": [
+            "S-wrestlingGuard-kneeR0",
+            "S-wrestlingGuard-kneeR1",
+            "S-wrestlingGuard-kneeL0",
+            "S-wrestlingGuard-kneeL1"
+          ],
+          "2": [
+            "S-wrestlingGuard-kneeR0",
+            "S-wrestlingGuard-kneeR1",
+            "S-wrestlingGuard-kneeL0",
+            "S-wrestlingGuard-kneeL1"
+          ],
+          "3": [
+            "S-wrestlingGuard-kneeR0",
+            "S-wrestlingGuard-kneeR1",
+            "S-wrestlingGuard-kneeL0",
+            "S-wrestlingGuard-kneeL1"
+          ]
         },
         "torsoDrop": 3
       },
@@ -1456,25 +1311,28 @@
             "plant"
           ],
           "L": [
-            "plant",
-            "plant",
-            "plant",
-            "plant"
+            "far",
+            "far",
+            "far",
+            "far"
           ]
         },
         "legPoseRows": {
-          "plant": []
+          "plant": [],
+          "far": [
+            51,
+            46,
+            55
+          ]
         },
         "bobRows": [
-          42,
-          43,
-          44,
-          45,
-          46,
-          47,
-          48,
           49,
-          50
+          53,
+          47,
+          52,
+          45,
+          54,
+          48
         ],
         "legRows": {
           "R": [
@@ -1639,16 +1497,16 @@
         },
         "footDx": {
           "R": [
-            0,
-            0,
-            0,
-            0
+            2,
+            2,
+            2,
+            2
           ],
           "L": [
-            0,
-            0,
-            0,
-            0
+            -2,
+            -2,
+            -2,
+            -2
           ]
         },
         "legPivot": 39,
@@ -1656,61 +1514,123 @@
           "R": 56,
           "L": 56
         },
-        "seat": {
-          "top": 35,
-          "depth": 1,
-          "out": 3,
-          "seam": 2
-        },
-        "legBand": {
-          "sides": {
-            "R": [
-              true,
-              true,
-              true,
-              true
-            ],
-            "L": [
-              true,
-              true,
-              true,
-              true
-            ]
-          },
-          "pose": {
-            "R": [
-              "N-wrestlingGuard-R6",
-              "N-wrestlingGuard-R6",
-              "N-wrestlingGuard-R7",
-              "N-wrestlingGuard-R7"
-            ],
-            "L": [
-              "N-wrestlingGuard-L6",
-              "N-wrestlingGuard-L6",
-              "N-wrestlingGuard-L7",
-              "N-wrestlingGuard-L7"
-            ]
-          },
-          "z": {
-            "R": [
-              2,
-              2,
-              2,
-              2
-            ],
-            "L": [
-              1.9,
-              1.9,
-              1.9,
-              1.9
-            ]
-          },
-          "offset": {
-            "R": 0,
-            "L": 0
-          }
+        "variants": {
+          "0": [
+            "N-wrestlingGuard-kneeR0",
+            "N-wrestlingGuard-kneeR1",
+            "N-wrestlingGuard-kneeL0",
+            "N-wrestlingGuard-kneeL1"
+          ],
+          "1": [
+            "N-wrestlingGuard-kneeR0",
+            "N-wrestlingGuard-kneeR1",
+            "N-wrestlingGuard-kneeL0",
+            "N-wrestlingGuard-kneeL1"
+          ],
+          "2": [
+            "N-wrestlingGuard-kneeR0",
+            "N-wrestlingGuard-kneeR1",
+            "N-wrestlingGuard-kneeL0",
+            "N-wrestlingGuard-kneeL1"
+          ],
+          "3": [
+            "N-wrestlingGuard-kneeR0",
+            "N-wrestlingGuard-kneeR1",
+            "N-wrestlingGuard-kneeL0",
+            "N-wrestlingGuard-kneeL1"
+          ]
         },
         "torsoDrop": 3
+      }
+    },
+    "partVariants": {
+      "S-wrestlingGuard-kneeR0": {
+        "knee": {
+          "side": "R",
+          "dx": -3,
+          "rows": [
+            41,
+            46,
+            57
+          ]
+        }
+      },
+      "S-wrestlingGuard-kneeR1": {
+        "knee": {
+          "side": "R",
+          "dx": -3,
+          "rows": [
+            41,
+            51,
+            57
+          ]
+        }
+      },
+      "S-wrestlingGuard-kneeL0": {
+        "knee": {
+          "side": "L",
+          "dx": 3,
+          "rows": [
+            41,
+            46,
+            57
+          ]
+        }
+      },
+      "S-wrestlingGuard-kneeL1": {
+        "knee": {
+          "side": "L",
+          "dx": 2,
+          "rows": [
+            41,
+            51,
+            57
+          ]
+        }
+      },
+      "N-wrestlingGuard-kneeR0": {
+        "knee": {
+          "side": "R",
+          "dx": 3,
+          "rows": [
+            41,
+            46,
+            57
+          ]
+        }
+      },
+      "N-wrestlingGuard-kneeR1": {
+        "knee": {
+          "side": "R",
+          "dx": 2,
+          "rows": [
+            41,
+            51,
+            57
+          ]
+        }
+      },
+      "N-wrestlingGuard-kneeL0": {
+        "knee": {
+          "side": "L",
+          "dx": -3,
+          "rows": [
+            41,
+            46,
+            57
+          ]
+        }
+      },
+      "N-wrestlingGuard-kneeL1": {
+        "knee": {
+          "side": "L",
+          "dx": -3,
+          "rows": [
+            41,
+            51,
+            57
+          ]
+        }
       }
     }
   }

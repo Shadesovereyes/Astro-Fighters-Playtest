@@ -558,126 +558,6 @@
         "footX": 21,
         "wrapRow": 56,
         "foot": "flat"
-      },
-      {
-        "name": "S-karateGuard-R2",
-        "construction": "band",
-        "hipX": 26,
-        "hipRow": 42,
-        "kneeX": 24,
-        "kneeRow": 49,
-        "ankle": [
-          22,
-          56
-        ],
-        "foot": "sFoot",
-        "section": "S",
-        "crease": true
-      },
-      {
-        "name": "S-karateGuard-L2",
-        "construction": "band",
-        "hipX": 36,
-        "hipRow": 42,
-        "kneeX": 41,
-        "kneeRow": 51,
-        "ankle": [
-          41,
-          60
-        ],
-        "foot": "sFoot",
-        "section": "S",
-        "crease": true
-      },
-      {
-        "name": "S-karateGuard-R3",
-        "construction": "band",
-        "hipX": 26,
-        "hipRow": 43,
-        "kneeX": 24,
-        "kneeRow": 50,
-        "ankle": [
-          22,
-          56
-        ],
-        "foot": "sFoot",
-        "section": "S",
-        "crease": true
-      },
-      {
-        "name": "S-karateGuard-L3",
-        "construction": "band",
-        "hipX": 36,
-        "hipRow": 43,
-        "kneeX": 42,
-        "kneeRow": 52,
-        "ankle": [
-          41,
-          60
-        ],
-        "foot": "sFoot",
-        "section": "S",
-        "crease": true
-      },
-      {
-        "name": "N-karateGuard-R2",
-        "construction": "band",
-        "hipX": 36,
-        "hipRow": 42,
-        "kneeX": 38,
-        "kneeRow": 51,
-        "ankle": [
-          41,
-          60
-        ],
-        "foot": "sFoot",
-        "section": "N",
-        "crease": true
-      },
-      {
-        "name": "N-karateGuard-L2",
-        "construction": "band",
-        "hipX": 26,
-        "hipRow": 42,
-        "kneeX": 21,
-        "kneeRow": 49,
-        "ankle": [
-          22,
-          56
-        ],
-        "foot": "sFoot",
-        "section": "N",
-        "crease": true
-      },
-      {
-        "name": "N-karateGuard-R3",
-        "construction": "band",
-        "hipX": 36,
-        "hipRow": 43,
-        "kneeX": 39,
-        "kneeRow": 52,
-        "ankle": [
-          41,
-          60
-        ],
-        "foot": "sFoot",
-        "section": "N",
-        "crease": true
-      },
-      {
-        "name": "N-karateGuard-L3",
-        "construction": "band",
-        "hipX": 26,
-        "hipRow": 43,
-        "kneeX": 21,
-        "kneeRow": 50,
-        "ankle": [
-          22,
-          56
-        ],
-        "foot": "sFoot",
-        "section": "N",
-        "crease": true
       }
     ],
     "near": [
@@ -1158,10 +1038,10 @@
       "S": {
         "legPose": {
           "R": [
-            "plant",
-            "plant",
-            "plant",
-            "plant"
+            "far",
+            "far",
+            "far",
+            "far"
           ],
           "L": [
             "plant",
@@ -1171,14 +1051,17 @@
           ]
         },
         "legPoseRows": {
-          "plant": []
+          "plant": [],
+          "far": [
+            52,
+            45,
+            54
+          ]
         },
         "bobRows": [
-          42,
-          43,
-          44,
-          45,
-          46
+          49,
+          53,
+          47
         ],
         "legRows": {
           "R": [
@@ -1353,16 +1236,16 @@
         },
         "footDx": {
           "R": [
-            0,
-            0,
-            0,
-            0
+            -3,
+            -3,
+            -3,
+            -3
           ],
           "L": [
-            0,
-            0,
-            0,
-            0
+            3,
+            3,
+            3,
+            3
           ]
         },
         "legPivot": 39,
@@ -1370,59 +1253,23 @@
           "R": 56,
           "L": 56
         },
-        "seat": {
-          "top": 35,
-          "depth": 1,
-          "out": 3,
-          "seam": 2
-        },
-        "legBand": {
-          "sides": {
-            "R": [
-              true,
-              true,
-              true,
-              true
-            ],
-            "L": [
-              true,
-              true,
-              true,
-              true
-            ]
-          },
-          "pose": {
-            "R": [
-              "S-karateGuard-R2",
-              "S-karateGuard-R2",
-              "S-karateGuard-R3",
-              "S-karateGuard-R3"
-            ],
-            "L": [
-              "S-karateGuard-L2",
-              "S-karateGuard-L2",
-              "S-karateGuard-L3",
-              "S-karateGuard-L3"
-            ]
-          },
-          "z": {
-            "R": [
-              1.9,
-              1.9,
-              1.9,
-              1.9
-            ],
-            "L": [
-              2,
-              2,
-              2,
-              2
-            ]
-          },
-          "offset": {
-            "R": 0,
-            "L": 0
-          }
+        "variants": {
+          "0": [
+            "S-karateGuard-kneeL0",
+            "S-karateGuard-kneeL1"
+          ],
+          "1": [
+            "S-karateGuard-kneeL0",
+            "S-karateGuard-kneeL1"
+          ],
+          "2": [
+            "S-karateGuard-kneeL0",
+            "S-karateGuard-kneeL1"
+          ],
+          "3": [
+            "S-karateGuard-kneeL0",
+            "S-karateGuard-kneeL1"
+          ]
         }
       },
       "N": {
@@ -1434,21 +1281,24 @@
             "plant"
           ],
           "L": [
-            "plant",
-            "plant",
-            "plant",
-            "plant"
+            "far",
+            "far",
+            "far",
+            "far"
           ]
         },
         "legPoseRows": {
-          "plant": []
+          "plant": [],
+          "far": [
+            52,
+            45,
+            54
+          ]
         },
         "bobRows": [
-          42,
-          43,
-          44,
-          45,
-          46
+          49,
+          53,
+          47
         ],
         "legRows": {
           "R": [
@@ -1613,16 +1463,16 @@
         },
         "footDx": {
           "R": [
-            0,
-            0,
-            0,
-            0
+            3,
+            3,
+            3,
+            3
           ],
           "L": [
-            0,
-            0,
-            0,
-            0
+            -3,
+            -3,
+            -3,
+            -3
           ]
         },
         "legPivot": 39,
@@ -1630,59 +1480,69 @@
           "R": 56,
           "L": 56
         },
-        "seat": {
-          "top": 35,
-          "depth": 1,
-          "out": 3,
-          "seam": 2
-        },
-        "legBand": {
-          "sides": {
-            "R": [
-              true,
-              true,
-              true,
-              true
-            ],
-            "L": [
-              true,
-              true,
-              true,
-              true
-            ]
-          },
-          "pose": {
-            "R": [
-              "N-karateGuard-R2",
-              "N-karateGuard-R2",
-              "N-karateGuard-R3",
-              "N-karateGuard-R3"
-            ],
-            "L": [
-              "N-karateGuard-L2",
-              "N-karateGuard-L2",
-              "N-karateGuard-L3",
-              "N-karateGuard-L3"
-            ]
-          },
-          "z": {
-            "R": [
-              2,
-              2,
-              2,
-              2
-            ],
-            "L": [
-              1.9,
-              1.9,
-              1.9,
-              1.9
-            ]
-          },
-          "offset": {
-            "R": 0,
-            "L": 0
-          }
+        "variants": {
+          "0": [
+            "N-karateGuard-kneeL0",
+            "N-karateGuard-kneeL1"
+          ],
+          "1": [
+            "N-karateGuard-kneeL0",
+            "N-karateGuard-kneeL1"
+          ],
+          "2": [
+            "N-karateGuard-kneeL0",
+            "N-karateGuard-kneeL1"
+          ],
+          "3": [
+            "N-karateGuard-kneeL0",
+            "N-karateGuard-kneeL1"
+          ]
+        }
+      }
+    },
+    "partVariants": {
+      "S-karateGuard-kneeL0": {
+        "knee": {
+          "side": "L",
+          "dx": 2,
+          "rows": [
+            41,
+            46,
+            57
+          ]
+        }
+      },
+      "S-karateGuard-kneeL1": {
+        "knee": {
+          "side": "L",
+          "dx": 1,
+          "rows": [
+            41,
+            51,
+            57
+          ]
+        }
+      },
+      "N-karateGuard-kneeL0": {
+        "knee": {
+          "side": "L",
+          "dx": -2,
+          "rows": [
+            41,
+            46,
+            57
+          ]
+        }
+      },
+      "N-karateGuard-kneeL1": {
+        "knee": {
+          "side": "L",
+          "dx": -1,
+          "rows": [
+            41,
+            51,
+            57
+          ]
         }
       }
     }

@@ -125,23 +125,24 @@ MT_S = {'R': (55, 198, 1, 'up'), 'L': (-55, 162, 1, 'up')}                # Muay
 MT_N = {'R': (-55, 162, 1, 'up'), 'L': (55, 198, 1, 'up')}
 CHAMBER_S = {'R': (14, -12, 0.85, 'up'), 'L': (-14, 12, 0.85, 'up')}      # fists pulled back to the hips
 CHAMBER_N = {'R': (-18, None, 1, 'up'), 'L': (18, None, 1, 'up')}
-# Legs (S coordinates, mirrored about the belt centre column 31 for N; R first): both hips at the outer pelvis edges
-# (26/36), the knees pushed out past the ankles by 'bend' px at mid-height (depth per style: Wrestling, Jiu-Jitsu, Judo,
-# Muay Thai), the far foot (rear in S, lead in N) 'stagger' rows higher and 1 px nearer the middle with its knee bent
-# 'farBend' px more, so the leg keeps its length. One trouser seat covers the pelvis and the thigh tops (renderer seat).
-# Lean (Christopher review 2026-10-20): torsoDrop shortens the trunk, headDy sinks the head between the shoulders;
-# blade: the upper body turns 1 px toward the rear side (lead shoulder forward), the lead arm drawn nearer.
-HIPS = (26, 36)
+# Legs (second pass, Christopher 2026-10-20: the band legs and trouser seat read wide and blocky): the reference
+# trouser legs and pelvis as in the approved S/N views (guard, block, weave, the kick chain), bent with the approved
+# vocabulary only: every leg drops the body bob's rows from the thigh (a crouching thigh foreshortens toward the
+# viewer), footDx spreads the feet (a shear from the hip to the foot), the knee variant pushes each knee out (dx at
+# the knee, 0 at hip and ankle), and the far foot (rear in S, lead in N) drops 'stagger' more rows so it sits higher.
+# foot: feet spread px per side; knee: knee dx per side (R, L in S); farKnee: extra knee dx on the far leg.
+CROUCH_ROWS = [49, 53, 47, 52, 45, 54, 48, 51, 46, 55, 44]   # thigh and shin rows alternately, so the knee stays mid-leg
+HIPS = (26, 36)   # Muay Thai lead knee lift (band leg) hip columns
 GR_N = lambda r, l: {'R': (-r, None, 1, 'up'), 'L': (l, None, 1, 'up')}          # back view: elbows bent out to the sides
 def GR_S(r, l, a=14): return {'R': (-a, None, r, 'front'), 'L': (a, None, l, 'front')}   # two open hands in front of the shoulders
 FRONT = {
-    'muayThaiGuard': dict(S=MT_S, N=MT_N, legs=dict(ankle=(25, 37), bend=2), lift={'L': ('mt-lead-up',)}),
+    'muayThaiGuard': dict(S=MT_S, N=MT_N, legs=dict(foot=1, knee=(1, 1)), lift={'L': ('mt-lead-up',)}),
     'karateGuard': dict(S={'R': CHAMBER_S['R'], 'L': (68, None, 0.42, 'front')}, N={'R': CHAMBER_N['R'], 'L': (10, None, 1, 'up')},
-                        legs=dict(ankle=(21, 41), bend=(0, 3), farBend=0, stagger=4), blade=1),
-    'horseStance': dict(S=CHAMBER_S, N=CHAMBER_N, legs=dict(knee=(19, 43), ankle=(20, 42), kneeDy=3)),
-    'judoGuard': dict(S=GR_S(0.25, 0.28), N=GR_N(32, 32), legs=dict(ankle=(23, 39), bend=3, farBend=1, stagger=3), lean=(1, 1), blade=1),
-    'jiuJitsuGuard': dict(S=GR_S(0.25, 0.6), N=GR_N(30, 38), legs=dict(ankle=(23, 39), bend=4, farBend=1, stagger=4), lean=(2, 3), blade=1),
-    'wrestlingGuard': dict(S=GR_S(0.45, 0.5), N=GR_N(40, 40), legs=dict(ankle=(22, 40), bend=5, farBend=1, stagger=4), lean=(3, 3), blade=1),
+                        legs=dict(foot=3, knee=(0, 3), stagger=3), blade=1),
+    'horseStance': dict(S=CHAMBER_S, N=CHAMBER_N, legs=dict(foot=2, knee=(6, 6))),
+    'judoGuard': dict(S=GR_S(0.25, 0.28), N=GR_N(32, 32), legs=dict(foot=2, knee=(2, 2), farKnee=1, stagger=2), lean=(1, 1), blade=1),
+    'jiuJitsuGuard': dict(S=GR_S(0.25, 0.6), N=GR_N(30, 38), legs=dict(foot=2, knee=(4, 4), farKnee=1, stagger=3), lean=(2, 3), blade=1),
+    'wrestlingGuard': dict(S=GR_S(0.45, 0.5), N=GR_N(40, 40), legs=dict(foot=2, knee=(5, 5), farKnee=1, stagger=3), lean=(3, 3), blade=1),
 }
 
 def frontal(st, spec):
@@ -169,23 +170,22 @@ def frontal(st, spec):
             if name not in names:
                 spec['legs']['poses'].append({'name': name, 'construction': 'band', 'hipX': hip[0], 'hipRow': hip[1], 'kneeX': knee[0],
                                               'kneeRow': knee[1], 'ankle': list(ankle), 'foot': foot, 'section': d, 'crease': True}); names.append(name)
-        L = cfg['legs']
-        for k in range(F):
-            for i, sd in enumerate(('R', 'L')):
-                b = dy[k]; n = '%s-%s-%s%d' % (d, st, sd, b); out = -1 if i == 0 else 1
-                back = (sd == 'R') == (d == 'S')   # the foot further from the viewer (rear foot in S, lead foot in N) sits higher: stagger depth
-                hr, ar = 40 + b, 60 - (L.get('stagger', 0) if back else 0)
-                ax = L['ankle'][i] - (out if back and L.get('stagger') else 0)
-                if 'knee' in L: kx, kr = L['knee'][i], 40 + b + L['kneeDy']
-                else:
-                    bend = L['bend'][i] if isinstance(L['bend'], tuple) else L['bend']
-                    bend += L.get('farBend', 0) if back else 0
-                    kr = (hr + ar + 1) // 2; kx = round(HIPS[i] + (ax - HIPS[i]) * (kr - hr) / (ar - hr)) + out * bend
-                add(n, (mx(HIPS[i]), hr), (mx(kx), min(kr, ar - 4)), (mx(ax), ar))
-                sides[sd][k] = True; pose[sd][k] = n
-        v['bobRows'] = list(range(42, 42 + max(dy) + 2))
-        v['seat'] = {'top': 35, 'depth': 1, 'out': 3, 'seam': 2}
-        v['legBand'] = {'sides': sides, 'pose': pose, 'z': {sd: [1.9 if (sd == 'R') == (d == 'S') else 2] * F for sd in 'RL'}, 'offset': {'R': 0, 'L': 0}}
+        L = cfg['legs']; sg = 1 if d == 'S' else -1; mb = max(dy)
+        farSd = 'R' if d == 'S' else 'L'
+        v['legPose'] = {sd: ['far' if sd == farSd and L.get('stagger') else 'plant'] * F for sd in 'RL'}
+        v['legPoseRows'] = {'plant': [], 'far': CROUCH_ROWS[mb:mb + L.get('stagger', 0)]}
+        v['bobRows'] = CROUCH_ROWS[:mb]
+        v['hipDx'] = {'R': [0] * F, 'L': [0] * F}
+        v['footDx'] = {'R': [-sg * L['foot']] * F, 'L': [sg * L['foot']] * F}
+        v['legPivot'] = 39; v['footFrom'] = {'R': 56, 'L': 56}
+        pv = fr.setdefault('partVariants', {}); vs = []
+        for i, sd in enumerate('RL'):
+            kd = L['knee'][i] + (L.get('farKnee', 0) if sd == farSd else 0)
+            if kd:
+                out = (-1 if sd == 'R' else 1) * sg   # two overlapping knee shears (peaks at rows 46 and 51) round the knee off
+                for j, (dk, kr) in enumerate(((kd - kd // 2, 46), (kd // 2, 51))):
+                    if dk: n = '%s-%s-knee%s%d' % (d, st, sd, j); pv[n] = {'knee': {'side': sd, 'dx': out * dk, 'rows': [41, kr, 57]}}; vs.append(n)
+        v['variants'] = {str(k): list(vs) for k in range(F)}
         td, hd = cfg.get('lean', (0, 0))
         if td: v['torsoDrop'] = td
         if hd: v['headDy'] = (v.get('headDy') or 0) + hd + (1 if d == 'N' else 0)
@@ -198,6 +198,8 @@ def frontal(st, spec):
                     b = dy[k]; n = '%s-%s-lift%s%d' % (d, st, sd, b); x = mx(HIPS[1])
                     add(n, (x, 40 + b), (x - (1 if d == 'S' else -1), 42 + b), (x - (1 if d == 'S' else -1), 50 + b))   # knee up toward the viewer, shin hanging
                     sides[sd][k] = True; pose[sd][k] = n
+        if any(sides['R']) or any(sides['L']):
+            v['legBand'] = {'sides': sides, 'pose': pose, 'z': {'R': [2] * F, 'L': [2] * F}, 'offset': {'R': 0, 'L': 0}}
     fr['legLift'] = {'R': [0] * F, 'L': [0] * F}
     spec['frontal'] = fr; spec['directions'] = ['S', 'E', 'N', 'W']
     if st == 'karateGuard':   # the lead fist punching toward the viewer, large in the middle of the chest
