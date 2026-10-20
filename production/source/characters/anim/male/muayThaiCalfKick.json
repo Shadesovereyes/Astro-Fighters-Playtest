@@ -737,6 +737,32 @@
         "foot": "blade"
       },
       {
+        "name": "lteep-chamber",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 40,
+        "kneeX": 39,
+        "kneeRow": 34,
+        "ankle": [
+          39,
+          42
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "lteep",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 40,
+        "kneeX": 42,
+        "kneeRow": 37,
+        "ankle": [
+          50,
+          37
+        ],
+        "foot": "blade"
+      },
+      {
         "name": "mt-knee",
         "construction": "band",
         "hipX": 35,
