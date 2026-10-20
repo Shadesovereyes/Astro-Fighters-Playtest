@@ -141,8 +141,8 @@ FRONT = {
     'karateGuard': dict(S={'R': CHAMBER_S['R'], 'L': (68, None, 0.42, 'front')}, N={'R': CHAMBER_N['R'], 'L': (10, None, 1, 'up')},
                         legs=dict(foot=0, knee=(0, 0), near=2, far=0, nearKnee=1, stagger=4), blade=1),   # staggered like the grappling stances, no knee flare (Christopher 2026-10-20)
     'horseStance': dict(S=CHAMBER_S, N=CHAMBER_N, legs=dict(foot=2, knee=(6, 6))),
-    'judoGuard': dict(S=GR_S(0.25, 0.28), N=GR_N(32, 32), legs=dict(foot=0, knee=(0, 0), near=1, far=0, nearKnee=1, stagger=2), lean=(1, 0), blade=1, headUp=1),
-    'jiuJitsuGuard': dict(S=GR_S(0.25, 0.6), N=GR_N(30, 38), legs=dict(foot=0, knee=(0, 0), near=1, far=-1, nearKnee=1, stagger=3), lean=(2, 0), rise=3, blade=1, headUp=1),
+    'judoGuard': dict(S=GR_S(0.25, 0.28), N=GR_N(32, 32), legs=dict(foot=0, knee=(0, 0), near=0, far=0, nearKnee=0, stagger=2), lean=(1, 0), blade=1, headUp=1),
+    'jiuJitsuGuard': dict(S=GR_S(0.25, 0.6), N=GR_N(30, 38), legs=dict(foot=0, knee=(0, 0), near=0, far=-1, nearKnee=0, stagger=3), lean=(2, 0), rise=3, blade=1, headUp=1),
     'wrestlingGuard': dict(S={'R': (36, -75, 0.75, 'front', 9), 'L': (-36, 50, 0.75, 'up', 10)}, pivotDx={'S': {'R': 1, 'L': -1}}, armSettle={'S': 1}, N=GR_N(40, 40), legs=dict(foot=0, knee=(0, 0), near=0, far=-1, nearKnee=0, stagger=3), lean=(1, 0), rise=3, blade=1, headUp=1),
 }
 
