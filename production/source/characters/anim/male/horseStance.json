@@ -562,58 +562,62 @@
       {
         "name": "S-horseStance-R6",
         "construction": "band",
-        "hipX": 27,
+        "hipX": 26,
         "hipRow": 46,
-        "kneeX": 20,
+        "kneeX": 19,
         "kneeRow": 49,
         "ankle": [
-          21,
+          20,
           60
         ],
         "foot": "sFoot",
-        "section": "S"
+        "section": "S",
+        "crease": true
       },
       {
         "name": "S-horseStance-L6",
         "construction": "band",
-        "hipX": 37,
+        "hipX": 36,
         "hipRow": 46,
-        "kneeX": 44,
+        "kneeX": 43,
         "kneeRow": 49,
         "ankle": [
-          43,
+          42,
           60
         ],
         "foot": "sFoot",
-        "section": "S"
+        "section": "S",
+        "crease": true
       },
       {
         "name": "N-horseStance-R6",
         "construction": "band",
-        "hipX": 37,
+        "hipX": 36,
         "hipRow": 46,
-        "kneeX": 44,
+        "kneeX": 43,
         "kneeRow": 49,
         "ankle": [
-          43,
+          42,
           60
         ],
         "foot": "sFoot",
-        "section": "N"
+        "section": "N",
+        "crease": true
       },
       {
         "name": "N-horseStance-L6",
         "construction": "band",
-        "hipX": 27,
+        "hipX": 26,
         "hipRow": 46,
-        "kneeX": 20,
+        "kneeX": 19,
         "kneeRow": 49,
         "ankle": [
-          21,
+          20,
           60
         ],
         "foot": "sFoot",
-        "section": "N"
+        "section": "N",
+        "crease": true
       }
     ],
     "near": [
@@ -1320,6 +1324,12 @@
           "R": 56,
           "L": 56
         },
+        "seat": {
+          "top": 35,
+          "depth": 1,
+          "out": 3,
+          "seam": 2
+        },
         "legBand": {
           "sides": {
             "R": [
@@ -1351,10 +1361,10 @@
           },
           "z": {
             "R": [
-              2,
-              2,
-              2,
-              2
+              1.9,
+              1.9,
+              1.9,
+              1.9
             ],
             "L": [
               2,
@@ -1577,6 +1587,12 @@
           "R": 56,
           "L": 56
         },
+        "seat": {
+          "top": 35,
+          "depth": 1,
+          "out": 3,
+          "seam": 2
+        },
         "legBand": {
           "sides": {
             "R": [
@@ -1614,10 +1630,10 @@
               2
             ],
             "L": [
-              2,
-              2,
-              2,
-              2
+              1.9,
+              1.9,
+              1.9,
+              1.9
             ]
           },
           "offset": {

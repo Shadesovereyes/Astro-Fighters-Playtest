@@ -195,7 +195,7 @@ function kickLeg(p, out) {
   }));
   closeLeg(out, true);
   pinchFill(out);
-  out.limb = { th, sh, kx, ky, wrapLen, seg, section: p.section };
+  out.limb = { th, sh, kx, ky, wrapLen, seg, section: p.section, crease: !!p.crease, hip: [p.hipX + 0.5, p.hipRow + 0.5], ankle: [ax, ay] };
   return out;
 }
 const legPoses = L.poses.map(buildLeg);
@@ -392,6 +392,16 @@ const torsoDropped = Array.from({ length: DROP }, (_, i) => AR.shoulder + Math.f
 const HEAD_DY = spec.lean?.headDy || 0;
 const leanY = (group, y) => (group === 'head' ? y + DROP + HEAD_DY : group === 'arm' ? y + DROP
   : group === 'torso' ? (torsoDropped.includes(y) ? null : y + torsoDropped.filter((r) => r > y).length) : y);
+// a front/back view may shorten the torso on its own (view torsoDrop, in place of lean.torsoDrop): a forward lean seen
+// from the front or behind reads as a shorter trunk with the head sunk between the shoulders
+const viewDrop = (d) => d?.torsoDrop ?? DROP;
+const viewLeanY = (d, group, y) => {
+  const n = viewDrop(d);
+  if (n === DROP) return leanY(group, y);
+  const dropped = Array.from({ length: n }, (_, i) => AR.shoulder + Math.floor((i + 0.5) * (R.torsoMaxRow - AR.shoulder + 1) / n));
+  return group === 'head' ? y + n + HEAD_DY : group === 'arm' ? y + n
+    : group === 'torso' ? (dropped.includes(y) ? null : y + dropped.filter((r) => r > y).length) : y;
+};
 const restGroup = new Map();
 for (const p of bodyRest.keys()) { const [x, y] = unkey(p); restGroup.set(p, leanGroup(bodyPart(x, y), y)); }
 
@@ -696,7 +706,7 @@ function frontalMove(d, k, part, y, x) {
     rows = rowMap(y, b, h < 0 ? d.armRows[s].slice(0, -h) : [], h > 0 ? d.armRepeatRows[s].slice(0, h) : []);
     if (d.handDx) dx = shear(y, d.armPivot, d.handFrom[s], d.handDx[s][k]);
     z = s === far ? -1 : 4;
-    rows = rows.map((r) => r + DROP + armDelta(k));   // the lean's shortened torso lowers the shoulders
+    rows = rows.map((r) => r + viewDrop(d) + armDelta(k));   // the lean's shortened torso lowers the shoulders
     // armVisibleTo: arms swept behind the body show only down to this reference row (shoulder and upper arm)
     if (d.armBand?.[s]) rows = [];   // drawn as an authored band arm instead (frontalFrame)
     const vis = typeof d.armVisibleTo === 'object' ? d.armVisibleTo?.[s] : d.armVisibleTo;
@@ -705,10 +715,10 @@ function frontalMove(d, k, part, y, x) {
     // a view may lower the head further (headDy, one value or per frame) and draw it in front of the torso (headZ above
     // 3) or behind it
     const g = leanGroup(part);
-    rows = [leanY(g, y) + dyOf[lagOf(part)] + (g === 'head' ? (Array.isArray(d.headDy) ? d.headDy[k] : d.headDy || 0) + headDelta(k) : 0)];
+    rows = [viewLeanY(d, g, y) + dyOf[lagOf(part)] + (g === 'head' ? (Array.isArray(d.headDy) ? d.headDy[k] : d.headDy || 0) + headDelta(k) : 0)];
     if (g === 'head' && d.headZ !== undefined) z = d.headZ;
   }
-  else if (part === 'torso') { const ny = leanY('torso', y); rows = ny === null ? [] : [ny + b]; }
+  else if (part === 'torso') { const ny = viewLeanY(d, 'torso', y); rows = ny === null ? [] : [ny + b]; }
   else { rows = [y + b]; if (part === 'pelvis') z = 2.5; }
   // twist: a frontal view's body rotation as sideways whole-pixel offsets: pelvis and head as blocks, the torso
   // sheared from the pelvis value (trunk top) to the shoulders value (shoulder row); arms follow the shoulders
@@ -762,7 +772,7 @@ function frontalBand(d, k, sd, dir) {
   const sc = at(ab.scale) ?? 1, r = (v) => Math.round(v * sc), B0 = A.band, el = at(ab.elbow);
   const lx = (d.leanScale ? roundHalfEven(d.leanScale * leanOf('torso', k, AR.shoulder)) * (d.leanSign || 1) : 0)
     + twistOf(d, k, 'torso', AR.shoulder) + (at(ab.pivotDx) || 0) + rotateArmDx(d, k, sd);
-  const dy = bobOf(d, k) + armDelta(k) + (d.crouch || 0) + DROP + (d.variants?.[k] ? variantShear(d, k, ab.pivot[0], AR.shoulder, 'torso') : 0);
+  const dy = bobOf(d, k) + armDelta(k) + (d.crouch || 0) + viewDrop(d) + (d.variants?.[k] ? variantShear(d, k, ab.pivot[0], AR.shoulder, 'torso') : 0);
   const pb = { angle: at(ab.angle), band: { pivot: ab.pivot, start: B0.start, length: r(B0.length + B0.start) - B0.start,
     wrapFrom: r(B0.wrapFrom), handFrom: r(B0.handFrom) }, ...(el ? { elbow: { ...el, at: r(el.at) } } : {}), fistKind: at(ab.fist) };
   const { uv } = bandGeom(pb), pixels = new Map(), ref = new Map(), across = new Map(), zs = new Map(), span = dir ? refArmSpan(dir, sd) : {}, T = B0.thickness;
@@ -845,7 +855,7 @@ function frontalFrame(dir, k) {
       const olv = d.armBand[sd]?.outline, ol = (Array.isArray(olv) ? olv[k] : olv) ?? true;
       if (ol) {
         const pv = d.armBand[sd].pivot, px0 = pv[0] + twistOf(d, k, 'torso', AR.shoulder) + (Array.isArray(d.armBand[sd].pivotDx) ? d.armBand[sd].pivotDx[k] : 0) + rotateArmDx(d, k, sd);
-        const py0 = pv[1] + bobOf(d, k) + armDelta(k) + (d.crouch || 0) + DROP + (d.variants?.[k] ? variantShear(d, k, pv[0], AR.shoulder, 'torso') : 0);
+        const py0 = pv[1] + bobOf(d, k) + armDelta(k) + (d.crouch || 0) + viewDrop(d) + (d.variants?.[k] ? variantShear(d, k, pv[0], AR.shoulder, 'torso') : 0);
         for (const q of fb.pixels.keys()) {
           if (!mine(q)) continue;
           const [x, y] = unkey(q);
@@ -1037,9 +1047,18 @@ function kickGarment(l, items, isFar, z, legMap, col) {
     if (tu >= -1 && tu <= th.len) c = across(tv, 2.5, 1.5 + T.front, taper);
     if (!c && su >= 0 && su <= hemU) c = su > hemU - 1 ? (across(sv, 2, 1 + T.front) && 'a') : across(sv, 2, 1 + T.front);
     if (!c && Math.hypot(x + 0.5 - kx, y + 0.5 - ky) <= 3.5) c = 'c';
+    // (crease legs) a slanted shin leaves bits of leg between the hem and the wrap; they take the wrap colour
+    if (!c && legMap.limb.crease && sg && legMap.get(q) !== 'o' && legMap.get(q) !== '#') { items.push([z, x, y, col(Wp.colours[Wp.fill]), null]); continue; }
     if (!c) continue;
     const front = (tu >= -2 && tu <= th.len) ? T.thighFront : T.shinFront;
     items.push([z, x, y, col(T.colours[c === 'F' ? front : c]), null]);
+  }
+  // front/back-view stance legs (pose.crease): a bent knee gets a short crease on the inside of the bend (along the bisector of the angle
+  // between thigh and shin, toward the hip-ankle line)
+  if (legMap.limb.crease) {
+    const { hip, ankle } = legMap.limb, n = (v) => { const l = Math.hypot(v[0], v[1]); return [v[0] / l, v[1] / l]; };
+    const a = n([hip[0] - kx, hip[1] - ky]), b = n([ankle[0] - kx, ankle[1] - ky]), m = [a[0] + b[0], a[1] + b[1]], ml = Math.hypot(m[0], m[1]);
+    if (ml > 0.3) for (const t of [1.5, 2.5]) items.push([z + 0.05, Math.floor(kx + m[0] / ml * t), Math.floor(ky + m[1] / ml * t), col(T.colours.d), null]);
   }
 }
 function posedClothing(l, px, k) {
@@ -1121,6 +1140,22 @@ function frontalClothing(l, geom, px, k) {
     const byRow = {};
     for (const p of clothingPixels(l, spec.sourceDirection, false)) if (LIMB[p.part]?.[0] === 'leg') (byRow[p.y] ??= []).push(p);
     if (Object.keys(byRow).length) for (const lg of frontalLegs(d, k)) legGarment(l, items, byRow, lg.isFar, lg.z, lg.pose, lg.legMap);
+    // seat: one trouser piece over the pelvis and the tops of both thighs (from seat.top, a reference row moved with the
+    // bob, to seat.depth rows below the hips, seat.out px past each hip), drawn over the leg garments and the reference
+    // pelvis cloth, so the thighs come out from under it with no outline across the seat; a short seam marks the crotch
+    const lgs = frontalLegs(d, k), T = l.trouser;
+    if (d.seat && T && lgs.length === 2) {
+      const hx = lgs.map((g) => g.pose.hipX), hr = Math.min(...lgs.map((g) => g.pose.hipRow));
+      const x0 = Math.min(...hx) - d.seat.out, x1 = Math.max(...hx) + d.seat.out, y0 = d.seat.top + bobOf(d, k) + (d.crouch || 0), y1 = hr + d.seat.depth;
+      const mid = (x0 + x1) / 2, seam = d.seat.seam ?? 2;
+      for (let y = y0; y <= y1; y++) for (let x = x0; x <= x1; x++) {
+        const e = Math.min(x - x0, x1 - x);
+        if (y === y1 && e === 0) continue;   // rounded bottom corners
+        let c = e <= 1 ? 'c' : Math.abs(x - mid) <= 2 ? 'b' : 'c';
+        if (y > y1 - seam && Math.abs(x - mid) < 0.75) c = 'd';
+        items.push([2.6, x, y, T.colours[c], null]);
+      }
+    }
   }
   for (const p of px) {
     const part = p.part === 'sash' && isBand(p, l) ? 'pelvis' : p.part;

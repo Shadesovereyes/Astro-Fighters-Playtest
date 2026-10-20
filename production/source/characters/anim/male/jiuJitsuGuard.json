@@ -562,114 +562,122 @@
       {
         "name": "S-jiuJitsuGuard-R5",
         "construction": "band",
-        "hipX": 29,
+        "hipX": 26,
         "hipRow": 45,
-        "kneeX": 24,
-        "kneeRow": 50,
+        "kneeX": 20,
+        "kneeRow": 51,
         "ankle": [
-          23,
+          24,
           56
         ],
         "foot": "sFoot",
-        "section": "S"
+        "section": "S",
+        "crease": true
       },
       {
         "name": "S-jiuJitsuGuard-L5",
         "construction": "band",
-        "hipX": 35,
+        "hipX": 36,
         "hipRow": 45,
-        "kneeX": 40,
-        "kneeRow": 50,
+        "kneeX": 42,
+        "kneeRow": 53,
         "ankle": [
-          41,
+          39,
           60
         ],
         "foot": "sFoot",
-        "section": "S"
+        "section": "S",
+        "crease": true
       },
       {
         "name": "S-jiuJitsuGuard-R6",
         "construction": "band",
-        "hipX": 29,
+        "hipX": 26,
         "hipRow": 46,
-        "kneeX": 24,
+        "kneeX": 20,
         "kneeRow": 51,
         "ankle": [
-          23,
+          24,
           56
         ],
         "foot": "sFoot",
-        "section": "S"
+        "section": "S",
+        "crease": true
       },
       {
         "name": "S-jiuJitsuGuard-L6",
         "construction": "band",
-        "hipX": 35,
+        "hipX": 36,
         "hipRow": 46,
-        "kneeX": 40,
-        "kneeRow": 51,
+        "kneeX": 42,
+        "kneeRow": 53,
         "ankle": [
-          41,
+          39,
           60
         ],
         "foot": "sFoot",
-        "section": "S"
+        "section": "S",
+        "crease": true
       },
       {
         "name": "N-jiuJitsuGuard-R5",
         "construction": "band",
-        "hipX": 35,
+        "hipX": 36,
         "hipRow": 45,
-        "kneeX": 40,
-        "kneeRow": 50,
+        "kneeX": 42,
+        "kneeRow": 53,
         "ankle": [
-          41,
+          39,
           60
         ],
         "foot": "sFoot",
-        "section": "N"
+        "section": "N",
+        "crease": true
       },
       {
         "name": "N-jiuJitsuGuard-L5",
         "construction": "band",
-        "hipX": 29,
+        "hipX": 26,
         "hipRow": 45,
-        "kneeX": 24,
-        "kneeRow": 50,
+        "kneeX": 20,
+        "kneeRow": 51,
         "ankle": [
-          23,
+          24,
           56
         ],
         "foot": "sFoot",
-        "section": "N"
+        "section": "N",
+        "crease": true
       },
       {
         "name": "N-jiuJitsuGuard-R6",
         "construction": "band",
-        "hipX": 35,
+        "hipX": 36,
         "hipRow": 46,
-        "kneeX": 40,
-        "kneeRow": 51,
+        "kneeX": 42,
+        "kneeRow": 53,
         "ankle": [
-          41,
+          39,
           60
         ],
         "foot": "sFoot",
-        "section": "N"
+        "section": "N",
+        "crease": true
       },
       {
         "name": "N-jiuJitsuGuard-L6",
         "construction": "band",
-        "hipX": 29,
+        "hipX": 26,
         "hipRow": 46,
-        "kneeX": 24,
+        "kneeX": 20,
         "kneeRow": 51,
         "ankle": [
-          23,
+          24,
           56
         ],
         "foot": "sFoot",
-        "section": "N"
+        "section": "N",
+        "crease": true
       }
     ],
     "near": [
@@ -1235,10 +1243,10 @@
               24
             ],
             "angle": [
-              -20,
-              -20,
-              -20,
-              -20
+              -14,
+              -14,
+              -14,
+              -14
             ],
             "elbow": [
               null,
@@ -1247,10 +1255,10 @@
               null
             ],
             "scale": [
-              0.4,
-              0.4,
-              0.4,
-              0.4
+              0.25,
+              0.25,
+              0.25,
+              0.25
             ],
             "fist": [
               "front",
@@ -1272,10 +1280,10 @@
               24
             ],
             "angle": [
-              8,
-              8,
-              8,
-              8
+              14,
+              14,
+              14,
+              14
             ],
             "elbow": [
               null,
@@ -1304,7 +1312,7 @@
             ]
           }
         },
-        "headDy": -1,
+        "headDy": 2,
         "armRule": "guard seen from the front: elbows down at the sides, forearms nearly upright, the fists in front of each shoulder at the top of the chest, just below where the long hair hangs (the hair layer draws over the arms); a punch toward the viewer is a short straight arm (50% length) bringing the fist in front of the chest centre; on the jab and cross the punching arm points at the viewer: the arm crosses in front of the chest at shoulder height (45%) to a knuckles-on fist (fistFront) just off the chest centre, outlined over the body",
         "twist": {
           "pelvis": [
@@ -1314,16 +1322,16 @@
             0
           ],
           "shoulders": [
-            0,
-            0,
-            0,
-            0
+            -1,
+            -1,
+            -1,
+            -1
           ],
           "head": [
-            0,
-            0,
-            0,
-            0
+            -1,
+            -1,
+            -1,
+            -1
           ]
         },
         "twistRule": "the body rotates into each punch: hips, shoulders and head shift sideways (shoulders most, torso sheared between hips and shoulders), toward the punching side's centre on the jab and further on the cross; the legs swing from the hip to the planted feet with the hips (hipDx), and the punching shoulder moves 1 px further in",
@@ -1360,6 +1368,12 @@
           "R": 56,
           "L": 56
         },
+        "seat": {
+          "top": 35,
+          "depth": 1,
+          "out": 3,
+          "seam": 2
+        },
         "legBand": {
           "sides": {
             "R": [
@@ -1391,10 +1405,10 @@
           },
           "z": {
             "R": [
-              2,
-              2,
-              2,
-              2
+              1.9,
+              1.9,
+              1.9,
+              1.9
             ],
             "L": [
               2,
@@ -1407,7 +1421,8 @@
             "R": 0,
             "L": 0
           }
-        }
+        },
+        "torsoDrop": 2
       },
       "N": {
         "legPose": {
@@ -1490,10 +1505,10 @@
               24
             ],
             "angle": [
-              -14,
-              -14,
-              -14,
-              -14
+              -30,
+              -30,
+              -30,
+              -30
             ],
             "elbow": [
               null,
@@ -1528,10 +1543,10 @@
               24
             ],
             "angle": [
-              10,
-              10,
-              10,
-              10
+              38,
+              38,
+              38,
+              38
             ],
             "elbow": [
               null,
@@ -1561,7 +1576,7 @@
             ]
           }
         },
-        "headDy": -1,
+        "headDy": 3,
         "armRule": "from behind the forearms, wrists and fists are in front of the body: only the shoulders and upper arms show (straight band arms cut at 7 px, showTo), hanging slightly out in guard, swinging in when that arm punches away from the viewer",
         "twist": {
           "pelvis": [
@@ -1571,16 +1586,16 @@
             0
           ],
           "shoulders": [
-            0,
-            0,
-            0,
-            0
+            1,
+            1,
+            1,
+            1
           ],
           "head": [
-            0,
-            0,
-            0,
-            0
+            1,
+            1,
+            1,
+            1
           ]
         },
         "twistRule": "the body rotates into each punch: hips, shoulders and head shift sideways (shoulders most, torso sheared between hips and shoulders), toward the punching side's centre on the jab and further on the cross; the legs swing from the hip to the planted feet with the hips (hipDx), and the punching shoulder moves 1 px further in",
@@ -1616,6 +1631,12 @@
         "footFrom": {
           "R": 56,
           "L": 56
+        },
+        "seat": {
+          "top": 35,
+          "depth": 1,
+          "out": 3,
+          "seam": 2
         },
         "legBand": {
           "sides": {
@@ -1654,17 +1675,18 @@
               2
             ],
             "L": [
-              2,
-              2,
-              2,
-              2
+              1.9,
+              1.9,
+              1.9,
+              1.9
             ]
           },
           "offset": {
             "R": 0,
             "L": 0
           }
-        }
+        },
+        "torsoDrop": 2
       }
     }
   }

@@ -659,142 +659,152 @@
       {
         "name": "S-muayThaiGuard-R1",
         "construction": "band",
-        "hipX": 29,
+        "hipX": 26,
         "hipRow": 41,
-        "kneeX": 25,
-        "kneeRow": 48,
+        "kneeX": 23,
+        "kneeRow": 51,
         "ankle": [
-          26,
+          25,
           60
         ],
         "foot": "sFoot",
-        "section": "S"
+        "section": "S",
+        "crease": true
       },
       {
         "name": "S-muayThaiGuard-L1",
         "construction": "band",
-        "hipX": 35,
+        "hipX": 36,
         "hipRow": 41,
         "kneeX": 39,
-        "kneeRow": 48,
+        "kneeRow": 51,
         "ankle": [
-          38,
+          37,
           60
         ],
         "foot": "sFoot",
-        "section": "S"
+        "section": "S",
+        "crease": true
       },
       {
         "name": "S-muayThaiGuard-R2",
         "construction": "band",
-        "hipX": 29,
+        "hipX": 26,
         "hipRow": 42,
-        "kneeX": 25,
-        "kneeRow": 49,
+        "kneeX": 24,
+        "kneeRow": 51,
         "ankle": [
-          26,
+          25,
           60
         ],
         "foot": "sFoot",
-        "section": "S"
+        "section": "S",
+        "crease": true
       },
       {
         "name": "S-muayThaiGuard-L2",
         "construction": "band",
-        "hipX": 35,
+        "hipX": 36,
         "hipRow": 42,
-        "kneeX": 39,
-        "kneeRow": 49,
+        "kneeX": 38,
+        "kneeRow": 51,
         "ankle": [
-          38,
+          37,
           60
         ],
         "foot": "sFoot",
-        "section": "S"
+        "section": "S",
+        "crease": true
       },
       {
         "name": "S-muayThaiGuard-liftL1",
         "construction": "band",
-        "hipX": 35,
+        "hipX": 36,
         "hipRow": 41,
-        "kneeX": 34,
+        "kneeX": 35,
         "kneeRow": 43,
         "ankle": [
-          34,
+          35,
           51
         ],
         "foot": "sFoot",
-        "section": "S"
+        "section": "S",
+        "crease": true
       },
       {
         "name": "N-muayThaiGuard-R1",
         "construction": "band",
-        "hipX": 35,
+        "hipX": 36,
         "hipRow": 41,
         "kneeX": 39,
-        "kneeRow": 48,
+        "kneeRow": 51,
         "ankle": [
-          38,
+          37,
           60
         ],
         "foot": "sFoot",
-        "section": "N"
+        "section": "N",
+        "crease": true
       },
       {
         "name": "N-muayThaiGuard-L1",
         "construction": "band",
-        "hipX": 29,
+        "hipX": 26,
         "hipRow": 41,
-        "kneeX": 25,
-        "kneeRow": 48,
+        "kneeX": 23,
+        "kneeRow": 51,
         "ankle": [
-          26,
+          25,
           60
         ],
         "foot": "sFoot",
-        "section": "N"
+        "section": "N",
+        "crease": true
       },
       {
         "name": "N-muayThaiGuard-R2",
         "construction": "band",
-        "hipX": 35,
+        "hipX": 36,
         "hipRow": 42,
-        "kneeX": 39,
-        "kneeRow": 49,
+        "kneeX": 38,
+        "kneeRow": 51,
         "ankle": [
-          38,
+          37,
           60
         ],
         "foot": "sFoot",
-        "section": "N"
+        "section": "N",
+        "crease": true
       },
       {
         "name": "N-muayThaiGuard-L2",
         "construction": "band",
-        "hipX": 29,
+        "hipX": 26,
         "hipRow": 42,
-        "kneeX": 25,
-        "kneeRow": 49,
+        "kneeX": 24,
+        "kneeRow": 51,
         "ankle": [
-          26,
+          25,
           60
         ],
         "foot": "sFoot",
-        "section": "N"
+        "section": "N",
+        "crease": true
       },
       {
         "name": "N-muayThaiGuard-liftL1",
         "construction": "band",
-        "hipX": 29,
+        "hipX": 26,
         "hipRow": 41,
-        "kneeX": 30,
+        "kneeX": 27,
         "kneeRow": 43,
         "ankle": [
-          30,
+          27,
           51
         ],
         "foot": "sFoot",
-        "section": "N"
+        "section": "N",
+        "crease": true
       }
     ],
     "near": [
@@ -1701,6 +1711,12 @@
           "R": 56,
           "L": 56
         },
+        "seat": {
+          "top": 35,
+          "depth": 1,
+          "out": 3,
+          "seam": 2
+        },
         "legBand": {
           "sides": {
             "R": [
@@ -1748,14 +1764,14 @@
           },
           "z": {
             "R": [
-              2,
-              2,
-              2,
-              2,
-              2,
-              2,
-              2,
-              2
+              1.9,
+              1.9,
+              1.9,
+              1.9,
+              1.9,
+              1.9,
+              1.9,
+              1.9
             ],
             "L": [
               2,
@@ -2108,6 +2124,12 @@
           "R": 56,
           "L": 56
         },
+        "seat": {
+          "top": 35,
+          "depth": 1,
+          "out": 3,
+          "seam": 2
+        },
         "legBand": {
           "sides": {
             "R": [
@@ -2165,14 +2187,14 @@
               2
             ],
             "L": [
-              2,
-              2,
-              2,
-              2,
-              2,
-              2,
-              2,
-              2
+              1.9,
+              1.9,
+              1.9,
+              1.9,
+              1.9,
+              1.9,
+              1.9,
+              1.9
             ]
           },
           "offset": {
