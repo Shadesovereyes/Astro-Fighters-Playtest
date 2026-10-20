@@ -895,18 +895,18 @@
       },
       {
         "construction": "band",
-        "angle": -60,
+        "angle": 10,
         "elbow": {
           "at": 8,
-          "angle": -100
+          "angle": -60
         }
       },
       {
         "construction": "band",
-        "angle": -55,
+        "angle": 55,
         "elbow": {
           "at": 8,
-          "angle": -95
+          "angle": -60
         }
       },
       {
