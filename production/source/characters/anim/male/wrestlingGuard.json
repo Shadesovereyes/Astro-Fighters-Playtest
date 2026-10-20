@@ -1082,19 +1082,15 @@
         "legPoseRows": {
           "plant": [],
           "far": [
-            51,
-            46,
-            55
+            45,
+            54
           ]
         },
         "bobRows": [
           49,
           53,
           47,
-          52,
-          45,
-          54,
-          48
+          52
         ],
         "legRows": {
           "R": [
@@ -1218,7 +1214,7 @@
             ]
           }
         },
-        "headDy": 2,
+        "headDy": -1,
         "armRule": "guard seen from the front: elbows down at the sides, forearms nearly upright, the fists in front of each shoulder at the top of the chest, just below where the long hair hangs (the hair layer draws over the arms); a punch toward the viewer is a short straight arm (50% length) bringing the fist in front of the chest centre; on the jab and cross the punching arm points at the viewer: the arm crosses in front of the chest at shoulder height (45%) to a knuckles-on fist (fistFront) just off the chest centre, outlined over the body",
         "twist": {
           "pelvis": [
@@ -1257,16 +1253,16 @@
         },
         "footDx": {
           "R": [
-            -2,
-            -2,
-            -2,
-            -2
+            -3,
+            -3,
+            -3,
+            -3
           ],
           "L": [
-            2,
-            2,
-            2,
-            2
+            3,
+            3,
+            3,
+            3
           ]
         },
         "legPivot": 39,
@@ -1300,7 +1296,8 @@
             "S-wrestlingGuard-kneeL1"
           ]
         },
-        "torsoDrop": 3
+        "crouch": -3,
+        "torsoDrop": 1
       },
       "N": {
         "legPose": {
@@ -1320,19 +1317,15 @@
         "legPoseRows": {
           "plant": [],
           "far": [
-            51,
-            46,
-            55
+            45,
+            54
           ]
         },
         "bobRows": [
           49,
           53,
           47,
-          52,
-          45,
-          54,
-          48
+          52
         ],
         "legRows": {
           "R": [
@@ -1458,7 +1451,7 @@
             ]
           }
         },
-        "headDy": 3,
+        "headDy": -1,
         "armRule": "from behind the forearms, wrists and fists are in front of the body: only the shoulders and upper arms show (straight band arms cut at 7 px, showTo), hanging slightly out in guard, swinging in when that arm punches away from the viewer",
         "twist": {
           "pelvis": [
@@ -1497,16 +1490,16 @@
         },
         "footDx": {
           "R": [
-            2,
-            2,
-            2,
-            2
+            3,
+            3,
+            3,
+            3
           ],
           "L": [
-            -2,
-            -2,
-            -2,
-            -2
+            -3,
+            -3,
+            -3,
+            -3
           ]
         },
         "legPivot": 39,
@@ -1540,14 +1533,15 @@
             "N-wrestlingGuard-kneeL1"
           ]
         },
-        "torsoDrop": 3
+        "crouch": -3,
+        "torsoDrop": 1
       }
     },
     "partVariants": {
       "S-wrestlingGuard-kneeR0": {
         "knee": {
           "side": "R",
-          "dx": -3,
+          "dx": -2,
           "rows": [
             41,
             46,
@@ -1558,7 +1552,7 @@
       "S-wrestlingGuard-kneeR1": {
         "knee": {
           "side": "R",
-          "dx": -3,
+          "dx": -2,
           "rows": [
             41,
             51,
@@ -1569,7 +1563,7 @@
       "S-wrestlingGuard-kneeL0": {
         "knee": {
           "side": "L",
-          "dx": 3,
+          "dx": 2,
           "rows": [
             41,
             46,
@@ -1580,7 +1574,7 @@
       "S-wrestlingGuard-kneeL1": {
         "knee": {
           "side": "L",
-          "dx": 2,
+          "dx": 1,
           "rows": [
             41,
             51,
@@ -1591,7 +1585,7 @@
       "N-wrestlingGuard-kneeR0": {
         "knee": {
           "side": "R",
-          "dx": 3,
+          "dx": 2,
           "rows": [
             41,
             46,
@@ -1602,7 +1596,7 @@
       "N-wrestlingGuard-kneeR1": {
         "knee": {
           "side": "R",
-          "dx": 2,
+          "dx": 1,
           "rows": [
             41,
             51,
@@ -1613,7 +1607,7 @@
       "N-wrestlingGuard-kneeL0": {
         "knee": {
           "side": "L",
-          "dx": -3,
+          "dx": -2,
           "rows": [
             41,
             46,
@@ -1624,7 +1618,7 @@
       "N-wrestlingGuard-kneeL1": {
         "knee": {
           "side": "L",
-          "dx": -3,
+          "dx": -2,
           "rows": [
             41,
             51,

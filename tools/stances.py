@@ -142,7 +142,7 @@ FRONT = {
     'horseStance': dict(S=CHAMBER_S, N=CHAMBER_N, legs=dict(foot=2, knee=(6, 6))),
     'judoGuard': dict(S=GR_S(0.25, 0.28), N=GR_N(32, 32), legs=dict(foot=2, knee=(2, 2), farKnee=1, stagger=2), lean=(1, 1), blade=1),
     'jiuJitsuGuard': dict(S=GR_S(0.25, 0.6), N=GR_N(30, 38), legs=dict(foot=2, knee=(4, 4), farKnee=1, stagger=3), lean=(2, 3), blade=1),
-    'wrestlingGuard': dict(S=GR_S(0.45, 0.5), N=GR_N(40, 40), legs=dict(foot=2, knee=(5, 5), farKnee=1, stagger=3), lean=(3, 3), blade=1),
+    'wrestlingGuard': dict(S=GR_S(0.45, 0.5), N=GR_N(40, 40), legs=dict(foot=3, knee=(3, 3), farKnee=1, stagger=2), lean=(1, 0), rise=3, blade=1),
 }
 
 def frontal(st, spec):
@@ -186,6 +186,9 @@ def frontal(st, spec):
                 for j, (dk, kr) in enumerate(((kd - kd // 2, 46), (kd // 2, 51))):
                     if dk: n = '%s-%s-knee%s%d' % (d, st, sd, j); pv[n] = {'knee': {'side': sd, 'dx': out * dk, 'rows': [41, kr, 57]}}; vs.append(n)
         v['variants'] = {str(k): list(vs) for k in range(F)}
+        if cfg.get('rise'):   # the view's body sits this many rows higher than E's deep crouch (Christopher 2026-10-20: legs too squashed)
+            v['crouch'] = -cfg['rise']; v['bobRows'] = CROUCH_ROWS[:mb - cfg['rise']]
+            v['legPoseRows']['far'] = CROUCH_ROWS[mb - cfg['rise']:mb - cfg['rise'] + L.get('stagger', 0)]
         td, hd = cfg.get('lean', (0, 0))
         if td: v['torsoDrop'] = td
         if hd: v['headDy'] = (v.get('headDy') or 0) + hd + (1 if d == 'N' else 0)
