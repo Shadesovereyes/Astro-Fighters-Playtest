@@ -696,7 +696,7 @@ function frontalMove(d, k, part, y, x) {
       // shin rows a lower leg folding back); every leg also drops the frame's bob rows so the planted foot stays down
       // pose rows and bob rows may be given per side ({R, L}) where the two legs are drawn differently (diagonals)
       const side = (v) => (Array.isArray(v) ? v : v[s]);
-      const drop = [...new Set([...side(d.legPoseRows[d.legPose[s][k]]), ...side(d.bobRows).slice(0, b)])];
+      const drop = [...new Set([...side(d.legPoseRows[d.legPose[s][k]]), ...side(d.bobRowsAt?.[k] ?? d.bobRows).slice(0, b)])];   // bobRowsAt: per-frame bob rows where a clip changes stance (Horse Stance ability)
       rows = rowMap(y, b, drop, []); legDrop = drop;
       // a swinging leg comes in under the body: it shears toward the centre line from the hip row to the foot
       const pdx = (d.legPoseDx?.[d.legPose[s][k]] || 0) * (d.inward?.[s] || 0);
