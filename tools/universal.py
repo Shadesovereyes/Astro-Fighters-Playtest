@@ -60,13 +60,24 @@ def star(r):
     for y in (r - 1, r, r + 1):
         for x in (r - 1, r, r + 1): gr[y][x] = 'W'
     return rows(gr)
+def blob(rx, ry, dots=False):
+    gr = grid(2 * rx + 1, 2 * ry + 1)
+    for y in range(2 * ry + 1):
+        for x in range(2 * rx + 1):
+            d = ((x - rx) / rx) ** 2 + ((y - ry) / ry) ** 2
+            if d <= 1 and (not dots or (x + y) % 2 == 0): gr[y][x] = 'W' if d < 0.45 else 'w'
+    return rows(gr)
+GHOST = ['...ggg...', '..g.g.g..', '.g.g.g.g.', '..g.g.g..', '.g.g.g.g.', 'g.g.g.g.g', '.g.g.g.g.', 'g.g.g.g.g', '.g.g.g.g.', 'g.g...g.g', '.g.....g.']
 def strip(n, c='d', h=2): return [c * n] * h
 NPAT = {'spark': ['.w.', 'wWw', '.w.'], 'orb': ['.ww.', 'wWWw', 'wWWw', '.ww.'], 'orbBig': ['..w..', '.wWw.', 'wWWWw', '.wWw.', '..w..'],
         'release': ['..w....', '.wW.w..', 'wWWWWw.', '.wW.w..', '..w....'], 'wisp': ['.w.', 'wWw', '.w.'], 'wisp2': ['w.w', '.W.'],
         'star3': star(3), 'star6': star(6), 'star9': star(9),
         'dome1': dome(27, 58, 0.35), 'dome2': dome(27, 58, 0.75), 'dome3': dome(27, 58), 'dome4': dome(27, 58, dotted=True),
         'shadow1': strip(6), 'shadow2': strip(14), 'shadow3': strip(24), 'shadowTip': ['dd.', 'ddd'],
-        'shroud1': ['.g.g.', 'g.g.g'], 'dust': ['..w..w..', '.wWwwWw.', 'wWwwwwWw']}
+        'shroud1': ['.g.g.', 'g.g.g'],
+        'puffBig': ['....wwww....', '..wwWWWWww..', '.wWWWwwWWWw.', 'wWWwwwwwwWWw', 'wWwwwwwwwwWw', '.wwwwwwwwww.', '..wwwwwwww..'],
+        'puffRing': ['..w..w..w..', '.w.......w.', 'w.........w', '.w.......w.', '..w..w..w..'],
+        'ghost1': [r[2:7] for r in GHOST[::2]], 'ghost2': GHOST[:-2], 'ghost3': GHOST, 'puffHuge': blob(11, 8), 'puffHuge2': blob(12, 9, dots=True), 'dust': ['..w..w..', '.wWwwWw.', 'wWwwwwWw']}
 def nfx(rule, frames): return {'rule': rule, 'top': True, 'palette': NPAL, 'patterns': NPAT, 'frames': [{'frame': k, 'splash': [{'pattern': p_, 'at': at} for p_, at in sp]} for k, sp in frames]}
 
 CLIPS = {   # state: (ability, active frame, intent, frames, expressions, aura widths)
@@ -237,6 +248,34 @@ CLIPS = {   # state: (ability, active frame, intent, frames, expressions, aura w
   None,
   dict(fps=10, fx=nfx('a dark neutral-grey shadow band stretching from the feet along the ground toward the target, edge of frame onward drawn by the testbed',
               [(2, [('shadow1', [38, 63])]), (3, [('shadow2', [38, 63])]), (4, [('shadow3', [38, 63])]), (5, [('shadow3', [38, 63])]), (6, [('shadow2', [38, 63])])]))),
+ 'summonCompanion': ('Summon Companion', 3,
+  'Summon Companion (calls a Guardian-tier creature): from the guard the fighter makes the seal at the chest, then drops low on bent knees and slaps the open near palm down onto the ground in front; a big white/neutral smoke puff bursts up where the hand lands and spreads into a ring as it clears (the companion itself is placed by the testbed inside the puff); then rises back into the guard.', [
+     g(),
+     g(an=SEAL_N, af=SEAL_F, bob=(2, 2, 2), lean=(0, 0), **LOW),
+     g(an=SEAL_N, af=SEAL_F, bob=(2, 2, 2), lean=(0, 0), **LOW),
+     g(an=band(-40, -25, fistKind='palm'), af=band(-20, -150), bob=(5, 6, 6), lean=(0, 8), **BRACE),
+     g(an=band(-40, -25, fistKind='palm'), af=band(-20, -150), bob=(5, 6, 6), lean=(0, 8), **BRACE),
+     g(an=band(-40, -25, fistKind='palm'), af=band(-20, -150), bob=(5, 6, 6), lean=(0, 8), **BRACE),
+     g(an=band(-30, -90), af=band(-40, -100), bob=(3, 3, 3), lean=(0, 3), **LOW),
+     g()],
+  [None, 'squint', 'squint', None, None, None, None, None],
+  None,
+  dict(fx=nfx('white/neutral summoning smoke: a spark at the seal, a big puff bursting up where the palm hits the ground in front, spreading into a ring as it clears',
+              [(2, [('spark', [36, 30])]), (3, [('dust', [44, 63])]), (4, [('puffBig', [44, 63])]), (5, [('puffHuge', [40, 63])]), (6, [('puffHuge2', [39, 63])])]))),
+ 'phantomHaunt': ('Phantom Haunt', 3,
+  'Phantom Haunt (genjutsu: a phantom only caster and victim see): from the guard the fighter raises the near hand with two fingers up in front of the eyes, fixes the target with narrowed eyes and holds still while the far hand stays in guard; a faint dotted pale-grey phantom slips out of the fighter and drifts away toward the target, growing as it goes (the testbed then draws it hounding the victim); the hand drops back into the guard.', [
+     g(),
+     g(an=band(-120, -160, fistKind='palm'), bob=(1, 1, 1), lean=(0, 1)),
+     g(an=band(-120, -165, fistKind='palm'), bob=(1, 1, 1), lean=(0, 1)),
+     g(an=band(-120, -165, fistKind='palm'), bob=(1, 1, 1), lean=(0, 1)),
+     g(an=band(-120, -165, fistKind='palm'), bob=(1, 1, 1), lean=(0, 1)),
+     g(an=band(-120, -165, fistKind='palm'), bob=(1, 1, 1), lean=(0, 1)),
+     g(an=band(-60, -120), bob=(1, 1, 2), lean=(0, 2)),
+     g()],
+  [None, 'squint', 'squint', 'squint', 'squint', 'squint', None, None],
+  None,
+  dict(fx=nfx('a faint dotted pale-grey phantom slipping out of the fighter and drifting toward the target, growing as it goes',
+              [(2, [('ghost1', [40, 32])]), (3, [('ghost2', [44, 36])]), (4, [('ghost3', [49, 38])]), (5, [('ghost3', [54, 38])])]))),
 }
 
 def spec(state):
