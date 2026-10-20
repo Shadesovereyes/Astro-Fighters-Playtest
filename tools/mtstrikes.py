@@ -14,7 +14,7 @@ def band(a, e): return {'construction': 'band', 'angle': a, 'elbow': {'at': 8, '
 def leg(name, hip, knee, ankle, foot): return {'name': name, 'construction': 'band', 'hipX': hip[0], 'hipRow': hip[1], 'kneeX': knee[0], 'kneeRow': knee[1], 'ankle': list(ankle), 'foot': foot}
 def pose(spec, name): return copy.deepcopy(next(p for p in spec['legs']['poses'] if p['name'] == name))
 STAT = 'CANDIDATE 2026-10-20 (E/W; W mirrors E; S/N to author after approval)'
-APPROVED = {'muayThaiTeep': 'E/W approved by user 2026-10-20 (W mirrors E); S/N to author'}
+APPROVED = {'muayThaiJabCross': 'E/W approved by user 2026-10-20 (W mirrors E); S/N to author', 'muayThaiUppercut': 'E/W approved by user 2026-10-20 (W mirrors E); S/N to author', 'muayThaiCalfKick': 'E/W approved by user 2026-10-20 (W mirrors E); S/N to author', 'muayThaiRoundhouse': 'E/W approved by user 2026-10-20 (W mirrors E); S/N to author', 'muayThaiTeep': 'E/W approved by user 2026-10-20 (W mirrors E); S/N to author', 'muayThaiKnee': 'E/W approved by user 2026-10-20 (W mirrors E); S/N to author', 'muayThaiElbow': 'E/W approved by user 2026-10-20 (W mirrors E); S/N to author'}
 
 GN, GF = band(-20, 212), band(-45, 222)          # the approved Muay Thai guard arms (near = rear hand, far = lead hand)
 POSES = [pose(LIGHT, 'cross-lead'), pose(LIGHT, 'cross-rear')] + [pose(HEAVY, n) for n in ('lift', 'chamber', 'round-fold', 'low-kick', 'low-recoil', 'lead-pivot')] + [

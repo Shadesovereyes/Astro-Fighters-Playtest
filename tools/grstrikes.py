@@ -14,7 +14,7 @@ def band(a, e, **k): return {'construction': 'band', 'angle': a, 'elbow': {'at':
 def leg(name, hip, knee, foot, wrap=56, kind='flat'):
     return {'name': name, 'construction': 'band', 'hipX': hip[0], 'hipRow': hip[1], 'kneeX': knee[0], 'kneeRow': knee[1], 'footX': foot, 'wrapRow': wrap, 'foot': kind}
 STAT = 'CANDIDATE 2026-10-20 (E/W; W mirrors E; S/N to author after approval)'
-APPROVED = {'wrestlingProwess': 'E/W approved by user 2026-10-20 (W mirrors E); S/N to author'}
+APPROVED = {'judoChop': 'E/W approved by user 2026-10-20 (W mirrors E); S/N to author', 'wrestlingSumoPalm': 'E/W approved by user 2026-10-20 (W mirrors E); S/N to author', 'wrestlingProwess': 'E/W approved by user 2026-10-20 (W mirrors E); S/N to author'}
 P, H = dict(fistKind='palm'), dict(fistKind='heel')
 PALM_HEEL = {'use': 'open hand, heel of the palm leading a straight thrust, fingers together and up (standing Sumo Palm)', 'anchor': [0, 4],
              'rows': ['.Lm.', 'LLm.', 'LLm.', 'LLLm', 'LLLm', 'mLLs', '.sDs']}

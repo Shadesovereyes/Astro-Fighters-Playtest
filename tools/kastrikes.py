@@ -17,6 +17,7 @@ def leg(name, hip, knee, ankle, foot): return {'name': name, 'construction': 'ba
 def flat(name, hip, knee, foot, wrap=56, kind='flat'): return {'name': name, 'construction': 'band', 'hipX': hip[0], 'hipRow': hip[1], 'kneeX': knee[0], 'kneeRow': knee[1], 'footX': foot, 'wrapRow': wrap, 'foot': kind}
 def pose(spec, name): return copy.deepcopy(next(p for p in spec['legs']['poses'] if p['name'] == name))
 STAT = 'CANDIDATE 2026-10-20 (E/W; W mirrors E; S/N to author after approval)'
+APPROVED = {'karateHammerFist': 'E/W approved by user 2026-10-20 (W mirrors E); S/N to author', 'karateSideKick': 'E/W approved by user 2026-10-20 (W mirrors E); S/N to author', 'karateSweepingLow': 'E/W approved by user 2026-10-20 (W mirrors E); S/N to author'}
 
 HIP = band(55, -60)        # rear fist chambered at the hip (the stance's hikite); near = rear arm, far = lead arm
 LEAD = band(-75, -95)      # the stance's lead hand out at chest height
@@ -90,7 +91,7 @@ def spec(state, names):
     extra = {'stance': 'Karate Stance'}
     if 'supermanPunch' in names: extra['airborneFrames'] = [2, 3]; extra['travel'] = {'rule': 'Karate Blitz is a gap closer: the fighter ends the clip 18 px further forward (sum of rootMotion); the game moves the fighter by that distance', 'E': 18}
     if borrow: extra['borrow'] = {'rule': copy.deepcopy(HEAVY['borrow']['rule']), 'frames': borrow}
-    s = build(base, state, frames, status=STAT, newPoses=POSES + [pose(HEAVY, 'stance-lead'), pose(HEAVY, 'stance-rear')], clips=clips, events=events,
+    s = build(base, state, frames, status=APPROVED.get(state, STAT), newPoses=POSES + [pose(HEAVY, 'stance-lead'), pose(HEAVY, 'stance-rear')], clips=clips, events=events,
               rmRule='E: x +1 on the drive into each strike',
               intent='Karate stance strikes: Karate Blitz (lead punch, then reverse punch with the lead fist pulled back to the hip), Hammer Fist (rear fist swung over the head and down, body dropping), Side Kick (side chamber, heel thrust, torso back), Sweeping Low (sink on the front leg, rear foot sweeps along the floor and hooks) and Whirlwind Kick (the approved spin roundhouse). Every clip starts and ends in the approved Karate stance frame; the front foot stays planted.',
               extra=extra)
