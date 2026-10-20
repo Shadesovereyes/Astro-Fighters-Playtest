@@ -142,7 +142,7 @@
     }
   },
   "events": {
-    "rule": "per-frame gameplay data per facing (W mirrors E)",
+    "rule": "per-frame gameplay data per facing (W mirrors E: x -> 64 - x - w); hitboxes provisional",
     "E": [
       {
         "frame": 0,
@@ -247,16 +247,16 @@
       "W": true
     },
     "unoutlinedEdges": {
-      "E:2": 2,
-      "E:3": 2,
-      "E:4": 2,
-      "E:5": 2,
-      "E:6": 2,
-      "W:2": 2,
-      "W:3": 2,
-      "W:4": 2,
-      "W:5": 2,
-      "W:6": 2
+      "E:2": 1,
+      "E:3": 1,
+      "E:4": 1,
+      "E:5": 1,
+      "E:6": 1,
+      "W:2": 1,
+      "W:3": 1,
+      "W:4": 1,
+      "W:5": 1,
+      "W:6": 1
     },
     "holes": {},
     "groundContact": true,
@@ -289,11 +289,11 @@
       "cleanupRemoved": [
         6,
         9,
-        7,
-        7,
-        7,
-        7,
-        7,
+        6,
+        6,
+        6,
+        6,
+        6,
         9,
         6
       ],

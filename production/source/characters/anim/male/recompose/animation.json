@@ -142,7 +142,7 @@
     }
   },
   "events": {
-    "rule": "per-frame gameplay data per facing (W mirrors E)",
+    "rule": "per-frame gameplay data per facing (W mirrors E: x -> 64 - x - w); hitboxes provisional",
     "E": [
       {
         "frame": 0,
@@ -281,7 +281,7 @@
         4,
         9,
         8,
-        7,
+        12,
         7,
         7,
         6
