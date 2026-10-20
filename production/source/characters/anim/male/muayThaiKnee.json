@@ -1,9 +1,9 @@
 {
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
-  "state": "muayThaiTeepKnee",
+  "state": "muayThaiKnee",
   "status": "CANDIDATE 2026-10-20 (E/W; W mirrors E; S/N to author after approval)",
-  "frames": 13,
+  "frames": 7,
   "fps": 12,
   "sourceDirection": "E",
   "directions": [
@@ -94,12 +94,6 @@
       0,
       0,
       0,
-      1,
-      1,
-      0,
-      0,
-      0,
-      0,
       0,
       1
     ],
@@ -109,22 +103,10 @@
       0,
       0,
       0,
-      1,
-      1,
-      0,
-      0,
-      0,
-      0,
       0,
       1
     ],
     "arms": [
-      2,
-      1,
-      1,
-      1,
-      1,
-      2,
       2,
       1,
       1,
@@ -140,12 +122,6 @@
     "dx": {
       "pelvis": [
         0,
-        0,
-        2,
-        2,
-        0,
-        0,
-        0,
         1,
         2,
         3,
@@ -154,12 +130,6 @@
         0
       ],
       "head": [
-        2,
-        0,
-        -3,
-        -3,
-        0,
-        2,
         2,
         3,
         1,
@@ -200,57 +170,9 @@
       [
         0,
         0
-      ],
-      [
-        0,
-        0
-      ],
-      [
-        1,
-        0
-      ],
-      [
-        0,
-        0
-      ],
-      [
-        0,
-        0
-      ],
-      [
-        0,
-        0
-      ],
-      [
-        0,
-        0
       ]
     ],
     "W": [
-      [
-        0,
-        0
-      ],
-      [
-        0,
-        0
-      ],
-      [
-        -1,
-        0
-      ],
-      [
-        0,
-        0
-      ],
-      [
-        0,
-        0
-      ],
-      [
-        0,
-        0
-      ],
       [
         0,
         0
@@ -856,12 +778,6 @@
     ],
     "near": [
       6,
-      20,
-      21,
-      21,
-      20,
-      6,
-      6,
       11,
       12,
       22,
@@ -870,12 +786,6 @@
       6
     ],
     "far": [
-      4,
-      18,
-      18,
-      18,
-      18,
-      4,
       4,
       18,
       18,
@@ -952,54 +862,6 @@
       },
       {
         "construction": "band",
-        "angle": -20,
-        "elbow": {
-          "at": 8,
-          "angle": 212
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -20,
-        "elbow": {
-          "at": 8,
-          "angle": 212
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -20,
-        "elbow": {
-          "at": 8,
-          "angle": 212
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -20,
-        "elbow": {
-          "at": 8,
-          "angle": 212
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -20,
-        "elbow": {
-          "at": 8,
-          "angle": 212
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -20,
-        "elbow": {
-          "at": 8,
-          "angle": 212
-        }
-      },
-      {
-        "construction": "band",
         "angle": -75,
         "elbow": {
           "at": 8,
@@ -1048,54 +910,6 @@
       }
     ],
     "far": [
-      {
-        "construction": "band",
-        "angle": -45,
-        "elbow": {
-          "at": 8,
-          "angle": 222
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -45,
-        "elbow": {
-          "at": 8,
-          "angle": 222
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -45,
-        "elbow": {
-          "at": 8,
-          "angle": 222
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -45,
-        "elbow": {
-          "at": 8,
-          "angle": 222
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -45,
-        "elbow": {
-          "at": 8,
-          "angle": 222
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -45,
-        "elbow": {
-          "at": 8,
-          "angle": 222
-        }
-      },
       {
         "construction": "band",
         "angle": -45,
@@ -1260,12 +1074,6 @@
       "bandFollowsBody": true,
       "sway": {
         "E": [
-          -1,
-          -1,
-          -1,
-          -1,
-          -1,
-          -1,
           -1,
           -1,
           -1,
@@ -1477,28 +1285,15 @@
   },
   "clips": {
     "rule": "Muay Thai strikes: each clip starts and ends in the approved muayThaiGuard frame and returns to that idle (next: muayThaiGuard)",
-    "teep": {
+    "knee": {
       "frames": [
         0,
         1,
         2,
         3,
         4,
-        5
-      ],
-      "fps": 12,
-      "next": "muayThaiGuard",
-      "ability": "Teep Kick"
-    },
-    "knee": {
-      "frames": [
-        6,
-        7,
-        8,
-        9,
-        10,
-        11,
-        12
+        5,
+        6
       ],
       "fps": 12,
       "next": "muayThaiGuard",
@@ -1511,59 +1306,21 @@
     "E": [
       {
         "frame": 0,
-        "clip": "teep",
+        "clip": "knee",
         "type": "startup"
       },
       {
         "frame": 1,
-        "clip": "teep",
+        "clip": "knee",
         "type": "startup"
       },
       {
         "frame": 2,
-        "clip": "teep",
-        "type": "active",
-        "move": "Teep Kick",
-        "hitbox": [
-          46,
-          34,
-          12,
-          10
-        ],
-        "damage": "heavy"
+        "clip": "knee",
+        "type": "startup"
       },
       {
         "frame": 3,
-        "clip": "teep",
-        "type": "recovery"
-      },
-      {
-        "frame": 4,
-        "clip": "teep",
-        "type": "recovery"
-      },
-      {
-        "frame": 5,
-        "clip": "teep",
-        "type": "recovery"
-      },
-      {
-        "frame": 6,
-        "clip": "knee",
-        "type": "startup"
-      },
-      {
-        "frame": 7,
-        "clip": "knee",
-        "type": "startup"
-      },
-      {
-        "frame": 8,
-        "clip": "knee",
-        "type": "startup"
-      },
-      {
-        "frame": 9,
         "clip": "knee",
         "type": "active",
         "move": "Knee Strikes",
@@ -1576,17 +1333,17 @@
         "damage": "heavy"
       },
       {
-        "frame": 10,
+        "frame": 4,
         "clip": "knee",
         "type": "recovery"
       },
       {
-        "frame": 11,
+        "frame": 5,
         "clip": "knee",
         "type": "recovery"
       },
       {
-        "frame": 12,
+        "frame": 6,
         "clip": "knee",
         "type": "recovery"
       }
@@ -1594,59 +1351,21 @@
     "W": [
       {
         "frame": 0,
-        "clip": "teep",
+        "clip": "knee",
         "type": "startup"
       },
       {
         "frame": 1,
-        "clip": "teep",
+        "clip": "knee",
         "type": "startup"
       },
       {
         "frame": 2,
-        "clip": "teep",
-        "type": "active",
-        "move": "Teep Kick",
-        "hitbox": [
-          6,
-          34,
-          12,
-          10
-        ],
-        "damage": "heavy"
+        "clip": "knee",
+        "type": "startup"
       },
       {
         "frame": 3,
-        "clip": "teep",
-        "type": "recovery"
-      },
-      {
-        "frame": 4,
-        "clip": "teep",
-        "type": "recovery"
-      },
-      {
-        "frame": 5,
-        "clip": "teep",
-        "type": "recovery"
-      },
-      {
-        "frame": 6,
-        "clip": "knee",
-        "type": "startup"
-      },
-      {
-        "frame": 7,
-        "clip": "knee",
-        "type": "startup"
-      },
-      {
-        "frame": 8,
-        "clip": "knee",
-        "type": "startup"
-      },
-      {
-        "frame": 9,
         "clip": "knee",
         "type": "active",
         "move": "Knee Strikes",
@@ -1659,17 +1378,17 @@
         "damage": "heavy"
       },
       {
-        "frame": 10,
+        "frame": 4,
         "clip": "knee",
         "type": "recovery"
       },
       {
-        "frame": 11,
+        "frame": 5,
         "clip": "knee",
         "type": "recovery"
       },
       {
-        "frame": 12,
+        "frame": 6,
         "clip": "knee",
         "type": "recovery"
       }

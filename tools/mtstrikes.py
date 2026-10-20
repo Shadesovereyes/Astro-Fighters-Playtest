@@ -65,7 +65,7 @@ CLIPS = {   # (clip, ability, active frame, hitbox [x, y, w, h], damage, frames)
      p(an=band(-70, -140), bob=(1, 1, 1), lean=(1, 3)), f()]),
 }
 
-STATES = {'muayThaiPunch': ('jab', 'cross', 'uppercut'), 'muayThaiKick': ('calfKick', 'roundhouse'), 'muayThaiTeepKnee': ('teep', 'knee'), 'muayThaiElbow': ('elbow',)}
+STATES = {'muayThaiPunch': ('jab', 'cross', 'uppercut'), 'muayThaiKick': ('calfKick', 'roundhouse'), 'muayThaiTeep': ('teep',), 'muayThaiKnee': ('knee',), 'muayThaiElbow': ('elbow',)}
 
 def spec(state, names):
     base = copy.deepcopy(BASE)
