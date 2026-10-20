@@ -143,7 +143,7 @@ FRONT = {
     'horseStance': dict(S=CHAMBER_S, N=CHAMBER_N, legs=dict(foot=2, knee=(6, 6))),
     'judoGuard': dict(S=GR_S(0.25, 0.28), N=GR_N(32, 32), legs=dict(foot=0, knee=(0, 0), near=1, far=0, nearKnee=1, stagger=2), lean=(1, 0), blade=1, headUp=1),
     'jiuJitsuGuard': dict(S=GR_S(0.25, 0.6), N=GR_N(30, 38), legs=dict(foot=0, knee=(0, 0), near=1, far=-1, nearKnee=1, stagger=3), lean=(2, 0), rise=3, blade=1, headUp=1),
-    'wrestlingGuard': dict(S={'R': (40, 0, 0.7, 'front'), 'L': (-40, 0, 0.7, 'front')}, N=GR_N(40, 40), legs=dict(foot=0, knee=(0, 0), near=1, far=-1, nearKnee=1, stagger=3), lean=(1, 0), rise=3, blade=1, headUp=1),
+    'wrestlingGuard': dict(S={'R': (40, 0, 0.7, 'front'), 'L': (-40, 0, 0.7, 'front')}, N=GR_N(40, 40), legs=dict(foot=0, knee=(0, 0), near=0, far=-1, nearKnee=0, stagger=3), lean=(1, 0), rise=3, blade=1, headUp=1),
 }
 
 def frontal(st, spec):
