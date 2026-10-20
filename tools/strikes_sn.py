@@ -121,7 +121,7 @@ def lift_variant(d, side, hemOut):
     if d == 'S' and up >= 13: t['z'] = 4
     return {'tiptoe': t}
 
-SN_APPROVED = {s: 'S/N approved by user 2026-10-20 (v1, b24f8f0)' for s in ('karateHammerFist', 'judoChop', 'wrestlingProwess')} | {'karateBlitz': 'S/N approved by user 2026-10-20 (v2 with motion blur, c46b181)', 'karateWhirlwind': 'S/N approved by user 2026-10-20 (v1 with swing arc, 31fb396)'}
+SN_APPROVED = {s: 'S/N approved by user 2026-10-20 (v1, b24f8f0)' for s in ('karateHammerFist', 'judoChop', 'wrestlingProwess')} | {'karateBlitz': 'S/N approved by user 2026-10-20 (v2 with motion blur, c46b181)', 'karateWhirlwind': 'S/N approved by user 2026-10-20 (v1 with swing arc, 31fb396)', **{s: 'S/N approved by user 2026-10-20 (turned trunk keeps its depth, edf90c3)' for s in ('muayThaiRoundhouse', 'muayThaiKnee', 'muayThaiCalfKick', 'karateSideKick', 'karateSweepingLow')}}
 
 def sn(state):
     import json   # always from the committed E/W spec, so reruns start clean
@@ -170,7 +170,7 @@ def sn(state):
     if state in BORROW_SN:
         hb = HEAVY['borrow']['byDirection']
         spec['borrow']['byDirection'] = {d: {str(BORROW_SN[state][int(k)]): copy.deepcopy(b) for k, b in hb[d].items()} for d in ('S', 'N')}
-    spec['status'] = spec['status'].replace('S/N to author', SN_APPROVED.get(state, 'S/N CANDIDATE 2026-10-20'))
+    spec['status'] = spec['status'].replace('S/N to author', 'S/N CANDIDATE 2026-10-20').replace('S/N CANDIDATE 2026-10-20', SN_APPROVED.get(state, 'S/N CANDIDATE 2026-10-20'))
     save(spec, D + state + '.json'); print(state, 'S/N', F, 'frames')
 
 def restore(state):
