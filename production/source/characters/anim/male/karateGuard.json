@@ -1055,14 +1055,22 @@
           "far": [
             52,
             45,
-            54
+            54,
+            48
           ]
         },
-        "bobRows": [
-          49,
-          53,
-          47
-        ],
+        "bobRows": {
+          "L": [
+            47,
+            45,
+            49
+          ],
+          "R": [
+            49,
+            53,
+            47
+          ]
+        },
         "legRows": {
           "R": [
             41
@@ -1235,17 +1243,17 @@
           ]
         },
         "footDx": {
-          "R": [
-            -3,
-            -3,
-            -3,
-            -3
-          ],
           "L": [
-            3,
-            3,
-            3,
-            3
+            2,
+            2,
+            2,
+            2
+          ],
+          "R": [
+            0,
+            0,
+            0,
+            0
           ]
         },
         "legPivot": 39,
@@ -1253,22 +1261,19 @@
           "R": 56,
           "L": 56
         },
+        "crouch": 0,
         "variants": {
           "0": [
-            "S-karateGuard-kneeL0",
-            "S-karateGuard-kneeL1"
+            "S-karateGuard-kneeL"
           ],
           "1": [
-            "S-karateGuard-kneeL0",
-            "S-karateGuard-kneeL1"
+            "S-karateGuard-kneeL"
           ],
           "2": [
-            "S-karateGuard-kneeL0",
-            "S-karateGuard-kneeL1"
+            "S-karateGuard-kneeL"
           ],
           "3": [
-            "S-karateGuard-kneeL0",
-            "S-karateGuard-kneeL1"
+            "S-karateGuard-kneeL"
           ]
         }
       },
@@ -1292,14 +1297,22 @@
           "far": [
             52,
             45,
-            54
+            54,
+            48
           ]
         },
-        "bobRows": [
-          49,
-          53,
-          47
-        ],
+        "bobRows": {
+          "R": [
+            47,
+            45,
+            49
+          ],
+          "L": [
+            49,
+            53,
+            47
+          ]
+        },
         "legRows": {
           "R": [
             50
@@ -1463,16 +1476,16 @@
         },
         "footDx": {
           "R": [
-            3,
-            3,
-            3,
-            3
+            2,
+            2,
+            2,
+            2
           ],
           "L": [
-            -3,
-            -3,
-            -3,
-            -3
+            0,
+            0,
+            0,
+            0
           ]
         },
         "legPivot": 39,
@@ -1480,68 +1493,43 @@
           "R": 56,
           "L": 56
         },
+        "crouch": 0,
         "variants": {
           "0": [
-            "N-karateGuard-kneeL0",
-            "N-karateGuard-kneeL1"
+            "N-karateGuard-kneeR"
           ],
           "1": [
-            "N-karateGuard-kneeL0",
-            "N-karateGuard-kneeL1"
+            "N-karateGuard-kneeR"
           ],
           "2": [
-            "N-karateGuard-kneeL0",
-            "N-karateGuard-kneeL1"
+            "N-karateGuard-kneeR"
           ],
           "3": [
-            "N-karateGuard-kneeL0",
-            "N-karateGuard-kneeL1"
+            "N-karateGuard-kneeR"
           ]
         }
       }
     },
     "partVariants": {
-      "S-karateGuard-kneeL0": {
-        "knee": {
-          "side": "L",
-          "dx": 2,
-          "rows": [
-            41,
-            46,
-            57
-          ]
-        }
-      },
-      "S-karateGuard-kneeL1": {
+      "S-karateGuard-kneeL": {
         "knee": {
           "side": "L",
           "dx": 1,
           "rows": [
             41,
-            51,
-            57
+            47,
+            56
           ]
         }
       },
-      "N-karateGuard-kneeL0": {
+      "N-karateGuard-kneeR": {
         "knee": {
-          "side": "L",
-          "dx": -2,
+          "side": "R",
+          "dx": 1,
           "rows": [
             41,
-            46,
-            57
-          ]
-        }
-      },
-      "N-karateGuard-kneeL1": {
-        "knee": {
-          "side": "L",
-          "dx": -1,
-          "rows": [
-            41,
-            51,
-            57
+            47,
+            56
           ]
         }
       }

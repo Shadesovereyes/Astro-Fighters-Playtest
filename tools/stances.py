@@ -139,7 +139,7 @@ def GR_S(r, l, a=14): return {'R': (-a, None, r, 'front'), 'L': (a, None, l, 'fr
 FRONT = {
     'muayThaiGuard': dict(S=MT_S, N=MT_N, legs=dict(foot=1, knee=(1, 1)), lift={'L': ('mt-lead-up',)}),
     'karateGuard': dict(S={'R': CHAMBER_S['R'], 'L': (68, None, 0.42, 'front')}, N={'R': CHAMBER_N['R'], 'L': (10, None, 1, 'up')},
-                        legs=dict(foot=3, knee=(0, 3), stagger=3), blade=1),
+                        legs=dict(foot=0, knee=(0, 0), near=2, far=0, nearKnee=1, stagger=4), blade=1),   # staggered like the grappling stances, no knee flare (Christopher 2026-10-20)
     'horseStance': dict(S=CHAMBER_S, N=CHAMBER_N, legs=dict(foot=2, knee=(6, 6))),
     'judoGuard': dict(S=GR_S(0.25, 0.28), N=GR_N(32, 32), legs=dict(foot=0, knee=(0, 0), near=1, far=0, nearKnee=1, stagger=2), lean=(1, 0), blade=1, headUp=1),
     'jiuJitsuGuard': dict(S=GR_S(0.25, 0.6), N=GR_N(30, 38), legs=dict(foot=0, knee=(0, 0), near=1, far=-1, nearKnee=1, stagger=3), lean=(2, 0), rise=3, blade=1, headUp=1),
