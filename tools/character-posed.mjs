@@ -680,6 +680,8 @@ function shadeOf(d, k, part, x) {   // true when the output pixel (x) of this pa
   return variantsOf(d, k).some((v) => v.shade && (v.shade.far === 'right' ? x >= v.shade.from : x <= v.shade.from));
 }
 const shadeHex = (h) => { const s = symOf[h]; return s && s !== '#' ? pal[farShade[s]] : h; };
+// the wrist and hand of a band arm (from the wrap on; the authored fist has no reference row)
+const bandHand = (d, sd, fb) => (q) => { const a = fb.across.get(q); return !a || a[0] - d.armBand[sd].pivot[1] >= A.band.wrapFrom - 1; };
 const rotateArmDx = (d, k, sd) => variantsOf(d, k).reduce((a, v) => a + (v.rotate?.armDx?.[sd] || 0), 0);
 function frontalMove(d, k, part, y, x) {
   // crouch: a view's whole figure sits lower by d.crouch rows (every leg drops that many more bob rows)
@@ -894,12 +896,15 @@ function frontalFrame(dir, k) {
       if (ol) {
         const pv = d.armBand[sd].pivot, px0 = pv[0] + twistOf(d, k, 'torso', AR.shoulder) + (Array.isArray(d.armBand[sd].pivotDx) ? d.armBand[sd].pivotDx[k] : 0) + rotateArmDx(d, k, sd);
         const py0 = pv[1] + bobOf(d, k) + armDelta(k) + (d.crouch || 0) + viewDrop(d) + (d.variants?.[k] ? variantShear(d, k, pv[0], AR.shoulder, 'torso') : 0);
+        // the wrist and hand are always outlined, even when a folded arm brings them back within the shoulder join's
+        // radius, so a hand or wrist in front of the body reads separate from it (Christopher 2026-10-20)
+        const isHand = bandHand(d, sd, fb);
         for (const q of fb.pixels.keys()) {
           if (!mine(q)) continue;
-          const [x, y] = unkey(q);
+          const [x, y] = unkey(q), hand = isHand(q);
           for (const [dx2, dy2] of N4) {
             const n = key(x + dx2, y + dy2);
-            if (!fb.pixels.has(n) && Math.hypot(x + dx2 + 0.5 - px0, y + dy2 + 0.5 - py0) > 3) items.push([fb.zs.get(q) - 0.5, x + dx2, y + dy2, BLACK, `bandol:${sd}`]);
+            if (!fb.pixels.has(n) && (hand || Math.hypot(x + dx2 + 0.5 - px0, y + dy2 + 0.5 - py0) > 3)) items.push([fb.zs.get(q) - 0.5, x + dx2, y + dy2, BLACK, `bandol:${sd}`]);
           }
         }
       }
@@ -907,6 +912,22 @@ function frontalFrame(dir, k) {
     const m = new Map(), sm = new Map(), hz = new Set();
     for (const [z, x, y, c, s0] of items.sort((a, c) => a[0] - c[0])) { m.set(key(x, y), c); sm.set(key(x, y), s0); if (d.headZ > 3 && z === d.headZ) hz.add(key(x, y)); else hz.delete(key(x, y)); }
     if (name === 'arms') for (const q of LEG_FRONT[`${dir}:${k}`] || []) { m.delete(q); sm.delete(q); }
+    // a hand or wrist shown in front of the body keeps a 1px outline wherever it meets the body (a leg kicking in front
+    // or cloth over a far arm's outline would otherwise leave it touching): the outline goes on the arms layer
+    if (name === 'arms') for (const sd of Object.keys(d.armBand || {})) {
+      const fb = frontalBand(d, k, sd);
+      if (!fb) continue;
+      const isHand = bandHand(d, sd, fb), legFront = LEG_FRONT[`${dir}:${k}`] || new Set();
+      for (const q of fb.pixels.keys()) {
+        if (!isHand(q) || !m.has(q) || m.get(q) === BLACK) continue;
+        const [x, y] = unkey(q);
+        for (const [dx2, dy2] of N4) {
+          const n = key(x + dx2, y + dy2);
+          if (m.has(n) || (fb.pixels.has(n) && !legFront.has(n)) || !out.body.has(n)) continue;   // (a body outline there may be under cloth)
+          m.set(n, BLACK); sm.set(n, `bandol:${sd}`);
+        }
+      }
+    }
     out[name] = m; src[name] = sm;
     if (name === 'body') HEAD_FRONT[`${dir}:${k}`] = hz;
     // band-arm pixels still showing after the layer is drawn (a far arm behind the torso is mostly covered)

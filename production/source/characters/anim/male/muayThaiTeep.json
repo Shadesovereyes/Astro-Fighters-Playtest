@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "muayThaiTeep",
-  "status": "E/W approved by user 2026-10-20 (W mirrors E); S/N CANDIDATE 2026-10-20",
+  "status": "E/W approved by user 2026-10-20 (W mirrors E); S/N approved by user 2026-10-20 (hands and wrists in front of the body outlined)",
   "frames": 6,
   "fps": 12,
   "sourceDirection": "E",

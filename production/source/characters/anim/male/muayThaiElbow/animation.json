@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-animation-output/v1",
   "body": "male",
   "state": "muayThaiElbow",
-  "status": "E/W approved by user 2026-10-20 (W mirrors E); S/N CANDIDATE 2026-10-20",
+  "status": "E/W approved by user 2026-10-20 (W mirrors E); S/N approved by user 2026-10-20 (hands and wrists in front of the body outlined)",
   "frames": 6,
   "fps": 12,
   "frameSize": [
@@ -262,8 +262,8 @@
     "outlineNotches": {
       "S:0": 3,
       "S:1": 5,
-      "S:2": 2,
-      "S:3": 2,
+      "S:2": 3,
+      "S:3": 3,
       "S:4": 3,
       "S:5": 3,
       "E:0": 4,
@@ -309,18 +309,18 @@
         2
       ],
       "frontalOutlineAdded": {
-        "S:0": 24,
-        "S:1": 26,
-        "S:2": 21,
-        "S:3": 21,
-        "S:4": 21,
-        "S:5": 24,
-        "N:0": 35,
-        "N:1": 37,
-        "N:2": 31,
-        "N:3": 31,
-        "N:4": 34,
-        "N:5": 35
+        "S:0": 12,
+        "S:1": 18,
+        "S:2": 12,
+        "S:3": 12,
+        "S:4": 11,
+        "S:5": 12,
+        "N:0": 23,
+        "N:1": 28,
+        "N:2": 21,
+        "N:3": 21,
+        "N:4": 22,
+        "N:5": 23
       },
       "frontalHoleFills": {
         "S:0": 0,
@@ -329,12 +329,12 @@
         "S:3": 0,
         "S:4": 0,
         "S:5": 0,
-        "N:0": 3,
-        "N:1": 2,
-        "N:2": 2,
-        "N:3": 2,
-        "N:4": 4,
-        "N:5": 3
+        "N:0": 0,
+        "N:1": 0,
+        "N:2": 0,
+        "N:3": 0,
+        "N:4": 0,
+        "N:5": 0
       },
       "clothingOutlineAdded": {
         "male-gi S:0": 6,

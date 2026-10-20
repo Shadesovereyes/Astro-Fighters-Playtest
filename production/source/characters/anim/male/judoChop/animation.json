@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-animation-output/v1",
   "body": "male",
   "state": "judoChop",
-  "status": "E/W approved by user 2026-10-20 (W mirrors E); S/N CANDIDATE 2026-10-20",
+  "status": "E/W approved by user 2026-10-20 (W mirrors E); S/N approved by user 2026-10-20 (v1, b24f8f0)",
   "frames": 7,
   "fps": 12,
   "frameSize": [
@@ -353,7 +353,7 @@
         "N:1": 33,
         "N:2": 34,
         "N:3": 25,
-        "N:4": 25,
+        "N:4": 24,
         "N:5": 35,
         "N:6": 35
       },

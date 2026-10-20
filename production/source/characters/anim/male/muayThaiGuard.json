@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "muayThaiGuard",
-  "status": "E/W approved by user 2026-10-19 (W mirrors E); S/N CANDIDATE 2026-10-20 (v7, knee lift from the reference trouser leg with row drops; v6 lead heel up; v4 arms brought in)",
+  "status": "E/W approved by user 2026-10-19 (W mirrors E); S/N approved by user 2026-10-20 (v7, knee lift from the reference trouser leg with row drops; wrists outlined in front of the body)",
   "frames": 8,
   "fps": 6,
   "sourceDirection": "E",

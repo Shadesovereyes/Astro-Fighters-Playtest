@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-animation-output/v1",
   "body": "male",
   "state": "muayThaiUppercut",
-  "status": "E/W approved by user 2026-10-20 (W mirrors E); S/N CANDIDATE 2026-10-20",
+  "status": "E/W approved by user 2026-10-20 (W mirrors E); S/N approved by user 2026-10-20 (hands and wrists in front of the body outlined)",
   "frames": 6,
   "fps": 12,
   "frameSize": [
@@ -309,18 +309,18 @@
         2
       ],
       "frontalOutlineAdded": {
-        "S:0": 24,
-        "S:1": 25,
-        "S:2": 17,
-        "S:3": 18,
-        "S:4": 21,
-        "S:5": 24,
-        "N:0": 35,
-        "N:1": 38,
-        "N:2": 26,
-        "N:3": 30,
-        "N:4": 28,
-        "N:5": 35
+        "S:0": 12,
+        "S:1": 18,
+        "S:2": 8,
+        "S:3": 12,
+        "S:4": 12,
+        "S:5": 12,
+        "N:0": 23,
+        "N:1": 31,
+        "N:2": 17,
+        "N:3": 22,
+        "N:4": 20,
+        "N:5": 23
       },
       "frontalHoleFills": {
         "S:0": 0,
@@ -329,12 +329,12 @@
         "S:3": 0,
         "S:4": 0,
         "S:5": 0,
-        "N:0": 3,
-        "N:1": 2,
-        "N:2": 2,
-        "N:3": 2,
-        "N:4": 2,
-        "N:5": 3
+        "N:0": 0,
+        "N:1": 0,
+        "N:2": 0,
+        "N:3": 0,
+        "N:4": 0,
+        "N:5": 0
       },
       "clothingOutlineAdded": {
         "male-gi S:0": 6,

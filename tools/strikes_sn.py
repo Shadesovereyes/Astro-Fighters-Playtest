@@ -121,7 +121,8 @@ def lift_variant(d, side, hemOut):
     if d == 'S' and up >= 13: t['z'] = 4
     return {'tiptoe': t}
 
-SN_APPROVED = {s: 'S/N approved by user 2026-10-20 (v1, b24f8f0)' for s in ('karateHammerFist', 'judoChop', 'wrestlingProwess')} | {'karateBlitz': 'S/N approved by user 2026-10-20 (v2 with motion blur, c46b181)', 'karateWhirlwind': 'S/N approved by user 2026-10-20 (v1 with swing arc, 31fb396)', **{s: 'S/N approved by user 2026-10-20 (turned trunk keeps its depth, edf90c3)' for s in ('muayThaiRoundhouse', 'muayThaiKnee', 'muayThaiCalfKick', 'karateSideKick', 'karateSweepingLow')}}
+SN_APPROVED = {s: 'S/N approved by user 2026-10-20 (v1, b24f8f0)' for s in ('karateHammerFist', 'judoChop', 'wrestlingProwess')} | {'karateBlitz': 'S/N approved by user 2026-10-20 (v2 with motion blur, c46b181)', 'karateWhirlwind': 'S/N approved by user 2026-10-20 (v1 with swing arc, 31fb396)', **{s: 'S/N approved by user 2026-10-20 (turned trunk keeps its depth, edf90c3)' for s in ('muayThaiRoundhouse', 'muayThaiKnee', 'muayThaiCalfKick', 'karateSideKick', 'karateSweepingLow')},
+               **{s: 'S/N approved by user 2026-10-20 (hands and wrists in front of the body outlined)' for s in ('muayThaiTeep', 'muayThaiJabCross', 'muayThaiUppercut', 'muayThaiElbow', 'wrestlingSumoPalm')}}
 
 def sn(state):
     import json   # always from the committed E/W spec, so reruns start clean
@@ -189,6 +190,30 @@ def restore(state):
         new.save(d + f)
     print(state, 'E/W restored from HEAD')
 
+def outline_borrowed(state):
+    """borrowed spin bodies (BORROW_SN) are copied from another state's frames: a wrist wrap there that touches the body or
+    gi with no outline between gets one on the arms layer (Christopher 2026-10-20: hands and wrists in front of the body
+    keep a 1px outline)"""
+    from PIL import Image
+    d = D + state + '/'; A = Image.open(d + 'arms.png').convert('RGBA'); B = Image.open(d + 'body.png').convert('RGBA'); G = Image.open(d + 'male-gi.png').convert('RGBA')
+    dark = lambda c: c[3] and max(c[:3]) < 60; light = lambda c: c[3] and min(c[:3]) > 150
+    n = 0
+    for row in (0, 2):
+        for k in BORROW_SN[state].values():
+            add = set()
+            for y in range(row * 64, row * 64 + 64):
+                for x in range(k * 64, k * 64 + 64):
+                    if not light(A.getpixel((x, y))): continue
+                    for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+                        X, Y = x + dx, y + dy
+                        if A.getpixel((X, Y))[3]: continue
+                        top = G.getpixel((X, Y)) if G.getpixel((X, Y))[3] else B.getpixel((X, Y))
+                        if top[3] and not dark(top): add.add((X, Y))
+            for q in add: A.putpixel(q, (0, 0, 0, 255)); n += 1
+    A.save(d + 'arms.png'); print(state, 'borrowed wrist outline +', n)
+
 if __name__ == '__main__':
     args = [a for a in sys.argv[1:] if not a.startswith('--')] or list(SN)
-    for s in args: (restore if '--restore' in sys.argv else sn)(s)
+    for s in args:
+        (restore if '--restore' in sys.argv else sn)(s)
+        if '--restore' in sys.argv and s in BORROW_SN: outline_borrowed(s)

@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-animation-output/v1",
   "body": "male",
   "state": "wrestlingSumoPalm",
-  "status": "E/W approved by user 2026-10-20 (W mirrors E); S/N CANDIDATE 2026-10-20",
+  "status": "E/W approved by user 2026-10-20 (W mirrors E); S/N approved by user 2026-10-20 (hands and wrists in front of the body outlined)",
   "frames": 7,
   "fps": 12,
   "frameSize": [
@@ -351,17 +351,17 @@
         0
       ],
       "frontalOutlineAdded": {
-        "S:0": 17,
-        "S:1": 20,
+        "S:0": 16,
+        "S:1": 19,
         "S:2": 20,
-        "S:3": 26,
+        "S:3": 23,
         "S:4": 21,
         "S:5": 18,
-        "S:6": 17,
+        "S:6": 16,
         "N:0": 35,
-        "N:1": 35,
+        "N:1": 33,
         "N:2": 33,
-        "N:3": 33,
+        "N:3": 30,
         "N:4": 34,
         "N:5": 35,
         "N:6": 35
