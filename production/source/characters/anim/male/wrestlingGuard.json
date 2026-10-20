@@ -774,17 +774,17 @@
       "bentFistDy": -1,
       "bentFistRule": "on a bent arm (guard, recoil, wind-up, recover) the fist sits 1 px higher on the wrist",
       "fistFront": {
-        "use": "open hand seen from the front, palm toward the viewer, fingers up (grappling stance S view)",
+        "use": "open hand hanging below the wrist, palm toward the viewer (wrestling S view)",
         "anchor": [
           2,
-          4
+          0
         ],
         "rows": [
-          "mLmL.",
-          "LLLLm",
-          "LLLLm",
-          "mLLLs",
-          ".sDs."
+          "mLLLm",
+          "LLLLLs",
+          "LLLLLs",
+          "mLLLms",
+          ".sDDs."
         ]
       },
       "palmUp": {
@@ -1146,10 +1146,10 @@
               24
             ],
             "angle": [
-              40,
-              40,
-              40,
-              40
+              32,
+              32,
+              32,
+              32
             ],
             "elbow": [
               {
@@ -1183,9 +1183,15 @@
             ],
             "z": 4,
             "pivotDx": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "pivotDy": [
               0,
-              0,
-              0,
+              1,
+              1,
               0
             ]
           },
@@ -1195,10 +1201,10 @@
               24
             ],
             "angle": [
-              -40,
-              -40,
-              -40,
-              -40
+              -32,
+              -32,
+              -32,
+              -32
             ],
             "elbow": [
               {
@@ -1232,9 +1238,15 @@
             ],
             "z": 4,
             "pivotDx": [
+              -1,
+              -1,
+              -1,
+              -1
+            ],
+            "pivotDy": [
               0,
-              0,
-              0,
+              1,
+              1,
               0
             ]
           }

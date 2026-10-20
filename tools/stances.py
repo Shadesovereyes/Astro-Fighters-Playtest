@@ -143,7 +143,7 @@ FRONT = {
     'horseStance': dict(S=CHAMBER_S, N=CHAMBER_N, legs=dict(foot=2, knee=(6, 6))),
     'judoGuard': dict(S=GR_S(0.25, 0.28), N=GR_N(32, 32), legs=dict(foot=0, knee=(0, 0), near=1, far=0, nearKnee=1, stagger=2), lean=(1, 0), blade=1, headUp=1),
     'jiuJitsuGuard': dict(S=GR_S(0.25, 0.6), N=GR_N(30, 38), legs=dict(foot=0, knee=(0, 0), near=1, far=-1, nearKnee=1, stagger=3), lean=(2, 0), rise=3, blade=1, headUp=1),
-    'wrestlingGuard': dict(S={'R': (40, 0, 0.7, 'front'), 'L': (-40, 0, 0.7, 'front')}, N=GR_N(40, 40), legs=dict(foot=0, knee=(0, 0), near=0, far=-1, nearKnee=0, stagger=3), lean=(1, 0), rise=3, blade=1, headUp=1),
+    'wrestlingGuard': dict(S={'R': (32, 0, 0.7, 'front'), 'L': (-32, 0, 0.7, 'front')}, pivotDx={'S': {'R': 1, 'L': -1}}, armSettle={'S': 1}, N=GR_N(40, 40), legs=dict(foot=0, knee=(0, 0), near=0, far=-1, nearKnee=0, stagger=3), lean=(1, 0), rise=3, blade=1, headUp=1),
 }
 
 def frontal(st, spec):
@@ -162,7 +162,9 @@ def frontal(st, spec):
         for sd in ('R', 'L'):
             a, e, sc, fist = cfg[d][sd]; ab = v['armBand'][sd]
             ab['angle'] = [a] * F; ab['elbow'] = rep({'at': 7, 'angle': e} if e is not None else None)
-            ab['scale'] = [sc] * F; ab['fist'] = [fist] * F; ab['pivotDx'] = [0] * F
+            ab['scale'] = [sc] * F; ab['fist'] = [fist] * F; ab['pivotDx'] = [cfg.get('pivotDx', {}).get(d, {}).get(sd, 0)] * F
+            if cfg.get('armSettle', {}).get(d):   # the shoulders ride the body at the lowest arm lag, never rising out of the gi (Christopher 2026-10-20)
+                am = spec['bob'].get('arms') or dy; dl = [am[k] - dy[k] for k in range(F)]; ab['pivotDy'] = [max(dl) - x for x in dl]
             if d == 'N' and e is None: ab['showTo'] = 7
             elif d == 'N': ab.pop('showTo', None)
         sides = {'R': [False] * F, 'L': [False] * F}; pose = {'R': [None] * F, 'L': [None] * F}
@@ -223,6 +225,9 @@ def frontal(st, spec):
     if st == 'karateGuard':   # the lead fist punching toward the viewer, large in the middle of the chest
         spec['arms']['band']['fistFront'] = {'use': 'karate lead fist seen knuckles-on, held out toward the viewer in the middle of the chest (S view)', 'anchor': [2, 2],
                                             'rows': ['.mLm.', 'mLLLm', 'mLLLs', 'sLLms', '.sDs.']}   # small solid fist, no finger lines (Christopher 2026-10-20)
+    elif st == 'wrestlingGuard':   # hands hanging below the wrists, wider than the forearm so they read as hands (Christopher 2026-10-20: hand shape lost in the arm)
+        spec['arms']['band']['fistFront'] = {'use': 'open hand hanging below the wrist, palm toward the viewer (wrestling S view)', 'anchor': [2, 0],
+                                            'rows': ['mLLLm', 'LLLLLs', 'LLLLLs', 'mLLLms', '.sDDs.']}
     elif any(cfg['S'][sd][3] == 'front' for sd in 'RL'):   # open hand, palm to the viewer (grappling stances seen from the front)
         spec['arms']['band']['fistFront'] = {'use': 'open hand seen from the front, palm toward the viewer, fingers up (grappling stance S view)', 'anchor': [2, 4],
                                             'rows': ['mLmL.', 'LLLLm', 'LLLLm', 'mLLLs', '.sDs.']}

@@ -772,7 +772,8 @@ function frontalBand(d, k, sd, dir) {
   const sc = at(ab.scale) ?? 1, r = (v) => Math.round(v * sc), B0 = A.band, el = at(ab.elbow);
   const lx = (d.leanScale ? roundHalfEven(d.leanScale * leanOf('torso', k, AR.shoulder)) * (d.leanSign || 1) : 0)
     + twistOf(d, k, 'torso', AR.shoulder) + (at(ab.pivotDx) || 0) + rotateArmDx(d, k, sd);
-  const dy = bobOf(d, k) + armDelta(k) + (d.crouch || 0) + viewDrop(d) + (d.variants?.[k] ? variantShear(d, k, ab.pivot[0], AR.shoulder, 'torso') : 0);
+  // pivotDy: the shoulder joint sits that many rows lower on this frame (keeps a wide arm's shoulder under the gi)
+  const dy = bobOf(d, k) + armDelta(k) + (at(ab.pivotDy) || 0) + (d.crouch || 0) + viewDrop(d) + (d.variants?.[k] ? variantShear(d, k, ab.pivot[0], AR.shoulder, 'torso') : 0);
   const pb = { angle: at(ab.angle), band: { pivot: ab.pivot, start: B0.start, length: r(B0.length + B0.start) - B0.start,
     wrapFrom: r(B0.wrapFrom), handFrom: r(B0.handFrom) }, ...(el ? { elbow: { ...el, at: r(el.at) } } : {}), fistKind: at(ab.fist) };
   const { uv } = bandGeom(pb), pixels = new Map(), ref = new Map(), across = new Map(), zs = new Map(), span = dir ? refArmSpan(dir, sd) : {}, T = B0.thickness;
