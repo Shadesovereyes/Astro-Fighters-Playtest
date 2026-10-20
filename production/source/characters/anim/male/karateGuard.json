@@ -746,16 +746,15 @@
       "fistFront": {
         "use": "karate lead fist seen knuckles-on, held out toward the viewer in the middle of the chest (S view)",
         "anchor": [
-          3,
-          3
+          2,
+          2
         ],
         "rows": [
-          ".mLLLm.",
-          "mLLLLLm",
-          "mLLLLLs",
-          "mLLLLms",
-          "sLLLLms",
-          ".sDDDs."
+          ".mLm.",
+          "mLLLm",
+          "mLLLs",
+          "sLLms",
+          ".sDs."
         ]
       },
       "palmUp": {

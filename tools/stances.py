@@ -143,7 +143,7 @@ FRONT = {
     'horseStance': dict(S=CHAMBER_S, N=CHAMBER_N, legs=dict(foot=2, knee=(6, 6))),
     'judoGuard': dict(S=GR_S(0.25, 0.28), N=GR_N(32, 32), legs=dict(foot=0, knee=(0, 0), near=1, far=0, nearKnee=1, stagger=2), lean=(1, 0), blade=1, headUp=1),
     'jiuJitsuGuard': dict(S=GR_S(0.25, 0.6), N=GR_N(30, 38), legs=dict(foot=0, knee=(0, 0), near=1, far=-1, nearKnee=1, stagger=3), lean=(2, 0), rise=3, blade=1, headUp=1),
-    'wrestlingGuard': dict(S=GR_S(0.45, 0.5), N=GR_N(40, 40), legs=dict(foot=0, knee=(0, 0), near=1, far=-1, nearKnee=1, stagger=3), lean=(1, 0), rise=3, blade=1, headUp=1),
+    'wrestlingGuard': dict(S={'R': (40, 0, 0.7, 'front'), 'L': (-40, 0, 0.7, 'front')}, N=GR_N(40, 40), legs=dict(foot=0, knee=(0, 0), near=1, far=-1, nearKnee=1, stagger=3), lean=(1, 0), rise=3, blade=1, headUp=1),
 }
 
 def frontal(st, spec):
@@ -221,8 +221,8 @@ def frontal(st, spec):
     fr['legLift'] = {'R': [0] * F, 'L': [0] * F}
     spec['frontal'] = fr; spec['directions'] = ['S', 'E', 'N', 'W']
     if st == 'karateGuard':   # the lead fist punching toward the viewer, large in the middle of the chest
-        spec['arms']['band']['fistFront'] = {'use': 'karate lead fist seen knuckles-on, held out toward the viewer in the middle of the chest (S view)', 'anchor': [3, 3],
-                                            'rows': ['.mLLLm.', 'mLLLLLm', 'mLLLLLs', 'mLLLLms', 'sLLLLms', '.sDDDs.']}   # solid fist, no finger lines (Christopher 2026-10-20)
+        spec['arms']['band']['fistFront'] = {'use': 'karate lead fist seen knuckles-on, held out toward the viewer in the middle of the chest (S view)', 'anchor': [2, 2],
+                                            'rows': ['.mLm.', 'mLLLm', 'mLLLs', 'sLLms', '.sDs.']}   # small solid fist, no finger lines (Christopher 2026-10-20)
     elif any(cfg['S'][sd][3] == 'front' for sd in 'RL'):   # open hand, palm to the viewer (grappling stances seen from the front)
         spec['arms']['band']['fistFront'] = {'use': 'open hand seen from the front, palm toward the viewer, fingers up (grappling stance S view)', 'anchor': [2, 4],
                                             'rows': ['mLmL.', 'LLLLm', 'LLLLm', 'mLLLs', '.sDs.']}
