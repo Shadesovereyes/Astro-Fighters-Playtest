@@ -89,7 +89,7 @@ SN = {
                       2: dict(R=(40, -60, 0.9, 'front', 8), L=(-40, 60, 0.9, 'up', 8), NR=(-45, None, 1, 'up'), NL=(45, None, 1, 'up'))},
 }
 
-SN_APPROVED = {s: 'S/N approved by user 2026-10-20 (v1, b24f8f0)' for s in ('karateHammerFist', 'judoChop', 'wrestlingProwess')}
+SN_APPROVED = {s: 'S/N approved by user 2026-10-20 (v1, b24f8f0)' for s in ('karateHammerFist', 'judoChop', 'wrestlingProwess')} | {'karateBlitz': 'S/N approved by user 2026-10-20 (v2 with motion blur, c46b181)'}
 
 def sn(state):
     import json   # always from the committed E/W spec, so reruns start clean
