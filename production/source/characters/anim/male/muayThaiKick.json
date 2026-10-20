@@ -791,6 +791,17 @@
         "foot": "toe60"
       },
       {
+        "name": "mt-lead-flat",
+        "construction": "band",
+        "hipX": 32,
+        "hipRow": 41,
+        "kneeX": 36,
+        "kneeRow": 48,
+        "footX": 38,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
         "name": "mt-round",
         "construction": "band",
         "hipX": 34,
@@ -852,8 +863,8 @@
       6,
       11,
       13,
-      18,
-      18,
+      19,
+      19,
       13,
       11,
       6

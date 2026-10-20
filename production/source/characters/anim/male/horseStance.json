@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "horseStance",
-  "status": "E/W approved by user 2026-10-19 (W mirrors E); S/N CANDIDATE 2026-10-20 (v4; v3 approval revoked by user: legs looked weird)",
+  "status": "E/W approved by user 2026-10-19 (W mirrors E); S/N CANDIDATE 2026-10-20 (v5; v3 approval revoked by user: legs looked weird; v4 leg width strange)",
   "frames": 4,
   "fps": 4,
   "sourceDirection": "E",
@@ -1246,16 +1246,16 @@
         },
         "footDx": {
           "R": [
-            -6,
-            -6,
-            -6,
-            -6
+            -4,
+            -4,
+            -4,
+            -4
           ],
           "L": [
-            6,
-            6,
-            6,
-            6
+            4,
+            4,
+            4,
+            4
           ]
         },
         "legPivot": 39,
@@ -1472,16 +1472,16 @@
         },
         "footDx": {
           "R": [
-            6,
-            6,
-            6,
-            6
+            4,
+            4,
+            4,
+            4
           ],
           "L": [
-            -6,
-            -6,
-            -6,
-            -6
+            -4,
+            -4,
+            -4,
+            -4
           ]
         },
         "legPivot": 39,
@@ -1513,10 +1513,10 @@
       "S-horseStance-kneeR0": {
         "knee": {
           "side": "R",
-          "dx": -5,
+          "dx": -4,
           "rows": [
             41,
-            46,
+            53,
             57
           ]
         }
@@ -1524,10 +1524,10 @@
       "S-horseStance-kneeL0": {
         "knee": {
           "side": "L",
-          "dx": 5,
+          "dx": 4,
           "rows": [
             41,
-            46,
+            53,
             57
           ]
         }
@@ -1535,10 +1535,10 @@
       "N-horseStance-kneeR0": {
         "knee": {
           "side": "R",
-          "dx": 5,
+          "dx": 4,
           "rows": [
             41,
-            46,
+            53,
             57
           ]
         }
@@ -1546,10 +1546,10 @@
       "N-horseStance-kneeL0": {
         "knee": {
           "side": "L",
-          "dx": -5,
+          "dx": -4,
           "rows": [
             41,
-            46,
+            53,
             57
           ]
         }

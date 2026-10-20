@@ -18,6 +18,7 @@ STAT = 'CANDIDATE 2026-10-20 (E/W; W mirrors E; S/N to author after approval)'
 GN, GF = band(-20, 212), band(-45, 222)          # the approved Muay Thai guard arms (near = rear hand, far = lead hand)
 POSES = [pose(LIGHT, 'cross-lead'), pose(LIGHT, 'cross-rear')] + [pose(HEAVY, n) for n in ('lift', 'chamber', 'round-fold', 'low-kick', 'low-recoil', 'lead-pivot')] + [
     {**pose(HEAVY, 'lead-pivot'), 'name': 'mt-pivot', 'wrapRow': 54, 'foot': 'toe60'},   # support foot up on the ball, turning out
+    {**pose(BASE, 'mt-lead'), 'name': 'mt-lead-flat', 'wrapRow': 56, 'foot': 'flat'},   # lead foot planted flat for punches (Christopher 2026-10-20)
     leg('mt-round', (34, 40), (42, 35), (51, 30), 'pointFwd'),     # rear shin swung through at rib height, leg nearly straight
     leg('teep-chamber', (34, 40), (40, 34), (40, 42), 'toe30k'),   # knee pulled to the chest, shin hanging under it
     leg('teep', (35, 40), (44, 37), (52, 37), 'blade'),            # leg pushed out level, sole flat to the target
@@ -25,12 +26,13 @@ POSES = [pose(LIGHT, 'cross-lead'), pose(LIGHT, 'cross-rear')] + [pose(HEAVY, n)
 
 ST = dict(an=GN, af=GF, bob=(1, 1, 2), lean=(0, 2), root=(0, 0), ln='mt-rear', lf='mt-lead')   # muayThaiGuard frame 0
 def f(**k): return {**ST, **k}
+def p(**k): return {**ST, 'lf': 'mt-lead-flat', **k}   # punch frames: the lead heel comes down and stays down until the clip returns to the stance
 
 CLIPS = {   # (clip, ability, active frame, hitbox [x, y, w, h], damage, frames)
  'jab': ('Jab-Cross', 1, [44, 26, 12, 6], 'light', [
-     f(), f(af=band(-93, -93), lean=(0, 3), root=(1, 0)), f(af=band(-50, 235)), f()]),
+     f(), p(af=band(-93, -93), lean=(0, 3), root=(1, 0)), p(af=band(-50, 235)), f()]),
  'cross': ('Jab-Cross', 1, [44, 26, 12, 6], 'light', [
-     f(an=band(-8, 205), lean=(0, 3)), f(an=band(-92, -92), bob=(2, 2, 2), lean=(1, 5), root=(1, 0), ln='cross-rear', lf='cross-lead'), f(an=band(-55, 230), lean=(0, 3)), f()]),
+     p(an=band(-8, 205), lean=(0, 3)), p(an=band(-92, -92), bob=(2, 2, 2), lean=(1, 5), root=(1, 0), ln='cross-rear', lf='cross-lead'), p(an=band(-55, 230), lean=(0, 3)), f()]),
  'calfKick': ('Calf Kick', 2, [42, 46, 16, 10], 'heavy', [
      f(lean=(0, 1)), f(bob=(0, 0, 1), lean=(0, 0), ln='lift'),
      f(an=band(25, 20), bob=(0, 0, 1), lean=(1, -2), root=(1, 0), ln='low-kick', lf='lead-pivot'),
@@ -52,15 +54,15 @@ CLIPS = {   # (clip, ability, active frame, hitbox [x, y, w, h], damage, frames)
      f(an=band(-55, -70), af=band(-65, -85), bob=(0, 0, 0), lean=(3, -1), ln='mt-knee'),
      f(an=band(-40, 230), af=GF, bob=(0, 0, 1), lean=(1, 1), ln='lift'), f()]),
  'elbow': ('Elbow Strike', 2, [42, 22, 10, 8], 'heavy', [   # rear elbow carried level across, forearm folded back to the head
-     f(), f(an=band(-55, -155), lean=(1, 3)),
+     f(), p(an=band(-55, -155), lean=(1, 3)),
      f(an=band(-105, 95), bob=(2, 2, 2), lean=(1, 3), root=(1, 0), ln='cross-rear', lf='cross-lead'),
      f(an=band(-103, 97), bob=(2, 2, 2), lean=(1, 3), ln='cross-rear', lf='cross-lead'),
-     f(an=band(-55, 230), lean=(0, 3)), f()]),
+     p(an=band(-55, 230), lean=(0, 3)), f()]),
  'uppercut': ('Uppercut', 3, [42, 20, 10, 10], 'heavy', [   # knees dip and the rear fist drops, then the body rises through it
-     f(), f(an=band(-5, 200), bob=(2, 2, 2), lean=(1, 3)),
+     f(), p(an=band(-5, 200), bob=(2, 2, 2), lean=(1, 3)),
      f(an=band(-40, -150), bob=(1, 1, 1), lean=(1, 3), ln='cross-rear', lf='cross-lead'),
      f(an=band(-62, -162), bob=(1, 0, 1), lean=(1, 2), root=(1, 0), ln='cross-rear', lf='cross-lead'),
-     f(an=band(-70, -140), bob=(1, 1, 1), lean=(1, 3)), f()]),
+     p(an=band(-70, -140), bob=(1, 1, 1), lean=(1, 3)), f()]),
 }
 
 STATES = {'muayThaiPunch': ('jab', 'cross', 'uppercut'), 'muayThaiKick': ('calfKick', 'roundhouse'), 'muayThaiTeepKnee': ('teep', 'knee'), 'muayThaiElbow': ('elbow',)}
