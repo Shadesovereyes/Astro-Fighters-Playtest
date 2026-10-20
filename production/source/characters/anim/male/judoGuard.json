@@ -1064,10 +1064,16 @@
             52
           ]
         },
-        "bobRows": [
-          49,
-          53
-        ],
+        "bobRows": {
+          "L": [
+            47,
+            45
+          ],
+          "R": [
+            49,
+            53
+          ]
+        },
         "legRows": {
           "R": [
             41
@@ -1190,7 +1196,12 @@
             ]
           }
         },
-        "headDy": 0,
+        "headDy": [
+          -1,
+          -1,
+          -1,
+          -1
+        ],
         "armRule": "guard seen from the front: elbows down at the sides, forearms nearly upright, the fists in front of each shoulder at the top of the chest, just below where the long hair hangs (the hair layer draws over the arms); a punch toward the viewer is a short straight arm (50% length) bringing the fist in front of the chest centre; on the jab and cross the punching arm points at the viewer: the arm crosses in front of the chest at shoulder height (45%) to a knuckles-on fist (fistFront) just off the chest centre, outlined over the body",
         "twist": {
           "pelvis": [
@@ -1228,17 +1239,17 @@
           ]
         },
         "footDx": {
-          "R": [
-            -2,
-            -2,
-            -2,
-            -2
-          ],
           "L": [
-            2,
-            2,
-            2,
-            2
+            1,
+            1,
+            1,
+            1
+          ],
+          "R": [
+            0,
+            0,
+            0,
+            0
           ]
         },
         "legPivot": 39,
@@ -1246,30 +1257,19 @@
           "R": 56,
           "L": 56
         },
+        "crouch": 0,
         "variants": {
           "0": [
-            "S-judoGuard-kneeR0",
-            "S-judoGuard-kneeR1",
-            "S-judoGuard-kneeL0",
-            "S-judoGuard-kneeL1"
+            "S-judoGuard-kneeL"
           ],
           "1": [
-            "S-judoGuard-kneeR0",
-            "S-judoGuard-kneeR1",
-            "S-judoGuard-kneeL0",
-            "S-judoGuard-kneeL1"
+            "S-judoGuard-kneeL"
           ],
           "2": [
-            "S-judoGuard-kneeR0",
-            "S-judoGuard-kneeR1",
-            "S-judoGuard-kneeL0",
-            "S-judoGuard-kneeL1"
+            "S-judoGuard-kneeL"
           ],
           "3": [
-            "S-judoGuard-kneeR0",
-            "S-judoGuard-kneeR1",
-            "S-judoGuard-kneeL0",
-            "S-judoGuard-kneeL1"
+            "S-judoGuard-kneeL"
           ]
         },
         "torsoDrop": 1
@@ -1296,10 +1296,16 @@
             52
           ]
         },
-        "bobRows": [
-          49,
-          53
-        ],
+        "bobRows": {
+          "R": [
+            47,
+            45
+          ],
+          "L": [
+            49,
+            53
+          ]
+        },
         "legRows": {
           "R": [
             50
@@ -1424,7 +1430,12 @@
             ]
           }
         },
-        "headDy": 1,
+        "headDy": [
+          -1,
+          -1,
+          -1,
+          -1
+        ],
         "armRule": "from behind the forearms, wrists and fists are in front of the body: only the shoulders and upper arms show (straight band arms cut at 7 px, showTo), hanging slightly out in guard, swinging in when that arm punches away from the viewer",
         "twist": {
           "pelvis": [
@@ -1463,16 +1474,16 @@
         },
         "footDx": {
           "R": [
-            2,
-            2,
-            2,
-            2
+            1,
+            1,
+            1,
+            1
           ],
           "L": [
-            -2,
-            -2,
-            -2,
-            -2
+            0,
+            0,
+            0,
+            0
           ]
         },
         "legPivot": 39,
@@ -1480,121 +1491,44 @@
           "R": 56,
           "L": 56
         },
+        "crouch": 0,
         "variants": {
           "0": [
-            "N-judoGuard-kneeR0",
-            "N-judoGuard-kneeR1",
-            "N-judoGuard-kneeL0",
-            "N-judoGuard-kneeL1"
+            "N-judoGuard-kneeR"
           ],
           "1": [
-            "N-judoGuard-kneeR0",
-            "N-judoGuard-kneeR1",
-            "N-judoGuard-kneeL0",
-            "N-judoGuard-kneeL1"
+            "N-judoGuard-kneeR"
           ],
           "2": [
-            "N-judoGuard-kneeR0",
-            "N-judoGuard-kneeR1",
-            "N-judoGuard-kneeL0",
-            "N-judoGuard-kneeL1"
+            "N-judoGuard-kneeR"
           ],
           "3": [
-            "N-judoGuard-kneeR0",
-            "N-judoGuard-kneeR1",
-            "N-judoGuard-kneeL0",
-            "N-judoGuard-kneeL1"
+            "N-judoGuard-kneeR"
           ]
         },
         "torsoDrop": 1
       }
     },
     "partVariants": {
-      "S-judoGuard-kneeR0": {
-        "knee": {
-          "side": "R",
-          "dx": -2,
-          "rows": [
-            41,
-            46,
-            57
-          ]
-        }
-      },
-      "S-judoGuard-kneeR1": {
-        "knee": {
-          "side": "R",
-          "dx": -1,
-          "rows": [
-            41,
-            51,
-            57
-          ]
-        }
-      },
-      "S-judoGuard-kneeL0": {
+      "S-judoGuard-kneeL": {
         "knee": {
           "side": "L",
           "dx": 1,
           "rows": [
             41,
-            46,
-            57
+            47,
+            56
           ]
         }
       },
-      "S-judoGuard-kneeL1": {
-        "knee": {
-          "side": "L",
-          "dx": 1,
-          "rows": [
-            41,
-            51,
-            57
-          ]
-        }
-      },
-      "N-judoGuard-kneeR0": {
+      "N-judoGuard-kneeR": {
         "knee": {
           "side": "R",
           "dx": 1,
           "rows": [
             41,
-            46,
-            57
-          ]
-        }
-      },
-      "N-judoGuard-kneeR1": {
-        "knee": {
-          "side": "R",
-          "dx": 1,
-          "rows": [
-            41,
-            51,
-            57
-          ]
-        }
-      },
-      "N-judoGuard-kneeL0": {
-        "knee": {
-          "side": "L",
-          "dx": -2,
-          "rows": [
-            41,
-            46,
-            57
-          ]
-        }
-      },
-      "N-judoGuard-kneeL1": {
-        "knee": {
-          "side": "L",
-          "dx": -1,
-          "rows": [
-            41,
-            51,
-            57
+            47,
+            56
           ]
         }
       }

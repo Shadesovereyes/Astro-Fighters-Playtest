@@ -1060,19 +1060,29 @@
         "legPoseRows": {
           "plant": [],
           "far": [
-            48,
-            51,
-            46
+            52,
+            45,
+            54
           ]
         },
-        "bobRows": [
-          49,
-          53,
-          47,
-          52,
-          45,
-          54
-        ],
+        "bobRows": {
+          "L": [
+            47,
+            45,
+            49,
+            43,
+            48,
+            53
+          ],
+          "R": [
+            49,
+            53,
+            47,
+            52,
+            45,
+            54
+          ]
+        },
         "legRows": {
           "R": [
             41
@@ -1195,7 +1205,12 @@
             ]
           }
         },
-        "headDy": 2,
+        "headDy": [
+          -1,
+          -1,
+          -1,
+          -1
+        ],
         "armRule": "guard seen from the front: elbows down at the sides, forearms nearly upright, the fists in front of each shoulder at the top of the chest, just below where the long hair hangs (the hair layer draws over the arms); a punch toward the viewer is a short straight arm (50% length) bringing the fist in front of the chest centre; on the jab and cross the punching arm points at the viewer: the arm crosses in front of the chest at shoulder height (45%) to a knuckles-on fist (fistFront) just off the chest centre, outlined over the body",
         "twist": {
           "pelvis": [
@@ -1233,17 +1248,17 @@
           ]
         },
         "footDx": {
-          "R": [
-            -2,
-            -2,
-            -2,
-            -2
-          ],
           "L": [
-            2,
-            2,
-            2,
-            2
+            1,
+            1,
+            1,
+            1
+          ],
+          "R": [
+            1,
+            1,
+            1,
+            1
           ]
         },
         "legPivot": 39,
@@ -1251,30 +1266,19 @@
           "R": 56,
           "L": 56
         },
+        "crouch": -3,
         "variants": {
           "0": [
-            "S-jiuJitsuGuard-kneeR0",
-            "S-jiuJitsuGuard-kneeR1",
-            "S-jiuJitsuGuard-kneeL0",
-            "S-jiuJitsuGuard-kneeL1"
+            "S-jiuJitsuGuard-kneeL"
           ],
           "1": [
-            "S-jiuJitsuGuard-kneeR0",
-            "S-jiuJitsuGuard-kneeR1",
-            "S-jiuJitsuGuard-kneeL0",
-            "S-jiuJitsuGuard-kneeL1"
+            "S-jiuJitsuGuard-kneeL"
           ],
           "2": [
-            "S-jiuJitsuGuard-kneeR0",
-            "S-jiuJitsuGuard-kneeR1",
-            "S-jiuJitsuGuard-kneeL0",
-            "S-jiuJitsuGuard-kneeL1"
+            "S-jiuJitsuGuard-kneeL"
           ],
           "3": [
-            "S-jiuJitsuGuard-kneeR0",
-            "S-jiuJitsuGuard-kneeR1",
-            "S-jiuJitsuGuard-kneeL0",
-            "S-jiuJitsuGuard-kneeL1"
+            "S-jiuJitsuGuard-kneeL"
           ]
         },
         "torsoDrop": 2
@@ -1297,19 +1301,29 @@
         "legPoseRows": {
           "plant": [],
           "far": [
-            48,
-            51,
-            46
+            52,
+            45,
+            54
           ]
         },
-        "bobRows": [
-          49,
-          53,
-          47,
-          52,
-          45,
-          54
-        ],
+        "bobRows": {
+          "R": [
+            47,
+            45,
+            49,
+            43,
+            48,
+            53
+          ],
+          "L": [
+            49,
+            53,
+            47,
+            52,
+            45,
+            54
+          ]
+        },
         "legRows": {
           "R": [
             50
@@ -1434,7 +1448,12 @@
             ]
           }
         },
-        "headDy": 3,
+        "headDy": [
+          -1,
+          -1,
+          -1,
+          -1
+        ],
         "armRule": "from behind the forearms, wrists and fists are in front of the body: only the shoulders and upper arms show (straight band arms cut at 7 px, showTo), hanging slightly out in guard, swinging in when that arm punches away from the viewer",
         "twist": {
           "pelvis": [
@@ -1473,16 +1492,16 @@
         },
         "footDx": {
           "R": [
-            2,
-            2,
-            2,
-            2
+            1,
+            1,
+            1,
+            1
           ],
           "L": [
-            -2,
-            -2,
-            -2,
-            -2
+            1,
+            1,
+            1,
+            1
           ]
         },
         "legPivot": 39,
@@ -1490,121 +1509,44 @@
           "R": 56,
           "L": 56
         },
+        "crouch": -3,
         "variants": {
           "0": [
-            "N-jiuJitsuGuard-kneeR0",
-            "N-jiuJitsuGuard-kneeR1",
-            "N-jiuJitsuGuard-kneeL0",
-            "N-jiuJitsuGuard-kneeL1"
+            "N-jiuJitsuGuard-kneeR"
           ],
           "1": [
-            "N-jiuJitsuGuard-kneeR0",
-            "N-jiuJitsuGuard-kneeR1",
-            "N-jiuJitsuGuard-kneeL0",
-            "N-jiuJitsuGuard-kneeL1"
+            "N-jiuJitsuGuard-kneeR"
           ],
           "2": [
-            "N-jiuJitsuGuard-kneeR0",
-            "N-jiuJitsuGuard-kneeR1",
-            "N-jiuJitsuGuard-kneeL0",
-            "N-jiuJitsuGuard-kneeL1"
+            "N-jiuJitsuGuard-kneeR"
           ],
           "3": [
-            "N-jiuJitsuGuard-kneeR0",
-            "N-jiuJitsuGuard-kneeR1",
-            "N-jiuJitsuGuard-kneeL0",
-            "N-jiuJitsuGuard-kneeL1"
+            "N-jiuJitsuGuard-kneeR"
           ]
         },
         "torsoDrop": 2
       }
     },
     "partVariants": {
-      "S-jiuJitsuGuard-kneeR0": {
-        "knee": {
-          "side": "R",
-          "dx": -3,
-          "rows": [
-            41,
-            46,
-            57
-          ]
-        }
-      },
-      "S-jiuJitsuGuard-kneeR1": {
-        "knee": {
-          "side": "R",
-          "dx": -2,
-          "rows": [
-            41,
-            51,
-            57
-          ]
-        }
-      },
-      "S-jiuJitsuGuard-kneeL0": {
+      "S-jiuJitsuGuard-kneeL": {
         "knee": {
           "side": "L",
-          "dx": 2,
+          "dx": 1,
           "rows": [
             41,
-            46,
-            57
+            47,
+            56
           ]
         }
       },
-      "S-jiuJitsuGuard-kneeL1": {
-        "knee": {
-          "side": "L",
-          "dx": 2,
-          "rows": [
-            41,
-            51,
-            57
-          ]
-        }
-      },
-      "N-jiuJitsuGuard-kneeR0": {
+      "N-jiuJitsuGuard-kneeR": {
         "knee": {
           "side": "R",
-          "dx": 2,
+          "dx": 1,
           "rows": [
             41,
-            46,
-            57
-          ]
-        }
-      },
-      "N-jiuJitsuGuard-kneeR1": {
-        "knee": {
-          "side": "R",
-          "dx": 2,
-          "rows": [
-            41,
-            51,
-            57
-          ]
-        }
-      },
-      "N-jiuJitsuGuard-kneeL0": {
-        "knee": {
-          "side": "L",
-          "dx": -3,
-          "rows": [
-            41,
-            46,
-            57
-          ]
-        }
-      },
-      "N-jiuJitsuGuard-kneeL1": {
-        "knee": {
-          "side": "L",
-          "dx": -2,
-          "rows": [
-            41,
-            51,
-            57
+            47,
+            56
           ]
         }
       }
