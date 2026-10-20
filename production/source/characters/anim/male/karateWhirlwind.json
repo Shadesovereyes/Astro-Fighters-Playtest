@@ -548,6 +548,34 @@
           ".#dddddd",
           "..######"
         ]
+      },
+      "sToeDown": {
+        "use": "front view raised foot, instep toward the viewer, toes pointing slightly down (E/W toe30k seen from the front)",
+        "anchor": [
+          3,
+          -1
+        ],
+        "rows": [
+          "#mLLm#",
+          "#mLLLm#",
+          "#dmLLm#",
+          ".#dmd#",
+          "..###"
+        ]
+      },
+      "nToeDown": {
+        "use": "back view raised foot: heel then the sole tilting down to the toes (E/W toe30k seen from behind)",
+        "anchor": [
+          3,
+          -1
+        ],
+        "rows": [
+          "#dmmd#",
+          "#dmmmd#",
+          "#ddmmd#",
+          ".#ddd#",
+          "..###"
+        ]
       }
     },
     "constructions": {

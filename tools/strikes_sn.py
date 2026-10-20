@@ -95,7 +95,7 @@ SN = {
 # borrow.byDirection (heavyAttack frame -> this state's frame)
 BORROW_SN = {'karateWhirlwind': {10: 1, 11: 2, 12: 3}}
 
-SN_APPROVED = {s: 'S/N approved by user 2026-10-20 (v1, b24f8f0)' for s in ('karateHammerFist', 'judoChop', 'wrestlingProwess')} | {'karateBlitz': 'S/N approved by user 2026-10-20 (v2 with motion blur, c46b181)'}
+SN_APPROVED = {s: 'S/N approved by user 2026-10-20 (v1, b24f8f0)' for s in ('karateHammerFist', 'judoChop', 'wrestlingProwess')} | {'karateBlitz': 'S/N approved by user 2026-10-20 (v2 with motion blur, c46b181)', 'karateWhirlwind': 'S/N approved by user 2026-10-20 (v1 with swing arc, 31fb396)'}
 
 def sn(state):
     import json   # always from the committed E/W spec, so reruns start clean
