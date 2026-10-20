@@ -548,6 +548,34 @@
           ".#dddddd",
           "..######"
         ]
+      },
+      "sToeDown": {
+        "use": "front view raised foot, instep toward the viewer, toes pointing slightly down (E/W toe30k seen from the front)",
+        "anchor": [
+          3,
+          -1
+        ],
+        "rows": [
+          "#mLLm#",
+          "#mLLLm#",
+          "#dmLLm#",
+          ".#dmd#",
+          "..###"
+        ]
+      },
+      "nToeDown": {
+        "use": "back view raised foot: heel then the sole tilting down to the toes (E/W toe30k seen from behind)",
+        "anchor": [
+          3,
+          -1
+        ],
+        "rows": [
+          "#dmmd#",
+          "#dmmmd#",
+          "#ddmmd#",
+          ".#ddd#",
+          "..###"
+        ]
       }
     },
     "constructions": {
@@ -810,20 +838,6 @@
         "foot": "toe30k"
       },
       {
-        "name": "S-sweepmid-R-d2",
-        "construction": "band",
-        "hipX": 30,
-        "hipRow": 42,
-        "kneeX": 30,
-        "kneeRow": 49,
-        "ankle": [
-          32,
-          55
-        ],
-        "foot": "sFoot",
-        "section": "S"
-      },
-      {
         "name": "S-sweep-R-d2",
         "construction": "band",
         "hipX": 30,
@@ -838,18 +852,18 @@
         "section": "S"
       },
       {
-        "name": "N-sweepmid-R-d2",
+        "name": "S-sweepmid-R-d2",
         "construction": "band",
-        "hipX": 34,
+        "hipX": 30,
         "hipRow": 42,
-        "kneeX": 34,
+        "kneeX": 30,
         "kneeRow": 49,
         "ankle": [
           32,
           55
         ],
         "foot": "sFoot",
-        "section": "N"
+        "section": "S"
       },
       {
         "name": "N-sweep-R-d2",
@@ -863,6 +877,20 @@
           56
         ],
         "foot": "sSole",
+        "section": "N"
+      },
+      {
+        "name": "N-sweepmid-R-d2",
+        "construction": "band",
+        "hipX": 34,
+        "hipRow": 42,
+        "kneeX": 34,
+        "kneeRow": 49,
+        "ankle": [
+          32,
+          55
+        ],
+        "foot": "sFoot",
         "section": "N"
       }
     ],
@@ -1540,12 +1568,18 @@
           "L": [
             47,
             45,
-            49
+            49,
+            43,
+            48,
+            53
           ],
           "R": [
             49,
             53,
-            47
+            47,
+            52,
+            45,
+            54
           ]
         },
         "legRows": {
@@ -1816,11 +1850,11 @@
             "S-plantL1"
           ],
           "3": [
-            "S-rotR",
+            "S-turn1",
             "S-plantL"
           ],
           "4": [
-            "S-rotR",
+            "S-turn1",
             "S-plantL"
           ],
           "5": [
@@ -1931,12 +1965,18 @@
           "R": [
             47,
             45,
-            49
+            49,
+            43,
+            48,
+            53
           ],
           "L": [
             49,
             53,
-            47
+            47,
+            52,
+            45,
+            54
           ]
         },
         "legRows": {
@@ -2196,11 +2236,11 @@
             "N-plantL1"
           ],
           "3": [
-            "N-rotR",
+            "N-turn1",
             "N-plantL"
           ],
           "4": [
-            "N-rotR",
+            "N-turn1",
             "N-plantL"
           ],
           "5": [
@@ -2307,26 +2347,28 @@
           "dx": -1
         }
       },
-      "S-rotR": {
+      "S-turn1": {
         "rotate": {
           "center": 31,
           "far": "right",
           "drop": {
             "torso": [
-              33,
               34
             ],
             "pelvis": [
-              34,
-              36
+              35
             ]
           },
-          "nearDx": 1,
+          "nearDx": 0,
           "headDx": 1,
           "armDx": {
-            "R": 1,
-            "L": -2
+            "R": 0,
+            "L": -1
           }
+        },
+        "shade": {
+          "from": 34,
+          "far": "right"
         }
       },
       "S-plantL": {
@@ -2341,26 +2383,28 @@
           "dx": 1
         }
       },
-      "N-rotR": {
+      "N-turn1": {
         "rotate": {
           "center": 31,
           "far": "right",
           "drop": {
             "torso": [
-              33,
               34
             ],
             "pelvis": [
-              34,
-              36
+              35
             ]
           },
-          "nearDx": 1,
+          "nearDx": 0,
           "headDx": 1,
           "armDx": {
-            "L": 1,
-            "R": -2
+            "L": 0,
+            "R": -1
           }
+        },
+        "shade": {
+          "from": 34,
+          "far": "right"
         }
       },
       "N-plantL": {

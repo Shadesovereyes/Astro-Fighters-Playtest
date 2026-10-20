@@ -569,6 +569,34 @@
           ".#dddddd",
           "..######"
         ]
+      },
+      "sToeDown": {
+        "use": "front view raised foot, instep toward the viewer, toes pointing slightly down (E/W toe30k seen from the front)",
+        "anchor": [
+          3,
+          -1
+        ],
+        "rows": [
+          "#mLLm#",
+          "#mLLLm#",
+          "#dmLLm#",
+          ".#dmd#",
+          "..###"
+        ]
+      },
+      "nToeDown": {
+        "use": "back view raised foot: heel then the sole tilting down to the toes (E/W toe30k seen from behind)",
+        "anchor": [
+          3,
+          -1
+        ],
+        "rows": [
+          "#dmmd#",
+          "#dmmmd#",
+          "#ddmmd#",
+          ".#ddd#",
+          "..###"
+        ]
       }
     },
     "constructions": {
@@ -1929,28 +1957,28 @@
             "S-hikeR",
             "bend2",
             "S-kneeL",
-            "S-rotR",
+            "S-turn1",
             "S-plantL"
           ],
           "3": [
             "S-hikeR",
             "bend2",
             "S-kneeL",
-            "S-rotR2",
+            "S-turn2",
             "S-plantL"
           ],
           "4": [
             "S-hikeR",
             "bend2",
             "S-kneeL",
-            "S-rotR2",
+            "S-turn2",
             "S-plantL"
           ],
           "5": [
             "S-hikeR",
             "bend2",
             "S-kneeL",
-            "S-rotR",
+            "S-turn1",
             "S-plantL"
           ],
           "6": [
@@ -2353,28 +2381,28 @@
             "N-hikeR",
             "bend2",
             "N-kneeL",
-            "N-rotR",
+            "N-turn1",
             "N-plantL"
           ],
           "3": [
             "N-hikeR",
             "bend2",
             "N-kneeL",
-            "N-rotR2",
+            "N-turn2",
             "N-plantL"
           ],
           "4": [
             "N-hikeR",
             "bend2",
             "N-kneeL",
-            "N-rotR2",
+            "N-turn2",
             "N-plantL"
           ],
           "5": [
             "N-hikeR",
             "bend2",
             "N-kneeL",
-            "N-rotR",
+            "N-turn1",
             "N-plantL"
           ],
           "6": [
@@ -2532,7 +2560,37 @@
           ]
         }
       },
-      "S-rotR": {
+      "S-turn1": {
+        "rotate": {
+          "center": 31,
+          "far": "right",
+          "drop": {
+            "torso": [
+              34
+            ],
+            "pelvis": [
+              35
+            ]
+          },
+          "nearDx": 0,
+          "headDx": 1,
+          "armDx": {
+            "R": 0,
+            "L": -1
+          }
+        },
+        "shade": {
+          "from": 34,
+          "far": "right"
+        }
+      },
+      "S-plantL": {
+        "plant": {
+          "side": "L",
+          "dx": -2
+        }
+      },
+      "S-turn2": {
         "rotate": {
           "center": 31,
           "far": "right",
@@ -2546,42 +2604,16 @@
               36
             ]
           },
-          "nearDx": 1,
+          "nearDx": 0,
           "headDx": 1,
           "armDx": {
-            "R": 1,
+            "R": 0,
             "L": -2
           }
-        }
-      },
-      "S-plantL": {
-        "plant": {
-          "side": "L",
-          "dx": -2
-        }
-      },
-      "S-rotR2": {
-        "rotate": {
-          "center": 31,
-          "far": "right",
-          "drop": {
-            "torso": [
-              32,
-              33,
-              34
-            ],
-            "pelvis": [
-              33,
-              35,
-              36
-            ]
-          },
-          "nearDx": 2,
-          "headDx": 2,
-          "armDx": {
-            "R": 2,
-            "L": -3
-          }
+        },
+        "shade": {
+          "from": 32,
+          "far": "right"
         }
       },
       "N-hikeR1": {
@@ -2627,7 +2659,37 @@
           ]
         }
       },
-      "N-rotR": {
+      "N-turn1": {
+        "rotate": {
+          "center": 31,
+          "far": "right",
+          "drop": {
+            "torso": [
+              34
+            ],
+            "pelvis": [
+              35
+            ]
+          },
+          "nearDx": 0,
+          "headDx": 1,
+          "armDx": {
+            "L": 0,
+            "R": -1
+          }
+        },
+        "shade": {
+          "from": 34,
+          "far": "right"
+        }
+      },
+      "N-plantL": {
+        "plant": {
+          "side": "L",
+          "dx": 2
+        }
+      },
+      "N-turn2": {
         "rotate": {
           "center": 31,
           "far": "right",
@@ -2641,42 +2703,16 @@
               36
             ]
           },
-          "nearDx": 1,
+          "nearDx": 0,
           "headDx": 1,
           "armDx": {
-            "L": 1,
+            "L": 0,
             "R": -2
           }
-        }
-      },
-      "N-plantL": {
-        "plant": {
-          "side": "L",
-          "dx": 2
-        }
-      },
-      "N-rotR2": {
-        "rotate": {
-          "center": 31,
-          "far": "right",
-          "drop": {
-            "torso": [
-              32,
-              33,
-              34
-            ],
-            "pelvis": [
-              33,
-              35,
-              36
-            ]
-          },
-          "nearDx": 2,
-          "headDx": 2,
-          "armDx": {
-            "L": 2,
-            "R": -3
-          }
+        },
+        "shade": {
+          "from": 32,
+          "far": "right"
         }
       }
     }

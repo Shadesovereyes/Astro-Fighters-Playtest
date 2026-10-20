@@ -46,10 +46,13 @@ def legpose(spec, d, key, side, dy):
 VARS = {'S-plantR1': {'plant': {'side': 'R', 'dx': 1}}, 'S-plantR': {'plant': {'side': 'R', 'dx': 2}},   # far-leg kicks: the rear (standing) leg moves under the body
         'air0': {'bob': 0},   # airborne frames: the front/back view keeps the body at bob 0 (the afro's top row is row 0, no room to rise)
         'N-plantR1': {'plant': {'side': 'R', 'dx': -1}}, 'N-plantR': {'plant': {'side': 'R', 'dx': -2}},
-        # the trunk turned into a rear-leg kick (Christopher 2026-10-20: the front/back torso read flat): the side turning
-        # away (screen right in both views) is one shade darker, from further out while the turn starts
-        'S-shadeR1': {'shade': {'from': 34, 'far': 'right'}}, 'S-shadeR2': {'shade': {'from': 32, 'far': 'right'}},
-        'N-shadeR1': {'shade': {'from': 34, 'far': 'right'}}, 'N-shadeR2': {'shade': {'from': 32, 'far': 'right'}}}
+        # the trunk turned into a kick (Christopher 2026-10-20: heavyAttack's rotR/rotR2 drop up to 5 torso columns and the
+        # turned trunk reads paper thin): the trunk keeps its depth, losing at most 1-2 far columns with the near side in
+        # place, and the side turning away (screen right in both views) becomes the shaded side plane of the chest
+        'S-turn1': {'rotate': {'center': 31, 'far': 'right', 'drop': {'torso': [34], 'pelvis': [35]}, 'nearDx': 0, 'headDx': 1, 'armDx': {'R': 0, 'L': -1}}, 'shade': {'from': 34, 'far': 'right'}},
+        'S-turn2': {'rotate': {'center': 31, 'far': 'right', 'drop': {'torso': [33, 34], 'pelvis': [34, 36]}, 'nearDx': 0, 'headDx': 1, 'armDx': {'R': 0, 'L': -2}}, 'shade': {'from': 32, 'far': 'right'}},
+        'N-turn1': {'rotate': {'center': 31, 'far': 'right', 'drop': {'torso': [34], 'pelvis': [35]}, 'nearDx': 0, 'headDx': 1, 'armDx': {'L': 0, 'R': -1}}, 'shade': {'from': 34, 'far': 'right'}},
+        'N-turn2': {'rotate': {'center': 31, 'far': 'right', 'drop': {'torso': [33, 34], 'pelvis': [34, 36]}, 'nearDx': 0, 'headDx': 1, 'armDx': {'L': 0, 'R': -2}}, 'shade': {'from': 32, 'far': 'right'}}}
 # per state: {frame: overrides}, S semantics. R/L arm = (angle, forearm angle or None, scale, fist[, elbowAt]); NR/NL
 # explicit back view (default: mirror of the S arm, at the back view's depth); tw = (pelvis, shoulders, head) twist
 # (N negated); kick = (side, pose key); var = heavyAttack part variants (S- names, N- swapped in); z = kick leg depth
@@ -59,20 +62,20 @@ SN = {
                       4: dict(R=(18, 192, 1, 'up'), tw=(0, -1, 0)), 5: dict(R=CROSS_S, NR=(15, None, 1, 'up'), pdx={'R': 1}, tw=(2, 3, 2)), 6: dict(R=(25, 190, 0.85, 'up'), tw=(1, 1, 1))},
  'muayThaiUppercut': {1: dict(R=(25, 150, 1, 'up'), tw=(0, -1, 0)), 2: dict(R=(-5, 185, 1, 'up'), tw=(1, 1, 1)), 3: dict(R=(-30, 192, 0.9, 'up'), pdx={'R': 1}, tw=(1, 2, 1)),
                       4: dict(R=(-10, 195, 1, 'up'), tw=(1, 1, 1))},
- 'muayThaiCalfKick': {1: dict(lift=('R', 50), var=['S-hikeR1', 'bend1', 'S-plantL1']), 2: dict(R=(30, 15, 1, 'up'), kick=('R', 'low'), var=['S-hikeR', 'bend2', 'S-kneeL', 'S-rotR', 'S-plantL'], tw=(-1, 1, 2)),
-                      3: dict(lift=('R', 49), var=['S-hikeR', 'bend2', 'S-kneeL', 'S-rotR', 'S-plantL'], tw=(0, 1, 1))},
+ 'muayThaiCalfKick': {1: dict(lift=('R', 50), var=['S-hikeR1', 'bend1', 'S-plantL1']), 2: dict(R=(30, 15, 1, 'up'), kick=('R', 'low'), var=['S-hikeR', 'bend2', 'S-kneeL', 'S-turn1', 'S-plantL'], tw=(-1, 1, 2)),
+                      3: dict(lift=('R', 49), var=['S-hikeR', 'bend2', 'S-kneeL', 'S-turn1', 'S-plantL'], tw=(0, 1, 1))},
  'muayThaiRoundhouse': {1: dict(R=(25, 185, 1, 'up'), lift=('R', 50), var=['S-hikeR1', 'bend1', 'S-plantL1']),
-                        2: dict(R=(35, 60, 1, 'up'), lift=('R', 40), var=['S-hikeR', 'bend2', 'S-kneeL', 'S-rotR', 'S-plantL', 'S-shadeR1'], tw=(1, -1, -1)),
-                        3: dict(R=(40, 30, 1, 'up'), kick=('R', 'mtround-R'), var=['S-hikeR', 'bend2', 'S-kneeL', 'S-rotR2', 'S-plantL', 'S-shadeR2'], tw=(1, 2, 2)),
-                        4: dict(R=(40, 30, 1, 'up'), kick=('R', 'mtround-R'), var=['S-hikeR', 'bend2', 'S-kneeL', 'S-rotR2', 'S-plantL', 'S-shadeR2'], tw=(1, 2, 2)),
-                        5: dict(R=(30, 70, 1, 'up'), lift=('R', 40), var=['S-hikeR', 'bend2', 'S-kneeL', 'S-rotR', 'S-plantL', 'S-shadeR1'], tw=(0, -1, -1)),
+                        2: dict(R=(35, 60, 1, 'up'), lift=('R', 40), var=['S-hikeR', 'bend2', 'S-kneeL', 'S-turn1', 'S-plantL'], tw=(1, -1, -1)),
+                        3: dict(R=(70, 60, 1, 'up'), kick=('R', 'mtround-R'), var=['S-hikeR', 'bend2', 'S-kneeL', 'S-turn2', 'S-plantL'], tw=(1, 2, 2)),
+                        4: dict(R=(70, 60, 1, 'up'), kick=('R', 'mtround-R'), var=['S-hikeR', 'bend2', 'S-kneeL', 'S-turn2', 'S-plantL'], tw=(1, 2, 2)),
+                        5: dict(R=(30, 70, 1, 'up'), lift=('R', 40), var=['S-hikeR', 'bend2', 'S-kneeL', 'S-turn1', 'S-plantL'], tw=(0, -1, -1)),
                         6: dict(R=(25, 190, 1, 'up'), lift=('R', 50), var=['S-hikeR1', 'bend1', 'S-plantL1'])},
  'muayThaiTeep': {1: dict(lift=('L', 39), var=['bend1', 'S-plantR1']), 2: dict(kick=('L', 'teep-L'), var=['bend2', 'S-kneeR', 'S-plantR']),
                   3: dict(kick=('L', 'teep-L'), var=['bend2', 'S-kneeR', 'S-plantR']), 4: dict(lift=('L', 39), var=['bend1', 'S-plantR1'])},
  'muayThaiKnee': {1: dict(R=(25, 178, 1, 'up'), L=(-25, 182, 1, 'up'), lift=('R', 50), var=['S-hikeR1', 'bend1', 'S-plantL1']),
                   2: dict(R=(30, 170, 0.9, 'up'), L=(-30, 190, 0.9, 'up'), lift=('R', 43), var=['S-hikeR', 'bend2', 'S-kneeL', 'S-plantL'], tw=(0, 1, 0)),
-                  3: dict(R=(20, 215, 0.85, 'up'), L=(-20, 145, 0.85, 'up'), lift=('R', 40), var=['S-hikeR', 'bend2', 'S-kneeL', 'S-rotR', 'S-plantL'], tw=(1, 1, 0)),
-                  4: dict(R=(20, 215, 0.85, 'up'), L=(-20, 145, 0.85, 'up'), lift=('R', 40), var=['S-hikeR', 'bend2', 'S-kneeL', 'S-rotR', 'S-plantL'], tw=(1, 1, 0)),
+                  3: dict(R=(20, 215, 0.85, 'up'), L=(-20, 145, 0.85, 'up'), lift=('R', 40), var=['S-hikeR', 'bend2', 'S-kneeL', 'S-turn1', 'S-plantL'], tw=(1, 1, 0)),
+                  4: dict(R=(20, 215, 0.85, 'up'), L=(-20, 145, 0.85, 'up'), lift=('R', 40), var=['S-hikeR', 'bend2', 'S-kneeL', 'S-turn1', 'S-plantL'], tw=(1, 1, 0)),
                   5: dict(lift=('R', 50), var=['S-hikeR1', 'bend1', 'S-plantL1'])},
  'muayThaiElbow': {1: dict(R=(45, 200, 1, 'up'), tw=(0, -1, 0)), 2: dict(R=(-70, 140, 0.8, 'up'), pdx={'R': 1}, tw=(2, 3, 2)), 3: dict(R=(-72, 138, 0.8, 'up'), pdx={'R': 1}, tw=(2, 3, 2)),
                    4: dict(R=(25, 195, 0.9, 'up'), tw=(1, 1, 1))},
@@ -84,13 +87,13 @@ SN = {
                  3: dict(R=CROSS_S, NR=(15, None, 1, 'up'), L=(-14, 12, 0.85, 'up'), pdx={'R': 1}, kick=('R', 'smkick-R'), kz=0, kick2=('L', 'smair-L'), var=['air0'], tw=(2, 3, 2)),
                  4: dict(R=CROSS_S, NR=(15, None, 1, 'up'), L=(-14, 12, 0.85, 'up'), pdx={'R': 1}, tw=(1, 2, 1)),
                  5: dict(R=(14, -12, 0.85, 'up'))},
- 'karateSideKick': {1: dict(kick=('R', 'lift'), var=['S-hikeR1', 'bend1', 'S-plantL1']), 2: dict(kick=('R', 'chamber'), var=['S-hikeR', 'bend2', 'S-kneeL', 'S-rotR', 'S-plantL'], tw=(0, 1, 1)),
-                    3: dict(kick=('R', 'snap'), var=['S-hikeR', 'bend2', 'S-kneeL', 'S-rotR2', 'S-plantL'], tw=(1, 2, 2)), 4: dict(kick=('R', 'snap'), var=['S-hikeR', 'bend2', 'S-kneeL', 'S-rotR2', 'S-plantL'], tw=(1, 2, 2)),
-                    5: dict(kick=('R', 'chamber'), var=['S-hikeR', 'bend2', 'S-kneeL', 'S-rotR', 'S-plantL'], tw=(0, 1, 1)), 6: dict(kick=('R', 'lift'), var=['S-hikeR1', 'bend1', 'S-plantL1'])},
+ 'karateSideKick': {1: dict(kick=('R', 'lift'), var=['S-hikeR1', 'bend1', 'S-plantL1']), 2: dict(kick=('R', 'chamber'), var=['S-hikeR', 'bend2', 'S-kneeL', 'S-turn1', 'S-plantL'], tw=(0, 1, 1)),
+                    3: dict(kick=('R', 'snap'), var=['S-hikeR', 'bend2', 'S-kneeL', 'S-turn2', 'S-plantL'], tw=(1, 2, 2)), 4: dict(kick=('R', 'snap'), var=['S-hikeR', 'bend2', 'S-kneeL', 'S-turn2', 'S-plantL'], tw=(1, 2, 2)),
+                    5: dict(kick=('R', 'chamber'), var=['S-hikeR', 'bend2', 'S-kneeL', 'S-turn1', 'S-plantL'], tw=(0, 1, 1)), 6: dict(kick=('R', 'lift'), var=['S-hikeR1', 'bend1', 'S-plantL1'])},
  'karateWhirlwind': {4: dict(R=(22, 200, 1, 'up'), L=(-30, 190, 1, 'up'), kick=('R', 'round'), var=['S-hikeR', 'bend2', 'S-kneeL', 'S-rotR2', 'S-plantL'], tw=(1, -2, -2)),   # spin frames 1-3: heavyAttack's S/N spin bodies (BORROW_SN)
                      5: dict(kick=('R', 'fold'), var=['S-hikeR', 'bend2', 'S-kneeL', 'S-rotR2', 'S-plantL'], tw=(0, -1, -1))},
- 'karateSweepingLow': {2: dict(kick=('R', 'sweepmid-R'), var=['S-plantL1']), 3: dict(L=(50, None, 0.6, 'front'), kick=('R', 'sweep-R'), var=['S-rotR', 'S-plantL'], tw=(1, 1, 0)),
-                       4: dict(L=(50, None, 0.6, 'front'), kick=('R', 'sweep-R'), var=['S-rotR', 'S-plantL'], tw=(1, 1, 0)), 5: dict(kick=('R', 'sweepmid-R'), var=['S-plantL1'])},
+ 'karateSweepingLow': {2: dict(kick=('R', 'sweepmid-R'), var=['S-plantL1']), 3: dict(L=(50, None, 0.6, 'front'), kick=('R', 'sweep-R'), var=['S-turn1', 'S-plantL'], tw=(1, 1, 0)),
+                       4: dict(L=(50, None, 0.6, 'front'), kick=('R', 'sweep-R'), var=['S-turn1', 'S-plantL'], tw=(1, 1, 0)), 5: dict(kick=('R', 'sweepmid-R'), var=['S-plantL1'])},
  'judoChop': {1: dict(R=(150, 195, 1, 'front'), tw=(0, -1, 0)), 2: dict(R=(170, 200, 1, 'front'), tw=(0, -1, 0)),
               3: dict(R=(-120, -30, 0.6, 'front'), L=(10, None, 0.3, 'front'), pdx={'R': 1}, tw=(1, 2, 1)), 4: dict(R=(-118, -25, 0.6, 'front'), L=(10, None, 0.3, 'front'), pdx={'R': 1}, tw=(1, 2, 1))},
  'wrestlingSumoPalm': {1: dict(R=(30, -100, 0.75, 'front', 9)), 2: dict(R=(-82, None, 0.3, 'front'), NR=(20, None, 1, 'up'), pdx={'R': 1}, tw=(1, 2, 1)),

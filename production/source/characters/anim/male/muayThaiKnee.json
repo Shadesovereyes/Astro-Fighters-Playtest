@@ -1919,7 +1919,7 @@
             "S-hikeR",
             "bend2",
             "S-kneeL",
-            "S-rotR",
+            "S-turn1",
             "S-plantL",
             "S-liftR40"
           ],
@@ -1927,7 +1927,7 @@
             "S-hikeR",
             "bend2",
             "S-kneeL",
-            "S-rotR",
+            "S-turn1",
             "S-plantL",
             "S-liftR40"
           ],
@@ -2293,7 +2293,7 @@
             "N-hikeR",
             "bend2",
             "N-kneeL",
-            "N-rotR",
+            "N-turn1",
             "N-plantL",
             "N-liftR40"
           ],
@@ -2301,7 +2301,7 @@
             "N-hikeR",
             "bend2",
             "N-kneeL",
-            "N-rotR",
+            "N-turn1",
             "N-plantL",
             "N-liftR40"
           ],
@@ -2552,26 +2552,28 @@
           "z": 4
         }
       },
-      "S-rotR": {
+      "S-turn1": {
         "rotate": {
           "center": 31,
           "far": "right",
           "drop": {
             "torso": [
-              33,
               34
             ],
             "pelvis": [
-              34,
-              36
+              35
             ]
           },
-          "nearDx": 1,
+          "nearDx": 0,
           "headDx": 1,
           "armDx": {
-            "R": 1,
-            "L": -2
+            "R": 0,
+            "L": -1
           }
+        },
+        "shade": {
+          "from": 34,
+          "far": "right"
         }
       },
       "S-liftR40": {
@@ -2723,26 +2725,28 @@
           }
         }
       },
-      "N-rotR": {
+      "N-turn1": {
         "rotate": {
           "center": 31,
           "far": "right",
           "drop": {
             "torso": [
-              33,
               34
             ],
             "pelvis": [
-              34,
-              36
+              35
             ]
           },
-          "nearDx": 1,
+          "nearDx": 0,
           "headDx": 1,
           "armDx": {
-            "L": 1,
-            "R": -2
+            "L": 0,
+            "R": -1
           }
+        },
+        "shade": {
+          "from": 34,
+          "far": "right"
         }
       },
       "N-liftR40": {

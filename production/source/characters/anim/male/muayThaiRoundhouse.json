@@ -1768,8 +1768,8 @@
               25,
               25,
               35,
-              40,
-              40,
+              70,
+              70,
               30,
               25,
               25
@@ -1789,11 +1789,11 @@
               },
               {
                 "at": 7,
-                "angle": 30
+                "angle": 60
               },
               {
                 "at": 7,
-                "angle": 30
+                "angle": 60
               },
               {
                 "at": 7,
@@ -2022,34 +2022,30 @@
             "S-hikeR",
             "bend2",
             "S-kneeL",
-            "S-rotR",
+            "S-turn1",
             "S-plantL",
-            "S-shadeR1",
             "S-liftR40"
           ],
           "3": [
             "S-hikeR",
             "bend2",
             "S-kneeL",
-            "S-rotR2",
-            "S-plantL",
-            "S-shadeR2"
+            "S-turn2",
+            "S-plantL"
           ],
           "4": [
             "S-hikeR",
             "bend2",
             "S-kneeL",
-            "S-rotR2",
-            "S-plantL",
-            "S-shadeR2"
+            "S-turn2",
+            "S-plantL"
           ],
           "5": [
             "S-hikeR",
             "bend2",
             "S-kneeL",
-            "S-rotR",
+            "S-turn1",
             "S-plantL",
-            "S-shadeR1",
             "S-liftR40"
           ],
           "6": [
@@ -2234,8 +2230,8 @@
               -25,
               -25,
               -35,
-              -40,
-              -40,
+              -70,
+              -70,
               -30,
               -25,
               -25
@@ -2255,11 +2251,11 @@
               },
               {
                 "at": 7,
-                "angle": -30
+                "angle": -60
               },
               {
                 "at": 7,
-                "angle": -30
+                "angle": -60
               },
               {
                 "at": 7,
@@ -2498,34 +2494,30 @@
             "N-hikeR",
             "bend2",
             "N-kneeL",
-            "N-rotR",
+            "N-turn1",
             "N-plantL",
-            "N-shadeR1",
             "N-liftR40"
           ],
           "3": [
             "N-hikeR",
             "bend2",
             "N-kneeL",
-            "N-rotR2",
-            "N-plantL",
-            "N-shadeR2"
+            "N-turn2",
+            "N-plantL"
           ],
           "4": [
             "N-hikeR",
             "bend2",
             "N-kneeL",
-            "N-rotR2",
-            "N-plantL",
-            "N-shadeR2"
+            "N-turn2",
+            "N-plantL"
           ],
           "5": [
             "N-hikeR",
             "bend2",
             "N-kneeL",
-            "N-rotR",
+            "N-turn1",
             "N-plantL",
-            "N-shadeR1",
             "N-liftR40"
           ],
           "6": [
@@ -2807,38 +2799,34 @@
           ]
         }
       },
-      "S-rotR": {
+      "S-turn1": {
         "rotate": {
           "center": 31,
           "far": "right",
           "drop": {
             "torso": [
-              33,
               34
             ],
             "pelvis": [
-              34,
-              36
+              35
             ]
           },
-          "nearDx": 1,
+          "nearDx": 0,
           "headDx": 1,
           "armDx": {
-            "R": 1,
-            "L": -2
+            "R": 0,
+            "L": -1
           }
+        },
+        "shade": {
+          "from": 34,
+          "far": "right"
         }
       },
       "S-plantL": {
         "plant": {
           "side": "L",
           "dx": -2
-        }
-      },
-      "S-shadeR1": {
-        "shade": {
-          "from": 34,
-          "far": "right"
         }
       },
       "S-liftR40": {
@@ -2875,31 +2863,27 @@
           "z": 4
         }
       },
-      "S-rotR2": {
+      "S-turn2": {
         "rotate": {
           "center": 31,
           "far": "right",
           "drop": {
             "torso": [
-              32,
               33,
               34
             ],
             "pelvis": [
-              33,
-              35,
+              34,
               36
             ]
           },
-          "nearDx": 2,
-          "headDx": 2,
+          "nearDx": 0,
+          "headDx": 1,
           "armDx": {
-            "R": 2,
-            "L": -3
+            "R": 0,
+            "L": -2
           }
-        }
-      },
-      "S-shadeR2": {
+        },
         "shade": {
           "from": 32,
           "far": "right"
@@ -2981,38 +2965,34 @@
           ]
         }
       },
-      "N-rotR": {
+      "N-turn1": {
         "rotate": {
           "center": 31,
           "far": "right",
           "drop": {
             "torso": [
-              33,
               34
             ],
             "pelvis": [
-              34,
-              36
+              35
             ]
           },
-          "nearDx": 1,
+          "nearDx": 0,
           "headDx": 1,
           "armDx": {
-            "L": 1,
-            "R": -2
+            "L": 0,
+            "R": -1
           }
+        },
+        "shade": {
+          "from": 34,
+          "far": "right"
         }
       },
       "N-plantL": {
         "plant": {
           "side": "L",
           "dx": 2
-        }
-      },
-      "N-shadeR1": {
-        "shade": {
-          "from": 34,
-          "far": "right"
         }
       },
       "N-liftR40": {
@@ -3048,31 +3028,27 @@
           }
         }
       },
-      "N-rotR2": {
+      "N-turn2": {
         "rotate": {
           "center": 31,
           "far": "right",
           "drop": {
             "torso": [
-              32,
               33,
               34
             ],
             "pelvis": [
-              33,
-              35,
+              34,
               36
             ]
           },
-          "nearDx": 2,
-          "headDx": 2,
+          "nearDx": 0,
+          "headDx": 1,
           "armDx": {
-            "L": 2,
-            "R": -3
+            "L": 0,
+            "R": -2
           }
-        }
-      },
-      "N-shadeR2": {
+        },
         "shade": {
           "from": 32,
           "far": "right"
