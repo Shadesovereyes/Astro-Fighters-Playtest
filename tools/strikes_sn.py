@@ -24,6 +24,8 @@ NEWLEGS = {   # S poses (N mirrored x -> 64 - x); rows at body dy 0, shifted by 
     'teep-L': ((34, 39), (33, 36), (33, 40), 'sSole'),        # teep: the sole pushed out at the viewer, leg foreshortened
     'sweepmid-R': ((30, 40), (30, 47), (32, 53), 'sFoot'),    # sweep: rear foot coming through low
     'sweep-R': ((30, 40), (31, 47), (35, 54), 'sSole'),       # sweep: sole hooking across in front of the lead foot
+    'smkick-R': ((30, 39), (29, 44), (29, 47), 'sFoot'),      # superman punch: rear leg kicked back away from the viewer, foreshortened behind the body
+    'smair-L': ((34, 39), (35, 45), (35, 50), 'sFoot'),       # superman punch: lead leg tucked under the body in flight
 }
 def legpose(spec, d, key, side, dy):
     if key in NEWLEGS:
@@ -38,6 +40,7 @@ def legpose(spec, d, key, side, dy):
     return n
 
 VARS = {'S-plantR1': {'plant': {'side': 'R', 'dx': 1}}, 'S-plantR': {'plant': {'side': 'R', 'dx': 2}},   # far-leg kicks: the rear (standing) leg moves under the body
+        'air0': {'bob': 0},   # airborne frames: the front/back view keeps the body at bob 0 (the afro's top row is row 0, no room to rise)
         'N-plantR1': {'plant': {'side': 'R', 'dx': -1}}, 'N-plantR': {'plant': {'side': 'R', 'dx': -2}}}
 # per state: {frame: overrides}, S semantics. R/L arm = (angle, forearm angle or None, scale, fist[, elbowAt]); NR/NL
 # explicit back view (default: mirror of the S arm, at the back view's depth); tw = (pelvis, shoulders, head) twist
@@ -68,6 +71,11 @@ SN = {
  'karateHammerFist': {1: dict(R=(150, 175, 1, 'up'), tw=(0, -1, 0)), 2: dict(R=(170, 190, 1, 'up'), L=(40, None, 0.6, 'front'), tw=(0, 0, 0)),
                       3: dict(R=(-110, -10, 0.65, 'up'), L=(-14, 12, 0.85, 'up'), pdx={'R': 1}, tw=(1, 2, 1)), 4: dict(R=(-108, -8, 0.65, 'up'), L=(-14, 12, 0.85, 'up'), pdx={'R': 1}, tw=(1, 2, 1)),
                       5: dict(R=(20, -40, 0.9, 'up'), L=(50, None, 0.5, 'front'))},
+ 'karateBlitz': {1: dict(R=(14, -12, 0.85, 'up'), L=(-14, 12, 0.85, 'up'), tw=(0, -1, 0)),
+                 2: dict(R=(60, 190, 1, 'up'), L=(-14, 12, 0.85, 'up'), kick=('R', 'smkick-R'), kz=0, kick2=('L', 'smair-L'), var=['air0'], tw=(0, -1, -1)),
+                 3: dict(R=CROSS_S, NR=(15, None, 1, 'up'), L=(-14, 12, 0.85, 'up'), pdx={'R': 1}, kick=('R', 'smkick-R'), kz=0, kick2=('L', 'smair-L'), var=['air0'], tw=(2, 3, 2)),
+                 4: dict(R=CROSS_S, NR=(15, None, 1, 'up'), L=(-14, 12, 0.85, 'up'), pdx={'R': 1}, tw=(1, 2, 1)),
+                 5: dict(R=(14, -12, 0.85, 'up'))},
  'karateSideKick': {1: dict(kick=('R', 'lift'), var=['S-hikeR1', 'bend1', 'S-plantL1']), 2: dict(kick=('R', 'chamber'), var=['S-hikeR', 'bend2', 'S-kneeL', 'S-rotR', 'S-plantL'], tw=(0, 1, 1)),
                     3: dict(kick=('R', 'snap'), var=['S-hikeR', 'bend2', 'S-kneeL', 'S-rotR2', 'S-plantL'], tw=(1, 2, 2)), 4: dict(kick=('R', 'snap'), var=['S-hikeR', 'bend2', 'S-kneeL', 'S-rotR2', 'S-plantL'], tw=(1, 2, 2)),
                     5: dict(kick=('R', 'chamber'), var=['S-hikeR', 'bend2', 'S-kneeL', 'S-rotR', 'S-plantL'], tw=(0, 1, 1)), 6: dict(kick=('R', 'lift'), var=['S-hikeR1', 'bend1', 'S-plantL1'])},
@@ -106,12 +114,14 @@ def sn(state):
             if 'tw' in o:
                 for i, part in enumerate(('pelvis', 'shoulders', 'head')): v['twist'][part][k] += sg * o['tw'][i]
                 for sd in 'RL': v['hipDx'][sd][k] += sg * o['tw'][0]
-            if 'kick' in o:
-                side, key = o['kick']
+            for kk in ('kick', 'kick2'):
+                if kk not in o: continue
+                side, key = o[kk]
                 lb = v.setdefault('legBand', {'sides': {'R': [False] * F, 'L': [False] * F}, 'pose': {'R': [None] * F, 'L': [None] * F},
                                               'z': {'R': [3.5 if d == 'S' else 1.5] * F, 'L': [3.5 if d == 'S' else 1.5] * F}, 'offset': {'R': 0, 'L': 0}})
-                lb['sides'][side][k] = True; lb['pose'][side][k] = legpose(spec, d, key, side, dy[k] - 1)
+                lb['sides'][side][k] = True; lb['pose'][side][k] = legpose(spec, d, key, side, max(dy[k], 0) - 1)
                 v['legPose'][side][k] = 'plant'
+                if kk == 'kick' and 'kz' in o: lb['z'][side][k] = o['kz'] if d == 'S' else 3.5 - o['kz']   # behind the body in S, in front in N
             if 'var' in o:
                 v['variants'][str(k)] = [n.replace('S-', d + '-', 1) for n in o['var']]
                 for n in v['variants'][str(k)]:
@@ -129,7 +139,7 @@ def restore(state):
         try: old = Image.open(io.BytesIO(subprocess.check_output(['git', '-C', R, 'show', 'HEAD:' + rel], stderr=subprocess.DEVNULL))).convert('RGBA')
         except subprocess.CalledProcessError: continue
         new = Image.open(d + f).convert('RGBA')
-        if new.height < 256: continue
+        if new.height < 256: new = Image.new('RGBA', (old.width, 256))   # a post-render layer (fx) the renderer did not rewrite
         for row, nrow in ((0, 1), (1, 3)):   # old E, W -> new rows E, W
             new.paste(Image.new('RGBA', (new.width, 64)), (0, nrow * 64)); new.paste(old.crop((0, row * 64, old.width, row * 64 + 64)), (0, nrow * 64))
         new.save(d + f)
