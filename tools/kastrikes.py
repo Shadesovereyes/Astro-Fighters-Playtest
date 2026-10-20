@@ -17,7 +17,7 @@ def leg(name, hip, knee, ankle, foot): return {'name': name, 'construction': 'ba
 def flat(name, hip, knee, foot, wrap=56, kind='flat'): return {'name': name, 'construction': 'band', 'hipX': hip[0], 'hipRow': hip[1], 'kneeX': knee[0], 'kneeRow': knee[1], 'footX': foot, 'wrapRow': wrap, 'foot': kind}
 def pose(spec, name): return copy.deepcopy(next(p for p in spec['legs']['poses'] if p['name'] == name))
 STAT = 'CANDIDATE 2026-10-20 (E/W; W mirrors E; S/N to author after approval)'
-APPROVED = {'karateHammerFist': 'E/W approved by user 2026-10-20 (W mirrors E); S/N to author', 'karateSideKick': 'E/W approved by user 2026-10-20 (W mirrors E); S/N to author', 'karateSweepingLow': 'E/W approved by user 2026-10-20 (W mirrors E); S/N to author'}
+APPROVED = {'karateBlitz': 'E/W approved by user 2026-10-20 (W mirrors E); S/N to author', 'karateHammerFist': 'E/W approved by user 2026-10-20 (W mirrors E); S/N to author', 'karateSideKick': 'E/W approved by user 2026-10-20 (W mirrors E); S/N to author', 'karateSweepingLow': 'E/W approved by user 2026-10-20 (W mirrors E); S/N to author'}
 
 HIP = band(55, -60)        # rear fist chambered at the hip (the stance's hikite); near = rear arm, far = lead arm
 LEAD = band(-75, -95)      # the stance's lead hand out at chest height
