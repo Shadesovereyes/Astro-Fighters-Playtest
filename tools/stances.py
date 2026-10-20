@@ -137,7 +137,7 @@ HIPS = (26, 36)   # Muay Thai lead knee lift (band leg) hip columns
 GR_N = lambda r, l: {'R': (-r, None, 1, 'up'), 'L': (l, None, 1, 'up')}          # back view: elbows bent out to the sides
 def GR_S(r, l, a=14): return {'R': (-a, None, r, 'front'), 'L': (a, None, l, 'front')}   # two open hands in front of the shoulders
 FRONT = {
-    'muayThaiGuard': dict(S=MT_S, N=MT_N, legs=dict(foot=1, knee=(1, 1)), lift={'L': ('mt-lead-up',)}),
+    'muayThaiGuard': dict(S=MT_S, N=MT_N, legs=dict(foot=1, knee=(1, 1)), lift={'L': ('mt-lead-up',)}, tiptoe=True),
     'karateGuard': dict(S={'R': CHAMBER_S['R'], 'L': (68, None, 0.42, 'front')}, N={'R': CHAMBER_N['R'], 'L': (10, None, 1, 'up')},
                         legs=dict(foot=0, knee=(0, 0), near=2, far=0, nearKnee=1, stagger=4), blade=1),   # staggered like the grappling stances, no knee flare (Christopher 2026-10-20)
     'horseStance': dict(S=CHAMBER_S, N=CHAMBER_N, legs=dict(foot=4, knee=(4, 4), kneePeak=53)),   # narrower straddle, one knee shear peaking low so thigh and trouser cuff run as one leg (Christopher 2026-10-20: v3 legs weird, v4 leg width strange)
@@ -152,6 +152,14 @@ TOE_DOWN = {'sToeDown': {'use': 'front view raised foot, instep toward the viewe
                          'rows': ['#mLLm#', '#mLLLm#', '#dmLLm#', '.#dmd#', '..###']},
             'nToeDown': {'use': 'back view raised foot: heel then the sole tilting down to the toes (E/W toe30k seen from behind)', 'anchor': [3, -1],
                          'rows': ['#dmmd#', '#dmmmd#', '#ddmmd#', '.#ddd#', '..###']}}
+
+# the Muay Thai lead heel off the ground (E/W toe60) seen from the front/back (Christopher 2026-10-20: the elevated foot
+# points slightly down, E/W logic carried into S/N): by projection from E, the hem rises to end at row 53 and the sock to
+# rows 54-56 (up 3), and the shoe stands on its toes from row 57 to the ground (row 63), the instep seen tall
+TIPTOE = {'S': {'side': 'L', 'hem': 54, 'up': 3, 'shoe': 60, 'foot': {'at': [37, 57], 'sample': {'#': [36, 61], 's': [37, 61]},
+                'rows': ['#sss#.', '#sss#.', '#ssss#', '#ssss#', '#ssss#', '#ssss#', '######']}},
+          'N': {'side': 'L', 'hem': 54, 'up': 3, 'shoe': 60, 'foot': {'at': [20, 57], 'sample': {'#': [21, 61], 's': [23, 61]},
+                'rows': ['.#sss#', '.#sss#', '#ssss#', '#ssss#', '#ssss#', '#ssss#', '######']}}}
 
 def frontal(st, spec):
     """S and N views on the guard's frontal template, one arm and leg set per stance (constant pose, the body bob
@@ -226,6 +234,10 @@ def frontal(st, spec):
                     b = dy[k]; n = '%s-%s-lift%s%d' % (d, st, sd, b); x = mx(HIPS[1])
                     add(n, (x, 40 + b), (x - (1 if d == 'S' else -1), 42 + b), (x - (1 if d == 'S' else -1), 50 + b), 'sToeDown' if d == 'S' else 'nToeDown')   # knee up toward the viewer, shin hanging, toes down
                     sides[sd][k] = True; pose[sd][k] = n
+        if cfg.get('tiptoe'):   # the lead heel up on every frame the leg is not lifted
+            n = '%s-%s-tiptoe' % (d, st); pv[n] = {'tiptoe': copy.deepcopy(TIPTOE[d])}
+            for k in range(F):
+                if not sides[TIPTOE[d]['side']][k]: v['variants'][str(k)].append(n)
         if any(sides['R']) or any(sides['L']):
             v['legBand'] = {'sides': sides, 'pose': pose, 'z': {'R': [2] * F, 'L': [2] * F}, 'offset': {'R': 0, 'L': 0}}
     fr['legLift'] = {'R': [0] * F, 'L': [0] * F}
@@ -244,7 +256,7 @@ def frontal(st, spec):
     spec['rootMotion']['S'] = [[0, 0]] * F; spec['rootMotion']['N'] = [[0, 0]] * F
     return spec
 
-SN_APPROVED = {'karateGuard': 'S/N approved by user 2026-10-20 (v7, 5351ccd)', 'wrestlingGuard': 'S/N approved by user 2026-10-20 (v10, 0bd9356)', 'judoGuard': 'S/N approved by user 2026-10-20 (v6, d2d5943)', 'jiuJitsuGuard': 'S/N approved by user 2026-10-20 (v6, d2d5943)', 'muayThaiGuard': 'S/N CANDIDATE 2026-10-20 (v5, raised foot toes pointing slightly down, aligned to E/W rows; v4 arms brought in)'}
+SN_APPROVED = {'karateGuard': 'S/N approved by user 2026-10-20 (v7, 5351ccd)', 'wrestlingGuard': 'S/N approved by user 2026-10-20 (v10, 0bd9356)', 'judoGuard': 'S/N approved by user 2026-10-20 (v6, d2d5943)', 'jiuJitsuGuard': 'S/N approved by user 2026-10-20 (v6, d2d5943)', 'muayThaiGuard': 'S/N CANDIDATE 2026-10-20 (v6, lead heel up on every frame like E/W toe60; v5 raised foot toes down; v4 arms brought in)'}
 
 def specs4(only=None):
     """E/W specs plus S/N (status: S/N candidates)"""

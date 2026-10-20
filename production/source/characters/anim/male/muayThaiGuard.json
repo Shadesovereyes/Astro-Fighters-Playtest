@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "muayThaiGuard",
-  "status": "E/W approved by user 2026-10-19 (W mirrors E); S/N CANDIDATE 2026-10-20 (v5, raised foot toes pointing slightly down, aligned to E/W rows; v4 arms brought in)",
+  "status": "E/W approved by user 2026-10-19 (W mirrors E); S/N CANDIDATE 2026-10-20 (v6, lead heel up on every frame like E/W toe60; v5 raised foot toes down; v4 arms brought in)",
   "frames": 8,
   "fps": 6,
   "sourceDirection": "E",
@@ -1621,15 +1621,18 @@
         "variants": {
           "0": [
             "S-muayThaiGuard-kneeR0",
-            "S-muayThaiGuard-kneeL0"
+            "S-muayThaiGuard-kneeL0",
+            "S-muayThaiGuard-tiptoe"
           ],
           "1": [
             "S-muayThaiGuard-kneeR0",
-            "S-muayThaiGuard-kneeL0"
+            "S-muayThaiGuard-kneeL0",
+            "S-muayThaiGuard-tiptoe"
           ],
           "2": [
             "S-muayThaiGuard-kneeR0",
-            "S-muayThaiGuard-kneeL0"
+            "S-muayThaiGuard-kneeL0",
+            "S-muayThaiGuard-tiptoe"
           ],
           "3": [
             "S-muayThaiGuard-kneeR0",
@@ -1641,15 +1644,18 @@
           ],
           "5": [
             "S-muayThaiGuard-kneeR0",
-            "S-muayThaiGuard-kneeL0"
+            "S-muayThaiGuard-kneeL0",
+            "S-muayThaiGuard-tiptoe"
           ],
           "6": [
             "S-muayThaiGuard-kneeR0",
-            "S-muayThaiGuard-kneeL0"
+            "S-muayThaiGuard-kneeL0",
+            "S-muayThaiGuard-tiptoe"
           ],
           "7": [
             "S-muayThaiGuard-kneeR0",
-            "S-muayThaiGuard-kneeL0"
+            "S-muayThaiGuard-kneeL0",
+            "S-muayThaiGuard-tiptoe"
           ]
         },
         "legBand": {
@@ -2061,15 +2067,18 @@
         "variants": {
           "0": [
             "N-muayThaiGuard-kneeR0",
-            "N-muayThaiGuard-kneeL0"
+            "N-muayThaiGuard-kneeL0",
+            "N-muayThaiGuard-tiptoe"
           ],
           "1": [
             "N-muayThaiGuard-kneeR0",
-            "N-muayThaiGuard-kneeL0"
+            "N-muayThaiGuard-kneeL0",
+            "N-muayThaiGuard-tiptoe"
           ],
           "2": [
             "N-muayThaiGuard-kneeR0",
-            "N-muayThaiGuard-kneeL0"
+            "N-muayThaiGuard-kneeL0",
+            "N-muayThaiGuard-tiptoe"
           ],
           "3": [
             "N-muayThaiGuard-kneeR0",
@@ -2081,15 +2090,18 @@
           ],
           "5": [
             "N-muayThaiGuard-kneeR0",
-            "N-muayThaiGuard-kneeL0"
+            "N-muayThaiGuard-kneeL0",
+            "N-muayThaiGuard-tiptoe"
           ],
           "6": [
             "N-muayThaiGuard-kneeR0",
-            "N-muayThaiGuard-kneeL0"
+            "N-muayThaiGuard-kneeL0",
+            "N-muayThaiGuard-tiptoe"
           ],
           "7": [
             "N-muayThaiGuard-kneeR0",
-            "N-muayThaiGuard-kneeL0"
+            "N-muayThaiGuard-kneeL0",
+            "N-muayThaiGuard-tiptoe"
           ]
         },
         "legBand": {
@@ -2189,6 +2201,39 @@
           ]
         }
       },
+      "S-muayThaiGuard-tiptoe": {
+        "tiptoe": {
+          "side": "L",
+          "hem": 54,
+          "up": 3,
+          "shoe": 60,
+          "foot": {
+            "at": [
+              37,
+              57
+            ],
+            "sample": {
+              "#": [
+                36,
+                61
+              ],
+              "s": [
+                37,
+                61
+              ]
+            },
+            "rows": [
+              "#sss#.",
+              "#sss#.",
+              "#ssss#",
+              "#ssss#",
+              "#ssss#",
+              "#ssss#",
+              "######"
+            ]
+          }
+        }
+      },
       "N-muayThaiGuard-kneeR0": {
         "knee": {
           "side": "R",
@@ -2209,6 +2254,39 @@
             46,
             57
           ]
+        }
+      },
+      "N-muayThaiGuard-tiptoe": {
+        "tiptoe": {
+          "side": "L",
+          "hem": 54,
+          "up": 3,
+          "shoe": 60,
+          "foot": {
+            "at": [
+              20,
+              57
+            ],
+            "sample": {
+              "#": [
+                21,
+                61
+              ],
+              "s": [
+                23,
+                61
+              ]
+            },
+            "rows": [
+              ".#sss#",
+              ".#sss#",
+              "#ssss#",
+              "#ssss#",
+              "#ssss#",
+              "#ssss#",
+              "######"
+            ]
+          }
         }
       }
     }

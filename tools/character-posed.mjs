@@ -628,6 +628,7 @@ function twistOf(d, k, g, y) {
 //   turn    hips turned: the shorts lose one column on that side (the column at 'col' is dropped, the outer ones move in)
 //   knee    the bent standing leg's knee moves dx sideways (rows: hip, knee, ankle; full at the knee)
 //   plant   the standing leg (side) moves dx as a whole, toward the centre line
+//   tiptoe  the heel raised: hem and sock risen 'up' rows over the shortened shin, the shoe drawn as an authored foot (rows, at, sample)
 //   rotate  torso and hips turned into the kick: on the far side of 'center' the listed columns are dropped per part
 //           (the outer columns close in, so that side narrows); the near side moves nearDx toward the centre; the
 //           head moves headDx and each band arm's shoulder armDx[side]
@@ -675,7 +676,7 @@ function frontalMove(d, k, part, y, x) {
   // crouch: a view's whole figure sits lower by d.crouch rows (every leg drops that many more bob rows)
   const b = bobOf(d, k) + (d.crouch || 0), lift = d.legLift || FR.legLift, far = d.far, limb = LIMB[part];
   const c0 = d.crouch || 0, cap = b, up = Math.min(bobOf(d, (k - 1 + F) % F) + c0, cap), lo = Math.min(bobOf(d, (k - 2 + F) % F) + c0, up), dyOf = [cap, up, lo];
-  let rows, dx = 0, z = 3;
+  let rows, dx = 0, z = 3, legDrop = [];
   if (limb?.[0] === 'leg') {
     const s = limb[1], n = lift[s][k] + b;
     if (bandSide(d, s, k)) rows = [];   // drawn as band legs instead (frontalLegs)
@@ -685,7 +686,7 @@ function frontalMove(d, k, part, y, x) {
       // pose rows and bob rows may be given per side ({R, L}) where the two legs are drawn differently (diagonals)
       const side = (v) => (Array.isArray(v) ? v : v[s]);
       const drop = [...new Set([...side(d.legPoseRows[d.legPose[s][k]]), ...side(d.bobRows).slice(0, b)])];
-      rows = rowMap(y, b, drop, []);
+      rows = rowMap(y, b, drop, []); legDrop = drop;
       // a swinging leg comes in under the body: it shears toward the centre line from the hip row to the foot
       const pdx = (d.legPoseDx?.[d.legPose[s][k]] || 0) * (d.inward?.[s] || 0);
       if (pdx) dx = shear(y, d.legPivot ?? 39, d.legPoseDxFrom ?? 56, pdx);
@@ -697,6 +698,15 @@ function frontalMove(d, k, part, y, x) {
     // back to nothing at the ankle (whole pixels)
     // plant variant: the standing leg moves dx toward the centre line as a whole (weight over the support foot)
     for (const v of variantsOf(d, k)) if (v.plant?.side === s) dx += v.plant.dx;
+    // tiptoe: the heel raised (Muay Thai lead foot seen from the front/back): the reference shoe rows (from shoe down)
+    // are left out and drawn as the authored foot (frontalFrame); the hem and sock (from hem down) rise up rows, and the
+    // trouser rows that would land in the up rows just above the risen hem are left out, so the shin shortens there
+    for (const v of variantsOf(d, k)) if (v.tiptoe?.side === s) {
+      const t = v.tiptoe, pH = rowMap(t.hem, b, legDrop, [])[0];
+      if (y >= t.shoe) rows = [];
+      else if (y >= t.hem) rows = rows.map((r) => r - t.up);
+      else rows = rows.filter((r) => r < pH - t.up);
+    }
     for (const v of variantsOf(d, k)) if (v.knee?.side === s) {
       const [h0, kn, a0] = v.knee.rows, t = y <= h0 || y >= a0 ? 0 : y <= kn ? (y - h0) / (kn - h0) : (a0 - y) / (a0 - kn);
       dx += roundHalfEven(v.knee.dx * t);
@@ -821,6 +831,16 @@ function widenXs(d, dir, part, x, y) {
   if (x === o) return [x, x - inward];
   return (inward > 0 ? x < o : x > o) ? [x - inward] : [x];
 }
+// tiptoe feet: rows of '#' (outline) and 's' (shoe or bare foot), coloured per layer from that layer's own reference
+// pixels named in sample (the bare foot in body, the shoe in the outfit overlays; a layer with no foot there skips it)
+function tiptoeFeet(d, k, img, fx, items) {
+  for (const v of variantsOf(d, k)) if (v.tiptoe?.foot) {
+    const t = v.tiptoe, f = t.foot;
+    if (!Object.values(f.sample).every(([sx, sy]) => opaque(img, fx + sx, sy))) continue;
+    const cs = Object.fromEntries(Object.entries(f.sample).map(([c, [sx, sy]]) => [c, hexAt(img, fx + sx, sy)]));
+    f.rows.forEach((row, r) => [...row].forEach((c, j) => { if (c !== '.') items.push([t.side === d.far ? 0 : 2, f.at[0] + j, f.at[1] + r, cs[c], 'tiptoe']); }));
+  }
+}
 function frontalFrame(dir, k) {
   const d = FR.views[dir], fx = order.indexOf(dir) * FRAME;
   const srcLayers = [['body', body, partMap], ['arms', arms, partMap], ...overlayLayers.map((l) => [l.name, l.img, l.map])];
@@ -834,6 +854,7 @@ function frontalFrame(dir, k) {
       const { rows, dx, z } = frontalMove(d, k, part, y, x);
       for (const ny of rows) for (const wx of widenXs(d, dir, part, x, y)) items.push([z, wx + dx, ny, hexAt(img, fx + x, y), key(x, y)]);
     }
+    tiptoeFeet(d, k, img, fx, items);
     // armBand: a raised arm seen at an angle is drawn as the authored band arm (constant thickness, authored fist)
     // from the view's shoulder pivot, its segment lengths scaled for foreshortening
     if (name === 'body' && d.legBand) for (const lg of frontalLegs(d, k)) for (const [q, c] of lg.legMap) {
@@ -1152,6 +1173,7 @@ function frontalClothing(l, geom, px, k) {
       if (p.part === 'sash' && !isBand(p, l) && l.gapFill) items.push([-2, p.x + dx, ny, l.gapFill, null, 'backing']);
     }
   }
+  tiptoeFeet(d, k, l.img, order.indexOf(geom) * FRAME, items);
   return items;
 }
 // The sash's hanging flaps swing from the knot: rows below the knot row shift sideways, growing to sashSway[k] at the

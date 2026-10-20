@@ -102,6 +102,12 @@ def sn(state):
     spec = json.loads(subprocess.check_output(['git', '-C', R, 'show', 'HEAD:' + os.path.relpath(D + state + '.json', R)])); st = stance_of(state); F = spec['frames']
     spec = stances.frontal(st, spec); fr = spec['frontal']; dy = spec['bob']['dy']
     ov = SN[state]
+    # the Muay Thai lead heel stays up (tiptoe) only on frames where E's lead foot is still on its toes (toe60); it comes
+    # down flat with the strike (Christopher 2026-10-20)
+    lead = [spec['legs']['poses'][i] for i in spec['legs']['far']]
+    for d in ('S', 'N'):
+        for k, vs in fr['views'][d]['variants'].items():
+            if lead[int(k)].get('foot') != 'toe60': vs[:] = [n for n in vs if 'tiptoe' not in fr['partVariants'].get(n, {})]
     for d in ('S', 'N'):
         v = fr['views'][d]; ab = v['armBand']; sg = 1 if d == 'S' else -1
         ext = lambda rows, src: src[:len(rows) + 3] if rows == src[:len(rows)] else rows   # room for the kick variants' standing-leg bend (bend2)

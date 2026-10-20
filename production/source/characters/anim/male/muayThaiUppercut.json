@@ -527,6 +527,34 @@
           ".#dddddd",
           "..######"
         ]
+      },
+      "sToeDown": {
+        "use": "front view raised foot, instep toward the viewer, toes pointing slightly down (E/W toe30k seen from the front)",
+        "anchor": [
+          3,
+          -1
+        ],
+        "rows": [
+          "#mLLm#",
+          "#mLLLm#",
+          "#dmLLm#",
+          ".#dmd#",
+          "..###"
+        ]
+      },
+      "nToeDown": {
+        "use": "back view raised foot: heel then the sole tilting down to the toes (E/W toe30k seen from behind)",
+        "anchor": [
+          3,
+          -1
+        ],
+        "rows": [
+          "#dmmd#",
+          "#dmmmd#",
+          "#ddmmd#",
+          ".#ddd#",
+          "..###"
+        ]
       }
     },
     "constructions": {
@@ -1734,7 +1762,8 @@
         "variants": {
           "0": [
             "S-muayThaiGuard-kneeR0",
-            "S-muayThaiGuard-kneeL0"
+            "S-muayThaiGuard-kneeL0",
+            "S-muayThaiGuard-tiptoe"
           ],
           "1": [
             "S-muayThaiGuard-kneeR0",
@@ -1754,7 +1783,8 @@
           ],
           "5": [
             "S-muayThaiGuard-kneeR0",
-            "S-muayThaiGuard-kneeL0"
+            "S-muayThaiGuard-kneeL0",
+            "S-muayThaiGuard-tiptoe"
           ]
         }
       },
@@ -2051,7 +2081,8 @@
         "variants": {
           "0": [
             "N-muayThaiGuard-kneeR0",
-            "N-muayThaiGuard-kneeL0"
+            "N-muayThaiGuard-kneeL0",
+            "N-muayThaiGuard-tiptoe"
           ],
           "1": [
             "N-muayThaiGuard-kneeR0",
@@ -2071,7 +2102,8 @@
           ],
           "5": [
             "N-muayThaiGuard-kneeR0",
-            "N-muayThaiGuard-kneeL0"
+            "N-muayThaiGuard-kneeL0",
+            "N-muayThaiGuard-tiptoe"
           ]
         }
       }
@@ -2099,6 +2131,39 @@
           ]
         }
       },
+      "S-muayThaiGuard-tiptoe": {
+        "tiptoe": {
+          "side": "L",
+          "hem": 54,
+          "up": 3,
+          "shoe": 60,
+          "foot": {
+            "at": [
+              37,
+              57
+            ],
+            "sample": {
+              "#": [
+                36,
+                61
+              ],
+              "s": [
+                37,
+                61
+              ]
+            },
+            "rows": [
+              "#sss#.",
+              "#sss#.",
+              "#ssss#",
+              "#ssss#",
+              "#ssss#",
+              "#ssss#",
+              "######"
+            ]
+          }
+        }
+      },
       "N-muayThaiGuard-kneeR0": {
         "knee": {
           "side": "R",
@@ -2119,6 +2184,39 @@
             46,
             57
           ]
+        }
+      },
+      "N-muayThaiGuard-tiptoe": {
+        "tiptoe": {
+          "side": "L",
+          "hem": 54,
+          "up": 3,
+          "shoe": 60,
+          "foot": {
+            "at": [
+              20,
+              57
+            ],
+            "sample": {
+              "#": [
+                21,
+                61
+              ],
+              "s": [
+                23,
+                61
+              ]
+            },
+            "rows": [
+              ".#sss#",
+              ".#sss#",
+              "#ssss#",
+              "#ssss#",
+              "#ssss#",
+              "#ssss#",
+              "######"
+            ]
+          }
         }
       }
     }
