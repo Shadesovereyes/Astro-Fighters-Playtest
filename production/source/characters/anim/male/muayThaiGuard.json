@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "muayThaiGuard",
-  "status": "E/W approved by user 2026-10-19 (W mirrors E); S/N approved by user 2026-10-20 (v3, dd49ebc; \"all stances approved\")",
+  "status": "E/W approved by user 2026-10-19 (W mirrors E); S/N CANDIDATE 2026-10-20 (v4, arms brought in; v3 approval revoked by user: hands/arms out too wide)",
   "frames": 8,
   "fps": 6,
   "sourceDirection": "E",
@@ -1349,47 +1349,47 @@
               24
             ],
             "angle": [
-              55,
-              55,
-              55,
-              55,
-              55,
-              55,
-              55,
-              55
+              25,
+              25,
+              25,
+              25,
+              25,
+              25,
+              25,
+              25
             ],
             "elbow": [
               {
                 "at": 7,
-                "angle": 198
+                "angle": 196
               },
               {
                 "at": 7,
-                "angle": 198
+                "angle": 196
               },
               {
                 "at": 7,
-                "angle": 198
+                "angle": 196
               },
               {
                 "at": 7,
-                "angle": 198
+                "angle": 196
               },
               {
                 "at": 7,
-                "angle": 198
+                "angle": 196
               },
               {
                 "at": 7,
-                "angle": 198
+                "angle": 196
               },
               {
                 "at": 7,
-                "angle": 198
+                "angle": 196
               },
               {
                 "at": 7,
-                "angle": 198
+                "angle": 196
               }
             ],
             "scale": [
@@ -1430,47 +1430,47 @@
               24
             ],
             "angle": [
-              -55,
-              -55,
-              -55,
-              -55,
-              -55,
-              -55,
-              -55,
-              -55
+              -25,
+              -25,
+              -25,
+              -25,
+              -25,
+              -25,
+              -25,
+              -25
             ],
             "elbow": [
               {
                 "at": 7,
-                "angle": 162
+                "angle": 164
               },
               {
                 "at": 7,
-                "angle": 162
+                "angle": 164
               },
               {
                 "at": 7,
-                "angle": 162
+                "angle": 164
               },
               {
                 "at": 7,
-                "angle": 162
+                "angle": 164
               },
               {
                 "at": 7,
-                "angle": 162
+                "angle": 164
               },
               {
                 "at": 7,
-                "angle": 162
+                "angle": 164
               },
               {
                 "at": 7,
-                "angle": 162
+                "angle": 164
               },
               {
                 "at": 7,
-                "angle": 162
+                "angle": 164
               }
             ],
             "scale": [
@@ -1789,47 +1789,47 @@
               24
             ],
             "angle": [
-              -55,
-              -55,
-              -55,
-              -55,
-              -55,
-              -55,
-              -55,
-              -55
+              -25,
+              -25,
+              -25,
+              -25,
+              -25,
+              -25,
+              -25,
+              -25
             ],
             "elbow": [
               {
                 "at": 7,
-                "angle": 162
+                "angle": 164
               },
               {
                 "at": 7,
-                "angle": 162
+                "angle": 164
               },
               {
                 "at": 7,
-                "angle": 162
+                "angle": 164
               },
               {
                 "at": 7,
-                "angle": 162
+                "angle": 164
               },
               {
                 "at": 7,
-                "angle": 162
+                "angle": 164
               },
               {
                 "at": 7,
-                "angle": 162
+                "angle": 164
               },
               {
                 "at": 7,
-                "angle": 162
+                "angle": 164
               },
               {
                 "at": 7,
-                "angle": 162
+                "angle": 164
               }
             ],
             "scale": [
@@ -1870,47 +1870,47 @@
               24
             ],
             "angle": [
-              55,
-              55,
-              55,
-              55,
-              55,
-              55,
-              55,
-              55
+              25,
+              25,
+              25,
+              25,
+              25,
+              25,
+              25,
+              25
             ],
             "elbow": [
               {
                 "at": 7,
-                "angle": 198
+                "angle": 196
               },
               {
                 "at": 7,
-                "angle": 198
+                "angle": 196
               },
               {
                 "at": 7,
-                "angle": 198
+                "angle": 196
               },
               {
                 "at": 7,
-                "angle": 198
+                "angle": 196
               },
               {
                 "at": 7,
-                "angle": 198
+                "angle": 196
               },
               {
                 "at": 7,
-                "angle": 198
+                "angle": 196
               },
               {
                 "at": 7,
-                "angle": 198
+                "angle": 196
               },
               {
                 "at": 7,
-                "angle": 198
+                "angle": 196
               }
             ],
             "scale": [

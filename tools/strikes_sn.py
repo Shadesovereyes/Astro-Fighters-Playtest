@@ -48,26 +48,26 @@ VARS = {'S-plantR1': {'plant': {'side': 'R', 'dx': 1}}, 'S-plantR': {'plant': {'
 JAB_S = (88, None, 0.45, 'front'); CROSS_S = (-88, None, 0.45, 'front')
 SN = {
  'muayThaiJabCross': {1: dict(L=JAB_S, NL=(-15, None, 1, 'up'), pdx={'L': -1}, tw=(-1, -2, -1)), 2: dict(L=(-40, 170, 0.85, 'up'), tw=(0, -1, 0)),
-                      4: dict(R=(30, 195, 1, 'up'), tw=(0, -1, 0)), 5: dict(R=CROSS_S, NR=(15, None, 1, 'up'), pdx={'R': 1}, tw=(2, 3, 2)), 6: dict(R=(40, 190, 0.85, 'up'), tw=(1, 1, 1))},
+                      4: dict(R=(18, 192, 1, 'up'), tw=(0, -1, 0)), 5: dict(R=CROSS_S, NR=(15, None, 1, 'up'), pdx={'R': 1}, tw=(2, 3, 2)), 6: dict(R=(25, 190, 0.85, 'up'), tw=(1, 1, 1))},
  'muayThaiUppercut': {1: dict(R=(25, 150, 1, 'up'), tw=(0, -1, 0)), 2: dict(R=(-5, 185, 1, 'up'), tw=(1, 1, 1)), 3: dict(R=(-30, 192, 0.9, 'up'), pdx={'R': 1}, tw=(1, 2, 1)),
                       4: dict(R=(-10, 195, 1, 'up'), tw=(1, 1, 1))},
  'muayThaiCalfKick': {1: dict(kick=('R', 'lift'), var=['S-hikeR1', 'bend1', 'S-plantL1']), 2: dict(R=(30, 15, 1, 'up'), kick=('R', 'low'), var=['S-hikeR', 'bend2', 'S-kneeL', 'S-rotR', 'S-plantL'], tw=(-1, 1, 2)),
                       3: dict(kick=('R', 'recoil'), var=['S-hikeR', 'bend2', 'S-kneeL', 'S-rotR', 'S-plantL'], tw=(0, 1, 1))},
- 'muayThaiRoundhouse': {1: dict(R=(40, 185, 1, 'up'), kick=('R', 'lift'), var=['S-hikeR1', 'bend1', 'S-plantL1']),
+ 'muayThaiRoundhouse': {1: dict(R=(25, 185, 1, 'up'), kick=('R', 'lift'), var=['S-hikeR1', 'bend1', 'S-plantL1']),
                         2: dict(R=(35, 60, 1, 'up'), kick=('R', 'fold'), var=['S-hikeR', 'bend2', 'S-kneeL', 'S-rotR', 'S-plantL'], tw=(1, -1, -1)),
                         3: dict(R=(40, 30, 1, 'up'), kick=('R', 'mtround-R'), var=['S-hikeR', 'bend2', 'S-kneeL', 'S-rotR2', 'S-plantL'], tw=(1, -2, -2)),
                         4: dict(R=(40, 30, 1, 'up'), kick=('R', 'mtround-R'), var=['S-hikeR', 'bend2', 'S-kneeL', 'S-rotR2', 'S-plantL'], tw=(1, -2, -2)),
                         5: dict(R=(30, 70, 1, 'up'), kick=('R', 'fold'), var=['S-hikeR', 'bend2', 'S-kneeL', 'S-rotR', 'S-plantL'], tw=(0, -1, -1)),
-                        6: dict(R=(45, 190, 1, 'up'), kick=('R', 'lift'), var=['S-hikeR1', 'bend1', 'S-plantL1'])},
+                        6: dict(R=(25, 190, 1, 'up'), kick=('R', 'lift'), var=['S-hikeR1', 'bend1', 'S-plantL1'])},
  'muayThaiTeep': {1: dict(kick=('L', 'tchamber-L'), var=['bend1', 'S-plantR1']), 2: dict(kick=('L', 'teep-L'), var=['bend2', 'S-kneeR', 'S-plantR']),
                   3: dict(kick=('L', 'teep-L'), var=['bend2', 'S-kneeR', 'S-plantR']), 4: dict(kick=('L', 'tchamber-L'), var=['bend1', 'S-plantR1'])},
- 'muayThaiKnee': {1: dict(R=(35, 175, 1, 'up'), L=(-35, 185, 1, 'up'), kick=('R', 'lift'), var=['S-hikeR1', 'bend1', 'S-plantL1']),
+ 'muayThaiKnee': {1: dict(R=(25, 178, 1, 'up'), L=(-25, 182, 1, 'up'), kick=('R', 'lift'), var=['S-hikeR1', 'bend1', 'S-plantL1']),
                   2: dict(R=(30, 170, 0.9, 'up'), L=(-30, 190, 0.9, 'up'), kick=('R', 'chamber'), var=['S-hikeR', 'bend2', 'S-kneeL', 'S-plantL'], tw=(0, 1, 0)),
                   3: dict(R=(20, 215, 0.85, 'up'), L=(-20, 145, 0.85, 'up'), kick=('R', 'chamber'), var=['S-hikeR', 'bend2', 'S-kneeL', 'S-rotR', 'S-plantL'], tw=(1, 1, 0)),
                   4: dict(R=(20, 215, 0.85, 'up'), L=(-20, 145, 0.85, 'up'), kick=('R', 'chamber'), var=['S-hikeR', 'bend2', 'S-kneeL', 'S-rotR', 'S-plantL'], tw=(1, 1, 0)),
                   5: dict(kick=('R', 'lift'), var=['S-hikeR1', 'bend1', 'S-plantL1'])},
- 'muayThaiElbow': {1: dict(R=(70, 200, 1, 'up'), tw=(0, -1, 0)), 2: dict(R=(-70, 140, 0.8, 'up'), pdx={'R': 1}, tw=(2, 3, 2)), 3: dict(R=(-72, 138, 0.8, 'up'), pdx={'R': 1}, tw=(2, 3, 2)),
-                   4: dict(R=(40, 195, 0.9, 'up'), tw=(1, 1, 1))},
+ 'muayThaiElbow': {1: dict(R=(45, 200, 1, 'up'), tw=(0, -1, 0)), 2: dict(R=(-70, 140, 0.8, 'up'), pdx={'R': 1}, tw=(2, 3, 2)), 3: dict(R=(-72, 138, 0.8, 'up'), pdx={'R': 1}, tw=(2, 3, 2)),
+                   4: dict(R=(25, 195, 0.9, 'up'), tw=(1, 1, 1))},
  'karateHammerFist': {1: dict(R=(150, 175, 1, 'up'), tw=(0, -1, 0)), 2: dict(R=(170, 190, 1, 'up'), L=(40, None, 0.6, 'front'), tw=(0, 0, 0)),
                       3: dict(R=(-110, -10, 0.65, 'up'), L=(-14, 12, 0.85, 'up'), pdx={'R': 1}, tw=(1, 2, 1)), 4: dict(R=(-108, -8, 0.65, 'up'), L=(-14, 12, 0.85, 'up'), pdx={'R': 1}, tw=(1, 2, 1)),
                       5: dict(R=(20, -40, 0.9, 'up'), L=(50, None, 0.5, 'front'))},
@@ -140,7 +140,7 @@ def restore(state):
         except subprocess.CalledProcessError: continue
         new = Image.open(d + f).convert('RGBA')
         if new.height < 256: new = Image.new('RGBA', (old.width, 256))   # a post-render layer (fx) the renderer did not rewrite
-        for row, nrow in ((0, 1), (1, 3)):   # old E, W -> new rows E, W
+        for row, nrow in (((0, 1), (1, 3)) if old.height < 256 else ((1, 1), (3, 3))):   # old E, W (2-row E/W sheet or 4-row S, E, N, W) -> new rows E, W
             new.paste(Image.new('RGBA', (new.width, 64)), (0, nrow * 64)); new.paste(old.crop((0, row * 64, old.width, row * 64 + 64)), (0, nrow * 64))
         new.save(d + f)
     print(state, 'E/W restored from HEAD')

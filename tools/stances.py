@@ -121,8 +121,8 @@ def outline(states=None):
 # band legs authored per view (hipRow = 40 + body bob; the ankle stays planted so the knee takes the bob).
 GA = {'R': (10, 192, 1, 'up'), 'L': (-10, 168, 1, 'up')}                   # the approved boxing guard (S)
 GN = {'R': (-12, None, 1, 'up'), 'L': (12, None, 1, 'up')}                 # its back view: upper arms only
-MT_S = {'R': (55, 198, 1, 'up'), 'L': (-55, 162, 1, 'up')}                # Muay Thai: elbows out, gloves high at the cheeks
-MT_N = {'R': (-55, 162, 1, 'up'), 'L': (55, 198, 1, 'up')}
+MT_S = {'R': (25, 196, 1, 'up'), 'L': (-25, 164, 1, 'up')}                # Muay Thai: gloves high at the cheeks, elbows only a little out (Christopher 2026-10-20: v3 hands/arms out too wide)
+MT_N = {'R': (-25, 164, 1, 'up'), 'L': (25, 196, 1, 'up')}
 CHAMBER_S = {'R': (14, -12, 0.85, 'up'), 'L': (-14, 12, 0.85, 'up')}      # fists pulled back to the hips
 CHAMBER_N = {'R': (-18, None, 1, 'up'), 'L': (18, None, 1, 'up')}
 # Legs (second pass, Christopher 2026-10-20: the band legs and trouser seat read wide and blocky): the reference
@@ -236,7 +236,7 @@ def frontal(st, spec):
     spec['rootMotion']['S'] = [[0, 0]] * F; spec['rootMotion']['N'] = [[0, 0]] * F
     return spec
 
-SN_APPROVED = {'karateGuard': 'S/N approved by user 2026-10-20 (v7, 5351ccd)', 'wrestlingGuard': 'S/N approved by user 2026-10-20 (v10, 0bd9356)', 'judoGuard': 'S/N approved by user 2026-10-20 (v6, d2d5943)', 'jiuJitsuGuard': 'S/N approved by user 2026-10-20 (v6, d2d5943)', 'muayThaiGuard': 'S/N approved by user 2026-10-20 (v3, dd49ebc; "all stances approved")'}
+SN_APPROVED = {'karateGuard': 'S/N approved by user 2026-10-20 (v7, 5351ccd)', 'wrestlingGuard': 'S/N approved by user 2026-10-20 (v10, 0bd9356)', 'judoGuard': 'S/N approved by user 2026-10-20 (v6, d2d5943)', 'jiuJitsuGuard': 'S/N approved by user 2026-10-20 (v6, d2d5943)', 'muayThaiGuard': 'S/N CANDIDATE 2026-10-20 (v4, arms brought in; v3 approval revoked by user: hands/arms out too wide)'}
 
 def specs4(only=None):
     """E/W specs plus S/N (status: S/N candidates)"""
