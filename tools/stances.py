@@ -236,7 +236,7 @@ def frontal(st, spec):
     spec['rootMotion']['S'] = [[0, 0]] * F; spec['rootMotion']['N'] = [[0, 0]] * F
     return spec
 
-SN_APPROVED = {'karateGuard': 'S/N approved by user 2026-10-20 (v7, 5351ccd)', 'wrestlingGuard': 'S/N approved by user 2026-10-20 (v10, 0bd9356)', 'judoGuard': 'S/N approved by user 2026-10-20 (v6, d2d5943)'}
+SN_APPROVED = {'karateGuard': 'S/N approved by user 2026-10-20 (v7, 5351ccd)', 'wrestlingGuard': 'S/N approved by user 2026-10-20 (v10, 0bd9356)', 'judoGuard': 'S/N approved by user 2026-10-20 (v6, d2d5943)', 'jiuJitsuGuard': 'S/N approved by user 2026-10-20 (v6, d2d5943)'}
 
 def specs4(only=None):
     """E/W specs plus S/N (status: S/N candidates)"""
