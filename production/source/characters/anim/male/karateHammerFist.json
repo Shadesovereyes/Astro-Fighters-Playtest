@@ -683,6 +683,69 @@
           55
         ],
         "foot": "blade"
+      },
+      {
+        "name": "sm-load-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 44,
+        "kneeX": 37,
+        "kneeRow": 48,
+        "ankle": [
+          34,
+          54
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "sm-kick-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 40,
+        "kneeX": 25,
+        "kneeRow": 44,
+        "ankle": [
+          19,
+          48
+        ],
+        "foot": "pointDL"
+      },
+      {
+        "name": "sm-air-lead",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 40,
+        "kneeX": 38,
+        "kneeRow": 45,
+        "ankle": [
+          37,
+          51
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "sm-land-lead",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 42,
+        "kneeX": 38,
+        "kneeRow": 49,
+        "footX": 41,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "sm-trail-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 42,
+        "kneeX": 25,
+        "kneeRow": 48,
+        "ankle": [
+          21,
+          53
+        ],
+        "foot": "toe30k"
       }
     ],
     "near": [

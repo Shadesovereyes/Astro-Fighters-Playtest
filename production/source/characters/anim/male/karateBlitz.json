@@ -3,7 +3,7 @@
   "body": "male",
   "state": "karateBlitz",
   "status": "CANDIDATE 2026-10-20 (E/W; W mirrors E; S/N to author after approval)",
-  "frames": 9,
+  "frames": 7,
   "fps": 12,
   "sourceDirection": "E",
   "directions": [
@@ -90,34 +90,28 @@
     "rule": "slight bob: the body sits 1 px low, then 1 px lower (dy 1, 1, 2, 2); the head bobs at the neck, sinking 1 px further on the low frames (head 1, 1, 3, 3); the arms bob at the shoulders a frame behind the body (arms 2, 1, 2, 3), so the hands settle after the body",
     "dy": [
       2,
-      2,
       3,
-      2,
-      2,
-      3,
-      3,
+      -1,
+      -1,
+      1,
       2,
       2
     ],
     "head": [
       2,
-      2,
       3,
-      2,
-      2,
-      3,
-      3,
+      -1,
+      -1,
+      1,
       2,
       2
     ],
     "arms": [
       2,
-      2,
       3,
-      2,
-      2,
-      3,
-      3,
+      -1,
+      -1,
+      1,
       2,
       2
     ]
@@ -128,23 +122,19 @@
     "dx": {
       "pelvis": [
         0,
-        0,
-        1,
-        0,
         1,
         1,
+        2,
         2,
         1,
         0
       ],
       "head": [
         1,
-        2,
-        3,
-        1,
-        2,
         3,
         4,
+        6,
+        5,
         2,
         1
       ]
@@ -158,31 +148,23 @@
         0
       ],
       [
-        0,
-        0
-      ],
-      [
         1,
         0
       ],
       [
-        0,
+        6,
         0
       ],
       [
-        0,
+        6,
         0
       ],
       [
-        0,
+        3,
         0
       ],
       [
         1,
-        0
-      ],
-      [
-        0,
         0
       ],
       [
@@ -196,31 +178,23 @@
         0
       ],
       [
-        0,
-        0
-      ],
-      [
         -1,
         0
       ],
       [
-        0,
+        -6,
         0
       ],
       [
-        0,
+        -6,
         0
       ],
       [
-        0,
+        -3,
         0
       ],
       [
         -1,
-        0
-      ],
-      [
-        0,
         0
       ],
       [
@@ -229,7 +203,10 @@
       ]
     ]
   },
-  "airborneFrames": [],
+  "airborneFrames": [
+    2,
+    3
+  ],
   "legs": {
     "source": "The reference near leg (R-thigh, R-shin-foot) of the E frame is replaced by row-span legs. Every leg is outlined; the reference wrap+foot block (R-shin-foot rows 56-63) is reused unchanged by the reference-ankle construction.",
     "thighRows": [
@@ -709,27 +686,86 @@
           55
         ],
         "foot": "blade"
+      },
+      {
+        "name": "sm-load-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 44,
+        "kneeX": 37,
+        "kneeRow": 48,
+        "ankle": [
+          34,
+          54
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "sm-kick-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 40,
+        "kneeX": 25,
+        "kneeRow": 44,
+        "ankle": [
+          19,
+          48
+        ],
+        "foot": "pointDL"
+      },
+      {
+        "name": "sm-air-lead",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 40,
+        "kneeX": 38,
+        "kneeRow": 45,
+        "ankle": [
+          37,
+          51
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "sm-land-lead",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 42,
+        "kneeX": 38,
+        "kneeRow": 49,
+        "footX": 41,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "sm-trail-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 42,
+        "kneeX": 25,
+        "kneeRow": 48,
+        "ankle": [
+          21,
+          53
+        ],
+        "foot": "toe30k"
       }
     ],
     "near": [
       5,
-      5,
-      5,
-      5,
-      5,
-      5,
-      5,
+      16,
+      17,
+      17,
+      20,
       5,
       5
     ],
     "far": [
       4,
-      4,
       13,
-      4,
-      4,
-      13,
-      13,
+      18,
+      18,
+      19,
       4,
       4
     ],
@@ -801,7 +837,7 @@
       },
       {
         "construction": "band",
-        "angle": 55,
+        "angle": 20,
         "elbow": {
           "at": 8,
           "angle": -60
@@ -809,34 +845,18 @@
       },
       {
         "construction": "band",
-        "angle": 55,
+        "angle": 70,
         "elbow": {
           "at": 8,
-          "angle": -60
+          "angle": 150
         }
       },
       {
         "construction": "band",
-        "angle": 55,
+        "angle": -95,
         "elbow": {
           "at": 8,
-          "angle": -60
-        }
-      },
-      {
-        "construction": "band",
-        "angle": 10,
-        "elbow": {
-          "at": 8,
-          "angle": -40
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -60,
-        "elbow": {
-          "at": 8,
-          "angle": -75
+          "angle": -95
         }
       },
       {
@@ -875,23 +895,7 @@
       },
       {
         "construction": "band",
-        "angle": -55,
-        "elbow": {
-          "at": 8,
-          "angle": -140
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -92,
-        "elbow": {
-          "at": 8,
-          "angle": -92
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -80,
+        "angle": -60,
         "elbow": {
           "at": 8,
           "angle": -100
@@ -899,26 +903,26 @@
       },
       {
         "construction": "band",
-        "angle": -40,
+        "angle": -55,
         "elbow": {
           "at": 8,
-          "angle": -80
+          "angle": -95
         }
       },
       {
         "construction": "band",
-        "angle": 25,
+        "angle": 40,
         "elbow": {
           "at": 8,
-          "angle": -40
+          "angle": -10
         }
       },
       {
         "construction": "band",
-        "angle": 55,
+        "angle": 40,
         "elbow": {
           "at": 8,
-          "angle": -60
+          "angle": -10
         }
       },
       {
@@ -1045,8 +1049,6 @@
       "bandFollowsBody": true,
       "sway": {
         "E": [
-          -1,
-          -1,
           -1,
           -1,
           -1,
@@ -1250,24 +1252,15 @@
   },
   "clips": {
     "rule": "Karate strikes: each clip starts and ends in the approved karateGuard frame and returns to that idle (next: karateGuard)",
-    "leadPunch": {
+    "supermanPunch": {
       "frames": [
         0,
         1,
         2,
-        3
-      ],
-      "fps": 12,
-      "next": "karateGuard",
-      "ability": "Karate Blitz"
-    },
-    "reversePunch": {
-      "frames": [
+        3,
         4,
         5,
-        6,
-        7,
-        8
+        6
       ],
       "fps": 12,
       "next": "karateGuard",
@@ -1280,128 +1273,96 @@
     "E": [
       {
         "frame": 0,
-        "clip": "leadPunch",
+        "clip": "supermanPunch",
         "type": "startup"
       },
       {
         "frame": 1,
-        "clip": "leadPunch",
+        "clip": "supermanPunch",
         "type": "startup"
       },
       {
         "frame": 2,
-        "clip": "leadPunch",
-        "type": "active",
-        "move": "Karate Blitz",
-        "hitbox": [
-          44,
-          27,
-          12,
-          6
-        ],
-        "damage": "light"
+        "clip": "supermanPunch",
+        "type": "startup"
       },
       {
         "frame": 3,
-        "clip": "leadPunch",
-        "type": "recovery"
-      },
-      {
-        "frame": 4,
-        "clip": "reversePunch",
-        "type": "startup"
-      },
-      {
-        "frame": 5,
-        "clip": "reversePunch",
-        "type": "startup"
-      },
-      {
-        "frame": 6,
-        "clip": "reversePunch",
+        "clip": "supermanPunch",
         "type": "active",
         "move": "Karate Blitz",
         "hitbox": [
-          44,
-          27,
-          12,
-          6
+          46,
+          23,
+          14,
+          8
         ],
         "damage": "light"
       },
       {
-        "frame": 7,
-        "clip": "reversePunch",
+        "frame": 4,
+        "clip": "supermanPunch",
         "type": "recovery"
       },
       {
-        "frame": 8,
-        "clip": "reversePunch",
+        "frame": 5,
+        "clip": "supermanPunch",
+        "type": "recovery"
+      },
+      {
+        "frame": 6,
+        "clip": "supermanPunch",
         "type": "recovery"
       }
     ],
     "W": [
       {
         "frame": 0,
-        "clip": "leadPunch",
+        "clip": "supermanPunch",
         "type": "startup"
       },
       {
         "frame": 1,
-        "clip": "leadPunch",
+        "clip": "supermanPunch",
         "type": "startup"
       },
       {
         "frame": 2,
-        "clip": "leadPunch",
-        "type": "active",
-        "move": "Karate Blitz",
-        "hitbox": [
-          8,
-          27,
-          12,
-          6
-        ],
-        "damage": "light"
+        "clip": "supermanPunch",
+        "type": "startup"
       },
       {
         "frame": 3,
-        "clip": "leadPunch",
-        "type": "recovery"
-      },
-      {
-        "frame": 4,
-        "clip": "reversePunch",
-        "type": "startup"
-      },
-      {
-        "frame": 5,
-        "clip": "reversePunch",
-        "type": "startup"
-      },
-      {
-        "frame": 6,
-        "clip": "reversePunch",
+        "clip": "supermanPunch",
         "type": "active",
         "move": "Karate Blitz",
         "hitbox": [
-          8,
-          27,
-          12,
-          6
+          4,
+          23,
+          14,
+          8
         ],
         "damage": "light"
       },
       {
-        "frame": 7,
-        "clip": "reversePunch",
+        "frame": 4,
+        "clip": "supermanPunch",
         "type": "recovery"
       },
       {
-        "frame": 8,
-        "clip": "reversePunch",
+        "frame": 5,
+        "clip": "supermanPunch",
+        "type": "recovery"
+      },
+      {
+        "frame": 6,
+        "clip": "supermanPunch",
         "type": "recovery"
       }
     ]
+  },
+  "travel": {
+    "rule": "Karate Blitz is a gap closer: the fighter ends the clip 18 px further forward (sum of rootMotion); the game moves the fighter by that distance",
+    "E": 18
   }
 }
