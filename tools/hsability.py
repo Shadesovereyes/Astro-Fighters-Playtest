@@ -16,7 +16,7 @@ def band(a, e): return {'construction': 'band', 'angle': a, 'elbow': {'at': 8, '
 def leg(name, hip, knee, foot, wrap=56, kind='flat'):
     return {'name': name, 'construction': 'band', 'hipX': hip[0], 'hipRow': hip[1], 'kneeX': knee[0], 'kneeRow': knee[1], 'footX': foot, 'wrapRow': wrap, 'foot': kind}
 STATE = 'karateHorseStance'
-STAT = 'CANDIDATE 2026-10-20 (E/W; W mirrors E; S/N to author after approval)'
+STAT = 'E/W approved by user 2026-10-20 (v1, 8db7af9; W mirrors E); S/N to author after approval'
 
 HIP, LEAD = band(55, -60), band(-75, -95)   # karateGuard: rear fist chambered at the hip, lead hand out at chest height
 POSES = [leg('hs-near', (31, 45), (38, 50), 35), leg('hs-far', (30, 45), (36, 50), 30),          # the approved horseStance straddle
@@ -88,7 +88,7 @@ def sn():
                 b = ab[sd]; b['angle'][k] = a; b['scale'][k] = sc; b['fist'][k] = fist; b['elbow'][k] = {'at': 7, 'angle': e} if e is not None else None
                 if d == 'N':
                     sh = b.get('showTo'); sh = sh if isinstance(sh, list) else [sh] * F; sh[k] = 7 if e is None else None; b['showTo'] = sh
-    sp['status'] = sp['status'].replace('S/N to author after approval', 'S/N CANDIDATE 2026-10-20')
+    sp['status'] = 'E/W approved by user 2026-10-20 (v1, 8db7af9; W mirrors E); S/N approved by user 2026-10-20 (v1, edb0996)'
     save(sp, D + STATE + '.json'); print(STATE, 'S/N', F, 'frames')
 
 if __name__ == '__main__':
