@@ -123,7 +123,34 @@ def blur(state='karateBlitz'):
                         if 0 <= x < 64: px[k * 64 + x, r * 64 + y] = (255, 255, 255, 255) if i < 2 + n // 2 else (0xe3, 0xe3, 0xe3, 255)
     fx.save(d + 'fx.png'); print(state, 'motion blur', BLUR)
 
+ARC = {1: (0, 130, 1), 2: (0, 250, 1), 3: (0, 360, 1), 4: (0, 360, 2), 5: (0, 360, 0)}   # whirlwindKick frame: (start, end degrees swept, strength: 0 = fading, every other pixel)
+def arc(state='karateWhirlwind', cx=32, cy=25, rx=22, ry=6):
+    """after render: a swinging arc on the fx layer around the fighter at kick height (Christopher 2026-10-20: the
+    whirlwind attacks all around the user); a flat ellipse swept further round each spin frame, full and doubled at the
+    kick, fading on the recovery; its far half is hidden behind the figure, its near half draws over it"""
+    import math
+    from PIL import Image
+    d = D + state + '/'
+    lay = [Image.open(d + f).convert('RGBA') for f in ('body.png', 'arms.png', 'male-gi.png')]
+    W, H = lay[0].size; fx = Image.new('RGBA', (W, H)); px = fx.load(); al = [l.load() for l in lay]
+    dirs = json.load(open(D + state + '.json'))['directions']
+    for k, (a0, a1, strength) in ARC.items():
+        for fd in dirs:
+            r = dirs.index(fd); sign = -1 if fd == 'W' else 1
+            for ring, (dr, col) in enumerate(((0, (255, 255, 255, 255)), (1, (0xe3, 0xe3, 0xe3, 255)))):
+                if ring and not strength: continue
+                for t in range(a0 * 4, a1 * 4):   # quarter-degree steps
+                    th = math.radians(t / 4)
+                    x = round(cx + sign * (rx + dr) * math.cos(th)); y = round(cy + (ry + dr) * math.sin(th) - (ring if strength == 2 else 0))
+                    if not (0 <= x < 64 and 0 <= y < 64): continue
+                    if not strength and (x + y) % 2: continue
+                    far = math.sin(th) < 0   # upper half of the ellipse = behind the fighter
+                    if far and any(a[k * 64 + x, r * 64 + y][3] for a in al): continue
+                    px[k * 64 + x, r * 64 + y] = col
+    fx.save(d + 'fx.png'); print(state, 'swing arc', ARC)
+
 if __name__ == '__main__':
-    if '--blur' in sys.argv: blur()
+    if '--arc' in sys.argv: arc()
+    elif '--blur' in sys.argv: blur()
     else:
         for st, names in STATES.items(): spec(st, names)
