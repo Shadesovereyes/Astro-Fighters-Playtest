@@ -79,6 +79,8 @@ SN = {
  'karateSideKick': {1: dict(kick=('R', 'lift'), var=['S-hikeR1', 'bend1', 'S-plantL1']), 2: dict(kick=('R', 'chamber'), var=['S-hikeR', 'bend2', 'S-kneeL', 'S-rotR', 'S-plantL'], tw=(0, 1, 1)),
                     3: dict(kick=('R', 'snap'), var=['S-hikeR', 'bend2', 'S-kneeL', 'S-rotR2', 'S-plantL'], tw=(1, 2, 2)), 4: dict(kick=('R', 'snap'), var=['S-hikeR', 'bend2', 'S-kneeL', 'S-rotR2', 'S-plantL'], tw=(1, 2, 2)),
                     5: dict(kick=('R', 'chamber'), var=['S-hikeR', 'bend2', 'S-kneeL', 'S-rotR', 'S-plantL'], tw=(0, 1, 1)), 6: dict(kick=('R', 'lift'), var=['S-hikeR1', 'bend1', 'S-plantL1'])},
+ 'karateWhirlwind': {4: dict(R=(22, 200, 1, 'up'), L=(-30, 190, 1, 'up'), kick=('R', 'round'), var=['S-hikeR', 'bend2', 'S-kneeL', 'S-rotR2', 'S-plantL'], tw=(1, -2, -2)),   # spin frames 1-3: heavyAttack's S/N spin bodies (BORROW_SN)
+                     5: dict(kick=('R', 'fold'), var=['S-hikeR', 'bend2', 'S-kneeL', 'S-rotR2', 'S-plantL'], tw=(0, -1, -1))},
  'karateSweepingLow': {2: dict(kick=('R', 'sweepmid-R'), var=['S-plantL1']), 3: dict(L=(50, None, 0.6, 'front'), kick=('R', 'sweep-R'), var=['S-rotR', 'S-plantL'], tw=(1, 1, 0)),
                        4: dict(L=(50, None, 0.6, 'front'), kick=('R', 'sweep-R'), var=['S-rotR', 'S-plantL'], tw=(1, 1, 0)), 5: dict(kick=('R', 'sweepmid-R'), var=['S-plantL1'])},
  'judoChop': {1: dict(R=(150, 195, 1, 'front'), tw=(0, -1, 0)), 2: dict(R=(170, 200, 1, 'front'), tw=(0, -1, 0)),
@@ -88,6 +90,10 @@ SN = {
  'wrestlingProwess': {k: dict(R=(25, -85, 1, 'front', 8), L=(-25, 85, 1, 'up', 8), NR=(-50, None, 1, 'up'), NL=(50, None, 1, 'up')) for k in (3, 4, 5, 6)} | {
                       2: dict(R=(40, -60, 0.9, 'front', 8), L=(-40, 60, 0.9, 'up', 8), NR=(-45, None, 1, 'up'), NL=(45, None, 1, 'up'))},
 }
+
+# spin clips: the front/back views turn through other bodies (spinPivot frames), copied from heavyAttack's spinRoundhouse
+# borrow.byDirection (heavyAttack frame -> this state's frame)
+BORROW_SN = {'karateWhirlwind': {10: 1, 11: 2, 12: 3}}
 
 SN_APPROVED = {s: 'S/N approved by user 2026-10-20 (v1, b24f8f0)' for s in ('karateHammerFist', 'judoChop', 'wrestlingProwess')} | {'karateBlitz': 'S/N approved by user 2026-10-20 (v2 with motion blur, c46b181)'}
 
@@ -126,6 +132,9 @@ def sn(state):
                 v['variants'][str(k)] = [n.replace('S-', d + '-', 1) for n in o['var']]
                 for n in v['variants'][str(k)]:
                     if n not in fr['partVariants']: fr['partVariants'][n] = copy.deepcopy(HEAVY['frontal']['partVariants'].get(n) or VARS[n])
+    if state in BORROW_SN:
+        hb = HEAVY['borrow']['byDirection']
+        spec['borrow']['byDirection'] = {d: {str(BORROW_SN[state][int(k)]): copy.deepcopy(b) for k, b in hb[d].items()} for d in ('S', 'N')}
     spec['status'] = spec['status'].replace('S/N to author', SN_APPROVED.get(state, 'S/N CANDIDATE 2026-10-20'))
     save(spec, D + state + '.json'); print(state, 'S/N', F, 'frames')
 
