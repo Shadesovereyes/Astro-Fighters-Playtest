@@ -75,10 +75,10 @@ def spec(state):
     s['fps'] = 12; s.pop('approved', None); s.pop('keyPoses', None)
     save(s, D + state + '.json'); print(state, n, 'frames')
 
-AURA = ('#ff7a1a', '#ffd23f')   # placeholder aura colours: hot orange next to the body, gold outside (fx layer)
+AURA = ('#ffffff', '#e3e3e3')   # white next to the body, light neutral grey outside (Christopher 2026-10-20: white/neutral aura; the fx palette's whites)
 def aura(state):
     """after render + outline: an aura on the fx layer, `w` pixels wide around the whole figure (every layer but fx),
-    inner ring orange, outer rings gold; drawn behind nothing, so it only shows outside the silhouette"""
+    inner ring white, outer rings light grey; drawn behind nothing, so it only shows outside the silhouette"""
     import os
     from PIL import Image, ImageFilter
     widths = CLIPS[state][9]; d = D + state + '/'
