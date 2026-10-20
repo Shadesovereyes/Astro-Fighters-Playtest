@@ -911,18 +911,18 @@
       },
       {
         "construction": "band",
-        "angle": 40,
+        "angle": 55,
         "elbow": {
           "at": 8,
-          "angle": -10
+          "angle": -60
         }
       },
       {
         "construction": "band",
-        "angle": 40,
+        "angle": 55,
         "elbow": {
           "at": 8,
-          "angle": -10
+          "angle": -60
         }
       },
       {

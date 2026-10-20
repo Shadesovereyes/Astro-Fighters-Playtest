@@ -36,12 +36,12 @@ ST = dict(an=HIP, af=LEAD, bob=(2, 2, 2), lean=(0, 1), root=(0, 0), ln='ka-rear'
 def f(**k): return {**ST, **k}
 
 CLIPS = {   # (ability, active frame, hitbox [x, y, w, h], damage, frames[, borrow {local frame: spec}])
- 'supermanPunch': ('Karate Blitz', 3, [46, 23, 14, 8], 'light', [   # gap closer modelled on a superman punch (Christopher 2026-10-20): dip and drive the rear knee forward, leap with the rear leg kicked back and the rear fist cocked, fire the rear fist straight out in flight, land on the lead foot a long step on, settle into the stance
+ 'supermanPunch': ('Karate Blitz', 3, [46, 23, 14, 8], 'light', [   # gap closer modelled on a superman punch (Christopher 2026-10-20): dip and drive the rear knee forward, leap with the rear leg kicked back and the rear fist cocked, fire the rear fist straight out in flight while the lead fist chambers at the hip (hikite, Christopher 2026-10-20), land on the lead foot a long step on, settle into the stance
      f(),
      f(an=band(20, -60), af=band(-60, -100), bob=(3, 3, 3), lean=(1, 3), root=(1, 0), ln='sm-load-rear', lf='ka-lead-low'),
      f(an=band(70, 150), af=band(-55, -95), bob=(-1, -1, -1), lean=(1, 4), root=(6, 0), ln='sm-kick-rear', lf='sm-air-lead'),
-     f(an=band(-95, -95), af=band(40, -10), bob=(-1, -1, -1), lean=(2, 6), root=(6, 0), ln='sm-kick-rear', lf='sm-air-lead'),
-     f(an=band(-92, -92), af=band(40, -10), bob=(1, 1, 1), lean=(2, 5), root=(3, 0), ln='sm-trail-rear', lf='sm-land-lead'),
+     f(an=band(-95, -95), af=HIP, bob=(-1, -1, -1), lean=(2, 6), root=(6, 0), ln='sm-kick-rear', lf='sm-air-lead'),
+     f(an=band(-92, -92), af=HIP, bob=(1, 1, 1), lean=(2, 5), root=(3, 0), ln='sm-trail-rear', lf='sm-land-lead'),
      f(an=band(20, -50), af=band(-60, -100), bob=(2, 2, 2), lean=(1, 2), root=(1, 0)), f()]),
  'hammerFist': ('Hammer Fist', 3, [42, 26, 12, 14], 'heavy', [   # rear fist swung up over the head, then down onto the target; the body drops into it
      f(), f(an=band(150, 175), af=band(-70, -110), bob=(1, 1, 1), lean=(0, 0)),
