@@ -140,7 +140,7 @@ FRONT = {
     'muayThaiGuard': dict(S=MT_S, N=MT_N, legs=dict(foot=1, knee=(1, 1)), lift={'L': ('mt-lead-up',)}),
     'karateGuard': dict(S={'R': CHAMBER_S['R'], 'L': (68, None, 0.42, 'front')}, N={'R': CHAMBER_N['R'], 'L': (10, None, 1, 'up')},
                         legs=dict(foot=0, knee=(0, 0), near=2, far=0, nearKnee=1, stagger=4), blade=1),   # staggered like the grappling stances, no knee flare (Christopher 2026-10-20)
-    'horseStance': dict(S=CHAMBER_S, N=CHAMBER_N, legs=dict(foot=2, knee=(6, 6))),
+    'horseStance': dict(S=CHAMBER_S, N=CHAMBER_N, legs=dict(foot=6, knee=(5, 5), kneePeak=46)),   # knees over the feet, shins upright, one knee shear so the knee does not balloon (Christopher 2026-10-20: legs looked weird)
     'judoGuard': dict(S=GR_S(0.25, 0.28), N=GR_N(32, 32), legs=dict(foot=0, knee=(0, 0), near=0, far=0, nearKnee=0, stagger=2), lean=(1, 0), blade=1, headUp=1),
     'jiuJitsuGuard': dict(S=GR_S(0.25, 0.6), N=GR_N(30, 38), legs=dict(foot=0, knee=(0, 0), near=0, far=-1, nearKnee=0, stagger=3), lean=(2, 0), rise=3, blade=1, headUp=1),
     'wrestlingGuard': dict(S={'R': (36, -75, 0.75, 'front', 9), 'L': (-36, 50, 0.75, 'up', 10)}, pivotDx={'S': {'R': 1, 'L': -1}}, armSettle={'S': 1}, N=GR_N(40, 40), legs=dict(foot=0, knee=(0, 0), near=0, far=-1, nearKnee=0, stagger=3), lean=(1, 0), rise=3, blade=1, headUp=1),
@@ -186,7 +186,7 @@ def frontal(st, spec):
             kd = L['knee'][i] + (L.get('farKnee', 0) if sd == farSd else 0)
             if kd:
                 out = (-1 if sd == 'R' else 1) * sg   # two overlapping knee shears (peaks at rows 46 and 51) round the knee off
-                for j, (dk, kr) in enumerate(((kd - kd // 2, 46), (kd // 2, 51))):
+                for j, (dk, kr) in enumerate(((kd, L['kneePeak']),) if L.get('kneePeak') else ((kd - kd // 2, 46), (kd // 2, 51))):
                     if dk: n = '%s-%s-knee%s%d' % (d, st, sd, j); pv[n] = {'knee': {'side': sd, 'dx': out * dk, 'rows': [41, kr, 57]}}; vs.append(n)
         if L.get('near'):   # staggered stance seen head-on (Christopher 2026-10-20: wrestling read as a sumo straddle)
             # feet about shoulder width, legs near vertical like the approved guard; the near leg's knee comes toward the
@@ -236,7 +236,7 @@ def frontal(st, spec):
     spec['rootMotion']['S'] = [[0, 0]] * F; spec['rootMotion']['N'] = [[0, 0]] * F
     return spec
 
-SN_APPROVED = {'karateGuard': 'S/N approved by user 2026-10-20 (v7, 5351ccd)', 'wrestlingGuard': 'S/N approved by user 2026-10-20 (v10, 0bd9356)', 'judoGuard': 'S/N approved by user 2026-10-20 (v6, d2d5943)', 'jiuJitsuGuard': 'S/N approved by user 2026-10-20 (v6, d2d5943)', 'horseStance': 'S/N approved by user 2026-10-20 (v3, dd49ebc; "all stances approved")', 'muayThaiGuard': 'S/N approved by user 2026-10-20 (v3, dd49ebc; "all stances approved")'}
+SN_APPROVED = {'karateGuard': 'S/N approved by user 2026-10-20 (v7, 5351ccd)', 'wrestlingGuard': 'S/N approved by user 2026-10-20 (v10, 0bd9356)', 'judoGuard': 'S/N approved by user 2026-10-20 (v6, d2d5943)', 'jiuJitsuGuard': 'S/N approved by user 2026-10-20 (v6, d2d5943)', 'muayThaiGuard': 'S/N approved by user 2026-10-20 (v3, dd49ebc; "all stances approved")'}
 
 def specs4(only=None):
     """E/W specs plus S/N (status: S/N candidates)"""
@@ -245,7 +245,7 @@ def specs4(only=None):
         if only and st not in only: continue
         sp = frontal(st, load(D + st + '.json'))
         for k in ('handDy', 'legRows', 'legRepeatRows', 'armRows', 'armRepeatRows'): pass
-        sp['status'] = sp['status'].replace('S/N to author', SN_APPROVED.get(st, 'S/N CANDIDATE 2026-10-19'))
+        sp['status'] = sp['status'].replace('S/N to author', SN_APPROVED.get(st, 'S/N CANDIDATE 2026-10-20 (v4; v3 approval revoked by user: legs looked weird)' if st == 'horseStance' else 'S/N CANDIDATE 2026-10-19'))
         save(sp, D + st + '.json')
 
 if __name__ == '__main__':

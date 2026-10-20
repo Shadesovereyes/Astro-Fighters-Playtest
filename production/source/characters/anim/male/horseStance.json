@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "horseStance",
-  "status": "E/W approved by user 2026-10-19 (W mirrors E); S/N approved by user 2026-10-20 (v3, dd49ebc; \"all stances approved\")",
+  "status": "E/W approved by user 2026-10-19 (W mirrors E); S/N CANDIDATE 2026-10-20 (v4; v3 approval revoked by user: legs looked weird)",
   "frames": 4,
   "fps": 4,
   "sourceDirection": "E",
@@ -1246,16 +1246,16 @@
         },
         "footDx": {
           "R": [
-            -2,
-            -2,
-            -2,
-            -2
+            -6,
+            -6,
+            -6,
+            -6
           ],
           "L": [
-            2,
-            2,
-            2,
-            2
+            6,
+            6,
+            6,
+            6
           ]
         },
         "legPivot": 39,
@@ -1266,27 +1266,19 @@
         "variants": {
           "0": [
             "S-horseStance-kneeR0",
-            "S-horseStance-kneeR1",
-            "S-horseStance-kneeL0",
-            "S-horseStance-kneeL1"
+            "S-horseStance-kneeL0"
           ],
           "1": [
             "S-horseStance-kneeR0",
-            "S-horseStance-kneeR1",
-            "S-horseStance-kneeL0",
-            "S-horseStance-kneeL1"
+            "S-horseStance-kneeL0"
           ],
           "2": [
             "S-horseStance-kneeR0",
-            "S-horseStance-kneeR1",
-            "S-horseStance-kneeL0",
-            "S-horseStance-kneeL1"
+            "S-horseStance-kneeL0"
           ],
           "3": [
             "S-horseStance-kneeR0",
-            "S-horseStance-kneeR1",
-            "S-horseStance-kneeL0",
-            "S-horseStance-kneeL1"
+            "S-horseStance-kneeL0"
           ]
         }
       },
@@ -1480,16 +1472,16 @@
         },
         "footDx": {
           "R": [
-            2,
-            2,
-            2,
-            2
+            6,
+            6,
+            6,
+            6
           ],
           "L": [
-            -2,
-            -2,
-            -2,
-            -2
+            -6,
+            -6,
+            -6,
+            -6
           ]
         },
         "legPivot": 39,
@@ -1500,27 +1492,19 @@
         "variants": {
           "0": [
             "N-horseStance-kneeR0",
-            "N-horseStance-kneeR1",
-            "N-horseStance-kneeL0",
-            "N-horseStance-kneeL1"
+            "N-horseStance-kneeL0"
           ],
           "1": [
             "N-horseStance-kneeR0",
-            "N-horseStance-kneeR1",
-            "N-horseStance-kneeL0",
-            "N-horseStance-kneeL1"
+            "N-horseStance-kneeL0"
           ],
           "2": [
             "N-horseStance-kneeR0",
-            "N-horseStance-kneeR1",
-            "N-horseStance-kneeL0",
-            "N-horseStance-kneeL1"
+            "N-horseStance-kneeL0"
           ],
           "3": [
             "N-horseStance-kneeR0",
-            "N-horseStance-kneeR1",
-            "N-horseStance-kneeL0",
-            "N-horseStance-kneeL1"
+            "N-horseStance-kneeL0"
           ]
         }
       }
@@ -1529,21 +1513,10 @@
       "S-horseStance-kneeR0": {
         "knee": {
           "side": "R",
-          "dx": -3,
+          "dx": -5,
           "rows": [
             41,
             46,
-            57
-          ]
-        }
-      },
-      "S-horseStance-kneeR1": {
-        "knee": {
-          "side": "R",
-          "dx": -3,
-          "rows": [
-            41,
-            51,
             57
           ]
         }
@@ -1551,21 +1524,10 @@
       "S-horseStance-kneeL0": {
         "knee": {
           "side": "L",
-          "dx": 3,
+          "dx": 5,
           "rows": [
             41,
             46,
-            57
-          ]
-        }
-      },
-      "S-horseStance-kneeL1": {
-        "knee": {
-          "side": "L",
-          "dx": 3,
-          "rows": [
-            41,
-            51,
             57
           ]
         }
@@ -1573,21 +1535,10 @@
       "N-horseStance-kneeR0": {
         "knee": {
           "side": "R",
-          "dx": 3,
+          "dx": 5,
           "rows": [
             41,
             46,
-            57
-          ]
-        }
-      },
-      "N-horseStance-kneeR1": {
-        "knee": {
-          "side": "R",
-          "dx": 3,
-          "rows": [
-            41,
-            51,
             57
           ]
         }
@@ -1595,21 +1546,10 @@
       "N-horseStance-kneeL0": {
         "knee": {
           "side": "L",
-          "dx": -3,
+          "dx": -5,
           "rows": [
             41,
             46,
-            57
-          ]
-        }
-      },
-      "N-horseStance-kneeL1": {
-        "knee": {
-          "side": "L",
-          "dx": -3,
-          "rows": [
-            41,
-            51,
             57
           ]
         }
