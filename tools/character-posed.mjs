@@ -632,6 +632,9 @@ function twistOf(d, k, g, y) {
 //   rotate  torso and hips turned into the kick: on the far side of 'center' the listed columns are dropped per part
 //           (the outer columns close in, so that side narrows); the near side moves nearDx toward the centre; the
 //           head moves headDx and each band arm's shoulder armDx[side]
+//   shade   the body turned away on one side: torso, pelvis and the waist band drawn one ramp step darker (the far-side
+//           shade, as on the far arm) on the far side of output column 'from' (far: right = from and beyond, left = up to
+//           from), so the trunk reads as a turned volume instead of a flat front
 const variantsOf = (d, k) => (d.variants?.[k] || []).map((n) => { const v = FR.partVariants?.[n]; if (!v) throw new Error(`part variant ${n} not defined`); return v; });
 const bobOf = (d, k) => { const v = variantsOf(d, k).find((x) => x.bob !== undefined); return v ? v.bob : bob[k]; };
 function variantShear(d, k, x, y, group) {
@@ -671,6 +674,12 @@ function variantRotate(d, k, x, part) {
   }
   return dx;
 }
+const SHADE_PARTS = new Set(['torso', 'pelvis', 'sash']);
+function shadeOf(d, k, part, x) {   // true when the output pixel (x) of this part lies on a shade variant's far side
+  if (!SHADE_PARTS.has(part)) return false;
+  return variantsOf(d, k).some((v) => v.shade && (v.shade.far === 'right' ? x >= v.shade.from : x <= v.shade.from));
+}
+const shadeHex = (h) => { const s = symOf[h]; return s && s !== '#' ? pal[farShade[s]] : h; };
 const rotateArmDx = (d, k, sd) => variantsOf(d, k).reduce((a, v) => a + (v.rotate?.armDx?.[sd] || 0), 0);
 function frontalMove(d, k, part, y, x) {
   // crouch: a view's whole figure sits lower by d.crouch rows (every leg drops that many more bob rows)
@@ -855,7 +864,10 @@ function frontalFrame(dir, k) {
       const part = partNear(map, fx, x, y);
       if (!part) throw new Error(`${name} ${dir}: pixel ${x},${y} has no rig part`);
       const { rows, dx, z } = frontalMove(d, k, part, y, x);
-      for (const ny of rows) for (const wx of widenXs(d, dir, part, x, y)) items.push([z, wx + dx, ny, hexAt(img, fx + x, y), key(x, y)]);
+      for (const ny of rows) for (const wx of widenXs(d, dir, part, x, y)) {
+        const h = hexAt(img, fx + x, y);
+        items.push([z, wx + dx, ny, shadeOf(d, k, part, wx + dx) ? shadeHex(h) : h, key(x, y)]);
+      }
     }
     tiptoeFeet(d, k, img, fx, items);
     // armBand: a raised arm seen at an angle is drawn as the authored band arm (constant thickness, authored fist)
@@ -1171,7 +1183,10 @@ function frontalClothing(l, geom, px, k) {
     const part = p.part === 'sash' && isBand(p, l) ? 'pelvis' : p.part;
     const { rows, dx, z } = frontalMove(d, k, part, p.y, p.x);
     for (const ny of rows) {
-      for (const wx of widenXs(d, geom, part, p.x, p.y)) items.push([p.part === 'sash' ? 3 : z, wx + dx + sway(p), ny, p.c, p.src]);
+      for (const wx of widenXs(d, geom, part, p.x, p.y)) {
+        const ox2 = wx + dx + sway(p);
+        items.push([p.part === 'sash' ? 3 : z, ox2, ny, shadeOf(d, k, part, ox2) ? (l.shade[p.c] ?? p.c) : p.c, p.src]);
+      }
       // cloth behind a swinging flap: shows only where the flap swings off the body
       if (p.part === 'sash' && !isBand(p, l) && l.gapFill) items.push([-2, p.x + dx, ny, l.gapFill, null, 'backing']);
     }

@@ -941,20 +941,6 @@
         "section": "S"
       },
       {
-        "name": "S-mtround-R-d-1",
-        "construction": "band",
-        "hipX": 30,
-        "hipRow": 38,
-        "kneeX": 35,
-        "kneeRow": 33,
-        "ankle": [
-          43,
-          31
-        ],
-        "foot": "pointUR",
-        "section": "S"
-      },
-      {
         "name": "N-lift-R",
         "construction": "band",
         "hipX": 35,
@@ -983,14 +969,28 @@
         "section": "N"
       },
       {
+        "name": "S-mtround-R-d-1",
+        "construction": "band",
+        "hipX": 30,
+        "hipRow": 38,
+        "kneeX": 36,
+        "kneeRow": 34,
+        "ankle": [
+          45,
+          31
+        ],
+        "foot": "pointUR",
+        "section": "S"
+      },
+      {
         "name": "N-mtround-R-d-1",
         "construction": "band",
         "hipX": 34,
         "hipRow": 38,
-        "kneeX": 29,
-        "kneeRow": 33,
+        "kneeX": 39,
+        "kneeRow": 34,
         "ankle": [
-          21,
+          46,
           31
         ],
         "foot": "pointUR",
@@ -1939,8 +1939,8 @@
             0,
             0,
             -1,
-            -2,
-            -2,
+            2,
+            2,
             -1,
             0,
             0
@@ -1949,8 +1949,8 @@
             0,
             0,
             -1,
-            -2,
-            -2,
+            2,
+            2,
             -1,
             0,
             0
@@ -2024,6 +2024,7 @@
             "S-kneeL",
             "S-rotR",
             "S-plantL",
+            "S-shadeR1",
             "S-liftR40"
           ],
           "3": [
@@ -2031,14 +2032,16 @@
             "bend2",
             "S-kneeL",
             "S-rotR2",
-            "S-plantL"
+            "S-plantL",
+            "S-shadeR2"
           ],
           "4": [
             "S-hikeR",
             "bend2",
             "S-kneeL",
             "S-rotR2",
-            "S-plantL"
+            "S-plantL",
+            "S-shadeR2"
           ],
           "5": [
             "S-hikeR",
@@ -2046,6 +2049,7 @@
             "S-kneeL",
             "S-rotR",
             "S-plantL",
+            "S-shadeR1",
             "S-liftR40"
           ],
           "6": [
@@ -2411,8 +2415,8 @@
             0,
             0,
             1,
-            2,
-            2,
+            -2,
+            -2,
             1,
             0,
             0
@@ -2421,8 +2425,8 @@
             0,
             0,
             1,
-            2,
-            2,
+            -2,
+            -2,
             1,
             0,
             0
@@ -2496,6 +2500,7 @@
             "N-kneeL",
             "N-rotR",
             "N-plantL",
+            "N-shadeR1",
             "N-liftR40"
           ],
           "3": [
@@ -2503,14 +2508,16 @@
             "bend2",
             "N-kneeL",
             "N-rotR2",
-            "N-plantL"
+            "N-plantL",
+            "N-shadeR2"
           ],
           "4": [
             "N-hikeR",
             "bend2",
             "N-kneeL",
             "N-rotR2",
-            "N-plantL"
+            "N-plantL",
+            "N-shadeR2"
           ],
           "5": [
             "N-hikeR",
@@ -2518,6 +2525,7 @@
             "N-kneeL",
             "N-rotR",
             "N-plantL",
+            "N-shadeR1",
             "N-liftR40"
           ],
           "6": [
@@ -2827,6 +2835,12 @@
           "dx": -2
         }
       },
+      "S-shadeR1": {
+        "shade": {
+          "from": 34,
+          "far": "right"
+        }
+      },
       "S-liftR40": {
         "tiptoe": {
           "side": "R",
@@ -2883,6 +2897,12 @@
             "R": 2,
             "L": -3
           }
+        }
+      },
+      "S-shadeR2": {
+        "shade": {
+          "from": 32,
+          "far": "right"
         }
       },
       "N-hikeR1": {
@@ -2989,6 +3009,12 @@
           "dx": 2
         }
       },
+      "N-shadeR1": {
+        "shade": {
+          "from": 34,
+          "far": "right"
+        }
+      },
       "N-liftR40": {
         "tiptoe": {
           "side": "R",
@@ -3044,6 +3070,12 @@
             "L": 2,
             "R": -3
           }
+        }
+      },
+      "N-shadeR2": {
+        "shade": {
+          "from": 32,
+          "far": "right"
         }
       }
     }

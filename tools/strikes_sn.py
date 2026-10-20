@@ -19,7 +19,7 @@ def mirror_arm(t):   # the same arm shape seen from behind: angles mirrored (N p
     a, e, sc, fist, *rest = t; return (-a, mir(e), sc, fist, *rest)
 def leg(name, sec, hip, knee, ankle, foot): return {'name': name, 'construction': 'band', 'hipX': hip[0], 'hipRow': hip[1], 'kneeX': knee[0], 'kneeRow': knee[1], 'ankle': list(ankle), 'foot': foot, 'section': sec}
 NEWLEGS = {   # S poses (N mirrored x -> 64 - x); rows at body dy 0, shifted by the frame's dy
-    'mtround-R': ((30, 39), (35, 34), (43, 32), 'pointUR'),   # rib-height roundhouse: shin swung across at rib height
+    'mtround-R': ((30, 39), (36, 35), (45, 32), 'pointUR'),   # rib-height roundhouse: shin swung across at rib height, out past the far side (knee and foot on E's rows)
     'tchamber-L': ((34, 39), (33, 34), (33, 41), 'sFoot'),    # teep: far (lead) knee to the chest
     'teep-L': ((34, 39), (33, 36), (33, 40), 'sSole'),        # teep: the sole pushed out at the viewer, leg foreshortened
     'sweepmid-R': ((30, 40), (30, 47), (32, 53), 'sFoot'),    # sweep: rear foot coming through low
@@ -27,12 +27,16 @@ NEWLEGS = {   # S poses (N mirrored x -> 64 - x); rows at body dy 0, shifted by 
     'smkick-R': ((30, 39), (29, 44), (29, 47), 'sFoot'),      # superman punch: rear leg kicked back away from the viewer, foreshortened behind the body
     'smair-L': ((34, 39), (35, 45), (35, 50), 'sFoot'),       # superman punch: lead leg tucked under the body in flight
 }
+NEWLEGS_N = {   # back-view poses that are not the S pose mirrored (as given, no x flip)
+    'mtround-R': ((34, 39), (39, 35), (46, 32), 'pointUR'),   # seen from behind the rib-height shin swings out past the near side, visible beside the trunk (as heavyAttack's N round)
+}
 def legpose(spec, d, key, side, dy):
     if key in NEWLEGS:
-        hip, knee, ank, foot = NEWLEGS[key]; m = (lambda x: x) if d == 'S' else (lambda x: 64 - x)
-        n = '%s-%s-d%d' % (d, key, dy)
-        if n not in [p['name'] for p in spec['legs']['poses']]:
-            spec['legs']['poses'].append(leg(n, d, (m(hip[0]), hip[1] + dy), (m(knee[0]), knee[1] + dy), (m(ank[0]), ank[1] + dy), foot))
+        hip, knee, ank, foot = NEWLEGS_N[key] if d == 'N' and key in NEWLEGS_N else NEWLEGS[key]
+        m = (lambda x: x) if d == 'S' or key in NEWLEGS_N else (lambda x: 64 - x)
+        n = '%s-%s-d%d' % (d, key, dy)   # always rebuilt (the committed spec may hold an older version of the pose)
+        spec['legs']['poses'] = [p for p in spec['legs']['poses'] if p['name'] != n]
+        spec['legs']['poses'].append(leg(n, d, (m(hip[0]), hip[1] + dy), (m(knee[0]), knee[1] + dy), (m(ank[0]), ank[1] + dy), foot))
         return n
     n = '%s-%s-%s' % (d, key, side)   # approved heavyAttack kick-chain pose
     if n not in [p['name'] for p in spec['legs']['poses']]:
@@ -41,7 +45,11 @@ def legpose(spec, d, key, side, dy):
 
 VARS = {'S-plantR1': {'plant': {'side': 'R', 'dx': 1}}, 'S-plantR': {'plant': {'side': 'R', 'dx': 2}},   # far-leg kicks: the rear (standing) leg moves under the body
         'air0': {'bob': 0},   # airborne frames: the front/back view keeps the body at bob 0 (the afro's top row is row 0, no room to rise)
-        'N-plantR1': {'plant': {'side': 'R', 'dx': -1}}, 'N-plantR': {'plant': {'side': 'R', 'dx': -2}}}
+        'N-plantR1': {'plant': {'side': 'R', 'dx': -1}}, 'N-plantR': {'plant': {'side': 'R', 'dx': -2}},
+        # the trunk turned into a rear-leg kick (Christopher 2026-10-20: the front/back torso read flat): the side turning
+        # away (screen right in both views) is one shade darker, from further out while the turn starts
+        'S-shadeR1': {'shade': {'from': 34, 'far': 'right'}}, 'S-shadeR2': {'shade': {'from': 32, 'far': 'right'}},
+        'N-shadeR1': {'shade': {'from': 34, 'far': 'right'}}, 'N-shadeR2': {'shade': {'from': 32, 'far': 'right'}}}
 # per state: {frame: overrides}, S semantics. R/L arm = (angle, forearm angle or None, scale, fist[, elbowAt]); NR/NL
 # explicit back view (default: mirror of the S arm, at the back view's depth); tw = (pelvis, shoulders, head) twist
 # (N negated); kick = (side, pose key); var = heavyAttack part variants (S- names, N- swapped in); z = kick leg depth
@@ -54,10 +62,10 @@ SN = {
  'muayThaiCalfKick': {1: dict(lift=('R', 50), var=['S-hikeR1', 'bend1', 'S-plantL1']), 2: dict(R=(30, 15, 1, 'up'), kick=('R', 'low'), var=['S-hikeR', 'bend2', 'S-kneeL', 'S-rotR', 'S-plantL'], tw=(-1, 1, 2)),
                       3: dict(lift=('R', 49), var=['S-hikeR', 'bend2', 'S-kneeL', 'S-rotR', 'S-plantL'], tw=(0, 1, 1))},
  'muayThaiRoundhouse': {1: dict(R=(25, 185, 1, 'up'), lift=('R', 50), var=['S-hikeR1', 'bend1', 'S-plantL1']),
-                        2: dict(R=(35, 60, 1, 'up'), lift=('R', 40), var=['S-hikeR', 'bend2', 'S-kneeL', 'S-rotR', 'S-plantL'], tw=(1, -1, -1)),
-                        3: dict(R=(40, 30, 1, 'up'), kick=('R', 'mtround-R'), var=['S-hikeR', 'bend2', 'S-kneeL', 'S-rotR2', 'S-plantL'], tw=(1, -2, -2)),
-                        4: dict(R=(40, 30, 1, 'up'), kick=('R', 'mtround-R'), var=['S-hikeR', 'bend2', 'S-kneeL', 'S-rotR2', 'S-plantL'], tw=(1, -2, -2)),
-                        5: dict(R=(30, 70, 1, 'up'), lift=('R', 40), var=['S-hikeR', 'bend2', 'S-kneeL', 'S-rotR', 'S-plantL'], tw=(0, -1, -1)),
+                        2: dict(R=(35, 60, 1, 'up'), lift=('R', 40), var=['S-hikeR', 'bend2', 'S-kneeL', 'S-rotR', 'S-plantL', 'S-shadeR1'], tw=(1, -1, -1)),
+                        3: dict(R=(40, 30, 1, 'up'), kick=('R', 'mtround-R'), var=['S-hikeR', 'bend2', 'S-kneeL', 'S-rotR2', 'S-plantL', 'S-shadeR2'], tw=(1, 2, 2)),
+                        4: dict(R=(40, 30, 1, 'up'), kick=('R', 'mtround-R'), var=['S-hikeR', 'bend2', 'S-kneeL', 'S-rotR2', 'S-plantL', 'S-shadeR2'], tw=(1, 2, 2)),
+                        5: dict(R=(30, 70, 1, 'up'), lift=('R', 40), var=['S-hikeR', 'bend2', 'S-kneeL', 'S-rotR', 'S-plantL', 'S-shadeR1'], tw=(0, -1, -1)),
                         6: dict(R=(25, 190, 1, 'up'), lift=('R', 50), var=['S-hikeR1', 'bend1', 'S-plantL1'])},
  'muayThaiTeep': {1: dict(lift=('L', 39), var=['bend1', 'S-plantR1']), 2: dict(kick=('L', 'teep-L'), var=['bend2', 'S-kneeR', 'S-plantR']),
                   3: dict(kick=('L', 'teep-L'), var=['bend2', 'S-kneeR', 'S-plantR']), 4: dict(lift=('L', 39), var=['bend1', 'S-plantR1'])},
