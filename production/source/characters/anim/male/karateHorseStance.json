@@ -2,12 +2,14 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "karateHorseStance",
-  "status": "CANDIDATE 2026-10-20 (E/W; W mirrors E; S/N to author after approval)",
+  "status": "CANDIDATE 2026-10-20 (E/W; W mirrors E; S/N CANDIDATE 2026-10-20)",
   "frames": 10,
   "fps": 10,
   "sourceDirection": "E",
   "directions": [
+    "S",
     "E",
+    "N",
     "W"
   ],
   "mirror": {
@@ -200,6 +202,90 @@
       ]
     ],
     "W": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "S": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "N": [
       [
         0,
         0
@@ -524,6 +610,34 @@
           "#LLmmmmm",
           ".#dddddd",
           "..######"
+        ]
+      },
+      "sToeDown": {
+        "use": "front view raised foot, instep toward the viewer, toes pointing slightly down (E/W toe30k seen from the front)",
+        "anchor": [
+          3,
+          -1
+        ],
+        "rows": [
+          "#mLLm#",
+          "#mLLLm#",
+          "#dmLLm#",
+          ".#dmd#",
+          "..###"
+        ]
+      },
+      "nToeDown": {
+        "use": "back view raised foot: heel then the sole tilting down to the toes (E/W toe30k seen from behind)",
+        "anchor": [
+          3,
+          -1
+        ],
+        "rows": [
+          "#dmmd#",
+          "#dmmmd#",
+          "#ddmmd#",
+          ".#ddd#",
+          "..###"
         ]
       }
     },
@@ -1011,9 +1125,21 @@
           1,
           1,
           1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
           1
         ],
         "N": [
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
           -1,
           -1,
           -1,
@@ -1331,5 +1457,1226 @@
         "type": "recovery"
       }
     ]
+  },
+  "frontal": {
+    "rule": "S and N are built from their reference frames: legs keep their rows (every leg drops the frame's bob rows so the feet stay down); the arms are authored band arms from each shoulder (bent guard arms with the fists up at the chin; a punch toward or away from the viewer is a short, foreshortened straight arm). In S the arms are in front of the body; in N they are behind it.",
+    "legLift": {
+      "R": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "L": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "legLiftRule": "not used (named leg poses)",
+    "views": {
+      "S": {
+        "legPose": {
+          "R": [
+            "far",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "far"
+          ],
+          "L": [
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant"
+          ]
+        },
+        "legPoseRows": {
+          "plant": [],
+          "far": [
+            52,
+            45,
+            54,
+            48
+          ]
+        },
+        "bobRows": {
+          "L": [
+            47,
+            45,
+            49,
+            43,
+            48,
+            53,
+            46
+          ],
+          "R": [
+            49,
+            53,
+            47,
+            52,
+            45,
+            54,
+            48
+          ]
+        },
+        "legRows": {
+          "R": [
+            41
+          ],
+          "L": [
+            41
+          ]
+        },
+        "legRepeatRows": {
+          "R": [
+            41
+          ],
+          "L": [
+            41
+          ]
+        },
+        "handDy": {
+          "R": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "L": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "armRows": {
+          "R": [
+            35
+          ],
+          "L": [
+            35
+          ]
+        },
+        "armRepeatRows": {
+          "R": [
+            35
+          ],
+          "L": [
+            35
+          ]
+        },
+        "armBand": {
+          "R": {
+            "pivot": [
+              25,
+              24
+            ],
+            "angle": [
+              14,
+              14,
+              14,
+              14,
+              14,
+              14,
+              14,
+              14,
+              14,
+              14
+            ],
+            "elbow": [
+              {
+                "at": 7,
+                "angle": -12
+              },
+              {
+                "at": 7,
+                "angle": -12
+              },
+              {
+                "at": 7,
+                "angle": -12
+              },
+              {
+                "at": 7,
+                "angle": -12
+              },
+              {
+                "at": 7,
+                "angle": -12
+              },
+              {
+                "at": 7,
+                "angle": -12
+              },
+              {
+                "at": 7,
+                "angle": -12
+              },
+              {
+                "at": 7,
+                "angle": -12
+              },
+              {
+                "at": 7,
+                "angle": -12
+              },
+              {
+                "at": 7,
+                "angle": -12
+              }
+            ],
+            "scale": [
+              0.85,
+              0.85,
+              0.6,
+              0.6,
+              0.6,
+              0.6,
+              0.6,
+              0.6,
+              0.85,
+              0.85
+            ],
+            "fist": [
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
+              "up"
+            ],
+            "z": 4,
+            "pivotDx": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "L": {
+            "pivot": [
+              38,
+              24
+            ],
+            "angle": [
+              68,
+              30,
+              -14,
+              -14,
+              -14,
+              -14,
+              -14,
+              -14,
+              40,
+              68
+            ],
+            "elbow": [
+              null,
+              null,
+              {
+                "at": 7,
+                "angle": 12
+              },
+              {
+                "at": 7,
+                "angle": 12
+              },
+              {
+                "at": 7,
+                "angle": 12
+              },
+              {
+                "at": 7,
+                "angle": 12
+              },
+              {
+                "at": 7,
+                "angle": 12
+              },
+              {
+                "at": 7,
+                "angle": 12
+              },
+              null,
+              null
+            ],
+            "scale": [
+              0.42,
+              0.6,
+              0.6,
+              0.6,
+              0.6,
+              0.6,
+              0.6,
+              0.6,
+              0.55,
+              0.42
+            ],
+            "fist": [
+              "front",
+              "front",
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
+              "front",
+              "front"
+            ],
+            "z": 4,
+            "pivotDx": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "headDy": -1,
+        "armRule": "guard seen from the front: elbows down at the sides, forearms nearly upright, the fists in front of each shoulder at the top of the chest, just below where the long hair hangs (the hair layer draws over the arms); a punch toward the viewer is a short straight arm (50% length) bringing the fist in front of the chest centre; on the jab and cross the punching arm points at the viewer: the arm crosses in front of the chest at shoulder height (45%) to a knuckles-on fist (fistFront) just off the chest centre, outlined over the body",
+        "twist": {
+          "pelvis": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "shoulders": [
+            -1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ],
+          "head": [
+            -1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        "twistRule": "the body rotates into each punch: hips, shoulders and head shift sideways (shoulders most, torso sheared between hips and shoulders), toward the punching side's centre on the jab and further on the cross; the legs swing from the hip to the planted feet with the hips (hipDx), and the punching shoulder moves 1 px further in",
+        "hipDx": {
+          "R": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "L": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "footDx": {
+          "L": [
+            2,
+            2,
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            2,
+            2
+          ],
+          "R": [
+            0,
+            -2,
+            -4,
+            -4,
+            -4,
+            -4,
+            -4,
+            -4,
+            -2,
+            0
+          ]
+        },
+        "legPivot": 39,
+        "footFrom": {
+          "R": 56,
+          "L": 56
+        },
+        "crouch": 0,
+        "variants": {
+          "0": [
+            "S-karateGuard-kneeL"
+          ],
+          "1": [],
+          "2": [
+            "S-hs-kneeR1",
+            "S-hs-kneeL1"
+          ],
+          "3": [
+            "S-hs-kneeR1",
+            "S-hs-kneeL1"
+          ],
+          "4": [
+            "S-hs-kneeR1",
+            "S-hs-kneeL1"
+          ],
+          "5": [
+            "S-hs-kneeR1",
+            "S-hs-kneeL1"
+          ],
+          "6": [
+            "S-hs-kneeR1",
+            "S-hs-kneeL1"
+          ],
+          "7": [
+            "S-hs-kneeR1",
+            "S-hs-kneeL1"
+          ],
+          "8": [],
+          "9": [
+            "S-karateGuard-kneeL"
+          ]
+        },
+        "bobRowsAt": [
+          {
+            "L": [
+              47,
+              45,
+              49,
+              43,
+              48,
+              53,
+              46
+            ],
+            "R": [
+              49,
+              53,
+              47,
+              52,
+              45,
+              54,
+              48
+            ]
+          },
+          [
+            49,
+            53,
+            47,
+            52,
+            45,
+            54,
+            48,
+            51,
+            46,
+            55,
+            44
+          ],
+          [
+            49,
+            53,
+            47,
+            52,
+            45,
+            54,
+            48,
+            51,
+            46,
+            55,
+            44
+          ],
+          [
+            49,
+            53,
+            47,
+            52,
+            45,
+            54,
+            48,
+            51,
+            46,
+            55,
+            44
+          ],
+          [
+            49,
+            53,
+            47,
+            52,
+            45,
+            54,
+            48,
+            51,
+            46,
+            55,
+            44
+          ],
+          [
+            49,
+            53,
+            47,
+            52,
+            45,
+            54,
+            48,
+            51,
+            46,
+            55,
+            44
+          ],
+          [
+            49,
+            53,
+            47,
+            52,
+            45,
+            54,
+            48,
+            51,
+            46,
+            55,
+            44
+          ],
+          [
+            49,
+            53,
+            47,
+            52,
+            45,
+            54,
+            48,
+            51,
+            46,
+            55,
+            44
+          ],
+          [
+            49,
+            53,
+            47,
+            52,
+            45,
+            54,
+            48,
+            51,
+            46,
+            55,
+            44
+          ],
+          {
+            "L": [
+              47,
+              45,
+              49,
+              43,
+              48,
+              53,
+              46
+            ],
+            "R": [
+              49,
+              53,
+              47,
+              52,
+              45,
+              54,
+              48
+            ]
+          }
+        ]
+      },
+      "N": {
+        "legPose": {
+          "R": [
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant"
+          ],
+          "L": [
+            "far",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "far"
+          ]
+        },
+        "legPoseRows": {
+          "plant": [],
+          "far": [
+            52,
+            45,
+            54,
+            48
+          ]
+        },
+        "bobRows": {
+          "R": [
+            47,
+            45,
+            49,
+            43,
+            48,
+            53,
+            46
+          ],
+          "L": [
+            49,
+            53,
+            47,
+            52,
+            45,
+            54,
+            48
+          ]
+        },
+        "legRows": {
+          "R": [
+            50
+          ],
+          "L": [
+            50
+          ]
+        },
+        "legRepeatRows": {
+          "R": [
+            50
+          ],
+          "L": [
+            50
+          ]
+        },
+        "handDy": {
+          "R": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "L": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "armRows": {
+          "R": [
+            35
+          ],
+          "L": [
+            35
+          ]
+        },
+        "armRepeatRows": {
+          "R": [
+            35
+          ],
+          "L": [
+            35
+          ]
+        },
+        "armBand": {
+          "R": {
+            "pivot": [
+              39,
+              24
+            ],
+            "angle": [
+              -18,
+              -18,
+              -18,
+              -18,
+              -18,
+              -18,
+              -18,
+              -18,
+              -18,
+              -18
+            ],
+            "elbow": [
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null
+            ],
+            "scale": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "fist": [
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
+              "up"
+            ],
+            "z": -1,
+            "showTo": 7,
+            "pivotDx": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "L": {
+            "pivot": [
+              24,
+              24
+            ],
+            "angle": [
+              10,
+              14,
+              18,
+              18,
+              18,
+              18,
+              18,
+              18,
+              12,
+              10
+            ],
+            "elbow": [
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null
+            ],
+            "scale": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "fist": [
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
+              "up"
+            ],
+            "z": -1,
+            "showTo": [
+              7,
+              7,
+              7,
+              7,
+              7,
+              7,
+              7,
+              7,
+              7,
+              7
+            ],
+            "pivotDx": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "headDy": -1,
+        "armRule": "from behind the forearms, wrists and fists are in front of the body: only the shoulders and upper arms show (straight band arms cut at 7 px, showTo), hanging slightly out in guard, swinging in when that arm punches away from the viewer",
+        "twist": {
+          "pelvis": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "shoulders": [
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1
+          ],
+          "head": [
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1
+          ]
+        },
+        "twistRule": "the body rotates into each punch: hips, shoulders and head shift sideways (shoulders most, torso sheared between hips and shoulders), toward the punching side's centre on the jab and further on the cross; the legs swing from the hip to the planted feet with the hips (hipDx), and the punching shoulder moves 1 px further in",
+        "hipDx": {
+          "R": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "L": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "footDx": {
+          "R": [
+            2,
+            2,
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            2,
+            2
+          ],
+          "L": [
+            0,
+            -2,
+            -4,
+            -4,
+            -4,
+            -4,
+            -4,
+            -4,
+            -2,
+            0
+          ]
+        },
+        "legPivot": 39,
+        "footFrom": {
+          "R": 56,
+          "L": 56
+        },
+        "crouch": 0,
+        "variants": {
+          "0": [
+            "N-karateGuard-kneeR"
+          ],
+          "1": [],
+          "2": [
+            "N-hs-kneeR1",
+            "N-hs-kneeL1"
+          ],
+          "3": [
+            "N-hs-kneeR1",
+            "N-hs-kneeL1"
+          ],
+          "4": [
+            "N-hs-kneeR1",
+            "N-hs-kneeL1"
+          ],
+          "5": [
+            "N-hs-kneeR1",
+            "N-hs-kneeL1"
+          ],
+          "6": [
+            "N-hs-kneeR1",
+            "N-hs-kneeL1"
+          ],
+          "7": [
+            "N-hs-kneeR1",
+            "N-hs-kneeL1"
+          ],
+          "8": [],
+          "9": [
+            "N-karateGuard-kneeR"
+          ]
+        },
+        "bobRowsAt": [
+          {
+            "R": [
+              47,
+              45,
+              49,
+              43,
+              48,
+              53,
+              46
+            ],
+            "L": [
+              49,
+              53,
+              47,
+              52,
+              45,
+              54,
+              48
+            ]
+          },
+          [
+            49,
+            53,
+            47,
+            52,
+            45,
+            54,
+            48,
+            51,
+            46,
+            55,
+            44
+          ],
+          [
+            49,
+            53,
+            47,
+            52,
+            45,
+            54,
+            48,
+            51,
+            46,
+            55,
+            44
+          ],
+          [
+            49,
+            53,
+            47,
+            52,
+            45,
+            54,
+            48,
+            51,
+            46,
+            55,
+            44
+          ],
+          [
+            49,
+            53,
+            47,
+            52,
+            45,
+            54,
+            48,
+            51,
+            46,
+            55,
+            44
+          ],
+          [
+            49,
+            53,
+            47,
+            52,
+            45,
+            54,
+            48,
+            51,
+            46,
+            55,
+            44
+          ],
+          [
+            49,
+            53,
+            47,
+            52,
+            45,
+            54,
+            48,
+            51,
+            46,
+            55,
+            44
+          ],
+          [
+            49,
+            53,
+            47,
+            52,
+            45,
+            54,
+            48,
+            51,
+            46,
+            55,
+            44
+          ],
+          [
+            49,
+            53,
+            47,
+            52,
+            45,
+            54,
+            48,
+            51,
+            46,
+            55,
+            44
+          ],
+          {
+            "R": [
+              47,
+              45,
+              49,
+              43,
+              48,
+              53,
+              46
+            ],
+            "L": [
+              49,
+              53,
+              47,
+              52,
+              45,
+              54,
+              48
+            ]
+          }
+        ]
+      }
+    },
+    "partVariants": {
+      "S-karateGuard-kneeL": {
+        "knee": {
+          "side": "L",
+          "dx": 1,
+          "rows": [
+            41,
+            47,
+            56
+          ]
+        }
+      },
+      "N-karateGuard-kneeR": {
+        "knee": {
+          "side": "R",
+          "dx": 1,
+          "rows": [
+            41,
+            47,
+            56
+          ]
+        }
+      },
+      "S-hs-kneeR1": {
+        "knee": {
+          "side": "R",
+          "dx": -1,
+          "rows": [
+            41,
+            49,
+            57
+          ]
+        }
+      },
+      "S-hs-kneeL1": {
+        "knee": {
+          "side": "L",
+          "dx": 1,
+          "rows": [
+            41,
+            49,
+            57
+          ]
+        }
+      },
+      "N-hs-kneeR1": {
+        "knee": {
+          "side": "R",
+          "dx": 1,
+          "rows": [
+            41,
+            49,
+            57
+          ]
+        }
+      },
+      "N-hs-kneeL1": {
+        "knee": {
+          "side": "L",
+          "dx": -1,
+          "rows": [
+            41,
+            49,
+            57
+          ]
+        }
+      }
+    }
   }
 }
