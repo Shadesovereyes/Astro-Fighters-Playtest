@@ -3,7 +3,7 @@ start and end in the approved judoGuard / wrestlingGuard frame instead of the bo
 Judo Chop (open knife hand raised by the ear and chopped down onto the neck), standing Sumo Palm (near then far open-hand
 thrust, heel of the palm leading, from the wrestling crouch) and Wrestler's Prowess (power-up: rises out of the crouch,
 flexes both arms, stamps back down into the stance). Feet stay planted. One state per ability. E/W first (W mirrors E).
-Run: python3 tools/grstrikes.py ; node tools/character-posed.mjs male <state> ; python3 tools/stances.py --outline <state>"""
+Run: python3 tools/grstrikes.py ; node tools/character-posed.mjs male <state> ; python3 tools/stances.py --outline <state> ; python3 tools/grstrikes.py --aura (Prowess fx)"""
 import sys, copy
 sys.path.insert(0, '/mnt/project-files/hex-sprites/tools')
 from gen import load, build, save
@@ -44,19 +44,22 @@ CLIPS = {   # state: (ability, stance state, base, poses, active frame, hitbox [
      w(an=band(-30, -140, **H), af=band(-30, -150, **H), bob=(5, 5, 6), lean=(2, 8)),
      w(an=band(-35, -130, **P), af=band(-95, -95, **H), bob=(5, 5, 5), lean=(3, 9), root=(1, 0)),
      w(an=band(-40, -110, **P), af=band(-35, -100, **P), bob=(6, 6, 6), lean=(2, 9)), w()]),
- 'wrestlingProwess': ("Wrestler's Prowess", 'wrestlingGuard', WREST, WPOSES, 3, None, None,
-  "Wrestler's Prowess (power-up) from the Wrestling stance: the wrestler rises out of the crouch, chest up, and flexes both arms in a double biceps, upper arms level out front and behind with the fists curled up beside the head; holds the flex with a small shudder, then drops the hips and stamps back into the Wrestling stance.", [
-     w(), w(an=band(-30, -80), af=band(-25, -60), **RISE),
-     w(an=band(60, -175), af=band(-80, -165), **TALL),
-     w(an=band(85, -175), af=band(-100, -160), bob=(1, 1, 0), lean=(0, 1), ln='wr-tall-rear', lf='wr-tall-lead'),
-     w(an=band(85, -175), af=band(-100, -160), bob=(0, 0, 0), lean=(0, 1), ln='wr-tall-rear', lf='wr-tall-lead'),
-     w(an=band(85, -175), af=band(-100, -160), bob=(1, 1, 0), lean=(0, 1), ln='wr-tall-rear', lf='wr-tall-lead'),
-     w(an=band(-40, -90, **P), af=band(-30, -65, **P), **RISE),
-     w(bob=(7, 8, 7), lean=(2, 10), ln='wr-rear-low', lf='wr-lead-low'), w()]),
+ 'wrestlingProwess': ("Wrestler's Prowess", 'wrestlingGuard', WREST, WPOSES, 4, None, None,
+  "Wrestler's Prowess (power-up) from the Wrestling stance (Christopher 2026-10-20: a downward chest press with a bulking effect and an aura): the wrestler comes half out of the crouch, hunches over, brings both fists together in front of the chest and presses them down in front of the belly, crunching the chest; the arms thicken as he bulks up and holds the press with a shudder while an aura swells around him in pulses, then he sinks back into the Wrestling stance as the aura fades.", [
+     w(),
+     w(an=band(-40, -85, **P), af=band(-30, -70, **P), **RISE),
+     w(an=band(-85, -150), af=band(-80, -155), bob=(3, 3, 3), lean=(1, 5), ln='wr-rise-rear', lf='wr-rise-lead'),
+     w(an=band(-62, -8, band={'thickness': 5}), af=band(-58, -4, band={'thickness': 5}), bob=(4, 4, 4), lean=(1, 6), ln='wr-rise-rear', lf='wr-rise-lead'),
+     w(an=band(-62, -8, band={'thickness': 6}), af=band(-58, -4, band={'thickness': 6}), bob=(4, 4, 5), lean=(1, 6), ln='wr-rise-rear', lf='wr-rise-lead'),
+     w(an=band(-62, -8, band={'thickness': 6}), af=band(-58, -4, band={'thickness': 6}), bob=(3, 4, 4), lean=(1, 6), ln='wr-rise-rear', lf='wr-rise-lead'),
+     w(an=band(-62, -8, band={'thickness': 6}), af=band(-58, -4, band={'thickness': 6}), bob=(4, 4, 5), lean=(1, 6), ln='wr-rise-rear', lf='wr-rise-lead'),
+     w(an=band(-40, -40, **P, band={'thickness': 5}), af=band(-32, -45, **P, band={'thickness': 5}), **RISE),
+     w(bob=(7, 8, 7), lean=(2, 10), ln='wr-rear-low', lf='wr-lead-low'), w()],
+     [0, 0, 0, 1, 2, 3, 2, 1, 0, 0]),   # aura ring width per frame (fx layer, drawn after render by aura())
 }
 
 def spec(state):
-    ab, stance, B, poses, act, hb, dmg, intent, fr = CLIPS[state]
+    ab, stance, B, poses, act, hb, dmg, intent, fr, *_ = CLIPS[state]
     base = copy.deepcopy(B); base.pop('frontal', None); base['directions'] = ['E', 'W']
     base['arms']['band']['palmHeel'] = copy.deepcopy(PALM_HEEL)
     n = len(fr)
@@ -72,5 +75,33 @@ def spec(state):
     s['fps'] = 12; s.pop('approved', None); s.pop('keyPoses', None)
     save(s, D + state + '.json'); print(state, n, 'frames')
 
+AURA = ('#ff7a1a', '#ffd23f')   # placeholder aura colours: hot orange next to the body, gold outside (fx layer)
+def aura(state):
+    """after render + outline: an aura on the fx layer, `w` pixels wide around the whole figure (every layer but fx),
+    inner ring orange, outer rings gold; drawn behind nothing, so it only shows outside the silhouette"""
+    import os
+    from PIL import Image, ImageFilter
+    widths = CLIPS[state][9]; d = D + state + '/'
+    lay = [Image.open(d + f).convert('RGBA') for f in sorted(os.listdir(d)) if f in ('body.png', 'arms.png', 'male-gi.png')]   # base figure + gi only: hair and armour variants would bloat it
+    W, Hh = lay[0].size; fx = Image.new('RGBA', (W, Hh)); px = fx.load()
+    for k, wd in enumerate(widths):
+        if not wd: continue
+        for r in range(Hh // 64):
+            box = (k * 64, r * 64, k * 64 + 64, r * 64 + 64)
+            m = Image.new('L', (64, 64))
+            for l in lay: m.paste(255, (0, 0), l.crop(box).getchannel('A').point(lambda v: 255 if v else 0))
+            prev = m
+            for ring in range(wd):
+                grown = prev.filter(ImageFilter.MaxFilter(3)); gp, pp = grown.load(), prev.load()
+                c = AURA[0] if ring == 0 else AURA[1]
+                for y in range(64):
+                    for x in range(64):
+                        if gp[x, y] and not pp[x, y] and (ring < wd - 1 or (x + y + k) % 2 == 0):   # the outermost ring flickers (every other pixel)
+                            px[box[0] + x, box[1] + y] = tuple(int(c[i:i + 2], 16) for i in (1, 3, 5)) + (255,)
+                prev = grown
+    fx.save(d + 'fx.png'); print(state, 'aura', widths)
+
 if __name__ == '__main__':
-    for st in (sys.argv[1:] or CLIPS): spec(st)
+    if '--aura' in sys.argv: aura('wrestlingProwess')
+    else:
+        for st in (sys.argv[1:] or CLIPS): spec(st)
