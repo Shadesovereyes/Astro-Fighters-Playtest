@@ -562,12 +562,12 @@
       {
         "name": "S-horseStance-R6",
         "construction": "band",
-        "hipX": 28,
+        "hipX": 27,
         "hipRow": 46,
-        "kneeX": 22,
-        "kneeRow": 51,
+        "kneeX": 20,
+        "kneeRow": 49,
         "ankle": [
-          24,
+          21,
           60
         ],
         "foot": "sFoot",
@@ -576,12 +576,12 @@
       {
         "name": "S-horseStance-L6",
         "construction": "band",
-        "hipX": 36,
+        "hipX": 37,
         "hipRow": 46,
-        "kneeX": 42,
-        "kneeRow": 51,
+        "kneeX": 44,
+        "kneeRow": 49,
         "ankle": [
-          40,
+          43,
           60
         ],
         "foot": "sFoot",
@@ -590,12 +590,12 @@
       {
         "name": "N-horseStance-R6",
         "construction": "band",
-        "hipX": 36,
+        "hipX": 37,
         "hipRow": 46,
-        "kneeX": 42,
-        "kneeRow": 51,
+        "kneeX": 44,
+        "kneeRow": 49,
         "ankle": [
-          40,
+          43,
           60
         ],
         "foot": "sFoot",
@@ -604,12 +604,12 @@
       {
         "name": "N-horseStance-L6",
         "construction": "band",
-        "hipX": 28,
+        "hipX": 27,
         "hipRow": 46,
-        "kneeX": 22,
-        "kneeRow": 51,
+        "kneeX": 20,
+        "kneeRow": 49,
         "ankle": [
-          24,
+          21,
           60
         ],
         "foot": "sFoot",

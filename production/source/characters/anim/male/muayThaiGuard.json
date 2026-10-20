@@ -657,29 +657,141 @@
         "foot": "flat"
       },
       {
-        "name": "S-muayThaiGuard-liftL1",
+        "name": "S-muayThaiGuard-R1",
         "construction": "band",
-        "hipX": 34,
+        "hipX": 29,
         "hipRow": 41,
-        "kneeX": 35,
-        "kneeRow": 46,
+        "kneeX": 25,
+        "kneeRow": 48,
         "ankle": [
-          35,
-          53
+          26,
+          60
         ],
         "foot": "sFoot",
         "section": "S"
       },
       {
+        "name": "S-muayThaiGuard-L1",
+        "construction": "band",
+        "hipX": 35,
+        "hipRow": 41,
+        "kneeX": 39,
+        "kneeRow": 48,
+        "ankle": [
+          38,
+          60
+        ],
+        "foot": "sFoot",
+        "section": "S"
+      },
+      {
+        "name": "S-muayThaiGuard-R2",
+        "construction": "band",
+        "hipX": 29,
+        "hipRow": 42,
+        "kneeX": 25,
+        "kneeRow": 49,
+        "ankle": [
+          26,
+          60
+        ],
+        "foot": "sFoot",
+        "section": "S"
+      },
+      {
+        "name": "S-muayThaiGuard-L2",
+        "construction": "band",
+        "hipX": 35,
+        "hipRow": 42,
+        "kneeX": 39,
+        "kneeRow": 49,
+        "ankle": [
+          38,
+          60
+        ],
+        "foot": "sFoot",
+        "section": "S"
+      },
+      {
+        "name": "S-muayThaiGuard-liftL1",
+        "construction": "band",
+        "hipX": 35,
+        "hipRow": 41,
+        "kneeX": 34,
+        "kneeRow": 43,
+        "ankle": [
+          34,
+          51
+        ],
+        "foot": "sFoot",
+        "section": "S"
+      },
+      {
+        "name": "N-muayThaiGuard-R1",
+        "construction": "band",
+        "hipX": 35,
+        "hipRow": 41,
+        "kneeX": 39,
+        "kneeRow": 48,
+        "ankle": [
+          38,
+          60
+        ],
+        "foot": "sFoot",
+        "section": "N"
+      },
+      {
+        "name": "N-muayThaiGuard-L1",
+        "construction": "band",
+        "hipX": 29,
+        "hipRow": 41,
+        "kneeX": 25,
+        "kneeRow": 48,
+        "ankle": [
+          26,
+          60
+        ],
+        "foot": "sFoot",
+        "section": "N"
+      },
+      {
+        "name": "N-muayThaiGuard-R2",
+        "construction": "band",
+        "hipX": 35,
+        "hipRow": 42,
+        "kneeX": 39,
+        "kneeRow": 49,
+        "ankle": [
+          38,
+          60
+        ],
+        "foot": "sFoot",
+        "section": "N"
+      },
+      {
+        "name": "N-muayThaiGuard-L2",
+        "construction": "band",
+        "hipX": 29,
+        "hipRow": 42,
+        "kneeX": 25,
+        "kneeRow": 49,
+        "ankle": [
+          26,
+          60
+        ],
+        "foot": "sFoot",
+        "section": "N"
+      },
+      {
         "name": "N-muayThaiGuard-liftL1",
         "construction": "band",
-        "hipX": 30,
+        "hipX": 29,
         "hipRow": 41,
-        "kneeX": 29,
-        "kneeRow": 46,
+        "kneeX": 30,
+        "kneeRow": 43,
         "ankle": [
-          29,
-          53
+          30,
+          51
         ],
         "foot": "sFoot",
         "section": "N"
@@ -1282,10 +1394,10 @@
           "plant": []
         },
         "bobRows": [
-          59,
-          45,
-          58,
-          47
+          42,
+          43,
+          44,
+          45
         ],
         "legRows": {
           "R": [
@@ -1348,47 +1460,47 @@
               24
             ],
             "angle": [
-              10,
-              10,
-              10,
-              10,
-              10,
-              10,
-              10,
-              10
+              55,
+              55,
+              55,
+              55,
+              55,
+              55,
+              55,
+              55
             ],
             "elbow": [
               {
                 "at": 7,
-                "angle": 192
+                "angle": 198
               },
               {
                 "at": 7,
-                "angle": 192
+                "angle": 198
               },
               {
                 "at": 7,
-                "angle": 192
+                "angle": 198
               },
               {
                 "at": 7,
-                "angle": 192
+                "angle": 198
               },
               {
                 "at": 7,
-                "angle": 192
+                "angle": 198
               },
               {
                 "at": 7,
-                "angle": 192
+                "angle": 198
               },
               {
                 "at": 7,
-                "angle": 192
+                "angle": 198
               },
               {
                 "at": 7,
-                "angle": 192
+                "angle": 198
               }
             ],
             "scale": [
@@ -1429,47 +1541,47 @@
               24
             ],
             "angle": [
-              -10,
-              -10,
-              -10,
-              -10,
-              -10,
-              -10,
-              -10,
-              -10
+              -55,
+              -55,
+              -55,
+              -55,
+              -55,
+              -55,
+              -55,
+              -55
             ],
             "elbow": [
               {
                 "at": 7,
-                "angle": 168
+                "angle": 162
               },
               {
                 "at": 7,
-                "angle": 168
+                "angle": 162
               },
               {
                 "at": 7,
-                "angle": 168
+                "angle": 162
               },
               {
                 "at": 7,
-                "angle": 168
+                "angle": 162
               },
               {
                 "at": 7,
-                "angle": 168
+                "angle": 162
               },
               {
                 "at": 7,
-                "angle": 168
+                "angle": 162
               },
               {
                 "at": 7,
-                "angle": 168
+                "angle": 162
               },
               {
                 "at": 7,
-                "angle": 168
+                "angle": 162
               }
             ],
             "scale": [
@@ -1592,46 +1704,46 @@
         "legBand": {
           "sides": {
             "R": [
-              false,
-              false,
-              false,
-              false,
-              false,
-              false,
-              false,
-              false
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true
             ],
             "L": [
-              false,
-              false,
-              false,
               true,
               true,
-              false,
-              false,
-              false
+              true,
+              true,
+              true,
+              true,
+              true,
+              true
             ]
           },
           "pose": {
             "R": [
-              null,
-              null,
-              null,
-              null,
-              null,
-              null,
-              null,
-              null
+              "S-muayThaiGuard-R1",
+              "S-muayThaiGuard-R1",
+              "S-muayThaiGuard-R1",
+              "S-muayThaiGuard-R1",
+              "S-muayThaiGuard-R1",
+              "S-muayThaiGuard-R2",
+              "S-muayThaiGuard-R2",
+              "S-muayThaiGuard-R1"
             ],
             "L": [
-              null,
-              null,
-              null,
+              "S-muayThaiGuard-L1",
+              "S-muayThaiGuard-L1",
+              "S-muayThaiGuard-L1",
               "S-muayThaiGuard-liftL1",
               "S-muayThaiGuard-liftL1",
-              null,
-              null,
-              null
+              "S-muayThaiGuard-L2",
+              "S-muayThaiGuard-L2",
+              "S-muayThaiGuard-L1"
             ]
           },
           "z": {
@@ -1689,10 +1801,10 @@
           "plant": []
         },
         "bobRows": [
-          54,
-          46,
-          53,
-          47
+          42,
+          43,
+          44,
+          45
         ],
         "legRows": {
           "R": [
@@ -1755,24 +1867,48 @@
               24
             ],
             "angle": [
-              -12,
-              -12,
-              -12,
-              -12,
-              -12,
-              -12,
-              -12,
-              -12
+              -55,
+              -55,
+              -55,
+              -55,
+              -55,
+              -55,
+              -55,
+              -55
             ],
             "elbow": [
-              null,
-              null,
-              null,
-              null,
-              null,
-              null,
-              null,
-              null
+              {
+                "at": 7,
+                "angle": 162
+              },
+              {
+                "at": 7,
+                "angle": 162
+              },
+              {
+                "at": 7,
+                "angle": 162
+              },
+              {
+                "at": 7,
+                "angle": 162
+              },
+              {
+                "at": 7,
+                "angle": 162
+              },
+              {
+                "at": 7,
+                "angle": 162
+              },
+              {
+                "at": 7,
+                "angle": 162
+              },
+              {
+                "at": 7,
+                "angle": 162
+              }
             ],
             "scale": [
               1,
@@ -1795,7 +1931,6 @@
               "up"
             ],
             "z": -1,
-            "showTo": 7,
             "pivotDx": [
               0,
               0,
@@ -1813,24 +1948,48 @@
               24
             ],
             "angle": [
-              12,
-              12,
-              12,
-              12,
-              12,
-              12,
-              12,
-              12
+              55,
+              55,
+              55,
+              55,
+              55,
+              55,
+              55,
+              55
             ],
             "elbow": [
-              null,
-              null,
-              null,
-              null,
-              null,
-              null,
-              null,
-              null
+              {
+                "at": 7,
+                "angle": 198
+              },
+              {
+                "at": 7,
+                "angle": 198
+              },
+              {
+                "at": 7,
+                "angle": 198
+              },
+              {
+                "at": 7,
+                "angle": 198
+              },
+              {
+                "at": 7,
+                "angle": 198
+              },
+              {
+                "at": 7,
+                "angle": 198
+              },
+              {
+                "at": 7,
+                "angle": 198
+              },
+              {
+                "at": 7,
+                "angle": 198
+              }
             ],
             "scale": [
               1,
@@ -1853,7 +2012,6 @@
               "up"
             ],
             "z": -1,
-            "showTo": 7,
             "pivotDx": [
               0,
               0,
@@ -1953,46 +2111,46 @@
         "legBand": {
           "sides": {
             "R": [
-              false,
-              false,
-              false,
-              false,
-              false,
-              false,
-              false,
-              false
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true
             ],
             "L": [
-              false,
-              false,
-              false,
               true,
               true,
-              false,
-              false,
-              false
+              true,
+              true,
+              true,
+              true,
+              true,
+              true
             ]
           },
           "pose": {
             "R": [
-              null,
-              null,
-              null,
-              null,
-              null,
-              null,
-              null,
-              null
+              "N-muayThaiGuard-R1",
+              "N-muayThaiGuard-R1",
+              "N-muayThaiGuard-R1",
+              "N-muayThaiGuard-R1",
+              "N-muayThaiGuard-R1",
+              "N-muayThaiGuard-R2",
+              "N-muayThaiGuard-R2",
+              "N-muayThaiGuard-R1"
             ],
             "L": [
-              null,
-              null,
-              null,
+              "N-muayThaiGuard-L1",
+              "N-muayThaiGuard-L1",
+              "N-muayThaiGuard-L1",
               "N-muayThaiGuard-liftL1",
               "N-muayThaiGuard-liftL1",
-              null,
-              null,
-              null
+              "N-muayThaiGuard-L2",
+              "N-muayThaiGuard-L2",
+              "N-muayThaiGuard-L1"
             ]
           },
           "z": {

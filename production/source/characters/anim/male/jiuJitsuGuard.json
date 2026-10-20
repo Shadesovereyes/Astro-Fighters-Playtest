@@ -564,11 +564,11 @@
         "construction": "band",
         "hipX": 29,
         "hipRow": 45,
-        "kneeX": 26,
+        "kneeX": 24,
         "kneeRow": 50,
         "ankle": [
-          27,
-          60
+          23,
+          56
         ],
         "foot": "sFoot",
         "section": "S"
@@ -578,10 +578,10 @@
         "construction": "band",
         "hipX": 35,
         "hipRow": 45,
-        "kneeX": 38,
+        "kneeX": 40,
         "kneeRow": 50,
         "ankle": [
-          37,
+          41,
           60
         ],
         "foot": "sFoot",
@@ -592,11 +592,11 @@
         "construction": "band",
         "hipX": 29,
         "hipRow": 46,
-        "kneeX": 26,
+        "kneeX": 24,
         "kneeRow": 51,
         "ankle": [
-          27,
-          60
+          23,
+          56
         ],
         "foot": "sFoot",
         "section": "S"
@@ -606,10 +606,10 @@
         "construction": "band",
         "hipX": 35,
         "hipRow": 46,
-        "kneeX": 38,
+        "kneeX": 40,
         "kneeRow": 51,
         "ankle": [
-          37,
+          41,
           60
         ],
         "foot": "sFoot",
@@ -620,10 +620,10 @@
         "construction": "band",
         "hipX": 35,
         "hipRow": 45,
-        "kneeX": 38,
+        "kneeX": 40,
         "kneeRow": 50,
         "ankle": [
-          37,
+          41,
           60
         ],
         "foot": "sFoot",
@@ -634,11 +634,11 @@
         "construction": "band",
         "hipX": 29,
         "hipRow": 45,
-        "kneeX": 26,
+        "kneeX": 24,
         "kneeRow": 50,
         "ankle": [
-          27,
-          60
+          23,
+          56
         ],
         "foot": "sFoot",
         "section": "N"
@@ -648,10 +648,10 @@
         "construction": "band",
         "hipX": 35,
         "hipRow": 46,
-        "kneeX": 38,
+        "kneeX": 40,
         "kneeRow": 51,
         "ankle": [
-          37,
+          41,
           60
         ],
         "foot": "sFoot",
@@ -662,11 +662,11 @@
         "construction": "band",
         "hipX": 29,
         "hipRow": 46,
-        "kneeX": 26,
+        "kneeX": 24,
         "kneeRow": 51,
         "ankle": [
-          27,
-          60
+          23,
+          56
         ],
         "foot": "sFoot",
         "section": "N"
