@@ -65,7 +65,7 @@ CLIPS = {   # (ability, active frame, hitbox [x, y, w, h], damage, frames[, borr
      f(an=band(25, 20), af=band(-45, 222), bob=(0, 0, 0), lean=(0, -3), ln='round-fold', lf='stance-lead'), f()],
      {1: ('S', 0, 2), 2: ('W', 0, 2), 3: ('N', 1, 2)}),
 }
-STATES = {'karatePunch': ('leadPunch', 'reversePunch', 'hammerFist'), 'karateKick': ('sideKick', 'sweepingLow'), 'karateWhirlwind': ('whirlwindKick',)}
+STATES = {'karateBlitz': ('leadPunch', 'reversePunch'), 'karateHammerFist': ('hammerFist',), 'karateSideKick': ('sideKick',), 'karateSweepingLow': ('sweepingLow',), 'karateWhirlwind': ('whirlwindKick',)}   # one state per ability (Christopher 2026-10-20: impact frames get tuned per ability)
 
 def spec(state, names):
     base = copy.deepcopy(BASE)

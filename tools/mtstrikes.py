@@ -65,7 +65,7 @@ CLIPS = {   # (clip, ability, active frame, hitbox [x, y, w, h], damage, frames)
      p(an=band(-70, -140), bob=(1, 1, 1), lean=(1, 3)), f()]),
 }
 
-STATES = {'muayThaiPunch': ('jab', 'cross', 'uppercut'), 'muayThaiKick': ('calfKick', 'roundhouse'), 'muayThaiTeep': ('teep',), 'muayThaiKnee': ('knee',), 'muayThaiElbow': ('elbow',)}
+STATES = {'muayThaiJabCross': ('jab', 'cross'), 'muayThaiUppercut': ('uppercut',), 'muayThaiCalfKick': ('calfKick',), 'muayThaiRoundhouse': ('roundhouse',), 'muayThaiTeep': ('teep',), 'muayThaiKnee': ('knee',), 'muayThaiElbow': ('elbow',)}   # one state per ability (Christopher 2026-10-20: impact frames get tuned per ability)
 
 def spec(state, names):
     base = copy.deepcopy(BASE)
