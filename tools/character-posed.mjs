@@ -297,6 +297,7 @@ function bandArm(p) {
     const mir = { anchor: [B.fist.rows[0].length - 1 - B.fist.anchor[0], B.fist.anchor[1]], rows: B.fist.rows.map((r) => [...r].reverse().join('')) };
     if (p.fistKind === 'front' && B.fistFront) F = B.fistFront;   // knuckles toward the viewer (a punch at the camera)
     else if (p.fistKind === 'palm' && B.palmUp) F = (a > -60 && a < 60 && B.palmDown) ? B.palmDown : B.palmUp;   // open hand: heel of the palm leads (palm strikes)
+    else if (p.fistKind === 'heel' && B.palmHeel) F = B.palmHeel;   // open hand, heel of the palm leading a straight thrust, fingers up (standing Sumo Palm)
     else if (p.fistKind === 'up' && B.fistUp) F = B.fistUp;
     else if (p.fistKind === 'forward') F = mir;
     else if (p.fistKind === 'back') F = B.fist;
