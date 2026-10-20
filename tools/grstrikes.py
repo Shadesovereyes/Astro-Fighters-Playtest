@@ -14,6 +14,7 @@ def band(a, e, **k): return {'construction': 'band', 'angle': a, 'elbow': {'at':
 def leg(name, hip, knee, foot, wrap=56, kind='flat'):
     return {'name': name, 'construction': 'band', 'hipX': hip[0], 'hipRow': hip[1], 'kneeX': knee[0], 'kneeRow': knee[1], 'footX': foot, 'wrapRow': wrap, 'foot': kind}
 STAT = 'CANDIDATE 2026-10-20 (E/W; W mirrors E; S/N to author after approval)'
+APPROVED = {'wrestlingProwess': 'E/W approved by user 2026-10-20 (W mirrors E); S/N to author'}
 P, H = dict(fistKind='palm'), dict(fistKind='heel')
 PALM_HEEL = {'use': 'open hand, heel of the palm leading a straight thrust, fingers together and up (standing Sumo Palm)', 'anchor': [0, 4],
              'rows': ['.Lm.', 'LLm.', 'LLm.', 'LLLm', 'LLLm', 'mLLs', '.sDs']}
@@ -70,7 +71,7 @@ def spec(state):
               'W': [{**e, 'hitbox': [64 - e['hitbox'][0] - e['hitbox'][2]] + e['hitbox'][1:]} if 'hitbox' in e else dict(e) for e in ev]}
     clips = {'rule': f'starts and ends in the approved {stance} frame and returns to that idle (next: {stance})',
              state: {'frames': list(range(n)), 'fps': 12, 'next': stance, 'ability': ab}}
-    s = build(base, state, [dict(src=0, **x) for x in fr], status=STAT, newPoses=poses, clips=clips, events=events,
+    s = build(base, state, [dict(src=0, **x) for x in fr], status=APPROVED.get(state, STAT), newPoses=poses, clips=clips, events=events,
               rmRule='E: x +1 on the drive into the strike' if hb else 'in place', intent=intent, extra={'stance': base.get('stance')})
     s['fps'] = 12; s.pop('approved', None); s.pop('keyPoses', None)
     save(s, D + state + '.json'); print(state, n, 'frames')

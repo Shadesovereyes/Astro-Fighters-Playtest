@@ -14,6 +14,7 @@ def band(a, e): return {'construction': 'band', 'angle': a, 'elbow': {'at': 8, '
 def leg(name, hip, knee, ankle, foot): return {'name': name, 'construction': 'band', 'hipX': hip[0], 'hipRow': hip[1], 'kneeX': knee[0], 'kneeRow': knee[1], 'ankle': list(ankle), 'foot': foot}
 def pose(spec, name): return copy.deepcopy(next(p for p in spec['legs']['poses'] if p['name'] == name))
 STAT = 'CANDIDATE 2026-10-20 (E/W; W mirrors E; S/N to author after approval)'
+APPROVED = {'muayThaiTeep': 'E/W approved by user 2026-10-20 (W mirrors E); S/N to author'}
 
 GN, GF = band(-20, 212), band(-45, 222)          # the approved Muay Thai guard arms (near = rear hand, far = lead hand)
 POSES = [pose(LIGHT, 'cross-lead'), pose(LIGHT, 'cross-rear')] + [pose(HEAVY, n) for n in ('lift', 'chamber', 'round-fold', 'low-kick', 'low-recoil', 'lead-pivot')] + [
@@ -84,7 +85,7 @@ def spec(state, names):
         frames += [dict(src=0, **x) for x in fr]; i += n
     events = {'rule': 'per-frame gameplay data per facing (W mirrors E: x -> 64 - x - w); hitboxes provisional', 'E': ev,
               'W': [{**e, 'hitbox': [64 - e['hitbox'][0] - e['hitbox'][2]] + e['hitbox'][1:]} if 'hitbox' in e else dict(e) for e in ev]}
-    s = build(base, state, frames, status=STAT, newPoses=POSES, clips=clips, events=events, rmRule='E: x +1 on the step into each strike',
+    s = build(base, state, frames, status=APPROVED.get(state, STAT), newPoses=POSES, clips=clips, events=events, rmRule='E: x +1 on the step into each strike',
               intent='Muay Thai stance strikes: Jab-Cross, Calf Kick, Roundhouse (rear shin swung through at rib height, rear arm swinging down and back), Teep (knee to the chest then a flat-soled push, torso back), Knee (hands reach and pull down, rear knee driven up, lead foot planted), Elbow (rear elbow level across, forearm folded) and Uppercut (dip then rise). Every clip starts and ends in the approved Muay Thai guard frame.',
               extra={'stance': 'Muay Thai Stance'})
     s['fps'] = 12; s.pop('approved', None); s.pop('keyPoses', None)
