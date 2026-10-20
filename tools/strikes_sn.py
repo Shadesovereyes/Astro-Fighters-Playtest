@@ -81,6 +81,8 @@ SN = {
                       2: dict(R=(40, -60, 0.9, 'front', 8), L=(-40, 60, 0.9, 'up', 8), NR=(-45, None, 1, 'up'), NL=(45, None, 1, 'up'))},
 }
 
+SN_APPROVED = {s: 'S/N approved by user 2026-10-20 (v1, b24f8f0)' for s in ('karateHammerFist', 'judoChop', 'wrestlingProwess')}
+
 def sn(state):
     import json   # always from the committed E/W spec, so reruns start clean
     spec = json.loads(subprocess.check_output(['git', '-C', R, 'show', 'HEAD:' + os.path.relpath(D + state + '.json', R)])); st = stance_of(state); F = spec['frames']
@@ -114,7 +116,7 @@ def sn(state):
                 v['variants'][str(k)] = [n.replace('S-', d + '-', 1) for n in o['var']]
                 for n in v['variants'][str(k)]:
                     if n not in fr['partVariants']: fr['partVariants'][n] = copy.deepcopy(HEAVY['frontal']['partVariants'].get(n) or VARS[n])
-    spec['status'] = spec['status'].replace('S/N to author', 'S/N CANDIDATE 2026-10-20')
+    spec['status'] = spec['status'].replace('S/N to author', SN_APPROVED.get(state, 'S/N CANDIDATE 2026-10-20'))
     save(spec, D + state + '.json'); print(state, 'S/N', F, 'frames')
 
 def restore(state):
