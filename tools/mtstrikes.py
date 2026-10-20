@@ -26,7 +26,7 @@ POSES = [pose(LIGHT, 'cross-lead'), pose(LIGHT, 'cross-rear')] + [pose(HEAVY, n)
 
 ST = dict(an=GN, af=GF, bob=(1, 1, 2), lean=(0, 2), root=(0, 0), ln='mt-rear', lf='mt-lead')   # muayThaiGuard frame 0
 def f(**k): return {**ST, **k}
-def p(**k): return {**ST, 'lf': 'mt-lead-flat', **k}   # punch frames: the lead heel comes down and stays down until the clip returns to the stance
+def p(**k): return {**ST, 'lf': 'mt-lead-flat', **k}   # strike frames: the lead heel comes down and stays down until the clip returns to the stance (Christopher 2026-10-20, punches and near-leg kicks)
 
 CLIPS = {   # (clip, ability, active frame, hitbox [x, y, w, h], damage, frames)
  'jab': ('Jab-Cross', 1, [44, 26, 12, 6], 'light', [
@@ -34,25 +34,25 @@ CLIPS = {   # (clip, ability, active frame, hitbox [x, y, w, h], damage, frames)
  'cross': ('Jab-Cross', 1, [44, 26, 12, 6], 'light', [
      p(an=band(-8, 205), lean=(0, 3)), p(an=band(-92, -92), bob=(2, 2, 2), lean=(1, 5), root=(1, 0), ln='cross-rear', lf='cross-lead'), p(an=band(-55, 230), lean=(0, 3)), f()]),
  'calfKick': ('Calf Kick', 2, [42, 46, 16, 10], 'heavy', [
-     f(lean=(0, 1)), f(bob=(0, 0, 1), lean=(0, 0), ln='lift'),
-     f(an=band(25, 20), bob=(0, 0, 1), lean=(1, -2), root=(1, 0), ln='low-kick', lf='lead-pivot'),
-     f(bob=(0, 0, 1), lean=(0, -1), ln='low-recoil', lf='lead-pivot'), f()]),
+     p(lean=(0, 1)), p(bob=(0, 0, 1), lean=(0, 0), ln='lift'),
+     p(an=band(25, 20), bob=(0, 0, 1), lean=(1, -2), root=(1, 0), ln='low-kick', lf='lead-pivot'),
+     p(bob=(0, 0, 1), lean=(0, -1), ln='low-recoil', lf='lead-pivot'), f()]),
  'roundhouse': ('Roundhouse Kick', 3, [44, 28, 14, 10], 'heavy', [   # rear arm swings down and back as the hip turns over; lead hand stays up
-     f(), f(an=band(-5, 190), bob=(0, 0, 1), lean=(0, 1), ln='lift', lf='mt-pivot'),
-     f(an=band(30, 40), bob=(0, 0, 1), lean=(1, -1), ln='round-fold', lf='mt-pivot'),
-     f(an=band(40, 30), af=band(-60, 200), bob=(0, 0, 1), lean=(1, -4), root=(1, 0), ln='mt-round', lf='mt-pivot'),
-     f(an=band(40, 30), af=band(-60, 200), bob=(0, 0, 1), lean=(1, -4), ln='mt-round', lf='mt-pivot'),
-     f(an=band(10, 60), bob=(0, 0, 1), lean=(0, -1), ln='round-fold', lf='mt-pivot'), f(an=band(-10, 200), ln='lift'), f()]),
+     f(), p(an=band(-5, 190), bob=(0, 0, 1), lean=(0, 1), ln='lift', lf='lead-pivot'),
+     p(an=band(30, 40), bob=(0, 0, 1), lean=(1, -1), ln='round-fold', lf='lead-pivot'),
+     p(an=band(40, 30), af=band(-60, 200), bob=(0, 0, 1), lean=(1, -4), root=(1, 0), ln='mt-round', lf='lead-pivot'),
+     p(an=band(40, 30), af=band(-60, 200), bob=(0, 0, 1), lean=(1, -4), ln='mt-round', lf='lead-pivot'),
+     p(an=band(10, 60), bob=(0, 0, 1), lean=(0, -1), ln='round-fold', lf='lead-pivot'), p(an=band(-10, 200), ln='lift'), f()]),
  'teep': ('Teep Kick', 2, [46, 34, 12, 10], 'heavy', [   # knee to the chest, hips pushed through, torso leaning back
-     f(), f(bob=(0, 0, 1), lean=(0, 0), ln='teep-chamber'),
-     f(bob=(0, 0, 1), lean=(2, -3), root=(1, 0), ln='teep'), f(bob=(0, 0, 1), lean=(2, -3), ln='teep'),
-     f(bob=(0, 0, 1), lean=(0, 0), ln='teep-chamber'), f()]),
- 'knee': ('Knee Strikes', 3, [44, 32, 10, 10], 'heavy', [   # hands reach up and pull down as the rear knee drives up, up on the lead toes
-     f(), f(an=band(-75, -120), af=band(-85, -125), bob=(0, 0, 1), lean=(1, 3), ln='lift'),
-     f(an=band(-70, -100), af=band(-80, -110), bob=(0, 0, 1), lean=(2, 1), root=(1, 0), ln='chamber'),
-     f(an=band(-55, -70), af=band(-65, -85), bob=(0, 0, 0), lean=(3, -1), ln='mt-knee'),
-     f(an=band(-55, -70), af=band(-65, -85), bob=(0, 0, 0), lean=(3, -1), ln='mt-knee'),
-     f(an=band(-40, 230), af=GF, bob=(0, 0, 1), lean=(1, 1), ln='lift'), f()]),
+     f(), p(bob=(0, 0, 1), lean=(0, 0), ln='teep-chamber'),
+     p(bob=(0, 0, 1), lean=(2, -3), root=(1, 0), ln='teep'), p(bob=(0, 0, 1), lean=(2, -3), ln='teep'),
+     p(bob=(0, 0, 1), lean=(0, 0), ln='teep-chamber'), f()]),
+ 'knee': ('Knee Strikes', 3, [44, 32, 10, 10], 'heavy', [   # hands reach up and pull down as the rear knee drives up, lead foot planted
+     f(), p(an=band(-75, -120), af=band(-85, -125), bob=(0, 0, 1), lean=(1, 3), ln='lift'),
+     p(an=band(-70, -100), af=band(-80, -110), bob=(0, 0, 1), lean=(2, 1), root=(1, 0), ln='chamber'),
+     p(an=band(-55, -70), af=band(-65, -85), bob=(0, 0, 0), lean=(3, -1), ln='mt-knee'),
+     p(an=band(-55, -70), af=band(-65, -85), bob=(0, 0, 0), lean=(3, -1), ln='mt-knee'),
+     p(an=band(-40, 230), af=GF, bob=(0, 0, 1), lean=(1, 1), ln='lift'), f()]),
  'elbow': ('Elbow Strike', 2, [42, 22, 10, 8], 'heavy', [   # rear elbow carried level across, forearm folded back to the head
      f(), p(an=band(-55, -155), lean=(1, 3)),
      f(an=band(-105, 95), bob=(2, 2, 2), lean=(1, 3), root=(1, 0), ln='cross-rear', lf='cross-lead'),
@@ -83,7 +83,7 @@ def spec(state, names):
     events = {'rule': 'per-frame gameplay data per facing (W mirrors E: x -> 64 - x - w); hitboxes provisional', 'E': ev,
               'W': [{**e, 'hitbox': [64 - e['hitbox'][0] - e['hitbox'][2]] + e['hitbox'][1:]} if 'hitbox' in e else dict(e) for e in ev]}
     s = build(base, state, frames, status=STAT, newPoses=POSES, clips=clips, events=events, rmRule='E: x +1 on the step into each strike',
-              intent='Muay Thai stance strikes: Jab-Cross, Calf Kick, Roundhouse (rear shin swung through at rib height, rear arm swinging down and back), Teep (knee to the chest then a flat-soled push, torso back), Knee (hands reach and pull down, rear knee driven up on the lead toes), Elbow (rear elbow level across, forearm folded) and Uppercut (dip then rise). Every clip starts and ends in the approved Muay Thai guard frame.',
+              intent='Muay Thai stance strikes: Jab-Cross, Calf Kick, Roundhouse (rear shin swung through at rib height, rear arm swinging down and back), Teep (knee to the chest then a flat-soled push, torso back), Knee (hands reach and pull down, rear knee driven up, lead foot planted), Elbow (rear elbow level across, forearm folded) and Uppercut (dip then rise). Every clip starts and ends in the approved Muay Thai guard frame.',
               extra={'stance': 'Muay Thai Stance'})
     s['fps'] = 12; s.pop('approved', None); s.pop('keyPoses', None)
     save(s, D + state + '.json'); print(state, i, 'frames', ' '.join(names))

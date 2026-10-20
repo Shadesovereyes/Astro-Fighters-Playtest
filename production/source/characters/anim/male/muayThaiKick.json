@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Muay Thai stance strikes: Jab-Cross, Calf Kick, Roundhouse (rear shin swung through at rib height, rear arm swinging down and back), Teep (knee to the chest then a flat-soled push, torso back), Knee (hands reach and pull down, rear knee driven up on the lead toes), Elbow (rear elbow level across, forearm folded) and Uppercut (dip then rise). Every clip starts and ends in the approved Muay Thai guard frame.",
+  "intent": "Muay Thai stance strikes: Jab-Cross, Calf Kick, Roundhouse (rear shin swung through at rib height, rear arm swinging down and back), Teep (knee to the chest then a flat-soled push, torso back), Knee (hands reach and pull down, rear knee driven up, lead foot planted), Elbow (rear elbow level across, forearm folded) and Uppercut (dip then rise). Every clip starts and ends in the approved Muay Thai guard frame.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -870,18 +870,18 @@
       6
     ],
     "far": [
-      4,
-      4,
+      18,
+      18,
       16,
       16,
       4,
       4,
-      17,
-      17,
-      17,
-      17,
-      17,
-      4,
+      16,
+      16,
+      16,
+      16,
+      16,
+      18,
       4
     ],
     "sections": {
