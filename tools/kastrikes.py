@@ -5,7 +5,7 @@ swing down), Side Kick (chamber + heel thrust), Sweeping Low (rear foot sweeps a
 approved spin roundhouse, entered and left from the Karate stance). The front foot stays planted through every strike
 (Muay Thai rule, Christopher 2026-10-20). E/W first (W mirrors E); S/N after approval.
 Run: python3 tools/kastrikes.py ; node tools/character-posed.mjs male <state> (each of STATES) ; python3 tools/stances.py --outline <state> ; python3 tools/kastrikes.py --blur (Karate Blitz motion blur fx)"""
-import sys, copy
+import sys, copy, json
 sys.path.insert(0, '/mnt/project-files/hex-sprites/tools')
 from gen import load, build, save
 R = '/home/claude/astro-fighters-playtest/'
@@ -106,15 +106,21 @@ def blur(state='karateBlitz'):
     lay = [Image.open(d + f).convert('RGBA') for f in ('body.png', 'arms.png', 'male-gi.png')]
     W, H = lay[0].size; fx = Image.new('RGBA', (W, H)); px = fx.load(); al = [l.load() for l in lay]
     for k, L in BLUR.items():
-        for r, sign in ((0, 1), (1, -1)):   # rows E, W; the back of the figure is to the left in E, the right in W
-            for y in range(64):
-                xs = [x for x in range(64) if any(a[k * 64 + x, r * 64 + y][3] for a in al)]
-                if not xs or y % 2: continue
-                edge = min(xs) if sign > 0 else max(xs)
-                n = L - (y * 7 + k) % 4   # ragged ends
-                for i in range(2, 2 + n):
-                    x = edge - sign * i
-                    if 0 <= x < 64: px[k * 64 + x, r * 64 + y] = (255, 255, 255, 255) if i < 2 + n // 2 else (0xe3, 0xe3, 0xe3, 255)
+        dirs = json.load(open(D + state + '.json'))['directions']
+        # E, W: one trail behind the back of the figure (left in E, right in W); S, N (rushing toward or away from the
+        # viewer, Christopher 2026-10-20): shorter speed lines flaring out from both sides of the figure
+        for fd, signs, LL in (('E', (1,), L), ('W', (-1,), L), ('S', (1, -1), L // 2 + 1), ('N', (1, -1), L // 2 + 1)):
+            if fd not in dirs: continue
+            r = dirs.index(fd)
+            for sign in signs:
+                for y in range(64):
+                    xs = [x for x in range(64) if any(a[k * 64 + x, r * 64 + y][3] for a in al)]
+                    if not xs or y % 2 or (len(signs) > 1 and y < min(yy for yy in range(64) if any(a[k * 64 + x, r * 64 + yy][3] for a in al for x in range(64))) + 6): continue   # front/back: none beside the head
+                    edge = min(xs) if sign > 0 else max(xs)
+                    n = LL - (y * 7 + k) % 4   # ragged ends
+                    for i in range(2, 2 + n):
+                        x = edge - sign * i
+                        if 0 <= x < 64: px[k * 64 + x, r * 64 + y] = (255, 255, 255, 255) if i < 2 + n // 2 else (0xe3, 0xe3, 0xe3, 255)
     fx.save(d + 'fx.png'); print(state, 'motion blur', BLUR)
 
 if __name__ == '__main__':
