@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-animation-output/v1",
   "body": "male",
   "state": "karateGuard",
-  "status": "E/W approved by user 2026-10-19 (W mirrors E); S/N CANDIDATE 2026-10-19",
+  "status": "E/W approved by user 2026-10-19 (W mirrors E); S/N approved by user 2026-10-20 (v7, 5351ccd)",
   "frames": 4,
   "fps": 6,
   "frameSize": [

@@ -230,6 +230,8 @@ def frontal(st, spec):
     spec['rootMotion']['S'] = [[0, 0]] * F; spec['rootMotion']['N'] = [[0, 0]] * F
     return spec
 
+SN_APPROVED = {'karateGuard': 'S/N approved by user 2026-10-20 (v7, 5351ccd)'}
+
 def specs4(only=None):
     """E/W specs plus S/N (status: S/N candidates)"""
     specs(only)
@@ -237,7 +239,7 @@ def specs4(only=None):
         if only and st not in only: continue
         sp = frontal(st, load(D + st + '.json'))
         for k in ('handDy', 'legRows', 'legRepeatRows', 'armRows', 'armRepeatRows'): pass
-        sp['status'] = sp['status'].replace('S/N to author', 'S/N CANDIDATE 2026-10-19')
+        sp['status'] = sp['status'].replace('S/N to author', SN_APPROVED.get(st, 'S/N CANDIDATE 2026-10-19'))
         save(sp, D + st + '.json')
 
 if __name__ == '__main__':
