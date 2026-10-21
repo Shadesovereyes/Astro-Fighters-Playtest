@@ -64,7 +64,7 @@ def scene(seq, out, thrower_dir):
     imgs = []; gy = GY
     for (ts, tk, gs, gk, extra) in seq:
         T, G = json.load(open(A + ts + '.json')), json.load(open(A + gs + '.json'))
-        gy += extra.get('pull', 0) * (-1 if td == 'S' else 1)
+        gy += extra.get('pull', 0) * (1 if td == 'S' else -1)   # pull < 0: toward the thrower (up the screen when the thrower is above)
         c = Image.new('RGBA', (96, 160), (0xc8, 0xcd, 0xd7, 255))
         order = ((gs, G, gk, gd, gy), (ts, T, tk, td, TY)) if td == 'S' else ((ts, T, tk, td, TY), (gs, G, gk, gd, gy))
         # the far fighter, then the chain, then the near fighter (lower on screen): the span between them runs behind
@@ -97,7 +97,7 @@ def scenes(out):
     G = [0, 1, 2, 3]
     snare = [('chainSnare', k, 'guard', G[k % 4], {'fly': {4: 0.45, 5: 0.9}[k]} if k in (4, 5) else {}) for k in range(6)]
     snare += [('chainSnare', k, 'snared', (k - 6) % 4, {}) for k in (6, 7)] + [('chainHold', k % 4, 'snared', k % 4, {'ms': 160}) for k in range(8)]
-    pull = {1: -6, 2: -9, 3: -7}
+    pull = {1: -4, 2: -7, 3: -5}   # 16 px in all: the target ends a hex closer, toward the thrower
     yank = [('chainYank', k, 'chainYanked', k if k < 6 else 5, {'pull': pull.get(k, 0)}) for k in range(7)] + [('chainHold', k % 4, 'snared', k % 4, {'ms': 160}) for k in range(8)]
     strug = [('chainHold', k % 4, 'snaredStruggle', k, {}) for k in range(7)] + [('chainHold', k % 4, 'snared', k % 4, {'ms': 160}) for k in range(4)]
     brk = [('chainHold', k % 4, 'snareBreak', k, {}) for k in range(3)] + [('chainRecall', min(k - 3, 3), 'snareBreak', k, {}) for k in range(3, 8)]

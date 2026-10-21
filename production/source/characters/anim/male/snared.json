@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "snared",
-  "status": "E/W approved by user 2026-10-19 (snared by the chain); S/N CANDIDATE 2026-10-21 (v1)",
+  "status": "E/W approved by user 2026-10-19 (snared by the chain); S/N approved by user 2026-10-21 (v1)",
   "frames": 4,
   "fps": 12,
   "sourceDirection": "E",
