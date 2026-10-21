@@ -29,6 +29,8 @@ APPROVED['catchBreath'] = 'E/W approved by user 2026-10-21 (v2, two slow deep br
 APPROVED.update(chargeChakra='E/W approved by user 2026-10-21 (v4 meditative hold, 9622256; W mirrors E); S/N to author', **{s_: 'E/W approved by user 2026-10-21 (v3 chakra flowing up the drainer\'s arms, 9622256; W mirrors E); S/N to author' for s_ in ('chakraDrain', 'chakraDrained')})
 UNUSED = 'UNUSED (Christopher 2026-10-21): shelved, not offered anywhere and no further animation work until its use is decided; E/W v1 draft kept for reference'
 APPROVED.update(ironMountain=UNUSED, heavenlyKick=UNUSED)
+APPROVED['earthWall'] = 'E/W approved by user 2026-10-21 (v2 palms lift from low to high, be2c4a8; W mirrors E); S/N to author'
+APPROVED['shadowPossession'] = 'E/W approved by user 2026-10-21 (v2 caster points, feet shadow unchanged, 92a573c; W mirrors E); S/N to author'
 APPROVED['gloomShroud'] = 'E/W approved by user 2026-10-21 (v2 stealth fade: invisible to others, see-through to own player, 07a8093; W mirrors E); S/N to author'
 
 G_N, G_F = h(6, 'near'), h(6, 'far')                     # guard arms
