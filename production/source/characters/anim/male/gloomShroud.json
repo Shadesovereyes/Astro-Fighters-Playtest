@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "gloomShroud",
-  "status": "CANDIDATE 2026-10-20 (E/W; W mirrors E; S/N to author after approval)",
+  "status": "CANDIDATE 2026-10-21 v2 (stealth fade: invisible to others, see-through to own player; E/W; W mirrors E; S/N to author after approval)",
   "frames": 8,
   "fps": 10,
   "sourceDirection": "E",
@@ -1399,5 +1399,28 @@
       ]
     },
     "intent": "eyes squeezed shut with the brow pulled down on the impact frames 0-2 (no mouth: user 2026-10-14), a squint on frame 3, open again from frame 4 (user 2026-10-14)"
+  },
+  "opacity": {
+    "rule": "Stealth (Christopher 2026-10-21): the caster turns invisible to everyone but its own player, who sees it see-through. Multiply the whole composited fighter (every layer, fx included) by self[k] when drawn for its own side and by others[k] for any other viewer; after the clip the Stealth state holds the last value (self 0.4, others 0) until Stealth ends.",
+    "self": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      0.85,
+      0.6,
+      0.4
+    ],
+    "others": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      0.7,
+      0.3,
+      0
+    ]
   }
 }

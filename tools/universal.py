@@ -261,7 +261,9 @@ CLIPS = {   # state: (ability, active frame, intent, frames, expressions, aura w
      g()],
   [None, 'squint', 'squint', 'squint', 'squint', 'squint', None, None],
   [0, 0, 0, 1, 2, 3, 1, 0],
-  dict(auraColors=('#4a4a4a', '#9a9a9a'))),
+  dict(auraColors=('#4a4a4a', '#9a9a9a'), opacity={
+      'rule': 'Stealth (Christopher 2026-10-21): the caster turns invisible to everyone but its own player, who sees it see-through. Multiply the whole composited fighter (every layer, fx included) by self[k] when drawn for its own side and by others[k] for any other viewer; after the clip the Stealth state holds the last value (self 0.4, others 0) until Stealth ends.',
+      'self': [1, 1, 1, 1, 1, 0.85, 0.6, 0.4], 'others': [1, 1, 1, 1, 1, 0.7, 0.3, 0]})),
  'earthWall': ('Earth Wall', 3,
   'Earth Wall (terrain: raise a stone barricade): from the guard the fighter raises both fists over the head, then drops low and slams both open palms down in front of the body, toward the ground, with the knees deep; a burst of dust kicks up at the ground in front where the wall rises (the wall itself is the terrain prop); then rises back into the guard.', [
      g(),
@@ -337,6 +339,7 @@ def spec(state):
     if state == 'chargeChakra':   # meditative hold: the open hand lies flat, palm up, fingers forward (not the upright grip-hunt hand)
         s['arms']['band']['palmUp'] = {'use': 'open hand resting flat, palm up, fingers pointing forward (Charge Chakra meditative hold)', 'anchor': [0, 1], 'rows': ['.mLLLLm', 'mLLLLLL', '.sDDDsm']}
     if not x.get('fx'): s.pop('fx', None)
+    if x.get('opacity'): s['opacity'] = x['opacity']
     s['expressions'] = copy.deepcopy(HR['expressions']); s['expressions']['frames'] = {'E': ex}
     s['expressions']['shapes']['closed'] = copy.deepcopy(CLOSED)   # eyes shut (focus)
     save(s, D + state + '.json'); print(state, n, 'frames')
@@ -349,6 +352,10 @@ def aura(state):
     grstrikes.CLIPS[state] = (None,) * 9 + (CLIPS[state][5],); grstrikes.aura(state); grstrikes.AURA = keep
     if old:
         new = Image.open(f).convert('RGBA'); new.alpha_composite(old); new.save(f)   # splash fx over the aura
+
+def opacity(state):
+    """copy the spec's per-frame whole-fighter opacity (stealth fade) into the rendered animation.json"""
+    a = load(D + state + '/animation.json'); a['opacity'] = load(D + state + '.json')['opacity']; save(a, D + state + '/animation.json'); print(state, 'opacity')
 
 def flow(state):
     """after --aura: the drained chakra running up the drainer's arms (Christopher 2026-10-21): on each grip frame the
@@ -375,6 +382,7 @@ def flow(state):
     fx.save(f); print(state, 'arm flow', x['flow'])
 
 if __name__ == '__main__':
+    if '--opacity' in sys.argv[1:]: opacity(sys.argv[sys.argv.index('--opacity') + 1]); sys.exit()
     if '--flow' in sys.argv[1:]: flow(sys.argv[sys.argv.index('--flow') + 1]); sys.exit()
     a = sys.argv[1:]
     if '--aura' in a: aura(a[a.index('--aura') + 1]); sys.exit()
