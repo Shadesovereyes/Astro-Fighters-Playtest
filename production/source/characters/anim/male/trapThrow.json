@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "trapThrow",
-  "status": "E/W approved by user 2026-10-19 (trap throw, overhand lob); S/N CANDIDATE 2026-10-21 (v1)",
+  "status": "E/W approved by user 2026-10-19 (trap throw, overhand lob); S/N approved by user 2026-10-21 (v1)",
   "frames": 10,
   "fps": 12,
   "sourceDirection": "E",
