@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "recompose",
-  "status": "CANDIDATE 2026-10-21 (v5: one exaggerated pump per arm, one after the other, 16 frames at 10 fps; W mirrors E; S/N CANDIDATE 2026-10-21 (v3))",
+  "status": "E/W approved by user 2026-10-21 (v5, one exaggerated pump per arm, 026b272; W mirrors E); S/N approved by user 2026-10-21 (v3, 026b272)",
   "frames": 16,
   "fps": 10,
   "sourceDirection": "E",

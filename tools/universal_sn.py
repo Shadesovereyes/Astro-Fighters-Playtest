@@ -83,7 +83,7 @@ RCL = lambda k: (-RC[k][0], -RC[k][1], *RC[k][2:]) if k != 'guard' else stances.
 SEQ = [(n, 'guard') for n in ('mid', 'push', 'push', 'back', 'rack', 'rack')] + [('rack', f) for f in ('mid', 'push', 'push', 'back', 'rack', 'rack')] + [('rack', 'rack')]
 for k, (n, f) in enumerate(SEQ, 1): SN['recompose'][k] = dict(R=RC[n], L=RCL(f))
 CLOSED_S = [[0, 1, '#70241d'], [1, 1, '#70241d'], [5, 1, '#70241d'], [6, 1, '#70241d'], [0, 2, '#000000'], [1, 2, '#000000'], [5, 2, '#000000'], [6, 2, '#000000']]   # both lids shut, lash line below
-SN_APPROVED = {'catchBreath': 'S/N approved by user 2026-10-21 (v1, c70e4d7)'}
+SN_APPROVED = {'catchBreath': 'S/N approved by user 2026-10-21 (v1, c70e4d7)', 'recompose': 'S/N approved by user 2026-10-21 (v3, 026b272)'}
 
 SNAP = '/tmp/universal_sn_ew/'   # the E/W sheets as they were before the S/N render (a freshly rebuilt E/W clip is not in HEAD yet)
 

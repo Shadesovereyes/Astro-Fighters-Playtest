@@ -22,6 +22,7 @@ def h(k, side): return copy.deepcopy(HR['arms'][side][k])
 STAT = 'CANDIDATE 2026-10-20 (E/W; W mirrors E; S/N to author after approval)'
 APPROVED = {s_: 'E/W approved by user 2026-10-21 (v1; W mirrors E); S/N to author' for s_ in ('guardianBarrier', 'solarFlare', 'summonCompanion')}
 APPROVED['chakraBullet'] = 'E/W approved by user 2026-10-21 (v2, 870541e; W mirrors E); S/N to author'
+APPROVED['recompose'] = 'E/W approved by user 2026-10-21 (v5, one exaggerated pump per arm, 026b272; W mirrors E); S/N approved by user 2026-10-21 (v3, 026b272)'
 APPROVED['catchBreath'] = 'E/W approved by user 2026-10-21 (v2, two slow deep breaths; W mirrors E); S/N approved by user 2026-10-21 (v1, c70e4d7)'
 APPROVED.update(chargeChakra='E/W approved by user 2026-10-21 (v4 meditative hold, 9622256; W mirrors E); S/N to author', **{s_: 'E/W approved by user 2026-10-21 (v3 chakra flowing up the drainer\'s arms, 9622256; W mirrors E); S/N to author' for s_ in ('chakraDrain', 'chakraDrained')})
 UNUSED = 'UNUSED (Christopher 2026-10-21): shelved, not offered anywhere and no further animation work until its use is decided; E/W v1 draft kept for reference'
