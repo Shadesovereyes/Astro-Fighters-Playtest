@@ -89,6 +89,26 @@ SEQ = [(n, 'guard') for n in ('mid', 'push', 'push', 'back', 'rack', 'rack')] + 
 for k, (n, f) in enumerate(SEQ, 1): SN['recompose'][k] = dict(R=RC[n], L=RCL(f))
 CLOSED_FIST_FRONT = {'recompose'}
 CLOSED_S = [[0, 1, '#70241d'], [1, 1, '#70241d'], [5, 1, '#70241d'], [6, 1, '#70241d'], [0, 2, '#000000'], [1, 2, '#000000'], [5, 2, '#000000'], [6, 2, '#000000']]   # both lids shut, lash line below
+# Gloom Shroud v2, Earth Wall v2, Shadow Possession v2 (Christopher 2026-10-21: E/W approved, S/N to author)
+CROSS = dict(R=(70, 222, 1, 'up'), L=(-70, 138, 1, 'up'))         # forearms crossed in front of the face
+LOWP = dict(R=(-10, None, 0.9, 'front'), L=(10, None, 0.9, 'front'))   # both palms low at the ground in front
+POINT = (55, None, 0.75, 'up')                                  # near arm thrust straight out at the target (toward the viewer in S)
+SN.update({
+ 'gloomShroud': {1: SEAL, **{k: CROSS for k in (2, 3, 4, 5)}, 6: dict(R=(20, 180, 1, 'up'), L=(-20, -180, 1, 'up'))},
+ 'earthWall': {1: LOWP, 2: LOWP,
+               3: dict(R=(40, 170, 0.8, 'front'), L=(-40, -170, 0.8, 'front')),        # palms lifting past the chest
+               4: dict(R=(110, 160, 1, 'front'), L=(-110, -160, 1, 'front')),          # head height
+               5: dict(R=(165, 175, 1, 'front'), L=(-165, -175, 1, 'front')),          # overhead
+               6: dict(R=(25, 175, 1, 'up'), L=(-25, -175, 1, 'up'))},
+ 'shadowPossession': {1: dict(R=(35, 120, 0.9, 'up')), **{k: dict(R=POINT) for k in (2, 3, 4, 5)}, 6: dict(R=(20, 175, 1, 'up'))},
+})
+FX_SN.update({
+ 'earthWall': [(2, 'dust', [24, 63], [24, 60]), (3, 'dust', [24, 63], [24, 60]), (3, 'spark', [30, 57], [30, 54]), (4, 'dust', [22, 63], [22, 60]),
+               (4, 'spark', [36, 55], [36, 52]), (5, 'shroud1', [26, 63], [26, 60])],
+ 'shadowPossession': [(2, 'shadow1', [29, 63], [29, 63]), (3, 'shadow2', [25, 63], [25, 63]), (4, 'shadow3', [20, 63], [20, 63]),
+                      (5, 'shadow3', [20, 63], [20, 63]), (6, 'shadow2', [25, 63], [25, 63])],   # the shadow pools out flat from under the feet
+})
+BEHIND_N |= {'earthWall'}
 SN_APPROVED = {'catchBreath': 'S/N approved by user 2026-10-21 (v1, c70e4d7)'}
 
 SNAP = '/tmp/universal_sn_ew/'   # the E/W sheets as they were before the S/N render (a freshly rebuilt E/W clip is not in HEAD yet)
