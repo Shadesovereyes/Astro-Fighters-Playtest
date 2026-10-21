@@ -67,7 +67,10 @@ def scene(seq, out, thrower_dir):
         gy += extra.get('pull', 0) * (-1 if td == 'S' else 1)
         c = Image.new('RGBA', (96, 160), (0xc8, 0xcd, 0xd7, 255))
         order = ((gs, G, gk, gd, gy), (ts, T, tk, td, TY)) if td == 'S' else ((ts, T, tk, td, TY), (gs, G, gk, gd, gy))
-        for st, s, k, d, y in order: c.alpha_composite(frame(st, s, k, d).convert('RGBA'), (0, y), )
+        # the far fighter, then the chain, then the near fighter (lower on screen): the span between them runs behind
+        # whoever is nearer the camera (Christopher 2026-10-21), so the near fighter's coils or hand sit over it
+        far, near = sorted(order, key=lambda q: q[4])
+        c.alpha_composite(frame(far[0], far[1], far[2], far[3]), (0, far[4]))
         h = ev(T, tk, td, 'chainHand'); co = ev(G, gk, gd, 'coil')
         if h:
             hp = (16 + h[0], 16 + TY + h[1])
@@ -75,6 +78,7 @@ def scene(seq, out, thrower_dir):
                 gp = (48, 16 + gy + 30); f = extra['fly']; tip = (round(hp[0] + (gp[0] - hp[0]) * f), round(hp[1] + (gp[1] - hp[1]) * f))
                 line(c, hp, tip); weight(c, tip)
             elif co: line(c, hp, (16 + co[0], 16 + gy + co[1]))
+        c.alpha_composite(frame(near[0], near[1], near[2], near[3]), (0, near[4]))
         imgs.append(c.resize((96 * 3, 160 * 3), Image.NEAREST))
     return imgs
 def frame(st, s, k, d):   # (redefined: transparent background for the scene)
