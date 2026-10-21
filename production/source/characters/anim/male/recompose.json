@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "recompose",
-  "status": "CANDIDATE 2026-10-21 (v4: arms one after the other, 16 frames at 10 fps; W mirrors E; S/N CANDIDATE 2026-10-21 (v2))",
+  "status": "CANDIDATE 2026-10-21 (v5: one exaggerated pump per arm, one after the other, 16 frames at 10 fps; W mirrors E; S/N CANDIDATE 2026-10-21 (v3))",
   "frames": 16,
   "fps": 10,
   "sourceDirection": "E",
@@ -19,7 +19,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Recompose (free focus action, recover poise; Christopher 2026-10-21: like Henry Cavill's arm \"reload\"; v4: the arms move one after the other, spread over more frames so it does not feel so fast): from the guard the near fist pushes down and forward and racks back hard, elbow driving back past the ribs and the shoulder popping up, then the far fist does the same while the near one stays racked; each arm pumps twice, alternating; both hold racked a beat, then snap back into a tight guard with a thin white pulse.",
+  "intent": "Recompose (free focus action, recover poise; Christopher 2026-10-21: like Henry Cavill's arm \"reload\"; v4: the arms move one after the other; v5: one big exaggerated pump per arm, spread over more frames so it feels slower): from the guard the near fist sinks and drives far down and forward, holds, then is hauled back hard, elbow driving well past the ribs and the shoulder popping up; then the far fist does the same while the near one stays racked; both hold racked a beat, then snap back into a tight guard with a thin white pulse.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -94,13 +94,13 @@
       1,
       1,
       1,
+      2,
       1,
       1,
       1,
       1,
       1,
-      1,
-      1,
+      2,
       1,
       1,
       1,
@@ -112,15 +112,15 @@
       1,
       1,
       1,
+      2,
+      1,
+      0,
       0,
       1,
       1,
+      2,
+      1,
       0,
-      1,
-      1,
-      0,
-      1,
-      1,
       0,
       0,
       2,
@@ -130,16 +130,16 @@
       2,
       1,
       2,
+      2,
+      1,
+      -1,
       0,
       1,
       2,
-      -1,
-      1,
       2,
+      1,
+      -1,
       0,
-      1,
-      2,
-      -1,
       0,
       2,
       2
@@ -171,15 +171,15 @@
         2,
         1,
         2,
+        3,
+        1,
+        -1,
         0,
         1,
         2,
-        0,
+        3,
         1,
-        2,
-        0,
-        1,
-        2,
+        -1,
         0,
         0,
         3,
@@ -1038,106 +1038,106 @@
       },
       {
         "construction": "band",
-        "angle": -20,
+        "angle": -25,
         "elbow": {
           "at": 8,
-          "angle": -70
+          "angle": -65
         }
       },
       {
         "construction": "band",
-        "angle": -45,
+        "angle": -60,
         "elbow": {
           "at": 8,
-          "angle": -50
+          "angle": -40
         }
       },
       {
         "construction": "band",
-        "angle": 25,
+        "angle": -60,
         "elbow": {
           "at": 8,
-          "angle": -85
+          "angle": -40
         }
       },
       {
         "construction": "band",
-        "angle": 25,
+        "angle": 0,
         "elbow": {
           "at": 8,
-          "angle": -85
+          "angle": -75
         }
       },
       {
         "construction": "band",
-        "angle": 25,
+        "angle": 38,
         "elbow": {
           "at": 8,
-          "angle": -85
+          "angle": -95
         }
       },
       {
         "construction": "band",
-        "angle": 25,
+        "angle": 38,
         "elbow": {
           "at": 8,
-          "angle": -85
+          "angle": -95
         }
       },
       {
         "construction": "band",
-        "angle": -20,
+        "angle": 38,
         "elbow": {
           "at": 8,
-          "angle": -70
+          "angle": -95
         }
       },
       {
         "construction": "band",
-        "angle": -45,
+        "angle": 38,
         "elbow": {
           "at": 8,
-          "angle": -50
+          "angle": -95
         }
       },
       {
         "construction": "band",
-        "angle": 25,
+        "angle": 38,
         "elbow": {
           "at": 8,
-          "angle": -85
+          "angle": -95
         }
       },
       {
         "construction": "band",
-        "angle": 25,
+        "angle": 38,
         "elbow": {
           "at": 8,
-          "angle": -85
+          "angle": -95
         }
       },
       {
         "construction": "band",
-        "angle": 25,
+        "angle": 38,
         "elbow": {
           "at": 8,
-          "angle": -85
+          "angle": -95
         }
       },
       {
         "construction": "band",
-        "angle": 25,
+        "angle": 38,
         "elbow": {
           "at": 8,
-          "angle": -85
+          "angle": -95
         }
       },
       {
         "construction": "band",
-        "angle": 25,
+        "angle": 38,
         "elbow": {
           "at": 8,
-          "angle": -85
+          "angle": -95
         }
       },
       {
@@ -1192,10 +1192,10 @@
       },
       {
         "construction": "band",
-        "angle": -20,
+        "angle": -45,
         "elbow": {
           "at": 8,
-          "angle": -70
+          "angle": 222
         }
       },
       {
@@ -1203,47 +1203,7 @@
         "angle": -45,
         "elbow": {
           "at": 8,
-          "angle": -50
-        }
-      },
-      {
-        "construction": "band",
-        "angle": 25,
-        "elbow": {
-          "at": 8,
-          "angle": -85
-        }
-      },
-      {
-        "construction": "band",
-        "angle": 25,
-        "elbow": {
-          "at": 8,
-          "angle": -85
-        }
-      },
-      {
-        "construction": "band",
-        "angle": 25,
-        "elbow": {
-          "at": 8,
-          "angle": -85
-        }
-      },
-      {
-        "construction": "band",
-        "angle": 25,
-        "elbow": {
-          "at": 8,
-          "angle": -85
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -20,
-        "elbow": {
-          "at": 8,
-          "angle": -70
+          "angle": 222
         }
       },
       {
@@ -1251,23 +1211,63 @@
         "angle": -45,
         "elbow": {
           "at": 8,
-          "angle": -50
+          "angle": 222
         }
       },
       {
         "construction": "band",
-        "angle": 25,
+        "angle": -25,
         "elbow": {
           "at": 8,
-          "angle": -85
+          "angle": -65
         }
       },
       {
         "construction": "band",
-        "angle": 25,
+        "angle": -60,
         "elbow": {
           "at": 8,
-          "angle": -85
+          "angle": -40
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -60,
+        "elbow": {
+          "at": 8,
+          "angle": -40
+        }
+      },
+      {
+        "construction": "band",
+        "angle": 0,
+        "elbow": {
+          "at": 8,
+          "angle": -75
+        }
+      },
+      {
+        "construction": "band",
+        "angle": 38,
+        "elbow": {
+          "at": 8,
+          "angle": -95
+        }
+      },
+      {
+        "construction": "band",
+        "angle": 38,
+        "elbow": {
+          "at": 8,
+          "angle": -95
+        }
+      },
+      {
+        "construction": "band",
+        "angle": 38,
+        "elbow": {
+          "at": 8,
+          "angle": -95
         }
       },
       {
@@ -2258,18 +2258,18 @@
             "angle": [
               10,
               -4,
-              -8,
-              35,
-              35,
-              35,
-              35,
-              -4,
-              -8,
-              35,
-              35,
-              35,
-              35,
-              35,
+              -10,
+              -10,
+              22,
+              40,
+              40,
+              40,
+              40,
+              40,
+              40,
+              40,
+              40,
+              40,
               10,
               10
             ],
@@ -2284,51 +2284,51 @@
               },
               {
                 "at": 7,
-                "angle": 5
+                "angle": 0
               },
               {
                 "at": 7,
-                "angle": 195
+                "angle": 0
               },
               {
                 "at": 7,
-                "angle": 195
+                "angle": 150
               },
               {
                 "at": 7,
-                "angle": 195
+                "angle": 200
               },
               {
                 "at": 7,
-                "angle": 195
+                "angle": 200
               },
               {
                 "at": 7,
-                "angle": 15
+                "angle": 200
               },
               {
                 "at": 7,
-                "angle": 5
+                "angle": 200
               },
               {
                 "at": 7,
-                "angle": 195
+                "angle": 200
               },
               {
                 "at": 7,
-                "angle": 195
+                "angle": 200
               },
               {
                 "at": 7,
-                "angle": 195
+                "angle": 200
               },
               {
                 "at": 7,
-                "angle": 195
+                "angle": 200
               },
               {
                 "at": 7,
-                "angle": 195
+                "angle": 200
               },
               {
                 "at": 7,
@@ -2342,18 +2342,18 @@
             "scale": [
               1,
               0.85,
-              0.75,
+              0.65,
+              0.65,
               0.85,
-              0.85,
-              0.85,
-              0.85,
-              0.85,
-              0.75,
-              0.85,
-              0.85,
-              0.85,
-              0.85,
-              0.85,
+              0.8,
+              0.8,
+              0.8,
+              0.8,
+              0.8,
+              0.8,
+              0.8,
+              0.8,
+              0.8,
               1,
               1
             ],
@@ -2405,16 +2405,16 @@
               -10,
               -10,
               -10,
+              -10,
+              -10,
+              -10,
               4,
-              8,
-              -35,
-              -35,
-              -35,
-              -35,
-              4,
-              8,
-              -35,
-              -35,
+              10,
+              10,
+              -22,
+              -40,
+              -40,
+              -40,
               -10,
               -10
             ],
@@ -2437,27 +2437,15 @@
               },
               {
                 "at": 7,
-                "angle": -15
+                "angle": 168
               },
               {
                 "at": 7,
-                "angle": -5
+                "angle": 168
               },
               {
                 "at": 7,
-                "angle": -195
-              },
-              {
-                "at": 7,
-                "angle": -195
-              },
-              {
-                "at": 7,
-                "angle": -195
-              },
-              {
-                "at": 7,
-                "angle": -195
+                "angle": 168
               },
               {
                 "at": 7,
@@ -2465,15 +2453,27 @@
               },
               {
                 "at": 7,
-                "angle": -5
+                "angle": 0
               },
               {
                 "at": 7,
-                "angle": -195
+                "angle": 0
               },
               {
                 "at": 7,
-                "angle": -195
+                "angle": -150
+              },
+              {
+                "at": 7,
+                "angle": -200
+              },
+              {
+                "at": 7,
+                "angle": -200
+              },
+              {
+                "at": 7,
+                "angle": -200
               },
               {
                 "at": 7,
@@ -2489,16 +2489,16 @@
               1,
               1,
               1,
+              1,
+              1,
+              1,
               0.85,
-              0.75,
+              0.65,
+              0.65,
               0.85,
-              0.85,
-              0.85,
-              0.85,
-              0.85,
-              0.75,
-              0.85,
-              0.85,
+              0.8,
+              0.8,
+              0.8,
               1,
               1
             ],
@@ -2826,18 +2826,18 @@
             "angle": [
               -12,
               4,
-              8,
-              -35,
-              -35,
-              -35,
-              -35,
-              4,
-              8,
-              -35,
-              -35,
-              -35,
-              -35,
-              -35,
+              10,
+              10,
+              -22,
+              -40,
+              -40,
+              -40,
+              -40,
+              -40,
+              -40,
+              -40,
+              -40,
+              -40,
               -12,
               -12
             ],
@@ -2849,51 +2849,51 @@
               },
               {
                 "at": 7,
-                "angle": -5
+                "angle": 0
               },
               {
                 "at": 7,
-                "angle": 165
+                "angle": 0
               },
               {
                 "at": 7,
-                "angle": 165
+                "angle": -150
               },
               {
                 "at": 7,
-                "angle": 165
+                "angle": 160
               },
               {
                 "at": 7,
-                "angle": 165
+                "angle": 160
               },
               {
                 "at": 7,
-                "angle": -15
+                "angle": 160
               },
               {
                 "at": 7,
-                "angle": -5
+                "angle": 160
               },
               {
                 "at": 7,
-                "angle": 165
+                "angle": 160
               },
               {
                 "at": 7,
-                "angle": 165
+                "angle": 160
               },
               {
                 "at": 7,
-                "angle": 165
+                "angle": 160
               },
               {
                 "at": 7,
-                "angle": 165
+                "angle": 160
               },
               {
                 "at": 7,
-                "angle": 165
+                "angle": 160
               },
               null,
               null
@@ -2901,18 +2901,18 @@
             "scale": [
               1,
               0.85,
-              0.75,
+              0.65,
+              0.65,
               0.85,
-              0.85,
-              0.85,
-              0.85,
-              0.85,
-              0.75,
-              0.85,
-              0.85,
-              0.85,
-              0.85,
-              0.85,
+              0.8,
+              0.8,
+              0.8,
+              0.8,
+              0.8,
+              0.8,
+              0.8,
+              0.8,
+              0.8,
               1,
               1
             ],
@@ -2982,16 +2982,16 @@
               10,
               10,
               10,
+              10,
+              10,
+              10,
               -4,
-              -8,
-              35,
-              35,
-              35,
-              35,
-              -4,
-              -8,
-              35,
-              35,
+              -10,
+              -10,
+              22,
+              40,
+              40,
+              40,
               12,
               12
             ],
@@ -3011,27 +3011,15 @@
               },
               {
                 "at": 7,
-                "angle": 15
+                "angle": -168
               },
               {
                 "at": 7,
-                "angle": 5
+                "angle": -168
               },
               {
                 "at": 7,
-                "angle": -165
-              },
-              {
-                "at": 7,
-                "angle": -165
-              },
-              {
-                "at": 7,
-                "angle": -165
-              },
-              {
-                "at": 7,
-                "angle": -165
+                "angle": -168
               },
               {
                 "at": 7,
@@ -3039,15 +3027,27 @@
               },
               {
                 "at": 7,
-                "angle": 5
+                "angle": 0
               },
               {
                 "at": 7,
-                "angle": -165
+                "angle": 0
               },
               {
                 "at": 7,
-                "angle": -165
+                "angle": 150
+              },
+              {
+                "at": 7,
+                "angle": -160
+              },
+              {
+                "at": 7,
+                "angle": -160
+              },
+              {
+                "at": 7,
+                "angle": -160
               },
               null,
               null
@@ -3057,16 +3057,16 @@
               1,
               1,
               1,
+              1,
+              1,
+              1,
               0.85,
-              0.75,
+              0.65,
+              0.65,
               0.85,
-              0.85,
-              0.85,
-              0.85,
-              0.85,
-              0.75,
-              0.85,
-              0.85,
+              0.8,
+              0.8,
+              0.8,
               1,
               1
             ],

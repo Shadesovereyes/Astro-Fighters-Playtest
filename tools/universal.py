@@ -44,7 +44,7 @@ POSES += [leg('duel-lead', (32, 42), (34, 50), 35), leg('duel-rear', (31, 42), (
 FXP, FXPAL = HR_FX['patterns'], HR_FX['palette']
 BRACE = dict(ln='cb-brace-rear', lf='cb-brace-lead')   # the hands brace on the thighs
 SEAL_N, SEAL_F = band(-48, -150, fistKind='palm'), band(-60, -146, fistKind='palm')   # tiger seal: both open hands pressed together upright in front of the chin, fingers up
-RC_MID, RC_PUSH, RC_RACK = band(-20, -70), band(-45, -50), band(25, -85)   # Recompose: fist on its way down, pushed down and forward, racked back past the ribs
+RC_MID, RC_PUSH, RC_BACK, RC_RACK = band(-25, -65), band(-60, -40), band(0, -75), band(38, -95)   # Recompose (exaggerated, v5): fist on its way down, driven far down and forward, hauled back, racked well past the ribs
 MED_N, MED_F = band(-8, -75, fistKind='palm'), band(-12, -80, fistKind='palm')   # meditative hold: forearms level, open hands palm up resting in front of the belly (Charge Chakra v4)
 
 # ---------- ninjutsu fx patterns (white/neutral; d/g = neutral greys for shadow techniques) ----------
@@ -126,14 +126,14 @@ CLIPS = {   # state: (ability, active frame, intent, frames, expressions, aura w
   None,
   dict(fps=5)),
  'recompose': ('Recompose', 13,
-  'Recompose (free focus action, recover poise; Christopher 2026-10-21: like Henry Cavill\'s arm "reload"; v4: the arms move one after the other, spread over more frames so it does not feel so fast): from the guard the near fist pushes down and forward and racks back hard, elbow driving back past the ribs and the shoulder popping up, then the far fist does the same while the near one stays racked; each arm pumps twice, alternating; both hold racked a beat, then snap back into a tight guard with a thin white pulse.', [
-     g()] + [f for _ in range(2) for f in (
-     g(an=RC_MID, af=G_F if _ == 0 else RC_RACK, bob=(1, 1, 1), lean=(0, 1)),                 # near fist on its way down and forward
-     g(an=RC_PUSH, af=G_F if _ == 0 else RC_RACK, bob=(1, 1, 2), lean=(0, 2)),                # near pushed out
-     g(an=RC_RACK, af=G_F if _ == 0 else RC_RACK, bob=(1, 0, 0), lean=(0, 0)),                # near racked back: elbow back, shoulder up
-     g(an=RC_RACK, af=RC_MID, bob=(1, 1, 1), lean=(0, 1)),                                    # then the far fist
-     g(an=RC_RACK, af=RC_PUSH, bob=(1, 1, 2), lean=(0, 2)),
-     g(an=RC_RACK, af=RC_RACK, bob=(1, 0, -1), lean=(0, 0)))] + [
+  'Recompose (free focus action, recover poise; Christopher 2026-10-21: like Henry Cavill\'s arm "reload"; v4: the arms move one after the other; v5: one big exaggerated pump per arm, spread over more frames so it feels slower): from the guard the near fist sinks and drives far down and forward, holds, then is hauled back hard, elbow driving well past the ribs and the shoulder popping up; then the far fist does the same while the near one stays racked; both hold racked a beat, then snap back into a tight guard with a thin white pulse.', [
+     g()] + [f for far in (False, True) for f in (
+     g(an=RC_RACK if far else RC_MID, af=RC_MID if far else G_F, bob=(1, 1, 1), lean=(0, 1)),                  # the fist on its way down and forward
+     g(an=RC_RACK if far else RC_PUSH, af=RC_PUSH if far else G_F, bob=(1, 1, 2), lean=(0, 2)),                # pushed far out
+     g(an=RC_RACK if far else RC_PUSH, af=RC_PUSH if far else G_F, bob=(2, 2, 2), lean=(0, 3)),                # held, leaning into it
+     g(an=RC_RACK if far else RC_BACK, af=RC_BACK if far else G_F, bob=(1, 1, 1), lean=(0, 1)),                # hauled back
+     g(an=RC_RACK, af=RC_RACK if far else G_F, bob=(1, 0, -1), lean=(0, -1)),                                  # racked: elbow well past the ribs, shoulder up
+     g(an=RC_RACK, af=RC_RACK if far else G_F, bob=(1, 0, 0), lean=(0, 0)))] + [
      g(an=RC_RACK, af=RC_RACK, bob=(1, 0, 0), lean=(0, 0)),                                   # both held racked a beat
      g(an=G_N, af=G_F, bob=(2, 2, 2), lean=(0, 3), **LOW),                                    # snaps into the guard
      g()],

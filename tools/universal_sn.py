@@ -77,12 +77,11 @@ PUMP = dict(R=(-8, 5, 0.75, 'up'), L=(8, -5, 0.75, 'up'))           # fists push
 RACK = dict(R=(35, 195, 0.85, 'up'), L=(-35, -195, 0.85, 'up'))    # racked back: elbows out behind the ribs, fists up by the chest
 SN.update({'catchBreath': {1: REST, 2: REST, 3: REST, 4: REST, 5: OUT, 6: OUT, 7: REST, 8: REST, 9: OUT},
            'recompose': {}})
-# Recompose v4 (Christopher 2026-10-21: one arm after the other, over more frames): per arm (R near, L far in S) mid, push, rack
-RC = {'mid': (-4, 15, 0.85, 'up'), 'push': PUMP['R'], 'rack': RACK['R'], 'guard': stances.GA['R']}
+# Recompose v5 (Christopher 2026-10-21: one arm after the other, one big pump each, over more frames): per arm (R near, L far in S)
+RC = {'mid': (-4, 15, 0.85, 'up'), 'push': (-10, 0, 0.65, 'up'), 'back': (22, 150, 0.85, 'up'), 'rack': (40, 200, 0.8, 'up'), 'guard': stances.GA['R']}
 RCL = lambda k: (-RC[k][0], -RC[k][1], *RC[k][2:]) if k != 'guard' else stances.GA['L']
-for k, (n, f) in enumerate([(None, None)] + [x for r in range(2) for x in (('mid', 'guard' if r == 0 else 'rack'), ('push', 'guard' if r == 0 else 'rack'), ('rack', 'guard' if r == 0 else 'rack'),
-                                                                     ('rack', 'mid'), ('rack', 'push'), ('rack', 'rack'))] + [('rack', 'rack')]):
-    if n: SN['recompose'][k] = dict(R=RC[n], L=RCL(f))
+SEQ = [(n, 'guard') for n in ('mid', 'push', 'push', 'back', 'rack', 'rack')] + [('rack', f) for f in ('mid', 'push', 'push', 'back', 'rack', 'rack')] + [('rack', 'rack')]
+for k, (n, f) in enumerate(SEQ, 1): SN['recompose'][k] = dict(R=RC[n], L=RCL(f))
 CLOSED_S = [[0, 1, '#70241d'], [1, 1, '#70241d'], [5, 1, '#70241d'], [6, 1, '#70241d'], [0, 2, '#000000'], [1, 2, '#000000'], [5, 2, '#000000'], [6, 2, '#000000']]   # both lids shut, lash line below
 SN_APPROVED = {'catchBreath': 'S/N approved by user 2026-10-21 (v1, c70e4d7)'}
 
