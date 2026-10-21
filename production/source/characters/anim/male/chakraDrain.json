@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Chakra Drain (debuff, steals chakra; Christopher 2026-10-21: plays like a short grapple, the chakra aura leaving the target in the chakra bar blue): the fighter steps in and grabs the target in a collar tie, both hands on the neck and shoulder, pulls them in and holds while wisps of chakra-blue light stream off the target into the gripping hands; then shoves them off and steps back into the guard. Pairs with chakraDrained on the target.",
+  "intent": "Chakra Drain (debuff, steals chakra; Christopher 2026-10-21: plays like a short grapple, the chakra aura leaving the target in the chakra bar blue): the fighter steps in and grabs the target in a collar tie, both hands on the neck and shoulder, pulls them in and holds while wisps of chakra-blue light stream off the target into the gripping hands and flow up through both arms into the body, the drainer glowing faintly blue as it arrives (Christopher 2026-10-21 v3: the chakra flows out of the target through the arms of the user); then shoves them off and steps back into the guard. Pairs with chakraDrained on the target.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",

@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Charge Chakra (free focus action, recover chakra): from the guard the fighter sinks into the knees and presses both open hands together upright in front of the chin, eyes closed in focus; holding the seal, an aura in the chakra bar blue swells around the whole body in a slow pulse as the chest rises with the breath, then fades; the eyes open, the hands part and come back up into the guard (Christopher 2026-10-21: eyes closed, aura the colour of the chakra bar).",
+  "intent": "Charge Chakra (free focus action, recover chakra): from the guard the fighter sinks into the knees and lowers both open hands, palms up, to rest in front of the belly in a meditative hold, eyes closed in focus; holding it, an aura in the chakra bar blue swells around the whole body in a slow pulse as the chest rises with the breath, then fades; the eyes open, the hands part and come back up into the guard (Christopher 2026-10-21: eyes closed, aura the colour of the chakra bar; v4: hands lowered into a meditative state, the raised seal read as a recoil).",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -730,63 +730,63 @@
       },
       {
         "construction": "band",
-        "angle": -5,
+        "angle": -15,
         "elbow": {
           "at": 8,
-          "angle": -140
+          "angle": -105
         }
       },
       {
         "construction": "band",
-        "angle": -48,
+        "angle": -8,
         "elbow": {
           "at": 8,
-          "angle": -150
+          "angle": -75
         },
         "fistKind": "palm"
       },
       {
         "construction": "band",
-        "angle": -48,
+        "angle": -8,
         "elbow": {
           "at": 8,
-          "angle": -150
+          "angle": -75
         },
         "fistKind": "palm"
       },
       {
         "construction": "band",
-        "angle": -48,
+        "angle": -8,
         "elbow": {
           "at": 8,
-          "angle": -150
+          "angle": -75
         },
         "fistKind": "palm"
       },
       {
         "construction": "band",
-        "angle": -48,
+        "angle": -8,
         "elbow": {
           "at": 8,
-          "angle": -150
+          "angle": -75
         },
         "fistKind": "palm"
       },
       {
         "construction": "band",
-        "angle": -48,
+        "angle": -8,
         "elbow": {
           "at": 8,
-          "angle": -150
+          "angle": -75
         },
         "fistKind": "palm"
       },
       {
         "construction": "band",
-        "angle": -5,
+        "angle": -15,
         "elbow": {
           "at": 8,
-          "angle": -140
+          "angle": -105
         }
       },
       {
@@ -809,63 +809,63 @@
       },
       {
         "construction": "band",
-        "angle": -25,
+        "angle": -20,
         "elbow": {
           "at": 8,
-          "angle": -145
+          "angle": -110
         }
       },
       {
         "construction": "band",
-        "angle": -60,
+        "angle": -12,
         "elbow": {
           "at": 8,
-          "angle": -146
+          "angle": -80
         },
         "fistKind": "palm"
       },
       {
         "construction": "band",
-        "angle": -60,
+        "angle": -12,
         "elbow": {
           "at": 8,
-          "angle": -146
+          "angle": -80
         },
         "fistKind": "palm"
       },
       {
         "construction": "band",
-        "angle": -60,
+        "angle": -12,
         "elbow": {
           "at": 8,
-          "angle": -146
+          "angle": -80
         },
         "fistKind": "palm"
       },
       {
         "construction": "band",
-        "angle": -60,
+        "angle": -12,
         "elbow": {
           "at": 8,
-          "angle": -146
+          "angle": -80
         },
         "fistKind": "palm"
       },
       {
         "construction": "band",
-        "angle": -60,
+        "angle": -12,
         "elbow": {
           "at": 8,
-          "angle": -146
+          "angle": -80
         },
         "fistKind": "palm"
       },
       {
         "construction": "band",
-        "angle": -25,
+        "angle": -20,
         "elbow": {
           "at": 8,
-          "angle": -145
+          "angle": -110
         }
       },
       {
@@ -938,19 +938,15 @@
         ]
       },
       "palmUp": {
-        "use": "open hand angled forward, fingers leaning toward the opponent (judo grip hunt)",
+        "use": "open hand resting flat, palm up, fingers pointing forward (Charge Chakra meditative hold)",
         "anchor": [
           0,
-          4
+          1
         ],
         "rows": [
-          "...Lm",
-          "..LLm",
-          ".LLLm",
-          "LLLLm",
-          "LLLms",
-          "mLLs.",
-          ".sDs."
+          ".mLLLLm",
+          "mLLLLLL",
+          ".sDDDsm"
         ]
       },
       "palmDown": {
@@ -980,6 +976,19 @@
           "LLLm",
           "mLLs",
           ".sDs"
+        ]
+      },
+      "fingerGun": {
+        "use": "finger gun (Chakra Bullet): index finger pointing along the arm, thumb up, the other fingers curled",
+        "anchor": [
+          0,
+          1
+        ],
+        "rows": [
+          ".Lm....",
+          "LLLLLLm",
+          "LLLms..",
+          "msDs..."
         ]
       }
     },

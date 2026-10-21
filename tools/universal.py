@@ -21,6 +21,7 @@ CLOSED = load(D + 'downed.json')['expressions']['shapes']['closed']
 def h(k, side): return copy.deepcopy(HR['arms'][side][k])
 STAT = 'CANDIDATE 2026-10-20 (E/W; W mirrors E; S/N to author after approval)'
 APPROVED = {s_: 'E/W approved by user 2026-10-21 (v1; W mirrors E); S/N to author' for s_ in ('guardianBarrier', 'solarFlare', 'summonCompanion')}
+APPROVED['chakraBullet'] = 'E/W approved by user 2026-10-21 (v2, 870541e; W mirrors E); S/N to author'
 UNUSED = 'UNUSED (Christopher 2026-10-21): shelved, not offered anywhere and no further animation work until its use is decided; E/W v1 draft kept for reference'
 APPROVED.update(ironMountain=UNUSED, heavenlyKick=UNUSED)
 
@@ -41,6 +42,7 @@ POSES += [leg('duel-lead', (32, 42), (34, 50), 35), leg('duel-rear', (31, 42), (
 FXP, FXPAL = HR_FX['patterns'], HR_FX['palette']
 BRACE = dict(ln='cb-brace-rear', lf='cb-brace-lead')   # the hands brace on the thighs
 SEAL_N, SEAL_F = band(-48, -150, fistKind='palm'), band(-60, -146, fistKind='palm')   # tiger seal: both open hands pressed together upright in front of the chin, fingers up
+MED_N, MED_F = band(-8, -75, fistKind='palm'), band(-12, -80, fistKind='palm')   # meditative hold: forearms level, open hands palm up resting in front of the belly (Charge Chakra v4)
 
 # ---------- ninjutsu fx patterns (white/neutral; d/g = neutral greys for shadow techniques) ----------
 CHAKRA = ('#4f8dff', '#23407e')   # the testbed chakra bar: --chakra #4f8dff, gradient from #23407e (Christopher 2026-10-21: chakra auras match the bar)
@@ -91,15 +93,15 @@ def nfx(rule, frames): return {'rule': rule, 'top': True, 'palette': NPAL, 'patt
 
 CLIPS = {   # state: (ability, active frame, intent, frames, expressions, aura widths)
  'chargeChakra': ('Charge Chakra', 4,
-  'Charge Chakra (free focus action, recover chakra): from the guard the fighter sinks into the knees and presses both open hands together upright in front of the chin, eyes closed in focus; holding the seal, an aura in the chakra bar blue swells around the whole body in a slow pulse as the chest rises with the breath, then fades; the eyes open, the hands part and come back up into the guard (Christopher 2026-10-21: eyes closed, aura the colour of the chakra bar).', [
+  'Charge Chakra (free focus action, recover chakra): from the guard the fighter sinks into the knees and lowers both open hands, palms up, to rest in front of the belly in a meditative hold, eyes closed in focus; holding it, an aura in the chakra bar blue swells around the whole body in a slow pulse as the chest rises with the breath, then fades; the eyes open, the hands part and come back up into the guard (Christopher 2026-10-21: eyes closed, aura the colour of the chakra bar; v4: hands lowered into a meditative state, the raised seal read as a recoil).', [
      g(),
-     g(an=band(-5, -140), af=band(-25, -145), bob=(2, 2, 2), lean=(0, 1), **LOW),
-     g(an=SEAL_N, af=SEAL_F, bob=(3, 3, 3), lean=(0, 0), **LOW),
-     g(an=SEAL_N, af=SEAL_F, bob=(3, 3, 3), lean=(0, 0), **LOW),
-     g(an=SEAL_N, af=SEAL_F, bob=(2, 3, 3), lean=(0, -1), **LOW),     # in-breath: chest lifts, head a row higher
-     g(an=SEAL_N, af=SEAL_F, bob=(2, 3, 3), lean=(0, -1), **LOW),
-     g(an=SEAL_N, af=SEAL_F, bob=(3, 3, 3), lean=(0, 0), **LOW),
-     g(an=band(-5, -140), af=band(-25, -145), bob=(2, 2, 2), lean=(0, 1), **LOW),
+     g(an=band(-15, -105), af=band(-20, -110), bob=(2, 2, 2), lean=(0, 1), **LOW),
+     g(an=MED_N, af=MED_F, bob=(3, 3, 3), lean=(0, 0), **LOW),
+     g(an=MED_N, af=MED_F, bob=(3, 3, 3), lean=(0, 0), **LOW),
+     g(an=MED_N, af=MED_F, bob=(2, 3, 3), lean=(0, -1), **LOW),     # in-breath: chest lifts, head a row higher
+     g(an=MED_N, af=MED_F, bob=(2, 3, 3), lean=(0, -1), **LOW),
+     g(an=MED_N, af=MED_F, bob=(3, 3, 3), lean=(0, 0), **LOW),
+     g(an=band(-15, -105), af=band(-20, -110), bob=(2, 2, 2), lean=(0, 1), **LOW),
      g()],
   [None, None, 'closed', 'closed', 'closed', 'closed', 'closed', None, None],
   [0, 0, 1, 2, 3, 3, 2, 1, 0],
@@ -213,7 +215,7 @@ CLIPS = {   # state: (ability, active frame, intent, frames, expressions, aura w
        fx=nfx('chakra bar blue: the aura (drawn by aura()) swells, then draws into an orb at the fingertip that fires with a burst',
               [(5, [('borb', [55, 24])]), (6, [('borbBig', [55, 25])]), (7, [('brelease', [57, 22])]), (8, [('bspark', [61, 22])])]))),
  'chakraDrain': ('Chakra Drain', 3,
-  'Chakra Drain (debuff, steals chakra; Christopher 2026-10-21: plays like a short grapple, the chakra aura leaving the target in the chakra bar blue): the fighter steps in and grabs the target in a collar tie, both hands on the neck and shoulder, pulls them in and holds while wisps of chakra-blue light stream off the target into the gripping hands; then shoves them off and steps back into the guard. Pairs with chakraDrained on the target.', [
+  'Chakra Drain (debuff, steals chakra; Christopher 2026-10-21: plays like a short grapple, the chakra aura leaving the target in the chakra bar blue): the fighter steps in and grabs the target in a collar tie, both hands on the neck and shoulder, pulls them in and holds while wisps of chakra-blue light stream off the target into the gripping hands and flow up through both arms into the body, the drainer glowing faintly blue as it arrives (Christopher 2026-10-21 v3: the chakra flows out of the target through the arms of the user); then shoves them off and steps back into the guard. Pairs with chakraDrained on the target.', [
      g(),
      g(an=band(-70, -100, fistKind='palm'), af=band(-75, -105, fistKind='palm'), bob=(1, 1, 1), lean=(1, 3), root=(4, 0)),   # steps in, hands reaching
      g(an=band(-80, -80, fistKind='palm'), af=band(-84, -84, fistKind='palm'), bob=(1, 1, 1), lean=(1, 4), root=(4, 0)),      # grabs
@@ -224,8 +226,8 @@ CLIPS = {   # state: (ability, active frame, intent, frames, expressions, aura w
      g(an=band(-60, -120), af=G_F, bob=(1, 1, 2), lean=(0, 2), root=(-4, 0)),
      g(root=(-4, 0))],
   [None, None, 'squint', 'squint', 'squint', 'squint', None, None, None],
-  None,
-  dict(fps=10, hitbox=[44, 20, 10, 10], damage='light', rm='E: x +4, +4 stepping in to the tie, back -4, -4',
+  [0, 0, 0, 0, 1, 1, 0, 0, 0],
+  dict(fps=10, auraColors=CHAKRA, flow=(3, 4, 5), hitbox=[44, 20, 10, 10], damage='light', rm='E: x +4, +4 stepping in to the tie, back -4, -4',
        fx=nfx('chakra bar blue wisps streaming off the target (in front) into the gripping hands while the tie holds',
               [(3, [('bwisp', [58, 22]), ('bwisp2', [54, 26])]), (4, [('bwisp2', [56, 21]), ('bwisp', [51, 25]), ('bspark', [60, 27])]), (5, [('bwisp', [53, 22]), ('bwisp2', [49, 26])])]))),
  'chakraDrained': ('Chakra Drain (target)', 3,
@@ -327,6 +329,8 @@ def spec(state):
              state: {'frames': list(range(n)), 'fps': 10, 'next': 'guard', 'ability': ab}}
     s = build(HR, state, fr, status=APPROVED.get(state, STAT), newPoses=POSES, clips=clips, events=events, rmRule=x.get('rm', 'in place'), intent=intent, fx=x.get('fx'))
     s['fps'] = clips[state]['fps'] = x.get('fps', 10); s.pop('approved', None); s.pop('keyPoses', None)
+    if state == 'chargeChakra':   # meditative hold: the open hand lies flat, palm up, fingers forward (not the upright grip-hunt hand)
+        s['arms']['band']['palmUp'] = {'use': 'open hand resting flat, palm up, fingers pointing forward (Charge Chakra meditative hold)', 'anchor': [0, 1], 'rows': ['.mLLLLm', 'mLLLLLL', '.sDDDsm']}
     if not x.get('fx'): s.pop('fx', None)
     s['expressions'] = copy.deepcopy(HR['expressions']); s['expressions']['frames'] = {'E': ex}
     s['expressions']['shapes']['closed'] = copy.deepcopy(CLOSED)   # eyes shut (focus)
@@ -341,7 +345,32 @@ def aura(state):
     if old:
         new = Image.open(f).convert('RGBA'); new.alpha_composite(old); new.save(f)   # splash fx over the aura
 
+def flow(state):
+    """after --aura: the drained chakra running up the drainer's arms (Christopher 2026-10-21): on each grip frame the
+    arm pixels from the hand back toward the shoulder turn chakra blue in bands that travel toward the shoulder, reaching
+    the hands, then the elbows, then the whole arm (fx layer, over the arms)"""
+    from PIL import Image
+    x = CLIPS[state][6]; d = D + state + '/'; f = d + 'fx.png'
+    fx = Image.open(f).convert('RGBA'); hexc = lambda c: tuple(int(c[i:i + 2], 16) for i in (1, 3, 5)) + (255,)
+    lite, mid = hexc('#9cc0ff'), hexc(CHAKRA[0])
+    arms = [Image.open(d + n).convert('RGBA') for n in ('arms.png', 'far-arm.png') if os.path.exists(d + n)]
+    spec_ = load(D + state + '.json'); dirs = spec_['directions']
+    for step, k in enumerate(x['flow']):
+        reach = (5, 10, 64)[min(step, 2)]
+        for d_ in ('E', 'W'):
+            r = dirs.index(d_); sg = 1 if d_ == 'E' else -1
+            for a in arms:
+                pts = [(X, Y) for Y in range(64) for X in range(64) if (q := a.getpixel((k * 64 + X, r * 64 + Y)))[3] and q[:3] != (0, 0, 0)]
+                if not pts: continue
+                tip = max(sg * X for X, _ in pts)
+                for X, Y in pts:
+                    u = tip - sg * X   # distance back from the hand
+                    if u > reach: continue
+                    fx.putpixel((k * 64 + X, r * 64 + Y), lite if (u + 2 * step) % 4 < 2 else mid)
+    fx.save(f); print(state, 'arm flow', x['flow'])
+
 if __name__ == '__main__':
+    if '--flow' in sys.argv[1:]: flow(sys.argv[sys.argv.index('--flow') + 1]); sys.exit()
     a = sys.argv[1:]
     if '--aura' in a: aura(a[a.index('--aura') + 1]); sys.exit()
     for st in (a or CLIPS): spec(st)

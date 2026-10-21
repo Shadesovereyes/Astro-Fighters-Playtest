@@ -246,18 +246,7 @@
     "mirrorValid": {
       "W": true
     },
-    "unoutlinedEdges": {
-      "E:2": 1,
-      "E:3": 1,
-      "E:4": 1,
-      "E:5": 1,
-      "E:6": 1,
-      "W:2": 1,
-      "W:3": 1,
-      "W:4": 1,
-      "W:5": 1,
-      "W:6": 1
-    },
+    "unoutlinedEdges": {},
     "holes": {},
     "groundContact": true,
     "offPalette": {},
@@ -288,13 +277,13 @@
     "cleanup": {
       "cleanupRemoved": [
         6,
-        9,
-        6,
-        6,
-        6,
-        6,
-        6,
-        9,
+        10,
+        12,
+        12,
+        12,
+        12,
+        12,
+        10,
         6
       ],
       "cleanupMerged": [
@@ -587,6 +576,6 @@
         "red-armor-shoulders W:8": 0
       }
     },
-    "pass": false
+    "pass": true
   }
 }
