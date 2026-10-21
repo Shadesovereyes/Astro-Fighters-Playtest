@@ -22,6 +22,7 @@ def h(k, side): return copy.deepcopy(HR['arms'][side][k])
 STAT = 'CANDIDATE 2026-10-20 (E/W; W mirrors E; S/N to author after approval)'
 APPROVED = {s_: 'E/W approved by user 2026-10-21 (v1; W mirrors E); S/N to author' for s_ in ('guardianBarrier', 'solarFlare', 'summonCompanion')}
 APPROVED['chakraBullet'] = 'E/W approved by user 2026-10-21 (v2, 870541e; W mirrors E); S/N to author'
+APPROVED['catchBreath'] = 'E/W approved by user 2026-10-21 (v2, two slow deep breaths; W mirrors E); S/N approved by user 2026-10-21 (v1, c70e4d7)'
 APPROVED.update(chargeChakra='E/W approved by user 2026-10-21 (v4 meditative hold, 9622256; W mirrors E); S/N to author', **{s_: 'E/W approved by user 2026-10-21 (v3 chakra flowing up the drainer\'s arms, 9622256; W mirrors E); S/N to author' for s_ in ('chakraDrain', 'chakraDrained')})
 UNUSED = 'UNUSED (Christopher 2026-10-21): shelved, not offered anywhere and no further animation work until its use is decided; E/W v1 draft kept for reference'
 APPROVED.update(ironMountain=UNUSED, heavenlyKick=UNUSED)
@@ -43,6 +44,7 @@ POSES += [leg('duel-lead', (32, 42), (34, 50), 35), leg('duel-rear', (31, 42), (
 FXP, FXPAL = HR_FX['patterns'], HR_FX['palette']
 BRACE = dict(ln='cb-brace-rear', lf='cb-brace-lead')   # the hands brace on the thighs
 SEAL_N, SEAL_F = band(-48, -150, fistKind='palm'), band(-60, -146, fistKind='palm')   # tiger seal: both open hands pressed together upright in front of the chin, fingers up
+RC_MID, RC_PUSH, RC_RACK = band(-20, -70), band(-45, -50), band(25, -85)   # Recompose: fist on its way down, pushed down and forward, racked back past the ribs
 MED_N, MED_F = band(-8, -75, fistKind='palm'), band(-12, -80, fistKind='palm')   # meditative hold: forearms level, open hands palm up resting in front of the belly (Charge Chakra v4)
 
 # ---------- ninjutsu fx patterns (white/neutral; d/g = neutral greys for shadow techniques) ----------
@@ -123,20 +125,21 @@ CLIPS = {   # state: (ability, active frame, intent, frames, expressions, aura w
   [None, None, 'closed', 'closed', 'closed', 'closed', None, 'closed', 'closed', None, None],
   None,
   dict(fps=5)),
- 'recompose': ('Recompose', 4,
-  'Recompose (free focus action, recover poise; Christopher 2026-10-21: like Henry Cavill\'s arm "reload"): from the guard the fighter pushes both fists down and forward, then racks them back hard, elbows driving back past the ribs and the shoulders popping up, like pumping a shotgun; does it twice, then snaps back into a tight guard with a thin white pulse.', [
-     g(),
-     g(an=band(-45, -50), af=band(-55, -60), bob=(1, 1, 2), lean=(0, 2)),                       # fists pushed down and forward
-     g(an=band(25, -85), af=band(20, -90), bob=(1, 0, -1), lean=(0, 0)),                        # racked back: elbows back, shoulders up
-     g(an=band(25, -85), af=band(20, -90), bob=(1, 0, 0), lean=(0, 0)),
-     g(an=band(-45, -50), af=band(-55, -60), bob=(1, 1, 2), lean=(0, 2)),                       # pump again
-     g(an=band(25, -85), af=band(20, -90), bob=(1, 0, -1), lean=(0, 0)),                        # rack
-     g(an=band(25, -85), af=band(20, -90), bob=(1, 0, 0), lean=(0, 0)),
-     g(an=G_N, af=G_F, bob=(2, 2, 2), lean=(0, 3), **LOW),                                      # snaps into the guard
+ 'recompose': ('Recompose', 13,
+  'Recompose (free focus action, recover poise; Christopher 2026-10-21: like Henry Cavill\'s arm "reload"; v4: the arms move one after the other, spread over more frames so it does not feel so fast): from the guard the near fist pushes down and forward and racks back hard, elbow driving back past the ribs and the shoulder popping up, then the far fist does the same while the near one stays racked; each arm pumps twice, alternating; both hold racked a beat, then snap back into a tight guard with a thin white pulse.', [
+     g()] + [f for _ in range(2) for f in (
+     g(an=RC_MID, af=G_F if _ == 0 else RC_RACK, bob=(1, 1, 1), lean=(0, 1)),                 # near fist on its way down and forward
+     g(an=RC_PUSH, af=G_F if _ == 0 else RC_RACK, bob=(1, 1, 2), lean=(0, 2)),                # near pushed out
+     g(an=RC_RACK, af=G_F if _ == 0 else RC_RACK, bob=(1, 0, 0), lean=(0, 0)),                # near racked back: elbow back, shoulder up
+     g(an=RC_RACK, af=RC_MID, bob=(1, 1, 1), lean=(0, 1)),                                    # then the far fist
+     g(an=RC_RACK, af=RC_PUSH, bob=(1, 1, 2), lean=(0, 2)),
+     g(an=RC_RACK, af=RC_RACK, bob=(1, 0, -1), lean=(0, 0)))] + [
+     g(an=RC_RACK, af=RC_RACK, bob=(1, 0, 0), lean=(0, 0)),                                   # both held racked a beat
+     g(an=G_N, af=G_F, bob=(2, 2, 2), lean=(0, 3), **LOW),                                    # snaps into the guard
      g()],
-  [None, None, None, None, None, None, None, None, None],
-  [0, 0, 0, 0, 0, 0, 0, 1, 0],
-  dict(fps=12)),
+  [None] * 16,
+  [0] * 14 + [1, 0],
+  dict(fps=10)),
  'ironMountain': ('Iron Mountain', 3,
   'Iron Mountain (guard-break strike, bajiquan stamp and reinforced elbow): from the guard the fighter folds the rear arm level with the fist back at the chest and the lead fist tucked to the chest behind it, coils back a row, then stamps the lead foot a stride forward and drives the point of the folded elbow and the shoulder behind it into the guard with the whole body behind it, rooted like a mountain; a stamp of dust at the lead foot and impact lines at the elbow; then draws back into the guard.', [
      g(),

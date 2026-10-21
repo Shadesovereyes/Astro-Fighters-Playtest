@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-animation-output/v1",
   "body": "male",
   "state": "catchBreath",
-  "status": "CANDIDATE 2026-10-20 (E/W; W mirrors E; S/N CANDIDATE 2026-10-21 (v1) after approval)",
+  "status": "E/W approved by user 2026-10-21 (v2, two slow deep breaths; W mirrors E); S/N approved by user 2026-10-21 (v1, c70e4d7)",
   "frames": 11,
   "fps": 5,
   "frameSize": [

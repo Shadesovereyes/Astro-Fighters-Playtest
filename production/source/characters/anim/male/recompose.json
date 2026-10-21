@@ -2,9 +2,9 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "recompose",
-  "status": "CANDIDATE 2026-10-20 (E/W; W mirrors E; S/N CANDIDATE 2026-10-21 (v1) after approval)",
-  "frames": 9,
-  "fps": 12,
+  "status": "CANDIDATE 2026-10-21 (v4: arms one after the other, 16 frames at 10 fps; W mirrors E; S/N CANDIDATE 2026-10-21 (v2))",
+  "frames": 16,
+  "fps": 10,
   "sourceDirection": "E",
   "directions": [
     "S",
@@ -19,7 +19,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Recompose (free focus action, recover poise; Christopher 2026-10-21: like Henry Cavill's arm \"reload\"): from the guard the fighter pushes both fists down and forward, then racks them back hard, elbows driving back past the ribs and the shoulders popping up, like pumping a shotgun; does it twice, then snaps back into a tight guard with a thin white pulse.",
+  "intent": "Recompose (free focus action, recover poise; Christopher 2026-10-21: like Henry Cavill's arm \"reload\"; v4: the arms move one after the other, spread over more frames so it does not feel so fast): from the guard the near fist pushes down and forward and racks back hard, elbow driving back past the ribs and the shoulder popping up, then the far fist does the same while the near one stays racked; each arm pumps twice, alternating; both hold racked a beat, then snap back into a tight guard with a thin white pulse.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -98,14 +98,28 @@
       1,
       1,
       1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
       2,
       1
     ],
     "head": [
       1,
       1,
+      1,
       0,
+      1,
+      1,
       0,
+      1,
+      1,
+      0,
+      1,
       1,
       0,
       0,
@@ -114,9 +128,16 @@
     ],
     "arms": [
       2,
+      1,
+      2,
+      0,
+      1,
       2,
       -1,
+      1,
+      2,
       0,
+      1,
       2,
       -1,
       0,
@@ -137,13 +158,27 @@
         0,
         0,
         0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
         0
       ],
       "head": [
         2,
+        1,
         2,
         0,
+        1,
+        2,
         0,
+        1,
+        2,
+        0,
+        1,
         2,
         0,
         0,
@@ -155,6 +190,34 @@
   "rootMotion": {
     "rule": "in place",
     "E": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
       [
         0,
         0
@@ -228,6 +291,34 @@
       [
         0,
         0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
       ]
     ],
     "S": [
@@ -266,9 +357,65 @@
       [
         0,
         0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
       ]
     ],
     "N": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
       [
         0,
         0
@@ -795,10 +942,24 @@
       1,
       1,
       1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
       3,
       1
     ],
     "far": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
       0,
       0,
       0,
@@ -877,6 +1038,14 @@
       },
       {
         "construction": "band",
+        "angle": -20,
+        "elbow": {
+          "at": 8,
+          "angle": -70
+        }
+      },
+      {
+        "construction": "band",
         "angle": -45,
         "elbow": {
           "at": 8,
@@ -901,10 +1070,58 @@
       },
       {
         "construction": "band",
+        "angle": 25,
+        "elbow": {
+          "at": 8,
+          "angle": -85
+        }
+      },
+      {
+        "construction": "band",
+        "angle": 25,
+        "elbow": {
+          "at": 8,
+          "angle": -85
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -20,
+        "elbow": {
+          "at": 8,
+          "angle": -70
+        }
+      },
+      {
+        "construction": "band",
         "angle": -45,
         "elbow": {
           "at": 8,
           "angle": -50
+        }
+      },
+      {
+        "construction": "band",
+        "angle": 25,
+        "elbow": {
+          "at": 8,
+          "angle": -85
+        }
+      },
+      {
+        "construction": "band",
+        "angle": 25,
+        "elbow": {
+          "at": 8,
+          "angle": -85
+        }
+      },
+      {
+        "construction": "band",
+        "angle": 25,
+        "elbow": {
+          "at": 8,
+          "angle": -85
         }
       },
       {
@@ -951,50 +1168,106 @@
       },
       {
         "construction": "band",
-        "angle": -55,
+        "angle": -45,
         "elbow": {
           "at": 8,
-          "angle": -60
+          "angle": 222
         }
       },
       {
         "construction": "band",
-        "angle": 20,
+        "angle": -45,
         "elbow": {
           "at": 8,
-          "angle": -90
+          "angle": 222
         }
       },
       {
         "construction": "band",
-        "angle": 20,
+        "angle": -45,
         "elbow": {
           "at": 8,
-          "angle": -90
+          "angle": 222
         }
       },
       {
         "construction": "band",
-        "angle": -55,
+        "angle": -20,
         "elbow": {
           "at": 8,
-          "angle": -60
+          "angle": -70
         }
       },
       {
         "construction": "band",
-        "angle": 20,
+        "angle": -45,
         "elbow": {
           "at": 8,
-          "angle": -90
+          "angle": -50
         }
       },
       {
         "construction": "band",
-        "angle": 20,
+        "angle": 25,
         "elbow": {
           "at": 8,
-          "angle": -90
+          "angle": -85
+        }
+      },
+      {
+        "construction": "band",
+        "angle": 25,
+        "elbow": {
+          "at": 8,
+          "angle": -85
+        }
+      },
+      {
+        "construction": "band",
+        "angle": 25,
+        "elbow": {
+          "at": 8,
+          "angle": -85
+        }
+      },
+      {
+        "construction": "band",
+        "angle": 25,
+        "elbow": {
+          "at": 8,
+          "angle": -85
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -20,
+        "elbow": {
+          "at": 8,
+          "angle": -70
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -45,
+        "elbow": {
+          "at": 8,
+          "angle": -50
+        }
+      },
+      {
+        "construction": "band",
+        "angle": 25,
+        "elbow": {
+          "at": 8,
+          "angle": -85
+        }
+      },
+      {
+        "construction": "band",
+        "angle": 25,
+        "elbow": {
+          "at": 8,
+          "angle": -85
         }
       },
       {
@@ -1118,6 +1391,19 @@
           "mLLs",
           ".sDs"
         ]
+      },
+      "fingerGun": {
+        "use": "finger gun (Chakra Bullet): index finger pointing along the arm, thumb up, the other fingers curled",
+        "anchor": [
+          0,
+          1
+        ],
+        "rows": [
+          ".Lm....",
+          "LLLLLLm",
+          "LLLms..",
+          "msDs..."
+        ]
       }
     },
     "guardRule": "boxing guard: elbows down in front of the ribs, forearms angled up and forward, fists at chin height with knuckles forward; the lead (far) hand sits further forward"
@@ -1145,6 +1431,13 @@
           -1,
           -1,
           -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
           -1
         ],
         "S": [
@@ -1156,9 +1449,23 @@
           1,
           1,
           1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
           1
         ],
         "N": [
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
           -1,
           -1,
           -1,
@@ -1362,9 +1669,16 @@
         5,
         6,
         7,
-        8
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
       ],
-      "fps": 12,
+      "fps": 10,
       "next": "guard",
       "ability": "Recompose"
     }
@@ -1395,27 +1709,62 @@
       {
         "frame": 4,
         "clip": "recompose",
+        "type": "startup"
+      },
+      {
+        "frame": 5,
+        "clip": "recompose",
+        "type": "startup"
+      },
+      {
+        "frame": 6,
+        "clip": "recompose",
+        "type": "startup"
+      },
+      {
+        "frame": 7,
+        "clip": "recompose",
+        "type": "startup"
+      },
+      {
+        "frame": 8,
+        "clip": "recompose",
+        "type": "startup"
+      },
+      {
+        "frame": 9,
+        "clip": "recompose",
+        "type": "startup"
+      },
+      {
+        "frame": 10,
+        "clip": "recompose",
+        "type": "startup"
+      },
+      {
+        "frame": 11,
+        "clip": "recompose",
+        "type": "startup"
+      },
+      {
+        "frame": 12,
+        "clip": "recompose",
+        "type": "startup"
+      },
+      {
+        "frame": 13,
+        "clip": "recompose",
         "type": "active",
         "move": "Recompose",
         "buff": true
       },
       {
-        "frame": 5,
+        "frame": 14,
         "clip": "recompose",
         "type": "recovery"
       },
       {
-        "frame": 6,
-        "clip": "recompose",
-        "type": "recovery"
-      },
-      {
-        "frame": 7,
-        "clip": "recompose",
-        "type": "recovery"
-      },
-      {
-        "frame": 8,
+        "frame": 15,
         "clip": "recompose",
         "type": "recovery"
       }
@@ -1444,27 +1793,62 @@
       {
         "frame": 4,
         "clip": "recompose",
+        "type": "startup"
+      },
+      {
+        "frame": 5,
+        "clip": "recompose",
+        "type": "startup"
+      },
+      {
+        "frame": 6,
+        "clip": "recompose",
+        "type": "startup"
+      },
+      {
+        "frame": 7,
+        "clip": "recompose",
+        "type": "startup"
+      },
+      {
+        "frame": 8,
+        "clip": "recompose",
+        "type": "startup"
+      },
+      {
+        "frame": 9,
+        "clip": "recompose",
+        "type": "startup"
+      },
+      {
+        "frame": 10,
+        "clip": "recompose",
+        "type": "startup"
+      },
+      {
+        "frame": 11,
+        "clip": "recompose",
+        "type": "startup"
+      },
+      {
+        "frame": 12,
+        "clip": "recompose",
+        "type": "startup"
+      },
+      {
+        "frame": 13,
+        "clip": "recompose",
         "type": "active",
         "move": "Recompose",
         "buff": true
       },
       {
-        "frame": 5,
+        "frame": 14,
         "clip": "recompose",
         "type": "recovery"
       },
       {
-        "frame": 6,
-        "clip": "recompose",
-        "type": "recovery"
-      },
-      {
-        "frame": 7,
-        "clip": "recompose",
-        "type": "recovery"
-      },
-      {
-        "frame": 8,
+        "frame": 15,
         "clip": "recompose",
         "type": "recovery"
       }
@@ -1676,9 +2060,23 @@
         null,
         null,
         null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
         null
       ],
       "S": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
         null,
         null,
         null,
@@ -1704,9 +2102,23 @@
         0,
         0,
         0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
         0
       ],
       "L": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
         0,
         0,
         0,
@@ -1731,9 +2143,23 @@
             "plant",
             "plant",
             "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
             "plant"
           ],
           "L": [
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
             "plant",
             "plant",
             "plant",
@@ -1779,9 +2205,23 @@
             0,
             0,
             0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
             0
           ],
           "L": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
             0,
             0,
             0,
@@ -1817,10 +2257,17 @@
             ],
             "angle": [
               10,
+              -4,
               -8,
               35,
               35,
+              35,
+              35,
+              -4,
               -8,
+              35,
+              35,
+              35,
               35,
               35,
               10,
@@ -1833,6 +2280,10 @@
               },
               {
                 "at": 7,
+                "angle": 15
+              },
+              {
+                "at": 7,
                 "angle": 5
               },
               {
@@ -1845,7 +2296,31 @@
               },
               {
                 "at": 7,
+                "angle": 195
+              },
+              {
+                "at": 7,
+                "angle": 195
+              },
+              {
+                "at": 7,
+                "angle": 15
+              },
+              {
+                "at": 7,
                 "angle": 5
+              },
+              {
+                "at": 7,
+                "angle": 195
+              },
+              {
+                "at": 7,
+                "angle": 195
+              },
+              {
+                "at": 7,
+                "angle": 195
               },
               {
                 "at": 7,
@@ -1866,10 +2341,17 @@
             ],
             "scale": [
               1,
+              0.85,
               0.75,
               0.85,
               0.85,
+              0.85,
+              0.85,
+              0.85,
               0.75,
+              0.85,
+              0.85,
+              0.85,
               0.85,
               0.85,
               1,
@@ -1884,10 +2366,24 @@
               "up",
               "up",
               "up",
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
               "up"
             ],
             "z": 4,
             "pivotDx": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
               0,
               0,
               0,
@@ -1906,9 +2402,16 @@
             ],
             "angle": [
               -10,
+              -10,
+              -10,
+              -10,
+              4,
               8,
               -35,
               -35,
+              -35,
+              -35,
+              4,
               8,
               -35,
               -35,
@@ -1922,6 +2425,22 @@
               },
               {
                 "at": 7,
+                "angle": 168
+              },
+              {
+                "at": 7,
+                "angle": 168
+              },
+              {
+                "at": 7,
+                "angle": 168
+              },
+              {
+                "at": 7,
+                "angle": -15
+              },
+              {
+                "at": 7,
                 "angle": -5
               },
               {
@@ -1931,6 +2450,18 @@
               {
                 "at": 7,
                 "angle": -195
+              },
+              {
+                "at": 7,
+                "angle": -195
+              },
+              {
+                "at": 7,
+                "angle": -195
+              },
+              {
+                "at": 7,
+                "angle": -15
               },
               {
                 "at": 7,
@@ -1955,7 +2486,14 @@
             ],
             "scale": [
               1,
+              1,
+              1,
+              1,
+              0.85,
               0.75,
+              0.85,
+              0.85,
+              0.85,
               0.85,
               0.85,
               0.75,
@@ -1973,10 +2511,24 @@
               "up",
               "up",
               "up",
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
               "up"
             ],
             "z": 4,
             "pivotDx": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
               0,
               0,
               0,
@@ -2001,6 +2553,13 @@
             0,
             0,
             0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
             0
           ],
           "shoulders": [
@@ -2012,9 +2571,23 @@
             0,
             0,
             0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
             0
           ],
           "head": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
             0,
             0,
             0,
@@ -2037,9 +2610,23 @@
             0,
             0,
             0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
             0
           ],
           "L": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
             0,
             0,
             0,
@@ -2061,9 +2648,23 @@
             0,
             0,
             0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
             0
           ],
           "L": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
             0,
             0,
             0,
@@ -2089,7 +2690,14 @@
           "5": [],
           "6": [],
           "7": [],
-          "8": []
+          "8": [],
+          "9": [],
+          "10": [],
+          "11": [],
+          "12": [],
+          "13": [],
+          "14": [],
+          "15": []
         }
       },
       "N": {
@@ -2103,9 +2711,23 @@
             "plant",
             "plant",
             "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
             "plant"
           ],
           "L": [
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
             "plant",
             "plant",
             "plant",
@@ -2151,9 +2773,23 @@
             0,
             0,
             0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
             0
           ],
           "L": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
             0,
             0,
             0,
@@ -2189,10 +2825,17 @@
             ],
             "angle": [
               -12,
+              4,
               8,
               -35,
               -35,
+              -35,
+              -35,
+              4,
               8,
+              -35,
+              -35,
+              -35,
               -35,
               -35,
               -12,
@@ -2202,6 +2845,10 @@
               null,
               {
                 "at": 7,
+                "angle": -15
+              },
+              {
+                "at": 7,
                 "angle": -5
               },
               {
@@ -2214,7 +2861,31 @@
               },
               {
                 "at": 7,
+                "angle": 165
+              },
+              {
+                "at": 7,
+                "angle": 165
+              },
+              {
+                "at": 7,
+                "angle": -15
+              },
+              {
+                "at": 7,
                 "angle": -5
+              },
+              {
+                "at": 7,
+                "angle": 165
+              },
+              {
+                "at": 7,
+                "angle": 165
+              },
+              {
+                "at": 7,
+                "angle": 165
               },
               {
                 "at": 7,
@@ -2229,16 +2900,30 @@
             ],
             "scale": [
               1,
+              0.85,
               0.75,
               0.85,
               0.85,
+              0.85,
+              0.85,
+              0.85,
               0.75,
+              0.85,
+              0.85,
+              0.85,
               0.85,
               0.85,
               1,
               1
             ],
             "fist": [
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
               "up",
               "up",
               "up",
@@ -2258,10 +2943,24 @@
               null,
               null,
               null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
               7,
               7
             ],
             "pivotDx": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
               0,
               0,
               0,
@@ -2280,9 +2979,16 @@
             ],
             "angle": [
               12,
+              10,
+              10,
+              10,
+              -4,
               -8,
               35,
               35,
+              35,
+              35,
+              -4,
               -8,
               35,
               35,
@@ -2291,6 +2997,22 @@
             ],
             "elbow": [
               null,
+              {
+                "at": 7,
+                "angle": -168
+              },
+              {
+                "at": 7,
+                "angle": -168
+              },
+              {
+                "at": 7,
+                "angle": -168
+              },
+              {
+                "at": 7,
+                "angle": 15
+              },
               {
                 "at": 7,
                 "angle": 5
@@ -2302,6 +3024,18 @@
               {
                 "at": 7,
                 "angle": -165
+              },
+              {
+                "at": 7,
+                "angle": -165
+              },
+              {
+                "at": 7,
+                "angle": -165
+              },
+              {
+                "at": 7,
+                "angle": 15
               },
               {
                 "at": 7,
@@ -2320,7 +3054,14 @@
             ],
             "scale": [
               1,
+              1,
+              1,
+              1,
+              0.85,
               0.75,
+              0.85,
+              0.85,
+              0.85,
               0.85,
               0.85,
               0.75,
@@ -2330,6 +3071,13 @@
               1
             ],
             "fist": [
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
               "up",
               "up",
               "up",
@@ -2349,10 +3097,24 @@
               null,
               null,
               null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
               7,
               7
             ],
             "pivotDx": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
               0,
               0,
               0,
@@ -2377,6 +3139,13 @@
             0,
             0,
             0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
             0
           ],
           "shoulders": [
@@ -2388,9 +3157,23 @@
             0,
             0,
             0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
             0
           ],
           "head": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
             0,
             0,
             0,
@@ -2413,9 +3196,23 @@
             0,
             0,
             0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
             0
           ],
           "L": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
             0,
             0,
             0,
@@ -2437,9 +3234,23 @@
             0,
             0,
             0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
             0
           ],
           "L": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
             0,
             0,
             0,
@@ -2465,7 +3276,14 @@
           "5": [],
           "6": [],
           "7": [],
-          "8": []
+          "8": [],
+          "9": [],
+          "10": [],
+          "11": [],
+          "12": [],
+          "13": [],
+          "14": [],
+          "15": []
         }
       }
     },

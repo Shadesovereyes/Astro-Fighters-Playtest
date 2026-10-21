@@ -76,12 +76,24 @@ OUT = dict(R=(4, 195, 0.7, 'up'), L=(-4, -195, 0.7, 'up'))             # breath 
 PUMP = dict(R=(-8, 5, 0.75, 'up'), L=(8, -5, 0.75, 'up'))           # fists pushed down and forward, at the viewer
 RACK = dict(R=(35, 195, 0.85, 'up'), L=(-35, -195, 0.85, 'up'))    # racked back: elbows out behind the ribs, fists up by the chest
 SN.update({'catchBreath': {1: REST, 2: REST, 3: REST, 4: REST, 5: OUT, 6: OUT, 7: REST, 8: REST, 9: OUT},
-           'recompose': {1: PUMP, 2: RACK, 3: RACK, 4: PUMP, 5: RACK, 6: RACK}})
+           'recompose': {}})
+# Recompose v4 (Christopher 2026-10-21: one arm after the other, over more frames): per arm (R near, L far in S) mid, push, rack
+RC = {'mid': (-4, 15, 0.85, 'up'), 'push': PUMP['R'], 'rack': RACK['R'], 'guard': stances.GA['R']}
+RCL = lambda k: (-RC[k][0], -RC[k][1], *RC[k][2:]) if k != 'guard' else stances.GA['L']
+for k, (n, f) in enumerate([(None, None)] + [x for r in range(2) for x in (('mid', 'guard' if r == 0 else 'rack'), ('push', 'guard' if r == 0 else 'rack'), ('rack', 'guard' if r == 0 else 'rack'),
+                                                                     ('rack', 'mid'), ('rack', 'push'), ('rack', 'rack'))] + [('rack', 'rack')]):
+    if n: SN['recompose'][k] = dict(R=RC[n], L=RCL(f))
 CLOSED_S = [[0, 1, '#70241d'], [1, 1, '#70241d'], [5, 1, '#70241d'], [6, 1, '#70241d'], [0, 2, '#000000'], [1, 2, '#000000'], [5, 2, '#000000'], [6, 2, '#000000']]   # both lids shut, lash line below
-SN_APPROVED = {}
+SN_APPROVED = {'catchBreath': 'S/N approved by user 2026-10-21 (v1, c70e4d7)'}
+
+SNAP = '/tmp/universal_sn_ew/'   # the E/W sheets as they were before the S/N render (a freshly rebuilt E/W clip is not in HEAD yet)
 
 def sn(state):
-    spec = json.loads(subprocess.check_output(['git', '-C', R, 'show', 'HEAD:' + os.path.relpath(D + state + '.json', R)]))
+    import shutil
+    cur = load(D + state + '.json')   # a freshly rebuilt E/W spec (no frontal) is the base; otherwise the committed one, so reruns start clean
+    spec = cur if 'frontal' not in cur else json.loads(subprocess.check_output(['git', '-C', R, 'show', 'HEAD:' + os.path.relpath(D + state + '.json', R)]))
+    snap = SNAP + state + '/'; shutil.rmtree(snap, ignore_errors=True)
+    if 'frontal' not in cur: shutil.copytree(D + state, snap, ignore=lambda d_, fs: [f for f in fs if not f.endswith('.png')])
     spec = stances.frontal('guard', spec); fr = spec['frontal']; F = spec['frames']
     hb = spec['bob'].get('head') or spec['bob']['dy']
     if min(hb) < 0:   # a head lifted above the guard height (the breath in) would leave the frame at the afro's top row: it stays at row 0
@@ -108,7 +120,7 @@ def sn(state):
             if 'S' in sh and n in spec['expressions']['shapes']: spec['expressions']['shapes'][n].setdefault('S', copy.deepcopy(sh['S']))
         if 'closed' in spec['expressions']['shapes']: spec['expressions']['shapes']['closed'].setdefault('S', copy.deepcopy(CLOSED_S))
         ex = spec['expressions']['frames']['E']; spec['expressions']['frames']['S'] = [x if x in spec['expressions']['shapes'] and 'S' in spec['expressions']['shapes'][x] else None for x in ex]
-    spec['status'] = spec['status'].replace('S/N to author', SN_APPROVED.get(state, 'S/N CANDIDATE 2026-10-21 (v1)'))
+    spec['status'] = spec['status'].replace('S/N to author after approval', 'S/N to author').replace('S/N to author', SN_APPROVED.get(state, 'S/N CANDIDATE 2026-10-21 (v1)'))
     save(spec, D + state + '.json'); print(state, 'S/N', F, 'frames')
 
 def hand(spec, d, k, img):
@@ -164,8 +176,22 @@ def fx(state):
         out.save(d + fn)
     print(state, 'S/N fx', [f for f, _ in files])
 
+def restore(state):
+    """the E/W pixels back into rows E and W: from the pre-render snapshot when sn() started from a fresh E/W spec, else from HEAD"""
+    from PIL import Image
+    snap = SNAP + state + '/'
+    if not os.path.isdir(snap): return strikes_sn.restore(state)
+    d = D + state + '/'
+    for f in sorted(os.listdir(snap)):
+        old = Image.open(snap + f).convert('RGBA'); new = Image.open(d + f).convert('RGBA') if os.path.exists(d + f) else Image.new('RGBA', (old.width, 256))
+        if new.height < 256: new = Image.new('RGBA', (old.width, 256))
+        for row, nrow in (((0, 1), (1, 3)) if old.height < 256 else ((1, 1), (3, 3))):
+            new.paste(Image.new('RGBA', (new.width, 64)), (0, nrow * 64)); new.paste(old.crop((0, row * 64, old.width, row * 64 + 64)), (0, nrow * 64))
+        new.save(d + f)
+    print(state, 'E/W restored from the pre-render snapshot')
+
 if __name__ == '__main__':
     args = [a for a in sys.argv[1:] if not a.startswith('--')] or list(SN)
     for s in args:
-        if '--restore' in sys.argv: strikes_sn.restore(s); fx(s)
+        if '--restore' in sys.argv: restore(s); fx(s)
         else: sn(s)

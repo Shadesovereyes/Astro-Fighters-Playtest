@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "catchBreath",
-  "status": "CANDIDATE 2026-10-20 (E/W; W mirrors E; S/N CANDIDATE 2026-10-21 (v1) after approval)",
+  "status": "E/W approved by user 2026-10-21 (v2, two slow deep breaths; W mirrors E); S/N approved by user 2026-10-21 (v1, c70e4d7)",
   "frames": 11,
   "fps": 5,
   "sourceDirection": "E",
@@ -1195,6 +1195,19 @@
           "LLLm",
           "mLLs",
           ".sDs"
+        ]
+      },
+      "fingerGun": {
+        "use": "finger gun (Chakra Bullet): index finger pointing along the arm, thumb up, the other fingers curled",
+        "anchor": [
+          0,
+          1
+        ],
+        "rows": [
+          ".Lm....",
+          "LLLLLLm",
+          "LLLms..",
+          "msDs..."
         ]
       }
     },
