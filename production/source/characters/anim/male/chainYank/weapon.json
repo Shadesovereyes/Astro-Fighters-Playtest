@@ -15,7 +15,9 @@
     95
   ],
   "rows": [
+    "S",
     "E",
+    "N",
     "W"
   ],
   "frames": 7,
@@ -27,10 +29,42 @@
       "default": true,
       "hand": "arms",
       "layers": {
-        "front": "main-kama-front.png"
+        "behind": "main-kama-behind.png",
+        "front": "main-kama-front.png",
+        "top": "main-kama-top.png"
       },
       "status": "E/W approved by user 2026-10-19 (Chain Yank); S/N to author",
       "z": {
+        "S": [
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          }
+        ],
         "E": [
           "front",
           "front",
@@ -39,6 +73,15 @@
           "front",
           "front",
           "front"
+        ],
+        "N": [
+          "behind",
+          "behind",
+          "behind",
+          "behind",
+          "behind",
+          "behind",
+          "behind"
         ],
         "W": [
           "front",
@@ -51,6 +94,36 @@
         ]
       },
       "grips": {
+        "S": [
+          [
+            24,
+            35
+          ],
+          [
+            23,
+            36
+          ],
+          [
+            26,
+            36
+          ],
+          [
+            27,
+            36
+          ],
+          [
+            27,
+            36
+          ],
+          [
+            25,
+            35
+          ],
+          [
+            24,
+            35
+          ]
+        ],
         "E": [
           [
             41,
@@ -79,6 +152,36 @@
           [
             41,
             36
+          ]
+        ],
+        "N": [
+          [
+            37,
+            41
+          ],
+          [
+            38,
+            42
+          ],
+          [
+            36,
+            42
+          ],
+          [
+            36,
+            42
+          ],
+          [
+            36,
+            42
+          ],
+          [
+            37,
+            41
+          ],
+          [
+            37,
+            41
           ]
         ],
         "W": [
@@ -116,6 +219,13 @@
   ],
   "qc": {
     "gripOnFist": {
+      "main/kama S:0": true,
+      "main/kama S:1": true,
+      "main/kama S:2": true,
+      "main/kama S:3": true,
+      "main/kama S:4": true,
+      "main/kama S:5": true,
+      "main/kama S:6": true,
       "main/kama E:0": true,
       "main/kama E:1": true,
       "main/kama E:2": true,
@@ -123,6 +233,13 @@
       "main/kama E:4": true,
       "main/kama E:5": true,
       "main/kama E:6": true,
+      "main/kama N:0": "hidden",
+      "main/kama N:1": "hidden",
+      "main/kama N:2": "hidden",
+      "main/kama N:3": "hidden",
+      "main/kama N:4": "hidden",
+      "main/kama N:5": "hidden",
+      "main/kama N:6": "hidden",
       "main/kama W:0": true,
       "main/kama W:1": true,
       "main/kama W:2": true,

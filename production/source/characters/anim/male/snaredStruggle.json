@@ -2,12 +2,14 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "snaredStruggle",
-  "status": "E/W approved by user 2026-10-19 (Struggle, failed); S/N to author",
+  "status": "E/W approved by user 2026-10-19 (Struggle, failed); S/N CANDIDATE 2026-10-21 (v1)",
   "frames": 7,
   "fps": 12,
   "sourceDirection": "E",
   "directions": [
+    "S",
     "E",
+    "N",
     "W"
   ],
   "mirror": {
@@ -173,6 +175,66 @@
       ]
     ],
     "W": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "S": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "N": [
       [
         0,
         0
@@ -929,6 +991,124 @@
           28
         ]
       }
+    ],
+    "S": [
+      {
+        "frame": 0,
+        "type": "startup",
+        "coil": [
+          32,
+          27
+        ]
+      },
+      {
+        "frame": 1,
+        "type": "startup",
+        "coil": [
+          34,
+          28
+        ]
+      },
+      {
+        "frame": 2,
+        "type": "active",
+        "move": "struggle",
+        "coil": [
+          34,
+          29
+        ]
+      },
+      {
+        "frame": 3,
+        "type": "recovery",
+        "coil": [
+          30,
+          28
+        ]
+      },
+      {
+        "frame": 4,
+        "type": "recovery",
+        "coil": [
+          30,
+          28
+        ]
+      },
+      {
+        "frame": 5,
+        "type": "recovery",
+        "coil": [
+          32,
+          27
+        ]
+      },
+      {
+        "frame": 6,
+        "type": "recovery",
+        "coil": [
+          32,
+          28
+        ]
+      }
+    ],
+    "N": [
+      {
+        "frame": 0,
+        "type": "startup",
+        "coil": [
+          32,
+          27
+        ]
+      },
+      {
+        "frame": 1,
+        "type": "startup",
+        "coil": [
+          30,
+          28
+        ]
+      },
+      {
+        "frame": 2,
+        "type": "active",
+        "move": "struggle",
+        "coil": [
+          30,
+          29
+        ]
+      },
+      {
+        "frame": 3,
+        "type": "recovery",
+        "coil": [
+          34,
+          28
+        ]
+      },
+      {
+        "frame": 4,
+        "type": "recovery",
+        "coil": [
+          34,
+          28
+        ]
+      },
+      {
+        "frame": 5,
+        "type": "recovery",
+        "coil": [
+          32,
+          27
+        ]
+      },
+      {
+        "frame": 6,
+        "type": "recovery",
+        "coil": [
+          32,
+          28
+        ]
+      }
     ]
   },
   "fx": {
@@ -1177,8 +1357,658 @@
         "pain",
         "squint",
         "squint"
+      ],
+      "S": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "N": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
       ]
     },
     "intent": "eyes squeezed shut with the brow pulled down on the impact frames 0-2 (no mouth: user 2026-10-14), a squint on frame 3, open again from frame 4 (user 2026-10-14)"
+  },
+  "frontal": {
+    "rule": "S and N are built from their reference frames: legs keep their rows (every leg drops the frame's bob rows so the feet stay down); the arms are authored band arms from each shoulder (bent guard arms with the fists up at the chin; a punch toward or away from the viewer is a short, foreshortened straight arm). In S the arms are in front of the body; in N they are behind it.",
+    "legLift": {
+      "R": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "L": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "legLiftRule": "not used (named leg poses)",
+    "views": {
+      "S": {
+        "legPose": {
+          "R": [
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant"
+          ],
+          "L": [
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant"
+          ]
+        },
+        "legPoseRows": {
+          "plant": []
+        },
+        "bobRows": [
+          59,
+          45,
+          58,
+          47
+        ],
+        "legRows": {
+          "R": [
+            41
+          ],
+          "L": [
+            41
+          ]
+        },
+        "legRepeatRows": {
+          "R": [
+            41
+          ],
+          "L": [
+            41
+          ]
+        },
+        "handDy": {
+          "R": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "L": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "armRows": {
+          "R": [
+            35
+          ],
+          "L": [
+            35
+          ]
+        },
+        "armRepeatRows": {
+          "R": [
+            35
+          ],
+          "L": [
+            35
+          ]
+        },
+        "armBand": {
+          "R": {
+            "pivot": [
+              25,
+              24
+            ],
+            "angle": [
+              3,
+              9,
+              11,
+              5,
+              6,
+              3,
+              3
+            ],
+            "elbow": [
+              {
+                "at": 7,
+                "angle": 357,
+                "fistDy": 2
+              },
+              {
+                "at": 7,
+                "angle": 350,
+                "fistDy": 2
+              },
+              {
+                "at": 7,
+                "angle": 348,
+                "fistDy": 2
+              },
+              {
+                "at": 7,
+                "angle": 355,
+                "fistDy": 2
+              },
+              {
+                "at": 7,
+                "angle": 354,
+                "fistDy": 2
+              },
+              {
+                "at": 7,
+                "angle": 357,
+                "fistDy": 2
+              },
+              {
+                "at": 7,
+                "angle": 357,
+                "fistDy": 2
+              }
+            ],
+            "scale": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "fist": [
+              "front",
+              "front",
+              "front",
+              "front",
+              "front",
+              "front",
+              "front"
+            ],
+            "z": 4,
+            "pivotDx": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "L": {
+            "pivot": [
+              38,
+              24
+            ],
+            "angle": [
+              -3,
+              -5,
+              -6,
+              -9,
+              -11,
+              -3,
+              -3
+            ],
+            "elbow": [
+              {
+                "at": 7,
+                "angle": 3,
+                "fistDy": 2
+              },
+              {
+                "at": 7,
+                "angle": 5,
+                "fistDy": 2
+              },
+              {
+                "at": 7,
+                "angle": 6,
+                "fistDy": 2
+              },
+              {
+                "at": 7,
+                "angle": 10,
+                "fistDy": 2
+              },
+              {
+                "at": 7,
+                "angle": 12,
+                "fistDy": 2
+              },
+              {
+                "at": 7,
+                "angle": 3,
+                "fistDy": 2
+              },
+              {
+                "at": 7,
+                "angle": 3,
+                "fistDy": 2
+              }
+            ],
+            "scale": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "fist": [
+              "front",
+              "front",
+              "front",
+              "front",
+              "front",
+              "front",
+              "front"
+            ],
+            "z": 4,
+            "pivotDx": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "headDy": -1,
+        "armRule": "guard seen from the front: elbows down at the sides, forearms nearly upright, the fists in front of each shoulder at the top of the chest, just below where the long hair hangs (the hair layer draws over the arms); a punch toward the viewer is a short straight arm (50% length) bringing the fist in front of the chest centre; on the jab and cross the punching arm points at the viewer: the arm crosses in front of the chest at shoulder height (45%) to a knuckles-on fist (fistFront) just off the chest centre, outlined over the body",
+        "twist": {
+          "pelvis": [
+            0,
+            1,
+            1,
+            -1,
+            -1,
+            0,
+            0
+          ],
+          "shoulders": [
+            0,
+            2,
+            2,
+            -2,
+            -2,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            1,
+            1,
+            -1,
+            -1,
+            0,
+            0
+          ]
+        },
+        "twistRule": "the body rotates into each punch: hips, shoulders and head shift sideways (shoulders most, torso sheared between hips and shoulders), toward the punching side's centre on the jab and further on the cross; the legs swing from the hip to the planted feet with the hips (hipDx), and the punching shoulder moves 1 px further in",
+        "hipDx": {
+          "R": [
+            0,
+            1,
+            1,
+            -1,
+            -1,
+            0,
+            0
+          ],
+          "L": [
+            0,
+            1,
+            1,
+            -1,
+            -1,
+            0,
+            0
+          ]
+        },
+        "footDx": {
+          "R": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "L": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "legPivot": 39,
+        "footFrom": {
+          "R": 56,
+          "L": 56
+        }
+      },
+      "N": {
+        "legPose": {
+          "R": [
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant"
+          ],
+          "L": [
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant"
+          ]
+        },
+        "legPoseRows": {
+          "plant": []
+        },
+        "bobRows": [
+          54,
+          46,
+          53,
+          47
+        ],
+        "legRows": {
+          "R": [
+            50
+          ],
+          "L": [
+            50
+          ]
+        },
+        "legRepeatRows": {
+          "R": [
+            50
+          ],
+          "L": [
+            50
+          ]
+        },
+        "handDy": {
+          "R": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "L": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "armRows": {
+          "R": [
+            35
+          ],
+          "L": [
+            35
+          ]
+        },
+        "armRepeatRows": {
+          "R": [
+            35
+          ],
+          "L": [
+            35
+          ]
+        },
+        "armBand": {
+          "R": {
+            "pivot": [
+              39,
+              24
+            ],
+            "angle": [
+              -3,
+              -9,
+              -11,
+              -5,
+              -6,
+              -3,
+              -3
+            ],
+            "elbow": [
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null
+            ],
+            "scale": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "fist": [
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
+              "up"
+            ],
+            "z": -1,
+            "showTo": [
+              7,
+              7,
+              7,
+              7,
+              7,
+              7,
+              7
+            ],
+            "pivotDx": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "L": {
+            "pivot": [
+              24,
+              24
+            ],
+            "angle": [
+              3,
+              5,
+              6,
+              9,
+              11,
+              3,
+              3
+            ],
+            "elbow": [
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null
+            ],
+            "scale": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "fist": [
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
+              "up"
+            ],
+            "z": -1,
+            "showTo": [
+              7,
+              7,
+              7,
+              7,
+              7,
+              7,
+              7
+            ],
+            "pivotDx": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "headDy": -1,
+        "armRule": "from behind the forearms, wrists and fists are in front of the body: only the shoulders and upper arms show (straight band arms cut at 7 px, showTo), hanging slightly out in guard, swinging in when that arm punches away from the viewer",
+        "twist": {
+          "pelvis": [
+            0,
+            -1,
+            -1,
+            1,
+            1,
+            0,
+            0
+          ],
+          "shoulders": [
+            0,
+            -2,
+            -2,
+            2,
+            2,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            -1,
+            -1,
+            1,
+            1,
+            0,
+            0
+          ]
+        },
+        "twistRule": "the body rotates into each punch: hips, shoulders and head shift sideways (shoulders most, torso sheared between hips and shoulders), toward the punching side's centre on the jab and further on the cross; the legs swing from the hip to the planted feet with the hips (hipDx), and the punching shoulder moves 1 px further in",
+        "hipDx": {
+          "R": [
+            0,
+            -1,
+            -1,
+            1,
+            1,
+            0,
+            0
+          ],
+          "L": [
+            0,
+            -1,
+            -1,
+            1,
+            1,
+            0,
+            0
+          ]
+        },
+        "footDx": {
+          "R": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "L": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "legPivot": 39,
+        "footFrom": {
+          "R": 56,
+          "L": 56
+        }
+      }
+    }
   }
 }
