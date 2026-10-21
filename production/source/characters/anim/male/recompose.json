@@ -4,7 +4,7 @@
   "state": "recompose",
   "status": "CANDIDATE 2026-10-20 (E/W; W mirrors E; S/N to author after approval)",
   "frames": 9,
-  "fps": 10,
+  "fps": 12,
   "sourceDirection": "E",
   "directions": [
     "E",
@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Recompose (free focus action, recover poise, steady the guard): from the guard the fighter lets both arms drop loose and shakes them out, rolls the shoulders and stands tall on a deep breath in, then brings both hands back up and snaps into a tight guard with a sharp exhale; a thin white/neutral pulse marks the reset, then the guard settles.",
+  "intent": "Recompose (free focus action, recover poise; Christopher 2026-10-21: like Henry Cavill's arm \"reload\"): from the guard the fighter pushes both fists down and forward, then racks them back hard, elbows driving back past the ribs and the shoulders popping up, like pumping a shotgun; does it twice, then snaps back into a tight guard with a thin white pulse.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -93,31 +93,31 @@
       1,
       1,
       1,
-      0,
       1,
-      2,
+      1,
+      1,
       2,
       1
     ],
     "head": [
       1,
-      2,
       1,
-      2,
+      0,
       0,
       1,
-      2,
+      0,
+      0,
       2,
       1
     ],
     "arms": [
       2,
-      3,
-      1,
-      3,
-      0,
-      1,
       2,
+      -1,
+      0,
+      2,
+      -1,
+      0,
       2,
       2
     ]
@@ -139,12 +139,12 @@
       ],
       "head": [
         2,
-        1,
-        1,
-        1,
+        2,
         0,
-        1,
-        3,
+        0,
+        2,
+        0,
+        0,
         3,
         2
       ]
@@ -657,6 +657,28 @@
         "footX": 35,
         "wrapRow": 56,
         "foot": "flat"
+      },
+      {
+        "name": "duel-lead",
+        "construction": "band",
+        "hipX": 32,
+        "hipRow": 42,
+        "kneeX": 34,
+        "kneeRow": 50,
+        "footX": 35,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "duel-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 42,
+        "kneeX": 30,
+        "kneeRow": 50,
+        "footX": 28,
+        "wrapRow": 56,
+        "foot": "flat"
       }
     ],
     "near": [
@@ -666,7 +688,7 @@
       1,
       1,
       1,
-      3,
+      1,
       3,
       1
     ],
@@ -677,7 +699,7 @@
       0,
       0,
       0,
-      2,
+      0,
       2,
       0
     ]
@@ -708,51 +730,50 @@
       },
       {
         "construction": "band",
-        "angle": 6,
+        "angle": -45,
         "elbow": {
           "at": 8,
-          "angle": -20
+          "angle": -50
         }
       },
       {
         "construction": "band",
-        "angle": 10,
+        "angle": 25,
         "elbow": {
           "at": 8,
-          "angle": -10
+          "angle": -85
         }
       },
       {
         "construction": "band",
-        "angle": 2,
+        "angle": 25,
         "elbow": {
           "at": 8,
-          "angle": -30
+          "angle": -85
         }
       },
       {
         "construction": "band",
-        "angle": 4,
+        "angle": -45,
         "elbow": {
           "at": 8,
-          "angle": -15
+          "angle": -50
         }
       },
       {
         "construction": "band",
-        "angle": -30,
+        "angle": 25,
         "elbow": {
           "at": 8,
-          "angle": -110
-        },
-        "fistKind": "palm"
+          "angle": -85
+        }
       },
       {
         "construction": "band",
-        "angle": -20,
+        "angle": 25,
         "elbow": {
           "at": 8,
-          "angle": 212
+          "angle": -85
         }
       },
       {
@@ -783,51 +804,50 @@
       },
       {
         "construction": "band",
-        "angle": 0,
+        "angle": -55,
         "elbow": {
           "at": 8,
-          "angle": -25
+          "angle": -60
         }
       },
       {
         "construction": "band",
-        "angle": 4,
+        "angle": 20,
         "elbow": {
           "at": 8,
-          "angle": -15
+          "angle": -90
         }
       },
       {
         "construction": "band",
-        "angle": -4,
+        "angle": 20,
         "elbow": {
           "at": 8,
-          "angle": -35
+          "angle": -90
         }
       },
       {
         "construction": "band",
-        "angle": -2,
+        "angle": -55,
         "elbow": {
           "at": 8,
-          "angle": -20
+          "angle": -60
         }
       },
       {
         "construction": "band",
-        "angle": -45,
+        "angle": 20,
         "elbow": {
           "at": 8,
-          "angle": -120
-        },
-        "fistKind": "palm"
+          "angle": -90
+        }
       },
       {
         "construction": "band",
-        "angle": -45,
+        "angle": 20,
         "elbow": {
           "at": 8,
-          "angle": 222
+          "angle": -90
         }
       },
       {
@@ -1193,7 +1213,7 @@
         7,
         8
       ],
-      "fps": 10,
+      "fps": 12,
       "next": "guard",
       "ability": "Recompose"
     }
@@ -1224,19 +1244,19 @@
       {
         "frame": 4,
         "clip": "recompose",
-        "type": "startup"
+        "type": "active",
+        "move": "Recompose",
+        "buff": true
       },
       {
         "frame": 5,
         "clip": "recompose",
-        "type": "startup"
+        "type": "recovery"
       },
       {
         "frame": 6,
         "clip": "recompose",
-        "type": "active",
-        "move": "Recompose",
-        "buff": true
+        "type": "recovery"
       },
       {
         "frame": 7,
@@ -1273,19 +1293,19 @@
       {
         "frame": 4,
         "clip": "recompose",
-        "type": "startup"
+        "type": "active",
+        "move": "Recompose",
+        "buff": true
       },
       {
         "frame": 5,
         "clip": "recompose",
-        "type": "startup"
+        "type": "recovery"
       },
       {
         "frame": 6,
         "clip": "recompose",
-        "type": "active",
-        "move": "Recompose",
-        "buff": true
+        "type": "recovery"
       },
       {
         "frame": 7,
@@ -1427,6 +1447,30 @@
             "#000000"
           ]
         ]
+      },
+      "closed": {
+        "E": [
+          [
+            0,
+            1,
+            "#70241d"
+          ],
+          [
+            1,
+            1,
+            "#70241d"
+          ],
+          [
+            0,
+            2,
+            "#000000"
+          ],
+          [
+            1,
+            2,
+            "#000000"
+          ]
+        ]
       }
     },
     "frames": {
@@ -1435,7 +1479,7 @@
         null,
         null,
         null,
-        "squint",
+        null,
         null,
         null,
         null,

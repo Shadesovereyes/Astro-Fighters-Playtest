@@ -3,7 +3,7 @@
   "body": "male",
   "state": "chakraDrain",
   "status": "CANDIDATE 2026-10-20 (E/W; W mirrors E; S/N to author after approval)",
-  "frames": 8,
+  "frames": 9,
   "fps": 10,
   "sourceDirection": "E",
   "directions": [
@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Chakra Drain (melee debuff, steals chakra): from the guard the fighter steps in and drives the rear open hand onto the target at chest height and holds it there, fingers spread, as white/neutral wisps of chakra stream back along the arm into the fighter; then pulls the hand back into the guard.",
+  "intent": "Chakra Drain (debuff, steals chakra; Christopher 2026-10-21: plays like a short grapple, the chakra aura leaving the target in the chakra bar blue): the fighter steps in and grabs the target in a collar tie, both hands on the neck and shoulder, pulls them in and holds while wisps of chakra-blue light stream off the target into the gripping hands; then shoves them off and steps back into the guard. Pairs with chakraDrained on the target.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -92,8 +92,9 @@
       1,
       1,
       1,
-      1,
-      1,
+      2,
+      2,
+      2,
       1,
       1,
       1
@@ -102,8 +103,9 @@
       1,
       1,
       1,
-      1,
-      1,
+      2,
+      2,
+      2,
       1,
       1,
       1
@@ -112,8 +114,9 @@
       2,
       1,
       1,
-      1,
-      1,
+      2,
+      2,
+      2,
       1,
       2,
       2
@@ -130,38 +133,36 @@
         1,
         1,
         1,
+        1,
         0,
         0
       ],
       "head": [
         2,
         3,
-        5,
-        5,
-        5,
-        5,
+        4,
         3,
+        3,
+        3,
+        5,
+        2,
         2
       ]
     }
   },
   "rootMotion": {
-    "rule": "E: x +1, +1 stepping in, back -1, -1",
+    "rule": "E: x +4, +4 stepping in to the tie, back -4, -4",
     "E": [
       [
         0,
         0
       ],
       [
-        1,
+        4,
         0
       ],
       [
-        1,
-        0
-      ],
-      [
-        0,
+        4,
         0
       ],
       [
@@ -173,11 +174,19 @@
         0
       ],
       [
-        -1,
+        0,
         0
       ],
       [
-        -1,
+        0,
+        0
+      ],
+      [
+        -4,
+        0
+      ],
+      [
+        -4,
         0
       ]
     ],
@@ -187,15 +196,11 @@
         0
       ],
       [
-        -1,
+        -4,
         0
       ],
       [
-        -1,
-        0
-      ],
-      [
-        0,
+        -4,
         0
       ],
       [
@@ -207,11 +212,19 @@
         0
       ],
       [
-        1,
+        0,
         0
       ],
       [
-        1,
+        0,
+        0
+      ],
+      [
+        4,
+        0
+      ],
+      [
+        4,
         0
       ]
     ]
@@ -644,14 +657,37 @@
         "footX": 35,
         "wrapRow": 56,
         "foot": "flat"
+      },
+      {
+        "name": "duel-lead",
+        "construction": "band",
+        "hipX": 32,
+        "hipRow": 42,
+        "kneeX": 34,
+        "kneeRow": 50,
+        "footX": 35,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "duel-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 42,
+        "kneeX": 30,
+        "kneeRow": 50,
+        "footX": 28,
+        "wrapRow": 56,
+        "foot": "flat"
       }
     ],
     "near": [
       1,
       1,
       1,
-      1,
-      1,
+      3,
+      3,
+      3,
       1,
       1,
       1
@@ -660,8 +696,9 @@
       0,
       0,
       0,
-      0,
-      0,
+      2,
+      2,
+      2,
       0,
       0,
       0
@@ -693,7 +730,16 @@
       },
       {
         "construction": "band",
-        "angle": -60,
+        "angle": -70,
+        "elbow": {
+          "at": 8,
+          "angle": -100
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": -80,
         "elbow": {
           "at": 8,
           "angle": -80
@@ -702,28 +748,28 @@
       },
       {
         "construction": "band",
-        "angle": -88,
+        "angle": -72,
         "elbow": {
           "at": 8,
-          "angle": -88
+          "angle": -95
         },
         "fistKind": "palm"
       },
       {
         "construction": "band",
-        "angle": -88,
+        "angle": -72,
         "elbow": {
           "at": 8,
-          "angle": -88
+          "angle": -95
         },
         "fistKind": "palm"
       },
       {
         "construction": "band",
-        "angle": -88,
+        "angle": -72,
         "elbow": {
           "at": 8,
-          "angle": -88
+          "angle": -95
         },
         "fistKind": "palm"
       },
@@ -764,43 +810,57 @@
       },
       {
         "construction": "band",
-        "angle": -45,
+        "angle": -75,
         "elbow": {
           "at": 8,
-          "angle": 222
-        }
+          "angle": -105
+        },
+        "fistKind": "palm"
       },
       {
         "construction": "band",
-        "angle": -45,
+        "angle": -84,
         "elbow": {
           "at": 8,
-          "angle": 222
-        }
+          "angle": -84
+        },
+        "fistKind": "palm"
       },
       {
         "construction": "band",
-        "angle": -45,
+        "angle": -78,
         "elbow": {
           "at": 8,
-          "angle": 222
-        }
+          "angle": -98
+        },
+        "fistKind": "palm"
       },
       {
         "construction": "band",
-        "angle": -45,
+        "angle": -78,
         "elbow": {
           "at": 8,
-          "angle": 222
-        }
+          "angle": -98
+        },
+        "fistKind": "palm"
       },
       {
         "construction": "band",
-        "angle": -45,
+        "angle": -78,
         "elbow": {
           "at": 8,
-          "angle": 222
-        }
+          "angle": -98
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": -90,
+        "elbow": {
+          "at": 8,
+          "angle": -90
+        },
+        "fistKind": "palm"
       },
       {
         "construction": "band",
@@ -923,6 +983,19 @@
           "mLLs",
           ".sDs"
         ]
+      },
+      "fingerGun": {
+        "use": "finger gun (Chakra Bullet): index finger pointing along the arm, thumb up, the other fingers curled",
+        "anchor": [
+          0,
+          1
+        ],
+        "rows": [
+          ".Lm....",
+          "LLLLLLm",
+          "LLLms..",
+          "msDs..."
+        ]
       }
     },
     "guardRule": "boxing guard: elbows down in front of the ribs, forearms angled up and forward, fists at chin height with knuckles forward; the lead (far) hand sits further forward"
@@ -942,6 +1015,7 @@
       "bandFollowsBody": true,
       "sway": {
         "E": [
+          -1,
           -1,
           -1,
           -1,
@@ -1161,7 +1235,8 @@
         4,
         5,
         6,
-        7
+        7,
+        8
       ],
       "fps": 10,
       "next": "guard",
@@ -1184,6 +1259,11 @@
       {
         "frame": 2,
         "clip": "chakraDrain",
+        "type": "startup"
+      },
+      {
+        "frame": 3,
+        "clip": "chakraDrain",
         "type": "active",
         "move": "Chakra Drain",
         "hitbox": [
@@ -1193,11 +1273,6 @@
           10
         ],
         "damage": "light"
-      },
-      {
-        "frame": 3,
-        "clip": "chakraDrain",
-        "type": "recovery"
       },
       {
         "frame": 4,
@@ -1216,6 +1291,11 @@
       },
       {
         "frame": 7,
+        "clip": "chakraDrain",
+        "type": "recovery"
+      },
+      {
+        "frame": 8,
         "clip": "chakraDrain",
         "type": "recovery"
       }
@@ -1234,6 +1314,11 @@
       {
         "frame": 2,
         "clip": "chakraDrain",
+        "type": "startup"
+      },
+      {
+        "frame": 3,
+        "clip": "chakraDrain",
         "type": "active",
         "move": "Chakra Drain",
         "hitbox": [
@@ -1243,11 +1328,6 @@
           10
         ],
         "damage": "light"
-      },
-      {
-        "frame": 3,
-        "clip": "chakraDrain",
-        "type": "recovery"
       },
       {
         "frame": 4,
@@ -1268,18 +1348,25 @@
         "frame": 7,
         "clip": "chakraDrain",
         "type": "recovery"
+      },
+      {
+        "frame": 8,
+        "clip": "chakraDrain",
+        "type": "recovery"
       }
     ]
   },
   "fx": {
-    "rule": "white/neutral wisps stream from the gripping palm back along the arm into the chest while the hand holds",
+    "rule": "chakra bar blue wisps streaming off the target (in front) into the gripping hands while the tie holds",
     "top": true,
     "palette": {
       "#": "#000000",
       "W": "#ffffff",
       "w": "#e3e3e3",
       "g": "#9a9a9a",
-      "d": "#4a4a4a"
+      "d": "#4a4a4a",
+      "B": "#4f8dff",
+      "b": "#23407e"
     },
     "patterns": {
       "spark": [
@@ -1625,47 +1712,150 @@
         ".g.g.",
         "g.g.g"
       ],
+      "puffBig": [
+        "....wwww....",
+        "..wwWWWWww..",
+        ".wWWWwwWWWw.",
+        "wWWwwwwwwWWw",
+        "wWwwwwwwwwWw",
+        ".wwwwwwwwww.",
+        "..wwwwwwww.."
+      ],
+      "puffRing": [
+        "..w..w..w..",
+        ".w.......w.",
+        "w.........w",
+        ".w.......w.",
+        "..w..w..w.."
+      ],
+      "ghost1": [
+        ".ggg.",
+        ".g.g.",
+        ".g.g.",
+        ".g.g.",
+        ".g.g.",
+        "....."
+      ],
+      "ghost2": [
+        "...ggg...",
+        "..g.g.g..",
+        ".g.g.g.g.",
+        "..g.g.g..",
+        ".g.g.g.g.",
+        "g.g.g.g.g",
+        ".g.g.g.g.",
+        "g.g.g.g.g",
+        ".g.g.g.g."
+      ],
+      "ghost3": [
+        "...ggg...",
+        "..g.g.g..",
+        ".g.g.g.g.",
+        "..g.g.g..",
+        ".g.g.g.g.",
+        "g.g.g.g.g",
+        ".g.g.g.g.",
+        "g.g.g.g.g",
+        ".g.g.g.g.",
+        "g.g...g.g",
+        ".g.....g."
+      ],
+      "puffHuge": [
+        "...........w...........",
+        "......wwwwwwwwwww......",
+        "....wwwwwwwwwwwwwww....",
+        "...wwwwwwWWWWWwwwwww...",
+        "..wwwwwWWWWWWWWWwwwww..",
+        ".wwwwWWWWWWWWWWWWWwwww.",
+        ".wwwwWWWWWWWWWWWWWwwww.",
+        ".wwwWWWWWWWWWWWWWWWwww.",
+        "wwwwWWWWWWWWWWWWWWWwwww",
+        ".wwwWWWWWWWWWWWWWWWwww.",
+        ".wwwwWWWWWWWWWWWWWwwww.",
+        ".wwwwWWWWWWWWWWWWWwwww.",
+        "..wwwwwWWWWWWWWWwwwww..",
+        "...wwwwwwWWWWWwwwwww...",
+        "....wwwwwwwwwwwwwww....",
+        "......wwwwwwwwwww......",
+        "...........w..........."
+      ],
+      "puffHuge2": [
+        "............w............",
+        ".......w.w.w.w.w.w.......",
+        "......w.w.w.w.w.w.w......",
+        ".....w.w.w.w.w.w.w.w.....",
+        "....w.w.W.W.W.W.W.w.w....",
+        "...w.w.W.W.W.W.W.W.w.w...",
+        "..w.w.W.W.W.W.W.W.W.w.w..",
+        ".w.w.W.W.W.W.W.W.W.W.w.w.",
+        "..w.w.W.W.W.W.W.W.W.w.w..",
+        ".w.w.W.W.W.W.W.W.W.W.w.w.",
+        "..w.w.W.W.W.W.W.W.W.w.w..",
+        ".w.w.W.W.W.W.W.W.W.W.w.w.",
+        "..w.w.W.W.W.W.W.W.W.w.w..",
+        "...w.w.W.W.W.W.W.W.w.w...",
+        "....w.w.W.W.W.W.W.w.w....",
+        ".....w.w.w.w.w.w.w.w.....",
+        "......w.w.w.w.w.w.w......",
+        ".......w.w.w.w.w.w.......",
+        "............w............"
+      ],
       "dust": [
         "..w..w..",
         ".wWwwWw.",
         "wWwwwwWw"
+      ],
+      "bspark": [
+        ".b.",
+        "bBb",
+        ".b."
+      ],
+      "borb": [
+        ".bb.",
+        "bBBb",
+        "bBBb",
+        ".bb."
+      ],
+      "borbBig": [
+        "..b..",
+        ".bBb.",
+        "bBWBb",
+        ".bBb.",
+        "..b.."
+      ],
+      "brelease": [
+        "..b.....",
+        ".bB.b...",
+        "bBWWBBb.",
+        ".bB.b...",
+        "..b....."
+      ],
+      "bwisp": [
+        ".b.",
+        "bBb",
+        ".b."
+      ],
+      "bwisp2": [
+        "b.b",
+        ".B."
       ]
     },
     "frames": [
       {
-        "frame": 2,
-        "splash": [
-          {
-            "pattern": "spark",
-            "at": [
-              54,
-              24
-            ]
-          }
-        ]
-      },
-      {
         "frame": 3,
         "splash": [
           {
-            "pattern": "orb",
+            "pattern": "bwisp",
             "at": [
-              53,
-              25
+              58,
+              22
             ]
           },
           {
-            "pattern": "wisp",
+            "pattern": "bwisp2",
             "at": [
-              48,
-              18
-            ]
-          },
-          {
-            "pattern": "wisp2",
-            "at": [
-              42,
-              17
+              54,
+              26
             ]
           }
         ]
@@ -1674,31 +1864,24 @@
         "frame": 4,
         "splash": [
           {
-            "pattern": "orb",
+            "pattern": "bwisp2",
             "at": [
-              53,
+              56,
+              21
+            ]
+          },
+          {
+            "pattern": "bwisp",
+            "at": [
+              51,
               25
             ]
           },
           {
-            "pattern": "wisp2",
+            "pattern": "bspark",
             "at": [
-              46,
-              17
-            ]
-          },
-          {
-            "pattern": "wisp",
-            "at": [
-              41,
-              18
-            ]
-          },
-          {
-            "pattern": "wisp2",
-            "at": [
-              36,
-              17
+              60,
+              27
             ]
           }
         ]
@@ -1707,24 +1890,17 @@
         "frame": 5,
         "splash": [
           {
-            "pattern": "spark",
+            "pattern": "bwisp",
             "at": [
-              54,
-              24
+              53,
+              22
             ]
           },
           {
-            "pattern": "wisp",
+            "pattern": "bwisp2",
             "at": [
-              43,
-              18
-            ]
-          },
-          {
-            "pattern": "wisp2",
-            "at": [
-              37,
-              17
+              49,
+              26
             ]
           }
         ]
@@ -1859,6 +2035,30 @@
             "#000000"
           ]
         ]
+      },
+      "closed": {
+        "E": [
+          [
+            0,
+            1,
+            "#70241d"
+          ],
+          [
+            1,
+            1,
+            "#70241d"
+          ],
+          [
+            0,
+            2,
+            "#000000"
+          ],
+          [
+            1,
+            2,
+            "#000000"
+          ]
+        ]
       }
     },
     "frames": {
@@ -1869,6 +2069,7 @@
         "squint",
         "squint",
         "squint",
+        null,
         null,
         null
       ]

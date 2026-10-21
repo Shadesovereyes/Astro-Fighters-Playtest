@@ -3,8 +3,8 @@
   "body": "male",
   "state": "catchBreath",
   "status": "CANDIDATE 2026-10-20 (E/W; W mirrors E; S/N to author after approval)",
-  "frames": 9,
-  "fps": 10,
+  "frames": 11,
+  "fps": 5,
   "sourceDirection": "E",
   "directions": [
     "E",
@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Catch Breath (free focus action, recover stamina): from the guard the fighter drops both hands, bends forward at the hips and braces both hands on the thighs above the knees, head hanging; two big heaving breaths (shoulders and head rise on the in-breath, sink on the out-breath), then straightens back up into the guard.",
+  "intent": "Catch Breath (free focus action, recover stamina; Christopher 2026-10-21: one or two slow deep breaths, not the exhausted pose): from the guard the hands lower a little and relax; the fighter draws a long, deep breath in, eyes closing, chest and shoulders rising and the head lifting; holds it a beat, then lets it out slowly, the shoulders sinking below the guard; a second, calmer breath; then the hands come back up into the guard.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -90,34 +90,40 @@
     "rule": "the knees give under the blow (body 2 px low) and come back up to the guard height; the head drops with the body a frame late",
     "dy": [
       1,
+      1,
+      1,
+      0,
+      0,
+      1,
       2,
-      5,
-      5,
-      5,
-      5,
-      5,
-      2,
+      1,
+      1,
+      1,
       1
     ],
     "head": [
       1,
+      1,
+      0,
+      -1,
+      -1,
+      1,
       2,
-      6,
-      5,
-      7,
-      5,
-      7,
-      2,
+      0,
+      0,
+      1,
       1
     ],
     "arms": [
       2,
       2,
-      6,
-      5,
-      6,
-      5,
-      6,
+      1,
+      0,
+      0,
+      2,
+      3,
+      1,
+      1,
       2,
       2
     ]
@@ -135,17 +141,21 @@
         0,
         0,
         0,
+        0,
+        0,
         0
       ],
       "head": [
         2,
-        4,
-        10,
-        10,
-        11,
-        10,
-        11,
-        4,
+        1,
+        0,
+        -1,
+        -1,
+        1,
+        2,
+        0,
+        0,
+        1,
         2
       ]
     }
@@ -188,9 +198,25 @@
       [
         0,
         0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
       ]
     ],
     "W": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
       [
         0,
         0
@@ -303,6 +329,215 @@
           ".#DD###",
           "..##"
         ]
+      },
+      "pointFwd": {
+        "use": "kick foot on a horizontal shin pointing at the target: ankle extended, toes pointed along the shin, instep on top, heel below (front snap kick, roundhouse)",
+        "anchor": [
+          0,
+          2
+        ],
+        "rows": [
+          "######..",
+          "LLLLLL#.",
+          "mLLLLLL#",
+          "dmmmsL#.",
+          "DDD###..",
+          "###....."
+        ]
+      },
+      "blade": {
+        "use": "side-kick foot on a horizontal shin: ankle flexed, sole toward the target, toes up, heel at the bottom",
+        "anchor": [
+          0,
+          5
+        ],
+        "rows": [
+          ".###.",
+          "#Lms#",
+          "#Lms#",
+          "#LmD#",
+          "#LmD#",
+          "LLmD#",
+          "mmDD#",
+          "#DDD#",
+          ".###."
+        ]
+      },
+      "toe30k": {
+        "use": "toe30 for a kick-construction leg: the shin hangs down to the ankle point and the foot sits directly under it",
+        "rows": [
+          "#dmmL#",
+          "#dmLLL#",
+          "#DmLLLL#",
+          ".#DDmLL#",
+          "..##DsL#",
+          "....###."
+        ],
+        "anchor": [
+          3,
+          -1
+        ]
+      },
+      "sFoot": {
+        "use": "front/back view foot under a kick-construction shin hanging down: toes toward the viewer (S) or heel (N)",
+        "anchor": [
+          3,
+          -1
+        ],
+        "rows": [
+          "#mLLm#",
+          "#mLLLm#",
+          "#######"
+        ]
+      },
+      "sSole": {
+        "use": "front/back view kick foot: the sole toward the viewer (a kick at the camera in S, a chambered or extended leg seen from behind in N), under the shin",
+        "anchor": [
+          3,
+          -1
+        ],
+        "rows": [
+          ".####.",
+          "#dmmd#",
+          "#dmmd#",
+          "#ddmd#",
+          ".####."
+        ]
+      },
+      "sSoleUp": {
+        "use": "sSole above the ankle, for a shin pointing up (a kick away from the viewer seen from behind)",
+        "anchor": [
+          3,
+          5
+        ],
+        "rows": [
+          ".####.",
+          "#dmmd#",
+          "#dmmd#",
+          "#ddmd#",
+          ".####."
+        ]
+      },
+      "pointFwdL": {
+        "use": "pointFwd mirrored, for a kick leg pointing screen-left",
+        "anchor": [
+          9,
+          2
+        ],
+        "rows": [
+          "..######",
+          ".#LLLLLL",
+          "#LLLLLLm",
+          ".#Lsmmmd",
+          "..###DDD",
+          ".....###"
+        ]
+      },
+      "bladeL": {
+        "use": "blade mirrored, for a side kick pointing screen-left",
+        "anchor": [
+          6,
+          5
+        ],
+        "rows": [
+          ".###.",
+          "#smL#",
+          "#smL#",
+          "#DmL#",
+          "#DmL#",
+          "#DmLL",
+          "#DDmm",
+          "#DDD#",
+          ".###."
+        ]
+      },
+      "pointUR": {
+        "use": "kick foot on a shin pointing up-right about 40 degrees: toes continue the line, instep on top",
+        "anchor": [
+          1,
+          4
+        ],
+        "rows": [
+          "...##.",
+          "..#LL#",
+          ".#LLm#",
+          "#LLmd#",
+          "#mmd#.",
+          ".###.."
+        ]
+      },
+      "pointDR": {
+        "use": "pointUR flipped: a shin pointing down-right",
+        "anchor": [
+          1,
+          1
+        ],
+        "rows": [
+          ".###..",
+          "#mmd#.",
+          "#LLmd#",
+          ".#LLm#",
+          "..#LL#",
+          "...##."
+        ]
+      },
+      "pointUL": {
+        "use": "pointUR mirrored: a shin pointing up-left",
+        "anchor": [
+          6,
+          4
+        ],
+        "rows": [
+          ".##...",
+          "#LL#..",
+          "#mLL#.",
+          "#dmLL#",
+          ".#dmm#",
+          "..###."
+        ]
+      },
+      "pointDL": {
+        "use": "pointDR mirrored: a shin pointing down-left",
+        "anchor": [
+          6,
+          1
+        ],
+        "rows": [
+          "..###.",
+          ".#dmm#",
+          "#dmLL#",
+          "#mLL#.",
+          "#LL#..",
+          ".##..."
+        ]
+      },
+      "levelR": {
+        "use": "level kick foot for a level shin (S/N low and snap kicks): three rows deep like the shin and wrap, so it continues the shin's line; straight top and sole, toes pointed",
+        "anchor": [
+          0,
+          2
+        ],
+        "rows": [
+          "######..",
+          "LLLLLL#.",
+          "mmmmmLL#",
+          "dddddd#.",
+          "######.."
+        ]
+      },
+      "levelL": {
+        "use": "levelR mirrored, for a level shin pointing screen-left",
+        "anchor": [
+          9,
+          2
+        ],
+        "rows": [
+          "..######",
+          ".#LLLLLL",
+          "#LLmmmmm",
+          ".#dddddd",
+          "..######"
+        ]
       }
     },
     "constructions": {
@@ -376,28 +611,126 @@
         "footX": 25,
         "wrapRow": 56,
         "foot": "flat"
+      },
+      {
+        "name": "im-step-lead",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 43,
+        "kneeX": 38,
+        "kneeRow": 50,
+        "footX": 41,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "im-step-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 43,
+        "kneeX": 28,
+        "kneeRow": 51,
+        "footX": 24,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "hk-swing",
+        "construction": "band",
+        "hipX": 34,
+        "hipRow": 41,
+        "kneeX": 40,
+        "kneeRow": 43,
+        "ankle": [
+          46,
+          43
+        ],
+        "foot": "pointFwd"
+      },
+      {
+        "name": "hk-rise",
+        "construction": "band",
+        "hipX": 34,
+        "hipRow": 40,
+        "kneeX": 40,
+        "kneeRow": 33,
+        "ankle": [
+          45,
+          25
+        ],
+        "foot": "pointUR"
+      },
+      {
+        "name": "hk-drop",
+        "construction": "band",
+        "hipX": 34,
+        "hipRow": 41,
+        "kneeX": 38,
+        "kneeRow": 47,
+        "ankle": [
+          34,
+          53
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "hk-plant",
+        "construction": "band",
+        "hipX": 32,
+        "hipRow": 42,
+        "kneeX": 34,
+        "kneeRow": 50,
+        "footX": 35,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "duel-lead",
+        "construction": "band",
+        "hipX": 32,
+        "hipRow": 42,
+        "kneeX": 34,
+        "kneeRow": 50,
+        "footX": 35,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "duel-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 42,
+        "kneeX": 30,
+        "kneeRow": 50,
+        "footX": 28,
+        "wrapRow": 56,
+        "foot": "flat"
       }
     ],
     "near": [
       1,
-      3,
-      5,
-      5,
-      5,
-      5,
-      5,
-      3,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
       1
     ],
     "far": [
       0,
-      2,
-      4,
-      4,
-      4,
-      4,
-      4,
-      2,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
       0
     ]
   },
@@ -427,58 +760,74 @@
       },
       {
         "construction": "band",
-        "angle": -10,
+        "angle": -25,
         "elbow": {
           "at": 8,
-          "angle": -60
+          "angle": -105
         }
       },
       {
         "construction": "band",
-        "angle": -8,
+        "angle": -25,
         "elbow": {
           "at": 8,
-          "angle": 0
+          "angle": -108
         }
       },
       {
         "construction": "band",
-        "angle": -8,
+        "angle": -25,
         "elbow": {
           "at": 8,
-          "angle": 0
+          "angle": -110
         }
       },
       {
         "construction": "band",
-        "angle": -8,
+        "angle": -25,
         "elbow": {
           "at": 8,
-          "angle": 0
+          "angle": -110
         }
       },
       {
         "construction": "band",
-        "angle": -8,
+        "angle": -22,
         "elbow": {
           "at": 8,
-          "angle": 0
+          "angle": -104
         }
       },
       {
         "construction": "band",
-        "angle": -8,
+        "angle": -20,
         "elbow": {
           "at": 8,
-          "angle": 0
+          "angle": -100
         }
       },
       {
         "construction": "band",
-        "angle": -10,
+        "angle": -25,
         "elbow": {
           "at": 8,
-          "angle": -60
+          "angle": -108
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -25,
+        "elbow": {
+          "at": 8,
+          "angle": -108
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -22,
+        "elbow": {
+          "at": 8,
+          "angle": -104
         }
       },
       {
@@ -501,58 +850,74 @@
       },
       {
         "construction": "band",
-        "angle": -20,
+        "angle": -35,
         "elbow": {
           "at": 8,
-          "angle": -70
+          "angle": -115
         }
       },
       {
         "construction": "band",
-        "angle": -14,
+        "angle": -35,
         "elbow": {
           "at": 8,
-          "angle": -4
+          "angle": -118
         }
       },
       {
         "construction": "band",
-        "angle": -14,
+        "angle": -35,
         "elbow": {
           "at": 8,
-          "angle": -4
+          "angle": -120
         }
       },
       {
         "construction": "band",
-        "angle": -14,
+        "angle": -35,
         "elbow": {
           "at": 8,
-          "angle": -4
+          "angle": -120
         }
       },
       {
         "construction": "band",
-        "angle": -14,
+        "angle": -32,
         "elbow": {
           "at": 8,
-          "angle": -4
+          "angle": -114
         }
       },
       {
         "construction": "band",
-        "angle": -14,
+        "angle": -30,
         "elbow": {
           "at": 8,
-          "angle": -4
+          "angle": -110
         }
       },
       {
         "construction": "band",
-        "angle": -20,
+        "angle": -35,
         "elbow": {
           "at": 8,
-          "angle": -70
+          "angle": -118
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -35,
+        "elbow": {
+          "at": 8,
+          "angle": -118
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -32,
+        "elbow": {
+          "at": 8,
+          "angle": -114
         }
       },
       {
@@ -623,6 +988,51 @@
           "mLLLms",
           ".sDDs."
         ]
+      },
+      "palmUp": {
+        "use": "open hand angled forward, fingers leaning toward the opponent (judo grip hunt)",
+        "anchor": [
+          0,
+          4
+        ],
+        "rows": [
+          "...Lm",
+          "..LLm",
+          ".LLLm",
+          "LLLLm",
+          "LLLms",
+          "mLLs.",
+          ".sDs."
+        ]
+      },
+      "palmDown": {
+        "use": "open hand, heel of the palm leading a downward thrust, fingers pointing forward (palm strikes from Mount)",
+        "anchor": [
+          0,
+          1
+        ],
+        "rows": [
+          "mLLLLm.",
+          "LLLLLLm",
+          "mLLms..",
+          ".sDs..."
+        ]
+      },
+      "palmHeel": {
+        "use": "open hand, heel of the palm leading a straight thrust, fingers together and up (standing Sumo Palm)",
+        "anchor": [
+          0,
+          4
+        ],
+        "rows": [
+          ".Lm.",
+          "LLm.",
+          "LLm.",
+          "LLLm",
+          "LLLm",
+          "mLLs",
+          ".sDs"
+        ]
       }
     },
     "guardRule": "boxing guard: elbows down in front of the ribs, forearms angled up and forward, fists at chin height with knuckles forward; the lead (far) hand sits further forward"
@@ -642,6 +1052,8 @@
       "bandFollowsBody": true,
       "sway": {
         "E": [
+          -1,
+          -1,
           -1,
           -1,
           -1,
@@ -863,15 +1275,17 @@
         5,
         6,
         7,
-        8
+        8,
+        9,
+        10
       ],
-      "fps": 10,
+      "fps": 5,
       "next": "guard",
       "ability": "Catch Breath"
     }
   },
   "events": {
-    "rule": "per-frame gameplay data per facing (W mirrors E)",
+    "rule": "per-frame gameplay data per facing (W mirrors E: x -> 64 - x - w); hitboxes provisional",
     "E": [
       {
         "frame": 0,
@@ -886,14 +1300,14 @@
       {
         "frame": 2,
         "clip": "catchBreath",
-        "type": "startup"
+        "type": "active",
+        "move": "Catch Breath",
+        "buff": true
       },
       {
         "frame": 3,
         "clip": "catchBreath",
-        "type": "active",
-        "move": "Catch Breath",
-        "buff": true
+        "type": "recovery"
       },
       {
         "frame": 4,
@@ -917,6 +1331,16 @@
       },
       {
         "frame": 8,
+        "clip": "catchBreath",
+        "type": "recovery"
+      },
+      {
+        "frame": 9,
+        "clip": "catchBreath",
+        "type": "recovery"
+      },
+      {
+        "frame": 10,
         "clip": "catchBreath",
         "type": "recovery"
       }
@@ -935,14 +1359,14 @@
       {
         "frame": 2,
         "clip": "catchBreath",
-        "type": "startup"
+        "type": "active",
+        "move": "Catch Breath",
+        "buff": true
       },
       {
         "frame": 3,
         "clip": "catchBreath",
-        "type": "active",
-        "move": "Catch Breath",
-        "buff": true
+        "type": "recovery"
       },
       {
         "frame": 4,
@@ -966,6 +1390,16 @@
       },
       {
         "frame": 8,
+        "clip": "catchBreath",
+        "type": "recovery"
+      },
+      {
+        "frame": 9,
+        "clip": "catchBreath",
+        "type": "recovery"
+      },
+      {
+        "frame": 10,
         "clip": "catchBreath",
         "type": "recovery"
       }
@@ -1099,17 +1533,43 @@
             "#000000"
           ]
         ]
+      },
+      "closed": {
+        "E": [
+          [
+            0,
+            1,
+            "#70241d"
+          ],
+          [
+            1,
+            1,
+            "#70241d"
+          ],
+          [
+            0,
+            2,
+            "#000000"
+          ],
+          [
+            1,
+            2,
+            "#000000"
+          ]
+        ]
       }
     },
     "frames": {
       "E": [
         null,
         null,
-        "squint",
-        "squint",
-        "squint",
-        "squint",
-        "squint",
+        "closed",
+        "closed",
+        "closed",
+        "closed",
+        null,
+        "closed",
+        "closed",
         null,
         null
       ]

@@ -14,10 +14,15 @@ HR_FX = load(D + 'clinchSweepingShoulderHit.json')['fx']
 HR = load(D + 'hitReact.json'); HR.pop('frontal', None); HR['directions'] = ['E', 'W']
 HR['legs']['feet'].update({k: v for k, v in load(D + 'heavyAttack.json')['legs']['feet'].items() if k not in HR['legs']['feet']})   # kick feet
 _JC = load(D + 'judoChop.json')['arms']['band']; HR['arms']['band'].update({k: _JC[k] for k in ('palmUp', 'palmDown', 'palmHeel')})   # open-hand shapes (palm seals, palm thrusts)
+HR['arms']['band']['fingerGun'] = {'use': 'finger gun (Chakra Bullet): index finger pointing along the arm, thumb up, the other fingers curled', 'anchor': [0, 1],
+                                   'rows': ['.Lm....', 'LLLLLLm', 'LLLms..', 'msDs...']}
 def band(a, e, **k): return {'construction': 'band', 'angle': a, 'elbow': {'at': 8, 'angle': e}, **k}
+CLOSED = load(D + 'downed.json')['expressions']['shapes']['closed']
 def h(k, side): return copy.deepcopy(HR['arms'][side][k])
 STAT = 'CANDIDATE 2026-10-20 (E/W; W mirrors E; S/N to author after approval)'
-APPROVED = {}
+APPROVED = {s_: 'E/W approved by user 2026-10-21 (v1; W mirrors E); S/N to author' for s_ in ('guardianBarrier', 'solarFlare', 'summonCompanion')}
+UNUSED = 'UNUSED (Christopher 2026-10-21): shelved, not offered anywhere and no further animation work until its use is decided; E/W v1 draft kept for reference'
+APPROVED.update(ironMountain=UNUSED, heavenlyKick=UNUSED)
 
 G_N, G_F = h(6, 'near'), h(6, 'far')                     # guard arms
 GUARD = dict(an=G_N, af=G_F, bob=(1, 1, 2), lean=(0, 2), ln='stance-rear', lf='stance-lead', root=(0, 0))
@@ -32,12 +37,14 @@ POSES += [kleg('hk-swing', (34, 41), (40, 43), (46, 43), 'pointFwd'),     # Heav
           kleg('hk-rise', (34, 40), (40, 33), (45, 25), 'pointUR'),       # straight leg at the top, sole rising under the chin
           kleg('hk-drop', (34, 41), (38, 47), (34, 53), 'toe30k'),        # leg coming back down, knee soft
           {'name': 'hk-plant', 'construction': 'band', 'hipX': 32, 'hipRow': 42, 'kneeX': 34, 'kneeRow': 50, 'footX': 35, 'wrapRow': 56, 'foot': 'flat'}]   # standing leg
+POSES += [leg('duel-lead', (32, 42), (34, 50), 35), leg('duel-rear', (31, 42), (30, 50), 28)]   # pistol-duel stance: feet drawn close, side-on, legs straight
 FXP, FXPAL = HR_FX['patterns'], HR_FX['palette']
 BRACE = dict(ln='cb-brace-rear', lf='cb-brace-lead')   # the hands brace on the thighs
 SEAL_N, SEAL_F = band(-48, -150, fistKind='palm'), band(-60, -146, fistKind='palm')   # tiger seal: both open hands pressed together upright in front of the chin, fingers up
 
 # ---------- ninjutsu fx patterns (white/neutral; d/g = neutral greys for shadow techniques) ----------
-NPAL = {'#': '#000000', 'W': '#ffffff', 'w': '#e3e3e3', 'g': '#9a9a9a', 'd': '#4a4a4a'}
+CHAKRA = ('#4f8dff', '#23407e')   # the testbed chakra bar: --chakra #4f8dff, gradient from #23407e (Christopher 2026-10-21: chakra auras match the bar)
+NPAL = {'#': '#000000', 'W': '#ffffff', 'w': '#e3e3e3', 'g': '#9a9a9a', 'd': '#4a4a4a', 'B': CHAKRA[0], 'b': CHAKRA[1]}
 def grid(w, h): return [['.'] * w for _ in range(h)]
 def rows(gr): return [''.join(r) for r in gr]
 def dome(rx, ry, frac=1.0, dotted=False):
@@ -77,12 +84,14 @@ NPAT = {'spark': ['.w.', 'wWw', '.w.'], 'orb': ['.ww.', 'wWWw', 'wWWw', '.ww.'],
         'shroud1': ['.g.g.', 'g.g.g'],
         'puffBig': ['....wwww....', '..wwWWWWww..', '.wWWWwwWWWw.', 'wWWwwwwwwWWw', 'wWwwwwwwwwWw', '.wwwwwwwwww.', '..wwwwwwww..'],
         'puffRing': ['..w..w..w..', '.w.......w.', 'w.........w', '.w.......w.', '..w..w..w..'],
-        'ghost1': [r[2:7] for r in GHOST[::2]], 'ghost2': GHOST[:-2], 'ghost3': GHOST, 'puffHuge': blob(11, 8), 'puffHuge2': blob(12, 9, dots=True), 'dust': ['..w..w..', '.wWwwWw.', 'wWwwwwWw']}
+        'ghost1': [r[2:7] for r in GHOST[::2]], 'ghost2': GHOST[:-2], 'ghost3': GHOST, 'puffHuge': blob(11, 8), 'puffHuge2': blob(12, 9, dots=True), 'dust': ['..w..w..', '.wWwwWw.', 'wWwwwwWw'],
+        'bspark': ['.b.', 'bBb', '.b.'], 'borb': ['.bb.', 'bBBb', 'bBBb', '.bb.'], 'borbBig': ['..b..', '.bBb.', 'bBWBb', '.bBb.', '..b..'],
+        'brelease': ['..b.....', '.bB.b...', 'bBWWBBb.', '.bB.b...', '..b.....'], 'bwisp': ['.b.', 'bBb', '.b.'], 'bwisp2': ['b.b', '.B.']}
 def nfx(rule, frames): return {'rule': rule, 'top': True, 'palette': NPAL, 'patterns': NPAT, 'frames': [{'frame': k, 'splash': [{'pattern': p_, 'at': at} for p_, at in sp]} for k, sp in frames]}
 
 CLIPS = {   # state: (ability, active frame, intent, frames, expressions, aura widths)
  'chargeChakra': ('Charge Chakra', 4,
-  'Charge Chakra (free focus action, recover chakra): from the guard the fighter sinks into the knees and brings both hands together in a seal in front of the chest, eyes narrowed; holding the seal, a white/neutral aura swells around the whole body in a slow pulse as the chest rises with the breath, then fades; the hands part and come back up into the guard.', [
+  'Charge Chakra (free focus action, recover chakra): from the guard the fighter sinks into the knees and presses both open hands together upright in front of the chin, eyes closed in focus; holding the seal, an aura in the chakra bar blue swells around the whole body in a slow pulse as the chest rises with the breath, then fades; the eyes open, the hands part and come back up into the guard (Christopher 2026-10-21: eyes closed, aura the colour of the chakra bar).', [
      g(),
      g(an=band(-5, -140), af=band(-25, -145), bob=(2, 2, 2), lean=(0, 1), **LOW),
      g(an=SEAL_N, af=SEAL_F, bob=(3, 3, 3), lean=(0, 0), **LOW),
@@ -92,34 +101,39 @@ CLIPS = {   # state: (ability, active frame, intent, frames, expressions, aura w
      g(an=SEAL_N, af=SEAL_F, bob=(3, 3, 3), lean=(0, 0), **LOW),
      g(an=band(-5, -140), af=band(-25, -145), bob=(2, 2, 2), lean=(0, 1), **LOW),
      g()],
-  [None, None, 'squint', 'squint', 'squint', 'squint', 'squint', None, None],
-  [0, 0, 1, 2, 3, 3, 2, 1, 0]),
- 'catchBreath': ('Catch Breath', 3,
-  'Catch Breath (free focus action, recover stamina): from the guard the fighter drops both hands, bends forward at the hips and braces both hands on the thighs above the knees, head hanging; two big heaving breaths (shoulders and head rise on the in-breath, sink on the out-breath), then straightens back up into the guard.', [
+  [None, None, 'closed', 'closed', 'closed', 'closed', 'closed', None, None],
+  [0, 0, 1, 2, 3, 3, 2, 1, 0],
+  dict(auraColors=CHAKRA)),
+ 'catchBreath': ('Catch Breath', 2,
+  'Catch Breath (free focus action, recover stamina; Christopher 2026-10-21: one or two slow deep breaths, not the exhausted pose): from the guard the hands lower a little and relax; the fighter draws a long, deep breath in, eyes closing, chest and shoulders rising and the head lifting; holds it a beat, then lets it out slowly, the shoulders sinking below the guard; a second, calmer breath; then the hands come back up into the guard.', [
      g(),
-     g(an=band(-10, -60), af=band(-20, -70), bob=(2, 2, 2), lean=(0, 4), **LOW),
-     g(an=band(-8, 0), af=band(-14, -4), bob=(5, 6, 6), lean=(0, 10), **BRACE),
-     g(an=band(-8, 0), af=band(-14, -4), bob=(5, 5, 5), lean=(0, 10), **BRACE),   # in-breath: shoulders and head lift
-     g(an=band(-8, 0), af=band(-14, -4), bob=(5, 7, 6), lean=(0, 11), **BRACE),   # out-breath: head hangs
-     g(an=band(-8, 0), af=band(-14, -4), bob=(5, 5, 5), lean=(0, 10), **BRACE),
-     g(an=band(-8, 0), af=band(-14, -4), bob=(5, 7, 6), lean=(0, 11), **BRACE),
-     g(an=band(-10, -60), af=band(-20, -70), bob=(2, 2, 2), lean=(0, 4), **LOW),
+     g(an=band(-25, -105), af=band(-35, -115), bob=(1, 1, 2), lean=(0, 1)),                    # hands lower and relax
+     g(an=band(-25, -108), af=band(-35, -118), bob=(1, 0, 1), lean=(0, 0)),                    # breath in begins
+     g(an=band(-25, -110), af=band(-35, -120), bob=(0, -1, 0), lean=(0, -1)),                  # full breath: chest up, head up, shoulders raised
+     g(an=band(-25, -110), af=band(-35, -120), bob=(0, -1, 0), lean=(0, -1)),                  # holds it
+     g(an=band(-22, -104), af=band(-32, -114), bob=(1, 1, 2), lean=(0, 1)),                    # long breath out
+     g(an=band(-20, -100), af=band(-30, -110), bob=(2, 2, 3), lean=(0, 2)),                    # shoulders sink, empty
+     g(an=band(-25, -108), af=band(-35, -118), bob=(1, 0, 1), lean=(0, 0)),                    # second breath in
+     g(an=band(-25, -108), af=band(-35, -118), bob=(1, 0, 1), lean=(0, 0)),
+     g(an=band(-22, -104), af=band(-32, -114), bob=(1, 1, 2), lean=(0, 1)),                    # and out
      g()],
-  [None, None, 'squint', 'squint', 'squint', 'squint', 'squint', None, None],
-  None),
- 'recompose': ('Recompose', 6,
-  'Recompose (free focus action, recover poise, steady the guard): from the guard the fighter lets both arms drop loose and shakes them out, rolls the shoulders and stands tall on a deep breath in, then brings both hands back up and snaps into a tight guard with a sharp exhale; a thin white/neutral pulse marks the reset, then the guard settles.', [
+  [None, None, 'closed', 'closed', 'closed', 'closed', None, 'closed', 'closed', None, None],
+  None,
+  dict(fps=5)),
+ 'recompose': ('Recompose', 4,
+  'Recompose (free focus action, recover poise; Christopher 2026-10-21: like Henry Cavill\'s arm "reload"): from the guard the fighter pushes both fists down and forward, then racks them back hard, elbows driving back past the ribs and the shoulders popping up, like pumping a shotgun; does it twice, then snaps back into a tight guard with a thin white pulse.', [
      g(),
-     g(an=band(6, -20), af=band(0, -25), bob=(1, 2, 3), lean=(0, 1)),          # arms drop loose
-     g(an=band(10, -10), af=band(4, -15), bob=(1, 1, 1), lean=(0, 1)),         # shake: hands swing out
-     g(an=band(2, -30), af=band(-4, -35), bob=(1, 2, 3), lean=(0, 1)),         # shake: hands swing back
-     g(an=band(4, -15), af=band(-2, -20), bob=(0, 0, 0), lean=(0, 0), ln='stance-rear', lf='stance-lead'),   # stands tall on the in-breath, shoulders up
-     g(an=band(-30, -110, fistKind='palm'), af=band(-45, -120, fistKind='palm'), bob=(1, 1, 1), lean=(0, 1)),   # hands come back up
-     g(an=G_N, af=G_F, bob=(2, 2, 2), lean=(0, 3), **LOW),                     # snaps into the guard, chin tucked
-     g(an=G_N, af=G_F, bob=(2, 2, 2), lean=(0, 3), **LOW),
+     g(an=band(-45, -50), af=band(-55, -60), bob=(1, 1, 2), lean=(0, 2)),                       # fists pushed down and forward
+     g(an=band(25, -85), af=band(20, -90), bob=(1, 0, -1), lean=(0, 0)),                        # racked back: elbows back, shoulders up
+     g(an=band(25, -85), af=band(20, -90), bob=(1, 0, 0), lean=(0, 0)),
+     g(an=band(-45, -50), af=band(-55, -60), bob=(1, 1, 2), lean=(0, 2)),                       # pump again
+     g(an=band(25, -85), af=band(20, -90), bob=(1, 0, -1), lean=(0, 0)),                        # rack
+     g(an=band(25, -85), af=band(20, -90), bob=(1, 0, 0), lean=(0, 0)),
+     g(an=G_N, af=G_F, bob=(2, 2, 2), lean=(0, 3), **LOW),                                      # snaps into the guard
      g()],
-  [None, None, None, None, 'squint', None, None, None, None],
-  [0, 0, 0, 0, 0, 0, 1, 1, 0]),
+  [None, None, None, None, None, None, None, None, None],
+  [0, 0, 0, 0, 0, 0, 0, 1, 0],
+  dict(fps=12)),
  'ironMountain': ('Iron Mountain', 3,
   'Iron Mountain (guard-break strike, bajiquan stamp and reinforced elbow): from the guard the fighter folds the rear arm level with the fist back at the chest and the lead fist tucked to the chest behind it, coils back a row, then stamps the lead foot a stride forward and drives the point of the folded elbow and the shoulder behind it into the guard with the whole body behind it, rooted like a mountain; a stamp of dust at the lead foot and impact lines at the elbow; then draws back into the guard.', [
      g(),
@@ -180,34 +194,54 @@ CLIPS = {   # state: (ability, active frame, intent, frames, expressions, aura w
   None,
   dict(fps=12, fx=nfx('white/neutral starburst from between the hands at the forehead; the blind itself is drawn on the target by the testbed',
               [(2, [('star3', [41, 15])]), (3, [('star6', [38, 18])]), (4, [('star9', [35, 21])]), (5, [('star3', [41, 15])])]))),
- 'chakraBullet': ('Chakra Bullet', 3,
-  'Chakra Bullet (basic chakra projectile): from the guard the rear hand draws back to the chest, open, where a white chakra spark gathers into an orb, then the palm drives straight out at chest height, heel first, releasing a burst; the spell draws the bullet from the release frame; then back to the guard.', [
+ 'chakraBullet': ('Chakra Bullet', 7,
+  'Chakra Bullet (basic chakra projectile; Christopher 2026-10-21: pistol-duel stance, finger gun, aura gathers to the fingertip and fires): from the guard the fighter draws the feet together side-on, tucks the far hand into the small of the back and raises the near arm straight out at shoulder height, hand shaped into a finger gun; an aura in the chakra bar blue swells around the body, then draws in to an orb at the fingertip, which fires with a burst and a small kick of recoil; the spell draws the bullet from the release frame; then back to the guard.', [
      g(),
-     g(an=dict(band(-20, -150), fistKind='palm'), bob=(2, 2, 2), lean=(0, 0), **LOW),
-     g(an=dict(band(-10, -140), fistKind='palm'), bob=(2, 2, 2), lean=(0, -1), **LOW),
-     g(an=dict(band(-88, -88), fistKind='palm'), bob=(1, 1, 1), lean=(1, 4), root=(1, 0)),
-     g(an=dict(band(-88, -88), fistKind='palm'), bob=(1, 1, 1), lean=(1, 4)),
-     g(an=band(-60, -120), bob=(1, 1, 2), lean=(0, 3), root=(-1, 0)),
+     g(an=band(-55, -55, fistKind='gun'), af=band(20, -80), bob=(1, 1, 1), lean=(0, 0), ln='duel-rear', lf='duel-lead'),
+     g(an=band(-90, -90, fistKind='gun'), af=band(20, -80), bob=(0, 0, 0), lean=(0, -1), ln='duel-rear', lf='duel-lead'),
+     g(an=band(-90, -90, fistKind='gun'), af=band(20, -80), bob=(0, 0, 0), lean=(0, -1), ln='duel-rear', lf='duel-lead'),
+     g(an=band(-90, -90, fistKind='gun'), af=band(20, -80), bob=(0, 0, 0), lean=(0, -1), ln='duel-rear', lf='duel-lead'),
+     g(an=band(-90, -90, fistKind='gun'), af=band(20, -80), bob=(0, 0, 0), lean=(0, -1), ln='duel-rear', lf='duel-lead'),
+     g(an=band(-90, -90, fistKind='gun'), af=band(20, -80), bob=(0, 0, 0), lean=(0, -1), ln='duel-rear', lf='duel-lead'),
+     g(an=band(-100, -100, fistKind='gun'), af=band(20, -80), bob=(0, 0, 0), lean=(0, -2), ln='duel-rear', lf='duel-lead'),   # fires: recoil kicks the hand up
+     g(an=band(-94, -94, fistKind='gun'), af=band(20, -80), bob=(0, 0, 0), lean=(0, -1), ln='duel-rear', lf='duel-lead'),
+     g(an=band(-60, -120), bob=(1, 1, 2), lean=(0, 2)),
      g()],
-  [None, None, 'squint', None, None, None, None],
-  None,
-  dict(fps=12, hitbox=None, release=[52, 22], fx=nfx('white/neutral chakra: spark then orb at the cocked hand by the chest, a burst in front of the palm on release',
-              [(1, [('spark', [37, 31])]), (2, [('orb', [36, 32])]), (3, [('release', [50, 25])]), (4, [('spark', [57, 24])])]))),
- 'chakraDrain': ('Chakra Drain', 2,
-  'Chakra Drain (melee debuff, steals chakra): from the guard the fighter steps in and drives the rear open hand onto the target at chest height and holds it there, fingers spread, as white/neutral wisps of chakra stream back along the arm into the fighter; then pulls the hand back into the guard.', [
+  [None, None, 'squint', 'squint', 'squint', 'squint', 'squint', None, None, None, None],
+  [0, 0, 1, 2, 3, 2, 1, 0, 0, 0, 0],
+  dict(fps=10, release=[57, 20], auraColors=CHAKRA,
+       fx=nfx('chakra bar blue: the aura (drawn by aura()) swells, then draws into an orb at the fingertip that fires with a burst',
+              [(5, [('borb', [55, 24])]), (6, [('borbBig', [55, 25])]), (7, [('brelease', [57, 22])]), (8, [('bspark', [61, 22])])]))),
+ 'chakraDrain': ('Chakra Drain', 3,
+  'Chakra Drain (debuff, steals chakra; Christopher 2026-10-21: plays like a short grapple, the chakra aura leaving the target in the chakra bar blue): the fighter steps in and grabs the target in a collar tie, both hands on the neck and shoulder, pulls them in and holds while wisps of chakra-blue light stream off the target into the gripping hands; then shoves them off and steps back into the guard. Pairs with chakraDrained on the target.', [
      g(),
-     g(an=dict(band(-60, -80), fistKind='palm'), bob=(1, 1, 1), lean=(1, 3), root=(1, 0)),
-     g(an=dict(band(-88, -88), fistKind='palm'), bob=(1, 1, 1), lean=(1, 5), root=(1, 0)),
-     g(an=dict(band(-88, -88), fistKind='palm'), bob=(1, 1, 1), lean=(1, 5)),
-     g(an=dict(band(-88, -88), fistKind='palm'), bob=(1, 1, 1), lean=(1, 5)),
-     g(an=dict(band(-88, -88), fistKind='palm'), bob=(1, 1, 1), lean=(1, 5)),
-     g(an=band(-60, -120), bob=(1, 1, 2), lean=(0, 3), root=(-1, 0)),
-     g(root=(-1, 0))],
-  [None, None, 'squint', 'squint', 'squint', 'squint', None, None],
+     g(an=band(-70, -100, fistKind='palm'), af=band(-75, -105, fistKind='palm'), bob=(1, 1, 1), lean=(1, 3), root=(4, 0)),   # steps in, hands reaching
+     g(an=band(-80, -80, fistKind='palm'), af=band(-84, -84, fistKind='palm'), bob=(1, 1, 1), lean=(1, 4), root=(4, 0)),      # grabs
+     g(an=band(-72, -95, fistKind='palm'), af=band(-78, -98, fistKind='palm'), bob=(2, 2, 2), lean=(1, 3), **LOW),            # pulls in, holds
+     g(an=band(-72, -95, fistKind='palm'), af=band(-78, -98, fistKind='palm'), bob=(2, 2, 2), lean=(1, 3), **LOW),
+     g(an=band(-72, -95, fistKind='palm'), af=band(-78, -98, fistKind='palm'), bob=(2, 2, 2), lean=(1, 3), **LOW),
+     g(an=band(-88, -88, fistKind='palm'), af=band(-90, -90, fistKind='palm'), bob=(1, 1, 1), lean=(1, 5)),                    # shoves off
+     g(an=band(-60, -120), af=G_F, bob=(1, 1, 2), lean=(0, 2), root=(-4, 0)),
+     g(root=(-4, 0))],
+  [None, None, 'squint', 'squint', 'squint', 'squint', None, None, None],
   None,
-  dict(fps=10, hitbox=[44, 20, 10, 10], damage='light', rm='E: x +1, +1 stepping in, back -1, -1',
-       fx=nfx('white/neutral wisps stream from the gripping palm back along the arm into the chest while the hand holds',
-              [(2, [('spark', [54, 24])]), (3, [('orb', [53, 25]), ('wisp', [48, 18]), ('wisp2', [42, 17])]), (4, [('orb', [53, 25]), ('wisp2', [46, 17]), ('wisp', [41, 18]), ('wisp2', [36, 17])]), (5, [('spark', [54, 24]), ('wisp', [43, 18]), ('wisp2', [37, 17])])]))),
+  dict(fps=10, hitbox=[44, 20, 10, 10], damage='light', rm='E: x +4, +4 stepping in to the tie, back -4, -4',
+       fx=nfx('chakra bar blue wisps streaming off the target (in front) into the gripping hands while the tie holds',
+              [(3, [('bwisp', [58, 22]), ('bwisp2', [54, 26])]), (4, [('bwisp2', [56, 21]), ('bwisp', [51, 25]), ('bspark', [60, 27])]), (5, [('bwisp', [53, 22]), ('bwisp2', [49, 26])])]))),
+ 'chakraDrained': ('Chakra Drain (target)', 3,
+  'Chakra Drain, the target\'s side (pairs with chakraDrain): caught in the collar tie the target is jerked in, head snapped forward and guard broken, and sags in the grip while a chakra-blue aura bleeds off them and away toward the drainer; shoved off, they stumble back and recover into the guard.', [
+     dict(src=6, an=G_N, af=G_F, bob=(1, 1, 2), lean=(0, 2), ln='stance-rear', lf='stance-lead', root=(0, 0)),
+     dict(src=6, an=G_N, af=G_F, bob=(1, 1, 2), lean=(0, 2), ln='stance-rear', lf='stance-lead', root=(0, 0)),
+     dict(src=1, an=h(1, 'near'), af=h(1, 'far'), bob=(2, 2, 2), lean=(1, 3), ln='guard-low-rear', lf='guard-low-lead', root=(0, 0)),
+     dict(src=1, an=band(-20, -60), af=band(-30, -70), bob=(3, 3, 3), lean=(1, 4), ln='guard-low-rear', lf='guard-low-lead', root=(0, 0)),
+     dict(src=1, an=band(-15, -50), af=band(-25, -60), bob=(3, 4, 4), lean=(1, 5), ln='guard-low-rear', lf='guard-low-lead', root=(0, 0)),
+     dict(src=1, an=band(-15, -50), af=band(-25, -60), bob=(3, 4, 4), lean=(1, 5), ln='guard-low-rear', lf='guard-low-lead', root=(0, 0)),
+     dict(src=2, an=h(2, 'near'), af=h(2, 'far'), bob=(2, 2, 2), lean=(1, -3), ln='guard-low-rear', lf='guard-low-lead', root=(-2, 0)),
+     dict(src=4, an=h(4, 'near'), af=h(4, 'far'), bob=(2, 2, 2), lean=(0, -1), ln='stance-rear', lf='stance-lead', root=(-1, 0)),
+     dict(src=6, an=G_N, af=G_F, bob=(1, 1, 2), lean=(0, 2), ln='stance-rear', lf='stance-lead', root=(3, 0))],
+  [None, None, 'pain', 'pain', 'pain', 'pain', 'pain', None, None],
+  [0, 0, 0, 1, 2, 2, 1, 0, 0],
+  dict(fps=10, auraColors=CHAKRA, react=True, rm='shoved back -2, -1, then steps back into place +3 (the drainer steps back too)')),
  'gloomShroud': ('Gloom Shroud', 4,
   'Gloom Shroud (self buff, Stealth): from the guard the fighter makes the seal, then crosses both forearms in front of the face and sinks low; a dark neutral-grey shroud wells up around the body from the ground and wraps it, then settles to a faint grey haze as the arms come down to the guard (the testbed then draws the stealth state).', [
      g(),
@@ -283,7 +317,8 @@ def spec(state):
     x = more[0] if more else {}
     n = len(fr)
     ev = [{'frame': k, 'clip': state, 'type': 'startup' if k < act else 'active' if k == act else 'recovery'} for k in range(n)]
-    if x.get('release'): ev[act].update(move=ab, release=x['release'])
+    if x.get('react'): ev[act].update(react=True)
+    elif x.get('release'): ev[act].update(move=ab, release=x['release'])
     elif x.get('hitbox'): ev[act].update(move=ab, hitbox=x['hitbox'], damage=x['damage'])
     else: ev[act].update(move=ab, buff=True)
     events = {'rule': 'per-frame gameplay data per facing (W mirrors E: x -> 64 - x - w); hitboxes provisional', 'E': ev,
@@ -294,12 +329,17 @@ def spec(state):
     s['fps'] = clips[state]['fps'] = x.get('fps', 10); s.pop('approved', None); s.pop('keyPoses', None)
     if not x.get('fx'): s.pop('fx', None)
     s['expressions'] = copy.deepcopy(HR['expressions']); s['expressions']['frames'] = {'E': ex}
+    s['expressions']['shapes']['closed'] = copy.deepcopy(CLOSED)   # eyes shut (focus)
     save(s, D + state + '.json'); print(state, n, 'frames')
 
 def aura(state):
     x = (CLIPS[state][6:] or [{}])[0]; keep = grstrikes.AURA
     if x.get('auraColors'): grstrikes.AURA = x['auraColors']   # shadow techniques: dark neutral grey inside, mid grey outside
+    from PIL import Image
+    f = D + state + '/fx.png'; old = Image.open(f).convert('RGBA') if x.get('fx') and os.path.exists(f) else None   # the clip's own splash fx (rendered just before)
     grstrikes.CLIPS[state] = (None,) * 9 + (CLIPS[state][5],); grstrikes.aura(state); grstrikes.AURA = keep
+    if old:
+        new = Image.open(f).convert('RGBA'); new.alpha_composite(old); new.save(f)   # splash fx over the aura
 
 if __name__ == '__main__':
     a = sys.argv[1:]

@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "ironMountain",
-  "status": "CANDIDATE 2026-10-20 (E/W; W mirrors E; S/N to author after approval)",
+  "status": "UNUSED (Christopher 2026-10-21): shelved, not offered anywhere and no further animation work until its use is decided; E/W v1 draft kept for reference",
   "frames": 8,
   "fps": 12,
   "sourceDirection": "E",
@@ -644,6 +644,28 @@
         "footX": 35,
         "wrapRow": 56,
         "foot": "flat"
+      },
+      {
+        "name": "duel-lead",
+        "construction": "band",
+        "hipX": 32,
+        "hipRow": 42,
+        "kneeX": 34,
+        "kneeRow": 50,
+        "footX": 35,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "duel-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 42,
+        "kneeX": 30,
+        "kneeRow": 50,
+        "footX": 28,
+        "wrapRow": 56,
+        "foot": "flat"
       }
     ],
     "near": [
@@ -872,6 +894,64 @@
           "LLmLLs",
           "mLLLms",
           ".sDDs."
+        ]
+      },
+      "palmUp": {
+        "use": "open hand angled forward, fingers leaning toward the opponent (judo grip hunt)",
+        "anchor": [
+          0,
+          4
+        ],
+        "rows": [
+          "...Lm",
+          "..LLm",
+          ".LLLm",
+          "LLLLm",
+          "LLLms",
+          "mLLs.",
+          ".sDs."
+        ]
+      },
+      "palmDown": {
+        "use": "open hand, heel of the palm leading a downward thrust, fingers pointing forward (palm strikes from Mount)",
+        "anchor": [
+          0,
+          1
+        ],
+        "rows": [
+          "mLLLLm.",
+          "LLLLLLm",
+          "mLLms..",
+          ".sDs..."
+        ]
+      },
+      "palmHeel": {
+        "use": "open hand, heel of the palm leading a straight thrust, fingers together and up (standing Sumo Palm)",
+        "anchor": [
+          0,
+          4
+        ],
+        "rows": [
+          ".Lm.",
+          "LLm.",
+          "LLm.",
+          "LLLm",
+          "LLLm",
+          "mLLs",
+          ".sDs"
+        ]
+      },
+      "fingerGun": {
+        "use": "finger gun (Chakra Bullet): index finger pointing along the arm, thumb up, the other fingers curled",
+        "anchor": [
+          0,
+          1
+        ],
+        "rows": [
+          ".Lm....",
+          "LLLLLLm",
+          "LLLms..",
+          "msDs..."
         ]
       }
     },
@@ -1430,6 +1510,30 @@
           [
             6,
             1,
+            "#000000"
+          ]
+        ]
+      },
+      "closed": {
+        "E": [
+          [
+            0,
+            1,
+            "#70241d"
+          ],
+          [
+            1,
+            1,
+            "#70241d"
+          ],
+          [
+            0,
+            2,
+            "#000000"
+          ],
+          [
+            1,
+            2,
             "#000000"
           ]
         ]

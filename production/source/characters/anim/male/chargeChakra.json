@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Charge Chakra (free focus action, recover chakra): from the guard the fighter sinks into the knees and brings both hands together in a seal in front of the chest, eyes narrowed; holding the seal, a white/neutral aura swells around the whole body in a slow pulse as the chest rises with the breath, then fades; the hands part and come back up into the guard.",
+  "intent": "Charge Chakra (free focus action, recover chakra): from the guard the fighter sinks into the knees and presses both open hands together upright in front of the chin, eyes closed in focus; holding the seal, an aura in the chakra bar blue swells around the whole body in a slow pulse as the chest rises with the breath, then fades; the eyes open, the hands part and come back up into the guard (Christopher 2026-10-21: eyes closed, aura the colour of the chakra bar).",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -655,6 +655,28 @@
         "kneeX": 34,
         "kneeRow": 50,
         "footX": 35,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "duel-lead",
+        "construction": "band",
+        "hipX": 32,
+        "hipRow": 42,
+        "kneeX": 34,
+        "kneeRow": 50,
+        "footX": 35,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "duel-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 42,
+        "kneeX": 30,
+        "kneeRow": 50,
+        "footX": 28,
         "wrapRow": 56,
         "foot": "flat"
       }
@@ -1435,17 +1457,41 @@
             "#000000"
           ]
         ]
+      },
+      "closed": {
+        "E": [
+          [
+            0,
+            1,
+            "#70241d"
+          ],
+          [
+            1,
+            1,
+            "#70241d"
+          ],
+          [
+            0,
+            2,
+            "#000000"
+          ],
+          [
+            1,
+            2,
+            "#000000"
+          ]
+        ]
       }
     },
     "frames": {
       "E": [
         null,
         null,
-        "squint",
-        "squint",
-        "squint",
-        "squint",
-        "squint",
+        "closed",
+        "closed",
+        "closed",
+        "closed",
+        "closed",
         null,
         null
       ]

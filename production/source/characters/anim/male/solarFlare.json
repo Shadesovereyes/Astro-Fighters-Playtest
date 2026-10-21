@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "solarFlare",
-  "status": "CANDIDATE 2026-10-20 (E/W; W mirrors E; S/N to author after approval)",
+  "status": "E/W approved by user 2026-10-21 (v1; W mirrors E); S/N to author",
   "frames": 7,
   "fps": 12,
   "sourceDirection": "E",
@@ -631,6 +631,28 @@
         "footX": 35,
         "wrapRow": 56,
         "foot": "flat"
+      },
+      {
+        "name": "duel-lead",
+        "construction": "band",
+        "hipX": 32,
+        "hipRow": 42,
+        "kneeX": 34,
+        "kneeRow": 50,
+        "footX": 35,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "duel-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 42,
+        "kneeX": 30,
+        "kneeRow": 50,
+        "footX": 28,
+        "wrapRow": 56,
+        "foot": "flat"
       }
     ],
     "near": [
@@ -894,6 +916,19 @@
           "LLLm",
           "mLLs",
           ".sDs"
+        ]
+      },
+      "fingerGun": {
+        "use": "finger gun (Chakra Bullet): index finger pointing along the arm, thumb up, the other fingers curled",
+        "anchor": [
+          0,
+          1
+        ],
+        "rows": [
+          ".Lm....",
+          "LLLLLLm",
+          "LLLms..",
+          "msDs..."
         ]
       }
     },
@@ -1227,7 +1262,9 @@
       "W": "#ffffff",
       "w": "#e3e3e3",
       "g": "#9a9a9a",
-      "d": "#4a4a4a"
+      "d": "#4a4a4a",
+      "B": "#4f8dff",
+      "b": "#23407e"
     },
     "patterns": {
       "spark": [
@@ -1573,10 +1610,132 @@
         ".g.g.",
         "g.g.g"
       ],
+      "puffBig": [
+        "....wwww....",
+        "..wwWWWWww..",
+        ".wWWWwwWWWw.",
+        "wWWwwwwwwWWw",
+        "wWwwwwwwwwWw",
+        ".wwwwwwwwww.",
+        "..wwwwwwww.."
+      ],
+      "puffRing": [
+        "..w..w..w..",
+        ".w.......w.",
+        "w.........w",
+        ".w.......w.",
+        "..w..w..w.."
+      ],
+      "ghost1": [
+        ".ggg.",
+        ".g.g.",
+        ".g.g.",
+        ".g.g.",
+        ".g.g.",
+        "....."
+      ],
+      "ghost2": [
+        "...ggg...",
+        "..g.g.g..",
+        ".g.g.g.g.",
+        "..g.g.g..",
+        ".g.g.g.g.",
+        "g.g.g.g.g",
+        ".g.g.g.g.",
+        "g.g.g.g.g",
+        ".g.g.g.g."
+      ],
+      "ghost3": [
+        "...ggg...",
+        "..g.g.g..",
+        ".g.g.g.g.",
+        "..g.g.g..",
+        ".g.g.g.g.",
+        "g.g.g.g.g",
+        ".g.g.g.g.",
+        "g.g.g.g.g",
+        ".g.g.g.g.",
+        "g.g...g.g",
+        ".g.....g."
+      ],
+      "puffHuge": [
+        "...........w...........",
+        "......wwwwwwwwwww......",
+        "....wwwwwwwwwwwwwww....",
+        "...wwwwwwWWWWWwwwwww...",
+        "..wwwwwWWWWWWWWWwwwww..",
+        ".wwwwWWWWWWWWWWWWWwwww.",
+        ".wwwwWWWWWWWWWWWWWwwww.",
+        ".wwwWWWWWWWWWWWWWWWwww.",
+        "wwwwWWWWWWWWWWWWWWWwwww",
+        ".wwwWWWWWWWWWWWWWWWwww.",
+        ".wwwwWWWWWWWWWWWWWwwww.",
+        ".wwwwWWWWWWWWWWWWWwwww.",
+        "..wwwwwWWWWWWWWWwwwww..",
+        "...wwwwwwWWWWWwwwwww...",
+        "....wwwwwwwwwwwwwww....",
+        "......wwwwwwwwwww......",
+        "...........w..........."
+      ],
+      "puffHuge2": [
+        "............w............",
+        ".......w.w.w.w.w.w.......",
+        "......w.w.w.w.w.w.w......",
+        ".....w.w.w.w.w.w.w.w.....",
+        "....w.w.W.W.W.W.W.w.w....",
+        "...w.w.W.W.W.W.W.W.w.w...",
+        "..w.w.W.W.W.W.W.W.W.w.w..",
+        ".w.w.W.W.W.W.W.W.W.W.w.w.",
+        "..w.w.W.W.W.W.W.W.W.w.w..",
+        ".w.w.W.W.W.W.W.W.W.W.w.w.",
+        "..w.w.W.W.W.W.W.W.W.w.w..",
+        ".w.w.W.W.W.W.W.W.W.W.w.w.",
+        "..w.w.W.W.W.W.W.W.W.w.w..",
+        "...w.w.W.W.W.W.W.W.w.w...",
+        "....w.w.W.W.W.W.W.w.w....",
+        ".....w.w.w.w.w.w.w.w.....",
+        "......w.w.w.w.w.w.w......",
+        ".......w.w.w.w.w.w.......",
+        "............w............"
+      ],
       "dust": [
         "..w..w..",
         ".wWwwWw.",
         "wWwwwwWw"
+      ],
+      "bspark": [
+        ".b.",
+        "bBb",
+        ".b."
+      ],
+      "borb": [
+        ".bb.",
+        "bBBb",
+        "bBBb",
+        ".bb."
+      ],
+      "borbBig": [
+        "..b..",
+        ".bBb.",
+        "bBWBb",
+        ".bBb.",
+        "..b.."
+      ],
+      "brelease": [
+        "..b.....",
+        ".bB.b...",
+        "bBWWBBb.",
+        ".bB.b...",
+        "..b....."
+      ],
+      "bwisp": [
+        ".b.",
+        "bBb",
+        ".b."
+      ],
+      "bwisp2": [
+        "b.b",
+        ".B."
       ]
     },
     "frames": [
@@ -1755,6 +1914,30 @@
           [
             6,
             1,
+            "#000000"
+          ]
+        ]
+      },
+      "closed": {
+        "E": [
+          [
+            0,
+            1,
+            "#70241d"
+          ],
+          [
+            1,
+            1,
+            "#70241d"
+          ],
+          [
+            0,
+            2,
+            "#000000"
+          ],
+          [
+            1,
+            2,
             "#000000"
           ]
         ]
