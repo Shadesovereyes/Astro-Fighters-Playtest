@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Shadow Possession (grapple: pin the foe's shadow): from the guard the fighter makes the seal at the chest and sinks low on bent knees, eyes narrowed and holding still; the fighter's shadow stretches out flat along the ground toward the target as a dark neutral-grey band, holds, then the hands part back into the guard (the testbed draws the shadow onward to the target and the root on both).",
+  "intent": "Shadow Possession (grapple: pin the foe's shadow), v2 (Christopher 2026-10-21: the caster points; keep the shadow movement at the feet): from the guard the fighter sinks a little on bent knees and thrusts the near arm straight out, index finger pointing at the target, eyes narrowed and holding still while the far hand stays in guard; the fighter's shadow stretches out flat along the ground toward the target as a dark neutral-grey band, holds, then the arm drops back into the guard (the testbed draws the shadow onward to the target and the root on both).",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -90,31 +90,31 @@
     "rule": "the knees give under the blow (body 2 px low) and come back up to the guard height; the head drops with the body a frame late",
     "dy": [
       1,
+      1,
       2,
-      3,
-      3,
-      3,
-      3,
       2,
+      2,
+      2,
+      1,
       1
     ],
     "head": [
       1,
+      1,
       2,
-      3,
-      3,
-      3,
-      3,
       2,
+      2,
+      2,
+      1,
       1
     ],
     "arms": [
       2,
       2,
-      3,
-      3,
-      3,
-      3,
+      2,
+      2,
+      2,
+      2,
       2,
       2
     ]
@@ -135,11 +135,11 @@
       ],
       "head": [
         2,
+        1,
         0,
-        1,
-        1,
-        1,
-        1,
+        0,
+        0,
+        0,
         1,
         2
       ]
@@ -644,6 +644,28 @@
         "footX": 35,
         "wrapRow": 56,
         "foot": "flat"
+      },
+      {
+        "name": "duel-lead",
+        "construction": "band",
+        "hipX": 32,
+        "hipRow": 42,
+        "kneeX": 34,
+        "kneeRow": 50,
+        "footX": 35,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "duel-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 42,
+        "kneeX": 30,
+        "kneeRow": 50,
+        "footX": 28,
+        "wrapRow": 56,
+        "foot": "flat"
       }
     ],
     "near": [
@@ -693,55 +715,55 @@
       },
       {
         "construction": "band",
-        "angle": -48,
+        "angle": -55,
         "elbow": {
           "at": 8,
-          "angle": -150
+          "angle": -60
         },
-        "fistKind": "palm"
+        "fistKind": "point"
       },
       {
         "construction": "band",
-        "angle": -48,
+        "angle": -85,
         "elbow": {
           "at": 8,
-          "angle": -150
+          "angle": -85
         },
-        "fistKind": "palm"
+        "fistKind": "point"
       },
       {
         "construction": "band",
-        "angle": -48,
+        "angle": -85,
         "elbow": {
           "at": 8,
-          "angle": -150
+          "angle": -85
         },
-        "fistKind": "palm"
+        "fistKind": "point"
       },
       {
         "construction": "band",
-        "angle": -48,
+        "angle": -85,
         "elbow": {
           "at": 8,
-          "angle": -150
+          "angle": -85
         },
-        "fistKind": "palm"
+        "fistKind": "point"
       },
       {
         "construction": "band",
-        "angle": -48,
+        "angle": -85,
         "elbow": {
           "at": 8,
-          "angle": -150
+          "angle": -85
         },
-        "fistKind": "palm"
+        "fistKind": "point"
       },
       {
         "construction": "band",
-        "angle": -5,
+        "angle": -60,
         "elbow": {
           "at": 8,
-          "angle": -140
+          "angle": -120
         }
       },
       {
@@ -764,55 +786,50 @@
       },
       {
         "construction": "band",
-        "angle": -60,
+        "angle": -45,
         "elbow": {
           "at": 8,
-          "angle": -146
-        },
-        "fistKind": "palm"
+          "angle": 222
+        }
       },
       {
         "construction": "band",
-        "angle": -60,
+        "angle": -45,
         "elbow": {
           "at": 8,
-          "angle": -146
-        },
-        "fistKind": "palm"
+          "angle": 222
+        }
       },
       {
         "construction": "band",
-        "angle": -60,
+        "angle": -45,
         "elbow": {
           "at": 8,
-          "angle": -146
-        },
-        "fistKind": "palm"
+          "angle": 222
+        }
       },
       {
         "construction": "band",
-        "angle": -60,
+        "angle": -45,
         "elbow": {
           "at": 8,
-          "angle": -146
-        },
-        "fistKind": "palm"
+          "angle": 222
+        }
       },
       {
         "construction": "band",
-        "angle": -60,
+        "angle": -45,
         "elbow": {
           "at": 8,
-          "angle": -146
-        },
-        "fistKind": "palm"
+          "angle": 222
+        }
       },
       {
         "construction": "band",
-        "angle": -25,
+        "angle": -45,
         "elbow": {
           "at": 8,
-          "angle": -145
+          "angle": 222
         }
       },
       {
@@ -927,6 +944,31 @@
           "LLLm",
           "mLLs",
           ".sDs"
+        ]
+      },
+      "fingerGun": {
+        "use": "finger gun (Chakra Bullet): index finger pointing along the arm, thumb up, the other fingers curled",
+        "anchor": [
+          0,
+          1
+        ],
+        "rows": [
+          ".Lm....",
+          "LLLLLLm",
+          "LLLms..",
+          "msDs..."
+        ]
+      },
+      "fingerPoint": {
+        "use": "pointing hand (Shadow Possession v2): index finger pointing along the arm, thumb tucked, the other fingers curled",
+        "anchor": [
+          0,
+          0
+        ],
+        "rows": [
+          "LLLLLLm",
+          "LLLms..",
+          "msDs..."
         ]
       }
     },
@@ -1272,7 +1314,9 @@
       "W": "#ffffff",
       "w": "#e3e3e3",
       "g": "#9a9a9a",
-      "d": "#4a4a4a"
+      "d": "#4a4a4a",
+      "B": "#4f8dff",
+      "b": "#23407e"
     },
     "patterns": {
       "spark": [
@@ -1618,10 +1662,132 @@
         ".g.g.",
         "g.g.g"
       ],
+      "puffBig": [
+        "....wwww....",
+        "..wwWWWWww..",
+        ".wWWWwwWWWw.",
+        "wWWwwwwwwWWw",
+        "wWwwwwwwwwWw",
+        ".wwwwwwwwww.",
+        "..wwwwwwww.."
+      ],
+      "puffRing": [
+        "..w..w..w..",
+        ".w.......w.",
+        "w.........w",
+        ".w.......w.",
+        "..w..w..w.."
+      ],
+      "ghost1": [
+        ".ggg.",
+        ".g.g.",
+        ".g.g.",
+        ".g.g.",
+        ".g.g.",
+        "....."
+      ],
+      "ghost2": [
+        "...ggg...",
+        "..g.g.g..",
+        ".g.g.g.g.",
+        "..g.g.g..",
+        ".g.g.g.g.",
+        "g.g.g.g.g",
+        ".g.g.g.g.",
+        "g.g.g.g.g",
+        ".g.g.g.g."
+      ],
+      "ghost3": [
+        "...ggg...",
+        "..g.g.g..",
+        ".g.g.g.g.",
+        "..g.g.g..",
+        ".g.g.g.g.",
+        "g.g.g.g.g",
+        ".g.g.g.g.",
+        "g.g.g.g.g",
+        ".g.g.g.g.",
+        "g.g...g.g",
+        ".g.....g."
+      ],
+      "puffHuge": [
+        "...........w...........",
+        "......wwwwwwwwwww......",
+        "....wwwwwwwwwwwwwww....",
+        "...wwwwwwWWWWWwwwwww...",
+        "..wwwwwWWWWWWWWWwwwww..",
+        ".wwwwWWWWWWWWWWWWWwwww.",
+        ".wwwwWWWWWWWWWWWWWwwww.",
+        ".wwwWWWWWWWWWWWWWWWwww.",
+        "wwwwWWWWWWWWWWWWWWWwwww",
+        ".wwwWWWWWWWWWWWWWWWwww.",
+        ".wwwwWWWWWWWWWWWWWwwww.",
+        ".wwwwWWWWWWWWWWWWWwwww.",
+        "..wwwwwWWWWWWWWWwwwww..",
+        "...wwwwwwWWWWWwwwwww...",
+        "....wwwwwwwwwwwwwww....",
+        "......wwwwwwwwwww......",
+        "...........w..........."
+      ],
+      "puffHuge2": [
+        "............w............",
+        ".......w.w.w.w.w.w.......",
+        "......w.w.w.w.w.w.w......",
+        ".....w.w.w.w.w.w.w.w.....",
+        "....w.w.W.W.W.W.W.w.w....",
+        "...w.w.W.W.W.W.W.W.w.w...",
+        "..w.w.W.W.W.W.W.W.W.w.w..",
+        ".w.w.W.W.W.W.W.W.W.W.w.w.",
+        "..w.w.W.W.W.W.W.W.W.w.w..",
+        ".w.w.W.W.W.W.W.W.W.W.w.w.",
+        "..w.w.W.W.W.W.W.W.W.w.w..",
+        ".w.w.W.W.W.W.W.W.W.W.w.w.",
+        "..w.w.W.W.W.W.W.W.W.w.w..",
+        "...w.w.W.W.W.W.W.W.w.w...",
+        "....w.w.W.W.W.W.W.w.w....",
+        ".....w.w.w.w.w.w.w.w.....",
+        "......w.w.w.w.w.w.w......",
+        ".......w.w.w.w.w.w.......",
+        "............w............"
+      ],
       "dust": [
         "..w..w..",
         ".wWwwWw.",
         "wWwwwwWw"
+      ],
+      "bspark": [
+        ".b.",
+        "bBb",
+        ".b."
+      ],
+      "borb": [
+        ".bb.",
+        "bBBb",
+        "bBBb",
+        ".bb."
+      ],
+      "borbBig": [
+        "..b..",
+        ".bBb.",
+        "bBWBb",
+        ".bBb.",
+        "..b.."
+      ],
+      "brelease": [
+        "..b.....",
+        ".bB.b...",
+        "bBWWBBb.",
+        ".bB.b...",
+        "..b....."
+      ],
+      "bwisp": [
+        ".b.",
+        "bBb",
+        ".b."
+      ],
+      "bwisp2": [
+        "b.b",
+        ".B."
       ]
     },
     "frames": [
@@ -1812,6 +1978,30 @@
           [
             6,
             1,
+            "#000000"
+          ]
+        ]
+      },
+      "closed": {
+        "E": [
+          [
+            0,
+            1,
+            "#70241d"
+          ],
+          [
+            1,
+            1,
+            "#70241d"
+          ],
+          [
+            0,
+            2,
+            "#000000"
+          ],
+          [
+            1,
+            2,
             "#000000"
           ]
         ]

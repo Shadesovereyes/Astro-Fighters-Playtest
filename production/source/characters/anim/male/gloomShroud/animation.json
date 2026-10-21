@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-animation-output/v1",
   "body": "male",
   "state": "gloomShroud",
-  "status": "CANDIDATE 2026-10-21 v2 (stealth fade: invisible to others, see-through to own player; E/W; W mirrors E; S/N to author after approval)",
+  "status": "E/W approved by user 2026-10-21 (v2 stealth fade: invisible to others, see-through to own player, 07a8093; W mirrors E); S/N to author",
   "frames": 8,
   "fps": 10,
   "frameSize": [

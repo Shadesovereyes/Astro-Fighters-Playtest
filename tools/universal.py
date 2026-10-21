@@ -16,6 +16,8 @@ HR['legs']['feet'].update({k: v for k, v in load(D + 'heavyAttack.json')['legs']
 _JC = load(D + 'judoChop.json')['arms']['band']; HR['arms']['band'].update({k: _JC[k] for k in ('palmUp', 'palmDown', 'palmHeel')})   # open-hand shapes (palm seals, palm thrusts)
 HR['arms']['band']['fingerGun'] = {'use': 'finger gun (Chakra Bullet): index finger pointing along the arm, thumb up, the other fingers curled', 'anchor': [0, 1],
                                    'rows': ['.Lm....', 'LLLLLLm', 'LLLms..', 'msDs...']}
+HR['arms']['band']['fingerPoint'] = {'use': 'pointing hand (Shadow Possession v2): index finger pointing along the arm, thumb tucked, the other fingers curled', 'anchor': [0, 0],
+                                     'rows': ['LLLLLLm', 'LLLms..', 'msDs...']}
 def band(a, e, **k): return {'construction': 'band', 'angle': a, 'elbow': {'at': 8, 'angle': e}, **k}
 CLOSED = load(D + 'downed.json')['expressions']['shapes']['closed']
 def h(k, side): return copy.deepcopy(HR['arms'][side][k])
@@ -27,6 +29,7 @@ APPROVED['catchBreath'] = 'E/W approved by user 2026-10-21 (v2, two slow deep br
 APPROVED.update(chargeChakra='E/W approved by user 2026-10-21 (v4 meditative hold, 9622256; W mirrors E); S/N to author', **{s_: 'E/W approved by user 2026-10-21 (v3 chakra flowing up the drainer\'s arms, 9622256; W mirrors E); S/N to author' for s_ in ('chakraDrain', 'chakraDrained')})
 UNUSED = 'UNUSED (Christopher 2026-10-21): shelved, not offered anywhere and no further animation work until its use is decided; E/W v1 draft kept for reference'
 APPROVED.update(ironMountain=UNUSED, heavenlyKick=UNUSED)
+APPROVED['gloomShroud'] = 'E/W approved by user 2026-10-21 (v2 stealth fade: invisible to others, see-through to own player, 07a8093; W mirrors E); S/N to author'
 
 G_N, G_F = h(6, 'near'), h(6, 'far')                     # guard arms
 GUARD = dict(an=G_N, af=G_F, bob=(1, 1, 2), lean=(0, 2), ln='stance-rear', lf='stance-lead', root=(0, 0))
@@ -279,14 +282,14 @@ CLIPS = {   # state: (ability, active frame, intent, frames, expressions, aura w
   dict(fps=10, fx=nfx('white/neutral dust bursting up at the ground in front as the palms lift the wall',
               [(2, [('dust', [44, 63])]), (3, [('dust', [44, 63]), ('spark', [50, 59])]), (4, [('dust', [46, 63]), ('spark', [53, 57])]), (5, [('shroud1', [48, 63])])]))),
  'shadowPossession': ('Shadow Possession', 3,
-  'Shadow Possession (grapple: pin the foe\'s shadow): from the guard the fighter makes the seal at the chest and sinks low on bent knees, eyes narrowed and holding still; the fighter\'s shadow stretches out flat along the ground toward the target as a dark neutral-grey band, holds, then the hands part back into the guard (the testbed draws the shadow onward to the target and the root on both).', [
+  'Shadow Possession (grapple: pin the foe\'s shadow), v2 (Christopher 2026-10-21: the caster points; keep the shadow movement at the feet): from the guard the fighter sinks a little on bent knees and thrusts the near arm straight out, index finger pointing at the target, eyes narrowed and holding still while the far hand stays in guard; the fighter\'s shadow stretches out flat along the ground toward the target as a dark neutral-grey band, holds, then the arm drops back into the guard (the testbed draws the shadow onward to the target and the root on both).', [
      g(),
-     g(an=SEAL_N, af=SEAL_F, bob=(2, 2, 2), lean=(0, 0), **LOW),
-     g(an=SEAL_N, af=SEAL_F, bob=(3, 3, 3), lean=(0, 1), **LOW),
-     g(an=SEAL_N, af=SEAL_F, bob=(3, 3, 3), lean=(0, 1), **LOW),
-     g(an=SEAL_N, af=SEAL_F, bob=(3, 3, 3), lean=(0, 1), **LOW),
-     g(an=SEAL_N, af=SEAL_F, bob=(3, 3, 3), lean=(0, 1), **LOW),
-     g(an=band(-5, -140), af=band(-25, -145), bob=(2, 2, 2), lean=(0, 1), **LOW),
+     g(an=band(-55, -60, fistKind='point'), bob=(1, 1, 2), lean=(0, 1), **LOW),
+     g(an=band(-85, -85, fistKind='point'), bob=(2, 2, 2), lean=(0, 0), **LOW),
+     g(an=band(-85, -85, fistKind='point'), bob=(2, 2, 2), lean=(0, 0), **LOW),
+     g(an=band(-85, -85, fistKind='point'), bob=(2, 2, 2), lean=(0, 0), **LOW),
+     g(an=band(-85, -85, fistKind='point'), bob=(2, 2, 2), lean=(0, 0), **LOW),
+     g(an=band(-60, -120), bob=(1, 1, 2), lean=(0, 1), **LOW),
      g()],
   [None, 'squint', 'squint', 'squint', 'squint', 'squint', None, None],
   None,
