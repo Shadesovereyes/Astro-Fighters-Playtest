@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "chainRecall",
-  "status": "E/W approved by user 2026-10-19 (chain recalled after the snare breaks); S/N CANDIDATE 2026-10-21 (v1)",
+  "status": "E/W approved by user 2026-10-19 (chain recalled after the snare breaks); S/N approved by user 2026-10-21 (v1)",
   "frames": 4,
   "fps": 12,
   "sourceDirection": "E",
@@ -754,7 +754,7 @@
       "items": [
         "kama"
       ],
-      "status": "E/W approved by user 2026-10-19 (chain recalled after the snare breaks); S/N to author",
+      "status": "E/W approved by user 2026-10-19 (chain recalled after the snare breaks); S/N approved by user 2026-10-21 (v1)",
       "rule": "as chainHold; the weight is back at the off fist from frame 1",
       "depthRule": "front",
       "E": [
