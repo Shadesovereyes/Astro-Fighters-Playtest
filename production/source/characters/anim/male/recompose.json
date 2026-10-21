@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "recompose",
-  "status": "E/W approved by user 2026-10-21 (v5, one exaggerated pump per arm, 026b272; W mirrors E); S/N CANDIDATE 2026-10-21 (v4: fist pushed at the viewer knuckles-on, elbow flared out and up on the rack; v3 approval withdrawn by user)",
+  "status": "E/W approved by user 2026-10-21 (v5, one exaggerated pump per arm, 026b272; W mirrors E); S/N CANDIDATE 2026-10-21 (v5: elbows tucked tight to the ribs on the rack; v4 read as raising the arms)",
   "frames": 16,
   "fps": 10,
   "sourceDirection": "E",
@@ -2260,16 +2260,16 @@
               -6,
               -22,
               -22,
-              50,
-              75,
-              75,
-              75,
-              75,
-              75,
-              75,
-              75,
-              75,
-              75,
+              4,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
               10,
               10
             ],
@@ -2286,43 +2286,43 @@
               null,
               {
                 "at": 7,
-                "angle": 160
+                "angle": 170
               },
               {
                 "at": 7,
-                "angle": 175
+                "angle": 192
               },
               {
                 "at": 7,
-                "angle": 175
+                "angle": 192
               },
               {
                 "at": 7,
-                "angle": 175
+                "angle": 192
               },
               {
                 "at": 7,
-                "angle": 175
+                "angle": 192
               },
               {
                 "at": 7,
-                "angle": 175
+                "angle": 192
               },
               {
                 "at": 7,
-                "angle": 175
+                "angle": 192
               },
               {
                 "at": 7,
-                "angle": 175
+                "angle": 192
               },
               {
                 "at": 7,
-                "angle": 175
+                "angle": 192
               },
               {
                 "at": 7,
-                "angle": 175
+                "angle": 192
               },
               {
                 "at": 7,
@@ -2338,16 +2338,16 @@
               0.8,
               0.5,
               0.5,
-              0.9,
-              0.9,
-              0.9,
-              0.9,
-              0.9,
-              0.9,
-              0.9,
-              0.9,
-              0.9,
-              0.9,
+              0.8,
+              0.7,
+              0.7,
+              0.7,
+              0.7,
+              0.7,
+              0.7,
+              0.7,
+              0.7,
+              0.7,
               1,
               1
             ],
@@ -2405,10 +2405,10 @@
               6,
               22,
               22,
-              -50,
-              -75,
-              -75,
-              -75,
+              -4,
+              -1,
+              -1,
+              -1,
               -10,
               -10
             ],
@@ -2449,19 +2449,19 @@
               null,
               {
                 "at": 7,
-                "angle": -160
+                "angle": -170
               },
               {
                 "at": 7,
-                "angle": -175
+                "angle": -192
               },
               {
                 "at": 7,
-                "angle": -175
+                "angle": -192
               },
               {
                 "at": 7,
-                "angle": -175
+                "angle": -192
               },
               {
                 "at": 7,
@@ -2483,10 +2483,10 @@
               0.8,
               0.5,
               0.5,
-              0.9,
-              0.9,
-              0.9,
-              0.9,
+              0.8,
+              0.7,
+              0.7,
+              0.7,
               1,
               1
             ],
@@ -2816,16 +2816,16 @@
               6,
               22,
               22,
-              -50,
-              -75,
-              -75,
-              -75,
-              -75,
-              -75,
-              -75,
-              -75,
-              -75,
-              -75,
+              -4,
+              -1,
+              -1,
+              -1,
+              -1,
+              -1,
+              -1,
+              -1,
+              -1,
+              -1,
               -12,
               -12
             ],
@@ -2839,43 +2839,43 @@
               null,
               {
                 "at": 7,
-                "angle": -160
+                "angle": -170
               },
               {
                 "at": 7,
-                "angle": -175
+                "angle": 168
               },
               {
                 "at": 7,
-                "angle": -175
+                "angle": 168
               },
               {
                 "at": 7,
-                "angle": -175
+                "angle": 168
               },
               {
                 "at": 7,
-                "angle": -175
+                "angle": 168
               },
               {
                 "at": 7,
-                "angle": -175
+                "angle": 168
               },
               {
                 "at": 7,
-                "angle": -175
+                "angle": 168
               },
               {
                 "at": 7,
-                "angle": -175
+                "angle": 168
               },
               {
                 "at": 7,
-                "angle": -175
+                "angle": 168
               },
               {
                 "at": 7,
-                "angle": -175
+                "angle": 168
               },
               null,
               null
@@ -2885,16 +2885,16 @@
               0.8,
               0.5,
               0.5,
-              0.9,
-              0.9,
-              0.9,
-              0.9,
-              0.9,
-              0.9,
-              0.9,
-              0.9,
-              0.9,
-              0.9,
+              0.8,
+              0.7,
+              0.7,
+              0.7,
+              0.7,
+              0.7,
+              0.7,
+              0.7,
+              0.7,
+              0.7,
               1,
               1
             ],
@@ -2970,10 +2970,10 @@
               -6,
               -22,
               -22,
-              50,
-              75,
-              75,
-              75,
+              4,
+              1,
+              1,
+              1,
               12,
               12
             ],
@@ -3011,19 +3011,19 @@
               null,
               {
                 "at": 7,
-                "angle": 160
+                "angle": 170
               },
               {
                 "at": 7,
-                "angle": 175
+                "angle": -168
               },
               {
                 "at": 7,
-                "angle": 175
+                "angle": -168
               },
               {
                 "at": 7,
-                "angle": 175
+                "angle": -168
               },
               null,
               null
@@ -3039,10 +3039,10 @@
               0.8,
               0.5,
               0.5,
-              0.9,
-              0.9,
-              0.9,
-              0.9,
+              0.8,
+              0.7,
+              0.7,
+              0.7,
               1,
               1
             ],

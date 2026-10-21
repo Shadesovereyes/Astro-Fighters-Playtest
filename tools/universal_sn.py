@@ -81,7 +81,9 @@ SN.update({'catchBreath': {1: REST, 2: REST, 3: REST, 4: REST, 5: OUT, 6: OUT, 7
 # v4 (Christopher 2026-10-21: v3 S/N needed further development): the push comes at the viewer as a foreshortened fist,
 # knuckles on, low in front of the belly; the haul back flares the elbow out and up to the side (an elbow driving back
 # seen from the front), the fist ending by the shoulder
-RC = {'mid': (-6, 10, 0.8, 'up'), 'push': (-22, None, 0.5, 'front'), 'back': (50, 160, 0.9, 'up'), 'rack': (75, 175, 0.9, 'up'), 'guard': stances.GA['R']}
+# v5 (Christopher 2026-10-21: v4 read as raising the arms, not tucking them in): the rack pulls the elbow back and tucks
+# it tight against the ribs, upper arm hanging close to the body and the forearm foreshortened forward, fist low by the chest
+RC = {'mid': (-6, 10, 0.8, 'up'), 'push': (-22, None, 0.5, 'front'), 'back': (4, 170, 0.8, 'up'), 'rack': (1, 192, 0.7, 'up'), 'guard': stances.GA['R']}
 RCL = lambda k: (-RC[k][0], None if RC[k][1] is None else -RC[k][1], *RC[k][2:]) if k != 'guard' else stances.GA['L']
 SEQ = [(n, 'guard') for n in ('mid', 'push', 'push', 'back', 'rack', 'rack')] + [('rack', f) for f in ('mid', 'push', 'push', 'back', 'rack', 'rack')] + [('rack', 'rack')]
 for k, (n, f) in enumerate(SEQ, 1): SN['recompose'][k] = dict(R=RC[n], L=RCL(f))
