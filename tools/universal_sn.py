@@ -78,12 +78,16 @@ RACK = dict(R=(35, 195, 0.85, 'up'), L=(-35, -195, 0.85, 'up'))    # racked back
 SN.update({'catchBreath': {1: REST, 2: REST, 3: REST, 4: REST, 5: OUT, 6: OUT, 7: REST, 8: REST, 9: OUT},
            'recompose': {}})
 # Recompose v5 (Christopher 2026-10-21: one arm after the other, one big pump each, over more frames): per arm (R near, L far in S)
-RC = {'mid': (-4, 15, 0.85, 'up'), 'push': (-10, 0, 0.65, 'up'), 'back': (22, 150, 0.85, 'up'), 'rack': (40, 200, 0.8, 'up'), 'guard': stances.GA['R']}
-RCL = lambda k: (-RC[k][0], -RC[k][1], *RC[k][2:]) if k != 'guard' else stances.GA['L']
+# v4 (Christopher 2026-10-21: v3 S/N needed further development): the push comes at the viewer as a foreshortened fist,
+# knuckles on, low in front of the belly; the haul back flares the elbow out and up to the side (an elbow driving back
+# seen from the front), the fist ending by the shoulder
+RC = {'mid': (-6, 10, 0.8, 'up'), 'push': (-22, None, 0.5, 'front'), 'back': (50, 160, 0.9, 'up'), 'rack': (75, 175, 0.9, 'up'), 'guard': stances.GA['R']}
+RCL = lambda k: (-RC[k][0], None if RC[k][1] is None else -RC[k][1], *RC[k][2:]) if k != 'guard' else stances.GA['L']
 SEQ = [(n, 'guard') for n in ('mid', 'push', 'push', 'back', 'rack', 'rack')] + [('rack', f) for f in ('mid', 'push', 'push', 'back', 'rack', 'rack')] + [('rack', 'rack')]
 for k, (n, f) in enumerate(SEQ, 1): SN['recompose'][k] = dict(R=RC[n], L=RCL(f))
+CLOSED_FIST_FRONT = {'recompose'}
 CLOSED_S = [[0, 1, '#70241d'], [1, 1, '#70241d'], [5, 1, '#70241d'], [6, 1, '#70241d'], [0, 2, '#000000'], [1, 2, '#000000'], [5, 2, '#000000'], [6, 2, '#000000']]   # both lids shut, lash line below
-SN_APPROVED = {'catchBreath': 'S/N approved by user 2026-10-21 (v1, c70e4d7)', 'recompose': 'S/N approved by user 2026-10-21 (v3, 026b272)'}
+SN_APPROVED = {'catchBreath': 'S/N approved by user 2026-10-21 (v1, c70e4d7)'}
 
 SNAP = '/tmp/universal_sn_ew/'   # the E/W sheets as they were before the S/N render (a freshly rebuilt E/W clip is not in HEAD yet)
 
@@ -114,6 +118,8 @@ def sn(state):
     if any(o.get(sd, (0, 0, 0, ''))[3] == 'front' for o in SN[state].values() for sd in 'RL'):   # open hand, palm toward the viewer
         spec['arms']['band']['fistFront'] = {'use': 'open hand seen from the front, palm toward the viewer, fingers up (Universal Arts S view)', 'anchor': [2, 4],
                                             'rows': ['mLmL.', 'LLLLm', 'LLLLm', 'mLLLs', '.sDs.']}
+        if state in CLOSED_FIST_FRONT:   # a fist at the viewer, knuckles on (the approved karate S fist)
+            spec['arms']['band']['fistFront'] = {'use': 'fist seen knuckles-on, pushed toward the viewer (S view)', 'anchor': [2, 2], 'rows': ['.mLm.', 'mLLLm', 'mLLLs', 'sLLms', '.sDs.']}
     if 'expressions' in spec:
         for n, sh in universal.HR['expressions']['shapes'].items():   # the S face shapes (squint, pain) from the approved hitReact
             if 'S' in sh and n in spec['expressions']['shapes']: spec['expressions']['shapes'][n].setdefault('S', copy.deepcopy(sh['S']))
