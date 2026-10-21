@@ -1,0 +1,157 @@
+"""S/N (front/back) views of the approved Universal Arts clips (Christopher 2026-10-21: Guardian Barrier, Solar Flare and
+Summon Companion E/W approved). The base is the approved boxing guard's S/N view (guard.json frontal through
+stances.frontal), so every clip starts and ends on the approved guard front/back frame; the ability frames override the
+frontal arms (armBand: angle, forearm angle, scale, fist), as in strikes_sn.py. The target is toward the viewer in S and
+away in N. Effects: the renderer draws splash fx for E/W only, so --fx paints each clip's S/N splashes into the fx sheet
+after the render (an effect in front of the fighter in S sits behind the fighter in N: it only shows outside the figure).
+E/W pixels are restored from HEAD after the render, so the approved side views never drift.
+Run: python3 tools/universal_sn.py [state..] ; node tools/character-posed.mjs male <state> ; python3 tools/universal_sn.py --restore [state..]"""
+import sys, copy, os, subprocess, json
+sys.path.insert(0, '/mnt/project-files/hex-sprites/tools'); sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from gen import load, save
+import stances, strikes_sn, universal
+R = strikes_sn.R; D = strikes_sn.D
+stances.FRONT['guard'] = dict(S=stances.GA, N=stances.GN, legs=dict(foot=0, knee=(0, 0)))   # the approved boxing guard front/back view
+mirror_arm = strikes_sn.mirror_arm
+
+# per state: {frame: overrides}, S semantics as strikes_sn: R/L arm = (angle, forearm angle or None, scale, fist[, elbowAt]),
+# angles screen-clockwise from straight down, the forearm angle absolute (not relative to the upper arm) (R is the viewer's left in S); NR/NL explicit back view (default: the S arm mirrored)
+SEAL = dict(R=(18, 205, 1, 'front'), L=(-18, 155, 1, 'front'))   # both open hands pressed together upright in front of the chin
+SN = {
+ 'guardianBarrier': {1: SEAL,
+                     2: dict(R=(165, 175, 1, 'front'), L=(-165, -175, 1, 'front')),           # both hands swept up over the head
+                     3: dict(R=(110, 105, 1, 'front'), L=(-110, -105, 1, 'front')),           # out and down in a wide arc
+                     4: dict(R=(60, 55, 1, 'front'), L=(-60, -55, 1, 'front')),
+                     5: dict(R=(60, 55, 1, 'front'), L=(-60, -55, 1, 'front')),
+                     6: dict(R=(25, 175, 1, 'up'), L=(-25, -175, 1, 'up'))},                # hands coming back in to the guard
+ 'solarFlare': {1: dict(R=(120, 205, 0.5, 'front'), L=(-120, -205, 0.5, 'front')),           # open hands up in front of the forehead, palms out
+                2: dict(R=(130, 210, 0.5, 'front'), L=(-130, -210, 0.5, 'front')),
+                3: dict(R=(125, 140, 1, 'front'), L=(-125, -140, 1, 'front')),               # the hands snap apart
+                4: dict(R=(125, 140, 1, 'front'), L=(-125, -140, 1, 'front')),
+                5: dict(R=(25, 175, 1, 'up'), L=(-25, -175, 1, 'up'))},
+ 'summonCompanion': {1: SEAL, 2: SEAL,
+                     **{k: dict(R=(-14, None, 1, 'front'), L=(-28, -8, 1, 'up')) for k in (3, 4, 5)},   # near palm slapped down on the ground in front, far hand braced on the thigh
+                     6: dict(R=(20, 175, 1, 'up'), L=(-20, -175, 1, 'up'))},
+}
+# S/N splashes per state: (frame, pattern, at S, at N); at = bottom-left (x, bottom row); None = not drawn in that view;
+# 'behind' patterns in N only show outside the figure (the effect is between the fighter and the target)
+FX_SN = {
+ 'guardianBarrier': [(2, 'spark', [30, 6], [30, 6]), (3, 'dome1', [4, 62], [4, 62]), (4, 'dome2', [4, 62], [4, 62]), (5, 'dome3', [4, 62], [4, 62]),
+                     (6, 'dome3', [4, 62], [4, 62]), (7, 'dome4', [4, 62], [4, 62])],
+ 'solarFlare': [(2, 'star3', [28, 15], [28, 15]), (3, 'star6', [25, 18], [25, 18]), (4, 'star9', [22, 21], [22, 21]), (5, 'star3', [28, 15], [28, 15])],
+ 'summonCompanion': [(2, 'spark', [30, 30], None), (3, 'dust', [28, 63], [28, 60]), (4, 'puffBig', [26, 63], [26, 60]), (5, 'puffHuge', [20, 63], [20, 60]), (6, 'puffHuge2', [19, 63], [19, 60])],
+}
+BEHIND_N = {'solarFlare', 'summonCompanion'}   # the flash and the summoning smoke are in front of the fighter: behind the body seen from the back
+# trap and cast clips (Christopher 2026-10-19/16: E/W approved, S/N to author); the thrown item is toward the viewer in S
+AIM_S = (70, None, 0.45, 'front')   # far hand points at the target, toward the viewer
+SN.update({
+ 'cast': {1: dict(R=(10, 195, 1, 'up'), L=(-10, 165, 1, 'up')),
+          **{k: dict(R=(-20, 205, 0.8, 'front'), L=(20, -205, 0.8, 'front')) for k in (2, 3, 4)},     # the seal in front of the chest
+          5: dict(R=(-88, None, 0.45, 'front'), L=(-20, 190, 1, 'up')), 6: dict(R=(-88, None, 0.45, 'front'), L=(-20, 190, 1, 'up')),   # the palm driven out at the viewer
+          7: dict(R=(20, 175, 1, 'up'))},
+ 'trapThrow': {1: dict(R=(12, 20, 1, 'up')), 2: dict(R=(22, 15, 1, 'up')),                          # the hand drops to the pouch
+               3: dict(R=(150, 175, 1, 'up'), L=AIM_S), 4: dict(R=(165, 185, 1, 'up'), L=AIM_S),    # cocked high behind the head, far hand aims
+               5: dict(R=(130, 110, 0.75, 'up'), L=(-20, -10, 1, 'up')),                          # the arm whips over
+               6: dict(R=(-88, None, 0.45, 'front'), L=(-20, -10, 1, 'up')),                       # release, arm out at the target
+               7: dict(R=(-40, -50, 0.8, 'up'), L=(-15, 170, 1, 'up')), 8: dict(R=(20, 170, 1, 'up'))},
+ 'trapScatter': {1: dict(R=(12, 20, 1, 'up')), 2: dict(R=(22, 15, 1, 'up')),
+                 3: dict(R=(30, 30, 0.7, 'up'), L=(-35, -35, 1, 'up')),                            # swings back low, crouched
+                 4: dict(R=(-10, -10, 0.8, 'up'), L=(-35, -35, 1, 'up')),                          # swings through
+                 5: dict(R=(-60, None, 0.5, 'front'), L=(-20, -10, 1, 'up')), 6: dict(R=(-75, None, 0.45, 'front'), L=(-20, -10, 1, 'up')),   # flings open-handed at the viewer
+                 7: dict(R=(20, 165, 1, 'up'))},
+ 'smokeDrop': {1: dict(R=(22, 15, 1, 'up')), 2: dict(R=(165, 180, 1, 'up')),                        # pellet from the pouch, raised overhead
+               3: dict(R=(-8, None, 0.9, 'up')), 4: dict(R=(-8, None, 0.9, 'up'))},                 # slammed down in front of the feet
+})
+CAST_FX = [(2, 'spark', [30, 28], [30, 28]), (3, 'orb', [29, 29], [29, 29]), (4, 'orbBig', [28, 30], [28, 30]), (5, 'release', 'hand', 'hand'), (6, 'spark', 'hand', 'hand')]   # 'hand': centred on the near hand
+FX_SN.update({'cast': CAST_FX,
+              'smokeDrop': [(3, 'fall', [26, 56], [36, 56]), (4, 'puff', [23, 63], [23, 63]), (5, 'cloudA', [14, 63], [14, 63]), (6, 'cloudB', [8, 63], [8, 63]),
+                            (7, 'cloudC', [4, 63], [4, 63]), (8, 'cloudC', [4, 62], [4, 62]), (8, 'wispL', [0, 20], [0, 20]), (8, 'wispR', [52, 16], [52, 16])]})
+BEHIND_N |= {'cast', 'trapThrow', 'trapScatter'}
+BEHIND_N_FRAMES = {'smokeDrop': {3, 4}}   # the pellet and first puff are in front of the fighter; the cloud swallows him
+HELD = {'trapThrow': ((2, 3, 4, 5), ['tagKunai', 'pelletFlash', 'pelletSmoke', 'stake'], 'pelletSmoke'), 'trapScatter': ((2, 3, 4), ['caltrops'], 'caltrops'),
+        'smokeDrop': ((1, 2), ['pelletSmoke'], 'pelletSmoke')}   # frames, the items (fx-<item>.png), the item in fx.png
+SN_APPROVED = {}
+
+def sn(state):
+    spec = json.loads(subprocess.check_output(['git', '-C', R, 'show', 'HEAD:' + os.path.relpath(D + state + '.json', R)]))
+    spec = stances.frontal('guard', spec); fr = spec['frontal']; F = spec['frames']
+    for d in ('S', 'N'):
+        ab = fr['views'][d]['armBand']
+        for k, o in SN[state].items():
+            for sd in 'RL':
+                t = o.get('N' + sd) if d == 'N' and ('N' + sd) in o else (o.get(sd) if d == 'S' else (mirror_arm(o[sd]) if sd in o else None))
+                if t is None: continue
+                a, e, sc, fist, *eat = t; b = ab[sd]
+                b['angle'][k] = a; b['scale'][k] = sc; b['fist'][k] = fist
+                b['elbow'][k] = {'at': eat[0] if eat else 7, 'angle': e} if e is not None else None
+                if d == 'N':   # back view: upper arm only when straight and pointing away
+                    sh = b.get('showTo'); sh = sh if isinstance(sh, list) else [sh] * F
+                    sh[k] = 7 if e is None and sc < 1 else None; b['showTo'] = sh
+    if any(o.get(sd, (0, 0, 0, ''))[3] == 'front' for o in SN[state].values() for sd in 'RL'):   # open hand, palm toward the viewer
+        spec['arms']['band']['fistFront'] = {'use': 'open hand seen from the front, palm toward the viewer, fingers up (Universal Arts S view)', 'anchor': [2, 4],
+                                            'rows': ['mLmL.', 'LLLLm', 'LLLLm', 'mLLLs', '.sDs.']}
+    if 'expressions' in spec:
+        for n, sh in universal.HR['expressions']['shapes'].items():   # the S face shapes (squint, pain) from the approved hitReact
+            if 'S' in sh and n in spec['expressions']['shapes']: spec['expressions']['shapes'][n].setdefault('S', copy.deepcopy(sh['S']))
+        ex = spec['expressions']['frames']['E']; spec['expressions']['frames']['S'] = [x if x in ('squint', 'pain') else None for x in ex]
+    spec['status'] = spec['status'].replace('S/N to author', SN_APPROVED.get(state, 'S/N CANDIDATE 2026-10-21 (v1)'))
+    save(spec, D + state + '.json'); print(state, 'S/N', F, 'frames')
+
+def hand(spec, d, k, img):
+    """the near (R) hand's centre in view d, frame k: the band arm's geometry (pivot, angles, scale, the arms' bob),
+    snapped to the nearest coloured pixel of the rendered arms layer"""
+    import math
+    ab = spec['frontal']['views'][d]['armBand']['R']; at = lambda v: v[k] if isinstance(v, list) else v
+    sc = at(ab['scale']) or 1; el = at(ab['elbow']); a = math.radians(at(ab['angle'])); px, py = ab['pivot']
+    dy = (spec['bob'].get('arms') or spec['bob']['dy'])[k] + (at(ab.get('pivotDx')) and 0)
+    u0 = (el['at'] if el else 12) * sc; x = px - math.sin(a) * u0; y = py + dy + math.cos(a) * u0
+    if el: e = math.radians(el['angle']); x -= math.sin(e) * (12 - el['at']) * sc; y += math.cos(e) * (12 - el['at']) * sc
+    row = ('S', 'E', 'N', 'W').index(d); best = None
+    for yy in range(int(y) - 4, int(y) + 5):
+        for xx in range(int(x) - 4, int(x) + 5):
+            if 0 <= xx < 64 and 0 <= yy < 64:
+                q = img.getpixel((k * 64 + xx, row * 64 + yy))
+                if q[3] == 255 and q[:3] != (0, 0, 0) and (best is None or (xx - x) ** 2 + (yy - y) ** 2 < best[0]): best = ((xx - x) ** 2 + (yy - y) ** 2, xx, yy)
+    return (best[1], best[2]) if best else (round(x), round(y))
+
+def fx(state):
+    """the clip's S/N splashes (and the held trap item) into the fx sheets' rows S (0) and N (2); in N an effect in front
+    of the fighter only shows outside the figure"""
+    from PIL import Image
+    d = D + state + '/'; spec = load(D + state + '.json'); sfx = spec.get('fx') or {}
+    pal = {**universal.NPAL, **sfx.get('palette', {})}; pat = {**universal.NPAT, **sfx.get('patterns', {})}
+    lay = [Image.open(d + n).convert('RGBA') for n in ('body.png', 'arms.png', 'male-gi.png', 'fade-hair.png') if os.path.exists(d + n)]
+    arms = Image.open(d + 'arms.png').convert('RGBA')
+    held = HELD.get(state); files = [('fx.png', held[2] if held else None)] + [('fx-%s.png' % it, it) for it in (held[1] if held else [])]
+    for fn, item in files:
+        if fn != 'fx.png' and not os.path.exists(d + fn): continue
+        out = Image.open(d + fn).convert('RGBA') if os.path.exists(d + fn) else Image.new('RGBA', lay[0].size)
+        if out.height < 256: n4 = Image.new('RGBA', (out.width, 256)); n4.paste(out.crop((0, 0, out.width, 64)), (0, 64)); n4.paste(out.crop((0, 64, out.width, 128)), (0, 192)); out = n4
+        for row in (0, 2): out.paste(Image.new('RGBA', (out.width, 64)), (0, row * 64))
+        ents = list(FX_SN.get(state, []))
+        if item:
+            rows_ = pat[item]; w, h = len(rows_[0]), len(rows_)
+            for k in held[0]:
+                (xs, ys), (xn, yn) = hand(spec, 'S', k, arms), hand(spec, 'N', k, arms)
+                ents.append((k, item, [xs - w // 2, ys + h // 2], [xn - w // 2, yn + h // 2], 'held'))
+        for k, p, aS, aN, *tag in ents:
+            for row, at in ((0, aS), (2, aN)):
+                if at is None: continue
+                rows = pat[p]; h = len(rows)
+                if at == 'hand': hx, hy = hand(spec, 'SN'[row // 2], k, arms); at = [hx - len(rows[0]) // 2, hy + h // 2]
+                behind = row == 2 and (state in BEHIND_N or k in BEHIND_N_FRAMES.get(state, ())) and not (tag and state == 'smokeDrop')
+                for y, line in enumerate(rows):
+                    for x, ch in enumerate(line):
+                        if ch == '.': continue
+                        X, Y = at[0] + x, at[1] - (h - 1) + y
+                        if not (0 <= X < 64 and 0 <= Y < 64): continue
+                        if behind and not tag and any(l.getpixel((k * 64 + X, row * 64 + Y))[3] for l in lay): continue
+                        c = pal[ch]; out.putpixel((k * 64 + X, row * 64 + Y), tuple(int(c[i:i + 2], 16) for i in (1, 3, 5)) + (255,))
+        out.save(d + fn)
+    print(state, 'S/N fx', [f for f, _ in files])
+
+if __name__ == '__main__':
+    args = [a for a in sys.argv[1:] if not a.startswith('--')] or list(SN)
+    for s in args:
+        if '--restore' in sys.argv: strikes_sn.restore(s); fx(s)
+        else: sn(s)
