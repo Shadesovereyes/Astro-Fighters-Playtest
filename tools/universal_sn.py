@@ -9,7 +9,7 @@ Run: python3 tools/universal_sn.py [state..] ; node tools/character-posed.mjs ma
 import sys, copy, os, subprocess, json
 sys.path.insert(0, '/mnt/project-files/hex-sprites/tools'); sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from gen import load, save
-import stances, strikes_sn, universal
+import stances, strikes_sn, universal, grstrikes
 R = strikes_sn.R; D = strikes_sn.D
 stances.FRONT['guard'] = dict(S=stances.GA, N=stances.GN, legs=dict(foot=0, knee=(0, 0)))   # the approved boxing guard front/back view
 mirror_arm = strikes_sn.mirror_arm
@@ -147,6 +147,28 @@ def hand(spec, d, k, img):
                 if q[3] == 255 and q[:3] != (0, 0, 0) and (best is None or (xx - x) ** 2 + (yy - y) ** 2 < best[0]): best = ((xx - x) ** 2 + (yy - y) ** 2, xx, yy)
     return (best[1], best[2]) if best else (round(x), round(y))
 
+def sn_aura(state, out):
+    """the E/W aura (universal.CLIPS widths, grstrikes.aura rings) on rows S and N, under the splashes"""
+    from PIL import Image, ImageFilter
+    clip = universal.CLIPS.get(state); widths = clip[5] if clip else None
+    if not widths or not any(widths): return
+    cols = ((clip[6:] or [{}])[0]).get('auraColors') or grstrikes.AURA
+    d = D + state + '/'; lay = [Image.open(d + f).convert('RGBA') for f in ('body.png', 'arms.png', 'male-gi.png') if os.path.exists(d + f)]
+    px = out.load()
+    for k, wd in enumerate(widths):
+        if not wd: continue
+        for r in (0, 2):
+            box = (k * 64, r * 64, k * 64 + 64, r * 64 + 64); m = Image.new('L', (64, 64))
+            for l in lay: m.paste(255, (0, 0), l.crop(box).getchannel('A').point(lambda v: 255 if v else 0))
+            prev = m
+            for ring in range(wd):
+                grown = prev.filter(ImageFilter.MaxFilter(3)); gp, pp = grown.load(), prev.load(); c = cols[0] if ring == 0 else cols[1]
+                for y in range(64):
+                    for x in range(64):
+                        if gp[x, y] and not pp[x, y] and (ring < wd - 1 or (x + y + k) % 2 == 0):
+                            px[box[0] + x, box[1] + y] = tuple(int(c[i:i + 2], 16) for i in (1, 3, 5)) + (255,)
+                prev = grown
+
 def fx(state):
     """the clip's S/N splashes (and the held trap item) into the fx sheets' rows S (0) and N (2); in N an effect in front
     of the fighter only shows outside the figure"""
@@ -161,6 +183,7 @@ def fx(state):
         out = Image.open(d + fn).convert('RGBA') if os.path.exists(d + fn) else Image.new('RGBA', lay[0].size)
         if out.height < 256: n4 = Image.new('RGBA', (out.width, 256)); n4.paste(out.crop((0, 0, out.width, 64)), (0, 64)); n4.paste(out.crop((0, 64, out.width, 128)), (0, 192)); out = n4
         for row in (0, 2): out.paste(Image.new('RGBA', (out.width, 64)), (0, row * 64))
+        if fn == 'fx.png': sn_aura(state, out)
         ents = list(FX_SN.get(state, []))
         if item:
             rows_ = pat[item]; w, h = len(rows_[0]), len(rows_)
