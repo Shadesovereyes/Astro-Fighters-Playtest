@@ -70,11 +70,24 @@ BEHIND_N |= {'cast', 'trapThrow', 'trapScatter'}
 BEHIND_N_FRAMES = {'smokeDrop': {3, 4}}   # the pellet and first puff are in front of the fighter; the cloud swallows him
 HELD = {'trapThrow': ((2, 3, 4, 5), ['tagKunai', 'pelletFlash', 'pelletSmoke', 'stake'], 'pelletSmoke'), 'trapScatter': ((2, 3, 4), ['caltrops'], 'caltrops'),
         'smokeDrop': ((1, 2), ['pelletSmoke'], 'pelletSmoke')}   # frames, the items (fx-<item>.png), the item in fx.png
+# focus arts (Catch Breath v2, Recompose v3: S/N drafted at Christopher's request 2026-10-21, before their E/W verdicts)
+REST = dict(R=(6, 200, 0.75, 'up'), L=(-6, -200, 0.75, 'up'))          # hands lowered and relaxed in front of the belly
+OUT = dict(R=(4, 195, 0.7, 'up'), L=(-4, -195, 0.7, 'up'))             # breath out: hands sink a little lower
+PUMP = dict(R=(-8, 5, 0.75, 'up'), L=(8, -5, 0.75, 'up'))           # fists pushed down and forward, at the viewer
+RACK = dict(R=(35, 195, 0.85, 'up'), L=(-35, -195, 0.85, 'up'))    # racked back: elbows out behind the ribs, fists up by the chest
+SN.update({'catchBreath': {1: REST, 2: REST, 3: REST, 4: REST, 5: OUT, 6: OUT, 7: REST, 8: REST, 9: OUT},
+           'recompose': {1: PUMP, 2: RACK, 3: RACK, 4: PUMP, 5: RACK, 6: RACK}})
+CLOSED_S = [[0, 1, '#70241d'], [1, 1, '#70241d'], [5, 1, '#70241d'], [6, 1, '#70241d'], [0, 2, '#000000'], [1, 2, '#000000'], [5, 2, '#000000'], [6, 2, '#000000']]   # both lids shut, lash line below
 SN_APPROVED = {}
 
 def sn(state):
     spec = json.loads(subprocess.check_output(['git', '-C', R, 'show', 'HEAD:' + os.path.relpath(D + state + '.json', R)]))
     spec = stances.frontal('guard', spec); fr = spec['frontal']; F = spec['frames']
+    hb = spec['bob'].get('head') or spec['bob']['dy']
+    if min(hb) < 0:   # a head lifted above the guard height (the breath in) would leave the frame at the afro's top row: it stays at row 0
+        for d in ('S', 'N'):
+            v = fr['views'][d]; h0 = v.get('headDy') or 0
+            v['headDy'] = [(h0[k] if isinstance(h0, list) else h0) + max(0, -hb[k]) for k in range(F)]
     for d in ('S', 'N'):
         ab = fr['views'][d]['armBand']
         for k, o in SN[state].items():
@@ -93,7 +106,8 @@ def sn(state):
     if 'expressions' in spec:
         for n, sh in universal.HR['expressions']['shapes'].items():   # the S face shapes (squint, pain) from the approved hitReact
             if 'S' in sh and n in spec['expressions']['shapes']: spec['expressions']['shapes'][n].setdefault('S', copy.deepcopy(sh['S']))
-        ex = spec['expressions']['frames']['E']; spec['expressions']['frames']['S'] = [x if x in ('squint', 'pain') else None for x in ex]
+        if 'closed' in spec['expressions']['shapes']: spec['expressions']['shapes']['closed'].setdefault('S', copy.deepcopy(CLOSED_S))
+        ex = spec['expressions']['frames']['E']; spec['expressions']['frames']['S'] = [x if x in spec['expressions']['shapes'] and 'S' in spec['expressions']['shapes'][x] else None for x in ex]
     spec['status'] = spec['status'].replace('S/N to author', SN_APPROVED.get(state, 'S/N CANDIDATE 2026-10-21 (v1)'))
     save(spec, D + state + '.json'); print(state, 'S/N', F, 'frames')
 
