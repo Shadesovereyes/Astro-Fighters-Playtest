@@ -108,7 +108,28 @@ FX_SN.update({
  'shadowPossession': [(2, 'shadow1', [29, 63], [29, 63]), (3, 'shadow2', [25, 63], [25, 63]), (4, 'shadow3', [20, 63], [20, 63]),
                       (5, 'shadow3', [20, 63], [20, 63]), (6, 'shadow2', [25, 63], [25, 63])],   # the shadow pools out flat from under the feet
 })
-BEHIND_N |= {'earthWall'}
+BEHIND_N |= {'earthWall', 'chakraDrain'}
+# Charge Chakra v4, Chakra Bullet v2, Chakra Drain v3 + Chakra Drained (Christopher 2026-10-22: create their S/N)
+MED = dict(R=(5, 245, 0.8, 'up'), L=(-5, -245, 0.8, 'up'))      # meditative hold: hands resting together in front of the belly
+MED_IN = dict(R=(10, 200, 0.85, 'up'), L=(-10, -200, 0.85, 'up'))  # hands lowering out of the guard / coming back up
+GUN = (55, None, 0.75, 'up')                                       # pistol-duel arm out at the target (as Shadow Possession's point)
+TUCK = (-10, None, 0.9, 'up')                                      # far hand tucked to the small of the back: arm hangs behind the hip
+TIE = dict(R=(-20, None, 0.55, 'front'), L=(20, None, 0.55, 'front'))   # collar tie: both open hands reaching forward to the target's neck
+SAG = dict(R=(8, 5, 1, 'up'), L=(-8, -5, 1, 'up'))                 # guard broken, arms hanging
+SN.update({
+ 'chargeChakra': {1: MED_IN, **{k: MED for k in (2, 3, 4, 5, 6)}, 7: MED_IN},
+ 'chakraBullet': {1: dict(R=(35, 120, 0.9, 'up'), L=TUCK), **{k: dict(R=GUN, L=TUCK) for k in (2, 3, 4, 5, 6)},
+                  7: dict(R=(70, None, 0.75, 'up'), L=TUCK), 8: dict(R=(62, None, 0.75, 'up'), L=TUCK), 9: dict(R=(30, 150, 0.9, 'up'))},
+ 'chakraDrain': {1: dict(R=(-10, None, 0.7, 'front'), L=(10, None, 0.7, 'front')), **{k: TIE for k in (2, 3, 4, 5)},
+                 6: dict(R=(-25, None, 0.45, 'front'), L=(25, None, 0.45, 'front')), 7: dict(R=(20, 175, 1, 'up'))},
+ 'chakraDrained': {2: dict(R=(15, 10, 1, 'up'), L=(-15, -10, 1, 'up')), **{k: SAG for k in (3, 4, 5)},
+                   6: dict(R=(25, 30, 1, 'up'), L=(-25, -30, 1, 'up')), 7: dict(R=(15, 180, 1, 'up'), L=(-15, -180, 1, 'up'))},
+})
+FX_SN.update({
+ 'chakraBullet': [(5, 'borb', 'hand', 'hand'), (6, 'borbBig', 'hand', 'hand'), (7, 'borbBig', 'hand', 'hand'), (8, 'bspark', 'hand', 'hand')],
+ 'chakraDrain': [(3, 'bwisp', 'hand', None), (4, 'bwisp2', 'hand', None), (4, 'bspark', [36, 30], None), (5, 'bwisp', 'hand', None)],   # N: the wisps are hidden by the drainer's back
+})
+FLOW_SN = {'chakraDrain': (3, 4, 5)}   # the drained chakra running up the drainer's arms (E/W flow, approved v3), from the hands back
 SN_APPROVED = {'catchBreath': 'S/N approved by user 2026-10-21 (v1, c70e4d7)', **{s_: 'S/N approved by user 2026-10-22 (v1, 486d1ec)' for s_ in ('gloomShroud', 'earthWall', 'shadowPossession')}}
 
 SNAP = '/tmp/universal_sn_ew/'   # the E/W sheets as they were before the S/N render (a freshly rebuilt E/W clip is not in HEAD yet)
@@ -189,6 +210,25 @@ def sn_aura(state, out):
                             px[box[0] + x, box[1] + y] = tuple(int(c[i:i + 2], 16) for i in (1, 3, 5)) + (255,)
                 prev = grown
 
+def sn_flow(state, spec, out):
+    """rows S/N of the arm flow (universal.flow on E/W): arm pixels near the hands turn chakra blue in travelling bands,
+    reaching further up the arms each grip frame (hands, forearms, then the whole arm)"""
+    from PIL import Image
+    if state not in FLOW_SN: return
+    d = D + state + '/'; lite, mid = (0x9c, 0xc0, 0xff, 255), tuple(int(universal.CHAKRA[0][i:i + 2], 16) for i in (1, 3, 5)) + (255,)
+    arms = [Image.open(d + n).convert('RGBA') for n in ('arms.png', 'far-arm.png') if os.path.exists(d + n)]
+    for step, k in enumerate(FLOW_SN[state]):
+        reach = (4, 9, 64)[min(step, 2)]
+        for row, v in ((0, 'S'), (2, 'N')):
+            hx, hy = hand(spec, v, k, arms[0]); hands = [(hx, hy), (64 - hx, hy)]
+            for a in arms:
+                for Y in range(64):
+                    for X in range(64):
+                        q = a.getpixel((k * 64 + X, row * 64 + Y))
+                        if not q[3] or q[:3] == (0, 0, 0): continue
+                        u = min(((X - x) ** 2 + (Y - y) ** 2) ** 0.5 for x, y in hands)
+                        if u <= reach: out.putpixel((k * 64 + X, row * 64 + Y), lite if (int(u) + 2 * step) % 4 < 2 else mid)
+
 def fx(state):
     """the clip's S/N splashes (and the held trap item) into the fx sheets' rows S (0) and N (2); in N an effect in front
     of the fighter only shows outside the figure"""
@@ -203,7 +243,7 @@ def fx(state):
         out = Image.open(d + fn).convert('RGBA') if os.path.exists(d + fn) else Image.new('RGBA', lay[0].size)
         if out.height < 256: n4 = Image.new('RGBA', (out.width, 256)); n4.paste(out.crop((0, 0, out.width, 64)), (0, 64)); n4.paste(out.crop((0, 64, out.width, 128)), (0, 192)); out = n4
         for row in (0, 2): out.paste(Image.new('RGBA', (out.width, 64)), (0, row * 64))
-        if fn == 'fx.png': sn_aura(state, out)
+        if fn == 'fx.png': sn_aura(state, out); sn_flow(state, spec, out)
         ents = list(FX_SN.get(state, []))
         if item:
             rows_ = pat[item]; w, h = len(rows_[0]), len(rows_)
