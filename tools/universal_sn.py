@@ -109,7 +109,7 @@ FX_SN.update({
                       (5, 'shadow3', [20, 63], [20, 63]), (6, 'shadow2', [25, 63], [25, 63])],   # the shadow pools out flat from under the feet
 })
 BEHIND_N |= {'earthWall'}
-SN_APPROVED = {'catchBreath': 'S/N approved by user 2026-10-21 (v1, c70e4d7)'}
+SN_APPROVED = {'catchBreath': 'S/N approved by user 2026-10-21 (v1, c70e4d7)', **{s_: 'S/N approved by user 2026-10-22 (v1, 486d1ec)' for s_ in ('gloomShroud', 'earthWall', 'shadowPossession')}}
 
 SNAP = '/tmp/universal_sn_ew/'   # the E/W sheets as they were before the S/N render (a freshly rebuilt E/W clip is not in HEAD yet)
 

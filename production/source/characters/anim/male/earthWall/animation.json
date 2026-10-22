@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-animation-output/v1",
   "body": "male",
   "state": "earthWall",
-  "status": "E/W approved by user 2026-10-21 (v2 palms lift from low to high, be2c4a8; W mirrors E); S/N CANDIDATE 2026-10-21 (v1)",
+  "status": "E/W approved by user 2026-10-21 (v2 palms lift from low to high, be2c4a8; W mirrors E); S/N approved by user 2026-10-22 (v1, 486d1ec)",
   "frames": 8,
   "fps": 10,
   "frameSize": [

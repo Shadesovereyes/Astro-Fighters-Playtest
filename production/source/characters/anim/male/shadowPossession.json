@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "shadowPossession",
-  "status": "E/W approved by user 2026-10-21 (v2 caster points, feet shadow unchanged, 92a573c; W mirrors E); S/N CANDIDATE 2026-10-21 (v1)",
+  "status": "E/W approved by user 2026-10-21 (v2 caster points, feet shadow unchanged, 92a573c; W mirrors E); S/N approved by user 2026-10-22 (v1, 486d1ec)",
   "frames": 8,
   "fps": 10,
   "sourceDirection": "E",
