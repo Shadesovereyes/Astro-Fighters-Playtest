@@ -130,7 +130,7 @@ FX_SN.update({
  'chakraDrain': [(3, 'bwisp', 'hand', None), (4, 'bwisp2', 'hand', None), (4, 'bspark', [36, 30], None), (5, 'bwisp', 'hand', None)],   # N: the wisps are hidden by the drainer's back
 })
 FLOW_SN = {'chakraDrain': (3, 4, 5)}   # the drained chakra running up the drainer's arms (E/W flow, approved v3), from the hands back
-SN_APPROVED = {'catchBreath': 'S/N approved by user 2026-10-21 (v1, c70e4d7)', **{s_: 'S/N approved by user 2026-10-22 (v1, 486d1ec)' for s_ in ('gloomShroud', 'earthWall', 'shadowPossession')}}
+SN_APPROVED = {'catchBreath': 'S/N approved by user 2026-10-21 (v1, c70e4d7)', **{s_: 'S/N approved by user 2026-10-22 (v1, 486d1ec)' for s_ in ('gloomShroud', 'earthWall', 'shadowPossession')}, **{s_: 'S/N approved by user 2026-10-22 (v1, dde9213)' for s_ in ('chargeChakra', 'chakraBullet', 'chakraDrain', 'chakraDrained')}}
 
 SNAP = '/tmp/universal_sn_ew/'   # the E/W sheets as they were before the S/N render (a freshly rebuilt E/W clip is not in HEAD yet)
 

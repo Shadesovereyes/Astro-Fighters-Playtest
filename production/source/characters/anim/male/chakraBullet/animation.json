@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-animation-output/v1",
   "body": "male",
   "state": "chakraBullet",
-  "status": "E/W approved by user 2026-10-21 (v2, 870541e; W mirrors E); S/N CANDIDATE 2026-10-21 (v1)",
+  "status": "E/W approved by user 2026-10-21 (v2, 870541e; W mirrors E); S/N approved by user 2026-10-22 (v1, dde9213)",
   "frames": 11,
   "fps": 10,
   "frameSize": [
