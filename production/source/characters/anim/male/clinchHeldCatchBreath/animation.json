@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-animation-output/v1",
   "body": "male",
   "state": "clinchHeldCatchBreath",
-  "status": "E/W candidate 2026-10-23 (v1), awaiting user approval; S/N to author",
+  "status": "E/W approved by user 2026-10-23 (v1; clinch-only, no S/N per Christopher)",
   "frames": 12,
   "fps": 6,
   "frameSize": [

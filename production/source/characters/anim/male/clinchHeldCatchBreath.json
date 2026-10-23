@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "clinchHeldCatchBreath",
-  "status": "E/W candidate 2026-10-23 (v1), awaiting user approval; S/N to author",
+  "status": "E/W approved by user 2026-10-23 (v1; clinch-only, no S/N per Christopher)",
   "frames": 12,
   "fps": 6,
   "sourceDirection": "E",
@@ -1158,5 +1158,6 @@
       ]
     },
     "intent": "eyes closed through the first breath in, the hold and the breath out (frames 1-5), open on 6-7, closed for the second breath (8-9)"
-  }
+  },
+  "approved": true
 }
