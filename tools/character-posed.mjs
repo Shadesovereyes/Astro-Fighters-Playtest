@@ -1401,6 +1401,7 @@ spec.directions.forEach((dir, r) => {
     if (EX || FX) applyFace(dir, k, fr);
     for (const n of layerNames) for (const [p, c] of fr[n]) {
       const [x, y] = unkey(p);
+      if (!(x >= 0 && y >= 0 && x < FRAME && y < FRAME) && spec.clothing?.[n]?.clipToFrame) continue;   // a stowed weapon past a downed fighter's frame
       if (!(x >= 0 && y >= 0 && x < FRAME && y < FRAME)) throw new Error(`${n} ${dir}:${k} leaves the 64x64 frame at ${p}`);
       const i = ((r * FRAME + y) * W + k * FRAME + x) * 4;
       Buffer.from(c + 'ff', 'hex').copy(sheets[n], i);

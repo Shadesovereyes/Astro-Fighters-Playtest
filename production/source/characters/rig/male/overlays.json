@@ -745,6 +745,318 @@
       ]
     },
     {
+      "source": "Paperdolls/Male/Layer 2b - Stowed Weapons/Katana Stowed Front.png",
+      "class": "component",
+      "partMap": "overlays/katana-stowed-front.png",
+      "frames": [
+        {
+          "direction": "S",
+          "pixelCounts": {
+            "pelvis": 36
+          }
+        },
+        {
+          "direction": "SE",
+          "pixelCounts": {
+            "pelvis": 35
+          }
+        },
+        {
+          "direction": "E",
+          "pixelCounts": {
+            "pelvis": 42
+          }
+        },
+        {
+          "direction": "NE",
+          "pixelCounts": {
+            "pelvis": 92
+          }
+        },
+        {
+          "direction": "N",
+          "pixelCounts": {
+            "pelvis": 88
+          }
+        },
+        {
+          "direction": "NW",
+          "pixelCounts": {
+            "pelvis": 93
+          }
+        },
+        {
+          "direction": "W",
+          "pixelCounts": {
+            "pelvis": 142
+          }
+        },
+        {
+          "direction": "SW",
+          "pixelCounts": {
+            "pelvis": 125
+          }
+        }
+      ]
+    },
+    {
+      "source": "Paperdolls/Male/Layer 2b - Stowed Weapons/Katana Stowed Back.png",
+      "class": "component",
+      "partMap": "overlays/katana-stowed-back.png",
+      "frames": [
+        {
+          "direction": "S",
+          "pixelCounts": {
+            "pelvis": 80
+          }
+        },
+        {
+          "direction": "SE",
+          "pixelCounts": {
+            "pelvis": 82
+          }
+        },
+        {
+          "direction": "E",
+          "pixelCounts": {
+            "pelvis": 109
+          }
+        },
+        {
+          "direction": "NE",
+          "pixelCounts": {
+            "pelvis": 33
+          }
+        },
+        {
+          "direction": "N",
+          "pixelCounts": {
+            "pelvis": 31
+          }
+        },
+        {
+          "direction": "NW",
+          "pixelCounts": {
+            "pelvis": 36
+          }
+        },
+        {
+          "direction": "W",
+          "pixelCounts": {}
+        },
+        {
+          "direction": "SW",
+          "pixelCounts": {}
+        }
+      ]
+    },
+    {
+      "source": "Paperdolls/Male/Layer 2b - Stowed Weapons/Yumi Stowed Front.png",
+      "class": "component",
+      "partMap": "overlays/yumi-stowed-front.png",
+      "frames": [
+        {
+          "direction": "S",
+          "pixelCounts": {
+            "torso": 18
+          }
+        },
+        {
+          "direction": "SE",
+          "pixelCounts": {
+            "torso": 17
+          }
+        },
+        {
+          "direction": "E",
+          "pixelCounts": {
+            "torso": 14
+          }
+        },
+        {
+          "direction": "NE",
+          "pixelCounts": {
+            "torso": 198
+          }
+        },
+        {
+          "direction": "N",
+          "pixelCounts": {
+            "torso": 208
+          }
+        },
+        {
+          "direction": "NW",
+          "pixelCounts": {
+            "torso": 202
+          }
+        },
+        {
+          "direction": "W",
+          "pixelCounts": {
+            "torso": 14
+          }
+        },
+        {
+          "direction": "SW",
+          "pixelCounts": {
+            "torso": 17
+          }
+        }
+      ]
+    },
+    {
+      "source": "Paperdolls/Male/Layer 2b - Stowed Weapons/Yumi Stowed Back.png",
+      "class": "component",
+      "partMap": "overlays/yumi-stowed-back.png",
+      "frames": [
+        {
+          "direction": "S",
+          "pixelCounts": {
+            "torso": 202
+          }
+        },
+        {
+          "direction": "SE",
+          "pixelCounts": {
+            "torso": 194
+          }
+        },
+        {
+          "direction": "E",
+          "pixelCounts": {
+            "torso": 193
+          }
+        },
+        {
+          "direction": "NE",
+          "pixelCounts": {}
+        },
+        {
+          "direction": "N",
+          "pixelCounts": {}
+        },
+        {
+          "direction": "NW",
+          "pixelCounts": {}
+        },
+        {
+          "direction": "W",
+          "pixelCounts": {
+            "torso": 203
+          }
+        },
+        {
+          "direction": "SW",
+          "pixelCounts": {
+            "torso": 194
+          }
+        }
+      ]
+    },
+    {
+      "source": "Paperdolls/Male/Layer 2b - Stowed Weapons/Kyoketsu-Shoge Stowed Front.png",
+      "class": "component",
+      "partMap": "overlays/kyoketsu-shoge-stowed-front.png",
+      "frames": [
+        {
+          "direction": "S",
+          "pixelCounts": {
+            "pelvis": 139
+          }
+        },
+        {
+          "direction": "SE",
+          "pixelCounts": {
+            "pelvis": 136
+          }
+        },
+        {
+          "direction": "E",
+          "pixelCounts": {
+            "pelvis": 133
+          }
+        },
+        {
+          "direction": "NE",
+          "pixelCounts": {
+            "pelvis": 107
+          }
+        },
+        {
+          "direction": "N",
+          "pixelCounts": {
+            "pelvis": 107
+          }
+        },
+        {
+          "direction": "NW",
+          "pixelCounts": {
+            "pelvis": 107
+          }
+        },
+        {
+          "direction": "W",
+          "pixelCounts": {
+            "pelvis": 30
+          }
+        },
+        {
+          "direction": "SW",
+          "pixelCounts": {
+            "pelvis": 135
+          }
+        }
+      ]
+    },
+    {
+      "source": "Paperdolls/Male/Layer 2b - Stowed Weapons/Kyoketsu-Shoge Stowed Back.png",
+      "class": "component",
+      "partMap": "overlays/kyoketsu-shoge-stowed-back.png",
+      "frames": [
+        {
+          "direction": "S",
+          "pixelCounts": {}
+        },
+        {
+          "direction": "SE",
+          "pixelCounts": {}
+        },
+        {
+          "direction": "E",
+          "pixelCounts": {}
+        },
+        {
+          "direction": "NE",
+          "pixelCounts": {
+            "pelvis": 28
+          }
+        },
+        {
+          "direction": "N",
+          "pixelCounts": {
+            "pelvis": 28
+          }
+        },
+        {
+          "direction": "NW",
+          "pixelCounts": {
+            "pelvis": 28
+          }
+        },
+        {
+          "direction": "W",
+          "pixelCounts": {
+            "pelvis": 107
+          }
+        },
+        {
+          "direction": "SW",
+          "pixelCounts": {}
+        }
+      ]
+    },
+    {
       "source": "Paperdolls/Male/Layer 4 - Shoulders and Arms accessories/Blue Armor Shoulders.png",
       "class": "component",
       "partMap": "overlays/blue-armor-shoulders.png",

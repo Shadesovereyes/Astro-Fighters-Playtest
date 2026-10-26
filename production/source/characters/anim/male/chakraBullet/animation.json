@@ -47,7 +47,13 @@
     "scale-coat-helmet": "scale-coat-helmet.png",
     "lamellar-kabuto": "lamellar-kabuto.png",
     "molded-leather-cap": "molded-leather-cap.png",
-    "plate-bascinet": "plate-bascinet.png"
+    "plate-bascinet": "plate-bascinet.png",
+    "katana-stowed-front": "katana-stowed-front.png",
+    "katana-stowed-back": "katana-stowed-back.png",
+    "yumi-stowed-front": "yumi-stowed-front.png",
+    "yumi-stowed-back": "yumi-stowed-back.png",
+    "kyoketsu-shoge-stowed-front": "kyoketsu-shoge-stowed-front.png",
+    "kyoketsu-shoge-stowed-back": "kyoketsu-shoge-stowed-back.png"
   },
   "pendingLayers": [],
   "drawOrder": [

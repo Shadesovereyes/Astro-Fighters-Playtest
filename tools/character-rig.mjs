@@ -48,6 +48,15 @@ const CONFIG = {
         colourParts: { '3e2a1f': 'sash', '444853': 'sash', '5a4031': 'sash', '6a6f7b': 'sash', 'a2a7b3': 'sash' }, outline: '000000' },
       { file: 'Paperdolls/Male/Layer 2 - Clothing/Male Lamellar.png', class: 'under-arms', belt: { colours: ['c43a30', '7e1c18'], outline: '000000', topRows: [30, 46], part: 'sash' },
         colourParts: { '3d4051': 'sash', '6c7283': 'sash', '6e1415': 'sash', 'a7adba': 'sash', 'b02a2b': 'sash' }, outline: '000000' },
+      // Stowed weapons (approved by Christopher 2026-10-26, generator tools/stowed-weapons/build_stowed.py): each piece is
+      // rigid and rides one part (part), the katana and the cord on the pelvis, the yumi on the torso. The back sheet is
+      // drawn behind the body, the front sheet over the clothing and under the arms (runtime slots stowedBack/stowedFront).
+      { file: 'Paperdolls/Male/Layer 2b - Stowed Weapons/Katana Stowed Front.png', class: 'component', part: 'pelvis' },
+      { file: 'Paperdolls/Male/Layer 2b - Stowed Weapons/Katana Stowed Back.png', class: 'component', part: 'pelvis' },
+      { file: 'Paperdolls/Male/Layer 2b - Stowed Weapons/Yumi Stowed Front.png', class: 'component', part: 'torso' },
+      { file: 'Paperdolls/Male/Layer 2b - Stowed Weapons/Yumi Stowed Back.png', class: 'component', part: 'torso' },
+      { file: 'Paperdolls/Male/Layer 2b - Stowed Weapons/Kyoketsu-Shoge Stowed Front.png', class: 'component', part: 'pelvis' },
+      { file: 'Paperdolls/Male/Layer 2b - Stowed Weapons/Kyoketsu-Shoge Stowed Back.png', class: 'component', part: 'pelvis' },
       { file: 'Paperdolls/Male/Layer 4 - Shoulders and Arms accessories/Blue Armor Shoulders.png', class: 'component' },
       { file: 'Paperdolls/Male/Layer 4 - Shoulders and Arms accessories/Red Armor Shoulders.png', class: 'component' },
       { file: 'Paperdolls/Male/Layer 4 - Shoulders and Arms accessories/Scale Coat Shoulders.png', class: 'component' },
@@ -323,6 +332,8 @@ function splitOverlay(entry, body, partMap, waistline) {
         }
       }
     }
+    // a rigid piece (a stowed weapon) rides one part whole
+    if (entry.part) for (const [x, y] of pts) label.set(key(x, y), entry.part);
     const counts = {};
     for (const [k, p] of label) {
       const [x, y] = k.split(',').map(Number);
