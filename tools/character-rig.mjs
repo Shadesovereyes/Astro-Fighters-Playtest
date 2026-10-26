@@ -58,6 +58,11 @@ const CONFIG = {
       { file: 'Paperdolls/Male/Layer 5 - Hair/Fade Hair.png', class: 'head' },
       // Long hair sways: cap stays on the head (rows <= 15), upper fall rows 16-19, lower fall rows 20+.
       { file: 'Paperdolls/Male/Layer 5 - Hair/Long Hair.png', class: 'head', rowBands: [[15, 'head'], [19, 'hair-fall-upper'], [63, 'hair-fall-lower']] },
+      // Armor helmets (tools/armor-classes/build_helmets.py): worn in the hair slot, the whole layer follows the head.
+      { file: 'Paperdolls/Male/Layer 5 - Hair/Scale Coat Helmet.png', class: 'head' },
+      { file: 'Paperdolls/Male/Layer 5 - Hair/Lamellar Kabuto.png', class: 'head' },
+      { file: 'Paperdolls/Male/Layer 5 - Hair/Molded Leather Cap.png', class: 'head' },
+      { file: 'Paperdolls/Male/Layer 5 - Hair/Plate Bascinet.png', class: 'head' },
       { file: 'Paperdolls/Male/Layer 6 - Eyes/Brown Eyes.png', class: 'head' },
       { file: 'Paperdolls/Male/Layer 6 - Eyes/Purple Eyes.png', class: 'head' }
     ],

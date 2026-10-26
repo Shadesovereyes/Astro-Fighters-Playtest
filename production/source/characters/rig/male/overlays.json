@@ -1373,6 +1373,226 @@
       ]
     },
     {
+      "source": "Paperdolls/Male/Layer 5 - Hair/Scale Coat Helmet.png",
+      "class": "head",
+      "partMap": "overlays/scale-coat-helmet.png",
+      "frames": [
+        {
+          "direction": "S",
+          "pixelCounts": {
+            "head": 79
+          }
+        },
+        {
+          "direction": "SE",
+          "pixelCounts": {
+            "head": 89
+          }
+        },
+        {
+          "direction": "E",
+          "pixelCounts": {
+            "head": 90
+          }
+        },
+        {
+          "direction": "NE",
+          "pixelCounts": {
+            "head": 115
+          }
+        },
+        {
+          "direction": "N",
+          "pixelCounts": {
+            "head": 114
+          }
+        },
+        {
+          "direction": "NW",
+          "pixelCounts": {
+            "head": 115
+          }
+        },
+        {
+          "direction": "W",
+          "pixelCounts": {
+            "head": 90
+          }
+        },
+        {
+          "direction": "SW",
+          "pixelCounts": {
+            "head": 89
+          }
+        }
+      ]
+    },
+    {
+      "source": "Paperdolls/Male/Layer 5 - Hair/Lamellar Kabuto.png",
+      "class": "head",
+      "partMap": "overlays/lamellar-kabuto.png",
+      "frames": [
+        {
+          "direction": "S",
+          "pixelCounts": {
+            "head": 106
+          }
+        },
+        {
+          "direction": "SE",
+          "pixelCounts": {
+            "head": 116
+          }
+        },
+        {
+          "direction": "E",
+          "pixelCounts": {
+            "head": 112
+          }
+        },
+        {
+          "direction": "NE",
+          "pixelCounts": {
+            "head": 135
+          }
+        },
+        {
+          "direction": "N",
+          "pixelCounts": {
+            "head": 135
+          }
+        },
+        {
+          "direction": "NW",
+          "pixelCounts": {
+            "head": 135
+          }
+        },
+        {
+          "direction": "W",
+          "pixelCounts": {
+            "head": 112
+          }
+        },
+        {
+          "direction": "SW",
+          "pixelCounts": {
+            "head": 116
+          }
+        }
+      ]
+    },
+    {
+      "source": "Paperdolls/Male/Layer 5 - Hair/Molded Leather Cap.png",
+      "class": "head",
+      "partMap": "overlays/molded-leather-cap.png",
+      "frames": [
+        {
+          "direction": "S",
+          "pixelCounts": {
+            "head": 63
+          }
+        },
+        {
+          "direction": "SE",
+          "pixelCounts": {
+            "head": 71
+          }
+        },
+        {
+          "direction": "E",
+          "pixelCounts": {
+            "head": 74
+          }
+        },
+        {
+          "direction": "NE",
+          "pixelCounts": {
+            "head": 90
+          }
+        },
+        {
+          "direction": "N",
+          "pixelCounts": {
+            "head": 88
+          }
+        },
+        {
+          "direction": "NW",
+          "pixelCounts": {
+            "head": 90
+          }
+        },
+        {
+          "direction": "W",
+          "pixelCounts": {
+            "head": 74
+          }
+        },
+        {
+          "direction": "SW",
+          "pixelCounts": {
+            "head": 71
+          }
+        }
+      ]
+    },
+    {
+      "source": "Paperdolls/Male/Layer 5 - Hair/Plate Bascinet.png",
+      "class": "head",
+      "partMap": "overlays/plate-bascinet.png",
+      "frames": [
+        {
+          "direction": "S",
+          "pixelCounts": {
+            "head": 85
+          }
+        },
+        {
+          "direction": "SE",
+          "pixelCounts": {
+            "head": 95
+          }
+        },
+        {
+          "direction": "E",
+          "pixelCounts": {
+            "head": 96
+          }
+        },
+        {
+          "direction": "NE",
+          "pixelCounts": {
+            "head": 127
+          }
+        },
+        {
+          "direction": "N",
+          "pixelCounts": {
+            "head": 127
+          }
+        },
+        {
+          "direction": "NW",
+          "pixelCounts": {
+            "head": 127
+          }
+        },
+        {
+          "direction": "W",
+          "pixelCounts": {
+            "head": 96
+          }
+        },
+        {
+          "direction": "SW",
+          "pixelCounts": {
+            "head": 95
+          }
+        }
+      ]
+    },
+    {
       "source": "Paperdolls/Male/Layer 6 - Eyes/Brown Eyes.png",
       "class": "head",
       "partMap": "overlays/brown-eyes.png",

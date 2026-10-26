@@ -46,6 +46,8 @@ FAR['lamellar-shoulders'] = FAR['male-lamellar']
 FAR['studded-leather-shoulders'] = FAR['male-studded-leather']
 FAR['plate-harness-shoulders'] = FAR['male-plate-harness']
 
+HELMETS = ['scale-coat-helmet', 'lamellar-kabuto', 'molded-leather-cap', 'plate-bascinet']
+
 def swap(v, table):
     if isinstance(v, str): return table.get(v.lower(), v)
     if isinstance(v, list): return [swap(x, table) for x in v]
@@ -66,6 +68,11 @@ def add(state):
     for name in ['male-scale-coat', 'male-lamellar', 'male-studded-leather', 'male-plate-harness', 'scale-coat-shoulders', 'lamellar-shoulders',
                  'studded-leather-shoulders', 'plate-harness-shoulders']:
         if name in cl and name not in layers: layers.append(name)
+    # helmets ride in the hair slot: head-class overlays listed with the hair
+    ov = spec.get('overlays', {}).get('layers')
+    if ov is not None:
+        for name in HELMETS:
+            if name not in ov: ov.insert(ov.index('brown-eyes') if 'brown-eyes' in ov else len(ov), name)
     p.write_text(json.dumps(spec, indent=2, ensure_ascii=False) + '\n')
     return True
 
