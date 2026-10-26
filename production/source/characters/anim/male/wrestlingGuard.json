@@ -83,6 +83,10 @@
       "long-hair",
       "fade-hair",
       "afro-hair",
+      "scale-coat-helmet",
+      "lamellar-kabuto",
+      "molded-leather-cap",
+      "plate-bascinet",
       "brown-eyes",
       "purple-eyes"
     ],
@@ -827,7 +831,15 @@
       "male-blue-armor",
       "male-red-armor",
       "blue-armor-shoulders",
-      "red-armor-shoulders"
+      "red-armor-shoulders",
+      "male-scale-coat",
+      "male-lamellar",
+      "male-studded-leather",
+      "male-plate-harness",
+      "scale-coat-shoulders",
+      "lamellar-shoulders",
+      "studded-leather-shoulders",
+      "plate-harness-shoulders"
     ],
     "sash": {
       "rule": "The hanging flaps swing from the knot like a pendulum: rows below knotRow shift sideways, growing to sway[k] at the flaps' lowest row (+ is screen right in that direction's orientation; mirrored directions use their source's table, flipped). In the profile the flaps trail behind the walk and kick back twice per cycle; in front/back views they swing toward the leg that is stepping; the band and knot stay with the waist. The flaps also lag the body bob by one frame.",
@@ -1031,7 +1043,403 @@
       "rule": "Layer 4 pieces follow the arm part they sit on: pads with the upper arm, bracers with the forearm, through the same row edits and swing as the arm"
     },
     "looseFromRow": 40,
-    "looseRule": "from row 40 down, cloth specks of 1-2 px cut off from the garment and outline pixels that no longer border any cloth are removed (they are left between the legs where a direction's own clothing frame does not register exactly with its source's motion)"
+    "looseRule": "from row 40 down, cloth specks of 1-2 px cut off from the garment and outline pixels that no longer border any cloth are removed (they are left between the legs where a direction's own clothing frame does not register exactly with its source's motion)",
+    "male-scale-coat": {
+      "outline": "#000000",
+      "shoe": "#4a2a14",
+      "sashKnotRow": 35,
+      "legRows": {
+        "wrap": 55,
+        "foot": 59,
+        "rule": "the boot starts one row above the body's wrap (row 55); the boot cuff (row 54) is the trouser hem"
+      },
+      "farShade": {
+        "#e2b65a": "#b0802e",
+        "#b0802e": "#6e4618",
+        "#6e4618": "#6e4618",
+        "#a8703e": "#7a4a26",
+        "#7a4a26": "#4a2a14",
+        "#4a2a14": "#4a2a14",
+        "#7a7f99": "#4e526a",
+        "#4e526a": "#30324a",
+        "#30324a": "#30324a",
+        "#000000": "#000000",
+        "#e2b65b": "#b0802f",
+        "#b0802f": "#6e4619",
+        "#6e4619": "#6e4619",
+        "#a8703f": "#7a4a27",
+        "#7a4a27": "#4a2a15",
+        "#4a2a15": "#4a2a15",
+        "#7a7f98": "#4e526b",
+        "#4e526b": "#30324b",
+        "#30324b": "#30324b"
+      },
+      "gapFill": {
+        "colour": "#4e526a",
+        "fromRow": 35,
+        "rule": "body (skin or shorts) uncovered from under the hanging sash or its swinging flaps, with cloth on both sides in the same row, takes the trouser mid colour"
+      },
+      "underArm": {
+        "base": "#b0802e",
+        "edge": "#4a2a14"
+      },
+      "wrap": {
+        "rule": "line-pose boot-shaft rows: the leg's own wrap span (margin 0) in boot colour inside one outline, matching the corrected E/W boot (the far-boot sliver and its inner black line were removed)",
+        "margin": 0,
+        "pattern": "c",
+        "fill": "c",
+        "colours": {
+          "a": "#000000",
+          "c": "#4a2a14"
+        }
+      },
+      "trouser": {
+        "rule": "profile leg armour rows: the leg's outline span widened 2 px behind and 1 px in front (measured on the reference E armour); grey with a white front, as on the reference",
+        "back": 2,
+        "front": 1,
+        "thighFront": "c",
+        "shinFront": "c",
+        "colours": {
+          "a": "#000000",
+          "b": "#7a7f99",
+          "c": "#4e526a",
+          "d": "#4e526a",
+          "f": "#4e526a"
+        }
+      }
+    },
+    "male-studded-leather": {
+      "outline": "#000000",
+      "shoe": "#2f1b12",
+      "sashKnotRow": 35,
+      "legRows": {
+        "wrap": 55,
+        "foot": 59,
+        "rule": "the boot starts one row above the body's wrap (row 55); the boot cuff (row 54) is the trouser hem"
+      },
+      "farShade": {
+        "#6e4630": "#4e3022",
+        "#4e3022": "#2f1b12",
+        "#2f1b12": "#2f1b12",
+        "#c48a58": "#6e4630",
+        "#9a6040": "#6a3e26",
+        "#6a3e26": "#6a3e26",
+        "#7b4b30": "#4f2f1d",
+        "#4f2f1d": "#4f2f1d",
+        "#b8bcc4": "#6c7282",
+        "#4c4448": "#332d30",
+        "#332d30": "#1f1b1d",
+        "#1f1b1d": "#1f1b1d",
+        "#000000": "#000000",
+        "#6e4631": "#4e3023",
+        "#4e3023": "#2f1b13",
+        "#2f1b13": "#2f1b13",
+        "#c48a59": "#6e4631",
+        "#9a6041": "#6a3e27",
+        "#6a3e27": "#6a3e27",
+        "#7b4b31": "#4f2f1c",
+        "#4f2f1c": "#4f2f1c",
+        "#b8bcc5": "#6c7283",
+        "#4c4449": "#332d31",
+        "#332d31": "#1f1b1c",
+        "#1f1b1c": "#1f1b1c"
+      },
+      "gapFill": {
+        "colour": "#332d30",
+        "fromRow": 35,
+        "rule": "body (skin or shorts) uncovered from under the hanging sash or its swinging flaps, with cloth on both sides in the same row, takes the trouser mid colour"
+      },
+      "underArm": {
+        "base": "#4e3022",
+        "edge": "#2f1b12"
+      },
+      "wrap": {
+        "rule": "line-pose boot-shaft rows: the leg's own wrap span (margin 0) in boot colour inside one outline, matching the corrected E/W boot (the far-boot sliver and its inner black line were removed)",
+        "margin": 0,
+        "pattern": "c",
+        "fill": "c",
+        "colours": {
+          "a": "#000000",
+          "c": "#2f1b12"
+        }
+      },
+      "trouser": {
+        "rule": "profile leg armour rows: the leg's outline span widened 2 px behind and 1 px in front (measured on the reference E armour); grey with a white front, as on the reference",
+        "back": 2,
+        "front": 1,
+        "thighFront": "c",
+        "shinFront": "c",
+        "colours": {
+          "a": "#000000",
+          "b": "#4c4448",
+          "c": "#332d30",
+          "d": "#332d30",
+          "f": "#332d30"
+        }
+      }
+    },
+    "male-plate-harness": {
+      "outline": "#000000",
+      "shoe": "#444852",
+      "sashKnotRow": 35,
+      "legRows": {
+        "wrap": 55,
+        "foot": 59,
+        "rule": "the boot starts one row above the body's wrap (row 55); the boot cuff (row 54) is the trouser hem"
+      },
+      "farShade": {
+        "#a2a7b2": "#868b96",
+        "#868b96": "#6a6f7a",
+        "#6a6f7a": "#444852",
+        "#444852": "#2c2f36",
+        "#2c2f36": "#2c2f36",
+        "#7a4a2e": "#4e2e1c",
+        "#4e2e1c": "#4e2e1c",
+        "#7b4b31": "#4f2f1e",
+        "#4f2f1e": "#4f2f1e",
+        "#5a4030": "#3e2a1e",
+        "#3e2a1e": "#3e2a1e",
+        "#4a4c52": "#2a2b30",
+        "#2a2b30": "#2a2b30",
+        "#000000": "#000000",
+        "#a2a7b3": "#868b97",
+        "#868b97": "#6a6f7b",
+        "#6a6f7b": "#444853",
+        "#444853": "#2c2f37",
+        "#2c2f37": "#2c2f37",
+        "#7a4a2f": "#4e2e1d",
+        "#4e2e1d": "#4e2e1d",
+        "#7b4b30": "#4f2f1f",
+        "#4f2f1f": "#4f2f1f",
+        "#5a4031": "#3e2a1f",
+        "#3e2a1f": "#3e2a1f",
+        "#4a4c53": "#2a2b31",
+        "#2a2b31": "#2a2b31"
+      },
+      "gapFill": {
+        "colour": "#6a6f7a",
+        "fromRow": 35,
+        "rule": "body (skin or shorts) uncovered from under the hanging sash or its swinging flaps, with cloth on both sides in the same row, takes the trouser mid colour"
+      },
+      "underArm": {
+        "base": "#6a6f7a",
+        "edge": "#444852"
+      },
+      "wrap": {
+        "rule": "line-pose boot-shaft rows: the leg's own wrap span (margin 0) in boot colour inside one outline, matching the corrected E/W boot (the far-boot sliver and its inner black line were removed)",
+        "margin": 0,
+        "pattern": "c",
+        "fill": "c",
+        "colours": {
+          "a": "#000000",
+          "c": "#444852"
+        }
+      },
+      "trouser": {
+        "rule": "profile leg armour rows: the leg's outline span widened 2 px behind and 1 px in front (measured on the reference E armour); grey with a white front, as on the reference",
+        "back": 2,
+        "front": 1,
+        "thighFront": "c",
+        "shinFront": "c",
+        "colours": {
+          "a": "#000000",
+          "b": "#a2a7b2",
+          "c": "#6a6f7a",
+          "d": "#6a6f7a",
+          "f": "#6a6f7a"
+        }
+      }
+    },
+    "male-lamellar": {
+      "outline": "#000000",
+      "shoe": "#241f2a",
+      "sashKnotRow": 35,
+      "legRows": {
+        "wrap": 55,
+        "foot": 59,
+        "rule": "the boot starts one row above the body's wrap (row 55); the boot cuff (row 54) is the trouser hem"
+      },
+      "farShade": {
+        "#a7adbb": "#6c7282",
+        "#6c7282": "#3d4050",
+        "#3d4050": "#3d4050",
+        "#b02a2a": "#6e1414",
+        "#6e1414": "#6e1414",
+        "#6fb09a": "#3e7a66",
+        "#3e7a66": "#3e7a66",
+        "#c43a30": "#7e1c18",
+        "#7e1c18": "#7e1c18",
+        "#5a5266": "#3a3442",
+        "#3a3442": "#241f2a",
+        "#241f2a": "#241f2a",
+        "#000000": "#000000",
+        "#a7adba": "#6c7283",
+        "#6c7283": "#3d4051",
+        "#3d4051": "#3d4051",
+        "#b02a2b": "#6e1415",
+        "#6e1415": "#6e1415",
+        "#6fb09b": "#3e7a67",
+        "#3e7a67": "#3e7a67",
+        "#c43a31": "#7e1c19",
+        "#7e1c19": "#7e1c19",
+        "#5a5267": "#3a3443",
+        "#3a3443": "#241f2b",
+        "#241f2b": "#241f2b"
+      },
+      "gapFill": {
+        "colour": "#6c7282",
+        "fromRow": 35,
+        "rule": "body (skin or shorts) uncovered from under the hanging sash or its swinging flaps, with cloth on both sides in the same row, takes the trouser mid colour"
+      },
+      "underArm": {
+        "base": "#6c7282",
+        "edge": "#241f2a"
+      },
+      "wrap": {
+        "rule": "line-pose boot-shaft rows: the leg's own wrap span (margin 0) in boot colour inside one outline, matching the corrected E/W boot (the far-boot sliver and its inner black line were removed)",
+        "margin": 0,
+        "pattern": "c",
+        "fill": "c",
+        "colours": {
+          "a": "#000000",
+          "c": "#241f2a"
+        }
+      },
+      "trouser": {
+        "rule": "profile leg armour rows: the leg's outline span widened 2 px behind and 1 px in front (measured on the reference E armour); grey with a white front, as on the reference",
+        "back": 2,
+        "front": 1,
+        "thighFront": "c",
+        "shinFront": "c",
+        "colours": {
+          "a": "#000000",
+          "b": "#a7adbb",
+          "c": "#6c7282",
+          "d": "#6c7282",
+          "f": "#6c7282"
+        }
+      }
+    },
+    "scale-coat-shoulders": {
+      "outline": "#000000",
+      "farShade": {
+        "#e2b65a": "#b0802e",
+        "#b0802e": "#6e4618",
+        "#6e4618": "#6e4618",
+        "#a8703e": "#7a4a26",
+        "#7a4a26": "#4a2a14",
+        "#4a2a14": "#4a2a14",
+        "#7a7f99": "#4e526a",
+        "#4e526a": "#30324a",
+        "#30324a": "#30324a",
+        "#000000": "#000000",
+        "#e2b65b": "#b0802f",
+        "#b0802f": "#6e4619",
+        "#6e4619": "#6e4619",
+        "#a8703f": "#7a4a27",
+        "#7a4a27": "#4a2a15",
+        "#4a2a15": "#4a2a15",
+        "#7a7f98": "#4e526b",
+        "#4e526b": "#30324b",
+        "#30324b": "#30324b"
+      },
+      "rule": "Layer 4 pieces follow the arm part they sit on: pads with the upper arm, bracers with the forearm, through the same row edits and swing as the arm"
+    },
+    "studded-leather-shoulders": {
+      "outline": "#000000",
+      "farShade": {
+        "#6e4630": "#4e3022",
+        "#4e3022": "#2f1b12",
+        "#2f1b12": "#2f1b12",
+        "#c48a58": "#6e4630",
+        "#9a6040": "#6a3e26",
+        "#6a3e26": "#6a3e26",
+        "#7b4b30": "#4f2f1d",
+        "#4f2f1d": "#4f2f1d",
+        "#b8bcc4": "#6c7282",
+        "#4c4448": "#332d30",
+        "#332d30": "#1f1b1d",
+        "#1f1b1d": "#1f1b1d",
+        "#000000": "#000000",
+        "#6e4631": "#4e3023",
+        "#4e3023": "#2f1b13",
+        "#2f1b13": "#2f1b13",
+        "#c48a59": "#6e4631",
+        "#9a6041": "#6a3e27",
+        "#6a3e27": "#6a3e27",
+        "#7b4b31": "#4f2f1c",
+        "#4f2f1c": "#4f2f1c",
+        "#b8bcc5": "#6c7283",
+        "#4c4449": "#332d31",
+        "#332d31": "#1f1b1c",
+        "#1f1b1c": "#1f1b1c"
+      },
+      "rule": "Layer 4 pieces follow the arm part they sit on: pads with the upper arm, bracers with the forearm, through the same row edits and swing as the arm"
+    },
+    "plate-harness-shoulders": {
+      "outline": "#000000",
+      "farShade": {
+        "#a2a7b2": "#868b96",
+        "#868b96": "#6a6f7a",
+        "#6a6f7a": "#444852",
+        "#444852": "#2c2f36",
+        "#2c2f36": "#2c2f36",
+        "#7a4a2e": "#4e2e1c",
+        "#4e2e1c": "#4e2e1c",
+        "#7b4b31": "#4f2f1e",
+        "#4f2f1e": "#4f2f1e",
+        "#5a4030": "#3e2a1e",
+        "#3e2a1e": "#3e2a1e",
+        "#4a4c52": "#2a2b30",
+        "#2a2b30": "#2a2b30",
+        "#000000": "#000000",
+        "#a2a7b3": "#868b97",
+        "#868b97": "#6a6f7b",
+        "#6a6f7b": "#444853",
+        "#444853": "#2c2f37",
+        "#2c2f37": "#2c2f37",
+        "#7a4a2f": "#4e2e1d",
+        "#4e2e1d": "#4e2e1d",
+        "#7b4b30": "#4f2f1f",
+        "#4f2f1f": "#4f2f1f",
+        "#5a4031": "#3e2a1f",
+        "#3e2a1f": "#3e2a1f",
+        "#4a4c53": "#2a2b31",
+        "#2a2b31": "#2a2b31"
+      },
+      "rule": "Layer 4 pieces follow the arm part they sit on: pads with the upper arm, bracers with the forearm, through the same row edits and swing as the arm"
+    },
+    "lamellar-shoulders": {
+      "outline": "#000000",
+      "farShade": {
+        "#a7adbb": "#6c7282",
+        "#6c7282": "#3d4050",
+        "#3d4050": "#3d4050",
+        "#b02a2a": "#6e1414",
+        "#6e1414": "#6e1414",
+        "#6fb09a": "#3e7a66",
+        "#3e7a66": "#3e7a66",
+        "#c43a30": "#7e1c18",
+        "#7e1c18": "#7e1c18",
+        "#5a5266": "#3a3442",
+        "#3a3442": "#241f2a",
+        "#241f2a": "#241f2a",
+        "#000000": "#000000",
+        "#a7adba": "#6c7283",
+        "#6c7283": "#3d4051",
+        "#3d4051": "#3d4051",
+        "#b02a2b": "#6e1415",
+        "#6e1415": "#6e1415",
+        "#6fb09b": "#3e7a67",
+        "#3e7a67": "#3e7a67",
+        "#c43a31": "#7e1c19",
+        "#7e1c19": "#7e1c19",
+        "#5a5267": "#3a3443",
+        "#3a3443": "#241f2b",
+        "#241f2b": "#241f2b"
+      },
+      "rule": "Layer 4 pieces follow the arm part they sit on: pads with the upper arm, bracers with the forearm, through the same row edits and swing as the arm"
+    }
   },
   "clips": {
     "rule": "martial stance idle: loops while that stance is active; attacks of the style start and end in the guard",

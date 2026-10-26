@@ -170,7 +170,7 @@ def build_heavy():
     for f, d in enumerate(ORDER):
         ox, pix = frame_info(f)
         top = min(y for (x, y), (c, p) in pix.items() if p == 'torso')
-        knee = 47
+        knee = 45   # the skirt ends above the shins: shin pixels taken into the swinging skirt leave the frame in deep stances
         skirt = set()
         for (x, y), (c, p) in pix.items():
             if c == '000000': out[y, ox + x] = K; continue

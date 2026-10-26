@@ -34,7 +34,19 @@
     "fade-hair": "fade-hair.png",
     "long-hair": "long-hair.png",
     "brown-eyes": "brown-eyes.png",
-    "purple-eyes": "purple-eyes.png"
+    "purple-eyes": "purple-eyes.png",
+    "male-scale-coat": "male-scale-coat.png",
+    "male-lamellar": "male-lamellar.png",
+    "male-studded-leather": "male-studded-leather.png",
+    "male-plate-harness": "male-plate-harness.png",
+    "scale-coat-shoulders": "scale-coat-shoulders.png",
+    "lamellar-shoulders": "lamellar-shoulders.png",
+    "studded-leather-shoulders": "studded-leather-shoulders.png",
+    "plate-harness-shoulders": "plate-harness-shoulders.png",
+    "scale-coat-helmet": "scale-coat-helmet.png",
+    "lamellar-kabuto": "lamellar-kabuto.png",
+    "molded-leather-cap": "molded-leather-cap.png",
+    "plate-bascinet": "plate-bascinet.png"
   },
   "drawOrder": [
     "contact shadow",

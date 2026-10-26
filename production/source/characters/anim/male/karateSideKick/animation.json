@@ -34,7 +34,19 @@
     "male-blue-armor": "male-blue-armor.png",
     "male-red-armor": "male-red-armor.png",
     "blue-armor-shoulders": "blue-armor-shoulders.png",
-    "red-armor-shoulders": "red-armor-shoulders.png"
+    "red-armor-shoulders": "red-armor-shoulders.png",
+    "male-scale-coat": "male-scale-coat.png",
+    "male-lamellar": "male-lamellar.png",
+    "male-studded-leather": "male-studded-leather.png",
+    "male-plate-harness": "male-plate-harness.png",
+    "scale-coat-shoulders": "scale-coat-shoulders.png",
+    "lamellar-shoulders": "lamellar-shoulders.png",
+    "studded-leather-shoulders": "studded-leather-shoulders.png",
+    "plate-harness-shoulders": "plate-harness-shoulders.png",
+    "scale-coat-helmet": "scale-coat-helmet.png",
+    "lamellar-kabuto": "lamellar-kabuto.png",
+    "molded-leather-cap": "molded-leather-cap.png",
+    "plate-bascinet": "plate-bascinet.png"
   },
   "pendingLayers": [],
   "drawOrder": [
