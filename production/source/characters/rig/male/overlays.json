@@ -449,6 +449,107 @@
       ]
     },
     {
+      "source": "Paperdolls/Male/Layer 2 - Clothing/Male Studded Leather.png",
+      "class": "under-arms",
+      "partMap": "overlays/male-studded-leather.png",
+      "frames": [
+        {
+          "direction": "S",
+          "pixelCounts": {
+            "torso": 161,
+            "pelvis": 16,
+            "R-thigh": 28,
+            "R-shin-foot": 124,
+            "L-thigh": 19,
+            "L-shin-foot": 123,
+            "sash": 136
+          }
+        },
+        {
+          "direction": "SE",
+          "pixelCounts": {
+            "torso": 141,
+            "pelvis": 24,
+            "R-thigh": 48,
+            "R-shin-foot": 113,
+            "L-thigh": 30,
+            "L-shin-foot": 108,
+            "sash": 101
+          }
+        },
+        {
+          "direction": "E",
+          "pixelCounts": {
+            "torso": 127,
+            "pelvis": 8,
+            "R-thigh": 34,
+            "R-shin-foot": 86,
+            "L-shin-foot": 30,
+            "sash": 93
+          }
+        },
+        {
+          "direction": "NE",
+          "pixelCounts": {
+            "torso": 148,
+            "pelvis": 2,
+            "R-thigh": 33,
+            "R-shin-foot": 118,
+            "L-thigh": 30,
+            "L-shin-foot": 119,
+            "sash": 141
+          }
+        },
+        {
+          "direction": "N",
+          "pixelCounts": {
+            "torso": 150,
+            "pelvis": 9,
+            "R-thigh": 34,
+            "R-shin-foot": 131,
+            "L-thigh": 38,
+            "L-shin-foot": 128,
+            "sash": 125
+          }
+        },
+        {
+          "direction": "NW",
+          "pixelCounts": {
+            "torso": 148,
+            "pelvis": 2,
+            "R-thigh": 30,
+            "R-shin-foot": 119,
+            "L-thigh": 33,
+            "L-shin-foot": 118,
+            "sash": 141
+          }
+        },
+        {
+          "direction": "W",
+          "pixelCounts": {
+            "torso": 127,
+            "pelvis": 8,
+            "R-shin-foot": 30,
+            "L-thigh": 34,
+            "L-shin-foot": 86,
+            "sash": 93
+          }
+        },
+        {
+          "direction": "SW",
+          "pixelCounts": {
+            "torso": 141,
+            "pelvis": 24,
+            "R-thigh": 32,
+            "R-shin-foot": 108,
+            "L-thigh": 46,
+            "L-shin-foot": 113,
+            "sash": 101
+          }
+        }
+      ]
+    },
+    {
       "source": "Paperdolls/Male/Layer 2 - Clothing/Male Lamellar.png",
       "class": "under-arms",
       "partMap": "overlays/male-lamellar.png",
@@ -818,6 +919,81 @@
             "R-upper-arm": 56,
             "R-forearm-hand": 40,
             "L-upper-arm": 56,
+            "L-forearm-hand": 44
+          }
+        },
+        {
+          "direction": "W",
+          "pixelCounts": {
+            "L-upper-arm": 49,
+            "L-forearm-hand": 40
+          }
+        },
+        {
+          "direction": "SW",
+          "pixelCounts": {
+            "R-upper-arm": 36,
+            "R-forearm-hand": 46,
+            "L-upper-arm": 56,
+            "L-forearm-hand": 44
+          }
+        }
+      ]
+    },
+    {
+      "source": "Paperdolls/Male/Layer 4 - Shoulders and Arms accessories/Studded Leather Shoulders.png",
+      "class": "component",
+      "partMap": "overlays/studded-leather-shoulders.png",
+      "frames": [
+        {
+          "direction": "S",
+          "pixelCounts": {
+            "R-upper-arm": 42,
+            "R-forearm-hand": 41,
+            "L-upper-arm": 42,
+            "L-forearm-hand": 41
+          }
+        },
+        {
+          "direction": "SE",
+          "pixelCounts": {
+            "R-upper-arm": 56,
+            "R-forearm-hand": 44,
+            "L-upper-arm": 36,
+            "L-forearm-hand": 46
+          }
+        },
+        {
+          "direction": "E",
+          "pixelCounts": {
+            "R-upper-arm": 49,
+            "R-forearm-hand": 40
+          }
+        },
+        {
+          "direction": "NE",
+          "pixelCounts": {
+            "R-upper-arm": 49,
+            "R-forearm-hand": 44,
+            "L-upper-arm": 49,
+            "L-forearm-hand": 40
+          }
+        },
+        {
+          "direction": "N",
+          "pixelCounts": {
+            "R-upper-arm": 48,
+            "R-forearm-hand": 48,
+            "L-upper-arm": 48,
+            "L-forearm-hand": 48
+          }
+        },
+        {
+          "direction": "NW",
+          "pixelCounts": {
+            "R-upper-arm": 49,
+            "R-forearm-hand": 40,
+            "L-upper-arm": 49,
             "L-forearm-hand": 44
           }
         },

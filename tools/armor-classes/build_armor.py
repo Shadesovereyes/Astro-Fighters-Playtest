@@ -257,9 +257,96 @@ def build_heavy_shoulders():
         for (x, y) in edge: out[y, ox + x] = K
     return out
 
+# ---------------------------------------------------------------- Medium option B: Studded Leather
+# From Christopher's reference (2026-10-26): riveted leather cuirass with a shoulder harness, buckled belt,
+# side tassets open at the front (full panel at the back), long riveted bracers, dark trousers with a thigh
+# strap, strapped knee boots.
+STD = dict(
+    lh=hx('6e4630'), lm=hx('4e3022'), ld=hx('2f1b12'),          # dark leather
+    sh=hx('9a6040'), sd=hx('6a3e26'),                           # harness straps, a step redder and lighter
+    bb=hx('7b4b30'), bd=hx('4f2f1d'),                           # belt (own colours: the rig splits the belt by colour)
+    rv=hx('c48a58'), st=hx('b8bcc4'),                           # copper rivets, steel buckles
+    ch=hx('4c4448'), cm=hx('332d30'), cd=hx('1f1b1d'),          # dark cloth
+)
+
+def stud_px(x, y, top, pal, back=False):
+    """Riveted leather: a copper rivet every 4px on staggered rows, lit leather above each rivet row."""
+    r = (y - top) % 3
+    if r == 1 and (x + ((y - top) // 3) % 2 * 2) % 4 == 0: return pal['rv']
+    if r == 0 and not back: return pal['lh'] if x % 3 == 0 else pal['lm']
+    return pal['lm'] if r != 2 else pal['ld'] if x % 4 == 0 else pal['lm']
+
+def build_studded():
+    out = np.zeros_like(BASE)
+    for f, d in enumerate(ORDER):
+        ox, pix = frame_info(f)
+        torso = [(x, y) for (x, y), (c, p) in pix.items() if p == 'torso' and c != '000000']
+        top = min(y for _, y in torso)
+        cx = round(sum(x for x, _ in torso) / len(torso))
+        back, profile = d in BACK, d in ('E', 'W')
+        skirt_to = 41
+        straps = {cx} if profile else {cx - 3, cx + 3}
+        for (x, y), (c, p) in pix.items():
+            if c == '000000': out[y, ox + x] = K; continue
+            if p == 'torso':
+                if y <= top: out[y, ox + x] = STD['cd']                       # undershirt collar
+                elif x in straps:
+                    out[y, ox + x] = STD['st'] if (y == top + 3 and not back) else STD['sh']
+                else: out[y, ox + x] = stud_px(x, y, top, STD, back)
+            elif p == 'sash':
+                out[y, ox + x] = STD['bb'] if c in (BLUE, WHITE) else STD['bd']
+            elif p in LEGS and y <= skirt_to and (profile or back or abs(x - cx) >= 2):
+                # tassets: riveted panels, open over the front of the trousers
+                out[y, ox + x] = skirt_colour(STD['ld'] if y == skirt_to else stud_px(x, y, top, STD, back))
+            elif p and 'shin' in p and (c in (BLUE, DARK) or (c == WHITE and y >= 54) or y >= 50):
+                # knee boots: dark cuff at the top, two lighter straps
+                out[y, ox + x] = STD['ld'] if y == 50 or c == DARK else STD['sh'] if y in (52, 56) else STD['lm']
+            elif p in LEGS and y == 45:
+                out[y, ox + x] = STD['sh']                                    # thigh strap
+            else:
+                out[y, ox + x] = STD['cm'] if c == GREY else STD['ch'] if c == WHITE else STD['cd']
+        for (x, y), (c, p) in pix.items():
+            if y == skirt_to + 1 and p in LEGS and c != '000000' and out[skirt_to, ox + x, 3] and tuple(out[skirt_to, ox + x, :3]) == tuple(skirt_colour(STD['ld'])[:3]):
+                out[y, ox + x] = K
+    return out
+
+def build_studded_shoulders():
+    """Two-tier riveted leather pauldrons and long riveted bracers."""
+    out = np.zeros_like(BASE_SH)
+    for f, d in enumerate(ORDER):
+        ox = f * F
+        for y in range(F):
+            for x in range(F):
+                c = col(BASE_SH, ox + x, y)
+                if not c: continue
+                p = part_of(SHMAP, ox + x, y)
+                if p and 'upper' in p: continue
+                if c == '000000': out[y, ox + x] = K
+                else: out[y, ox + x] = STD['rv'] if (y % 3 == 1 and x % 2 == 0 and c != DARK) else STD['lm'] if c in (BLUE, GREY, WHITE) else STD['ld']
+        bracer = {(x, y) for y in range(F) for x in range(F) if out[y, ox + x, 3]}
+        added = set()
+        for side in ('R-upper-arm', 'L-upper-arm'):
+            pts = [(x, y) for y in range(F) for x in range(F) if ARMS[y, ox + x, 3] and part_of(PARTMAP, ox + x, y) == side]
+            if not pts: continue
+            top = min(y for _, y in pts) - 1
+            xs = [x for x, _ in pts]; x0, x1 = min(xs), max(xs)
+            if d in ('E', 'W'): x0 -= 1; x1 += 1
+            elif (x0 + x1) / 2 < 32: x0 -= 2
+            else: x1 += 2
+            for y in range(top, top + 7):
+                if any((x + dx, y + dy) in bracer for x in range(x0, x1 + 1) for dx in (-1, 0, 1) for dy in (-1, 0, 1)): break
+                for x in range(x0, x1 + 1):
+                    added.add((x, y))
+                    tier = (y - top) % 3
+                    out[y, ox + x] = STD['ld'] if tier == 0 and y != top else STD['rv'] if (tier == 1 and x % 2 == 1) else STD['lh'] if tier == 1 else STD['lm']
+        for (x, y) in added:
+            if any((x + dx, y + dy) not in added for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1))): out[y, ox + x] = K
+    return out
+
 if __name__ == '__main__':
     if '--skirt-colours' in sys.argv:
         print('medium', skirt_colours([MED[k] for k in ('sh', 'sm', 'sd')]))
+        print('studded', skirt_colours([STD[k] for k in ('lh', 'lm', 'ld', 'rv')]))
         print('heavy', skirt_colours([HEV[k] for k in ('ph', 'pm', 'pd', 'lc', 'ld')]))
         sys.exit()
     OUT.mkdir(parents=True, exist_ok=True)
@@ -267,5 +354,7 @@ if __name__ == '__main__':
     (OUT / 'Layer 4 - Shoulders and Arms accessories').mkdir(parents=True, exist_ok=True)
     Image.fromarray(build_medium()).save(OUT / 'Layer 2 - Clothing/Male Scale Coat.png')
     Image.fromarray(build_medium_shoulders()).save(OUT / 'Layer 4 - Shoulders and Arms accessories/Scale Coat Shoulders.png')
+    Image.fromarray(build_studded()).save(OUT / 'Layer 2 - Clothing/Male Studded Leather.png')
+    Image.fromarray(build_studded_shoulders()).save(OUT / 'Layer 4 - Shoulders and Arms accessories/Studded Leather Shoulders.png')
     Image.fromarray(build_heavy()).save(OUT / 'Layer 2 - Clothing/Male Lamellar.png')
     Image.fromarray(build_heavy_shoulders()).save(OUT / 'Layer 4 - Shoulders and Arms accessories/Lamellar Shoulders.png')
