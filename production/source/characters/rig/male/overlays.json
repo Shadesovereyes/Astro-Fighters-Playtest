@@ -348,6 +348,198 @@
       ]
     },
     {
+      "source": "Paperdolls/Male/Layer 2 - Clothing/Male Scale Coat.png",
+      "class": "under-arms",
+      "partMap": "overlays/male-scale-coat.png",
+      "frames": [
+        {
+          "direction": "S",
+          "pixelCounts": {
+            "torso": 161,
+            "pelvis": 12,
+            "R-thigh": 1,
+            "R-shin-foot": 124,
+            "L-thigh": 3,
+            "L-shin-foot": 123,
+            "sash": 183
+          }
+        },
+        {
+          "direction": "SE",
+          "pixelCounts": {
+            "torso": 141,
+            "pelvis": 14,
+            "R-thigh": 19,
+            "R-shin-foot": 113,
+            "L-thigh": 26,
+            "L-shin-foot": 108,
+            "sash": 144
+          }
+        },
+        {
+          "direction": "E",
+          "pixelCounts": {
+            "torso": 127,
+            "pelvis": 8,
+            "R-thigh": 16,
+            "R-shin-foot": 86,
+            "L-shin-foot": 30,
+            "sash": 111
+          }
+        },
+        {
+          "direction": "NE",
+          "pixelCounts": {
+            "torso": 148,
+            "pelvis": 2,
+            "R-thigh": 9,
+            "R-shin-foot": 118,
+            "L-thigh": 2,
+            "L-shin-foot": 119,
+            "sash": 193
+          }
+        },
+        {
+          "direction": "N",
+          "pixelCounts": {
+            "torso": 150,
+            "pelvis": 9,
+            "R-thigh": 9,
+            "R-shin-foot": 131,
+            "L-thigh": 10,
+            "L-shin-foot": 128,
+            "sash": 178
+          }
+        },
+        {
+          "direction": "NW",
+          "pixelCounts": {
+            "torso": 148,
+            "pelvis": 2,
+            "R-thigh": 2,
+            "R-shin-foot": 119,
+            "L-thigh": 9,
+            "L-shin-foot": 118,
+            "sash": 193
+          }
+        },
+        {
+          "direction": "W",
+          "pixelCounts": {
+            "torso": 127,
+            "pelvis": 8,
+            "R-shin-foot": 30,
+            "L-thigh": 16,
+            "L-shin-foot": 86,
+            "sash": 111
+          }
+        },
+        {
+          "direction": "SW",
+          "pixelCounts": {
+            "torso": 141,
+            "pelvis": 14,
+            "R-thigh": 26,
+            "R-shin-foot": 108,
+            "L-thigh": 19,
+            "L-shin-foot": 113,
+            "sash": 144
+          }
+        }
+      ]
+    },
+    {
+      "source": "Paperdolls/Male/Layer 2 - Clothing/Male Lamellar.png",
+      "class": "under-arms",
+      "partMap": "overlays/male-lamellar.png",
+      "frames": [
+        {
+          "direction": "S",
+          "pixelCounts": {
+            "torso": 161,
+            "pelvis": 10,
+            "R-shin-foot": 96,
+            "L-shin-foot": 96,
+            "sash": 266
+          }
+        },
+        {
+          "direction": "SE",
+          "pixelCounts": {
+            "torso": 141,
+            "pelvis": 14,
+            "R-shin-foot": 105,
+            "L-thigh": 7,
+            "L-shin-foot": 89,
+            "sash": 223
+          }
+        },
+        {
+          "direction": "E",
+          "pixelCounts": {
+            "torso": 127,
+            "pelvis": 8,
+            "R-thigh": 2,
+            "R-shin-foot": 74,
+            "L-shin-foot": 23,
+            "sash": 156
+          }
+        },
+        {
+          "direction": "NE",
+          "pixelCounts": {
+            "torso": 148,
+            "pelvis": 2,
+            "R-shin-foot": 103,
+            "L-shin-foot": 90,
+            "sash": 272
+          }
+        },
+        {
+          "direction": "N",
+          "pixelCounts": {
+            "torso": 150,
+            "pelvis": 7,
+            "R-shin-foot": 113,
+            "L-shin-foot": 109,
+            "sash": 258
+          }
+        },
+        {
+          "direction": "NW",
+          "pixelCounts": {
+            "torso": 148,
+            "pelvis": 2,
+            "R-shin-foot": 90,
+            "L-shin-foot": 103,
+            "sash": 272
+          }
+        },
+        {
+          "direction": "W",
+          "pixelCounts": {
+            "torso": 127,
+            "pelvis": 8,
+            "R-shin-foot": 23,
+            "L-thigh": 2,
+            "L-shin-foot": 74,
+            "sash": 156
+          }
+        },
+        {
+          "direction": "SW",
+          "pixelCounts": {
+            "torso": 141,
+            "pelvis": 14,
+            "R-thigh": 7,
+            "R-shin-foot": 89,
+            "L-shin-foot": 105,
+            "sash": 223
+          }
+        }
+      ]
+    },
+    {
       "source": "Paperdolls/Male/Layer 4 - Shoulders and Arms accessories/Blue Armor Shoulders.png",
       "class": "component",
       "partMap": "overlays/blue-armor-shoulders.png",
@@ -492,6 +684,156 @@
             "R-upper-arm": 9,
             "R-forearm-hand": 46,
             "L-upper-arm": 13,
+            "L-forearm-hand": 44
+          }
+        }
+      ]
+    },
+    {
+      "source": "Paperdolls/Male/Layer 4 - Shoulders and Arms accessories/Scale Coat Shoulders.png",
+      "class": "component",
+      "partMap": "overlays/scale-coat-shoulders.png",
+      "frames": [
+        {
+          "direction": "S",
+          "pixelCounts": {
+            "R-upper-arm": 30,
+            "R-forearm-hand": 41,
+            "L-upper-arm": 30,
+            "L-forearm-hand": 41
+          }
+        },
+        {
+          "direction": "SE",
+          "pixelCounts": {
+            "R-upper-arm": 35,
+            "R-forearm-hand": 44,
+            "L-upper-arm": 25,
+            "L-forearm-hand": 46
+          }
+        },
+        {
+          "direction": "E",
+          "pixelCounts": {
+            "R-upper-arm": 35,
+            "R-forearm-hand": 40
+          }
+        },
+        {
+          "direction": "NE",
+          "pixelCounts": {
+            "R-upper-arm": 30,
+            "R-forearm-hand": 44,
+            "L-upper-arm": 30,
+            "L-forearm-hand": 40
+          }
+        },
+        {
+          "direction": "N",
+          "pixelCounts": {
+            "R-upper-arm": 35,
+            "R-forearm-hand": 48,
+            "L-upper-arm": 35,
+            "L-forearm-hand": 48
+          }
+        },
+        {
+          "direction": "NW",
+          "pixelCounts": {
+            "R-upper-arm": 30,
+            "R-forearm-hand": 40,
+            "L-upper-arm": 30,
+            "L-forearm-hand": 44
+          }
+        },
+        {
+          "direction": "W",
+          "pixelCounts": {
+            "L-upper-arm": 35,
+            "L-forearm-hand": 40
+          }
+        },
+        {
+          "direction": "SW",
+          "pixelCounts": {
+            "R-upper-arm": 25,
+            "R-forearm-hand": 46,
+            "L-upper-arm": 35,
+            "L-forearm-hand": 44
+          }
+        }
+      ]
+    },
+    {
+      "source": "Paperdolls/Male/Layer 4 - Shoulders and Arms accessories/Lamellar Shoulders.png",
+      "class": "component",
+      "partMap": "overlays/lamellar-shoulders.png",
+      "frames": [
+        {
+          "direction": "S",
+          "pixelCounts": {
+            "R-upper-arm": 42,
+            "R-forearm-hand": 41,
+            "L-upper-arm": 42,
+            "L-forearm-hand": 41
+          }
+        },
+        {
+          "direction": "SE",
+          "pixelCounts": {
+            "R-upper-arm": 56,
+            "R-forearm-hand": 44,
+            "L-upper-arm": 36,
+            "L-forearm-hand": 46
+          }
+        },
+        {
+          "direction": "E",
+          "pixelCounts": {
+            "R-upper-arm": 49,
+            "R-forearm-hand": 40
+          }
+        },
+        {
+          "direction": "NE",
+          "pixelCounts": {
+            "R-upper-arm": 56,
+            "R-forearm-hand": 44,
+            "L-upper-arm": 56,
+            "L-forearm-hand": 40
+          }
+        },
+        {
+          "direction": "N",
+          "pixelCounts": {
+            "R-upper-arm": 48,
+            "R-forearm-hand": 48,
+            "L-upper-arm": 48,
+            "L-forearm-hand": 48
+          }
+        },
+        {
+          "direction": "NW",
+          "pixelCounts": {
+            "R-upper-arm": 56,
+            "R-forearm-hand": 40,
+            "L-upper-arm": 56,
+            "L-forearm-hand": 44
+          }
+        },
+        {
+          "direction": "W",
+          "pixelCounts": {
+            "L-upper-arm": 49,
+            "L-forearm-hand": 40
+          }
+        },
+        {
+          "direction": "SW",
+          "pixelCounts": {
+            "R-upper-arm": 36,
+            "R-forearm-hand": 46,
+            "L-upper-arm": 56,
             "L-forearm-hand": 44
           }
         }

@@ -36,8 +36,16 @@ const CONFIG = {
       // Armour belt: the outlined body-colour region between the torso's lower outline and the legs (band + hanging flap).
       { file: 'Paperdolls/Male/Layer 2 - Clothing/Male Blue Armor.png', class: 'under-arms', belt: { colours: ['434da0', '332b6f'], outline: '000000', topRows: [30, 46], part: 'sash' } },
       { file: 'Paperdolls/Male/Layer 2 - Clothing/Male Red Armor.png', class: 'under-arms', belt: { colours: ['af071a', '770202'], outline: '000000', topRows: [30, 46], part: 'sash' } },
+      // Armor weight classes (candidates 2026-10-26, generator tools/armor-classes/build_armor.py): Medium = Scale Coat, Heavy = Lamellar.
+      { file: 'Paperdolls/Male/Layer 2 - Clothing/Male Scale Coat.png', class: 'under-arms', belt: { colours: ['7a4a26', '4a2a14'], outline: '000000', topRows: [30, 46], part: 'sash' },
+        // the coat skirt is drawn in its own colours so it hangs and swings from the hip like the belt flap
+        colourParts: { '6e4619': 'sash', 'b0802f': 'sash', 'e2b65b': 'sash' }, outline: '000000' },
+      { file: 'Paperdolls/Male/Layer 2 - Clothing/Male Lamellar.png', class: 'under-arms', belt: { colours: ['c43a30', '7e1c18'], outline: '000000', topRows: [30, 46], part: 'sash' },
+        colourParts: { '3d4051': 'sash', '6c7283': 'sash', '6e1415': 'sash', 'a7adba': 'sash', 'b02a2b': 'sash' }, outline: '000000' },
       { file: 'Paperdolls/Male/Layer 4 - Shoulders and Arms accessories/Blue Armor Shoulders.png', class: 'component' },
       { file: 'Paperdolls/Male/Layer 4 - Shoulders and Arms accessories/Red Armor Shoulders.png', class: 'component' },
+      { file: 'Paperdolls/Male/Layer 4 - Shoulders and Arms accessories/Scale Coat Shoulders.png', class: 'component' },
+      { file: 'Paperdolls/Male/Layer 4 - Shoulders and Arms accessories/Lamellar Shoulders.png', class: 'component' },
       { file: 'Paperdolls/Male/Layer 5 - Hair/Afro Hair.png', class: 'head' },
       { file: 'Paperdolls/Male/Layer 5 - Hair/Fade Hair.png', class: 'head' },
       // Long hair sways: cap stays on the head (rows <= 15), upper fall rows 16-19, lower fall rows 20+.
