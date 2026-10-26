@@ -799,9 +799,9 @@
           "direction": "S",
           "pixelCounts": {
             "R-upper-arm": 30,
-            "R-forearm-hand": 41,
+            "R-forearm-hand": 42,
             "L-upper-arm": 30,
-            "L-forearm-hand": 41
+            "L-forearm-hand": 42
           }
         },
         {
@@ -874,9 +874,9 @@
           "direction": "S",
           "pixelCounts": {
             "R-upper-arm": 42,
-            "R-forearm-hand": 41,
+            "R-forearm-hand": 42,
             "L-upper-arm": 42,
-            "L-forearm-hand": 41
+            "L-forearm-hand": 42
           }
         },
         {
@@ -949,9 +949,9 @@
           "direction": "S",
           "pixelCounts": {
             "R-upper-arm": 30,
-            "R-forearm-hand": 41,
+            "R-forearm-hand": 42,
             "L-upper-arm": 30,
-            "L-forearm-hand": 41
+            "L-forearm-hand": 42
           }
         },
         {

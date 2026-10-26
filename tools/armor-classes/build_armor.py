@@ -383,3 +383,4 @@ if __name__ == '__main__':
     Image.fromarray(build_studded_shoulders()).save(OUT / 'Layer 4 - Shoulders and Arms accessories/Studded Leather Shoulders.png')
     Image.fromarray(build_heavy()).save(OUT / 'Layer 2 - Clothing/Male Lamellar.png')
     Image.fromarray(build_heavy_shoulders()).save(OUT / 'Layer 4 - Shoulders and Arms accessories/Lamellar Shoulders.png')
+    # then: python3 tools/armor-classes/cover_wraps.py --paperdoll (vambraces hide the white wrist wraps)
