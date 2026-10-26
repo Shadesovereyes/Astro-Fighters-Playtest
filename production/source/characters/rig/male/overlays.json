@@ -948,68 +948,68 @@
         {
           "direction": "S",
           "pixelCounts": {
-            "R-upper-arm": 42,
+            "R-upper-arm": 30,
             "R-forearm-hand": 41,
-            "L-upper-arm": 42,
+            "L-upper-arm": 30,
             "L-forearm-hand": 41
           }
         },
         {
           "direction": "SE",
           "pixelCounts": {
-            "R-upper-arm": 56,
+            "R-upper-arm": 35,
             "R-forearm-hand": 44,
-            "L-upper-arm": 36,
+            "L-upper-arm": 25,
             "L-forearm-hand": 46
           }
         },
         {
           "direction": "E",
           "pixelCounts": {
-            "R-upper-arm": 49,
+            "R-upper-arm": 31,
             "R-forearm-hand": 40
           }
         },
         {
           "direction": "NE",
           "pixelCounts": {
-            "R-upper-arm": 49,
+            "R-upper-arm": 30,
             "R-forearm-hand": 44,
-            "L-upper-arm": 49,
+            "L-upper-arm": 30,
             "L-forearm-hand": 40
           }
         },
         {
           "direction": "N",
           "pixelCounts": {
-            "R-upper-arm": 48,
+            "R-upper-arm": 35,
             "R-forearm-hand": 48,
-            "L-upper-arm": 48,
+            "L-upper-arm": 35,
             "L-forearm-hand": 48
           }
         },
         {
           "direction": "NW",
           "pixelCounts": {
-            "R-upper-arm": 49,
+            "R-upper-arm": 30,
             "R-forearm-hand": 40,
-            "L-upper-arm": 49,
+            "L-upper-arm": 30,
             "L-forearm-hand": 44
           }
         },
         {
           "direction": "W",
           "pixelCounts": {
-            "L-upper-arm": 49,
+            "L-upper-arm": 31,
             "L-forearm-hand": 40
           }
         },
         {
           "direction": "SW",
           "pixelCounts": {
-            "R-upper-arm": 36,
+            "R-upper-arm": 25,
             "R-forearm-hand": 46,
-            "L-upper-arm": 56,
+            "L-upper-arm": 35,
             "L-forearm-hand": 44
           }
         }

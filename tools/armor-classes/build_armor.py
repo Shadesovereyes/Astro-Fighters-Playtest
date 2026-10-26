@@ -270,11 +270,21 @@ STD = dict(
 )
 
 def stud_px(x, y, top, pal, back=False):
-    """Riveted leather: a copper rivet every 4px on staggered rows, lit leather above each rivet row."""
-    r = (y - top) % 3
-    if r == 1 and (x + ((y - top) // 3) % 2 * 2) % 4 == 0: return pal['rv']
-    if r == 0 and not back: return pal['lh'] if x % 3 == 0 else pal['lm']
-    return pal['lm'] if r != 2 else pal['ld'] if x % 4 == 0 else pal['lm']
+    """Riveted leather, used on the tassets: smooth leather, a dark rim row and a rivet line above it."""
+    r = (y - top) % 4
+    if r == 2 and x % 3 == 0: return pal['rv']
+    return pal['lm']
+
+def molded_px(x, y, top, waist, cx, pal, back=False, profile=False):
+    """Molded leather cuirass: two lit chest plates (upper left lit), a dark centre seam,
+    a shadowed lower belly, and rivets only along the outer edge and the chest line."""
+    dx = x - cx
+    if not profile and not back and dx == 0: return pal['ld']                       # centre seam
+    if y >= waist - 2: return pal['ld'] if y == waist - 1 else pal['lm']            # belly shadow
+    if y == top + 5 and not profile and abs(dx) % 3 == 1: return pal['rv']          # chest rivet line
+    lit = (y - top) <= 3 and ((-4 <= dx <= -2) or (1 <= dx <= 2)) if not profile else (y - top) <= 3 and dx <= 0
+    if back: lit = (y - top) <= 2 and dx <= -1
+    return pal['lh'] if lit else pal['lm']
 
 def build_studded():
     out = np.zeros_like(BASE)
@@ -285,14 +295,17 @@ def build_studded():
         cx = round(sum(x for x, _ in torso) / len(torso))
         back, profile = d in BACK, d in ('E', 'W')
         skirt_to = 41
-        straps = {cx} if profile else {cx - 3, cx + 3}
+        waist = max(y for _, y in torso) + 1
+        straps = {cx + 1} if profile else {cx - 3, cx + 3}
         for (x, y), (c, p) in pix.items():
             if c == '000000': out[y, ox + x] = K; continue
             if p == 'torso':
                 if y <= top: out[y, ox + x] = STD['cd']                       # undershirt collar
                 elif x in straps:
                     out[y, ox + x] = STD['st'] if (y == top + 3 and not back) else STD['sh']
-                else: out[y, ox + x] = stud_px(x, y, top, STD, back)
+                else:
+                    edge = any(pix.get((x + ex, y), ('', ''))[0] == '000000' for ex in (-1, 1))
+                    out[y, ox + x] = STD['rv'] if (edge and (y - top) % 3 == 1 and y < waist - 2) else molded_px(x, y, top, waist, cx, STD, back, profile)
             elif p == 'sash':
                 out[y, ox + x] = STD['bb'] if c in (BLUE, WHITE) else STD['bd']
             elif p in LEGS and y <= skirt_to and (profile or back or abs(x - cx) >= 2):
@@ -333,12 +346,24 @@ def build_studded_shoulders():
             if d in ('E', 'W'): x0 -= 1; x1 += 1
             elif (x0 + x1) / 2 < 32: x0 -= 2
             else: x1 += 2
-            for y in range(top, top + 7):
-                if any((x + dx, y + dy) in bracer for x in range(x0, x1 + 1) for dx in (-1, 0, 1) for dy in (-1, 0, 1)): break
-                for x in range(x0, x1 + 1):
+            # molded cap: rounded on the outer top corner and along the lower rim, lit on its upper left
+            outer_left = d in ('E', 'W') or (x0 + x1) / 2 < 32
+            shape = [(2, 0), (1, 0), (0, 0), (0, 0), (1, 1)]   # (cut on the outer side, cut on the inner side) per row
+            if d in ('E', 'W'): shape = [(1, 1), (0, 0), (0, 0), (0, 0), (1, 1)]
+            rows = []
+            for i, (co, ci) in enumerate(shape):
+                y = top + i
+                lo, hi = (x0 + co, x1 - ci) if outer_left else (x0 + ci, x1 - co)
+                if any((x + dx, y + dy) in bracer for x in range(lo, hi + 1) for dx in (-1, 0, 1) for dy in (-1, 0, 1)): break
+                rows.append((y, lo, hi))
+            for i, (y, lo, hi) in enumerate(rows):
+                for x in range(lo, hi + 1):
                     added.add((x, y))
-                    tier = (y - top) % 3
-                    out[y, ox + x] = STD['ld'] if tier == 0 and y != top else STD['rv'] if (tier == 1 and x % 2 == 1) else STD['lh'] if tier == 1 else STD['lm']
+                    u = (x - lo) / max(1, hi - lo)
+                    if i == len(rows) - 2 and len(rows) > 3: c = STD['rv'] if (x - lo) % 3 == 1 else STD['ld']   # rivets on the rim
+                    elif i <= 1 and u <= 0.5: c = STD['lh']
+                    else: c = STD['lm']
+                    out[y, ox + x] = c
         for (x, y) in added:
             if any((x + dx, y + dy) not in added for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1))): out[y, ox + x] = K
     return out
