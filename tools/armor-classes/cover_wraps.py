@@ -19,17 +19,19 @@ VAMBRACE = {
     'scale-coat-shoulders': ('7a4a26', '4a2a14'),
     'lamellar-shoulders': ('6c7282', '3d4050'),
     'studded-leather-shoulders': ('4e3022', '2f1b12'),
+    'plate-harness-shoulders': ('6a6f7a', '444852'),
 }
 PAPERDOLL = {
     'scale-coat-shoulders': 'Scale Coat Shoulders.png',
     'lamellar-shoulders': 'Lamellar Shoulders.png',
     'studded-leather-shoulders': 'Studded Leather Shoulders.png',
+    'plate-harness-shoulders': 'Plate Harness Shoulders.png',
 }
 
 def rgba(h): return np.array([int(h[i:i + 2], 16) for i in (0, 2, 4)] + [255], np.uint8)
 
 CLOTHING = {'scale-coat-shoulders': 'male-scale-coat', 'lamellar-shoulders': 'male-lamellar',
-            'studded-leather-shoulders': 'male-studded-leather'}
+            'studded-leather-shoulders': 'male-studded-leather', 'plate-harness-shoulders': 'male-plate-harness'}
 
 def wraps(img):
     return {side: (img[..., 3] > 0) & (img[..., :3] == rgb).all(-1) for rgb, side in WRAPS.items()}

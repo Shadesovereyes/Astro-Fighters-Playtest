@@ -550,6 +550,107 @@
       ]
     },
     {
+      "source": "Paperdolls/Male/Layer 2 - Clothing/Male Plate Harness.png",
+      "class": "under-arms",
+      "partMap": "overlays/male-plate-harness.png",
+      "frames": [
+        {
+          "direction": "S",
+          "pixelCounts": {
+            "torso": 161,
+            "pelvis": 12,
+            "R-thigh": 9,
+            "R-shin-foot": 124,
+            "L-thigh": 8,
+            "L-shin-foot": 123,
+            "sash": 170
+          }
+        },
+        {
+          "direction": "SE",
+          "pixelCounts": {
+            "torso": 141,
+            "pelvis": 14,
+            "R-thigh": 27,
+            "R-shin-foot": 113,
+            "L-thigh": 26,
+            "L-shin-foot": 108,
+            "sash": 136
+          }
+        },
+        {
+          "direction": "E",
+          "pixelCounts": {
+            "torso": 127,
+            "pelvis": 8,
+            "R-thigh": 24,
+            "R-shin-foot": 86,
+            "L-shin-foot": 30,
+            "sash": 103
+          }
+        },
+        {
+          "direction": "NE",
+          "pixelCounts": {
+            "torso": 148,
+            "pelvis": 2,
+            "R-thigh": 17,
+            "R-shin-foot": 118,
+            "L-thigh": 12,
+            "L-shin-foot": 119,
+            "sash": 175
+          }
+        },
+        {
+          "direction": "N",
+          "pixelCounts": {
+            "torso": 150,
+            "pelvis": 9,
+            "R-thigh": 17,
+            "R-shin-foot": 131,
+            "L-thigh": 19,
+            "L-shin-foot": 128,
+            "sash": 161
+          }
+        },
+        {
+          "direction": "NW",
+          "pixelCounts": {
+            "torso": 148,
+            "pelvis": 2,
+            "R-thigh": 12,
+            "R-shin-foot": 119,
+            "L-thigh": 17,
+            "L-shin-foot": 118,
+            "sash": 175
+          }
+        },
+        {
+          "direction": "W",
+          "pixelCounts": {
+            "torso": 127,
+            "pelvis": 8,
+            "R-shin-foot": 30,
+            "L-thigh": 24,
+            "L-shin-foot": 86,
+            "sash": 103
+          }
+        },
+        {
+          "direction": "SW",
+          "pixelCounts": {
+            "torso": 141,
+            "pelvis": 14,
+            "R-thigh": 26,
+            "R-shin-foot": 108,
+            "L-thigh": 27,
+            "L-shin-foot": 113,
+            "sash": 136
+          }
+        }
+      ]
+    },
+    {
       "source": "Paperdolls/Male/Layer 2 - Clothing/Male Lamellar.png",
       "class": "under-arms",
       "partMap": "overlays/male-lamellar.png",
@@ -1010,6 +1111,81 @@
             "R-upper-arm": 25,
             "R-forearm-hand": 46,
             "L-upper-arm": 35,
+            "L-forearm-hand": 44
+          }
+        }
+      ]
+    },
+    {
+      "source": "Paperdolls/Male/Layer 4 - Shoulders and Arms accessories/Plate Harness Shoulders.png",
+      "class": "component",
+      "partMap": "overlays/plate-harness-shoulders.png",
+      "frames": [
+        {
+          "direction": "S",
+          "pixelCounts": {
+            "R-upper-arm": 49,
+            "R-forearm-hand": 42,
+            "L-upper-arm": 49,
+            "L-forearm-hand": 42
+          }
+        },
+        {
+          "direction": "SE",
+          "pixelCounts": {
+            "R-upper-arm": 56,
+            "R-forearm-hand": 44,
+            "L-upper-arm": 42,
+            "L-forearm-hand": 46
+          }
+        },
+        {
+          "direction": "E",
+          "pixelCounts": {
+            "R-upper-arm": 41,
+            "R-forearm-hand": 40
+          }
+        },
+        {
+          "direction": "NE",
+          "pixelCounts": {
+            "R-upper-arm": 49,
+            "R-forearm-hand": 44,
+            "L-upper-arm": 49,
+            "L-forearm-hand": 40
+          }
+        },
+        {
+          "direction": "N",
+          "pixelCounts": {
+            "R-upper-arm": 56,
+            "R-forearm-hand": 48,
+            "L-upper-arm": 56,
+            "L-forearm-hand": 48
+          }
+        },
+        {
+          "direction": "NW",
+          "pixelCounts": {
+            "R-upper-arm": 49,
+            "R-forearm-hand": 40,
+            "L-upper-arm": 49,
+            "L-forearm-hand": 44
+          }
+        },
+        {
+          "direction": "W",
+          "pixelCounts": {
+            "L-upper-arm": 41,
+            "L-forearm-hand": 40
+          }
+        },
+        {
+          "direction": "SW",
+          "pixelCounts": {
+            "R-upper-arm": 42,
+            "R-forearm-hand": 46,
+            "L-upper-arm": 56,
             "L-forearm-hand": 44
           }
         }

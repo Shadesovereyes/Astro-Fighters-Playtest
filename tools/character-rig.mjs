@@ -43,6 +43,9 @@ const CONFIG = {
       // Medium option B from Christopher's studded-leather reference (2026-10-26).
       { file: 'Paperdolls/Male/Layer 2 - Clothing/Male Studded Leather.png', class: 'under-arms', belt: { colours: ['7b4b30', '4f2f1d'], outline: '000000', topRows: [30, 46], part: 'sash' },
         colourParts: { '2f1b13': 'sash', '4e3023': 'sash', '6e4631': 'sash', 'c48a59': 'sash' }, outline: '000000' },
+      // Heavy option B from Christopher's plate reference (2026-10-26).
+      { file: 'Paperdolls/Male/Layer 2 - Clothing/Male Plate Harness.png', class: 'under-arms', belt: { colours: ['7b4b31', '4f2f1e'], outline: '000000', topRows: [30, 46], part: 'sash' },
+        colourParts: { '3e2a1f': 'sash', '444853': 'sash', '5a4031': 'sash', '6a6f7b': 'sash', 'a2a7b3': 'sash' }, outline: '000000' },
       { file: 'Paperdolls/Male/Layer 2 - Clothing/Male Lamellar.png', class: 'under-arms', belt: { colours: ['c43a30', '7e1c18'], outline: '000000', topRows: [30, 46], part: 'sash' },
         colourParts: { '3d4051': 'sash', '6c7283': 'sash', '6e1415': 'sash', 'a7adba': 'sash', 'b02a2b': 'sash' }, outline: '000000' },
       { file: 'Paperdolls/Male/Layer 4 - Shoulders and Arms accessories/Blue Armor Shoulders.png', class: 'component' },
@@ -50,6 +53,7 @@ const CONFIG = {
       { file: 'Paperdolls/Male/Layer 4 - Shoulders and Arms accessories/Scale Coat Shoulders.png', class: 'component' },
       { file: 'Paperdolls/Male/Layer 4 - Shoulders and Arms accessories/Lamellar Shoulders.png', class: 'component' },
       { file: 'Paperdolls/Male/Layer 4 - Shoulders and Arms accessories/Studded Leather Shoulders.png', class: 'component' },
+      { file: 'Paperdolls/Male/Layer 4 - Shoulders and Arms accessories/Plate Harness Shoulders.png', class: 'component' },
       { file: 'Paperdolls/Male/Layer 5 - Hair/Afro Hair.png', class: 'head' },
       { file: 'Paperdolls/Male/Layer 5 - Hair/Fade Hair.png', class: 'head' },
       // Long hair sways: cap stays on the head (rows <= 15), upper fall rows 16-19, lower fall rows 20+.

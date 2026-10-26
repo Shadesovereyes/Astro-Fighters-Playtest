@@ -368,10 +368,126 @@ def build_studded_shoulders():
             if any((x + dx, y + dy) not in added for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1))): out[y, ox + x] = K
     return out
 
+# ---------------------------------------------------------------- Heavy option B: Plate Harness
+# From Christopher's plate reference (2026-10-26): steel breastplate with a centre ridge and a mail collar,
+# leather harness and buckled belt, steel tassets either side of a quilted leather apron, plate legs with
+# knee rondels, strapped sabatons, big layered round pauldrons, steel vambraces.
+PLT = dict(
+    sh=hx('a2a7b2'), sm=hx('6a6f7a'), sd=hx('444852'), sx=hx('2c2f36'),   # dark gunmetal steel
+    hl=hx('7a4a2e'), hd=hx('4e2e1c'),                                   # leather harness
+    bb=hx('7b4b31'), bd=hx('4f2f1e'),                                   # belt (own colours for the rig's belt split)
+    ql=hx('5a4030'), qd=hx('3e2a1e'),                                   # quilted apron
+    ml=hx('4a4c52'), md=hx('2a2b30'),                                   # mail
+)
+
+def plate_px(x, y, top, waist, cx, back=False, profile=False):
+    """Breastplate: lit upper left, a bright centre ridge (front), a darker fauld band above the belt."""
+    dx = x - cx
+    if y >= waist - 2: return PLT['sd'] if y == waist - 1 else PLT['sm']
+    if not profile and not back and dx == 0: return PLT['sh']
+    if profile: lit = (y - top) <= 4 and dx <= 0
+    elif back: lit = (y - top) <= 3 and dx <= -1
+    else: lit = (y - top) <= 4 and -4 <= dx <= -1
+    if not profile and not back and dx == 1: return PLT['sd']           # shadow side of the ridge
+    return PLT['sh'] if lit and (y - top) <= 1 else PLT['sm'] if not lit else hx('868b96')
+
+def tasset_px(y, top):
+    return PLT['sd'] if (y - top) % 3 == 2 else PLT['sh'] if (y - top) % 3 == 0 else PLT['sm']
+
+def build_plate():
+    out = np.zeros_like(BASE)
+    for f, d in enumerate(ORDER):
+        ox, pix = frame_info(f)
+        torso = [(x, y) for (x, y), (c, p) in pix.items() if p == 'torso' and c != '000000']
+        top = min(y for _, y in torso)
+        waist = max(y for _, y in torso) + 1
+        cx = round(sum(x for x, _ in torso) / len(torso))
+        back, profile = d in BACK, d in ('E', 'W')
+        skirt_to, knee = 43, 46
+        straps = {cx + 1} if profile else {cx - 3, cx + 3}
+        skirt = set()
+        for (x, y), (c, p) in pix.items():
+            if c == '000000': out[y, ox + x] = K; continue
+            if p == 'torso':
+                if y <= top: out[y, ox + x] = PLT['md'] if x % 2 else PLT['ml']              # mail collar
+                elif x in straps and y <= top + 6:
+                    out[y, ox + x] = PLT['sh'] if (y == top + 3 and not back) else PLT['hl']
+                else: out[y, ox + x] = plate_px(x, y, top, waist, cx, back, profile)
+            elif p == 'sash':
+                out[y, ox + x] = PLT['bb'] if c in (BLUE, WHITE) else PLT['bd']
+            elif p in LEGS and y <= skirt_to:
+                if not profile and abs(x - cx) <= 2:
+                    # quilted leather apron
+                    out[y, ox + x] = PLT['qd'] if (x + y) % 3 == 0 or (x - y) % 3 == 0 else PLT['ql']
+                else:
+                    out[y, ox + x] = tasset_px(y, waist)
+                skirt.add((x, y))
+            elif p in LEGS and y <= knee:
+                # cuisses and poleyn: knee row lighter, a rondel on the outer knee
+                out[y, ox + x] = PLT['sh'] if y == knee else PLT['sm'] if x % 3 else hx('868b96')
+            elif p and 'shin' in p and y >= 56:
+                out[y, ox + x] = PLT['hl'] if y == 57 else PLT['sd'] if c == DARK else PLT['sm']   # sabatons
+            elif p and 'shin' in p:
+                out[y, ox + x] = PLT['sh'] if c == WHITE else PLT['sm'] if c == GREY else PLT['sd']  # greaves
+            else:
+                out[y, ox + x] = PLT['sm'] if c == GREY else PLT['sh'] if c == WHITE else PLT['sd']
+        for (x, y), (c, p) in pix.items():
+            if y == skirt_to + 1 and p in LEGS and c != '000000' and (x, skirt_to) in skirt:
+                out[y, ox + x] = K
+        for (x, y) in skirt:
+            out[y, ox + x] = skirt_colour(out[y, ox + x])
+    return out
+
+def build_plate_shoulders():
+    """Large round layered pauldrons (three lames) and steel vambraces."""
+    out = np.zeros_like(BASE_SH)
+    for f, d in enumerate(ORDER):
+        ox = f * F
+        for y in range(F):
+            for x in range(F):
+                c = col(BASE_SH, ox + x, y)
+                if not c: continue
+                p = part_of(SHMAP, ox + x, y)
+                if p and 'upper' in p: continue
+                out[y, ox + x] = K if c == '000000' else PLT['sh'] if c == WHITE else PLT['sm'] if c in (BLUE, GREY) else PLT['sd']
+        bracer = {(x, y) for y in range(F) for x in range(F) if out[y, ox + x, 3]}
+        added = set()
+        for side in ('R-upper-arm', 'L-upper-arm'):
+            pts = [(x, y) for y in range(F) for x in range(F) if ARMS[y, ox + x, 3] and part_of(PARTMAP, ox + x, y) == side]
+            if not pts: continue
+            top = min(y for _, y in pts) - 2
+            xs = [x for x, _ in pts]; x0, x1 = min(xs), max(xs)
+            outer_left = d in ('E', 'W') or (x0 + x1) / 2 < 32
+            if d in ('E', 'W'): x0 -= 1; x1 += 1
+            elif outer_left: x0 -= 3
+            else: x1 += 3
+            shape = [(3, 1), (1, 0), (0, 0), (0, 0), (0, 0), (0, 0), (1, 1)]
+            if d in ('E', 'W'): shape = [(2, 2), (1, 1), (0, 0), (0, 0), (0, 0), (0, 0), (1, 1)]
+            rows = []
+            for i, (co, ci) in enumerate(shape):
+                y = top + i
+                lo, hi = (x0 + co, x1 - ci) if outer_left else (x0 + ci, x1 - co)
+                if any((x + dx, y + dy) in bracer for x in range(lo, hi + 1) for dx in (-1, 0, 1) for dy in (-1, 0, 1)): break
+                rows.append((y, lo, hi))
+            for i, (y, lo, hi) in enumerate(rows):
+                for x in range(lo, hi + 1):
+                    added.add((x, y))
+                    u = (x - lo) / max(1, hi - lo)
+                    lit = u <= 0.45 if outer_left else u >= 0.55
+                    if i in (2, 4): c = PLT['sd']                                  # lame edges
+                    elif i == 1 and lit: c = PLT['sh']
+                    elif lit and i < 4: c = hx('868b96')
+                    else: c = PLT['sm']
+                    out[y, ox + x] = c
+        for (x, y) in added:
+            if any((x + dx, y + dy) not in added for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1))): out[y, ox + x] = K
+    return out
+
 if __name__ == '__main__':
     if '--skirt-colours' in sys.argv:
         print('medium', skirt_colours([MED[k] for k in ('sh', 'sm', 'sd')]))
         print('studded', skirt_colours([STD[k] for k in ('lh', 'lm', 'ld', 'rv')]))
+        print('plate', skirt_colours([PLT[k] for k in ('sh', 'sm', 'sd', 'ql', 'qd')]))
         print('heavy', skirt_colours([HEV[k] for k in ('ph', 'pm', 'pd', 'lc', 'ld')]))
         sys.exit()
     OUT.mkdir(parents=True, exist_ok=True)
@@ -381,6 +497,8 @@ if __name__ == '__main__':
     Image.fromarray(build_medium_shoulders()).save(OUT / 'Layer 4 - Shoulders and Arms accessories/Scale Coat Shoulders.png')
     Image.fromarray(build_studded()).save(OUT / 'Layer 2 - Clothing/Male Studded Leather.png')
     Image.fromarray(build_studded_shoulders()).save(OUT / 'Layer 4 - Shoulders and Arms accessories/Studded Leather Shoulders.png')
+    Image.fromarray(build_plate()).save(OUT / 'Layer 2 - Clothing/Male Plate Harness.png')
+    Image.fromarray(build_plate_shoulders()).save(OUT / 'Layer 4 - Shoulders and Arms accessories/Plate Harness Shoulders.png')
     Image.fromarray(build_heavy()).save(OUT / 'Layer 2 - Clothing/Male Lamellar.png')
     Image.fromarray(build_heavy_shoulders()).save(OUT / 'Layer 4 - Shoulders and Arms accessories/Lamellar Shoulders.png')
     # then: python3 tools/armor-classes/cover_wraps.py --paperdoll (vambraces hide the white wrist wraps)
