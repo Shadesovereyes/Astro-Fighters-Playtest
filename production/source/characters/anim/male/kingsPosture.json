@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "kingsPosture",
-  "status": "CANDIDATE 2026-10-27 (E/W; W mirrors E; S/N to author after approval)",
+  "status": "E/W approved by user 2026-10-27 (v4 E-facing double biceps in profile, golden aura, flame mane, d4e4c1e; W mirrors E); S/N to author",
   "frames": 9,
   "fps": 10,
   "sourceDirection": "E",
@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "King's Posture (Leo taijutsu stance buff: a regal guard, FORT +30% for 3 rounds, holds firm): from the guard the fighter rises up tall, chest out and chin lifted; the near hand sweeps out wide and low, palm open, then comes up to rest open in front of the chest, fingers forward, the rear fist settling at the hip; a golden aura flares round it and a lion's mane of flame bursts up behind and round its head, blazing, then settles to a proud glow as it holds the pose, and it returns to the guard (the testbed keeps the buff, not the mane).",
+  "intent": "King's Posture (Leo taijutsu stance buff: a regal guard, FORT +30% for 3 rounds, holds firm), v4 (Christopher 2026-10-27: see it E facing; v3 turned to the viewer for a front double biceps): the fighter keeps its facing; from the guard it throws both upper arms up level, the near one forward and the far one back, and curls both fists up beside the head in a double biceps flex seen in profile, chest out, teeth clenched, squeezing the flex harder on the peak frame; a golden aura flares round it and a lion's mane of flame bursts up behind and round its head, blazing, as it holds the pose; then the mane settles to a proud glow and it drops back into the guard (the testbed keeps the buff, not the mane).",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -109,18 +109,18 @@
       0,
       0,
       0,
-      1,
+      0,
       1
     ],
     "head": [
       1,
+      0,
       -1,
       -1,
       -1,
       -1,
       -1,
-      -1,
-      1,
+      0,
       1
     ],
     "arms": [
@@ -131,7 +131,7 @@
       0,
       0,
       0,
-      1,
+      0,
       2
     ]
   },
@@ -152,13 +152,13 @@
       ],
       "head": [
         2,
+        0,
         -1,
-        -2,
-        -2,
-        -2,
-        -2,
-        -2,
-        1,
+        -1,
+        -1,
+        -1,
+        -1,
+        0,
         2
       ]
     }
@@ -947,64 +947,58 @@
       },
       {
         "construction": "band",
-        "angle": -40,
+        "angle": -60,
         "elbow": {
           "at": 8,
-          "angle": -50
-        },
-        "fistKind": "palm"
+          "angle": -150
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -90,
+        "elbow": {
+          "at": 8,
+          "angle": -170
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -90,
+        "elbow": {
+          "at": 8,
+          "angle": -170
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -96,
+        "elbow": {
+          "at": 8,
+          "angle": -178
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -90,
+        "elbow": {
+          "at": 8,
+          "angle": -170
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -90,
+        "elbow": {
+          "at": 8,
+          "angle": -170
+        }
       },
       {
         "construction": "band",
         "angle": -60,
         "elbow": {
           "at": 8,
-          "angle": -75
-        },
-        "fistKind": "palm"
-      },
-      {
-        "construction": "band",
-        "angle": -55,
-        "elbow": {
-          "at": 8,
-          "angle": -105
-        },
-        "fistKind": "palm"
-      },
-      {
-        "construction": "band",
-        "angle": -55,
-        "elbow": {
-          "at": 8,
-          "angle": -105
-        },
-        "fistKind": "palm"
-      },
-      {
-        "construction": "band",
-        "angle": -55,
-        "elbow": {
-          "at": 8,
-          "angle": -105
-        },
-        "fistKind": "palm"
-      },
-      {
-        "construction": "band",
-        "angle": -55,
-        "elbow": {
-          "at": 8,
-          "angle": -105
-        },
-        "fistKind": "palm"
-      },
-      {
-        "construction": "band",
-        "angle": -40,
-        "elbow": {
-          "at": 8,
-          "angle": -110
+          "angle": -150
         }
       },
       {
@@ -1027,58 +1021,58 @@
       },
       {
         "construction": "band",
-        "angle": -20,
+        "angle": 55,
         "elbow": {
           "at": 8,
-          "angle": -70
+          "angle": 150
         }
       },
       {
         "construction": "band",
-        "angle": -5,
+        "angle": 92,
         "elbow": {
           "at": 8,
-          "angle": -40
+          "angle": 172
         }
       },
       {
         "construction": "band",
-        "angle": -5,
+        "angle": 92,
         "elbow": {
           "at": 8,
-          "angle": -40
+          "angle": 172
         }
       },
       {
         "construction": "band",
-        "angle": -5,
+        "angle": 98,
         "elbow": {
           "at": 8,
-          "angle": -40
+          "angle": 178
         }
       },
       {
         "construction": "band",
-        "angle": -5,
+        "angle": 92,
         "elbow": {
           "at": 8,
-          "angle": -40
+          "angle": 172
         }
       },
       {
         "construction": "band",
-        "angle": -5,
+        "angle": 92,
         "elbow": {
           "at": 8,
-          "angle": -40
+          "angle": 172
         }
       },
       {
         "construction": "band",
-        "angle": -25,
+        "angle": 55,
         "elbow": {
           "at": 8,
-          "angle": -90
+          "angle": 150
         }
       },
       {
@@ -2177,17 +2171,144 @@
             "#000000"
           ]
         ]
+      },
+      "roar": {
+        "E": [
+          [
+            0,
+            1,
+            "#000000"
+          ],
+          [
+            1,
+            1,
+            "#000000"
+          ],
+          [
+            1,
+            2,
+            "#70241d"
+          ]
+        ],
+        "S": [
+          [
+            0,
+            1,
+            "#000000"
+          ],
+          [
+            1,
+            1,
+            "#000000"
+          ],
+          [
+            5,
+            1,
+            "#000000"
+          ],
+          [
+            6,
+            1,
+            "#000000"
+          ],
+          [
+            2,
+            3,
+            "#000000"
+          ],
+          [
+            3,
+            3,
+            "#000000"
+          ],
+          [
+            4,
+            3,
+            "#000000"
+          ],
+          [
+            2,
+            4,
+            "#000000"
+          ],
+          [
+            3,
+            4,
+            "#70241d"
+          ],
+          [
+            4,
+            4,
+            "#000000"
+          ]
+        ]
+      },
+      "strain": {
+        "E": [
+          [
+            0,
+            1,
+            "#000000"
+          ],
+          [
+            1,
+            1,
+            "#000000"
+          ],
+          [
+            1,
+            2,
+            "#70241d"
+          ]
+        ],
+        "S": [
+          [
+            0,
+            1,
+            "#000000"
+          ],
+          [
+            1,
+            1,
+            "#000000"
+          ],
+          [
+            5,
+            1,
+            "#000000"
+          ],
+          [
+            6,
+            1,
+            "#000000"
+          ],
+          [
+            2,
+            4,
+            "#000000"
+          ],
+          [
+            3,
+            4,
+            "#000000"
+          ],
+          [
+            4,
+            4,
+            "#000000"
+          ]
+        ]
       }
     },
     "frames": {
       "E": [
         null,
         null,
-        null,
-        null,
-        null,
-        null,
-        null,
+        "strain",
+        "strain",
+        "strain",
+        "strain",
+        "strain",
         null,
         null
       ]

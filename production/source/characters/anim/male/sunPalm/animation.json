@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-animation-output/v1",
   "body": "male",
   "state": "sunPalm",
-  "status": "CANDIDATE 2026-10-27 (E/W; W mirrors E; S/N to author after approval)",
+  "status": "E/W approved by user 2026-10-27 (v2 arm swirl, gathering sun, white-hot flash, fire shock ring, cracks, embers, d059a89; W mirrors E); S/N to author",
   "frames": 9,
   "fps": 10,
   "frameSize": [
