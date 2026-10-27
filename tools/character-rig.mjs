@@ -57,6 +57,8 @@ const CONFIG = {
       { file: 'Paperdolls/Male/Layer 2b - Stowed Weapons/Yumi Stowed Back.png', class: 'component', part: 'torso' },
       { file: 'Paperdolls/Male/Layer 2b - Stowed Weapons/Kyoketsu-Shoge Stowed Front.png', class: 'component', part: 'pelvis' },
       { file: 'Paperdolls/Male/Layer 2b - Stowed Weapons/Kyoketsu-Shoge Stowed Back.png', class: 'component', part: 'pelvis' },
+      { file: 'Paperdolls/Male/Layer 2b - Stowed Weapons/Tanto Stowed Front.png', class: 'component', part: 'pelvis' },
+      { file: 'Paperdolls/Male/Layer 2b - Stowed Weapons/Tanto Stowed Back.png', class: 'component', part: 'pelvis' },
       { file: 'Paperdolls/Male/Layer 4 - Shoulders and Arms accessories/Blue Armor Shoulders.png', class: 'component' },
       { file: 'Paperdolls/Male/Layer 4 - Shoulders and Arms accessories/Red Armor Shoulders.png', class: 'component' },
       { file: 'Paperdolls/Male/Layer 4 - Shoulders and Arms accessories/Scale Coat Shoulders.png', class: 'component' },

@@ -61,7 +61,9 @@
     "afro-puff": "afro-puff.png",
     "bantu-knots": "bantu-knots.png",
     "ronin-ponytail": "ronin-ponytail.png",
-    "flat-top": "flat-top.png"
+    "flat-top": "flat-top.png",
+    "tanto-stowed-front": "tanto-stowed-front.png",
+    "tanto-stowed-back": "tanto-stowed-back.png"
   },
   "pendingLayers": [],
   "drawOrder": [

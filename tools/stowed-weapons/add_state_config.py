@@ -12,7 +12,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 ANIM = ROOT / 'production/source/characters/anim/male'
 STOWED = ['katana-stowed-front', 'katana-stowed-back', 'yumi-stowed-front', 'yumi-stowed-back',
-          'kyoketsu-shoge-stowed-front', 'kyoketsu-shoge-stowed-back']
+          'kyoketsu-shoge-stowed-front', 'kyoketsu-shoge-stowed-back',
+          'tanto-stowed-front', 'tanto-stowed-back']
 
 def add(state):
     p = ANIM / f'{state}.json'
@@ -21,7 +22,7 @@ def add(state):
     if not cl or 'layers' not in cl: return False
     for name in STOWED:
         cl[name] = {'outline': '#000000', 'farShade': {'#000000': '#000000'}, 'clipToFrame': True,
-                    'rule': 'stowed weapon: a rigid piece that rides its rig part (katana and cord: pelvis, yumi: torso)'}
+                    'rule': 'stowed weapon: a rigid piece that rides its rig part (katana, cord and tanto: pelvis, yumi: torso)'}
         if name not in cl['layers']: cl['layers'].append(name)
     p.write_text(json.dumps(spec, indent=2, ensure_ascii=False) + '\n')
     return True

@@ -6,6 +6,8 @@ back sheet drawn behind the body and a front sheet drawn over the clothing and u
   katana: sheathed at the left hip, hilt forward; the saya runs back and down.
   yumi: slung across the back from the right shoulder to the left hip; the string crosses the chest.
   kyoketsu-shoge: the cord coiled at the right hip with the ring hanging; the blade tucked in the belt.
+  tanto: sheathed level through the sash at the small of the back, hilt out past the right hip (clear of the katana
+  at the left hip and the kyoketsu-shoge blade at the front).
 Lit from the east; every piece gets a 1px black outline.
 Usage: python3 tools/stowed-weapons/build_stowed.py [outdir]
 """
@@ -177,8 +179,32 @@ def kyoketsu(front, back):
         sb.px(f, bx, by, 'cd0'); sb.px(f, tx, ty, 'st2')
         sb.px(f, bx + (tx - bx) * 0.5 + (1 if tx >= bx else -1), by + (ty - by) * 0.5, 'st1')
 
-WEAPONS = {'katana': katana, 'yumi': yumi, 'kyoketsu-shoge': kyoketsu}
-NAMES = {'katana': 'Katana', 'yumi': 'Yumi', 'kyoketsu-shoge': 'Kyoketsu-Shoge'}
+# ---------- tanto ----------
+# per facing: hilt end (kashira), mouth of the saya (where the hilt meets it), saya end, layer. Seen from the side the
+# level blade runs mostly in depth, so it shows as a short stub out of the back; S/N show its length across the back
+TANTO = {
+    'S':  dict(hilt=(15, 33), mouth=(20, 34), saya=(31, 35), on='back'),
+    'SE': dict(hilt=(17, 33), mouth=(21, 34), saya=(29, 35), on='back'),
+    'E':  dict(hilt=(22, 32), mouth=(24, 33), saya=(29, 35), on='back'),
+    'NE': dict(hilt=(42, 33), mouth=(38, 34), saya=(28, 35), on='front'),
+    'N':  dict(hilt=(47, 33), mouth=(42, 34), saya=(31, 35), on='front'),
+    'NW': dict(hilt=(45, 33), mouth=(41, 34), saya=(31, 35), on='front'),
+    'W':  dict(hilt=(41, 32), mouth=(39, 33), saya=(34, 35), on='back'),
+    'SW': dict(hilt=(20, 33), mouth=(24, 34), saya=(34, 35), on='back'),
+}
+def tanto(front, back):
+    for f, d in enumerate(ORDER):
+        t = TANTO[d]; sh = front if t['on'] == 'front' else back
+        thick_line(sh, f, t['mouth'], t['saya'], 1.8, ['sa0', 'sa1', 'sa2'])
+        sh.px(f, *t['saya'], 'sa2')
+        thick_line(sh, f, t['hilt'], t['mouth'], 1.8, ['wr', 'wr', 'wrL'])
+        (hx_, hy), (mx, my) = t['hilt'], t['mouth']; L = math.hypot(mx - hx_, my - hy) or 1
+        for u in (1.5, 3.0):
+            if u < L - 0.5: sh.px(f, hx_ + (mx - hx_) * u / L, hy + (my - hy) * u / L, 'wrL')
+        sh.px(f, hx_, hy, 'tsuD'); sh.px(f, mx, my, 'tsu')
+
+WEAPONS = {'katana': katana, 'yumi': yumi, 'kyoketsu-shoge': kyoketsu, 'tanto': tanto}
+NAMES = {'katana': 'Katana', 'yumi': 'Yumi', 'kyoketsu-shoge': 'Kyoketsu-Shoge', 'tanto': 'Tanto'}
 
 def build():
     out = {}
