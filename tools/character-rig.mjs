@@ -67,6 +67,16 @@ const CONFIG = {
       { file: 'Paperdolls/Male/Layer 5 - Hair/Fade Hair.png', class: 'head' },
       // Long hair sways: cap stays on the head (rows <= 15), upper fall rows 16-19, lower fall rows 20+.
       { file: 'Paperdolls/Male/Layer 5 - Hair/Long Hair.png', class: 'head', rowBands: [[15, 'head'], [19, 'hair-fall-upper'], [63, 'hair-fall-lower']] },
+      // New hair styles (tools/hair-styles/build_hair.py, 2026-10-27): falls, tails and braids sway like Long Hair.
+      { file: 'Paperdolls/Male/Layer 5 - Hair/Locs Tied.png', class: 'head', rowBands: [[15, 'head'], [19, 'hair-fall-upper'], [63, 'hair-fall-lower']] },
+      { file: 'Paperdolls/Male/Layer 5 - Hair/Locs Loose.png', class: 'head', rowBands: [[15, 'head'], [19, 'hair-fall-upper'], [63, 'hair-fall-lower']] },
+      { file: 'Paperdolls/Male/Layer 5 - Hair/Wrapped Headscarf.png', class: 'head', rowBands: [[15, 'head'], [19, 'hair-fall-upper'], [63, 'hair-fall-lower']] },
+      { file: 'Paperdolls/Male/Layer 5 - Hair/Modern Topknot.png', class: 'head' },
+      { file: 'Paperdolls/Male/Layer 5 - Hair/Braided Side.png', class: 'head', rowBands: [[15, 'head'], [19, 'hair-fall-upper'], [63, 'hair-fall-lower']] },
+      { file: 'Paperdolls/Male/Layer 5 - Hair/Afro Puff.png', class: 'head' },
+      { file: 'Paperdolls/Male/Layer 5 - Hair/Bantu Knots.png', class: 'head' },
+      { file: 'Paperdolls/Male/Layer 5 - Hair/Ronin Ponytail.png', class: 'head', rowBands: [[15, 'head'], [19, 'hair-fall-upper'], [63, 'hair-fall-lower']] },
+      { file: 'Paperdolls/Male/Layer 5 - Hair/Flat Top.png', class: 'head' },
       // Armor helmets (tools/armor-classes/build_helmets.py): worn in the hair slot, the whole layer follows the head.
       { file: 'Paperdolls/Male/Layer 5 - Hair/Scale Coat Helmet.png', class: 'head' },
       { file: 'Paperdolls/Male/Layer 5 - Hair/Lamellar Kabuto.png', class: 'head' },

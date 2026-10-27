@@ -1,0 +1,279 @@
+"""Author the new hair styles for the male paperdoll (Layer 5, hair slot).
+
+Canon hair pack (Core Systems doc, Request 04): locs tied, locs loose, wrapped headscarf, modern topknot,
+braided side; plus afro puff, bantu knots, ronin ponytail and flat-top (Christopher, 2026-10-27: build all).
+Direct pixel authoring on the male head: per frame the head silhouette (Body1 head part) and the eye rows
+give the brow line. Each style is a stack of parts painted in order; every part gets its own 1px black
+outline (inside its mask), so a bun or knot keeps its edge where it overlaps the scalp. Eyes and the face
+below the brow are never covered. Hair uses the creator's HAIR_KEY colours (base #3f0505, light #70241d /
+#702219, top light #9e4a31) so the hair colour ramp recolours it; cloth and cord use their own colours.
+W mirrors E exactly (the posed renderer checks it). Diagonal frames reuse the S/N stamps shifted to the head.
+Usage: python3 tools/hair-styles/build_hair.py [outdir]
+"""
+import sys
+from pathlib import Path
+import numpy as np
+from PIL import Image
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'armor-classes'))
+from build_helmets import head_info, ORDER, F, P   # noqa: E402
+
+OUT = Path(sys.argv[1]) if len(sys.argv) > 1 else P / 'Layer 5 - Hair'
+BACKS = {'N', 'NE', 'NW'}
+SIDES = {'E', 'W'}
+
+def hx(h): return (int(h[0:2], 16), int(h[2:4], 16), int(h[4:6], 16), 255)
+C = {'#': hx('000000'), 'o': hx('3f0505'), '+': hx('70241d'), '-': hx('702219'), '*': hx('9e4a31'),
+     # wrapped headscarf: indigo cloth
+     'c': hx('34407a'), 'C': hx('5868a8'), 'd': hx('222a52'),
+     # cords / ties: brass-gold
+     't': hx('c8963a'), 'T': hx('7a5418')}
+
+class Head:
+    def __init__(self, f):
+        self.f, self.d = f, ORDER[f]
+        self.ox, self.head, self.eyes, self.top, self.brow, self.span, self.fr = head_info(f)
+        self.lo, self.hi = self.span[self.brow]
+        self.cx = (self.lo + self.hi) // 2
+        self.back = self.d in BACKS
+        self.side = self.d in SIDES
+        self.front = not self.back and not self.side
+        # back of the head in profile (E authored facing right; W is mirrored later)
+        self.nape = self.lo
+        # face: head pixels below the brow, inside the outline, in front and profile views
+        self.face = set()
+        if not self.back:
+            for (x, y) in self.head:
+                if y > self.brow and self.span[y][0] < x < self.span[y][1]:
+                    if self.front or x > self.lo + 3:
+                        self.face.add((x, y))
+
+def ellipse(cx, cy, rx, ry):
+    return {(x, y) for y in range(cy - ry, cy + ry + 1) for x in range(cx - rx, cx + rx + 1)
+            if ((x - cx) / (rx + .5)) ** 2 + ((y - cy) / (ry + .5)) ** 2 <= 1}
+
+def rect(x0, y0, x1, y1):
+    return {(x, y) for y in range(y0, y1 + 1) for x in range(x0, x1 + 1)}
+
+def strand(pts, w):
+    """Thick polyline through pts [(x, y), ...], w pixels wide (horizontal), one row per step."""
+    m = set()
+    for (x0, y0), (x1, y1) in zip(pts, pts[1:]):
+        n = max(abs(y1 - y0), abs(x1 - x0), 1)
+        for i in range(n + 1):
+            x = round(x0 + (x1 - x0) * i / n); y = round(y0 + (y1 - y0) * i / n)
+            m |= {(x + k - w // 2, y) for k in range(w)}
+    return m
+
+def cap(h, pad=1, guard_to=None, guard_w=2, raise_top=1):
+    """Hair over the scalp down to the brow, plus side guards (front), back of the head (profile/back)."""
+    m = set()
+    for y in range(h.top - raise_top, h.brow + 1):
+        lo, hi = h.span[max(y, h.top)]
+        lo, hi = lo - pad, hi + pad
+        if y < h.top: lo, hi = lo + 2, hi - 2
+        elif y == h.top and pad: lo, hi = lo + 1, hi - 1
+        m |= rect(lo, y, hi, y)
+    if guard_to:
+        for y in range(h.brow + 1, guard_to + 1):
+            if y not in h.span: continue
+            lo, hi = h.span[y][0] - pad, h.span[y][1] + pad
+            if h.back: m |= rect(lo, y, hi, y)
+            elif h.side: m |= rect(lo, y, lo + guard_w + 2, y)
+            else: m |= rect(lo, y, lo + guard_w - 1, y) | rect(hi - guard_w + 1, y, hi, y)
+    return m
+
+# ---- textures: (x, y, h, part) -> colour key ----------------------------------------------------
+def tex_locs(x, y, h, m):
+    # vertical ropes: dark seam every third column, a lit stripe beside it, beads of light down each rope
+    k = (x - h.cx) % 3
+    if k == 0: return 'o' if y % 2 else '#'
+    if k == 1: return '+' if (y + x) % 3 else '*'
+    return 'o'
+
+def tex_locs_flat(x, y, h, m):
+    # ropes lying across the scalp in profile (front-to-back)
+    k = (y - h.top) % 3
+    if k == 0: return 'o' if x % 2 else '#'
+    if k == 1: return '+' if (x + y) % 3 else '*'
+    return 'o'
+
+def tex_curl(x, y, h, m):
+    n = (x * 7 + y * 13 + (x * y) % 5) % 9
+    return '#' if n == 0 else '+' if n in (2, 5) else '*' if n == 7 and y < h.top + 2 else 'o'
+
+def tex_smooth(x, y, h, m):
+    # slicked back: long streaks, light on top
+    if y <= h.top: return '+' if x % 4 else '*'
+    return '+' if (x + 2 * y) % 5 == 0 else 'o'
+
+def tex_cornrow(x, y, h, m):
+    k = ((y - h.top) if h.side else (x - h.cx)) % 3
+    return '#' if k == 0 else '+' if k == 1 else 'o'
+
+def tex_cloth(x, y, h, m):
+    if y == h.brow: return 'd'                      # rolled edge
+    if (x + y) % 4 == 0: return 'd'                 # wrap folds
+    return 'C' if y <= h.top + 1 else 'c'
+
+def tex_coil(x, y, h, m, centre):
+    cx, cy = centre
+    if (x, y) == (cx, cy): return '*'
+    if (x - cx, y - cy) in ((1, 0), (0, -1)): return '+'
+    if (x - cx, y - cy) == (-1, 1): return '#'
+    return 'o'
+
+def tex_braid(x, y, h, m):
+    # three-strand plait: diagonal lit links
+    return '+' if (x + y) % 3 == 0 else '*' if (x - y) % 6 == 0 else 'o'
+
+def tex_tie(x, y, h, m): return 't' if (x + y) % 2 else 'T'
+
+def tex_solid(key): return lambda x, y, h, m: key
+
+# ---- painting -----------------------------------------------------------------------------------
+def paint(canvas, h, mask, tex, outline=True, face_ok=False):
+    mask = {p for p in mask if 0 <= p[0] < F and 0 <= p[1] < F} - h.eyes
+    if not face_ok: mask -= h.face
+    edge = {(x, y) for (x, y) in mask if any((x + dx, y + dy) not in mask for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)))}
+    for (x, y) in mask:
+        canvas[(x, y)] = '#' if outline and (x, y) in edge else tex(x, y, h, mask)
+
+def dither_fade(canvas, h, rows):
+    """Faded sides: sparse base-colour stubble on the sides of the scalp, no outline (never the forehead or face)."""
+    for (x, y) in h.head:
+        if y not in rows or (x, y) in h.face or (x, y) in h.eyes or (x, y) in canvas: continue
+        lo, hi = h.span[y]
+        if h.front and lo + 1 < x < hi - 1: continue
+        if h.side and x > hi - 4: continue
+        if x % 2 == 0 and (y % 2 == 0 or x in (lo, hi)):
+            canvas[(x, y)] = 'o'
+
+# ---- styles -------------------------------------------------------------------------------------
+def locs_tied(h, cv):
+    paint(cv, h, cap(h, 1, h.brow + 3, 2), tex_locs_flat if h.side else tex_locs)
+    bx = h.cx - (1 if h.side else 0)
+    by = h.top - 4
+    # loc ends spilling from the bundle and falling down the back
+    if h.side:
+        paint(cv, h, strand([(bx - 3, by), (h.nape - 1, by + 4), (h.nape - 2, h.brow + 7)], 3), tex_locs)
+    elif h.back:
+        paint(cv, h, strand([(h.cx - 2, by + 1), (h.cx - 2, h.brow + 8)], 3) | strand([(h.cx + 2, by + 1), (h.cx + 2, h.brow + 7)], 3), tex_locs)
+    else:
+        paint(cv, h, strand([(bx - 3, by - 1), (bx - 5, by + 3)], 2) | strand([(bx + 3, by - 1), (bx + 5, by + 3)], 2), tex_locs)
+    paint(cv, h, ellipse(bx, by, 3, 3), tex_locs)
+    paint(cv, h, rect(bx - 2, h.top - 1, bx + 2, h.top - 1), tex_tie, outline=False)
+
+def locs_loose(h, cv):
+    if h.side:
+        paint(cv, h, strand([(h.nape + 2, h.top), (h.nape - 1, h.brow + 4), (h.nape, h.brow + 10)], 5), tex_locs)
+    elif h.back:
+        paint(cv, h, cap(h, 1, h.brow + 9, 2), tex_locs)
+    else:
+        paint(cv, h, strand([(h.lo, h.brow), (h.lo - 1, h.brow + 5), (h.lo - 1, h.brow + 9)], 3)
+              | strand([(h.hi, h.brow), (h.hi + 1, h.brow + 5), (h.hi + 1, h.brow + 9)], 3), tex_locs)
+    paint(cv, h, cap(h, 1, h.brow + 3, 2), tex_locs_flat if h.side else tex_locs)
+
+def headscarf(h, cv):
+    paint(cv, h, cap(h, 1, h.brow + 4 if h.back else h.brow + 2, 2), tex_cloth)
+    if h.side:
+        kx, ky = h.nape - 1, h.top + 3
+        paint(cv, h, strand([(kx, ky), (kx - 1, ky + 5), (kx - 1, ky + 9)], 2) | strand([(kx + 1, ky), (kx + 1, ky + 7)], 2), tex_cloth)
+        paint(cv, h, ellipse(kx, ky, 2, 2), tex_cloth)
+    elif h.back:
+        kx, ky = h.cx, h.top + 3
+        paint(cv, h, strand([(kx - 1, ky), (kx - 3, ky + 10)], 2) | strand([(kx + 1, ky), (kx + 2, ky + 8)], 2), tex_cloth)
+        paint(cv, h, ellipse(kx, ky, 2, 2), tex_cloth)
+    else:
+        # front fold: the wrap crosses over at the forehead
+        for i in range(3):
+            cv[(h.cx - 1 + i, h.top + i)] = 'd'
+            cv[(h.cx + 1 - i, h.top + i)] = 'd' if i != 1 else 'C'
+
+def topknot(h, cv):
+    dither_fade(cv, h, range(h.top + 2, h.brow + 3))
+    top = cap(h, 0, None, raise_top=1)
+    top = {(x, y) for (x, y) in top if y <= h.top + (2 if h.back else 1)}
+    if h.side: top |= rect(h.lo + 1, h.top + 1, h.lo + 4, h.top + 2)
+    kx = h.cx - (1 if h.side else 0)
+    paint(cv, h, top, tex_smooth)
+    paint(cv, h, ellipse(kx, h.top - 4, 2, 2), tex_smooth)
+    paint(cv, h, rect(kx - 1, h.top - 2, kx + 1, h.top - 2), tex_tie, outline=False)
+
+def braided_side(h, cv):
+    paint(cv, h, cap(h, 0, h.brow + 1, 1, raise_top=0), tex_cornrow)
+    if h.side:
+        paint(cv, h, strand([(h.nape + 1, h.brow + 2), (h.nape - 1, h.brow + 7), (h.nape - 1, h.brow + 14)], 3), tex_braid)
+        paint(cv, h, rect(h.nape - 2, h.brow + 14, h.nape, h.brow + 14), tex_tie, outline=False)
+    elif h.back:
+        # character's left = viewer's left from behind
+        paint(cv, h, strand([(h.lo + 2, h.brow + 1), (h.lo, h.brow + 8), (h.lo - 1, h.brow + 15)], 3), tex_braid)
+        paint(cv, h, rect(h.lo - 3, h.brow + 15, h.lo - 1, h.brow + 15), tex_tie, outline=False)
+    else:
+        # over the character's left shoulder = viewer's right from the front
+        paint(cv, h, strand([(h.hi, h.brow + 1), (h.hi + 1, h.brow + 6), (h.hi + 2, h.brow + 15)], 3), tex_braid)
+        paint(cv, h, rect(h.hi + 1, h.brow + 15, h.hi + 3, h.brow + 15), tex_tie, outline=False)
+
+def afro_puff(h, cv):
+    paint(cv, h, cap(h, 0, h.brow + 1, 1, raise_top=0), tex_curl)
+    px = h.cx - (1 if h.side else 0)
+    paint(cv, h, ellipse(px, h.top - 4, 5, 3), tex_curl)
+    paint(cv, h, rect(px - 2, h.top - 1, px + 2, h.top - 1), tex_tie, outline=False)
+
+BANTU = {'front': [(-4, 1), (0, -1), (4, 1)], 'side': [(-4, 2), (-1, -1), (3, 0), (-5, 6)],
+         'back': [(-4, 1), (0, -1), (4, 1), (-3, 5), (3, 5)]}
+
+def bantu(h, cv):
+    paint(cv, h, cap(h, 0, h.brow + 1 if not h.front else None, 1, raise_top=0), tex_cornrow if h.side else tex_curl)
+    view = 'side' if h.side else 'back' if h.back else 'front'
+    for dx, dy in sorted(BANTU[view], key=lambda p: -p[1]):   # lower knots first, crown knot on top
+        c = (h.cx + dx, h.top + dy)
+        paint(cv, h, ellipse(c[0], c[1], 2, 2), lambda x, y, hh, m, c=c: tex_coil(x, y, hh, m, c))
+
+def ponytail(h, cv):
+    if h.side:
+        paint(cv, h, strand([(h.nape, h.brow + 3), (h.nape - 2, h.brow + 8), (h.nape - 2, h.brow + 14)], 3), tex_smooth)
+    elif h.back:
+        paint(cv, h, strand([(h.cx, h.brow + 4), (h.cx, h.brow + 15)], 3), tex_smooth)
+    paint(cv, h, cap(h, 1, h.brow + 4 if h.back else h.brow + 2, 2), tex_smooth)
+    if h.front:
+        # loose strands at the temples framing the face
+        paint(cv, h, strand([(h.lo, h.brow), (h.lo - 1, h.brow + 6)], 2) | strand([(h.hi, h.brow), (h.hi + 1, h.brow + 6)], 2), tex_smooth)
+    if h.side:
+        paint(cv, h, rect(h.nape - 1, h.brow + 3, h.nape + 1, h.brow + 3), tex_tie, outline=False)
+    elif h.back:
+        paint(cv, h, rect(h.cx - 1, h.brow + 5, h.cx + 1, h.brow + 5), tex_tie, outline=False)
+
+def flat_top(h, cv):
+    dither_fade(cv, h, range(h.top + 2, h.brow + 3))
+    lo, hi = h.span[h.top + 2]
+    block = rect(lo, h.top - 4, hi, h.top + 1)
+    if h.side: block |= rect(lo, h.top + 1, lo + 3, h.brow)
+    elif h.back: block |= rect(lo, h.top + 1, hi, h.top + 3)
+    else: block |= rect(lo, h.top + 1, lo + 1, h.brow) | rect(hi - 1, h.top + 1, hi, h.brow)
+    paint(cv, h, block, lambda x, y, hh, m: '*' if y == h.top - 3 and x % 3 else tex_curl(x, y, hh, m))
+
+STYLES = [('locs-tied', 'Locs Tied', locs_tied, True), ('locs-loose', 'Locs Loose', locs_loose, True),
+          ('headscarf', 'Wrapped Headscarf', headscarf, True), ('topknot', 'Modern Topknot', topknot, False),
+          ('braided-side', 'Braided Side', braided_side, True), ('afro-puff', 'Afro Puff', afro_puff, False),
+          ('bantu-knots', 'Bantu Knots', bantu, False), ('ponytail', 'Ronin Ponytail', ponytail, True),
+          ('flat-top', 'Flat Top', flat_top, False)]
+
+def build(fn):
+    out = np.zeros((F, F * 8, 4), np.uint8)
+    for f, d in enumerate(ORDER):
+        if d == 'W': continue
+        h = Head(f)
+        cv = {}
+        fn(h, cv)
+        for (x, y), k in cv.items():
+            if 0 <= x < F and 0 <= y < F: out[y, h.ox + x] = C[k]
+    e, w = ORDER.index('E') * F, ORDER.index('W') * F
+    out[:, w:w + F] = out[:, e:e + F][:, ::-1]
+    return out
+
+if __name__ == '__main__':
+    OUT.mkdir(parents=True, exist_ok=True)
+    for slug, name, fn, _ in STYLES:
+        Image.fromarray(build(fn)).save(OUT / f'{name}.png')
+        print('wrote', name)
