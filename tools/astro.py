@@ -36,6 +36,9 @@ NPAT.update({
     'shatter3': ['R...R...R', '.O..O..O.', '..Y.Y.Y..', '...YWY...', 'OYYWWWYYO', '...YWY...', '..Y.Y.Y..', '.O..O..O.', 'R...R...R'],
     'shard': ['O.', '.R'], 'shardR': ['.O', 'R.'],
     'heat': ['O.Y.O', '.R.R.'], 'embers': ['.O..R', 'R..O.', '..Y..'],
+    # Explosive Runes: rune circles seen flat on the ground (ellipse with a glyph stroke), hot as written, lit, smouldering
+    'runeHot': ['...YWY...', '.YW.O.WY.', 'YW.OYO.WY', '.YW.O.WY.', '...YWY...'], 'runeLit': ['...OYO...', '.OR.Y.RO.', 'OR.YOY.RO', '.OR.Y.RO.', '...OYO...'],
+    'runeDim': ['...R.R...', '.R..O..R.', 'R..O.O..R', '.R..O..R.', '...R.R...'], 'fireLine': ['.R.O.', 'OYROY'],
 })
 FIRE_AURA = ('#ffb12e', '#e0401c')   # orange next to the body, red outside
 FIRE_TRAIL = {(255, 255, 255): (0xff, 0xd2, 0x3f), (0xe3, 0xe3, 0xe3): (0xff, 0x7a, 0x1c)}   # motion-blur streak recoloured: yellow inner half, orange tail
@@ -109,6 +112,25 @@ CLIPS = {
                       7: dict(R=(42, -5, 1, 'up'), L=(-42, 5, 1, 'up')),
                       8: dict(R=stances.GA['R'], L=stances.GA['L'])},
        burst={3: 0, 4: 1, 5: 2, 6: 3, 7: 4, 8: 5})),   # frame: stage (embers gathering 0-1, release 2, rings out 3-4, fading 5)
+ 'explosiveRunes': ('Explosive Runes', 4,
+  'Explosive Runes (Aries ninjutsu, trap: glowing rune traps that detonate when a foe comes near): from the guard the fighter makes the tiger seal at the chin, a fire spark kindling between the hands; then it drops low on bent knees and sweeps the near open palm, facing the floor, low and forward over the ground like sowing seed; fire falls from the palm and burns glowing rune circles into the floor ahead, nearest first, the fire line running on past the edge to the rest, each flaring bright as it is written, embers lifting off them; the fighter rises back into the guard and the runes settle to a low smouldering glow (the testbed then draws the placed runes on their tiles until they detonate).', [
+     g(),
+     g(an=U.SEAL_N, af=U.SEAL_F, bob=(2, 2, 2), lean=(0, 0), **LOW),
+     g(an=U.SEAL_N, af=U.SEAL_F, bob=(2, 2, 2), lean=(0, 0), **LOW),
+     g(an=band(-20, -25, fistKind='palm'), af=band(-20, -150), bob=(4, 5, 5), lean=(1, 7), **BRACE),       # palm swept low, facing the floor
+     g(an=band(-45, -45, fistKind='palm'), af=band(-20, -150), bob=(4, 5, 5), lean=(1, 7), **BRACE),       # sweeping on forward over the ground
+     g(an=band(-65, -60, fistKind='palm'), af=band(-20, -150), bob=(4, 5, 5), lean=(1, 6), **BRACE),       # arm out, the last rune written
+     g(an=band(-30, -90), af=band(-40, -100), bob=(3, 3, 3), lean=(0, 3), **LOW),
+     g()],
+  [None, 'squint', 'squint', 'squint', 'squint', 'squint', None, None],
+  None,
+  dict(fps=10, fx=nfx('fire runes: a spark at the seal, fire running along the ground from the palm, three glowing rune circles burned into the floor ahead, flaring as they are written, then smouldering',
+              [(1, [('flame1', [35, 31])]), (2, [('flame2', [34, 32])]),
+               (3, [('flame2', [41, 63]), ('fireLine', [44, 63]), ('embers', [38, 50])]),
+               (4, [('fireLine', [42, 63]), ('runeHot', [43, 63]), ('flame1', [46, 59]), ('embers', [42, 47]), ('flame1', [44, 54])]),
+               (5, [('runeLit', [43, 63]), ('fireLine', [51, 63]), ('runeHot', [54, 63]), ('embers', [45, 57]), ('embers', [48, 42]), ('flame1', [52, 52])]),
+               (6, [('runeLit', [43, 63]), ('runeLit', [54, 63]), ('fireLine', [62, 63]), ('embers', [56, 57]), ('embers', [44, 56])]),
+               (7, [('runeDim', [43, 63]), ('runeDim', [54, 63])])]))),
  'innerGateAdrenaline': ('Inner Gate: Adrenaline', 4,
   'Inner Gate: Adrenaline (Aries taijutsu buff: AGI and STR up, the fighter burns itself): from the guard the fighter clenches, curls the fists in front of the belly and sinks, straining, eyes squeezed; then the gate bursts open: it stands up tall, chest thrown out and both fists driven down and back, and an orange-red aura flares around the whole body with flame licks rising off the shoulders and head; the aura pulses once, the flames keep licking (the self-burn), then the fighter drops back into the guard still powered up: the aura lingers, the skin stays flushed red and the veins stand out on the arms, neck and temple, embers drifting off it (the testbed keeps that look for as long as the gate stays open: until 0 HP or the player deactivates it).', [
      g(),
