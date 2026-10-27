@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-animation-output/v1",
   "body": "male",
   "state": "kenjutsuHiltBash",
-  "status": "E/W approved by user 2026-10-27 17:34 (W mirrors E); S/N CANDIDATE 2026-10-27",
+  "status": "approved by user 2026-10-27 (E/W 17:34, S/N 17:38; S, E, N, W; W mirrors E)",
   "frames": 7,
   "fps": 12,
   "frameSize": [

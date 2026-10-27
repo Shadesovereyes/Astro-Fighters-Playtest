@@ -180,7 +180,7 @@ def fx(state):
 # blade points up, a lowered or level one at the viewer); both fists meet on the centre line; in N the hands and the
 # low blade are behind the body (only the upper arms show). The legs stay planted (a step toward or away from the
 # viewer reads as the body bob). E/W pixels are restored from HEAD after the render.
-SN_STAT = 'E/W approved by user 2026-10-27 17:34 (W mirrors E); S/N CANDIDATE 2026-10-27'
+SN_STAT = 'approved by user 2026-10-27 (E/W 17:34, S/N 17:38; S, E, N, W; W mirrors E)'
 PIV_S, UA_S, FA_S = (25, 24), 7, 9
 def ik_s(hx, hy):
     """S near (R) arm from its shoulder to the fist on the centre line: scale foreshortens a reach toward the viewer;
