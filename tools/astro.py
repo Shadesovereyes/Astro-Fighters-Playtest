@@ -5,6 +5,7 @@ approval. Effects use the sign's element colours (Christopher 2026-10-27 17:00):
 select black and purple flames), earth = earth and crystal tones, water = water and ice tones; air stays white/pale until ruled.
 Run: python3 tools/astro.py [state] ; node tools/character-posed.mjs male <state> ; python3 tools/stances.py --outline <state> ;
      python3 tools/astro.py --fx <state>   (aura / motion blur after the render; splash fx are baked by the renderer)"""
+import math
 import sys, copy, os
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import universal as U
@@ -29,6 +30,16 @@ ELEMENT = {'Y': '#ffe14d', 'O': '#ff8a1c', 'R': '#d8321a',               # fire:
            'M': '#7a1016'}                                                 # fire genjutsu: dark crimson rim of a rage wave
 NPAL.update(ELEMENT)
 
+def _halo(n, cx=35, cy=5, rx=7, ry=2, motes=3):   # motes circling over the head, a full turn every n frames: bright in front of the head, dark crimson behind
+    out = []
+    for k in range(n):
+        pts = [('dotM', [round(cx + rx * math.cos(t)), round(cy + ry * math.sin(t)) + 1]) for t in [2 * math.pi * (j + k / n) / 16 for j in range(0, 16, 2)]]   # a faint dotted crimson ring, turning with the motes
+        for m in range(motes):
+            a = 2 * math.pi * (k / n + m / motes); x, y = cx + rx * math.cos(a), cy + ry * math.sin(a)
+            pts.append(('moteF' if math.sin(a) > 0 else 'moteB', [round(x) - 1, round(y) + 1]))
+        out.append((k, pts))
+    return out
+
 def _arc(r, w, cols, gap=1):   # a ')' rage wave r px either side of centre, bowing w px toward the target; cols run tip -> leading edge; gap > 1 breaks it up
     rows = []
     for dy in range(-r, r + 1):
@@ -50,6 +61,7 @@ NPAT.update({
     'runeHot': ['...YWY...', '.YW.O.WY.', 'YW.OYO.WY', '.YW.O.WY.', '...YWY...'], 'runeLit': ['...OYO...', '.OR.Y.RO.', 'OR.YOY.RO', '.OR.Y.RO.', '...OYO...'],
     'rage1': _arc(4, 2, 'RO'), 'rage2': _arc(7, 3, 'MRO'), 'rage3': _arc(10, 4, 'MRY'), 'rage4': _arc(13, 5, 'MRO'),
     'rage4d': _arc(13, 5, 'MR', gap=2), 'rage5d': _arc(15, 6, 'M', gap=3),
+    'moteF': ['.Y.', 'YOR', '.R.'], 'moteB': ['.M.', 'MRM', '.M.'], 'dotM': ['M'],
     'eyeGlint': ['.R.', 'RYR', '.R.'], 'eyeFlare': ['..R..', '.ROR.', 'ROYWO', '.ROR.', '..R..'], 'rageWisp': ['M.R', '.R.', 'RO.'],
     'runeDim': ['...R.R...', '.R..O..R.', 'R..O.O..R', '.R..O..R.', '...R.R...'], 'fireLine': ['.R.O.', 'OYROY'],
 })
@@ -178,7 +190,7 @@ CLIPS = {
      g()],
   [None, 'squint', 'squint', 'squint', 'squint', 'squint', 'squint', None, None],
   [0, 0, 1, 2, 2, 2, 1, 1, 0],
-  dict(fps=10, auraColors=('#d8321a', '#7a1016'),
+  dict(fps=10, auraColors=('#d8321a', '#7a1016'), extra={'targetState': {'rule': 'Christopher 2026-10-27: every genjutsu marks its target; on the active frame the target starts genjutsuAfflicted (fire colours) and keeps it until the Confusion ends', 'state': 'genjutsuAfflicted', 'element': 'fire'}},
        fx=nfx('fire genjutsu: the eyes kindle red then flare, rage wisps off the head, red rage waves pulsing out from the eyes toward the target, widening and breaking up',
               [(2, [('eyeGlint', [38, 17])]),
                (3, [('eyeFlare', [37, 18]), ('rageWisp', [30, 7]), ('rageWisp', [35, 8])]),
@@ -187,6 +199,21 @@ CLIPS = {
                (6, [('eyeGlint', [38, 17]), ('rage4', [51, 28]), ('rage2', [45, 22]), ('rageWisp', [31, 4])]),
                (7, [('rage5d', [56, 30]), ('rage3', [50, 25])]),
                (8, [('rage4d', [57, 28])])]))),
+ 'genjutsuAfflicted': ('Under Genjutsu', 0,
+  'Under Genjutsu (target status, Christopher 2026-10-27: every genjutsu marks its target with an effect showing it is under a genjutsu): the shared looping state the testbed plays on a fighter for as long as any genjutsu holds it, in place of its idle; the guard sags, the hands dropped a little, and the fighter sways slowly on its feet, entranced: the eyes glow the caster\'s element colour, a thin flickering aura in that colour clings to the outline, and three glowing motes circle slowly over the head like a halo, bright passing in front of the head and dark passing behind it; fire version (Aries, Leo, Sagittarius casters: crimson and orange); the testbed recolours it for the other elements.', [
+     g(an=band(-15, -105), af=band(-20, -110), bob=(1, 1, 2), lean=(0, 2)),
+     g(an=band(-15, -105), af=band(-20, -110), bob=(1, 1, 2), lean=(0, 2)),
+     g(an=band(-15, -105), af=band(-20, -110), bob=(2, 2, 2), lean=(0, 1)),
+     g(an=band(-15, -105), af=band(-20, -110), bob=(2, 2, 2), lean=(0, 1)),
+     g(an=band(-15, -105), af=band(-20, -110), bob=(2, 2, 3), lean=(0, 0)),
+     g(an=band(-15, -105), af=band(-20, -110), bob=(2, 2, 3), lean=(0, 0)),
+     g(an=band(-15, -105), af=band(-20, -110), bob=(2, 2, 2), lean=(0, 1)),
+     g(an=band(-15, -105), af=band(-20, -110), bob=(2, 2, 2), lean=(0, 1))],
+  ['entranced'] * 8,
+  [1] * 8,
+  dict(fps=6, auraColors=('#d8321a', '#7a1016'), shapes={'entranced': {'E': [[0, 1, '#d8321a'], [1, 1, '#d8321a'], [0, 2, '#ff8a1c'], [1, 2, '#ff3a1a']], 'S': [[0, 2, '#ff3a1a'], [1, 2, '#ff8a1c'], [5, 2, '#ff8a1c'], [6, 2, '#ff3a1a']]}},
+       extra={'loop': True, 'genjutsuMark': {'rule': 'Christopher 2026-10-27: every genjutsu target shows it is under a genjutsu. The testbed plays genjutsuAfflicted on loop in place of the target\'s idle (and draws its halo motes, aura and eye glow over any other state it plays) for as long as a genjutsu holds it; clears when the genjutsu ends', 'element': 'fire', 'recolor': {'rule': 'swap the fire colours for the caster sign\'s element: fire as drawn', 'sagittarius': {'#ffe14d': '#c9a0ff', '#ff8a1c': '#9b45ff', '#d8321a': '#55208f', '#7a1016': '#1c1024', '#ff3a1a': '#9b45ff'}, 'earth': {'#ffe14d': '#d9fff6', '#ff8a1c': '#7fe3d0', '#d8321a': '#c79a5b', '#7a1016': '#8a6236', '#ff3a1a': '#7fe3d0'}, 'water': {'#ffe14d': '#dff6ff', '#ff8a1c': '#7cc8ff', '#d8321a': '#2f7fe0', '#7a1016': '#1b4f99', '#ff3a1a': '#7cc8ff'}, 'air': {'#ffe14d': '#ffffff', '#ff8a1c': '#e3e3e3', '#d8321a': '#b8b8c8', '#7a1016': '#8a8a9a', '#ff3a1a': '#e3e3e3'}}}},
+       fx=nfx('the genjutsu mark: three glowing motes circling slowly over the head (one turn per loop), bright in front of the head, dark crimson behind it', _halo(8)))),
  'innerGateAdrenaline': ('Inner Gate: Adrenaline', 4,
   'Inner Gate: Adrenaline (Aries taijutsu buff: AGI and STR up, the fighter burns itself): from the guard the fighter clenches, curls the fists in front of the belly and sinks, straining, eyes squeezed; then the gate bursts open: it stands up tall, chest thrown out and both fists driven down and back, and an orange-red aura flares around the whole body with flame licks rising off the shoulders and head; the aura pulses once, the flames keep licking (the self-burn), then the fighter drops back into the guard still powered up: the aura lingers, the skin stays flushed red and the veins stand out on the arms, neck and temple, embers drifting off it (the testbed keeps that look for as long as the gate stays open: until 0 HP or the player deactivates it).', [
      g(),
@@ -212,6 +239,7 @@ def spec(state):
     U.spec(state)
     x = CLIPS[state][6]; s = load(D + state + '.json')
     for k, v in (x.get('extra') or {}).items(): s[k] = v
+    if x.get('shapes'): s['expressions']['shapes'].update(copy.deepcopy(x['shapes']))
     if x.get('front'):   # the fighter turns to face S for part of the clip (Blast Wave v2): every facing plays the S frames there
         s['expressions']['shapes']['roar'] = {'E': copy.deepcopy(s['expressions']['shapes']['pain']['E']),
             'S': [[0, 1, '#000000'], [1, 1, '#000000'], [5, 1, '#000000'], [6, 1, '#000000'], [2, 3, '#000000'], [3, 3, '#000000'], [4, 3, '#000000'], [2, 4, '#000000'], [3, 4, '#70241d'], [4, 4, '#000000']]}   # eyes squeezed, mouth open in a yell (mid-face, clear of the chin)
