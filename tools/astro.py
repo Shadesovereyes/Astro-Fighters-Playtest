@@ -25,8 +25,18 @@ U.POSES += [leg('ml-dip-lead', (32, 45), (38, 51), 37), leg('ml-dip-rear', (31, 
 ELEMENT = {'Y': '#ffe14d', 'O': '#ff8a1c', 'R': '#d8321a',               # fire: yellow core, orange body, red edge
            'K': '#1c1024', 'P': '#9b45ff', 'p': '#55208f',                # Sagittarius: black flame with purple
            'E': '#8a6236', 'e': '#c79a5b', 'C': '#7fe3d0', 'c': '#d9fff6',  # earth: soil browns, crystal teal / glint
-           'A': '#2f7fe0', 'a': '#7cc8ff', 'I': '#dff6ff'}                 # water: deep and light water, ice white-blue
+           'A': '#2f7fe0', 'a': '#7cc8ff', 'I': '#dff6ff',                 # water: deep and light water, ice white-blue
+           'M': '#7a1016'}                                                 # fire genjutsu: dark crimson rim of a rage wave
 NPAL.update(ELEMENT)
+
+def _arc(r, w, cols, gap=1):   # a ')' rage wave r px either side of centre, bowing w px toward the target; cols run tip -> leading edge; gap > 1 breaks it up
+    rows = []
+    for dy in range(-r, r + 1):
+        x = round(w * (1 - (dy / r) ** 2)); row = ['.'] * (w + len(cols))
+        if dy % gap == 0:
+            for i, c in enumerate(cols): row[x + i] = c
+        rows.append(''.join(row).rstrip('.') or '.')
+    n = max(map(len, rows)); return [q.ljust(n, '.') for q in rows]
 # fire fx patterns: flame licks (red edge, orange body, yellow core), a fire-sign guard-crack, embers
 NPAT.update({
     'flame1': ['.R.', 'ROR', '.Y.'], 'flame2': ['..R..', '.RO..', '.OYR.', 'ROYOR', '.RRR.'],
@@ -38,6 +48,9 @@ NPAT.update({
     'heat': ['O.Y.O', '.R.R.'], 'embers': ['.O..R', 'R..O.', '..Y..'],
     # Explosive Runes: rune circles seen flat on the ground (ellipse with a glyph stroke), hot as written, lit, smouldering
     'runeHot': ['...YWY...', '.YW.O.WY.', 'YW.OYO.WY', '.YW.O.WY.', '...YWY...'], 'runeLit': ['...OYO...', '.OR.Y.RO.', 'OR.YOY.RO', '.OR.Y.RO.', '...OYO...'],
+    'rage1': _arc(4, 2, 'RO'), 'rage2': _arc(7, 3, 'MRO'), 'rage3': _arc(10, 4, 'MRY'), 'rage4': _arc(13, 5, 'MRO'),
+    'rage4d': _arc(13, 5, 'MR', gap=2), 'rage5d': _arc(15, 6, 'M', gap=3),
+    'eyeGlint': ['.R.', 'RYR', '.R.'], 'eyeFlare': ['..R..', '.ROR.', 'ROYWO', '.ROR.', '..R..'], 'rageWisp': ['M.R', '.R.', 'RO.'],
     'runeDim': ['...R.R...', '.R..O..R.', 'R..O.O..R', '.R..O..R.', '...R.R...'], 'fireLine': ['.R.O.', 'OYROY'],
 })
 FIRE_AURA = ('#ffb12e', '#e0401c')   # orange next to the body, red outside
@@ -152,6 +165,28 @@ CLIPS = {
        burst={2: 0, 3: 1, 4: 2, 5: 3, 6: 3, 7: 3, 8: 2, 9: 2, 10: 3, 11: 4, 12: 5}, burstEvery=True,   # embers rising, spiked aura flaring and blazing, then fading
        meteor={5: ('form', 2), 6: ('form', 4), 7: ('form', 7), 8: ('form', 9), 9: ('form', 11),
                10: ('flash', 0), 11: ('fly', 0), 12: ('fly', 1), 13: ('trail', 2), 14: ('trail', 3)})),
+ 'blindRage': ('Blind Rage', 4,
+  'Blind Rage (Aries genjutsu, mental debuff: the caster projects its fury into the target\'s mind so it sees everyone as an enemy; Confusion 1 round, INT save DC 12; range Zone of Awareness), the genjutsu template: from the guard the fighter raises the near hand with two fingers up in front of the eyes and fixes the target, the far hand staying in guard; the eyes kindle red, then flare white-hot, a dark crimson aura flickering up round it with rage wisps rising off the head; it holds the stare while red rage waves pulse out from its eyes toward the target one after another, each wider than the last, orange at the core and dark crimson at the rim, breaking up as they travel; the glow dies out of the eyes and the hand drops back into the guard (the testbed then marks the confused target).', [
+     g(),
+     g(an=band(-40, -160, fistKind='point'), bob=(1, 1, 1), lean=(0, 1)),
+     g(an=band(-45, -175, fistKind='point'), bob=(1, 1, 1), lean=(0, 1)),
+     g(an=band(-45, -175, fistKind='point'), bob=(1, 1, 1), lean=(0, 1)),
+     g(an=band(-45, -175, fistKind='point'), bob=(1, 1, 1), lean=(0, 1)),
+     g(an=band(-45, -175, fistKind='point'), bob=(1, 1, 1), lean=(0, 1)),
+     g(an=band(-45, -175, fistKind='point'), bob=(1, 1, 1), lean=(0, 1)),
+     g(an=band(-60, -120), bob=(1, 1, 2), lean=(0, 2)),
+     g()],
+  [None, 'squint', 'squint', 'squint', 'squint', 'squint', 'squint', None, None],
+  [0, 0, 1, 2, 2, 2, 1, 1, 0],
+  dict(fps=10, auraColors=('#d8321a', '#7a1016'),
+       fx=nfx('fire genjutsu: the eyes kindle red then flare, rage wisps off the head, red rage waves pulsing out from the eyes toward the target, widening and breaking up',
+              [(2, [('eyeGlint', [38, 17])]),
+               (3, [('eyeFlare', [37, 18]), ('rageWisp', [30, 7]), ('rageWisp', [35, 8])]),
+               (4, [('eyeFlare', [37, 18]), ('rage1', [42, 19]), ('rageWisp', [32, 6]), ('rageWisp', [27, 9])]),
+               (5, [('eyeFlare', [37, 18]), ('rage2', [45, 22]), ('rage1', [42, 19]), ('rageWisp', [29, 5]), ('rageWisp', [35, 7])]),
+               (6, [('eyeGlint', [38, 17]), ('rage4', [51, 28]), ('rage2', [45, 22]), ('rageWisp', [31, 4])]),
+               (7, [('rage5d', [56, 30]), ('rage3', [50, 25])]),
+               (8, [('rage4d', [57, 28])])]))),
  'innerGateAdrenaline': ('Inner Gate: Adrenaline', 4,
   'Inner Gate: Adrenaline (Aries taijutsu buff: AGI and STR up, the fighter burns itself): from the guard the fighter clenches, curls the fists in front of the belly and sinks, straining, eyes squeezed; then the gate bursts open: it stands up tall, chest thrown out and both fists driven down and back, and an orange-red aura flares around the whole body with flame licks rising off the shoulders and head; the aura pulses once, the flames keep licking (the self-burn), then the fighter drops back into the guard still powered up: the aura lingers, the skin stays flushed red and the veins stand out on the arms, neck and temple, embers drifting off it (the testbed keeps that look for as long as the gate stays open: until 0 HP or the player deactivates it).', [
      g(),
