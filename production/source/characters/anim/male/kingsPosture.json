@@ -19,7 +19,7 @@
       "frameShift": 0
     }
   },
-  "intent": "King's Posture (Leo taijutsu stance buff: a regal guard, FORT +30% for 3 rounds, holds firm), v2 (Christopher 2026-10-27: keep the aura, the body needs to be more of a power pose): from the guard the fighter turns square to the viewer (every facing turns S for the pose, as Blast Wave), drops its hands and plants both fists on its hips, elbows flared wide, chest out and chin up, a hero's power pose; a golden aura flares round it and a lion's mane of flame bursts up behind and round its head, blazing, as it holds the pose; then the mane settles to a proud glow and it turns back into the guard (the testbed keeps the buff, not the mane).",
+  "intent": "King's Posture (Leo taijutsu stance buff: a regal guard, FORT +30% for 3 rounds, holds firm), v3 (Christopher 2026-10-27: a double biceps flex, same aura and fx; v2 had fists on the hips): from the guard the fighter turns square to the viewer (every facing turns S for the pose, as Blast Wave), throws both upper arms out level to the sides and curls the fists up beside the head in a front double biceps, teeth clenched, squeezing the flex harder on the peak frame; a golden aura flares round it and a lion's mane of flame bursts up behind and round its head, blazing, as it holds the pose; then the mane settles to a proud glow and it turns back into the guard (the testbed keeps the buff, not the mane).",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -2497,22 +2497,22 @@
       "E": [
         null,
         null,
-        null,
-        null,
-        null,
-        null,
-        null,
+        "strain",
+        "strain",
+        "strain",
+        "strain",
+        "strain",
         null,
         null
       ],
       "S": [
         null,
         null,
-        null,
-        null,
-        null,
-        null,
-        null,
+        "strain",
+        "strain",
+        "strain",
+        "strain",
+        "strain",
         null,
         null
       ]
@@ -2657,11 +2657,11 @@
             "angle": [
               10,
               20,
-              55,
-              55,
-              55,
-              55,
-              55,
+              92,
+              92,
+              97,
+              92,
+              92,
               10,
               10
             ],
@@ -2676,23 +2676,23 @@
               },
               {
                 "at": 7,
-                "angle": -50
+                "angle": 182
               },
               {
                 "at": 7,
-                "angle": -50
+                "angle": 182
               },
               {
                 "at": 7,
-                "angle": -50
+                "angle": 192
               },
               {
                 "at": 7,
-                "angle": -50
+                "angle": 182
               },
               {
                 "at": 7,
-                "angle": -50
+                "angle": 182
               },
               {
                 "at": 7,
@@ -2746,11 +2746,11 @@
             "angle": [
               -10,
               -20,
-              -55,
-              -55,
-              -55,
-              -55,
-              -55,
+              -92,
+              -92,
+              -97,
+              -92,
+              -92,
               -10,
               -10
             ],
@@ -2765,23 +2765,23 @@
               },
               {
                 "at": 7,
-                "angle": 50
+                "angle": -182
               },
               {
                 "at": 7,
-                "angle": 50
+                "angle": -182
               },
               {
                 "at": 7,
-                "angle": 50
+                "angle": -192
               },
               {
                 "at": 7,
-                "angle": 50
+                "angle": -182
               },
               {
                 "at": 7,
-                "angle": 50
+                "angle": -182
               },
               {
                 "at": 7,
@@ -3038,11 +3038,11 @@
             "angle": [
               -12,
               -20,
-              -55,
-              -55,
-              -55,
-              -55,
-              -55,
+              -92,
+              -92,
+              -97,
+              -92,
+              -92,
               -10,
               -12
             ],
@@ -3054,23 +3054,23 @@
               },
               {
                 "at": 7,
-                "angle": 50
+                "angle": 178
               },
               {
                 "at": 7,
-                "angle": 50
+                "angle": 178
               },
               {
                 "at": 7,
-                "angle": 50
+                "angle": 168
               },
               {
                 "at": 7,
-                "angle": 50
+                "angle": 178
               },
               {
                 "at": 7,
-                "angle": 50
+                "angle": 178
               },
               {
                 "at": 7,
@@ -3132,11 +3132,11 @@
             "angle": [
               12,
               20,
-              55,
-              55,
-              55,
-              55,
-              55,
+              92,
+              92,
+              97,
+              92,
+              92,
               10,
               12
             ],
@@ -3148,23 +3148,23 @@
               },
               {
                 "at": 7,
-                "angle": -50
+                "angle": -178
               },
               {
                 "at": 7,
-                "angle": -50
+                "angle": -178
               },
               {
                 "at": 7,
-                "angle": -50
+                "angle": -168
               },
               {
                 "at": 7,
-                "angle": -50
+                "angle": -178
               },
               {
                 "at": 7,
-                "angle": -50
+                "angle": -178
               },
               {
                 "at": 7,
