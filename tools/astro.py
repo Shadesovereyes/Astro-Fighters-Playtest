@@ -131,6 +131,22 @@ CLIPS = {
                (5, [('runeLit', [43, 63]), ('fireLine', [51, 63]), ('runeHot', [54, 63]), ('embers', [45, 57]), ('embers', [48, 42]), ('flame1', [52, 52])]),
                (6, [('runeLit', [43, 63]), ('runeLit', [54, 63]), ('fireLine', [62, 63]), ('embers', [56, 57]), ('embers', [44, 56])]),
                (7, [('runeDim', [43, 63]), ('runeDim', [54, 63])])]))),
+ 'meteor': ('Meteor', 6,
+  'Meteor (Aries ninjutsu ultimate, charge: a giant fireball called down from the sky that blankets a wide zone next round): from the guard the fighter makes the seal, then raises the near open hand high up and forward, palm to the sky, the far hand staying in guard, and sinks into its stance; above the raised hand fire gathers into a swelling, roiling fireball, held for a beat while it grows; then the fighter hurls the arm forward and up toward the target and the meteor tears off up and away across the sky trailing fire and embers; the arms come back down into the guard (the testbed drops the meteor on the zone the next round).', [
+     g(),
+     g(an=U.SEAL_N, af=U.SEAL_F, bob=(2, 2, 2), lean=(0, 0), **LOW),
+     g(an=band(-120, -150, fistKind='palm'), bob=(1, 1, 1), lean=(0, -1)),
+     g(an=band(-130, -150, fistKind='palm'), bob=(2, 2, 2), lean=(-1, -2), **LOW),     # near arm raised up and forward, palm to the sky
+     g(an=band(-130, -150, fistKind='palm'), bob=(2, 2, 2), lean=(-1, -2), **LOW),
+     g(an=band(-130, -150, fistKind='palm'), bob=(2, 2, 2), lean=(-1, -2), **LOW),
+     g(an=band(-110, -115, fistKind='palm'), af=band(-40, 215), bob=(2, 2, 2), lean=(1, 4), root=(1, 0), **LOW),   # hurled forward and up
+     g(an=band(-110, -115, fistKind='palm'), af=band(-40, 215), bob=(2, 2, 2), lean=(1, 4), **LOW),
+     g(an=band(-50, -120), af=band(-50, -130), bob=(1, 1, 2), lean=(0, 2)),
+     g(root=(-1, 0))],
+  [None, 'squint', 'squint', 'squint', 'squint', 'squint', 'squint', 'squint', None, None],
+  [0, 0, 0, 1, 2, 2, 1, 0, 0, 0],
+  dict(fps=10, auraColors=FIRE_AURA, rm='E: +1 into the throw, -1 settling back',
+       meteor={3: ('form', 2), 4: ('form', 4), 5: ('form', 6), 6: ('fly', 0), 7: ('fly', 1), 8: ('trail', 2)})),
  'innerGateAdrenaline': ('Inner Gate: Adrenaline', 4,
   'Inner Gate: Adrenaline (Aries taijutsu buff: AGI and STR up, the fighter burns itself): from the guard the fighter clenches, curls the fists in front of the belly and sinks, straining, eyes squeezed; then the gate bursts open: it stands up tall, chest thrown out and both fists driven down and back, and an orange-red aura flares around the whole body with flame licks rising off the shoulders and head; the aura pulses once, the flames keep licking (the self-burn), then the fighter drops back into the guard still powered up: the aura lingers, the skin stays flushed red and the veins stand out on the arms, neck and temple, embers drifting off it (the testbed keeps that look for as long as the gate stays open: until 0 HP or the player deactivates it).', [
      g(),
@@ -186,6 +202,11 @@ def fx(state):
     if x.get('front'): face_front(state, sorted(x['front']))
     if x.get('burst'): burst(state, x['burst'])
     if x.get('tint'): flush(state, x['tint'], x.get('veins', ()))
+    if x.get('meteor'):
+        from PIL import Image
+        f_ = D + state + '/fx.png'
+        if not CLIPS[state][5] and not os.path.exists(f_): Image.new('RGBA', Image.open(D + state + '/body.png').size).save(f_)
+        meteor(state, x['meteor'])
     if x.get('swirl') or x.get('impact') or x.get('blast'):
         from PIL import Image
         f = D + state + '/fx.png'
@@ -447,6 +468,47 @@ def burst(state, frames):
         for r in range(len(dirs)):
             if r != rs: fx.paste(cell, (k * 64, r * 64))
     fx.save(f); print(state, 'burst', frames)
+
+def meteor(state, frames):
+    """Meteor: a fireball forming above the raised hands ('form', radius), roiling (yellow core, orange body, red rim,
+    flame licks off the top); then hurled ('fly', step): it streaks up and away toward the target's side of the sky with a
+    tapering fire trail back to the hands, leaving embers ('trail')"""
+    import math, random
+    from PIL import Image
+    d = D + state + '/'; f = d + 'fx.png'; dirs = load(D + state + '.json')['directions']
+    fx = Image.open(f).convert('RGBA'); px = fx.load()
+    hexc = lambda c: tuple(int(c[i:i + 2], 16) for i in (1, 3, 5)) + (255,)
+    W_, Y, O, R_ = (255, 255, 255, 255), hexc(ELEMENT['Y']), hexc(ELEMENT['O']), hexc(ELEMENT['R'])
+    def ball(k, r, cx, cy, rad, sg, rnd):
+        for y in range(-rad - 3, rad + 1):
+            for x in range(-rad - 1, rad + 2):
+                dd = (x * x + y * y) ** 0.5
+                X, Y_ = cx + sg * x, cy + y
+                if not (0 <= X < 64 and 0 <= Y_ < 64): continue
+                if dd <= rad:
+                    c = W_ if dd < rad * 0.3 else Y if dd < rad * 0.6 else O if dd < rad - 0.8 else R_
+                    if rad >= 4 and Y is c and rnd.random() < 0.2: c = O   # roiling
+                    px[k * 64 + X, r * 64 + Y_] = c
+                elif y < 0 and dd <= rad + 2 and rnd.random() < 0.35: px[k * 64 + X, r * 64 + Y_] = R_ if rnd.random() < 0.5 else O   # licks off the top
+    for k, (kind, n) in frames.items():
+        for fd in dirs:
+            r = dirs.index(fd); sg = -1 if fd == 'W' else 1; rnd = random.Random(k * 13 + r)
+            pts = _arm(state, 3, r); top = min(pts, key=lambda p: p[1]); hx = top[0]; hy = top[1]   # the raised palm (frame 3)
+            if kind == 'form': ball(k, r, hx + sg, max(n + 1, hy - n - 1), n, 1, rnd)
+            else:
+                cx = hx + sg * (9 + 10 * n); cy = max(2, hy - 2 - 4 * n); rad = 5 - n
+                for t in range(0, 40):   # the trail back toward the hands, tapering
+                    u = t / 40; tx = round(hx + sg * 4 + (cx - hx - sg * 4) * u); ty = round(hy + 4 + (cy - hy - 4) * u)
+                    w = int(u * 3)
+                    for dy in range(-w, w + 1):
+                        X, Y_ = tx, ty + dy
+                        if 0 <= X < 64 and 0 <= Y_ < 64 and (kind != 'trail' or rnd.random() < 0.3) and rnd.random() < 0.4 + 0.5 * u:
+                            px[k * 64 + X, r * 64 + Y_] = R_ if u < 0.4 else O if u < 0.75 else Y
+                if kind == 'fly': ball(k, r, cx, cy, rad, sg, rnd)
+                for i in range(6 + 4 * n):   # embers shed along the way
+                    X = hx + sg * rnd.randint(2, 30); Y_ = rnd.randint(2, 22)
+                    if 0 <= X < 64: px[k * 64 + X, r * 64 + Y_] = (O, R_, Y)[i % 3]
+    fx.save(f); print(state, 'meteor', list(frames))
 
 def ghosts(state, offs, cols):
     """after the blur: afterimages (Christopher 2026-10-27: onion/afterimage effects to exaggerate the speed). On each
