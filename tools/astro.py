@@ -137,6 +137,8 @@ CHAMBER = band(75, -150)                # rear fist drawn back by the ear, elbow
 TUCK_N, TUCK_F = band(-35, 200), band(-50, 215)   # arms tucked tight to the chest for the shoulder charge
 PU_S = (35, -15, 1, 'up')                      # Radiance v3 (S view): fist clenched and driven down at the side, elbow bent out
 KP_S, KP_S2 = (92, 182, 1, 'up'), (97, 192, 1, 'up')   # King's Posture v3 (S view): front double biceps, upper arm level out to the side, fist curled up by the head (KP_S2 the squeeze)
+KP_EN, KP_EF = band(-90, -170), band(92, 172)    # King's Posture v4 (E view, no turn): double biceps in profile, near upper arm level forward and far one level back, both fists curled up by the head
+KP_EN2, KP_EF2 = band(-96, -178), band(98, 178)  # the squeeze on the peak frame
 FLEX_N, FLEX_F = band(50, -20), band(40, -15)     # elbows flared back, clenched fists low beside the hips (power surge)
 
 CLIPS = {
@@ -289,18 +291,19 @@ CLIPS = {
        extra={'loop': True, 'genjutsuMark': {'rule': 'Christopher 2026-10-27: every genjutsu target shows it is under a genjutsu. The testbed plays genjutsuAfflicted on loop in place of the target\'s idle (and draws its halo motes, aura and eye glow over any other state it plays) for as long as a genjutsu holds it; clears when the genjutsu ends', 'element': 'fire', 'recolor': {'rule': 'swap the fire colours for the caster sign\'s element: fire as drawn', 'sagittarius': {'#ffe14d': '#c9a0ff', '#ff8a1c': '#9b45ff', '#d8321a': '#55208f', '#7a1016': '#1c1024', '#ff3a1a': '#9b45ff'}, 'earth': {'#ffe14d': '#d9fff6', '#ff8a1c': '#7fe3d0', '#d8321a': '#c79a5b', '#7a1016': '#8a6236', '#ff3a1a': '#7fe3d0'}, 'water': {'#ffe14d': '#dff6ff', '#ff8a1c': '#7cc8ff', '#d8321a': '#2f7fe0', '#7a1016': '#1b4f99', '#ff3a1a': '#7cc8ff'}, 'air': {'#ffe14d': '#ffffff', '#ff8a1c': '#e3e3e3', '#d8321a': '#b8b8c8', '#7a1016': '#8a8a9a', '#ff3a1a': '#e3e3e3'}}}},
        fx=nfx('the genjutsu mark: three glowing motes circling slowly over the head (one turn per loop), bright in front of the head, dark crimson behind it', _halo(8)))),
  'kingsPosture': ('King\'s Posture', 3,
-  'King\'s Posture (Leo taijutsu stance buff: a regal guard, FORT +30% for 3 rounds, holds firm), v3 (Christopher 2026-10-27: a double biceps flex, same aura and fx; v2 had fists on the hips): from the guard the fighter turns square to the viewer (every facing turns S for the pose, as Blast Wave), throws both upper arms out level to the sides and curls the fists up beside the head in a front double biceps, teeth clenched, squeezing the flex harder on the peak frame; a golden aura flares round it and a lion\'s mane of flame bursts up behind and round its head, blazing, as it holds the pose; then the mane settles to a proud glow and it turns back into the guard (the testbed keeps the buff, not the mane).', [
+  'King\'s Posture (Leo taijutsu stance buff: a regal guard, FORT +30% for 3 rounds, holds firm), v4 (Christopher 2026-10-27: see it E facing; v3 turned to the viewer for a front double biceps): the fighter keeps its facing; from the guard it throws both upper arms up level, the near one forward and the far one back, and curls both fists up beside the head in a double biceps flex seen in profile, chest out, teeth clenched, squeezing the flex harder on the peak frame; a golden aura flares round it and a lion\'s mane of flame bursts up behind and round its head, blazing, as it holds the pose; then the mane settles to a proud glow and it drops back into the guard (the testbed keeps the buff, not the mane).', [
      g(),
-     g(bob=(0, 0, 0), lean=(0, 0)),
-     g(bob=(0, -1, 0), lean=(0, 0)), g(bob=(0, -1, 0), lean=(0, 0)), g(bob=(0, -1, 0), lean=(0, 0)), g(bob=(0, -1, 0), lean=(0, 0)), g(bob=(0, -1, 0), lean=(0, 0)),
-     g(),
+     g(an=band(-60, -150), af=band(55, 150), bob=(0, 0, 0), lean=(0, 0)),
+     g(an=KP_EN, af=KP_EF, bob=(0, -1, 0), lean=(0, -1)), g(an=KP_EN, af=KP_EF, bob=(0, -1, 0), lean=(0, -1)),
+     g(an=KP_EN2, af=KP_EF2, bob=(0, -1, 0), lean=(0, -1)),
+     g(an=KP_EN, af=KP_EF, bob=(0, -1, 0), lean=(0, -1)), g(an=KP_EN, af=KP_EF, bob=(0, -1, 0), lean=(0, -1)),
+     g(an=band(-60, -150), af=band(55, 150), bob=(0, 0, 0), lean=(0, 0)),
      g()],
   [None, None, 'strain', 'strain', 'strain', 'strain', 'strain', None, None],
   [0, 0, 1, 3, 2, 2, 2, 1, 0],
   dict(fps=10, auraColors=('#ffe14d', '#ff8a1c'),
-       front={1: dict(R=(20, 20, 1, 'up'), L=(-20, -20, 1, 'up')), **{k: dict(R=KP_S, L=(-KP_S[0], -KP_S[1], 1, 'up')) for k in (2, 3, 5, 6)}, 4: dict(R=KP_S2, L=(-KP_S2[0], -KP_S2[1], 1, 'up')), 7: dict(R=stances.GA['R'], L=stances.GA['L'])},
-       anchored={2: [('Smane1', 'head', 0, 0, {'behind': True})], 3: [('Smane3', 'head', 0, -1, {'behind': True})], 4: [('Smane4', 'head', 0, -1, {'behind': True})],
-                 5: [('Smane3b', 'head', 0, -1, {'behind': True})], 6: [('Smane2', 'head', 0, 0, {'behind': True})], 7: [('Smane1', 'head', 0, 0, {'behind': True, 'alpha': {'R': 140, 'O': 170}})]})),
+       anchored={2: [('mane1', 'head', 0, 0, {'behind': True})], 3: [('mane3', 'head', 0, -1, {'behind': True})], 4: [('mane4', 'head', 0, -1, {'behind': True})],
+                 5: [('mane3b', 'head', 0, -1, {'behind': True})], 6: [('mane2', 'head', 0, 0, {'behind': True})], 7: [('mane1', 'head', 0, 0, {'behind': True, 'alpha': {'R': 140, 'O': 170}})]})),
  'sunPalm': ('Sun Palm', 4,
   'Sun Palm (Leo taijutsu strike: channels radiant energy into the palm, scorching whoever it touches, Burn 2 rounds): from the guard the fighter draws the rear hand back low beside the hip, palm open and turned forward, and a small sun kindles in it, white-hot at the heart, swelling and throwing out rays over two held frames while flame swirls up round the arm (v2, Christopher 2026-10-27: more fx); then it steps in and drives the open palm straight out at chest height, and the sun bursts on contact in a white-hot flash and a white-gold starburst with rays flashing out, a fire shock ring blasting out with cracks, then a broken ring of flame, flame licks and scattering embers; it settles back into the guard.', [
      g(),
@@ -380,20 +383,18 @@ CLIPS = {
                  7: [('sunOrb3', 'hand', 1, 0), ('embers', 'hand', -29, -3)], 8: [('sunOrb2', 'hand', 1, 0)], 9: [('embers', 'hand', 6, -3), ('embers', 'hand', 12, 2)]},
        beam={5: (5, 'fire'), 6: (5, 'fire'), 7: (4, 'fire'), 8: (3, 'fade')})),
  'radiance': ('Radiance', 3,
-  'Radiance (Leo ninjutsu stance buff: the fighter focuses its regal aura and it strengthens it as it radiates from the body, STR +10% for 3 rounds), v3 (Christopher 2026-10-27: like a powering-up pose, reference a fighter facing the viewer, fists clenched at its sides, a towering spiky aura erupting from the ground round it): from the guard the fighter makes the seal at the chin, eyes closed; then it turns square to the viewer (every facing turns S, as Blast Wave), plants its feet and drives both clenched fists down at its sides, elbows bent, straining; a towering aura of golden light erupts from the ground round it, white-hot at the core, pale gold and gold through the body, orange at the tips of tall jagged spikes fanning up and out, a ring of light flaring on the floor at its feet; the aura roars and flickers as it holds the yell, then settles, the fighter turns back into the guard still radiant: a 2 px gold aura and motes of light drifting up off the body (the testbed keeps that look on every state until the buff ends).', [
+  'Radiance (Leo ninjutsu stance buff: the fighter focuses its regal aura and it strengthens it as it radiates from the body, STR +10% for 3 rounds), v4 (Christopher 2026-10-27: see it E facing; v3 turned to the viewer, after a power-up reference: fists clenched at the sides, a towering spiky aura erupting from the ground): the fighter keeps its facing; from the guard it makes the seal at the chin, eyes closed; then it sinks into its stance and drives both clenched fists down beside the hips, elbows flared back, straining; a towering aura of golden light erupts from the ground round it, white-hot at the core, pale gold and gold through the body, orange at the tips of tall jagged spikes fanning up and out, a ring of light flaring on the floor at its feet; the aura roars and flickers as it holds the yell, then settles, the fighter rises back into the guard still radiant: a 2 px gold aura and motes of light drifting up off the body (the testbed keeps that look on every state until the buff ends).', [
      g(),
      g(an=U.SEAL_N, af=U.SEAL_F, bob=(1, 1, 1), lean=(0, 0)),
-     g(bob=(2, 2, 2), **LOW),
-     g(bob=(2, 2, 2), **LOW), g(bob=(2, 2, 2), **LOW), g(bob=(2, 2, 2), **LOW), g(bob=(2, 2, 2), **LOW), g(bob=(2, 2, 2), **LOW),
+     *[g(an=FLEX_N, af=FLEX_F, bob=(2, 2, 2), lean=(0, -1), **LOW) for _ in range(6)],
      g(),
      g(), g()],
   [None, 'closed', 'strain', 'roar', 'roar', 'roar', 'strain', 'strain', None, None, None],
   [0, 1, 1, 2, 3, 3, 3, 2, 2, 2, 2],
   dict(fps=10, auraColors=('#ffe14d', '#ff8a1c'),
-       front={2: dict(R=PU_S, L=(-PU_S[0], -PU_S[1], 1, 'up')), **{k: dict(R=PU_S, L=(-PU_S[0], -PU_S[1], 1, 'up')) for k in (3, 4, 5, 6, 7)}, 8: dict(R=stances.GA['R'], L=stances.GA['L'])},
        extra={'linger': {'rule': 'Radiance (Christopher 2026-10-27: a lingering aura for the duration of the ability): the clip ends still radiant; for the 3 rounds the buff lasts the testbed keeps drawing the fighter with a 2 px gold aura flickering on its outer ring and two or three gold motes drifting up off the shoulders and head, on every state it plays (the erupting aura is only in the cast); clears when the buff ends', 'aura': 2, 'auraColors': ['#ffe14d', '#ff8a1c'], 'motes': {'pattern': 'lightMote', 'colors': ['#ffffff', '#ffe14d', '#ff8a1c'], 'perFrame': 3}}},
        anchored={1: [('sunOrb1', 'hand', 0, -1)], 9: [('lightMote', 'head', -6, 4), ('lightMote', 'head', 7, 10), ('lightMote', 'head', 2, -9)], 10: [('lightMote', 'head', -7, 0), ('lightMote', 'head', 6, 6), ('lightMote', 'head', -2, -11)]},
-       flare={2: 0, 3: 2, 4: 3, 5: 3, 6: 3, 7: 2, 8: 1})),
+       flare={'every': True, 2: 0, 3: 2, 4: 3, 5: 3, 6: 3, 7: 2, 8: 1})),
  'supernova': ('Supernova', 6,
   'Supernova (Leo ninjutsu ultimate: the fighter channels its inner light and releases an instant blinding detonation round itself, wide AoE on self, Blind 1 round), the Leo ultimate (longer and more dramatic, like Meteor): from the guard the fighter makes the seal and sinks deep, straining, while motes of light stream in toward it from all round and a gold aura swells; it turns to face the viewer (every facing turns S for the release, as Blast Wave) with the seal pressed to the chest and a star kindling at its heart, the whole body beginning to glow; then it throws its arms out wide and the light detonates: a white flash swallows the fighter and the whole cell, then a ring of light blasts outward, white, then yellow, orange and red as it widens and breaks up, a second ring behind it and sun rays scattering, embers raining down; the glow drains off the body, it brings the hands back in and turns back into the guard.', [
      g(),
@@ -463,11 +464,12 @@ def spec(state):
     x = CLIPS[state][6]; s = load(D + state + '.json')
     for k, v in (x.get('extra') or {}).items(): s[k] = v
     if x.get('shapes'): s['expressions']['shapes'].update(copy.deepcopy(x['shapes']))
-    if x.get('front'):   # the fighter turns to face S for part of the clip (Blast Wave v2): every facing plays the S frames there
+    if x.get('front') or {'roar', 'strain'} & set(CLIPS[state][4]):   # roar/strain faces (S shapes used by the turn, E for all)
         s['expressions']['shapes']['roar'] = {'E': copy.deepcopy(s['expressions']['shapes']['pain']['E']),
             'S': [[0, 1, '#000000'], [1, 1, '#000000'], [5, 1, '#000000'], [6, 1, '#000000'], [2, 3, '#000000'], [3, 3, '#000000'], [4, 3, '#000000'], [2, 4, '#000000'], [3, 4, '#70241d'], [4, 4, '#000000']]}   # eyes squeezed, mouth open in a yell (mid-face, clear of the chin)
         s['expressions']['shapes']['strain'] = {'E': copy.deepcopy(s['expressions']['shapes']['pain']['E']),
             'S': [[0, 1, '#000000'], [1, 1, '#000000'], [5, 1, '#000000'], [6, 1, '#000000'], [2, 4, '#000000'], [3, 4, '#000000'], [4, 4, '#000000']]}   # eyes squeezed, teeth clenched
+    if x.get('front'):   # the fighter turns to face S for part of the clip (Blast Wave v2): every facing plays the S frames there
         s['facingOverride'] = {'rule': 'Christopher 2026-10-27: the fighter turns to face S (toward the viewer) for these frames whatever its facing; every row holds the S frame there (the rows are copied after the render), then it turns back', 'frames': sorted(x['front']), 'to': 'S'}
     save(s, D + state + '.json')
     if x.get('front'):
@@ -977,9 +979,11 @@ def flare(state, frames, aura=False):
     only outside the figure on the S row, then copied to every row (all rows show the S frame there)"""
     import random
     from PIL import ImageFilter, Image
-    fx = _open_fx(state, aura); px = fx.load(); dirs = load(D + state + '.json')['directions']; rs = dirs.index('S')
+    fx = _open_fx(state, aura); px = fx.load(); dirs = load(D + state + '.json')['directions']
     W_, P_, Y, O = (255, 255, 255, 255), (255, 243, 176, 255), _hexc(ELEMENT['Y']), _hexc(ELEMENT['O'])
-    for k, st in frames.items():
+    every = isinstance(frames, dict) and frames.get('every')   # v4 (E-facing): drawn round each row's own figure, no turn
+    if every: frames = {k: v for k, v in frames.items() if k != 'every'}
+    for k, st, rs in [(k, st, r_) for k, st in frames.items() for r_ in (range(len(dirs)) if every else [dirs.index('S')])]:
         fig = _fig(state, k, rs); rnd = random.Random(k * 23)
         m = Image.new('L', (64, 64)); mp = m.load()
         for (x, y) in fig: mp[x, y] = 255
@@ -1021,6 +1025,7 @@ def flare(state, frames, aura=False):
                 th = math.radians(tt); x, y = cx + rx * math.cos(th), 62 + 2 * math.sin(th)
                 P(x, y, Y if math.sin(th) > 0 else O)
                 if tt % 9 == 0: P(x, y - 1, P_)
+        if every: continue
         cell = fx.crop((k * 64, rs * 64, k * 64 + 64, rs * 64 + 64))
         for r in range(len(dirs)):
             if r != rs: fx.paste(cell, (k * 64, r * 64))
