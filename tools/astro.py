@@ -149,6 +149,11 @@ U.POSES += [U.kleg('lk-axe-top', (34, 39), (38, 31), (41, 22), 'pointUR'),    # 
             U.kleg('lk-axe-chop', (34, 40), (41, 38), (48, 37), 'pointFwd'),   # heel chopping down through shoulder height
             U.kleg('lk-axe-down', (34, 41), (40, 46), (45, 52), 'toe30k')]     # driven down, foot about to land in front
 TUCK_SPIN_N, TUCK_SPIN_F = band(-20, 212), band(-45, 222)   # arms tucked tight for the pirouette (as the Whirlwind Kick)
+U.POSES += [kleg('st-vn', (33, 42), (40, 49), (46, 55), 'pointDR'), kleg('st-vf', (31, 42), (24, 49), (18, 55), 'pointDL'),   # Spinning Top (drawn upright, then turned over): legs flung wide in a V
+            kleg('st-tn', (33, 42), (41, 48), (37, 41), 'pointUL'), kleg('st-tf', (31, 42), (38, 49), (33, 42), 'pointUL'),   # knees tucked (turned over: knees bent over the face, entering and leaving the spin)
+            kleg('st-nn', (33, 42), (34, 50), (34, 57), 'toe30k'), kleg('st-nf', (31, 42), (30, 50), (30, 57), 'toe30k')]       # legs swept together (the V seen edge-on mid-turn)
+ST_V, ST_N, ST_T = dict(ln='st-vn', lf='st-vf'), dict(ln='st-nn', lf='st-nf'), dict(ln='st-tn', lf='st-tf')
+ST_AN, ST_AF = band(-135, -170), band(140, 172)   # (upright) hands up beside the head: turned over they brace on the floor by the head
 SPIN = lambda d, f: {'state': 'spinPivot', 'dir': d, 'frame': f, 'dx': 2}
 
 CLIPS = {
@@ -448,6 +453,21 @@ CLIPS = {
                (10, [('flame2', [47, 41]), ('flame1', [46, 34]), ('pflame2', [42, 30]), ('flame1', [40, 25])]),
                (11, [('flame3', [43, 56]), ('pflame2', [48, 54]), ('flame2', [44, 47]), ('pembers', [50, 46]), ('embers', [38, 50])]),
                (12, [('embers', [44, 60]), ('pembers', [49, 58])])]))),
+ 'spinningTop': ('Spinning Top', 6,
+  'Spinning Top (Sagittarius taijutsu strike, Physical 8, Melee, target Chakra -15: the fighter spins on its head while twirling its legs in a wide V fast enough to ignite the air): from the guard the fighter drops into a crouch and dives forward onto its hands and head, kicking its legs up together; turned upside down on its head with both hands braced on the floor beside it, it throws its legs open into a wide V and spins, the V flashing open and closed as it turns (open, edge-on, open from behind, edge-on), the air at its whirling feet catching fire: flames streaming off both feet, a ring of fire whirling round the V at foot height with black and purple licks in it, sparks round its head on the floor; it snaps the legs together, rolls back down into the crouch and rises into the guard.', [
+     g(),
+     g(an=band(-40, -80), af=band(-30, -70), bob=(2, 2, 3), lean=(1, 4), **LOW),
+     g(an=band(-25, -40), af=band(-15, -35), bob=(3, 3, 3), lean=(2, 6), **BRACE),
+     g(an=ST_AN, af=ST_AF, bob=(0, 0, 0), lean=(0, 0), **ST_T),
+     *[g(an=ST_AN, af=ST_AF, bob=(0, 0, 0), lean=(0, 0), **(ST_V if k % 2 == 0 else ST_N)) for k in range(9)],
+     g(an=ST_AN, af=ST_AF, bob=(0, 0, 0), lean=(0, 0), **ST_T),
+     g(an=band(-25, -40), af=band(-15, -35), bob=(3, 3, 3), lean=(1, 4), **BRACE),
+     g()],
+  [None, None, 'squint'] + ['squint'] * 11 + ['squint', None],
+  None,
+  dict(fps=12, hitbox=[14, 0, 36, 40], damage='light', rm='none (spins in place)',
+       invert={3: 0, 4: 0, 5: 0, 6: 1, 7: 1, 8: 0, 9: 0, 10: 1, 11: 1, 12: 0, 13: 0},
+       topFire={3: 0, 4: 1, 5: 2, 6: 2, 7: 2, 8: 2, 9: 2, 10: 2, 11: 2, 12: 1, 13: 0})),
  'flowDodge': ('Flow Dodge', 3,
   'Flow Dodge (Sagittarius taijutsu stance buff: the fighter enters a dance-like trance and begins to swing and sway to its own rhythm): from the guard the fighter shakes its arms loose and lets the guard drop low and easy, eyes half closed, catching a beat; then it sways to its own rhythm: rocking back and forward on its feet and dipping on the knees, shoulders rolling, the loose hands swinging opposite to the hips, a flickering fire aura breathing round it on the beat with a few black and purple wisps rising off the shoulders; on the last beat it snaps its eyes open and settles into a loose, low guard (the testbed keeps the stance).', [
      g(),
@@ -525,6 +545,7 @@ def spec(state):
 
 def fx(state):
     x = CLIPS[state][6]
+    if x.get('invert'): invert(state, x['invert'])
     if CLIPS[state][5]: U.CLIPS[state] = CLIPS[state]; U.aura(state)
     if x.get('blur'):
         from PIL import Image
@@ -580,6 +601,11 @@ def fx(state):
         f_ = D + state + '/fx.png'
         if not os.path.exists(f_): Image.new('RGBA', Image.open(D + state + '/body.png').size).save(f_)
         spinFire(state, x['spinFire'])
+    if x.get('topFire'):
+        from PIL import Image
+        f_ = D + state + '/fx.png'
+        if not os.path.exists(f_) or 'fx' not in load(D + state + '.json'): Image.new('RGBA', Image.open(D + state + '/body.png').size).save(f_)
+        topFire(state, x['topFire'])
     if any(x.get(n) for n in ('rays', 'beam', 'cone', 'gather', 'nova', 'flare')):   # Leo sunlight fx, drawn over what is already there
         from PIL import Image
         f_ = D + state + '/fx.png'
@@ -591,6 +617,39 @@ def fx(state):
         f = D + state + '/fx.png'; top = Image.open(f).convert('RGBA')   # blur + splash so far
         ghosts(state, x['ghosts'], x['ghostColors'])
         g_ = Image.open(f).convert('RGBA'); g_.alpha_composite(top); g_.save(f)   # streaks and flames stay over the afterimages
+
+def invert(state, frames):
+    """Spinning Top: the rig has no upside-down pose, so these frames are drawn upright (hands up by the head, legs down in
+    a V) and every figure layer's cell is turned over (rotated 180 degrees: two quarter turns) after the render, the head
+    set on the floor. A 180 turn also mirrors the facing, so each row takes the opposite row's cell (it then faces its own
+    way); frames = {k: back} with back=1 taking its own row's cell instead (seen from behind mid-spin), or {k: (1, -90)}
+    for a quarter turn (the dive onto the head and the roll back out: the body laid flat, head toward the facing, on the
+    floor; W turns the other way). Runs once per render
+    (a marker holds the turned body.png's hash)."""
+    from PIL import Image
+    import hashlib
+    d = D + state + '/'; mk = d + '.inverted'
+    h_ = lambda: hashlib.md5(open(d + 'body.png', 'rb').read()).hexdigest()
+    if os.path.exists(mk) and open(mk).read() == h_(): return
+    dirs = load(D + state + '.json')['directions']; body = Image.open(d + 'body.png').convert('RGBA')
+    shift = {}
+    for k, back in frames.items():
+        for r in range(len(dirs)):
+            back_, deg = back if isinstance(back, tuple) else (back, 180)
+            if deg != 180 and dirs[r] == 'W': deg = -deg
+            src = r if back_ else (len(dirs) - 1 - r if set(dirs) == {'E', 'W'} else r)
+            b = body.crop((k * 64, src * 64, k * 64 + 64, src * 64 + 64)).rotate(deg); bb = b.getbbox()
+            dx = 0 if deg == 180 else 32 - (bb[0] + bb[2]) // 2
+            shift[k, r] = (src, deg, dx, 63 - bb[3] + 1)   # the lowest body row (the head's top when turned over) rests on row 63
+    for f in os.listdir(d):
+        if not f.endswith('.png') or f == 'fx.png': continue
+        im = Image.open(d + f).convert('RGBA'); src_im = im.copy()
+        for (k, r), (src, deg, dx, dy) in shift.items():
+            cell = src_im.crop((k * 64, src * 64, k * 64 + 64, src * 64 + 64)).rotate(deg)
+            out = Image.new('RGBA', (64, 64)); out.paste(cell, (dx, dy))
+            im.paste(out, (k * 64, r * 64))
+        im.save(d + f)
+    open(mk, 'w').write(h_()); print(state, 'invert', sorted(frames))
 
 def _arm(state, k, r, layer='arms.png'):
     from PIL import Image
@@ -1184,6 +1243,49 @@ def spinFire(state, frames):
                     px[k * 64 + x, r * 64 + y] = c
                     if deg % 30 == 0 and st >= 1 and y - 2 >= 0: px[k * 64 + x, r * 64 + y - 1] = O; px[k * 64 + x, r * 64 + y - 2] = R_ if deg % 60 else P   # tongues of flame licking up
     fx.save(f_); print(state, 'spinFire', list(frames))
+
+def topFire(state, frames):
+    """Spinning Top (turned over, spinning on the head): frames = {k: stage} (0 entry / exit embers, 1 a ring half swept,
+    2 the full whirl). The feet are the highest figure pixels (one per side of the V when it is open); flames burst off
+    each foot (alternating shapes so they flicker, a black/purple flame every other frame), a flat ring of fire whirls
+    round the legs at foot height (yellow, orange, red rings with purple and black licks, its far half behind the legs,
+    the swept part advancing each frame), and sparks scatter on the floor round the head"""
+    from PIL import Image
+    f_ = D + state + '/fx.png'; fx = Image.open(f_).convert('RGBA'); px = fx.load(); dirs = load(D + state + '.json')['directions']
+    Y, O, R_, P, K = (_hexc(ELEMENT[c]) for c in 'YORPK')
+    def stamp(k, r, name, cx, cy, flip):
+        pat = NPAT[name]; h, w = len(pat), len(pat[0]); x0, y0 = round(cx - (w - 1) / 2), round(cy - (h - 1) / 2)
+        for yy, row in enumerate(pat):
+            for xx, ch in enumerate(row[::-1] if flip else row):
+                X, Y_ = x0 + xx, y0 + yy
+                if ch != '.' and 0 <= X < 64 and 0 <= Y_ < 64: px[k * 64 + X, r * 64 + Y_] = _hexc(NPAL[ch])
+    for k, st in frames.items():
+        for r, fd in enumerate(dirs):
+            if fd not in ('E', 'W'): continue
+            fig = _fig(state, k, r); flip = fd == 'W'; sg = -1 if flip else 1
+            cx = (min(x for x, _ in fig) + max(x for x, _ in fig)) / 2; top = min(y for _, y in fig)
+            l = [q for q in fig if q[0] < cx - 4]; rr = [q for q in fig if q[0] > cx + 4]
+            wide = l and rr and min(y for _, y in l) < top + 4 and min(y for _, y in rr) < top + 4
+            feet = [min(l, key=lambda q: q[1]), min(rr, key=lambda q: q[1])] if wide else [min(fig, key=lambda q: q[1])]
+            if st == 0:
+                for fx_, fy in feet: stamp(k, r, 'embers', fx_, fy - 2, flip)
+                stamp(k, r, 'embers', cx - 7, 60, flip); continue
+            cy = top + 5; rx, ry = (17 if wide else 12), 3
+            sweep = 200 if st == 1 else 360; a0 = (k * 97) % 360
+            for ring in range(3):
+                for t in range(sweep * 2):
+                    th = math.radians(a0 + t / 2); x = round(cx + sg * (rx + ring) * math.cos(th)); y = round(cy + (ry + ring) * math.sin(th) - ring)
+                    if not (0 <= x < 64 and 0 <= y < 64): continue
+                    if math.sin(th) < 0 and (x, y) in fig: continue
+                    if st == 1 and t < sweep and (x + y + t) % 2: continue   # the tail of a part-swept ring breaks up
+                    deg = int(a0 + t / 2); c = (Y, O, R_)[ring]
+                    if deg % 45 < 6: c = P if ring == 0 else K
+                    px[k * 64 + x, r * 64 + y] = c
+                    if deg % 36 == 0 and y - 2 >= 0: px[k * 64 + x, r * 64 + y - 1] = O; px[k * 64 + x, r * 64 + y - 2] = R_ if deg % 72 else P   # tongues licking up off the ring
+            for i, (fx_, fy) in enumerate(feet):
+                stamp(k, r, ('flame3', 'flame2')[(k + i) % 2] if (k + i) % 3 else 'pflame2', fx_, fy - 3, flip)
+            stamp(k, r, 'embers' if k % 2 else 'pembers', cx + 8, 60, flip); stamp(k, r, 'pembers' if k % 2 else 'embers', cx - 8, 60, flip)   # sparks on the floor round the head
+    fx.save(f_); print(state, 'topFire', list(frames))
 
 def nova(state, frames, aura=False):
     """Supernova release, facing S (every row shows the S frame here): 'core' a star kindling at the chest and the body glowing;
