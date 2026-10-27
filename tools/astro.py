@@ -39,30 +39,39 @@ NPAT.update({
 FIRE_AURA = ('#ffb12e', '#e0401c')   # orange next to the body, red outside
 FIRE_TRAIL = {(255, 255, 255): (0xff, 0xd2, 0x3f), (0xe3, 0xe3, 0xe3): (0xff, 0x7a, 0x1c)}   # motion-blur streak recoloured: yellow inner half, orange tail
 
+SPRINT = load(D + 'sprint.json')   # the approved sprint: stride, lean and swept-back arms reused by Mach Lunge
+SPRINT_LEGS = [p['name'] for p in SPRINT['legs']['poses']]
+U.POSES += [{**p, 'name': 'sr-' + p['name']} for p in SPRINT['legs']['poses']]
+SPRINT_N, SPRINT_F, SPRINT_DY = SPRINT['arms']['near'], SPRINT['arms']['far'], SPRINT['bob']['dy']
+def _foot(p):   # bottom-left anchor for a flame burst at a sprint foot: on the floor when planted, at the raised foot otherwise
+    q = SPRINT['legs']['poses'][SPRINT_LEGS.index(p)]
+    return [q['footX'] - 3, 63 if q['wrapRow'] >= 56 else q['wrapRow'] + 6]
+def _burst(p, k):   # a big flame on each foot, plus a lick trailing off the back of a planted foot; alternating shapes flicker
+    at = _foot(p); big = ('flame3', 'flame2')[k % 2]
+    return [(big, at)] + ([('flame2' if k % 2 else 'flame1', [at[0] - 5, 63])] if at[1] == 63 else [])
+FOOT_FLAMES = [_burst(SPRINT_LEGS[k], k) + _burst(SPRINT_LEGS[(k + 4) % 8], k + 1) for k in range(6)]
 PUNCH = band(-92, -92)                  # straight arm at shoulder height
 CHAMBER = band(75, -150)                # rear fist drawn back by the ear, elbow high behind
 TUCK_N, TUCK_F = band(-35, 200), band(-50, 215)   # arms tucked tight to the chest for the shoulder charge
 FLEX_N, FLEX_F = band(50, -20), band(40, -15)     # elbows flared back, clenched fists low beside the hips (power surge)
 
 CLIPS = {
- 'machLunge': ('Mach Lunge', 4,
-  'Mach Lunge (Aries taijutsu, Priority gap closer, burns the target): from the guard the fighter dips into a sprinter crouch, then explodes off the rear foot, tucking both arms tight and lowering the lead shoulder; it rockets forward low, a yellow-orange heat streak trailing off its back and flame licks peeling off the shoulder, lands a long step on and drives the shoulder into the target with a flare of flame at the point of contact; then settles back into the guard. The fighter travels 18 px over the clip (the game moves it by that distance).', [
+ 'machLunge': ('Mach Lunge', 9,
+  'Mach Lunge (Aries taijutsu, Priority gap closer, burns the target), v4 (Christopher 2026-10-27: the sprint instead of a single hop, flames around the feet; afterimages for speed): from the guard the fighter dips, then breaks into the approved sprint (the same stride, lean and swept-back arms), flames bursting around the feet at every step and fire-tinted afterimages trailing behind; on the last stride it tucks both arms tight, plants the lead foot and drives the lead shoulder into the target with a flare of flame at the point of contact; then settles back into the guard. The fighter travels 40 px over the clip (the game moves it by that distance).', [
      g(),
-     g(an=band(-25, 205), af=band(-40, 215), bob=(3, 3, 3), lean=(1, 4), ln='ml-dip-rear', lf='ml-dip-lead'),
-     g(an=TUCK_N, af=TUCK_F, bob=(1, 1, 1), lean=(2, 7), root=(6, 0), ln='ml-fly-rear', lf='ml-fly-lead'),
-     g(an=TUCK_N, af=TUCK_F, bob=(1, 1, 1), lean=(2, 8), root=(6, 0), ln='ml-fly-rear', lf='ml-fly-lead'),
-     g(an=TUCK_N, af=TUCK_F, bob=(2, 2, 2), lean=(2, 7), root=(4, 0), ln='ml-trail-rear', lf='ml-plant-lead'),
+     g(an=band(-25, 205), af=band(-40, 215), bob=(3, 3, 3), lean=(1, 4), ln='ml-dip-rear', lf='ml-dip-lead')] + [
+     g(an=SPRINT_N[k], af=SPRINT_F[k], bob=(SPRINT_DY[k],) * 3, lean=(1, 8), root=(6, 0), ln='sr-' + SPRINT_LEGS[k], lf='sr-' + SPRINT_LEGS[(k + 4) % 8]) for k in range(6)] + [
+     g(an=TUCK_N, af=TUCK_F, bob=(2, 2, 2), lean=(2, 7), root=(3, 0), ln='ml-trail-rear', lf='ml-plant-lead'),
      g(an=TUCK_N, af=TUCK_F, bob=(2, 2, 2), lean=(2, 6), root=(1, 0), ln='ml-trail-rear', lf='ml-plant-lead'),
-     g(an=band(-25, 208), af=band(-45, 220), bob=(1, 1, 2), lean=(1, 3), root=(1, 0)),
+     g(an=band(-25, 208), af=band(-45, 220), bob=(1, 1, 2), lean=(1, 3)),
      g()],
-  [None, 'squint', 'squint', 'squint', 'squint', 'squint', None, None],
+  [None, 'squint'] + ['squint'] * 6 + ['squint', 'squint', None, None],
   None,
-  dict(fps=12, hitbox=[42, 24, 14, 16], damage='light', rm='E: 18 px forward over the dash (travel)',
-       blur={2: 5, 3: 7, 4: 4}, trail=FIRE_TRAIL, ghosts={2: (5, 10), 3: (6, 12, 18), 4: (5, 10), 5: (4,)}, ghostColors=(('#ff8a1c', '#ffe14d'), ('#d8321a', '#ff8a1c'), ('#d8321a', None)),
-       fx=nfx('fire flame (reds, oranges, yellows): licks peeling off the lead shoulder in flight, a flare where the shoulder lands',
-              [(2, [('flame2', [28, 23]), ('heat', [24, 27])]), (3, [('flame3', [26, 23]), ('flame1', [24, 28])]),
-               (4, [('flame3', [47, 32]), ('flame1', [33, 22])]), (5, [('flame2', [49, 30]), ('embers', [46, 24])]), (6, [('embers', [48, 24])])]),
-       extra={'airborneFrames': [2, 3], 'travel': {'rule': 'Mach Lunge is a gap closer: the fighter ends the clip 18 px further forward (sum of rootMotion); the game moves the fighter by that distance', 'E': 18}})),
+  dict(fps=12, hitbox=[42, 24, 14, 16], damage='light', rm='E: 6 px a stride through the sprint (as the sprint), +3 and +1 into the shoulder check; 40 px in all (travel)',
+       ghosts={k: (6, 12) for k in range(2, 8)} | {8: (5, 10), 9: (4,)}, ghostColors=(('#ff8a1c', '#ffe14d'), ('#d8321a', None)),
+       fx=nfx('fire flame (reds, oranges, yellows): flames bursting around the feet at every stride, a flare where the shoulder lands',
+              [(k, FOOT_FLAMES[k - 2]) for k in range(2, 8)] + [(8, [('flame3', [47, 32]), ('flame1', [40, 63])]), (9, [('flame3', [48, 31]), ('embers', [45, 24])]), (10, [('embers', [48, 24])])]),
+       extra={'airborneFrames': [5], 'travel': {'rule': 'Mach Lunge is a gap closer: the fighter ends the clip 40 px further forward (sum of rootMotion); the game moves the fighter by that distance', 'E': 40}})),
  'shatterPunch': ('Shatter Punch', 4,
   'Shatter Punch (Aries taijutsu, Guard Break, can stun): from the guard the fighter sits its weight back and draws the rear fist far back beside the ear, elbow high, the lead hand reaching out to measure; holds the load a beat, then steps in and fires the rear fist dead straight through the target with the whole body behind it, rear heel turning up; a yellow-orange crack bursts out from the fist on contact and shards fly; it holds the extension a beat, then pulls back into the guard.', [
      g(),
@@ -120,12 +129,12 @@ def fx(state):
                     q = px[xx, yy]
                     if q[3] and q[:3] in x['trail']: px[xx, yy] = x['trail'][q[:3]] + (255,)
             b.save(f)
+        if old: new = Image.open(f).convert('RGBA'); new.alpha_composite(old); new.save(f)
     if x.get('ghosts'):
         from PIL import Image
         f = D + state + '/fx.png'; top = Image.open(f).convert('RGBA')   # blur + splash so far
         ghosts(state, x['ghosts'], x['ghostColors'])
         g_ = Image.open(f).convert('RGBA'); g_.alpha_composite(top); g_.save(f)   # streaks and flames stay over the afterimages
-        if old: new = Image.open(f).convert('RGBA'); new.alpha_composite(old); new.save(f)
 
 def ghosts(state, offs, cols):
     """after the blur: afterimages (Christopher 2026-10-27: onion/afterimage effects to exaggerate the speed). On each
