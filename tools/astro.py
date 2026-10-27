@@ -27,7 +27,7 @@ ELEMENT = {'Y': '#ffe14d', 'O': '#ff8a1c', 'R': '#d8321a',               # fire:
            'K': '#1c1024', 'P': '#9b45ff', 'p': '#55208f',                # Sagittarius: black flame with purple
            'E': '#8a6236', 'e': '#c79a5b', 'C': '#7fe3d0', 'c': '#d9fff6',  # earth: soil browns, crystal teal / glint
            'A': '#2f7fe0', 'a': '#7cc8ff', 'I': '#dff6ff',                 # water: deep and light water, ice white-blue
-           'M': '#7a1016'}                                                 # fire genjutsu: dark crimson rim of a rage wave
+           'M': '#7a1016', 'm': '#2a0406'}                                 # m: near-black blood red, the fill of the Killing Intent demon                                                 # fire genjutsu: dark crimson rim of a rage wave
 NPAL.update(ELEMENT)
 
 def _halo(n, cx=35, cy=5, rx=7, ry=2, motes=3):   # motes circling over the head, a full turn every n frames: bright in front of the head, dark crimson behind
@@ -64,6 +64,9 @@ NPAT.update({
     'runeHot': ['...YWY...', '.YW.O.WY.', 'YW.OYO.WY', '.YW.O.WY.', '...YWY...'], 'runeLit': ['...OYO...', '.OR.Y.RO.', 'OR.YOY.RO', '.OR.Y.RO.', '...OYO...'],
     'rage1': _arc(4, 2, 'RO'), 'rage2': _arc(7, 3, 'MRO'), 'rage3': _arc(10, 4, 'MRY'), 'rage4': _arc(13, 5, 'MRO'),
     'rage4d': _arc(13, 5, 'MR', gap=2), 'rage5d': _arc(15, 6, 'M', gap=3),
+    'oni': ['M.................M', 'MM...............MM', '.MM.............MM.', '.MmM...MMMMM...MmM.', '..MmMMMmmmmmMMMmM..', '..MmmmmmmmmmmmmmM..', '.MmmmmmmmmmmmmmmmM.', '.MmmRRmmmmmmmRRmmM.', 'MmmmmYRmmmmmRYmmmmM', 'MmmmmmmmmmmmmmmmmmM', 'MmmmmmmmMmMmmmmmmmM', '.MmmmmmmmmmmmmmmmM.', '.MmRmRmRmRmRmRmRmM.', '.MmmRYRYRYRYRYRmmM.', '..MmmRmRmRmRmRmmM..', '...MmmmmmmmmmmmM...', '....MMmmmmmmmMM....', '......MMMMMMM......'],   # Killing Intent: a horned demon face looming behind the fighter, glowing eyes and a fanged grin
+    'oniFaint': ['M.................M', 'MM...............MM', '.MM.............MM.', '.M.M...MMMMM...M.M.', '..M.MMM.....MMM.M..', '..M.............M..', '.M...............M.', '.M...............M.', 'M.................M', 'M.................M', 'M.......M.M.......M', '.M...............M.', '.M...............M.', '.M...............M.', '..M.............M..', '...M...........M...', '....MM.......MM....', '......MMMMMMM......'], 'oniEyes': ['...................', '...................', '...................', '...................', '...................', '...................', '...................', '....RR.......RR....', '.....YR.....RY.....', '...................', '...................', '...................', '...R.R.R.R.R.R.R...', '....RYRYRYRYRYR....', '.....R.R.R.R.R.....', '...................', '...................', '...................'],
+    'dread': ['M..M.M..M.M', '.MmMmMmMmM.'],   # dark pressure pooling at the feet
     'ki1': _jag(5, 2, 'MR'), 'ki2': _jag(9, 3, 'MRO'), 'ki3': _jag(13, 4, 'MRO'), 'ki4': _jag(16, 5, 'MR'),
     'moteF': ['.Y.', 'YOR', '.R.'], 'moteB': ['.M.', 'MRM', '.M.'], 'dotM': ['M'],
     'eyeGlint': ['.R.', 'RYR', '.R.'], 'eyeFlare': ['..R..', '.ROR.', 'ROYWO', '.ROR.', '..R..'], 'rageWisp': ['M.R', '.R.', 'RO.'],
@@ -203,29 +206,33 @@ CLIPS = {
                (6, [('eyeGlint', [38, 17]), ('rage4', [51, 28]), ('rage2', [45, 22]), ('rageWisp', [31, 4])]),
                (7, [('rage5d', [56, 30]), ('rage3', [50, 25])]),
                (8, [('rage4d', [57, 28])])]))),
- 'killingIntent': ('Killing Intent', 4,
-  'Killing Intent (Aries genjutsu, mental debuff: the caster focuses its bloodlust and projects it onto the foe, freezing it with fear; Stun 1 round, STR save DC 13; range Zone of Awareness), from the Blind Rage genjutsu template: from the guard the fighter lets both hands fall open and loose to its sides and straightens up tall, head dipped, utterly still; a dark crimson aura seeps up round it and thickens; then it lifts its head and fixes the target: the eyes flare, and jagged shuddering waves of killing intent, dark crimson with a red-orange edge, roll out from it toward the target one after another, each bigger than the last; it holds the stare, the aura heavy and the waves breaking up as they travel, then the aura sinks away and the fighter returns to the guard (the target takes the genjutsu mark, genjutsuAfflicted, for the Stun).', [
+ 'killingIntent': ('Killing Intent', 5,
+  'Killing Intent (Aries genjutsu, mental debuff: the caster focuses its bloodlust and projects it onto the foe, freezing it with fear; Stun 1 round, STR save DC 13; range Zone of Awareness), v2 (Christopher 2026-10-27: more menacing), from the Blind Rage genjutsu template: from the guard the fighter lets both hands fall open and loose to its sides, straightens up tall and dips its head, utterly still; a heavy near-black blood-red aura seeps up round it and thickens, dark pressure pooling at its feet; behind it a horned demon face looms up out of the dark, first a faint outline, then solid, its eyes kindling; the fighter lifts its head with a slow creeping step toward the target and the eyes of both flare together, the demon grinning its fangs, while jagged shuddering waves of killing intent roll out toward the target one after another, each bigger than the last; it holds the stare, then the demon sinks back into the dark, the aura drains away and the fighter steps back into the guard (the target takes the genjutsu mark, genjutsuAfflicted, for the Stun).', [
      g(),
      g(an=band(-10, -25), af=band(5, -10), bob=(0, 0, 1), lean=(0, 0)),
+     g(an=band(-5, -10), af=band(5, 0), bob=(0, -1, 0), lean=(0, 1)),
+     g(an=band(-5, -10), af=band(5, 0), bob=(0, -1, 0), lean=(0, 1)),
+     g(an=band(-5, -10), af=band(5, 0), bob=(0, -1, 0), lean=(0, 1)),
+     g(an=band(-5, -10), af=band(5, 0), bob=(0, -1, 0), lean=(0, -2), root=(1, 0)),    # head lifts, a slow creeping step in
+     g(an=band(-5, -10), af=band(5, 0), bob=(0, -1, 0), lean=(0, -2)),
+     g(an=band(-5, -10), af=band(5, 0), bob=(0, -1, 0), lean=(0, -2), root=(1, 0)),
+     g(an=band(-5, -10), af=band(5, 0), bob=(0, -1, 0), lean=(0, -2)),
      g(an=band(-5, -10), af=band(5, 0), bob=(0, -1, 0), lean=(0, -1)),
-     g(an=band(-5, -10), af=band(5, 0), bob=(0, -1, 0), lean=(0, -1)),
-     g(an=band(-5, -10), af=band(5, 0), bob=(0, -1, 0), lean=(0, -2)),
-     g(an=band(-5, -10), af=band(5, 0), bob=(0, -1, 0), lean=(0, -2)),
-     g(an=band(-5, -10), af=band(5, 0), bob=(0, -1, 0), lean=(0, -2)),
-     g(an=band(-5, -10), af=band(5, 0), bob=(0, -1, 0), lean=(0, -2)),
      g(an=band(-15, -80), af=band(-15, -90), bob=(1, 1, 1), lean=(0, 1)),
-     g()],
-  [None, None, 'squint', 'squint', 'squint', 'squint', 'squint', 'squint', None, None],
-  [0, 0, 1, 2, 3, 3, 3, 2, 1, 0],
-  dict(fps=10, auraColors=('#a01818', '#4a0810'), extra={'targetState': {'rule': 'Christopher 2026-10-27: every genjutsu marks its target; on the active frame the target starts genjutsuAfflicted (fire colours) and keeps it until the Stun ends', 'state': 'genjutsuAfflicted', 'element': 'fire'}},
-       fx=nfx('fire genjutsu: the eyes kindle and flare, dark crimson heat seeping up off the shoulders and head, jagged waves of killing intent rolling out toward the target, each bigger than the last, breaking up as they travel',
-              [(2, [('rageWisp', [30, 7])]),
-               (3, [('eyeGlint', [38, 17]), ('rageWisp', [33, 6]), ('rageWisp', [27, 10])]),
-               (4, [('eyeFlare', [37, 18]), ('ki1', [43, 20]), ('rageWisp', [30, 5]), ('rageWisp', [36, 7])]),
-               (5, [('eyeFlare', [37, 18]), ('ki2', [46, 24]), ('ki1', [43, 20]), ('rageWisp', [32, 4])]),
-               (6, [('eyeGlint', [38, 17]), ('ki3', [51, 28]), ('ki2', [46, 24]), ('rageWisp', [29, 6])]),
-               (7, [('ki4', [56, 31]), ('ki2', [49, 24])]),
-               (8, [('ki4', [59, 31])])]))),
+     g(root=(-2, 0))],
+  [None, None, 'squint', 'squint', 'squint', 'squint', 'squint', 'squint', 'squint', 'squint', None, None],
+  [0, 0, 1, 2, 3, 4, 4, 4, 4, 3, 1, 0],
+  dict(fps=10, rm='E: +1 creeping in on frames 5 and 7, -2 back to the start on the last frame', auraColors=('#7a1016', '#2a0406'), extra={'targetState': {'rule': 'Christopher 2026-10-27: every genjutsu marks its target; on the active frame the target starts genjutsuAfflicted (fire colours) and keeps it until the Stun ends', 'state': 'genjutsuAfflicted', 'element': 'fire'}},
+       fx=nfx('fire genjutsu: dark pressure pooling at the feet, a horned demon face looming up behind the fighter (outline, then solid, eyes kindling, fangs), the eyes flaring, jagged waves of killing intent rolling out toward the target, each bigger than the last; then the demon sinks back into the dark',
+              [(2, [('dread', [27, 63])]),
+               (3, [('oniFaint', [6, 24]), ('dread', [26, 63]), ('rageWisp', [30, 7])]),
+               (4, [('oni', [6, 23]), ('dread', [27, 63]), ('eyeGlint', [38, 17]), ('rageWisp', [27, 10])]),
+               (5, [('oni', [6, 22]), ('dread', [28, 63]), ('eyeFlare', [38, 18]), ('ki1', [44, 20])]),
+               (6, [('oni', [6, 22]), ('dread', [28, 63]), ('eyeFlare', [38, 18]), ('ki2', [47, 24]), ('ki1', [44, 20])]),
+               (7, [('oni', [7, 22]), ('dread', [29, 63]), ('eyeFlare', [39, 18]), ('ki3', [52, 28]), ('ki2', [47, 24])]),
+               (8, [('oni', [7, 22]), ('dread', [29, 63]), ('eyeGlint', [39, 17]), ('ki4', [56, 31]), ('ki3', [52, 28])]),
+               (9, [('oniFaint', [7, 23]), ('oniEyes', [7, 23]), ('ki4', [59, 31])]),
+               (10, [('oniEyes', [7, 24])])]))),
  'genjutsuAfflicted': ('Under Genjutsu', 0,
   'Under Genjutsu (target status, Christopher 2026-10-27: every genjutsu marks its target with an effect showing it is under a genjutsu): the shared looping state the testbed plays on a fighter for as long as any genjutsu holds it, in place of its idle; the guard sags, the hands dropped a little, and the fighter sways slowly on its feet, entranced: the eyes glow the caster\'s element colour, a thin flickering aura in that colour clings to the outline, and three glowing motes circle slowly over the head like a halo, bright passing in front of the head and dark passing behind it; fire version (Aries, Leo, Sagittarius casters: crimson and orange); the testbed recolours it for the other elements.', [
      g(an=band(-15, -105), af=band(-20, -110), bob=(1, 1, 2), lean=(0, 2)),

@@ -3,7 +3,7 @@
   "body": "male",
   "state": "killingIntent",
   "status": "CANDIDATE 2026-10-27 (E/W; W mirrors E; S/N to author after approval)",
-  "frames": 10,
+  "frames": 12,
   "fps": 10,
   "sourceDirection": "E",
   "directions": [
@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Killing Intent (Aries genjutsu, mental debuff: the caster focuses its bloodlust and projects it onto the foe, freezing it with fear; Stun 1 round, STR save DC 13; range Zone of Awareness), from the Blind Rage genjutsu template: from the guard the fighter lets both hands fall open and loose to its sides and straightens up tall, head dipped, utterly still; a dark crimson aura seeps up round it and thickens; then it lifts its head and fixes the target: the eyes flare, and jagged shuddering waves of killing intent, dark crimson with a red-orange edge, roll out from it toward the target one after another, each bigger than the last; it holds the stare, the aura heavy and the waves breaking up as they travel, then the aura sinks away and the fighter returns to the guard (the target takes the genjutsu mark, genjutsuAfflicted, for the Stun).",
+  "intent": "Killing Intent (Aries genjutsu, mental debuff: the caster focuses its bloodlust and projects it onto the foe, freezing it with fear; Stun 1 round, STR save DC 13; range Zone of Awareness), v2 (Christopher 2026-10-27: more menacing), from the Blind Rage genjutsu template: from the guard the fighter lets both hands fall open and loose to its sides, straightens up tall and dips its head, utterly still; a heavy near-black blood-red aura seeps up round it and thickens, dark pressure pooling at its feet; behind it a horned demon face looms up out of the dark, first a faint outline, then solid, its eyes kindling; the fighter lifts its head with a slow creeping step toward the target and the eyes of both flare together, the demon grinning its fangs, while jagged shuddering waves of killing intent roll out toward the target one after another, each bigger than the last; it holds the stare, then the demon sinks back into the dark, the aura drains away and the fighter steps back into the guard (the target takes the genjutsu mark, genjutsuAfflicted, for the Stun).",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -110,6 +110,8 @@
       0,
       0,
       0,
+      0,
+      0,
       1,
       1
     ],
@@ -122,12 +124,16 @@
       -1,
       -1,
       -1,
+      -1,
+      -1,
       1,
       1
     ],
     "arms": [
       2,
       1,
+      0,
+      0,
       0,
       0,
       0,
@@ -152,24 +158,28 @@
         0,
         0,
         0,
+        0,
+        0,
         0
       ],
       "head": [
         2,
         0,
+        1,
+        1,
+        1,
+        -2,
+        -2,
+        -2,
+        -2,
         -1,
-        -1,
-        -2,
-        -2,
-        -2,
-        -2,
         1,
         2
       ]
     }
   },
   "rootMotion": {
-    "rule": "in place",
+    "rule": "E: +1 creeping in on frames 5 and 7, -2 back to the start on the last frame",
     "E": [
       [
         0,
@@ -192,7 +202,15 @@
         0
       ],
       [
+        1,
+        0
+      ],
+      [
         0,
+        0
+      ],
+      [
+        1,
         0
       ],
       [
@@ -208,7 +226,7 @@
         0
       ],
       [
-        0,
+        -2,
         0
       ]
     ],
@@ -234,7 +252,15 @@
         0
       ],
       [
+        -1,
+        0
+      ],
+      [
         0,
+        0
+      ],
+      [
+        -1,
         0
       ],
       [
@@ -250,7 +276,7 @@
         0
       ],
       [
-        0,
+        2,
         0
       ]
     ]
@@ -921,9 +947,13 @@
       1,
       1,
       1,
+      1,
+      1,
       1
     ],
     "far": [
+      0,
+      0,
       0,
       0,
       0,
@@ -1018,6 +1048,22 @@
       },
       {
         "construction": "band",
+        "angle": -5,
+        "elbow": {
+          "at": 8,
+          "angle": -10
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -5,
+        "elbow": {
+          "at": 8,
+          "angle": -10
+        }
+      },
+      {
+        "construction": "band",
         "angle": -15,
         "elbow": {
           "at": 8,
@@ -1048,6 +1094,22 @@
         "elbow": {
           "at": 8,
           "angle": -10
+        }
+      },
+      {
+        "construction": "band",
+        "angle": 5,
+        "elbow": {
+          "at": 8,
+          "angle": 0
+        }
+      },
+      {
+        "construction": "band",
+        "angle": 5,
+        "elbow": {
+          "at": 8,
+          "angle": 0
         }
       },
       {
@@ -1277,6 +1339,8 @@
       "bandFollowsBody": true,
       "sway": {
         "E": [
+          -1,
+          -1,
           -1,
           -1,
           -1,
@@ -1944,7 +2008,9 @@
         6,
         7,
         8,
-        9
+        9,
+        10,
+        11
       ],
       "fps": 10,
       "next": "guard",
@@ -1977,14 +2043,14 @@
       {
         "frame": 4,
         "clip": "killingIntent",
-        "type": "active",
-        "move": "Killing Intent",
-        "buff": true
+        "type": "startup"
       },
       {
         "frame": 5,
         "clip": "killingIntent",
-        "type": "recovery"
+        "type": "active",
+        "move": "Killing Intent",
+        "buff": true
       },
       {
         "frame": 6,
@@ -2003,6 +2069,16 @@
       },
       {
         "frame": 9,
+        "clip": "killingIntent",
+        "type": "recovery"
+      },
+      {
+        "frame": 10,
+        "clip": "killingIntent",
+        "type": "recovery"
+      },
+      {
+        "frame": 11,
         "clip": "killingIntent",
         "type": "recovery"
       }
@@ -2031,14 +2107,14 @@
       {
         "frame": 4,
         "clip": "killingIntent",
-        "type": "active",
-        "move": "Killing Intent",
-        "buff": true
+        "type": "startup"
       },
       {
         "frame": 5,
         "clip": "killingIntent",
-        "type": "recovery"
+        "type": "active",
+        "move": "Killing Intent",
+        "buff": true
       },
       {
         "frame": 6,
@@ -2059,11 +2135,21 @@
         "frame": 9,
         "clip": "killingIntent",
         "type": "recovery"
+      },
+      {
+        "frame": 10,
+        "clip": "killingIntent",
+        "type": "recovery"
+      },
+      {
+        "frame": 11,
+        "clip": "killingIntent",
+        "type": "recovery"
       }
     ]
   },
   "fx": {
-    "rule": "fire genjutsu: the eyes kindle and flare, dark crimson heat seeping up off the shoulders and head, jagged waves of killing intent rolling out toward the target, each bigger than the last, breaking up as they travel",
+    "rule": "fire genjutsu: dark pressure pooling at the feet, a horned demon face looming up behind the fighter (outline, then solid, eyes kindling, fangs), the eyes flaring, jagged waves of killing intent rolling out toward the target, each bigger than the last; then the demon sinks back into the dark",
     "top": true,
     "palette": {
       "#": "#000000",
@@ -2086,7 +2172,8 @@
       "A": "#2f7fe0",
       "a": "#7cc8ff",
       "I": "#dff6ff",
-      "M": "#7a1016"
+      "M": "#7a1016",
+      "m": "#2a0406"
     },
     "patterns": {
       "spark": [
@@ -2780,6 +2867,70 @@
         ".......",
         "M......"
       ],
+      "oni": [
+        "M.................M",
+        "MM...............MM",
+        ".MM.............MM.",
+        ".MmM...MMMMM...MmM.",
+        "..MmMMMmmmmmMMMmM..",
+        "..MmmmmmmmmmmmmmM..",
+        ".MmmmmmmmmmmmmmmmM.",
+        ".MmmRRmmmmmmmRRmmM.",
+        "MmmmmYRmmmmmRYmmmmM",
+        "MmmmmmmmmmmmmmmmmmM",
+        "MmmmmmmmMmMmmmmmmmM",
+        ".MmmmmmmmmmmmmmmmM.",
+        ".MmRmRmRmRmRmRmRmM.",
+        ".MmmRYRYRYRYRYRmmM.",
+        "..MmmRmRmRmRmRmmM..",
+        "...MmmmmmmmmmmmM...",
+        "....MMmmmmmmmMM....",
+        "......MMMMMMM......"
+      ],
+      "oniFaint": [
+        "M.................M",
+        "MM...............MM",
+        ".MM.............MM.",
+        ".M.M...MMMMM...M.M.",
+        "..M.MMM.....MMM.M..",
+        "..M.............M..",
+        ".M...............M.",
+        ".M...............M.",
+        "M.................M",
+        "M.................M",
+        "M.......M.M.......M",
+        ".M...............M.",
+        ".M...............M.",
+        ".M...............M.",
+        "..M.............M..",
+        "...M...........M...",
+        "....MM.......MM....",
+        "......MMMMMMM......"
+      ],
+      "oniEyes": [
+        "...................",
+        "...................",
+        "...................",
+        "...................",
+        "...................",
+        "...................",
+        "...................",
+        "....RR.......RR....",
+        ".....YR.....RY.....",
+        "...................",
+        "...................",
+        "...................",
+        "...R.R.R.R.R.R.R...",
+        "....RYRYRYRYRYR....",
+        ".....R.R.R.R.R.....",
+        "...................",
+        "...................",
+        "..................."
+      ],
+      "dread": [
+        "M..M.M..M.M",
+        ".MmMmMmMmM."
+      ],
       "ki1": [
         "MR..",
         "..MR",
@@ -2925,6 +3076,32 @@
         "frame": 2,
         "splash": [
           {
+            "pattern": "dread",
+            "at": [
+              27,
+              63
+            ]
+          }
+        ]
+      },
+      {
+        "frame": 3,
+        "splash": [
+          {
+            "pattern": "oniFaint",
+            "at": [
+              6,
+              24
+            ]
+          },
+          {
+            "pattern": "dread",
+            "at": [
+              26,
+              63
+            ]
+          },
+          {
             "pattern": "rageWisp",
             "at": [
               30,
@@ -2934,20 +3111,27 @@
         ]
       },
       {
-        "frame": 3,
+        "frame": 4,
         "splash": [
+          {
+            "pattern": "oni",
+            "at": [
+              6,
+              23
+            ]
+          },
+          {
+            "pattern": "dread",
+            "at": [
+              27,
+              63
+            ]
+          },
           {
             "pattern": "eyeGlint",
             "at": [
               38,
               17
-            ]
-          },
-          {
-            "pattern": "rageWisp",
-            "at": [
-              33,
-              6
             ]
           },
           {
@@ -2960,67 +3144,34 @@
         ]
       },
       {
-        "frame": 4,
-        "splash": [
-          {
-            "pattern": "eyeFlare",
-            "at": [
-              37,
-              18
-            ]
-          },
-          {
-            "pattern": "ki1",
-            "at": [
-              43,
-              20
-            ]
-          },
-          {
-            "pattern": "rageWisp",
-            "at": [
-              30,
-              5
-            ]
-          },
-          {
-            "pattern": "rageWisp",
-            "at": [
-              36,
-              7
-            ]
-          }
-        ]
-      },
-      {
         "frame": 5,
         "splash": [
           {
-            "pattern": "eyeFlare",
+            "pattern": "oni",
             "at": [
-              37,
-              18
+              6,
+              22
             ]
           },
           {
-            "pattern": "ki2",
+            "pattern": "dread",
             "at": [
-              46,
-              24
+              28,
+              63
+            ]
+          },
+          {
+            "pattern": "eyeFlare",
+            "at": [
+              38,
+              18
             ]
           },
           {
             "pattern": "ki1",
             "at": [
-              43,
+              44,
               20
-            ]
-          },
-          {
-            "pattern": "rageWisp",
-            "at": [
-              32,
-              4
             ]
           }
         ]
@@ -3029,31 +3180,38 @@
         "frame": 6,
         "splash": [
           {
-            "pattern": "eyeGlint",
+            "pattern": "oni",
             "at": [
-              38,
-              17
+              6,
+              22
             ]
           },
           {
-            "pattern": "ki3",
+            "pattern": "dread",
             "at": [
-              51,
-              28
+              28,
+              63
+            ]
+          },
+          {
+            "pattern": "eyeFlare",
+            "at": [
+              38,
+              18
             ]
           },
           {
             "pattern": "ki2",
             "at": [
-              46,
+              47,
               24
             ]
           },
           {
-            "pattern": "rageWisp",
+            "pattern": "ki1",
             "at": [
-              29,
-              6
+              44,
+              20
             ]
           }
         ]
@@ -3062,16 +3220,37 @@
         "frame": 7,
         "splash": [
           {
-            "pattern": "ki4",
+            "pattern": "oni",
             "at": [
-              56,
-              31
+              7,
+              22
+            ]
+          },
+          {
+            "pattern": "dread",
+            "at": [
+              29,
+              63
+            ]
+          },
+          {
+            "pattern": "eyeFlare",
+            "at": [
+              39,
+              18
+            ]
+          },
+          {
+            "pattern": "ki3",
+            "at": [
+              52,
+              28
             ]
           },
           {
             "pattern": "ki2",
             "at": [
-              49,
+              47,
               24
             ]
           }
@@ -3081,10 +3260,76 @@
         "frame": 8,
         "splash": [
           {
+            "pattern": "oni",
+            "at": [
+              7,
+              22
+            ]
+          },
+          {
+            "pattern": "dread",
+            "at": [
+              29,
+              63
+            ]
+          },
+          {
+            "pattern": "eyeGlint",
+            "at": [
+              39,
+              17
+            ]
+          },
+          {
+            "pattern": "ki4",
+            "at": [
+              56,
+              31
+            ]
+          },
+          {
+            "pattern": "ki3",
+            "at": [
+              52,
+              28
+            ]
+          }
+        ]
+      },
+      {
+        "frame": 9,
+        "splash": [
+          {
+            "pattern": "oniFaint",
+            "at": [
+              7,
+              23
+            ]
+          },
+          {
+            "pattern": "oniEyes",
+            "at": [
+              7,
+              23
+            ]
+          },
+          {
             "pattern": "ki4",
             "at": [
               59,
               31
+            ]
+          }
+        ]
+      },
+      {
+        "frame": 10,
+        "splash": [
+          {
+            "pattern": "oniEyes",
+            "at": [
+              7,
+              24
             ]
           }
         ]
@@ -3249,6 +3494,8 @@
       "E": [
         null,
         null,
+        "squint",
+        "squint",
         "squint",
         "squint",
         "squint",
