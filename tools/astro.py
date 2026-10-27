@@ -58,7 +58,7 @@ CLIPS = {
   [None, 'squint', 'squint', 'squint', 'squint', 'squint', None, None],
   None,
   dict(fps=12, hitbox=[42, 24, 14, 16], damage='light', rm='E: 18 px forward over the dash (travel)',
-       blur={2: 8, 3: 11, 4: 6}, trail=FIRE_TRAIL,
+       blur={2: 5, 3: 7, 4: 4}, trail=FIRE_TRAIL, ghosts={2: (5, 10), 3: (6, 12, 18), 4: (5, 10), 5: (4,)}, ghostColors=(('#ff8a1c', '#ffe14d'), ('#d8321a', '#ff8a1c'), ('#d8321a', None)),
        fx=nfx('fire flame (reds, oranges, yellows): licks peeling off the lead shoulder in flight, a flare where the shoulder lands',
               [(2, [('flame2', [28, 23]), ('heat', [24, 27])]), (3, [('flame3', [26, 23]), ('flame1', [24, 28])]),
                (4, [('flame3', [47, 32]), ('flame1', [33, 22])]), (5, [('flame2', [49, 30]), ('embers', [46, 24])]), (6, [('embers', [48, 24])])]),
@@ -120,7 +120,37 @@ def fx(state):
                     q = px[xx, yy]
                     if q[3] and q[:3] in x['trail']: px[xx, yy] = x['trail'][q[:3]] + (255,)
             b.save(f)
+    if x.get('ghosts'):
+        from PIL import Image
+        f = D + state + '/fx.png'; top = Image.open(f).convert('RGBA')   # blur + splash so far
+        ghosts(state, x['ghosts'], x['ghostColors'])
+        g_ = Image.open(f).convert('RGBA'); g_.alpha_composite(top); g_.save(f)   # streaks and flames stay over the afterimages
         if old: new = Image.open(f).convert('RGBA'); new.alpha_composite(old); new.save(f)
+
+def ghosts(state, offs, cols):
+    """after the blur: afterimages (Christopher 2026-10-27: onion/afterimage effects to exaggerate the speed). On each
+    dash frame the figure's own silhouette is stamped again 4-18 px behind it on the fx layer, nearest first: an edge of
+    solid colour with a dithered fill, fading out (orange/yellow, then red/orange, then a bare red edge); drawn only where
+    the figure itself is not, so the real fighter stays on top"""
+    from PIL import Image
+    d = D + state + '/'; f = d + 'fx.png'
+    lay = [Image.open(d + n).convert('RGBA').load() for n in ('body.png', 'arms.png', 'far-arm.png', 'male-gi.png', 'fade-hair.png') if os.path.exists(d + n)]
+    fx = Image.open(f).convert('RGBA'); px = fx.load()
+    hexc = lambda c: tuple(int(c[i:i + 2], 16) for i in (1, 3, 5)) + (255,)
+    dirs = load(D + state + '.json')['directions']
+    for k, os_ in offs.items():
+        for fd in dirs:
+            r = dirs.index(fd); sg = -1 if fd == 'W' else 1
+            fig = {(x, y) for y in range(64) for x in range(64) if any(a[k * 64 + x, r * 64 + y][3] for a in lay)}
+            for i, o in sorted(enumerate(os_), key=lambda t: -t[0]):   # farthest first, nearest drawn over it
+                edge, fill = cols[min(i, len(cols) - 1)]
+                for (x, y) in fig:
+                    X = x - sg * o
+                    if not (0 <= X < 64) or (X, y) in fig: continue
+                    rim = any((x + dx, y + dy) not in fig for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)))
+                    if rim: px[k * 64 + X, r * 64 + y] = hexc(edge)
+                    elif fill and (X + y) % 2 == 0: px[k * 64 + X, r * 64 + y] = hexc(fill)
+    fx.save(f); print(state, 'afterimages', offs)
 
 if __name__ == '__main__':
     a = sys.argv[1:]
