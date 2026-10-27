@@ -40,6 +40,9 @@ def _halo(n, cx=35, cy=5, rx=7, ry=2, motes=3):   # motes circling over the head
         out.append((k, pts))
     return out
 
+def _jag(r, w, cols):   # a jagged ')' wave of killing intent: the rage arc with every other row kicked out a pixel (it reads as a shudder, not a ripple)
+    a = _arc(r, w, cols); return [('.' + q[:-1]) if i % 2 else q for i, q in enumerate(a)]
+
 def _arc(r, w, cols, gap=1):   # a ')' rage wave r px either side of centre, bowing w px toward the target; cols run tip -> leading edge; gap > 1 breaks it up
     rows = []
     for dy in range(-r, r + 1):
@@ -61,6 +64,7 @@ NPAT.update({
     'runeHot': ['...YWY...', '.YW.O.WY.', 'YW.OYO.WY', '.YW.O.WY.', '...YWY...'], 'runeLit': ['...OYO...', '.OR.Y.RO.', 'OR.YOY.RO', '.OR.Y.RO.', '...OYO...'],
     'rage1': _arc(4, 2, 'RO'), 'rage2': _arc(7, 3, 'MRO'), 'rage3': _arc(10, 4, 'MRY'), 'rage4': _arc(13, 5, 'MRO'),
     'rage4d': _arc(13, 5, 'MR', gap=2), 'rage5d': _arc(15, 6, 'M', gap=3),
+    'ki1': _jag(5, 2, 'MR'), 'ki2': _jag(9, 3, 'MRO'), 'ki3': _jag(13, 4, 'MRO'), 'ki4': _jag(16, 5, 'MR'),
     'moteF': ['.Y.', 'YOR', '.R.'], 'moteB': ['.M.', 'MRM', '.M.'], 'dotM': ['M'],
     'eyeGlint': ['.R.', 'RYR', '.R.'], 'eyeFlare': ['..R..', '.ROR.', 'ROYWO', '.ROR.', '..R..'], 'rageWisp': ['M.R', '.R.', 'RO.'],
     'runeDim': ['...R.R...', '.R..O..R.', 'R..O.O..R', '.R..O..R.', '...R.R...'], 'fireLine': ['.R.O.', 'OYROY'],
@@ -199,6 +203,29 @@ CLIPS = {
                (6, [('eyeGlint', [38, 17]), ('rage4', [51, 28]), ('rage2', [45, 22]), ('rageWisp', [31, 4])]),
                (7, [('rage5d', [56, 30]), ('rage3', [50, 25])]),
                (8, [('rage4d', [57, 28])])]))),
+ 'killingIntent': ('Killing Intent', 4,
+  'Killing Intent (Aries genjutsu, mental debuff: the caster focuses its bloodlust and projects it onto the foe, freezing it with fear; Stun 1 round, STR save DC 13; range Zone of Awareness), from the Blind Rage genjutsu template: from the guard the fighter lets both hands fall open and loose to its sides and straightens up tall, head dipped, utterly still; a dark crimson aura seeps up round it and thickens; then it lifts its head and fixes the target: the eyes flare, and jagged shuddering waves of killing intent, dark crimson with a red-orange edge, roll out from it toward the target one after another, each bigger than the last; it holds the stare, the aura heavy and the waves breaking up as they travel, then the aura sinks away and the fighter returns to the guard (the target takes the genjutsu mark, genjutsuAfflicted, for the Stun).', [
+     g(),
+     g(an=band(-10, -25), af=band(5, -10), bob=(0, 0, 1), lean=(0, 0)),
+     g(an=band(-5, -10), af=band(5, 0), bob=(0, -1, 0), lean=(0, -1)),
+     g(an=band(-5, -10), af=band(5, 0), bob=(0, -1, 0), lean=(0, -1)),
+     g(an=band(-5, -10), af=band(5, 0), bob=(0, -1, 0), lean=(0, -2)),
+     g(an=band(-5, -10), af=band(5, 0), bob=(0, -1, 0), lean=(0, -2)),
+     g(an=band(-5, -10), af=band(5, 0), bob=(0, -1, 0), lean=(0, -2)),
+     g(an=band(-5, -10), af=band(5, 0), bob=(0, -1, 0), lean=(0, -2)),
+     g(an=band(-15, -80), af=band(-15, -90), bob=(1, 1, 1), lean=(0, 1)),
+     g()],
+  [None, None, 'squint', 'squint', 'squint', 'squint', 'squint', 'squint', None, None],
+  [0, 0, 1, 2, 3, 3, 3, 2, 1, 0],
+  dict(fps=10, auraColors=('#a01818', '#4a0810'), extra={'targetState': {'rule': 'Christopher 2026-10-27: every genjutsu marks its target; on the active frame the target starts genjutsuAfflicted (fire colours) and keeps it until the Stun ends', 'state': 'genjutsuAfflicted', 'element': 'fire'}},
+       fx=nfx('fire genjutsu: the eyes kindle and flare, dark crimson heat seeping up off the shoulders and head, jagged waves of killing intent rolling out toward the target, each bigger than the last, breaking up as they travel',
+              [(2, [('rageWisp', [30, 7])]),
+               (3, [('eyeGlint', [38, 17]), ('rageWisp', [33, 6]), ('rageWisp', [27, 10])]),
+               (4, [('eyeFlare', [37, 18]), ('ki1', [43, 20]), ('rageWisp', [30, 5]), ('rageWisp', [36, 7])]),
+               (5, [('eyeFlare', [37, 18]), ('ki2', [46, 24]), ('ki1', [43, 20]), ('rageWisp', [32, 4])]),
+               (6, [('eyeGlint', [38, 17]), ('ki3', [51, 28]), ('ki2', [46, 24]), ('rageWisp', [29, 6])]),
+               (7, [('ki4', [56, 31]), ('ki2', [49, 24])]),
+               (8, [('ki4', [59, 31])])]))),
  'genjutsuAfflicted': ('Under Genjutsu', 0,
   'Under Genjutsu (target status, Christopher 2026-10-27: every genjutsu marks its target with an effect showing it is under a genjutsu): the shared looping state the testbed plays on a fighter for as long as any genjutsu holds it, in place of its idle; the guard sags, the hands dropped a little, and the fighter sways slowly on its feet, entranced: the eyes glow the caster\'s element colour, a thin flickering aura in that colour clings to the outline, and three glowing motes circle slowly over the head like a halo, bright passing in front of the head and dark passing behind it; fire version (Aries, Leo, Sagittarius casters: crimson and orange); the testbed recolours it for the other elements.', [
      g(an=band(-15, -105), af=band(-20, -110), bob=(1, 1, 2), lean=(0, 2)),
