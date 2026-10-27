@@ -99,13 +99,13 @@ CLIPS = {
      g(an=band(-30, -120), af=band(-35, -125), bob=(1, 1, 2), lean=(0, 1), **LOW),
      g(), g(bob=(3, 3, 3), **LOW), g(bob=(3, 3, 3), **LOW), g(bob=(0, -1, 0)), g(bob=(0, -1, 0)), g(bob=(0, -1, 0)), g(),
      g()],
-  [None, 'squint', None, 'pain', 'pain', 'roar', 'roar', 'roar', None, None],
+  [None, 'squint', None, 'strain', 'strain', 'roar', 'roar', 'roar', None, None],
   None,
   dict(fps=10, front={2: dict(R=stances.GA['R'], L=stances.GA['L']),
                       3: dict(R=(12, -25, 0.85, 'up'), L=(-12, 25, 0.85, 'up')),        # fists pulled in low in front of the belly
-                      4: dict(R=(10, -30, 0.85, 'up'), L=(-10, 30, 0.85, 'up')),
+                      4: dict(R=(12, -25, 0.85, 'up'), L=(-12, 25, 0.85, 'up')),        # held still (v3: no twitch between held frames)
                       5: dict(R=(42, -5, 1, 'up'), L=(-42, 5, 1, 'up')),                # fists clenched, driven down and out, elbows flared
-                      6: dict(R=(45, -8, 1, 'up'), L=(-45, 8, 1, 'up')),
+                      6: dict(R=(42, -5, 1, 'up'), L=(-42, 5, 1, 'up')),
                       7: dict(R=(42, -5, 1, 'up'), L=(-42, 5, 1, 'up')),
                       8: dict(R=stances.GA['R'], L=stances.GA['L'])},
        burst={3: 0, 4: 1, 5: 2, 6: 3, 7: 4, 8: 5})),   # frame: stage (embers gathering 0-1, release 2, rings out 3-4, fading 5)
@@ -136,7 +136,9 @@ def spec(state):
     for k, v in (x.get('extra') or {}).items(): s[k] = v
     if x.get('front'):   # the fighter turns to face S for part of the clip (Blast Wave v2): every facing plays the S frames there
         s['expressions']['shapes']['roar'] = {'E': copy.deepcopy(s['expressions']['shapes']['pain']['E']),
-            'S': [[0, 1, '#000000'], [1, 1, '#000000'], [5, 1, '#000000'], [6, 1, '#000000'], [2, 5, '#000000'], [3, 5, '#3f0505'], [4, 5, '#000000'], [3, 6, '#000000']]}   # eyes squeezed, mouth open in a yell
+            'S': [[0, 1, '#000000'], [1, 1, '#000000'], [5, 1, '#000000'], [6, 1, '#000000'], [2, 3, '#000000'], [3, 3, '#000000'], [4, 3, '#000000'], [2, 4, '#000000'], [3, 4, '#70241d'], [4, 4, '#000000']]}   # eyes squeezed, mouth open in a yell (mid-face, clear of the chin)
+        s['expressions']['shapes']['strain'] = {'E': copy.deepcopy(s['expressions']['shapes']['pain']['E']),
+            'S': [[0, 1, '#000000'], [1, 1, '#000000'], [5, 1, '#000000'], [6, 1, '#000000'], [2, 4, '#000000'], [3, 4, '#000000'], [4, 4, '#000000']]}   # eyes squeezed, teeth clenched
         s['facingOverride'] = {'rule': 'Christopher 2026-10-27: the fighter turns to face S (toward the viewer) for these frames whatever its facing; every row holds the S frame there (the rows are copied after the render), then it turns back', 'frames': sorted(x['front']), 'to': 'S'}
     save(s, D + state + '.json')
     if x.get('front'):
