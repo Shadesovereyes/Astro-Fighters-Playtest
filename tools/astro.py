@@ -141,6 +141,13 @@ KP_EN, KP_EF = band(-90, -170), band(92, 172)    # King's Posture v4 (E view, no
 KP_EN2, KP_EF2 = band(-96, -178), band(98, 178)  # the squeeze on the peak frame
 FLEX_N, FLEX_F = band(50, -20), band(40, -15)     # elbows flared back, clenched fists low beside the hips (power surge)
 
+HEAVY = load(D + 'heavyAttack.json')   # Sagittarius Leash Kick: the approved side/heel kick legs and the spinPivot pirouette
+U.POSES += [{**p, 'name': 'lk-' + p['name']} for p in HEAVY['legs']['poses'] if p['name'] in ('lift', 'side-chamber', 'side', 'lead-pivot')]
+NPAT.update({'pflame1': ['.K.', 'KPK', '.p.'], 'pflame2': ['..K..', '.KP..', '.PpK.', 'KPpPK', '.KKK.'],   # Sagittarius: select black and purple flames
+             'pembers': ['.P..K', 'K..P.', '..p..']})
+TUCK_SPIN_N, TUCK_SPIN_F = band(-20, 212), band(-45, 222)   # arms tucked tight for the pirouette (as the Whirlwind Kick)
+SPIN = lambda d, f: {'state': 'spinPivot', 'dir': d, 'frame': f, 'dx': 2}
+
 CLIPS = {
  'machLunge': ('Mach Lunge', 9,
   'Mach Lunge (Aries taijutsu, Priority gap closer, burns the target), v4 (Christopher 2026-10-27: the sprint instead of a single hop, flames around the feet; afterimages for speed): from the guard the fighter dips, then breaks into the approved sprint (the same stride, lean and swept-back arms), flames bursting around the feet at every step, a stream of fire and four fire-tinted afterimages trailing behind; on the last stride it tucks both arms tight, plants the lead foot and drives the lead shoulder into the target with a flare of flame at the point of contact; then settles back into the guard. The fighter travels 40 px over the clip (the game moves it by that distance).', [
@@ -416,6 +423,27 @@ CLIPS = {
               14: dict(R=stances.GA['R'], L=stances.GA['L'])},
        gather={1: 0, 2: 1, 3: 2, 4: 3, 5: 3},
        nova={6: 'core', 7: 'core2', 8: 'flash', 9: 'flash2', 10: 'flash', 11: 0, 12: 1, 13: 2, 14: 4})),
+ 'leashKick': ('Leash Kick', 9,
+  'Leash Kick (Sagittarius taijutsu strike, Physical 12, Live Tier A: the fighter pirouettes violently before throwing out a heel kick at blazing speed): from the guard the fighter tucks both arms tight and whips round in two full pirouettes on the lead foot (the approved spin pivot, twice), a ring of fire whirling round its legs that grows with each turn, black and purple flames flickering in it; coming out of the second turn it snaps the rear knee up into the chamber and fires the heel straight out at the target at hip height, torso leaning back, the lead hand out; flame bursts off the heel on contact, purple and black licks trailing back along the leg; it pulls the leg back through the chamber and sets down into the guard.', [
+     g(),
+     g(an=TUCK_SPIN_N, af=TUCK_SPIN_F, bob=(1, 1, 1), lean=(0, 0)),
+     *[g(an=TUCK_SPIN_N, af=TUCK_SPIN_F, bob=(1, 1, 1), lean=(0, 0)) for _ in range(6)],
+     g(af=band(-60, -80), bob=(0, 0, 1), lean=(0, -2), ln='lk-side-chamber', lf='lk-lead-pivot'),
+     g(af=band(-55, -70), bob=(0, 0, 1), lean=(1, -5), root=(1, 0), ln='lk-side', lf='lk-lead-pivot'),
+     g(af=band(-55, -70), bob=(0, 0, 1), lean=(1, -5), ln='lk-side', lf='lk-lead-pivot'),
+     g(af=band(-60, -80), bob=(0, 0, 1), lean=(0, -2), ln='lk-side-chamber', lf='lk-lead-pivot'),
+     g(bob=(1, 1, 1), lean=(0, 1), root=(-1, 0), ln='lk-lift'),
+     g()],
+  [None, 'squint'] + ['squint'] * 7 + ['squint', 'squint', 'squint', None, None],
+  None,
+  dict(fps=12, hitbox=[44, 34, 14, 10], damage='medium', rm='E: +1 into the heel kick, -1 setting down',
+       extra={'borrow': {'rule': copy.deepcopy(HEAVY['borrow']['rule']) + '; Leash Kick spins twice (E -> S, W, N, then S, W, N again)',
+                         'frames': {'2': SPIN('S', 0), '3': SPIN('W', 0), '4': SPIN('N', 1), '5': SPIN('S', 0), '6': SPIN('W', 0), '7': SPIN('N', 1)}}},
+       spinFire={2: (0, 130, 0), 3: (0, 250, 0), 4: (0, 360, 1), 5: (0, 360, 1), 6: (0, 360, 2), 7: (0, 360, 2), 8: (0, 360, 3)},
+       fx=nfx('Sagittarius fire (reds, oranges, yellows with select black and purple flames): flame bursting off the heel on contact, purple and black licks trailing back along the leg',
+              [(9, [('flame3', [50, 42]), ('pflame2', [44, 42]), ('flame1', [40, 41]), ('pembers', [52, 35])]),
+               (10, [('flame2', [52, 42]), ('pflame1', [46, 41]), ('embers', [54, 35]), ('pembers', [42, 38])]),
+               (11, [('pembers', [48, 36]), ('embers', [44, 32])])]))),
  'spotlight': ('Spotlight', 4,
   'Spotlight (Leo genjutsu, mental debuff: the caster projects its own inner radiance into the foe\'s mind\'s eye, Blind 1 round, INT save DC 12; range Zone of Awareness), v3 (Christopher 2026-10-27: lower the arms, the cone of light pours from the eyes; v3 lean forward a little): from the guard the fighter lets both arms drop to its sides, leans forward a little toward the target and fixes it; its eyes kindle gold, then blaze white-hot, and a cone of light pours out of the eyes toward the target, pale gold and widening, brighter at the core, growing over three frames and holding; the light dies back into the eyes and the fighter brings its hands back up into the guard (the target takes the genjutsu mark, genjutsuAfflicted, for the Blind).', [
      g(),
@@ -525,6 +553,11 @@ def fx(state):
         f_ = D + state + '/fx.png'
         if not os.path.exists(f_): Image.new('RGBA', Image.open(D + state + '/body.png').size).save(f_)
         mask(state, x['mask'], x.get('maskWaves'))
+    if x.get('spinFire'):
+        from PIL import Image
+        f_ = D + state + '/fx.png'
+        if not os.path.exists(f_): Image.new('RGBA', Image.open(D + state + '/body.png').size).save(f_)
+        spinFire(state, x['spinFire'])
     if any(x.get(n) for n in ('rays', 'beam', 'cone', 'gather', 'nova', 'flare')):   # Leo sunlight fx, drawn over what is already there
         from PIL import Image
         f_ = D + state + '/fx.png'
@@ -1104,6 +1137,31 @@ def gather(state, frames, aura=False):
                     X, Y_ = round(x - j * math.cos(th)), round(y - j * 1.15 * math.sin(th))
                     if 0 <= X < 64 and 0 <= Y_ < 64 and (X, Y_) not in fig: px[k * 64 + X, r * 64 + Y_] = cols[min(2, 2 - j + (j == 0 and st < 2))]
     fx.save(D + state + '/fx.png'); print(state, 'gather', list(frames))
+
+def spinFire(state, frames):
+    """Leash Kick: a ring of fire whirling round the legs through the pirouette (frames = {k: (start, end degrees swept, stage 0-3)}):
+    a flat ellipse at knee-to-hip height swept further each frame, thicker each turn (stage 2 doubled), black and purple
+    licks flickering in it every few degrees (Sagittarius); its far half hides behind the figure; stage 3 breaks up as the kick fires"""
+    from PIL import Image
+    f_ = D + state + '/fx.png'; fx = Image.open(f_).convert('RGBA'); px = fx.load(); dirs = load(D + state + '.json')['directions']
+    Y, O, R_, P, K = (_hexc(ELEMENT[c]) for c in 'YORPK')
+    for k, (a0, a1, st) in frames.items():
+        for r, fd in enumerate(dirs):
+            if fd not in ('E', 'W'): continue
+            fig = _fig(state, k, r); sg = -1 if fd == 'W' else 1
+            cx = sum(x for x, _ in fig) / len(fig); cy = 46
+            rx, ry = 13 + 2 * min(st, 2), 4 + (st >= 2)
+            for ring in range(1 + (st >= 1) + (st >= 2)):
+                for t in range(a0 * 2, a1 * 2):
+                    th = math.radians(t / 2); x = round(cx + sg * (rx + ring) * math.cos(th)); y = round(cy + (ry + ring) * math.sin(th) - ring)
+                    if not (0 <= x < 64 and 0 <= y < 64): continue
+                    if st == 3 and (x + y + t) % 3: continue
+                    if math.sin(th) < 0 and (x, y) in fig: continue
+                    deg = t // 2; c = (Y, O, R_)[ring] if ring < 3 else R_
+                    if deg % 40 < 6: c = P if ring == 0 else K   # Sagittarius: purple and black licks in the ring
+                    px[k * 64 + x, r * 64 + y] = c
+                    if deg % 30 == 0 and st >= 1 and y - 2 >= 0: px[k * 64 + x, r * 64 + y - 1] = O; px[k * 64 + x, r * 64 + y - 2] = R_ if deg % 60 else P   # tongues of flame licking up
+    fx.save(f_); print(state, 'spinFire', list(frames))
 
 def nova(state, frames, aura=False):
     """Supernova release, facing S (every row shows the S frame here): 'core' a star kindling at the chest and the body glowing;
