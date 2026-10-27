@@ -1,17 +1,20 @@
 """Astrological (Sign) kit animations (Christopher 2026-10-27: "begin developing Astrological kit animations"; abilities
 from the Sign Kits tab of AstroFighters_Abilities, 12 signs x 8). Played from the approved boxing guard (hitReact frame 6)
 and returning to it, through universal.py's spec builder. One state per ability. E/W first (W mirrors E), S/N after
-approval. Effects white/neutral (element flavour is carried by shape, not colour).
+approval. Effects use the sign's element colours (Christopher 2026-10-27 17:00): fire = reds/oranges/yellows (Sagittarius:
+select black and purple flames), earth = earth and crystal tones, water = water and ice tones; air stays white/pale until ruled.
 Run: python3 tools/astro.py [state] ; node tools/character-posed.mjs male <state> ; python3 tools/stances.py --outline <state> ;
      python3 tools/astro.py --fx <state>   (aura / motion blur after the render; splash fx are baked by the renderer)"""
+import math
 import sys, copy, os
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import universal as U
 from universal import band, g, leg, kleg, LOW, BRACE, NPAL, NPAT, nfx, D
 from gen import load, save
+import stances
 
 STAT = 'CANDIDATE 2026-10-27 (E/W; W mirrors E; S/N to author after approval)'
-APPROVED = {}
+APPROVED = {'killingIntent': 'E/W approved by user 2026-10-27 (v3 illusory demon mask over the head matching the facing, clawed crouch, 02ce6eb; W mirrors E); S/N to author', 'blindRage': 'E/W approved by user 2026-10-27 (v1 genjutsu template: one-hand seal, eye flare, crimson aura, rage waves, 0b27675; W mirrors E); S/N to author', 'genjutsuAfflicted': 'E/W approved by user 2026-10-27 (v1 genjutsu target mark, fire colours, d75144b; W mirrors E); S/N to author', 'meteor': 'E/W approved by user 2026-10-27 (v2 ultimate, 16 frames, swelling fireball + flash + thick trail, f395d5b; W mirrors E); S/N to author', 'explosiveRunes': 'E/W approved by user 2026-10-27 (v1 sowing palm sweep + fire runes, 640aaba; W mirrors E); S/N to author', 'blastWave': 'E/W approved by user 2026-10-27 (v3 S-facing roar release, dd5ab8a; W mirrors E); the S and N rows share the same S turn, their guard frames still to review', 'innerGateAdrenaline': 'E/W approved by user 2026-10-27 (v3 lingering aura, skin flush, veins, aee3dad; W mirrors E) on condition the look lingers while the ability is active; canon A5: a toggle, active until 0 HP or deactivated; S/N to author', 'machLunge': 'E/W approved by user 2026-10-27 (v5 sprint, flaming feet, fire wake, 4 afterimages, fc741f6; W mirrors E); S/N to author', 'shatterPunch': 'E/W approved by user 2026-10-27 (v3 arm swirl + impact burst, fc741f6; W mirrors E); S/N to author'}
 
 U.POSES += [leg('ml-dip-lead', (32, 45), (38, 51), 37), leg('ml-dip-rear', (31, 45), (29, 51), 24, wrap=54, kind='toe60'),   # sprinter dip, rear heel up
             kleg('ml-fly-lead', (33, 42), (39, 46), (38, 52), 'toe30k'), kleg('ml-fly-rear', (31, 42), (25, 47), (20, 51), 'toe30k'),   # driving off the rear foot
@@ -19,59 +22,301 @@ U.POSES += [leg('ml-dip-lead', (32, 45), (38, 51), 37), leg('ml-dip-rear', (31, 
             leg('sp-load-lead', (32, 43), (35, 51), 36), leg('sp-load-rear', (31, 43), (28, 51), 24),                # Shatter Punch: weight sat back
             leg('sp-drive-lead', (33, 43), (38, 50), 40), leg('sp-drive-rear', (32, 43), (31, 50), 27, wrap=54, kind='toe60')]  # step in, rear heel turns up
 
-# fx patterns (white/neutral): flame licks for the fire signs, cracks for guard breaks
-NPAT.update({
-    'flame1': ['.w.', 'wWw', '.W.'], 'flame2': ['..w..', '.wW..', '.WWw.', 'wWWWw', '.www.'],
-    'flame3': ['...w...', '..wW...', '.wWW.w.', '.WWWwW.', 'wWWWWWw', '.wWWWw.', '..www..'],
-    'shatter1': ['W...W', '.W.W.', '..W..', '.W.W.', 'W...W'],
-    'shatter2': ['w.....w', '.W...W.', '..WWW..', '.WWWWW.', '..WWW..', '.W...W.', 'w.....w'],
-    'shatter3': ['w...w...w', '.w..W..w.', '..W.W.W..', '...WWW...', 'WWWW.WWWW', '...WWW...', '..W.W.W..', '.w..W..w.', 'w...w...w'],
-    'shard': ['w.', '.w'], 'shardR': ['.w', 'w.'],
-    'heat': ['w.w.w', '.w.w.'], 'embers': ['.w..w', 'w..w.', '..w..'],
-})
+# element palettes (letters added to universal.NPAL; W/w white stay for air and highlights)
+ELEMENT = {'Y': '#ffe14d', 'O': '#ff8a1c', 'R': '#d8321a',               # fire: yellow core, orange body, red edge
+           'K': '#1c1024', 'P': '#9b45ff', 'p': '#55208f',                # Sagittarius: black flame with purple
+           'E': '#8a6236', 'e': '#c79a5b', 'C': '#7fe3d0', 'c': '#d9fff6',  # earth: soil browns, crystal teal / glint
+           'A': '#2f7fe0', 'a': '#7cc8ff', 'I': '#dff6ff',                 # water: deep and light water, ice white-blue
+           'M': '#7a1016', 'm': '#2a0406'}                                 # m: near-black blood red, the fill of the Killing Intent demon                                                 # fire genjutsu: dark crimson rim of a rage wave
+NPAL.update(ELEMENT)
 
+def _mane(r0, n, seed):   # a lion's mane of flame round the head: tongues of uneven length radiating from a ring, red tips, orange body, yellow root
+    import random
+    rnd = random.Random(seed); R = r0 + n + 2; g_ = [['.'] * (2 * R + 1) for _ in range(2 * R + 1)]
+    for t in range(48):
+        a = 2 * math.pi * t / 48; L = n + rnd.randint(-1, 2) if math.sin(a) < 0.5 else max(1, n // 2)   # the mane hangs long at the back and top, short under the chin
+        if math.cos(a) > 0.6 and math.sin(a) > -0.3: L = max(1, L // 2)   # short in front of the face
+        for d in range(r0, r0 + L + 1):
+            x, y = round(R + d * math.cos(a)), round(R - d * math.sin(a) * 1.1)
+            if 0 <= x <= 2 * R and 0 <= y <= 2 * R:
+                q = (d - r0) / max(1, L); g_[y][x] = 'Y' if q < 0.35 else 'O' if q < 0.75 else 'R'
+    return [''.join(row) for row in g_]
+
+def _halo(n, cx=35, cy=5, rx=7, ry=2, motes=3):   # motes circling over the head, a full turn every n frames: bright in front of the head, dark crimson behind
+    out = []
+    for k in range(n):
+        pts = [('dotM', [round(cx + rx * math.cos(t)), round(cy + ry * math.sin(t)) + 1]) for t in [2 * math.pi * (j + k / n) / 16 for j in range(0, 16, 2)]]   # a faint dotted crimson ring, turning with the motes
+        for m in range(motes):
+            a = 2 * math.pi * (k / n + m / motes); x, y = cx + rx * math.cos(a), cy + ry * math.sin(a)
+            pts.append(('moteF' if math.sin(a) > 0 else 'moteB', [round(x) - 1, round(y) + 1]))
+        out.append((k, pts))
+    return out
+
+def _jag(r, w, cols):   # a jagged ')' wave of killing intent: the rage arc with every other row kicked out a pixel (it reads as a shudder, not a ripple)
+    a = _arc(r, w, cols); return [('.' + q[:-1]) if i % 2 else q for i, q in enumerate(a)]
+
+def _arc(r, w, cols, gap=1):   # a ')' rage wave r px either side of centre, bowing w px toward the target; cols run tip -> leading edge; gap > 1 breaks it up
+    rows = []
+    for dy in range(-r, r + 1):
+        x = round(w * (1 - (dy / r) ** 2)); row = ['.'] * (w + len(cols))
+        if dy % gap == 0:
+            for i, c in enumerate(cols): row[x + i] = c
+        rows.append(''.join(row).rstrip('.') or '.')
+    n = max(map(len, rows)); return [q.ljust(n, '.') for q in rows]
+# fire fx patterns: flame licks (red edge, orange body, yellow core), a fire-sign guard-crack, embers
+NPAT.update({
+    'flame1': ['.R.', 'ROR', '.Y.'], 'flame2': ['..R..', '.RO..', '.OYR.', 'ROYOR', '.RRR.'],
+    'flame3': ['...R...', '..RO...', '.ROO.R.', '.OYYRO.', 'ROYYYOR', '.ROYOR.', '..RRR..'],
+    'shatter1': ['O...O', '.Y.Y.', '..W..', '.Y.Y.', 'O...O'],
+    'shatter2': ['R.....R', '.O...O.', '..YYY..', '.YYWYY.', '..YYY..', '.O...O.', 'R.....R'],
+    'shatter3': ['R...R...R', '.O..O..O.', '..Y.Y.Y..', '...YWY...', 'OYYWWWYYO', '...YWY...', '..Y.Y.Y..', '.O..O..O.', 'R...R...R'],
+    'shard': ['O.', '.R'], 'shardR': ['.O', 'R.'],
+    'heat': ['O.Y.O', '.R.R.'], 'embers': ['.O..R', 'R..O.', '..Y..'],
+    # Explosive Runes: rune circles seen flat on the ground (ellipse with a glyph stroke), hot as written, lit, smouldering
+    'runeHot': ['...YWY...', '.YW.O.WY.', 'YW.OYO.WY', '.YW.O.WY.', '...YWY...'], 'runeLit': ['...OYO...', '.OR.Y.RO.', 'OR.YOY.RO', '.OR.Y.RO.', '...OYO...'],
+    'rage1': _arc(4, 2, 'RO'), 'rage2': _arc(7, 3, 'MRO'), 'rage3': _arc(10, 4, 'MRY'), 'rage4': _arc(13, 5, 'MRO'),
+    'rage4d': _arc(13, 5, 'MR', gap=2), 'rage5d': _arc(15, 6, 'M', gap=3),
+    'oni': ['M.................M', 'MM...............MM', '.MM.............MM.', '.MmM...MMMMM...MmM.', '..MmMMMmmmmmMMMmM..', '..MmmmmmmmmmmmmmM..', '.MmmmmmmmmmmmmmmmM.', '.MmmRRmmmmmmmRRmmM.', 'MmmmmYRmmmmmRYmmmmM', 'MmmmmmmmmmmmmmmmmmM', 'MmmmmmmmMmMmmmmmmmM', '.MmmmmmmmmmmmmmmmM.', '.MmRmRmRmRmRmRmRmM.', '.MmmRYRYRYRYRYRmmM.', '..MmmRmRmRmRmRmmM..', '...MmmmmmmmmmmmM...', '....MMmmmmmmmMM....', '......MMMMMMM......'],   # Killing Intent: a horned demon face looming behind the fighter, glowing eyes and a fanged grin
+    'oniFaint': ['M.................M', 'MM...............MM', '.MM.............MM.', '.M.M...MMMMM...M.M.', '..M.MMM.....MMM.M..', '..M.............M..', '.M...............M.', '.M...............M.', 'M.................M', 'M.................M', 'M.......M.M.......M', '.M...............M.', '.M...............M.', '.M...............M.', '..M.............M..', '...M...........M...', '....MM.......MM....', '......MMMMMMM......'], 'oniEyes': ['...................', '...................', '...................', '...................', '...................', '...................', '...................', '....RR.......RR....', '.....YR.....RY.....', '...................', '...................', '...................', '...R.R.R.R.R.R.R...', '....RYRYRYRYRYR....', '.....R.R.R.R.R.....', '...................', '...................', '...................'],
+    'dread': ['M..M.M..M.M', '.MmMmMmMmM.'],   # dark pressure pooling at the feet
+    'oniMask': ['..R...............', '..RR..............', '...RR.............', '...RMR............', '....RMRRRRRR......', '....RmmmmmmmRR....', '...RmmmmmmmmmmR...', '...RmmmmmRRRRRmR..', '...RmmmmmmmYWYmmR.', '...RmmmmmmmmRmmmmR', '...RmmmmmmmmmmmmRR', '...RmmmmmmmmmmMR..', '...RmmmmmmmWmWmWR.', '....RmmmmmmmmmmmR.', '....RmmmmmmmWmWR..', '.....RRmmmmmmRR...', '.......RRRRRR.....'],   # Killing Intent v3: the illusory demon mask, in profile facing E (mirrored for W): horn sweeping back, brow ridge, glowing eye, snout and fangs
+    'ki1': _jag(5, 2, 'MR'), 'ki2': _jag(9, 3, 'MRO'), 'ki3': _jag(13, 4, 'MRO'), 'ki4': _jag(16, 5, 'MR'),
+    'mane1': _mane(7, 2, 1), 'mane2': _mane(7, 4, 2), 'mane3': _mane(7, 6, 3), 'mane3b': _mane(7, 6, 4), 'mane4': _mane(7, 7, 5),
+    'sunOrb1': ['.Y.', 'YWY', '.Y.'], 'sunOrb2': ['..O..', '.YWY.', 'OWWWO', '.YWY.', '..O..'],
+    'sunOrb3': ['...Y...', '..OYO..', '.OYWYO.', 'YYWWWYY', '.OYWYO.', '..OYO..', '...Y...'],
+    'sunBurst1': ['....Y....', '.Y..Y..Y.', '..YYWYY..', '..YWWWY..', 'YYWWWWWYY', '..YWWWY..', '..YYWYY..', '.Y..Y..Y.', '....Y....'],
+    'sunBurst2': ['R....O....R', '.O...Y...O.', '..Y.OYO.Y..', '...OY.YO...', '.OYY...YYO.', 'OY.......YO', '.OYY...YYO.', '...OY.YO...', '..Y.OYO.Y..', '.O...Y...O.', 'R....O....R'],
+    'sunBurst3': ['R.....R.....R', '.............', '..O.......O..', '.....R.R.....', '...R.....R...', '.............', 'R...........R', '.............', '...R.....R...', '.....R.R.....', '..O.......O..', '.............', 'R.....R.....R'],
+    'roar1': _arc(5, 2, 'YW'), 'roar2': _arc(9, 3, 'OYW'), 'roar3': _arc(13, 4, 'ROY'), 'roar3d': _arc(15, 5, 'RO', gap=2),
+    'moteF': ['.Y.', 'YOR', '.R.'], 'moteB': ['.M.', 'MRM', '.M.'], 'dotM': ['M'],
+    'eyeGlint': ['.R.', 'RYR', '.R.'], 'eyeFlare': ['..R..', '.ROR.', 'ROYWO', '.ROR.', '..R..'], 'rageWisp': ['M.R', '.R.', 'RO.'],
+    'runeDim': ['...R.R...', '.R..O..R.', 'R..O.O..R', '.R..O..R.', '...R.R...'], 'fireLine': ['.R.O.', 'OYROY'],
+})
+FIRE_AURA = ('#ffb12e', '#e0401c')   # orange next to the body, red outside
+FIRE_TRAIL = {(255, 255, 255): (0xff, 0xd2, 0x3f), (0xe3, 0xe3, 0xe3): (0xff, 0x7a, 0x1c)}   # motion-blur streak recoloured: yellow inner half, orange tail
+
+SPRINT = load(D + 'sprint.json')   # the approved sprint: stride, lean and swept-back arms reused by Mach Lunge
+SPRINT_LEGS = [p['name'] for p in SPRINT['legs']['poses']]
+U.POSES += [{**p, 'name': 'sr-' + p['name']} for p in SPRINT['legs']['poses']]
+SPRINT_N, SPRINT_F, SPRINT_DY = SPRINT['arms']['near'], SPRINT['arms']['far'], SPRINT['bob']['dy']
+def _foot(p):   # bottom-left anchor for a flame burst at a sprint foot: on the floor when planted, at the raised foot otherwise
+    q = SPRINT['legs']['poses'][SPRINT_LEGS.index(p)]
+    return [q['footX'] - 3, 63 if q['wrapRow'] >= 56 else q['wrapRow'] + 6]
+def _burst(p, k):   # a big flame on each foot, plus a lick trailing off the back of a planted foot; alternating shapes flicker
+    at = _foot(p); big = ('flame3', 'flame2')[k % 2]
+    return [(big, at)] + ([('flame2' if k % 2 else 'flame1', [at[0] - 5, 63])] if at[1] == 63 else [])
+FIRE_WAKE = [[('flame3', [14, 63]), ('flame2', [7, 63]), ('flame3', [1, 63]), ('flame2', [18, 46]), ('flame1', [10, 40]), ('embers', [4, 34])],   # a stream of fire left behind along the
+             [('flame2', [15, 63]), ('flame3', [8, 63]), ('flame2', [2, 63]), ('flame1', [17, 44]), ('flame2', [9, 42]), ('embers', [3, 30])]]   # ground and in the air behind the runner, flickering
+FOOT_FLAMES = [_burst(SPRINT_LEGS[k], k) + _burst(SPRINT_LEGS[(k + 4) % 8], k + 1) for k in range(6)]
 PUNCH = band(-92, -92)                  # straight arm at shoulder height
 CHAMBER = band(75, -150)                # rear fist drawn back by the ear, elbow high behind
 TUCK_N, TUCK_F = band(-35, 200), band(-50, 215)   # arms tucked tight to the chest for the shoulder charge
 FLEX_N, FLEX_F = band(50, -20), band(40, -15)     # elbows flared back, clenched fists low beside the hips (power surge)
 
 CLIPS = {
- 'machLunge': ('Mach Lunge', 4,
-  'Mach Lunge (Aries taijutsu, Priority gap closer, burns the target): from the guard the fighter dips into a sprinter crouch, then explodes off the rear foot, tucking both arms tight and lowering the lead shoulder; it rockets forward low, a white heat streak trailing off its back and flame licks peeling off the shoulder, lands a long step on and drives the shoulder into the target with a flare of flame at the point of contact; then settles back into the guard. The fighter travels 18 px over the clip (the game moves it by that distance).', [
+ 'machLunge': ('Mach Lunge', 9,
+  'Mach Lunge (Aries taijutsu, Priority gap closer, burns the target), v4 (Christopher 2026-10-27: the sprint instead of a single hop, flames around the feet; afterimages for speed): from the guard the fighter dips, then breaks into the approved sprint (the same stride, lean and swept-back arms), flames bursting around the feet at every step, a stream of fire and four fire-tinted afterimages trailing behind; on the last stride it tucks both arms tight, plants the lead foot and drives the lead shoulder into the target with a flare of flame at the point of contact; then settles back into the guard. The fighter travels 40 px over the clip (the game moves it by that distance).', [
      g(),
-     g(an=band(-25, 205), af=band(-40, 215), bob=(3, 3, 3), lean=(1, 4), ln='ml-dip-rear', lf='ml-dip-lead'),
-     g(an=TUCK_N, af=TUCK_F, bob=(1, 1, 1), lean=(2, 7), root=(6, 0), ln='ml-fly-rear', lf='ml-fly-lead'),
-     g(an=TUCK_N, af=TUCK_F, bob=(1, 1, 1), lean=(2, 8), root=(6, 0), ln='ml-fly-rear', lf='ml-fly-lead'),
-     g(an=TUCK_N, af=TUCK_F, bob=(2, 2, 2), lean=(2, 7), root=(4, 0), ln='ml-trail-rear', lf='ml-plant-lead'),
+     g(an=band(-25, 205), af=band(-40, 215), bob=(3, 3, 3), lean=(1, 4), ln='ml-dip-rear', lf='ml-dip-lead')] + [
+     g(an=SPRINT_N[k], af=SPRINT_F[k], bob=(SPRINT_DY[k],) * 3, lean=(1, 8), root=(6, 0), ln='sr-' + SPRINT_LEGS[k], lf='sr-' + SPRINT_LEGS[(k + 4) % 8]) for k in range(6)] + [
+     g(an=TUCK_N, af=TUCK_F, bob=(2, 2, 2), lean=(2, 7), root=(3, 0), ln='ml-trail-rear', lf='ml-plant-lead'),
      g(an=TUCK_N, af=TUCK_F, bob=(2, 2, 2), lean=(2, 6), root=(1, 0), ln='ml-trail-rear', lf='ml-plant-lead'),
-     g(an=band(-25, 208), af=band(-45, 220), bob=(1, 1, 2), lean=(1, 3), root=(1, 0)),
+     g(an=band(-25, 208), af=band(-45, 220), bob=(1, 1, 2), lean=(1, 3)),
      g()],
-  [None, 'squint', 'squint', 'squint', 'squint', 'squint', None, None],
+  [None, 'squint'] + ['squint'] * 6 + ['squint', 'squint', None, None],
   None,
-  dict(fps=12, hitbox=[42, 24, 14, 16], damage='light', rm='E: 18 px forward over the dash (travel)',
-       blur={2: 8, 3: 11, 4: 6},
-       fx=nfx('white/neutral flame: licks peeling off the lead shoulder in flight, a flare where the shoulder lands',
-              [(2, [('flame2', [28, 23]), ('heat', [24, 27])]), (3, [('flame3', [26, 23]), ('flame1', [24, 28])]),
-               (4, [('flame3', [47, 32]), ('flame1', [33, 22])]), (5, [('flame2', [49, 30]), ('embers', [46, 24])]), (6, [('embers', [48, 24])])]),
-       extra={'airborneFrames': [2, 3], 'travel': {'rule': 'Mach Lunge is a gap closer: the fighter ends the clip 18 px further forward (sum of rootMotion); the game moves the fighter by that distance', 'E': 18}})),
- 'shatterPunch': ('Shatter Punch', 4,
-  'Shatter Punch (Aries taijutsu, Guard Break, can stun): from the guard the fighter sits its weight back and draws the rear fist far back beside the ear, elbow high, the lead hand reaching out to measure; holds the load a beat, then steps in and fires the rear fist dead straight through the target with the whole body behind it, rear heel turning up; a white crack bursts out from the fist on contact and shards fly; it holds the extension a beat, then pulls back into the guard.', [
+  dict(fps=12, hitbox=[42, 24, 14, 16], damage='light', rm='E: 6 px a stride through the sprint (as the sprint), +3 and +1 into the shoulder check; 40 px in all (travel)',
+       ghosts={k: (5, 10, 15, 20) for k in range(2, 8)} | {8: (5, 10, 15), 9: (4, 8), 10: (3,)}, ghostColors=(('#ffe14d', '#ff8a1c'), ('#ff8a1c', '#ffe14d'), ('#d8321a', '#ff8a1c'), ('#d8321a', None)),
+       blur={k: 9 for k in range(2, 8)} | {8: 7, 9: 4}, trail=FIRE_TRAIL,
+       fx=nfx('fire flame (reds, oranges, yellows): flames bursting around the feet at every stride, a stream of fire trailing behind, a flare where the shoulder lands',
+              [(k, FOOT_FLAMES[k - 2] + FIRE_WAKE[k % 2]) for k in range(2, 8)] + [(8, [('flame3', [47, 32]), ('flame1', [40, 63])] + FIRE_WAKE[0][:3]), (9, [('flame3', [48, 31]), ('embers', [45, 24])]), (10, [('embers', [48, 24])])]),
+       extra={'airborneFrames': [5], 'travel': {'rule': 'Mach Lunge is a gap closer: the fighter ends the clip 40 px further forward (sum of rootMotion); the game moves the fighter by that distance', 'E': 40}})),
+ 'shatterPunch': ('Shatter Punch', 5,
+  'Shatter Punch (Aries taijutsu, Guard Break, can stun), v3 (Christopher 2026-10-27: swirling fx around the winding arm, a more dramatic impact): from the guard the fighter sits its weight back and draws the rear fist far back beside the ear, elbow high, the lead hand reaching out to measure; flame swirls up around the cocked arm, winding tighter and brighter over three held frames; then it steps in and fires the rear fist dead straight through the target with the whole body behind it, rear heel turning up; on contact a white-hot flash bursts at the fist, a ring of fire shock blasts outward, jagged cracks shoot off and shards and embers scatter, the punch held through a hit-stop; then it pulls back into the guard.', [
      g(),
      g(an=band(40, -170), af=band(-70, -100), bob=(1, 1, 1), lean=(0, 0), ln='sp-load-rear', lf='sp-load-lead'),
      g(an=CHAMBER, af=band(-80, -95), bob=(1, 1, 1), lean=(-1, -2), ln='sp-load-rear', lf='sp-load-lead'),
      g(an=CHAMBER, af=band(-80, -95), bob=(1, 1, 1), lean=(-1, -2), ln='sp-load-rear', lf='sp-load-lead'),
+     g(an=CHAMBER, af=band(-80, -95), bob=(1, 1, 1), lean=(-1, -3), ln='sp-load-rear', lf='sp-load-lead'),
      g(an=PUNCH, af=band(30, -160), bob=(2, 2, 2), lean=(2, 6), root=(2, 0), ln='sp-drive-rear', lf='sp-drive-lead'),
+     g(an=PUNCH, af=band(30, -160), bob=(2, 2, 2), lean=(2, 6), ln='sp-drive-rear', lf='sp-drive-lead'),
      g(an=PUNCH, af=band(30, -160), bob=(2, 2, 2), lean=(2, 6), ln='sp-drive-rear', lf='sp-drive-lead'),
      g(an=band(-50, -120), af=band(-30, 215), bob=(1, 1, 2), lean=(1, 3), ln='sp-drive-rear', lf='sp-drive-lead'),
      g(root=(-1, 0))],
-  [None, 'squint', 'squint', 'squint', 'squint', 'squint', None, None],
+  [None, 'squint', 'squint', 'squint', 'squint', 'squint', 'squint', 'squint', None, None],
   None,
   dict(fps=10, hitbox=[46, 20, 14, 10], damage='heavy', rm='E: +2 on the step into the punch, -1 settling back',
-       fx=nfx('white guard-crack burst at the fist on contact, shards flying off',
-              [(4, [('shatter2', [55, 27])]), (5, [('shatter3', [55, 28]), ('shard', [52, 18]), ('shardR', [62, 30])]),
-               (6, [('shard', [50, 15]), ('shardR', [62, 33]), ('shatter1', [57, 26])])]))),
+       swirl={1: (0, 0.35), 2: (100, 0.6), 3: (210, 0.85), 4: (320, 1.0)},   # frame: (phase degrees, strength)
+       impact={5: 0, 6: 1, 7: 2, 8: 3})),   # frame: stage of the burst (flash, shock ring, spread, fade)
+ 'blastWave': ('Blast Wave', 5,
+  'Blast Wave (Aries ninjutsu, fire AoE: a small burst of fire that breaks the speed of sound), v2 (Christopher 2026-10-27: turn the fighter to face S for the release, gesture like a power-up scream): from the guard the fighter turns to face the viewer (every facing turns S for the cast), sinks into the knees with both fists pulled in low in front of the belly, head dipped, embers gathering; then it throws its head back with a roar, chest out, both fists clenched and driven down and out to the sides, elbows flared, and the wave releases: a spiked fire aura bursts out round it and sonic-boom rings blast outward, white-hot, then yellow, orange and red as they widen and break up; it holds the roar, then settles back into the guard and turns back to its facing.', [
+     g(),
+     g(an=band(-30, -120), af=band(-35, -125), bob=(1, 1, 2), lean=(0, 1), **LOW),
+     g(), g(bob=(3, 3, 3), **LOW), g(bob=(3, 3, 3), **LOW), g(bob=(0, -1, 0)), g(bob=(0, -1, 0)), g(bob=(0, -1, 0)), g(),
+     g()],
+  [None, 'squint', None, 'strain', 'strain', 'roar', 'roar', 'roar', None, None],
+  None,
+  dict(fps=10, front={2: dict(R=stances.GA['R'], L=stances.GA['L']),
+                      3: dict(R=(12, -25, 0.85, 'up'), L=(-12, 25, 0.85, 'up')),        # fists pulled in low in front of the belly
+                      4: dict(R=(12, -25, 0.85, 'up'), L=(-12, 25, 0.85, 'up')),        # held still (v3: no twitch between held frames)
+                      5: dict(R=(42, -5, 1, 'up'), L=(-42, 5, 1, 'up')),                # fists clenched, driven down and out, elbows flared
+                      6: dict(R=(42, -5, 1, 'up'), L=(-42, 5, 1, 'up')),
+                      7: dict(R=(42, -5, 1, 'up'), L=(-42, 5, 1, 'up')),
+                      8: dict(R=stances.GA['R'], L=stances.GA['L'])},
+       burst={3: 0, 4: 1, 5: 2, 6: 3, 7: 4, 8: 5})),   # frame: stage (embers gathering 0-1, release 2, rings out 3-4, fading 5)
+ 'explosiveRunes': ('Explosive Runes', 4,
+  'Explosive Runes (Aries ninjutsu, trap: glowing rune traps that detonate when a foe comes near): from the guard the fighter makes the tiger seal at the chin, a fire spark kindling between the hands; then it drops low on bent knees and sweeps the near open palm, facing the floor, low and forward over the ground like sowing seed; fire falls from the palm and burns glowing rune circles into the floor ahead, nearest first, the fire line running on past the edge to the rest, each flaring bright as it is written, embers lifting off them; the fighter rises back into the guard and the runes settle to a low smouldering glow (the testbed then draws the placed runes on their tiles until they detonate).', [
+     g(),
+     g(an=U.SEAL_N, af=U.SEAL_F, bob=(2, 2, 2), lean=(0, 0), **LOW),
+     g(an=U.SEAL_N, af=U.SEAL_F, bob=(2, 2, 2), lean=(0, 0), **LOW),
+     g(an=band(-20, -25, fistKind='palm'), af=band(-20, -150), bob=(4, 5, 5), lean=(1, 7), **BRACE),       # palm swept low, facing the floor
+     g(an=band(-45, -45, fistKind='palm'), af=band(-20, -150), bob=(4, 5, 5), lean=(1, 7), **BRACE),       # sweeping on forward over the ground
+     g(an=band(-65, -60, fistKind='palm'), af=band(-20, -150), bob=(4, 5, 5), lean=(1, 6), **BRACE),       # arm out, the last rune written
+     g(an=band(-30, -90), af=band(-40, -100), bob=(3, 3, 3), lean=(0, 3), **LOW),
+     g()],
+  [None, 'squint', 'squint', 'squint', 'squint', 'squint', None, None],
+  None,
+  dict(fps=10, fx=nfx('fire runes: a spark at the seal, fire running along the ground from the palm, three glowing rune circles burned into the floor ahead, flaring as they are written, then smouldering',
+              [(1, [('flame1', [35, 31])]), (2, [('flame2', [34, 32])]),
+               (3, [('flame2', [41, 63]), ('fireLine', [44, 63]), ('embers', [38, 50])]),
+               (4, [('fireLine', [42, 63]), ('runeHot', [43, 63]), ('flame1', [46, 59]), ('embers', [42, 47]), ('flame1', [44, 54])]),
+               (5, [('runeLit', [43, 63]), ('fireLine', [51, 63]), ('runeHot', [54, 63]), ('embers', [45, 57]), ('embers', [48, 42]), ('flame1', [52, 52])]),
+               (6, [('runeLit', [43, 63]), ('runeLit', [54, 63]), ('fireLine', [62, 63]), ('embers', [56, 57]), ('embers', [44, 56])]),
+               (7, [('runeDim', [43, 63]), ('runeDim', [54, 63])])]))),
+ 'meteor': ('Meteor', 10,
+  'Meteor (Aries ninjutsu ultimate, charge: a giant fireball called down from the sky that blankets a wide zone next round), v2 (Christopher 2026-10-27: an ultimate needs a more dramatic animation, more frames than a typical ability): from the guard the fighter makes the seal and sinks deep, straining, embers lifting off the ground all round it; a spiked fire aura flares up and grows; then it raises the near open palm high to the sky and the fireball forms above it, swelling frame by frame until it is too big for the sky to hold, white-hot at the core, roiling orange with a red rim and flames licking off it, the aura blazing; at the peak the fighter hurls the arm forward and up with a burst of light, holds the throw through a hit-stop as the meteor tears up and away trailing a thick tail of fire, embers raining back down; the glow fades from the sky and the fighter settles back into the guard (the testbed drops the meteor on the zone the next round).', [
+     g(),
+     g(an=U.SEAL_N, af=U.SEAL_F, bob=(2, 2, 2), lean=(0, 0), **LOW),
+     g(an=U.SEAL_N, af=U.SEAL_F, bob=(3, 3, 3), lean=(0, 1), **LOW),
+     g(an=U.SEAL_N, af=U.SEAL_F, bob=(4, 4, 4), lean=(0, 1), **BRACE),
+     g(an=U.SEAL_N, af=U.SEAL_F, bob=(4, 4, 4), lean=(0, 1), **BRACE),
+     g(an=band(-120, -150, fistKind='palm'), bob=(2, 2, 2), lean=(0, -1), **LOW)] + [
+     g(an=band(-130, -150, fistKind='palm'), bob=(2, 2, 2), lean=(-1, -2), **LOW) for _ in range(4)] + [
+     g(an=band(-110, -115, fistKind='palm'), af=band(-40, 215), bob=(2, 2, 2), lean=(1, 4), root=(1, 0), **LOW),   # hurled forward and up
+     g(an=band(-110, -115, fistKind='palm'), af=band(-40, 215), bob=(2, 2, 2), lean=(1, 4), **LOW),
+     g(an=band(-110, -115, fistKind='palm'), af=band(-40, 215), bob=(2, 2, 2), lean=(1, 4), **LOW),
+     g(an=band(-80, -110, fistKind='palm'), af=band(-40, 215), bob=(2, 2, 2), lean=(1, 3), **LOW),
+     g(an=band(-50, -120), af=band(-50, -130), bob=(1, 1, 2), lean=(0, 2)),
+     g(root=(-1, 0))],
+  [None, 'squint', 'pain', 'pain', 'pain', 'squint'] + ['squint'] * 4 + ['squint', 'squint', 'squint', None, None, None],
+  None,
+  dict(fps=10, rm='E: +1 into the throw, -1 settling back',
+       burst={2: 0, 3: 1, 4: 2, 5: 3, 6: 3, 7: 3, 8: 2, 9: 2, 10: 3, 11: 4, 12: 5}, burstEvery=True,   # embers rising, spiked aura flaring and blazing, then fading
+       meteor={5: ('form', 2), 6: ('form', 4), 7: ('form', 7), 8: ('form', 9), 9: ('form', 11),
+               10: ('flash', 0), 11: ('fly', 0), 12: ('fly', 1), 13: ('trail', 2), 14: ('trail', 3)})),
+ 'blindRage': ('Blind Rage', 4,
+  'Blind Rage (Aries genjutsu, mental debuff: the caster projects its fury into the target\'s mind so it sees everyone as an enemy; Confusion 1 round, INT save DC 12; range Zone of Awareness), the genjutsu template: from the guard the fighter raises the near hand with two fingers up in front of the eyes and fixes the target, the far hand staying in guard; the eyes kindle red, then flare white-hot, a dark crimson aura flickering up round it with rage wisps rising off the head; it holds the stare while red rage waves pulse out from its eyes toward the target one after another, each wider than the last, orange at the core and dark crimson at the rim, breaking up as they travel; the glow dies out of the eyes and the hand drops back into the guard (the testbed then marks the confused target).', [
+     g(),
+     g(an=band(-40, -160, fistKind='point'), bob=(1, 1, 1), lean=(0, 1)),
+     g(an=band(-45, -175, fistKind='point'), bob=(1, 1, 1), lean=(0, 1)),
+     g(an=band(-45, -175, fistKind='point'), bob=(1, 1, 1), lean=(0, 1)),
+     g(an=band(-45, -175, fistKind='point'), bob=(1, 1, 1), lean=(0, 1)),
+     g(an=band(-45, -175, fistKind='point'), bob=(1, 1, 1), lean=(0, 1)),
+     g(an=band(-45, -175, fistKind='point'), bob=(1, 1, 1), lean=(0, 1)),
+     g(an=band(-60, -120), bob=(1, 1, 2), lean=(0, 2)),
+     g()],
+  [None, 'squint', 'squint', 'squint', 'squint', 'squint', 'squint', None, None],
+  [0, 0, 1, 2, 2, 2, 1, 1, 0],
+  dict(fps=10, auraColors=('#d8321a', '#7a1016'), extra={'targetState': {'rule': 'Christopher 2026-10-27: every genjutsu marks its target; on the active frame the target starts genjutsuAfflicted (fire colours) and keeps it until the Confusion ends', 'state': 'genjutsuAfflicted', 'element': 'fire'}},
+       fx=nfx('fire genjutsu: the eyes kindle red then flare, rage wisps off the head, red rage waves pulsing out from the eyes toward the target, widening and breaking up',
+              [(2, [('eyeGlint', [38, 17])]),
+               (3, [('eyeFlare', [37, 18]), ('rageWisp', [30, 7]), ('rageWisp', [35, 8])]),
+               (4, [('eyeFlare', [37, 18]), ('rage1', [42, 19]), ('rageWisp', [32, 6]), ('rageWisp', [27, 9])]),
+               (5, [('eyeFlare', [37, 18]), ('rage2', [45, 22]), ('rage1', [42, 19]), ('rageWisp', [29, 5]), ('rageWisp', [35, 7])]),
+               (6, [('eyeGlint', [38, 17]), ('rage4', [51, 28]), ('rage2', [45, 22]), ('rageWisp', [31, 4])]),
+               (7, [('rage5d', [56, 30]), ('rage3', [50, 25])]),
+               (8, [('rage4d', [57, 28])])]))),
+ 'killingIntent': ('Killing Intent', 3,
+  'Killing Intent (Aries genjutsu, mental debuff: the caster focuses its bloodlust and projects it onto the foe, freezing it with fear; Stun 1 round, STR save DC 13; range Zone of Awareness), v3 (Christopher 2026-10-27: keep the demon, but as an illusory demon mask that appears over the caster\'s head, matching its facing; the body more aggressive): from the guard the fighter coils down low, hands drawn back, a near-black blood-red aura seeping up; then it surges forward a step into a wide predatory crouch, chest driven forward, both hands thrown out in front like claws, and an illusory demon mask flickers into being over its head in profile, then solidifies, horn sweeping back, eye and fangs blazing; it holds the crouch trembling with fury, dark pressure pooling at its feet, while jagged waves of killing intent roll out of the mask\'s jaws toward the target, each bigger than the last; then the mask breaks up and fades, the aura drains away and the fighter steps back into the guard (the target takes the genjutsu mark, genjutsuAfflicted, for the Stun).', [
+     g(),
+     g(an=band(-25, -70), af=band(-15, -60), bob=(3, 3, 3), lean=(0, -1), **LOW),          # coil: down low, hands drawn back
+     g(an=band(-25, -70), af=band(-15, -60), bob=(4, 4, 4), lean=(0, -1), **LOW),
+     g(an=band(-75, -105, fistKind='palm'), af=band(-60, -95, fistKind='palm'), bob=(4, 5, 5), lean=(1, 6), root=(2, 0), **BRACE),   # surge: a step in, claws thrown out
+     g(an=band(-75, -105, fistKind='palm'), af=band(-60, -95, fistKind='palm'), bob=(4, 5, 5), lean=(1, 6), **BRACE),
+     g(an=band(-75, -105, fistKind='palm'), af=band(-60, -95, fistKind='palm'), bob=(4, 5, 5), lean=(1, 6), root=(1, 0), **BRACE),   # trembling with fury
+     g(an=band(-75, -105, fistKind='palm'), af=band(-60, -95, fistKind='palm'), bob=(4, 5, 5), lean=(1, 6), root=(-1, 0), **BRACE),
+     g(an=band(-75, -105, fistKind='palm'), af=band(-60, -95, fistKind='palm'), bob=(4, 5, 5), lean=(1, 6), root=(1, 0), **BRACE),
+     g(an=band(-75, -105, fistKind='palm'), af=band(-60, -95, fistKind='palm'), bob=(4, 5, 5), lean=(1, 6), root=(-1, 0), **BRACE),
+     g(an=band(-40, -100), af=band(-35, -100), bob=(2, 2, 2), lean=(0, 2), **LOW),
+     g(root=(-2, 0))],
+  [None, 'squint', 'squint', 'pain', 'pain', 'pain', 'pain', 'pain', 'pain', None, None],
+  [0, 1, 2, 4, 4, 4, 4, 4, 3, 1, 0],
+  dict(fps=10, rm='E: +2 surging in on frame 3, a 1 px tremble on frames 5-8, -2 back on the last frame', auraColors=('#7a1016', '#2a0406'),
+       extra={'targetState': {'rule': 'Christopher 2026-10-27: every genjutsu marks its target; on the active frame the target starts genjutsuAfflicted (fire colours) and keeps it until the Stun ends', 'state': 'genjutsuAfflicted', 'element': 'fire'}},
+       mask={2: 'faint', 3: 'flare', 4: 'full', 5: 'full', 6: 'flare', 7: 'full', 8: 'flicker'},
+       maskWaves={4: [('ki1', 1, 5)], 5: [('ki2', 3, 9), ('ki1', 0, 5)], 6: [('ki3', 7, 13), ('ki2', 3, 9)], 7: [('ki4', 11, 16), ('ki3', 7, 13)], 8: [('ki4', 15, 16)]},
+       fx=nfx('dark pressure pooling at the feet of the crouch',
+              [(3, [('dread', [26, 63])]), (4, [('dread', [27, 63])]), (5, [('dread', [26, 63])]), (6, [('dread', [27, 63])]), (7, [('dread', [26, 63])]), (8, [('dread', [27, 63])])]))),
+ 'genjutsuAfflicted': ('Under Genjutsu', 0,
+  'Under Genjutsu (target status, Christopher 2026-10-27: every genjutsu marks its target with an effect showing it is under a genjutsu): the shared looping state the testbed plays on a fighter for as long as any genjutsu holds it, in place of its idle; the guard sags, the hands dropped a little, and the fighter sways slowly on its feet, entranced: the eyes glow the caster\'s element colour, a thin flickering aura in that colour clings to the outline, and three glowing motes circle slowly over the head like a halo, bright passing in front of the head and dark passing behind it; fire version (Aries, Leo, Sagittarius casters: crimson and orange); the testbed recolours it for the other elements.', [
+     g(an=band(-15, -105), af=band(-20, -110), bob=(1, 1, 2), lean=(0, 2)),
+     g(an=band(-15, -105), af=band(-20, -110), bob=(1, 1, 2), lean=(0, 2)),
+     g(an=band(-15, -105), af=band(-20, -110), bob=(2, 2, 2), lean=(0, 1)),
+     g(an=band(-15, -105), af=band(-20, -110), bob=(2, 2, 2), lean=(0, 1)),
+     g(an=band(-15, -105), af=band(-20, -110), bob=(2, 2, 3), lean=(0, 0)),
+     g(an=band(-15, -105), af=band(-20, -110), bob=(2, 2, 3), lean=(0, 0)),
+     g(an=band(-15, -105), af=band(-20, -110), bob=(2, 2, 2), lean=(0, 1)),
+     g(an=band(-15, -105), af=band(-20, -110), bob=(2, 2, 2), lean=(0, 1))],
+  ['entranced'] * 8,
+  [1] * 8,
+  dict(fps=6, auraColors=('#d8321a', '#7a1016'), shapes={'entranced': {'E': [[0, 1, '#d8321a'], [1, 1, '#d8321a'], [0, 2, '#ff8a1c'], [1, 2, '#ff3a1a']], 'S': [[0, 2, '#ff3a1a'], [1, 2, '#ff8a1c'], [5, 2, '#ff8a1c'], [6, 2, '#ff3a1a']]}},
+       extra={'loop': True, 'genjutsuMark': {'rule': 'Christopher 2026-10-27: every genjutsu target shows it is under a genjutsu. The testbed plays genjutsuAfflicted on loop in place of the target\'s idle (and draws its halo motes, aura and eye glow over any other state it plays) for as long as a genjutsu holds it; clears when the genjutsu ends', 'element': 'fire', 'recolor': {'rule': 'swap the fire colours for the caster sign\'s element: fire as drawn', 'sagittarius': {'#ffe14d': '#c9a0ff', '#ff8a1c': '#9b45ff', '#d8321a': '#55208f', '#7a1016': '#1c1024', '#ff3a1a': '#9b45ff'}, 'earth': {'#ffe14d': '#d9fff6', '#ff8a1c': '#7fe3d0', '#d8321a': '#c79a5b', '#7a1016': '#8a6236', '#ff3a1a': '#7fe3d0'}, 'water': {'#ffe14d': '#dff6ff', '#ff8a1c': '#7cc8ff', '#d8321a': '#2f7fe0', '#7a1016': '#1b4f99', '#ff3a1a': '#7cc8ff'}, 'air': {'#ffe14d': '#ffffff', '#ff8a1c': '#e3e3e3', '#d8321a': '#b8b8c8', '#7a1016': '#8a8a9a', '#ff3a1a': '#e3e3e3'}}}},
+       fx=nfx('the genjutsu mark: three glowing motes circling slowly over the head (one turn per loop), bright in front of the head, dark crimson behind it', _halo(8)))),
+ 'kingsPosture': ('King\'s Posture', 3,
+  'King\'s Posture (Leo taijutsu stance buff: a regal guard, FORT +30% for 3 rounds, holds firm): from the guard the fighter rises up tall, chest out and chin lifted; the near hand sweeps out wide and low, palm open, then comes up to rest open in front of the chest, fingers forward, the rear fist settling at the hip; a golden aura flares round it and a lion\'s mane of flame bursts up behind and round its head, blazing, then settles to a proud glow as it holds the pose, and it returns to the guard (the testbed keeps the buff, not the mane).', [
+     g(),
+     g(an=band(-40, -50, fistKind='palm'), af=band(-20, -70), bob=(0, -1, 0), lean=(0, -1)),
+     g(an=band(-60, -75, fistKind='palm'), af=band(-5, -40), bob=(0, -1, 0), lean=(0, -2)),
+     g(an=band(-55, -105, fistKind='palm'), af=band(-5, -40), bob=(0, -1, 0), lean=(0, -2)),
+     g(an=band(-55, -105, fistKind='palm'), af=band(-5, -40), bob=(0, -1, 0), lean=(0, -2)),
+     g(an=band(-55, -105, fistKind='palm'), af=band(-5, -40), bob=(0, -1, 0), lean=(0, -2)),
+     g(an=band(-55, -105, fistKind='palm'), af=band(-5, -40), bob=(0, -1, 0), lean=(0, -2)),
+     g(an=band(-40, -110), af=band(-25, -90), bob=(1, 1, 1), lean=(0, 1)),
+     g()],
+  [None, None, None, None, None, None, None, None, None],
+  [0, 0, 1, 3, 2, 2, 2, 1, 0],
+  dict(fps=10, auraColors=('#ffe14d', '#ff8a1c'),
+       anchored={2: [('mane1', 'head', -1, 0, {'behind': True})], 3: [('mane3', 'head', -1, -1, {'behind': True})], 4: [('mane4', 'head', -1, -1, {'behind': True})],
+                 5: [('mane3b', 'head', -1, -1, {'behind': True})], 6: [('mane2', 'head', -1, 0, {'behind': True})], 7: [('mane1', 'head', -1, 0, {'behind': True, 'alpha': {'R': 140, 'O': 170}})]})),
+ 'sunPalm': ('Sun Palm', 4,
+  'Sun Palm (Leo taijutsu strike: channels radiant energy into the palm, scorching whoever it touches, Burn 2 rounds): from the guard the fighter draws the rear hand back low beside the hip, palm open and turned forward, and a small sun kindles in it, white-hot at the heart, swelling and throwing out rays over two held frames; then it steps in and drives the open palm straight out at chest height, and the sun bursts on contact in a white-gold starburst with rays flashing out, then a broken ring of flame scattering embers; it settles back into the guard.', [
+     g(),
+     g(an=band(25, -60, fistKind='palm'), af=band(-75, -100), bob=(1, 1, 1), lean=(-1, -1), ln='sp-load-rear', lf='sp-load-lead'),
+     g(an=band(25, -60, fistKind='palm'), af=band(-75, -100), bob=(1, 1, 1), lean=(-1, -2), ln='sp-load-rear', lf='sp-load-lead'),
+     g(an=band(25, -60, fistKind='palm'), af=band(-75, -100), bob=(1, 1, 1), lean=(-1, -2), ln='sp-load-rear', lf='sp-load-lead'),
+     g(an=band(-90, -90, fistKind='palm'), af=band(30, -160), bob=(2, 2, 2), lean=(2, 6), root=(2, 0), ln='sp-drive-rear', lf='sp-drive-lead'),
+     g(an=band(-90, -90, fistKind='palm'), af=band(30, -160), bob=(2, 2, 2), lean=(2, 6), ln='sp-drive-rear', lf='sp-drive-lead'),
+     g(an=band(-90, -90, fistKind='palm'), af=band(30, -160), bob=(2, 2, 2), lean=(2, 6), ln='sp-drive-rear', lf='sp-drive-lead'),
+     g(an=band(-50, -120), af=band(-30, 215), bob=(1, 1, 2), lean=(1, 3), ln='sp-drive-rear', lf='sp-drive-lead'),
+     g(root=(-2, 0))],
+  [None, 'squint', 'squint', 'squint', 'squint', 'squint', None, None, None],
+  None,
+  dict(fps=10, hitbox=[46, 20, 14, 10], damage='medium', rm='E: +2 stepping into the palm, -2 settling back',
+       anchored={1: [('sunOrb2', 'hand', 0, 0)], 2: [('sunOrb3', 'hand', 0, 0)], 3: [('sunOrb3', 'hand', 0, 0), ('sunOrb1', 'hand', 0, -5)],
+                 4: [('sunBurst2', 'hand', 3, 0)], 5: [('sunBurst3', 'hand', 4, 0), ('sunBurst1', 'hand', 3, 0)],
+                 6: [('sunBurst3', 'hand', 5, 0, {'alpha': {'R': 150, 'O': 180}}), ('flame2', 'hand', 4, -3), ('embers', 'hand', 2, -6)], 7: [('embers', 'hand', 6, -4), ('flame1', 'hand', 5, -2)]})),
+ 'battleRoar': ('Battle Roar', 3,
+  'Battle Roar (Leo taijutsu debuff: an intimidating war cry that makes the foe second-guess itself, Slow 2 rounds, STR save DC 12): from the guard the fighter draws in a huge breath, rising, chest swelling, head back and fists pulled down to its sides; then it lunges its chest forward and roars at the foe, mouth wide, both hands flung down and back with fingers spread, and a lion\'s mane of flame bursts up round its head while golden roar waves blast out of its mouth one after another, widening as they go; it holds the roar, the mane blazing, then the mane dies down and it settles back into the guard.', [
+     g(),
+     g(an=band(10, -40), af=band(5, -40), bob=(0, -1, 0), lean=(-1, -3)),
+     g(an=band(10, -40), af=band(5, -40), bob=(0, -1, 0), lean=(-1, -3)),
+     g(an=band(35, 15, fistKind='palm'), af=band(30, 10, fistKind='palm'), bob=(2, 2, 2), lean=(2, 5), root=(1, 0), **BRACE),
+     g(an=band(35, 15, fistKind='palm'), af=band(30, 10, fistKind='palm'), bob=(2, 2, 2), lean=(2, 5), **BRACE),
+     g(an=band(35, 15, fistKind='palm'), af=band(30, 10, fistKind='palm'), bob=(2, 2, 2), lean=(2, 5), **BRACE),
+     g(an=band(35, 15, fistKind='palm'), af=band(30, 10, fistKind='palm'), bob=(2, 2, 2), lean=(2, 5), **BRACE),
+     g(an=band(-30, -100), af=band(-30, -105), bob=(1, 1, 2), lean=(0, 2)),
+     g(root=(-1, 0))],
+  [None, 'squint', 'squint', 'roarE', 'roarE', 'roarE', 'roarE', None, None],
+  [0, 0, 1, 2, 2, 2, 1, 0, 0],
+  dict(fps=10, hitbox=[44, 10, 16, 18], damage='light', rm='E: +1 lunging into the roar, -1 settling back', auraColors=('#ffe14d', '#ff8a1c'),
+       shapes={'roarE': {'E': [[0, 0, '#000000'], [1, 0, '#000000'], [1, 4, '#000000'], [2, 4, '#000000'], [1, 5, '#70241d'], [2, 5, '#70241d']]}},
+       anchored={3: [('mane3', 'head', -1, -1, {'behind': True}), ('roar1', 'head', 9, 2)],
+                 4: [('mane4', 'head', -1, -1, {'behind': True}), ('roar2', 'head', 12, 2), ('roar1', 'head', 9, 2)],
+                 5: [('mane3b', 'head', -1, -1, {'behind': True}), ('roar3', 'head', 17, 2), ('roar2', 'head', 12, 2)],
+                 6: [('mane2', 'head', -1, 0, {'behind': True}), ('roar3d', 'head', 22, 2), ('roar2', 'head', 15, 2)],
+                 7: [('mane1', 'head', -1, 0, {'behind': True, 'alpha': {'R': 140, 'O': 170}})]})),
  'innerGateAdrenaline': ('Inner Gate: Adrenaline', 4,
-  'Inner Gate: Adrenaline (Aries taijutsu buff: AGI and STR up, the fighter burns itself): from the guard the fighter clenches, curls the fists in front of the belly and sinks, straining, eyes squeezed; then the gate bursts open: it stands up tall, chest thrown out and both fists driven down and back, and a white aura flares around the whole body with flame licks rising off the shoulders and head; the aura pulses once, the flames keep licking (the self-burn), then the fighter drops back into the guard with embers still drifting off it.', [
+  'Inner Gate: Adrenaline (Aries taijutsu buff: AGI and STR up, the fighter burns itself): from the guard the fighter clenches, curls the fists in front of the belly and sinks, straining, eyes squeezed; then the gate bursts open: it stands up tall, chest thrown out and both fists driven down and back, and an orange-red aura flares around the whole body with flame licks rising off the shoulders and head; the aura pulses once, the flames keep licking (the self-burn), then the fighter drops back into the guard still powered up: the aura lingers, the skin stays flushed red and the veins stand out on the arms, neck and temple, embers drifting off it (the testbed keeps that look for as long as the gate stays open: until 0 HP or the player deactivates it).', [
      g(),
      g(an=band(-30, -120), af=band(-35, -125), bob=(2, 2, 3), lean=(0, 2), **LOW),
      g(an=band(-20, -100), af=band(-25, -105), bob=(3, 3, 4), lean=(0, 3), **LOW),
@@ -82,8 +327,9 @@ CLIPS = {
      g(an=band(-25, 205), af=band(-40, 215), bob=(1, 1, 2), lean=(0, 1)),
      g()],
   [None, 'squint', 'pain', 'pain', 'squint', 'squint', 'squint', None, None],
-  [0, 0, 0, 1, 3, 2, 3, 1, 0],
-  dict(fps=10, fx=nfx('white flame licks rising off the shoulders and head as the gate opens (self-burn), embers drifting after',
+  [0, 0, 0, 1, 3, 2, 3, 2, 2],
+  dict(fps=10, auraColors=FIRE_AURA, tint={3: 70, 4: 150, 5: 140, 6: 150, 7: 140, 8: 140}, veins=(4, 5, 6, 7, 8),
+       extra={'linger': {'rule': 'Inner Gate: Adrenaline (Christopher 2026-10-27: lingering aura, tinted skin, raised veins): the clip ends still powered up (aura 2 px, red skin tint, veins); while the ability is active (canon A5, Christopher 2026-10-27: a toggle, on until the fighter reaches 0 HP or deactivates it; the self Burn ticks every round meanwhile) the testbed keeps drawing the fighter with a 2 px orange-red aura flickering on its outer ring, the skin tint (fx red #ff3a1a at alpha 140 over skin pixels) and the veins, on every state it plays', 'aura': 2, 'auraColors': ['#ffb12e', '#e0401c'], 'tint': ['#ff3a1a', 140], 'veins': '#7a140c'}}, fx=nfx('red-orange-yellow flame licks rising off the shoulders and head as the gate opens (self-burn), embers drifting after',
               [(4, [('flame2', [31, 8]), ('flame2', [25, 26]), ('flame2', [39, 26])]), (5, [('flame3', [30, 8]), ('flame3', [23, 26]), ('flame2', [40, 25])]),
                (6, [('flame2', [32, 7]), ('flame2', [24, 25]), ('flame3', [38, 26])]), (7, [('embers', [31, 7])]), (8, [('embers', [30, 5])])]))),
 }
@@ -94,7 +340,17 @@ def spec(state):
     U.spec(state)
     x = CLIPS[state][6]; s = load(D + state + '.json')
     for k, v in (x.get('extra') or {}).items(): s[k] = v
+    if x.get('shapes'): s['expressions']['shapes'].update(copy.deepcopy(x['shapes']))
+    if x.get('front'):   # the fighter turns to face S for part of the clip (Blast Wave v2): every facing plays the S frames there
+        s['expressions']['shapes']['roar'] = {'E': copy.deepcopy(s['expressions']['shapes']['pain']['E']),
+            'S': [[0, 1, '#000000'], [1, 1, '#000000'], [5, 1, '#000000'], [6, 1, '#000000'], [2, 3, '#000000'], [3, 3, '#000000'], [4, 3, '#000000'], [2, 4, '#000000'], [3, 4, '#70241d'], [4, 4, '#000000']]}   # eyes squeezed, mouth open in a yell (mid-face, clear of the chin)
+        s['expressions']['shapes']['strain'] = {'E': copy.deepcopy(s['expressions']['shapes']['pain']['E']),
+            'S': [[0, 1, '#000000'], [1, 1, '#000000'], [5, 1, '#000000'], [6, 1, '#000000'], [2, 4, '#000000'], [3, 4, '#000000'], [4, 4, '#000000']]}   # eyes squeezed, teeth clenched
+        s['facingOverride'] = {'rule': 'Christopher 2026-10-27: the fighter turns to face S (toward the viewer) for these frames whatever its facing; every row holds the S frame there (the rows are copied after the render), then it turns back', 'frames': sorted(x['front']), 'to': 'S'}
     save(s, D + state + '.json')
+    if x.get('front'):
+        import universal_sn as USN
+        USN.SN[state] = x['front']; USN.sn(state)
 
 def fx(state):
     x = CLIPS[state][6]
@@ -104,7 +360,436 @@ def fx(state):
         import kastrikes
         f = D + state + '/fx.png'; old = Image.open(f).convert('RGBA') if os.path.exists(f) else None
         kastrikes.BLUR = x['blur']; kastrikes.blur(state)
+        if x.get('trail'):
+            b = Image.open(f).convert('RGBA'); px = b.load()
+            for yy in range(b.size[1]):
+                for xx in range(b.size[0]):
+                    q = px[xx, yy]
+                    if q[3] and q[:3] in x['trail']: px[xx, yy] = x['trail'][q[:3]] + (255,)
+            b.save(f)
         if old: new = Image.open(f).convert('RGBA'); new.alpha_composite(old); new.save(f)
+    if x.get('front'): face_front(state, sorted(x['front']))
+    if x.get('burst'):
+        if x.get('burstEvery'):   # the spiked aura drawn on each facing's own row (the fighter keeps its facing)
+            for i, r_ in enumerate(load(D + state + '.json')['directions']): burst(state, x['burst'], row=r_, spread=False, clean=i == 0)
+        else: burst(state, x['burst'])
+    if x.get('tint'): flush(state, x['tint'], x.get('veins', ()))
+    if x.get('meteor'):
+        from PIL import Image
+        f_ = D + state + '/fx.png'
+        if not os.path.exists(f_): Image.new('RGBA', Image.open(D + state + '/body.png').size).save(f_)
+        meteor(state, x['meteor'])
+    if x.get('swirl') or x.get('impact') or x.get('blast'):
+        from PIL import Image
+        f = D + state + '/fx.png'
+        if not os.path.exists(f) or 'fx' not in load(D + state + '.json'): Image.new('RGBA', Image.open(D + state + '/body.png').size).save(f)   # no splash fx: start clean (not a stale render)
+        if x.get('swirl'): swirl(state, x['swirl'])
+        if x.get('impact'): impact(state, x['impact'])
+        if x.get('blast'): blast(state, x['blast'])
+    if x.get('anchored'):
+        from PIL import Image
+        f_ = D + state + '/fx.png'
+        if not os.path.exists(f_) or ('fx' not in load(D + state + '.json') and not CLIPS[state][5]): Image.new('RGBA', Image.open(D + state + '/body.png').size).save(f_)   # clean start unless the aura was just drawn
+        anchored(state, x['anchored'])
+    if x.get('mask'):
+        from PIL import Image
+        f_ = D + state + '/fx.png'
+        if not os.path.exists(f_): Image.new('RGBA', Image.open(D + state + '/body.png').size).save(f_)
+        mask(state, x['mask'], x.get('maskWaves'))
+    if x.get('ghosts'):
+        from PIL import Image
+        f = D + state + '/fx.png'; top = Image.open(f).convert('RGBA')   # blur + splash so far
+        ghosts(state, x['ghosts'], x['ghostColors'])
+        g_ = Image.open(f).convert('RGBA'); g_.alpha_composite(top); g_.save(f)   # streaks and flames stay over the afterimages
+
+def _arm(state, k, r, layer='arms.png'):
+    from PIL import Image
+    a = Image.open(D + state + '/' + layer).convert('RGBA').load()
+    return [(x, y) for y in range(64) for x in range(64) if a[k * 64 + x, r * 64 + y][3]]
+
+def swirl(state, frames):
+    """Shatter Punch wind-up (Christopher 2026-10-27): fire swirling round the cocked arm. A tilted ellipse round the
+    arm's pixels; a comet of flame runs round it, its head yellow, body orange, tail red, longer and doubled as the
+    load builds; the half behind the arm hides behind the figure, the front half draws over it"""
+    import math
+    from PIL import Image
+    f = D + state + '/fx.png'; fx = Image.open(f).convert('RGBA'); px = fx.load()
+    lay = [Image.open(D + state + '/' + n).convert('RGBA').load() for n in ('body.png', 'arms.png', 'male-gi.png', 'fade-hair.png', 'far-arm.png') if os.path.exists(D + state + '/' + n)]
+    hexc = lambda c: tuple(int(c[i:i + 2], 16) for i in (1, 3, 5)) + (255,)
+    Y, O, R_ = hexc(ELEMENT['Y']), hexc(ELEMENT['O']), hexc(ELEMENT['R'])
+    dirs = load(D + state + '.json')['directions']
+    for k, (ph, st) in frames.items():
+        for fd in dirs:
+            r = dirs.index(fd); sg = -1 if fd == 'W' else 1
+            pts = _arm(state, k, r)
+            if not pts: continue
+            cx = sum(x for x, _ in pts) / len(pts); cy = sum(y for _, y in pts) / len(pts)
+            rx = (max(x for x, _ in pts) - min(x for x, _ in pts)) / 2 + 3; ry = (max(y for _, y in pts) - min(y for _, y in pts)) / 2 + 3
+            for ring, (dr, sweep) in enumerate(((0, 300 * st), (2, 200 * st))):
+                if ring and st < 0.6: continue
+                for t in range(int(sweep * 4)):
+                    u = t / (sweep * 4)   # 0 tail .. 1 head
+                    th = math.radians(ph + (180 if ring else 0) + t / 4)
+                    x = round(cx + sg * (rx + dr) * math.cos(th)); y = round(cy + (ry * 0.7 + dr) * math.sin(th))
+                    if not (0 <= x < 64 and 0 <= y < 64): continue
+                    behind = math.sin(th) < 0
+                    if behind and any(L[k * 64 + x, r * 64 + y][3] for L in lay): continue
+                    if u < 0.35 and (x + y) % 2: continue   # dithered tail
+                    px[k * 64 + x, r * 64 + y] = Y if u > 0.8 else O if u > 0.4 else R_
+            # sparks thrown off the swirl
+            for i in range(int(4 * st)):
+                th = math.radians(ph + 90 * i + 45)
+                x = round(cx + sg * (rx + 3) * math.cos(th)); y = round(cy + (ry * 0.7 + 3) * math.sin(th))
+                if 0 <= x < 64 and 0 <= y < 64: px[k * 64 + x, r * 64 + y] = Y
+    fx.save(f); print(state, 'arm swirl', list(frames))
+
+def impact(state, frames):
+    """Shatter Punch contact (Christopher 2026-10-27: more dramatic): stage 0 a big white-hot flash star at the fist with
+    jagged cracks; 1 a fire shock ring blasting out, cracks reaching further, shards; 2 the ring wider and broken,
+    shards and embers scattering; 3 embers fading. All drawn on top at the fist (the arms layer's far tip)"""
+    import math
+    from PIL import Image
+    f = D + state + '/fx.png'; fx = Image.open(f).convert('RGBA'); px = fx.load()
+    hexc = lambda c: tuple(int(c[i:i + 2], 16) for i in (1, 3, 5)) + (255,)
+    W_, Y, O, R_ = (255, 255, 255, 255), hexc(ELEMENT['Y']), hexc(ELEMENT['O']), hexc(ELEMENT['R'])
+    dirs = load(D + state + '.json')['directions']
+    def put(k, r, x, y, c):
+        if 0 <= x < 64 and 0 <= y < 64: px[k * 64 + x, r * 64 + y] = c
+    first = min(frames)
+    for k, stage in frames.items():
+        for fd in dirs:
+            r = dirs.index(fd); sg = -1 if fd == 'W' else 1
+            pts = _arm(state, first, r)
+            tip = max(pts, key=lambda p: sg * p[0]); fx0, fy = tip[0] + sg * 2, tip[1]
+            P = lambda dx, dy, c: put(k, r, fx0 + sg * dx, fy + dy, c)
+            cracks = [(0, -1), (1, -2), (2, -1), (1, 1), (2, 2), (-1, 2), (-1, -2), (3, 0)]   # crack directions (x forward, y)
+            if stage == 0:
+                for i in range(-9, 10):   # the flash star: long horizontal and vertical spikes, shorter diagonals
+                    c = W_ if abs(i) < 4 else Y if abs(i) < 7 else O if abs(i) < 9 else R_
+                    P(i, 0, c); P(0, i, c); P(i, 1 if abs(i) < 5 else 0, c); P(1 if abs(i) < 5 else 0, i, c)
+                    if abs(i) < 7: P(i, i, c if abs(i) < 3 else O); P(i, -i, c if abs(i) < 3 else O)
+                for dx in range(-3, 4):
+                    for dy in range(-3, 4):
+                        if abs(dx) + abs(dy) < 5: P(dx, dy, W_ if abs(dx) + abs(dy) < 3 else Y)
+            if stage in (1, 2):
+                rad = (7, 11)[stage - 1]
+                for t in range(0, 360, 4):   # the shock ring, an upright ellipse (seen side-on)
+                    if stage == 2 and (t // 20) % 3 == 0: continue   # breaking up
+                    th = math.radians(t)
+                    P(round(rad * 0.55 * math.cos(th)), round(rad * 1.3 * math.sin(th)), O if stage == 1 else R_)
+                    P(round((rad - 1) * 0.55 * math.cos(th)), round((rad - 1) * 1.3 * math.sin(th)), Y if stage == 1 else O)
+                for dx, dy in cracks:   # jagged cracks shooting off
+                    L = (8, 12)[stage - 1]
+                    for i in range(2, L):
+                        jx = (i % 3 == 0) * (1 if dy >= 0 else -1)
+                        P(round(dx * i / 2) + jx, round(dy * i / 2), Y if i < L // 2 else O)
+                for i, (dx, dy) in enumerate(cracks):   # shards flung out past the cracks
+                    d = (11, 16)[stage - 1]
+                    sx, sy = round(dx * d / 2), round(dy * d / 2)
+                    P(sx, sy, O); P(sx + 1, sy + 1, R_)
+                if stage == 1:
+                    for dx in range(-1, 2):
+                        for dy in range(-1, 2): P(dx, dy, W_ if dx == dy == 0 else Y)
+            if stage == 3:
+                for i, (dx, dy) in enumerate(cracks):
+                    if i % 2: continue
+                    P(round(dx * 8), round(dy * 8) - 1, O); P(round(dx * 6) + 1, round(dy * 6) - 2, R_)
+                P(-1, -6, Y); P(3, 5, O)
+    fx.save(f); print(state, 'impact', frames)
+
+def blast(state, frames):
+    """Blast Wave (fire burst breaking the sound barrier): from the palms (the arms layer's far tip on the first frame) a
+    cone of flame fans forward and sonic-boom arcs ')' ripple outward through it, each stage one arc further, the
+    nearest white-hot, then yellow, orange, red; stage 3 leaves only the last broken arc and embers"""
+    import math, random
+    from PIL import Image
+    f = D + state + '/fx.png'; fx = Image.open(f).convert('RGBA'); px = fx.load()
+    hexc = lambda c: tuple(int(c[i:i + 2], 16) for i in (1, 3, 5)) + (255,)
+    W_, Y, O, R_ = (255, 255, 255, 255), hexc(ELEMENT['Y']), hexc(ELEMENT['O']), hexc(ELEMENT['R'])
+    ramp = [W_, Y, O, R_]
+    dirs = load(D + state + '.json')['directions']; first = min(frames)
+    lay = [Image.open(D + state + '/' + n).convert('RGBA').load() for n in ('body.png', 'arms.png', 'male-gi.png', 'fade-hair.png', 'far-arm.png') if os.path.exists(D + state + '/' + n)]
+    for k, stage in frames.items():
+        rnd = random.Random(k)
+        for fd in dirs:
+            r = dirs.index(fd); sg = -1 if fd == 'W' else 1
+            pts = _arm(state, first, r); tip = max(pts, key=lambda p: sg * p[0]); x0, y0 = tip[0] + sg, tip[1]
+            def P(dx, dy, c):
+                x, y = x0 + sg * dx, y0 + dy
+                if 0 <= x < 64 and 0 <= y < 64: px[k * 64 + x, r * 64 + y] = c
+            if stage < 3:   # the flame cone: dithered fire fanning out, hotter near the palms
+                L = (7, 11, 13)[stage]
+                for dx in range(0, L):
+                    h = 1 + dx * 2 // 3
+                    for dy in range(-h, h + 1):
+                        if rnd.random() < (0.9 if dx < 3 else 0.55 - 0.03 * dx): P(dx, dy, ramp[min(3, (dx * 4) // (L + 1) + (abs(dy) > h - 1))])
+            for j in range(stage + 1):   # the sonic boom: rings bursting out round the whole fighter, oldest widest
+                rx = 9 + 8 * (stage - j); ry = round(rx * 0.75); c = ramp[min(3, stage - j + (stage == 3))]
+                for t in range(0, 360, 2):
+                    if (stage - j) >= 2 and (t // 12) % 3 == 0: continue   # the outer ring breaks up
+                    th = math.radians(t); x = round(32 + rx * math.cos(th)); y = round(34 + ry * math.sin(th))
+                    if not (0 <= x < 64 and 0 <= y < 64): continue
+                    if math.sin(th) < 0 and any(L[k * 64 + x, r * 64 + y][3] for L in lay): continue   # far half behind the figure
+                    px[k * 64 + x, r * 64 + y] = c
+            if stage >= 2:
+                for i in range(6): P(rnd.randint(4, 16), rnd.randint(-10, 10), (O, R_, Y)[i % 3])
+    fx.save(f); print(state, 'blast', frames)
+
+SKIN = {(0xf6, 0xa3, 0x5b), (0xc8, 0x78, 0x45), (0x9e, 0x4a, 0x31)}   # the rig's skin ramp (L, m, s)
+def flush(state, tint, veins):
+    """Inner Gate (Christopher 2026-10-27): the skin flushes red (a translucent red over every skin pixel, alpha per frame)
+    and veins stand out on the forearms, upper arms, neck and temple (dark red broken lines, interior skin pixels only).
+    Written as two extra layers so clothing, armour and hair still cover it: skin-fx.png (body + far arm skin, drawn just
+    above body.png / far-arm.png) and arms-fx.png (near arm skin, drawn just above arms.png)"""
+    from PIL import Image
+    d = D + state + '/'
+    dirs = load(D + state + '.json')['directions']
+    for src, out in ((('body.png', 'far-arm.png'), 'skin-fx.png'), (('arms.png',), 'arms-fx.png')):
+        lays = [Image.open(d + n).convert('RGBA') for n in src if os.path.exists(d + n)]
+        if not lays: continue
+        img = Image.new('RGBA', lays[0].size); px = img.load(); lays = [L.load() for L in lays]
+        for k, al in tint.items():
+            for fd in dirs:
+                r = dirs.index(fd)
+                skin = {(x, y) for L in lays for y in range(64) for x in range(64) if (q := L[k * 64 + x, r * 64 + y])[3] and q[:3] in SKIN}
+                for (x, y) in skin: px[k * 64 + x, r * 64 + y] = (0xff, 0x3a, 0x1a, al)
+                if k not in veins or not skin: continue
+                top_y = min(y for _, y in skin) if out == 'skin-fx.png' else -99
+                for (x, y) in skin:
+                    if top_y + 2 < y < top_y + 11:   # head: a short vein at the temple only, the face stays clean
+                        if y in (top_y + 3, top_y + 4) and (x + y) % 3 == 0 and (x - 1, y) in skin and (x + 1, y) in skin: px[k * 64 + x, r * 64 + y] = (0x7a, 0x14, 0x0c, 255)
+                        continue
+                    across = ((x - 1, y) in skin and (x + 1, y) in skin and (x - 2, y) not in skin | {(x, y)}) or ((x, y - 1) in skin and (x, y + 1) in skin)
+                    # a vein runs down the middle of each limb's cross-section (arms, neck), broken every few pixels
+                    mid = (x - 1, y) in skin and (x + 1, y) in skin if (x, y - 1) in skin and (x, y + 1) in skin else (x, y - 1) in skin and (x, y + 1) in skin
+                    if mid and (x * 3 + y) % 5 != 0: px[k * 64 + x, r * 64 + y] = (0x7a, 0x14, 0x0c, 255)
+        img.save(d + out)
+    print(state, 'flush', list(tint), 'veins', list(veins))
+
+def face_front(state, frames):
+    """every row takes the S row's frame on the turned frames (all layers), so each facing turns to the viewer there"""
+    from PIL import Image
+    d = D + state + '/'; dirs = load(D + state + '.json')['directions']; rs = dirs.index('S')
+    for n in sorted(os.listdir(d)):
+        if not n.endswith('.png') or n == 'fx.png': continue
+        im = Image.open(d + n).convert('RGBA')
+        if im.height < 64 * len(dirs): continue
+        for k in frames:
+            cell = im.crop((k * 64, rs * 64, k * 64 + 64, rs * 64 + 64))
+            for r in range(len(dirs)):
+                if r != rs: im.paste(cell, (k * 64, r * 64))
+        im.save(d + n)
+    print(state, 'S frames on every row', frames)
+
+def burst(state, frames, row='S', spread=True, clean=True):
+    """Blast Wave v2 (facing S): embers gathering round the crouched fighter (stages 0-1), then the release: a spiked fire
+    aura round the whole figure (inner yellow glow, flame spikes radiating out, longer at the release) and sonic-boom rings
+    blasting out round it, white-hot, then yellow, orange, red as they widen and break up (stages 2-5). Drawn on the S row
+    and copied to every row (all rows show the S frame there)"""
+    import math, random
+    from PIL import Image, ImageFilter
+    d = D + state + '/'; f = d + 'fx.png'; dirs = load(D + state + '.json')['directions']; rs = dirs.index(row)
+    base = Image.open(d + 'body.png'); fx = Image.open(f).convert('RGBA') if os.path.exists(f) and ('fx' in load(D + state + '.json') or not clean) else Image.new('RGBA', base.size)   # no splash fx: start clean
+    if fx.size != base.size: n_ = Image.new('RGBA', base.size); n_.paste(fx, (0, 0)); fx = n_
+    px = fx.load()
+    hexc = lambda c: tuple(int(c[i:i + 2], 16) for i in (1, 3, 5)) + (255,)
+    W_, Y, O, R_ = (255, 255, 255, 255), hexc(ELEMENT['Y']), hexc(ELEMENT['O']), hexc(ELEMENT['R'])
+    ramp = [W_, Y, O, R_]
+    lay = [Image.open(d + n).convert('RGBA') for n in ('body.png', 'arms.png', 'male-gi.png', 'fade-hair.png', 'far-arm.png') if os.path.exists(d + n)]
+    for k, st in frames.items():
+        rnd = random.Random(k * 7)
+        box = (k * 64, rs * 64, k * 64 + 64, rs * 64 + 64)
+        m = Image.new('L', (64, 64))
+        for L in lay: m.paste(255, (0, 0), L.crop(box).getchannel('A').point(lambda v: 255 if v else 0))
+        fig = m.load(); pts = [(x, y) for y in range(64) for x in range(64) if fig[x, y]]
+        cx = sum(x for x, _ in pts) / len(pts); cy = sum(y for _, y in pts) / len(pts)
+        def P(x, y, c, over=False):
+            if 0 <= x < 64 and 0 <= y < 64 and (over or not fig[x, y]): px[box[0] + x, box[1] + y] = c
+        if st <= 1:   # embers drawn in toward the fighter
+            for i in range(10 + 6 * st):
+                th = rnd.uniform(0, 2 * math.pi); rr = rnd.uniform(14, 24) - 5 * st
+                P(round(cx + rr * math.cos(th)), round(cy + rr * 1.2 * math.sin(th)), (Y, O, R_)[i % 3])
+            g1 = m.filter(ImageFilter.MaxFilter(3)).load()
+            for (x, y) in [(x, y) for y in range(64) for x in range(64) if g1[x, y] and not fig[x, y]]:
+                if (x + y + k) % 2 == 0 or st: P(x, y, O if st else R_)
+            continue
+        # spiked fire aura: glow rings, then flame spikes out of the silhouette
+        grow = [m]
+        for i in range(3): grow.append(grow[-1].filter(ImageFilter.MaxFilter(3)))
+        G = [g.load() for g in grow]; wd = (3, 3, 2, 1)[st - 2]
+        for y in range(64):
+            for x in range(64):
+                for i in range(1, wd + 1):
+                    if G[i][x, y] and not G[i - 1][x, y]: P(x, y, (Y, O, R_)[min(2, i - 1)]); break
+        L0 = (10, 8, 5, 3)[st - 2]
+        for t in range(0, 360, 12):
+            th = math.radians(t + (k * 5)); L = L0 + rnd.randint(-2, 3)
+            # start at the silhouette edge in that direction
+            r0 = 0
+            while r0 < 40:
+                x, y = round(cx + r0 * math.sin(th)), round(cy - r0 * math.cos(th))
+                if not (0 <= x < 64 and 0 <= y < 64) or not fig[x, y]: break
+                r0 += 1
+            for i in range(L):
+                u = i / L; w = 1 if u < 0.6 else 0
+                x, y = cx + (r0 + i) * math.sin(th), cy - (r0 + i) * math.cos(th)
+                c = Y if u < 0.35 else O if u < 0.7 else R_
+                P(round(x), round(y), c)
+                if w: P(round(x + math.cos(th)), round(y + math.sin(th)), c)
+        # sonic-boom rings round the fighter
+        for j in range(st - 1):
+            age = st - 2 - j; rx = 12 + 9 * age; ry = round(rx * 0.8); c = ramp[min(3, age + (st == 5))]
+            for t in range(0, 360, 2):
+                if age >= 2 and (t // 12) % 3 == 0: continue
+                th = math.radians(t)
+                P(round(cx + rx * math.cos(th)), round(cy + 4 + ry * math.sin(th)), c)
+        if st == 2:   # the white-hot release flash at the chest
+            for i in range(-3, 4): P(round(cx) + i, round(cy) - 6, W_ if abs(i) < 2 else Y, over=False)
+    for k in (frames if spread else ()):   # every row shows the S frame here
+        cell = fx.crop((k * 64, rs * 64, k * 64 + 64, rs * 64 + 64))
+        for r in range(len(dirs)):
+            if r != rs: fx.paste(cell, (k * 64, r * 64))
+    fx.save(f); print(state, 'burst', frames)
+
+def meteor(state, frames):
+    """Meteor: a fireball forming above the raised hands ('form', radius), roiling (yellow core, orange body, red rim,
+    flame licks off the top); then hurled ('fly', step): it streaks up and away toward the target's side of the sky with a
+    tapering fire trail back to the hands, leaving embers ('trail')"""
+    import math, random
+    from PIL import Image
+    d = D + state + '/'; f = d + 'fx.png'; dirs = load(D + state + '.json')['directions']
+    fx = Image.open(f).convert('RGBA'); px = fx.load()
+    hexc = lambda c: tuple(int(c[i:i + 2], 16) for i in (1, 3, 5)) + (255,)
+    W_, Y, O, R_ = (255, 255, 255, 255), hexc(ELEMENT['Y']), hexc(ELEMENT['O']), hexc(ELEMENT['R'])
+    def ball(k, r, cx, cy, rad, sg, rnd):
+        for y in range(-rad - 3, rad + 1):
+            for x in range(-rad - 1, rad + 2):
+                dd = (x * x + y * y) ** 0.5
+                X, Y_ = cx + sg * x, cy + y
+                if not (0 <= X < 64 and 0 <= Y_ < 64): continue
+                if dd <= rad:
+                    c = W_ if dd < rad * 0.3 else Y if dd < rad * 0.6 else O if dd < rad - 0.8 else R_
+                    if rad >= 4 and Y is c and rnd.random() < 0.2: c = O   # roiling
+                    px[k * 64 + X, r * 64 + Y_] = c
+                elif y < 0 and dd <= rad + 2 and rnd.random() < 0.35: px[k * 64 + X, r * 64 + Y_] = R_ if rnd.random() < 0.5 else O   # licks off the top
+    for k, (kind, n) in frames.items():
+        for fd in dirs:
+            r = dirs.index(fd); sg = -1 if fd == 'W' else 1; rnd = random.Random(k * 13 + r)
+            pts = _arm(state, 3, r); top = min(pts, key=lambda p: p[1]); hx = top[0]; hy = top[1]   # the raised palm (frame 3)
+            if kind == 'form': ball(k, r, hx + sg, hy - min(n, 5) - 1, n, 1, rnd)   # big ones run off the top of the frame: too big for the sky
+            elif kind == 'flash':   # the launch: the fireball at its biggest, lit white, light rays out from it
+                ball(k, r, hx + sg * 3, hy - 6, 11, 1, rnd)
+                for t in range(0, 360, 30):
+                    th = math.radians(t)
+                    for i in range(12, 20):
+                        X, Y_ = round(hx + sg * 3 + i * math.cos(th)), round(hy - 6 + i * math.sin(th))
+                        if 0 <= X < 64 and 0 <= Y_ < 64: px[k * 64 + X, r * 64 + Y_] = Y if i < 16 else O
+            else:
+                cx = hx + sg * (10 + 11 * n); cy = max(1, hy - 4 - 4 * n); rad = max(3, 9 - 2 * n)
+                for t in range(0, 60):   # the trail back toward the hands, tapering
+                    u = t / 60; tx = round(hx + sg * 4 + (cx - hx - sg * 4) * u); ty = round(hy + 4 + (cy - hy - 4) * u)
+                    w = int(u * (5 if kind == 'fly' else 3))
+                    for dy in range(-w, w + 1):
+                        X, Y_ = tx, ty + dy
+                        if 0 <= X < 64 and 0 <= Y_ < 64 and (kind != 'trail' or rnd.random() < 0.3) and rnd.random() < 0.4 + 0.5 * u:
+                            px[k * 64 + X, r * 64 + Y_] = R_ if u < 0.4 else O if u < 0.75 else Y
+                if kind == 'fly': ball(k, r, cx, cy, rad, sg, rnd)
+                for i in range(8 + 6 * n):   # embers shed along the way, raining back down
+                    X = hx + sg * rnd.randint(-6, 30); Y_ = rnd.randint(2, 20 + 10 * n)
+                    if 0 <= X < 64: px[k * 64 + X, r * 64 + Y_] = (O, R_, Y)[i % 3]
+    fx.save(f); print(state, 'meteor', list(frames))
+
+def anchored(state, frames):
+    """Splash fx placed on the fighter itself, so they ride every pose and root step: frames = {frame: [(pattern, anchor,
+    dx, dy, opts)]}; anchor 'head' (centre of the head found in body.png), 'hand' (tip of the near arm, the arms layer's
+    most forward pixel), 'feet' (floor under the body); dx is toward the facing (mirrored for W, pattern flipped);
+    the pattern is centred on the anchor; opts: 'behind' (only where the fighter is not drawn), {'alpha': {letter: a}}"""
+    from PIL import Image
+    d = D + state + '/'; f = d + 'fx.png'; dirs = load(D + state + '.json')['directions']
+    body = Image.open(d + 'body.png').convert('RGBA'); fx = Image.open(f).convert('RGBA') if os.path.exists(f) else Image.new('RGBA', body.size)
+    lays = [Image.open(d + n).convert('RGBA').load() for n in ('body.png', 'arms.png', 'far-arm.png', 'male-gi.png', 'fade-hair.png') if os.path.exists(d + n)]
+    px = fx.load(); bp = lays[0]; ap = Image.open(d + 'arms.png').convert('RGBA').load()
+    hexc = lambda c, a=255: tuple(int(c[i:i + 2], 16) for i in (1, 3, 5)) + (a,)
+    for k, items in frames.items():
+        for r, fd in enumerate(dirs):
+            if fd not in ('E', 'W'): continue
+            flip = fd == 'W'; sg = -1 if flip else 1
+            opq = [(x, y) for y in range(64) for x in range(64) if bp[k * 64 + x, r * 64 + y][3]]
+            top = min(y for _, y in opq); head = [x for x, y in opq if y <= top + 9]
+            arm = [(x, y) for y in range(64) for x in range(64) if ap[k * 64 + x, r * 64 + y][3]]
+            tip = (max if not flip else min)(arm, key=lambda q: (q[0], -q[1])) if arm else ((max(head), top + 8))
+            anchors = {'head': ((min(head) + max(head)) / 2, top + 6), 'hand': tip, 'feet': ((min(x for x, _ in opq) + max(x for x, _ in opq)) / 2, 63)}
+            for item in items:
+                name, an, dx, dy = item[:4]; opts = item[4] if len(item) > 4 else {}
+                pat = NPAT[name]; h, w = len(pat), len(pat[0]); ax, ay = anchors[an]
+                x0 = round(ax + sg * dx - (w - 1) / 2); y0 = round(ay + dy - (h - 1) / 2)
+                for yy, row in enumerate(pat):
+                    for xx, ch in enumerate(row[::-1] if flip else row):
+                        if ch == '.': continue
+                        X, Y = x0 + xx, y0 + yy
+                        if not (0 <= X < 64 and 0 <= Y < 64): continue
+                        if opts.get('behind') and any(L[k * 64 + X, r * 64 + Y][3] for L in lays): continue
+                        px[k * 64 + X, r * 64 + Y] = hexc(NPAL[ch], opts.get('alpha', {}).get(ch, 255))
+    fx.save(f); print(state, 'anchored', list(frames))
+
+def mask(state, frames, waves=None):
+    """Killing Intent v3 (Christopher 2026-10-27): an illusory demon mask appears over the caster's head, in profile matching
+    its facing ('faint' outline only, 'full' translucent fill, 'flare' eye and fangs blazing, 'flicker' breaking up); placed
+    from the head found in body.png each frame so it rides the lunge; the killing-intent waves roll out from the mask's mouth"""
+    from PIL import Image
+    d = D + state + '/'; f = d + 'fx.png'; dirs = load(D + state + '.json')['directions']
+    body = Image.open(d + 'body.png').convert('RGBA'); fx = Image.open(f).convert('RGBA') if os.path.exists(f) else Image.new('RGBA', body.size)
+    px = fx.load(); bp = body.load()
+    hexc = lambda c, a=255: tuple(int(c[i:i + 2], 16) for i in (1, 3, 5)) + (a,)
+    def stamp(k, r, pat, x0, y0, flip, recol=None, alpha=None, skip=None):
+        for yy, row in enumerate(pat):
+            if skip and yy % 2 == skip - 1: continue
+            for xx, ch in enumerate(row[::-1] if flip else row):
+                if ch == '.': continue
+                ch = (recol or {}).get(ch, ch)
+                if ch == '.': continue
+                X, Y = x0 + xx, y0 + yy
+                if 0 <= X < 64 and 0 <= Y < 64: px[k * 64 + X, r * 64 + Y] = hexc(NPAL[ch], (alpha or {}).get(ch, 255))
+    for k, stage in frames.items():
+        for r, fd in enumerate(dirs):
+            if fd not in ('E', 'W'): continue
+            opq = [(x, y) for y in range(64) for x in range(64) if bp[k * 64 + x, r * 64 + y][3]]
+            if not opq: continue
+            top = min(y for _, y in opq); head = [x for x, y in opq if y <= top + 9]; L, R_ = min(head), max(head)
+            flip = fd == 'W'; x0 = R_ + 3 - 17 if flip else L - 3; y0 = top - 4
+            pat = NPAT['oniMask']
+            if stage == 'faint': stamp(k, r, pat, x0, y0, flip, recol={'m': '.', 'M': '.', 'Y': '.', 'W': '.'}, alpha={'R': 150})
+            elif stage == 'flicker': stamp(k, r, pat, x0, y0, flip, alpha={'m': 110, 'R': 170}, skip=1)
+            else: stamp(k, r, pat, x0, y0, flip, alpha={'m': 175}, recol={'R': 'O', 'Y': 'W'} if stage == 'flare' else None)   # translucent fill: an illusion, the face shows faintly through
+            for name, dx, dy in (waves or {}).get(k, ()):   # waves anchored at the mask's snout, bottom-left like nfx
+                w = NPAT[name]; wx = (L - 3 + 18 + dx) if not flip else (R_ + 3 - 17 - dx - len(w[0]))
+                stamp(k, r, w, wx, top + 9 + dy - len(w) + 1, flip)
+    fx.save(f); print(state, 'mask', list(frames))
+
+def ghosts(state, offs, cols):
+    """after the blur: afterimages (Christopher 2026-10-27: onion/afterimage effects to exaggerate the speed). On each
+    dash frame the figure's own silhouette is stamped again 4-18 px behind it on the fx layer, nearest first: an edge of
+    solid colour with a dithered fill, fading out (orange/yellow, then red/orange, then a bare red edge); drawn only where
+    the figure itself is not, so the real fighter stays on top"""
+    from PIL import Image
+    d = D + state + '/'; f = d + 'fx.png'
+    lay = [Image.open(d + n).convert('RGBA').load() for n in ('body.png', 'arms.png', 'far-arm.png', 'male-gi.png', 'fade-hair.png') if os.path.exists(d + n)]
+    fx = Image.open(f).convert('RGBA'); px = fx.load()
+    hexc = lambda c: tuple(int(c[i:i + 2], 16) for i in (1, 3, 5)) + (255,)
+    dirs = load(D + state + '.json')['directions']
+    for k, os_ in offs.items():
+        for fd in dirs:
+            r = dirs.index(fd); sg = -1 if fd == 'W' else 1
+            fig = {(x, y) for y in range(64) for x in range(64) if any(a[k * 64 + x, r * 64 + y][3] for a in lay)}
+            for i, o in sorted(enumerate(os_), key=lambda t: -t[0]):   # farthest first, nearest drawn over it
+                edge, fill = cols[min(i, len(cols) - 1)]
+                for (x, y) in fig:
+                    X = x - sg * o
+                    if not (0 <= X < 64) or (X, y) in fig: continue
+                    rim = any((x + dx, y + dy) not in fig for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)))
+                    if rim: px[k * 64 + X, r * 64 + y] = hexc(edge)
+                    elif fill and (X + y) % 2 == 0: px[k * 64 + X, r * 64 + y] = hexc(fill)
+    fx.save(f); print(state, 'afterimages', offs)
 
 if __name__ == '__main__':
     a = sys.argv[1:]

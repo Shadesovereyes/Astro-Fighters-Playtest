@@ -1057,6 +1057,100 @@
       ]
     },
     {
+      "source": "Paperdolls/Male/Layer 2b - Stowed Weapons/Tanto Stowed Front.png",
+      "class": "component",
+      "partMap": "overlays/tanto-stowed-front.png",
+      "frames": [
+        {
+          "direction": "S",
+          "pixelCounts": {}
+        },
+        {
+          "direction": "SE",
+          "pixelCounts": {}
+        },
+        {
+          "direction": "E",
+          "pixelCounts": {}
+        },
+        {
+          "direction": "NE",
+          "pixelCounts": {
+            "pelvis": 60
+          }
+        },
+        {
+          "direction": "N",
+          "pixelCounts": {
+            "pelvis": 67
+          }
+        },
+        {
+          "direction": "NW",
+          "pixelCounts": {
+            "pelvis": 60
+          }
+        },
+        {
+          "direction": "W",
+          "pixelCounts": {}
+        },
+        {
+          "direction": "SW",
+          "pixelCounts": {}
+        }
+      ]
+    },
+    {
+      "source": "Paperdolls/Male/Layer 2b - Stowed Weapons/Tanto Stowed Back.png",
+      "class": "component",
+      "partMap": "overlays/tanto-stowed-back.png",
+      "frames": [
+        {
+          "direction": "S",
+          "pixelCounts": {
+            "pelvis": 66
+          }
+        },
+        {
+          "direction": "SE",
+          "pixelCounts": {
+            "pelvis": 52
+          }
+        },
+        {
+          "direction": "E",
+          "pixelCounts": {
+            "pelvis": 38
+          }
+        },
+        {
+          "direction": "NE",
+          "pixelCounts": {}
+        },
+        {
+          "direction": "N",
+          "pixelCounts": {}
+        },
+        {
+          "direction": "NW",
+          "pixelCounts": {}
+        },
+        {
+          "direction": "W",
+          "pixelCounts": {
+            "pelvis": 37
+          }
+        },
+        {
+          "direction": "SW",
+          "pixelCounts": {
+            "pelvis": 60
+          }
+        }
+      ]
+    },
+    {
       "source": "Paperdolls/Male/Layer 4 - Shoulders and Arms accessories/Blue Armor Shoulders.png",
       "class": "component",
       "partMap": "overlays/blue-armor-shoulders.png",

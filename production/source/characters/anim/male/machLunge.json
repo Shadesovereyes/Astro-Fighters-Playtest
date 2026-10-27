@@ -2,8 +2,8 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "machLunge",
-  "status": "CANDIDATE 2026-10-27 (E/W; W mirrors E; S/N to author after approval)",
-  "frames": 8,
+  "status": "E/W approved by user 2026-10-27 (v5 sprint, flaming feet, fire wake, 4 afterimages, fc741f6; W mirrors E); S/N to author",
+  "frames": 12,
   "fps": 12,
   "sourceDirection": "E",
   "directions": [
@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Mach Lunge (Aries taijutsu, Priority gap closer, burns the target): from the guard the fighter dips into a sprinter crouch, then explodes off the rear foot, tucking both arms tight and lowering the lead shoulder; it rockets forward low, a white heat streak trailing off its back and flame licks peeling off the shoulder, lands a long step on and drives the shoulder into the target with a flare of flame at the point of contact; then settles back into the guard. The fighter travels 18 px over the clip (the game moves it by that distance).",
+  "intent": "Mach Lunge (Aries taijutsu, Priority gap closer, burns the target), v4 (Christopher 2026-10-27: the sprint instead of a single hop, flames around the feet; afterimages for speed): from the guard the fighter dips, then breaks into the approved sprint (the same stride, lean and swept-back arms), flames bursting around the feet at every step, a stream of fire and four fire-tinted afterimages trailing behind; on the last stride it tucks both arms tight, plants the lead foot and drives the lead shoulder into the target with a flare of flame at the point of contact; then settles back into the guard. The fighter travels 40 px over the clip (the game moves it by that distance).",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -105,7 +105,11 @@
       1,
       3,
       1,
+      2,
       1,
+      0,
+      1,
+      2,
       2,
       2,
       1,
@@ -115,7 +119,11 @@
       1,
       3,
       1,
+      2,
       1,
+      0,
+      1,
+      2,
       2,
       2,
       1,
@@ -125,7 +133,11 @@
       2,
       3,
       1,
+      2,
       1,
+      0,
+      1,
+      2,
       2,
       2,
       2,
@@ -139,8 +151,12 @@
       "pelvis": [
         0,
         1,
-        2,
-        2,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
         2,
         2,
         1,
@@ -149,7 +165,11 @@
       "head": [
         2,
         4,
-        7,
+        8,
+        8,
+        8,
+        8,
+        8,
         8,
         7,
         6,
@@ -159,7 +179,7 @@
     }
   },
   "rootMotion": {
-    "rule": "E: 18 px forward over the dash (travel)",
+    "rule": "E: 6 px a stride through the sprint (as the sprint), +3 and +1 into the shoulder check; 40 px in all (travel)",
     "E": [
       [
         0,
@@ -178,7 +198,23 @@
         0
       ],
       [
-        4,
+        6,
+        0
+      ],
+      [
+        6,
+        0
+      ],
+      [
+        6,
+        0
+      ],
+      [
+        6,
+        0
+      ],
+      [
+        3,
         0
       ],
       [
@@ -186,7 +222,7 @@
         0
       ],
       [
-        1,
+        0,
         0
       ],
       [
@@ -212,11 +248,23 @@
         0
       ],
       [
-        -4,
+        -6,
         0
       ],
       [
-        -1,
+        -6,
+        0
+      ],
+      [
+        -6,
+        0
+      ],
+      [
+        -6,
+        0
+      ],
+      [
+        -3,
         0
       ],
       [
@@ -226,12 +274,15 @@
       [
         0,
         0
+      ],
+      [
+        0,
+        0
       ]
     ]
   },
   "airborneFrames": [
-    2,
-    3
+    5
   ],
   "legs": {
     "source": "The reference near leg (R-thigh, R-shin-foot) of the E frame is replaced by row-span legs. Every leg is outlined; the reference wrap+foot block (R-shin-foot rows 56-63) is reused unchanged by the reference-ankle construction.",
@@ -798,13 +849,105 @@
         "footX": 27,
         "wrapRow": 54,
         "foot": "toe60"
+      },
+      {
+        "name": "sr-contact",
+        "construction": "band",
+        "hipX": 32,
+        "kneeX": 37,
+        "footX": 41,
+        "hipRow": 41,
+        "kneeRow": 49,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "sr-load",
+        "construction": "band",
+        "hipX": 32,
+        "kneeX": 37,
+        "footX": 35,
+        "hipRow": 42,
+        "kneeRow": 50,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "sr-drive",
+        "construction": "band",
+        "hipX": 31,
+        "kneeX": 29,
+        "footX": 24,
+        "hipRow": 41,
+        "kneeRow": 48,
+        "wrapRow": 54,
+        "foot": "toe60"
+      },
+      {
+        "name": "sr-push-off",
+        "construction": "band",
+        "hipX": 31,
+        "kneeX": 26,
+        "footX": 20,
+        "hipRow": 40,
+        "kneeRow": 47,
+        "wrapRow": 52,
+        "foot": "pointBack"
+      },
+      {
+        "name": "sr-kick-back",
+        "construction": "band",
+        "hipX": 31,
+        "kneeX": 27,
+        "footX": 20,
+        "hipRow": 41,
+        "kneeRow": 47,
+        "wrapRow": 50,
+        "foot": "pointBack"
+      },
+      {
+        "name": "sr-recovery",
+        "construction": "band",
+        "hipX": 32,
+        "kneeX": 36,
+        "footX": 29,
+        "hipRow": 42,
+        "kneeRow": 47,
+        "wrapRow": 50,
+        "foot": "toe60"
+      },
+      {
+        "name": "sr-knee-drive",
+        "construction": "band",
+        "hipX": 32,
+        "kneeX": 40,
+        "footX": 38,
+        "hipRow": 41,
+        "kneeRow": 44,
+        "wrapRow": 50,
+        "foot": "toe30"
+      },
+      {
+        "name": "sr-reach",
+        "construction": "band",
+        "hipX": 32,
+        "kneeX": 39,
+        "footX": 42,
+        "hipRow": 40,
+        "kneeRow": 46,
+        "wrapRow": 54,
+        "foot": "flex"
       }
     ],
     "near": [
       1,
       15,
-      17,
-      17,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
       19,
       19,
       1,
@@ -813,8 +956,12 @@
     "far": [
       0,
       14,
-      16,
-      16,
+      28,
+      29,
+      30,
+      31,
+      24,
+      25,
       18,
       18,
       0,
@@ -855,19 +1002,27 @@
       },
       {
         "construction": "band",
-        "angle": -35,
-        "elbow": {
-          "at": 8,
-          "angle": 200
-        }
+        "angle": 70
       },
       {
         "construction": "band",
-        "angle": -35,
-        "elbow": {
-          "at": 8,
-          "angle": 200
-        }
+        "angle": 70
+      },
+      {
+        "construction": "band",
+        "angle": 72
+      },
+      {
+        "construction": "band",
+        "angle": 72
+      },
+      {
+        "construction": "band",
+        "angle": 70
+      },
+      {
+        "construction": "band",
+        "angle": 70
       },
       {
         "construction": "band",
@@ -921,19 +1076,27 @@
       },
       {
         "construction": "band",
-        "angle": -50,
-        "elbow": {
-          "at": 8,
-          "angle": 215
-        }
+        "angle": 66
       },
       {
         "construction": "band",
-        "angle": -50,
-        "elbow": {
-          "at": 8,
-          "angle": 215
-        }
+        "angle": 66
+      },
+      {
+        "construction": "band",
+        "angle": 64
+      },
+      {
+        "construction": "band",
+        "angle": 64
+      },
+      {
+        "construction": "band",
+        "angle": 66
+      },
+      {
+        "construction": "band",
+        "angle": 66
       },
       {
         "construction": "band",
@@ -1130,6 +1293,10 @@
       "bandFollowsBody": true,
       "sway": {
         "E": [
+          -1,
+          -1,
+          -1,
+          -1,
           -1,
           -1,
           -1,
@@ -1793,7 +1960,11 @@
         4,
         5,
         6,
-        7
+        7,
+        8,
+        9,
+        10,
+        11
       ],
       "fps": 12,
       "next": "guard",
@@ -1826,6 +1997,31 @@
       {
         "frame": 4,
         "clip": "machLunge",
+        "type": "startup"
+      },
+      {
+        "frame": 5,
+        "clip": "machLunge",
+        "type": "startup"
+      },
+      {
+        "frame": 6,
+        "clip": "machLunge",
+        "type": "startup"
+      },
+      {
+        "frame": 7,
+        "clip": "machLunge",
+        "type": "startup"
+      },
+      {
+        "frame": 8,
+        "clip": "machLunge",
+        "type": "startup"
+      },
+      {
+        "frame": 9,
+        "clip": "machLunge",
         "type": "active",
         "move": "Mach Lunge",
         "hitbox": [
@@ -1837,17 +2033,12 @@
         "damage": "light"
       },
       {
-        "frame": 5,
+        "frame": 10,
         "clip": "machLunge",
         "type": "recovery"
       },
       {
-        "frame": 6,
-        "clip": "machLunge",
-        "type": "recovery"
-      },
-      {
-        "frame": 7,
+        "frame": 11,
         "clip": "machLunge",
         "type": "recovery"
       }
@@ -1876,6 +2067,31 @@
       {
         "frame": 4,
         "clip": "machLunge",
+        "type": "startup"
+      },
+      {
+        "frame": 5,
+        "clip": "machLunge",
+        "type": "startup"
+      },
+      {
+        "frame": 6,
+        "clip": "machLunge",
+        "type": "startup"
+      },
+      {
+        "frame": 7,
+        "clip": "machLunge",
+        "type": "startup"
+      },
+      {
+        "frame": 8,
+        "clip": "machLunge",
+        "type": "startup"
+      },
+      {
+        "frame": 9,
+        "clip": "machLunge",
         "type": "active",
         "move": "Mach Lunge",
         "hitbox": [
@@ -1887,24 +2103,19 @@
         "damage": "light"
       },
       {
-        "frame": 5,
+        "frame": 10,
         "clip": "machLunge",
         "type": "recovery"
       },
       {
-        "frame": 6,
-        "clip": "machLunge",
-        "type": "recovery"
-      },
-      {
-        "frame": 7,
+        "frame": 11,
         "clip": "machLunge",
         "type": "recovery"
       }
     ]
   },
   "fx": {
-    "rule": "white/neutral flame: licks peeling off the lead shoulder in flight, a flare where the shoulder lands",
+    "rule": "fire flame (reds, oranges, yellows): flames bursting around the feet at every stride, a stream of fire trailing behind, a flare where the shoulder lands",
     "top": true,
     "palette": {
       "#": "#000000",
@@ -1913,7 +2124,20 @@
       "g": "#9a9a9a",
       "d": "#4a4a4a",
       "B": "#4f8dff",
-      "b": "#23407e"
+      "b": "#23407e",
+      "Y": "#ffe14d",
+      "O": "#ff8a1c",
+      "R": "#d8321a",
+      "K": "#1c1024",
+      "P": "#9b45ff",
+      "p": "#55208f",
+      "E": "#8a6236",
+      "e": "#c79a5b",
+      "C": "#7fe3d0",
+      "c": "#d9fff6",
+      "A": "#2f7fe0",
+      "a": "#7cc8ff",
+      "I": "#dff6ff"
     },
     "patterns": {
       "spark": [
@@ -2387,69 +2611,94 @@
         ".B."
       ],
       "flame1": [
-        ".w.",
-        "wWw",
-        ".W."
+        ".R.",
+        "ROR",
+        ".Y."
       ],
       "flame2": [
-        "..w..",
-        ".wW..",
-        ".WWw.",
-        "wWWWw",
-        ".www."
+        "..R..",
+        ".RO..",
+        ".OYR.",
+        "ROYOR",
+        ".RRR."
       ],
       "flame3": [
-        "...w...",
-        "..wW...",
-        ".wWW.w.",
-        ".WWWwW.",
-        "wWWWWWw",
-        ".wWWWw.",
-        "..www.."
+        "...R...",
+        "..RO...",
+        ".ROO.R.",
+        ".OYYRO.",
+        "ROYYYOR",
+        ".ROYOR.",
+        "..RRR.."
       ],
       "shatter1": [
-        "W...W",
-        ".W.W.",
+        "O...O",
+        ".Y.Y.",
         "..W..",
-        ".W.W.",
-        "W...W"
+        ".Y.Y.",
+        "O...O"
       ],
       "shatter2": [
-        "w.....w",
-        ".W...W.",
-        "..WWW..",
-        ".WWWWW.",
-        "..WWW..",
-        ".W...W.",
-        "w.....w"
+        "R.....R",
+        ".O...O.",
+        "..YYY..",
+        ".YYWYY.",
+        "..YYY..",
+        ".O...O.",
+        "R.....R"
       ],
       "shatter3": [
-        "w...w...w",
-        ".w..W..w.",
-        "..W.W.W..",
-        "...WWW...",
-        "WWWW.WWWW",
-        "...WWW...",
-        "..W.W.W..",
-        ".w..W..w.",
-        "w...w...w"
+        "R...R...R",
+        ".O..O..O.",
+        "..Y.Y.Y..",
+        "...YWY...",
+        "OYYWWWYYO",
+        "...YWY...",
+        "..Y.Y.Y..",
+        ".O..O..O.",
+        "R...R...R"
       ],
       "shard": [
-        "w.",
-        ".w"
+        "O.",
+        ".R"
       ],
       "shardR": [
-        ".w",
-        "w."
+        ".O",
+        "R."
       ],
       "heat": [
-        "w.w.w",
-        ".w.w."
+        "O.Y.O",
+        ".R.R."
       ],
       "embers": [
-        ".w..w",
-        "w..w.",
-        "..w.."
+        ".O..R",
+        "R..O.",
+        "..Y.."
+      ],
+      "runeHot": [
+        "...YWY...",
+        ".YW.O.WY.",
+        "YW.OYO.WY",
+        ".YW.O.WY.",
+        "...YWY..."
+      ],
+      "runeLit": [
+        "...OYO...",
+        ".OR.Y.RO.",
+        "OR.YOY.RO",
+        ".OR.Y.RO.",
+        "...OYO..."
+      ],
+      "runeDim": [
+        "...R.R...",
+        ".R..O..R.",
+        "R..O.O..R",
+        ".R..O..R.",
+        "...R.R..."
+      ],
+      "fireLine": [
+        ".R.O.",
+        "OYROY"
       ]
     },
     "frames": [
@@ -2457,17 +2706,66 @@
         "frame": 2,
         "splash": [
           {
-            "pattern": "flame2",
+            "pattern": "flame3",
             "at": [
-              28,
-              23
+              38,
+              63
             ]
           },
           {
-            "pattern": "heat",
+            "pattern": "flame1",
             "at": [
-              24,
-              27
+              33,
+              63
+            ]
+          },
+          {
+            "pattern": "flame2",
+            "at": [
+              17,
+              56
+            ]
+          },
+          {
+            "pattern": "flame3",
+            "at": [
+              14,
+              63
+            ]
+          },
+          {
+            "pattern": "flame2",
+            "at": [
+              7,
+              63
+            ]
+          },
+          {
+            "pattern": "flame3",
+            "at": [
+              1,
+              63
+            ]
+          },
+          {
+            "pattern": "flame2",
+            "at": [
+              18,
+              46
+            ]
+          },
+          {
+            "pattern": "flame1",
+            "at": [
+              10,
+              40
+            ]
+          },
+          {
+            "pattern": "embers",
+            "at": [
+              4,
+              34
             ]
           }
         ]
@@ -2476,23 +2774,330 @@
         "frame": 3,
         "splash": [
           {
+            "pattern": "flame2",
+            "at": [
+              32,
+              63
+            ]
+          },
+          {
+            "pattern": "flame2",
+            "at": [
+              27,
+              63
+            ]
+          },
+          {
             "pattern": "flame3",
             "at": [
               26,
-              23
+              56
+            ]
+          },
+          {
+            "pattern": "flame2",
+            "at": [
+              15,
+              63
+            ]
+          },
+          {
+            "pattern": "flame3",
+            "at": [
+              8,
+              63
+            ]
+          },
+          {
+            "pattern": "flame2",
+            "at": [
+              2,
+              63
             ]
           },
           {
             "pattern": "flame1",
             "at": [
-              24,
-              28
+              17,
+              44
+            ]
+          },
+          {
+            "pattern": "flame2",
+            "at": [
+              9,
+              42
+            ]
+          },
+          {
+            "pattern": "embers",
+            "at": [
+              3,
+              30
             ]
           }
         ]
       },
       {
         "frame": 4,
+        "splash": [
+          {
+            "pattern": "flame3",
+            "at": [
+              21,
+              60
+            ]
+          },
+          {
+            "pattern": "flame2",
+            "at": [
+              35,
+              56
+            ]
+          },
+          {
+            "pattern": "flame3",
+            "at": [
+              14,
+              63
+            ]
+          },
+          {
+            "pattern": "flame2",
+            "at": [
+              7,
+              63
+            ]
+          },
+          {
+            "pattern": "flame3",
+            "at": [
+              1,
+              63
+            ]
+          },
+          {
+            "pattern": "flame2",
+            "at": [
+              18,
+              46
+            ]
+          },
+          {
+            "pattern": "flame1",
+            "at": [
+              10,
+              40
+            ]
+          },
+          {
+            "pattern": "embers",
+            "at": [
+              4,
+              34
+            ]
+          }
+        ]
+      },
+      {
+        "frame": 5,
+        "splash": [
+          {
+            "pattern": "flame2",
+            "at": [
+              17,
+              58
+            ]
+          },
+          {
+            "pattern": "flame3",
+            "at": [
+              39,
+              60
+            ]
+          },
+          {
+            "pattern": "flame2",
+            "at": [
+              15,
+              63
+            ]
+          },
+          {
+            "pattern": "flame3",
+            "at": [
+              8,
+              63
+            ]
+          },
+          {
+            "pattern": "flame2",
+            "at": [
+              2,
+              63
+            ]
+          },
+          {
+            "pattern": "flame1",
+            "at": [
+              17,
+              44
+            ]
+          },
+          {
+            "pattern": "flame2",
+            "at": [
+              9,
+              42
+            ]
+          },
+          {
+            "pattern": "embers",
+            "at": [
+              3,
+              30
+            ]
+          }
+        ]
+      },
+      {
+        "frame": 6,
+        "splash": [
+          {
+            "pattern": "flame3",
+            "at": [
+              17,
+              56
+            ]
+          },
+          {
+            "pattern": "flame2",
+            "at": [
+              38,
+              63
+            ]
+          },
+          {
+            "pattern": "flame2",
+            "at": [
+              33,
+              63
+            ]
+          },
+          {
+            "pattern": "flame3",
+            "at": [
+              14,
+              63
+            ]
+          },
+          {
+            "pattern": "flame2",
+            "at": [
+              7,
+              63
+            ]
+          },
+          {
+            "pattern": "flame3",
+            "at": [
+              1,
+              63
+            ]
+          },
+          {
+            "pattern": "flame2",
+            "at": [
+              18,
+              46
+            ]
+          },
+          {
+            "pattern": "flame1",
+            "at": [
+              10,
+              40
+            ]
+          },
+          {
+            "pattern": "embers",
+            "at": [
+              4,
+              34
+            ]
+          }
+        ]
+      },
+      {
+        "frame": 7,
+        "splash": [
+          {
+            "pattern": "flame2",
+            "at": [
+              26,
+              56
+            ]
+          },
+          {
+            "pattern": "flame3",
+            "at": [
+              32,
+              63
+            ]
+          },
+          {
+            "pattern": "flame1",
+            "at": [
+              27,
+              63
+            ]
+          },
+          {
+            "pattern": "flame2",
+            "at": [
+              15,
+              63
+            ]
+          },
+          {
+            "pattern": "flame3",
+            "at": [
+              8,
+              63
+            ]
+          },
+          {
+            "pattern": "flame2",
+            "at": [
+              2,
+              63
+            ]
+          },
+          {
+            "pattern": "flame1",
+            "at": [
+              17,
+              44
+            ]
+          },
+          {
+            "pattern": "flame2",
+            "at": [
+              9,
+              42
+            ]
+          },
+          {
+            "pattern": "embers",
+            "at": [
+              3,
+              30
+            ]
+          }
+        ]
+      },
+      {
+        "frame": 8,
         "splash": [
           {
             "pattern": "flame3",
@@ -2504,33 +3109,54 @@
           {
             "pattern": "flame1",
             "at": [
-              33,
-              22
+              40,
+              63
+            ]
+          },
+          {
+            "pattern": "flame3",
+            "at": [
+              14,
+              63
+            ]
+          },
+          {
+            "pattern": "flame2",
+            "at": [
+              7,
+              63
+            ]
+          },
+          {
+            "pattern": "flame3",
+            "at": [
+              1,
+              63
             ]
           }
         ]
       },
       {
-        "frame": 5,
+        "frame": 9,
         "splash": [
           {
-            "pattern": "flame2",
+            "pattern": "flame3",
             "at": [
-              49,
-              30
+              48,
+              31
             ]
           },
           {
             "pattern": "embers",
             "at": [
-              46,
+              45,
               24
             ]
           }
         ]
       },
       {
-        "frame": 6,
+        "frame": 10,
         "splash": [
           {
             "pattern": "embers",
@@ -2705,6 +3331,10 @@
         "squint",
         "squint",
         "squint",
+        "squint",
+        "squint",
+        "squint",
+        "squint",
         null,
         null
       ]
@@ -2712,7 +3342,7 @@
     "intent": "eyes squeezed shut with the brow pulled down on the impact frames 0-2 (no mouth: user 2026-10-14), a squint on frame 3, open again from frame 4 (user 2026-10-14)"
   },
   "travel": {
-    "rule": "Mach Lunge is a gap closer: the fighter ends the clip 18 px further forward (sum of rootMotion); the game moves the fighter by that distance",
-    "E": 18
+    "rule": "Mach Lunge is a gap closer: the fighter ends the clip 40 px further forward (sum of rootMotion); the game moves the fighter by that distance",
+    "E": 40
   }
 }
