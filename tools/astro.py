@@ -55,6 +55,14 @@ def _halo(n, cx=35, cy=5, rx=7, ry=2, motes=3):   # motes circling over the head
 def _jag(r, w, cols):   # a jagged ')' wave of killing intent: the rage arc with every other row kicked out a pixel (it reads as a shudder, not a ripple)
     a = _arc(r, w, cols); return [('.' + q[:-1]) if i % 2 else q for i, q in enumerate(a)]
 
+def _sag(h, d, cols, gap=1):   # a flat dome-shaped wave bearing down (the middle high, the ends low) h px either side of centre, d px deep; cols run top -> bottom
+    rows = [['.'] * (2 * h + 1) for _ in range(d + len(cols))]
+    for dx in range(-h, h + 1):
+        if dx % gap: continue
+        y = round(d * (dx / h) ** 2)
+        for i, c in enumerate(cols): rows[y + i][dx + h] = c
+    return [''.join(q) for q in rows]
+
 def _arc(r, w, cols, gap=1):   # a ')' rage wave r px either side of centre, bowing w px toward the target; cols run tip -> leading edge; gap > 1 breaks it up
     rows = []
     for dy in range(-r, r + 1):
@@ -90,6 +98,10 @@ NPAT.update({
     'roar1': _arc(5, 2, 'YW'), 'roar2': _arc(9, 3, 'OYW'), 'roar3': _arc(13, 4, 'ROY'), 'roar3d': _arc(15, 5, 'RO', gap=2),
     'moteF': ['.Y.', 'YOR', '.R.'], 'moteB': ['.M.', 'MRM', '.M.'], 'dotM': ['M'],
     'eyeGlint': ['.R.', 'RYR', '.R.'], 'eyeFlare': ['..R..', '.ROR.', 'ROYWO', '.ROR.', '..R..'], 'rageWisp': ['M.R', '.R.', 'RO.'],
+    'eyeGold': ['.Y.', 'YWY', '.Y.'], 'eyeGoldF': ['..O..', '.OYO.', 'OYWYO', '.OYO.', '..O..'],   # Leo genjutsu: the eyes kindle gold
+    'crown1': ['....Y....', '.Y..O..Y.', '.YOYOYOY.', '.ROROROR.'], 'crown2': ['Y...Y...Y', 'YY.YOY.YY', 'YOYOYOYOY', 'OYYYYYYYO', '.ROROROR.'],
+    'crown3': ['Y...W...Y', 'YY.YWY.YY', 'YOYOYOYOY', 'OYYWYWYYO', '.ROROROR.'],   # Kneel: an illusory crown of light over the head
+    'press1': _sag(5, 2, 'YO'), 'press2': _sag(8, 3, 'WYO'), 'press3': _sag(11, 4, 'YOR'), 'press3d': _sag(13, 4, 'OR', gap=2),   # Kneel: golden pressure bearing down
     'runeDim': ['...R.R...', '.R..O..R.', 'R..O.O..R', '.R..O..R.', '...R.R...'], 'fireLine': ['.R.O.', 'OYROY'],
 })
 FIRE_AURA = ('#ffb12e', '#e0401c')   # orange next to the body, red outside
@@ -332,6 +344,103 @@ CLIPS = {
        extra={'linger': {'rule': 'Inner Gate: Adrenaline (Christopher 2026-10-27: lingering aura, tinted skin, raised veins): the clip ends still powered up (aura 2 px, red skin tint, veins); while the ability is active (canon A5, Christopher 2026-10-27: a toggle, on until the fighter reaches 0 HP or deactivates it; the self Burn ticks every round meanwhile) the testbed keeps drawing the fighter with a 2 px orange-red aura flickering on its outer ring, the skin tint (fx red #ff3a1a at alpha 140 over skin pixels) and the veins, on every state it plays', 'aura': 2, 'auraColors': ['#ffb12e', '#e0401c'], 'tint': ['#ff3a1a', 140], 'veins': '#7a140c'}}, fx=nfx('red-orange-yellow flame licks rising off the shoulders and head as the gate opens (self-burn), embers drifting after',
               [(4, [('flame2', [31, 8]), ('flame2', [25, 26]), ('flame2', [39, 26])]), (5, [('flame3', [30, 8]), ('flame3', [23, 26]), ('flame2', [40, 25])]),
                (6, [('flame2', [32, 7]), ('flame2', [24, 25]), ('flame3', [38, 26])]), (7, [('embers', [31, 7])]), (8, [('embers', [30, 5])])]))),
+ 'solarLance': ('Solar Lance', 5,
+  'Solar Lance (Leo ninjutsu, ranged: a focused beam of solar fire): from the guard the fighter makes the tiger seal at the chin, a spark of sunlight kindling between the hands; then it draws the near hand back low beside the hip, palm open, and a small sun gathers in it, white-hot and swelling over two held frames; then it steps in and thrusts two fingers straight out at shoulder height, and a lance of solar fire bursts from the fingertips toward the target, a white-hot core inside yellow, orange and a red rim, a starburst flaring at the fingers; the beam holds through a hit-stop, then narrows, flickers and breaks up into embers, and the fighter settles back into the guard (the testbed draws the beam on to the target from the release point).', [
+     g(),
+     g(an=U.SEAL_N, af=U.SEAL_F, bob=(1, 1, 1), lean=(0, 0)),
+     g(an=band(25, -60, fistKind='palm'), af=band(-75, -100), bob=(1, 1, 1), lean=(-1, -1), ln='sp-load-rear', lf='sp-load-lead'),
+     g(an=band(25, -60, fistKind='palm'), af=band(-75, -100), bob=(1, 1, 1), lean=(-1, -2), ln='sp-load-rear', lf='sp-load-lead'),
+     g(an=band(25, -60, fistKind='palm'), af=band(-75, -100), bob=(1, 1, 1), lean=(-1, -2), ln='sp-load-rear', lf='sp-load-lead'),
+     g(an=band(-92, -92, fistKind='point'), af=band(30, -160), bob=(2, 2, 2), lean=(1, 4), root=(2, 0), ln='sp-drive-rear', lf='sp-drive-lead'),
+     g(an=band(-92, -92, fistKind='point'), af=band(30, -160), bob=(2, 2, 2), lean=(1, 4), ln='sp-drive-rear', lf='sp-drive-lead'),
+     g(an=band(-92, -92, fistKind='point'), af=band(30, -160), bob=(2, 2, 2), lean=(1, 4), ln='sp-drive-rear', lf='sp-drive-lead'),
+     g(an=band(-92, -92, fistKind='point'), af=band(30, -160), bob=(2, 2, 2), lean=(1, 3), ln='sp-drive-rear', lf='sp-drive-lead'),
+     g(an=band(-50, -120), af=band(-30, 215), bob=(1, 1, 2), lean=(1, 3), ln='sp-drive-rear', lf='sp-drive-lead'),
+     g(root=(-2, 0))],
+  [None, 'squint', 'squint', 'squint', 'squint', 'squint', 'squint', 'squint', 'squint', None, None],
+  None,
+  dict(fps=10, release=[57, 20], rm='E: +2 stepping into the thrust, -2 settling back',
+       extra={'beam': {'rule': 'Solar Lance is a beam, not a projectile: on frames 5-8 the testbed draws the beam from the release point to the target (white core, yellow, orange, red rim; width 4, 4, 3, 2 px half-height, the last frame broken up), the clip itself draws it to the edge of the cell', 'frames': [5, 6, 7, 8], 'colors': ['#ffffff', '#ffe14d', '#ff8a1c', '#d8321a']}},
+       anchored={1: [('sunOrb1', 'hand', 0, -1)], 2: [('sunOrb2', 'hand', 0, 0)], 3: [('sunOrb3', 'hand', 0, 0)], 4: [('sunOrb3', 'hand', 0, 0), ('sunOrb1', 'hand', 0, -5)],
+                 5: [('sunBurst1', 'hand', 1, 0)], 6: [('sunOrb2', 'hand', 1, 0)], 7: [('sunOrb1', 'hand', 1, 0)], 9: [('embers', 'hand', 6, -3)]},
+       beam={5: (4, 'fire'), 6: (4, 'fire'), 7: (3, 'fire'), 8: (2, 'fade')})),
+ 'radiance': ('Radiance', 3,
+  'Radiance (Leo ninjutsu stance buff: the fighter focuses its regal aura and it strengthens it as it radiates from the body, STR +10% for 3 rounds): from the guard the fighter makes the tiger seal at the chin, eyes closed, and a warm glow gathers round it; then it opens its arms wide, palms open and turned out, chest lifted and chin raised, and the aura blazes out gold with rays of sunlight bursting from the whole body, long and short in turn, turning slowly as it holds; the rays draw back in and the fighter returns to the guard, still lit by a thin gold aura (the testbed keeps the aura while the buff lasts).', [
+     g(),
+     g(an=U.SEAL_N, af=U.SEAL_F, bob=(1, 1, 1), lean=(0, 0)),
+     g(an=U.SEAL_N, af=U.SEAL_F, bob=(1, 1, 1), lean=(0, 0)),
+     g(an=band(-60, -80, fistKind='palm'), af=band(50, 70, fistKind='palm'), bob=(0, -1, 0), lean=(0, -2)),
+     g(an=band(-60, -80, fistKind='palm'), af=band(50, 70, fistKind='palm'), bob=(0, -1, 0), lean=(0, -2)),
+     g(an=band(-60, -80, fistKind='palm'), af=band(50, 70, fistKind='palm'), bob=(0, -1, 0), lean=(0, -2)),
+     g(an=band(-60, -80, fistKind='palm'), af=band(50, 70, fistKind='palm'), bob=(0, -1, 0), lean=(0, -2)),
+     g(an=band(-60, -110), af=band(-40, -100), bob=(1, 1, 1), lean=(0, 1)),
+     g()],
+  [None, 'closed', 'closed', None, None, None, None, None, None],
+  [0, 1, 1, 3, 2, 3, 2, 1, 1],
+  dict(fps=10, auraColors=('#ffe14d', '#ff8a1c'),
+       extra={'linger': {'rule': 'Radiance is a 3-round stance buff: while it lasts the testbed keeps a 1 px gold aura flickering on the fighter\'s outer ring on every state it plays (the rays are only in the cast)', 'aura': 1, 'auraColors': ['#ffe14d', '#ff8a1c']}},
+       anchored={1: [('sunOrb1', 'hand', 0, -1)], 2: [('sunOrb2', 'hand', 0, -1)]},
+       rays={3: (14, 0), 4: (12, 6), 5: (15, 12), 6: (12, 18), 7: (5, 24)})),
+ 'supernova': ('Supernova', 6,
+  'Supernova (Leo ninjutsu ultimate: the fighter channels its inner light and releases an instant blinding detonation round itself, wide AoE on self, Blind 1 round), the Leo ultimate (longer and more dramatic, like Meteor): from the guard the fighter makes the seal and sinks deep, straining, while motes of light stream in toward it from all round and a gold aura swells; it turns to face the viewer (every facing turns S for the release, as Blast Wave) with the seal pressed to the chest and a star kindling at its heart, the whole body beginning to glow; then it throws its arms out wide and the light detonates: a white flash swallows the fighter and the whole cell, then a ring of light blasts outward, white, then yellow, orange and red as it widens and breaks up, a second ring behind it and sun rays scattering, embers raining down; the glow drains off the body, it brings the hands back in and turns back into the guard.', [
+     g(),
+     g(an=U.SEAL_N, af=U.SEAL_F, bob=(2, 2, 2), lean=(0, 0), **LOW),
+     g(an=U.SEAL_N, af=U.SEAL_F, bob=(3, 3, 3), lean=(0, 1), **LOW),
+     g(an=U.SEAL_N, af=U.SEAL_F, bob=(4, 4, 4), lean=(0, 1), **BRACE),
+     g(an=U.SEAL_N, af=U.SEAL_F, bob=(4, 4, 4), lean=(0, 1), **BRACE),
+     g(bob=(2, 2, 2), **LOW),
+     g(bob=(0, -1, 0)), g(bob=(0, -1, 0)), g(bob=(0, -1, 0)), g(bob=(0, -1, 0)), g(bob=(0, -1, 0)),
+     g(),
+     g(an=band(-30, -120), af=band(-35, -125), bob=(1, 1, 2), lean=(0, 1)),
+     g()],
+  [None, 'squint', 'pain', 'pain', 'pain', 'strain', 'roar', 'roar', 'roar', 'roar', 'squint', None, None, None],
+  [0, 0, 1, 1, 2, 2, 3, 3, 3, 2, 2, 1, 1, 0],
+  dict(fps=10, auraColors=('#ffe14d', '#ff8a1c'),
+       front={5: dict(R=(-20, 205, 0.8, 'front'), L=(20, -205, 0.8, 'front')),     # the seal pressed to the chest, facing the viewer
+              **{k: dict(R=(110, 105, 1, 'front'), L=(-110, -105, 1, 'front')) for k in (6, 7, 8, 9, 10)},   # arms thrown out wide
+              11: dict(R=stances.GA['R'], L=stances.GA['L'])},
+       gather={1: 0, 2: 1, 3: 2, 4: 3},
+       nova={5: 'core', 6: 'flash', 7: 0, 8: 1, 9: 2, 10: 3, 11: 4})),
+ 'spotlight': ('Spotlight', 4,
+  'Spotlight (Leo genjutsu, mental debuff: the caster projects its own inner radiance into the foe\'s mind\'s eye, Blind 1 round, INT save DC 12; range Zone of Awareness): from the guard the fighter lifts the near hand and opens it beside its face, palm out toward the target at eye level like holding up a lamp, the far hand staying in guard; its eyes kindle gold and a small sun lights in the palm; then a cone of light pours out of the palm toward the target, pale gold and widening, brighter at the core, growing over three frames and holding; the light dies back into the palm and the hand drops into the guard (the target takes the genjutsu mark, genjutsuAfflicted, for the Blind).', [
+     g(),
+     g(an=band(-60, -130, fistKind='palm'), bob=(1, 1, 1), lean=(0, 1)),
+     g(an=band(-75, -135, fistKind='palm'), bob=(1, 1, 1), lean=(0, 0)),
+     g(an=band(-75, -135, fistKind='palm'), bob=(1, 1, 1), lean=(0, 0)),
+     g(an=band(-75, -135, fistKind='palm'), bob=(1, 1, 1), lean=(0, 0)),
+     g(an=band(-75, -135, fistKind='palm'), bob=(1, 1, 1), lean=(0, 0)),
+     g(an=band(-75, -135, fistKind='palm'), bob=(1, 1, 1), lean=(0, 0)),
+     g(an=band(-60, -120), bob=(1, 1, 2), lean=(0, 2)),
+     g()],
+  [None, 'squint', 'squint', 'squint', 'squint', 'squint', 'squint', None, None],
+  [0, 0, 1, 1, 1, 1, 1, 0, 0],
+  dict(fps=10, auraColors=('#ffe14d', '#ff8a1c'), extra={'targetState': {'rule': 'Christopher 2026-10-27: every genjutsu marks its target; on the active frame the target starts genjutsuAfflicted (fire colours) and keeps it until the Blind ends', 'state': 'genjutsuAfflicted', 'element': 'fire'}},
+       anchored={1: [('eyeGold', 'eye', 0, 0)], 2: [('eyeGold', 'eye', 0, 0), ('sunOrb1', 'hand', 1, 0)], 3: [('eyeGoldF', 'eye', 0, 0), ('sunOrb2', 'hand', 1, 0)],
+                 4: [('eyeGoldF', 'eye', 0, 0), ('sunOrb2', 'hand', 1, 0)], 5: [('eyeGoldF', 'eye', 0, 0), ('sunOrb2', 'hand', 1, 0)], 6: [('eyeGold', 'eye', 0, 0), ('sunOrb1', 'hand', 1, 0)]},
+       cone={3: (12, 1.0), 4: (20, 1.0), 5: (30, 1.0), 6: (30, 0.5)})),
+ 'kneel': ('Kneel', 4,
+  'Kneel (Leo genjutsu, mental debuff: the caster projects its regal presence and imposes it on the foe\'s will, Stun 1 round, STR save DC 14; range Zone of Awareness): from the guard the fighter draws itself up tall, chin lifted, and raises the near hand high, palm out; its eyes kindle gold and an illusory crown of light forms over its head, the lion\'s mane of flame flaring behind it; then it brings the open palm down hard in front of it, palm to the floor, commanding the foe to kneel, the far fist at the hip, and heavy dome-shaped waves of golden pressure roll out toward the target, bearing down and sinking toward the floor as they travel; it holds the command, the crown blazing, then the crown and mane fade and it returns to the guard (the target takes the genjutsu mark, genjutsuAfflicted, for the Stun).', [
+     g(),
+     g(an=band(-110, -150, fistKind='palm'), af=band(-20, -70), bob=(0, -1, 0), lean=(0, -1)),
+     g(an=band(-140, -170, fistKind='palm'), af=band(-5, -40), bob=(0, -1, 0), lean=(0, -2)),
+     g(an=band(-100, -80, fistKind='palm'), af=band(-5, -40), bob=(0, -1, 0), lean=(0, -1)),
+     g(an=band(-70, -60, fistKind='palm'), af=band(-5, -40), bob=(0, 0, 0), lean=(0, 0)),
+     g(an=band(-70, -60, fistKind='palm'), af=band(-5, -40), bob=(0, 0, 0), lean=(0, 0)),
+     g(an=band(-70, -60, fistKind='palm'), af=band(-5, -40), bob=(0, 0, 0), lean=(0, 0)),
+     g(an=band(-70, -60, fistKind='palm'), af=band(-5, -40), bob=(0, 0, 0), lean=(0, 0)),
+     g(an=band(-40, -110), af=band(-25, -90), bob=(1, 1, 1), lean=(0, 1)),
+     g()],
+  [None, None, 'squint', 'squint', 'squint', 'squint', 'squint', 'squint', None, None],
+  [0, 0, 1, 2, 2, 2, 2, 1, 0, 0],
+  dict(fps=10, auraColors=('#ffe14d', '#ff8a1c'), extra={'targetState': {'rule': 'Christopher 2026-10-27: every genjutsu marks its target; on the active frame the target starts genjutsuAfflicted (fire colours) and keeps it until the Stun ends', 'state': 'genjutsuAfflicted', 'element': 'fire'}},
+       anchored={1: [('eyeGold', 'eye', 0, 0), ('crown1', 'head', 0, -7)],
+                 2: [('eyeGold', 'eye', 0, 0), ('mane1', 'head', -1, 0, {'behind': True}), ('crown2', 'head', 0, -8)],
+                 3: [('eyeGoldF', 'eye', 0, 0), ('mane3', 'head', -1, -1, {'behind': True}), ('crown2', 'head', 0, -8)],
+                 4: [('eyeGoldF', 'eye', 0, 0), ('mane4', 'head', -1, -1, {'behind': True}), ('press1', 'feet', 14, -30), ('crown3', 'head', 0, -8)],
+                 5: [('eyeGoldF', 'eye', 0, 0), ('mane3b', 'head', -1, -1, {'behind': True}), ('press2', 'feet', 19, -24), ('press1', 'feet', 14, -30), ('crown3', 'head', 0, -8)],
+                 6: [('eyeGoldF', 'eye', 0, 0), ('mane3', 'head', -1, -1, {'behind': True}), ('press3', 'feet', 24, -17), ('press2', 'feet', 19, -24), ('crown3', 'head', 0, -8)],
+                 7: [('eyeGold', 'eye', 0, 0), ('mane2', 'head', -1, 0, {'behind': True}), ('press3d', 'feet', 27, -10), ('crown2', 'head', 0, -8, {'alpha': {'Y': 170, 'O': 170, 'W': 200, 'R': 150}})],
+                 8: [('crown1', 'head', 0, -7, {'alpha': {'Y': 110, 'O': 110, 'W': 140, 'R': 100}})]})),
 }
 
 def spec(state):
@@ -396,6 +505,12 @@ def fx(state):
         f_ = D + state + '/fx.png'
         if not os.path.exists(f_): Image.new('RGBA', Image.open(D + state + '/body.png').size).save(f_)
         mask(state, x['mask'], x.get('maskWaves'))
+    if any(x.get(n) for n in ('rays', 'beam', 'cone', 'gather', 'nova')):   # Leo sunlight fx, drawn over what is already there
+        from PIL import Image
+        f_ = D + state + '/fx.png'
+        if not os.path.exists(f_) or ('fx' not in load(D + state + '.json') and not CLIPS[state][5] and not x.get('anchored')): Image.new('RGBA', Image.open(D + state + '/body.png').size).save(f_)
+        for n in ('gather', 'nova', 'rays', 'beam', 'cone'):
+            if x.get(n): globals()[n](state, x[n])
     if x.get('ghosts'):
         from PIL import Image
         f = D + state + '/fx.png'; top = Image.open(f).convert('RGBA')   # blur + splash so far
@@ -718,7 +833,7 @@ def anchored(state, frames):
             top = min(y for _, y in opq); head = [x for x, y in opq if y <= top + 9]
             arm = [(x, y) for y in range(64) for x in range(64) if ap[k * 64 + x, r * 64 + y][3]]
             tip = (max if not flip else min)(arm, key=lambda q: (q[0], -q[1])) if arm else ((max(head), top + 8))
-            anchors = {'head': ((min(head) + max(head)) / 2, top + 6), 'hand': tip, 'feet': ((min(x for x, _ in opq) + max(x for x, _ in opq)) / 2, 63)}
+            anchors = {'head': ((min(head) + max(head)) / 2, top + 6), 'hand': tip, 'feet': ((min(x for x, _ in opq) + max(x for x, _ in opq)) / 2, 63), 'eye': _eye(state, k, r) or (max(head) - 2 if not flip else min(head) + 2, top + 5)}
             for item in items:
                 name, an, dx, dy = item[:4]; opts = item[4] if len(item) > 4 else {}
                 pat = NPAT[name]; h, w = len(pat), len(pat[0]); ax, ay = anchors[an]
@@ -790,6 +905,174 @@ def ghosts(state, offs, cols):
                     if rim: px[k * 64 + X, r * 64 + y] = hexc(edge)
                     elif fill and (X + y) % 2 == 0: px[k * 64 + X, r * 64 + y] = hexc(fill)
     fx.save(f); print(state, 'afterimages', offs)
+
+def _eye(state, k, r):   # centre of the eye pixels (brown-eyes layer) in one cell
+    from PIL import Image
+    f = D + state + '/brown-eyes.png'
+    if not os.path.exists(f): return None
+    e = Image.open(f).convert('RGBA').load(); pts = [(x, y) for y in range(64) for x in range(64) if e[k * 64 + x, r * 64 + y][3]]
+    return (sum(x for x, _ in pts) / len(pts), sum(y for _, y in pts) / len(pts)) if pts else None
+
+# ---- Leo ninjutsu / genjutsu (sunlight: white-hot core, gold, orange, red rim) ----
+FIG_LAYERS = ('body.png', 'arms.png', 'far-arm.png', 'male-gi.png', 'fade-hair.png')
+def _hexc(c, a=255): return tuple(int(c[i:i + 2], 16) for i in (1, 3, 5)) + (a,)
+def _open_fx(state, aura=False):   # the fx layer drawn so far this pass (fx() starts it clean when nothing else drew)
+    from PIL import Image
+    d = D + state + '/'; size = Image.open(d + 'body.png').size; fx = Image.open(d + 'fx.png').convert('RGBA')
+    if fx.size != size: n_ = Image.new('RGBA', size); n_.paste(fx, (0, 0)); fx = n_
+    return fx
+def _fig(state, k, r):   # the figure's opaque pixels in one cell
+    from PIL import Image
+    d = D + state + '/'; lays = [Image.open(d + n).convert('RGBA').load() for n in FIG_LAYERS if os.path.exists(d + n)]
+    return {(x, y) for y in range(64) for x in range(64) if any(L[k * 64 + x, r * 64 + y][3] for L in lays)}
+def _tip(state, k, r, flip):   # the near hand: the arms layer's most forward pixel
+    pts = _arm(state, k, r)
+    return (min if flip else max)(pts, key=lambda q: (q[0], -q[1])) if pts else None
+
+def rays(state, frames, aura=False):
+    """Radiance: rays of sunlight bursting from the whole body, long and short in turn, turning slowly (frames = {k: (length, phase deg)});
+    each ray starts a pixel off the silhouette edge, white at the root, then gold, orange, a red tip; drawn only outside the figure"""
+    fx = _open_fx(state, aura); px = fx.load(); dirs = load(D + state + '.json')['directions']
+    W_, Y, O, R_ = (255, 255, 255, 255), _hexc(ELEMENT['Y']), _hexc(ELEMENT['O']), _hexc(ELEMENT['R'])
+    for k, (L0, ph) in frames.items():
+        for r, fd in enumerate(dirs):
+            if fd not in ('E', 'W'): continue
+            fig = _fig(state, k, r); cx = sum(x for x, _ in fig) / len(fig); cy = sum(y for _, y in fig) / len(fig) - 4
+            for i in range(16):
+                th = math.radians(ph + 22.5 * i); L = L0 if i % 2 == 0 else max(2, L0 * 3 // 5)
+                r0 = 0
+                while r0 < 40 and (round(cx + r0 * math.cos(th)), round(cy - r0 * math.sin(th))) in fig: r0 += 1
+                for j in range(L):
+                    u = j / max(1, L - 1); c = W_ if u < 0.2 else Y if u < 0.55 else O if u < 0.85 else R_
+                    for w in ((0, 0.6) if i % 2 == 0 and u < 0.6 else (0,)):   # the long rays are two pixels thick at the root
+                        x = round(cx + (r0 + 2 + j) * math.cos(th) - w * math.sin(th)); y = round(cy - (r0 + 2 + j) * math.sin(th) * 1.1 - w * math.cos(th))
+                        if 0 <= x < 64 and 0 <= y < 64 and (x, y) not in fig: px[k * 64 + x, r * 64 + y] = c
+    fx.save(D + state + '/fx.png'); print(state, 'rays', list(frames))
+
+def beam(state, frames, aura=False):
+    """Solar Lance: a beam of solar fire from the near fingertips to the edge of the cell (frames = {k: (half-height, 'fire'|'fade')}):
+    white-hot core, gold, orange, red rim; the rim flickers; 'fade' breaks it up into embers"""
+    import random
+    fx = _open_fx(state, aura); px = fx.load(); dirs = load(D + state + '.json')['directions']
+    ramp = [(255, 255, 255, 255), _hexc(ELEMENT['Y']), _hexc(ELEMENT['O']), _hexc(ELEMENT['R'])]
+    for k, (w, kind) in frames.items():
+        for r, fd in enumerate(dirs):
+            if fd not in ('E', 'W'): continue
+            flip = fd == 'W'; sg = -1 if flip else 1; rnd = random.Random(k * 31 + r)
+            tip = _tip(state, k, r, flip)
+            if not tip: continue
+            x0, y0 = tip[0] + sg * 2, tip[1]
+            for i in range(64):
+                x = x0 + sg * i
+                if not 0 <= x < 64: break
+                ww = min(w, 1 + i // 2)   # the beam flares out of the fingers over the first few pixels
+                for dy in range(-ww, ww + 1):
+                    lvl = min(3, round(abs(dy) * 3 / max(1, ww)))
+                    if abs(dy) == ww and rnd.random() < 0.3: continue   # flickering rim
+                    if kind == 'fade':
+                        if rnd.random() < 0.55: continue
+                        lvl = min(3, lvl + 1)
+                    y = y0 + dy
+                    if 0 <= y < 64: px[k * 64 + x, r * 64 + y] = ramp[lvl]
+    fx.save(D + state + '/fx.png'); print(state, 'beam', list(frames))
+
+def cone(state, frames, aura=False):
+    """Spotlight: a cone of pale gold light pouring from the open palm toward the target (frames = {k: (length, strength)}),
+    widening as it goes, a bright core line near the palm, dithered and translucent so the scene shows through"""
+    import random
+    fx = _open_fx(state, aura); px = fx.load(); dirs = load(D + state + '.json')['directions']
+    for k, (L, st) in frames.items():
+        for r, fd in enumerate(dirs):
+            if fd not in ('E', 'W'): continue
+            flip = fd == 'W'; sg = -1 if flip else 1; rnd = random.Random(k * 17 + r)
+            tip = _tip(state, k, r, flip)
+            if not tip: continue
+            x0, y0 = tip[0] + sg * 2, tip[1]
+            for i in range(L):
+                x = x0 + sg * i
+                if not 0 <= x < 64: break
+                h = 1 + i * 0.5
+                for dy in range(-round(h), round(h) + 1):
+                    y = y0 + dy
+                    if not 0 <= y < 64: continue
+                    q = abs(dy) / max(1, h)
+                    if q > 0.85: c = _hexc(ELEMENT['O'], round(200 * st))                          # the cone's edge
+                    elif i < 8 and q < 0.3: c = _hexc('#ffffff', round(230 * st))                   # hot core line near the palm
+                    elif (x + y) % 2 == 0 or q < 0.4: c = _hexc(ELEMENT['Y'], round((150 if q < 0.4 else 110) * st))
+                    else: continue
+                    if i > L - 4 and rnd.random() < 0.5: continue   # ragged leading edge
+                    px[k * 64 + x, r * 64 + y] = c
+    fx.save(D + state + '/fx.png'); print(state, 'cone', list(frames))
+
+def gather(state, frames, aura=False):
+    """Supernova wind-up: motes of light streaming in toward the fighter from all round, closing in and thickening by stage (0-3)"""
+    import random
+    fx = _open_fx(state, aura); px = fx.load(); dirs = load(D + state + '.json')['directions']
+    cols = [(255, 255, 255, 255), _hexc(ELEMENT['Y']), _hexc(ELEMENT['O'])]
+    for k, st in frames.items():
+        for r, fd in enumerate(dirs):
+            if fd not in ('E', 'W'): continue
+            fig = _fig(state, k, r); cx = sum(x for x, _ in fig) / len(fig); cy = sum(y for _, y in fig) / len(fig)
+            rnd = random.Random(k * 11 + r)
+            for i in range(16 + 6 * st):
+                th = rnd.uniform(0, 2 * math.pi); rr = rnd.uniform(15, 27) - 3 * st
+                x, y = cx + rr * math.cos(th), cy + rr * 1.15 * math.sin(th)
+                for j in range(3):   # a short streak pointing in toward the fighter, bright head inward
+                    X, Y_ = round(x - j * math.cos(th)), round(y - j * 1.15 * math.sin(th))
+                    if 0 <= X < 64 and 0 <= Y_ < 64 and (X, Y_) not in fig: px[k * 64 + X, r * 64 + Y_] = cols[min(2, 2 - j + (j == 0 and st < 2))]
+    fx.save(D + state + '/fx.png'); print(state, 'gather', list(frames))
+
+def nova(state, frames, aura=False):
+    """Supernova release, facing S (every row shows the S frame here): 'core' a star kindling at the chest and the body glowing;
+    'flash' a white flash swallowing the fighter and the whole cell; stages 0-4 the rings of light blasting out (white, gold,
+    orange, red as they widen and break up), sun rays scattering and the glow draining off the body, embers raining down"""
+    import random
+    fx = _open_fx(state, aura); px = fx.load(); dirs = load(D + state + '.json')['directions']; rs = dirs.index('S')
+    W_, Y, O, R_ = (255, 255, 255, 255), _hexc(ELEMENT['Y']), _hexc(ELEMENT['O']), _hexc(ELEMENT['R'])
+    ramp = [W_, Y, O, R_]
+    for k, st in frames.items():
+        fig = _fig(state, k, rs); cx = sum(x for x, _ in fig) / len(fig); cy = sum(y for _, y in fig) / len(fig) - 10   # the heart
+        rnd = random.Random(k * 5)
+        def P(x, y, c, over=False):
+            x, y = round(x), round(y)
+            if 0 <= x < 64 and 0 <= y < 64 and (over or (x, y) not in fig): px[k * 64 + x, rs * 64 + y] = c
+        glow = {'core': 90, 'flash': 215, 0: 150, 1: 100, 2: 60, 3: 30, 4: 0}[st]
+        for (x, y) in fig:   # the body glowing white-gold (blinding at the flash)
+            if glow: P(x, y, (255, 250, 220, glow), over=True)
+        if st == 'core':
+            for i in range(-5, 6):
+                c = W_ if abs(i) < 2 else Y if abs(i) < 4 else O
+                P(cx + i, cy, c, True); P(cx, cy + i, c, True)
+                if abs(i) < 3: P(cx + i, cy + i, Y, True); P(cx + i, cy - i, Y, True)
+        elif st == 'flash':
+            for y in range(64):
+                for x in range(64):
+                    dd = math.hypot(x - cx, (y - cy) * 0.9)
+                    if dd < 14: c = (255, 255, 255, 255)
+                    elif dd < 24: c = (255, 245, 190, 235)
+                    elif dd < 34: c = _hexc(ELEMENT['Y'], 190)
+                    elif dd < 42: c = _hexc(ELEMENT['O'], 140 if (x + y) % 2 == 0 else 0)
+                    else: continue
+                    if c[3]: P(x, y, c)
+        else:
+            for j in range(min(st, 2) + 1):   # the leading ring and up to two behind it
+                age = st - j; rx = 20 + 10 * age; ry = rx * 0.8; c = ramp[min(3, age)]
+                if rx > 52: continue
+                for t in range(0, 360, 2):
+                    if age >= 2 and (t // 12) % 3 == 0: continue
+                    th = math.radians(t); P(cx + rx * math.cos(th), cy + 10 + ry * math.sin(th), c)
+                    if age < 2: P(cx + (rx - 1) * math.cos(th), cy + 10 + (ry - 1) * math.sin(th), Y if age == 0 else O)
+            if st <= 2:   # sun rays scattering out between the rings
+                for i in range(12):
+                    th = math.radians(i * 30 + 15 * st)
+                    for d in range(8 + 6 * st, 16 + 8 * st):
+                        if d % 3 != 2: P(cx + d * math.cos(th), cy + d * 0.9 * math.sin(th), Y if d < 14 + 6 * st else O)
+            for i in range(6 + 4 * st):   # embers
+                P(rnd.randint(2, 61), rnd.randint(2, 60), (O, R_, Y)[i % 3])
+        cell = fx.crop((k * 64, rs * 64, k * 64 + 64, rs * 64 + 64))
+        for r in range(len(dirs)):
+            if r != rs: fx.paste(cell, (k * 64, r * 64))
+    fx.save(D + state + '/fx.png'); print(state, 'nova', list(frames))
 
 if __name__ == '__main__':
     a = sys.argv[1:]
