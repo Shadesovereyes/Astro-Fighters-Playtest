@@ -109,7 +109,7 @@ CLIPS = {
        fx=nfx('fire spark kindling at the seal', [(2, [('flame1', [35, 31])]), (3, [('flame2', [34, 32])])]),
        blast={4: 0, 5: 1, 6: 2, 7: 3})),
  'innerGateAdrenaline': ('Inner Gate: Adrenaline', 4,
-  'Inner Gate: Adrenaline (Aries taijutsu buff: AGI and STR up, the fighter burns itself): from the guard the fighter clenches, curls the fists in front of the belly and sinks, straining, eyes squeezed; then the gate bursts open: it stands up tall, chest thrown out and both fists driven down and back, and an orange-red aura flares around the whole body with flame licks rising off the shoulders and head; the aura pulses once, the flames keep licking (the self-burn), then the fighter drops back into the guard with embers still drifting off it.', [
+  'Inner Gate: Adrenaline (Aries taijutsu buff: AGI and STR up, the fighter burns itself): from the guard the fighter clenches, curls the fists in front of the belly and sinks, straining, eyes squeezed; then the gate bursts open: it stands up tall, chest thrown out and both fists driven down and back, and an orange-red aura flares around the whole body with flame licks rising off the shoulders and head; the aura pulses once, the flames keep licking (the self-burn), then the fighter drops back into the guard still powered up: the aura lingers, the skin stays flushed red and the veins stand out on the arms, neck and temple, embers drifting off it (the testbed keeps that look while the buff lasts).', [
      g(),
      g(an=band(-30, -120), af=band(-35, -125), bob=(2, 2, 3), lean=(0, 2), **LOW),
      g(an=band(-20, -100), af=band(-25, -105), bob=(3, 3, 4), lean=(0, 3), **LOW),
@@ -120,8 +120,9 @@ CLIPS = {
      g(an=band(-25, 205), af=band(-40, 215), bob=(1, 1, 2), lean=(0, 1)),
      g()],
   [None, 'squint', 'pain', 'pain', 'squint', 'squint', 'squint', None, None],
-  [0, 0, 0, 1, 3, 2, 3, 1, 0],
-  dict(fps=10, auraColors=FIRE_AURA, fx=nfx('red-orange-yellow flame licks rising off the shoulders and head as the gate opens (self-burn), embers drifting after',
+  [0, 0, 0, 1, 3, 2, 3, 2, 2],
+  dict(fps=10, auraColors=FIRE_AURA, tint={3: 70, 4: 150, 5: 140, 6: 150, 7: 140, 8: 140}, veins=(4, 5, 6, 7, 8),
+       extra={'linger': {'rule': 'Inner Gate: Adrenaline (Christopher 2026-10-27: lingering aura, tinted skin, raised veins): the clip ends still powered up (aura 2 px, red skin tint, veins); while the buff lasts (3 rounds) the testbed keeps drawing the fighter with a 2 px orange-red aura flickering on its outer ring, the skin tint (fx red #ff3a1a at alpha 140 over skin pixels) and the veins, on every state it plays', 'aura': 2, 'auraColors': ['#ffb12e', '#e0401c'], 'tint': ['#ff3a1a', 140], 'veins': '#7a140c'}}, fx=nfx('red-orange-yellow flame licks rising off the shoulders and head as the gate opens (self-burn), embers drifting after',
               [(4, [('flame2', [31, 8]), ('flame2', [25, 26]), ('flame2', [39, 26])]), (5, [('flame3', [30, 8]), ('flame3', [23, 26]), ('flame2', [40, 25])]),
                (6, [('flame2', [32, 7]), ('flame2', [24, 25]), ('flame3', [38, 26])]), (7, [('embers', [31, 7])]), (8, [('embers', [30, 5])])]))),
 }
@@ -150,6 +151,7 @@ def fx(state):
                     if q[3] and q[:3] in x['trail']: px[xx, yy] = x['trail'][q[:3]] + (255,)
             b.save(f)
         if old: new = Image.open(f).convert('RGBA'); new.alpha_composite(old); new.save(f)
+    if x.get('tint'): flush(state, x['tint'], x.get('veins', ()))
     if x.get('swirl') or x.get('impact') or x.get('blast'):
         from PIL import Image
         f = D + state + '/fx.png'
@@ -295,6 +297,37 @@ def blast(state, frames):
             if stage >= 2:
                 for i in range(6): P(rnd.randint(4, 16), rnd.randint(-10, 10), (O, R_, Y)[i % 3])
     fx.save(f); print(state, 'blast', frames)
+
+SKIN = {(0xf6, 0xa3, 0x5b), (0xc8, 0x78, 0x45), (0x9e, 0x4a, 0x31)}   # the rig's skin ramp (L, m, s)
+def flush(state, tint, veins):
+    """Inner Gate (Christopher 2026-10-27): the skin flushes red (a translucent red over every skin pixel, alpha per frame)
+    and veins stand out on the forearms, upper arms, neck and temple (dark red broken lines, interior skin pixels only).
+    Written as two extra layers so clothing, armour and hair still cover it: skin-fx.png (body + far arm skin, drawn just
+    above body.png / far-arm.png) and arms-fx.png (near arm skin, drawn just above arms.png)"""
+    from PIL import Image
+    d = D + state + '/'
+    dirs = load(D + state + '.json')['directions']
+    for src, out in ((('body.png', 'far-arm.png'), 'skin-fx.png'), (('arms.png',), 'arms-fx.png')):
+        lays = [Image.open(d + n).convert('RGBA') for n in src if os.path.exists(d + n)]
+        if not lays: continue
+        img = Image.new('RGBA', lays[0].size); px = img.load(); lays = [L.load() for L in lays]
+        for k, al in tint.items():
+            for fd in dirs:
+                r = dirs.index(fd)
+                skin = {(x, y) for L in lays for y in range(64) for x in range(64) if (q := L[k * 64 + x, r * 64 + y])[3] and q[:3] in SKIN}
+                for (x, y) in skin: px[k * 64 + x, r * 64 + y] = (0xff, 0x3a, 0x1a, al)
+                if k not in veins or not skin: continue
+                top_y = min(y for _, y in skin) if out == 'skin-fx.png' else -99
+                for (x, y) in skin:
+                    if top_y + 2 < y < top_y + 11:   # head: a short vein at the temple only, the face stays clean
+                        if y in (top_y + 3, top_y + 4) and (x + y) % 3 == 0 and (x - 1, y) in skin and (x + 1, y) in skin: px[k * 64 + x, r * 64 + y] = (0x7a, 0x14, 0x0c, 255)
+                        continue
+                    across = ((x - 1, y) in skin and (x + 1, y) in skin and (x - 2, y) not in skin | {(x, y)}) or ((x, y - 1) in skin and (x, y + 1) in skin)
+                    # a vein runs down the middle of each limb's cross-section (arms, neck), broken every few pixels
+                    mid = (x - 1, y) in skin and (x + 1, y) in skin if (x, y - 1) in skin and (x, y + 1) in skin else (x, y - 1) in skin and (x, y + 1) in skin
+                    if mid and (x * 3 + y) % 5 != 0: px[k * 64 + x, r * 64 + y] = (0x7a, 0x14, 0x0c, 255)
+        img.save(d + out)
+    print(state, 'flush', list(tint), 'veins', list(veins))
 
 def ghosts(state, offs, cols):
     """after the blur: afterimages (Christopher 2026-10-27: onion/afterimage effects to exaggerate the speed). On each

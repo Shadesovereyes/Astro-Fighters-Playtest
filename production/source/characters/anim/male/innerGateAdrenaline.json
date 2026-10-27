@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Inner Gate: Adrenaline (Aries taijutsu buff: AGI and STR up, the fighter burns itself): from the guard the fighter clenches, curls the fists in front of the belly and sinks, straining, eyes squeezed; then the gate bursts open: it stands up tall, chest thrown out and both fists driven down and back, and an orange-red aura flares around the whole body with flame licks rising off the shoulders and head; the aura pulses once, the flames keep licking (the self-burn), then the fighter drops back into the guard with embers still drifting off it.",
+  "intent": "Inner Gate: Adrenaline (Aries taijutsu buff: AGI and STR up, the fighter burns itself): from the guard the fighter clenches, curls the fists in front of the belly and sinks, straining, eyes squeezed; then the gate bursts open: it stands up tall, chest thrown out and both fists driven down and back, and an orange-red aura flares around the whole body with flame licks rising off the shoulders and head; the aura pulses once, the flames keep licking (the self-burn), then the fighter drops back into the guard still powered up: the aura lingers, the skin stays flushed red and the veins stand out on the arms, neck and temple, embers drifting off it (the testbed keeps that look while the buff lasts).",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -799,6 +799,94 @@
         "footX": 27,
         "wrapRow": 54,
         "foot": "toe60"
+      },
+      {
+        "name": "sr-contact",
+        "construction": "band",
+        "hipX": 32,
+        "kneeX": 37,
+        "footX": 41,
+        "hipRow": 41,
+        "kneeRow": 49,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "sr-load",
+        "construction": "band",
+        "hipX": 32,
+        "kneeX": 37,
+        "footX": 35,
+        "hipRow": 42,
+        "kneeRow": 50,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "sr-drive",
+        "construction": "band",
+        "hipX": 31,
+        "kneeX": 29,
+        "footX": 24,
+        "hipRow": 41,
+        "kneeRow": 48,
+        "wrapRow": 54,
+        "foot": "toe60"
+      },
+      {
+        "name": "sr-push-off",
+        "construction": "band",
+        "hipX": 31,
+        "kneeX": 26,
+        "footX": 20,
+        "hipRow": 40,
+        "kneeRow": 47,
+        "wrapRow": 52,
+        "foot": "pointBack"
+      },
+      {
+        "name": "sr-kick-back",
+        "construction": "band",
+        "hipX": 31,
+        "kneeX": 27,
+        "footX": 20,
+        "hipRow": 41,
+        "kneeRow": 47,
+        "wrapRow": 50,
+        "foot": "pointBack"
+      },
+      {
+        "name": "sr-recovery",
+        "construction": "band",
+        "hipX": 32,
+        "kneeX": 36,
+        "footX": 29,
+        "hipRow": 42,
+        "kneeRow": 47,
+        "wrapRow": 50,
+        "foot": "toe60"
+      },
+      {
+        "name": "sr-knee-drive",
+        "construction": "band",
+        "hipX": 32,
+        "kneeX": 40,
+        "footX": 38,
+        "hipRow": 41,
+        "kneeRow": 44,
+        "wrapRow": 50,
+        "foot": "toe30"
+      },
+      {
+        "name": "sr-reach",
+        "construction": "band",
+        "hipX": 32,
+        "kneeX": 39,
+        "footX": 42,
+        "hipRow": 40,
+        "kneeRow": 46,
+        "wrapRow": 54,
+        "foot": "flex"
       }
     ],
     "near": [
@@ -2757,5 +2845,18 @@
       ]
     },
     "intent": "eyes squeezed shut with the brow pulled down on the impact frames 0-2 (no mouth: user 2026-10-14), a squint on frame 3, open again from frame 4 (user 2026-10-14)"
+  },
+  "linger": {
+    "rule": "Inner Gate: Adrenaline (Christopher 2026-10-27: lingering aura, tinted skin, raised veins): the clip ends still powered up (aura 2 px, red skin tint, veins); while the buff lasts (3 rounds) the testbed keeps drawing the fighter with a 2 px orange-red aura flickering on its outer ring, the skin tint (fx red #ff3a1a at alpha 140 over skin pixels) and the veins, on every state it plays",
+    "aura": 2,
+    "auraColors": [
+      "#ffb12e",
+      "#e0401c"
+    ],
+    "tint": [
+      "#ff3a1a",
+      140
+    ],
+    "veins": "#7a140c"
   }
 }
