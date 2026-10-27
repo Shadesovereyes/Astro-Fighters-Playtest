@@ -145,6 +145,9 @@ HEAVY = load(D + 'heavyAttack.json')   # Sagittarius Leash Kick: the approved si
 U.POSES += [{**p, 'name': 'lk-' + p['name']} for p in HEAVY['legs']['poses'] if p['name'] in ('lift', 'side-chamber', 'side', 'lead-pivot')]
 NPAT.update({'pflame1': ['.K.', 'KPK', '.p.'], 'pflame2': ['..K..', '.KP..', '.PpK.', 'KPpPK', '.KKK.'],   # Sagittarius: select black and purple flames
              'pembers': ['.P..K', 'K..P.', '..p..']})
+U.POSES += [U.kleg('lk-axe-top', (34, 39), (38, 31), (41, 22), 'pointUR'),    # Leash Kick v2 axe kick: straight leg raised high, heel above the head
+            U.kleg('lk-axe-chop', (34, 40), (41, 38), (48, 37), 'pointFwd'),   # heel chopping down through shoulder height
+            U.kleg('lk-axe-down', (34, 41), (40, 46), (45, 52), 'toe30k')]     # driven down, foot about to land in front
 TUCK_SPIN_N, TUCK_SPIN_F = band(-20, 212), band(-45, 222)   # arms tucked tight for the pirouette (as the Whirlwind Kick)
 SPIN = lambda d, f: {'state': 'spinPivot', 'dir': d, 'frame': f, 'dx': 2}
 
@@ -423,27 +426,28 @@ CLIPS = {
               14: dict(R=stances.GA['R'], L=stances.GA['L'])},
        gather={1: 0, 2: 1, 3: 2, 4: 3, 5: 3},
        nova={6: 'core', 7: 'core2', 8: 'flash', 9: 'flash2', 10: 'flash', 11: 0, 12: 1, 13: 2, 14: 4})),
- 'leashKick': ('Leash Kick', 9,
-  'Leash Kick (Sagittarius taijutsu strike, Physical 12, Live Tier A: the fighter pirouettes violently before throwing out a heel kick at blazing speed): from the guard the fighter tucks both arms tight and whips round in two full pirouettes on the lead foot (the approved spin pivot, twice), a ring of fire whirling round its legs that grows with each turn, black and purple flames flickering in it; coming out of the second turn it snaps the rear knee up into the chamber and fires the heel straight out at the target at hip height, torso leaning back, the lead hand out; flame bursts off the heel on contact, purple and black licks trailing back along the leg; it pulls the leg back through the chamber and sets down into the guard.', [
+ 'leashKick': ('Leash Kick', 10,
+  'Leash Kick (Sagittarius taijutsu strike, Physical 12, Live Tier A: the fighter pirouettes violently before throwing out a heel kick at blazing speed): from the guard the fighter tucks both arms tight and whips round in two full pirouettes on the lead foot (the approved spin pivot, twice), a ring of fire whirling round its legs that grows with each turn, black and purple flames flickering in it; v2 (Christopher 2026-10-27: the kick more of an axe kick): coming out of the second turn it swings the rear leg up straight in front, high over its head, torso leaning back, then chops the heel straight down onto the target, a streak of fire following the heel down; flame bursts off the heel as it lands on the target\'s head and shoulder, purple and black licks trailing along the leg, embers scattering at the floor; the leg sets down and it steps back into the guard.', [
      g(),
      g(an=TUCK_SPIN_N, af=TUCK_SPIN_F, bob=(1, 1, 1), lean=(0, 0)),
      *[g(an=TUCK_SPIN_N, af=TUCK_SPIN_F, bob=(1, 1, 1), lean=(0, 0)) for _ in range(6)],
-     g(af=band(-60, -80), bob=(0, 0, 1), lean=(0, -2), ln='lk-side-chamber', lf='lk-lead-pivot'),
-     g(af=band(-55, -70), bob=(0, 0, 1), lean=(1, -5), root=(1, 0), ln='lk-side', lf='lk-lead-pivot'),
-     g(af=band(-55, -70), bob=(0, 0, 1), lean=(1, -5), ln='lk-side', lf='lk-lead-pivot'),
-     g(af=band(-60, -80), bob=(0, 0, 1), lean=(0, -2), ln='lk-side-chamber', lf='lk-lead-pivot'),
-     g(bob=(1, 1, 1), lean=(0, 1), root=(-1, 0), ln='lk-lift'),
+     g(an=band(10, -40), af=band(-60, -80), bob=(1, 1, 1), lean=(0, -1), ln='hk-swing', lf='lk-lead-pivot'),
+     g(an=band(30, -20), af=band(-80, -100), bob=(0, 0, 1), lean=(-1, -5), ln='lk-axe-top', lf='lk-lead-pivot'),
+     g(an=band(10, -40), af=band(-60, -80), bob=(1, 1, 2), lean=(1, 3), root=(1, 0), ln='lk-axe-chop', lf='lk-lead-pivot'),
+     g(an=band(0, -50), af=band(-50, -70), bob=(2, 2, 3), lean=(1, 5), ln='lk-axe-down', lf='lk-lead-pivot'),
+     g(bob=(1, 1, 1), lean=(0, 1), root=(-1, 0), ln='hk-drop'),
      g()],
   [None, 'squint'] + ['squint'] * 7 + ['squint', 'squint', 'squint', None, None],
   None,
-  dict(fps=12, hitbox=[44, 34, 14, 10], damage='medium', rm='E: +1 into the heel kick, -1 setting down',
+  dict(fps=12, hitbox=[42, 18, 14, 24], damage='medium', rm='E: +1 chopping down, -1 setting down',
        extra={'borrow': {'rule': copy.deepcopy(HEAVY['borrow']['rule']) + '; Leash Kick spins twice (E -> S, W, N, then S, W, N again)',
                          'frames': {'2': SPIN('S', 0), '3': SPIN('W', 0), '4': SPIN('N', 1), '5': SPIN('S', 0), '6': SPIN('W', 0), '7': SPIN('N', 1)}}},
        spinFire={2: (0, 130, 0), 3: (0, 250, 0), 4: (0, 360, 1), 5: (0, 360, 1), 6: (0, 360, 2), 7: (0, 360, 2), 8: (0, 360, 3)},
        fx=nfx('Sagittarius fire (reds, oranges, yellows with select black and purple flames): flame bursting off the heel on contact, purple and black licks trailing back along the leg',
-              [(9, [('flame3', [50, 42]), ('pflame2', [44, 42]), ('flame1', [40, 41]), ('pembers', [52, 35])]),
-               (10, [('flame2', [52, 42]), ('pflame1', [46, 41]), ('embers', [54, 35]), ('pembers', [42, 38])]),
-               (11, [('pembers', [48, 36]), ('embers', [44, 32])])]))),
+              [(9, [('pflame1', [41, 22]), ('flame1', [38, 26])]),
+               (10, [('flame2', [47, 41]), ('flame1', [46, 34]), ('pflame2', [42, 30]), ('flame1', [40, 25])]),
+               (11, [('flame3', [43, 56]), ('pflame2', [48, 54]), ('flame2', [44, 47]), ('pembers', [50, 46]), ('embers', [38, 50])]),
+               (12, [('embers', [44, 60]), ('pembers', [49, 58])])]))),
  'flowDodge': ('Flow Dodge', 3,
   'Flow Dodge (Sagittarius taijutsu stance buff: the fighter enters a dance-like trance and begins to swing and sway to its own rhythm): from the guard the fighter shakes its arms loose and lets the guard drop low and easy, eyes half closed, catching a beat; then it sways to its own rhythm: rocking back and forward on its feet and dipping on the knees, shoulders rolling, the loose hands swinging opposite to the hips, a flickering fire aura breathing round it on the beat with a few black and purple wisps rising off the shoulders; on the last beat it snaps its eyes open and settles into a loose, low guard (the testbed keeps the stance).', [
      g(),

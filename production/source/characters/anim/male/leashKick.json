@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Leash Kick (Sagittarius taijutsu strike, Physical 12, Live Tier A: the fighter pirouettes violently before throwing out a heel kick at blazing speed): from the guard the fighter tucks both arms tight and whips round in two full pirouettes on the lead foot (the approved spin pivot, twice), a ring of fire whirling round its legs that grows with each turn, black and purple flames flickering in it; coming out of the second turn it snaps the rear knee up into the chamber and fires the heel straight out at the target at hip height, torso leaning back, the lead hand out; flame bursts off the heel on contact, purple and black licks trailing back along the leg; it pulls the leg back through the chamber and sets down into the guard.",
+  "intent": "Leash Kick (Sagittarius taijutsu strike, Physical 12, Live Tier A: the fighter pirouettes violently before throwing out a heel kick at blazing speed): from the guard the fighter tucks both arms tight and whips round in two full pirouettes on the lead foot (the approved spin pivot, twice), a ring of fire whirling round its legs that grows with each turn, black and purple flames flickering in it; v2 (Christopher 2026-10-27: the kick more of an axe kick): coming out of the second turn it swings the rear leg up straight in front, high over its head, torso leaning back, then chops the heel straight down onto the target, a streak of fire following the heel down; flame bursts off the heel as it lands on the target's head and shoulder, purple and black licks trailing along the leg, embers scattering at the floor; the leg sets down and it steps back into the guard.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -110,10 +110,10 @@
       1,
       1,
       1,
+      1,
       0,
-      0,
-      0,
-      0,
+      1,
+      2,
       1,
       1
     ],
@@ -126,10 +126,10 @@
       1,
       1,
       1,
+      1,
       0,
-      0,
-      0,
-      0,
+      1,
+      2,
       1,
       1
     ],
@@ -144,8 +144,8 @@
       1,
       1,
       1,
-      1,
-      1,
+      2,
+      3,
       1,
       2
     ]
@@ -164,9 +164,9 @@
         0,
         0,
         0,
+        -1,
         1,
         1,
-        0,
         0,
         0
       ],
@@ -179,17 +179,17 @@
         0,
         0,
         0,
-        -2,
+        -1,
         -5,
-        -5,
-        -2,
+        3,
+        5,
         1,
         2
       ]
     }
   },
   "rootMotion": {
-    "rule": "E: +1 into the heel kick, -1 setting down",
+    "rule": "E: +1 chopping down, -1 setting down",
     "E": [
       [
         0,
@@ -228,11 +228,11 @@
         0
       ],
       [
-        1,
+        0,
         0
       ],
       [
-        0,
+        1,
         0
       ],
       [
@@ -286,11 +286,11 @@
         0
       ],
       [
-        -1,
+        0,
         0
       ],
       [
-        0,
+        -1,
         0
       ],
       [
@@ -1011,6 +1011,45 @@
         "footX": 35,
         "wrapRow": 56,
         "foot": "flat"
+      },
+      {
+        "name": "lk-axe-top",
+        "construction": "band",
+        "hipX": 34,
+        "hipRow": 39,
+        "kneeX": 38,
+        "kneeRow": 31,
+        "ankle": [
+          41,
+          22
+        ],
+        "foot": "pointUR"
+      },
+      {
+        "name": "lk-axe-chop",
+        "construction": "band",
+        "hipX": 34,
+        "hipRow": 40,
+        "kneeX": 41,
+        "kneeRow": 38,
+        "ankle": [
+          48,
+          37
+        ],
+        "foot": "pointFwd"
+      },
+      {
+        "name": "lk-axe-down",
+        "construction": "band",
+        "hipX": 34,
+        "hipRow": 41,
+        "kneeX": 40,
+        "kneeRow": 46,
+        "ankle": [
+          45,
+          52
+        ],
+        "foot": "toe30k"
       }
     ],
     "near": [
@@ -1022,11 +1061,11 @@
       1,
       1,
       1,
-      33,
-      34,
-      34,
-      33,
-      32,
+      8,
+      36,
+      37,
+      38,
+      10,
       1
     ],
     "far": [
@@ -1128,34 +1167,34 @@
       },
       {
         "construction": "band",
-        "angle": -20,
+        "angle": 10,
         "elbow": {
           "at": 8,
-          "angle": 212
+          "angle": -40
         }
       },
       {
         "construction": "band",
-        "angle": -20,
+        "angle": 30,
         "elbow": {
           "at": 8,
-          "angle": 212
+          "angle": -20
         }
       },
       {
         "construction": "band",
-        "angle": -20,
+        "angle": 10,
         "elbow": {
           "at": 8,
-          "angle": 212
+          "angle": -40
         }
       },
       {
         "construction": "band",
-        "angle": -20,
+        "angle": 0,
         "elbow": {
           "at": 8,
-          "angle": 212
+          "angle": -50
         }
       },
       {
@@ -1250,18 +1289,10 @@
       },
       {
         "construction": "band",
-        "angle": -55,
+        "angle": -80,
         "elbow": {
           "at": 8,
-          "angle": -70
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -55,
-        "elbow": {
-          "at": 8,
-          "angle": -70
+          "angle": -100
         }
       },
       {
@@ -1270,6 +1301,14 @@
         "elbow": {
           "at": 8,
           "angle": -80
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -50,
+        "elbow": {
+          "at": 8,
+          "angle": -70
         }
       },
       {
@@ -2184,20 +2223,20 @@
       {
         "frame": 9,
         "clip": "leashKick",
-        "type": "active",
-        "move": "Leash Kick",
-        "hitbox": [
-          44,
-          34,
-          14,
-          10
-        ],
-        "damage": "medium"
+        "type": "startup"
       },
       {
         "frame": 10,
         "clip": "leashKick",
-        "type": "recovery"
+        "type": "active",
+        "move": "Leash Kick",
+        "hitbox": [
+          42,
+          18,
+          14,
+          24
+        ],
+        "damage": "medium"
       },
       {
         "frame": 11,
@@ -2264,20 +2303,20 @@
       {
         "frame": 9,
         "clip": "leashKick",
-        "type": "active",
-        "move": "Leash Kick",
-        "hitbox": [
-          6,
-          34,
-          14,
-          10
-        ],
-        "damage": "medium"
+        "type": "startup"
       },
       {
         "frame": 10,
         "clip": "leashKick",
-        "type": "recovery"
+        "type": "active",
+        "move": "Leash Kick",
+        "hitbox": [
+          8,
+          18,
+          14,
+          24
+        ],
+        "damage": "medium"
       },
       {
         "frame": 11,
@@ -3828,31 +3867,17 @@
         "frame": 9,
         "splash": [
           {
-            "pattern": "flame3",
+            "pattern": "pflame1",
             "at": [
-              50,
-              42
-            ]
-          },
-          {
-            "pattern": "pflame2",
-            "at": [
-              44,
-              42
+              41,
+              22
             ]
           },
           {
             "pattern": "flame1",
             "at": [
-              40,
-              41
-            ]
-          },
-          {
-            "pattern": "pembers",
-            "at": [
-              52,
-              35
+              38,
+              26
             ]
           }
         ]
@@ -3863,29 +3888,29 @@
           {
             "pattern": "flame2",
             "at": [
-              52,
-              42
-            ]
-          },
-          {
-            "pattern": "pflame1",
-            "at": [
-              46,
+              47,
               41
             ]
           },
           {
-            "pattern": "embers",
+            "pattern": "flame1",
             "at": [
-              54,
-              35
+              46,
+              34
             ]
           },
           {
-            "pattern": "pembers",
+            "pattern": "pflame2",
             "at": [
               42,
-              38
+              30
+            ]
+          },
+          {
+            "pattern": "flame1",
+            "at": [
+              40,
+              25
             ]
           }
         ]
@@ -3894,17 +3919,57 @@
         "frame": 11,
         "splash": [
           {
-            "pattern": "pembers",
+            "pattern": "flame3",
+            "at": [
+              43,
+              56
+            ]
+          },
+          {
+            "pattern": "pflame2",
             "at": [
               48,
-              36
+              54
+            ]
+          },
+          {
+            "pattern": "flame2",
+            "at": [
+              44,
+              47
+            ]
+          },
+          {
+            "pattern": "pembers",
+            "at": [
+              50,
+              46
             ]
           },
           {
             "pattern": "embers",
             "at": [
+              38,
+              50
+            ]
+          }
+        ]
+      },
+      {
+        "frame": 12,
+        "splash": [
+          {
+            "pattern": "embers",
+            "at": [
               44,
-              32
+              60
+            ]
+          },
+          {
+            "pattern": "pembers",
+            "at": [
+              49,
+              58
             ]
           }
         ]
