@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Tantojutsu Forward Grip Stance idle (attack, mobility), user 2026-10-27: the tanto held in the forward (hammer) grip with the knife hand out at chest height and the point toward the foe, the live hand up by the chest, a light bounce on the balls of the feet (rear heel up on the high frames).",
+  "intent": "Tantojutsu Forward Grip Stance idle (attack, mobility), user 2026-10-27: the tanto held in the forward (hammer) grip with the knife hand out at chest height and the point toward the foe, the live hand up by the chest, both feet planted, the body rocking forward and back over them (user 2026-10-27: no raised heel).",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -102,22 +102,22 @@
   "bob": {
     "rule": "slight bob: the body sits 1 px low, then 1 px lower (dy 1, 1, 2, 2); the head bobs at the neck, sinking 1 px further on the low frames (head 1, 1, 3, 3); the arms bob at the shoulders a frame behind the body (arms 2, 1, 2, 3), so the hands settle after the body",
     "dy": [
-      0,
       1,
       1,
-      0
+      1,
+      1
     ],
     "head": [
-      0,
       1,
-      2,
+      1,
+      1,
       1
     ],
     "arms": [
-      1,
-      1,
       2,
-      1
+      2,
+      2,
+      2
     ]
   },
   "lean": {
@@ -126,14 +126,14 @@
     "dx": {
       "pelvis": [
         0,
-        0,
-        0,
-        0
+        1,
+        1,
+        1
       ],
       "head": [
+        2,
         3,
-        3,
-        3,
+        5,
         3
       ]
     }
@@ -382,10 +382,10 @@
       }
     ],
     "near": [
-      8,
       1,
       1,
-      8
+      1,
+      1
     ],
     "far": [
       0,
@@ -412,19 +412,10 @@
     "near": [
       {
         "construction": "band",
-        "angle": -34.5,
+        "angle": -31.9,
         "elbow": {
           "at": 8,
-          "angle": -94.9
-        },
-        "fistKind": "forward"
-      },
-      {
-        "construction": "band",
-        "angle": -34.5,
-        "elbow": {
-          "at": 8,
-          "angle": -94.9
+          "angle": -104.8
         },
         "fistKind": "forward"
       },
@@ -439,10 +430,19 @@
       },
       {
         "construction": "band",
-        "angle": -34.5,
+        "angle": -43.9,
         "elbow": {
           "at": 8,
-          "angle": -94.9
+          "angle": -96.3
+        },
+        "fistKind": "forward"
+      },
+      {
+        "construction": "band",
+        "angle": -35.7,
+        "elbow": {
+          "at": 8,
+          "angle": -102.4
         },
         "fistKind": "forward"
       }
@@ -450,18 +450,10 @@
     "far": [
       {
         "construction": "band",
-        "angle": -41.4,
+        "angle": -51.4,
         "elbow": {
           "at": 8,
-          "angle": -178.3
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -41.4,
-        "elbow": {
-          "at": 8,
-          "angle": -178.3
+          "angle": -182.0
         }
       },
       {
@@ -474,10 +466,18 @@
       },
       {
         "construction": "band",
-        "angle": -41.4,
+        "angle": -53.8,
         "elbow": {
           "at": 8,
-          "angle": -178.3
+          "angle": -196.3
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -51.7,
+        "elbow": {
+          "at": 8,
+          "angle": -186.4
         }
       }
     ],
@@ -1286,7 +1286,7 @@
       "E": [
         {
           "grip": [
-            45,
+            44,
             30
           ],
           "angle": 15,
@@ -1302,7 +1302,7 @@
         },
         {
           "grip": [
-            45,
+            47,
             30
           ],
           "angle": 15,

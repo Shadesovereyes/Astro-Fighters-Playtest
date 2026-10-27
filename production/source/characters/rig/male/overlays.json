@@ -1057,6 +1057,100 @@
       ]
     },
     {
+      "source": "Paperdolls/Male/Layer 2b - Stowed Weapons/Tanto Stowed Front.png",
+      "class": "component",
+      "partMap": "overlays/tanto-stowed-front.png",
+      "frames": [
+        {
+          "direction": "S",
+          "pixelCounts": {}
+        },
+        {
+          "direction": "SE",
+          "pixelCounts": {}
+        },
+        {
+          "direction": "E",
+          "pixelCounts": {}
+        },
+        {
+          "direction": "NE",
+          "pixelCounts": {
+            "pelvis": 60
+          }
+        },
+        {
+          "direction": "N",
+          "pixelCounts": {
+            "pelvis": 67
+          }
+        },
+        {
+          "direction": "NW",
+          "pixelCounts": {
+            "pelvis": 60
+          }
+        },
+        {
+          "direction": "W",
+          "pixelCounts": {}
+        },
+        {
+          "direction": "SW",
+          "pixelCounts": {}
+        }
+      ]
+    },
+    {
+      "source": "Paperdolls/Male/Layer 2b - Stowed Weapons/Tanto Stowed Back.png",
+      "class": "component",
+      "partMap": "overlays/tanto-stowed-back.png",
+      "frames": [
+        {
+          "direction": "S",
+          "pixelCounts": {
+            "pelvis": 66
+          }
+        },
+        {
+          "direction": "SE",
+          "pixelCounts": {
+            "pelvis": 52
+          }
+        },
+        {
+          "direction": "E",
+          "pixelCounts": {
+            "pelvis": 38
+          }
+        },
+        {
+          "direction": "NE",
+          "pixelCounts": {}
+        },
+        {
+          "direction": "N",
+          "pixelCounts": {}
+        },
+        {
+          "direction": "NW",
+          "pixelCounts": {}
+        },
+        {
+          "direction": "W",
+          "pixelCounts": {
+            "pelvis": 37
+          }
+        },
+        {
+          "direction": "SW",
+          "pixelCounts": {
+            "pelvis": 60
+          }
+        }
+      ]
+    },
+    {
       "source": "Paperdolls/Male/Layer 4 - Shoulders and Arms accessories/Blue Armor Shoulders.png",
       "class": "component",
       "partMap": "overlays/blue-armor-shoulders.png",
@@ -1758,65 +1852,65 @@
         {
           "direction": "S",
           "pixelCounts": {
-            "head": 63,
-            "hair-fall-upper": 24,
-            "hair-fall-lower": 12
+            "head": 95,
+            "hair-fall-upper": 46,
+            "hair-fall-lower": 43
           }
         },
         {
           "direction": "SE",
           "pixelCounts": {
-            "head": 73,
-            "hair-fall-upper": 24,
-            "hair-fall-lower": 12
+            "head": 105,
+            "hair-fall-upper": 46,
+            "hair-fall-lower": 43
           }
         },
         {
           "direction": "E",
           "pixelCounts": {
-            "head": 80,
-            "hair-fall-upper": 20,
-            "hair-fall-lower": 10
+            "head": 102,
+            "hair-fall-upper": 44,
+            "hair-fall-lower": 23
           }
         },
         {
           "direction": "NE",
           "pixelCounts": {
-            "head": 90,
-            "hair-fall-upper": 48,
-            "hair-fall-lower": 8
+            "head": 106,
+            "hair-fall-upper": 70,
+            "hair-fall-lower": 46
           }
         },
         {
           "direction": "N",
           "pixelCounts": {
-            "head": 88,
-            "hair-fall-upper": 50,
-            "hair-fall-lower": 11
+            "head": 110,
+            "hair-fall-upper": 72,
+            "hair-fall-lower": 46
           }
         },
         {
           "direction": "NW",
           "pixelCounts": {
-            "head": 90,
-            "hair-fall-upper": 48,
-            "hair-fall-lower": 8
+            "head": 106,
+            "hair-fall-upper": 70,
+            "hair-fall-lower": 46
           }
         },
         {
           "direction": "W",
           "pixelCounts": {
-            "head": 80,
-            "hair-fall-upper": 20,
-            "hair-fall-lower": 10
+            "head": 102,
+            "hair-fall-upper": 44,
+            "hair-fall-lower": 23
           }
         },
         {
           "direction": "SW",
           "pixelCounts": {
-            "head": 73,
-            "hair-fall-upper": 24,
-            "hair-fall-lower": 12
+            "head": 105,
+            "hair-fall-upper": 47,
+            "hair-fall-lower": 43
           }
         }
       ]
@@ -1912,19 +2006,19 @@
         {
           "direction": "NE",
           "pixelCounts": {
-            "head": 67
+            "head": 94
           }
         },
         {
           "direction": "N",
           "pixelCounts": {
-            "head": 65
+            "head": 93
           }
         },
         {
           "direction": "NW",
           "pixelCounts": {
-            "head": 67
+            "head": 92
           }
         },
         {
@@ -1965,40 +2059,40 @@
         {
           "direction": "E",
           "pixelCounts": {
-            "head": 55,
-            "hair-fall-upper": 12,
+            "head": 59,
+            "hair-fall-upper": 17,
             "hair-fall-lower": 18
           }
         },
         {
           "direction": "NE",
           "pixelCounts": {
-            "head": 58,
-            "hair-fall-upper": 12,
+            "head": 72,
+            "hair-fall-upper": 44,
             "hair-fall-lower": 25
           }
         },
         {
           "direction": "N",
           "pixelCounts": {
-            "head": 55,
-            "hair-fall-upper": 12,
+            "head": 71,
+            "hair-fall-upper": 44,
             "hair-fall-lower": 25
           }
         },
         {
           "direction": "NW",
           "pixelCounts": {
-            "head": 55,
-            "hair-fall-upper": 11,
+            "head": 72,
+            "hair-fall-upper": 44,
             "hair-fall-lower": 25
           }
         },
         {
           "direction": "W",
           "pixelCounts": {
-            "head": 55,
-            "hair-fall-upper": 12,
+            "head": 59,
+            "hair-fall-upper": 17,
             "hair-fall-lower": 18
           }
         },
@@ -2130,62 +2224,62 @@
         {
           "direction": "S",
           "pixelCounts": {
-            "head": 60,
-            "hair-fall-upper": 12
+            "head": 63,
+            "hair-fall-upper": 18
           }
         },
         {
           "direction": "SE",
           "pixelCounts": {
-            "head": 70,
-            "hair-fall-upper": 12
+            "head": 73,
+            "hair-fall-upper": 18
           }
         },
         {
           "direction": "E",
           "pixelCounts": {
-            "head": 70,
-            "hair-fall-upper": 12,
-            "hair-fall-lower": 18
+            "head": 76,
+            "hair-fall-upper": 22,
+            "hair-fall-lower": 33
           }
         },
         {
           "direction": "NE",
           "pixelCounts": {
             "head": 90,
-            "hair-fall-upper": 21,
-            "hair-fall-lower": 24
+            "hair-fall-upper": 30,
+            "hair-fall-lower": 46
           }
         },
         {
           "direction": "N",
           "pixelCounts": {
             "head": 88,
-            "hair-fall-upper": 22,
-            "hair-fall-lower": 24
+            "hair-fall-upper": 31,
+            "hair-fall-lower": 46
           }
         },
         {
           "direction": "NW",
           "pixelCounts": {
             "head": 90,
-            "hair-fall-upper": 21,
-            "hair-fall-lower": 24
+            "hair-fall-upper": 30,
+            "hair-fall-lower": 46
           }
         },
         {
           "direction": "W",
           "pixelCounts": {
-            "head": 70,
-            "hair-fall-upper": 12,
-            "hair-fall-lower": 18
+            "head": 76,
+            "hair-fall-upper": 22,
+            "hair-fall-lower": 33
           }
         },
         {
           "direction": "SW",
           "pixelCounts": {
-            "head": 71,
-            "hair-fall-upper": 12
+            "head": 74,
+            "hair-fall-upper": 18
           }
         }
       ]
@@ -2216,19 +2310,19 @@
         {
           "direction": "NE",
           "pixelCounts": {
-            "head": 102
+            "head": 131
           }
         },
         {
           "direction": "N",
           "pixelCounts": {
-            "head": 96
+            "head": 126
           }
         },
         {
           "direction": "NW",
           "pixelCounts": {
-            "head": 102
+            "head": 131
           }
         },
         {
