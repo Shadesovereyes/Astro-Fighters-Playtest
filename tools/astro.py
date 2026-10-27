@@ -30,6 +30,18 @@ ELEMENT = {'Y': '#ffe14d', 'O': '#ff8a1c', 'R': '#d8321a',               # fire:
            'M': '#7a1016', 'm': '#2a0406'}                                 # m: near-black blood red, the fill of the Killing Intent demon                                                 # fire genjutsu: dark crimson rim of a rage wave
 NPAL.update(ELEMENT)
 
+def _mane(r0, n, seed):   # a lion's mane of flame round the head: tongues of uneven length radiating from a ring, red tips, orange body, yellow root
+    import random
+    rnd = random.Random(seed); R = r0 + n + 2; g_ = [['.'] * (2 * R + 1) for _ in range(2 * R + 1)]
+    for t in range(48):
+        a = 2 * math.pi * t / 48; L = n + rnd.randint(-1, 2) if math.sin(a) < 0.5 else max(1, n // 2)   # the mane hangs long at the back and top, short under the chin
+        if math.cos(a) > 0.6 and math.sin(a) > -0.3: L = max(1, L // 2)   # short in front of the face
+        for d in range(r0, r0 + L + 1):
+            x, y = round(R + d * math.cos(a)), round(R - d * math.sin(a) * 1.1)
+            if 0 <= x <= 2 * R and 0 <= y <= 2 * R:
+                q = (d - r0) / max(1, L); g_[y][x] = 'Y' if q < 0.35 else 'O' if q < 0.75 else 'R'
+    return [''.join(row) for row in g_]
+
 def _halo(n, cx=35, cy=5, rx=7, ry=2, motes=3):   # motes circling over the head, a full turn every n frames: bright in front of the head, dark crimson behind
     out = []
     for k in range(n):
@@ -69,6 +81,13 @@ NPAT.update({
     'dread': ['M..M.M..M.M', '.MmMmMmMmM.'],   # dark pressure pooling at the feet
     'oniMask': ['..R...............', '..RR..............', '...RR.............', '...RMR............', '....RMRRRRRR......', '....RmmmmmmmRR....', '...RmmmmmmmmmmR...', '...RmmmmmRRRRRmR..', '...RmmmmmmmYWYmmR.', '...RmmmmmmmmRmmmmR', '...RmmmmmmmmmmmmRR', '...RmmmmmmmmmmMR..', '...RmmmmmmmWmWmWR.', '....RmmmmmmmmmmmR.', '....RmmmmmmmWmWR..', '.....RRmmmmmmRR...', '.......RRRRRR.....'],   # Killing Intent v3: the illusory demon mask, in profile facing E (mirrored for W): horn sweeping back, brow ridge, glowing eye, snout and fangs
     'ki1': _jag(5, 2, 'MR'), 'ki2': _jag(9, 3, 'MRO'), 'ki3': _jag(13, 4, 'MRO'), 'ki4': _jag(16, 5, 'MR'),
+    'mane1': _mane(7, 2, 1), 'mane2': _mane(7, 4, 2), 'mane3': _mane(7, 6, 3), 'mane3b': _mane(7, 6, 4), 'mane4': _mane(7, 7, 5),
+    'sunOrb1': ['.Y.', 'YWY', '.Y.'], 'sunOrb2': ['..O..', '.YWY.', 'OWWWO', '.YWY.', '..O..'],
+    'sunOrb3': ['...Y...', '..OYO..', '.OYWYO.', 'YYWWWYY', '.OYWYO.', '..OYO..', '...Y...'],
+    'sunBurst1': ['....Y....', '.Y..Y..Y.', '..YYWYY..', '..YWWWY..', 'YYWWWWWYY', '..YWWWY..', '..YYWYY..', '.Y..Y..Y.', '....Y....'],
+    'sunBurst2': ['R....O....R', '.O...Y...O.', '..Y.OYO.Y..', '...OY.YO...', '.OYY...YYO.', 'OY.......YO', '.OYY...YYO.', '...OY.YO...', '..Y.OYO.Y..', '.O...Y...O.', 'R....O....R'],
+    'sunBurst3': ['R.....R.....R', '.............', '..O.......O..', '.....R.R.....', '...R.....R...', '.............', 'R...........R', '.............', '...R.....R...', '.....R.R.....', '..O.......O..', '.............', 'R.....R.....R'],
+    'roar1': _arc(5, 2, 'YW'), 'roar2': _arc(9, 3, 'OYW'), 'roar3': _arc(13, 4, 'ROY'), 'roar3d': _arc(15, 5, 'RO', gap=2),
     'moteF': ['.Y.', 'YOR', '.R.'], 'moteB': ['.M.', 'MRM', '.M.'], 'dotM': ['M'],
     'eyeGlint': ['.R.', 'RYR', '.R.'], 'eyeFlare': ['..R..', '.ROR.', 'ROYWO', '.ROR.', '..R..'], 'rageWisp': ['M.R', '.R.', 'RO.'],
     'runeDim': ['...R.R...', '.R..O..R.', 'R..O.O..R', '.R..O..R.', '...R.R...'], 'fireLine': ['.R.O.', 'OYROY'],
@@ -243,6 +262,59 @@ CLIPS = {
   dict(fps=6, auraColors=('#d8321a', '#7a1016'), shapes={'entranced': {'E': [[0, 1, '#d8321a'], [1, 1, '#d8321a'], [0, 2, '#ff8a1c'], [1, 2, '#ff3a1a']], 'S': [[0, 2, '#ff3a1a'], [1, 2, '#ff8a1c'], [5, 2, '#ff8a1c'], [6, 2, '#ff3a1a']]}},
        extra={'loop': True, 'genjutsuMark': {'rule': 'Christopher 2026-10-27: every genjutsu target shows it is under a genjutsu. The testbed plays genjutsuAfflicted on loop in place of the target\'s idle (and draws its halo motes, aura and eye glow over any other state it plays) for as long as a genjutsu holds it; clears when the genjutsu ends', 'element': 'fire', 'recolor': {'rule': 'swap the fire colours for the caster sign\'s element: fire as drawn', 'sagittarius': {'#ffe14d': '#c9a0ff', '#ff8a1c': '#9b45ff', '#d8321a': '#55208f', '#7a1016': '#1c1024', '#ff3a1a': '#9b45ff'}, 'earth': {'#ffe14d': '#d9fff6', '#ff8a1c': '#7fe3d0', '#d8321a': '#c79a5b', '#7a1016': '#8a6236', '#ff3a1a': '#7fe3d0'}, 'water': {'#ffe14d': '#dff6ff', '#ff8a1c': '#7cc8ff', '#d8321a': '#2f7fe0', '#7a1016': '#1b4f99', '#ff3a1a': '#7cc8ff'}, 'air': {'#ffe14d': '#ffffff', '#ff8a1c': '#e3e3e3', '#d8321a': '#b8b8c8', '#7a1016': '#8a8a9a', '#ff3a1a': '#e3e3e3'}}}},
        fx=nfx('the genjutsu mark: three glowing motes circling slowly over the head (one turn per loop), bright in front of the head, dark crimson behind it', _halo(8)))),
+ 'kingsPosture': ('King\'s Posture', 3,
+  'King\'s Posture (Leo taijutsu stance buff: a regal guard, FORT +30% for 3 rounds, holds firm): from the guard the fighter rises up tall, chest out and chin lifted; the near hand sweeps out wide and low, palm open, then comes up to rest open in front of the chest, fingers forward, the rear fist settling at the hip; a golden aura flares round it and a lion\'s mane of flame bursts up behind and round its head, blazing, then settles to a proud glow as it holds the pose, and it returns to the guard (the testbed keeps the buff, not the mane).', [
+     g(),
+     g(an=band(-40, -50, fistKind='palm'), af=band(-20, -70), bob=(0, -1, 0), lean=(0, -1)),
+     g(an=band(-60, -75, fistKind='palm'), af=band(-5, -40), bob=(0, -1, 0), lean=(0, -2)),
+     g(an=band(-55, -105, fistKind='palm'), af=band(-5, -40), bob=(0, -1, 0), lean=(0, -2)),
+     g(an=band(-55, -105, fistKind='palm'), af=band(-5, -40), bob=(0, -1, 0), lean=(0, -2)),
+     g(an=band(-55, -105, fistKind='palm'), af=band(-5, -40), bob=(0, -1, 0), lean=(0, -2)),
+     g(an=band(-55, -105, fistKind='palm'), af=band(-5, -40), bob=(0, -1, 0), lean=(0, -2)),
+     g(an=band(-40, -110), af=band(-25, -90), bob=(1, 1, 1), lean=(0, 1)),
+     g()],
+  [None, None, None, None, None, None, None, None, None],
+  [0, 0, 1, 3, 2, 2, 2, 1, 0],
+  dict(fps=10, auraColors=('#ffe14d', '#ff8a1c'),
+       anchored={2: [('mane1', 'head', -1, 0, {'behind': True})], 3: [('mane3', 'head', -1, -1, {'behind': True})], 4: [('mane4', 'head', -1, -1, {'behind': True})],
+                 5: [('mane3b', 'head', -1, -1, {'behind': True})], 6: [('mane2', 'head', -1, 0, {'behind': True})], 7: [('mane1', 'head', -1, 0, {'behind': True, 'alpha': {'R': 140, 'O': 170}})]})),
+ 'sunPalm': ('Sun Palm', 4,
+  'Sun Palm (Leo taijutsu strike: channels radiant energy into the palm, scorching whoever it touches, Burn 2 rounds): from the guard the fighter draws the rear hand back low beside the hip, palm open and turned forward, and a small sun kindles in it, white-hot at the heart, swelling and throwing out rays over two held frames; then it steps in and drives the open palm straight out at chest height, and the sun bursts on contact in a white-gold starburst with rays flashing out, then a broken ring of flame scattering embers; it settles back into the guard.', [
+     g(),
+     g(an=band(25, -60, fistKind='palm'), af=band(-75, -100), bob=(1, 1, 1), lean=(-1, -1), ln='sp-load-rear', lf='sp-load-lead'),
+     g(an=band(25, -60, fistKind='palm'), af=band(-75, -100), bob=(1, 1, 1), lean=(-1, -2), ln='sp-load-rear', lf='sp-load-lead'),
+     g(an=band(25, -60, fistKind='palm'), af=band(-75, -100), bob=(1, 1, 1), lean=(-1, -2), ln='sp-load-rear', lf='sp-load-lead'),
+     g(an=band(-90, -90, fistKind='palm'), af=band(30, -160), bob=(2, 2, 2), lean=(2, 6), root=(2, 0), ln='sp-drive-rear', lf='sp-drive-lead'),
+     g(an=band(-90, -90, fistKind='palm'), af=band(30, -160), bob=(2, 2, 2), lean=(2, 6), ln='sp-drive-rear', lf='sp-drive-lead'),
+     g(an=band(-90, -90, fistKind='palm'), af=band(30, -160), bob=(2, 2, 2), lean=(2, 6), ln='sp-drive-rear', lf='sp-drive-lead'),
+     g(an=band(-50, -120), af=band(-30, 215), bob=(1, 1, 2), lean=(1, 3), ln='sp-drive-rear', lf='sp-drive-lead'),
+     g(root=(-2, 0))],
+  [None, 'squint', 'squint', 'squint', 'squint', 'squint', None, None, None],
+  None,
+  dict(fps=10, hitbox=[46, 20, 14, 10], damage='medium', rm='E: +2 stepping into the palm, -2 settling back',
+       anchored={1: [('sunOrb2', 'hand', 0, 0)], 2: [('sunOrb3', 'hand', 0, 0)], 3: [('sunOrb3', 'hand', 0, 0), ('sunOrb1', 'hand', 0, -5)],
+                 4: [('sunBurst2', 'hand', 3, 0)], 5: [('sunBurst3', 'hand', 4, 0), ('sunBurst1', 'hand', 3, 0)],
+                 6: [('sunBurst3', 'hand', 5, 0, {'alpha': {'R': 150, 'O': 180}}), ('flame2', 'hand', 4, -3), ('embers', 'hand', 2, -6)], 7: [('embers', 'hand', 6, -4), ('flame1', 'hand', 5, -2)]})),
+ 'battleRoar': ('Battle Roar', 3,
+  'Battle Roar (Leo taijutsu debuff: an intimidating war cry that makes the foe second-guess itself, Slow 2 rounds, STR save DC 12): from the guard the fighter draws in a huge breath, rising, chest swelling, head back and fists pulled down to its sides; then it lunges its chest forward and roars at the foe, mouth wide, both hands flung down and back with fingers spread, and a lion\'s mane of flame bursts up round its head while golden roar waves blast out of its mouth one after another, widening as they go; it holds the roar, the mane blazing, then the mane dies down and it settles back into the guard.', [
+     g(),
+     g(an=band(10, -40), af=band(5, -40), bob=(0, -1, 0), lean=(-1, -3)),
+     g(an=band(10, -40), af=band(5, -40), bob=(0, -1, 0), lean=(-1, -3)),
+     g(an=band(35, 15, fistKind='palm'), af=band(30, 10, fistKind='palm'), bob=(2, 2, 2), lean=(2, 5), root=(1, 0), **BRACE),
+     g(an=band(35, 15, fistKind='palm'), af=band(30, 10, fistKind='palm'), bob=(2, 2, 2), lean=(2, 5), **BRACE),
+     g(an=band(35, 15, fistKind='palm'), af=band(30, 10, fistKind='palm'), bob=(2, 2, 2), lean=(2, 5), **BRACE),
+     g(an=band(35, 15, fistKind='palm'), af=band(30, 10, fistKind='palm'), bob=(2, 2, 2), lean=(2, 5), **BRACE),
+     g(an=band(-30, -100), af=band(-30, -105), bob=(1, 1, 2), lean=(0, 2)),
+     g(root=(-1, 0))],
+  [None, 'squint', 'squint', 'roarE', 'roarE', 'roarE', 'roarE', None, None],
+  [0, 0, 1, 2, 2, 2, 1, 0, 0],
+  dict(fps=10, hitbox=[44, 10, 16, 18], damage='light', rm='E: +1 lunging into the roar, -1 settling back', auraColors=('#ffe14d', '#ff8a1c'),
+       shapes={'roarE': {'E': [[0, 0, '#000000'], [1, 0, '#000000'], [1, 4, '#000000'], [2, 4, '#000000'], [1, 5, '#70241d'], [2, 5, '#70241d']]}},
+       anchored={3: [('mane3', 'head', -1, -1, {'behind': True}), ('roar1', 'head', 9, 2)],
+                 4: [('mane4', 'head', -1, -1, {'behind': True}), ('roar2', 'head', 12, 2), ('roar1', 'head', 9, 2)],
+                 5: [('mane3b', 'head', -1, -1, {'behind': True}), ('roar3', 'head', 17, 2), ('roar2', 'head', 12, 2)],
+                 6: [('mane2', 'head', -1, 0, {'behind': True}), ('roar3d', 'head', 22, 2), ('roar2', 'head', 15, 2)],
+                 7: [('mane1', 'head', -1, 0, {'behind': True, 'alpha': {'R': 140, 'O': 170}})]})),
  'innerGateAdrenaline': ('Inner Gate: Adrenaline', 4,
   'Inner Gate: Adrenaline (Aries taijutsu buff: AGI and STR up, the fighter burns itself): from the guard the fighter clenches, curls the fists in front of the belly and sinks, straining, eyes squeezed; then the gate bursts open: it stands up tall, chest thrown out and both fists driven down and back, and an orange-red aura flares around the whole body with flame licks rising off the shoulders and head; the aura pulses once, the flames keep licking (the self-burn), then the fighter drops back into the guard still powered up: the aura lingers, the skin stays flushed red and the veins stand out on the arms, neck and temple, embers drifting off it (the testbed keeps that look for as long as the gate stays open: until 0 HP or the player deactivates it).', [
      g(),
@@ -314,6 +386,11 @@ def fx(state):
         if x.get('swirl'): swirl(state, x['swirl'])
         if x.get('impact'): impact(state, x['impact'])
         if x.get('blast'): blast(state, x['blast'])
+    if x.get('anchored'):
+        from PIL import Image
+        f_ = D + state + '/fx.png'
+        if not os.path.exists(f_) or ('fx' not in load(D + state + '.json') and not CLIPS[state][5]): Image.new('RGBA', Image.open(D + state + '/body.png').size).save(f_)   # clean start unless the aura was just drawn
+        anchored(state, x['anchored'])
     if x.get('mask'):
         from PIL import Image
         f_ = D + state + '/fx.png'
@@ -621,6 +698,39 @@ def meteor(state, frames):
                     X = hx + sg * rnd.randint(-6, 30); Y_ = rnd.randint(2, 20 + 10 * n)
                     if 0 <= X < 64: px[k * 64 + X, r * 64 + Y_] = (O, R_, Y)[i % 3]
     fx.save(f); print(state, 'meteor', list(frames))
+
+def anchored(state, frames):
+    """Splash fx placed on the fighter itself, so they ride every pose and root step: frames = {frame: [(pattern, anchor,
+    dx, dy, opts)]}; anchor 'head' (centre of the head found in body.png), 'hand' (tip of the near arm, the arms layer's
+    most forward pixel), 'feet' (floor under the body); dx is toward the facing (mirrored for W, pattern flipped);
+    the pattern is centred on the anchor; opts: 'behind' (only where the fighter is not drawn), {'alpha': {letter: a}}"""
+    from PIL import Image
+    d = D + state + '/'; f = d + 'fx.png'; dirs = load(D + state + '.json')['directions']
+    body = Image.open(d + 'body.png').convert('RGBA'); fx = Image.open(f).convert('RGBA') if os.path.exists(f) else Image.new('RGBA', body.size)
+    lays = [Image.open(d + n).convert('RGBA').load() for n in ('body.png', 'arms.png', 'far-arm.png', 'male-gi.png', 'fade-hair.png') if os.path.exists(d + n)]
+    px = fx.load(); bp = lays[0]; ap = Image.open(d + 'arms.png').convert('RGBA').load()
+    hexc = lambda c, a=255: tuple(int(c[i:i + 2], 16) for i in (1, 3, 5)) + (a,)
+    for k, items in frames.items():
+        for r, fd in enumerate(dirs):
+            if fd not in ('E', 'W'): continue
+            flip = fd == 'W'; sg = -1 if flip else 1
+            opq = [(x, y) for y in range(64) for x in range(64) if bp[k * 64 + x, r * 64 + y][3]]
+            top = min(y for _, y in opq); head = [x for x, y in opq if y <= top + 9]
+            arm = [(x, y) for y in range(64) for x in range(64) if ap[k * 64 + x, r * 64 + y][3]]
+            tip = (max if not flip else min)(arm, key=lambda q: (q[0], -q[1])) if arm else ((max(head), top + 8))
+            anchors = {'head': ((min(head) + max(head)) / 2, top + 6), 'hand': tip, 'feet': ((min(x for x, _ in opq) + max(x for x, _ in opq)) / 2, 63)}
+            for item in items:
+                name, an, dx, dy = item[:4]; opts = item[4] if len(item) > 4 else {}
+                pat = NPAT[name]; h, w = len(pat), len(pat[0]); ax, ay = anchors[an]
+                x0 = round(ax + sg * dx - (w - 1) / 2); y0 = round(ay + dy - (h - 1) / 2)
+                for yy, row in enumerate(pat):
+                    for xx, ch in enumerate(row[::-1] if flip else row):
+                        if ch == '.': continue
+                        X, Y = x0 + xx, y0 + yy
+                        if not (0 <= X < 64 and 0 <= Y < 64): continue
+                        if opts.get('behind') and any(L[k * 64 + X, r * 64 + Y][3] for L in lays): continue
+                        px[k * 64 + X, r * 64 + Y] = hexc(NPAL[ch], opts.get('alpha', {}).get(ch, 255))
+    fx.save(f); print(state, 'anchored', list(frames))
 
 def mask(state, frames, waves=None):
     """Killing Intent v3 (Christopher 2026-10-27): an illusory demon mask appears over the caster's head, in profile matching
