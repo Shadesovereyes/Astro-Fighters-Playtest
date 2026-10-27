@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Shatter Punch (Aries taijutsu, Guard Break, can stun): from the guard the fighter sits its weight back and draws the rear fist far back beside the ear, elbow high, the lead hand reaching out to measure; holds the load a beat, then steps in and fires the rear fist dead straight through the target with the whole body behind it, rear heel turning up; a white crack bursts out from the fist on contact and shards fly; it holds the extension a beat, then pulls back into the guard.",
+  "intent": "Shatter Punch (Aries taijutsu, Guard Break, can stun): from the guard the fighter sits its weight back and draws the rear fist far back beside the ear, elbow high, the lead hand reaching out to measure; holds the load a beat, then steps in and fires the rear fist dead straight through the target with the whole body behind it, rear heel turning up; a yellow-orange crack bursts out from the fist on contact and shards fly; it holds the extension a beat, then pulls back into the guard.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -1892,7 +1892,7 @@
     ]
   },
   "fx": {
-    "rule": "white guard-crack burst at the fist on contact, shards flying off",
+    "rule": "fiery yellow-orange guard-crack burst at the fist on contact, shards flying off",
     "top": true,
     "palette": {
       "#": "#000000",
@@ -1901,7 +1901,20 @@
       "g": "#9a9a9a",
       "d": "#4a4a4a",
       "B": "#4f8dff",
-      "b": "#23407e"
+      "b": "#23407e",
+      "Y": "#ffe14d",
+      "O": "#ff8a1c",
+      "R": "#d8321a",
+      "K": "#1c1024",
+      "P": "#9b45ff",
+      "p": "#55208f",
+      "E": "#8a6236",
+      "e": "#c79a5b",
+      "C": "#7fe3d0",
+      "c": "#d9fff6",
+      "A": "#2f7fe0",
+      "a": "#7cc8ff",
+      "I": "#dff6ff"
     },
     "patterns": {
       "spark": [
@@ -2375,69 +2388,69 @@
         ".B."
       ],
       "flame1": [
-        ".w.",
-        "wWw",
-        ".W."
+        ".R.",
+        "ROR",
+        ".Y."
       ],
       "flame2": [
-        "..w..",
-        ".wW..",
-        ".WWw.",
-        "wWWWw",
-        ".www."
+        "..R..",
+        ".RO..",
+        ".OYR.",
+        "ROYOR",
+        ".RRR."
       ],
       "flame3": [
-        "...w...",
-        "..wW...",
-        ".wWW.w.",
-        ".WWWwW.",
-        "wWWWWWw",
-        ".wWWWw.",
-        "..www.."
+        "...R...",
+        "..RO...",
+        ".ROO.R.",
+        ".OYYRO.",
+        "ROYYYOR",
+        ".ROYOR.",
+        "..RRR.."
       ],
       "shatter1": [
-        "W...W",
-        ".W.W.",
+        "O...O",
+        ".Y.Y.",
         "..W..",
-        ".W.W.",
-        "W...W"
+        ".Y.Y.",
+        "O...O"
       ],
       "shatter2": [
-        "w.....w",
-        ".W...W.",
-        "..WWW..",
-        ".WWWWW.",
-        "..WWW..",
-        ".W...W.",
-        "w.....w"
+        "R.....R",
+        ".O...O.",
+        "..YYY..",
+        ".YYWYY.",
+        "..YYY..",
+        ".O...O.",
+        "R.....R"
       ],
       "shatter3": [
-        "w...w...w",
-        ".w..W..w.",
-        "..W.W.W..",
-        "...WWW...",
-        "WWWW.WWWW",
-        "...WWW...",
-        "..W.W.W..",
-        ".w..W..w.",
-        "w...w...w"
+        "R...R...R",
+        ".O..O..O.",
+        "..Y.Y.Y..",
+        "...YWY...",
+        "OYYWWWYYO",
+        "...YWY...",
+        "..Y.Y.Y..",
+        ".O..O..O.",
+        "R...R...R"
       ],
       "shard": [
-        "w.",
-        ".w"
+        "O.",
+        ".R"
       ],
       "shardR": [
-        ".w",
-        "w."
+        ".O",
+        "R."
       ],
       "heat": [
-        "w.w.w",
-        ".w.w."
+        "O.Y.O",
+        ".R.R."
       ],
       "embers": [
-        ".w..w",
-        "w..w.",
-        "..w.."
+        ".O..R",
+        "R..O.",
+        "..Y.."
       ]
     },
     "frames": [
