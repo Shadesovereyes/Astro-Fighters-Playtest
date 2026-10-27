@@ -50,7 +50,16 @@
     "yumi-stowed-front": "yumi-stowed-front.png",
     "yumi-stowed-back": "yumi-stowed-back.png",
     "kyoketsu-shoge-stowed-front": "kyoketsu-shoge-stowed-front.png",
-    "kyoketsu-shoge-stowed-back": "kyoketsu-shoge-stowed-back.png"
+    "kyoketsu-shoge-stowed-back": "kyoketsu-shoge-stowed-back.png",
+    "locs-tied": "locs-tied.png",
+    "locs-loose": "locs-loose.png",
+    "wrapped-headscarf": "wrapped-headscarf.png",
+    "modern-topknot": "modern-topknot.png",
+    "braided-side": "braided-side.png",
+    "afro-puff": "afro-puff.png",
+    "bantu-knots": "bantu-knots.png",
+    "ronin-ponytail": "ronin-ponytail.png",
+    "flat-top": "flat-top.png"
   },
   "pendingLayers": [],
   "drawOrder": [
