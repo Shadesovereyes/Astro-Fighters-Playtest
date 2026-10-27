@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "blastWave",
-  "status": "CANDIDATE 2026-10-27 (E/W; W mirrors E; S/N CANDIDATE 2026-10-21 (v1))",
+  "status": "E/W approved by user 2026-10-27 (v3 S-facing roar release, dd5ab8a; W mirrors E); the S and N rows share the same S turn, their guard frames still to review",
   "frames": 10,
   "fps": 10,
   "sourceDirection": "E",
