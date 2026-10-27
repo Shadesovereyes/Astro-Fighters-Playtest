@@ -416,22 +416,18 @@ CLIPS = {
        gather={1: 0, 2: 1, 3: 2, 4: 3},
        nova={5: 'core', 6: 'flash', 7: 0, 8: 1, 9: 2, 10: 3, 11: 4})),
  'spotlight': ('Spotlight', 4,
-  'Spotlight (Leo genjutsu, mental debuff: the caster projects its own inner radiance into the foe\'s mind\'s eye, Blind 1 round, INT save DC 12; range Zone of Awareness): from the guard the fighter lifts the near hand and opens it beside its face, palm out toward the target at eye level like holding up a lamp, the far hand staying in guard; its eyes kindle gold and a small sun lights in the palm; then a cone of light pours out of the palm toward the target, pale gold and widening, brighter at the core, growing over three frames and holding; the light dies back into the palm and the hand drops into the guard (the target takes the genjutsu mark, genjutsuAfflicted, for the Blind).', [
+  'Spotlight (Leo genjutsu, mental debuff: the caster projects its own inner radiance into the foe\'s mind\'s eye, Blind 1 round, INT save DC 12; range Zone of Awareness), v2 (Christopher 2026-10-27: lower the arms, the cone of light pours from the eyes): from the guard the fighter lets both arms drop to its sides, stands tall with the chin lifted and fixes the target; its eyes kindle gold, then blaze white-hot, and a cone of light pours out of the eyes toward the target, pale gold and widening, brighter at the core, growing over three frames and holding; the light dies back into the eyes and the fighter brings its hands back up into the guard (the target takes the genjutsu mark, genjutsuAfflicted, for the Blind).', [
      g(),
-     g(an=band(-60, -130, fistKind='palm'), bob=(1, 1, 1), lean=(0, 1)),
-     g(an=band(-75, -135, fistKind='palm'), bob=(1, 1, 1), lean=(0, 0)),
-     g(an=band(-75, -135, fistKind='palm'), bob=(1, 1, 1), lean=(0, 0)),
-     g(an=band(-75, -135, fistKind='palm'), bob=(1, 1, 1), lean=(0, 0)),
-     g(an=band(-75, -135, fistKind='palm'), bob=(1, 1, 1), lean=(0, 0)),
-     g(an=band(-75, -135, fistKind='palm'), bob=(1, 1, 1), lean=(0, 0)),
-     g(an=band(-60, -120), bob=(1, 1, 2), lean=(0, 2)),
+     g(an=band(-30, -60), af=band(-20, -45), bob=(0, 0, 1), lean=(0, 0)),
+     *[g(an=band(-8, -15), af=band(4, -8), bob=(0, -1, 0), lean=(0, -1)) for _ in range(5)],
+     g(an=band(-30, -60), af=band(-20, -45), bob=(0, 0, 1), lean=(0, 1)),
      g()],
-  [None, 'squint', 'squint', 'squint', 'squint', 'squint', 'squint', None, None],
+  [None, None, 'squint', None, None, None, None, None, None],
   [0, 0, 1, 1, 1, 1, 1, 0, 0],
   dict(fps=10, auraColors=('#ffe14d', '#ff8a1c'), extra={'targetState': {'rule': 'Christopher 2026-10-27: every genjutsu marks its target; on the active frame the target starts genjutsuAfflicted (fire colours) and keeps it until the Blind ends', 'state': 'genjutsuAfflicted', 'element': 'fire'}},
-       anchored={1: [('eyeGold', 'eye', 0, 0)], 2: [('eyeGold', 'eye', 0, 0), ('sunOrb1', 'hand', 1, 0)], 3: [('eyeGoldF', 'eye', 0, 0), ('sunOrb2', 'hand', 1, 0)],
-                 4: [('eyeGoldF', 'eye', 0, 0), ('sunOrb2', 'hand', 1, 0)], 5: [('eyeGoldF', 'eye', 0, 0), ('sunOrb2', 'hand', 1, 0)], 6: [('eyeGold', 'eye', 0, 0), ('sunOrb1', 'hand', 1, 0)]},
-       cone={3: (12, 1.0), 4: (20, 1.0), 5: (30, 1.0), 6: (30, 0.5)})),
+       anchored={1: [('eyeGold', 'eye', 0, 0)], 2: [('eyeGold', 'eye', 0, 0)], 3: [('eyeGoldF', 'eye', 0, 0)],
+                 4: [('eyeGoldF', 'eye', 0, 0)], 5: [('eyeGoldF', 'eye', 0, 0)], 6: [('eyeGold', 'eye', 0, 0)], 7: [('eyeGold', 'eye', 0, 0, {'alpha': {'Y': 140, 'W': 160}})]},
+       cone={'from': 'eye', 3: (12, 1.0), 4: (20, 1.0), 5: (30, 1.0), 6: (30, 0.5)})),
  'kneel': ('Kneel', 4,
   'Kneel (Leo genjutsu, mental debuff: the caster projects its regal presence and imposes it on the foe\'s will, Stun 1 round, STR save DC 14; range Zone of Awareness): from the guard the fighter draws itself up tall, chin lifted, and raises the near hand high, palm out; its eyes kindle gold and an illusory crown of light forms over its head, the lion\'s mane of flame flaring behind it; then it brings the open palm down hard in front of it, palm to the floor, commanding the foe to kneel, the far fist at the hip, and heavy dome-shaped waves of golden pressure roll out toward the target, bearing down and sinking toward the floor as they travel; it holds the command, the crown blazing, then the crown and mane fade and it returns to the guard (the target takes the genjutsu mark, genjutsuAfflicted, for the Stun).', [
      g(),
@@ -1062,17 +1058,18 @@ def beam(state, frames, aura=False):
     fx.save(D + state + '/fx.png'); print(state, 'beam', list(frames))
 
 def cone(state, frames, aura=False):
-    """Spotlight: a cone of pale gold light pouring from the open palm toward the target (frames = {k: (length, strength)}),
+    """Spotlight: a cone of pale gold light pouring from the open palm (v2: from the eyes) toward the target (frames = {k: (length, strength)}),
     widening as it goes, a bright core line near the palm, dithered and translucent so the scene shows through"""
     import random
     fx = _open_fx(state, aura); px = fx.load(); dirs = load(D + state + '.json')['directions']
+    src = frames.get('from', 'hand'); frames = {k: v for k, v in frames.items() if k != 'from'}   # v2: 'eye' pours it from the eyes
     for k, (L, st) in frames.items():
         for r, fd in enumerate(dirs):
             if fd not in ('E', 'W'): continue
             flip = fd == 'W'; sg = -1 if flip else 1; rnd = random.Random(k * 17 + r)
-            tip = _tip(state, k, r, flip)
+            tip = _eye(state, k, r) if src == 'eye' else _tip(state, k, r, flip)
             if not tip: continue
-            x0, y0 = tip[0] + sg * 2, tip[1]
+            x0, y0 = round(tip[0]) + sg * 2, round(tip[1])
             for i in range(L):
                 x = x0 + sg * i
                 if not 0 <= x < 64: break
