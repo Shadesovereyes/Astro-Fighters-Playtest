@@ -49,6 +49,8 @@ def _foot(p):   # bottom-left anchor for a flame burst at a sprint foot: on the 
 def _burst(p, k):   # a big flame on each foot, plus a lick trailing off the back of a planted foot; alternating shapes flicker
     at = _foot(p); big = ('flame3', 'flame2')[k % 2]
     return [(big, at)] + ([('flame2' if k % 2 else 'flame1', [at[0] - 5, 63])] if at[1] == 63 else [])
+FIRE_WAKE = [[('flame3', [14, 63]), ('flame2', [7, 63]), ('flame3', [1, 63]), ('flame2', [18, 46]), ('flame1', [10, 40]), ('embers', [4, 34])],   # a stream of fire left behind along the
+             [('flame2', [15, 63]), ('flame3', [8, 63]), ('flame2', [2, 63]), ('flame1', [17, 44]), ('flame2', [9, 42]), ('embers', [3, 30])]]   # ground and in the air behind the runner, flickering
 FOOT_FLAMES = [_burst(SPRINT_LEGS[k], k) + _burst(SPRINT_LEGS[(k + 4) % 8], k + 1) for k in range(6)]
 PUNCH = band(-92, -92)                  # straight arm at shoulder height
 CHAMBER = band(75, -150)                # rear fist drawn back by the ear, elbow high behind
@@ -57,7 +59,7 @@ FLEX_N, FLEX_F = band(50, -20), band(40, -15)     # elbows flared back, clenched
 
 CLIPS = {
  'machLunge': ('Mach Lunge', 9,
-  'Mach Lunge (Aries taijutsu, Priority gap closer, burns the target), v4 (Christopher 2026-10-27: the sprint instead of a single hop, flames around the feet; afterimages for speed): from the guard the fighter dips, then breaks into the approved sprint (the same stride, lean and swept-back arms), flames bursting around the feet at every step and fire-tinted afterimages trailing behind; on the last stride it tucks both arms tight, plants the lead foot and drives the lead shoulder into the target with a flare of flame at the point of contact; then settles back into the guard. The fighter travels 40 px over the clip (the game moves it by that distance).', [
+  'Mach Lunge (Aries taijutsu, Priority gap closer, burns the target), v4 (Christopher 2026-10-27: the sprint instead of a single hop, flames around the feet; afterimages for speed): from the guard the fighter dips, then breaks into the approved sprint (the same stride, lean and swept-back arms), flames bursting around the feet at every step, a stream of fire and four fire-tinted afterimages trailing behind; on the last stride it tucks both arms tight, plants the lead foot and drives the lead shoulder into the target with a flare of flame at the point of contact; then settles back into the guard. The fighter travels 40 px over the clip (the game moves it by that distance).', [
      g(),
      g(an=band(-25, 205), af=band(-40, 215), bob=(3, 3, 3), lean=(1, 4), ln='ml-dip-rear', lf='ml-dip-lead')] + [
      g(an=SPRINT_N[k], af=SPRINT_F[k], bob=(SPRINT_DY[k],) * 3, lean=(1, 8), root=(6, 0), ln='sr-' + SPRINT_LEGS[k], lf='sr-' + SPRINT_LEGS[(k + 4) % 8]) for k in range(6)] + [
@@ -68,26 +70,28 @@ CLIPS = {
   [None, 'squint'] + ['squint'] * 6 + ['squint', 'squint', None, None],
   None,
   dict(fps=12, hitbox=[42, 24, 14, 16], damage='light', rm='E: 6 px a stride through the sprint (as the sprint), +3 and +1 into the shoulder check; 40 px in all (travel)',
-       ghosts={k: (6, 12) for k in range(2, 8)} | {8: (5, 10), 9: (4,)}, ghostColors=(('#ff8a1c', '#ffe14d'), ('#d8321a', None)),
-       fx=nfx('fire flame (reds, oranges, yellows): flames bursting around the feet at every stride, a flare where the shoulder lands',
-              [(k, FOOT_FLAMES[k - 2]) for k in range(2, 8)] + [(8, [('flame3', [47, 32]), ('flame1', [40, 63])]), (9, [('flame3', [48, 31]), ('embers', [45, 24])]), (10, [('embers', [48, 24])])]),
+       ghosts={k: (5, 10, 15, 20) for k in range(2, 8)} | {8: (5, 10, 15), 9: (4, 8), 10: (3,)}, ghostColors=(('#ffe14d', '#ff8a1c'), ('#ff8a1c', '#ffe14d'), ('#d8321a', '#ff8a1c'), ('#d8321a', None)),
+       blur={k: 9 for k in range(2, 8)} | {8: 7, 9: 4}, trail=FIRE_TRAIL,
+       fx=nfx('fire flame (reds, oranges, yellows): flames bursting around the feet at every stride, a stream of fire trailing behind, a flare where the shoulder lands',
+              [(k, FOOT_FLAMES[k - 2] + FIRE_WAKE[k % 2]) for k in range(2, 8)] + [(8, [('flame3', [47, 32]), ('flame1', [40, 63])] + FIRE_WAKE[0][:3]), (9, [('flame3', [48, 31]), ('embers', [45, 24])]), (10, [('embers', [48, 24])])]),
        extra={'airborneFrames': [5], 'travel': {'rule': 'Mach Lunge is a gap closer: the fighter ends the clip 40 px further forward (sum of rootMotion); the game moves the fighter by that distance', 'E': 40}})),
- 'shatterPunch': ('Shatter Punch', 4,
-  'Shatter Punch (Aries taijutsu, Guard Break, can stun): from the guard the fighter sits its weight back and draws the rear fist far back beside the ear, elbow high, the lead hand reaching out to measure; holds the load a beat, then steps in and fires the rear fist dead straight through the target with the whole body behind it, rear heel turning up; a yellow-orange crack bursts out from the fist on contact and shards fly; it holds the extension a beat, then pulls back into the guard.', [
+ 'shatterPunch': ('Shatter Punch', 5,
+  'Shatter Punch (Aries taijutsu, Guard Break, can stun), v3 (Christopher 2026-10-27: swirling fx around the winding arm, a more dramatic impact): from the guard the fighter sits its weight back and draws the rear fist far back beside the ear, elbow high, the lead hand reaching out to measure; flame swirls up around the cocked arm, winding tighter and brighter over three held frames; then it steps in and fires the rear fist dead straight through the target with the whole body behind it, rear heel turning up; on contact a white-hot flash bursts at the fist, a ring of fire shock blasts outward, jagged cracks shoot off and shards and embers scatter, the punch held through a hit-stop; then it pulls back into the guard.', [
      g(),
      g(an=band(40, -170), af=band(-70, -100), bob=(1, 1, 1), lean=(0, 0), ln='sp-load-rear', lf='sp-load-lead'),
      g(an=CHAMBER, af=band(-80, -95), bob=(1, 1, 1), lean=(-1, -2), ln='sp-load-rear', lf='sp-load-lead'),
      g(an=CHAMBER, af=band(-80, -95), bob=(1, 1, 1), lean=(-1, -2), ln='sp-load-rear', lf='sp-load-lead'),
+     g(an=CHAMBER, af=band(-80, -95), bob=(1, 1, 1), lean=(-1, -3), ln='sp-load-rear', lf='sp-load-lead'),
      g(an=PUNCH, af=band(30, -160), bob=(2, 2, 2), lean=(2, 6), root=(2, 0), ln='sp-drive-rear', lf='sp-drive-lead'),
+     g(an=PUNCH, af=band(30, -160), bob=(2, 2, 2), lean=(2, 6), ln='sp-drive-rear', lf='sp-drive-lead'),
      g(an=PUNCH, af=band(30, -160), bob=(2, 2, 2), lean=(2, 6), ln='sp-drive-rear', lf='sp-drive-lead'),
      g(an=band(-50, -120), af=band(-30, 215), bob=(1, 1, 2), lean=(1, 3), ln='sp-drive-rear', lf='sp-drive-lead'),
      g(root=(-1, 0))],
-  [None, 'squint', 'squint', 'squint', 'squint', 'squint', None, None],
+  [None, 'squint', 'squint', 'squint', 'squint', 'squint', 'squint', 'squint', None, None],
   None,
   dict(fps=10, hitbox=[46, 20, 14, 10], damage='heavy', rm='E: +2 on the step into the punch, -1 settling back',
-       fx=nfx('fiery yellow-orange guard-crack burst at the fist on contact, shards flying off',
-              [(4, [('shatter2', [55, 27])]), (5, [('shatter3', [55, 28]), ('shard', [52, 18]), ('shardR', [62, 30])]),
-               (6, [('shard', [50, 15]), ('shardR', [62, 33]), ('shatter1', [57, 26])])]))),
+       swirl={1: (0, 0.35), 2: (100, 0.6), 3: (210, 0.85), 4: (320, 1.0)},   # frame: (phase degrees, strength)
+       impact={5: 0, 6: 1, 7: 2, 8: 3})),   # frame: stage of the burst (flash, shock ring, spread, fade)
  'innerGateAdrenaline': ('Inner Gate: Adrenaline', 4,
   'Inner Gate: Adrenaline (Aries taijutsu buff: AGI and STR up, the fighter burns itself): from the guard the fighter clenches, curls the fists in front of the belly and sinks, straining, eyes squeezed; then the gate bursts open: it stands up tall, chest thrown out and both fists driven down and back, and an orange-red aura flares around the whole body with flame licks rising off the shoulders and head; the aura pulses once, the flames keep licking (the self-burn), then the fighter drops back into the guard with embers still drifting off it.', [
      g(),
@@ -130,11 +134,112 @@ def fx(state):
                     if q[3] and q[:3] in x['trail']: px[xx, yy] = x['trail'][q[:3]] + (255,)
             b.save(f)
         if old: new = Image.open(f).convert('RGBA'); new.alpha_composite(old); new.save(f)
+    if x.get('swirl') or x.get('impact'):
+        from PIL import Image
+        f = D + state + '/fx.png'
+        if not os.path.exists(f) or 'fx' not in load(D + state + '.json'): Image.new('RGBA', Image.open(D + state + '/body.png').size).save(f)   # no splash fx: start clean (not a stale render)
+        if x.get('swirl'): swirl(state, x['swirl'])
+        if x.get('impact'): impact(state, x['impact'])
     if x.get('ghosts'):
         from PIL import Image
         f = D + state + '/fx.png'; top = Image.open(f).convert('RGBA')   # blur + splash so far
         ghosts(state, x['ghosts'], x['ghostColors'])
         g_ = Image.open(f).convert('RGBA'); g_.alpha_composite(top); g_.save(f)   # streaks and flames stay over the afterimages
+
+def _arm(state, k, r, layer='arms.png'):
+    from PIL import Image
+    a = Image.open(D + state + '/' + layer).convert('RGBA').load()
+    return [(x, y) for y in range(64) for x in range(64) if a[k * 64 + x, r * 64 + y][3]]
+
+def swirl(state, frames):
+    """Shatter Punch wind-up (Christopher 2026-10-27): fire swirling round the cocked arm. A tilted ellipse round the
+    arm's pixels; a comet of flame runs round it, its head yellow, body orange, tail red, longer and doubled as the
+    load builds; the half behind the arm hides behind the figure, the front half draws over it"""
+    import math
+    from PIL import Image
+    f = D + state + '/fx.png'; fx = Image.open(f).convert('RGBA'); px = fx.load()
+    lay = [Image.open(D + state + '/' + n).convert('RGBA').load() for n in ('body.png', 'arms.png', 'male-gi.png', 'fade-hair.png', 'far-arm.png') if os.path.exists(D + state + '/' + n)]
+    hexc = lambda c: tuple(int(c[i:i + 2], 16) for i in (1, 3, 5)) + (255,)
+    Y, O, R_ = hexc(ELEMENT['Y']), hexc(ELEMENT['O']), hexc(ELEMENT['R'])
+    dirs = load(D + state + '.json')['directions']
+    for k, (ph, st) in frames.items():
+        for fd in dirs:
+            r = dirs.index(fd); sg = -1 if fd == 'W' else 1
+            pts = _arm(state, k, r)
+            if not pts: continue
+            cx = sum(x for x, _ in pts) / len(pts); cy = sum(y for _, y in pts) / len(pts)
+            rx = (max(x for x, _ in pts) - min(x for x, _ in pts)) / 2 + 3; ry = (max(y for _, y in pts) - min(y for _, y in pts)) / 2 + 3
+            for ring, (dr, sweep) in enumerate(((0, 300 * st), (2, 200 * st))):
+                if ring and st < 0.6: continue
+                for t in range(int(sweep * 4)):
+                    u = t / (sweep * 4)   # 0 tail .. 1 head
+                    th = math.radians(ph + (180 if ring else 0) + t / 4)
+                    x = round(cx + sg * (rx + dr) * math.cos(th)); y = round(cy + (ry * 0.7 + dr) * math.sin(th))
+                    if not (0 <= x < 64 and 0 <= y < 64): continue
+                    behind = math.sin(th) < 0
+                    if behind and any(L[k * 64 + x, r * 64 + y][3] for L in lay): continue
+                    if u < 0.35 and (x + y) % 2: continue   # dithered tail
+                    px[k * 64 + x, r * 64 + y] = Y if u > 0.8 else O if u > 0.4 else R_
+            # sparks thrown off the swirl
+            for i in range(int(4 * st)):
+                th = math.radians(ph + 90 * i + 45)
+                x = round(cx + sg * (rx + 3) * math.cos(th)); y = round(cy + (ry * 0.7 + 3) * math.sin(th))
+                if 0 <= x < 64 and 0 <= y < 64: px[k * 64 + x, r * 64 + y] = Y
+    fx.save(f); print(state, 'arm swirl', list(frames))
+
+def impact(state, frames):
+    """Shatter Punch contact (Christopher 2026-10-27: more dramatic): stage 0 a big white-hot flash star at the fist with
+    jagged cracks; 1 a fire shock ring blasting out, cracks reaching further, shards; 2 the ring wider and broken,
+    shards and embers scattering; 3 embers fading. All drawn on top at the fist (the arms layer's far tip)"""
+    import math
+    from PIL import Image
+    f = D + state + '/fx.png'; fx = Image.open(f).convert('RGBA'); px = fx.load()
+    hexc = lambda c: tuple(int(c[i:i + 2], 16) for i in (1, 3, 5)) + (255,)
+    W_, Y, O, R_ = (255, 255, 255, 255), hexc(ELEMENT['Y']), hexc(ELEMENT['O']), hexc(ELEMENT['R'])
+    dirs = load(D + state + '.json')['directions']
+    def put(k, r, x, y, c):
+        if 0 <= x < 64 and 0 <= y < 64: px[k * 64 + x, r * 64 + y] = c
+    first = min(frames)
+    for k, stage in frames.items():
+        for fd in dirs:
+            r = dirs.index(fd); sg = -1 if fd == 'W' else 1
+            pts = _arm(state, first, r)
+            tip = max(pts, key=lambda p: sg * p[0]); fx0, fy = tip[0] + sg * 2, tip[1]
+            P = lambda dx, dy, c: put(k, r, fx0 + sg * dx, fy + dy, c)
+            cracks = [(0, -1), (1, -2), (2, -1), (1, 1), (2, 2), (-1, 2), (-1, -2), (3, 0)]   # crack directions (x forward, y)
+            if stage == 0:
+                for i in range(-9, 10):   # the flash star: long horizontal and vertical spikes, shorter diagonals
+                    c = W_ if abs(i) < 4 else Y if abs(i) < 7 else O if abs(i) < 9 else R_
+                    P(i, 0, c); P(0, i, c); P(i, 1 if abs(i) < 5 else 0, c); P(1 if abs(i) < 5 else 0, i, c)
+                    if abs(i) < 7: P(i, i, c if abs(i) < 3 else O); P(i, -i, c if abs(i) < 3 else O)
+                for dx in range(-3, 4):
+                    for dy in range(-3, 4):
+                        if abs(dx) + abs(dy) < 5: P(dx, dy, W_ if abs(dx) + abs(dy) < 3 else Y)
+            if stage in (1, 2):
+                rad = (7, 11)[stage - 1]
+                for t in range(0, 360, 4):   # the shock ring, an upright ellipse (seen side-on)
+                    if stage == 2 and (t // 20) % 3 == 0: continue   # breaking up
+                    th = math.radians(t)
+                    P(round(rad * 0.55 * math.cos(th)), round(rad * 1.3 * math.sin(th)), O if stage == 1 else R_)
+                    P(round((rad - 1) * 0.55 * math.cos(th)), round((rad - 1) * 1.3 * math.sin(th)), Y if stage == 1 else O)
+                for dx, dy in cracks:   # jagged cracks shooting off
+                    L = (8, 12)[stage - 1]
+                    for i in range(2, L):
+                        jx = (i % 3 == 0) * (1 if dy >= 0 else -1)
+                        P(round(dx * i / 2) + jx, round(dy * i / 2), Y if i < L // 2 else O)
+                for i, (dx, dy) in enumerate(cracks):   # shards flung out past the cracks
+                    d = (11, 16)[stage - 1]
+                    sx, sy = round(dx * d / 2), round(dy * d / 2)
+                    P(sx, sy, O); P(sx + 1, sy + 1, R_)
+                if stage == 1:
+                    for dx in range(-1, 2):
+                        for dy in range(-1, 2): P(dx, dy, W_ if dx == dy == 0 else Y)
+            if stage == 3:
+                for i, (dx, dy) in enumerate(cracks):
+                    if i % 2: continue
+                    P(round(dx * 8), round(dy * 8) - 1, O); P(round(dx * 6) + 1, round(dy * 6) - 2, R_)
+                P(-1, -6, Y); P(3, 5, O)
+    fx.save(f); print(state, 'impact', frames)
 
 def ghosts(state, offs, cols):
     """after the blur: afterimages (Christopher 2026-10-27: onion/afterimage effects to exaggerate the speed). On each

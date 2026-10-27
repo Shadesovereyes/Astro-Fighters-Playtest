@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Mach Lunge (Aries taijutsu, Priority gap closer, burns the target), v4 (Christopher 2026-10-27: the sprint instead of a single hop, flames around the feet; afterimages for speed): from the guard the fighter dips, then breaks into the approved sprint (the same stride, lean and swept-back arms), flames bursting around the feet at every step and fire-tinted afterimages trailing behind; on the last stride it tucks both arms tight, plants the lead foot and drives the lead shoulder into the target with a flare of flame at the point of contact; then settles back into the guard. The fighter travels 40 px over the clip (the game moves it by that distance).",
+  "intent": "Mach Lunge (Aries taijutsu, Priority gap closer, burns the target), v4 (Christopher 2026-10-27: the sprint instead of a single hop, flames around the feet; afterimages for speed): from the guard the fighter dips, then breaks into the approved sprint (the same stride, lean and swept-back arms), flames bursting around the feet at every step, a stream of fire and four fire-tinted afterimages trailing behind; on the last stride it tucks both arms tight, plants the lead foot and drives the lead shoulder into the target with a flare of flame at the point of contact; then settles back into the guard. The fighter travels 40 px over the clip (the game moves it by that distance).",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -2106,7 +2106,7 @@
     ]
   },
   "fx": {
-    "rule": "fire flame (reds, oranges, yellows): flames bursting around the feet at every stride, a flare where the shoulder lands",
+    "rule": "fire flame (reds, oranges, yellows): flames bursting around the feet at every stride, a stream of fire trailing behind, a flare where the shoulder lands",
     "top": true,
     "palette": {
       "#": "#000000",
@@ -2691,6 +2691,48 @@
               17,
               56
             ]
+          },
+          {
+            "pattern": "flame3",
+            "at": [
+              14,
+              63
+            ]
+          },
+          {
+            "pattern": "flame2",
+            "at": [
+              7,
+              63
+            ]
+          },
+          {
+            "pattern": "flame3",
+            "at": [
+              1,
+              63
+            ]
+          },
+          {
+            "pattern": "flame2",
+            "at": [
+              18,
+              46
+            ]
+          },
+          {
+            "pattern": "flame1",
+            "at": [
+              10,
+              40
+            ]
+          },
+          {
+            "pattern": "embers",
+            "at": [
+              4,
+              34
+            ]
           }
         ]
       },
@@ -2717,6 +2759,48 @@
               26,
               56
             ]
+          },
+          {
+            "pattern": "flame2",
+            "at": [
+              15,
+              63
+            ]
+          },
+          {
+            "pattern": "flame3",
+            "at": [
+              8,
+              63
+            ]
+          },
+          {
+            "pattern": "flame2",
+            "at": [
+              2,
+              63
+            ]
+          },
+          {
+            "pattern": "flame1",
+            "at": [
+              17,
+              44
+            ]
+          },
+          {
+            "pattern": "flame2",
+            "at": [
+              9,
+              42
+            ]
+          },
+          {
+            "pattern": "embers",
+            "at": [
+              3,
+              30
+            ]
           }
         ]
       },
@@ -2736,6 +2820,48 @@
               35,
               56
             ]
+          },
+          {
+            "pattern": "flame3",
+            "at": [
+              14,
+              63
+            ]
+          },
+          {
+            "pattern": "flame2",
+            "at": [
+              7,
+              63
+            ]
+          },
+          {
+            "pattern": "flame3",
+            "at": [
+              1,
+              63
+            ]
+          },
+          {
+            "pattern": "flame2",
+            "at": [
+              18,
+              46
+            ]
+          },
+          {
+            "pattern": "flame1",
+            "at": [
+              10,
+              40
+            ]
+          },
+          {
+            "pattern": "embers",
+            "at": [
+              4,
+              34
+            ]
           }
         ]
       },
@@ -2754,6 +2880,48 @@
             "at": [
               39,
               60
+            ]
+          },
+          {
+            "pattern": "flame2",
+            "at": [
+              15,
+              63
+            ]
+          },
+          {
+            "pattern": "flame3",
+            "at": [
+              8,
+              63
+            ]
+          },
+          {
+            "pattern": "flame2",
+            "at": [
+              2,
+              63
+            ]
+          },
+          {
+            "pattern": "flame1",
+            "at": [
+              17,
+              44
+            ]
+          },
+          {
+            "pattern": "flame2",
+            "at": [
+              9,
+              42
+            ]
+          },
+          {
+            "pattern": "embers",
+            "at": [
+              3,
+              30
             ]
           }
         ]
@@ -2781,6 +2949,48 @@
               33,
               63
             ]
+          },
+          {
+            "pattern": "flame3",
+            "at": [
+              14,
+              63
+            ]
+          },
+          {
+            "pattern": "flame2",
+            "at": [
+              7,
+              63
+            ]
+          },
+          {
+            "pattern": "flame3",
+            "at": [
+              1,
+              63
+            ]
+          },
+          {
+            "pattern": "flame2",
+            "at": [
+              18,
+              46
+            ]
+          },
+          {
+            "pattern": "flame1",
+            "at": [
+              10,
+              40
+            ]
+          },
+          {
+            "pattern": "embers",
+            "at": [
+              4,
+              34
+            ]
           }
         ]
       },
@@ -2807,6 +3017,48 @@
               27,
               63
             ]
+          },
+          {
+            "pattern": "flame2",
+            "at": [
+              15,
+              63
+            ]
+          },
+          {
+            "pattern": "flame3",
+            "at": [
+              8,
+              63
+            ]
+          },
+          {
+            "pattern": "flame2",
+            "at": [
+              2,
+              63
+            ]
+          },
+          {
+            "pattern": "flame1",
+            "at": [
+              17,
+              44
+            ]
+          },
+          {
+            "pattern": "flame2",
+            "at": [
+              9,
+              42
+            ]
+          },
+          {
+            "pattern": "embers",
+            "at": [
+              3,
+              30
+            ]
           }
         ]
       },
@@ -2824,6 +3076,27 @@
             "pattern": "flame1",
             "at": [
               40,
+              63
+            ]
+          },
+          {
+            "pattern": "flame3",
+            "at": [
+              14,
+              63
+            ]
+          },
+          {
+            "pattern": "flame2",
+            "at": [
+              7,
+              63
+            ]
+          },
+          {
+            "pattern": "flame3",
+            "at": [
+              1,
               63
             ]
           }
