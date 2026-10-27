@@ -67,16 +67,16 @@ def fr(grip, angle=None, far=(39, 24), fk=None, bob=(1, 1, 2), lean=(0, 2), root
 
 P, H = 'palm', 'heel'
 FG = dict(grip=(45, 30), angle=15, far=(39, 23), lean=(0, 3))                                         # forward grip guard
-RG = dict(grip=(42, 24), rev=12, far=(47, 28), fk=H, lean=(-1, 0), bob=(2, 2, 2), ln='low-rear', lf='low-lead')   # reverse grip guard
+RG = dict(grip=(45, 26), rev=24, far=(40, 23), fk=None, lean=(0, 2), bob=(2, 2, 2), ln='guard-low-rear', lf='guard-low-lead')   # reverse grip guard
 def fg(**k): return fr(**{**FG, **k})
 def rg(**k): return fr(**{**RG, **k})
 def arc(a0, a1, R=27, w=7, c=(33, 24)): return {'from': a0, 'to': a1, 'center': list(c), 'radius': R, 'width': w}
 
 CLIPS = {
  'fgd': ('Forward Grip Stance', None, None, None, 6, 'loop', [
-    fg(bob=(0, 0, 1), ln='bounce-rear'), fg(bob=(1, 1, 1)), fg(bob=(1, 2, 2)), fg(bob=(0, 1, 1), ln='bounce-rear')]),
+    fg(lean=(0, 2), grip=(44, 30)), fg(lean=(1, 3), grip=(45, 30)), fg(lean=(1, 5), grip=(47, 30), bob=(1, 1, 2)), fg(lean=(1, 3), grip=(45, 30))]),
  'rgd': ('Reverse Grip Stance', None, None, None, 5, 'loop', [
-    rg(), rg(bob=(2, 2, 2), grip=(42, 23)), rg(bob=(3, 3, 3)), rg(bob=(3, 3, 3), grip=(42, 25))]),
+    rg(), rg(bob=(2, 2, 2), grip=(45, 25)), rg(bob=(3, 3, 3)), rg(bob=(3, 3, 3), grip=(45, 27))]),
  # Thrust Cut (Tsuki-Uchi): chamber, lunge and thrust, then the edge is drawn down and back through the target
  'thrustCut': ('Thrust Cut', 3, [48, 24, 14, 8], 'heavy', 12, 'tantoForwardGuard', [
     fg(),
@@ -130,7 +130,7 @@ CLIPS = {
  'elbowHook': ('Elbow Hook', 3, [46, 20, 14, 14], 'light', 12, 'tantoReverseGuard', [
     rg(),
     rg(grip=(43, 17), rev=15, far=(42, 27), lean=(-1, 0)),
-    rg(grip=(44, 18), rev=15, far=(50, 22), fk=P, lean=(2, 6), root=(2, 0), ln='lunge-rear', lf='step-lead'),
+    rg(grip=(44, 18), rev=15, far=(50, 22), fk=P, lean=(2, 6), root=(2, 0), ln='step-rear', lf='step-lead'),
     rg(grip=(44, 22), rev=15, far=(41, 31), fk=None, lean=(-1, 0), root=(1, 0), ln='step-rear', lf='step-lead'),
     rg(grip=(44, 22), rev=15, far=(40, 31), fk=None, lean=(0, 1), ln='step-rear', lf='step-lead'),
     rg(grip=(42, 22), root=(-2, 0)),
@@ -139,7 +139,7 @@ CLIPS = {
 STATES = {'tantoForwardGuard': 'fgd', 'tantoReverseGuard': 'rgd', 'tantoThrustCut': 'thrustCut', 'tantoDefang': 'defang',
           'tantoBladePass': 'bladePass', 'tantoBladePassReverse': 'bladePassRev', 'tantoScissors': 'scissors', 'tantoElbowHook': 'elbowHook'}
 INTENT = {
- 'fgd': 'Tantojutsu Forward Grip Stance idle (attack, mobility), user 2026-10-27: the tanto held in the forward (hammer) grip with the knife hand out at chest height and the point toward the foe, the live hand up by the chest, a light bounce on the balls of the feet (rear heel up on the high frames).',
+ 'fgd': 'Tantojutsu Forward Grip Stance idle (attack, mobility), user 2026-10-27: the tanto held in the forward (hammer) grip with the knife hand out at chest height and the point toward the foe, the live hand up by the chest, both feet planted, the body rocking forward and back over them (user 2026-10-27: no raised heel).',
  'rgd': 'Tantojutsu Reverse Grip Stance idle (defence, counters), user 2026-10-27: a lower stance with the weight back; the knife hand held high in front of the chest in the reverse (ice-pick) grip, the blade edge-out along the forearm toward the elbow; the live open hand forward to check; a slow breathing bob.',
  'thrustCut': 'Tantojutsu Thrust Cut (Tsuki-Uchi), user 2026-10-27: from the forward grip the knife hand chambers at the hip, a lunge drives the point straight out (thrust lines), then the edge is drawn down and back through the target (draw-cut smear) as the feet recover to the forward guard.',
  'defang': 'Tantojutsu Defang (Defang the Snake), user 2026-10-27: from the forward grip the point dips, then a short rising cut with a half step meets the attacking wrist (white spark at the tip), follow-through and back to the forward guard.',

@@ -134,22 +134,22 @@
     "torsoShear": true,
     "dx": {
       "pelvis": [
-        -1,
-        -1,
+        0,
+        0,
         0,
         1,
         1,
-        -1,
-        -1
-      ],
-      "head": [
-        0,
-        0,
-        1,
-        3,
-        3,
         0,
         0
+      ],
+      "head": [
+        2,
+        2,
+        1,
+        3,
+        3,
+        2,
+        2
       ]
     }
   },
@@ -421,22 +421,22 @@
       }
     ],
     "near": [
+      3,
+      3,
+      3,
       10,
       10,
-      10,
-      10,
-      10,
-      10,
-      10
+      3,
+      3
     ],
     "far": [
-      9,
-      9,
-      9,
+      2,
+      2,
+      2,
       6,
       6,
-      9,
-      9
+      2,
+      2
     ]
   },
   "arms": {
@@ -457,19 +457,19 @@
     "near": [
       {
         "construction": "band",
-        "angle": -51.9,
+        "angle": -51.4,
         "elbow": {
           "at": 8,
-          "angle": -148.0
+          "angle": -124.8
         },
         "fistKind": "forward"
       },
       {
         "construction": "band",
-        "angle": -68.2,
+        "angle": -68.1,
         "elbow": {
           "at": 8,
-          "angle": -175.3
+          "angle": -183.5
         },
         "fistKind": "forward"
       },
@@ -502,19 +502,19 @@
       },
       {
         "construction": "band",
-        "angle": -56.0,
+        "angle": -51.9,
         "elbow": {
           "at": 8,
-          "angle": -141.4
+          "angle": -148.0
         },
         "fistKind": "forward"
       },
       {
         "construction": "band",
-        "angle": -51.9,
+        "angle": -51.4,
         "elbow": {
           "at": 8,
-          "angle": -148.0
+          "angle": -124.8
         },
         "fistKind": "forward"
       }
@@ -522,21 +522,19 @@
     "far": [
       {
         "construction": "band",
-        "angle": -74.3,
+        "angle": -51.7,
         "elbow": {
           "at": 8,
-          "angle": -83.7
-        },
-        "fistKind": "heel"
+          "angle": -174.1
+        }
       },
       {
         "construction": "band",
-        "angle": -85.6,
+        "angle": -70.4,
         "elbow": {
           "at": 8,
-          "angle": -95.0
-        },
-        "fistKind": "heel"
+          "angle": -112.6
+        }
       },
       {
         "construction": "band",
@@ -544,8 +542,7 @@
         "elbow": {
           "at": 8,
           "angle": -95.1
-        },
-        "fistKind": "heel"
+        }
       },
       {
         "construction": "band",
@@ -553,8 +550,7 @@
         "elbow": {
           "at": 8,
           "angle": -94.9
-        },
-        "fistKind": "heel"
+        }
       },
       {
         "construction": "band",
@@ -566,21 +562,19 @@
       },
       {
         "construction": "band",
-        "angle": -74.3,
+        "angle": -51.7,
         "elbow": {
           "at": 8,
-          "angle": -83.7
-        },
-        "fistKind": "heel"
+          "angle": -174.1
+        }
       },
       {
         "construction": "band",
-        "angle": -74.3,
+        "angle": -51.7,
         "elbow": {
           "at": 8,
-          "angle": -83.7
-        },
-        "fistKind": "heel"
+          "angle": -174.1
+        }
       }
     ],
     "outline": "Arm pixels touching empty space get an outline, except above the shoulder row; the near arm is not outlined where it lies over the body (its dark back column separates it).",
@@ -1395,10 +1389,10 @@
       "E": [
         {
           "grip": [
-            42,
-            24
+            45,
+            26
           ],
-          "angle": -110.0,
+          "angle": -121.2,
           "z": {
             "hilt": "front",
             "blade": "aboveArm"
@@ -1406,10 +1400,10 @@
         },
         {
           "grip": [
-            40,
+            41,
             21
           ],
-          "angle": -82.7,
+          "angle": -62.5,
           "z": {
             "hilt": "front",
             "blade": "aboveArm"
@@ -1420,7 +1414,7 @@
             42,
             19
           ],
-          "angle": -90.7,
+          "angle": -78.7,
           "z": {
             "hilt": "front",
             "blade": "aboveArm"
@@ -1437,7 +1431,7 @@
             "blade": "aboveArm"
           },
           "trail": {
-            "from": -90.7,
+            "from": -78.7,
             "to": -55,
             "width": 5
           }
@@ -1458,7 +1452,7 @@
             43,
             24
           ],
-          "angle": -116.6,
+          "angle": -98.0,
           "z": {
             "hilt": "front",
             "blade": "aboveArm"
@@ -1466,10 +1460,10 @@
         },
         {
           "grip": [
-            42,
-            24
+            45,
+            26
           ],
-          "angle": -110.0,
+          "angle": -121.2,
           "z": {
             "hilt": "front",
             "blade": "aboveArm"

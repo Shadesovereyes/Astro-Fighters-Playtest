@@ -134,22 +134,22 @@
     "torsoShear": true,
     "dx": {
       "pelvis": [
-        -1,
+        0,
         -1,
         2,
         -1,
         0,
-        -1,
-        -1
+        0,
+        0
       ],
       "head": [
-        0,
+        2,
         0,
         6,
         0,
         1,
-        0,
-        0
+        2,
+        2
       ]
     }
   },
@@ -421,22 +421,22 @@
       }
     ],
     "near": [
-      10,
-      10,
-      5,
+      3,
+      3,
       7,
       7,
-      10,
-      10
+      7,
+      3,
+      3
     ],
     "far": [
-      9,
-      9,
+      2,
+      2,
       6,
       6,
       6,
-      9,
-      9
+      2,
+      2
     ]
   },
   "arms": {
@@ -457,10 +457,10 @@
     "near": [
       {
         "construction": "band",
-        "angle": -51.9,
+        "angle": -51.4,
         "elbow": {
           "at": 8,
-          "angle": -148.0
+          "angle": -124.8
         },
         "fistKind": "forward"
       },
@@ -502,19 +502,19 @@
       },
       {
         "construction": "band",
-        "angle": -64.6,
+        "angle": -62.2,
         "elbow": {
           "at": 8,
-          "angle": -156.7
+          "angle": -164.1
         },
         "fistKind": "forward"
       },
       {
         "construction": "band",
-        "angle": -51.9,
+        "angle": -51.4,
         "elbow": {
           "at": 8,
-          "angle": -148.0
+          "angle": -124.8
         },
         "fistKind": "forward"
       }
@@ -522,12 +522,11 @@
     "far": [
       {
         "construction": "band",
-        "angle": -74.3,
+        "angle": -51.7,
         "elbow": {
           "at": 8,
-          "angle": -83.7
-        },
-        "fistKind": "heel"
+          "angle": -174.1
+        }
       },
       {
         "construction": "band",
@@ -535,8 +534,7 @@
         "elbow": {
           "at": 8,
           "angle": -130.1
-        },
-        "fistKind": "heel"
+        }
       },
       {
         "construction": "band",
@@ -565,21 +563,19 @@
       },
       {
         "construction": "band",
-        "angle": -74.3,
+        "angle": -51.7,
         "elbow": {
           "at": 8,
-          "angle": -83.7
-        },
-        "fistKind": "heel"
+          "angle": -174.1
+        }
       },
       {
         "construction": "band",
-        "angle": -74.3,
+        "angle": -51.7,
         "elbow": {
           "at": 8,
-          "angle": -83.7
-        },
-        "fistKind": "heel"
+          "angle": -174.1
+        }
       }
     ],
     "outline": "Arm pixels touching empty space get an outline, except above the shoulder row; the near arm is not outlined where it lies over the body (its dark back column separates it).",
@@ -1394,10 +1390,10 @@
       "E": [
         {
           "grip": [
-            42,
-            24
+            45,
+            26
           ],
-          "angle": -110.0,
+          "angle": -121.2,
           "z": {
             "hilt": "front",
             "blade": "aboveArm"
@@ -1452,7 +1448,7 @@
             42,
             22
           ],
-          "angle": -101.3,
+          "angle": -81.9,
           "z": {
             "hilt": "front",
             "blade": "aboveArm"
@@ -1460,10 +1456,10 @@
         },
         {
           "grip": [
-            42,
-            24
+            45,
+            26
           ],
-          "angle": -110.0,
+          "angle": -121.2,
           "z": {
             "hilt": "front",
             "blade": "aboveArm"
