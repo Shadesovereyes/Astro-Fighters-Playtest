@@ -92,6 +92,22 @@ CLIPS = {
   dict(fps=10, hitbox=[46, 20, 14, 10], damage='heavy', rm='E: +2 on the step into the punch, -1 settling back',
        swirl={1: (0, 0.35), 2: (100, 0.6), 3: (210, 0.85), 4: (320, 1.0)},   # frame: (phase degrees, strength)
        impact={5: 0, 6: 1, 7: 2, 8: 3})),   # frame: stage of the burst (flash, shock ring, spread, fade)
+ 'blastWave': ('Blast Wave', 4,
+  'Blast Wave (Aries ninjutsu, fire AoE: a small burst of fire that breaks the speed of sound): from the guard the fighter makes the tiger seal at the chin, eyes narrowed, a fire spark kindling between the hands as it holds; then it drives both open palms straight out at chest height, knees sinking, and a cone of fire bursts out of the palms, and sonic-boom rings burst out round the whole fighter one after another, white-hot, then yellow, orange and red as they widen and break up; embers scatter; then the arms come back into the guard.', [
+     g(),
+     g(an=U.SEAL_N, af=U.SEAL_F, bob=(1, 1, 1), lean=(0, 0), **LOW),
+     g(an=U.SEAL_N, af=U.SEAL_F, bob=(2, 2, 2), lean=(0, 0), **LOW),
+     g(an=U.SEAL_N, af=U.SEAL_F, bob=(2, 2, 2), lean=(0, 0), **LOW),
+     g(an=band(-88, -90, fistKind='palm'), af=band(-84, -88, fistKind='palm'), bob=(2, 2, 2), lean=(1, 3), root=(1, 0), **LOW),
+     g(an=band(-88, -90, fistKind='palm'), af=band(-84, -88, fistKind='palm'), bob=(2, 2, 2), lean=(1, 3), **LOW),
+     g(an=band(-88, -90, fistKind='palm'), af=band(-84, -88, fistKind='palm'), bob=(2, 2, 2), lean=(1, 3), **LOW),
+     g(an=band(-50, -120), af=band(-50, -130), bob=(1, 1, 2), lean=(0, 2)),
+     g(root=(-1, 0))],
+  [None, 'squint', 'squint', 'squint', 'squint', 'squint', 'squint', None, None],
+  None,
+  dict(fps=10, rm='E: +1 into the thrust, -1 settling back',
+       fx=nfx('fire spark kindling at the seal', [(2, [('flame1', [35, 31])]), (3, [('flame2', [34, 32])])]),
+       blast={4: 0, 5: 1, 6: 2, 7: 3})),
  'innerGateAdrenaline': ('Inner Gate: Adrenaline', 4,
   'Inner Gate: Adrenaline (Aries taijutsu buff: AGI and STR up, the fighter burns itself): from the guard the fighter clenches, curls the fists in front of the belly and sinks, straining, eyes squeezed; then the gate bursts open: it stands up tall, chest thrown out and both fists driven down and back, and an orange-red aura flares around the whole body with flame licks rising off the shoulders and head; the aura pulses once, the flames keep licking (the self-burn), then the fighter drops back into the guard with embers still drifting off it.', [
      g(),
@@ -134,12 +150,13 @@ def fx(state):
                     if q[3] and q[:3] in x['trail']: px[xx, yy] = x['trail'][q[:3]] + (255,)
             b.save(f)
         if old: new = Image.open(f).convert('RGBA'); new.alpha_composite(old); new.save(f)
-    if x.get('swirl') or x.get('impact'):
+    if x.get('swirl') or x.get('impact') or x.get('blast'):
         from PIL import Image
         f = D + state + '/fx.png'
         if not os.path.exists(f) or 'fx' not in load(D + state + '.json'): Image.new('RGBA', Image.open(D + state + '/body.png').size).save(f)   # no splash fx: start clean (not a stale render)
         if x.get('swirl'): swirl(state, x['swirl'])
         if x.get('impact'): impact(state, x['impact'])
+        if x.get('blast'): blast(state, x['blast'])
     if x.get('ghosts'):
         from PIL import Image
         f = D + state + '/fx.png'; top = Image.open(f).convert('RGBA')   # blur + splash so far
@@ -240,6 +257,44 @@ def impact(state, frames):
                     P(round(dx * 8), round(dy * 8) - 1, O); P(round(dx * 6) + 1, round(dy * 6) - 2, R_)
                 P(-1, -6, Y); P(3, 5, O)
     fx.save(f); print(state, 'impact', frames)
+
+def blast(state, frames):
+    """Blast Wave (fire burst breaking the sound barrier): from the palms (the arms layer's far tip on the first frame) a
+    cone of flame fans forward and sonic-boom arcs ')' ripple outward through it, each stage one arc further, the
+    nearest white-hot, then yellow, orange, red; stage 3 leaves only the last broken arc and embers"""
+    import math, random
+    from PIL import Image
+    f = D + state + '/fx.png'; fx = Image.open(f).convert('RGBA'); px = fx.load()
+    hexc = lambda c: tuple(int(c[i:i + 2], 16) for i in (1, 3, 5)) + (255,)
+    W_, Y, O, R_ = (255, 255, 255, 255), hexc(ELEMENT['Y']), hexc(ELEMENT['O']), hexc(ELEMENT['R'])
+    ramp = [W_, Y, O, R_]
+    dirs = load(D + state + '.json')['directions']; first = min(frames)
+    lay = [Image.open(D + state + '/' + n).convert('RGBA').load() for n in ('body.png', 'arms.png', 'male-gi.png', 'fade-hair.png', 'far-arm.png') if os.path.exists(D + state + '/' + n)]
+    for k, stage in frames.items():
+        rnd = random.Random(k)
+        for fd in dirs:
+            r = dirs.index(fd); sg = -1 if fd == 'W' else 1
+            pts = _arm(state, first, r); tip = max(pts, key=lambda p: sg * p[0]); x0, y0 = tip[0] + sg, tip[1]
+            def P(dx, dy, c):
+                x, y = x0 + sg * dx, y0 + dy
+                if 0 <= x < 64 and 0 <= y < 64: px[k * 64 + x, r * 64 + y] = c
+            if stage < 3:   # the flame cone: dithered fire fanning out, hotter near the palms
+                L = (7, 11, 13)[stage]
+                for dx in range(0, L):
+                    h = 1 + dx * 2 // 3
+                    for dy in range(-h, h + 1):
+                        if rnd.random() < (0.9 if dx < 3 else 0.55 - 0.03 * dx): P(dx, dy, ramp[min(3, (dx * 4) // (L + 1) + (abs(dy) > h - 1))])
+            for j in range(stage + 1):   # the sonic boom: rings bursting out round the whole fighter, oldest widest
+                rx = 9 + 8 * (stage - j); ry = round(rx * 0.75); c = ramp[min(3, stage - j + (stage == 3))]
+                for t in range(0, 360, 2):
+                    if (stage - j) >= 2 and (t // 12) % 3 == 0: continue   # the outer ring breaks up
+                    th = math.radians(t); x = round(32 + rx * math.cos(th)); y = round(34 + ry * math.sin(th))
+                    if not (0 <= x < 64 and 0 <= y < 64): continue
+                    if math.sin(th) < 0 and any(L[k * 64 + x, r * 64 + y][3] for L in lay): continue   # far half behind the figure
+                    px[k * 64 + x, r * 64 + y] = c
+            if stage >= 2:
+                for i in range(6): P(rnd.randint(4, 16), rnd.randint(-10, 10), (O, R_, Y)[i % 3])
+    fx.save(f); print(state, 'blast', frames)
 
 def ghosts(state, offs, cols):
     """after the blur: afterimages (Christopher 2026-10-27: onion/afterimage effects to exaggerate the speed). On each
