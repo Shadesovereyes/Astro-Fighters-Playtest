@@ -396,30 +396,31 @@ CLIPS = {
        anchored={1: [('sunOrb1', 'hand', 0, -1)], 9: [('lightMote', 'head', -6, 4), ('lightMote', 'head', 7, 10), ('lightMote', 'head', 2, -9)], 10: [('lightMote', 'head', -7, 0), ('lightMote', 'head', 6, 6), ('lightMote', 'head', -2, -11)]},
        flare={'every': True, 2: 0, 3: 2, 4: 3, 5: 3, 6: 3, 7: 2, 8: 1})),
  'supernova': ('Supernova', 6,
-  'Supernova (Leo ninjutsu ultimate: the fighter channels its inner light and releases an instant blinding detonation round itself, wide AoE on self, Blind 1 round), the Leo ultimate (longer and more dramatic, like Meteor): from the guard the fighter makes the seal and sinks deep, straining, while motes of light stream in toward it from all round and a gold aura swells; it turns to face the viewer (every facing turns S for the release, as Blast Wave) with the seal pressed to the chest and a star kindling at its heart, the whole body beginning to glow; then it throws its arms out wide and the light detonates: a white flash swallows the fighter and the whole cell, then a ring of light blasts outward, white, then yellow, orange and red as it widens and breaks up, a second ring behind it and sun rays scattering, embers raining down; the glow drains off the body, it brings the hands back in and turns back into the guard.', [
+  'Supernova (Leo ninjutsu ultimate: the fighter channels its inner light and releases an instant blinding detonation round itself, wide AoE on self, Blind 1 round), the Leo ultimate (longer and more dramatic, like Meteor), v2 (Christopher 2026-10-27: more build-up, the apex lasts longer; 16 frames, the cap, at 8 fps): from the guard the fighter makes the seal and sinks deeper and deeper over five frames, trembling, straining, while motes of light stream in toward it from all round and a gold aura swells; it turns to face the viewer (every facing turns S for the release, as Blast Wave) with the seal pressed to the chest and a star kindling at its heart, swelling and blazing over two frames, the whole body beginning to glow; then it throws its arms out wide and the light detonates: a white flash swallows the fighter and the whole cell and pulses, held over three frames, then a ring of light blasts outward, white, then yellow, orange and red as it widens and breaks up, a second ring behind it and sun rays scattering, embers raining down; the glow drains off the body, it brings the hands back in and turns back into the guard.', [
      g(),
+     g(an=U.SEAL_N, af=U.SEAL_F, bob=(1, 1, 1), lean=(0, 0)),
      g(an=U.SEAL_N, af=U.SEAL_F, bob=(2, 2, 2), lean=(0, 0), **LOW),
      g(an=U.SEAL_N, af=U.SEAL_F, bob=(3, 3, 3), lean=(0, 1), **LOW),
      g(an=U.SEAL_N, af=U.SEAL_F, bob=(4, 4, 4), lean=(0, 1), **BRACE),
-     g(an=U.SEAL_N, af=U.SEAL_F, bob=(4, 4, 4), lean=(0, 1), **BRACE),
-     g(bob=(2, 2, 2), **LOW),
-     g(bob=(0, -1, 0)), g(bob=(0, -1, 0)), g(bob=(0, -1, 0)), g(bob=(0, -1, 0)), g(bob=(0, -1, 0)),
+     g(an=U.SEAL_N, af=U.SEAL_F, bob=(4, 4, 4), lean=(0, 2), root=(1, 0), **BRACE),
+     g(bob=(2, 2, 2), root=(-1, 0), **LOW),
+     g(bob=(1, 1, 1), **LOW),
+     g(bob=(0, -1, 0)), g(bob=(0, -1, 0)), g(bob=(0, -1, 0)), g(bob=(0, -1, 0)), g(bob=(0, -1, 0)), g(bob=(0, -1, 0)),
      g(),
-     g(an=band(-30, -120), af=band(-35, -125), bob=(1, 1, 2), lean=(0, 1)),
      g()],
-  [None, 'squint', 'pain', 'pain', 'pain', 'strain', 'roar', 'roar', 'roar', 'roar', 'squint', None, None, None],
-  [0, 0, 1, 1, 2, 2, 3, 3, 3, 2, 2, 1, 1, 0],
-  dict(fps=10, auraColors=('#ffe14d', '#ff8a1c'),
-       front={5: dict(R=(-20, 205, 0.8, 'front'), L=(20, -205, 0.8, 'front')),     # the seal pressed to the chest, facing the viewer
-              **{k: dict(R=(110, 105, 1, 'front'), L=(-110, -105, 1, 'front')) for k in (6, 7, 8, 9, 10)},   # arms thrown out wide
-              11: dict(R=stances.GA['R'], L=stances.GA['L'])},
-       gather={1: 0, 2: 1, 3: 2, 4: 3},
-       nova={5: 'core', 6: 'flash', 7: 0, 8: 1, 9: 2, 10: 3, 11: 4})),
+  [None, 'squint', 'pain', 'pain', 'pain', 'pain', 'strain', 'strain', 'roar', 'roar', 'roar', 'roar', 'roar', 'squint', None, None],
+  [0, 0, 1, 1, 2, 2, 2, 3, 3, 3, 3, 3, 2, 2, 1, 0],
+  dict(fps=8, auraColors=('#ffe14d', '#ff8a1c'),
+       front={6: dict(R=(-20, 205, 0.8, 'front'), L=(20, -205, 0.8, 'front')), 7: dict(R=(-20, 205, 0.8, 'front'), L=(20, -205, 0.8, 'front')),   # the seal pressed to the chest, facing the viewer
+              **{k: dict(R=(110, 105, 1, 'front'), L=(-110, -105, 1, 'front')) for k in (8, 9, 10, 11, 12, 13)},   # arms thrown out wide
+              14: dict(R=stances.GA['R'], L=stances.GA['L'])},
+       gather={1: 0, 2: 1, 3: 2, 4: 3, 5: 3},
+       nova={6: 'core', 7: 'core2', 8: 'flash', 9: 'flash2', 10: 'flash', 11: 0, 12: 1, 13: 2, 14: 4})),
  'spotlight': ('Spotlight', 4,
-  'Spotlight (Leo genjutsu, mental debuff: the caster projects its own inner radiance into the foe\'s mind\'s eye, Blind 1 round, INT save DC 12; range Zone of Awareness), v2 (Christopher 2026-10-27: lower the arms, the cone of light pours from the eyes): from the guard the fighter lets both arms drop to its sides, stands tall with the chin lifted and fixes the target; its eyes kindle gold, then blaze white-hot, and a cone of light pours out of the eyes toward the target, pale gold and widening, brighter at the core, growing over three frames and holding; the light dies back into the eyes and the fighter brings its hands back up into the guard (the target takes the genjutsu mark, genjutsuAfflicted, for the Blind).', [
+  'Spotlight (Leo genjutsu, mental debuff: the caster projects its own inner radiance into the foe\'s mind\'s eye, Blind 1 round, INT save DC 12; range Zone of Awareness), v3 (Christopher 2026-10-27: lower the arms, the cone of light pours from the eyes; v3 lean forward a little): from the guard the fighter lets both arms drop to its sides, leans forward a little toward the target and fixes it; its eyes kindle gold, then blaze white-hot, and a cone of light pours out of the eyes toward the target, pale gold and widening, brighter at the core, growing over three frames and holding; the light dies back into the eyes and the fighter brings its hands back up into the guard (the target takes the genjutsu mark, genjutsuAfflicted, for the Blind).', [
      g(),
-     g(an=band(-30, -60), af=band(-20, -45), bob=(0, 0, 1), lean=(0, 0)),
-     *[g(an=band(-8, -15), af=band(4, -8), bob=(0, -1, 0), lean=(0, -1)) for _ in range(5)],
+     g(an=band(-30, -60), af=band(-20, -45), bob=(1, 1, 1), lean=(1, 2)),
+     *[g(an=band(-8, -15), af=band(4, -8), bob=(1, 1, 1), lean=(1, 4)) for _ in range(5)],
      g(an=band(-30, -60), af=band(-20, -45), bob=(0, 0, 1), lean=(0, 1)),
      g()],
   [None, None, 'squint', None, None, None, None, None, None],
@@ -1118,18 +1119,24 @@ def nova(state, frames, aura=False):
         def P(x, y, c, over=False):
             x, y = round(x), round(y)
             if 0 <= x < 64 and 0 <= y < 64 and (over or (x, y) not in fig): px[k * 64 + x, rs * 64 + y] = c
-        glow = {'core': 90, 'flash': 215, 0: 150, 1: 100, 2: 60, 3: 30, 4: 0}[st]
+        glow = {'core': 90, 'core2': 140, 'flash': 215, 'flash2': 235, 0: 150, 1: 100, 2: 60, 3: 30, 4: 0}[st]
         for (x, y) in fig:   # the body glowing white-gold (blinding at the flash)
             if glow: P(x, y, (255, 250, 220, glow), over=True)
-        if st == 'core':
-            for i in range(-5, 6):
-                c = W_ if abs(i) < 2 else Y if abs(i) < 4 else O
+        if st in ('core', 'core2'):   # v2: core2 the star swollen and blazing, rays flickering off it
+            n_ = 5 if st == 'core' else 8
+            for i in range(-n_, n_ + 1):
+                c = W_ if abs(i) < 2 + (st == 'core2') else Y if abs(i) < n_ - 1 else O
                 P(cx + i, cy, c, True); P(cx, cy + i, c, True)
-                if abs(i) < 3: P(cx + i, cy + i, Y, True); P(cx + i, cy - i, Y, True)
-        elif st == 'flash':
+                if abs(i) < n_ // 2 + 1: P(cx + i, cy + i, Y, True); P(cx + i, cy - i, Y, True)
+            if st == 'core2':
+                for i in range(8):
+                    th = math.radians(i * 45 + 22); 
+                    for d in range(10, 14): P(cx + d * math.cos(th), cy + d * math.sin(th), Y if d < 12 else O)
+        elif st in ('flash', 'flash2'):   # v2: flash2 the flash pulsing bigger on the held apex
+            sc = 1.0 if st == 'flash' else 1.2
             for y in range(64):
                 for x in range(64):
-                    dd = math.hypot(x - cx, (y - cy) * 0.9)
+                    dd = math.hypot(x - cx, (y - cy) * 0.9) / sc
                     if dd < 14: c = (255, 255, 255, 255)
                     elif dd < 24: c = (255, 245, 190, 235)
                     elif dd < 34: c = _hexc(ELEMENT['Y'], 190)

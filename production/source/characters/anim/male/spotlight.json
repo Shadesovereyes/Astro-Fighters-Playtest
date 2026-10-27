@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Spotlight (Leo genjutsu, mental debuff: the caster projects its own inner radiance into the foe's mind's eye, Blind 1 round, INT save DC 12; range Zone of Awareness), v2 (Christopher 2026-10-27: lower the arms, the cone of light pours from the eyes): from the guard the fighter lets both arms drop to its sides, stands tall with the chin lifted and fixes the target; its eyes kindle gold, then blaze white-hot, and a cone of light pours out of the eyes toward the target, pale gold and widening, brighter at the core, growing over three frames and holding; the light dies back into the eyes and the fighter brings its hands back up into the guard (the target takes the genjutsu mark, genjutsuAfflicted, for the Blind).",
+  "intent": "Spotlight (Leo genjutsu, mental debuff: the caster projects its own inner radiance into the foe's mind's eye, Blind 1 round, INT save DC 12; range Zone of Awareness), v3 (Christopher 2026-10-27: lower the arms, the cone of light pours from the eyes; v3 lean forward a little): from the guard the fighter lets both arms drop to its sides, leans forward a little toward the target and fixes it; its eyes kindle gold, then blaze white-hot, and a cone of light pours out of the eyes toward the target, pale gold and widening, brighter at the core, growing over three frames and holding; the light dies back into the eyes and the fighter brings its hands back up into the guard (the target takes the genjutsu mark, genjutsuAfflicted, for the Blind).",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -103,34 +103,34 @@
     "rule": "the knees give under the blow (body 2 px low) and come back up to the guard height; the head drops with the body a frame late",
     "dy": [
       1,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
       0,
       1
     ],
     "head": [
       1,
-      0,
-      -1,
-      -1,
-      -1,
-      -1,
-      -1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
       0,
       1
     ],
     "arms": [
       2,
       1,
-      0,
-      0,
-      0,
-      0,
-      0,
+      1,
+      1,
+      1,
+      1,
+      1,
       1,
       2
     ]
@@ -141,23 +141,23 @@
     "dx": {
       "pelvis": [
         0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
         0,
         0
       ],
       "head": [
         2,
-        0,
-        -1,
-        -1,
-        -1,
-        -1,
-        -1,
+        2,
+        4,
+        4,
+        4,
+        4,
+        4,
         1,
         2
       ]

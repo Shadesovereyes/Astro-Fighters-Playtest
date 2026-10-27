@@ -3,8 +3,8 @@
   "body": "male",
   "state": "supernova",
   "status": "CANDIDATE 2026-10-27 (E/W; W mirrors E; S/N CANDIDATE 2026-10-21 (v1))",
-  "frames": 14,
-  "fps": 10,
+  "frames": 16,
+  "fps": 8,
   "sourceDirection": "E",
   "directions": [
     "S",
@@ -19,7 +19,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Supernova (Leo ninjutsu ultimate: the fighter channels its inner light and releases an instant blinding detonation round itself, wide AoE on self, Blind 1 round), the Leo ultimate (longer and more dramatic, like Meteor): from the guard the fighter makes the seal and sinks deep, straining, while motes of light stream in toward it from all round and a gold aura swells; it turns to face the viewer (every facing turns S for the release, as Blast Wave) with the seal pressed to the chest and a star kindling at its heart, the whole body beginning to glow; then it throws its arms out wide and the light detonates: a white flash swallows the fighter and the whole cell, then a ring of light blasts outward, white, then yellow, orange and red as it widens and breaks up, a second ring behind it and sun rays scattering, embers raining down; the glow drains off the body, it brings the hands back in and turns back into the guard.",
+  "intent": "Supernova (Leo ninjutsu ultimate: the fighter channels its inner light and releases an instant blinding detonation round itself, wide AoE on self, Blind 1 round), the Leo ultimate (longer and more dramatic, like Meteor), v2 (Christopher 2026-10-27: more build-up, the apex lasts longer; 16 frames, the cap, at 8 fps): from the guard the fighter makes the seal and sinks deeper and deeper over five frames, trembling, straining, while motes of light stream in toward it from all round and a gold aura swells; it turns to face the viewer (every facing turns S for the release, as Blast Wave) with the seal pressed to the chest and a star kindling at its heart, swelling and blazing over two frames, the whole body beginning to glow; then it throws its arms out wide and the light detonates: a white flash swallows the fighter and the whole cell and pulses, held over three frames, then a ring of light blasts outward, white, then yellow, orange and red as it widens and breaks up, a second ring behind it and sun rays scattering, embers raining down; the glow drains off the body, it brings the hands back in and turns back into the guard.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -105,49 +105,55 @@
     "rule": "the knees give under the blow (body 2 px low) and come back up to the guard height; the head drops with the body a frame late",
     "dy": [
       1,
+      1,
       2,
       3,
       4,
       4,
       2,
-      0,
-      0,
-      0,
-      0,
-      0,
       1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
       1,
       1
     ],
     "head": [
       1,
+      1,
       2,
       3,
       4,
       4,
       2,
-      -1,
-      -1,
-      -1,
-      -1,
-      -1,
       1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
       1,
       1
     ],
     "arms": [
       2,
+      1,
       2,
       3,
       4,
       4,
       2,
+      1,
       0,
       0,
       0,
       0,
       0,
-      2,
+      0,
       2,
       2
     ]
@@ -170,14 +176,16 @@
         0,
         0,
         0,
+        0,
+        0,
         0
       ],
       "head": [
         2,
         0,
+        0,
         1,
         1,
-        1,
         2,
         2,
         2,
@@ -185,7 +193,9 @@
         2,
         2,
         2,
-        1,
+        2,
+        2,
+        2,
         2
       ]
     }
@@ -211,6 +221,14 @@
       ],
       [
         0,
+        0
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        -1,
         0
       ],
       [
@@ -269,6 +287,14 @@
       ],
       [
         0,
+        0
+      ],
+      [
+        -1,
+        0
+      ],
+      [
+        1,
         0
       ],
       [
@@ -364,9 +390,25 @@
       [
         0,
         0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
       ]
     ],
     "N": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
       [
         0,
         0
@@ -1111,10 +1153,12 @@
     ],
     "near": [
       1,
+      1,
       3,
       3,
       5,
       5,
+      3,
       3,
       1,
       1,
@@ -1127,10 +1171,12 @@
     ],
     "far": [
       0,
+      0,
       2,
       2,
       4,
       4,
+      2,
       2,
       0,
       0,
@@ -1245,11 +1291,12 @@
       },
       {
         "construction": "band",
-        "angle": -20,
+        "angle": -48,
         "elbow": {
           "at": 8,
-          "angle": 212
-        }
+          "angle": -150
+        },
+        "fistKind": "palm"
       },
       {
         "construction": "band",
@@ -1301,10 +1348,26 @@
       },
       {
         "construction": "band",
-        "angle": -30,
+        "angle": -20,
         "elbow": {
           "at": 8,
-          "angle": -120
+          "angle": 212
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -20,
+        "elbow": {
+          "at": 8,
+          "angle": 212
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -20,
+        "elbow": {
+          "at": 8,
+          "angle": 212
         }
       },
       {
@@ -1363,11 +1426,12 @@
       },
       {
         "construction": "band",
-        "angle": -45,
+        "angle": -60,
         "elbow": {
           "at": 8,
-          "angle": 222
-        }
+          "angle": -146
+        },
+        "fistKind": "palm"
       },
       {
         "construction": "band",
@@ -1419,10 +1483,26 @@
       },
       {
         "construction": "band",
-        "angle": -35,
+        "angle": -45,
         "elbow": {
           "at": 8,
-          "angle": -125
+          "angle": 222
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -45,
+        "elbow": {
+          "at": 8,
+          "angle": 222
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -45,
+        "elbow": {
+          "at": 8,
+          "angle": 222
         }
       },
       {
@@ -1609,6 +1689,8 @@
           -1,
           -1,
           -1,
+          -1,
+          -1,
           -1
         ],
         "S": [
@@ -1625,9 +1707,13 @@
           1,
           1,
           1,
+          1,
+          1,
           1
         ],
         "N": [
+          -1,
+          -1,
           -1,
           -1,
           -1,
@@ -2285,9 +2371,11 @@
         10,
         11,
         12,
-        13
+        13,
+        14,
+        15
       ],
-      "fps": 10,
+      "fps": 8,
       "next": "guard",
       "ability": "Supernova"
     }
@@ -2366,6 +2454,16 @@
         "frame": 13,
         "clip": "supernova",
         "type": "recovery"
+      },
+      {
+        "frame": 14,
+        "clip": "supernova",
+        "type": "recovery"
+      },
+      {
+        "frame": 15,
+        "clip": "supernova",
+        "type": "recovery"
       }
     ],
     "W": [
@@ -2438,6 +2536,16 @@
       },
       {
         "frame": 13,
+        "clip": "supernova",
+        "type": "recovery"
+      },
+      {
+        "frame": 14,
+        "clip": "supernova",
+        "type": "recovery"
+      },
+      {
+        "frame": 15,
         "clip": "supernova",
         "type": "recovery"
       }
@@ -2773,13 +2881,15 @@
         "pain",
         "pain",
         "pain",
+        "pain",
+        "strain",
         "strain",
         "roar",
         "roar",
         "roar",
         "roar",
+        "roar",
         "squint",
-        null,
         null,
         null
       ],
@@ -2789,13 +2899,15 @@
         "pain",
         "pain",
         "pain",
+        "pain",
+        "strain",
         "strain",
         "roar",
         "roar",
         "roar",
         "roar",
+        "roar",
         "squint",
-        null,
         null,
         null
       ]
@@ -2805,13 +2917,15 @@
   "facingOverride": {
     "rule": "Christopher 2026-10-27: the fighter turns to face S (toward the viewer) for these frames whatever its facing; every row holds the S frame there (the rows are copied after the render), then it turns back",
     "frames": [
-      5,
       6,
       7,
       8,
       9,
       10,
-      11
+      11,
+      12,
+      13,
+      14
     ],
     "to": "S"
   },
@@ -2832,9 +2946,13 @@
         0,
         0,
         0,
+        0,
+        0,
         0
       ],
       "L": [
+        0,
+        0,
         0,
         0,
         0,
@@ -2869,9 +2987,13 @@
             "plant",
             "plant",
             "plant",
+            "plant",
+            "plant",
             "plant"
           ],
           "L": [
+            "plant",
+            "plant",
             "plant",
             "plant",
             "plant",
@@ -2929,9 +3051,13 @@
             0,
             0,
             0,
+            0,
+            0,
             0
           ],
           "L": [
+            0,
+            0,
             0,
             0,
             0,
@@ -2976,13 +3102,15 @@
               10,
               10,
               10,
+              10,
+              -20,
               -20,
               110,
               110,
               110,
               110,
               110,
-              10,
+              110,
               10,
               10
             ],
@@ -3006,6 +3134,14 @@
               {
                 "at": 7,
                 "angle": 192
+              },
+              {
+                "at": 7,
+                "angle": 192
+              },
+              {
+                "at": 7,
+                "angle": 205
               },
               {
                 "at": 7,
@@ -3033,7 +3169,7 @@
               },
               {
                 "at": 7,
-                "angle": 192
+                "angle": 105
               },
               {
                 "at": 7,
@@ -3050,6 +3186,8 @@
               1,
               1,
               1,
+              1,
+              0.8,
               0.8,
               1,
               1,
@@ -3066,18 +3204,22 @@
               "up",
               "up",
               "up",
-              "front",
-              "front",
-              "front",
-              "front",
-              "front",
-              "front",
               "up",
+              "front",
+              "front",
+              "front",
+              "front",
+              "front",
+              "front",
+              "front",
+              "front",
               "up",
               "up"
             ],
             "z": 4,
             "pivotDx": [
+              0,
+              0,
               0,
               0,
               0,
@@ -3105,13 +3247,15 @@
               -10,
               -10,
               -10,
+              -10,
+              20,
               20,
               -110,
               -110,
               -110,
               -110,
               -110,
-              -10,
+              -110,
               -10,
               -10
             ],
@@ -3135,6 +3279,14 @@
               {
                 "at": 7,
                 "angle": 168
+              },
+              {
+                "at": 7,
+                "angle": 168
+              },
+              {
+                "at": 7,
+                "angle": -205
               },
               {
                 "at": 7,
@@ -3162,7 +3314,7 @@
               },
               {
                 "at": 7,
-                "angle": 168
+                "angle": -105
               },
               {
                 "at": 7,
@@ -3179,6 +3331,8 @@
               1,
               1,
               1,
+              1,
+              0.8,
               0.8,
               1,
               1,
@@ -3195,18 +3349,22 @@
               "up",
               "up",
               "up",
-              "front",
-              "front",
-              "front",
-              "front",
-              "front",
-              "front",
               "up",
+              "front",
+              "front",
+              "front",
+              "front",
+              "front",
+              "front",
+              "front",
+              "front",
               "up",
               "up"
             ],
             "z": 4,
             "pivotDx": [
+              0,
+              0,
               0,
               0,
               0,
@@ -3231,18 +3389,22 @@
           -1,
           -1,
           -1,
-          0,
-          0,
-          0,
-          0,
-          0,
           -1,
+          -1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
           -1,
           -1
         ],
         "armRule": "guard seen from the front: elbows down at the sides, forearms nearly upright, the fists in front of each shoulder at the top of the chest, just below where the long hair hangs (the hair layer draws over the arms); a punch toward the viewer is a short straight arm (50% length) bringing the fist in front of the chest centre; on the jab and cross the punching arm points at the viewer: the arm crosses in front of the chest at shoulder height (45%) to a knuckles-on fist (fistFront) just off the chest centre, outlined over the body",
         "twist": {
           "pelvis": [
+            0,
+            0,
             0,
             0,
             0,
@@ -3272,9 +3434,13 @@
             0,
             0,
             0,
+            0,
+            0,
             0
           ],
           "head": [
+            0,
+            0,
             0,
             0,
             0,
@@ -3307,9 +3473,13 @@
             0,
             0,
             0,
+            0,
+            0,
             0
           ],
           "L": [
+            0,
+            0,
             0,
             0,
             0,
@@ -3341,9 +3511,13 @@
             0,
             0,
             0,
+            0,
+            0,
             0
           ],
           "L": [
+            0,
+            0,
             0,
             0,
             0,
@@ -3379,7 +3553,9 @@
           "10": [],
           "11": [],
           "12": [],
-          "13": []
+          "13": [],
+          "14": [],
+          "15": []
         }
       },
       "N": {
@@ -3398,9 +3574,13 @@
             "plant",
             "plant",
             "plant",
+            "plant",
+            "plant",
             "plant"
           ],
           "L": [
+            "plant",
+            "plant",
             "plant",
             "plant",
             "plant",
@@ -3458,9 +3638,13 @@
             0,
             0,
             0,
+            0,
+            0,
             0
           ],
           "L": [
+            0,
+            0,
             0,
             0,
             0,
@@ -3505,14 +3689,16 @@
               -12,
               -12,
               -12,
+              -12,
+              20,
               20,
               -110,
               -110,
               -110,
               -110,
               -110,
+              -110,
               -10,
-              -12,
               -12
             ],
             "elbow": [
@@ -3521,6 +3707,11 @@
               null,
               null,
               null,
+              null,
+              {
+                "at": 7,
+                "angle": 155
+              },
               {
                 "at": 7,
                 "angle": 155
@@ -3547,9 +3738,12 @@
               },
               {
                 "at": 7,
+                "angle": -105
+              },
+              {
+                "at": 7,
                 "angle": 168
               },
-              null,
               null
             ],
             "scale": [
@@ -3558,6 +3752,8 @@
               1,
               1,
               1,
+              1,
+              0.8,
               0.8,
               1,
               1,
@@ -3574,13 +3770,15 @@
               "up",
               "up",
               "up",
-              "front",
-              "front",
-              "front",
-              "front",
-              "front",
-              "front",
               "up",
+              "front",
+              "front",
+              "front",
+              "front",
+              "front",
+              "front",
+              "front",
+              "front",
               "up",
               "up"
             ],
@@ -3591,17 +3789,21 @@
               7,
               7,
               7,
-              null,
-              null,
-              null,
-              null,
-              null,
-              null,
-              null,
               7,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
               7
             ],
             "pivotDx": [
+              0,
+              0,
               0,
               0,
               0,
@@ -3629,14 +3831,16 @@
               12,
               12,
               12,
+              12,
+              -20,
               -20,
               110,
               110,
               110,
               110,
               110,
+              110,
               10,
-              12,
               12
             ],
             "elbow": [
@@ -3645,6 +3849,11 @@
               null,
               null,
               null,
+              null,
+              {
+                "at": 7,
+                "angle": -155
+              },
               {
                 "at": 7,
                 "angle": -155
@@ -3671,9 +3880,12 @@
               },
               {
                 "at": 7,
+                "angle": 105
+              },
+              {
+                "at": 7,
                 "angle": -168
               },
-              null,
               null
             ],
             "scale": [
@@ -3682,6 +3894,8 @@
               1,
               1,
               1,
+              1,
+              0.8,
               0.8,
               1,
               1,
@@ -3698,13 +3912,15 @@
               "up",
               "up",
               "up",
-              "front",
-              "front",
-              "front",
-              "front",
-              "front",
-              "front",
               "up",
+              "front",
+              "front",
+              "front",
+              "front",
+              "front",
+              "front",
+              "front",
+              "front",
               "up",
               "up"
             ],
@@ -3715,17 +3931,21 @@
               7,
               7,
               7,
-              null,
-              null,
-              null,
-              null,
-              null,
-              null,
-              null,
               7,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
               7
             ],
             "pivotDx": [
+              0,
+              0,
               0,
               0,
               0,
@@ -3750,18 +3970,22 @@
           -1,
           -1,
           -1,
-          0,
-          0,
-          0,
-          0,
-          0,
           -1,
+          -1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
           -1,
           -1
         ],
         "armRule": "from behind the forearms, wrists and fists are in front of the body: only the shoulders and upper arms show (straight band arms cut at 7 px, showTo), hanging slightly out in guard, swinging in when that arm punches away from the viewer",
         "twist": {
           "pelvis": [
+            0,
+            0,
             0,
             0,
             0,
@@ -3791,9 +4015,13 @@
             0,
             0,
             0,
+            0,
+            0,
             0
           ],
           "head": [
+            0,
+            0,
             0,
             0,
             0,
@@ -3826,9 +4054,13 @@
             0,
             0,
             0,
+            0,
+            0,
             0
           ],
           "L": [
+            0,
+            0,
             0,
             0,
             0,
@@ -3860,9 +4092,13 @@
             0,
             0,
             0,
+            0,
+            0,
             0
           ],
           "L": [
+            0,
+            0,
             0,
             0,
             0,
@@ -3898,7 +4134,9 @@
           "10": [],
           "11": [],
           "12": [],
-          "13": []
+          "13": [],
+          "14": [],
+          "15": []
         }
       }
     },
