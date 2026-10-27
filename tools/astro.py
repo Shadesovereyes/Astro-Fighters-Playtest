@@ -144,7 +144,9 @@ FLEX_N, FLEX_F = band(50, -20), band(40, -15)     # elbows flared back, clenched
 HEAVY = load(D + 'heavyAttack.json')   # Sagittarius Leash Kick: the approved side/heel kick legs and the spinPivot pirouette
 U.POSES += [{**p, 'name': 'lk-' + p['name']} for p in HEAVY['legs']['poses'] if p['name'] in ('lift', 'side-chamber', 'side', 'lead-pivot')]
 NPAT.update({'pflame1': ['.K.', 'KPK', '.p.'], 'pflame2': ['..K..', '.KP..', '.PpK.', 'KPpPK', '.KKK.'],   # Sagittarius: select black and purple flames
-             'pembers': ['.P..K', 'K..P.', '..p..']})
+             'pembers': ['.P..K', 'K..P.', '..p..'],
+             'pwisp': ['...pP...', 'K.pPPPW.', 'KpPPWWWP', '.KpPPPW.', '...pP...'], 'pwisp2': ['K..pP...', '.KpPPPW.', 'KpPPWWWP', '..pPPPW.', 'K..pP...'],   # Wisp Fire: a small purple flame flying toward the facing, white-hot head, black tail
+             'pspark': ['P.p', '.W.', 'p.P']})
 U.POSES += [U.kleg('lk-axe-top', (34, 39), (38, 31), (41, 22), 'pointUR'),    # Leash Kick v2 axe kick: straight leg raised high, heel above the head
             U.kleg('lk-axe-chop', (34, 40), (41, 38), (48, 37), 'pointFwd'),   # heel chopping down through shoulder height
             U.kleg('lk-axe-down', (34, 41), (40, 46), (45, 52), 'toe30k')]     # driven down, foot about to land in front
@@ -468,6 +470,30 @@ CLIPS = {
   dict(fps=12, hitbox=[14, 0, 36, 40], damage='light', rm='none (spins in place)',
        invert={3: 0, 4: 0, 5: 0, 6: 1, 7: 1, 8: 0, 9: 0, 10: 1, 11: 1, 12: 0, 13: 0},
        topFire={3: 0, 4: 1, 5: 2, 6: 2, 7: 2, 8: 2, 9: 2, 10: 2, 11: 2, 12: 1, 13: 0})),
+ 'wispFire': ('Wisp Fire', 4,
+  'Wisp Fire (Sagittarius ninjutsu, Elemental 10, Ranged, target Chakra -20: the caster conjures a barrage of small purple flames that sap the chakra from the foe with each hit): from the guard the fighter makes the seal at the chin, a purple spark kindling between the hands; it opens the near hand palm up at the chest and small purple and black flames flicker alight and circle it, a dim purple aura breathing round the fighter; then it pushes the palms out at the target one after the other, near, far, near, far, and with each push a wisp of purple flame with a white-hot head and a black tail flies off toward the target, four in a stream; the last wisp leaves a puff of purple sparks at the palm and the fighter settles back into the guard (the testbed flies the four wisps on to the target from the release point).', [
+     g(),
+     g(an=U.SEAL_N, af=U.SEAL_F, bob=(1, 1, 1), lean=(0, 0)),
+     g(an=band(-30, -95, fistKind='palm'), af=band(-50, -110), bob=(1, 1, 1), lean=(0, 0)),
+     g(an=band(-30, -95, fistKind='palm'), af=band(-50, -110), bob=(1, 1, 1), lean=(0, -1)),
+     g(an=band(-90, -90, fistKind='palm'), af=band(-40, -120), bob=(1, 1, 1), lean=(1, 3), root=(1, 0), ln='sp-drive-rear', lf='sp-drive-lead'),
+     g(an=band(-40, -110), af=band(-88, -88, fistKind='palm'), bob=(1, 1, 1), lean=(1, 3), ln='sp-drive-rear', lf='sp-drive-lead'),
+     g(an=band(-90, -90, fistKind='palm'), af=band(-40, -120), bob=(1, 1, 1), lean=(1, 3), ln='sp-drive-rear', lf='sp-drive-lead'),
+     g(an=band(-40, -110), af=band(-88, -88, fistKind='palm'), bob=(1, 1, 1), lean=(1, 3), ln='sp-drive-rear', lf='sp-drive-lead'),
+     g(an=band(-45, -110), af=band(-35, -105), bob=(1, 1, 2), lean=(0, 2), root=(-1, 0)),
+     g()],
+  [None, 'squint', None, None, 'squint', 'squint', 'squint', 'squint', None, None],
+  [0, 1, 1, 2, 2, 2, 2, 1, 0, 0],
+  dict(fps=10, release=[56, 22], rm='E: +1 into the pushes, -1 settling back', auraColors=('#9b45ff', '#55208f'),
+       extra={'projectile': {'rule': 'Wisp Fire is a barrage: on frames 4, 5, 6 and 7 the testbed launches one small purple wisp (pwisp, white-hot head, purple body, black tail) from the release point to the target, four in all; each that lands puffs purple sparks and pulls a few chakra-blue motes out of the target (Chakra -20 over the barrage)', 'frames': [4, 5, 6, 7], 'count': 4, 'pattern': 'pwisp', 'colors': ['#ffffff', '#9b45ff', '#55208f', '#1c1024']}},
+       anchored={1: [('pspark', 'hand', 0, -2), ('pflame1', 'hand', 0, -6)],
+                 2: [('pflame2', 'hand', -1, -5), ('pflame1', 'hand', -6, -1), ('pflame1', 'hand', 5, 1)],
+                 3: [('pflame2', 'hand', 4, -5), ('pflame2', 'hand', -5, -2), ('pflame1', 'hand', 2, 3), ('pembers', 'hand', 0, -10)],
+                 4: [('pspark', 'hand', 1, 0), ('pwisp', 'feet', 22, -42), ('pflame1', 'feet', 2, -30)],
+                 5: [('pspark', 'hand', 1, 0), ('pwisp2', 'feet', 22, -41), ('pwisp', 'feet', 28, -44)],
+                 6: [('pspark', 'hand', 1, 0), ('pwisp', 'feet', 22, -42), ('pwisp2', 'feet', 28, -40)],
+                 7: [('pspark', 'hand', 1, 0), ('pwisp2', 'feet', 22, -41), ('pwisp', 'feet', 28, -44), ('pembers', 'hand', -3, -5)],
+                 8: [('pembers', 'hand', 2, -3)]})),
  'flowDodge': ('Flow Dodge', 3,
   'Flow Dodge (Sagittarius taijutsu stance buff: the fighter enters a dance-like trance and begins to swing and sway to its own rhythm): from the guard the fighter shakes its arms loose and lets the guard drop low and easy, eyes half closed, catching a beat; then it sways to its own rhythm: rocking back and forward on its feet and dipping on the knees, shoulders rolling, the loose hands swinging opposite to the hips, a flickering fire aura breathing round it on the beat with a few black and purple wisps rising off the shoulders; on the last beat it snaps its eyes open and settles into a loose, low guard (the testbed keeps the stance).', [
      g(),
