@@ -10,6 +10,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import universal as U
 from universal import band, g, leg, kleg, LOW, BRACE, NPAL, NPAT, nfx, D
 from gen import load, save
+import stances
 
 STAT = 'CANDIDATE 2026-10-27 (E/W; W mirrors E; S/N to author after approval)'
 APPROVED = {'machLunge': 'E/W approved by user 2026-10-27 (v5 sprint, flaming feet, fire wake, 4 afterimages, fc741f6; W mirrors E); S/N to author', 'shatterPunch': 'E/W approved by user 2026-10-27 (v3 arm swirl + impact burst, fc741f6; W mirrors E); S/N to author'}
@@ -92,22 +93,22 @@ CLIPS = {
   dict(fps=10, hitbox=[46, 20, 14, 10], damage='heavy', rm='E: +2 on the step into the punch, -1 settling back',
        swirl={1: (0, 0.35), 2: (100, 0.6), 3: (210, 0.85), 4: (320, 1.0)},   # frame: (phase degrees, strength)
        impact={5: 0, 6: 1, 7: 2, 8: 3})),   # frame: stage of the burst (flash, shock ring, spread, fade)
- 'blastWave': ('Blast Wave', 4,
-  'Blast Wave (Aries ninjutsu, fire AoE: a small burst of fire that breaks the speed of sound): from the guard the fighter makes the tiger seal at the chin, eyes narrowed, a fire spark kindling between the hands as it holds; then it drives both open palms straight out at chest height, knees sinking, and a cone of fire bursts out of the palms, and sonic-boom rings burst out round the whole fighter one after another, white-hot, then yellow, orange and red as they widen and break up; embers scatter; then the arms come back into the guard.', [
+ 'blastWave': ('Blast Wave', 5,
+  'Blast Wave (Aries ninjutsu, fire AoE: a small burst of fire that breaks the speed of sound), v2 (Christopher 2026-10-27: turn the fighter to face S for the release, gesture like a power-up scream): from the guard the fighter turns to face the viewer (every facing turns S for the cast), sinks into the knees with both fists pulled in low in front of the belly, head dipped, embers gathering; then it throws its head back with a roar, chest out, both fists clenched and driven down and out to the sides, elbows flared, and the wave releases: a spiked fire aura bursts out round it and sonic-boom rings blast outward, white-hot, then yellow, orange and red as they widen and break up; it holds the roar, then settles back into the guard and turns back to its facing.', [
      g(),
-     g(an=U.SEAL_N, af=U.SEAL_F, bob=(1, 1, 1), lean=(0, 0), **LOW),
-     g(an=U.SEAL_N, af=U.SEAL_F, bob=(2, 2, 2), lean=(0, 0), **LOW),
-     g(an=U.SEAL_N, af=U.SEAL_F, bob=(2, 2, 2), lean=(0, 0), **LOW),
-     g(an=band(-88, -90, fistKind='palm'), af=band(-84, -88, fistKind='palm'), bob=(2, 2, 2), lean=(1, 3), root=(1, 0), **LOW),
-     g(an=band(-88, -90, fistKind='palm'), af=band(-84, -88, fistKind='palm'), bob=(2, 2, 2), lean=(1, 3), **LOW),
-     g(an=band(-88, -90, fistKind='palm'), af=band(-84, -88, fistKind='palm'), bob=(2, 2, 2), lean=(1, 3), **LOW),
-     g(an=band(-50, -120), af=band(-50, -130), bob=(1, 1, 2), lean=(0, 2)),
-     g(root=(-1, 0))],
-  [None, 'squint', 'squint', 'squint', 'squint', 'squint', 'squint', None, None],
+     g(an=band(-30, -120), af=band(-35, -125), bob=(1, 1, 2), lean=(0, 1), **LOW),
+     g(), g(bob=(3, 3, 3), **LOW), g(bob=(3, 3, 3), **LOW), g(bob=(0, -1, 0)), g(bob=(0, -1, 0)), g(bob=(0, -1, 0)), g(),
+     g()],
+  [None, 'squint', None, 'pain', 'pain', 'roar', 'roar', 'roar', None, None],
   None,
-  dict(fps=10, rm='E: +1 into the thrust, -1 settling back',
-       fx=nfx('fire spark kindling at the seal', [(2, [('flame1', [35, 31])]), (3, [('flame2', [34, 32])])]),
-       blast={4: 0, 5: 1, 6: 2, 7: 3})),
+  dict(fps=10, front={2: dict(R=stances.GA['R'], L=stances.GA['L']),
+                      3: dict(R=(12, -25, 0.85, 'up'), L=(-12, 25, 0.85, 'up')),        # fists pulled in low in front of the belly
+                      4: dict(R=(10, -30, 0.85, 'up'), L=(-10, 30, 0.85, 'up')),
+                      5: dict(R=(42, -5, 1, 'up'), L=(-42, 5, 1, 'up')),                # fists clenched, driven down and out, elbows flared
+                      6: dict(R=(45, -8, 1, 'up'), L=(-45, 8, 1, 'up')),
+                      7: dict(R=(42, -5, 1, 'up'), L=(-42, 5, 1, 'up')),
+                      8: dict(R=stances.GA['R'], L=stances.GA['L'])},
+       burst={3: 0, 4: 1, 5: 2, 6: 3, 7: 4, 8: 5})),   # frame: stage (embers gathering 0-1, release 2, rings out 3-4, fading 5)
  'innerGateAdrenaline': ('Inner Gate: Adrenaline', 4,
   'Inner Gate: Adrenaline (Aries taijutsu buff: AGI and STR up, the fighter burns itself): from the guard the fighter clenches, curls the fists in front of the belly and sinks, straining, eyes squeezed; then the gate bursts open: it stands up tall, chest thrown out and both fists driven down and back, and an orange-red aura flares around the whole body with flame licks rising off the shoulders and head; the aura pulses once, the flames keep licking (the self-burn), then the fighter drops back into the guard still powered up: the aura lingers, the skin stays flushed red and the veins stand out on the arms, neck and temple, embers drifting off it (the testbed keeps that look while the buff lasts).', [
      g(),
@@ -133,7 +134,14 @@ def spec(state):
     U.spec(state)
     x = CLIPS[state][6]; s = load(D + state + '.json')
     for k, v in (x.get('extra') or {}).items(): s[k] = v
+    if x.get('front'):   # the fighter turns to face S for part of the clip (Blast Wave v2): every facing plays the S frames there
+        s['expressions']['shapes']['roar'] = {'E': copy.deepcopy(s['expressions']['shapes']['pain']['E']),
+            'S': [[0, 1, '#000000'], [1, 1, '#000000'], [5, 1, '#000000'], [6, 1, '#000000'], [2, 5, '#000000'], [3, 5, '#3f0505'], [4, 5, '#000000'], [3, 6, '#000000']]}   # eyes squeezed, mouth open in a yell
+        s['facingOverride'] = {'rule': 'Christopher 2026-10-27: the fighter turns to face S (toward the viewer) for these frames whatever its facing; every row holds the S frame there (the rows are copied after the render), then it turns back', 'frames': sorted(x['front']), 'to': 'S'}
     save(s, D + state + '.json')
+    if x.get('front'):
+        import universal_sn as USN
+        USN.SN[state] = x['front']; USN.sn(state)
 
 def fx(state):
     x = CLIPS[state][6]
@@ -151,6 +159,8 @@ def fx(state):
                     if q[3] and q[:3] in x['trail']: px[xx, yy] = x['trail'][q[:3]] + (255,)
             b.save(f)
         if old: new = Image.open(f).convert('RGBA'); new.alpha_composite(old); new.save(f)
+    if x.get('front'): face_front(state, sorted(x['front']))
+    if x.get('burst'): burst(state, x['burst'])
     if x.get('tint'): flush(state, x['tint'], x.get('veins', ()))
     if x.get('swirl') or x.get('impact') or x.get('blast'):
         from PIL import Image
@@ -328,6 +338,91 @@ def flush(state, tint, veins):
                     if mid and (x * 3 + y) % 5 != 0: px[k * 64 + x, r * 64 + y] = (0x7a, 0x14, 0x0c, 255)
         img.save(d + out)
     print(state, 'flush', list(tint), 'veins', list(veins))
+
+def face_front(state, frames):
+    """every row takes the S row's frame on the turned frames (all layers), so each facing turns to the viewer there"""
+    from PIL import Image
+    d = D + state + '/'; dirs = load(D + state + '.json')['directions']; rs = dirs.index('S')
+    for n in sorted(os.listdir(d)):
+        if not n.endswith('.png') or n == 'fx.png': continue
+        im = Image.open(d + n).convert('RGBA')
+        if im.height < 64 * len(dirs): continue
+        for k in frames:
+            cell = im.crop((k * 64, rs * 64, k * 64 + 64, rs * 64 + 64))
+            for r in range(len(dirs)):
+                if r != rs: im.paste(cell, (k * 64, r * 64))
+        im.save(d + n)
+    print(state, 'S frames on every row', frames)
+
+def burst(state, frames):
+    """Blast Wave v2 (facing S): embers gathering round the crouched fighter (stages 0-1), then the release: a spiked fire
+    aura round the whole figure (inner yellow glow, flame spikes radiating out, longer at the release) and sonic-boom rings
+    blasting out round it, white-hot, then yellow, orange, red as they widen and break up (stages 2-5). Drawn on the S row
+    and copied to every row (all rows show the S frame there)"""
+    import math, random
+    from PIL import Image, ImageFilter
+    d = D + state + '/'; f = d + 'fx.png'; dirs = load(D + state + '.json')['directions']; rs = dirs.index('S')
+    base = Image.open(d + 'body.png'); fx = Image.open(f).convert('RGBA') if os.path.exists(f) and 'fx' in load(D + state + '.json') else Image.new('RGBA', base.size)   # no splash fx: start clean
+    if fx.size != base.size: n_ = Image.new('RGBA', base.size); n_.paste(fx, (0, 0)); fx = n_
+    px = fx.load()
+    hexc = lambda c: tuple(int(c[i:i + 2], 16) for i in (1, 3, 5)) + (255,)
+    W_, Y, O, R_ = (255, 255, 255, 255), hexc(ELEMENT['Y']), hexc(ELEMENT['O']), hexc(ELEMENT['R'])
+    ramp = [W_, Y, O, R_]
+    lay = [Image.open(d + n).convert('RGBA') for n in ('body.png', 'arms.png', 'male-gi.png', 'fade-hair.png', 'far-arm.png') if os.path.exists(d + n)]
+    for k, st in frames.items():
+        rnd = random.Random(k * 7)
+        box = (k * 64, rs * 64, k * 64 + 64, rs * 64 + 64)
+        m = Image.new('L', (64, 64))
+        for L in lay: m.paste(255, (0, 0), L.crop(box).getchannel('A').point(lambda v: 255 if v else 0))
+        fig = m.load(); pts = [(x, y) for y in range(64) for x in range(64) if fig[x, y]]
+        cx = sum(x for x, _ in pts) / len(pts); cy = sum(y for _, y in pts) / len(pts)
+        def P(x, y, c, over=False):
+            if 0 <= x < 64 and 0 <= y < 64 and (over or not fig[x, y]): px[box[0] + x, box[1] + y] = c
+        if st <= 1:   # embers drawn in toward the fighter
+            for i in range(10 + 6 * st):
+                th = rnd.uniform(0, 2 * math.pi); rr = rnd.uniform(14, 24) - 5 * st
+                P(round(cx + rr * math.cos(th)), round(cy + rr * 1.2 * math.sin(th)), (Y, O, R_)[i % 3])
+            g1 = m.filter(ImageFilter.MaxFilter(3)).load()
+            for (x, y) in [(x, y) for y in range(64) for x in range(64) if g1[x, y] and not fig[x, y]]:
+                if (x + y + k) % 2 == 0 or st: P(x, y, O if st else R_)
+            continue
+        # spiked fire aura: glow rings, then flame spikes out of the silhouette
+        grow = [m]
+        for i in range(3): grow.append(grow[-1].filter(ImageFilter.MaxFilter(3)))
+        G = [g.load() for g in grow]; wd = (3, 3, 2, 1)[st - 2]
+        for y in range(64):
+            for x in range(64):
+                for i in range(1, wd + 1):
+                    if G[i][x, y] and not G[i - 1][x, y]: P(x, y, (Y, O, R_)[min(2, i - 1)]); break
+        L0 = (10, 8, 5, 3)[st - 2]
+        for t in range(0, 360, 12):
+            th = math.radians(t + (k * 5)); L = L0 + rnd.randint(-2, 3)
+            # start at the silhouette edge in that direction
+            r0 = 0
+            while r0 < 40:
+                x, y = round(cx + r0 * math.sin(th)), round(cy - r0 * math.cos(th))
+                if not (0 <= x < 64 and 0 <= y < 64) or not fig[x, y]: break
+                r0 += 1
+            for i in range(L):
+                u = i / L; w = 1 if u < 0.6 else 0
+                x, y = cx + (r0 + i) * math.sin(th), cy - (r0 + i) * math.cos(th)
+                c = Y if u < 0.35 else O if u < 0.7 else R_
+                P(round(x), round(y), c)
+                if w: P(round(x + math.cos(th)), round(y + math.sin(th)), c)
+        # sonic-boom rings round the fighter
+        for j in range(st - 1):
+            age = st - 2 - j; rx = 12 + 9 * age; ry = round(rx * 0.8); c = ramp[min(3, age + (st == 5))]
+            for t in range(0, 360, 2):
+                if age >= 2 and (t // 12) % 3 == 0: continue
+                th = math.radians(t)
+                P(round(cx + rx * math.cos(th)), round(cy + 4 + ry * math.sin(th)), c)
+        if st == 2:   # the white-hot release flash at the chest
+            for i in range(-3, 4): P(round(cx) + i, round(cy) - 6, W_ if abs(i) < 2 else Y, over=False)
+    for k in frames:   # every row shows the S frame here
+        cell = fx.crop((k * 64, rs * 64, k * 64 + 64, rs * 64 + 64))
+        for r in range(len(dirs)):
+            if r != rs: fx.paste(cell, (k * 64, r * 64))
+    fx.save(f); print(state, 'burst', frames)
 
 def ghosts(state, offs, cols):
     """after the blur: afterimages (Christopher 2026-10-27: onion/afterimage effects to exaggerate the speed). On each
