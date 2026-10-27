@@ -131,22 +131,27 @@ CLIPS = {
                (5, [('runeLit', [43, 63]), ('fireLine', [51, 63]), ('runeHot', [54, 63]), ('embers', [45, 57]), ('embers', [48, 42]), ('flame1', [52, 52])]),
                (6, [('runeLit', [43, 63]), ('runeLit', [54, 63]), ('fireLine', [62, 63]), ('embers', [56, 57]), ('embers', [44, 56])]),
                (7, [('runeDim', [43, 63]), ('runeDim', [54, 63])])]))),
- 'meteor': ('Meteor', 6,
-  'Meteor (Aries ninjutsu ultimate, charge: a giant fireball called down from the sky that blankets a wide zone next round): from the guard the fighter makes the seal, then raises the near open hand high up and forward, palm to the sky, the far hand staying in guard, and sinks into its stance; above the raised hand fire gathers into a swelling, roiling fireball, held for a beat while it grows; then the fighter hurls the arm forward and up toward the target and the meteor tears off up and away across the sky trailing fire and embers; the arms come back down into the guard (the testbed drops the meteor on the zone the next round).', [
+ 'meteor': ('Meteor', 10,
+  'Meteor (Aries ninjutsu ultimate, charge: a giant fireball called down from the sky that blankets a wide zone next round), v2 (Christopher 2026-10-27: an ultimate needs a more dramatic animation, more frames than a typical ability): from the guard the fighter makes the seal and sinks deep, straining, embers lifting off the ground all round it; a spiked fire aura flares up and grows; then it raises the near open palm high to the sky and the fireball forms above it, swelling frame by frame until it is too big for the sky to hold, white-hot at the core, roiling orange with a red rim and flames licking off it, the aura blazing; at the peak the fighter hurls the arm forward and up with a burst of light, holds the throw through a hit-stop as the meteor tears up and away trailing a thick tail of fire, embers raining back down; the glow fades from the sky and the fighter settles back into the guard (the testbed drops the meteor on the zone the next round).', [
      g(),
      g(an=U.SEAL_N, af=U.SEAL_F, bob=(2, 2, 2), lean=(0, 0), **LOW),
-     g(an=band(-120, -150, fistKind='palm'), bob=(1, 1, 1), lean=(0, -1)),
-     g(an=band(-130, -150, fistKind='palm'), bob=(2, 2, 2), lean=(-1, -2), **LOW),     # near arm raised up and forward, palm to the sky
-     g(an=band(-130, -150, fistKind='palm'), bob=(2, 2, 2), lean=(-1, -2), **LOW),
-     g(an=band(-130, -150, fistKind='palm'), bob=(2, 2, 2), lean=(-1, -2), **LOW),
+     g(an=U.SEAL_N, af=U.SEAL_F, bob=(3, 3, 3), lean=(0, 1), **LOW),
+     g(an=U.SEAL_N, af=U.SEAL_F, bob=(4, 4, 4), lean=(0, 1), **BRACE),
+     g(an=U.SEAL_N, af=U.SEAL_F, bob=(4, 4, 4), lean=(0, 1), **BRACE),
+     g(an=band(-120, -150, fistKind='palm'), bob=(2, 2, 2), lean=(0, -1), **LOW)] + [
+     g(an=band(-130, -150, fistKind='palm'), bob=(2, 2, 2), lean=(-1, -2), **LOW) for _ in range(4)] + [
      g(an=band(-110, -115, fistKind='palm'), af=band(-40, 215), bob=(2, 2, 2), lean=(1, 4), root=(1, 0), **LOW),   # hurled forward and up
      g(an=band(-110, -115, fistKind='palm'), af=band(-40, 215), bob=(2, 2, 2), lean=(1, 4), **LOW),
+     g(an=band(-110, -115, fistKind='palm'), af=band(-40, 215), bob=(2, 2, 2), lean=(1, 4), **LOW),
+     g(an=band(-80, -110, fistKind='palm'), af=band(-40, 215), bob=(2, 2, 2), lean=(1, 3), **LOW),
      g(an=band(-50, -120), af=band(-50, -130), bob=(1, 1, 2), lean=(0, 2)),
      g(root=(-1, 0))],
-  [None, 'squint', 'squint', 'squint', 'squint', 'squint', 'squint', 'squint', None, None],
-  [0, 0, 0, 1, 2, 2, 1, 0, 0, 0],
-  dict(fps=10, auraColors=FIRE_AURA, rm='E: +1 into the throw, -1 settling back',
-       meteor={3: ('form', 2), 4: ('form', 4), 5: ('form', 6), 6: ('fly', 0), 7: ('fly', 1), 8: ('trail', 2)})),
+  [None, 'squint', 'pain', 'pain', 'pain', 'squint'] + ['squint'] * 4 + ['squint', 'squint', 'squint', None, None, None],
+  None,
+  dict(fps=10, rm='E: +1 into the throw, -1 settling back',
+       burst={2: 0, 3: 1, 4: 2, 5: 3, 6: 3, 7: 3, 8: 2, 9: 2, 10: 3, 11: 4, 12: 5}, burstEvery=True,   # embers rising, spiked aura flaring and blazing, then fading
+       meteor={5: ('form', 2), 6: ('form', 4), 7: ('form', 7), 8: ('form', 9), 9: ('form', 11),
+               10: ('flash', 0), 11: ('fly', 0), 12: ('fly', 1), 13: ('trail', 2), 14: ('trail', 3)})),
  'innerGateAdrenaline': ('Inner Gate: Adrenaline', 4,
   'Inner Gate: Adrenaline (Aries taijutsu buff: AGI and STR up, the fighter burns itself): from the guard the fighter clenches, curls the fists in front of the belly and sinks, straining, eyes squeezed; then the gate bursts open: it stands up tall, chest thrown out and both fists driven down and back, and an orange-red aura flares around the whole body with flame licks rising off the shoulders and head; the aura pulses once, the flames keep licking (the self-burn), then the fighter drops back into the guard still powered up: the aura lingers, the skin stays flushed red and the veins stand out on the arms, neck and temple, embers drifting off it (the testbed keeps that look for as long as the gate stays open: until 0 HP or the player deactivates it).', [
      g(),
@@ -200,12 +205,15 @@ def fx(state):
             b.save(f)
         if old: new = Image.open(f).convert('RGBA'); new.alpha_composite(old); new.save(f)
     if x.get('front'): face_front(state, sorted(x['front']))
-    if x.get('burst'): burst(state, x['burst'])
+    if x.get('burst'):
+        if x.get('burstEvery'):   # the spiked aura drawn on each facing's own row (the fighter keeps its facing)
+            for i, r_ in enumerate(load(D + state + '.json')['directions']): burst(state, x['burst'], row=r_, spread=False, clean=i == 0)
+        else: burst(state, x['burst'])
     if x.get('tint'): flush(state, x['tint'], x.get('veins', ()))
     if x.get('meteor'):
         from PIL import Image
         f_ = D + state + '/fx.png'
-        if not CLIPS[state][5] and not os.path.exists(f_): Image.new('RGBA', Image.open(D + state + '/body.png').size).save(f_)
+        if not os.path.exists(f_): Image.new('RGBA', Image.open(D + state + '/body.png').size).save(f_)
         meteor(state, x['meteor'])
     if x.get('swirl') or x.get('impact') or x.get('blast'):
         from PIL import Image
@@ -399,15 +407,15 @@ def face_front(state, frames):
         im.save(d + n)
     print(state, 'S frames on every row', frames)
 
-def burst(state, frames):
+def burst(state, frames, row='S', spread=True, clean=True):
     """Blast Wave v2 (facing S): embers gathering round the crouched fighter (stages 0-1), then the release: a spiked fire
     aura round the whole figure (inner yellow glow, flame spikes radiating out, longer at the release) and sonic-boom rings
     blasting out round it, white-hot, then yellow, orange, red as they widen and break up (stages 2-5). Drawn on the S row
     and copied to every row (all rows show the S frame there)"""
     import math, random
     from PIL import Image, ImageFilter
-    d = D + state + '/'; f = d + 'fx.png'; dirs = load(D + state + '.json')['directions']; rs = dirs.index('S')
-    base = Image.open(d + 'body.png'); fx = Image.open(f).convert('RGBA') if os.path.exists(f) and 'fx' in load(D + state + '.json') else Image.new('RGBA', base.size)   # no splash fx: start clean
+    d = D + state + '/'; f = d + 'fx.png'; dirs = load(D + state + '.json')['directions']; rs = dirs.index(row)
+    base = Image.open(d + 'body.png'); fx = Image.open(f).convert('RGBA') if os.path.exists(f) and ('fx' in load(D + state + '.json') or not clean) else Image.new('RGBA', base.size)   # no splash fx: start clean
     if fx.size != base.size: n_ = Image.new('RGBA', base.size); n_.paste(fx, (0, 0)); fx = n_
     px = fx.load()
     hexc = lambda c: tuple(int(c[i:i + 2], 16) for i in (1, 3, 5)) + (255,)
@@ -463,7 +471,7 @@ def burst(state, frames):
                 P(round(cx + rx * math.cos(th)), round(cy + 4 + ry * math.sin(th)), c)
         if st == 2:   # the white-hot release flash at the chest
             for i in range(-3, 4): P(round(cx) + i, round(cy) - 6, W_ if abs(i) < 2 else Y, over=False)
-    for k in frames:   # every row shows the S frame here
+    for k in (frames if spread else ()):   # every row shows the S frame here
         cell = fx.crop((k * 64, rs * 64, k * 64 + 64, rs * 64 + 64))
         for r in range(len(dirs)):
             if r != rs: fx.paste(cell, (k * 64, r * 64))
@@ -494,19 +502,26 @@ def meteor(state, frames):
         for fd in dirs:
             r = dirs.index(fd); sg = -1 if fd == 'W' else 1; rnd = random.Random(k * 13 + r)
             pts = _arm(state, 3, r); top = min(pts, key=lambda p: p[1]); hx = top[0]; hy = top[1]   # the raised palm (frame 3)
-            if kind == 'form': ball(k, r, hx + sg, max(n + 1, hy - n - 1), n, 1, rnd)
+            if kind == 'form': ball(k, r, hx + sg, hy - min(n, 5) - 1, n, 1, rnd)   # big ones run off the top of the frame: too big for the sky
+            elif kind == 'flash':   # the launch: the fireball at its biggest, lit white, light rays out from it
+                ball(k, r, hx + sg * 3, hy - 6, 11, 1, rnd)
+                for t in range(0, 360, 30):
+                    th = math.radians(t)
+                    for i in range(12, 20):
+                        X, Y_ = round(hx + sg * 3 + i * math.cos(th)), round(hy - 6 + i * math.sin(th))
+                        if 0 <= X < 64 and 0 <= Y_ < 64: px[k * 64 + X, r * 64 + Y_] = Y if i < 16 else O
             else:
-                cx = hx + sg * (9 + 10 * n); cy = max(2, hy - 2 - 4 * n); rad = 5 - n
-                for t in range(0, 40):   # the trail back toward the hands, tapering
-                    u = t / 40; tx = round(hx + sg * 4 + (cx - hx - sg * 4) * u); ty = round(hy + 4 + (cy - hy - 4) * u)
-                    w = int(u * 3)
+                cx = hx + sg * (10 + 11 * n); cy = max(1, hy - 4 - 4 * n); rad = max(3, 9 - 2 * n)
+                for t in range(0, 60):   # the trail back toward the hands, tapering
+                    u = t / 60; tx = round(hx + sg * 4 + (cx - hx - sg * 4) * u); ty = round(hy + 4 + (cy - hy - 4) * u)
+                    w = int(u * (5 if kind == 'fly' else 3))
                     for dy in range(-w, w + 1):
                         X, Y_ = tx, ty + dy
                         if 0 <= X < 64 and 0 <= Y_ < 64 and (kind != 'trail' or rnd.random() < 0.3) and rnd.random() < 0.4 + 0.5 * u:
                             px[k * 64 + X, r * 64 + Y_] = R_ if u < 0.4 else O if u < 0.75 else Y
                 if kind == 'fly': ball(k, r, cx, cy, rad, sg, rnd)
-                for i in range(6 + 4 * n):   # embers shed along the way
-                    X = hx + sg * rnd.randint(2, 30); Y_ = rnd.randint(2, 22)
+                for i in range(8 + 6 * n):   # embers shed along the way, raining back down
+                    X = hx + sg * rnd.randint(-6, 30); Y_ = rnd.randint(2, 20 + 10 * n)
                     if 0 <= X < 64: px[k * 64 + X, r * 64 + Y_] = (O, R_, Y)[i % 3]
     fx.save(f); print(state, 'meteor', list(frames))
 

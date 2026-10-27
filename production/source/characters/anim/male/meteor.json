@@ -3,7 +3,7 @@
   "body": "male",
   "state": "meteor",
   "status": "CANDIDATE 2026-10-27 (E/W; W mirrors E; S/N to author after approval)",
-  "frames": 10,
+  "frames": 16,
   "fps": 10,
   "sourceDirection": "E",
   "directions": [
@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Meteor (Aries ninjutsu ultimate, charge: a giant fireball called down from the sky that blankets a wide zone next round): from the guard the fighter makes the seal, then raises the near open hand high up and forward, palm to the sky, the far hand staying in guard, and sinks into its stance; above the raised hand fire gathers into a swelling, roiling fireball, held for a beat while it grows; then the fighter hurls the arm forward and up toward the target and the meteor tears off up and away across the sky trailing fire and embers; the arms come back down into the guard (the testbed drops the meteor on the zone the next round).",
+  "intent": "Meteor (Aries ninjutsu ultimate, charge: a giant fireball called down from the sky that blankets a wide zone next round), v2 (Christopher 2026-10-27: an ultimate needs a more dramatic animation, more frames than a typical ability): from the guard the fighter makes the seal and sinks deep, straining, embers lifting off the ground all round it; a spiked fire aura flares up and grows; then it raises the near open palm high to the sky and the fireball forms above it, swelling frame by frame until it is too big for the sky to hold, white-hot at the core, roiling orange with a red rim and flames licking off it, the aura blazing; at the peak the fighter hurls the arm forward and up with a burst of light, holds the throw through a hit-stop as the meteor tears up and away trailing a thick tail of fire, embers raining back down; the glow fades from the sky and the fighter settles back into the guard (the testbed drops the meteor on the zone the next round).",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -95,7 +95,13 @@
     "dy": [
       1,
       2,
-      1,
+      3,
+      4,
+      4,
+      2,
+      2,
+      2,
+      2,
       2,
       2,
       2,
@@ -107,7 +113,13 @@
     "head": [
       1,
       2,
-      1,
+      3,
+      4,
+      4,
+      2,
+      2,
+      2,
+      2,
       2,
       2,
       2,
@@ -119,7 +131,13 @@
     "arms": [
       2,
       2,
-      1,
+      3,
+      4,
+      4,
+      2,
+      2,
+      2,
+      2,
       2,
       2,
       2,
@@ -137,9 +155,15 @@
         0,
         0,
         0,
+        0,
+        0,
+        0,
         -1,
         -1,
         -1,
+        -1,
+        1,
+        1,
         1,
         1,
         0,
@@ -148,12 +172,18 @@
       "head": [
         2,
         0,
+        1,
+        1,
+        1,
         -1,
         -2,
         -2,
         -2,
+        -2,
         4,
         4,
+        4,
+        3,
         2,
         2
       ]
@@ -187,7 +217,31 @@
         0
       ],
       [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
         1,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
         0
       ],
       [
@@ -229,7 +283,31 @@
         0
       ],
       [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
         -1,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
         0
       ],
       [
@@ -905,7 +983,13 @@
     "near": [
       1,
       3,
-      1,
+      3,
+      5,
+      5,
+      3,
+      3,
+      3,
+      3,
       3,
       3,
       3,
@@ -917,7 +1001,13 @@
     "far": [
       0,
       2,
-      0,
+      2,
+      4,
+      4,
+      2,
+      2,
+      2,
+      2,
       2,
       2,
       2,
@@ -950,6 +1040,33 @@
           "at": 8,
           "angle": 212
         }
+      },
+      {
+        "construction": "band",
+        "angle": -48,
+        "elbow": {
+          "at": 8,
+          "angle": -150
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": -48,
+        "elbow": {
+          "at": 8,
+          "angle": -150
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": -48,
+        "elbow": {
+          "at": 8,
+          "angle": -150
+        },
+        "fistKind": "palm"
       },
       {
         "construction": "band",
@@ -998,6 +1115,15 @@
       },
       {
         "construction": "band",
+        "angle": -130,
+        "elbow": {
+          "at": 8,
+          "angle": -150
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
         "angle": -110,
         "elbow": {
           "at": 8,
@@ -1011,6 +1137,24 @@
         "elbow": {
           "at": 8,
           "angle": -115
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": -110,
+        "elbow": {
+          "at": 8,
+          "angle": -115
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": -80,
+        "elbow": {
+          "at": 8,
+          "angle": -110
         },
         "fistKind": "palm"
       },
@@ -1051,6 +1195,49 @@
       },
       {
         "construction": "band",
+        "angle": -60,
+        "elbow": {
+          "at": 8,
+          "angle": -146
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": -60,
+        "elbow": {
+          "at": 8,
+          "angle": -146
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": -60,
+        "elbow": {
+          "at": 8,
+          "angle": -146
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": -45,
+        "elbow": {
+          "at": 8,
+          "angle": 222
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -45,
+        "elbow": {
+          "at": 8,
+          "angle": 222
+        }
+      },
+      {
+        "construction": "band",
         "angle": -45,
         "elbow": {
           "at": 8,
@@ -1075,10 +1262,18 @@
       },
       {
         "construction": "band",
-        "angle": -45,
+        "angle": -40,
         "elbow": {
           "at": 8,
-          "angle": 222
+          "angle": 215
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -40,
+        "elbow": {
+          "at": 8,
+          "angle": 215
         }
       },
       {
@@ -1276,6 +1471,12 @@
       "bandFollowsBody": true,
       "sway": {
         "E": [
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
           -1,
           -1,
           -1,
@@ -1943,7 +2144,13 @@
         6,
         7,
         8,
-        9
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
       ],
       "fps": 10,
       "next": "guard",
@@ -1986,22 +2193,52 @@
       {
         "frame": 6,
         "clip": "meteor",
+        "type": "startup"
+      },
+      {
+        "frame": 7,
+        "clip": "meteor",
+        "type": "startup"
+      },
+      {
+        "frame": 8,
+        "clip": "meteor",
+        "type": "startup"
+      },
+      {
+        "frame": 9,
+        "clip": "meteor",
+        "type": "startup"
+      },
+      {
+        "frame": 10,
+        "clip": "meteor",
         "type": "active",
         "move": "Meteor",
         "buff": true
       },
       {
-        "frame": 7,
+        "frame": 11,
         "clip": "meteor",
         "type": "recovery"
       },
       {
-        "frame": 8,
+        "frame": 12,
         "clip": "meteor",
         "type": "recovery"
       },
       {
-        "frame": 9,
+        "frame": 13,
+        "clip": "meteor",
+        "type": "recovery"
+      },
+      {
+        "frame": 14,
+        "clip": "meteor",
+        "type": "recovery"
+      },
+      {
+        "frame": 15,
         "clip": "meteor",
         "type": "recovery"
       }
@@ -2040,22 +2277,52 @@
       {
         "frame": 6,
         "clip": "meteor",
+        "type": "startup"
+      },
+      {
+        "frame": 7,
+        "clip": "meteor",
+        "type": "startup"
+      },
+      {
+        "frame": 8,
+        "clip": "meteor",
+        "type": "startup"
+      },
+      {
+        "frame": 9,
+        "clip": "meteor",
+        "type": "startup"
+      },
+      {
+        "frame": 10,
+        "clip": "meteor",
         "type": "active",
         "move": "Meteor",
         "buff": true
       },
       {
-        "frame": 7,
+        "frame": 11,
         "clip": "meteor",
         "type": "recovery"
       },
       {
-        "frame": 8,
+        "frame": 12,
         "clip": "meteor",
         "type": "recovery"
       },
       {
-        "frame": 9,
+        "frame": 13,
+        "clip": "meteor",
+        "type": "recovery"
+      },
+      {
+        "frame": 14,
+        "clip": "meteor",
+        "type": "recovery"
+      },
+      {
+        "frame": 15,
         "clip": "meteor",
         "type": "recovery"
       }
@@ -2219,12 +2486,18 @@
       "E": [
         null,
         "squint",
+        "pain",
+        "pain",
+        "pain",
         "squint",
         "squint",
         "squint",
         "squint",
         "squint",
         "squint",
+        "squint",
+        "squint",
+        null,
         null,
         null
       ]
