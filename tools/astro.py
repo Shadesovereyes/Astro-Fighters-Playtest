@@ -146,7 +146,8 @@ U.POSES += [{**p, 'name': 'lk-' + p['name']} for p in HEAVY['legs']['poses'] if 
 NPAT.update({'pflame1': ['.K.', 'KPK', '.p.'], 'pflame2': ['..K..', '.KP..', '.PpK.', 'KPpPK', '.KKK.'],   # Sagittarius: select black and purple flames
              'pembers': ['.P..K', 'K..P.', '..p..'],
              'pwisp': ['...pP...', 'K.pPPPW.', 'KpPPWWWP', '.KpPPPW.', '...pP...'], 'pwisp2': ['K..pP...', '.KpPPPW.', 'KpPPWWWP', '..pPPPW.', 'K..pP...'],   # Wisp Fire: a small purple flame flying toward the facing, white-hot head, black tail
-             'pspark': ['P.p', '.W.', 'p.P']})
+             'pspark': ['P.p', '.W.', 'p.P'],
+             'smoke1': ['.g.', 'g.w', '.w.', 'w..'], 'smoke2': ['..g', '.w.', 'g..', '.w.', '..g']})   # Cauterize: a wisp of smoke off the sealed wound
 U.POSES += [U.kleg('lk-axe-top', (34, 39), (38, 31), (41, 22), 'pointUR'),    # Leash Kick v2 axe kick: straight leg raised high, heel above the head
             U.kleg('lk-axe-chop', (34, 40), (41, 38), (48, 37), 'pointFwd'),   # heel chopping down through shoulder height
             U.kleg('lk-axe-down', (34, 41), (40, 46), (45, 52), 'toe30k')]     # driven down, foot about to land in front
@@ -494,6 +495,28 @@ CLIPS = {
                  6: [('pspark', 'hand', 1, 0), ('pwisp', 'feet', 22, -42), ('pwisp2', 'feet', 28, -40)],
                  7: [('pspark', 'hand', 1, 0), ('pwisp2', 'feet', 22, -41), ('pwisp', 'feet', 28, -44), ('pembers', 'hand', -3, -5)],
                  8: [('pembers', 'hand', 2, -3)]})),
+ 'cauterize': ('Cauterize', 4,
+  'Cauterize (Sagittarius ninjutsu, self heal 15: the fighter channels its inner fire to seal its own wounds shut): from the guard the fighter makes the seal at the chin, then presses the open near palm flat against its own ribs, the far fist clenched low; it grits its teeth as the palm heats up, then fire flares out from under the hand, orange and yellow with black and purple licks, embers spitting and a warm aura flaring round the body; it holds the burn through the strain, the flame dying to a glow as heat shimmers rise; then it takes the hand away with a breath, a wisp of smoke curling up off the sealed wound and a few warm motes rising, and settles back into the guard.', [
+     g(),
+     g(an=U.SEAL_N, af=U.SEAL_F, bob=(1, 1, 1), lean=(0, 0)),
+     g(an=band(25, -60, fistKind='palm'), af=band(-20, -60), bob=(1, 1, 2), lean=(0, 1)),
+     g(an=band(25, -60, fistKind='palm'), af=band(-15, -50), bob=(2, 2, 2), lean=(0, 2)),
+     g(an=band(25, -60, fistKind='palm'), af=band(-15, -50), bob=(2, 2, 3), lean=(-1, 3)),
+     g(an=band(25, -60, fistKind='palm'), af=band(-15, -50), bob=(2, 2, 3), lean=(-1, 3)),
+     g(an=band(25, -60, fistKind='palm'), af=band(-20, -60), bob=(2, 2, 2), lean=(0, 2)),
+     g(an=band(-5, -70, fistKind='palm'), af=band(-25, -70), bob=(1, 1, 1), lean=(0, 0)),
+     g(an=band(-35, -100), af=band(-30, -95), bob=(1, 1, 2), lean=(0, 1)),
+     g()],
+  [None, 'squint', 'squint', 'strain', 'strain', 'strain', 'squint', None, None, None],
+  [0, 0, 0, 1, 2, 2, 1, 0, 0, 0],
+  dict(fps=8, auraColors=FIRE_AURA,
+       anchored={2: [('heat', 'hand', 0, -4)],
+                 3: [('flame1', 'hand', 0, -3), ('embers', 'hand', 2, -7)],
+                 4: [('flame3', 'hand', 0, -4), ('pflame1', 'hand', -3, -2), ('embers', 'hand', 4, -9), ('pembers', 'hand', -4, -10)],
+                 5: [('flame2', 'hand', 1, -3), ('pflame2', 'hand', -3, -4), ('embers', 'hand', 3, -10)],
+                 6: [('flame1', 'hand', 0, -2), ('heat', 'hand', 0, -6), ('heat', 'hand', -2, -11), ('pembers', 'hand', 3, -9)],
+                 7: [('smoke1', 'hand', 0, -4), ('heat', 'hand', 1, -9), ('lightMote', 'head', -6, 6), ('lightMote', 'head', 7, 10)],
+                 8: [('smoke2', 'hand', 0, -8), ('lightMote', 'head', -7, 0), ('lightMote', 'head', 6, 3)]})),
  'flowDodge': ('Flow Dodge', 3,
   'Flow Dodge (Sagittarius taijutsu stance buff: the fighter enters a dance-like trance and begins to swing and sway to its own rhythm): from the guard the fighter shakes its arms loose and lets the guard drop low and easy, eyes half closed, catching a beat; then it sways to its own rhythm: rocking back and forward on its feet and dipping on the knees, shoulders rolling, the loose hands swinging opposite to the hips, a flickering fire aura breathing round it on the beat with a few black and purple wisps rising off the shoulders; on the last beat it snaps its eyes open and settles into a loose, low guard (the testbed keeps the stance).', [
      g(),
