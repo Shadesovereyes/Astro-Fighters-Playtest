@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-animation-output/v1",
   "body": "male",
   "state": "supernova",
-  "status": "CANDIDATE 2026-10-27 (E/W; W mirrors E; S/N CANDIDATE 2026-10-21 (v1))",
+  "status": "E/W approved by user 2026-10-27 (v2 ultimate, 16 frames at 8 fps, long trembling build-up, swelling star, flash held 3 frames, rings, 50c8b58; W mirrors E); the S and N rows share the same S turn, S/N CANDIDATE 2026-10-21 (v1)",
   "frames": 16,
   "fps": 8,
   "frameSize": [
