@@ -12,7 +12,7 @@ from universal import band, g, leg, kleg, LOW, BRACE, NPAL, NPAT, nfx, D
 from gen import load, save
 
 STAT = 'CANDIDATE 2026-10-27 (E/W; W mirrors E; S/N to author after approval)'
-APPROVED = {}
+APPROVED = {'shatterPunch': 'E/W approved by user 2026-10-27 (v3 arm swirl + impact burst, fc741f6; W mirrors E); S/N to author'}
 
 U.POSES += [leg('ml-dip-lead', (32, 45), (38, 51), 37), leg('ml-dip-rear', (31, 45), (29, 51), 24, wrap=54, kind='toe60'),   # sprinter dip, rear heel up
             kleg('ml-fly-lead', (33, 42), (39, 46), (38, 52), 'toe30k'), kleg('ml-fly-rear', (31, 42), (25, 47), (20, 51), 'toe30k'),   # driving off the rear foot
