@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Sun Palm (Leo taijutsu strike: channels radiant energy into the palm, scorching whoever it touches, Burn 2 rounds): from the guard the fighter draws the rear hand back low beside the hip, palm open and turned forward, and a small sun kindles in it, white-hot at the heart, swelling and throwing out rays over two held frames; then it steps in and drives the open palm straight out at chest height, and the sun bursts on contact in a white-gold starburst with rays flashing out, then a broken ring of flame scattering embers; it settles back into the guard.",
+  "intent": "Sun Palm (Leo taijutsu strike: channels radiant energy into the palm, scorching whoever it touches, Burn 2 rounds): from the guard the fighter draws the rear hand back low beside the hip, palm open and turned forward, and a small sun kindles in it, white-hot at the heart, swelling and throwing out rays over two held frames while flame swirls up round the arm (v2, Christopher 2026-10-27: more fx); then it steps in and drives the open palm straight out at chest height, and the sun bursts on contact in a white-hot flash and a white-gold starburst with rays flashing out, a fire shock ring blasting out with cracks, then a broken ring of flame, flame licks and scattering embers; it settles back into the guard.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
