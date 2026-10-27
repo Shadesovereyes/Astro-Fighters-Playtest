@@ -10,7 +10,9 @@ stand-ins the testbed used (Parry -> unarmed block, Hilt Bash -> katana side cut
 E/W first (W mirrors E); S/N after approval. Arms are solved by two-link IK to the authored grip (near hand at the guard,
 far hand down the hilt at the pommel end).
 Run: python3 tools/kenjutsu.py ; node tools/character-posed.mjs male <state> ; python3 tools/kenjutsu.py --grips <state> ;
-     node tools/character-weapon.mjs male <state> ; python3 tools/kenjutsu.py --fx <state>"""
+     node tools/character-weapon.mjs male <state> ; python3 tools/kenjutsu.py --fx <state>
+S/N: python3 tools/kenjutsu.py --sn <state> ; node tools/character-posed.mjs male <state> ; python3 tools/kenjutsu.py --restore <state> ;
+     python3 tools/kenjutsu.py --grips <state> ; node tools/character-weapon.mjs male <state> ; python3 tools/kenjutsu.py --fx <state>"""
 import sys, copy, json, math
 sys.path.insert(0, '/mnt/project-files/hex-sprites/tools')
 from gen import load, build, save
@@ -117,36 +119,51 @@ CLIPS_INTENT = {
 def grips(state):
     """snap each authored grip to the nearest rendered fist pixel so the hilt registers in the hand (character-weapon --check)"""
     s = json.load(open(D + state + '.json')); arms = Image.open(D + state + '/arms.png').convert('RGBA')
-    row = s['directions'].index('E')
-    for k, p in enumerate(s['weapons'][0]['E']):
+    for d in [d for d in ('E', 'S') if d in s['directions'] and d in s['weapons'][0]]:
+      row = s['directions'].index(d)
+      for k, p in enumerate(s['weapons'][0][d]):
         x, y = p['grip']; best = None
         for yy in range(y - 4, y + 5):
             for xx in range(x - 4, x + 5):
                 if 0 <= xx < 64 and 0 <= yy < 64 and arms.getpixel((k * 64 + xx, row * 64 + yy))[3] == 255 and arms.getpixel((k * 64 + xx, row * 64 + yy))[:3] != (0, 0, 0):
-                    d = (xx - x) ** 2 + (yy - y) ** 2
-                    if best is None or d < best[0]: best = (d, xx, yy)
+                    q = (xx - x) ** 2 + (yy - y) ** 2
+                    if best is None or q < best[0]: best = (q, xx, yy)
         if best: p['grip'] = [best[1], best[2]]
     save(s, D + state + '.json')
 
 # white/neutral FX (fx.png, 64 px frames): a four-point spark with a black outline
 SPARK = ['...W...', '...W...', '..WWW..', 'WWWWWWW', '..WWW..', '...W...', '...W...']
 BURST = ['W..W..W', '.W.W.W.', '..WWW..', 'WWWWWWW', '..WWW..', '.W.W.W.', 'W..W..W']
-FX = {'kenjutsuParry': {3: ('spark', 'blade', 14)}, 'kenjutsuHiltBash': {3: ('burst', 'pommel', 0)}}
+FX = {'kenjutsuParry': {3: ('spark', 'blade', 14)}, 'kenjutsuHiltBash': {3: ('burst', 'pommel', 0)}, 'kenjutsuThrust': {3: ('spark', 'tip', 0)}}
+FX_DIRS = {'spark': ('E', 'W', 'S'), 'burst': ('E', 'W', 'S')}   # contact lands away from the viewer in N, hidden by the body
+def fx_at(s, d, k, at, u):
+    """centre of the effect in facing d, frame k: E (W mirrored) along the blade axis; S/N keep the E row (projection
+    lines) on the centre line, the blade vertical and foreshortened"""
+    p = s['weapons'][0]['E'][k]; t = math.radians(p['angle'])
+    if at == 'pommel': u = -8.5
+    if at == 'tip': u = 21
+    if d in ('E', 'W'):
+        cx, cy = p['grip'][0] + 0.5 + u * math.cos(t), p['grip'][1] + 0.5 - u * math.sin(t)
+        if at == 'blade': cx += 3   # the blow lands on the blade's forward edge
+        if at == 'tip': return None  # the thrust's speed lines carry E/W
+        return (63 - int(cx) if d == 'W' else int(cx)), int(cy)
+    q = s['weapons'][0][d][k]; sc = q['scale'] * (1 if q['angle'] > 0 else -1)
+    if at == 'pommel': return 31, int(p['grip'][1] + 0.5 - u * math.sin(t))
+    return (34 if at == 'blade' else 31), int(q['grip'][1] + 0.5 - u * sc)
+
 def fx(state):
     s = json.load(open(D + state + '.json')); n = s['frames']; dirs = s['directions']
     out = Image.new('RGBA', (64 * n, 64 * len(dirs)), (0, 0, 0, 0))
     for k, (kind, at, u) in FX.get(state, {}).items():
-        p = s['weapons'][0]['E'][k]; t = math.radians(p['angle'])
-        if at == 'pommel': u = -8.5
-        cx, cy = p['grip'][0] + 0.5 + u * math.cos(t), p['grip'][1] + 0.5 - u * math.sin(t)
-        if at == 'blade': cx += 3   # the blow lands on the blade's forward edge
         pat = SPARK if kind == 'spark' else BURST
         for di, d in enumerate(dirs):
+            if d not in FX_DIRS[kind]: continue
+            c = fx_at(s, d, k, at, u)
+            if c is None: continue
             px = set()
             for j, r in enumerate(pat):
                 for i, ch in enumerate(r):
-                    if ch == 'W':
-                        x = int(cx) - 3 + i; px.add((63 - x if d == 'W' else x, int(cy) - 3 + j))
+                    if ch == 'W': px.add((c[0] - 3 + i, c[1] - 3 + j))
             for (x, y) in px:
                 for ox, oy in ((1, 0), (-1, 0), (0, 1), (0, -1)):
                     q = (x + ox, y + oy)
@@ -157,8 +174,88 @@ def fx(state):
     a = json.load(open(D + state + '/animation.json')); a['layers']['fx'] = 'fx.png'
     open(D + state + '/animation.json', 'w').write(json.dumps(a, indent=2) + '\n')
 
+# ---- S/N (after E/W approval, Christopher 2026-10-27 17:34) ----
+# S and N follow the approved katana S/N (twoHandGuard, katanaLight): projection lines, so every hand and blade point
+# keeps its E row; the blade lies in the plane of the facing and turns vertical, foreshortened by |sin a| (a raised
+# blade points up, a lowered or level one at the viewer); both fists meet on the centre line; in N the hands and the
+# low blade are behind the body (only the upper arms show). The legs stay planted (a step toward or away from the
+# viewer reads as the body bob). E/W pixels are restored from HEAD after the render.
+SN_STAT = 'E/W approved by user 2026-10-27 17:34 (W mirrors E); S/N CANDIDATE 2026-10-27'
+PIV_S, UA_S, FA_S = (25, 24), 7, 9
+def ik_s(hx, hy):
+    """S near (R) arm from its shoulder to the fist on the centre line: scale foreshortens a reach toward the viewer;
+    the elbow points out to the side"""
+    dx, dy = hx - PIV_S[0], hy - PIV_S[1]; dist = math.hypot(dx, dy)
+    sc = max(0.4, min(1.0, dist / 14.5)); a1, a2 = UA_S * sc, FA_S * sc
+    r = min(max(dist, abs(a1 - a2) + 0.05), a1 + a2 - 0.05); phi = math.atan2(-dx, dy)
+    al = math.acos((a1 * a1 + r * r - a2 * a2) / (2 * a1 * r)); be = math.acos((a2 * a2 + r * r - a1 * a1) / (2 * a2 * r))
+    best = None
+    for sg in (1, -1):
+        ua, fa = phi + sg * al, phi - sg * be
+        ex = PIV_S[0] - a1 * math.sin(ua)
+        if best is None or ex < best[0]: best = (ex, ua, fa)
+    return round(math.degrees(best[1]), 1), round(math.degrees(best[2]), 1), round(sc, 2)
+
+def sn(state):
+    import subprocess, os
+    spec = json.loads(subprocess.check_output(['git', '-C', R, 'show', 'HEAD:' + os.path.relpath(D + state + '.json', R)]))
+    F = spec['frames']; fr = copy.deepcopy(LIGHT['frontal']); dy = spec['bob']['dy']; mb = max(dy)
+    one = lambda v: [copy.deepcopy(v[3]) for _ in range(F)]   # katanaLight frame 3 is the chudan return frame
+    GV = BASE['frontal']['views']
+    for d in ('S', 'N'):
+        v = fr['views'][d]
+        for sd in 'RL':
+            for key in ('legPose', 'handDy', 'hipDx', 'footDx'): v[key][sd] = one(v[key][sd])
+            ab = v['armBand'][sd]
+            for key in ('angle', 'elbow', 'scale', 'pivotDx'): ab[key] = one(ab[key])
+            if isinstance(ab['fist'], list): ab['fist'] = one(ab['fist'])
+        for key in ('pelvis', 'shoulders', 'head'): v['twist'][key] = [0] * F
+        v['bobRows'] = (GV[d]['bobRows'] * 2)[:max(mb, 1)]
+    fr['legLift'] = {'R': [0] * F, 'L': [0] * F}
+    wE = spec['weapons'][0]['E']; wS, wN = [], []
+    for k, p in enumerate(wE):
+        t = math.radians(p['angle']); sn_ = math.sin(t); row = p['grip'][1]
+        a, e, sc = ik_s(31, row)
+        up = p['angle'] >= 65
+        S = fr['views']['S']['armBand']
+        S['R']['angle'][k], S['R']['elbow'][k], S['R']['scale'][k] = a, {'at': 7, 'angle': e}, sc
+        S['L']['angle'][k], S['L']['elbow'][k], S['L']['scale'][k] = -a, {'at': 7, 'angle': -e}, sc
+        S['R']['fist'][k] = S['L']['fist'][k] = 'up' if up else 'front'
+        N = fr['views']['N']['armBand']   # back view: straight upper arms cut at 7 px, raised with the hands
+        na = round(min(135, max(15, -a)), 1)
+        N['R']['angle'][k], N['L']['angle'][k] = na, -na
+        blade = {'angle': 90 if sn_ >= 0 else -90, 'scale': round(max(abs(sn_), 0.2), 3)}
+        wS.append({'grip': [31, row], **blade, 'z': {'hilt': 'front', 'blade': 'top'}, 'layer': 'arms'})
+        wN.append({'grip': [32, row], **blade, 'z': 'behind', 'hidden': True})
+    sw = spec['clothing']['sash']['sway']; sw['S'] = [1] * F; sw['N'] = [-1] * F
+    spec['frontal'] = fr; spec['directions'] = ['S', 'E', 'N', 'W']
+    spec['rootMotion'] = {**spec['rootMotion'], 'S': [[0, 0]] * F, 'N': [[0, 0]] * F}
+    w = spec['weapons'][0]; w['S'] = wS; w['N'] = wN; w['status'] = SN_STAT
+    w['projectionRule'] = copy.deepcopy(LIGHT['weapons'][0]['projectionRule'])
+    spec['status'] = SN_STAT
+    save(spec, D + state + '.json'); print(state, 'S/N', F, 'frames')
+
+def restore(state):
+    """the approved E/W pixels from HEAD into the E and W rows of the 4-row body layers (S, E, N, W); weapon sheets are
+    re-rendered from the unchanged E entries and fx is redrawn, so both are left alone"""
+    import subprocess, os, io
+    d = D + state + '/'
+    for f in sorted(os.listdir(d)):
+        if not f.endswith('.png') or f.startswith('main-') or f == 'fx.png': continue
+        rel = os.path.relpath(d + f, R)
+        try: old = Image.open(io.BytesIO(subprocess.check_output(['git', '-C', R, 'show', 'HEAD:' + rel], stderr=subprocess.DEVNULL))).convert('RGBA')
+        except subprocess.CalledProcessError: continue
+        if old.height != 128: continue
+        new = Image.open(d + f).convert('RGBA')
+        for row, nrow in ((0, 1), (1, 3)):
+            new.paste(Image.new('RGBA', (new.width, 64)), (0, nrow * 64)); new.paste(old.crop((0, row * 64, old.width, row * 64 + 64)), (0, nrow * 64))
+        new.save(d + f)
+    print(state, 'E/W restored from HEAD')
+
 if __name__ == '__main__':
     if len(sys.argv) > 2 and sys.argv[1] == '--grips': grips(sys.argv[2])
     elif len(sys.argv) > 2 and sys.argv[1] == '--fx': fx(sys.argv[2])
+    elif len(sys.argv) > 2 and sys.argv[1] == '--sn': sn(sys.argv[2])
+    elif len(sys.argv) > 2 and sys.argv[1] == '--restore': restore(sys.argv[2])
     else:
         for st, c in STATES.items(): spec(st, c)

@@ -15,7 +15,9 @@
     95
   ],
   "rows": [
+    "S",
     "E",
+    "N",
     "W"
   ],
   "frames": 7,
@@ -27,11 +29,43 @@
       "default": true,
       "hand": "arms",
       "layers": {
+        "behind": "main-katana-behind.png",
         "front": "main-katana-front.png",
+        "top": "main-katana-top.png",
         "trail": "main-katana-trail.png"
       },
-      "status": "CANDIDATE 2026-10-27 (E/W; W mirrors E; S/N to author after approval)",
+      "status": "E/W approved by user 2026-10-27 17:34 (W mirrors E); S/N CANDIDATE 2026-10-27",
       "z": {
+        "S": [
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          }
+        ],
         "E": [
           "front",
           "front",
@@ -40,6 +74,15 @@
           "front",
           "front",
           "front"
+        ],
+        "N": [
+          "behind",
+          "behind",
+          "behind",
+          "behind",
+          "behind",
+          "behind",
+          "behind"
         ],
         "W": [
           "front",
@@ -52,6 +95,36 @@
         ]
       },
       "grips": {
+        "S": [
+          [
+            31,
+            33
+          ],
+          [
+            31,
+            33
+          ],
+          [
+            31,
+            32
+          ],
+          [
+            31,
+            30
+          ],
+          [
+            31,
+            30
+          ],
+          [
+            31,
+            32
+          ],
+          [
+            31,
+            33
+          ]
+        ],
         "E": [
           [
             44,
@@ -79,6 +152,36 @@
           ],
           [
             44,
+            33
+          ]
+        ],
+        "N": [
+          [
+            32,
+            33
+          ],
+          [
+            32,
+            33
+          ],
+          [
+            32,
+            32
+          ],
+          [
+            32,
+            30
+          ],
+          [
+            32,
+            30
+          ],
+          [
+            32,
+            32
+          ],
+          [
+            32,
             33
           ]
         ],
@@ -117,6 +220,13 @@
   ],
   "qc": {
     "gripOnFist": {
+      "main/katana S:0": true,
+      "main/katana S:1": true,
+      "main/katana S:2": true,
+      "main/katana S:3": true,
+      "main/katana S:4": true,
+      "main/katana S:5": true,
+      "main/katana S:6": true,
       "main/katana E:0": true,
       "main/katana E:1": true,
       "main/katana E:2": true,
@@ -124,6 +234,13 @@
       "main/katana E:4": true,
       "main/katana E:5": true,
       "main/katana E:6": true,
+      "main/katana N:0": "hidden",
+      "main/katana N:1": "hidden",
+      "main/katana N:2": "hidden",
+      "main/katana N:3": "hidden",
+      "main/katana N:4": "hidden",
+      "main/katana N:5": "hidden",
+      "main/katana N:6": "hidden",
       "main/katana W:0": true,
       "main/katana W:1": true,
       "main/katana W:2": true,
