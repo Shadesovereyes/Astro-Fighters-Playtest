@@ -67,6 +67,7 @@ NPAT.update({
     'oni': ['M.................M', 'MM...............MM', '.MM.............MM.', '.MmM...MMMMM...MmM.', '..MmMMMmmmmmMMMmM..', '..MmmmmmmmmmmmmmM..', '.MmmmmmmmmmmmmmmmM.', '.MmmRRmmmmmmmRRmmM.', 'MmmmmYRmmmmmRYmmmmM', 'MmmmmmmmmmmmmmmmmmM', 'MmmmmmmmMmMmmmmmmmM', '.MmmmmmmmmmmmmmmmM.', '.MmRmRmRmRmRmRmRmM.', '.MmmRYRYRYRYRYRmmM.', '..MmmRmRmRmRmRmmM..', '...MmmmmmmmmmmmM...', '....MMmmmmmmmMM....', '......MMMMMMM......'],   # Killing Intent: a horned demon face looming behind the fighter, glowing eyes and a fanged grin
     'oniFaint': ['M.................M', 'MM...............MM', '.MM.............MM.', '.M.M...MMMMM...M.M.', '..M.MMM.....MMM.M..', '..M.............M..', '.M...............M.', '.M...............M.', 'M.................M', 'M.................M', 'M.......M.M.......M', '.M...............M.', '.M...............M.', '.M...............M.', '..M.............M..', '...M...........M...', '....MM.......MM....', '......MMMMMMM......'], 'oniEyes': ['...................', '...................', '...................', '...................', '...................', '...................', '...................', '....RR.......RR....', '.....YR.....RY.....', '...................', '...................', '...................', '...R.R.R.R.R.R.R...', '....RYRYRYRYRYR....', '.....R.R.R.R.R.....', '...................', '...................', '...................'],
     'dread': ['M..M.M..M.M', '.MmMmMmMmM.'],   # dark pressure pooling at the feet
+    'oniMask': ['..R...............', '..RR..............', '...RR.............', '...RMR............', '....RMRRRRRR......', '....RmmmmmmmRR....', '...RmmmmmmmmmmR...', '...RmmmmmRRRRRmR..', '...RmmmmmmmYWYmmR.', '...RmmmmmmmmRmmmmR', '...RmmmmmmmmmmmmRR', '...RmmmmmmmmmmMR..', '...RmmmmmmmWmWmWR.', '....RmmmmmmmmmmmR.', '....RmmmmmmmWmWR..', '.....RRmmmmmmRR...', '.......RRRRRR.....'],   # Killing Intent v3: the illusory demon mask, in profile facing E (mirrored for W): horn sweeping back, brow ridge, glowing eye, snout and fangs
     'ki1': _jag(5, 2, 'MR'), 'ki2': _jag(9, 3, 'MRO'), 'ki3': _jag(13, 4, 'MRO'), 'ki4': _jag(16, 5, 'MR'),
     'moteF': ['.Y.', 'YOR', '.R.'], 'moteB': ['.M.', 'MRM', '.M.'], 'dotM': ['M'],
     'eyeGlint': ['.R.', 'RYR', '.R.'], 'eyeFlare': ['..R..', '.ROR.', 'ROYWO', '.ROR.', '..R..'], 'rageWisp': ['M.R', '.R.', 'RO.'],
@@ -206,33 +207,27 @@ CLIPS = {
                (6, [('eyeGlint', [38, 17]), ('rage4', [51, 28]), ('rage2', [45, 22]), ('rageWisp', [31, 4])]),
                (7, [('rage5d', [56, 30]), ('rage3', [50, 25])]),
                (8, [('rage4d', [57, 28])])]))),
- 'killingIntent': ('Killing Intent', 5,
-  'Killing Intent (Aries genjutsu, mental debuff: the caster focuses its bloodlust and projects it onto the foe, freezing it with fear; Stun 1 round, STR save DC 13; range Zone of Awareness), v2 (Christopher 2026-10-27: more menacing), from the Blind Rage genjutsu template: from the guard the fighter lets both hands fall open and loose to its sides, straightens up tall and dips its head, utterly still; a heavy near-black blood-red aura seeps up round it and thickens, dark pressure pooling at its feet; behind it a horned demon face looms up out of the dark, first a faint outline, then solid, its eyes kindling; the fighter lifts its head with a slow creeping step toward the target and the eyes of both flare together, the demon grinning its fangs, while jagged shuddering waves of killing intent roll out toward the target one after another, each bigger than the last; it holds the stare, then the demon sinks back into the dark, the aura drains away and the fighter steps back into the guard (the target takes the genjutsu mark, genjutsuAfflicted, for the Stun).', [
+ 'killingIntent': ('Killing Intent', 3,
+  'Killing Intent (Aries genjutsu, mental debuff: the caster focuses its bloodlust and projects it onto the foe, freezing it with fear; Stun 1 round, STR save DC 13; range Zone of Awareness), v3 (Christopher 2026-10-27: keep the demon, but as an illusory demon mask that appears over the caster\'s head, matching its facing; the body more aggressive): from the guard the fighter coils down low, hands drawn back, a near-black blood-red aura seeping up; then it surges forward a step into a wide predatory crouch, chest driven forward, both hands thrown out in front like claws, and an illusory demon mask flickers into being over its head in profile, then solidifies, horn sweeping back, eye and fangs blazing; it holds the crouch trembling with fury, dark pressure pooling at its feet, while jagged waves of killing intent roll out of the mask\'s jaws toward the target, each bigger than the last; then the mask breaks up and fades, the aura drains away and the fighter steps back into the guard (the target takes the genjutsu mark, genjutsuAfflicted, for the Stun).', [
      g(),
-     g(an=band(-10, -25), af=band(5, -10), bob=(0, 0, 1), lean=(0, 0)),
-     g(an=band(-5, -10), af=band(5, 0), bob=(0, -1, 0), lean=(0, 1)),
-     g(an=band(-5, -10), af=band(5, 0), bob=(0, -1, 0), lean=(0, 1)),
-     g(an=band(-5, -10), af=band(5, 0), bob=(0, -1, 0), lean=(0, 1)),
-     g(an=band(-5, -10), af=band(5, 0), bob=(0, -1, 0), lean=(0, -2), root=(1, 0)),    # head lifts, a slow creeping step in
-     g(an=band(-5, -10), af=band(5, 0), bob=(0, -1, 0), lean=(0, -2)),
-     g(an=band(-5, -10), af=band(5, 0), bob=(0, -1, 0), lean=(0, -2), root=(1, 0)),
-     g(an=band(-5, -10), af=band(5, 0), bob=(0, -1, 0), lean=(0, -2)),
-     g(an=band(-5, -10), af=band(5, 0), bob=(0, -1, 0), lean=(0, -1)),
-     g(an=band(-15, -80), af=band(-15, -90), bob=(1, 1, 1), lean=(0, 1)),
+     g(an=band(-25, -70), af=band(-15, -60), bob=(3, 3, 3), lean=(0, -1), **LOW),          # coil: down low, hands drawn back
+     g(an=band(-25, -70), af=band(-15, -60), bob=(4, 4, 4), lean=(0, -1), **LOW),
+     g(an=band(-75, -105, fistKind='palm'), af=band(-60, -95, fistKind='palm'), bob=(4, 5, 5), lean=(1, 6), root=(2, 0), **BRACE),   # surge: a step in, claws thrown out
+     g(an=band(-75, -105, fistKind='palm'), af=band(-60, -95, fistKind='palm'), bob=(4, 5, 5), lean=(1, 6), **BRACE),
+     g(an=band(-75, -105, fistKind='palm'), af=band(-60, -95, fistKind='palm'), bob=(4, 5, 5), lean=(1, 6), root=(1, 0), **BRACE),   # trembling with fury
+     g(an=band(-75, -105, fistKind='palm'), af=band(-60, -95, fistKind='palm'), bob=(4, 5, 5), lean=(1, 6), root=(-1, 0), **BRACE),
+     g(an=band(-75, -105, fistKind='palm'), af=band(-60, -95, fistKind='palm'), bob=(4, 5, 5), lean=(1, 6), root=(1, 0), **BRACE),
+     g(an=band(-75, -105, fistKind='palm'), af=band(-60, -95, fistKind='palm'), bob=(4, 5, 5), lean=(1, 6), root=(-1, 0), **BRACE),
+     g(an=band(-40, -100), af=band(-35, -100), bob=(2, 2, 2), lean=(0, 2), **LOW),
      g(root=(-2, 0))],
-  [None, None, 'squint', 'squint', 'squint', 'squint', 'squint', 'squint', 'squint', 'squint', None, None],
-  [0, 0, 1, 2, 3, 4, 4, 4, 4, 3, 1, 0],
-  dict(fps=10, rm='E: +1 creeping in on frames 5 and 7, -2 back to the start on the last frame', auraColors=('#7a1016', '#2a0406'), extra={'targetState': {'rule': 'Christopher 2026-10-27: every genjutsu marks its target; on the active frame the target starts genjutsuAfflicted (fire colours) and keeps it until the Stun ends', 'state': 'genjutsuAfflicted', 'element': 'fire'}},
-       fx=nfx('fire genjutsu: dark pressure pooling at the feet, a horned demon face looming up behind the fighter (outline, then solid, eyes kindling, fangs), the eyes flaring, jagged waves of killing intent rolling out toward the target, each bigger than the last; then the demon sinks back into the dark',
-              [(2, [('dread', [27, 63])]),
-               (3, [('oniFaint', [6, 24]), ('dread', [26, 63]), ('rageWisp', [30, 7])]),
-               (4, [('oni', [6, 23]), ('dread', [27, 63]), ('eyeGlint', [38, 17]), ('rageWisp', [27, 10])]),
-               (5, [('oni', [6, 22]), ('dread', [28, 63]), ('eyeFlare', [38, 18]), ('ki1', [44, 20])]),
-               (6, [('oni', [6, 22]), ('dread', [28, 63]), ('eyeFlare', [38, 18]), ('ki2', [47, 24]), ('ki1', [44, 20])]),
-               (7, [('oni', [7, 22]), ('dread', [29, 63]), ('eyeFlare', [39, 18]), ('ki3', [52, 28]), ('ki2', [47, 24])]),
-               (8, [('oni', [7, 22]), ('dread', [29, 63]), ('eyeGlint', [39, 17]), ('ki4', [56, 31]), ('ki3', [52, 28])]),
-               (9, [('oniFaint', [7, 23]), ('oniEyes', [7, 23]), ('ki4', [59, 31])]),
-               (10, [('oniEyes', [7, 24])])]))),
+  [None, 'squint', 'squint', 'pain', 'pain', 'pain', 'pain', 'pain', 'pain', None, None],
+  [0, 1, 2, 4, 4, 4, 4, 4, 3, 1, 0],
+  dict(fps=10, rm='E: +2 surging in on frame 3, a 1 px tremble on frames 5-8, -2 back on the last frame', auraColors=('#7a1016', '#2a0406'),
+       extra={'targetState': {'rule': 'Christopher 2026-10-27: every genjutsu marks its target; on the active frame the target starts genjutsuAfflicted (fire colours) and keeps it until the Stun ends', 'state': 'genjutsuAfflicted', 'element': 'fire'}},
+       mask={2: 'faint', 3: 'flare', 4: 'full', 5: 'full', 6: 'flare', 7: 'full', 8: 'flicker'},
+       maskWaves={4: [('ki1', 1, 5)], 5: [('ki2', 3, 9), ('ki1', 0, 5)], 6: [('ki3', 7, 13), ('ki2', 3, 9)], 7: [('ki4', 11, 16), ('ki3', 7, 13)], 8: [('ki4', 15, 16)]},
+       fx=nfx('dark pressure pooling at the feet of the crouch',
+              [(3, [('dread', [26, 63])]), (4, [('dread', [27, 63])]), (5, [('dread', [26, 63])]), (6, [('dread', [27, 63])]), (7, [('dread', [26, 63])]), (8, [('dread', [27, 63])])]))),
  'genjutsuAfflicted': ('Under Genjutsu', 0,
   'Under Genjutsu (target status, Christopher 2026-10-27: every genjutsu marks its target with an effect showing it is under a genjutsu): the shared looping state the testbed plays on a fighter for as long as any genjutsu holds it, in place of its idle; the guard sags, the hands dropped a little, and the fighter sways slowly on its feet, entranced: the eyes glow the caster\'s element colour, a thin flickering aura in that colour clings to the outline, and three glowing motes circle slowly over the head like a halo, bright passing in front of the head and dark passing behind it; fire version (Aries, Leo, Sagittarius casters: crimson and orange); the testbed recolours it for the other elements.', [
      g(an=band(-15, -105), af=band(-20, -110), bob=(1, 1, 2), lean=(0, 2)),
@@ -319,6 +314,11 @@ def fx(state):
         if x.get('swirl'): swirl(state, x['swirl'])
         if x.get('impact'): impact(state, x['impact'])
         if x.get('blast'): blast(state, x['blast'])
+    if x.get('mask'):
+        from PIL import Image
+        f_ = D + state + '/fx.png'
+        if not os.path.exists(f_): Image.new('RGBA', Image.open(D + state + '/body.png').size).save(f_)
+        mask(state, x['mask'], x.get('maskWaves'))
     if x.get('ghosts'):
         from PIL import Image
         f = D + state + '/fx.png'; top = Image.open(f).convert('RGBA')   # blur + splash so far
@@ -621,6 +621,40 @@ def meteor(state, frames):
                     X = hx + sg * rnd.randint(-6, 30); Y_ = rnd.randint(2, 20 + 10 * n)
                     if 0 <= X < 64: px[k * 64 + X, r * 64 + Y_] = (O, R_, Y)[i % 3]
     fx.save(f); print(state, 'meteor', list(frames))
+
+def mask(state, frames, waves=None):
+    """Killing Intent v3 (Christopher 2026-10-27): an illusory demon mask appears over the caster's head, in profile matching
+    its facing ('faint' outline only, 'full' translucent fill, 'flare' eye and fangs blazing, 'flicker' breaking up); placed
+    from the head found in body.png each frame so it rides the lunge; the killing-intent waves roll out from the mask's mouth"""
+    from PIL import Image
+    d = D + state + '/'; f = d + 'fx.png'; dirs = load(D + state + '.json')['directions']
+    body = Image.open(d + 'body.png').convert('RGBA'); fx = Image.open(f).convert('RGBA') if os.path.exists(f) else Image.new('RGBA', body.size)
+    px = fx.load(); bp = body.load()
+    hexc = lambda c, a=255: tuple(int(c[i:i + 2], 16) for i in (1, 3, 5)) + (a,)
+    def stamp(k, r, pat, x0, y0, flip, recol=None, alpha=None, skip=None):
+        for yy, row in enumerate(pat):
+            if skip and yy % 2 == skip - 1: continue
+            for xx, ch in enumerate(row[::-1] if flip else row):
+                if ch == '.': continue
+                ch = (recol or {}).get(ch, ch)
+                if ch == '.': continue
+                X, Y = x0 + xx, y0 + yy
+                if 0 <= X < 64 and 0 <= Y < 64: px[k * 64 + X, r * 64 + Y] = hexc(NPAL[ch], (alpha or {}).get(ch, 255))
+    for k, stage in frames.items():
+        for r, fd in enumerate(dirs):
+            if fd not in ('E', 'W'): continue
+            opq = [(x, y) for y in range(64) for x in range(64) if bp[k * 64 + x, r * 64 + y][3]]
+            if not opq: continue
+            top = min(y for _, y in opq); head = [x for x, y in opq if y <= top + 9]; L, R_ = min(head), max(head)
+            flip = fd == 'W'; x0 = R_ + 3 - 17 if flip else L - 3; y0 = top - 4
+            pat = NPAT['oniMask']
+            if stage == 'faint': stamp(k, r, pat, x0, y0, flip, recol={'m': '.', 'M': '.', 'Y': '.', 'W': '.'}, alpha={'R': 150})
+            elif stage == 'flicker': stamp(k, r, pat, x0, y0, flip, alpha={'m': 110, 'R': 170}, skip=1)
+            else: stamp(k, r, pat, x0, y0, flip, alpha={'m': 175}, recol={'R': 'O', 'Y': 'W'} if stage == 'flare' else None)   # translucent fill: an illusion, the face shows faintly through
+            for name, dx, dy in (waves or {}).get(k, ()):   # waves anchored at the mask's snout, bottom-left like nfx
+                w = NPAT[name]; wx = (L - 3 + 18 + dx) if not flip else (R_ + 3 - 17 - dx - len(w[0]))
+                stamp(k, r, w, wx, top + 9 + dy - len(w) + 1, flip)
+    fx.save(f); print(state, 'mask', list(frames))
 
 def ghosts(state, offs, cols):
     """after the blur: afterimages (Christopher 2026-10-27: onion/afterimage effects to exaggerate the speed). On each
