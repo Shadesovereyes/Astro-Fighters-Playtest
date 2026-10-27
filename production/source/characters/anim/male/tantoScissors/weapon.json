@@ -28,8 +28,7 @@
       "hand": "arms",
       "layers": {
         "front": "main-tanto-front.png",
-        "top": "main-tanto-top.png",
-        "trail": "main-tanto-trail.png"
+        "top": "main-tanto-top.png"
       },
       "status": "CANDIDATE 2026-10-27 (E/W; W mirrors E; S/N to author after approval)",
       "z": {

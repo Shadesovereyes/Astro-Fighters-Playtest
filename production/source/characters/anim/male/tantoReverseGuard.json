@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Tantojutsu Reverse Grip Stance idle (defence, counters), user 2026-10-27: a lower stance with the weight back; the knife hand held high in front of the chest in the reverse (ice-pick) grip, the blade edge-out along the forearm toward the elbow; the live open hand forward to check; a slow breathing bob.",
+  "intent": "Tantojutsu Reverse Grip Stance idle (defence, counters), user 2026-10-27: a lower stance with the weight back; the knife hand held high in front of the chest in the reverse (ice-pick) grip, the blade pointing straight down out of the little-finger side of the fist, clear of the forearm (user 2026-10-27); the live fist up by the chin; a slow breathing bob.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -1289,7 +1289,7 @@
             45,
             26
           ],
-          "angle": -121.2,
+          "angle": -84,
           "z": {
             "hilt": "front",
             "blade": "aboveArm"
@@ -1300,7 +1300,7 @@
             45,
             25
           ],
-          "angle": -116.2,
+          "angle": -84,
           "z": {
             "hilt": "front",
             "blade": "aboveArm"
@@ -1311,7 +1311,7 @@
             45,
             26
           ],
-          "angle": -116.2,
+          "angle": -84,
           "z": {
             "hilt": "front",
             "blade": "aboveArm"
@@ -1322,7 +1322,7 @@
             45,
             27
           ],
-          "angle": -121.2,
+          "angle": -84,
           "z": {
             "hilt": "front",
             "blade": "aboveArm"
@@ -1332,7 +1332,7 @@
       "mirror": {
         "W": "E"
       },
-      "grip": "reverse (blade below the little finger, edge out along the forearm)"
+      "grip": "reverse (blade below the little finger, pointing down, clear of the forearm)"
     }
   ],
   "stance": "Reverse Grip Stance"
