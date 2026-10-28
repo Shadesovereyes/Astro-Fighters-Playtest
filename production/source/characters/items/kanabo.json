@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-item/v1",
   "item": "kanabo",
   "kind": "rigid weapon (AGENTS.md: rigid items are placed by anchor with integer offsets)",
-  "status": "design approved by user 2026-10-28 (Ironwood Kanabo v2 cast, c58ee3f); weapon layer CANDIDATE 2026-10-28",
+  "status": "design approved by user 2026-10-28 (Ironwood Kanabo v2 cast, c58ee3f); weapon layer approved by user 2026-10-28 14:08",
   "construction": "band, one segment per row of the approved Ironwood Kanabo v2 club (astro.py NPAT['kanabo']); '.' in a cross-section is empty, so the spike rows stand out of the band; pixels are rasterised from the authored data, never rotated or resampled from an image",
   "palette": {
     "#": "#000000",

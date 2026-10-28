@@ -24,7 +24,7 @@ K.HILT = 4   # near fist to far fist along the cord grip
 from kenjutsu import fr, D, BASE, POSES, grips
 
 R = K.R
-STAT = 'CANDIDATE 2026-10-28 (E/W; W mirrors E; S/N to author after approval)'
+STAT = 'E/W approved by user 2026-10-28 14:08 (v1, 6d5ba34; W mirrors E); S/N to author'
 
 # the approved club (Ironwood Kanabo v2, astro.py NPAT['kanabo']): rows top (cap) to bottom (ring pommel), columns back
 # to front in E; i/j/h iron dark/mid/highlight, u/v cord wrap
@@ -39,7 +39,7 @@ def item():
         segs.append({'name': f'{name}-{r}', 'from': u0, 'to': u0 + 1, 'thickness': 9, 'pattern': [row]})
     it = {'schema': 'astro-fighters-character-item/v1', 'item': 'kanabo',
           'kind': 'rigid weapon (AGENTS.md: rigid items are placed by anchor with integer offsets)',
-          'status': 'design approved by user 2026-10-28 (Ironwood Kanabo v2 cast, c58ee3f); weapon layer CANDIDATE 2026-10-28',
+          'status': 'design approved by user 2026-10-28 (Ironwood Kanabo v2 cast, c58ee3f); weapon layer approved by user 2026-10-28 14:08',
           'construction': 'band, one segment per row of the approved Ironwood Kanabo v2 club (astro.py NPAT[\'kanabo\']); \'.\' in a cross-section is empty, so the spike rows stand out of the band; pixels are rasterised from the authored data, never rotated or resampled from an image',
           'palette': {'#': '#000000', 'i': '#24252b', 'j': '#4a4c55', 'h': '#9a9da8', 'u': '#a08a62', 'v': '#6e5c3e'},
           'paletteSource': 'astro.py NPAL: i/j/h kanabo iron (dark, mid, highlight), u/v its cord wrap (as approved in the cast)',

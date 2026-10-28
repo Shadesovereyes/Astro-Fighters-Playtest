@@ -31,7 +31,7 @@
         "front": "main-kanabo-front.png",
         "trail": "main-kanabo-trail.png"
       },
-      "status": "CANDIDATE 2026-10-28 (E/W; W mirrors E; S/N to author after approval)",
+      "status": "E/W approved by user 2026-10-28 14:08 (v1, 6d5ba34; W mirrors E); S/N to author",
       "z": {
         "E": [
           "front",
