@@ -642,7 +642,27 @@ CLIPS = {
               [(3, [('dust1', [14, 63]), ('rocks', [9, 59])])] + [(k, _dustkick(SPRINT_LEGS[k - 4], k) + _dustkick(SPRINT_LEGS[(k + 0) % 8], k + 1) + DUST_WAKE[k % 2]) for k in range(4, 10)] +
               [(10, [('rocks', [48, 30]), ('dust2', [44, 36]), ('cryst', [50, 25]), ('dust1', [38, 63])] + DUST_WAKE[0][:2]), (11, [('rocks', [50, 27]), ('crystT', [47, 22]), ('dust1', [46, 34])]), (12, [('dust1', [46, 63])])]),
        extra={'travel': {'rule': 'Bull Rush is a gap closer: the fighter ends the clip 40 px further forward (sum of rootMotion); the game moves the fighter by that distance', 'E': 40}})),
-  'flowDodge': ('Flow Dodge', 3,
+ 'oakFlesh': ('Oak Flesh', 4,
+  'Oak Flesh (Taurus ninjutsu self buff, FORT +50% 3 rounds: the fighter steadies itself and focuses its will to harden its skin): from the guard the fighter makes the seal at the chin and sinks a little into its knees, eyes closing, an earthen aura rising round it; then it drives its fists down beside its hips, elbows back, and its skin hardens into oak: a bark-brown tint spreads over all its skin and dark wood grain stands out down the arms and neck, wood chips and dust shaken off it and teal crystal glints flashing on the hardened skin; it holds, unmoving, then rises back into the guard still clad in bark (the spec asks the testbed to keep the bark tint and grain while the buff lasts).', [
+     g(),
+     g(an=U.SEAL_N, af=U.SEAL_F, bob=(1, 1, 1), lean=(0, 0)),
+     g(an=U.SEAL_N, af=U.SEAL_F, bob=(2, 2, 2), lean=(0, 0), **LOW),
+     g(an=U.SEAL_N, af=U.SEAL_F, bob=(2, 2, 3), lean=(0, 0), **LOW),
+     g(an=FLEX_N, af=FLEX_F, bob=(3, 3, 3), lean=(0, 1), **LOW),
+     g(an=FLEX_N, af=FLEX_F, bob=(3, 3, 3), lean=(0, 1), **LOW),
+     g(an=FLEX_N, af=FLEX_F, bob=(3, 3, 3), lean=(0, 1), **LOW),
+     g(an=FLEX_N, af=FLEX_F, bob=(3, 3, 3), lean=(0, 1), **LOW),
+     g(an=band(-30, -100), af=band(-30, -95), bob=(2, 2, 2), lean=(0, 2), **LOW),
+     g()],
+  [None, 'squint', 'closed', 'closed', 'strain', 'strain', 'squint', 'squint', None, None],
+  [0, 0, 1, 1, 2, 2, 2, 1, 1, 0],
+  dict(fps=10, auraColors=('#c79a5b', '#8a6236'), tint={3: 60, 4: 120, 5: 170, 6: 170, 7: 170, 8: 160, 9: 160}, veins=(4, 5, 6, 7, 8, 9), tintColors=((0x8a, 0x62, 0x36), (0x3f, 0x26, 0x12)),
+       extra={'linger': {'rule': 'Oak Flesh (FORT +50% 3 rounds): the clip ends with the skin hardened into oak; while the buff lasts the testbed keeps drawing the fighter with the bark tint (#8a6236 at alpha 160 over skin pixels) and the dark wood grain (#3f2612), on every state it plays; clears when the buff ends', 'tint': ['#8a6236', 160], 'veins': '#3f2612'}},
+       anchored={4: [('rocks', 'head', -8, 20), ('dust1', 'feet', -6, -2), ('dust1', 'feet', 7, -2)],
+                 5: [('cryst', 'head', 6, 16), ('rocks', 'head', 8, 26), ('crystT', 'head', -7, 22)],
+                 6: [('cryst', 'head', -6, 24), ('crystT', 'head', 7, 12)],
+                 7: [('cryst', 'head', 5, 28)]})),
+ 'flowDodge': ('Flow Dodge', 3,
   'Flow Dodge (Sagittarius taijutsu stance buff: the fighter enters a dance-like trance and begins to swing and sway to its own rhythm): from the guard the fighter shakes its arms loose and lets the guard drop low and easy, eyes half closed, catching a beat; then it sways to its own rhythm: rocking back and forward on its feet and dipping on the knees, shoulders rolling, the loose hands swinging opposite to the hips, a flickering fire aura breathing round it on the beat with a few black and purple wisps rising off the shoulders; on the last beat it snaps its eyes open and settles into a loose, low guard (the testbed keeps the stance).', [
      g(),
      g(an=band(-10, -40), af=band(-20, -50), bob=(1, 1, 2), lean=(0, 0)),
@@ -740,7 +760,7 @@ def fx(state):
         if x.get('burstEvery'):   # the spiked aura drawn on each facing's own row (the fighter keeps its facing)
             for i, r_ in enumerate(load(D + state + '.json')['directions']): burst(state, x['burst'], row=r_, spread=False, clean=i == 0)
         else: burst(state, x['burst'])
-    if x.get('tint'): flush(state, x['tint'], x.get('veins', ()))
+    if x.get('tint'): flush(state, x['tint'], x.get('veins', ()), *x.get('tintColors', ()))
     if x.get('meteor'):
         from PIL import Image
         f_ = D + state + '/fx.png'
@@ -968,7 +988,7 @@ def blast(state, frames):
     fx.save(f); print(state, 'blast', frames)
 
 SKIN = {(0xf6, 0xa3, 0x5b), (0xc8, 0x78, 0x45), (0x9e, 0x4a, 0x31)}   # the rig's skin ramp (L, m, s)
-def flush(state, tint, veins):
+def flush(state, tint, veins, col=(0xff, 0x3a, 0x1a), vcol=(0x7a, 0x14, 0x0c)):   # col/vcol: tint and vein colours (Oak Flesh: bark brown, dark grain)
     """Inner Gate (Christopher 2026-10-27): the skin flushes red (a translucent red over every skin pixel, alpha per frame)
     and veins stand out on the forearms, upper arms, neck and temple (dark red broken lines, interior skin pixels only).
     Written as two extra layers so clothing, armour and hair still cover it: skin-fx.png (body + far arm skin, drawn just
@@ -984,17 +1004,17 @@ def flush(state, tint, veins):
             for fd in dirs:
                 r = dirs.index(fd)
                 skin = {(x, y) for L in lays for y in range(64) for x in range(64) if (q := L[k * 64 + x, r * 64 + y])[3] and q[:3] in SKIN}
-                for (x, y) in skin: px[k * 64 + x, r * 64 + y] = (0xff, 0x3a, 0x1a, al)
+                for (x, y) in skin: px[k * 64 + x, r * 64 + y] = tuple(col) + (al,)
                 if k not in veins or not skin: continue
                 top_y = min(y for _, y in skin) if out == 'skin-fx.png' else -99
                 for (x, y) in skin:
                     if top_y + 2 < y < top_y + 11:   # head: a short vein at the temple only, the face stays clean
-                        if y in (top_y + 3, top_y + 4) and (x + y) % 3 == 0 and (x - 1, y) in skin and (x + 1, y) in skin: px[k * 64 + x, r * 64 + y] = (0x7a, 0x14, 0x0c, 255)
+                        if y in (top_y + 3, top_y + 4) and (x + y) % 3 == 0 and (x - 1, y) in skin and (x + 1, y) in skin: px[k * 64 + x, r * 64 + y] = tuple(vcol) + (255,)
                         continue
                     across = ((x - 1, y) in skin and (x + 1, y) in skin and (x - 2, y) not in skin | {(x, y)}) or ((x, y - 1) in skin and (x, y + 1) in skin)
                     # a vein runs down the middle of each limb's cross-section (arms, neck), broken every few pixels
                     mid = (x - 1, y) in skin and (x + 1, y) in skin if (x, y - 1) in skin and (x, y + 1) in skin else (x, y - 1) in skin and (x, y + 1) in skin
-                    if mid and (x * 3 + y) % 5 != 0: px[k * 64 + x, r * 64 + y] = (0x7a, 0x14, 0x0c, 255)
+                    if mid and (x * 3 + y) % 5 != 0: px[k * 64 + x, r * 64 + y] = tuple(vcol) + (255,)
         img.save(d + out)
     print(state, 'flush', list(tint), 'veins', list(veins))
 
