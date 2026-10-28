@@ -278,6 +278,23 @@ NPAT.update({**{'mound%d' % n: _mound(n, seed=n) for n in (6, 14, 18)}, 'coffin2
              **{'whirl%d%s' % (k, fb): q for k in range(4) for fb, q in zip('FB', _whirl(12, 3, 7, k * math.pi / 2, 10 + k, arms=2))},
              'sandStream': ['..s..S..s.Z..S', '.SsS.sSs.SsS.s', 'sSsSsSsSsSsSsS'], 'sandRise': ['.S.s', 's.Z.', '.S.s', 'S..s']})   # Sand Burial: sand flowing along the floor toward the target, sand rising
 
+def _gust(w, h, phase, seed, n=9):   # Sandstorm v2 target: streaks of sand blowing across the fighter; returns (front, back)
+    import random
+    rnd = random.Random(seed); fr = [['.'] * w for _ in range(h)]; bk = [['.'] * w for _ in range(h)]
+    for i in range(n):
+        y = rnd.randint(1, h - 2); L = rnd.randint(4, 9); x0 = (rnd.randint(0, w - 1) + phase * 9) % w; q = fr if i % 2 == 0 else bk
+        for u in range(L):
+            X = (x0 + u) % w; Y = y + (1 if u > L // 2 and i % 3 == 0 else 0)
+            q[min(h - 1, Y)][X] = 'Z' if u == L - 1 else 'S' if u > L // 3 else 's'
+            if i % 2 == 0 and 0 < u < L - 1: q[min(h - 1, Y + 1)][X] = 's'
+    for _ in range(3):
+        y = rnd.randint(2, h - 3); x = (rnd.randint(0, w - 1) + phase * 9) % w; (fr if rnd.random() < 0.5 else bk)[y][x] = rnd.choice('CcK')
+    return [''.join(r) for r in fr], [''.join(r) for r in bk]
+NPAT.update({**{'eye%d%s' % (k, fb): q for k in range(4) for fb, q in zip('FB', _whirl(50, 15, 22, k * math.pi / 2, 30 + k, arms=4, shards=14))},   # Sandstorm v2: the storm round the caster, wide at the foot so the fighter stands in its eye
+             **{'eyeMid%d%s' % (k, fb): q for k in range(4) for fb, q in zip('FB', _whirl(30, 15, 19, k * math.pi / 2, 40 + k, arms=4, shards=6))},
+             **{'eyeLow%d%s' % (k, fb): q for k in range(4) for fb, q in zip('FB', _whirl(12, 14, 16, k * math.pi / 2, 50 + k, arms=3))},
+             **{'gust%d%s' % (k, fb): q for k in range(4) for fb, q in zip('FB', _gust(34, 40, k, 60 + k, n=18))},
+             'stormRing': _whirl(12, 14, 16, 0, 50, arms=2)[0], 'sandSprayL': [r[::-1] for r in NPAT['sandSpray']]})
 NPAL.update({'X': '#120d16', 'x': '#3a2f40'})   # Virgo genjutsu: the phantom's shadow (near-black, smoky edge)
 def _scale(pat, f):   # nearest-neighbour enlargement of a pattern by f (Virgo genjutsu v1: the phantom and the coffin drawn bigger)
     h, w = len(pat), len(pat[0]); H, W = round(h * f), round(w * f)
@@ -956,26 +973,35 @@ CLIPS = {
                  6: [('mound18', 'feet', 0, -9), ('sandTrk', 'feet', -8, -16)],
                  7: [('mound18', 'feet', 0, -9), ('sandTrk', 'feet', 10, -17)]})),
  'sandstorm': ('Sandstorm', 6,
-  'Sandstorm (Virgo ninjutsu, Elemental 10, AoE centred on the target, Blind 2 rounds INT save DC 12, Bleed 2 rounds 4/tick: the caster whips up a sand tornado round its opponent that blinds and batters it with shrapnel): from the guard the fighter makes the seal and raises the near hand high, palm up, and circles it; a small whirl of sand spins up round the hand, faster and faster, a sandy aura rising; then it steps in and thrusts the open palm at the target and the whirl flies off; it holds, then settles back into the guard. On the target (the testbed plays sandstormCaught on every fighter in the AoE): a sand tornado wraps round it from the floor up, streaks of sand spiralling round with crystal and grit shrapnel in them, the front half over the fighter and the back half behind it, and the fighter shields its eyes with its arms, flinching, until the Blind ends.', [
+  'Sandstorm (Virgo ninjutsu), v2 (Christopher 2026-10-28: a user-centred AoE; a hazardous storm round the user that deals light damage, lowers the accuracy of anyone inside and keeps every projectile that is not an ultimate from entering): from the guard the fighter makes the seal, then sinks low with both fists driven down beside the hips; sand lifts off the floor round its feet and starts to turn, a low ring of sand spinning round its legs; it rises and raises the near hand high, palm up, circling it, and the storm climbs with it, round the waist, then the chest, until a sand tornado stands round the whole fighter with the fighter calm in its eye, crystal and grit shrapnel caught in the streaks, the front half drawn over the fighter (part see-through) and the back half behind it; it sweeps the open hand out and down and the storm blasts outward, sand spraying off both sides; it settles back into the guard with a thin ring of storm still turning round it. The testbed then draws the storm over the whole AoE for as long as it lasts (extra.zone).', [
      g(),
      g(an=U.SEAL_N, af=U.SEAL_F, bob=(1, 1, 1), lean=(0, 0)),
+     g(an=FLEX_N, af=FLEX_F, bob=(2, 2, 2), lean=(0, -1), **LOW),
+     g(an=FLEX_N, af=FLEX_F, bob=(2, 2, 2), lean=(0, -1), **LOW),
      g(an=band(-115, -140, fistKind='palm'), af=band(-30, -100), bob=(1, 1, 1), lean=(0, -1)),
      g(an=band(-122, -150, fistKind='palm'), af=band(-30, -100), bob=(1, 1, 1), lean=(0, -1)),
      g(an=band(-110, -132, fistKind='palm'), af=band(-30, -100), bob=(1, 1, 1), lean=(0, -1)),
      g(an=band(-122, -150, fistKind='palm'), af=band(-30, -100), bob=(1, 1, 1), lean=(0, -1)),
-     g(an=band(-95, -95, fistKind='palm'), af=band(-40, -120), bob=(1, 1, 1), lean=(1, 4), root=(2, 0), ln='sp-drive-rear', lf='sp-drive-lead'),
-     g(an=band(-95, -95, fistKind='palm'), af=band(-40, -120), bob=(1, 1, 1), lean=(1, 4), ln='sp-drive-rear', lf='sp-drive-lead'),
-     g(an=band(-50, -120), af=band(-30, 215), bob=(1, 1, 2), lean=(1, 3), ln='sp-drive-rear', lf='sp-drive-lead'),
-     g(root=(-2, 0))],
-  [None, 'squint', 'squint', 'squint', 'strain', 'strain', 'squint', 'squint', None, None],
-  [0, 0, 1, 1, 2, 2, 2, 1, 0, 0],
-  dict(fps=10, auraColors=('#e6c27a', '#9c7434'), rm='E: +2 into the thrust, -2 settling back',
-       extra={'targetState': {'rule': 'Sandstorm: on the active frame the testbed plays sandstormCaught on loop on every fighter in the AoE round the target until the Blind ends', 'state': 'sandstormCaught'}},
-       anchored={1: [('sandRise', 'hand', 0, -3)], 2: [('whirl0F', 'hand', 0, -3)], 3: [('whirl1F', 'hand', 0, -3), ('grains', 'hand', 5, 4)],
-                 4: [('whirl2F', 'hand', 0, -3), ('whirl2B', 'hand', 0, -3), ('grains', 'hand', -5, 5)], 5: [('whirl3F', 'hand', 0, -3), ('whirl3B', 'hand', 0, -3), ('grains', 'hand', 5, 6), ('sandRise', 'hand', -3, 7)],
-                 6: [('whirl0F', 'hand', 5, -1), ('sandSpray', 'hand', 3, 0)], 7: [('whirl1F', 'hand', 8, 0, {'alpha': {'s': 150, 'S': 150, 'Z': 170}}), ('grains', 'hand', 4, 3)]})),
+     g(an=band(-110, -132, fistKind='palm'), af=band(-30, -100), bob=(1, 1, 1), lean=(0, -1)),
+     g(an=band(-40, -40, fistKind='palm'), af=band(-30, -100), bob=(2, 2, 2), lean=(0, 1), **LOW),
+     g(an=band(-40, -40, fistKind='palm'), af=band(-30, -100), bob=(1, 1, 2), lean=(0, 1)),
+     g()],
+  [None, 'squint', 'strain', 'strain', 'squint', 'squint', 'closed', 'closed', 'closed', 'strain', 'squint', None],
+  [0, 0, 1, 1, 2, 2, 3, 3, 3, 3, 2, 1],
+  dict(fps=10, auraColors=('#e6c27a', '#9c7434'),
+       extra={'zone': {'rule': 'Sandstorm v2 (Christopher 2026-10-28): AoE centred on the caster\'s hex (selfCentered, no aim point), placeholder radius 2 for 3 rounds; the testbed draws the storm (stormRing pattern turning, sand streaks and grit) over every hex of the AoE, following the caster if it moves; each round every other fighter inside takes light Elemental damage (placeholder 4) and an accuracy penalty while inside (placeholder -20% hit chance, Claude\'s reading: the caster in the eye is not penalised); a Projectile that is not an ultimate cannot enter: it stops at the first AoE hex on its line and breaks up in a sandPuff; ultimates pass through', 'pattern': 'stormRing', 'radius': 2, 'rounds': 3, 'selfCentered': True, 'blocksProjectiles': 'non-ultimate'},
+              'targetState': {'rule': 'Sandstorm v2: every other fighter inside the AoE plays sandstormCaught on loop while it stays inside', 'state': 'sandstormCaught'}},
+       anchored={1: [('sandRise', 'feet', -10, -6), ('sandRise', 'feet', 10, -6)],
+                 2: [('eyeLow0B', 'feet', 0, -8, {'behind': True}), ('eyeLow0F', 'feet', 0, -8)],
+                 3: [('eyeLow1B', 'feet', 0, -8, {'behind': True}), ('eyeLow1F', 'feet', 0, -8), ('grains', 'feet', 12, -14)],
+                 4: [('eyeMid2B', 'feet', 0, -16, {'behind': True}), ('eyeMid2F', 'feet', 0, -16, {'alpha': {'s': 190, 'S': 190, 'Z': 210}})],
+                 5: [('eyeMid3B', 'feet', 0, -16, {'behind': True}), ('eyeMid3F', 'feet', 0, -16, {'alpha': {'s': 190, 'S': 190, 'Z': 210}}), ('grains', 'feet', -13, -26)],
+                 **{6 + k: [('eye%dB' % k, 'feet', 0, -26, {'behind': True}), ('eye%dF' % k, 'feet', 0, -26, {'alpha': {'s': 170, 'S': 170, 'Z': 200, 'C': 220, 'c': 220, 'K': 220}})] for k in range(3)},
+                 9: [('eye3B', 'feet', 0, -26, {'behind': True}), ('eye3F', 'feet', 0, -26, {'alpha': {'s': 130, 'S': 130, 'Z': 160}}), ('sandSpray', 'feet', 20, -20), ('sandSprayL', 'feet', -20, -20)],
+                 10: [('sandCloud2', 'feet', 22, -18), ('sandCloud2', 'feet', -22, -18), ('eyeLow2B', 'feet', 0, -8, {'behind': True}), ('eyeLow2F', 'feet', 0, -8, {'alpha': {'s': 140, 'S': 140, 'Z': 160}})],
+                 11: [('eyeLow3B', 'feet', 0, -8, {'behind': True}), ('eyeLow3F', 'feet', 0, -8, {'alpha': {'s': 110, 'S': 110, 'Z': 130}})]})),
  'sandstormCaught': ('Caught in Sandstorm', 0,
-  'Caught in Sandstorm (target state of Sandstorm, Blind 2 rounds, Bleed 2 rounds): a sand tornado wraps round the fighter from the floor up, streaks of sand spiralling round it with crystal and grit shrapnel caught in them, the front half drawn over the fighter and the back half behind it; the fighter throws its forearms up over its eyes and flinches, swaying, until the Blind ends (loops, one turn of the storm every four frames).', [
+  'Caught in Sandstorm (target state of Sandstorm v2, plays while the fighter stays inside the storm: light damage each round, lowered accuracy): sand streaks and grit blow across the fighter in the direction the storm turns, crystal and grit shrapnel flicking past, some in front of it and some behind; the fighter throws its forearms up over its eyes and flinches, swaying, squinting through the sand (loops, one gust every two frames).', [
      g(an=band(-130, -175), af=band(-120, -170), bob=(1, 1, 2), lean=(0, -1)),
      g(an=band(-130, -175), af=band(-120, -170), bob=(1, 1, 2), lean=(0, -2), root=(-1, 0)),
      g(an=band(-130, -175), af=band(-120, -170), bob=(1, 1, 2), lean=(0, -1)),
@@ -983,7 +1009,7 @@ CLIPS = {
   ['pain', 'pain', 'pain', 'pain'],
   None,
   dict(fps=10, extra={'loop': True},
-       anchored={k: [('storm%dB' % k, 'feet', 0, -27, {'behind': True}), ('storm%dF' % k, 'feet', 0, -27)] for k in range(4)})),
+       anchored={k: [('gust%dB' % k, 'feet', 0, -22, {'behind': True}), ('gust%dF' % k, 'feet', 0, -22, {'alpha': {'s': 200, 'S': 200, 'Z': 220}})] for k in range(4)})),
  'phantomPlague': ('Phantom Plague', 5,
   'Phantom Plague (Virgo genjutsu, mental summon / DoT: images of a shadowy creature that only the caster and the victim see haunt the victim across the field, dealing damage and ignoring stealth; Psychosomatic 3 rounds 4/tick, INT save DC 12; range Zone of Awareness): from the guard the fighter lifts two fingers before its eyes, which kindle crystal teal, and its shadow pools out dark across the floor; it sinks low and points down into the pool, and a hunched shadow creature with teal eyes claws up out of it behind the fighter, rising to its full height; then the fighter thrusts the pointing hand at the target and the creature glides forward past it, clawed arm reaching, fading as it goes; the glow dies and the fighter steps back into the guard. The testbed then draws the phantom (wraith pattern) hovering beside the target, following it everywhere, even in stealth, and lashing at it on each tick; the target takes genjutsuAfflicted in earth colours.', [
      g(),

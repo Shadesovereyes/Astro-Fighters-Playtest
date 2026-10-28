@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Caught in Sandstorm (target state of Sandstorm, Blind 2 rounds, Bleed 2 rounds): a sand tornado wraps round the fighter from the floor up, streaks of sand spiralling round it with crystal and grit shrapnel caught in them, the front half drawn over the fighter and the back half behind it; the fighter throws its forearms up over its eyes and flinches, swaying, until the Blind ends (loops, one turn of the storm every four frames).",
+  "intent": "Caught in Sandstorm (target state of Sandstorm v2, plays while the fighter stays inside the storm: light damage each round, lowered accuracy): sand streaks and grit blow across the fighter in the direction the storm turns, crystal and grit shrapnel flicking past, some in front of it and some behind; the fighter throws its forearms up over its eyes and flinches, swaying, squinting through the sand (loops, one gust every two frames).",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
