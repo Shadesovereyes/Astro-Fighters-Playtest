@@ -182,6 +182,42 @@ def _dustkick(p, k):   # Bull Rush: a burst of dust and grit at each sprint foot
 DUST_WAKE = [[('dust2', [12, 63]), ('dust1', [4, 62]), ('dust1', [16, 58])], [('dust1', [13, 63]), ('dust2', [5, 63]), ('rocks', [10, 56])]]
 SPIN = lambda d, f: {'state': 'spinPivot', 'dir': d, 'frame': f, 'dx': 2}
 
+NPAL.update({'T': '#3a9e8f'})   # earth: deep crystal teal (the shaded facet of a gem)
+def _dome(f, rx=21, ry=55, crystals=False):   # Root Sanctuary: two gnarled roots growing up from the floor either side and arching over the head; f = how far they have grown (1 = met overhead)
+    h, w = ry + 2, 2 * rx + 9; cx, base = w // 2, ry + 1
+    rows = [['.'] * w for _ in range(h)]
+    def put(x, y, c):
+        if 0 <= x < w and 0 <= y < h and (rows[y][x] == '.' or c in 'KC'): rows[y][x] = c
+    for side in (1, -1):
+        for i in range(161):
+            t = i / 160 * f * math.pi / 2
+            x = cx + side * round(rx * math.cos(t) + 1.6 * math.sin(t * 13)); y = base - round(ry * math.sin(t))
+            put(x + side, y, 'K'); put(x, y, 'E'); put(x - side, y, 'E'); put(x - 2 * side, y, 'e')
+            if i % 23 == 11: put(x - side, y, 'K')
+            if i % 31 == 7: put(x - 2 * side, y, 'K')
+        for t0, ln in ((0.12, 4), (0.45, 3), (0.85, 3)):   # rootlets kicking out sideways
+            if t0 <= f * math.pi / 2:
+                x = cx + side * round(rx * math.cos(t0) + 1.6 * math.sin(t0 * 13)); y = base - round(ry * math.sin(t0))
+                for j in range(1, ln + 1): put(x + side * j, y - j // 2, 'E')
+        for j in range(1, 6): put(cx + side * (rx + 1 + j), base - (j > 3), 'E')   # roots spreading along the floor
+        if crystals:
+            for t0 in (0.3, 0.7, 1.1):
+                x = cx + side * round(rx * math.cos(t0) + 1.6 * math.sin(t0 * 13)); y = base - round(ry * math.sin(t0))
+                put(x - 2 * side, y, 'C'); put(x - 2 * side, y - 1, 'c')
+    return [''.join(r) for r in rows]
+SANCT_DY = -(55 + 1) / 2   # sits the dome's base row on the floor under the feet
+NPAT.update({**{'sanct%d' % n: _dome(n / 100) for n in (20, 45, 70, 90)}, 'sanct100': _dome(1.0, crystals=True), 'sanctBare': _dome(1.0),
+             'leafC': ['.c.', 'cCT', '.T.'],
+             'eyeC': ['.C.', 'CcC', '.C.'], 'eyeCF': ['..C..', '.CcC.', 'CcWcC', '.CcC.', '..C..'],   # Taurus genjutsu: the eyes kindle crystal teal
+             'gem1': ['.c.', 'cCT', '.T.'], 'gem2': ['..W..', '.cCC.', 'cCcCT', '.CCT.', '..T..'],
+             'gem3': ['...W...', '..cCC..', '.cCcCC.', 'cCcWCCT', '.CCCCT.', '..CTT..', '...T...'],   # Material Fixation: an illusory crystal gem, the object of the obsession
+             'glint': ['..c..', '..W..', 'cWWWc', '..W..', '..c..'], 'glit': ['c.W', '.c.', 'W.c'],
+             'fix1': _arc(4, 2, 'cC'), 'fix2': _arc(7, 3, 'WcC'), 'fix3': _arc(10, 3, 'cCT'), 'fix3d': _arc(12, 4, 'CT', gap=2),
+             'planet1': ['.e.', 'eEE', '.EK'], 'planet2': ['...ee....', '..eeEE...', 'CcCEEECCc', '..EEEK...', '...EK....'],
+             'planet3': ['....eee....', '...eeeEE...', '..eeEEEEE..', 'cCCeEEEECCc', '..EEEEEEK..', '...EEEKK...', '....KKK....'],   # Planetary Pressure: an illusory planet, soil brown with a crystal ring
+             'gp1': _sag(5, 2, 'eE'), 'gp2': _sag(8, 3, 'cCE'), 'gp3': _sag(11, 4, 'eEK'), 'gp3d': _sag(13, 4, 'EK', gap=2),
+             'gline': ['e', '.', 'E', 'E', '.', 'K']})   # gravity: dashes falling on the target
+
 CLIPS = {
  'machLunge': ('Mach Lunge', 9,
   'Mach Lunge (Aries taijutsu, Priority gap closer, burns the target), v4 (Christopher 2026-10-27: the sprint instead of a single hop, flames around the feet; afterimages for speed): from the guard the fighter dips, then breaks into the approved sprint (the same stride, lean and swept-back arms), flames bursting around the feet at every step, a stream of fire and four fire-tinted afterimages trailing behind; on the last stride it tucks both arms tight, plants the lead foot and drives the lead shoulder into the target with a flare of flame at the point of contact; then settles back into the guard. The fighter travels 40 px over the clip (the game moves it by that distance).', [
@@ -686,6 +722,67 @@ CLIPS = {
                  5: [('kanabo', 'hand', 0, -10), ('cryst', 'hand', -2, -22), ('dust1', 'feet', 6, -2)],
                  6: [('kanabo', 'hand', 0, -10), ('crystT', 'hand', 3, -18), ('dust1', 'feet', 8, -3)],
                  7: [('kanabo', 'hand', 0, -10)]})),
+ 'rootSanctuary': ('Root Sanctuary', 5,
+  'Root Sanctuary (Taurus ninjutsu self buff, FORT +20% 2 rounds: the fighter forms a rooted earthen sanctuary around itself, reinforcing its body): from the guard the fighter makes the seal at the chin and sinks into its knees, eyes closing, an earthen aura rising round it; then it drives both fists down beside its hips and the floor cracks open either side of it: two gnarled roots burst up out of the cracks, rootlets kicking out sideways and runners spreading along the floor, and climb either side of the fighter, arching inward over its head until they meet in a dome, teal crystal budding along them as they close; it holds inside the sanctuary, unmoving, crystal glinting, then the roots sink back into the floor and it rises back into the guard (the spec proposes a faint ring of roots at the feet while the buff lasts).', [
+     g(),
+     g(an=U.SEAL_N, af=U.SEAL_F, bob=(1, 1, 1), lean=(0, 0)),
+     g(an=U.SEAL_N, af=U.SEAL_F, bob=(2, 2, 2), lean=(0, 0), **LOW),
+     *[g(an=FLEX_N, af=FLEX_F, bob=(3, 3, 3), lean=(0, 1), **LOW) for _ in range(7)],
+     g(an=band(-30, -100), af=band(-30, -95), bob=(2, 2, 2), lean=(0, 2), **LOW),
+     g()],
+  [None, 'squint', 'closed', 'strain', 'strain', 'squint', 'squint', 'squint', 'squint', 'squint', None, None],
+  [0, 0, 1, 2, 2, 2, 2, 2, 2, 1, 1, 0],
+  dict(fps=10, auraColors=('#c79a5b', '#8a6236'),
+       extra={'linger': {'rule': 'Root Sanctuary (FORT +20% 2 rounds), proposal: while the buff lasts the testbed draws a faint ring of roots on the floor round the fighter (the crack2 floor pattern in soil browns, alpha 150, behind the fighter); clears when the buff ends', 'pattern': 'crack2', 'alpha': 150}},
+       anchored={3: [('crack2', 'feet', 0, -1), ('sanct20', 'feet', 0, SANCT_DY, {'behind': True}), ('dust1', 'feet', -14, -3), ('dust1', 'feet', 14, -3), ('rocks', 'feet', 16, -8)],
+                 4: [('crack2', 'feet', 0, -1), ('sanct45', 'feet', 0, SANCT_DY, {'behind': True}), ('dust2', 'feet', 14, -3), ('rocks', 'feet', -17, -10)],
+                 5: [('crack2', 'feet', 0, -1), ('sanct70', 'feet', 0, SANCT_DY, {'behind': True}), ('dust1', 'feet', -15, -4)],
+                 6: [('crack2', 'feet', 0, -1), ('sanct90', 'feet', 0, SANCT_DY, {'behind': True}), ('cryst', 'feet', 12, -24)],
+                 7: [('crack2', 'feet', 0, -1), ('sanct100', 'feet', 0, SANCT_DY, {'behind': True}), ('glint', 'head', 0, -10), ('cryst', 'feet', -13, -30)],
+                 8: [('crack2', 'feet', 0, -1), ('sanct100', 'feet', 0, SANCT_DY, {'behind': True}), ('cryst', 'feet', 13, -18), ('glit', 'head', -9, -4)],
+                 9: [('crack2', 'feet', 0, -1, {'alpha': {'E': 170, 'K': 170}}), ('sanct70', 'feet', 0, SANCT_DY, {'behind': True, 'alpha': {'E': 170, 'e': 170, 'K': 170}}), ('dust1', 'feet', 14, -3)],
+                 10: [('crack1', 'feet', 0, -1, {'alpha': {'E': 120, 'K': 120}}), ('sanct20', 'feet', 0, SANCT_DY, {'behind': True, 'alpha': {'E': 110, 'e': 110, 'K': 110}})]})),
+ 'materialFixation': ('Material Fixation', 4,
+  'Material Fixation (Taurus genjutsu, mental debuff: the caster forces an obsession on the foe, so it drops everything and loses focus on the fight; Disarm 3 rounds, INT save DC 12; range ~12 m): from the guard the fighter opens the near hand palm up in front of its chest, the far hand low, and an illusory crystal gem forms out of a glint in the palm, growing and faceting, teal with a white highlight and sparkling; its eyes kindle crystal teal; it lifts the palm and offers the gem out toward the target, and the gem\'s image drifts off the palm toward the foe trailing glitter while waves of crystal-teal fascination roll out from the eyes, each one wider; the gem fades out of sight near the target, the glow dies and the hand drops back into the guard (the target takes the genjutsu mark, genjutsuAfflicted in earth colours, for the Disarm).', [
+     g(),
+     g(an=band(-40, -100, fistKind='palm'), af=band(-10, -40), bob=(1, 1, 1), lean=(0, 0)),
+     g(an=band(-40, -100, fistKind='palm'), af=band(-10, -40), bob=(1, 1, 1), lean=(0, -1)),
+     g(an=band(-55, -95, fistKind='palm'), af=band(-10, -40), bob=(1, 1, 1), lean=(0, 0)),
+     *[g(an=band(-80, -90, fistKind='palm'), af=band(-10, -40), bob=(1, 1, 1), lean=(1, 3)) for _ in range(4)],
+     g(an=band(-50, -110), af=band(-25, -90), bob=(1, 1, 1), lean=(0, 1)),
+     g()],
+  [None, None, 'squint', 'squint', 'squint', 'squint', 'squint', None, None, None],
+  [0, 0, 1, 1, 2, 2, 2, 1, 0, 0],
+  dict(fps=10, auraColors=('#7fe3d0', '#8a6236'), extra={'targetState': {'rule': 'Christopher 2026-10-27: every genjutsu marks its target; on the active frame the target starts genjutsuAfflicted (earth colours, genjutsuMark.recolor.earth) and keeps it until the Disarm ends', 'state': 'genjutsuAfflicted', 'element': 'earth'}},
+       anchored={1: [('gem1', 'hand', 1, -4)],
+                 2: [('gem2', 'hand', 1, -5), ('glit', 'hand', -3, -9), ('eyeC', 'eye', 0, 0)],
+                 3: [('gem3', 'hand', 1, -6), ('glint', 'hand', 4, -11), ('eyeCF', 'eye', 0, 0)],
+                 4: [('gem3', 'hand', 5, -5), ('glit', 'hand', 0, -4), ('eyeCF', 'eye', 0, 0), ('fix1', 'eye', 6, 0)],
+                 5: [('gem2', 'hand', 11, -4), ('glit', 'hand', 5, -3), ('glit', 'hand', 0, -6, {'alpha': {'c': 150, 'W': 170}}), ('eyeCF', 'eye', 0, 0), ('fix2', 'eye', 10, 1), ('fix1', 'eye', 6, 0)],
+                 6: [('gem2', 'hand', 17, -3, {'alpha': {'c': 190, 'C': 190, 'T': 190, 'W': 210}}), ('glit', 'hand', 11, -2), ('eyeCF', 'eye', 0, 0), ('fix3', 'eye', 15, 2), ('fix2', 'eye', 10, 1), ('fix1', 'eye', 6, 0)],
+                 7: [('gem1', 'hand', 22, -2, {'alpha': {'c': 140, 'C': 140, 'T': 140}}), ('glit', 'hand', 17, -1, {'alpha': {'c': 140, 'W': 150}}), ('eyeC', 'eye', 0, 0), ('fix3d', 'eye', 20, 3), ('fix3', 'eye', 15, 2)],
+                 8: [('fix3d', 'eye', 21, 3, {'alpha': {'C': 140, 'T': 140}})]})),
+ 'planetaryPressure': ('Planetary Pressure', 4,
+  'Planetary Pressure (Taurus genjutsu, mental debuff: the caster exerts its will on the foe\'s mind so it perceives gravity as twice as strong; Slow 2 rounds, STR save DC 13; range ~12 m): from the guard the fighter raises the near hand high, palm up, and an illusory planet forms just in front of it, soil brown with a ring of teal crystal, swelling over two frames while the eyes kindle crystal teal; then it closes the hand into a fist and drags it down hard in front of itself, sinking into its knees as if hauling the weight down, and the planet collapses into heavy dome-shaped waves of gravity that roll out toward the target, bearing down and sinking as they travel, with dashes of gravity falling over the target; it holds the pull, then rises back into the guard (the target takes the genjutsu mark, genjutsuAfflicted in earth colours, for the Slow).', [
+     g(),
+     g(an=band(-110, -150, fistKind='palm'), af=band(-20, -70), bob=(0, -1, 0), lean=(0, -1)),
+     g(an=band(-120, -150, fistKind='palm'), af=band(-5, -40), bob=(0, -1, 0), lean=(0, -2)),
+     g(an=band(-120, -150, fistKind='palm'), af=band(-5, -40), bob=(0, -1, 0), lean=(0, -2)),
+     g(an=band(-90, -60), af=band(-5, -40), bob=(2, 2, 2), lean=(1, 3), **LOW),
+     *[g(an=band(-60, -40), af=band(-5, -40), bob=(3, 3, 3), lean=(1, 4), **LOW) for _ in range(3)],
+     g(an=band(-40, -110), af=band(-25, -90), bob=(1, 1, 2), lean=(0, 1)),
+     g()],
+  [None, None, 'squint', 'squint', 'strain', 'strain', 'squint', 'squint', None, None],
+  [0, 0, 1, 2, 2, 2, 2, 1, 0, 0],
+  dict(fps=10, auraColors=('#c79a5b', '#8a6236'), extra={'targetState': {'rule': 'Christopher 2026-10-27: every genjutsu marks its target; on the active frame the target starts genjutsuAfflicted (earth colours, genjutsuMark.recolor.earth) and keeps it until the Slow ends', 'state': 'genjutsuAfflicted', 'element': 'earth'}},
+       anchored={1: [('planet1', 'hand', 4, 1)],
+                 2: [('planet2', 'hand', 6, 2), ('eyeC', 'eye', 0, 0)],
+                 3: [('planet3', 'hand', 7, 3), ('glit', 'hand', 12, -2), ('eyeCF', 'eye', 0, 0)],
+                 4: [('planet2', 'hand', 2, 0, {'alpha': {'e': 170, 'E': 170, 'K': 170, 'C': 190, 'c': 190}}), ('eyeCF', 'eye', 0, 0), ('gp1', 'feet', 14, -30)],
+                 5: [('eyeCF', 'eye', 0, 0), ('gp2', 'feet', 19, -24), ('gp1', 'feet', 14, -30), ('gline', 'feet', 22, -38), ('gline', 'feet', 28, -34)],
+                 6: [('eyeCF', 'eye', 0, 0), ('gp3', 'feet', 24, -17), ('gp2', 'feet', 19, -24), ('gline', 'feet', 22, -32), ('gline', 'feet', 28, -28), ('gline', 'feet', 25, -40)],
+                 7: [('eyeC', 'eye', 0, 0), ('gp3d', 'feet', 27, -10), ('gline', 'feet', 25, -34), ('gline', 'feet', 29, -22)],
+                 8: [('gline', 'feet', 27, -28, {'alpha': {'e': 120, 'E': 120, 'K': 120}})]})),
  'flowDodge': ('Flow Dodge', 3,
   'Flow Dodge (Sagittarius taijutsu stance buff: the fighter enters a dance-like trance and begins to swing and sway to its own rhythm): from the guard the fighter shakes its arms loose and lets the guard drop low and easy, eyes half closed, catching a beat; then it sways to its own rhythm: rocking back and forward on its feet and dipping on the knees, shoulders rolling, the loose hands swinging opposite to the hips, a flickering fire aura breathing round it on the beat with a few black and purple wisps rising off the shoulders; on the last beat it snaps its eyes open and settles into a loose, low guard (the testbed keeps the stance).', [
      g(),
