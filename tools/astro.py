@@ -194,10 +194,16 @@ def _dome(f, rx=21, ry=55, crystals=False):   # Root Sanctuary: two gnarled root
             put(x + side, y, 'K'); put(x, y, 'E'); put(x - side, y, 'E'); put(x - 2 * side, y, 'e')
             if i % 23 == 11: put(x - side, y, 'K')
             if i % 31 == 7: put(x - 2 * side, y, 'K')
+            if i % 4 == 2 and i > 4:   # v2 (Christopher 2026-10-28: more root hairs): fine 1 px hairs fraying off both edges, alternating up and down
+                up = (i // 4) % 2; ln = 2 + (i // 4) % 3
+                for j in range(1, ln + 1): put(x + side * (1 + j), y - (j if up else -j) // 2 - (j > 1 and up), 'e' if j < ln else 'u')
+                if i % 8 == 2:
+                    for j in range(1, 3): put(x - side * (2 + j), y + j, 'e')
         for t0, ln in ((0.12, 4), (0.45, 3), (0.85, 3)):   # rootlets kicking out sideways
             if t0 <= f * math.pi / 2:
                 x = cx + side * round(rx * math.cos(t0) + 1.6 * math.sin(t0 * 13)); y = base - round(ry * math.sin(t0))
                 for j in range(1, ln + 1): put(x + side * j, y - j // 2, 'E')
+                put(x + side * (ln + 1), y - ln // 2 - 1, 'e'); put(x + side * (ln + 1), y - ln // 2 + 1, 'e'); put(x + side * (ln - 1), y - ln // 2 + 1, 'u')   # hairs on the rootlet tips
         for j in range(1, 6): put(cx + side * (rx + 1 + j), base - (j > 3), 'E')   # roots spreading along the floor
         if crystals:
             for t0 in (0.3, 0.7, 1.1):
@@ -723,7 +729,7 @@ CLIPS = {
                  6: [('crack1', 'feet', 13, -1), ('dust1', 'feet', 13, -2), ('rocks', 'hand', 3, 12)],
                  7: [('crack1', 'feet', 13, -1, {'alpha': {'K': 130, 'E': 130}})]})),
  'rootSanctuary': ('Root Sanctuary', 5,
-  'Root Sanctuary (Taurus ninjutsu self buff, FORT +20% 2 rounds: the fighter forms a rooted earthen sanctuary around itself, reinforcing its body): from the guard the fighter makes the seal at the chin and sinks into its knees, eyes closing, an earthen aura rising round it; then it drives both fists down beside its hips and the floor cracks open either side of it: two gnarled roots burst up out of the cracks, rootlets kicking out sideways and runners spreading along the floor, and climb either side of the fighter, arching inward over its head until they meet in a dome, teal crystal budding along them as they close; it holds inside the sanctuary, unmoving, crystal glinting, then the roots sink back into the floor and it rises back into the guard (the spec proposes a faint ring of roots at the feet while the buff lasts).', [
+  'Root Sanctuary (Taurus ninjutsu self buff, FORT +20% 2 rounds: the fighter forms a rooted earthen sanctuary around itself, reinforcing its body), v2 (Christopher 2026-10-28: more root hairs on the rising roots): from the guard the fighter makes the seal at the chin and sinks into its knees, eyes closing, an earthen aura rising round it; then it drives both fists down beside its hips and the floor cracks open either side of it: two gnarled roots burst up out of the cracks, rootlets kicking out sideways and runners spreading along the floor, and climb either side of the fighter, arching inward over its head until they meet in a dome, teal crystal budding along them as they close; it holds inside the sanctuary, unmoving, crystal glinting, then the roots sink back into the floor and it rises back into the guard (the spec proposes a faint ring of roots at the feet while the buff lasts).', [
      g(),
      g(an=U.SEAL_N, af=U.SEAL_F, bob=(1, 1, 1), lean=(0, 0)),
      g(an=U.SEAL_N, af=U.SEAL_F, bob=(2, 2, 2), lean=(0, 0), **LOW),
