@@ -341,6 +341,7 @@ NPAT.update({'wraith0': ['....xxxx.....', '...xXXXXx....', '..xXXXXXXx...', '..x
              'coffinFlat': ['..CCCCCCCCCC...', '.CsssWsssssssC.', 'CsssWWWsssssssC', '.CsssWsssssssC.', '..CCCCCCCCCC...'],
              'cs1': _sag(5, 2, 'Ss'), 'cs2': _sag(8, 3, 'ZSs'), 'cs3': _sag(11, 4, 'SsK'), 'cs3d': _sag(13, 4, 'sK', gap=2)})   # Coffin Syndrome: sand pressure bearing down on the buried
 NPAT.update({'wraith': _scale(NPAT['wraith0'], 1.6), 'wraithRise': _scale(NPAT['wraithRise'], 1.6), 'coffinUp': _scale(NPAT['coffinUp'], 1.5), 'coffinFlat': _scale(NPAT['coffinFlat'], 1.4)})
+NPAT.update({'sandBurstL': _sandcloud(15, 17, 0.85, 5), 'sandCloudL': _sandcloud(17, 21, 0.6, 6), 'sandCloudL2': _sandcloud(17, 23, 0.35, 7), 'sandSprayUpL': _scale(NPAT['sandSprayUp'], 1.5), 'sandSprayL2': _scale(NPAT['sandSpray'], 1.4)})   # Silica Strike v5 (Christopher 19:28: more fx): bigger burst, cloud and spray
 NPAT.update({'wraithM': [r[::-1] for r in NPAT['wraith']]})   # Phantom Plague v2: the phantom turned round, facing back at the victim as it passes in front
 NPAT.update({'clawMark': ['C...C...C....', '.C...C...C...', '..C...C...C..', '...C...C...C.', '....c...c...c'], 'clawMark2': ['..........', 'c...c...c.', '.c...c...c.'[:10], '..c...c...']})   # Phantom Plague target: three teal claw marks raked down past the victim
 
@@ -946,7 +947,7 @@ CLIPS = {
                  7: [('eyeC', 'eye', 0, 0), ('gp3d', 'feet', 27, -10), ('gline', 'feet', 25, -34), ('gline', 'feet', 29, -22)],
                  8: [('gline', 'feet', 27, -28, {'alpha': {'e': 120, 'E': 120, 'K': 120}})]})),
  'silicaStrike': ('Silica Strike', 5,
-  'Silica Strike (Virgo taijutsu, Physical 8, Blind 3 rounds INT save DC 12: the fighter grabs a fistful of sand before striking at its opponent\'s face), v2 (Christopher 2026-10-28: the caster really bends down, almost taking a knee, then rises into an uppercut with the sand fx; v4 19:25: the uppercut rises from the crouched position): from the guard the fighter drops down onto the rear knee, the lead foot planted flat in front, and sweeps the near hand along the floor, scooping, sand puffing up round the fingers; it closes the fist on a handful and draws it back low beside the hip, sand trickling; then, still kneeling, it starts the uppercut from the hip and rises out of the crouch with it, legs straightening as the fist rips up and out at the opponent\'s chin, arm reaching well out in front, the sand bursting up off the fist into the face, a burst of sand hanging there in a drifting cloud; it settles back into the guard.', [
+  'Silica Strike (Virgo taijutsu, Physical 8, Blind 3 rounds INT save DC 12: the fighter grabs a fistful of sand before striking at its opponent\'s face), v2 (Christopher 2026-10-28: the caster really bends down, almost taking a knee, then rises into an uppercut with the sand fx; v4 19:25: the uppercut rises from the crouched position; v5 19:28: more fx): from the guard the fighter drops down onto the rear knee, the lead foot planted flat in front, and sweeps the near hand along the floor, scooping, sand puffing up round the fingers; it closes the fist on a handful and draws it back low beside the hip, sand trickling; then, still kneeling, it starts the uppercut from the hip and rises out of the crouch with it, legs straightening as the fist rips up and out at the opponent\'s chin, arm reaching well out in front, the sand bursting up off the fist into the face, a burst of sand hanging there in a drifting cloud; it settles back into the guard.', [
      g(),
      g(an=band(-20, -25, fistKind='palm'), af=band(-20, -150), bob=(4, 5, 5), lean=(1, 6), **BRACE),   # dropping toward the floor
      g(an=band(-25, -40, fistKind='palm'), af=band(-20, -150), bob=(9, 10, 10), lean=(1, 8), ln='ss-kneel-rear', lf='ss-kneel-lead'),   # on the rear knee, palm sweeping the floor
@@ -962,11 +963,13 @@ CLIPS = {
   None,
   dict(fps=10, hitbox=[46, 14, 14, 10], damage='light', rm='E: +1 rising, +3 stepping into the uppercut, -4 settling back',
        anchored={2: [('sandPuff', 'hand', 2, 1), ('sandPuff', 'feet', 14, -1)], 3: [('sandPuff', 'hand', 1, 0), ('sandH', 'hand', 0, -1), ('grains', 'feet', 13, -4)],
-                 4: [('sandH', 'hand', 0, -1), ('sandTrk', 'hand', 0, 5)], 5: [('sandH', 'hand', 0, -1), ('grains', 'hand', -4, 6)],
-                 6: [('sandH', 'hand', 0, -1), ('sandTrk', 'hand', -1, 7)],
-                 7: [('sandSprayUp', 'hand', 2, -5), ('sandSpray', 'hand', 5, -1), ('grains', 'hand', -3, 6)],
-                 8: [('sandBurst', 'hand', 4, -5, {'alpha': {'S': 230, 's': 220, 'Z': 235}}), ('sandCloud', 'hand', 6, -2, {'alpha': {'S': 180, 's': 170, 'Z': 190}})],
-                 9: [('sandCloud2', 'head', 12, -4, {'alpha': {'S': 150, 's': 140, 'Z': 160}})]})),
+                 4: [('sandH', 'hand', 0, -1), ('sandTrk', 'hand', 0, 5), ('grains', 'hand', 3, 3)],
+                 5: [('sandH', 'hand', 0, -1), ('sandTrk', 'hand', -1, 5), ('grains', 'hand', -4, 6), ('sandPuff', 'feet', 12, -1), ('grains', 'feet', 9, -6)],
+                 6: [('sandH', 'hand', 0, -1), ('sandSprayUp', 'hand', 0, -4), ('sandTrk', 'hand', -1, 7), ('grains', 'hand', -5, 9), ('sandPuff', 'feet', 13, -1)],
+                 7: [('sandSprayUp', 'hand', 1, -3), ('sandBurst', 'hand', 5, -2, {'alpha': {'S': 215, 's': 205, 'Z': 225}}), ('sandSpray', 'hand', 7, 1), ('grains', 'hand', -3, 6), ('grains', 'hand', 6, 4)],
+                 8: [('sandBurstL', 'hand', 5, -3, {'alpha': {'S': 235, 's': 225, 'Z': 240}}), ('sandCloud', 'hand', 7, -2, {'alpha': {'S': 190, 's': 180, 'Z': 200}}), ('grains', 'hand', -4, 7)],
+                 9: [('sandCloudL', 'head', 12, -1, {'alpha': {'S': 175, 's': 165, 'Z': 185}}), ('grains', 'head', 6, 12), ('grains', 'head', 16, 10)],
+                 10: [('sandCloudL2', 'head', 13, 0, {'alpha': {'S': 120, 's': 110, 'Z': 130}}), ('grains', 'head', 10, 14)]})),
  'flowingSandParry': ('Flowing Sand Parry', 6,
   'Flowing Sand Parry (Virgo taijutsu stance, counter, AGI +20% 1 round: the fighter loosens its muscles and begins to flow like sand in an hourglass while time seems to slow and its senses heighten), v2 (Christopher 2026-10-28: one arm makes a large sweeping circle over the head, the other the same down near the knees, like swinging them in converging circles): from the guard the fighter lets its arms hang loose, eyes closing, sand trickling from its fingertips; then the near arm swings up in front and round in a wide circle over its head and down behind, while the fighter sinking deep on bent knees so the far arm swings the opposite way in a low circle down by the knees, both open hands trailing streams of sand along their paths; an illusory hourglass forms beside its head and grains hang still in the air as time slows; the two circles converge in front of it, the high hand coming down and the low hand coming up until the open palms meet before the chest in the parry, eyes snapping open crystal teal, the sand trails closing into a ring; the hourglass turns, the grains fall, and it settles back into the guard (the testbed keeps the stance for the counter).', [
      g(),
