@@ -51,10 +51,9 @@ def ik(sx, sy, hx, hy, kind='forward'):
     return a
 
 def rev_angle(arm, off):
-    """reverse grip: the blade leaves the little-finger side of the fist and lies back along the forearm toward the
-    elbow, turned `off` degrees off the forearm so it shows past it (edge out)"""
-    fa = math.radians(arm['elbow']['angle'])
-    return round(math.degrees(math.atan2(math.cos(fa), math.sin(fa))) + off, 1)
+    """reverse grip (user 2026-10-27: the blade points downward, never back into the arm): the blade leaves the
+    little-finger side of the fist and points straight down, tipped `off` degrees forward (positive) or back"""
+    return -90 + off
 
 def fr(grip, angle=None, far=(39, 24), fk=None, bob=(1, 1, 2), lean=(0, 2), root=(0, 0), ln='stance-rear', lf='stance-lead',
        trail=None, rev=None, z='front'):
@@ -67,7 +66,7 @@ def fr(grip, angle=None, far=(39, 24), fk=None, bob=(1, 1, 2), lean=(0, 2), root
 
 P, H = 'palm', 'heel'
 FG = dict(grip=(45, 30), angle=15, far=(39, 23), lean=(0, 3))                                         # forward grip guard
-RG = dict(grip=(45, 26), rev=24, far=(40, 23), fk=None, lean=(0, 2), bob=(2, 2, 2), ln='guard-low-rear', lf='guard-low-lead')   # reverse grip guard
+RG = dict(grip=(45, 26), rev=6, far=(40, 23), fk=None, lean=(0, 2), bob=(2, 2, 2), ln='guard-low-rear', lf='guard-low-lead')   # reverse grip guard
 def fg(**k): return fr(**{**FG, **k})
 def rg(**k): return fr(**{**RG, **k})
 def arc(a0, a1, R=27, w=7, c=(33, 24)): return {'from': a0, 'to': a1, 'center': list(c), 'radius': R, 'width': w}
@@ -140,7 +139,7 @@ STATES = {'tantoForwardGuard': 'fgd', 'tantoReverseGuard': 'rgd', 'tantoThrustCu
           'tantoBladePass': 'bladePass', 'tantoBladePassReverse': 'bladePassRev', 'tantoScissors': 'scissors', 'tantoElbowHook': 'elbowHook'}
 INTENT = {
  'fgd': 'Tantojutsu Forward Grip Stance idle (attack, mobility), user 2026-10-27: the tanto held in the forward (hammer) grip with the knife hand out at chest height and the point toward the foe, the live hand up by the chest, both feet planted, the body rocking forward and back over them (user 2026-10-27: no raised heel).',
- 'rgd': 'Tantojutsu Reverse Grip Stance idle (defence, counters), user 2026-10-27: a lower stance with the weight back; the knife hand held high in front of the chest in the reverse (ice-pick) grip, the blade edge-out along the forearm toward the elbow; the live open hand forward to check; a slow breathing bob.',
+ 'rgd': 'Tantojutsu Reverse Grip Stance idle (defence, counters), user 2026-10-27: a lower stance with the weight back; the knife hand held high in front of the chest in the reverse (ice-pick) grip, the blade pointing straight down out of the little-finger side of the fist, clear of the forearm (user 2026-10-27); the live fist up by the chin; a slow breathing bob.',
  'thrustCut': 'Tantojutsu Thrust Cut (Tsuki-Uchi), user 2026-10-27: from the forward grip the knife hand chambers at the hip, a lunge drives the point straight out (thrust lines), then the edge is drawn down and back through the target (draw-cut smear) as the feet recover to the forward guard.',
  'defang': 'Tantojutsu Defang (Defang the Snake), user 2026-10-27: from the forward grip the point dips, then a short rising cut with a half step meets the attacking wrist (white spark at the tip), follow-through and back to the forward guard.',
  'bladePass': 'Tantojutsu Blade Pass (Hubud-Lubud) from the forward grip, user 2026-10-27: the live hand taps the foe\'s arm up, the knife hand passes over it while the live hand traps it down, then the blade cuts down across the trapped arm (smear), back to the forward guard.',
@@ -184,7 +183,7 @@ def spec(state, c):
             while a0 - p['angle'] > 180: a0 -= 360
             while p['angle'] - a0 > 180: a0 += 360
             p['trail'] = {'from': a0, 'to': p['angle'], 'width': 5}
-    w['grip'] = 'reverse (blade below the little finger, edge out along the forearm)' if c in ('rgd', 'bladePassRev', 'scissors', 'elbowHook') else 'forward'
+    w['grip'] = 'reverse (blade below the little finger, pointing down, clear of the forearm)' if c in ('rgd', 'bladePassRev', 'scissors', 'elbowHook') else 'forward'
     for k in ('S', 'N', 'projectionRule', 'itemPoses', 'itemStatus', 'viewRule'): w.pop(k, None)
     s['weapons'] = [w]
     assert sum(r[0] for r in s['rootMotion']['E']) == 0, state

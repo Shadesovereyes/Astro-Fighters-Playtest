@@ -14,7 +14,7 @@ from gen import load, save
 import stances
 
 STAT = 'CANDIDATE 2026-10-27 (E/W; W mirrors E; S/N to author after approval)'
-APPROVED = {'supernova': 'E/W approved by user 2026-10-27 (v2 ultimate, 16 frames at 8 fps, long trembling build-up, swelling star, flash held 3 frames, rings, 50c8b58; W mirrors E); the S and N rows share the same S turn, S/N to author', 'spotlight': 'E/W approved by user 2026-10-27 (v3 arms lowered, forward lean, cone of light from the eyes, target genjutsu mark, 50c8b58; W mirrors E); S/N to author', 'sunPalm': 'E/W approved by user 2026-10-27 (v2 arm swirl, gathering sun, white-hot flash, fire shock ring, cracks, embers, d059a89; W mirrors E); S/N to author', 'kneel': 'E/W approved by user 2026-10-27 (v1 crown of light, commanding palm, sinking gold pressure waves, target genjutsu mark; W mirrors E); S/N to author', 'kingsPosture': 'E/W approved by user 2026-10-27 (v4 E-facing double biceps in profile, golden aura, flame mane, d4e4c1e; W mirrors E); S/N to author', 'radiance': 'E/W approved by user 2026-10-27 (v4 E-facing, fists down at the sides, erupting spiky gold aura, lingering 2 px aura + motes, d4e4c1e; W mirrors E); S/N to author', 'solarLance': 'E/W approved by user 2026-10-27 (v2 arm swirl, bigger sun, thick sparking beam, shoulder backblast, gold aura, d059a89; W mirrors E); S/N to author', 'battleRoar': 'E/W approved by user 2026-10-27 (v1 big breath, lunging roar, flame mane, golden roar waves, 733e752; W mirrors E); S/N to author', 'killingIntent': 'E/W approved by user 2026-10-27 (v3 illusory demon mask over the head matching the facing, clawed crouch, 02ce6eb; W mirrors E); S/N to author', 'blindRage': 'E/W approved by user 2026-10-27 (v1 genjutsu template: one-hand seal, eye flare, crimson aura, rage waves, 0b27675; W mirrors E); S/N to author', 'genjutsuAfflicted': 'E/W approved by user 2026-10-27 (v1 genjutsu target mark, fire colours, d75144b; W mirrors E); S/N to author', 'meteor': 'E/W approved by user 2026-10-27 (v2 ultimate, 16 frames, swelling fireball + flash + thick trail, f395d5b; W mirrors E); S/N to author', 'explosiveRunes': 'E/W approved by user 2026-10-27 (v1 sowing palm sweep + fire runes, 640aaba; W mirrors E); S/N to author', 'blastWave': 'E/W approved by user 2026-10-27 (v3 S-facing roar release, dd5ab8a; W mirrors E); the S and N rows share the same S turn, their guard frames still to review', 'innerGateAdrenaline': 'E/W approved by user 2026-10-27 (v3 lingering aura, skin flush, veins, aee3dad; W mirrors E) on condition the look lingers while the ability is active; canon A5: a toggle, active until 0 HP or deactivated; S/N to author', 'machLunge': 'E/W approved by user 2026-10-27 (v5 sprint, flaming feet, fire wake, 4 afterimages, fc741f6; W mirrors E); S/N to author', 'shatterPunch': 'E/W approved by user 2026-10-27 (v3 arm swirl + impact burst, fc741f6; W mirrors E); S/N to author'}
+APPROVED = {'cauterize': 'E/W approved by user 2026-10-27 (v1 palm seared to the ribs, fire flare with purple/black licks, smoke, d84e1d7; W mirrors E); S/N to author', 'supernova': 'E/W approved by user 2026-10-27 (v2 ultimate, 16 frames at 8 fps, long trembling build-up, swelling star, flash held 3 frames, rings, 50c8b58; W mirrors E); the S and N rows share the same S turn, S/N to author', 'spotlight': 'E/W approved by user 2026-10-27 (v3 arms lowered, forward lean, cone of light from the eyes, target genjutsu mark, 50c8b58; W mirrors E); S/N to author', 'sunPalm': 'E/W approved by user 2026-10-27 (v2 arm swirl, gathering sun, white-hot flash, fire shock ring, cracks, embers, d059a89; W mirrors E); S/N to author', 'kneel': 'E/W approved by user 2026-10-27 (v1 crown of light, commanding palm, sinking gold pressure waves, target genjutsu mark; W mirrors E); S/N to author', 'kingsPosture': 'E/W approved by user 2026-10-27 (v4 E-facing double biceps in profile, golden aura, flame mane, d4e4c1e; W mirrors E); S/N to author', 'radiance': 'E/W approved by user 2026-10-27 (v4 E-facing, fists down at the sides, erupting spiky gold aura, lingering 2 px aura + motes, d4e4c1e; W mirrors E); S/N to author', 'solarLance': 'E/W approved by user 2026-10-27 (v2 arm swirl, bigger sun, thick sparking beam, shoulder backblast, gold aura, d059a89; W mirrors E); S/N to author', 'battleRoar': 'E/W approved by user 2026-10-27 (v1 big breath, lunging roar, flame mane, golden roar waves, 733e752; W mirrors E); S/N to author', 'killingIntent': 'E/W approved by user 2026-10-27 (v3 illusory demon mask over the head matching the facing, clawed crouch, 02ce6eb; W mirrors E); S/N to author', 'blindRage': 'E/W approved by user 2026-10-27 (v1 genjutsu template: one-hand seal, eye flare, crimson aura, rage waves, 0b27675; W mirrors E); S/N to author', 'genjutsuAfflicted': 'E/W approved by user 2026-10-27 (v1 genjutsu target mark, fire colours, d75144b; W mirrors E); S/N to author', 'meteor': 'E/W approved by user 2026-10-27 (v2 ultimate, 16 frames, swelling fireball + flash + thick trail, f395d5b; W mirrors E); S/N to author', 'explosiveRunes': 'E/W approved by user 2026-10-27 (v1 sowing palm sweep + fire runes, 640aaba; W mirrors E); S/N to author', 'blastWave': 'E/W approved by user 2026-10-27 (v3 S-facing roar release, dd5ab8a; W mirrors E); the S and N rows share the same S turn, their guard frames still to review', 'innerGateAdrenaline': 'E/W approved by user 2026-10-27 (v3 lingering aura, skin flush, veins, aee3dad; W mirrors E) on condition the look lingers while the ability is active; canon A5: a toggle, active until 0 HP or deactivated; S/N to author', 'machLunge': 'E/W approved by user 2026-10-27 (v5 sprint, flaming feet, fire wake, 4 afterimages, fc741f6; W mirrors E); S/N to author', 'shatterPunch': 'E/W approved by user 2026-10-27 (v3 arm swirl + impact burst, fc741f6; W mirrors E); S/N to author'}
 
 U.POSES += [leg('ml-dip-lead', (32, 45), (38, 51), 37), leg('ml-dip-rear', (31, 45), (29, 51), 24, wrap=54, kind='toe60'),   # sprinter dip, rear heel up
             kleg('ml-fly-lead', (33, 42), (39, 46), (38, 52), 'toe30k'), kleg('ml-fly-rear', (31, 42), (25, 47), (20, 51), 'toe30k'),   # driving off the rear foot
@@ -144,11 +144,29 @@ FLEX_N, FLEX_F = band(50, -20), band(40, -15)     # elbows flared back, clenched
 HEAVY = load(D + 'heavyAttack.json')   # Sagittarius Leash Kick: the approved side/heel kick legs and the spinPivot pirouette
 U.POSES += [{**p, 'name': 'lk-' + p['name']} for p in HEAVY['legs']['poses'] if p['name'] in ('lift', 'side-chamber', 'side', 'lead-pivot')]
 NPAT.update({'pflame1': ['.K.', 'KPK', '.p.'], 'pflame2': ['..K..', '.KP..', '.PpK.', 'KPpPK', '.KKK.'],   # Sagittarius: select black and purple flames
-             'pembers': ['.P..K', 'K..P.', '..p..']})
+             'pembers': ['.P..K', 'K..P.', '..p..'],
+             'pwisp': ['...pP...', 'K.pPPPW.', 'KpPPWWWP', '.KpPPPW.', '...pP...'], 'pwisp2': ['K..pP...', '.KpPPPW.', 'KpPPWWWP', '..pPPPW.', 'K..pP...'],   # Wisp Fire: a small purple flame flying toward the facing, white-hot head, black tail
+             'pspark': ['P.p', '.W.', 'p.P'],
+             'dog1': _arc(4, 2, 'WP'), 'dog2': _arc(7, 3, 'WPp'), 'dog3': _arc(10, 3, 'PpK'), 'dog3d': _arc(12, 4, 'pK', gap=2),   # Dogma: purple waves of belief looping out
+             'eyeP': ['.P.', 'PWP', '.P.'], 'eyePF': ['..p..', '.pPp.', 'pPWPp', '.pPp.', '..p..'], 'moteP': ['.P.', 'PWP', '.p.'], 'moteK': ['.p.', 'pKp', '.p.'], 'dotP': ['p'],
+             'sp1': _sag(5, 2, 'Pp'), 'sp2': _sag(8, 3, 'WPp'), 'sp3': _sag(11, 4, 'PpK'), 'sp3d': _sag(13, 4, 'pK', gap=2),   # Soul Pressure: a heavy blanket of spirit bearing down
+             'spWisp': ['K.p', '.p.', 'pP.'],
+             'smoke1': ['.g.', 'g.w', '.w.', 'w..'], 'smoke2': ['..g', '.w.', 'g..', '.w.', '..g']})   # Cauterize: a wisp of smoke off the sealed wound
 U.POSES += [U.kleg('lk-axe-top', (34, 39), (38, 31), (41, 22), 'pointUR'),    # Leash Kick v2 axe kick: straight leg raised high, heel above the head
             U.kleg('lk-axe-chop', (34, 40), (41, 38), (48, 37), 'pointFwd'),   # heel chopping down through shoulder height
             U.kleg('lk-axe-down', (34, 41), (40, 46), (45, 52), 'toe30k')]     # driven down, foot about to land in front
 TUCK_SPIN_N, TUCK_SPIN_F = band(-20, 212), band(-45, 222)   # arms tucked tight for the pirouette (as the Whirlwind Kick)
+U.POSES += [kleg('st-vn', (33, 42), (40, 49), (46, 55), 'pointDR'), kleg('st-vf', (31, 42), (24, 49), (18, 55), 'pointDL'),   # Spinning Top (drawn upright, then turned over): legs flung wide in a V
+            kleg('st-tn', (33, 42), (41, 48), (37, 41), 'pointUL'), kleg('st-tf', (31, 42), (38, 49), (33, 42), 'pointUL'),   # knees tucked (turned over: knees bent over the face, entering and leaving the spin)
+            kleg('st-nn', (33, 42), (34, 50), (34, 57), 'toe30k'), kleg('st-nf', (31, 42), (30, 50), (30, 57), 'toe30k')]       # legs swept together (the V seen edge-on mid-turn)
+ST_V, ST_N, ST_T = dict(ln='st-vn', lf='st-vf'), dict(ln='st-nn', lf='st-nf'), dict(ln='st-tn', lf='st-tf')
+ST_AN, ST_AF = band(-135, -170), band(140, 172)   # (upright) hands up beside the head: turned over they brace on the floor by the head
+def _loop(k, n=8, rx=7, ry=2, dy=-10, motes=3):   # Dogma: purple motes looping round over the head (anchored to the head), a full turn every n frames, with a faint dotted ring
+    pts = [('dotP', 'head', round(rx * math.cos(t)), round(ry * math.sin(t)) + dy) for t in [2 * math.pi * (j + k / n) / 16 for j in range(0, 16, 2)]]
+    for m in range(motes):
+        a = 2 * math.pi * (k / n + m / motes)
+        pts.append(('moteP' if math.sin(a) > 0 else 'moteK', 'head', round(rx * math.cos(a)), round(ry * math.sin(a)) + dy))
+    return pts
 SPIN = lambda d, f: {'state': 'spinPivot', 'dir': d, 'frame': f, 'dx': 2}
 
 CLIPS = {
@@ -448,6 +466,111 @@ CLIPS = {
                (10, [('flame2', [47, 41]), ('flame1', [46, 34]), ('pflame2', [42, 30]), ('flame1', [40, 25])]),
                (11, [('flame3', [43, 56]), ('pflame2', [48, 54]), ('flame2', [44, 47]), ('pembers', [50, 46]), ('embers', [38, 50])]),
                (12, [('embers', [44, 60]), ('pembers', [49, 58])])]))),
+ 'spinningTop': ('Spinning Top', 6,
+  'Spinning Top (Sagittarius taijutsu strike, Physical 8, Melee, target Chakra -15: the fighter spins on its head while twirling its legs in a wide V fast enough to ignite the air): from the guard the fighter drops into a crouch and dives forward onto its hands and head, kicking its legs up together; turned upside down on its head with both hands braced on the floor beside it, it throws its legs open into a wide V and spins, the V flashing open and closed as it turns (open, edge-on, open from behind, edge-on), the air at its whirling feet catching fire: flames streaming off both feet, a ring of fire whirling round the V at foot height with black and purple licks in it, sparks round its head on the floor; it snaps the legs together, rolls back down into the crouch and rises into the guard.', [
+     g(),
+     g(an=band(-40, -80), af=band(-30, -70), bob=(2, 2, 3), lean=(1, 4), **LOW),
+     g(an=band(-25, -40), af=band(-15, -35), bob=(3, 3, 3), lean=(2, 6), **BRACE),
+     g(an=ST_AN, af=ST_AF, bob=(0, 0, 0), lean=(0, 0), **ST_T),
+     *[g(an=ST_AN, af=ST_AF, bob=(0, 0, 0), lean=(0, 0), **(ST_V if k % 2 == 0 else ST_N)) for k in range(9)],
+     g(an=ST_AN, af=ST_AF, bob=(0, 0, 0), lean=(0, 0), **ST_T),
+     g(an=band(-25, -40), af=band(-15, -35), bob=(3, 3, 3), lean=(1, 4), **BRACE),
+     g()],
+  [None, None, 'squint'] + ['squint'] * 11 + ['squint', None],
+  None,
+  dict(fps=12, hitbox=[14, 0, 36, 40], damage='light', rm='none (spins in place)',
+       invert={3: 0, 4: 0, 5: 0, 6: 1, 7: 1, 8: 0, 9: 0, 10: 1, 11: 1, 12: 0, 13: 0},
+       topFire={3: 0, 4: 1, 5: 2, 6: 2, 7: 2, 8: 2, 9: 2, 10: 2, 11: 2, 12: 1, 13: 0})),
+ 'wispFire': ('Wisp Fire', 4,
+  'Wisp Fire (Sagittarius ninjutsu, Elemental 10, Ranged, target Chakra -20: the caster conjures a barrage of small purple flames that sap the chakra from the foe with each hit): from the guard the fighter makes the seal at the chin, a purple spark kindling between the hands; it opens the near hand palm up at the chest and small purple and black flames flicker alight and circle it, a dim purple aura breathing round the fighter; then it pushes the palms out at the target one after the other, near, far, near, far, and with each push a wisp of purple flame with a white-hot head and a black tail flies off toward the target, four in a stream; the last wisp leaves a puff of purple sparks at the palm and the fighter settles back into the guard (the testbed flies the four wisps on to the target from the release point).', [
+     g(),
+     g(an=U.SEAL_N, af=U.SEAL_F, bob=(1, 1, 1), lean=(0, 0)),
+     g(an=band(-30, -95, fistKind='palm'), af=band(-50, -110), bob=(1, 1, 1), lean=(0, 0)),
+     g(an=band(-30, -95, fistKind='palm'), af=band(-50, -110), bob=(1, 1, 1), lean=(0, -1)),
+     g(an=band(-90, -90, fistKind='palm'), af=band(-40, -120), bob=(1, 1, 1), lean=(1, 3), root=(1, 0), ln='sp-drive-rear', lf='sp-drive-lead'),
+     g(an=band(-40, -110), af=band(-88, -88, fistKind='palm'), bob=(1, 1, 1), lean=(1, 3), ln='sp-drive-rear', lf='sp-drive-lead'),
+     g(an=band(-90, -90, fistKind='palm'), af=band(-40, -120), bob=(1, 1, 1), lean=(1, 3), ln='sp-drive-rear', lf='sp-drive-lead'),
+     g(an=band(-40, -110), af=band(-88, -88, fistKind='palm'), bob=(1, 1, 1), lean=(1, 3), ln='sp-drive-rear', lf='sp-drive-lead'),
+     g(an=band(-45, -110), af=band(-35, -105), bob=(1, 1, 2), lean=(0, 2), root=(-1, 0)),
+     g()],
+  [None, 'squint', None, None, 'squint', 'squint', 'squint', 'squint', None, None],
+  [0, 1, 1, 2, 2, 2, 2, 1, 0, 0],
+  dict(fps=10, release=[56, 22], rm='E: +1 into the pushes, -1 settling back', auraColors=('#9b45ff', '#55208f'),
+       extra={'projectile': {'rule': 'Wisp Fire is a barrage: on frames 4, 5, 6 and 7 the testbed launches one small purple wisp (pwisp, white-hot head, purple body, black tail) from the release point to the target, four in all; each that lands puffs purple sparks and pulls a few chakra-blue motes out of the target (Chakra -20 over the barrage)', 'frames': [4, 5, 6, 7], 'count': 4, 'pattern': 'pwisp', 'colors': ['#ffffff', '#9b45ff', '#55208f', '#1c1024']}},
+       anchored={1: [('pspark', 'hand', 0, -2), ('pflame1', 'hand', 0, -6)],
+                 2: [('pflame2', 'hand', -1, -5), ('pflame1', 'hand', -6, -1), ('pflame1', 'hand', 5, 1)],
+                 3: [('pflame2', 'hand', 4, -5), ('pflame2', 'hand', -5, -2), ('pflame1', 'hand', 2, 3), ('pembers', 'hand', 0, -10)],
+                 4: [('pspark', 'hand', 1, 0), ('pwisp', 'feet', 22, -42), ('pflame1', 'feet', 2, -30)],
+                 5: [('pspark', 'hand', 1, 0), ('pwisp2', 'feet', 22, -41), ('pwisp', 'feet', 28, -44)],
+                 6: [('pspark', 'hand', 1, 0), ('pwisp', 'feet', 22, -42), ('pwisp2', 'feet', 28, -40)],
+                 7: [('pspark', 'hand', 1, 0), ('pwisp2', 'feet', 22, -41), ('pwisp', 'feet', 28, -44), ('pembers', 'hand', -3, -5)],
+                 8: [('pembers', 'hand', 2, -3)]})),
+ 'cauterize': ('Cauterize', 4,
+  'Cauterize (Sagittarius ninjutsu, self heal 15: the fighter channels its inner fire to seal its own wounds shut): from the guard the fighter makes the seal at the chin, then presses the open near palm flat against its own ribs, the far fist clenched low; it grits its teeth as the palm heats up, then fire flares out from under the hand, orange and yellow with black and purple licks, embers spitting and a warm aura flaring round the body; it holds the burn through the strain, the flame dying to a glow as heat shimmers rise; then it takes the hand away with a breath, a wisp of smoke curling up off the sealed wound and a few warm motes rising, and settles back into the guard.', [
+     g(),
+     g(an=U.SEAL_N, af=U.SEAL_F, bob=(1, 1, 1), lean=(0, 0)),
+     g(an=band(25, -60, fistKind='palm'), af=band(-20, -60), bob=(1, 1, 2), lean=(0, 1)),
+     g(an=band(25, -60, fistKind='palm'), af=band(-15, -50), bob=(2, 2, 2), lean=(0, 2)),
+     g(an=band(25, -60, fistKind='palm'), af=band(-15, -50), bob=(2, 2, 3), lean=(-1, 3)),
+     g(an=band(25, -60, fistKind='palm'), af=band(-15, -50), bob=(2, 2, 3), lean=(-1, 3)),
+     g(an=band(25, -60, fistKind='palm'), af=band(-20, -60), bob=(2, 2, 2), lean=(0, 2)),
+     g(an=band(-5, -70, fistKind='palm'), af=band(-25, -70), bob=(1, 1, 1), lean=(0, 0)),
+     g(an=band(-35, -100), af=band(-30, -95), bob=(1, 1, 2), lean=(0, 1)),
+     g()],
+  [None, 'squint', 'squint', 'strain', 'strain', 'strain', 'squint', None, None, None],
+  [0, 0, 0, 1, 2, 2, 1, 0, 0, 0],
+  dict(fps=8, auraColors=FIRE_AURA,
+       anchored={2: [('heat', 'hand', 0, -4)],
+                 3: [('flame1', 'hand', 0, -3), ('embers', 'hand', 2, -7)],
+                 4: [('flame3', 'hand', 0, -4), ('pflame1', 'hand', -3, -2), ('embers', 'hand', 4, -9), ('pembers', 'hand', -4, -10)],
+                 5: [('flame2', 'hand', 1, -3), ('pflame2', 'hand', -3, -4), ('embers', 'hand', 3, -10)],
+                 6: [('flame1', 'hand', 0, -2), ('heat', 'hand', 0, -6), ('heat', 'hand', -2, -11), ('pembers', 'hand', 3, -9)],
+                 7: [('smoke1', 'hand', 0, -4), ('heat', 'hand', 1, -9), ('lightMote', 'head', -6, 6), ('lightMote', 'head', 7, 10)],
+                 8: [('smoke2', 'hand', 0, -8), ('lightMote', 'head', -7, 0), ('lightMote', 'head', 6, 3)]})),
+ 'dogma': ('Dogma', 4,
+  'Dogma (Sagittarius genjutsu, debuff: the caster projects its own beliefs into the foe\'s mind on a constant loop until it cannot tell its own thoughts from the caster\'s; Confusion 2 rounds, INT save DC 13; range Zone of Awareness): from the guard the fighter lifts two fingers to its temple, eyes narrowing, and its own conviction starts to loop: purple motes circling over its head on a dotted ring, the eyes kindling purple then flaring white-hot; then it thrusts the two fingers out at the target, and purple waves of belief roll out from the eyes one after another, white at the core, purple and black at the rim, each one wider, the loop over its head still turning; the motes and the glow fade and the hand drops back into the guard (the target takes the genjutsu mark, genjutsuAfflicted in Sagittarius colours, for the Confusion).', [
+     g(),
+     g(an=band(-115, -195, fistKind='point'), bob=(1, 1, 1), lean=(0, 0)),
+     g(an=band(-125, -205, fistKind='point'), bob=(1, 1, 1), lean=(0, -1)),
+     g(an=band(-125, -205, fistKind='point'), bob=(1, 1, 1), lean=(0, -1)),
+     *[g(an=band(-92, -92, fistKind='point'), bob=(1, 1, 1), lean=(1, 3)) for _ in range(5)],
+     g(an=band(-60, -120), bob=(1, 1, 2), lean=(0, 2)),
+     g()],
+  [None, 'squint', 'squint', 'squint', 'squint', 'squint', 'squint', 'squint', None, None, None],
+  [0, 0, 1, 1, 2, 2, 2, 1, 1, 0, 0],
+  dict(fps=10, auraColors=('#9b45ff', '#1c1024'), extra={'targetState': {'rule': 'Christopher 2026-10-27: every genjutsu marks its target; on the active frame the target starts genjutsuAfflicted (Sagittarius colours, genjutsuMark.recolor.sagittarius) and keeps it until the Confusion ends', 'state': 'genjutsuAfflicted', 'element': 'sagittarius'}},
+       anchored={1: _loop(0)[:4],
+                 2: _loop(1) + [('eyeP', 'eye', 0, 0)],
+                 3: _loop(2) + [('eyePF', 'eye', 0, 0)],
+                 4: _loop(3) + [('eyePF', 'eye', 0, 0), ('dog1', 'eye', 6, 0)],
+                 5: _loop(4) + [('eyePF', 'eye', 0, 0), ('dog2', 'eye', 10, 1), ('dog1', 'eye', 6, 0)],
+                 6: _loop(5) + [('eyePF', 'eye', 0, 0), ('dog3', 'eye', 15, 2), ('dog2', 'eye', 10, 1), ('dog1', 'eye', 6, 0)],
+                 7: _loop(6) + [('eyeP', 'eye', 0, 0), ('dog3d', 'eye', 20, 3), ('dog3', 'eye', 15, 2), ('dog2', 'eye', 10, 1)],
+                 8: [it for it in _loop(7) if it[0] != 'dotP'] + [('dog3d', 'eye', 21, 3)],
+                 9: [it for it in _loop(0) if it[0] == 'moteP']})),
+ 'soulPressure': ('Soul Pressure', 4,
+  'Soul Pressure (Sagittarius genjutsu, debuff: the caster blankets the foe\'s mind with its spiritual energy, silencing its innermost thoughts; Silence 3 rounds, STR save DC 12; range Zone of Awareness): from the guard the fighter lowers its hands and closes its eyes, gathering itself, and a heavy aura of dark purple and black spirit-flame rises round it, wisps curling up off the shoulders; its eyes snap open, burning purple, and it extends the open near palm toward the target and presses it slowly down, the far hand low at its side, as heavy dome-shaped waves of spirit pressure roll out toward the target, bearing down and sinking as they travel, purple at the crown and black at the rim; it holds the press, then the aura settles and it returns to the guard (the target takes the genjutsu mark, genjutsuAfflicted in Sagittarius colours, for the Silence).', [
+     g(),
+     g(an=band(-20, -50), af=band(-10, -40), bob=(1, 1, 2), lean=(0, 1)),
+     g(an=band(-10, -30), af=band(-5, -25), bob=(2, 2, 2), lean=(0, 0)),
+     g(an=band(-90, -100, fistKind='palm'), af=band(-5, -25), bob=(1, 1, 1), lean=(0, -1)),
+     g(an=band(-75, -65, fistKind='palm'), af=band(-5, -25), bob=(1, 1, 2), lean=(1, 2)),
+     g(an=band(-65, -55, fistKind='palm'), af=band(-5, -25), bob=(2, 2, 2), lean=(1, 3)),
+     g(an=band(-65, -55, fistKind='palm'), af=band(-5, -25), bob=(2, 2, 2), lean=(1, 3)),
+     g(an=band(-65, -55, fistKind='palm'), af=band(-5, -25), bob=(2, 2, 2), lean=(1, 3)),
+     g(an=band(-40, -110), af=band(-25, -90), bob=(1, 1, 1), lean=(0, 1)),
+     g()],
+  [None, 'closed', 'closed', None, 'squint', 'squint', 'squint', 'squint', None, None],
+  [0, 1, 2, 2, 2, 2, 2, 1, 0, 0],
+  dict(fps=10, auraColors=('#55208f', '#1c1024'), extra={'targetState': {'rule': 'Christopher 2026-10-27: every genjutsu marks its target; on the active frame the target starts genjutsuAfflicted (Sagittarius colours, genjutsuMark.recolor.sagittarius) and keeps it until the Silence ends', 'state': 'genjutsuAfflicted', 'element': 'sagittarius'}},
+       anchored={1: [('spWisp', 'head', -6, 12)],
+                 2: [('spWisp', 'head', -7, 10), ('spWisp', 'head', 6, 12), ('pflame1', 'head', -1, -9)],
+                 3: [('eyePF', 'eye', 0, 0), ('pflame2', 'head', -1, -10), ('spWisp', 'head', -8, 8), ('spWisp', 'head', 7, 10)],
+                 4: [('eyePF', 'eye', 0, 0), ('pflame2', 'head', 0, -10), ('sp1', 'feet', 14, -30), ('spWisp', 'head', -7, 6)],
+                 5: [('eyePF', 'eye', 0, 0), ('pflame1', 'head', 0, -9), ('sp2', 'feet', 19, -24), ('sp1', 'feet', 14, -30), ('spWisp', 'head', 7, 8)],
+                 6: [('eyePF', 'eye', 0, 0), ('pflame2', 'head', 0, -10), ('sp3', 'feet', 24, -17), ('sp2', 'feet', 19, -24), ('spWisp', 'head', -7, 5)],
+                 7: [('eyeP', 'eye', 0, 0), ('sp3d', 'feet', 27, -10), ('spWisp', 'head', 6, 4)],
+                 8: [('spWisp', 'head', -6, 2, {'alpha': {'K': 140, 'p': 140, 'P': 160}})]})),
  'flowDodge': ('Flow Dodge', 3,
   'Flow Dodge (Sagittarius taijutsu stance buff: the fighter enters a dance-like trance and begins to swing and sway to its own rhythm): from the guard the fighter shakes its arms loose and lets the guard drop low and easy, eyes half closed, catching a beat; then it sways to its own rhythm: rocking back and forward on its feet and dipping on the knees, shoulders rolling, the loose hands swinging opposite to the hips, a flickering fire aura breathing round it on the beat with a few black and purple wisps rising off the shoulders; on the last beat it snaps its eyes open and settles into a loose, low guard (the testbed keeps the stance).', [
      g(),
@@ -525,6 +648,7 @@ def spec(state):
 
 def fx(state):
     x = CLIPS[state][6]
+    if x.get('invert'): invert(state, x['invert'])
     if CLIPS[state][5]: U.CLIPS[state] = CLIPS[state]; U.aura(state)
     if x.get('blur'):
         from PIL import Image
@@ -580,6 +704,11 @@ def fx(state):
         f_ = D + state + '/fx.png'
         if not os.path.exists(f_): Image.new('RGBA', Image.open(D + state + '/body.png').size).save(f_)
         spinFire(state, x['spinFire'])
+    if x.get('topFire'):
+        from PIL import Image
+        f_ = D + state + '/fx.png'
+        if not os.path.exists(f_) or 'fx' not in load(D + state + '.json'): Image.new('RGBA', Image.open(D + state + '/body.png').size).save(f_)
+        topFire(state, x['topFire'])
     if any(x.get(n) for n in ('rays', 'beam', 'cone', 'gather', 'nova', 'flare')):   # Leo sunlight fx, drawn over what is already there
         from PIL import Image
         f_ = D + state + '/fx.png'
@@ -591,6 +720,39 @@ def fx(state):
         f = D + state + '/fx.png'; top = Image.open(f).convert('RGBA')   # blur + splash so far
         ghosts(state, x['ghosts'], x['ghostColors'])
         g_ = Image.open(f).convert('RGBA'); g_.alpha_composite(top); g_.save(f)   # streaks and flames stay over the afterimages
+
+def invert(state, frames):
+    """Spinning Top: the rig has no upside-down pose, so these frames are drawn upright (hands up by the head, legs down in
+    a V) and every figure layer's cell is turned over (rotated 180 degrees: two quarter turns) after the render, the head
+    set on the floor. A 180 turn also mirrors the facing, so each row takes the opposite row's cell (it then faces its own
+    way); frames = {k: back} with back=1 taking its own row's cell instead (seen from behind mid-spin), or {k: (1, -90)}
+    for a quarter turn (the dive onto the head and the roll back out: the body laid flat, head toward the facing, on the
+    floor; W turns the other way). Runs once per render
+    (a marker holds the turned body.png's hash)."""
+    from PIL import Image
+    import hashlib
+    d = D + state + '/'; mk = d + '.inverted'
+    h_ = lambda: hashlib.md5(open(d + 'body.png', 'rb').read()).hexdigest()
+    if os.path.exists(mk) and open(mk).read() == h_(): return
+    dirs = load(D + state + '.json')['directions']; body = Image.open(d + 'body.png').convert('RGBA')
+    shift = {}
+    for k, back in frames.items():
+        for r in range(len(dirs)):
+            back_, deg = back if isinstance(back, tuple) else (back, 180)
+            if deg != 180 and dirs[r] == 'W': deg = -deg
+            src = r if back_ else (len(dirs) - 1 - r if set(dirs) == {'E', 'W'} else r)
+            b = body.crop((k * 64, src * 64, k * 64 + 64, src * 64 + 64)).rotate(deg); bb = b.getbbox()
+            dx = 0 if deg == 180 else 32 - (bb[0] + bb[2]) // 2
+            shift[k, r] = (src, deg, dx, 63 - bb[3] + 1)   # the lowest body row (the head's top when turned over) rests on row 63
+    for f in os.listdir(d):
+        if not f.endswith('.png') or f == 'fx.png': continue
+        im = Image.open(d + f).convert('RGBA'); src_im = im.copy()
+        for (k, r), (src, deg, dx, dy) in shift.items():
+            cell = src_im.crop((k * 64, src * 64, k * 64 + 64, src * 64 + 64)).rotate(deg)
+            out = Image.new('RGBA', (64, 64)); out.paste(cell, (dx, dy))
+            im.paste(out, (k * 64, r * 64))
+        im.save(d + f)
+    open(mk, 'w').write(h_()); print(state, 'invert', sorted(frames))
 
 def _arm(state, k, r, layer='arms.png'):
     from PIL import Image
@@ -1184,6 +1346,49 @@ def spinFire(state, frames):
                     px[k * 64 + x, r * 64 + y] = c
                     if deg % 30 == 0 and st >= 1 and y - 2 >= 0: px[k * 64 + x, r * 64 + y - 1] = O; px[k * 64 + x, r * 64 + y - 2] = R_ if deg % 60 else P   # tongues of flame licking up
     fx.save(f_); print(state, 'spinFire', list(frames))
+
+def topFire(state, frames):
+    """Spinning Top (turned over, spinning on the head): frames = {k: stage} (0 entry / exit embers, 1 a ring half swept,
+    2 the full whirl). The feet are the highest figure pixels (one per side of the V when it is open); flames burst off
+    each foot (alternating shapes so they flicker, a black/purple flame every other frame), a flat ring of fire whirls
+    round the legs at foot height (yellow, orange, red rings with purple and black licks, its far half behind the legs,
+    the swept part advancing each frame), and sparks scatter on the floor round the head"""
+    from PIL import Image
+    f_ = D + state + '/fx.png'; fx = Image.open(f_).convert('RGBA'); px = fx.load(); dirs = load(D + state + '.json')['directions']
+    Y, O, R_, P, K = (_hexc(ELEMENT[c]) for c in 'YORPK')
+    def stamp(k, r, name, cx, cy, flip):
+        pat = NPAT[name]; h, w = len(pat), len(pat[0]); x0, y0 = round(cx - (w - 1) / 2), round(cy - (h - 1) / 2)
+        for yy, row in enumerate(pat):
+            for xx, ch in enumerate(row[::-1] if flip else row):
+                X, Y_ = x0 + xx, y0 + yy
+                if ch != '.' and 0 <= X < 64 and 0 <= Y_ < 64: px[k * 64 + X, r * 64 + Y_] = _hexc(NPAL[ch])
+    for k, st in frames.items():
+        for r, fd in enumerate(dirs):
+            if fd not in ('E', 'W'): continue
+            fig = _fig(state, k, r); flip = fd == 'W'; sg = -1 if flip else 1
+            cx = (min(x for x, _ in fig) + max(x for x, _ in fig)) / 2; top = min(y for _, y in fig)
+            l = [q for q in fig if q[0] < cx - 4]; rr = [q for q in fig if q[0] > cx + 4]
+            wide = l and rr and min(y for _, y in l) < top + 4 and min(y for _, y in rr) < top + 4
+            feet = [min(l, key=lambda q: q[1]), min(rr, key=lambda q: q[1])] if wide else [min(fig, key=lambda q: q[1])]
+            if st == 0:
+                for fx_, fy in feet: stamp(k, r, 'embers', fx_, fy - 2, flip)
+                stamp(k, r, 'embers', cx - 7, 60, flip); continue
+            cy = top + 5; rx, ry = (17 if wide else 12), 3
+            sweep = 200 if st == 1 else 360; a0 = (k * 97) % 360
+            for ring in range(3):
+                for t in range(sweep * 2):
+                    th = math.radians(a0 + t / 2); x = round(cx + sg * (rx + ring) * math.cos(th)); y = round(cy + (ry + ring) * math.sin(th) - ring)
+                    if not (0 <= x < 64 and 0 <= y < 64): continue
+                    if math.sin(th) < 0 and (x, y) in fig: continue
+                    if st == 1 and t < sweep and (x + y + t) % 2: continue   # the tail of a part-swept ring breaks up
+                    deg = int(a0 + t / 2); c = (Y, O, R_)[ring]
+                    if deg % 45 < 6: c = P if ring == 0 else K
+                    px[k * 64 + x, r * 64 + y] = c
+                    if deg % 36 == 0 and y - 2 >= 0: px[k * 64 + x, r * 64 + y - 1] = O; px[k * 64 + x, r * 64 + y - 2] = R_ if deg % 72 else P   # tongues licking up off the ring
+            for i, (fx_, fy) in enumerate(feet):
+                stamp(k, r, ('flame3', 'flame2')[(k + i) % 2] if (k + i) % 3 else 'pflame2', fx_, fy - 3, flip)
+            stamp(k, r, 'embers' if k % 2 else 'pembers', cx + 8, 60, flip); stamp(k, r, 'pembers' if k % 2 else 'embers', cx - 8, 60, flip)   # sparks on the floor round the head
+    fx.save(f_); print(state, 'topFire', list(frames))
 
 def nova(state, frames, aura=False):
     """Supernova release, facing S (every row shows the S frame here): 'core' a star kindling at the chest and the body glowing;

@@ -1392,7 +1392,7 @@
             45,
             26
           ],
-          "angle": -121.2,
+          "angle": -84,
           "z": {
             "hilt": "front",
             "blade": "aboveArm"
@@ -1403,7 +1403,7 @@
             41,
             21
           ],
-          "angle": -62.5,
+          "angle": -84,
           "z": {
             "hilt": "front",
             "blade": "aboveArm"
@@ -1414,7 +1414,7 @@
             42,
             19
           ],
-          "angle": -78.7,
+          "angle": -84,
           "z": {
             "hilt": "front",
             "blade": "aboveArm"
@@ -1431,7 +1431,7 @@
             "blade": "aboveArm"
           },
           "trail": {
-            "from": -78.7,
+            "from": -84,
             "to": -55,
             "width": 5
           }
@@ -1452,7 +1452,7 @@
             43,
             24
           ],
-          "angle": -98.0,
+          "angle": -84,
           "z": {
             "hilt": "front",
             "blade": "aboveArm"
@@ -1463,7 +1463,7 @@
             45,
             26
           ],
-          "angle": -121.2,
+          "angle": -84,
           "z": {
             "hilt": "front",
             "blade": "aboveArm"
@@ -1473,7 +1473,7 @@
       "mirror": {
         "W": "E"
       },
-      "grip": "reverse (blade below the little finger, edge out along the forearm)"
+      "grip": "reverse (blade below the little finger, pointing down, clear of the forearm)"
     }
   ],
   "events": {
