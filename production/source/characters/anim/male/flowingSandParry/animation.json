@@ -60,13 +60,10 @@
     "yumi-stowed-back": "yumi-stowed-back.png",
     "kyoketsu-shoge-stowed-front": "kyoketsu-shoge-stowed-front.png",
     "kyoketsu-shoge-stowed-back": "kyoketsu-shoge-stowed-back.png",
-<<<<<<< HEAD
+    "far-arm": "far-arm.png",
     "headband-white": "headband-white.png",
     "headband-red": "headband-red.png",
     "headband-blue": "headband-blue.png"
-=======
-    "far-arm": "far-arm.png"
->>>>>>> 04eca2ae3dbab410825b06dfb604c3385281f147
   },
   "pendingLayers": [],
   "drawOrder": [
