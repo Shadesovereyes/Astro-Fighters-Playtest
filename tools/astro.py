@@ -686,7 +686,7 @@ CLIPS = {
               [(10, [('rocks', [48, 30]), ('dust2', [44, 36]), ('cryst', [50, 25]), ('dust1', [38, 63])] + DUST_WAKE[0][:2]), (11, [('rocks', [50, 27]), ('crystT', [47, 22]), ('dust1', [46, 34])]), (12, [('dust1', [46, 63])])]),
        extra={'travel': {'rule': 'Bull Rush is a gap closer: the fighter ends the clip 40 px further forward (sum of rootMotion); the game moves the fighter by that distance', 'E': 40}})),
  'oakFlesh': ('Oak Flesh', 4,
-  'Oak Flesh (Taurus ninjutsu self buff, FORT +50% 3 rounds: the fighter steadies itself and focuses its will to harden its skin): from the guard the fighter makes the seal at the chin and sinks a little into its knees, eyes closing, an earthen aura rising round it; then it drives its fists down beside its hips, elbows back, and its skin hardens into oak: a bark-brown tint spreads over all its skin and dark wood grain stands out down the arms and neck, wood chips and dust shaken off it and teal crystal glints flashing on the hardened skin; it holds, unmoving, then rises back into the guard still clad in bark (the spec asks the testbed to keep the bark tint and grain while the buff lasts).', [
+  'Oak Flesh (Taurus ninjutsu self buff, FORT +50% 3 rounds: the fighter steadies itself and focuses its will to harden its skin): from the guard the fighter makes the seal at the chin and sinks a little into its knees, eyes closing, an earthen aura rising round it; then it drives its fists down beside its hips, elbows back, and its skin hardens into oak (v2, Christopher 2026-10-28: the bark more opaque, about 88%): a bark-brown tint spreads over all its skin and dark wood grain stands out down the arms and neck, wood chips and dust shaken off it and teal crystal glints flashing on the hardened skin; it holds, unmoving, then rises back into the guard still clad in bark (the spec asks the testbed to keep the bark tint and grain while the buff lasts).', [
      g(),
      g(an=U.SEAL_N, af=U.SEAL_F, bob=(1, 1, 1), lean=(0, 0)),
      g(an=U.SEAL_N, af=U.SEAL_F, bob=(2, 2, 2), lean=(0, 0), **LOW),
@@ -699,8 +699,8 @@ CLIPS = {
      g()],
   [None, 'squint', 'closed', 'closed', 'strain', 'strain', 'squint', 'squint', None, None],
   [0, 0, 1, 1, 2, 2, 2, 1, 1, 0],
-  dict(fps=10, auraColors=('#c79a5b', '#8a6236'), tint={3: 60, 4: 120, 5: 170, 6: 170, 7: 170, 8: 160, 9: 160}, veins=(4, 5, 6, 7, 8, 9), tintColors=((0x8a, 0x62, 0x36), (0x3f, 0x26, 0x12)),
-       extra={'linger': {'rule': 'Oak Flesh (FORT +50% 3 rounds): the clip ends with the skin hardened into oak; while the buff lasts the testbed keeps drawing the fighter with the bark tint (#8a6236 at alpha 160 over skin pixels) and the dark wood grain (#3f2612), on every state it plays; clears when the buff ends', 'tint': ['#8a6236', 160], 'veins': '#3f2612'}},
+  dict(fps=10, auraColors=('#c79a5b', '#8a6236'), tint={3: 80, 4: 160, 5: 225, 6: 225, 7: 225, 8: 225, 9: 225}, veins=(4, 5, 6, 7, 8, 9), tintColors=((0x8a, 0x62, 0x36), (0x3f, 0x26, 0x12)),
+       extra={'linger': {'rule': 'Oak Flesh (FORT +50% 3 rounds): the clip ends with the skin hardened into oak; while the buff lasts the testbed keeps drawing the fighter with the bark tint (#8a6236 at alpha 225 over skin pixels; v2, Christopher 2026-10-28: more opaque) and the dark wood grain (#3f2612), on every state it plays; clears when the buff ends', 'tint': ['#8a6236', 225], 'veins': '#3f2612'}},
        anchored={4: [('rocks', 'head', -8, 20), ('dust1', 'feet', -6, -2), ('dust1', 'feet', 7, -2)],
                  5: [('cryst', 'head', 6, 16), ('rocks', 'head', 8, 26), ('crystT', 'head', -7, 22)],
                  6: [('cryst', 'head', -6, 24), ('crystT', 'head', 7, 12)],

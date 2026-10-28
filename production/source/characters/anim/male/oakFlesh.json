@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Oak Flesh (Taurus ninjutsu self buff, FORT +50% 3 rounds: the fighter steadies itself and focuses its will to harden its skin): from the guard the fighter makes the seal at the chin and sinks a little into its knees, eyes closing, an earthen aura rising round it; then it drives its fists down beside its hips, elbows back, and its skin hardens into oak: a bark-brown tint spreads over all its skin and dark wood grain stands out down the arms and neck, wood chips and dust shaken off it and teal crystal glints flashing on the hardened skin; it holds, unmoving, then rises back into the guard still clad in bark (the spec asks the testbed to keep the bark tint and grain while the buff lasts).",
+  "intent": "Oak Flesh (Taurus ninjutsu self buff, FORT +50% 3 rounds: the fighter steadies itself and focuses its will to harden its skin): from the guard the fighter makes the seal at the chin and sinks a little into its knees, eyes closing, an earthen aura rising round it; then it drives its fists down beside its hips, elbows back, and its skin hardens into oak (v2, Christopher 2026-10-28: the bark more opaque, about 88%): a bark-brown tint spreads over all its skin and dark wood grain stands out down the arms and neck, wood chips and dust shaken off it and teal crystal glints flashing on the hardened skin; it holds, unmoving, then rises back into the guard still clad in bark (the spec asks the testbed to keep the bark tint and grain while the buff lasts).",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -2581,10 +2581,10 @@
     "intent": "eyes squeezed shut with the brow pulled down on the impact frames 0-2 (no mouth: user 2026-10-14), a squint on frame 3, open again from frame 4 (user 2026-10-14)"
   },
   "linger": {
-    "rule": "Oak Flesh (FORT +50% 3 rounds): the clip ends with the skin hardened into oak; while the buff lasts the testbed keeps drawing the fighter with the bark tint (#8a6236 at alpha 160 over skin pixels) and the dark wood grain (#3f2612), on every state it plays; clears when the buff ends",
+    "rule": "Oak Flesh (FORT +50% 3 rounds): the clip ends with the skin hardened into oak; while the buff lasts the testbed keeps drawing the fighter with the bark tint (#8a6236 at alpha 225 over skin pixels; v2, Christopher 2026-10-28: more opaque) and the dark wood grain (#3f2612), on every state it plays; clears when the buff ends",
     "tint": [
       "#8a6236",
-      160
+      225
     ],
     "veins": "#3f2612"
   }
