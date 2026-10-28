@@ -68,7 +68,10 @@ P, H = 'palm', 'heel'
 FG = dict(grip=(45, 30), angle=15, far=(39, 23), lean=(0, 3))                                         # forward grip guard
 RG = dict(grip=(45, 26), rev=6, far=(40, 23), fk=None, lean=(0, 2), bob=(2, 2, 2), ln='guard-low-rear', lf='guard-low-lead')   # reverse grip guard
 def fg(**k): return fr(**{**FG, **k})
-def rg(**k): return fr(**{**RG, **k})
+RG_OUT = 3   # user 2026-10-28: the reverse-grip knife hand sits 3 px further from the body (forward in E)
+def rg(**k):
+    k = {**RG, **k}; k['grip'] = (k['grip'][0] + RG_OUT, k['grip'][1])
+    return fr(**k)
 def arc(a0, a1, R=27, w=7, c=(33, 24)): return {'from': a0, 'to': a1, 'center': list(c), 'radius': R, 'width': w}
 
 CLIPS = {

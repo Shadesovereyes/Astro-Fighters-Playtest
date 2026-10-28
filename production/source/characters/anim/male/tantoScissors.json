@@ -457,64 +457,64 @@
     "near": [
       {
         "construction": "band",
-        "angle": -51.4,
+        "angle": -81.8,
         "elbow": {
           "at": 8,
-          "angle": -124.8
+          "angle": -91.2
         },
         "fistKind": "forward"
       },
       {
         "construction": "band",
-        "angle": -75.6,
+        "angle": -79.3,
         "elbow": {
           "at": 8,
-          "angle": -182.0
+          "angle": -157.9
         },
         "fistKind": "forward"
       },
       {
         "construction": "band",
-        "angle": -96.9,
+        "angle": -95.1,
         "elbow": {
           "at": 8,
-          "angle": -106.3
+          "angle": -104.5
         },
         "fistKind": "forward"
       },
       {
         "construction": "band",
-        "angle": -70.2,
+        "angle": -72.7,
         "elbow": {
           "at": 8,
-          "angle": -79.6
+          "angle": -82.1
         },
         "fistKind": "forward"
       },
       {
         "construction": "band",
-        "angle": -70.2,
+        "angle": -72.7,
         "elbow": {
           "at": 8,
-          "angle": -79.6
+          "angle": -82.1
         },
         "fistKind": "forward"
       },
       {
         "construction": "band",
-        "angle": -51.9,
+        "angle": -66.9,
         "elbow": {
           "at": 8,
-          "angle": -148.0
+          "angle": -126.3
         },
         "fistKind": "forward"
       },
       {
         "construction": "band",
-        "angle": -51.4,
+        "angle": -81.8,
         "elbow": {
           "at": 8,
-          "angle": -124.8
+          "angle": -91.2
         },
         "fistKind": "forward"
       }
@@ -1389,7 +1389,7 @@
       "E": [
         {
           "grip": [
-            45,
+            48,
             26
           ],
           "angle": -84,
@@ -1400,7 +1400,7 @@
         },
         {
           "grip": [
-            39,
+            42,
             20
           ],
           "angle": -84,
@@ -1411,7 +1411,7 @@
         },
         {
           "grip": [
-            47,
+            48,
             22
           ],
           "angle": -65,
@@ -1422,8 +1422,8 @@
         },
         {
           "grip": [
-            47,
-            29
+            49,
+            28
           ],
           "angle": -62,
           "z": {
@@ -1438,8 +1438,8 @@
         },
         {
           "grip": [
-            47,
-            29
+            49,
+            28
           ],
           "angle": -62,
           "z": {
@@ -1449,7 +1449,7 @@
         },
         {
           "grip": [
-            43,
+            46,
             24
           ],
           "angle": -84,
@@ -1460,7 +1460,7 @@
         },
         {
           "grip": [
-            45,
+            48,
             26
           ],
           "angle": -84,
