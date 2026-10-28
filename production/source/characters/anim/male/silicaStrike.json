@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Silica Strike (Virgo taijutsu, Physical 8, Blind 3 rounds INT save DC 12: the fighter grabs a fistful of sand before striking at its opponent's face), v2 (Christopher 2026-10-28: the caster really bends down, almost taking a knee, then rises into an uppercut with the sand fx): from the guard the fighter drops down onto the rear knee, the lead foot planted flat in front, and sweeps the near hand along the floor, scooping, sand puffing up round the fingers; it closes the fist on a handful and draws it back low beside the hip, sand trickling; then it drives up out of the kneel, legs straightening, and rips the fist up and out in an uppercut at the opponent's chin, arm reaching well out in front, the sand bursting up off the fist into the face, a burst of sand hanging there in a drifting cloud; it settles back into the guard.",
+  "intent": "Silica Strike (Virgo taijutsu, Physical 8, Blind 3 rounds INT save DC 12: the fighter grabs a fistful of sand before striking at its opponent's face), v2 (Christopher 2026-10-28: the caster really bends down, almost taking a knee, then rises into an uppercut with the sand fx; v4 19:25: the uppercut rises from the crouched position): from the guard the fighter drops down onto the rear knee, the lead foot planted flat in front, and sweeps the near hand along the floor, scooping, sand puffing up round the fingers; it closes the fist on a handful and draws it back low beside the hip, sand trickling; then, still kneeling, it starts the uppercut from the hip and rises out of the crouch with it, legs straightening as the fist rips up and out at the opponent's chin, arm reaching well out in front, the sand bursting up off the fist into the face, a burst of sand hanging there in a drifting cloud; it settles back into the guard.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -110,8 +110,8 @@
       9,
       9,
       9,
+      8,
       4,
-      0,
       0,
       0,
       1,
@@ -123,8 +123,8 @@
       10,
       10,
       10,
+      9,
       5,
-      0,
       -1,
       -1,
       1,
@@ -136,8 +136,8 @@
       10,
       10,
       10,
+      9,
       5,
-      1,
       0,
       0,
       2,
@@ -167,8 +167,8 @@
         8,
         7,
         4,
+        4,
         3,
-        1,
         2,
         2,
         2,
@@ -200,11 +200,11 @@
         0
       ],
       [
-        1,
+        0,
         0
       ],
       [
-        2,
+        1,
         0
       ],
       [
@@ -246,11 +246,11 @@
         0
       ],
       [
-        -1,
+        0,
         0
       ],
       [
-        -2,
+        -1,
         0
       ],
       [
@@ -1172,8 +1172,8 @@
       50,
       50,
       50,
+      50,
       3,
-      23,
       23,
       23,
       23,
@@ -1185,8 +1185,8 @@
       49,
       49,
       49,
+      49,
       2,
-      22,
       22,
       22,
       22,
@@ -1253,7 +1253,7 @@
       },
       {
         "construction": "band",
-        "angle": -25,
+        "angle": -35,
         "elbow": {
           "at": 8,
           "angle": -120
@@ -1261,10 +1261,10 @@
       },
       {
         "construction": "band",
-        "angle": -70,
+        "angle": -55,
         "elbow": {
           "at": 8,
-          "angle": -140
+          "angle": -130
         }
       },
       {
@@ -1343,18 +1343,18 @@
       },
       {
         "construction": "band",
-        "angle": -20,
+        "angle": -30,
         "elbow": {
           "at": 8,
-          "angle": -100
+          "angle": -120
         }
       },
       {
         "construction": "band",
-        "angle": -45,
+        "angle": -20,
         "elbow": {
           "at": 8,
-          "angle": 222
+          "angle": -100
         }
       },
       {
