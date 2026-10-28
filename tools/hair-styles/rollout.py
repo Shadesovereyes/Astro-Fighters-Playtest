@@ -12,7 +12,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 ANIM = ROOT / 'production/source/characters/anim/male'
 HAIR = ['locs-tied', 'locs-loose', 'wrapped-headscarf', 'modern-topknot', 'braided-side',
-        'afro-puff', 'bantu-knots', 'ronin-ponytail', 'flat-top']
+        'afro-puff', 'bantu-knots', 'ronin-ponytail', 'flat-top',
+        'headband-white', 'headband-red', 'headband-blue']
 
 def git(*a): return subprocess.run(['git', *a], cwd=ROOT, capture_output=True, text=True)
 

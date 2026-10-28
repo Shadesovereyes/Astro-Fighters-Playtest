@@ -79,6 +79,10 @@ const CONFIG = {
       { file: 'Paperdolls/Male/Layer 5 - Hair/Bantu Knots.png', class: 'head' },
       { file: 'Paperdolls/Male/Layer 5 - Hair/Ronin Ponytail.png', class: 'head', rowBands: [[15, 'head'], [19, 'hair-fall-upper'], [63, 'hair-fall-lower']] },
       { file: 'Paperdolls/Male/Layer 5 - Hair/Flat Top.png', class: 'head' },
+      // Headbands (Head items drawn over the hair, 2026-10-28): the knot tails sway like Long Hair.
+      { file: 'Paperdolls/Male/Layer 5 - Hair/Headband White.png', class: 'head', rowBands: [[15, 'head'], [19, 'hair-fall-upper'], [63, 'hair-fall-lower']] },
+      { file: 'Paperdolls/Male/Layer 5 - Hair/Headband Red.png', class: 'head', rowBands: [[15, 'head'], [19, 'hair-fall-upper'], [63, 'hair-fall-lower']] },
+      { file: 'Paperdolls/Male/Layer 5 - Hair/Headband Blue.png', class: 'head', rowBands: [[15, 'head'], [19, 'hair-fall-upper'], [63, 'hair-fall-lower']] },
       // Armor helmets (tools/armor-classes/build_helmets.py): worn in the hair slot, the whole layer follows the head.
       { file: 'Paperdolls/Male/Layer 5 - Hair/Scale Coat Helmet.png', class: 'head' },
       { file: 'Paperdolls/Male/Layer 5 - Hair/Lamellar Kabuto.png', class: 'head' },

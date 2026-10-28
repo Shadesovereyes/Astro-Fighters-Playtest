@@ -61,7 +61,10 @@
     "afro-puff": "afro-puff.png",
     "bantu-knots": "bantu-knots.png",
     "ronin-ponytail": "ronin-ponytail.png",
-    "flat-top": "flat-top.png"
+    "flat-top": "flat-top.png",
+    "headband-white": "headband-white.png",
+    "headband-red": "headband-red.png",
+    "headband-blue": "headband-blue.png"
   },
   "pendingLayers": [],
   "drawOrder": [

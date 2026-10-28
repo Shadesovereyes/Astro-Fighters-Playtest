@@ -83,6 +83,9 @@
     "rule": "Hair and eye layers follow the head's bob through their rig part maps. Lagging hair falls take the bob of 1 or 2 frames earlier (overlays.json lagFrames) but never sit higher than the part above them (cap >= upper fall >= lower fall, positive dy is down), so no gap opens.",
     "layers": [
       "long-hair",
+      "headband-white",
+      "headband-red",
+      "headband-blue",
       "locs-tied",
       "locs-loose",
       "wrapped-headscarf",

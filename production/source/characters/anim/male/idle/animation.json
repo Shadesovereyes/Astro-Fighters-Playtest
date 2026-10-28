@@ -63,7 +63,10 @@
     "ronin-ponytail": "ronin-ponytail.png",
     "flat-top": "flat-top.png",
     "tanto-stowed-front": "tanto-stowed-front.png",
-    "tanto-stowed-back": "tanto-stowed-back.png"
+    "tanto-stowed-back": "tanto-stowed-back.png",
+    "headband-white": "headband-white.png",
+    "headband-red": "headband-red.png",
+    "headband-blue": "headband-blue.png"
   },
   "drawOrder": [
     "contact shadow",

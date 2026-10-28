@@ -1853,16 +1853,16 @@
           "direction": "S",
           "pixelCounts": {
             "head": 82,
-            "hair-fall-upper": 43,
-            "hair-fall-lower": 48
+            "hair-fall-upper": 45,
+            "hair-fall-lower": 58
           }
         },
         {
           "direction": "SE",
           "pixelCounts": {
             "head": 87,
-            "hair-fall-upper": 44,
-            "hair-fall-lower": 48
+            "hair-fall-upper": 47,
+            "hair-fall-lower": 58
           }
         },
         {
@@ -1909,8 +1909,8 @@
           "direction": "SW",
           "pixelCounts": {
             "head": 87,
-            "hair-fall-upper": 45,
-            "hair-fall-lower": 48
+            "hair-fall-upper": 49,
+            "hair-fall-lower": 60
           }
         }
       ]
@@ -2335,6 +2335,210 @@
           "direction": "SW",
           "pixelCounts": {
             "head": 92
+          }
+        }
+      ]
+    },
+    {
+      "source": "Paperdolls/Male/Layer 5 - Hair/Headband White.png",
+      "class": "head",
+      "partMap": "overlays/headband-white.png",
+      "frames": [
+        {
+          "direction": "S",
+          "pixelCounts": {
+            "head": 52,
+            "hair-fall-upper": 8
+          }
+        },
+        {
+          "direction": "SE",
+          "pixelCounts": {
+            "head": 60,
+            "hair-fall-upper": 8
+          }
+        },
+        {
+          "direction": "E",
+          "pixelCounts": {
+            "head": 78,
+            "hair-fall-upper": 16,
+            "hair-fall-lower": 4
+          }
+        },
+        {
+          "direction": "NE",
+          "pixelCounts": {
+            "head": 62,
+            "hair-fall-upper": 16,
+            "hair-fall-lower": 14
+          }
+        },
+        {
+          "direction": "N",
+          "pixelCounts": {
+            "head": 58,
+            "hair-fall-upper": 16,
+            "hair-fall-lower": 14
+          }
+        },
+        {
+          "direction": "NW",
+          "pixelCounts": {
+            "head": 57,
+            "hair-fall-upper": 14,
+            "hair-fall-lower": 14
+          }
+        },
+        {
+          "direction": "W",
+          "pixelCounts": {
+            "head": 78,
+            "hair-fall-upper": 16,
+            "hair-fall-lower": 4
+          }
+        },
+        {
+          "direction": "SW",
+          "pixelCounts": {
+            "head": 60,
+            "hair-fall-upper": 8
+          }
+        }
+      ]
+    },
+    {
+      "source": "Paperdolls/Male/Layer 5 - Hair/Headband Red.png",
+      "class": "head",
+      "partMap": "overlays/headband-red.png",
+      "frames": [
+        {
+          "direction": "S",
+          "pixelCounts": {
+            "head": 52,
+            "hair-fall-upper": 8
+          }
+        },
+        {
+          "direction": "SE",
+          "pixelCounts": {
+            "head": 60,
+            "hair-fall-upper": 8
+          }
+        },
+        {
+          "direction": "E",
+          "pixelCounts": {
+            "head": 78,
+            "hair-fall-upper": 16,
+            "hair-fall-lower": 4
+          }
+        },
+        {
+          "direction": "NE",
+          "pixelCounts": {
+            "head": 62,
+            "hair-fall-upper": 16,
+            "hair-fall-lower": 14
+          }
+        },
+        {
+          "direction": "N",
+          "pixelCounts": {
+            "head": 58,
+            "hair-fall-upper": 16,
+            "hair-fall-lower": 14
+          }
+        },
+        {
+          "direction": "NW",
+          "pixelCounts": {
+            "head": 57,
+            "hair-fall-upper": 14,
+            "hair-fall-lower": 14
+          }
+        },
+        {
+          "direction": "W",
+          "pixelCounts": {
+            "head": 78,
+            "hair-fall-upper": 16,
+            "hair-fall-lower": 4
+          }
+        },
+        {
+          "direction": "SW",
+          "pixelCounts": {
+            "head": 60,
+            "hair-fall-upper": 8
+          }
+        }
+      ]
+    },
+    {
+      "source": "Paperdolls/Male/Layer 5 - Hair/Headband Blue.png",
+      "class": "head",
+      "partMap": "overlays/headband-blue.png",
+      "frames": [
+        {
+          "direction": "S",
+          "pixelCounts": {
+            "head": 52,
+            "hair-fall-upper": 8
+          }
+        },
+        {
+          "direction": "SE",
+          "pixelCounts": {
+            "head": 60,
+            "hair-fall-upper": 8
+          }
+        },
+        {
+          "direction": "E",
+          "pixelCounts": {
+            "head": 78,
+            "hair-fall-upper": 16,
+            "hair-fall-lower": 4
+          }
+        },
+        {
+          "direction": "NE",
+          "pixelCounts": {
+            "head": 62,
+            "hair-fall-upper": 16,
+            "hair-fall-lower": 14
+          }
+        },
+        {
+          "direction": "N",
+          "pixelCounts": {
+            "head": 58,
+            "hair-fall-upper": 16,
+            "hair-fall-lower": 14
+          }
+        },
+        {
+          "direction": "NW",
+          "pixelCounts": {
+            "head": 57,
+            "hair-fall-upper": 14,
+            "hair-fall-lower": 14
+          }
+        },
+        {
+          "direction": "W",
+          "pixelCounts": {
+            "head": 78,
+            "hair-fall-upper": 16,
+            "hair-fall-lower": 4
+          }
+        },
+        {
+          "direction": "SW",
+          "pixelCounts": {
+            "head": 60,
+            "hair-fall-upper": 8
           }
         }
       ]

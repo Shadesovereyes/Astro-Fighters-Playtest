@@ -17,6 +17,7 @@ from PIL import Image
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'armor-classes'))
 from build_helmets import head_info, ORDER, F, P   # noqa: E402
+from build_armor import BODY   # noqa: E402
 
 OUT = Path(sys.argv[1]) if len(sys.argv) > 1 else P / 'Layer 5 - Hair'
 BACKS = {'N', 'NE', 'NW'}
@@ -215,14 +216,24 @@ def locs_loose(h, cv):
                  [(cx + 2, t), (hi + 2, b + 2), (hi + 3, b + 8)],
                  [(cx - 1, t), (lo - 1, b + 1), (lo - 2, b + 11)],
                  [(cx + 1, t), (hi + 1, b + 1), (hi + 2, b + 11)],
-                 [(cx - 3, t), (lo, b), (lo - 1, b + 12)],
-                 [(cx + 3, t), (hi, b), (hi + 1, b + 12)],
+                 [(cx - 3, t), (lo, b), (lo, b + 12)],                              # inner locs hug the cheek
+                 [(cx + 3, t), (hi, b), (hi, b + 12)],
                  [(cx - 2, t), (cx - 4, b - 1)],                               # short locs over the forehead
                  [(cx + 2, t), (cx + 4, b - 1)],
                  [(cx, t), (cx + 1, b - 1)]]
     # in profile the locs may lie over the cheek and jaw; only the eye and the nose/mouth edge stay uncovered
     face = {(x, y) for (x, y) in h.face if x >= min(ex for ex, _ in h.eyes) - (0 if h.fr else -1)} if h.side and h.eyes else None
     for pts in ropes: rope(cv, h, pts, face)
+    if h.front:
+        # no gaps (Christopher 2026-10-28): every clear pixel between the outermost locs, on each row they cover, is
+        # filled with the locs behind (base colour, a dark seam every third column); the body below is never covered
+        rows = {}
+        for (x, y) in cv: rows.setdefault(y, []).append(x)
+        for y, xs in rows.items():
+            if y <= b: continue
+            for x in range(min(xs), max(xs) + 1):
+                if (x, y) in cv or (x, y) in h.face or (x, y) in h.eyes or BODY[y, h.ox + x, 3]: continue
+                cv[(x, y)] = '#' if (x - cx) % 3 == 0 else 'o'
 
 def headscarf(h, cv):
     paint(cv, h, cap(h, 1, h.brow + 4 if h.back else h.brow + 2, 2), tex_cloth)
@@ -239,6 +250,34 @@ def headscarf(h, cv):
         for i in range(3):
             cv[(h.cx - 1 + i, h.top + i)] = 'd'
             cv[(h.cx + 1 - i, h.top + i)] = 'd' if i != 1 else 'C'
+
+def headband(h, cv):
+    """Headband (a Head item drawn OVER the hair, Christopher 2026-10-28): a cloth band round the forehead, 1px out
+    from the head, knotted at the back with two tails. P = cloth, Q = its shade (each colour variant swaps them)."""
+    r0 = h.top
+    band = set()
+    for y in range(r0, r0 + 4):
+        lo, hi = h.span[max(y, h.top)]
+        band |= rect(lo - 1, y, hi + 1, y)
+    tex = lambda x, y, hh, m: 'P' if y == r0 + 1 else 'Q'
+    tails = lambda x, y, hh, m: 'Q' if (x + y) % 3 == 0 else 'P'
+    if h.side:
+        kx, ky = h.lo - 1, r0 + 1
+        paint(cv, h, strand([(kx - 1, ky + 1), (kx - 4, ky + 5), (kx - 5, ky + 10)], 2) | strand([(kx, ky + 2), (kx - 2, ky + 7), (kx - 2, ky + 12)], 2), tails)
+        paint(cv, h, band, tex)
+        paint(cv, h, ellipse(kx, ky + 1, 2, 2), tails)
+    elif h.back:
+        paint(cv, h, band, tex)
+        kx, ky = h.cx, r0 + 2
+        paint(cv, h, strand([(kx - 1, ky + 1), (kx - 3, ky + 7), (kx - 4, ky + 12)], 2) | strand([(kx + 1, ky + 1), (kx + 2, ky + 6), (kx + 3, ky + 11)], 2), tails)
+        paint(cv, h, ellipse(kx, ky, 2, 1), tails)
+    else:
+        # tails peek out past the head on one side, behind the band
+        paint(cv, h, strand([(h.hi + 1, r0 + 3), (h.hi + 3, r0 + 7), (h.hi + 4, r0 + 10)], 2), tails)
+        paint(cv, h, band, tex)
+
+HEADBANDS = {'White': {'P': hx('ecebe6'), 'Q': hx('b9bcc8')}, 'Red': {'P': hx('c43a30'), 'Q': hx('7e1c18')},
+             'Blue': {'P': hx('3d5bbd'), 'Q': hx('232f72')}}
 
 def topknot(h, cv):
     band_fade(cv, h, h.top + 2)
@@ -352,7 +391,7 @@ STYLES = [('locs-tied', 'Locs Tied', locs_tied, True), ('locs-loose', 'Locs Loos
           ('bantu-knots', 'Bantu Knots', bantu, False), ('ponytail', 'Ronin Ponytail', ponytail, True),
           ('flat-top', 'Flat Top', flat_top, False)]
 
-def build(fn):
+def build(fn, colours=None):
     out = np.zeros((F, F * 8, 4), np.uint8)
     for f, d in enumerate(ORDER):
         if d == 'W': continue
@@ -360,7 +399,7 @@ def build(fn):
         cv = {}
         fn(h, cv)
         for (x, y), k in cv.items():
-            if 0 <= x < F and 0 <= y < F: out[y, h.ox + x] = C[k]
+            if 0 <= x < F and 0 <= y < F: out[y, h.ox + x] = (colours or {}).get(k) or C[k]
     e, w = ORDER.index('E') * F, ORDER.index('W') * F
     out[:, w:w + F] = out[:, e:e + F][:, ::-1]
     return out
@@ -370,3 +409,6 @@ if __name__ == '__main__':
     for slug, name, fn, _ in STYLES:
         Image.fromarray(build(fn)).save(OUT / f'{name}.png')
         print('wrote', name)
+    for colour, pal in HEADBANDS.items():
+        Image.fromarray(build(headband, pal)).save(OUT / f'Headband {colour}.png')
+        print('wrote Headband', colour)
