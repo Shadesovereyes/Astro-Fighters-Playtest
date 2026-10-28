@@ -45,7 +45,9 @@ function draw(item, pose) {
     const h = s.thickness / 2;
     if (v < -h || v >= h) return null;
     const row = s.pattern[Math.floor(u - s.from) % s.pattern.length];
-    return row[Math.min(row.length - 1, Math.floor((v + h) * row.length / s.thickness))];
+    // '.' in a cross-section is empty (a spiked club's profile: spikes stand out of the band only on some rows)
+    const ch = row[Math.min(row.length - 1, Math.floor((v + h) * row.length / s.thickness))];
+    return ch === '.' ? null : ch;
   };
   // chainOnly: the weapon is hidden (its hand is out of sight) but the chain hanging from it shows
   if (!pose.chainOnly) for (let y = -ORIGIN[1]; y < WF - ORIGIN[1]; y++) for (let x = -ORIGIN[0]; x < WF - ORIGIN[0]; x++) {

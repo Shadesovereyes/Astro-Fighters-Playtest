@@ -1,0 +1,362 @@
+{
+  "schema": "astro-fighters-character-item/v1",
+  "item": "kanabo",
+  "kind": "rigid weapon (AGENTS.md: rigid items are placed by anchor with integer offsets)",
+  "status": "design approved by user 2026-10-28 (Ironwood Kanabo v2 cast, c58ee3f); weapon layer CANDIDATE 2026-10-28",
+  "construction": "band, one segment per row of the approved Ironwood Kanabo v2 club (astro.py NPAT['kanabo']); '.' in a cross-section is empty, so the spike rows stand out of the band; pixels are rasterised from the authored data, never rotated or resampled from an image",
+  "palette": {
+    "#": "#000000",
+    "i": "#24252b",
+    "j": "#4a4c55",
+    "h": "#9a9da8",
+    "u": "#a08a62",
+    "v": "#6e5c3e"
+  },
+  "paletteSource": "astro.py NPAL: i/j/h kanabo iron (dark, mid, highlight), u/v its cord wrap (as approved in the cast)",
+  "units": "pixels along the axis from the grip point (u, positive toward the cap) and across it (v)",
+  "segments": [
+    {
+      "name": "cap-0",
+      "from": 25.5,
+      "to": 26.5,
+      "thickness": 9,
+      "pattern": [
+        "...jjj..."
+      ]
+    },
+    {
+      "name": "cap-1",
+      "from": 24.5,
+      "to": 25.5,
+      "thickness": 9,
+      "pattern": [
+        "..jhhij.."
+      ]
+    },
+    {
+      "name": "head-2",
+      "from": 23.5,
+      "to": 24.5,
+      "thickness": 9,
+      "pattern": [
+        "ijihjjij."
+      ]
+    },
+    {
+      "name": "head-3",
+      "from": 22.5,
+      "to": 23.5,
+      "thickness": 9,
+      "pattern": [
+        "..ihjhi.."
+      ]
+    },
+    {
+      "name": "head-4",
+      "from": 21.5,
+      "to": 22.5,
+      "thickness": 9,
+      "pattern": [
+        "..ijjji.."
+      ]
+    },
+    {
+      "name": "head-5",
+      "from": 20.5,
+      "to": 21.5,
+      "thickness": 9,
+      "pattern": [
+        ".jihjjiji"
+      ]
+    },
+    {
+      "name": "head-6",
+      "from": 19.5,
+      "to": 20.5,
+      "thickness": 9,
+      "pattern": [
+        "..ihjhi.."
+      ]
+    },
+    {
+      "name": "head-7",
+      "from": 18.5,
+      "to": 19.5,
+      "thickness": 9,
+      "pattern": [
+        "..ijjji.."
+      ]
+    },
+    {
+      "name": "head-8",
+      "from": 17.5,
+      "to": 18.5,
+      "thickness": 9,
+      "pattern": [
+        "ijihjjij."
+      ]
+    },
+    {
+      "name": "head-9",
+      "from": 16.5,
+      "to": 17.5,
+      "thickness": 9,
+      "pattern": [
+        "..ihjhi.."
+      ]
+    },
+    {
+      "name": "head-10",
+      "from": 15.5,
+      "to": 16.5,
+      "thickness": 9,
+      "pattern": [
+        "..ijjji.."
+      ]
+    },
+    {
+      "name": "head-11",
+      "from": 14.5,
+      "to": 15.5,
+      "thickness": 9,
+      "pattern": [
+        ".jihjjiji"
+      ]
+    },
+    {
+      "name": "head-12",
+      "from": 13.5,
+      "to": 14.5,
+      "thickness": 9,
+      "pattern": [
+        "..ihjhi.."
+      ]
+    },
+    {
+      "name": "head-13",
+      "from": 12.5,
+      "to": 13.5,
+      "thickness": 9,
+      "pattern": [
+        "..ijjji.."
+      ]
+    },
+    {
+      "name": "head-14",
+      "from": 11.5,
+      "to": 12.5,
+      "thickness": 9,
+      "pattern": [
+        "ijihjjij."
+      ]
+    },
+    {
+      "name": "head-15",
+      "from": 10.5,
+      "to": 11.5,
+      "thickness": 9,
+      "pattern": [
+        "..ihjhi.."
+      ]
+    },
+    {
+      "name": "head-16",
+      "from": 9.5,
+      "to": 10.5,
+      "thickness": 9,
+      "pattern": [
+        "..ijjji.."
+      ]
+    },
+    {
+      "name": "head-17",
+      "from": 8.5,
+      "to": 9.5,
+      "thickness": 9,
+      "pattern": [
+        ".jihjjiji"
+      ]
+    },
+    {
+      "name": "head-18",
+      "from": 7.5,
+      "to": 8.5,
+      "thickness": 9,
+      "pattern": [
+        "..ihjhi.."
+      ]
+    },
+    {
+      "name": "head-19",
+      "from": 6.5,
+      "to": 7.5,
+      "thickness": 9,
+      "pattern": [
+        "..ijjji.."
+      ]
+    },
+    {
+      "name": "head-20",
+      "from": 5.5,
+      "to": 6.5,
+      "thickness": 9,
+      "pattern": [
+        "..ihjji.."
+      ]
+    },
+    {
+      "name": "neck-21",
+      "from": 4.5,
+      "to": 5.5,
+      "thickness": 9,
+      "pattern": [
+        "...hji..."
+      ]
+    },
+    {
+      "name": "neck-22",
+      "from": 3.5,
+      "to": 4.5,
+      "thickness": 9,
+      "pattern": [
+        "...ijj..."
+      ]
+    },
+    {
+      "name": "neck-23",
+      "from": 2.5,
+      "to": 3.5,
+      "thickness": 9,
+      "pattern": [
+        "...jhj..."
+      ]
+    },
+    {
+      "name": "grip-24",
+      "from": 1.5,
+      "to": 2.5,
+      "thickness": 9,
+      "pattern": [
+        "...vuv..."
+      ]
+    },
+    {
+      "name": "grip-25",
+      "from": 0.5,
+      "to": 1.5,
+      "thickness": 9,
+      "pattern": [
+        "...uvu..."
+      ]
+    },
+    {
+      "name": "grip-26",
+      "from": -0.5,
+      "to": 0.5,
+      "thickness": 9,
+      "pattern": [
+        "...vuv..."
+      ]
+    },
+    {
+      "name": "grip-27",
+      "from": -1.5,
+      "to": -0.5,
+      "thickness": 9,
+      "pattern": [
+        "...uvu..."
+      ]
+    },
+    {
+      "name": "grip-28",
+      "from": -2.5,
+      "to": -1.5,
+      "thickness": 9,
+      "pattern": [
+        "...vuv..."
+      ]
+    },
+    {
+      "name": "grip-29",
+      "from": -3.5,
+      "to": -2.5,
+      "thickness": 9,
+      "pattern": [
+        "...uvu..."
+      ]
+    },
+    {
+      "name": "grip-30",
+      "from": -4.5,
+      "to": -3.5,
+      "thickness": 9,
+      "pattern": [
+        "...vuv..."
+      ]
+    },
+    {
+      "name": "grip-31",
+      "from": -5.5,
+      "to": -4.5,
+      "thickness": 9,
+      "pattern": [
+        "...uvu..."
+      ]
+    },
+    {
+      "name": "ring-32",
+      "from": -6.5,
+      "to": -5.5,
+      "thickness": 9,
+      "pattern": [
+        "...jhj..."
+      ]
+    },
+    {
+      "name": "ring-33",
+      "from": -7.5,
+      "to": -6.5,
+      "thickness": 9,
+      "pattern": [
+        "..j...j.."
+      ]
+    },
+    {
+      "name": "ring-34",
+      "from": -8.5,
+      "to": -7.5,
+      "thickness": 9,
+      "pattern": [
+        "..j...j.."
+      ]
+    },
+    {
+      "name": "ring-35",
+      "from": -9.5,
+      "to": -8.5,
+      "thickness": 9,
+      "pattern": [
+        "...jjj..."
+      ]
+    }
+  ],
+  "outline": "every coloured pixel touching empty space gets an outline pixel (#) if it is not already one",
+  "grip": "two-handed: near fist at the top of the cord grip (row 26, where the cast grips it), far fist 4 px below",
+  "trail": {
+    "rule": "swing smear colours, from the outer edge inward: earth dust browns (astro.py ELEMENT e/E) behind a white edge; hard alpha",
+    "bands": [
+      {
+        "to": 1.5,
+        "colour": "#ffffff"
+      },
+      {
+        "to": 3.5,
+        "colour": "#c79a5b"
+      },
+      {
+        "to": 99,
+        "colour": "#8a6236"
+      }
+    ]
+  }
+}
