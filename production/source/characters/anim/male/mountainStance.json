@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "mountainStance",
-  "status": "CANDIDATE 2026-10-27 (E/W; W mirrors E; S/N to author after approval)",
+  "status": "E/W approved by user 2026-10-28 (v1 double shiko stamp, wide rooted stance, earth aura, crystal shards, a651ae52; W mirrors E); S/N to author",
   "frames": 12,
   "fps": 10,
   "sourceDirection": "E",
