@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Ironwood Kanabo (Taurus ninjutsu, STR +20% 3 rounds, unlocks the Kanabo weapon style kit: the fighter materialises its iron will into a towering studded club): from the guard the fighter makes the seal at the chin, then opens both hands palm up in front of its chest and grit, dust and stone chips rise and spin up between them; the outline of a towering club draws itself out of the grit, then fills in solid: a long ironwood kanabo, dark grained wood studded with teal crystal, its grip wrapped; the fighter closes both fists round the grip and plants it upright in front of itself, crystal studs flashing, dust shaking off; then it returns to the guard (the club is held only through the cast here; a kanabo weapon layer and Kanabo stance idle are the next step for the weapon kit).",
+  "intent": "Ironwood Kanabo (Taurus ninjutsu, STR +20% 3 rounds, unlocks the Kanabo weapon style kit: the fighter materialises its iron will into a towering studded club), v2 (Christopher 2026-10-28: the club rises from the earth; redesigned after his reference): from the guard the fighter makes the seal at the chin, then sweeps both palms down low, facing the floor, and the ground in front of it cracks, dust and stones jumping; it draws its palms up and the club rises out of the crack head first: a long dark iron kanabo with rows of spikes down both sides and studs between them, a rounded cap, a tapered cone neck, a cord-wrapped grip and an iron ring at the pommel; as the grip clears the floor the fighter closes its near fist round it and lifts it free, dust and stone shaking off; then it returns to the guard (a kanabo weapon layer and Kanabo stance idle are the next step for holding it).",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -104,11 +104,11 @@
     "dy": [
       1,
       1,
-      1,
-      1,
-      1,
       2,
       2,
+      2,
+      1,
+      1,
       1,
       1,
       1
@@ -116,11 +116,11 @@
     "head": [
       1,
       1,
-      1,
-      1,
-      1,
       2,
       2,
+      2,
+      1,
+      1,
       1,
       1,
       1
@@ -128,11 +128,11 @@
     "arms": [
       2,
       1,
-      1,
-      1,
-      1,
       2,
       2,
+      2,
+      1,
+      1,
       2,
       2,
       2
@@ -145,9 +145,9 @@
       "pelvis": [
         0,
         0,
-        0,
-        0,
-        0,
+        1,
+        1,
+        1,
         0,
         0,
         0,
@@ -157,9 +157,9 @@
       "head": [
         2,
         0,
-        0,
-        -1,
-        -1,
+        3,
+        3,
+        2,
         1,
         1,
         1,
@@ -1129,11 +1129,11 @@
     "near": [
       1,
       1,
-      1,
-      1,
-      1,
       3,
       3,
+      3,
+      1,
+      1,
       1,
       1,
       1
@@ -1141,11 +1141,11 @@
     "far": [
       0,
       0,
-      0,
-      0,
-      0,
       2,
       2,
+      2,
+      0,
+      0,
       0,
       0,
       0
@@ -1186,28 +1186,19 @@
       },
       {
         "construction": "band",
-        "angle": -40,
+        "angle": -30,
         "elbow": {
           "at": 8,
-          "angle": -100
+          "angle": -45
         },
         "fistKind": "palm"
       },
       {
         "construction": "band",
-        "angle": -40,
+        "angle": -30,
         "elbow": {
           "at": 8,
-          "angle": -100
-        },
-        "fistKind": "palm"
-      },
-      {
-        "construction": "band",
-        "angle": -40,
-        "elbow": {
-          "at": 8,
-          "angle": -100
+          "angle": -45
         },
         "fistKind": "palm"
       },
@@ -1216,23 +1207,33 @@
         "angle": -45,
         "elbow": {
           "at": 8,
-          "angle": -95
+          "angle": -80
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": -60,
+        "elbow": {
+          "at": 8,
+          "angle": -110
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": -55,
+        "elbow": {
+          "at": 8,
+          "angle": -70
         }
       },
       {
         "construction": "band",
-        "angle": -45,
+        "angle": -55,
         "elbow": {
           "at": 8,
-          "angle": -95
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -45,
-        "elbow": {
-          "at": 8,
-          "angle": -95
+          "angle": -70
         }
       },
       {
@@ -1272,34 +1273,43 @@
       },
       {
         "construction": "band",
-        "angle": -45,
+        "angle": -35,
         "elbow": {
           "at": 8,
-          "angle": -105
+          "angle": -50
         },
         "fistKind": "palm"
       },
       {
         "construction": "band",
-        "angle": -45,
+        "angle": -35,
         "elbow": {
           "at": 8,
-          "angle": -105
-        },
-        "fistKind": "palm"
-      },
-      {
-        "construction": "band",
-        "angle": -45,
-        "elbow": {
-          "at": 8,
-          "angle": -105
+          "angle": -50
         },
         "fistKind": "palm"
       },
       {
         "construction": "band",
         "angle": -50,
+        "elbow": {
+          "at": 8,
+          "angle": -85
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": -65,
+        "elbow": {
+          "at": 8,
+          "angle": -115
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": -40,
         "elbow": {
           "at": 8,
           "angle": -100
@@ -1307,15 +1317,7 @@
       },
       {
         "construction": "band",
-        "angle": -50,
-        "elbow": {
-          "at": 8,
-          "angle": -100
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -50,
+        "angle": -40,
         "elbow": {
           "at": 8,
           "angle": -100
@@ -2200,19 +2202,19 @@
       {
         "frame": 4,
         "clip": "ironwoodKanabo",
-        "type": "active",
-        "move": "Ironwood Kanabo",
-        "buff": true
+        "type": "startup"
       },
       {
         "frame": 5,
         "clip": "ironwoodKanabo",
-        "type": "recovery"
+        "type": "startup"
       },
       {
         "frame": 6,
         "clip": "ironwoodKanabo",
-        "type": "recovery"
+        "type": "active",
+        "move": "Ironwood Kanabo",
+        "buff": true
       },
       {
         "frame": 7,
@@ -2254,19 +2256,19 @@
       {
         "frame": 4,
         "clip": "ironwoodKanabo",
-        "type": "active",
-        "move": "Ironwood Kanabo",
-        "buff": true
+        "type": "startup"
       },
       {
         "frame": 5,
         "clip": "ironwoodKanabo",
-        "type": "recovery"
+        "type": "startup"
       },
       {
         "frame": 6,
         "clip": "ironwoodKanabo",
-        "type": "recovery"
+        "type": "active",
+        "move": "Ironwood Kanabo",
+        "buff": true
       },
       {
         "frame": 7,
@@ -2571,10 +2573,10 @@
         null,
         "squint",
         "squint",
-        "squint",
-        null,
+        "strain",
         "strain",
         "squint",
+        null,
         null,
         null,
         null
@@ -2583,7 +2585,7 @@
     "intent": "eyes squeezed shut with the brow pulled down on the impact frames 0-2 (no mouth: user 2026-10-14), a squint on frame 3, open again from frame 4 (user 2026-10-14)"
   },
   "weapon": {
-    "rule": "Ironwood Kanabo summons the Kanabo (Taurus): the cast draws the club as fx; holding it afterwards needs a kanabo weapon layer and a Kanabo stance idle (to author once the cast is approved)",
+    "rule": "Ironwood Kanabo summons the Kanabo (Taurus): the cast draws the club as fx (rising from the floor, then in the near fist); holding it afterwards needs a kanabo weapon layer and a Kanabo stance idle (to author once the cast is approved)",
     "item": "kanabo"
   }
 }

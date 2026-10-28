@@ -154,8 +154,7 @@ NPAT.update({'pflame1': ['.K.', 'KPK', '.p.'], 'pflame2': ['..K..', '.KP..', '.P
              'crack1': ['K.....K', '.K...K.', '.EKEKE.'], 'crack2': ['K...........K', '.KK.......KK.', '...KK.K.KK...', '....EKKKE....'],   # Taurus: cracks stamped into the floor
              'dust1': ['..e.e..', '.eEeEe.', 'eEeEeEe', '.EeEeE.'], 'dust2': ['e...e.e...e', '.e.eEeEe.e.', '..eEeEeEe..', '.eEeEeEeEe.'], 'rocks': ['K...E', '.E.K.', 'E...K'],
              'cryst': ['.c.', 'cCc', '.C.'], 'crystT': ['c', 'C', 'C'],
-             'kanabo': ['..EEE..', '.EeeeE.', 'ECeECeE', 'EeeceeE', 'EeeEeeE', 'ECeECeE', 'EeeceeE', 'EeeEeeE', 'ECeECeE', 'EeeceeE', 'EeeEeeE', 'ECeECeE', 'EeeceeE', 'EeeEeeE', 'ECeECeE', '.EeeeE.', '.EeeeE.', '..KEK..', '..EKE..', '..KEK..', '..EKE..', '..KEK..', '..EKE..', '..KEK..'],   # Ironwood Kanabo: the towering studded club, upright (ironwood browns, teal crystal studs, wrapped grip)
-             'kanaboG': ['..EEE..', '.E...E.', 'E.....E', 'E.....E', 'E.....E', 'E.....E', 'E.....E', 'E.....E', 'E.....E', 'E.....E', 'E.....E', 'E.....E', 'E.....E', 'E.....E', 'E.....E', '.E...E.', '.E...E.', '..E.E..', '..E.E..', '..E.E..', '..E.E..', '..E.E..', '..E.E..', '..EEE..'],   # its faint outline forming out of the grit
+             'kanabo': ['...jjj...', '..jhhij..', 'ijihjjij.', '..ihjhi..', '..ijjji..', '.jihjjiji', '..ihjhi..', '..ijjji..', 'ijihjjij.', '..ihjhi..', '..ijjji..', '.jihjjiji', '..ihjhi..', '..ijjji..', 'ijihjjij.', '..ihjhi..', '..ijjji..', '.jihjjiji', '..ihjhi..', '..ijjji..', '..ihjji..', '...hji...', '...ijj...', '...jhj...', '...vuv...', '...uvu...', '...vuv...', '...uvu...', '...vuv...', '...uvu...', '...vuv...', '...uvu...', '...jhj...', '..j...j..', '..j...j..', '...jjj...'],   # Ironwood Kanabo v2 (Christopher 2026-10-28 reference): dark iron club, spike rows both sides, studs, rounded cap, tapered cone, cord-wrapped grip, ring pommel
              'smoke1': ['.g.', 'g.w', '.w.', 'w..'], 'smoke2': ['..g', '.w.', 'g..', '.w.', '..g']})   # Cauterize: a wisp of smoke off the sealed wound
 U.POSES += [U.kleg('lk-axe-top', (34, 39), (38, 31), (41, 22), 'pointUR'),    # Leash Kick v2 axe kick: straight leg raised high, heel above the head
             U.kleg('lk-axe-chop', (34, 40), (41, 38), (48, 37), 'pointFwd'),   # heel chopping down through shoulder height
@@ -182,7 +181,7 @@ def _dustkick(p, k):   # Bull Rush: a burst of dust and grit at each sprint foot
 DUST_WAKE = [[('dust2', [12, 63]), ('dust1', [4, 62]), ('dust1', [16, 58])], [('dust1', [13, 63]), ('dust2', [5, 63]), ('rocks', [10, 56])]]
 SPIN = lambda d, f: {'state': 'spinPivot', 'dir': d, 'frame': f, 'dx': 2}
 
-NPAL.update({'T': '#3a9e8f'})   # earth: deep crystal teal (the shaded facet of a gem)
+NPAL.update({'T': '#3a9e8f', 'i': '#24252b', 'j': '#4a4c55', 'h': '#9a9da8', 'u': '#a08a62', 'v': '#6e5c3e'})   # i/j/h: kanabo iron (dark, mid, highlight); u/v: its cord wrap   # earth: deep crystal teal (the shaded facet of a gem)
 def _dome(f, rx=21, ry=55, crystals=False):   # Root Sanctuary: two gnarled roots growing up from the floor either side and arching over the head; f = how far they have grown (1 = met overhead)
     h, w = ry + 2, 2 * rx + 9; cx, base = w // 2, ry + 1
     rows = [['.'] * w for _ in range(h)]
@@ -700,89 +699,29 @@ CLIPS = {
                  5: [('cryst', 'head', 6, 16), ('rocks', 'head', 8, 26), ('crystT', 'head', -7, 22)],
                  6: [('cryst', 'head', -6, 24), ('crystT', 'head', 7, 12)],
                  7: [('cryst', 'head', 5, 28)]})),
- 'ironwoodKanabo': ('Ironwood Kanabo', 4,
-  'Ironwood Kanabo (Taurus ninjutsu, STR +20% 3 rounds, unlocks the Kanabo weapon style kit: the fighter materialises its iron will into a towering studded club): from the guard the fighter makes the seal at the chin, then opens both hands palm up in front of its chest and grit, dust and stone chips rise and spin up between them; the outline of a towering club draws itself out of the grit, then fills in solid: a long ironwood kanabo, dark grained wood studded with teal crystal, its grip wrapped; the fighter closes both fists round the grip and plants it upright in front of itself, crystal studs flashing, dust shaking off; then it returns to the guard (the club is held only through the cast here; a kanabo weapon layer and Kanabo stance idle are the next step for the weapon kit).', [
+ 'ironwoodKanabo': ('Ironwood Kanabo', 6,
+  'Ironwood Kanabo (Taurus ninjutsu, STR +20% 3 rounds, unlocks the Kanabo weapon style kit: the fighter materialises its iron will into a towering studded club), v2 (Christopher 2026-10-28: the club rises from the earth; redesigned after his reference): from the guard the fighter makes the seal at the chin, then sweeps both palms down low, facing the floor, and the ground in front of it cracks, dust and stones jumping; it draws its palms up and the club rises out of the crack head first: a long dark iron kanabo with rows of spikes down both sides and studs between them, a rounded cap, a tapered cone neck, a cord-wrapped grip and an iron ring at the pommel; as the grip clears the floor the fighter closes its near fist round it and lifts it free, dust and stone shaking off; then it returns to the guard (a kanabo weapon layer and Kanabo stance idle are the next step for holding it).', [
      g(),
      g(an=U.SEAL_N, af=U.SEAL_F, bob=(1, 1, 1), lean=(0, 0)),
-     g(an=band(-40, -100, fistKind='palm'), af=band(-45, -105, fistKind='palm'), bob=(1, 1, 1), lean=(0, 0)),
-     g(an=band(-40, -100, fistKind='palm'), af=band(-45, -105, fistKind='palm'), bob=(1, 1, 1), lean=(0, -1)),
-     g(an=band(-40, -100, fistKind='palm'), af=band(-45, -105, fistKind='palm'), bob=(1, 1, 1), lean=(0, -1)),
-     g(an=band(-45, -95), af=band(-50, -100), bob=(2, 2, 2), lean=(0, 1), **LOW),
-     g(an=band(-45, -95), af=band(-50, -100), bob=(2, 2, 2), lean=(0, 1), **LOW),
-     g(an=band(-45, -95), af=band(-50, -100), bob=(1, 1, 2), lean=(0, 1)),
+     g(an=band(-30, -45, fistKind='palm'), af=band(-35, -50, fistKind='palm'), bob=(2, 2, 2), lean=(1, 3), **LOW),
+     g(an=band(-30, -45, fistKind='palm'), af=band(-35, -50, fistKind='palm'), bob=(2, 2, 2), lean=(1, 3), **LOW),
+     g(an=band(-45, -80, fistKind='palm'), af=band(-50, -85, fistKind='palm'), bob=(2, 2, 2), lean=(1, 2), **LOW),
+     g(an=band(-60, -110, fistKind='palm'), af=band(-65, -115, fistKind='palm'), bob=(1, 1, 1), lean=(0, 1)),
+     g(an=band(-55, -70), af=band(-40, -100), bob=(1, 1, 1), lean=(0, 1)),
+     g(an=band(-55, -70), af=band(-40, -100), bob=(1, 1, 2), lean=(0, 1)),
      g(an=band(-40, -110), af=band(-35, -105), bob=(1, 1, 2), lean=(0, 2)),
      g()],
-  [None, 'squint', 'squint', 'squint', None, 'strain', 'squint', None, None, None],
+  [None, 'squint', 'squint', 'strain', 'strain', 'squint', None, None, None, None],
   [0, 0, 1, 1, 2, 2, 1, 1, 0, 0],
   dict(fps=10, auraColors=('#c79a5b', '#8a6236'),
-       extra={'weapon': {'rule': 'Ironwood Kanabo summons the Kanabo (Taurus): the cast draws the club as fx; holding it afterwards needs a kanabo weapon layer and a Kanabo stance idle (to author once the cast is approved)', 'item': 'kanabo'}},
-       anchored={2: [('rocks', 'hand', 0, -6), ('dust1', 'hand', -2, -3)],
-                 3: [('kanaboG', 'hand', 0, -11), ('rocks', 'hand', 3, -8), ('dust1', 'hand', -3, -4), ('rocks', 'hand', -4, -24)],
-                 4: [('kanabo', 'hand', 0, -11), ('cryst', 'hand', 2, -20), ('cryst', 'hand', -2, -12), ('dust2', 'hand', 0, -2)],
-                 5: [('kanabo', 'hand', 0, -10), ('cryst', 'hand', -2, -22), ('dust1', 'feet', 6, -2)],
-                 6: [('kanabo', 'hand', 0, -10), ('crystT', 'hand', 3, -18), ('dust1', 'feet', 8, -3)],
-                 7: [('kanabo', 'hand', 0, -10)]})),
- 'rootSanctuary': ('Root Sanctuary', 5,
-  'Root Sanctuary (Taurus ninjutsu self buff, FORT +20% 2 rounds: the fighter forms a rooted earthen sanctuary around itself, reinforcing its body): from the guard the fighter makes the seal at the chin and sinks into its knees, eyes closing, an earthen aura rising round it; then it drives both fists down beside its hips and the floor cracks open either side of it: two gnarled roots burst up out of the cracks, rootlets kicking out sideways and runners spreading along the floor, and climb either side of the fighter, arching inward over its head until they meet in a dome, teal crystal budding along them as they close; it holds inside the sanctuary, unmoving, crystal glinting, then the roots sink back into the floor and it rises back into the guard (the spec proposes a faint ring of roots at the feet while the buff lasts).', [
-     g(),
-     g(an=U.SEAL_N, af=U.SEAL_F, bob=(1, 1, 1), lean=(0, 0)),
-     g(an=U.SEAL_N, af=U.SEAL_F, bob=(2, 2, 2), lean=(0, 0), **LOW),
-     *[g(an=FLEX_N, af=FLEX_F, bob=(3, 3, 3), lean=(0, 1), **LOW) for _ in range(7)],
-     g(an=band(-30, -100), af=band(-30, -95), bob=(2, 2, 2), lean=(0, 2), **LOW),
-     g()],
-  [None, 'squint', 'closed', 'strain', 'strain', 'squint', 'squint', 'squint', 'squint', 'squint', None, None],
-  [0, 0, 1, 2, 2, 2, 2, 2, 2, 1, 1, 0],
-  dict(fps=10, auraColors=('#c79a5b', '#8a6236'),
-       extra={'linger': {'rule': 'Root Sanctuary (FORT +20% 2 rounds), proposal: while the buff lasts the testbed draws a faint ring of roots on the floor round the fighter (the crack2 floor pattern in soil browns, alpha 150, behind the fighter); clears when the buff ends', 'pattern': 'crack2', 'alpha': 150}},
-       anchored={3: [('crack2', 'feet', 0, -1), ('sanct20', 'feet', 0, SANCT_DY, {'behind': True}), ('dust1', 'feet', -14, -3), ('dust1', 'feet', 14, -3), ('rocks', 'feet', 16, -8)],
-                 4: [('crack2', 'feet', 0, -1), ('sanct45', 'feet', 0, SANCT_DY, {'behind': True}), ('dust2', 'feet', 14, -3), ('rocks', 'feet', -17, -10)],
-                 5: [('crack2', 'feet', 0, -1), ('sanct70', 'feet', 0, SANCT_DY, {'behind': True}), ('dust1', 'feet', -15, -4)],
-                 6: [('crack2', 'feet', 0, -1), ('sanct90', 'feet', 0, SANCT_DY, {'behind': True}), ('cryst', 'feet', 12, -24)],
-                 7: [('crack2', 'feet', 0, -1), ('sanct100', 'feet', 0, SANCT_DY, {'behind': True}), ('glint', 'head', 0, -10), ('cryst', 'feet', -13, -30)],
-                 8: [('crack2', 'feet', 0, -1), ('sanct100', 'feet', 0, SANCT_DY, {'behind': True}), ('cryst', 'feet', 13, -18), ('glit', 'head', -9, -4)],
-                 9: [('crack2', 'feet', 0, -1, {'alpha': {'E': 170, 'K': 170}}), ('sanct70', 'feet', 0, SANCT_DY, {'behind': True, 'alpha': {'E': 170, 'e': 170, 'K': 170}}), ('dust1', 'feet', 14, -3)],
-                 10: [('crack1', 'feet', 0, -1, {'alpha': {'E': 120, 'K': 120}}), ('sanct20', 'feet', 0, SANCT_DY, {'behind': True, 'alpha': {'E': 110, 'e': 110, 'K': 110}})]})),
- 'materialFixation': ('Material Fixation', 4,
-  'Material Fixation (Taurus genjutsu, mental debuff: the caster forces an obsession on the foe, so it drops everything and loses focus on the fight; Disarm 3 rounds, INT save DC 12; range ~12 m): from the guard the fighter opens the near hand palm up in front of its chest, the far hand low, and an illusory crystal gem forms out of a glint in the palm, growing and faceting, teal with a white highlight and sparkling; its eyes kindle crystal teal; it lifts the palm and offers the gem out toward the target, and the gem\'s image drifts off the palm toward the foe trailing glitter while waves of crystal-teal fascination roll out from the eyes, each one wider; the gem fades out of sight near the target, the glow dies and the hand drops back into the guard (the target takes the genjutsu mark, genjutsuAfflicted in earth colours, for the Disarm).', [
-     g(),
-     g(an=band(-40, -100, fistKind='palm'), af=band(-10, -40), bob=(1, 1, 1), lean=(0, 0)),
-     g(an=band(-40, -100, fistKind='palm'), af=band(-10, -40), bob=(1, 1, 1), lean=(0, -1)),
-     g(an=band(-55, -95, fistKind='palm'), af=band(-10, -40), bob=(1, 1, 1), lean=(0, 0)),
-     *[g(an=band(-80, -90, fistKind='palm'), af=band(-10, -40), bob=(1, 1, 1), lean=(1, 3)) for _ in range(4)],
-     g(an=band(-50, -110), af=band(-25, -90), bob=(1, 1, 1), lean=(0, 1)),
-     g()],
-  [None, None, 'squint', 'squint', 'squint', 'squint', 'squint', None, None, None],
-  [0, 0, 1, 1, 2, 2, 2, 1, 0, 0],
-  dict(fps=10, auraColors=('#7fe3d0', '#8a6236'), extra={'targetState': {'rule': 'Christopher 2026-10-27: every genjutsu marks its target; on the active frame the target starts genjutsuAfflicted (earth colours, genjutsuMark.recolor.earth) and keeps it until the Disarm ends', 'state': 'genjutsuAfflicted', 'element': 'earth'}},
-       anchored={1: [('gem1', 'hand', 1, -4)],
-                 2: [('gem2', 'hand', 1, -5), ('glit', 'hand', -3, -9), ('eyeC', 'eye', 0, 0)],
-                 3: [('gem3', 'hand', 1, -6), ('glint', 'hand', 4, -11), ('eyeCF', 'eye', 0, 0)],
-                 4: [('gem3', 'hand', 5, -5), ('glit', 'hand', 0, -4), ('eyeCF', 'eye', 0, 0), ('fix1', 'eye', 6, 0)],
-                 5: [('gem2', 'hand', 11, -4), ('glit', 'hand', 5, -3), ('glit', 'hand', 0, -6, {'alpha': {'c': 150, 'W': 170}}), ('eyeCF', 'eye', 0, 0), ('fix2', 'eye', 10, 1), ('fix1', 'eye', 6, 0)],
-                 6: [('gem2', 'hand', 17, -3, {'alpha': {'c': 190, 'C': 190, 'T': 190, 'W': 210}}), ('glit', 'hand', 11, -2), ('eyeCF', 'eye', 0, 0), ('fix3', 'eye', 15, 2), ('fix2', 'eye', 10, 1), ('fix1', 'eye', 6, 0)],
-                 7: [('gem1', 'hand', 22, -2, {'alpha': {'c': 140, 'C': 140, 'T': 140}}), ('glit', 'hand', 17, -1, {'alpha': {'c': 140, 'W': 150}}), ('eyeC', 'eye', 0, 0), ('fix3d', 'eye', 20, 3), ('fix3', 'eye', 15, 2)],
-                 8: [('fix3d', 'eye', 21, 3, {'alpha': {'C': 140, 'T': 140}})]})),
- 'planetaryPressure': ('Planetary Pressure', 4,
-  'Planetary Pressure (Taurus genjutsu, mental debuff: the caster exerts its will on the foe\'s mind so it perceives gravity as twice as strong; Slow 2 rounds, STR save DC 13; range ~12 m): from the guard the fighter raises the near hand high, palm up, and an illusory planet forms just in front of it, soil brown with a ring of teal crystal, swelling over two frames while the eyes kindle crystal teal; then it closes the hand into a fist and drags it down hard in front of itself, sinking into its knees as if hauling the weight down, and the planet collapses into heavy dome-shaped waves of gravity that roll out toward the target, bearing down and sinking as they travel, with dashes of gravity falling over the target; it holds the pull, then rises back into the guard (the target takes the genjutsu mark, genjutsuAfflicted in earth colours, for the Slow).', [
-     g(),
-     g(an=band(-110, -150, fistKind='palm'), af=band(-20, -70), bob=(0, -1, 0), lean=(0, -1)),
-     g(an=band(-120, -150, fistKind='palm'), af=band(-5, -40), bob=(0, -1, 0), lean=(0, -2)),
-     g(an=band(-120, -150, fistKind='palm'), af=band(-5, -40), bob=(0, -1, 0), lean=(0, -2)),
-     g(an=band(-90, -60), af=band(-5, -40), bob=(2, 2, 2), lean=(1, 3), **LOW),
-     *[g(an=band(-60, -40), af=band(-5, -40), bob=(3, 3, 3), lean=(1, 4), **LOW) for _ in range(3)],
-     g(an=band(-40, -110), af=band(-25, -90), bob=(1, 1, 2), lean=(0, 1)),
-     g()],
-  [None, None, 'squint', 'squint', 'strain', 'strain', 'squint', 'squint', None, None],
-  [0, 0, 1, 2, 2, 2, 2, 1, 0, 0],
-  dict(fps=10, auraColors=('#c79a5b', '#8a6236'), extra={'targetState': {'rule': 'Christopher 2026-10-27: every genjutsu marks its target; on the active frame the target starts genjutsuAfflicted (earth colours, genjutsuMark.recolor.earth) and keeps it until the Slow ends', 'state': 'genjutsuAfflicted', 'element': 'earth'}},
-       anchored={1: [('planet1', 'hand', 4, 1)],
-                 2: [('planet2', 'hand', 6, 2), ('eyeC', 'eye', 0, 0)],
-                 3: [('planet3', 'hand', 7, 3), ('glit', 'hand', 12, -2), ('eyeCF', 'eye', 0, 0)],
-                 4: [('planet2', 'hand', 2, 0, {'alpha': {'e': 170, 'E': 170, 'K': 170, 'C': 190, 'c': 190}}), ('eyeCF', 'eye', 0, 0), ('gp1', 'feet', 14, -30)],
-                 5: [('eyeCF', 'eye', 0, 0), ('gp2', 'feet', 19, -24), ('gp1', 'feet', 14, -30), ('gline', 'feet', 22, -38), ('gline', 'feet', 28, -34)],
-                 6: [('eyeCF', 'eye', 0, 0), ('gp3', 'feet', 24, -17), ('gp2', 'feet', 19, -24), ('gline', 'feet', 22, -32), ('gline', 'feet', 28, -28), ('gline', 'feet', 25, -40)],
-                 7: [('eyeC', 'eye', 0, 0), ('gp3d', 'feet', 27, -10), ('gline', 'feet', 25, -34), ('gline', 'feet', 29, -22)],
-                 8: [('gline', 'feet', 27, -28, {'alpha': {'e': 120, 'E': 120, 'K': 120}})]})),
+       extra={'weapon': {'rule': 'Ironwood Kanabo summons the Kanabo (Taurus): the cast draws the club as fx (rising from the floor, then in the near fist); holding it afterwards needs a kanabo weapon layer and a Kanabo stance idle (to author once the cast is approved)', 'item': 'kanabo'}},
+       kanaboRise={3: 8, 4: 20, 5: 32, 6: 'grip', 7: 'grip'},
+       anchored={2: [('crack1', 'feet', 13, -1), ('dust1', 'feet', 13, -3), ('rocks', 'feet', 17, -8)],
+                 3: [('crack2', 'feet', 13, -1), ('dust2', 'feet', 13, -3), ('rocks', 'feet', 9, -10), ('rocks', 'feet', 18, -14)],
+                 4: [('crack2', 'feet', 13, -1), ('dust2', 'feet', 13, -2), ('rocks', 'feet', 17, -24)],
+                 5: [('crack2', 'feet', 13, -1), ('dust1', 'feet', 13, -2), ('rocks', 'feet', 9, -30)],
+                 6: [('crack1', 'feet', 13, -1), ('dust1', 'feet', 13, -2), ('rocks', 'hand', 3, 12)],
+                 7: [('crack1', 'feet', 13, -1, {'alpha': {'K': 130, 'E': 130}})]})),
  'flowDodge': ('Flow Dodge', 3,
   'Flow Dodge (Sagittarius taijutsu stance buff: the fighter enters a dance-like trance and begins to swing and sway to its own rhythm): from the guard the fighter shakes its arms loose and lets the guard drop low and easy, eyes half closed, catching a beat; then it sways to its own rhythm: rocking back and forward on its feet and dipping on the knees, shoulders rolling, the loose hands swinging opposite to the hips, a flickering fire aura breathing round it on the beat with a few black and purple wisps rising off the shoulders; on the last beat it snaps its eyes open and settles into a loose, low guard (the testbed keeps the stance).', [
      g(),
@@ -916,6 +855,11 @@ def fx(state):
         f_ = D + state + '/fx.png'
         if not os.path.exists(f_): Image.new('RGBA', Image.open(D + state + '/body.png').size).save(f_)
         spinFire(state, x['spinFire'])
+    if x.get('kanaboRise'):
+        from PIL import Image
+        f_ = D + state + '/fx.png'
+        if not os.path.exists(f_): Image.new('RGBA', Image.open(D + state + '/body.png').size).save(f_)
+        kanaboRise(state, x['kanaboRise'])
     if x.get('topFire'):
         from PIL import Image
         f_ = D + state + '/fx.png'
@@ -1610,6 +1554,28 @@ def topFire(state, frames):
                 stamp(k, r, ('flame3', 'flame2')[(k + i) % 2] if (k + i) % 3 else 'pflame2', fx_, fy - 3, flip)
             stamp(k, r, 'embers' if k % 2 else 'pembers', cx + 8, 60, flip); stamp(k, r, 'pembers' if k % 2 else 'embers', cx - 8, 60, flip)   # sparks on the floor round the head
     fx.save(f_); print(state, 'topFire', list(frames))
+
+def kanaboRise(state, frames):
+    """Ironwood Kanabo v2 (Christopher 2026-10-28: the club rises from the earth): frames = {k: rows} the club's height
+    above the floor, head first, out of a crack in front of the fighter (only the part above row 62 shows), or
+    {k: 'grip'} the whole club with its grip in the near fist (the arms layer's foremost pixel)"""
+    from PIL import Image
+    f_ = D + state + '/fx.png'; fx = Image.open(f_).convert('RGBA'); px = fx.load(); dirs = load(D + state + '.json')['directions']
+    pat = NPAT['kanabo']; H, Wd = len(pat), len(pat[0]); GRIP = 26   # pattern row held in the fist
+    for k, v in frames.items():
+        for r, fd in enumerate(dirs):
+            if fd not in ('E', 'W'): continue
+            flip = fd == 'W'; sg = -1 if flip else 1
+            fig = _fig(state, k, r); cx = (min(x for x, _ in fig) + max(x for x, _ in fig)) / 2
+            if v == 'grip':
+                tip = _tip(state, k, r, flip); x0 = tip[0] - Wd // 2 - sg; y0 = tip[1] - GRIP; floor = 63
+            else:
+                x0 = round(cx + sg * 13 - Wd / 2); y0 = 63 - v; floor = 62
+            for yy, row in enumerate(pat):
+                for xx, ch in enumerate(row[::-1] if flip else row):
+                    X, Y_ = x0 + xx, y0 + yy
+                    if ch != '.' and 0 <= X < 64 and 0 <= Y_ <= floor: px[k * 64 + X, r * 64 + Y_] = _hexc(NPAL[ch])
+    fx.save(f_); print(state, 'kanaboRise', frames)
 
 def nova(state, frames, aura=False):
     """Supernova release, facing S (every row shows the S frame here): 'core' a star kindling at the chest and the body glowing;
