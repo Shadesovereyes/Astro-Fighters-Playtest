@@ -295,6 +295,8 @@ NPAT.update({**{'eye%d%s' % (k, fb): q for k in range(4) for fb, q in zip('FB', 
              **{'eyeLow%d%s' % (k, fb): q for k in range(4) for fb, q in zip('FB', _whirl(12, 14, 16, k * math.pi / 2, 50 + k, arms=3))},
              **{'gust%d%s' % (k, fb): q for k in range(4) for fb, q in zip('FB', _gust(34, 40, k, 60 + k, n=18))},
              'stormRing': _whirl(12, 14, 16, 0, 50, arms=2)[0], 'sandSprayL': [r[::-1] for r in NPAT['sandSpray']]})
+U.POSES += [leg('ss-kneel-lead', (33, 50), (41, 49), 42), U.kleg('ss-kneel-rear', (31, 50), (29, 55), (20, 55), 'toe30k')]   # Silica Strike v2: down on the rear knee, lead foot flat in front, thigh level
+NPAT.update({'sandSprayUp': [''.join(r[y] for r in NPAT['sandSpray'][::-1]) for y in range(len(NPAT['sandSpray'][0]))][::-1]})
 NPAL.update({'X': '#120d16', 'x': '#3a2f40'})   # Virgo genjutsu: the phantom's shadow (near-black, smoky edge)
 def _scale(pat, f):   # nearest-neighbour enlargement of a pattern by f (Virgo genjutsu v1: the phantom and the coffin drawn bigger)
     h, w = len(pat), len(pat[0]); H, W = round(h * f), round(w * f)
@@ -908,24 +910,27 @@ CLIPS = {
                  7: [('eyeC', 'eye', 0, 0), ('gp3d', 'feet', 27, -10), ('gline', 'feet', 25, -34), ('gline', 'feet', 29, -22)],
                  8: [('gline', 'feet', 27, -28, {'alpha': {'e': 120, 'E': 120, 'K': 120}})]})),
  'silicaStrike': ('Silica Strike', 5,
-  'Silica Strike (Virgo taijutsu, Physical 8, Blind 3 rounds INT save DC 12: the fighter grabs a fistful of sand before striking at its opponent\'s face): from the guard the fighter drops low on bent knees and reaches the near hand down to the floor, scooping, sand puffing up round the fingers; it closes the fist on a handful and rises, drawing the fist back beside the ear, sand trickling out between the fingers; then it steps in and drives the fist at the face, opening it on contact so the sand sprays into the eyes, a burst of sand bursting off the face and hanging there in a drifting cloud; it pulls back into the guard.', [
+  'Silica Strike (Virgo taijutsu, Physical 8, Blind 3 rounds INT save DC 12: the fighter grabs a fistful of sand before striking at its opponent\'s face), v2 (Christopher 2026-10-28: the caster really bends down, almost taking a knee, then rises into an uppercut with the sand fx): from the guard the fighter drops down onto the rear knee, the lead foot planted flat in front, and sweeps the near hand along the floor, scooping, sand puffing up round the fingers; it closes the fist on a handful and draws it back low beside the hip, sand trickling; then it drives up out of the kneel, legs straightening, and rips the fist up in an uppercut under the opponent\'s chin, the sand bursting up off the fist into the face, a burst of sand hanging there in a drifting cloud; it settles back into the guard.', [
      g(),
-     g(an=band(-20, -25, fistKind='palm'), af=band(-20, -150), bob=(4, 5, 5), lean=(1, 7), **BRACE),   # reaching down to the floor
-     g(an=band(-15, -20), af=band(-20, -150), bob=(4, 5, 5), lean=(1, 7), **BRACE),                     # fist closed on a handful
-     g(an=band(30, -60), af=band(-75, -100), bob=(1, 1, 1), lean=(0, 0), ln='sp-load-rear', lf='sp-load-lead'),
-     g(an=CHAMBER, af=band(-80, -95), bob=(1, 1, 1), lean=(-1, -2), ln='sp-load-rear', lf='sp-load-lead'),
-     g(an=band(-102, -100, fistKind='palm'), af=band(30, -160), bob=(1, 1, 1), lean=(2, 5), root=(2, 0), ln='sp-drive-rear', lf='sp-drive-lead'),   # at the face, hand opening
-     g(an=band(-102, -100, fistKind='palm'), af=band(30, -160), bob=(1, 1, 1), lean=(2, 5), ln='sp-drive-rear', lf='sp-drive-lead'),
-     g(an=band(-102, -100, fistKind='palm'), af=band(30, -160), bob=(1, 1, 1), lean=(2, 5), ln='sp-drive-rear', lf='sp-drive-lead'),
-     g(an=band(-50, -120), af=band(-30, 215), bob=(1, 1, 2), lean=(1, 3), ln='sp-drive-rear', lf='sp-drive-lead'),
+     g(an=band(-20, -25, fistKind='palm'), af=band(-20, -150), bob=(4, 5, 5), lean=(1, 6), **BRACE),   # dropping toward the floor
+     g(an=band(-25, -40, fistKind='palm'), af=band(-20, -150), bob=(9, 10, 10), lean=(1, 8), ln='ss-kneel-rear', lf='ss-kneel-lead'),   # on the rear knee, palm sweeping the floor
+     g(an=band(-5, -30), af=band(-20, -150), bob=(9, 10, 10), lean=(1, 7), ln='ss-kneel-rear', lf='ss-kneel-lead'),                    # fist closed on a handful
+     g(an=band(25, -20), af=band(-40, -130), bob=(9, 10, 10), lean=(1, 4), ln='ss-kneel-rear', lf='ss-kneel-lead'),                    # fist drawn back low by the hip, coiled
+     g(an=band(-25, -120), af=band(-20, -100), bob=(4, 5, 5), lean=(1, 3), root=(1, 0), **LOW),                                          # driving up out of the kneel
+     g(an=band(-50, -160), bob=(0, 0, 1), lean=(1, -2), root=(1, 0), ln='sp-drive-rear', lf='sp-drive-lead'),         # the uppercut rips up under the chin
+     g(an=band(-70, -168), bob=(0, -1, 0), lean=(1, -3), ln='sp-drive-rear', lf='sp-drive-lead'),   # at the top of the uppercut, the sand bursting up off the fist into the face
+     g(an=band(-70, -168), bob=(0, -1, 0), lean=(1, -3), ln='sp-drive-rear', lf='sp-drive-lead'),
+     g(an=band(-50, -120), af=band(-30, 215), bob=(1, 1, 2), lean=(1, 2), ln='sp-drive-rear', lf='sp-drive-lead'),
      g(root=(-2, 0))],
-  [None, 'squint', 'squint', 'squint', 'strain', 'strain', 'squint', 'squint', None, None],
+  [None, 'squint', 'squint', 'strain', 'strain', 'strain', 'roar', 'squint', 'squint', None, None],
   None,
-  dict(fps=10, hitbox=[46, 14, 14, 10], damage='light', rm='E: +2 on the step into the strike, -2 settling back',
-       anchored={1: [('sandPuff', 'hand', 1, 1), ('sandPuff', 'feet', 12, -1)], 2: [('sandPuff', 'hand', 2, 0), ('sandH', 'hand', 0, -1), ('grains', 'feet', 12, -4)],
-                 3: [('sandH', 'hand', 0, -1), ('sandTrk', 'hand', 0, 4)], 4: [('sandH', 'hand', 0, 0), ('sandTrk', 'hand', 0, 5)],
-                 5: [('sandSpray', 'hand', 4, -1)], 6: [('sandBurst', 'hand', 3, -1), ('grains', 'hand', -2, 7)],
-                 7: [('sandCloud', 'hand', 2, 1, {'alpha': {'S': 220, 's': 210, 'Z': 230}}), ('grains', 'hand', -3, 10)], 8: [('sandCloud2', 'hand', 0, 5, {'alpha': {'S': 150, 's': 140, 'Z': 160}})]})),
+  dict(fps=10, hitbox=[46, 14, 14, 10], damage='light', rm='E: +1 rising, +1 into the uppercut, -2 settling back',
+       anchored={2: [('sandPuff', 'hand', 2, 1), ('sandPuff', 'feet', 14, -1)], 3: [('sandPuff', 'hand', 1, 0), ('sandH', 'hand', 0, -1), ('grains', 'feet', 13, -4)],
+                 4: [('sandH', 'hand', 0, -1), ('sandTrk', 'hand', 0, 5)], 5: [('sandH', 'hand', 0, -1), ('grains', 'hand', -4, 6)],
+                 6: [('sandH', 'hand', 0, -1), ('sandTrk', 'hand', -1, 7)],
+                 7: [('sandSprayUp', 'hand', 2, -5), ('sandSpray', 'hand', 5, -1), ('grains', 'hand', -3, 6)],
+                 8: [('sandBurst', 'hand', 4, -5, {'alpha': {'S': 230, 's': 220, 'Z': 235}}), ('sandCloud', 'hand', 6, -2, {'alpha': {'S': 180, 's': 170, 'Z': 190}})],
+                 9: [('sandCloud2', 'head', 12, -4, {'alpha': {'S': 150, 's': 140, 'Z': 160}})]})),
  'flowingSandParry': ('Flowing Sand Parry', 6,
   'Flowing Sand Parry (Virgo taijutsu stance, counter, AGI +20% 1 round: the fighter loosens its muscles and begins to flow like sand in an hourglass while time seems to slow and its senses heighten): from the guard the fighter shakes its arms loose and lets them hang low and easy, eyes closing, sand trickling from its fingertips; an illusory hourglass forms beside its head, sand running through it, and grains of sand hang still in the air round the fighter as time slows; it sways once, then its eyes snap open crystal teal and the lead open hand sweeps up and across in front of it, weight drawn back, in a flowing parry that trails an arc of sand; the hourglass turns, the grains fall, and it settles back into the guard (the testbed keeps the stance for the counter).', [
      g(),

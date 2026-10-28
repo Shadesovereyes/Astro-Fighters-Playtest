@@ -3,7 +3,7 @@
   "body": "male",
   "state": "silicaStrike",
   "status": "CANDIDATE 2026-10-27 (E/W; W mirrors E; S/N to author after approval)",
-  "frames": 10,
+  "frames": 11,
   "fps": 10,
   "sourceDirection": "E",
   "directions": [
@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Silica Strike (Virgo taijutsu, Physical 8, Blind 3 rounds INT save DC 12: the fighter grabs a fistful of sand before striking at its opponent's face): from the guard the fighter drops low on bent knees and reaches the near hand down to the floor, scooping, sand puffing up round the fingers; it closes the fist on a handful and rises, drawing the fist back beside the ear, sand trickling out between the fingers; then it steps in and drives the fist at the face, opening it on contact so the sand sprays into the eyes, a burst of sand bursting off the face and hanging there in a drifting cloud; it pulls back into the guard.",
+  "intent": "Silica Strike (Virgo taijutsu, Physical 8, Blind 3 rounds INT save DC 12: the fighter grabs a fistful of sand before striking at its opponent's face), v2 (Christopher 2026-10-28: the caster really bends down, almost taking a knee, then rises into an uppercut with the sand fx): from the guard the fighter drops down onto the rear knee, the lead foot planted flat in front, and sweeps the near hand along the floor, scooping, sand puffing up round the fingers; it closes the fist on a handful and draws it back low beside the hip, sand trickling; then it drives up out of the kneel, legs straightening, and rips the fist up in an uppercut under the opponent's chin, the sand bursting up off the fist into the face, a burst of sand hanging there in a drifting cloud; it settles back into the guard.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -104,36 +104,39 @@
     "dy": [
       1,
       4,
+      9,
+      9,
+      9,
       4,
-      1,
-      1,
-      1,
-      1,
-      1,
+      0,
+      0,
+      0,
       1,
       1
     ],
     "head": [
       1,
       5,
+      10,
+      10,
+      10,
       5,
-      1,
-      1,
-      1,
-      1,
-      1,
+      0,
+      -1,
+      -1,
       1,
       1
     ],
     "arms": [
       2,
       5,
+      10,
+      10,
+      10,
       5,
       1,
-      1,
-      1,
-      1,
-      1,
+      0,
+      0,
       2,
       2
     ]
@@ -146,30 +149,32 @@
         0,
         1,
         1,
-        0,
-        -1,
-        2,
-        2,
-        2,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
         1,
         0
       ],
       "head": [
         2,
+        6,
+        8,
         7,
-        7,
-        0,
-        -2,
-        5,
-        5,
-        5,
+        4,
         3,
+        -2,
+        -3,
+        -3,
+        2,
         2
       ]
     }
   },
   "rootMotion": {
-    "rule": "E: +2 on the step into the strike, -2 settling back",
+    "rule": "E: +1 rising, +1 into the uppercut, -2 settling back",
     "E": [
       [
         0,
@@ -192,7 +197,11 @@
         0
       ],
       [
-        2,
+        1,
+        0
+      ],
+      [
+        1,
         0
       ],
       [
@@ -234,7 +243,11 @@
         0
       ],
       [
-        -2,
+        -1,
+        0
+      ],
+      [
+        -1,
         0
       ],
       [
@@ -1124,14 +1137,39 @@
         "footX": 20,
         "wrapRow": 56,
         "foot": "flat"
+      },
+      {
+        "name": "ss-kneel-lead",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 50,
+        "kneeX": 41,
+        "kneeRow": 49,
+        "footX": 42,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "ss-kneel-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 50,
+        "kneeX": 29,
+        "kneeRow": 55,
+        "ankle": [
+          20,
+          55
+        ],
+        "foot": "toe30k"
       }
     ],
     "near": [
       1,
       5,
-      5,
-      21,
-      21,
+      50,
+      50,
+      50,
+      3,
       23,
       23,
       23,
@@ -1141,9 +1179,10 @@
     "far": [
       0,
       4,
-      4,
-      20,
-      20,
+      49,
+      49,
+      49,
+      2,
       22,
       22,
       22,
@@ -1186,7 +1225,24 @@
       },
       {
         "construction": "band",
-        "angle": -15,
+        "angle": -25,
+        "elbow": {
+          "at": 8,
+          "angle": -40
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": -5,
+        "elbow": {
+          "at": 8,
+          "angle": -30
+        }
+      },
+      {
+        "construction": "band",
+        "angle": 25,
         "elbow": {
           "at": 8,
           "angle": -20
@@ -1194,46 +1250,35 @@
       },
       {
         "construction": "band",
-        "angle": 30,
+        "angle": -25,
         "elbow": {
           "at": 8,
-          "angle": -60
+          "angle": -120
         }
       },
       {
         "construction": "band",
-        "angle": 75,
+        "angle": -50,
         "elbow": {
           "at": 8,
-          "angle": -150
+          "angle": -160
         }
       },
       {
         "construction": "band",
-        "angle": -102,
+        "angle": -70,
         "elbow": {
           "at": 8,
-          "angle": -100
-        },
-        "fistKind": "palm"
+          "angle": -168
+        }
       },
       {
         "construction": "band",
-        "angle": -102,
+        "angle": -70,
         "elbow": {
           "at": 8,
-          "angle": -100
-        },
-        "fistKind": "palm"
-      },
-      {
-        "construction": "band",
-        "angle": -102,
-        "elbow": {
-          "at": 8,
-          "angle": -100
-        },
-        "fistKind": "palm"
+          "angle": -168
+        }
       },
       {
         "construction": "band",
@@ -1279,7 +1324,23 @@
       },
       {
         "construction": "band",
-        "angle": -75,
+        "angle": -20,
+        "elbow": {
+          "at": 8,
+          "angle": -150
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -40,
+        "elbow": {
+          "at": 8,
+          "angle": -130
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -20,
         "elbow": {
           "at": 8,
           "angle": -100
@@ -1287,34 +1348,26 @@
       },
       {
         "construction": "band",
-        "angle": -80,
+        "angle": -45,
         "elbow": {
           "at": 8,
-          "angle": -95
+          "angle": 222
         }
       },
       {
         "construction": "band",
-        "angle": 30,
+        "angle": -45,
         "elbow": {
           "at": 8,
-          "angle": -160
+          "angle": 222
         }
       },
       {
         "construction": "band",
-        "angle": 30,
+        "angle": -45,
         "elbow": {
           "at": 8,
-          "angle": -160
-        }
-      },
-      {
-        "construction": "band",
-        "angle": 30,
-        "elbow": {
-          "at": 8,
-          "angle": -160
+          "angle": 222
         }
       },
       {
@@ -1496,6 +1549,7 @@
       "bandFollowsBody": true,
       "sway": {
         "E": [
+          -1,
           -1,
           -1,
           -1,
@@ -2163,7 +2217,8 @@
         6,
         7,
         8,
-        9
+        9,
+        10
       ],
       "fps": 10,
       "next": "guard",
@@ -2230,6 +2285,11 @@
         "frame": 9,
         "clip": "silicaStrike",
         "type": "recovery"
+      },
+      {
+        "frame": 10,
+        "clip": "silicaStrike",
+        "type": "recovery"
       }
     ],
     "W": [
@@ -2288,6 +2348,11 @@
       },
       {
         "frame": 9,
+        "clip": "silicaStrike",
+        "type": "recovery"
+      },
+      {
+        "frame": 10,
         "clip": "silicaStrike",
         "type": "recovery"
       }
@@ -2579,9 +2644,10 @@
         null,
         "squint",
         "squint",
-        "squint",
         "strain",
         "strain",
+        "strain",
+        "roar",
         "squint",
         "squint",
         null,
