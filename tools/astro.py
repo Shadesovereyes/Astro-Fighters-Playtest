@@ -151,6 +151,9 @@ NPAT.update({'pflame1': ['.K.', 'KPK', '.p.'], 'pflame2': ['..K..', '.KP..', '.P
              'eyeP': ['.P.', 'PWP', '.P.'], 'eyePF': ['..p..', '.pPp.', 'pPWPp', '.pPp.', '..p..'], 'moteP': ['.P.', 'PWP', '.p.'], 'moteK': ['.p.', 'pKp', '.p.'], 'dotP': ['p'],
              'sp1': _sag(5, 2, 'Pp'), 'sp2': _sag(8, 3, 'WPp'), 'sp3': _sag(11, 4, 'PpK'), 'sp3d': _sag(13, 4, 'pK', gap=2),   # Soul Pressure: a heavy blanket of spirit bearing down
              'spWisp': ['K.p', '.p.', 'pP.'],
+             'crack1': ['K.....K', '.K...K.', '.EKEKE.'], 'crack2': ['K...........K', '.KK.......KK.', '...KK.K.KK...', '....EKKKE....'],   # Taurus: cracks stamped into the floor
+             'dust1': ['..e.e..', '.eEeEe.', 'eEeEeEe', '.EeEeE.'], 'dust2': ['e...e.e...e', '.e.eEeEe.e.', '..eEeEeEe..', '.eEeEeEeEe.'], 'rocks': ['K...E', '.E.K.', 'E...K'],
+             'cryst': ['.c.', 'cCc', '.C.'], 'crystT': ['c', 'C', 'C'],
              'smoke1': ['.g.', 'g.w', '.w.', 'w..'], 'smoke2': ['..g', '.w.', 'g..', '.w.', '..g']})   # Cauterize: a wisp of smoke off the sealed wound
 U.POSES += [U.kleg('lk-axe-top', (34, 39), (38, 31), (41, 22), 'pointUR'),    # Leash Kick v2 axe kick: straight leg raised high, heel above the head
             U.kleg('lk-axe-chop', (34, 40), (41, 38), (48, 37), 'pointFwd'),   # heel chopping down through shoulder height
@@ -167,6 +170,8 @@ def _loop(k, n=8, rx=7, ry=2, dy=-10, motes=3):   # Dogma: purple motes looping 
         a = 2 * math.pi * (k / n + m / motes)
         pts.append(('moteP' if math.sin(a) > 0 else 'moteK', 'head', round(rx * math.cos(a)), round(ry * math.sin(a)) + dy))
     return pts
+U.POSES += [kleg('ms-lift-lead', (33, 41), (40, 36), (40, 45), 'toe30k'), kleg('ms-lift-rear', (31, 42), (36, 37), (34, 46), 'toe30k'),
+            leg('ms-wide-lead', (33, 45), (40, 51), 43), leg('ms-wide-rear', (30, 45), (23, 51), 20)]   # the deep, wide rooted stance   # Mountain Stance: a knee raised high before the stamp (sumo shiko)
 SPIN = lambda d, f: {'state': 'spinPivot', 'dir': d, 'frame': f, 'dx': 2}
 
 CLIPS = {
@@ -571,6 +576,28 @@ CLIPS = {
                  6: [('eyePF', 'eye', 0, 0), ('pflame2', 'head', 0, -10), ('sp3', 'feet', 24, -17), ('sp2', 'feet', 19, -24), ('spWisp', 'head', -7, 5)],
                  7: [('eyeP', 'eye', 0, 0), ('sp3d', 'feet', 27, -10), ('spWisp', 'head', 6, 4)],
                  8: [('spWisp', 'head', -6, 2, {'alpha': {'K': 140, 'p': 140, 'P': 160}})]})),
+ 'mountainStance': ('Mountain Stance', 3,
+  'Mountain Stance (Taurus taijutsu stance buff, FORT +30% 3 rounds: the fighter stamps its feet into the ground, demonstrating its unshakeable resolve): from the guard the fighter drops its hands and lifts the lead knee high, then stamps the foot down hard into the floor (sumo shiko), cracks splitting out from the heel, dust and stones jumping; it shifts onto that leg, lifts the rear knee and stamps again; then it sinks into a deep, wide stance with the fists pulled back to the hips, elbows back, and an earthen aura settles round it, brown with flecks of crystal glinting in it and small teal crystal shards pushing up out of the cracks; it holds, rooted, then rises back into the guard.', [
+     g(),
+     g(an=band(15, -40), af=band(5, -35), bob=(1, 1, 1), lean=(0, 0)),
+     g(an=band(-30, -80), af=band(40, -20), bob=(0, 0, 0), lean=(0, -1), lf='ms-lift-lead'),
+     g(an=band(20, -30), af=band(10, -30), bob=(3, 3, 3), lean=(1, 2), ln='ms-wide-rear', lf='ms-wide-lead'),
+     g(an=band(40, -20), af=band(-30, -80), bob=(1, 1, 1), lean=(0, 1), ln='ms-lift-rear', lf='ms-wide-lead'),
+     g(an=band(20, -30), af=band(10, -30), bob=(3, 3, 3), lean=(1, 2), ln='ms-wide-rear', lf='ms-wide-lead'),
+     *[g(an=FLEX_N, af=FLEX_F, bob=(3, 3, 3), lean=(0, 1), ln='ms-wide-rear', lf='ms-wide-lead') for _ in range(4)],
+     g(an=band(-30, -100), af=band(-30, -95), bob=(2, 2, 2), lean=(0, 2), **LOW),
+     g()],
+  [None, None, 'squint', 'strain', 'squint', 'strain', 'squint', 'squint', 'squint', 'squint', None, None],
+  [0, 0, 0, 1, 1, 2, 2, 2, 2, 1, 0, 0],
+  dict(fps=10, auraColors=('#c79a5b', '#8a6236'),
+       anchored={3: [('crack1', 'feet', 9, -1), ('dust2', 'feet', 6, -3), ('rocks', 'feet', 10, -8)],
+                 4: [('crack1', 'feet', 9, -1), ('dust1', 'feet', 7, -5), ('rocks', 'feet', 12, -12)],
+                 5: [('crack2', 'feet', 0, -1), ('dust2', 'feet', -6, -3), ('dust1', 'feet', 7, -6), ('rocks', 'feet', -10, -9)],
+                 6: [('crack2', 'feet', 0, -1), ('crystT', 'feet', -9, -3), ('crystT', 'feet', 10, -3), ('dust1', 'feet', -7, -6), ('cryst', 'head', -9, 14)],
+                 7: [('crack2', 'feet', 0, -1), ('crystT', 'feet', -9, -3), ('crystT', 'feet', 10, -3), ('cryst', 'feet', 13, -5), ('cryst', 'head', 9, 8)],
+                 8: [('crack2', 'feet', 0, -1), ('crystT', 'feet', -9, -3), ('crystT', 'feet', 10, -3), ('cryst', 'feet', -13, -5), ('cryst', 'head', -8, 4)],
+                 9: [('crack2', 'feet', 0, -1, {'alpha': {'E': 160, 'K': 160}}), ('crystT', 'feet', 10, -3, {'alpha': {'c': 150, 'C': 150}}), ('cryst', 'head', 9, 2)],
+                 10: [('crack1', 'feet', 0, -1, {'alpha': {'E': 110, 'K': 110}})]})),
  'flowDodge': ('Flow Dodge', 3,
   'Flow Dodge (Sagittarius taijutsu stance buff: the fighter enters a dance-like trance and begins to swing and sway to its own rhythm): from the guard the fighter shakes its arms loose and lets the guard drop low and easy, eyes half closed, catching a beat; then it sways to its own rhythm: rocking back and forward on its feet and dipping on the knees, shoulders rolling, the loose hands swinging opposite to the hips, a flickering fire aura breathing round it on the beat with a few black and purple wisps rising off the shoulders; on the last beat it snaps its eyes open and settles into a loose, low guard (the testbed keeps the stance).', [
      g(),
