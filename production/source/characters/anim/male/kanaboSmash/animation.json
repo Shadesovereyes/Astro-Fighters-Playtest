@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-animation-output/v1",
   "body": "male",
   "state": "kanaboSmash",
-  "status": "E/W approved by user 2026-10-28 14:08 (v1, 6d5ba34; W mirrors E); S/N to author",
+  "status": "CANDIDATE 2026-10-28 (E/W; W mirrors E; S/N to author after approval)",
   "frames": 11,
   "fps": 10,
   "frameSize": [
@@ -220,14 +220,14 @@
         "clip": "smash",
         "type": "active",
         "move": "Club Smash",
+        "damage": "heavy",
+        "effect": "single target: the club lands on the target only (Christopher 2026-10-28: Club Smash is not an AoE)",
         "hitbox": [
           42,
           34,
           22,
           30
-        ],
-        "damage": "heavy",
-        "effect": "AoE: the impact hits the target and everything round the point of impact (provisional; canon: higher base damage + AoE)"
+        ]
       },
       {
         "frame": 6,
@@ -286,14 +286,14 @@
         "clip": "smash",
         "type": "active",
         "move": "Club Smash",
+        "damage": "heavy",
+        "effect": "single target: the club lands on the target only (Christopher 2026-10-28: Club Smash is not an AoE)",
         "hitbox": [
           0,
           34,
           22,
           30
-        ],
-        "damage": "heavy",
-        "effect": "AoE: the impact hits the target and everything round the point of impact (provisional; canon: higher base damage + AoE)"
+        ]
       },
       {
         "frame": 6,

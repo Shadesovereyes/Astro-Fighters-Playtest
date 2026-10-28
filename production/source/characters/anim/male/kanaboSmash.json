@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "kanaboSmash",
-  "status": "E/W approved by user 2026-10-28 14:08 (v1, 6d5ba34; W mirrors E); S/N to author",
+  "status": "CANDIDATE 2026-10-28 (E/W; W mirrors E; S/N to author after approval)",
   "frames": 11,
   "fps": 10,
   "sourceDirection": "E",
@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Club Smash (canon: Ironwood Kanabo changes the basic attack to Club Smash, higher base damage + AoE; slow, heavy swings): from the kanabo guard the fighter heaves the club up and back over its head (the head of the club passing behind its own), hangs a beat at the top with the weight on the rear leg, then steps in and brings it down in one heavy arc (earth-dust smear) into the floor in front; the floor cracks under the head of the club and a ring of dust and stone bursts out round the impact (the AoE), held two frames as the dust settles, then it heaves the club back up to the guard.",
+  "intent": "Club Smash v2 (canon: Ironwood Kanabo changes the basic attack to Club Smash, higher base damage; slow, heavy swings; Christopher 2026-10-28: not an AoE): from the kanabo guard the fighter heaves the club up and back over its head (the head of the club passing behind its own), hangs a beat at the top with the weight on the rear leg, then steps in and brings it down in one heavy arc (earth-dust smear) onto the target in front; a small local crack, dust and chips where the head of the club lands (no ring: single target), held two frames as the dust settles, then it heaves the club back up to the guard.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -1449,7 +1449,7 @@
     {
       "slot": "main",
       "layer": "arms",
-      "status": "E/W approved by user 2026-10-28 14:08 (v1, 6d5ba34; W mirrors E); S/N to author",
+      "status": "CANDIDATE 2026-10-28 (E/W; W mirrors E; S/N to author after approval)",
       "rule": "per frame: grip = pixel at the centre of the near fist (body-frame coordinates; it follows the arm bob, 0, -1, 0, +1), angle = blade direction in degrees above the facing's horizontal, z = depth slot",
       "depthRule": "front: drawn over body and clothing, under the arms layer (the fists close over the hilt); behind: drawn under the body",
       "E": [
@@ -1604,14 +1604,14 @@
         "clip": "smash",
         "type": "active",
         "move": "Club Smash",
+        "damage": "heavy",
+        "effect": "single target: the club lands on the target only (Christopher 2026-10-28: Club Smash is not an AoE)",
         "hitbox": [
           42,
           34,
           22,
           30
-        ],
-        "damage": "heavy",
-        "effect": "AoE: the impact hits the target and everything round the point of impact (provisional; canon: higher base damage + AoE)"
+        ]
       },
       {
         "frame": 6,
@@ -1670,14 +1670,14 @@
         "clip": "smash",
         "type": "active",
         "move": "Club Smash",
+        "damage": "heavy",
+        "effect": "single target: the club lands on the target only (Christopher 2026-10-28: Club Smash is not an AoE)",
         "hitbox": [
           0,
           34,
           22,
           30
-        ],
-        "damage": "heavy",
-        "effect": "AoE: the impact hits the target and everything round the point of impact (provisional; canon: higher base damage + AoE)"
+        ]
       },
       {
         "frame": 6,
