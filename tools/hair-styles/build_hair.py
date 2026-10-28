@@ -168,7 +168,7 @@ def locs_tied(h, cv):
     paint(cv, h, ellipse(bx, by, 3, 3), tex_locs)
     paint(cv, h, rect(bx - 2, h.top - 1, bx + 2, h.top - 1), tex_tie, outline=False)
 
-def rope(cv, h, pts):
+def rope(cv, h, pts, face=None):
     """One loc: a 2px rope along pts with its own 1px outline (cutting into ropes painted before it), a lit
     left strand, a ridge notch every third row and a tapered 1px tip."""
     body = strand(pts, 2)
@@ -176,7 +176,9 @@ def rope(cv, h, pts):
     tx = min(x for x, y in body if y == tip)
     body = {(x, y) for (x, y) in body if y < tip} | {(tx, tip)}
     ring = {(x + dx, y + dy) for (x, y) in body for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1))} - body
-    keep = lambda p: 0 <= p[0] < F and 0 <= p[1] < F and p not in h.eyes and p not in h.face
+    face = h.face if face is None else face
+    # nothing rises above the scalp line: the crown stays a smooth dome
+    keep = lambda p: 0 <= p[0] < F and h.top - 1 <= p[1] < F and p not in h.eyes and p not in face
     for p in ring:
         if keep(p): cv[p] = '#'
     for (x, y) in body:
@@ -194,28 +196,33 @@ def locs_loose(h, cv):
     if h.side:
         ropes = [[(lo + 1, t + 2), (lo - 4, b + 4), (lo - 6, b + 9)],             # rear, splayed out
                  [(lo + 3, t), (lo - 2, b + 3), (lo - 4, b + 11)],
-                 [(cx - 1, t - 1), (lo, b + 2), (lo - 2, b + 12)],
-                 [(cx + 1, t - 1), (lo + 2, b + 1), (lo + 1, b + 10)],
-                 [(hi - 3, t), (lo + 4, b), (lo + 3, b + 11)],                     # front loc, just behind the cheek
-                 [(cx + 3, t - 1), (hi - 2, t + 1), (hi - 1, b - 1)]]              # short loc over the brow
+                 [(cx - 1, t), (lo, b + 2), (lo - 2, b + 12)],
+                 [(cx + 1, t), (lo + 2, b + 1), (lo + 1, b + 10)],
+                 [(hi - 3, t), (lo + 4, b), (lo + 3, b + 11)],
+                 # locs falling forward over the cheek (the eye stays clear)
+                 [(hi - 4, t), (lo + 6, b + 1), (lo + 5, b + 11)],
+                 [(hi - 2, t), (hi - 4, b + 1), (hi - 5, b + 9)],
+                 [(cx + 3, t), (hi - 2, t + 1), (hi - 1, b - 1)]]              # short loc over the brow
     elif h.back:
         xs = list(range(lo - 2, hi + 4, 3))
         ends = [b + 8, b + 11, b + 10, b + 12, b + 10, b + 11, b + 9]
         ropes = []
         for i, x in enumerate(xs):
             splay = (x - cx) // 3
-            ropes.append([(cx + (x - cx) // 2, t - 1), (x + splay, b + 3), (x + splay * 2, ends[i % len(ends)])])
+            ropes.append([(cx + (x - cx) // 2, t), (x + splay, b + 3), (x + splay * 2, ends[i % len(ends)])])
     else:
         ropes = [[(cx - 2, t), (lo - 3, b + 2), (lo - 6, b + 8)],                 # outer locs, behind
                  [(cx + 2, t), (hi + 3, b + 2), (hi + 6, b + 8)],
-                 [(cx - 1, t - 1), (lo - 2, b + 1), (lo - 4, b + 11)],
-                 [(cx + 1, t - 1), (hi + 2, b + 1), (hi + 4, b + 11)],
+                 [(cx - 1, t), (lo - 2, b + 1), (lo - 4, b + 11)],
+                 [(cx + 1, t), (hi + 2, b + 1), (hi + 4, b + 11)],
                  [(cx - 3, t), (lo, b), (lo - 1, b + 12)],
                  [(cx + 3, t), (hi, b), (hi + 1, b + 12)],
-                 [(cx - 2, t - 1), (cx - 4, b - 1)],                               # short locs over the forehead
-                 [(cx + 2, t - 1), (cx + 4, b - 1)],
-                 [(cx, t - 1), (cx + 1, b - 1)]]
-    for pts in ropes: rope(cv, h, pts)
+                 [(cx - 2, t), (cx - 4, b - 1)],                               # short locs over the forehead
+                 [(cx + 2, t), (cx + 4, b - 1)],
+                 [(cx, t), (cx + 1, b - 1)]]
+    # in profile the locs may lie over the cheek and jaw; only the eye and the nose/mouth edge stay uncovered
+    face = {(x, y) for (x, y) in h.face if x >= min(ex for ex, _ in h.eyes) - (0 if h.fr else -1)} if h.side and h.eyes else None
+    for pts in ropes: rope(cv, h, pts, face)
 
 def headscarf(h, cv):
     paint(cv, h, cap(h, 1, h.brow + 4 if h.back else h.brow + 2, 2), tex_cloth)
