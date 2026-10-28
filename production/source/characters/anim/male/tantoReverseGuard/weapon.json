@@ -15,7 +15,9 @@
     95
   ],
   "rows": [
+    "S",
     "E",
+    "N",
     "W"
   ],
   "frames": 4,
@@ -27,11 +29,30 @@
       "default": true,
       "hand": "arms",
       "layers": {
+        "behind": "main-tanto-behind.png",
         "front": "main-tanto-front.png",
         "top": "main-tanto-top.png"
       },
-      "status": "CANDIDATE 2026-10-27 (E/W; W mirrors E; S/N to author after approval)",
+      "status": "CANDIDATE 2026-10-28 S/N v1 (E/W approved by user 2026-10-28; W mirrors E)",
       "z": {
+        "S": [
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          }
+        ],
         "E": [
           {
             "hilt": "front",
@@ -49,6 +70,12 @@
             "hilt": "front",
             "blade": "aboveArm"
           }
+        ],
+        "N": [
+          "behind",
+          "behind",
+          "behind",
+          "behind"
         ],
         "W": [
           {
@@ -70,6 +97,24 @@
         ]
       },
       "grips": {
+        "S": [
+          [
+            31,
+            26
+          ],
+          [
+            31,
+            25
+          ],
+          [
+            31,
+            26
+          ],
+          [
+            31,
+            27
+          ]
+        ],
         "E": [
           [
             48,
@@ -85,6 +130,24 @@
           ],
           [
             48,
+            27
+          ]
+        ],
+        "N": [
+          [
+            33,
+            26
+          ],
+          [
+            33,
+            25
+          ],
+          [
+            33,
+            26
+          ],
+          [
+            33,
             27
           ]
         ],
@@ -111,10 +174,18 @@
   ],
   "qc": {
     "gripOnFist": {
+      "main/tanto S:0": true,
+      "main/tanto S:1": true,
+      "main/tanto S:2": true,
+      "main/tanto S:3": true,
       "main/tanto E:0": true,
       "main/tanto E:1": true,
       "main/tanto E:2": true,
       "main/tanto E:3": true,
+      "main/tanto N:0": "hidden",
+      "main/tanto N:1": "hidden",
+      "main/tanto N:2": "hidden",
+      "main/tanto N:3": "hidden",
       "main/tanto W:0": true,
       "main/tanto W:1": true,
       "main/tanto W:2": true,
