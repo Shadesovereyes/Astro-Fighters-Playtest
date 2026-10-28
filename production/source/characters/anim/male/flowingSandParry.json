@@ -3,8 +3,8 @@
   "body": "male",
   "state": "flowingSandParry",
   "status": "CANDIDATE 2026-10-27 (E/W; W mirrors E; S/N to author after approval)",
-  "frames": 10,
-  "fps": 8,
+  "frames": 14,
+  "fps": 10,
   "sourceDirection": "E",
   "directions": [
     "E",
@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Flowing Sand Parry (Virgo taijutsu stance, counter, AGI +20% 1 round: the fighter loosens its muscles and begins to flow like sand in an hourglass while time seems to slow and its senses heighten): from the guard the fighter shakes its arms loose and lets them hang low and easy, eyes closing, sand trickling from its fingertips; an illusory hourglass forms beside its head, sand running through it, and grains of sand hang still in the air round the fighter as time slows; it sways once, then its eyes snap open crystal teal and the lead open hand sweeps up and across in front of it, weight drawn back, in a flowing parry that trails an arc of sand; the hourglass turns, the grains fall, and it settles back into the guard (the testbed keeps the stance for the counter).",
+  "intent": "Flowing Sand Parry (Virgo taijutsu stance, counter, AGI +20% 1 round: the fighter loosens its muscles and begins to flow like sand in an hourglass while time seems to slow and its senses heighten), v2 (Christopher 2026-10-28: one arm makes a large sweeping circle over the head, the other the same down near the knees, like swinging them in converging circles): from the guard the fighter lets its arms hang loose, eyes closing, sand trickling from its fingertips; then the near arm swings up in front and round in a wide circle over its head and down behind, while the fighter sinking deep on bent knees so the far arm swings the opposite way in a low circle down by the knees, both open hands trailing streams of sand along their paths; an illusory hourglass forms beside its head and grains hang still in the air as time slows; the two circles converge in front of it, the high hand coming down and the low hand coming up until the open palms meet before the chest in the parry, eyes snapping open crystal teal, the sand trails closing into a ring; the hourglass turns, the grains fall, and it settles back into the guard (the testbed keeps the stance for the counter).",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -104,10 +104,14 @@
     "dy": [
       1,
       1,
-      2,
-      2,
-      2,
-      2,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      3,
       1,
       1,
       1,
@@ -116,10 +120,14 @@
     "head": [
       1,
       1,
-      2,
-      2,
-      2,
-      2,
+      5,
+      5,
+      5,
+      5,
+      5,
+      5,
+      5,
+      4,
       1,
       1,
       1,
@@ -128,10 +136,14 @@
     "arms": [
       2,
       2,
-      3,
-      2,
-      3,
-      2,
+      5,
+      5,
+      5,
+      5,
+      5,
+      5,
+      5,
+      4,
       1,
       1,
       2,
@@ -145,9 +157,13 @@
       "pelvis": [
         0,
         0,
-        -1,
         0,
-        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
         0,
         -1,
         -1,
@@ -157,9 +173,13 @@
       "head": [
         2,
         0,
-        -3,
-        0,
-        3,
+        1,
+        1,
+        1,
+        2,
+        2,
+        1,
+        1,
         0,
         -3,
         -3,
@@ -180,7 +200,7 @@
         0
       ],
       [
-        -1,
+        0,
         0
       ],
       [
@@ -188,7 +208,23 @@
         0
       ],
       [
-        1,
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
         0
       ],
       [
@@ -222,7 +258,7 @@
         0
       ],
       [
-        1,
+        0,
         0
       ],
       [
@@ -230,7 +266,23 @@
         0
       ],
       [
-        -1,
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
         0
       ],
       [
@@ -1124,14 +1176,42 @@
         "footX": 20,
         "wrapRow": 56,
         "foot": "flat"
+      },
+      {
+        "name": "ss-kneel-lead",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 50,
+        "kneeX": 41,
+        "kneeRow": 49,
+        "footX": 42,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "ss-kneel-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 50,
+        "kneeX": 29,
+        "kneeRow": 55,
+        "ankle": [
+          20,
+          55
+        ],
+        "foot": "toe30k"
       }
     ],
     "near": [
       1,
       1,
-      3,
-      3,
-      3,
+      5,
+      5,
+      5,
+      5,
+      5,
+      5,
+      5,
       3,
       21,
       21,
@@ -1141,9 +1221,13 @@
     "far": [
       0,
       0,
-      2,
-      2,
-      2,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
       2,
       20,
       20,
@@ -1180,56 +1264,97 @@
         "angle": -10,
         "elbow": {
           "at": 8,
-          "angle": -40
-        }
-      },
-      {
-        "construction": "band",
-        "angle": 15,
-        "elbow": {
-          "at": 8,
           "angle": -30
-        }
-      },
-      {
-        "construction": "band",
-        "angle": 5,
-        "elbow": {
-          "at": 8,
-          "angle": -40
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -25,
-        "elbow": {
-          "at": 8,
-          "angle": -60
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -25,
-        "elbow": {
-          "at": 8,
-          "angle": -60
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -70,
-        "elbow": {
-          "at": 8,
-          "angle": -140
         },
         "fistKind": "palm"
       },
       {
         "construction": "band",
-        "angle": -55,
+        "angle": -80,
         "elbow": {
           "at": 8,
-          "angle": -165
+          "angle": -95
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": -135,
+        "elbow": {
+          "at": 8,
+          "angle": -150
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": -175,
+        "elbow": {
+          "at": 8,
+          "angle": -180
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": 150,
+        "elbow": {
+          "at": 8,
+          "angle": 150
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": 110,
+        "elbow": {
+          "at": 8,
+          "angle": 105
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": 60,
+        "elbow": {
+          "at": 8,
+          "angle": 50
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": -20,
+        "elbow": {
+          "at": 8,
+          "angle": -40
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": -75,
+        "elbow": {
+          "at": 8,
+          "angle": -120
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": -60,
+        "elbow": {
+          "at": 8,
+          "angle": -125
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": -60,
+        "elbow": {
+          "at": 8,
+          "angle": -125
         },
         "fistKind": "palm"
       },
@@ -1261,59 +1386,102 @@
       },
       {
         "construction": "band",
+        "angle": 10,
+        "elbow": {
+          "at": 8,
+          "angle": -20
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": 45,
+        "elbow": {
+          "at": 8,
+          "angle": 40
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": 15,
+        "elbow": {
+          "at": 8,
+          "angle": 10
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
         "angle": -20,
         "elbow": {
           "at": 8,
-          "angle": -50
-        }
+          "angle": -20
+        },
+        "fistKind": "palm"
       },
       {
         "construction": "band",
-        "angle": -35,
+        "angle": -50,
         "elbow": {
           "at": 8,
-          "angle": -70
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -25,
-        "elbow": {
-          "at": 8,
-          "angle": -60
-        }
-      },
-      {
-        "construction": "band",
-        "angle": 0,
-        "elbow": {
-          "at": 8,
-          "angle": -40
-        }
-      },
-      {
-        "construction": "band",
-        "angle": 0,
-        "elbow": {
-          "at": 8,
-          "angle": -40
-        }
+          "angle": -45
+        },
+        "fistKind": "palm"
       },
       {
         "construction": "band",
         "angle": -30,
         "elbow": {
           "at": 8,
-          "angle": -100
-        }
+          "angle": -25
+        },
+        "fistKind": "palm"
       },
       {
         "construction": "band",
-        "angle": -30,
+        "angle": 5,
         "elbow": {
           "at": 8,
-          "angle": -100
-        }
+          "angle": 5
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": 35,
+        "elbow": {
+          "at": 8,
+          "angle": 35
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": -20,
+        "elbow": {
+          "at": 8,
+          "angle": -45
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": -55,
+        "elbow": {
+          "at": 8,
+          "angle": -75
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": -55,
+        "elbow": {
+          "at": 8,
+          "angle": -75
+        },
+        "fistKind": "palm"
       },
       {
         "construction": "band",
@@ -1463,7 +1631,8 @@
         ]
       }
     },
-    "guardRule": "boxing guard: elbows down in front of the ribs, forearms angled up and forward, fists at chin height with knuckles forward; the lead (far) hand sits further forward"
+    "guardRule": "boxing guard: elbows down in front of the ribs, forearms angled up and forward, fists at chin height with knuckles forward; the lead (far) hand sits further forward",
+    "farLayer": true
   },
   "clothing": {
     "rule": "Layer 2 clothing follows the body it is registered to. Front, back and diagonal views move each clothing pixel exactly like the body pixel of the same part. In the authored profile (E) each trouser row is resampled onto the posed leg (thigh rows onto the pose's thigh rows, shin rows onto its shin rows) and shifted by the leg's back edge; wrap and shoe follow the ankle (reference-ankle poses) or the shin line and the authored foot (line poses), where a toe-down foot is drawn as the foot's own shape in the shoe colours. The far trouser leg is the near one on the far pose, shaded one step darker and drawn behind. A mirrored direction whose clothing is not an exact mirror is built from its own clothing frame, flipped through its source's motion. Where clothing newly meets empty space it gets the clothing's outline colour.",
@@ -1494,6 +1663,10 @@
       "bandFollowsBody": true,
       "sway": {
         "E": [
+          -1,
+          -1,
+          -1,
+          -1,
           -1,
           -1,
           -1,
@@ -2161,9 +2334,13 @@
         6,
         7,
         8,
-        9
+        9,
+        10,
+        11,
+        12,
+        13
       ],
-      "fps": 8,
+      "fps": 10,
       "next": "guard",
       "ability": "Flowing Sand Parry"
     }
@@ -2222,6 +2399,26 @@
         "frame": 9,
         "clip": "flowingSandParry",
         "type": "recovery"
+      },
+      {
+        "frame": 10,
+        "clip": "flowingSandParry",
+        "type": "recovery"
+      },
+      {
+        "frame": 11,
+        "clip": "flowingSandParry",
+        "type": "recovery"
+      },
+      {
+        "frame": 12,
+        "clip": "flowingSandParry",
+        "type": "recovery"
+      },
+      {
+        "frame": 13,
+        "clip": "flowingSandParry",
+        "type": "recovery"
       }
     ],
     "W": [
@@ -2274,6 +2471,26 @@
       },
       {
         "frame": 9,
+        "clip": "flowingSandParry",
+        "type": "recovery"
+      },
+      {
+        "frame": 10,
+        "clip": "flowingSandParry",
+        "type": "recovery"
+      },
+      {
+        "frame": 11,
+        "clip": "flowingSandParry",
+        "type": "recovery"
+      },
+      {
+        "frame": 12,
+        "clip": "flowingSandParry",
+        "type": "recovery"
+      },
+      {
+        "frame": 13,
         "clip": "flowingSandParry",
         "type": "recovery"
       }
@@ -2436,7 +2653,11 @@
     "frames": {
       "E": [
         null,
-        "squint",
+        "closed",
+        "closed",
+        "closed",
+        "closed",
+        "closed",
         "closed",
         "closed",
         "closed",
