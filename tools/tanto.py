@@ -290,9 +290,14 @@ def sn(state):
         S['R']['angle'][k], S['R']['elbow'][k], S['R']['scale'][k], S['R']['fist'][k] = a, {'at': 7, 'angle': e}, sc, 'front'
         fx_, fy = f['far']
         lx = round(38 - max(0, min(6, (fx_ - sx) * 0.4)))
-        la, le, ls = ik_s(lx, fy, piv=(38, 24), out=1)
         palm = f['af'].get('fistKind') == P
-        S['L']['angle'][k], S['L']['elbow'][k], S['L']['scale'][k], S['L']['fist'][k] = la, {'at': 7, 'angle': le}, ls, 'palm' if palm else 'up'
+        if state not in REV_STATES and not palm and fx_ - sx < 10:
+            # user 2026-10-28 (Defang S/N v1: the arm looked weird): a live hand that is not reaching keeps the approved
+            # oneHandGuard S arm, raised straight up from the shoulder; a short IK arm folds into a blob
+            la = 0
+        else:
+            la, le, ls = ik_s(lx, fy, piv=(38, 24), out=1)
+            S['L']['angle'][k], S['L']['elbow'][k], S['L']['scale'][k], S['L']['fist'][k] = la, {'at': 7, 'angle': le}, ls, 'palm' if palm else 'up'
         N['R']['angle'][k] = round(min(135, max(-8, -a)), 1); N['L']['angle'][k] = round(max(-135, min(12, -la)), 1)
         t = math.radians(p['angle']); sn_ = math.sin(t)
         blade = {'angle': 90 if sn_ >= 0 else -90, 'scale': round(max(abs(sn_), 0.2), 3)}
