@@ -139,29 +139,19 @@ def paint(canvas, h, mask, tex, outline=True, face_ok=False):
     for (x, y) in mask:
         canvas[(x, y)] = '#' if outline and (x, y) in edge else tex(x, y, h, mask)
 
-def dither_fade(canvas, h, rows):
-    """Faded sides: sparse base-colour stubble on the sides of the scalp, no outline (never the forehead or face)."""
+FADE_BANDS = ['o', 'o', '+', '+', '*']   # dark under the hair, stepping lighter row by row into the skin
+
+def band_fade(canvas, h, start):
+    """Faded sides and back: solid colour bands (no dither) stepping from the hair's base to its top light, one
+    band per row, so the short hair grades smoothly into the skin. Front views fade only the temples (never the
+    forehead or face); profile views fade the back and side of the head, not the face."""
     for (x, y) in h.head:
-        if y not in rows or (x, y) in h.face or (x, y) in h.eyes or (x, y) in canvas: continue
+        k = y - start
+        if k < 0 or k >= len(FADE_BANDS) or (x, y) in canvas or (x, y) in h.eyes or (x, y) in h.face: continue
         lo, hi = h.span[y]
         if h.front and lo + 1 < x < hi - 1: continue
         if h.side and x > hi - 4: continue
-        if x % 2 == 0 and (y % 2 == 0 or x in (lo, hi)):
-            canvas[(x, y)] = 'o'
-
-BAYER = [[0, 8, 2, 10], [12, 4, 14, 6], [3, 11, 1, 9], [15, 7, 13, 5]]
-FADE_STEPS = [16, 16, 11, 7, 4, 2]          # stubble density per row, out of 16: full under the hair, thinning to the nape
-
-def graded_fade(canvas, h, start):
-    """Back views: a true fade. Solid short hair under the top, then ordered-dither stubble that thins row by row
-    down the back of the head; the outermost columns keep a pixel so the head edge reads as hair, not skin."""
-    for (x, y) in sorted(h.head):
-        k = y - start
-        if k < 0 or k >= len(FADE_STEPS) or (x, y) in canvas or (x, y) in h.eyes: continue
-        lo, hi = h.span[y]
-        if FADE_STEPS[k] > BAYER[y % 4][x % 4] or (x in (lo, hi) and k < len(FADE_STEPS) - 2):
-            # dark at the top, lighter stubble as it thins so the low rows blend into the skin
-            canvas[(x, y)] = 'o' if k < 2 else '-' if k < 4 else '+' if (x + y) % 2 else '-'
+        canvas[(x, y)] = FADE_BANDS[k]
 
 # ---- styles -------------------------------------------------------------------------------------
 def locs_tied(h, cv):
@@ -197,23 +187,35 @@ def rope(cv, h, pts):
         else: cv[(x, y)] = ('*' if (y - pts[0][1]) % 3 == 0 else '+') if left else 'o'
 
 def locs_loose(h, cv):
-    paint(cv, h, cap(h, 1, h.brow + 2, 2), tex_locs_flat if h.side else tex_locs)
-    b = h.brow
+    """Loose locs fall from the whole crown and fan outward: no tie or gathered point in any facing.
+    Ropes are painted back to front, so the outer and rear locs sit behind the ones nearer the viewer."""
+    paint(cv, h, cap(h, 1, h.brow + 2, 2), tex_locs)
+    b, t, lo, hi, cx = h.brow, h.top, h.lo, h.hi, h.cx
     if h.side:
-        # from the back of the head, back to front so the front loc sits on top
-        for x0, x1, end in ((h.nape - 3, h.nape - 5, b + 9), (h.nape - 1, h.nape - 3, b + 11), (h.nape + 1, h.nape - 1, b + 8), (h.nape + 3, h.nape + 2, b + 10)):
-            rope(cv, h, [(x0, h.top + 3), (x1, b + 4), (x1, end)])
+        ropes = [[(lo + 1, t + 2), (lo - 4, b + 4), (lo - 6, b + 9)],             # rear, splayed out
+                 [(lo + 3, t), (lo - 2, b + 3), (lo - 4, b + 11)],
+                 [(cx - 1, t - 1), (lo, b + 2), (lo - 2, b + 12)],
+                 [(cx + 1, t - 1), (lo + 2, b + 1), (lo + 1, b + 10)],
+                 [(hi - 3, t), (lo + 4, b), (lo + 3, b + 11)],                     # front loc, just behind the cheek
+                 [(cx + 3, t - 1), (hi - 2, t + 1), (hi - 1, b - 1)]]              # short loc over the brow
     elif h.back:
-        xs = list(range(h.lo - 1, h.hi + 3, 3))
-        ends = [b + 8, b + 10, b + 9, b + 11, b + 9, b + 10, b + 8]
+        xs = list(range(lo - 2, hi + 4, 3))
+        ends = [b + 8, b + 11, b + 10, b + 12, b + 10, b + 11, b + 9]
+        ropes = []
         for i, x in enumerate(xs):
-            splay = -1 if x < h.cx - 1 else 1 if x > h.cx + 1 else 0
-            rope(cv, h, [(x, b - 1), (x + splay, b + 4), (x + splay, ends[i % len(ends)])])
+            splay = (x - cx) // 3
+            ropes.append([(cx + (x - cx) // 2, t - 1), (x + splay, b + 3), (x + splay * 2, ends[i % len(ends)])])
     else:
-        for x0, x1, end in ((h.lo - 2, h.lo - 3, b + 9), (h.lo, h.lo - 1, b + 11)):
-            rope(cv, h, [(x0, b - 1), (x1, b + 4), (x1, end)])
-        for x0, x1, end in ((h.hi + 2, h.hi + 3, b + 10), (h.hi, h.hi + 1, b + 11)):
-            rope(cv, h, [(x0, b - 1), (x1, b + 4), (x1, end)])
+        ropes = [[(cx - 2, t), (lo - 3, b + 2), (lo - 6, b + 8)],                 # outer locs, behind
+                 [(cx + 2, t), (hi + 3, b + 2), (hi + 6, b + 8)],
+                 [(cx - 1, t - 1), (lo - 2, b + 1), (lo - 4, b + 11)],
+                 [(cx + 1, t - 1), (hi + 2, b + 1), (hi + 4, b + 11)],
+                 [(cx - 3, t), (lo, b), (lo - 1, b + 12)],
+                 [(cx + 3, t), (hi, b), (hi + 1, b + 12)],
+                 [(cx - 2, t - 1), (cx - 4, b - 1)],                               # short locs over the forehead
+                 [(cx + 2, t - 1), (cx + 4, b - 1)],
+                 [(cx, t - 1), (cx + 1, b - 1)]]
+    for pts in ropes: rope(cv, h, pts)
 
 def headscarf(h, cv):
     paint(cv, h, cap(h, 1, h.brow + 4 if h.back else h.brow + 2, 2), tex_cloth)
@@ -232,8 +234,7 @@ def headscarf(h, cv):
             cv[(h.cx + 1 - i, h.top + i)] = 'd' if i != 1 else 'C'
 
 def topknot(h, cv):
-    if h.back: graded_fade(cv, h, h.top + 3)
-    else: dither_fade(cv, h, range(h.top + 2, h.brow + 3))
+    band_fade(cv, h, h.top + 2)
     top = cap(h, 0, None, raise_top=1)
     top = {(x, y) for (x, y) in top if y <= h.top + (2 if h.back else 1)}
     if h.side: top |= rect(h.lo + 1, h.top + 1, h.lo + 4, h.top + 2)
@@ -330,8 +331,7 @@ def ponytail(h, cv):
                 if p not in h.face and p not in h.eyes: cv[p] = '+'
 
 def flat_top(h, cv):
-    if h.back: graded_fade(cv, h, h.top + 4)
-    else: dither_fade(cv, h, range(h.top + 2, h.brow + 3))
+    band_fade(cv, h, h.top + 2)
     lo, hi = h.span[h.top + 2]
     block = rect(lo, h.top - 4, hi, h.top + 1)
     if h.side: block |= rect(lo, h.top + 1, lo + 3, h.brow)

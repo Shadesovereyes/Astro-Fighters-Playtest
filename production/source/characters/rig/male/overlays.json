@@ -1852,65 +1852,65 @@
         {
           "direction": "S",
           "pixelCounts": {
-            "head": 95,
-            "hair-fall-upper": 46,
-            "hair-fall-lower": 43
+            "head": 99,
+            "hair-fall-upper": 61,
+            "hair-fall-lower": 69
           }
         },
         {
           "direction": "SE",
           "pixelCounts": {
-            "head": 105,
-            "hair-fall-upper": 46,
-            "hair-fall-lower": 43
+            "head": 104,
+            "hair-fall-upper": 62,
+            "hair-fall-lower": 69
           }
         },
         {
           "direction": "E",
           "pixelCounts": {
-            "head": 102,
+            "head": 98,
             "hair-fall-upper": 44,
-            "hair-fall-lower": 23
+            "hair-fall-lower": 40
           }
         },
         {
           "direction": "NE",
           "pixelCounts": {
-            "head": 106,
-            "hair-fall-upper": 70,
-            "hair-fall-lower": 46
+            "head": 148,
+            "hair-fall-upper": 94,
+            "hair-fall-lower": 81
           }
         },
         {
           "direction": "N",
           "pixelCounts": {
-            "head": 110,
-            "hair-fall-upper": 72,
-            "hair-fall-lower": 46
+            "head": 154,
+            "hair-fall-upper": 96,
+            "hair-fall-lower": 81
           }
         },
         {
           "direction": "NW",
           "pixelCounts": {
-            "head": 106,
-            "hair-fall-upper": 70,
-            "hair-fall-lower": 46
+            "head": 148,
+            "hair-fall-upper": 94,
+            "hair-fall-lower": 81
           }
         },
         {
           "direction": "W",
           "pixelCounts": {
-            "head": 102,
+            "head": 98,
             "hair-fall-upper": 44,
-            "hair-fall-lower": 23
+            "hair-fall-lower": 40
           }
         },
         {
           "direction": "SW",
           "pixelCounts": {
-            "head": 105,
-            "hair-fall-upper": 47,
-            "hair-fall-lower": 43
+            "head": 102,
+            "hair-fall-upper": 61,
+            "hair-fall-lower": 69
           }
         }
       ]
@@ -1988,49 +1988,49 @@
         {
           "direction": "S",
           "pixelCounts": {
-            "head": 48
+            "head": 54
           }
         },
         {
           "direction": "SE",
           "pixelCounts": {
-            "head": 54
+            "head": 60
           }
         },
         {
           "direction": "E",
           "pixelCounts": {
-            "head": 53
+            "head": 71
           }
         },
         {
           "direction": "NE",
           "pixelCounts": {
-            "head": 94
+            "head": 97
           }
         },
         {
           "direction": "N",
           "pixelCounts": {
-            "head": 93
+            "head": 95
           }
         },
         {
           "direction": "NW",
           "pixelCounts": {
-            "head": 92
+            "head": 97
           }
         },
         {
           "direction": "W",
           "pixelCounts": {
-            "head": 53
+            "head": 71
           }
         },
         {
           "direction": "SW",
           "pixelCounts": {
-            "head": 48
+            "head": 60
           }
         }
       ]
@@ -2292,49 +2292,49 @@
         {
           "direction": "S",
           "pixelCounts": {
-            "head": 78
+            "head": 80
           }
         },
         {
           "direction": "SE",
           "pixelCounts": {
-            "head": 90
+            "head": 92
           }
         },
         {
           "direction": "E",
           "pixelCounts": {
-            "head": 85
+            "head": 100
           }
         },
         {
           "direction": "NE",
           "pixelCounts": {
-            "head": 131
+            "head": 126
           }
         },
         {
           "direction": "N",
           "pixelCounts": {
-            "head": 126
+            "head": 121
           }
         },
         {
           "direction": "NW",
           "pixelCounts": {
-            "head": 131
+            "head": 126
           }
         },
         {
           "direction": "W",
           "pixelCounts": {
-            "head": 85
+            "head": 100
           }
         },
         {
           "direction": "SW",
           "pixelCounts": {
-            "head": 86
+            "head": 92
           }
         }
       ]
