@@ -68,7 +68,7 @@ P, H = 'palm', 'heel'
 FG = dict(grip=(45, 30), angle=15, far=(39, 23), lean=(0, 3))                                         # forward grip guard
 RG = dict(grip=(45, 26), rev=6, far=(40, 23), fk=None, lean=(0, 2), bob=(2, 2, 2), ln='guard-low-rear', lf='guard-low-lead')   # reverse grip guard
 def fg(**k): return fr(**{**FG, **k})
-RG_OUT = 3   # user 2026-10-28: the reverse-grip knife hand sits 3 px further from the body (forward in E)
+RG_OUT = 0   # arm position unchanged (user 2026-10-28: only the knife moves, see KNIFE_OUT)
 def rg(**k):
     k = {**RG, **k}; k['grip'] = (k['grip'][0] + RG_OUT, k['grip'][1])
     return fr(**k)
@@ -192,6 +192,8 @@ def spec(state, c):
     assert sum(r[0] for r in s['rootMotion']['E']) == 0, state
     save(s, D + state + '.json'); print(state, n, 'frames')
 
+REV_STATES = ('tantoReverseGuard', 'tantoBladePassReverse', 'tantoScissors', 'tantoElbowHook')
+KNIFE_OUT = 3
 def grips(state):
     """snap each authored grip to the nearest rendered fist pixel so the hilt registers in the hand (character-weapon --check)"""
     s = json.load(open(D + state + '.json')); arms = Image.open(D + state + '/arms.png').convert('RGBA')
@@ -205,6 +207,13 @@ def grips(state):
                     q = (xx - x) ** 2 + (yy - y) ** 2
                     if best is None or q < best[0]: best = (q, xx, yy)
         if best: p['grip'] = [best[1], best[2]]
+        # user 2026-10-28: in the reverse grip the knife sits 2-3 px further from the body than the fist centre, still
+        # inside the fist: slide the grip forward along the row to the furthest fist pixel up to KNIFE_OUT px away
+        if state in REV_STATES and d == 'E':
+            x, y = p['grip']
+            for dx in range(KNIFE_OUT, 0, -1):
+                q = arms.getpixel((k * 64 + x + dx, row * 64 + y))
+                if q[3] == 255 and q[:3] != (0, 0, 0): p['grip'] = [x + dx, y]; break
     save(s, D + state + '.json')
 
 # white/neutral FX (fx.png, 64 px frames): a four-point spark with a black outline, at a point along the blade

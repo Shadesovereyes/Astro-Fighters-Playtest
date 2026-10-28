@@ -412,37 +412,37 @@
     "near": [
       {
         "construction": "band",
-        "angle": -81.8,
+        "angle": -51.4,
         "elbow": {
           "at": 8,
-          "angle": -91.2
+          "angle": -124.8
         },
         "fistKind": "forward"
       },
       {
         "construction": "band",
-        "angle": -85.6,
+        "angle": -55.9,
         "elbow": {
           "at": 8,
-          "angle": -95.0
+          "angle": -129.8
         },
         "fistKind": "forward"
       },
       {
         "construction": "band",
-        "angle": -85.6,
+        "angle": -55.9,
         "elbow": {
           "at": 8,
-          "angle": -95.0
+          "angle": -129.8
         },
         "fistKind": "forward"
       },
       {
         "construction": "band",
-        "angle": -81.8,
+        "angle": -51.4,
         "elbow": {
           "at": 8,
-          "angle": -91.2
+          "angle": -124.8
         },
         "fistKind": "forward"
       }
