@@ -27,7 +27,8 @@ R = K.R
 STAT = 'E/W approved by user 2026-10-28 14:08 (v1, 6d5ba34; W mirrors E); S/N to author'
 CAND = 'CANDIDATE 2026-10-28 (E/W; W mirrors E; S/N to author after approval)'
 # Christopher 2026-10-28 14:10: Club Smash is not an AoE; a separate ranged shockwave runs 3 tiles along a path the player picks
-STATUS = {'kanaboGuard': STAT, 'kanaboSmash': CAND, 'kanaboShockwave': CAND}
+APP2 = 'E/W approved by user 2026-10-28 14:32 (Club Smash v2 single target, Kanabo Shockwave v1 3-tile path, 19fb8b1; W mirrors E); S/N to author'
+STATUS = {'kanaboGuard': STAT, 'kanaboSmash': APP2, 'kanaboShockwave': APP2}
 
 # the approved club (Ironwood Kanabo v2, astro.py NPAT['kanabo']): rows top (cap) to bottom (ring pommel), columns back
 # to front in E; i/j/h iron dark/mid/highlight, u/v cord wrap

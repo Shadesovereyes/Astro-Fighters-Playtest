@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "kanaboShockwave",
-  "status": "CANDIDATE 2026-10-28 (E/W; W mirrors E; S/N to author after approval)",
+  "status": "E/W approved by user 2026-10-28 14:32 (Club Smash v2 single target, Kanabo Shockwave v1 3-tile path, 19fb8b1; W mirrors E); S/N to author",
   "frames": 12,
   "fps": 10,
   "sourceDirection": "E",
@@ -1484,7 +1484,7 @@
     {
       "slot": "main",
       "layer": "arms",
-      "status": "CANDIDATE 2026-10-28 (E/W; W mirrors E; S/N to author after approval)",
+      "status": "E/W approved by user 2026-10-28 14:32 (Club Smash v2 single target, Kanabo Shockwave v1 3-tile path, 19fb8b1; W mirrors E); S/N to author",
       "rule": "per frame: grip = pixel at the centre of the near fist (body-frame coordinates; it follows the arm bob, 0, -1, 0, +1), angle = blade direction in degrees above the facing's horizontal, z = depth slot",
       "depthRule": "front: drawn over body and clothing, under the arms layer (the fists close over the hilt); behind: drawn under the body",
       "E": [
