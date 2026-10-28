@@ -1852,17 +1852,17 @@
         {
           "direction": "S",
           "pixelCounts": {
-            "head": 93,
-            "hair-fall-upper": 61,
-            "hair-fall-lower": 69
+            "head": 82,
+            "hair-fall-upper": 43,
+            "hair-fall-lower": 48
           }
         },
         {
           "direction": "SE",
           "pixelCounts": {
-            "head": 98,
-            "hair-fall-upper": 62,
-            "hair-fall-lower": 69
+            "head": 87,
+            "hair-fall-upper": 44,
+            "hair-fall-lower": 48
           }
         },
         {
@@ -1876,25 +1876,25 @@
         {
           "direction": "NE",
           "pixelCounts": {
-            "head": 130,
-            "hair-fall-upper": 94,
-            "hair-fall-lower": 81
+            "head": 99,
+            "hair-fall-upper": 66,
+            "hair-fall-lower": 62
           }
         },
         {
           "direction": "N",
           "pixelCounts": {
-            "head": 136,
-            "hair-fall-upper": 96,
-            "hair-fall-lower": 81
+            "head": 100,
+            "hair-fall-upper": 68,
+            "hair-fall-lower": 62
           }
         },
         {
           "direction": "NW",
           "pixelCounts": {
-            "head": 130,
-            "hair-fall-upper": 94,
-            "hair-fall-lower": 81
+            "head": 99,
+            "hair-fall-upper": 66,
+            "hair-fall-lower": 62
           }
         },
         {
@@ -1908,9 +1908,9 @@
         {
           "direction": "SW",
           "pixelCounts": {
-            "head": 96,
-            "hair-fall-upper": 61,
-            "hair-fall-lower": 69
+            "head": 87,
+            "hair-fall-upper": 45,
+            "hair-fall-lower": 48
           }
         }
       ]

@@ -62,7 +62,7 @@ def fr(grip, angle=None, far=(39, 24), fk=None, bob=(1, 1, 2), lean=(0, 2), root
     if rev is not None: angle = rev_angle(an, rev); z = {'hilt': 'front', 'blade': 'aboveArm'}
     w = {'grip': list(grip), 'angle': angle, 'z': z}
     if trail: w['trail'] = trail   # 'swing': a crescent about the grip from the previous frame's blade angle
-    return dict(src=0, an=an, af=af, bob=bob, lean=lean, root=root, ln=ln, lf=lf, w=w)
+    return dict(src=0, an=an, af=af, bob=bob, lean=lean, root=root, ln=ln, lf=lf, w=w, far=far)
 
 P, H = 'palm', 'heel'
 FG = dict(grip=(45, 30), angle=15, far=(39, 23), lean=(0, 3))                                         # forward grip guard
@@ -176,7 +176,7 @@ def spec(state, c):
         if c == 'thrustCut': ev[6].update(type='active', move='Thrust Cut (draw-cut)', hitbox=[44, 30, 14, 12], damage='light')
         events = {'rule': 'per-frame gameplay data per facing (W mirrors E: x -> 64 - x - w); hitboxes provisional', 'E': ev,
                   'W': [{**e, 'hitbox': [64 - e['hitbox'][0] - e['hitbox'][2]] + e['hitbox'][1:]} if 'hitbox' in e else dict(e) for e in ev]}
-    s = build(base, state, [{k: v for k, v in f.items() if k != 'w'} for f in frames], status=STAT, newPoses=POSES, clips=clips, events=events,
+    s = build(base, state, [{k: v for k, v in f.items() if k not in ('w', 'far')} for f in frames], status=STAT, newPoses=POSES, clips=clips, events=events,
               rmRule='E: a step in moves the body forward, the recovery steps back to the start (sum 0)',
               intent=INTENT[c], extra={'stance': 'Reverse Grip Stance' if nxt == 'tantoReverseGuard' or c == 'rgd' else 'Forward Grip Stance'})
     s['fps'] = fps; s.pop('approved', None); s.pop('keyPoses', None)
@@ -228,8 +228,9 @@ def fx(state):
         p = s['weapons'][0]['E'][k]; t = math.radians(p['angle'])
         cx, cy = p['grip'][0] + 0.5 + u * math.cos(t), p['grip'][1] + 0.5 - u * math.sin(t)
         for di, d in enumerate(dirs):
-            if d not in ('E', 'W'): continue
-            c = ((63 - int(cx)) if d == 'W' else int(cx), int(cy))
+            if d == 'S' and 'S' in s['weapons'][0]: c = tuple(s['weapons'][0]['S'][k]['grip'])   # S: the hands meet toward the viewer
+            elif d in ('E', 'W'): c = ((63 - int(cx)) if d == 'W' else int(cx), int(cy))
+            else: continue   # N: the contact is in front of the body, hidden
             px = {(c[0] - 3 + i, c[1] - 3 + j) for j, r in enumerate(SPARK) for i, ch in enumerate(r) if ch == 'W'}
             for (x, y) in px:
                 for ox, oy in ((1, 0), (-1, 0), (0, 1), (0, -1)):
@@ -241,9 +242,94 @@ def fx(state):
     a = json.load(open(D + state + '/animation.json')); a['layers']['fx'] = 'fx.png'
     open(D + state + '/animation.json', 'w').write(json.dumps(a, indent=2) + '\n')
 
+# S/N (user 2026-10-28: reverse-grip set approved E/W, S/N next), drafted from the oneHandGuard frontal: every fist and
+# blade keeps its E row (projection lines, not drawn); a reach toward the foe in E comes toward the viewer in S, so the
+# fist moves in toward the centre line and the band arm foreshortens; the reverse-grip blade pointing down stays a
+# full-length vertical line, a level blade points at the viewer (short, scale min 0.2). Legs planted (the E step reads
+# as the bob). N: only the upper arms show, the knife is hidden in front of the body. E/W pixels restored from HEAD.
+SN_STAT = 'CANDIDATE 2026-10-28 S/N v1 (E/W approved by user 2026-10-28; W mirrors E)'
+PIV_S, UA_S, FA_S = (25, 24), 7, 9
+def ik_s(hx, hy, piv=PIV_S, out=-1):
+    """frontal band arm from the shoulder to the fist; scale foreshortens a reach toward the viewer; the elbow points
+    out to the side (out=-1: viewer's left, the R arm; out=1: the L arm)"""
+    dx, dy = hx - piv[0], hy - piv[1]; dist = math.hypot(dx, dy)
+    sc = max(0.4, min(1.0, dist / 14.5)); a1, a2 = UA_S * sc, FA_S * sc
+    r = min(max(dist, abs(a1 - a2) + 0.05), a1 + a2 - 0.05); phi = math.atan2(-dx, dy)
+    al = math.acos((a1 * a1 + r * r - a2 * a2) / (2 * a1 * r)); be = math.acos((a2 * a2 + r * r - a1 * a1) / (2 * a2 * r))
+    best = None
+    for sg in (1, -1):
+        ua, fa = phi + sg * al, phi - sg * be
+        ex = (piv[0] - a1 * math.sin(ua)) * -out
+        if best is None or ex < best[0]: best = (ex, ua, fa)
+    return round(math.degrees(best[1]), 1), round(math.degrees(best[2]), 1), round(sc, 2)
+
+def sn(state):
+    import subprocess, os
+    spec = json.loads(subprocess.check_output(['git', '-C', R, 'show', 'HEAD:' + os.path.relpath(D + state + '.json', R)]))
+    c = STATES[state]; frames = CLIPS[c][6]
+    F = spec['frames']; fr = copy.deepcopy(BASE['frontal']); mb = max(spec['bob']['dy'])
+    one = lambda v: [copy.deepcopy(v[0]) for _ in range(F)]
+    GV = BASE['frontal']['views']
+    for d in ('S', 'N'):
+        v = fr['views'][d]
+        for sd in 'RL':
+            for key in ('legPose', 'handDy', 'hipDx', 'footDx'): v[key][sd] = one(v[key][sd])
+            ab = v['armBand'][sd]
+            for key in ('angle', 'elbow', 'scale', 'pivotDx'): ab[key] = one(ab[key])
+            if isinstance(ab['fist'], list): ab['fist'] = one(ab['fist'])
+        for key in ('pelvis', 'shoulders', 'head'): v['twist'][key] = [0] * F
+        v['bobRows'] = (GV[d]['bobRows'] * 2)[:max(mb, 1)]
+    fr['legLift'] = {'R': [0] * F, 'L': [0] * F}
+    S, N = fr['views']['S']['armBand'], fr['views']['N']['armBand']
+    wE = spec['weapons'][0]['E']; wS, wN = [], []
+    for k, p in enumerate(wE):
+        f = frames[k]; sx = 32 + f['lean'][1] * 0.5
+        row = p['grip'][1]; reach = p['grip'][0] - sx
+        hx = round(25 + max(0, min(6, reach * 0.4)))
+        a, e, sc = ik_s(hx, row)
+        S['R']['angle'][k], S['R']['elbow'][k], S['R']['scale'][k], S['R']['fist'][k] = a, {'at': 7, 'angle': e}, sc, 'front'
+        fx_, fy = f['far']
+        lx = round(38 - max(0, min(6, (fx_ - sx) * 0.4)))
+        la, le, ls = ik_s(lx, fy, piv=(38, 24), out=1)
+        palm = f['af'].get('fistKind') == P
+        S['L']['angle'][k], S['L']['elbow'][k], S['L']['scale'][k], S['L']['fist'][k] = la, {'at': 7, 'angle': le}, ls, 'palm' if palm else 'up'
+        N['R']['angle'][k] = round(min(135, max(-8, -a)), 1); N['L']['angle'][k] = round(max(-135, min(12, -la)), 1)
+        t = math.radians(p['angle']); sn_ = math.sin(t)
+        blade = {'angle': 90 if sn_ >= 0 else -90, 'scale': round(max(abs(sn_), 0.2), 3)}
+        wS.append({'grip': [hx, row], **blade, 'z': {'hilt': 'front', 'blade': 'top'}})
+        wN.append({'grip': [64 - hx, row], **blade, 'z': 'behind', 'hidden': True})
+    sw = spec['clothing']['sash']['sway']; sw['S'] = [1] * F; sw['N'] = [-1] * F
+    spec['frontal'] = fr; spec['directions'] = ['S', 'E', 'N', 'W']
+    spec['rootMotion'] = {**spec['rootMotion'], 'S': [[0, 0]] * F, 'N': [[0, 0]] * F}
+    w = spec['weapons'][0]; w['S'] = wS; w['N'] = wN; w['status'] = SN_STAT
+    w['projectionRule'] = copy.deepcopy(BASE['weapons'][0]['projectionRule'])
+    if spec.get('events'):
+        spec['events']['S'] = copy.deepcopy(spec['events']['E']); spec['events']['N'] = copy.deepcopy(spec['events']['E'])
+    spec['status'] = SN_STAT
+    save(spec, D + state + '.json'); print(state, 'S/N', F, 'frames')
+
+def restore(state):
+    """the approved E/W pixels from HEAD into the E and W rows of the 4-row layers (S, E, N, W); weapon sheets and fx
+    are redrawn from the unchanged E entries, so both are left alone"""
+    import subprocess, os, io
+    d = D + state + '/'
+    for f in sorted(os.listdir(d)):
+        if not f.endswith('.png') or f.startswith('main-') or f == 'fx.png': continue
+        rel = os.path.relpath(d + f, R)
+        try: old = Image.open(io.BytesIO(subprocess.check_output(['git', '-C', R, 'show', 'HEAD:' + rel], stderr=subprocess.DEVNULL))).convert('RGBA')
+        except subprocess.CalledProcessError: continue
+        if old.height != 128: continue
+        new = Image.open(d + f).convert('RGBA')
+        for row, nrow in ((0, 1), (1, 3)):
+            new.paste(Image.new('RGBA', (new.width, 64)), (0, nrow * 64)); new.paste(old.crop((0, row * 64, old.width, row * 64 + 64)), (0, nrow * 64))
+        new.save(d + f)
+    print(state, 'E/W restored from HEAD')
+
 if __name__ == '__main__':
     if len(sys.argv) > 2 and sys.argv[1] == '--grips': grips(sys.argv[2])
     elif len(sys.argv) > 2 and sys.argv[1] == '--fx': fx(sys.argv[2])
+    elif len(sys.argv) > 2 and sys.argv[1] == '--sn': sn(sys.argv[2])
+    elif len(sys.argv) > 2 and sys.argv[1] == '--restore': restore(sys.argv[2])
     else:
         only = sys.argv[1:]
         for st, c in STATES.items():

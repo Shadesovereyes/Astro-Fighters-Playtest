@@ -204,17 +204,17 @@ def locs_loose(h, cv):
                  [(hi - 2, t), (hi - 4, b + 1), (hi - 5, b + 9)],
                  [(cx + 3, t), (hi - 2, t + 1), (hi - 1, b - 1)]]              # short loc over the brow
     elif h.back:
-        xs = list(range(lo - 2, hi + 4, 3))
+        xs = list(range(lo - 1, hi + 2, 3))
         ends = [b + 8, b + 11, b + 10, b + 12, b + 10, b + 11, b + 9]
         ropes = []
         for i, x in enumerate(xs):
-            splay = (x - cx) // 3
-            ropes.append([(cx + (x - cx) // 2, t), (x + splay, b + 3), (x + splay * 2, ends[i % len(ends)])])
+            splay = (x - cx) // 4                                   # hang close to the head, only a slight flare
+            ropes.append([(cx + (x - cx) // 2, t), (x, b + 3), (x + splay, ends[i % len(ends)])])
     else:
-        ropes = [[(cx - 2, t), (lo - 3, b + 2), (lo - 6, b + 8)],                 # outer locs, behind
-                 [(cx + 2, t), (hi + 3, b + 2), (hi + 6, b + 8)],
-                 [(cx - 1, t), (lo - 2, b + 1), (lo - 4, b + 11)],
-                 [(cx + 1, t), (hi + 2, b + 1), (hi + 4, b + 11)],
+        ropes = [[(cx - 2, t), (lo - 2, b + 2), (lo - 3, b + 8)],                 # outer locs, behind
+                 [(cx + 2, t), (hi + 2, b + 2), (hi + 3, b + 8)],
+                 [(cx - 1, t), (lo - 1, b + 1), (lo - 2, b + 11)],
+                 [(cx + 1, t), (hi + 1, b + 1), (hi + 2, b + 11)],
                  [(cx - 3, t), (lo, b), (lo - 1, b + 12)],
                  [(cx + 3, t), (hi, b), (hi + 1, b + 12)],
                  [(cx - 2, t), (cx - 4, b - 1)],                               # short locs over the forehead
