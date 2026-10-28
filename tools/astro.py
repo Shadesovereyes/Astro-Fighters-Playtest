@@ -306,6 +306,31 @@ def _ring(r, ch='c', ch2='C', gap=0):   # Wither Palm v2: a thin shock ring of r
     return [''.join(q) for q in rows]
 NPAT.update({'palmGlow': ['..ccc..', '.cC.Cc.', 'cC...Cc', 'c.....c', 'cC...Cc', '.cC.Cc.', '..ccc..'], 'streak': ['CCcc.c..c', '.ccc.c...'], 'vRing': _ring(5), 'vRing2': _ring(7), 'vRing3': _ring(9, gap=1),
              'witherPlume': ['..u.v..', '.uvuvu.', 'vuuvvuv', '.vuvuv.', '..v.u..', '...u...', '..v....'], 'witherBurst': ['u...v...u', '.vu.u.uv.', 'u.vuvuv.u', '.uvvuvvu.', 'vuuvuvuuv', '.uvvuvvu.', 'u.vuvuv.u', '.vu.v.uv.', 'u...u...v']})   # Wither Palm v2: palm glow, strike streak, dust plumes
+def _coffin(w, h, seed, lid=False, crack=0):   # Coffin Syndrome v2: an upright coffin, a box of packed sand outlined in crystal teal; lid: the front lid (a darker seam band, two teal studs); crack: 1-2 crack lines across the lid
+    import random
+    rnd = random.Random(seed); rows = [['.'] * w for _ in range(h)]
+    for y in range(h):
+        sh = 0.62 + 0.38 * min(1, y / (h * 0.22)) if y < h * 0.22 else 1 - 0.3 * (y - h * 0.22) / (h * 0.78)   # wide at the shoulders, tapering to the foot
+        half = (w - 1) / 2 * sh
+        for x in range(w):
+            dx = abs(x - (w - 1) / 2)
+            if dx > half: continue
+            edge = dx > half - 1 or y in (0, h - 1)
+            rows[y][x] = 'C' if edge else ('c' if edge and rnd.random() < 0.2 else 'Z' if rnd.random() < 0.06 else 's' if rnd.random() < 0.25 else 'S')
+            if lid and not edge and (abs(dx - half + 3) < 0.6 or y in (3, h - 4)): rows[y][x] = 's'
+    if lid:
+        for y in (h // 4, 3 * h // 4): rows[y][w // 2] = 'c'
+    for c_ in range(crack):   # cracks zigzagging across the lid
+        y0 = h // 3 + c_ * h // 4; x = 2
+        while x < w - 2:
+            if rows[y0][x] != '.': rows[y0][x] = 'K'
+            x += 1; y0 += rnd.choice((-1, 0, 1)) if 2 < y0 < h - 3 else 0
+    return [''.join(r) for r in rows]
+def _squash(pat, w):   # the lid seen swinging round on its hinge: the same lid squeezed to w columns
+    W = len(pat[0]); return [''.join(r[min(W - 1, int(x * W / w))] for x in range(w)) for r in pat]
+NPAT.update({'cofBack': _coffin(32, 56, 1), 'cofLid': _coffin(32, 56, 2, lid=True), 'cofLidCrack': _coffin(32, 56, 2, lid=True, crack=1), 'cofLidCrack2': _coffin(32, 56, 2, lid=True, crack=2)})
+NPAT.update({'cofLid1': _squash(NPAT['cofLid'], 9), 'cofLid2': _squash(NPAT['cofLid'], 20), 'cofBackLow': _coffin(32, 56, 1)[14:], 'cofBackLow2': _coffin(32, 56, 1)[30:],
+             'plank': ['CCCCCCC', 'CsSsSsC', 'CCCCCCC'], 'plankV': ['CCC', 'CSC', 'CsC', 'CSC', 'CsC', 'CCC']})
 NPAL.update({'X': '#120d16', 'x': '#3a2f40'})   # Virgo genjutsu: the phantom's shadow (near-black, smoky edge)
 def _scale(pat, f):   # nearest-neighbour enlargement of a pattern by f (Virgo genjutsu v1: the phantom and the coffin drawn bigger)
     h, w = len(pat), len(pat[0]); H, W = round(h * f), round(w * f)
@@ -1132,27 +1157,67 @@ CLIPS = {
                  5: [('wraith', 'feet', -8, -23, {'alpha': {'X': 150, 'x': 110, 'C': 255}}), ('clawMark2', 'head', 3, 14)],
                  6: [('wraith', 'feet', -11, -22, {'behind': True, 'alpha': {'X': 180, 'x': 135, 'C': 255}})], 7: [('wraith', 'feet', -13, -22, {'behind': True, 'alpha': {'X': 180, 'x': 135, 'C': 255}})]})),
  'coffinSyndrome': ('Coffin Syndrome', 4,
-  'Coffin Syndrome (Virgo genjutsu, mental debuff: the caster projects images of being buried alive on its opponent until panic scrambles its mind; Confusion 1 round, STR save DC 13; range Zone of Awareness): from the guard the fighter raises the near hand palm down in front of its chest, eyes kindling crystal teal, and an illusory coffin stands up out of the floor in front of it, a sand-filled box outlined in teal; then the fighter sinks and presses the palm slowly down, and the coffin topples and slams flat into the floor, sand pouring; heavy dome-shaped waves of sand bear down toward the target, each wider; the glow dies and the hand comes back up into the guard (the target takes genjutsuAfflicted in earth colours).', [
+  'Coffin Syndrome (Virgo genjutsu, mental debuff: the caster projects images of being buried alive on its opponent until panic scrambles its mind; Confusion 1 round, STR save DC 13; range Zone of Awareness), v2 (Christopher 2026-10-28: an actual coffin rises up behind the target and encloses it, with a break-out animation): from the guard the fighter raises the near hand palm up before its chest, eyes kindling crystal teal, and slowly lifts it, summoning the coffin up out of the floor behind the target; then it turns the hand over and snaps it shut into a fist, slamming the lid closed on the target; it holds the fist, sand motes drifting off it, then the glow dies and it returns to the guard. The target plays coffinEntombed from the active frame (the coffin rises behind it, the lid swings shut over it, it pounds on the lid inside) until the Confusion ends, then coffinBreakOut once; the genjutsu mark (earth colours) is drawn over both.', [
      g(),
      g(an=band(-60, -100, fistKind='palm'), bob=(1, 1, 1), lean=(0, 0)),
-     g(an=band(-85, -120, fistKind='palm'), bob=(1, 1, 1), lean=(0, -1)),
-     g(an=band(-85, -120, fistKind='palm'), bob=(1, 1, 1), lean=(0, -1)),
-     g(an=band(-50, -40, fistKind='palm'), af=band(-25, -80), bob=(3, 3, 3), lean=(0, 3), **LOW),
-     g(an=band(-45, -35, fistKind='palm'), af=band(-25, -80), bob=(3, 3, 3), lean=(0, 3), **LOW),
-     g(an=band(-45, -35, fistKind='palm'), af=band(-25, -80), bob=(3, 3, 3), lean=(0, 3), **LOW),
-     g(an=band(-45, -35, fistKind='palm'), af=band(-25, -80), bob=(2, 2, 2), lean=(0, 2), **LOW),
-     g(an=band(-50, -120), af=band(-35, -105), bob=(1, 1, 2), lean=(0, 2)),
+     g(an=band(-70, -110, fistKind='palm'), bob=(1, 1, 1), lean=(0, -1)),
+     g(an=band(-90, -135, fistKind='palm'), bob=(1, 1, 1), lean=(0, -1)),
+     g(an=band(-110, -155, fistKind='palm'), bob=(0, 0, 1), lean=(0, -2)),
+     g(an=band(-110, -155, fistKind='palm'), bob=(0, 0, 1), lean=(0, -2)),
+     g(an=band(-92, -92), bob=(1, 1, 1), lean=(1, 3), root=(1, 0)),     # the hand snaps shut: the lid slams
+     g(an=band(-92, -92), bob=(1, 1, 1), lean=(1, 3)),
+     g(an=band(-92, -92), bob=(1, 1, 1), lean=(1, 2)),
+     g(an=band(-50, -120), af=band(-35, -105), bob=(1, 1, 2), lean=(0, 2), root=(-1, 0)),
      g()],
-  [None, 'squint', 'squint', 'squint', 'strain', 'strain', 'squint', 'squint', None, None],
-  [0, 1, 1, 2, 2, 2, 2, 1, 0, 0],
+  [None, 'squint', 'squint', 'squint', 'squint', 'squint', 'strain', 'strain', 'squint', None, None],
+  [0, 1, 1, 1, 2, 2, 2, 2, 1, 0, 0],
   dict(fps=10, auraColors=('#e6c27a', '#7fe3d0'),
-       extra={'targetState': {'rule': 'Christopher 2026-10-27: every genjutsu marks its target; on the active frame the target starts genjutsuAfflicted (earth colours) and keeps it until the Confusion ends', 'state': 'genjutsuAfflicted', 'element': 'earth'}},
-       anchored={1: [('eyeC', 'eye', 0, 0)], 2: [('eyeCF', 'eye', 0, 0), ('coffinUp', 'feet', 18, -10, {'alpha': {'C': 200, 's': 120, 'W': 160}})],
-                 3: [('eyeCF', 'eye', 0, 0), ('coffinUp', 'feet', 18, -10)],
-                 4: [('eyeCF', 'eye', 0, 0), ('coffinFlat', 'feet', 19, -3), ('sandPuff', 'feet', 13, -2), ('sandPuff', 'feet', 25, -2), ('cs1', 'eye', 8, 4)],
-                 5: [('eyeCF', 'eye', 0, 0), ('coffinFlat', 'feet', 19, -3), ('grains', 'feet', 19, -7), ('cs2', 'eye', 12, 6), ('cs1', 'eye', 8, 4)],
-                 6: [('eyeC', 'eye', 0, 0), ('coffinFlat', 'feet', 19, -3, {'alpha': {'C': 160, 's': 110, 'W': 130}}), ('cs3', 'eye', 16, 8), ('cs2', 'eye', 12, 6)],
-                 7: [('coffinFlat', 'feet', 19, -3, {'alpha': {'C': 90, 's': 60, 'W': 70}}), ('cs3d', 'eye', 19, 9), ('cs3', 'eye', 16, 8)]})),
+       extra={'targetState': {'rule': 'Coffin Syndrome v2 (Christopher 2026-10-28): from the active frame (the caster\'s palm starts to lift, frame 2) the target plays coffinEntombed: intro frames 0-5 once (the coffin rises behind it, the lid closes on frame 5, lined up with the caster\'s fist on frame 6), then frames 6-9 on loop until the Confusion ends; then coffinBreakOut once, back to its guard. The genjutsu mark (genjutsuAfflicted halo, aura, eye glow, earth colours) is drawn over it throughout', 'state': 'coffinEntombed', 'loopFrom': 6, 'element': 'earth', 'mark': 'genjutsuAfflicted', 'breakFree': 'coffinBreakOut'}},
+       anchored={1: [('eyeC', 'eye', 0, 0)], 2: [('eyeCF', 'eye', 0, 0), ('grains', 'hand', 0, -4)], 3: [('eyeCF', 'eye', 0, 0), ('sandRise', 'hand', 0, -5)],
+                 4: [('eyeCF', 'eye', 0, 0), ('sandRise', 'hand', 0, -6), ('grains', 'hand', 3, -9)], 5: [('eyeCF', 'eye', 0, 0), ('sandRise', 'hand', 1, -6)],
+                 6: [('eyeCF', 'eye', 0, 0), ('sandPuff', 'hand', 2, 0), ('vRing', 'hand', 2, 0)], 7: [('eyeCF', 'eye', 0, 0), ('sandTrk', 'hand', 0, 5)],
+                 8: [('eyeC', 'eye', 0, 0), ('grains', 'hand', 0, 6, {'alpha': {'S': 140, 's': 130, 'Z': 150}})]})),
+ 'coffinEntombed': ('Entombed', 0,
+  'Entombed (target state of Coffin Syndrome v2, Confusion 1 round): an illusory coffin, a box of packed sand outlined in crystal teal, rises up out of the floor close behind the fighter, sand pouring off it, and stands upright over it; the lid swings round from the hinge at its back edge and slams shut over the fighter in front, a puff of sand and a teal ring bursting off it; inside, the fighter (seen faintly through the illusion) pounds on the lid with both palms, panicking, and the coffin shudders with each blow, sand trickling from its seams (loops from frame 6 until the Confusion ends; then coffinBreakOut).', [
+     g(),
+     g(bob=(1, 1, 2), lean=(-1, -2)),
+     g(an=band(-60, -140), af=band(-70, -150), bob=(1, 1, 1), lean=(-1, -3)),
+     g(an=band(-60, -140), af=band(-70, -150), bob=(1, 1, 1), lean=(-1, -3)),
+     g(an=band(-45, -150, fistKind='palm'), af=band(-50, -155, fistKind='palm'), bob=(1, 1, 1), lean=(0, 0)),
+     g(an=band(-45, -150, fistKind='palm'), af=band(-50, -155, fistKind='palm'), bob=(1, 1, 1), lean=(0, 0)),
+     g(an=band(-55, -140, fistKind='palm'), af=band(-45, -150, fistKind='palm'), bob=(1, 1, 1), lean=(1, 2)),
+     g(an=band(-45, -150, fistKind='palm'), af=band(-55, -140, fistKind='palm'), bob=(1, 1, 2), lean=(0, 0)),
+     g(an=band(-55, -140, fistKind='palm'), af=band(-45, -150, fistKind='palm'), bob=(1, 1, 1), lean=(1, 2)),
+     g(an=band(-45, -150, fistKind='palm'), af=band(-55, -140, fistKind='palm'), bob=(1, 1, 2), lean=(0, 0))],
+  [None, 'squint', 'pain', 'pain', 'pain', 'pain', 'pain', 'pain', 'pain', 'pain'],
+  None,
+  dict(fps=10, extra={'loop': True, 'loopFrom': 6},
+       anchored={0: [('cofBack', 'feet', -2, 24, {'behind': True}), ('sandPuff', 'feet', -10, -1), ('sandPuff', 'feet', 8, -1)],
+                 1: [('cofBack', 'feet', -2, 4, {'behind': True}), ('grains', 'feet', -14, -8), ('sandTrk', 'feet', 9, -10)],
+                 2: [('cofBack', 'feet', -2, -27, {'behind': True}), ('sandTrk', 'feet', -14, -16), ('grains', 'feet', 12, -20)],
+                 3: [('cofBack', 'feet', -2, -27, {'behind': True}), ('cofLid1', 'feet', -13, -27)],
+                 4: [('cofBack', 'feet', -2, -27, {'behind': True}), ('cofLid2', 'feet', -7, -27, {'alpha': {'s': 210, 'S': 210, 'Z': 220}})],
+                 5: [('cofBack', 'feet', -2, -27, {'behind': True}), ('cofLid', 'feet', -2, -27, {'alpha': {'s': 190, 'S': 190, 'Z': 200}}), ('sandPuff', 'feet', 13, -40), ('sandPuff', 'feet', -14, -12), ('vRing2', 'feet', 0, -28, {'alpha': {'c': 200, 'C': 180}})],
+                 **{6 + k: [('cofBack', 'feet', -2 + d, -27, {'behind': True}), ('cofLid', 'feet', -2 + d, -27, {'alpha': {'s': 185, 'S': 185, 'Z': 195}}), ('sandTrk', 'feet', 12 + d, -30 + 6 * k)] + ([('grains', 'feet', -13, -44)] if k % 2 == 0 else [])
+                    for k, d in enumerate((1, 0, -1, 0))}})),
+ 'coffinBreakOut': ('Coffin Break Out', 2,
+  'Coffin Break Out (target state of Coffin Syndrome v2: plays once when the Confusion ends): inside the shut coffin the fighter strains, and cracks split the lid, spreading; then it bursts the lid open with both arms thrown out and a roar, and the coffin breaks apart into teal-edged planks and clumps of sand flying outward, the back of it crumbling into the floor; the pieces fade as they fall and the fighter shakes itself back into the guard.', [
+     g(an=band(-45, -150, fistKind='palm'), af=band(-55, -140, fistKind='palm'), bob=(1, 1, 1), lean=(0, 1)),
+     g(an=band(-45, -150, fistKind='palm'), af=band(-55, -140, fistKind='palm'), bob=(2, 2, 2), lean=(0, 2), **LOW),
+     g(an=band(-135, -175), af=band(120, 175), bob=(0, 0, 0), lean=(0, -1)),
+     g(an=band(-130, -170), af=band(115, 170), bob=(0, 0, 0), lean=(0, -1)),
+     g(an=band(-80, -150), af=band(60, 120), bob=(1, 1, 1), lean=(0, 0)),
+     g(an=band(-50, -120), af=band(-35, -105), bob=(1, 1, 2), lean=(0, 1)),
+     g()],
+  ['pain', 'strain', 'roar', 'roar', 'squint', None, None],
+  [0, 1, 2, 2, 1, 0, 0],
+  dict(fps=10, auraColors=('#e6c27a', '#7fe3d0'),
+       anchored={0: [('cofBack', 'feet', -2, -27, {'behind': True}), ('cofLidCrack', 'feet', -2, -27, {'alpha': {'s': 190, 'S': 190, 'Z': 210}})],
+                 1: [('cofBack', 'feet', -2, -27, {'behind': True}), ('cofLidCrack2', 'feet', -2, -27, {'alpha': {'s': 190, 'S': 190, 'Z': 210}}), ('grains', 'feet', 12, -36)],
+                 2: [('cofBackLow', 'feet', -2, -20, {'behind': True}), ('plank', 'feet', 15, -40), ('plankV', 'feet', -16, -34), ('plank', 'feet', 13, -14), ('sandBurst', 'feet', 0, -30, {'alpha': {'S': 200, 's': 190, 'Z': 210}}), ('sandPuff', 'feet', -14, -12)],
+                 3: [('cofBackLow2', 'feet', -2, -12, {'behind': True}), ('plank', 'feet', 21, -36), ('plankV', 'feet', -22, -28), ('plank', 'feet', 19, -8), ('sandCloud', 'feet', 0, -28, {'alpha': {'S': 150, 's': 140, 'Z': 160}})],
+                 4: [('mound6', 'feet', -2, -3), ('plank', 'feet', 24, -26, {'alpha': {'C': 150, 'c': 150, 's': 120, 'S': 120}}), ('plankV', 'feet', -25, -16, {'alpha': {'C': 150, 'c': 150, 's': 120, 'S': 120}}), ('sandCloud2', 'feet', 0, -24, {'alpha': {'S': 110, 's': 100, 'Z': 120}})],
+                 5: [('grains', 'feet', -8, -4, {'alpha': {'S': 120, 's': 110, 'Z': 130}}), ('grains', 'feet', 10, -5, {'alpha': {'S': 120, 's': 110, 'Z': 130}})]})),
  'flowDodge': ('Flow Dodge', 3,
   'Flow Dodge (Sagittarius taijutsu stance buff: the fighter enters a dance-like trance and begins to swing and sway to its own rhythm): from the guard the fighter shakes its arms loose and lets the guard drop low and easy, eyes half closed, catching a beat; then it sways to its own rhythm: rocking back and forward on its feet and dipping on the knees, shoulders rolling, the loose hands swinging opposite to the hips, a flickering fire aura breathing round it on the beat with a few black and purple wisps rising off the shoulders; on the last beat it snaps its eyes open and settles into a loose, low guard (the testbed keeps the stance).', [
      g(),
