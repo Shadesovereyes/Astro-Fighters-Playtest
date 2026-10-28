@@ -242,6 +242,42 @@ NPAT.update({'sandH': ['.S.', 'SsS', '.s.'], 'sandTrk': ['S', 's', '.', 'S', '.'
              'grains': ['Z...S', '..s..', 'S...Z'], 'sandArc': _arc(5, 2, 'sSZ'), 'sandArc2': _arc(7, 3, 'sS', gap=2),
              'vital': ['..c..', '.cWc.', 'cWWWc', '.cWc.', '..c..'], 'vital2': ['c...c...c', '.c..c..c.', '..cCWCc..', '..CWWWC..', 'ccWWWWWcc', '..CWWWC..', '..cCWCc..', '.c..c..c.', 'c...c...c'], 'wither': ['v.u', '.v.', 'u.v'], 'wither2': ['u..v.', '.v..u', 'v.u..', '..v.u']})   # Wither Palm: a teal flash at each vital point struck, dull dust of the strength draining out
 
+def _whirl(h, r0, r1, phase, seed, arms=3, shards=0):   # Sandstorm: a sand tornado h px tall, r0 wide at the foot opening to r1 at the top, streaks spiralling round it;
+    import random                                        # returns (front, back): the front half is drawn over the fighter, the back half only where it is not drawn
+    rnd = random.Random(seed); w = 2 * r1 + 3; cx = r1 + 1
+    fr = [['.'] * w for _ in range(h + 4)]; bk = [['.'] * w for _ in range(h + 4)]
+    for y in range(h):
+        t = 1 - y / max(1, h - 1); rx = r0 + (r1 - r0) * t; ry = max(1.0, rx * 0.2)
+        for j in range(arms):
+            for u in range(7):
+                if y % 2 and arms == 2 and h > 20: continue   # the big storm: every other row, so the fighter shows through
+                a = phase + y * 0.3 + j * 2 * math.pi / arms + u * 0.13
+                X = round(cx + rx * math.cos(a)); Y = round(y + 2 + ry * math.sin(a))
+                if not (0 <= X < w and 0 <= Y < h + 4) or rnd.random() < 0.25: continue
+                front = math.sin(a) > 0
+                c = ('Z' if u > 4 else 'S' if u > 1 else 's') if front else ('S' if u > 4 else 's')
+                (fr if front else bk)[Y][X] = c
+    for _ in range(shards):   # shrapnel caught in the storm: crystal chips and grit
+        a = rnd.random() * 2 * math.pi; y = rnd.randint(2, h - 2); rx = r0 + (r1 - r0) * (1 - y / h)
+        X = round(cx + rx * math.cos(a)); Y = round(y + 2 + rx * 0.2 * math.sin(a))
+        if 0 <= X < w and 0 <= Y < h + 4: (fr if math.sin(a) > 0 else bk)[Y][X] = rnd.choice('CcK')
+    return [''.join(r) for r in fr], [''.join(r) for r in bk]
+
+def _mound(hgt, w=26, seed=0, coffin=False):   # Sand Burial: a heap of sand round the legs, hgt px high; coffin: closed up over the chest, with darker squeeze bands
+    import random
+    rnd = random.Random(seed); rows = [['.'] * w for _ in range(hgt)]
+    for y in range(hgt):
+        f = y / max(1, hgt - 1); half = (w / 2) * (0.55 + 0.45 * f) if not coffin else (w / 2) * (0.3 + 0.7 * math.sin(min(1, 0.25 + f) * math.pi / 2) ** 0.5)   # coffin: a rounded dome closing over the shoulders
+        for x in range(w):
+            if abs(x - (w - 1) / 2) <= half - (rnd.random() < 0.5 and y < 2):
+                edge = abs(x - (w - 1) / 2) > half - 1.5 or y == 0
+                rows[y][x] = 's' if edge else ('Z' if rnd.random() < 0.08 else 's' if rnd.random() < 0.18 or (coffin and (y + abs(x - w // 2) // 3) % 7 == 3) else 'S')
+    return [''.join(r) for r in rows]
+NPAT.update({**{'mound%d' % n: _mound(n, seed=n) for n in (6, 14, 18)}, 'coffin26': _mound(26, w=28, seed=26, coffin=True), 'coffin30': _mound(30, w=28, seed=30, coffin=True),
+             **{'storm%d%s' % (k, fb): q for k in range(4) for fb, q in zip('FB', _whirl(52, 6, 18, k * math.pi / 2, k, arms=2, shards=8))},
+             **{'whirl%d%s' % (k, fb): q for k in range(4) for fb, q in zip('FB', _whirl(12, 3, 7, k * math.pi / 2, 10 + k, arms=2))},
+             'sandStream': ['..s..S..s.Z..S', '.SsS.sSs.SsS.s', 'sSsSsSsSsSsSsS'], 'sandRise': ['.S.s', 's.Z.', '.S.s', 'S..s']})   # Sand Burial: sand flowing along the floor toward the target, sand rising
+
 CLIPS = {
  'machLunge': ('Mach Lunge', 9,
   'Mach Lunge (Aries taijutsu, Priority gap closer, burns the target), v4 (Christopher 2026-10-27: the sprint instead of a single hop, flames around the feet; afterimages for speed): from the guard the fighter dips, then breaks into the approved sprint (the same stride, lean and swept-back arms), flames bursting around the feet at every step, a stream of fire and four fire-tinted afterimages trailing behind; on the last stride it tucks both arms tight, plants the lead foot and drives the lead shoulder into the target with a flare of flame at the point of contact; then settles back into the guard. The fighter travels 40 px over the clip (the game moves it by that distance).', [
@@ -866,6 +902,77 @@ CLIPS = {
        anchored={2: [('vital', 'hand', 2, 0)], 3: [('vital', 'farhand', 2, 0), ('wither', 'hand', 0, 6)], 4: [('vital', 'hand', 2, 0), ('wither', 'farhand', 3, 5)],
                  5: [('vital', 'farhand', 2, 0), ('wither', 'hand', 1, 4)], 6: [('vital2', 'hand', 3, 0), ('wither2', 'hand', 2, 6)],
                  7: [('vital', 'hand', 3, 0, {'alpha': {'c': 150, 'W': 170}}), ('wither2', 'hand', 2, 9), ('wither', 'hand', -2, 13)], 8: [('wither', 'hand', 2, 14, {'alpha': {'u': 130, 'v': 130}})]})),
+ 'sandBurial': ('Sand Burial', 5,
+  'Sand Burial (Virgo ninjutsu, Elemental 22, single target in the Zone of Awareness, Root 2 rounds STR DC 13, 2x poise damage: the caster commands the sand round its opponent to envelop and crush it): from the guard the fighter makes the seal at the chin and sinks, sand grains lifting off the floor round its feet and a sandy aura rising; it sweeps both open palms low and forward over the ground and sand streams away along the floor toward the target; then it lifts the near hand palm up, drawing the sand up round the foe, and clenches it into a fist, squeezing, arm trembling, as the sand closes and crushes; it holds the squeeze, then drops back into the guard. On the target (the testbed plays sandBuried on it from the active frame): sand heaps up round its legs, swells up over its chest into a crushing coffin, then falls back to a mound round its waist that holds it rooted until the Root ends.', [
+     g(),
+     g(an=U.SEAL_N, af=U.SEAL_F, bob=(2, 2, 2), lean=(0, 0), **LOW),
+     g(an=U.SEAL_N, af=U.SEAL_F, bob=(3, 3, 3), lean=(0, 1), **LOW),
+     g(an=band(-40, -45, fistKind='palm'), af=band(-30, -55, fistKind='palm'), bob=(4, 5, 5), lean=(1, 7), **BRACE),   # palms swept low over the ground
+     g(an=band(-120, -150, fistKind='palm'), af=band(-30, -100), bob=(2, 2, 2), lean=(0, 1), **LOW),                     # palm up, drawing the sand up
+     g(an=band(-115, -155), af=band(-30, -100), bob=(2, 2, 2), lean=(0, 2), **LOW),                                        # clenched: crush
+     g(an=band(-115, -155), af=band(-30, -100), bob=(2, 2, 2), lean=(0, 2), root=(1, 0), **LOW),
+     g(an=band(-115, -155), af=band(-30, -100), bob=(2, 2, 2), lean=(0, 2), root=(-1, 0), **LOW),
+     g(an=band(-50, -120), af=band(-40, -110), bob=(1, 1, 2), lean=(0, 2)),
+     g()],
+  [None, 'squint', 'closed', 'squint', 'squint', 'strain', 'strain', 'strain', None, None],
+  [0, 1, 1, 2, 2, 2, 2, 1, 1, 0],
+  dict(fps=10, auraColors=('#e6c27a', '#9c7434'), rm='a 1 px tremble on frames 6-7 (net 0)',
+       extra={'targetState': {'rule': 'Sand Burial: on the active frame the testbed plays sandBuried on the target (frames 0-3 once: sand heaps up, swells into a crushing coffin; then frames 4-7 on loop, a mound round the waist) until the Root ends', 'state': 'sandBuried', 'loopFrom': 4}},
+       anchored={2: [('sandRise', 'feet', -8, -4), ('sandRise', 'feet', 9, -6)],
+                 3: [('sandStream', 'feet', 14, -1), ('sandRise', 'hand', 0, -3), ('grains', 'feet', -9, -8)],
+                 4: [('sandStream', 'feet', 18, -1, {'alpha': {'s': 170, 'S': 170, 'Z': 190}}), ('whirl0F', 'hand', 0, -2), ('grains', 'hand', 2, 5)],
+                 5: [('whirl1F', 'hand', 0, -1), ('sandH', 'hand', 0, 0), ('grains', 'hand', 3, 6)],
+                 6: [('whirl2F', 'hand', 0, -1), ('grains', 'hand', -3, 6)], 7: [('whirl3F', 'hand', 0, -1, {'alpha': {'s': 150, 'S': 150, 'Z': 170}})]})),
+ 'sandBuried': ('Sand Buried', 2,
+  'Sand Buried (target state of Sand Burial, Root 2 rounds, 2x poise damage): sand heaps up round the fighter\'s feet and legs; the fighter flinches, arms flung up; the sand swells up over its chest into a crushing coffin, darker bands squeezing in, its face twisting in pain; then the sand falls back to a heavy mound round its waist, grains trickling, and it strains against it, rooted, swaying a little, until the Root ends (frames 4-7 loop).', [
+     g(an=band(-60, -150), af=band(-50, -140), bob=(1, 1, 1), lean=(0, 0)),
+     g(an=band(-90, -170), af=band(-80, -165), bob=(1, 1, 1), lean=(0, -1)),
+     g(an=band(-150, -175), af=band(-140, -170), bob=(1, 1, 1), lean=(0, -1)),
+     g(an=band(-150, -175), af=band(-140, -170), bob=(2, 2, 2), lean=(0, -1)),
+     g(an=band(-30, -70), af=band(-20, -60), bob=(1, 1, 1), lean=(0, 1)),
+     g(an=band(-35, -75), af=band(-15, -55), bob=(1, 1, 1), lean=(0, 2)),
+     g(an=band(-30, -70), af=band(-20, -60), bob=(1, 1, 1), lean=(0, 1)),
+     g(an=band(-25, -65), af=band(-25, -65), bob=(1, 1, 1), lean=(0, 0))],
+  ['pain', 'pain', 'pain', 'pain', 'strain', 'strain', 'strain', 'strain'],
+  None,
+  dict(fps=8, extra={'loop': True, 'loopFrom': 4},
+       anchored={0: [('mound6', 'feet', 0, -3), ('grains', 'feet', -10, -9), ('grains', 'feet', 10, -12)],
+                 1: [('mound14', 'feet', 0, -7), ('sandRise', 'feet', -11, -17), ('sandRise', 'feet', 11, -19)],
+                 2: [('coffin26', 'feet', 0, -13), ('grains', 'head', -9, 6)],
+                 3: [('coffin30', 'feet', 0, -15), ('grains', 'head', 9, 8)],
+                 4: [('mound18', 'feet', 0, -9), ('sandTrk', 'feet', -10, -17)],
+                 5: [('mound18', 'feet', 0, -9), ('sandTrk', 'feet', 9, -18)],
+                 6: [('mound18', 'feet', 0, -9), ('sandTrk', 'feet', -8, -16)],
+                 7: [('mound18', 'feet', 0, -9), ('sandTrk', 'feet', 10, -17)]})),
+ 'sandstorm': ('Sandstorm', 6,
+  'Sandstorm (Virgo ninjutsu, Elemental 10, AoE centred on the target, Blind 2 rounds INT save DC 12, Bleed 2 rounds 4/tick: the caster whips up a sand tornado round its opponent that blinds and batters it with shrapnel): from the guard the fighter makes the seal and raises the near hand high, palm up, and circles it; a small whirl of sand spins up round the hand, faster and faster, a sandy aura rising; then it steps in and thrusts the open palm at the target and the whirl flies off; it holds, then settles back into the guard. On the target (the testbed plays sandstormCaught on every fighter in the AoE): a sand tornado wraps round it from the floor up, streaks of sand spiralling round with crystal and grit shrapnel in them, the front half over the fighter and the back half behind it, and the fighter shields its eyes with its arms, flinching, until the Blind ends.', [
+     g(),
+     g(an=U.SEAL_N, af=U.SEAL_F, bob=(1, 1, 1), lean=(0, 0)),
+     g(an=band(-115, -140, fistKind='palm'), af=band(-30, -100), bob=(1, 1, 1), lean=(0, -1)),
+     g(an=band(-122, -150, fistKind='palm'), af=band(-30, -100), bob=(1, 1, 1), lean=(0, -1)),
+     g(an=band(-110, -132, fistKind='palm'), af=band(-30, -100), bob=(1, 1, 1), lean=(0, -1)),
+     g(an=band(-122, -150, fistKind='palm'), af=band(-30, -100), bob=(1, 1, 1), lean=(0, -1)),
+     g(an=band(-95, -95, fistKind='palm'), af=band(-40, -120), bob=(1, 1, 1), lean=(1, 4), root=(2, 0), ln='sp-drive-rear', lf='sp-drive-lead'),
+     g(an=band(-95, -95, fistKind='palm'), af=band(-40, -120), bob=(1, 1, 1), lean=(1, 4), ln='sp-drive-rear', lf='sp-drive-lead'),
+     g(an=band(-50, -120), af=band(-30, 215), bob=(1, 1, 2), lean=(1, 3), ln='sp-drive-rear', lf='sp-drive-lead'),
+     g(root=(-2, 0))],
+  [None, 'squint', 'squint', 'squint', 'strain', 'strain', 'squint', 'squint', None, None],
+  [0, 0, 1, 1, 2, 2, 2, 1, 0, 0],
+  dict(fps=10, auraColors=('#e6c27a', '#9c7434'), rm='E: +2 into the thrust, -2 settling back',
+       extra={'targetState': {'rule': 'Sandstorm: on the active frame the testbed plays sandstormCaught on loop on every fighter in the AoE round the target until the Blind ends', 'state': 'sandstormCaught'}},
+       anchored={1: [('sandRise', 'hand', 0, -3)], 2: [('whirl0F', 'hand', 0, -3)], 3: [('whirl1F', 'hand', 0, -3), ('grains', 'hand', 5, 4)],
+                 4: [('whirl2F', 'hand', 0, -3), ('whirl2B', 'hand', 0, -3), ('grains', 'hand', -5, 5)], 5: [('whirl3F', 'hand', 0, -3), ('whirl3B', 'hand', 0, -3), ('grains', 'hand', 5, 6), ('sandRise', 'hand', -3, 7)],
+                 6: [('whirl0F', 'hand', 5, -1), ('sandSpray', 'hand', 3, 0)], 7: [('whirl1F', 'hand', 8, 0, {'alpha': {'s': 150, 'S': 150, 'Z': 170}}), ('grains', 'hand', 4, 3)]})),
+ 'sandstormCaught': ('Caught in Sandstorm', 0,
+  'Caught in Sandstorm (target state of Sandstorm, Blind 2 rounds, Bleed 2 rounds): a sand tornado wraps round the fighter from the floor up, streaks of sand spiralling round it with crystal and grit shrapnel caught in them, the front half drawn over the fighter and the back half behind it; the fighter throws its forearms up over its eyes and flinches, swaying, until the Blind ends (loops, one turn of the storm every four frames).', [
+     g(an=band(-130, -175), af=band(-120, -170), bob=(1, 1, 2), lean=(0, -1)),
+     g(an=band(-130, -175), af=band(-120, -170), bob=(1, 1, 2), lean=(0, -2), root=(-1, 0)),
+     g(an=band(-130, -175), af=band(-120, -170), bob=(1, 1, 2), lean=(0, -1)),
+     g(an=band(-130, -175), af=band(-120, -170), bob=(1, 1, 2), lean=(0, -2), root=(1, 0))],
+  ['pain', 'pain', 'pain', 'pain'],
+  None,
+  dict(fps=10, extra={'loop': True},
+       anchored={k: [('storm%dB' % k, 'feet', 0, -27, {'behind': True}), ('storm%dF' % k, 'feet', 0, -27)] for k in range(4)})),
  'flowDodge': ('Flow Dodge', 3,
   'Flow Dodge (Sagittarius taijutsu stance buff: the fighter enters a dance-like trance and begins to swing and sway to its own rhythm): from the guard the fighter shakes its arms loose and lets the guard drop low and easy, eyes half closed, catching a beat; then it sways to its own rhythm: rocking back and forward on its feet and dipping on the knees, shoulders rolling, the loose hands swinging opposite to the hips, a flickering fire aura breathing round it on the beat with a few black and purple wisps rising off the shoulders; on the last beat it snaps its eyes open and settles into a loose, low guard (the testbed keeps the stance).', [
      g(),
