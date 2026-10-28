@@ -223,6 +223,25 @@ NPAT.update({**{'sanct%d' % n: _dome(n / 100) for n in (20, 45, 70, 90)}, 'sanct
              'gp1': _sag(5, 2, 'eE'), 'gp2': _sag(8, 3, 'cCE'), 'gp3': _sag(11, 4, 'eEK'), 'gp3d': _sag(13, 4, 'EK', gap=2),
              'gline': ['e', '.', 'E', 'E', '.', 'K']})   # gravity: dashes falling on the target
 
+NPAL.update({'S': '#e6c27a', 's': '#9c7434', 'Z': '#fff0c4'})   # Virgo: sand (body, shade, sunlit grain)
+def _sandcloud(w, h, dens, seed, cone=False):   # a cloud of sand grains: dense sandy core, dark grains thinning out to the edge; cone: a fan opening toward the facing
+    import random
+    rnd = random.Random(seed); rows = [['.'] * w for _ in range(h)]
+    for y in range(h):
+        for x in range(w):
+            dx, dy = (x - (w - 1) / 2) / (w / 2), (y - (h - 1) / 2) / (h / 2)
+            if cone: dx, dy = x / w, abs(dy) / max(0.15, x / w)
+            d = (dx * dx + dy * dy) ** 0.5 if not cone else dy
+            if d < 1 and rnd.random() < dens * (1.2 - d):
+                rows[y][x] = 'Z' if d < 0.35 and rnd.random() < 0.4 else 'S' if d < 0.65 else 's'
+    return [''.join(r) for r in rows]
+NPAT.update({'sandH': ['.S.', 'SsS', '.s.'], 'sandTrk': ['S', 's', '.', 'S', '.', 's', '.', '.', 'S'], 'sandPuff': ['..s.Z..s', '.sSsSsS.', 'sSsZsSsS', 'ssSSSSss'],   # Virgo: a fistful of sand, grains trickling, sand scooped off the floor
+             'sandSpray': _sandcloud(9, 9, 0.8, 1, cone=True), 'sandBurst': _sandcloud(11, 13, 0.85, 2), 'sandCloud': _sandcloud(13, 17, 0.6, 3), 'sandCloud2': _sandcloud(13, 19, 0.35, 4),   # Silica Strike: sand flung into the face, bursting and drifting
+             'hglass': ['vvvvvvvvv', '.c.....c.', '.cZSSSSc.', '..cSSSc..', '...cSc...', '....S....', '...c.c...', '..c.S.c..', '.c..S..c.', '.c.SSS.c.', 'vvvvvvvvv'],
+             'hglass2': ['vvvvvvvvv', '.c.....c.', '.c.....c.', '..cZSSc..', '...cSc...', '....S....', '...cSc...', '..c.S.c..', '.c.SSS.c.', '.cSSSSSc.', 'vvvvvvvvv'],   # Flowing Sand Parry: an illusory hourglass beside the head, sand running through it
+             'grains': ['Z...S', '..s..', 'S...Z'], 'sandArc': _arc(5, 2, 'sSZ'), 'sandArc2': _arc(7, 3, 'sS', gap=2),
+             'vital': ['..c..', '.cWc.', 'cWWWc', '.cWc.', '..c..'], 'vital2': ['c...c...c', '.c..c..c.', '..cCWCc..', '..CWWWC..', 'ccWWWWWcc', '..CWWWC..', '..cCWCc..', '.c..c..c.', 'c...c...c'], 'wither': ['v.u', '.v.', 'u.v'], 'wither2': ['u..v.', '.v..u', 'v.u..', '..v.u']})   # Wither Palm: a teal flash at each vital point struck, dull dust of the strength draining out
+
 CLIPS = {
  'machLunge': ('Mach Lunge', 9,
   'Mach Lunge (Aries taijutsu, Priority gap closer, burns the target), v4 (Christopher 2026-10-27: the sprint instead of a single hop, flames around the feet; afterimages for speed): from the guard the fighter dips, then breaks into the approved sprint (the same stride, lean and swept-back arms), flames bursting around the feet at every step, a stream of fire and four fire-tinted afterimages trailing behind; on the last stride it tucks both arms tight, plants the lead foot and drives the lead shoulder into the target with a flare of flame at the point of contact; then settles back into the guard. The fighter travels 40 px over the clip (the game moves it by that distance).', [
@@ -789,6 +808,64 @@ CLIPS = {
                  6: [('eyeCF', 'eye', 0, 0), ('gp3', 'feet', 24, -17), ('gp2', 'feet', 19, -24), ('gline', 'feet', 22, -32), ('gline', 'feet', 28, -28), ('gline', 'feet', 25, -40)],
                  7: [('eyeC', 'eye', 0, 0), ('gp3d', 'feet', 27, -10), ('gline', 'feet', 25, -34), ('gline', 'feet', 29, -22)],
                  8: [('gline', 'feet', 27, -28, {'alpha': {'e': 120, 'E': 120, 'K': 120}})]})),
+ 'silicaStrike': ('Silica Strike', 5,
+  'Silica Strike (Virgo taijutsu, Physical 8, Blind 3 rounds INT save DC 12: the fighter grabs a fistful of sand before striking at its opponent\'s face): from the guard the fighter drops low on bent knees and reaches the near hand down to the floor, scooping, sand puffing up round the fingers; it closes the fist on a handful and rises, drawing the fist back beside the ear, sand trickling out between the fingers; then it steps in and drives the fist at the face, opening it on contact so the sand sprays into the eyes, a burst of sand bursting off the face and hanging there in a drifting cloud; it pulls back into the guard.', [
+     g(),
+     g(an=band(-20, -25, fistKind='palm'), af=band(-20, -150), bob=(4, 5, 5), lean=(1, 7), **BRACE),   # reaching down to the floor
+     g(an=band(-15, -20), af=band(-20, -150), bob=(4, 5, 5), lean=(1, 7), **BRACE),                     # fist closed on a handful
+     g(an=band(30, -60), af=band(-75, -100), bob=(1, 1, 1), lean=(0, 0), ln='sp-load-rear', lf='sp-load-lead'),
+     g(an=CHAMBER, af=band(-80, -95), bob=(1, 1, 1), lean=(-1, -2), ln='sp-load-rear', lf='sp-load-lead'),
+     g(an=band(-102, -100, fistKind='palm'), af=band(30, -160), bob=(1, 1, 1), lean=(2, 5), root=(2, 0), ln='sp-drive-rear', lf='sp-drive-lead'),   # at the face, hand opening
+     g(an=band(-102, -100, fistKind='palm'), af=band(30, -160), bob=(1, 1, 1), lean=(2, 5), ln='sp-drive-rear', lf='sp-drive-lead'),
+     g(an=band(-102, -100, fistKind='palm'), af=band(30, -160), bob=(1, 1, 1), lean=(2, 5), ln='sp-drive-rear', lf='sp-drive-lead'),
+     g(an=band(-50, -120), af=band(-30, 215), bob=(1, 1, 2), lean=(1, 3), ln='sp-drive-rear', lf='sp-drive-lead'),
+     g(root=(-2, 0))],
+  [None, 'squint', 'squint', 'squint', 'strain', 'strain', 'squint', 'squint', None, None],
+  None,
+  dict(fps=10, hitbox=[46, 14, 14, 10], damage='light', rm='E: +2 on the step into the strike, -2 settling back',
+       anchored={1: [('sandPuff', 'hand', 1, 1), ('sandPuff', 'feet', 12, -1)], 2: [('sandPuff', 'hand', 2, 0), ('sandH', 'hand', 0, -1), ('grains', 'feet', 12, -4)],
+                 3: [('sandH', 'hand', 0, -1), ('sandTrk', 'hand', 0, 4)], 4: [('sandH', 'hand', 0, 0), ('sandTrk', 'hand', 0, 5)],
+                 5: [('sandSpray', 'hand', 4, -1)], 6: [('sandBurst', 'hand', 3, -1), ('grains', 'hand', -2, 7)],
+                 7: [('sandCloud', 'hand', 2, 1, {'alpha': {'S': 220, 's': 210, 'Z': 230}}), ('grains', 'hand', -3, 10)], 8: [('sandCloud2', 'hand', 0, 5, {'alpha': {'S': 150, 's': 140, 'Z': 160}})]})),
+ 'flowingSandParry': ('Flowing Sand Parry', 6,
+  'Flowing Sand Parry (Virgo taijutsu stance, counter, AGI +20% 1 round: the fighter loosens its muscles and begins to flow like sand in an hourglass while time seems to slow and its senses heighten): from the guard the fighter shakes its arms loose and lets them hang low and easy, eyes closing, sand trickling from its fingertips; an illusory hourglass forms beside its head, sand running through it, and grains of sand hang still in the air round the fighter as time slows; it sways once, then its eyes snap open crystal teal and the lead open hand sweeps up and across in front of it, weight drawn back, in a flowing parry that trails an arc of sand; the hourglass turns, the grains fall, and it settles back into the guard (the testbed keeps the stance for the counter).', [
+     g(),
+     g(an=band(-10, -40), af=band(-20, -50), bob=(1, 1, 2), lean=(0, 0)),
+     g(an=band(15, -30), af=band(-35, -70), bob=(2, 2, 3), lean=(-1, -3), root=(-1, 0), **LOW),
+     g(an=band(5, -40), af=band(-25, -60), bob=(2, 2, 2), lean=(0, 0), **LOW),
+     g(an=band(-25, -60), af=band(0, -40), bob=(2, 2, 3), lean=(1, 3), root=(1, 0), **LOW),
+     g(an=band(-25, -60), af=band(0, -40), bob=(2, 2, 2), lean=(0, 0), **LOW),
+     g(an=band(-70, -140, fistKind='palm'), af=band(-30, -100), bob=(1, 1, 1), lean=(-1, -3), ln='sp-load-rear', lf='sp-load-lead'),   # the parry: open hand sweeping up across
+     g(an=band(-55, -165, fistKind='palm'), af=band(-30, -100), bob=(1, 1, 1), lean=(-1, -3), ln='sp-load-rear', lf='sp-load-lead'),
+     g(an=band(-40, -110), af=band(-50, -120), bob=(1, 1, 2), lean=(0, 1)),
+     g()],
+  [None, 'squint', 'closed', 'closed', 'closed', 'closed', None, None, None, None],
+  [0, 0, 1, 1, 2, 2, 2, 1, 1, 0],
+  dict(fps=8, auraColors=('#e6c27a', '#b08d4e'), rm='sways 1 px back and forward (net 0)',
+       anchored={2: [('sandTrk', 'hand', 0, 3)], 3: [('sandTrk', 'hand', 0, 4), ('hglass', 'head', -12, -1, {'alpha': {'s': 150, 'S': 160, 'Z': 170}})],
+                 4: [('sandTrk', 'hand', 0, 3), ('hglass', 'head', -12, -1), ('grains', 'head', -9, 6), ('grains', 'head', 10, 16)],
+                 5: [('sandTrk', 'hand', 0, 4), ('hglass2', 'head', -12, -1), ('grains', 'head', -9, 6), ('grains', 'head', 10, 16), ('grains', 'feet', -10, -20)],
+                 6: [('hglass2', 'head', -12, -1), ('eyeCF', 'eye', 0, 0), ('sandArc', 'hand', 3, 0), ('grains', 'head', -9, 6), ('grains', 'head', 10, 16), ('grains', 'feet', -10, -20)],
+                 7: [('hglass', 'head', -12, -1, {'alpha': {'s': 140, 'S': 140, 'Z': 150}}), ('eyeC', 'eye', 0, 0), ('sandArc2', 'hand', 2, 2), ('grains', 'head', -9, 9), ('grains', 'head', 10, 20)],
+                 8: [('grains', 'head', -9, 14, {'alpha': {'S': 130, 's': 120, 'Z': 140}}), ('grains', 'feet', 10, -8, {'alpha': {'S': 130, 's': 120, 'Z': 140}})]})),
+ 'witherPalm': ('Wither Palm', 2,
+  'Wither Palm (Virgo taijutsu strike, Physical 12, target Stamina -15: with clinical precision the fighter throws a series of palm strikes at its opponent\'s vital points): from the guard the fighter draws the near open hand back by the hip, then steps in and fires five quick open-palm strikes, alternating hands and changing height, chest, throat, ribs, solar plexus and a last near palm to the chest; each lands with a small crystal-teal flash on the vital point struck and a puff of dull, dry dust as the strength drains out of the foe, the last one a bigger flash; it holds a beat, then settles back into the guard.', [
+     g(),
+     g(an=band(25, -60, fistKind='palm'), af=band(-75, -100), bob=(1, 1, 1), lean=(-1, -1), ln='sp-load-rear', lf='sp-load-lead'),
+     g(an=band(-90, -90, fistKind='palm'), af=band(-40, -120), bob=(1, 1, 1), lean=(1, 3), root=(2, 0), ln='sp-drive-rear', lf='sp-drive-lead'),   # chest
+     g(an=band(-40, -110), af=band(-100, -96, fistKind='palm'), bob=(1, 1, 1), lean=(1, 3), ln='sp-drive-rear', lf='sp-drive-lead'),   # throat
+     g(an=band(-75, -72, fistKind='palm'), af=band(-40, -120), bob=(2, 2, 2), lean=(1, 4), ln='sp-drive-rear', lf='sp-drive-lead'),   # ribs
+     g(an=band(-40, -110), af=band(-85, -85, fistKind='palm'), bob=(2, 2, 2), lean=(1, 4), ln='sp-drive-rear', lf='sp-drive-lead'),   # solar plexus
+     g(an=band(-92, -92, fistKind='palm'), af=band(-40, -120), bob=(1, 1, 1), lean=(2, 5), root=(1, 0), ln='sp-drive-rear', lf='sp-drive-lead'),   # the last, full extension
+     g(an=band(-92, -92, fistKind='palm'), af=band(-40, -120), bob=(1, 1, 1), lean=(2, 5), ln='sp-drive-rear', lf='sp-drive-lead'),
+     g(an=band(-50, -120), af=band(-30, 215), bob=(1, 1, 2), lean=(1, 3), ln='sp-drive-rear', lf='sp-drive-lead'),
+     g(root=(-3, 0))],
+  [None, 'squint', 'squint', 'squint', 'squint', 'squint', 'strain', 'squint', None, None],
+  None,
+  dict(fps=12, hitbox=[44, 18, 14, 14], damage='light', rm='E: +2 stepping into the strikes, +1 on the last, -3 settling back',
+       anchored={2: [('vital', 'hand', 2, 0)], 3: [('vital', 'farhand', 2, 0), ('wither', 'hand', 0, 6)], 4: [('vital', 'hand', 2, 0), ('wither', 'farhand', 3, 5)],
+                 5: [('vital', 'farhand', 2, 0), ('wither', 'hand', 1, 4)], 6: [('vital2', 'hand', 3, 0), ('wither2', 'hand', 2, 6)],
+                 7: [('vital', 'hand', 3, 0, {'alpha': {'c': 150, 'W': 170}}), ('wither2', 'hand', 2, 9), ('wither', 'hand', -2, 13)], 8: [('wither', 'hand', 2, 14, {'alpha': {'u': 130, 'v': 130}})]})),
  'flowDodge': ('Flow Dodge', 3,
   'Flow Dodge (Sagittarius taijutsu stance buff: the fighter enters a dance-like trance and begins to swing and sway to its own rhythm): from the guard the fighter shakes its arms loose and lets the guard drop low and easy, eyes half closed, catching a beat; then it sways to its own rhythm: rocking back and forward on its feet and dipping on the knees, shoulders rolling, the loose hands swinging opposite to the hips, a flickering fire aura breathing round it on the beat with a few black and purple wisps rising off the shoulders; on the last beat it snaps its eyes open and settles into a loose, low guard (the testbed keeps the stance).', [
      g(),
@@ -1311,13 +1388,14 @@ def meteor(state, frames):
 def anchored(state, frames):
     """Splash fx placed on the fighter itself, so they ride every pose and root step: frames = {frame: [(pattern, anchor,
     dx, dy, opts)]}; anchor 'head' (centre of the head found in body.png), 'hand' (tip of the near arm, the arms layer's
-    most forward pixel), 'feet' (floor under the body); dx is toward the facing (mirrored for W, pattern flipped);
+    most forward pixel), 'farhand' (the same on the far arm), 'feet' (floor under the body); dx is toward the facing (mirrored for W, pattern flipped);
     the pattern is centred on the anchor; opts: 'behind' (only where the fighter is not drawn), {'alpha': {letter: a}}"""
     from PIL import Image
     d = D + state + '/'; f = d + 'fx.png'; dirs = load(D + state + '.json')['directions']
     body = Image.open(d + 'body.png').convert('RGBA'); fx = Image.open(f).convert('RGBA') if os.path.exists(f) else Image.new('RGBA', body.size)
     lays = [Image.open(d + n).convert('RGBA').load() for n in ('body.png', 'arms.png', 'far-arm.png', 'male-gi.png', 'fade-hair.png') if os.path.exists(d + n)]
     px = fx.load(); bp = lays[0]; ap = Image.open(d + 'arms.png').convert('RGBA').load()
+    fp = Image.open(d + 'far-arm.png').convert('RGBA').load() if os.path.exists(d + 'far-arm.png') else None
     hexc = lambda c, a=255: tuple(int(c[i:i + 2], 16) for i in (1, 3, 5)) + (a,)
     for k, items in frames.items():
         for r, fd in enumerate(dirs):
@@ -1327,7 +1405,9 @@ def anchored(state, frames):
             top = min(y for _, y in opq); head = [x for x, y in opq if y <= top + 9]
             arm = [(x, y) for y in range(64) for x in range(64) if ap[k * 64 + x, r * 64 + y][3]]
             tip = (max if not flip else min)(arm, key=lambda q: (q[0], -q[1])) if arm else ((max(head), top + 8))
-            anchors = {'head': ((min(head) + max(head)) / 2, top + 6), 'hand': tip, 'feet': ((min(x for x, _ in opq) + max(x for x, _ in opq)) / 2, 63), 'eye': _eye(state, k, r) or (max(head) - 2 if not flip else min(head) + 2, top + 5)}
+            farm = [(x, y) for y in range(64) for x in range(64) if fp and fp[k * 64 + x, r * 64 + y][3]]   # the far arm's most forward pixel (Wither Palm: the far palm's strikes)
+            ftip = (max if not flip else min)(farm, key=lambda q: (q[0], -q[1])) if farm else tip
+            anchors = {'head': ((min(head) + max(head)) / 2, top + 6), 'hand': tip, 'farhand': ftip, 'feet': ((min(x for x, _ in opq) + max(x for x, _ in opq)) / 2, 63), 'eye': _eye(state, k, r) or (max(head) - 2 if not flip else min(head) + 2, top + 5)}
             for item in items:
                 name, an, dx, dy = item[:4]; opts = item[4] if len(item) > 4 else {}
                 pat = NPAT[name]; h, w = len(pat), len(pat[0]); ax, ay = anchors[an]
