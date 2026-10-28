@@ -15,7 +15,9 @@
     95
   ],
   "rows": [
+    "S",
     "E",
+    "N",
     "W"
   ],
   "frames": 7,
@@ -27,12 +29,43 @@
       "default": true,
       "hand": "arms",
       "layers": {
+        "behind": "main-tanto-behind.png",
         "front": "main-tanto-front.png",
         "top": "main-tanto-top.png",
         "trail": "main-tanto-trail.png"
       },
-      "status": "CANDIDATE 2026-10-27 (E/W; W mirrors E; S/N to author after approval)",
+      "status": "CANDIDATE 2026-10-28 S/N v1 (E/W approved by user 2026-10-28; W mirrors E)",
       "z": {
+        "S": [
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          }
+        ],
         "E": [
           {
             "hilt": "front",
@@ -62,6 +95,15 @@
             "hilt": "front",
             "blade": "aboveArm"
           }
+        ],
+        "N": [
+          "behind",
+          "behind",
+          "behind",
+          "behind",
+          "behind",
+          "behind",
+          "behind"
         ],
         "W": [
           {
@@ -95,6 +137,36 @@
         ]
       },
       "grips": {
+        "S": [
+          [
+            31,
+            26
+          ],
+          [
+            29,
+            21
+          ],
+          [
+            30,
+            19
+          ],
+          [
+            31,
+            28
+          ],
+          [
+            31,
+            28
+          ],
+          [
+            30,
+            24
+          ],
+          [
+            31,
+            26
+          ]
+        ],
         "E": [
           [
             48,
@@ -122,6 +194,36 @@
           ],
           [
             48,
+            26
+          ]
+        ],
+        "N": [
+          [
+            33,
+            26
+          ],
+          [
+            35,
+            21
+          ],
+          [
+            34,
+            19
+          ],
+          [
+            33,
+            28
+          ],
+          [
+            33,
+            28
+          ],
+          [
+            34,
+            24
+          ],
+          [
+            33,
             26
           ]
         ],
@@ -160,6 +262,13 @@
   ],
   "qc": {
     "gripOnFist": {
+      "main/tanto S:0": true,
+      "main/tanto S:1": true,
+      "main/tanto S:2": true,
+      "main/tanto S:3": true,
+      "main/tanto S:4": true,
+      "main/tanto S:5": true,
+      "main/tanto S:6": true,
       "main/tanto E:0": true,
       "main/tanto E:1": true,
       "main/tanto E:2": true,
@@ -167,6 +276,13 @@
       "main/tanto E:4": true,
       "main/tanto E:5": true,
       "main/tanto E:6": true,
+      "main/tanto N:0": "hidden",
+      "main/tanto N:1": "hidden",
+      "main/tanto N:2": "hidden",
+      "main/tanto N:3": "hidden",
+      "main/tanto N:4": "hidden",
+      "main/tanto N:5": "hidden",
+      "main/tanto N:6": "hidden",
       "main/tanto W:0": true,
       "main/tanto W:1": true,
       "main/tanto W:2": true,
