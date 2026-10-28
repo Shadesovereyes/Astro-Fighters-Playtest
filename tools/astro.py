@@ -342,6 +342,13 @@ NPAT.update({'wraith0': ['....xxxx.....', '...xXXXXx....', '..xXXXXXXx...', '..x
              'cs1': _sag(5, 2, 'Ss'), 'cs2': _sag(8, 3, 'ZSs'), 'cs3': _sag(11, 4, 'SsK'), 'cs3d': _sag(13, 4, 'sK', gap=2)})   # Coffin Syndrome: sand pressure bearing down on the buried
 NPAT.update({'wraith': _scale(NPAT['wraith0'], 1.6), 'wraithRise': _scale(NPAT['wraithRise'], 1.6), 'coffinUp': _scale(NPAT['coffinUp'], 1.5), 'coffinFlat': _scale(NPAT['coffinFlat'], 1.4)})
 NPAT.update({'sandBurstL': _sandcloud(15, 17, 0.85, 5), 'sandCloudL': _sandcloud(17, 21, 0.6, 6), 'sandCloudL2': _sandcloud(17, 23, 0.35, 7), 'sandSprayUpL': _scale(NPAT['sandSprayUp'], 1.5), 'sandSprayL2': _scale(NPAT['sandSpray'], 1.4)})   # Silica Strike v5 (Christopher 19:28: more fx): bigger burst, cloud and spray
+U.POSES += [kleg('as-lift', (34, 41), (39, 45), (37, 52), 'toe30k'), kleg('as-chamber', (34, 40), (41, 38), (39, 46), 'toe30k'),   # Capricorn Adamantine Shin: knee lifted, then chambered high
+            kleg('as-kick', (34, 41), (42, 44), (51, 45), 'pointFwd'), kleg('as-kick2', (34, 41), (42, 45), (52, 47), 'pointFwd'),     # the shin swung through level at the opponent's thigh, then driving through
+            kleg('as-recoil', (34, 41), (39, 46), (35, 52), 'toe30k')]
+AS_SEG = {'as-lift': ((39, 45), (37, 52)), 'as-chamber': ((41, 38), (39, 46)), 'as-kick': ((42, 44), (51, 45)), 'as-kick2': ((42, 45), (52, 47)), 'as-recoil': ((39, 46), (35, 52))}   # E knee -> ankle of each kick pose (crystal sheath)
+NPAT.update({'gemShard': ['.c.', 'cCT', '.T.'], 'gemShard2': ['..c..', '.cCc.', 'cCCTT', '.CTT.', '..T..'], 'gemSpark': ['c.c', '.W.', 'c.c'],   # Capricorn: crystal shards and glints
+             'gemBurst': _ring(5, 'c', 'C'), 'gemBurst2': _ring(8, 'C', 'T', gap=1), 'gemCrack': ['T...T', '.T.T.', '..W..', '.T.T.', 'T...T'],
+             'slash': ['......cW', '....cWc.', '..cWc...', 'cWc.....', 'c.......'], 'slash2': ['.........cWW', '.......cWWc.', '.....cWWc...', '...cWWc.....', '.cWWc.......', 'cWc.........']})
 NPAT.update({'wraithM': [r[::-1] for r in NPAT['wraith']]})   # Phantom Plague v2: the phantom turned round, facing back at the victim as it passes in front
 NPAT.update({'clawMark': ['C...C...C....', '.C...C...C...', '..C...C...C..', '...C...C...C.', '....c...c...c'], 'clawMark2': ['..........', 'c...c...c.', '.c...c...c.'[:10], '..c...c...']})   # Phantom Plague target: three teal claw marks raked down past the victim
 
@@ -1233,6 +1240,63 @@ CLIPS = {
                  3: [('cofBackLow2', 'feet', -2, -12, {'behind': True}), ('plank', 'feet', 21, -36), ('plankV', 'feet', -22, -28), ('plank', 'feet', 19, -8), ('sandCloud', 'feet', 0, -28, {'alpha': {'S': 150, 's': 140, 'Z': 160}})],
                  4: [('mound6', 'feet', -2, -3), ('plank', 'feet', 24, -26, {'alpha': {'C': 150, 'c': 150, 's': 120, 'S': 120}}), ('plankV', 'feet', -25, -16, {'alpha': {'C': 150, 'c': 150, 's': 120, 'S': 120}}), ('sandCloud2', 'feet', 0, -24, {'alpha': {'S': 110, 's': 100, 'Z': 120}})],
                  5: [('grains', 'feet', -8, -4, {'alpha': {'S': 120, 's': 110, 'Z': 130}}), ('grains', 'feet', 10, -5, {'alpha': {'S': 120, 's': 110, 'Z': 130}})]})),
+ 'adamantineShin': ('Adamantine Shin', 4,
+  'Adamantine Shin (Capricorn taijutsu strike, Physical 16, Guard Break, 1.5x poise damage, Bleed 2 rounds 3/tick: a bone-hard shin that cracks structure): from the guard the fighter lifts the near knee and crystal starts to grow over the shin from the ankle up, teal facets with white glints; it chambers the knee high as the crystal sheath closes over the whole shin, a glint flashing on it; then it pivots on the lead foot and snaps the crystal shin through level at the opponent\'s thigh, a crystal-white burst, a teal shock ring and a cross-shaped crack flashing at the point of impact and crystal shards and grit flying off; it drives through, recoils the leg and sets it down, the crystal flaking away, back into the guard.', [
+     g(),
+     g(an=band(10, -60), af=band(-60, -90), bob=(1, 1, 1), lean=(0, 0), ln='as-lift', lf='lk-lead-pivot'),
+     g(an=band(15, -50), af=band(-65, -95), bob=(0, 0, 1), lean=(0, -1), ln='as-chamber', lf='lk-lead-pivot'),
+     g(an=band(15, -50), af=band(-65, -95), bob=(0, 0, 1), lean=(0, -1), ln='as-chamber', lf='lk-lead-pivot'),
+     g(an=band(40, -20), af=band(-80, -100), bob=(1, 1, 1), lean=(-1, -3), root=(1, 0), ln='as-kick', lf='lk-lead-pivot'),
+     g(an=band(40, -20), af=band(-80, -100), bob=(1, 1, 1), lean=(-1, -3), ln='as-kick2', lf='lk-lead-pivot'),
+     g(an=band(20, -40), af=band(-65, -90), bob=(1, 1, 2), lean=(0, -1), ln='as-recoil', lf='lk-lead-pivot'),
+     g(bob=(1, 1, 1), lean=(0, 0), root=(-1, 0)),
+     g()],
+  [None, 'squint', 'strain', 'strain', 'roar', 'strain', 'squint', None, None],
+  None,
+  dict(fps=12, hitbox=[42, 38, 14, 12], damage='heavy', rm='E: +1 into the kick, -1 setting down',
+       crystal={'shin': {1: ('as-lift', 0.35, 235), 2: ('as-chamber', 0.75, 245), 3: ('as-chamber', 1.0, 255), 4: ('as-kick', 1.0, 255), 5: ('as-kick2', 1.0, 255), 6: ('as-recoil', 0.8, 190)}},
+       anchored={1: [('gemSpark', 'feet', 2, -12)], 3: [('gemSpark', 'head', 6, 26), ('gemShard', 'feet', 9, -18)],
+                 4: [('gemBurst', 'head', 24, 28), ('gemCrack', 'head', 24, 28), ('gemShard2', 'head', 27, 21), ('gemSpark', 'head', 28, 33)],
+                 5: [('gemBurst2', 'head', 25, 29), ('gemCrack', 'head', 25, 29), ('gemShard2', 'head', 29, 22), ('gemShard2', 'head', 28, 36), ('gemShard', 'head', 31, 29), ('rocks', 'head', 23, 37), ('gemSpark', 'head', 21, 20)],
+                 6: [('gemShard', 'head', 30, 35), ('gemShard', 'head', 31, 25), ('gemShard', 'head', 27, 41), ('dust1', 'feet', 10, -3)], 7: [('gemShard', 'feet', 12, -2)]})),
+ 'diamondCutter': ('Diamond Cutter', 5,
+  'Diamond Cutter (Capricorn taijutsu strike, True damage 14, bypasses poise and mitigation: the fighter focuses its resolve into its hand, hardening it until it crystallises, then throws an unguardable chop): from the guard the fighter draws the near hand up open above its ear, elbow high behind, , knife-edge forward, eyes narrowing; crystal grows over the hand and forearm from the fingertips back, teal facets with white glints, over three held frames, a glint flashing on the edge; then it steps in and brings the crystal knife-hand chopping down and through on a diagonal, a bright white-and-teal slash line cutting the air along its path, and on contact a thin slash of light and a spray of crystal shards; it holds the follow-through low, the crystal flaking off, and returns to the guard.', [
+     g(),
+     g(an=band(70, -170, fistKind='palm'), af=band(-70, -100), bob=(1, 1, 1), lean=(0, -1)),
+     g(an=band(115, 172, fistKind='palm'), af=band(-75, -100), bob=(1, 1, 1), lean=(-1, -2), ln='sp-load-rear', lf='sp-load-lead'),
+     g(an=band(115, 172, fistKind='palm'), af=band(-75, -100), bob=(1, 1, 1), lean=(-1, -2), ln='sp-load-rear', lf='sp-load-lead'),
+     g(an=band(115, 172, fistKind='palm'), af=band(-75, -100), bob=(1, 1, 1), lean=(-1, -3), ln='sp-load-rear', lf='sp-load-lead'),
+     g(an=band(-110, -110, fistKind='palm'), af=band(-30, -80), bob=(1, 1, 2), lean=(1, 3), root=(2, 0), ln='sp-drive-rear', lf='sp-drive-lead'),
+     g(an=band(-65, -55, fistKind='palm'), af=band(20, -60), bob=(2, 2, 3), lean=(2, 6), ln='sp-drive-rear', lf='sp-drive-lead'),
+     g(an=band(-60, -50, fistKind='palm'), af=band(20, -60), bob=(2, 2, 3), lean=(2, 6), ln='sp-drive-rear', lf='sp-drive-lead'),
+     g(an=band(-40, -90), af=band(-30, -100), bob=(1, 1, 2), lean=(1, 2), root=(-2, 0)),
+     g()],
+  [None, 'squint', 'squint', 'strain', 'strain', 'roar', 'strain', 'squint', None, None],
+  None,
+  dict(fps=10, hitbox=[44, 22, 14, 14], damage='medium', rm='E: +2 stepping into the chop, -2 settling back',
+       crystal={'arm': {2: (0.2, 235), 3: (0.4, 250), 4: (0.6, 255), 5: (0.6, 255), 6: (0.6, 255), 7: (0.6, 230), 8: (0.3, 150)}},
+       anchored={3: [('gemSpark', 'head', -9, -5)], 4: [('gemSpark', 'head', -8, -7), ('cryst', 'head', -12, 0)],
+                 5: [('slash', 'hand', -2, 1)],
+                 6: [('slash2', 'hand', -3, -5), ('gemShard2', 'hand', 5, 2), ('gemSpark', 'hand', 3, -3)],
+                 7: [('gemShard', 'hand', 6, 4), ('gemShard', 'hand', 2, 8), ('cryst', 'hand', 8, -2)], 8: [('crystT', 'hand', 3, 5)]})),
+ 'prismaticSkin': ('Prismatic Skin', 4,
+  'Prismatic Skin (Capricorn taijutsu stance buff, FORT +50% 2 rounds: by focusing its resolve the fighter\'s skin crystallises over, granting enhanced durability): from the guard the fighter drops its fists to its hips, elbows back, and tenses, sinking a little, eyes squeezed; a crystal-teal aura rises round it and crystal spreads over all its skin, pale teal with white facet lines and deep teal facets, glints flashing on the shoulders and forearms and small crystal shards popping off; it holds, glittering, then rises back into the guard still crystallised (the testbed keeps the crystal skin while the buff lasts).', [
+     g(),
+     g(an=band(15, -40), af=band(5, -35), bob=(1, 1, 1), lean=(0, 0)),
+     g(an=FLEX_N, af=FLEX_F, bob=(2, 2, 2), lean=(0, 1), **LOW),
+     g(an=FLEX_N, af=FLEX_F, bob=(3, 3, 3), lean=(0, 1), **LOW),
+     g(an=FLEX_N, af=FLEX_F, bob=(3, 3, 3), lean=(0, 1), **LOW),
+     g(an=FLEX_N, af=FLEX_F, bob=(3, 3, 3), lean=(0, 1), **LOW),
+     g(an=FLEX_N, af=FLEX_F, bob=(3, 3, 3), lean=(0, 1), **LOW),
+     g(an=band(-30, -100), af=band(-30, -95), bob=(2, 2, 2), lean=(0, 2), **LOW),
+     g()],
+  [None, 'squint', 'strain', 'strain', 'strain', 'squint', 'squint', None, None],
+  [0, 0, 1, 2, 2, 2, 1, 1, 0],
+  dict(fps=10, auraColors=('#7fe3d0', '#3a9e8f'), tint={2: 90, 3: 160, 4: 205, 5: 205, 6: 205, 7: 205, 8: 205}, veins=(), tintColors=((0x7f, 0xe3, 0xd0), (0x3a, 0x9e, 0x8f), (0xf0, 0xff, 0xfc), (0x2c, 0x80, 0x74)),
+       extra={'linger': {'rule': 'Prismatic Skin (FORT +50% 2 rounds): the clip ends with the skin crystallised; while the buff lasts the testbed keeps drawing the fighter with the crystal tint (crystal teal #7fe3d0 at alpha 205 over skin pixels, white facet streaks #f0fffc and deep teal facet patches #2c8074 off the face), as Oak Flesh does', 'tint': '#7fe3d0', 'alpha': 205, 'streak': '#f0fffc', 'facet': '#2c8074'}},
+       anchored={3: [('gemSpark', 'head', -7, 14), ('gemShard', 'head', 8, 18)],
+                 4: [('gemSpark', 'head', 7, 12), ('gemShard', 'head', -8, 22), ('cryst', 'head', 9, 26)],
+                 5: [('gemSpark', 'head', -6, 20), ('cryst', 'head', 7, 16)], 6: [('gemSpark', 'head', 6, 24)], 7: [('cryst', 'head', -6, 18)]})),
  'flowDodge': ('Flow Dodge', 3,
   'Flow Dodge (Sagittarius taijutsu stance buff: the fighter enters a dance-like trance and begins to swing and sway to its own rhythm): from the guard the fighter shakes its arms loose and lets the guard drop low and easy, eyes half closed, catching a beat; then it sways to its own rhythm: rocking back and forward on its feet and dipping on the knees, shoulders rolling, the loose hands swinging opposite to the hips, a flickering fire aura breathing round it on the beat with a few black and purple wisps rising off the shoulders; on the last beat it snaps its eyes open and settles into a loose, low guard (the testbed keeps the stance).', [
      g(),
@@ -1351,6 +1415,7 @@ def fx(state):
         f_ = D + state + '/fx.png'
         if not os.path.exists(f_) or ('fx' not in load(D + state + '.json') and not CLIPS[state][5] and not x.get('keepFx')): Image.new('RGBA', Image.open(D + state + '/body.png').size).save(f_)   # clean start unless the aura was just drawn (keepFx: keep the arm swirl / impact drawn above; Sun Palm's approved render predates it)
         anchored(state, x['anchored'])
+        if x.get('crystal'): crystalize(state, x['crystal'])
         if x.get('trails'): trails(state, x['trails'])
         if x.get('front'):   # turned frames: every row shows the E row's fx (drawn round the same S figure)
             fx_ = Image.open(f_).convert('RGBA'); dirs_ = load(D + state + '.json')['directions']; re_ = dirs_.index('E')
@@ -1793,6 +1858,47 @@ def trails(state, t):   # Flowing Sand Parry v2: streams of sand following each 
                             X2 = round(c0[0] + (rr + 1) * math.cos(a)); Y2 = round(c0[1] + (rr + 1) * math.sin(a))
                             if (X2, Y2) != (X, Y) and 0 <= X2 < 64 and 0 <= Y2 < 64 and not (side == 'far' and any(L_[k * 64 + X2, r * 64 + Y2][3] for L_ in (body, lay['near'], lay['far']))): px[k * 64 + X2, r * 64 + Y2] = hexc(NPAL['s'], 210 if age == 1 else 160)
     fx.save(f); print(state, 'trails')
+
+def crystalize(state, spec):   # Capricorn: crystal growing over the fighter. spec = {'shin': {frame: (pose, cover, alpha)}, 'arm': {frame: (cover, alpha)}}
+    """shin: the near (kicking) leg's pixels within 2.5 px of its knee -> ankle line (AS_SEG, E coords, mirrored for W),
+    covered from the ankle up by cover (0-1); arm: the near arm's skin (arms.png), covered from the hand (furthest from the shoulder) back.
+    Crystal: teal body C, glint c facet lines, deep teal T on the edges and every fifth diagonal (the gem's shaded facets)"""
+    from PIL import Image
+    d = D + state + '/'; f = d + 'fx.png'; dirs = load(D + state + '.json')['directions']
+    body = Image.open(d + 'body.png').convert('RGBA'); fx = Image.open(f).convert('RGBA') if os.path.exists(f) else Image.new('RGBA', body.size)
+    px = fx.load(); lays = [Image.open(d + n).convert('RGBA').load() for n in ('body.png', 'male-gi.png') if os.path.exists(d + n)]
+    ap = Image.open(d + 'arms.png').convert('RGBA').load()
+    C_, c_, T_ = _hexc(NPAL['C'])[:3], _hexc(NPAL['c'])[:3], _hexc(NPAL['T'])[:3]
+    def paint(pts, al, k, r):
+        for (x, y) in pts:
+            edge = any((x + a, y + b) not in pts for a, b in ((1, 0), (-1, 0), (0, 1), (0, -1)))
+            col = T_ if edge or (x - y) % 5 == 0 else c_ if (x + y) % 4 == 0 else C_
+            px[k * 64 + x, r * 64 + y] = col + (al,)
+    for k, (pose, cov, al) in (spec.get('shin') or {}).items():
+        (kx, ky), (ax_, ay_) = AS_SEG[pose]
+        for r, fd in enumerate(dirs):
+            if fd not in ('E', 'W'): continue
+            flip = fd == 'W'
+            pts = set()
+            for y in range(64):
+                for x in range(64):
+                    if not any(L[k * 64 + x, r * 64 + y][3] for L in lays): continue
+                    ex = 63 - x if flip else x
+                    vx, vy = ax_ - kx, ay_ - ky; L2 = vx * vx + vy * vy
+                    t = max(0, min(1.25, ((ex - kx) * vx + (y - ky) * vy) / L2))
+                    if math.hypot(ex - (kx + t * vx), y - (ky + t * vy)) <= 2.5 and t >= 1 - cov: pts.add((x, y))
+            paint(pts, al, k, r)
+    for k, (cov, al) in (spec.get('arm') or {}).items():
+        for r, fd in enumerate(dirs):
+            if fd not in ('E', 'W'): continue
+            flip = fd == 'W'
+            arm = [(x, y) for y in range(64) for x in range(64) if ap[k * 64 + x, r * 64 + y][3]]
+            if not arm: continue
+            sh = min(arm, key=lambda q: abs(q[1] - 22) * 4 + abs(q[0] - 32))   # the shoulder: crystal grows from the hand (the skin furthest from it) back
+            skin = [(x, y) for (x, y) in arm if ap[k * 64 + x, r * 64 + y][:3] in SKIN]
+            skin.sort(key=lambda q: -math.hypot(q[0] - sh[0], q[1] - sh[1]))
+            paint(set(skin[:round(len(skin) * cov)]), al, k, r)
+    fx.save(f); print(state, 'crystalize', sorted(spec.get('shin') or {}), sorted(spec.get('arm') or {}))
 
 def anchored(state, frames):
     """Splash fx placed on the fighter itself, so they ride every pose and root step: frames = {frame: [(pattern, anchor,
