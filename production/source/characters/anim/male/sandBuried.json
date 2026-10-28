@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Sand Buried (target state of Sand Burial, Root 2 rounds, 2x poise damage): sand heaps up round the fighter's feet and legs; the fighter flinches, arms flung up; the sand swells up over its chest into a crushing coffin, darker bands squeezing in, its face twisting in pain; then the sand falls back to a heavy mound round its waist, grains trickling, and it strains against it, rooted, swaying a little, until the Root ends (frames 4-7 loop).",
+  "intent": "Sand Buried (target state of Sand Burial, Root 2 rounds, 2x poise damage), v2 (Christopher 2026-10-28: the sand comes up to the target's neck and visibly squeezes it; a break-free animation when it ends): sand heaps up round the fighter's feet, flinching, then climbs its legs and body, pinning its arms to its sides, until only the head sticks out of a column of packed sand; the column squeezes, pinching in round the body with dark constriction bands winding round it, the face twisting in pain, grains spurting out at the neck on each squeeze; it keeps squeezing, frames 4-7 on loop, until the Root ends, when the testbed plays sandBreakFree.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -105,7 +105,7 @@
       1,
       1,
       1,
-      2,
+      1,
       1,
       1,
       1,
@@ -115,7 +115,7 @@
       1,
       1,
       1,
-      2,
+      1,
       1,
       1,
       1,
@@ -125,11 +125,11 @@
       1,
       1,
       1,
+      1,
+      1,
       2,
       1,
-      1,
-      1,
-      1
+      2
     ]
   },
   "lean": {
@@ -148,12 +148,12 @@
       ],
       "head": [
         0,
-        -1,
-        -1,
-        -1,
-        1,
-        2,
-        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
         0
       ]
     }
@@ -1147,58 +1147,58 @@
       },
       {
         "construction": "band",
-        "angle": -90,
+        "angle": -8,
         "elbow": {
           "at": 8,
-          "angle": -170
+          "angle": -25
         }
       },
       {
         "construction": "band",
-        "angle": -150,
+        "angle": -8,
         "elbow": {
           "at": 8,
-          "angle": -175
+          "angle": -25
         }
       },
       {
         "construction": "band",
-        "angle": -150,
+        "angle": -8,
         "elbow": {
           "at": 8,
-          "angle": -175
+          "angle": -25
         }
       },
       {
         "construction": "band",
-        "angle": -30,
+        "angle": -8,
         "elbow": {
           "at": 8,
-          "angle": -70
+          "angle": -25
         }
       },
       {
         "construction": "band",
-        "angle": -35,
+        "angle": -8,
         "elbow": {
           "at": 8,
-          "angle": -75
+          "angle": -25
         }
       },
       {
         "construction": "band",
-        "angle": -30,
+        "angle": -8,
         "elbow": {
           "at": 8,
-          "angle": -70
+          "angle": -25
         }
       },
       {
         "construction": "band",
-        "angle": -25,
+        "angle": -8,
         "elbow": {
           "at": 8,
-          "angle": -65
+          "angle": -25
         }
       }
     ],
@@ -1213,58 +1213,58 @@
       },
       {
         "construction": "band",
-        "angle": -80,
+        "angle": -4,
         "elbow": {
           "at": 8,
-          "angle": -165
+          "angle": -20
         }
       },
       {
         "construction": "band",
-        "angle": -140,
+        "angle": -4,
         "elbow": {
           "at": 8,
-          "angle": -170
+          "angle": -20
         }
       },
       {
         "construction": "band",
-        "angle": -140,
+        "angle": -4,
         "elbow": {
           "at": 8,
-          "angle": -170
+          "angle": -20
         }
       },
       {
         "construction": "band",
-        "angle": -20,
+        "angle": -4,
         "elbow": {
           "at": 8,
-          "angle": -60
+          "angle": -20
         }
       },
       {
         "construction": "band",
-        "angle": -15,
+        "angle": -4,
         "elbow": {
           "at": 8,
-          "angle": -55
+          "angle": -20
         }
       },
       {
         "construction": "band",
-        "angle": -20,
+        "angle": -4,
         "elbow": {
           "at": 8,
-          "angle": -60
+          "angle": -20
         }
       },
       {
         "construction": "band",
-        "angle": -25,
+        "angle": -4,
         "elbow": {
           "at": 8,
-          "angle": -65
+          "angle": -20
         }
       }
     ],
@@ -2116,14 +2116,14 @@
       {
         "frame": 2,
         "clip": "sandBuried",
-        "type": "active",
-        "move": "Sand Buried",
-        "buff": true
+        "type": "startup"
       },
       {
         "frame": 3,
         "clip": "sandBuried",
-        "type": "recovery"
+        "type": "active",
+        "move": "Sand Buried",
+        "buff": true
       },
       {
         "frame": 4,
@@ -2160,14 +2160,14 @@
       {
         "frame": 2,
         "clip": "sandBuried",
-        "type": "active",
-        "move": "Sand Buried",
-        "buff": true
+        "type": "startup"
       },
       {
         "frame": 3,
         "clip": "sandBuried",
-        "type": "recovery"
+        "type": "active",
+        "move": "Sand Buried",
+        "buff": true
       },
       {
         "frame": 4,
@@ -2477,15 +2477,19 @@
         "pain",
         "pain",
         "pain",
+        "strain",
+        "strain",
         "pain",
         "strain",
-        "strain",
-        "strain",
-        "strain"
+        "pain"
       ]
     },
     "intent": "eyes squeezed shut with the brow pulled down on the impact frames 0-2 (no mouth: user 2026-10-14), a squint on frame 3, open again from frame 4 (user 2026-10-14)"
   },
   "loop": true,
-  "loopFrom": 4
+  "loopFrom": 4,
+  "breakFree": {
+    "rule": "Sand Burial v2: when the Root ends (or the target is freed) the testbed plays sandBreakFree once, then the idle",
+    "state": "sandBreakFree"
+  }
 }
