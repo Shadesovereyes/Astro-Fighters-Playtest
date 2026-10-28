@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Oak Flesh (Taurus ninjutsu self buff, FORT +50% 3 rounds: the fighter steadies itself and focuses its will to harden its skin): from the guard the fighter makes the seal at the chin and sinks a little into its knees, eyes closing, an earthen aura rising round it; then it drives its fists down beside its hips, elbows back, and its skin hardens into oak (v2, Christopher 2026-10-28: the bark more opaque, about 88%): a warm honey-gold oak spreads over all its skin, streaked with dark walnut grain and patched with moss, and dark wood grain stands out down the arms and neck, wood chips and dust shaken off it and teal crystal glints flashing on the hardened skin; it holds, unmoving, then rises back into the guard still clad in bark (the spec asks the testbed to keep the bark tint and grain while the buff lasts).",
+  "intent": "Oak Flesh (Taurus ninjutsu self buff, FORT +50% 3 rounds: the fighter steadies itself and focuses its will to harden its skin): from the guard the fighter makes the seal at the chin and sinks a little into its knees, eyes closing, an earthen aura rising round it; then it drives its fists down beside its hips, elbows back, and its skin hardens into oak (v2, Christopher 2026-10-28: the bark more opaque, about 88%): a warm honey-gold oak spreads over all its skin, streaked with dark walnut grain (face included) and patched with moss, its hair turning to moss, and dark wood grain stands out down the arms and neck, wood chips and dust shaken off it and teal crystal glints flashing on the hardened skin; it holds, unmoving, then rises back into the guard still clad in bark (the spec asks the testbed to keep the bark tint and grain while the buff lasts).",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -2581,7 +2581,7 @@
     "intent": "eyes squeezed shut with the brow pulled down on the impact frames 0-2 (no mouth: user 2026-10-14), a squint on frame 3, open again from frame 4 (user 2026-10-14)"
   },
   "linger": {
-    "rule": "Oak Flesh (FORT +50% 3 rounds): the clip ends with the skin hardened into oak; while the buff lasts the testbed keeps drawing the fighter with the bark tint (honey oak #d8a248 at alpha 225 over skin pixels, with dark walnut grain streaks #4a2c18 and patches of moss #7d863c off the face, deep grain #1e1008; v2 more opaque, v3 grain streaks so it reads on the darkest skin tone, v4 honey oak instead of the v3 grey, which read as zombie skin, v5 honey oak + walnut grain + moss combined; Christopher 2026-10-28) and the deep wood grain (#1e1008), on every state it plays; clears when the buff ends",
+    "rule": "Oak Flesh (FORT +50% 3 rounds): the clip ends with the skin hardened into oak; while the buff lasts the testbed keeps drawing the fighter with the bark tint (honey oak #d8a248 at alpha 225 over skin pixels, with dark walnut grain streaks #4a2c18 (over the face too) and patches of moss #7d863c off the face, the hair turned to moss (hair ramp #3f0505/#702219/#70241d/#9e4a31 -> #2f3812/#55602a/#55602a/#7d863c), deep grain #1e1008; v2 more opaque, v3 grain streaks so it reads on the darkest skin tone, v4 honey oak instead of the v3 grey, which read as zombie skin, v5 honey oak + walnut grain + moss combined, v6 grain on the face and moss hair; Christopher 2026-10-28) and the deep wood grain (#1e1008), on every state it plays; clears when the buff ends",
     "tint": [
       "#d8a248",
       225
@@ -2591,9 +2591,15 @@
       "#4a2c18",
       "(x + floor(y / 3)) % 3 == 0, skin pixels off the face"
     ],
+    "hair": {
+      "#3f0505": "#2f3812",
+      "#702219": "#55602a",
+      "#70241d": "#55602a",
+      "#9e4a31": "#7d863c"
+    },
     "moss": [
       "#7d863c",
-      "(floor(x / 2) * 5 + floor(y / 2) * 11) % 13 == 0, skin pixels off the face"
+      "(floor(x / 2) * 5 + floor(y / 2) * 11) % 7 == 0, skin pixels off the face"
     ]
   }
 }

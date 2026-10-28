@@ -686,7 +686,7 @@ CLIPS = {
               [(10, [('rocks', [48, 30]), ('dust2', [44, 36]), ('cryst', [50, 25]), ('dust1', [38, 63])] + DUST_WAKE[0][:2]), (11, [('rocks', [50, 27]), ('crystT', [47, 22]), ('dust1', [46, 34])]), (12, [('dust1', [46, 63])])]),
        extra={'travel': {'rule': 'Bull Rush is a gap closer: the fighter ends the clip 40 px further forward (sum of rootMotion); the game moves the fighter by that distance', 'E': 40}})),
  'oakFlesh': ('Oak Flesh', 4,
-  'Oak Flesh (Taurus ninjutsu self buff, FORT +50% 3 rounds: the fighter steadies itself and focuses its will to harden its skin): from the guard the fighter makes the seal at the chin and sinks a little into its knees, eyes closing, an earthen aura rising round it; then it drives its fists down beside its hips, elbows back, and its skin hardens into oak (v2, Christopher 2026-10-28: the bark more opaque, about 88%): a warm honey-gold oak spreads over all its skin, streaked with dark walnut grain and patched with moss, and dark wood grain stands out down the arms and neck, wood chips and dust shaken off it and teal crystal glints flashing on the hardened skin; it holds, unmoving, then rises back into the guard still clad in bark (the spec asks the testbed to keep the bark tint and grain while the buff lasts).', [
+  'Oak Flesh (Taurus ninjutsu self buff, FORT +50% 3 rounds: the fighter steadies itself and focuses its will to harden its skin): from the guard the fighter makes the seal at the chin and sinks a little into its knees, eyes closing, an earthen aura rising round it; then it drives its fists down beside its hips, elbows back, and its skin hardens into oak (v2, Christopher 2026-10-28: the bark more opaque, about 88%): a warm honey-gold oak spreads over all its skin, streaked with dark walnut grain (face included) and patched with moss, its hair turning to moss, and dark wood grain stands out down the arms and neck, wood chips and dust shaken off it and teal crystal glints flashing on the hardened skin; it holds, unmoving, then rises back into the guard still clad in bark (the spec asks the testbed to keep the bark tint and grain while the buff lasts).', [
      g(),
      g(an=U.SEAL_N, af=U.SEAL_F, bob=(1, 1, 1), lean=(0, 0)),
      g(an=U.SEAL_N, af=U.SEAL_F, bob=(2, 2, 2), lean=(0, 0), **LOW),
@@ -699,8 +699,8 @@ CLIPS = {
      g()],
   [None, 'squint', 'closed', 'closed', 'strain', 'strain', 'squint', 'squint', None, None],
   [0, 0, 1, 1, 2, 2, 2, 1, 1, 0],
-  dict(fps=10, auraColors=('#c79a5b', '#8a6236'), tint={3: 80, 4: 160, 5: 225, 6: 225, 7: 225, 8: 225, 9: 225}, veins=(4, 5, 6, 7, 8, 9), tintColors=((0xd8, 0xa2, 0x48), (0x1e, 0x10, 0x08), (0x4a, 0x2c, 0x18), (0x7d, 0x86, 0x3c)),
-       extra={'linger': {'rule': 'Oak Flesh (FORT +50% 3 rounds): the clip ends with the skin hardened into oak; while the buff lasts the testbed keeps drawing the fighter with the bark tint (honey oak #d8a248 at alpha 225 over skin pixels, with dark walnut grain streaks #4a2c18 and patches of moss #7d863c off the face, deep grain #1e1008; v2 more opaque, v3 grain streaks so it reads on the darkest skin tone, v4 honey oak instead of the v3 grey, which read as zombie skin, v5 honey oak + walnut grain + moss combined; Christopher 2026-10-28) and the deep wood grain (#1e1008), on every state it plays; clears when the buff ends', 'tint': ['#d8a248', 225], 'veins': '#1e1008', 'streak': ['#4a2c18', '(x + floor(y / 3)) % 3 == 0, skin pixels off the face'], 'moss': ['#7d863c', '(floor(x / 2) * 5 + floor(y / 2) * 11) % 7 == 0, skin pixels off the face']}},
+  dict(fps=10, auraColors=('#c79a5b', '#8a6236'), tint={3: 80, 4: 160, 5: 225, 6: 225, 7: 225, 8: 225, 9: 225}, veins=(4, 5, 6, 7, 8, 9), tintColors=((0xd8, 0xa2, 0x48), (0x1e, 0x10, 0x08), (0x4a, 0x2c, 0x18), (0x7d, 0x86, 0x3c)), hairTo={'frames': [4, 5, 6, 7, 8, 9], 'map': {'#3f0505': '#2f3812', '#702219': '#55602a', '#70241d': '#55602a', '#9e4a31': '#7d863c'}},
+       extra={'linger': {'rule': 'Oak Flesh (FORT +50% 3 rounds): the clip ends with the skin hardened into oak; while the buff lasts the testbed keeps drawing the fighter with the bark tint (honey oak #d8a248 at alpha 225 over skin pixels, with dark walnut grain streaks #4a2c18 (over the face too) and patches of moss #7d863c off the face, the hair turned to moss (hair ramp #3f0505/#702219/#70241d/#9e4a31 -> #2f3812/#55602a/#55602a/#7d863c), deep grain #1e1008; v2 more opaque, v3 grain streaks so it reads on the darkest skin tone, v4 honey oak instead of the v3 grey, which read as zombie skin, v5 honey oak + walnut grain + moss combined, v6 grain on the face and moss hair; Christopher 2026-10-28) and the deep wood grain (#1e1008), on every state it plays; clears when the buff ends', 'tint': ['#d8a248', 225], 'veins': '#1e1008', 'streak': ['#4a2c18', '(x + floor(y / 3)) % 3 == 0, skin pixels off the face'], 'hair': {'#3f0505': '#2f3812', '#702219': '#55602a', '#70241d': '#55602a', '#9e4a31': '#7d863c'}, 'moss': ['#7d863c', '(floor(x / 2) * 5 + floor(y / 2) * 11) % 7 == 0, skin pixels off the face']}},
        anchored={4: [('rocks', 'head', -8, 20), ('dust1', 'feet', -6, -2), ('dust1', 'feet', 7, -2)],
                  5: [('cryst', 'head', 6, 16), ('rocks', 'head', 8, 26), ('crystT', 'head', -7, 22)],
                  6: [('cryst', 'head', -6, 24), ('crystT', 'head', 7, 12)],
@@ -888,6 +888,7 @@ def fx(state):
             for i, r_ in enumerate(load(D + state + '.json')['directions']): burst(state, x['burst'], row=r_, spread=False, clean=i == 0)
         else: burst(state, x['burst'])
     if x.get('tint'): flush(state, x['tint'], x.get('veins', ()), *x.get('tintColors', ()))
+    if x.get('hairTo'): hair_to(state, x['hairTo'])
     if x.get('meteor'):
         from PIL import Image
         f_ = D + state + '/fx.png'
@@ -1140,7 +1141,7 @@ def flush(state, tint, veins, col=(0xff, 0x3a, 0x1a), vcol=(0x7a, 0x14, 0x0c), s
                 if streak:   # Oak Flesh v3 (Christopher 2026-10-28: read on the darkest skin tone): wavy vertical grain streaks over the bark, face clear
                     ty = min(y for _, y in skin) if out == 'skin-fx.png' else -99
                     for (x, y) in skin:
-                        if not (ty + 2 < y < ty + 11) and (x + y // 3) % 3 == 0: px[k * 64 + x, r * 64 + y] = tuple(streak) + (al,)
+                        if (x + y // 3) % 3 == 0: px[k * 64 + x, r * 64 + y] = tuple(streak) + (al,)   # v6: streaks run over the face too
                 if moss:   # Oak Flesh v5 (Christopher 2026-10-28: all three colours combined): 2 px patches of moss on the bark, face clear
                     ty = min(y for _, y in skin) if out == 'skin-fx.png' else -99
                     for (x, y) in skin:
@@ -1157,6 +1158,22 @@ def flush(state, tint, veins, col=(0xff, 0x3a, 0x1a), vcol=(0x7a, 0x14, 0x0c), s
                     if mid and (x * 3 + y) % 5 != 0: px[k * 64 + x, r * 64 + y] = tuple(vcol) + (255,)
         img.save(d + out)
     print(state, 'flush', list(tint), 'veins', list(veins))
+
+HAIR_LAYERS = ('afro-hair', 'afro-puff', 'bantu-knots', 'braided-side', 'fade-hair', 'flat-top', 'locs-loose', 'locs-tied', 'long-hair', 'modern-topknot', 'ronin-ponytail')
+def hair_to(state, spec):   # Oak Flesh v6 (Christopher 2026-10-28: change the hair to the moss): every hair style's base ramp swapped on the given frames
+    from PIL import Image
+    d = D + state + '/'; m = {_hexc(a)[:3]: _hexc(b)[:3] for a, b in spec['map'].items()}
+    for n in HAIR_LAYERS:
+        f = d + n + '.png'
+        if not os.path.exists(f): continue
+        im = Image.open(f).convert('RGBA'); px = im.load()
+        for k in spec['frames']:
+            for yy in range(im.size[1]):
+                for xx in range(k * 64, k * 64 + 64):
+                    q = px[xx, yy]
+                    if q[3] and q[:3] in m: px[xx, yy] = m[q[:3]] + (q[3],)
+        im.save(f)
+    print(state, 'hair', spec['frames'])
 
 def face_front(state, frames):
     """every row takes the S row's frame on the turned frames (all layers), so each facing turns to the viewer there"""
