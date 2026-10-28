@@ -297,6 +297,15 @@ NPAT.update({**{'eye%d%s' % (k, fb): q for k in range(4) for fb, q in zip('FB', 
              'stormRing': _whirl(12, 14, 16, 0, 50, arms=2)[0], 'sandSprayL': [r[::-1] for r in NPAT['sandSpray']]})
 U.POSES += [leg('ss-kneel-lead', (33, 50), (41, 49), 42), U.kleg('ss-kneel-rear', (31, 50), (29, 55), (20, 55), 'toe30k')]   # Silica Strike v2: down on the rear knee, lead foot flat in front, thigh level
 NPAT.update({'sandSprayUp': [''.join(r[y] for r in NPAT['sandSpray'][::-1]) for y in range(len(NPAT['sandSpray'][0]))][::-1]})
+def _ring(r, ch='c', ch2='C', gap=0):   # Wither Palm v2: a thin shock ring of radius r (flattened a little), every other pixel when gap
+    w = 2 * r + 1; h = 2 * round(r * 0.8) + 1; rows = [['.'] * w for _ in range(h)]
+    for k in range(int(8 * r)):
+        a = 2 * math.pi * k / (8 * r); x = round(r + r * math.cos(a)); y = round((h - 1) / 2 + (h - 1) / 2 * math.sin(a))
+        if gap and k % 2: continue
+        rows[y][x] = ch if math.sin(a) < 0.3 else ch2
+    return [''.join(q) for q in rows]
+NPAT.update({'palmGlow': ['..ccc..', '.cC.Cc.', 'cC...Cc', 'c.....c', 'cC...Cc', '.cC.Cc.', '..ccc..'], 'streak': ['CCcc.c..c', '.ccc.c...'], 'vRing': _ring(5), 'vRing2': _ring(7), 'vRing3': _ring(9, gap=1),
+             'witherPlume': ['..u.v..', '.uvuvu.', 'vuuvvuv', '.vuvuv.', '..v.u..', '...u...', '..v....'], 'witherBurst': ['u...v...u', '.vu.u.uv.', 'u.vuvuv.u', '.uvvuvvu.', 'vuuvuvuuv', '.uvvuvvu.', 'u.vuvuv.u', '.vu.v.uv.', 'u...u...v']})   # Wither Palm v2: palm glow, strike streak, dust plumes
 NPAL.update({'X': '#120d16', 'x': '#3a2f40'})   # Virgo genjutsu: the phantom's shadow (near-black, smoky edge)
 def _scale(pat, f):   # nearest-neighbour enlargement of a pattern by f (Virgo genjutsu v1: the phantom and the coffin drawn bigger)
     h, w = len(pat), len(pat[0]); H, W = round(h * f), round(w * f)
@@ -960,7 +969,7 @@ CLIPS = {
                  11: [('hglass', 'head', -12, -1, {'alpha': {'s': 140, 'S': 140, 'Z': 150}}), ('eyeC', 'eye', 0, 0), ('grains', 'head', -9, 9), ('grains', 'head', 10, 20)],
                  12: [('grains', 'head', -9, 14, {'alpha': {'S': 130, 's': 120, 'Z': 140}}), ('grains', 'feet', 10, -8, {'alpha': {'S': 130, 's': 120, 'Z': 140}})]})),
  'witherPalm': ('Wither Palm', 2,
-  'Wither Palm (Virgo taijutsu strike, Physical 12, target Stamina -15: with clinical precision the fighter throws a series of palm strikes at its opponent\'s vital points): from the guard the fighter draws the near open hand back by the hip, then steps in and fires five quick open-palm strikes, alternating hands and changing height, chest, throat, ribs, solar plexus and a last near palm to the chest; each lands with a small crystal-teal flash on the vital point struck and a puff of dull, dry dust as the strength drains out of the foe, the last one a bigger flash; it holds a beat, then settles back into the guard.', [
+  'Wither Palm (Virgo taijutsu strike, Physical 12, target Stamina -15: with clinical precision the fighter throws a series of palm strikes at its opponent\'s vital points): from the guard the fighter draws the near open hand back by the hip, then steps in and fires five quick open-palm strikes, alternating hands and changing height, chest, throat, ribs, solar plexus and a last near palm to the chest; each lands with a crystal-teal flash on the vital point struck, a thin teal shock ring snapping out from it and a plume of dull, dry dust as the strength drains out of the foe, the last one a big flash with a double ring and a burst of withered dust that drifts down; v2 (Christopher 2026-10-28: the animation is good, it needs more fx): the open hands glow crystal teal from the draw-back on, trailing a faint teal streak on each strike, and a thin teal aura clings to the fighter through the flurry; it holds a beat, the dust falling, then settles back into the guard.', [
      g(),
      g(an=band(25, -60, fistKind='palm'), af=band(-75, -100), bob=(1, 1, 1), lean=(-1, -1), ln='sp-load-rear', lf='sp-load-lead'),
      g(an=band(-90, -90, fistKind='palm'), af=band(-40, -120), bob=(1, 1, 1), lean=(1, 3), root=(2, 0), ln='sp-drive-rear', lf='sp-drive-lead'),   # chest
@@ -972,11 +981,16 @@ CLIPS = {
      g(an=band(-50, -120), af=band(-30, 215), bob=(1, 1, 2), lean=(1, 3), ln='sp-drive-rear', lf='sp-drive-lead'),
      g(root=(-3, 0))],
   [None, 'squint', 'squint', 'squint', 'squint', 'squint', 'strain', 'squint', None, None],
-  None,
-  dict(fps=12, hitbox=[44, 18, 14, 14], damage='light', rm='E: +2 stepping into the strikes, +1 on the last, -3 settling back',
-       anchored={2: [('vital', 'hand', 2, 0)], 3: [('vital', 'farhand', 2, 0), ('wither', 'hand', 0, 6)], 4: [('vital', 'hand', 2, 0), ('wither', 'farhand', 3, 5)],
-                 5: [('vital', 'farhand', 2, 0), ('wither', 'hand', 1, 4)], 6: [('vital2', 'hand', 3, 0), ('wither2', 'hand', 2, 6)],
-                 7: [('vital', 'hand', 3, 0, {'alpha': {'c': 150, 'W': 170}}), ('wither2', 'hand', 2, 9), ('wither', 'hand', -2, 13)], 8: [('wither', 'hand', 2, 14, {'alpha': {'u': 130, 'v': 130}})]})),
+  [0, 1, 1, 1, 1, 1, 2, 2, 1, 0],
+  dict(fps=12, auraColors=('#7fe3d0', '#3a9e8f'), hitbox=[44, 18, 14, 14], damage='light', rm='E: +2 stepping into the strikes, +1 on the last, -3 settling back',
+       anchored={1: [('palmGlow', 'hand', 0, 0), ('palmGlow', 'farhand', 0, 0, {'alpha': {'C': 150, 'c': 170}})],
+                 2: [('palmGlow', 'farhand', 0, 0), ('vital', 'hand', 2, 0), ('vRing', 'hand', 3, 0), ('witherPlume', 'hand', 1, 7), ('streak', 'hand', -6, 0)],
+                 3: [('palmGlow', 'hand', 0, 0), ('vital', 'farhand', 2, 0), ('vRing', 'farhand', 3, 0), ('witherPlume', 'farhand', 1, 7), ('wither', 'hand', 0, 6), ('streak', 'farhand', -6, 0)],
+                 4: [('palmGlow', 'farhand', 0, 0), ('vital', 'hand', 2, 0), ('vRing', 'hand', 3, 0), ('witherPlume', 'hand', 1, 7), ('wither', 'farhand', 3, 5), ('streak', 'hand', -6, 0)],
+                 5: [('palmGlow', 'hand', 0, 0), ('vital', 'farhand', 2, 0), ('vRing', 'farhand', 3, 0), ('witherPlume', 'farhand', 1, 7), ('wither', 'hand', 1, 4), ('streak', 'farhand', -6, 0)],
+                 6: [('vital2', 'hand', 3, 0), ('vRing2', 'hand', 3, 0), ('witherBurst', 'hand', 4, 3), ('wither2', 'hand', 2, 6), ('streak', 'hand', -7, 0)],
+                 7: [('vital', 'hand', 3, 0, {'alpha': {'c': 150, 'W': 170}}), ('vRing3', 'hand', 3, 0, {'alpha': {'c': 170, 'C': 150}}), ('witherBurst', 'hand', 4, 8, {'alpha': {'u': 200, 'v': 200}}), ('wither2', 'hand', 2, 9), ('wither', 'hand', -2, 13)],
+                 8: [('witherPlume', 'hand', 3, 13, {'alpha': {'u': 150, 'v': 150}}), ('wither', 'hand', 2, 17, {'alpha': {'u': 130, 'v': 130}}), ('wither', 'hand', 6, 19, {'alpha': {'u': 110, 'v': 110}})]})),
  'sandBurial': ('Sand Burial', 5,
   'Sand Burial (Virgo ninjutsu, Elemental 22, single target in the Zone of Awareness, Root 2 rounds STR DC 13, 2x poise damage: the caster commands the sand round its opponent to envelop and crush it): from the guard the fighter makes the seal at the chin and sinks, sand grains lifting off the floor round its feet and a sandy aura rising; it sweeps both open palms low and forward over the ground and sand streams away along the floor toward the target; then it lifts the near hand palm up, drawing the sand up round the foe, and clenches it into a fist, squeezing, arm trembling, as the sand closes and crushes; it holds the squeeze, then drops back into the guard. On the target (the testbed plays sandBuried on it from the active frame; v2, Christopher 2026-10-28): sand heaps up round its legs and climbs to its neck, pinning its arms, and the column squeezes it, looping, until the Root ends, when it breaks free (sandBreakFree).', [
      g(),
