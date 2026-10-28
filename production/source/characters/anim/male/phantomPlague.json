@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "phantomPlague",
-  "status": "CANDIDATE 2026-10-27 (E/W; W mirrors E; S/N to author after approval)",
+  "status": "E/W approved by user 2026-10-28 (v1 shadow pool, teal-eyed shadow creature claws up and glides at the target, 4af1f46; target plays phantomHaunted; W mirrors E); S/N to author",
   "frames": 10,
   "fps": 10,
   "sourceDirection": "E",
@@ -1124,6 +1124,30 @@
         "footX": 20,
         "wrapRow": 56,
         "foot": "flat"
+      },
+      {
+        "name": "ss-kneel-lead",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 50,
+        "kneeX": 41,
+        "kneeRow": 49,
+        "footX": 42,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "ss-kneel-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 50,
+        "kneeX": 29,
+        "kneeRow": 55,
+        "ankle": [
+          20,
+          55
+        ],
+        "foot": "toe30k"
       }
     ],
     "near": [
@@ -2455,9 +2479,10 @@
     "intent": "eyes squeezed shut with the brow pulled down on the impact frames 0-2 (no mouth: user 2026-10-14), a squint on frame 3, open again from frame 4 (user 2026-10-14)"
   },
   "targetState": {
-    "rule": "Christopher 2026-10-27: every genjutsu marks its target; on the active frame the target starts genjutsuAfflicted (earth colours) and keeps it until the Psychosomatic ends",
-    "state": "genjutsuAfflicted",
-    "element": "earth"
+    "rule": "Phantom Plague (Christopher 2026-10-28: the target needs an animation for the duration): on the active frame the target starts phantomHaunted on loop in place of its idle and keeps it until the Psychosomatic ends; the genjutsu mark (genjutsuAfflicted halo, aura and eye glow, earth colours) is drawn over it as on any other state",
+    "state": "phantomHaunted",
+    "element": "earth",
+    "mark": "genjutsuAfflicted"
   },
   "summon": {
     "rule": "Phantom Plague: while the Psychosomatic lasts the testbed draws the phantom (pattern wraith, palette X/x/C, about 70% opacity, bobbing 1 px) hovering just behind the target and following it every move; it stays visible on a target in stealth (ignores stealth, drawn only for the caster and the victim); on each 4/tick it lunges 3 px and the target flinches",
