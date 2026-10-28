@@ -154,6 +154,8 @@ NPAT.update({'pflame1': ['.K.', 'KPK', '.p.'], 'pflame2': ['..K..', '.KP..', '.P
              'crack1': ['K.....K', '.K...K.', '.EKEKE.'], 'crack2': ['K...........K', '.KK.......KK.', '...KK.K.KK...', '....EKKKE....'],   # Taurus: cracks stamped into the floor
              'dust1': ['..e.e..', '.eEeEe.', 'eEeEeEe', '.EeEeE.'], 'dust2': ['e...e.e...e', '.e.eEeEe.e.', '..eEeEeEe..', '.eEeEeEeEe.'], 'rocks': ['K...E', '.E.K.', 'E...K'],
              'cryst': ['.c.', 'cCc', '.C.'], 'crystT': ['c', 'C', 'C'],
+             'kanabo': ['..EEE..', '.EeeeE.', 'ECeECeE', 'EeeceeE', 'EeeEeeE', 'ECeECeE', 'EeeceeE', 'EeeEeeE', 'ECeECeE', 'EeeceeE', 'EeeEeeE', 'ECeECeE', 'EeeceeE', 'EeeEeeE', 'ECeECeE', '.EeeeE.', '.EeeeE.', '..KEK..', '..EKE..', '..KEK..', '..EKE..', '..KEK..', '..EKE..', '..KEK..'],   # Ironwood Kanabo: the towering studded club, upright (ironwood browns, teal crystal studs, wrapped grip)
+             'kanaboG': ['..EEE..', '.E...E.', 'E.....E', 'E.....E', 'E.....E', 'E.....E', 'E.....E', 'E.....E', 'E.....E', 'E.....E', 'E.....E', 'E.....E', 'E.....E', 'E.....E', 'E.....E', '.E...E.', '.E...E.', '..E.E..', '..E.E..', '..E.E..', '..E.E..', '..E.E..', '..E.E..', '..EEE..'],   # its faint outline forming out of the grit
              'smoke1': ['.g.', 'g.w', '.w.', 'w..'], 'smoke2': ['..g', '.w.', 'g..', '.w.', '..g']})   # Cauterize: a wisp of smoke off the sealed wound
 U.POSES += [U.kleg('lk-axe-top', (34, 39), (38, 31), (41, 22), 'pointUR'),    # Leash Kick v2 axe kick: straight leg raised high, heel above the head
             U.kleg('lk-axe-chop', (34, 40), (41, 38), (48, 37), 'pointFwd'),   # heel chopping down through shoulder height
@@ -662,6 +664,28 @@ CLIPS = {
                  5: [('cryst', 'head', 6, 16), ('rocks', 'head', 8, 26), ('crystT', 'head', -7, 22)],
                  6: [('cryst', 'head', -6, 24), ('crystT', 'head', 7, 12)],
                  7: [('cryst', 'head', 5, 28)]})),
+ 'ironwoodKanabo': ('Ironwood Kanabo', 4,
+  'Ironwood Kanabo (Taurus ninjutsu, STR +20% 3 rounds, unlocks the Kanabo weapon style kit: the fighter materialises its iron will into a towering studded club): from the guard the fighter makes the seal at the chin, then opens both hands palm up in front of its chest and grit, dust and stone chips rise and spin up between them; the outline of a towering club draws itself out of the grit, then fills in solid: a long ironwood kanabo, dark grained wood studded with teal crystal, its grip wrapped; the fighter closes both fists round the grip and plants it upright in front of itself, crystal studs flashing, dust shaking off; then it returns to the guard (the club is held only through the cast here; a kanabo weapon layer and Kanabo stance idle are the next step for the weapon kit).', [
+     g(),
+     g(an=U.SEAL_N, af=U.SEAL_F, bob=(1, 1, 1), lean=(0, 0)),
+     g(an=band(-40, -100, fistKind='palm'), af=band(-45, -105, fistKind='palm'), bob=(1, 1, 1), lean=(0, 0)),
+     g(an=band(-40, -100, fistKind='palm'), af=band(-45, -105, fistKind='palm'), bob=(1, 1, 1), lean=(0, -1)),
+     g(an=band(-40, -100, fistKind='palm'), af=band(-45, -105, fistKind='palm'), bob=(1, 1, 1), lean=(0, -1)),
+     g(an=band(-45, -95), af=band(-50, -100), bob=(2, 2, 2), lean=(0, 1), **LOW),
+     g(an=band(-45, -95), af=band(-50, -100), bob=(2, 2, 2), lean=(0, 1), **LOW),
+     g(an=band(-45, -95), af=band(-50, -100), bob=(1, 1, 2), lean=(0, 1)),
+     g(an=band(-40, -110), af=band(-35, -105), bob=(1, 1, 2), lean=(0, 2)),
+     g()],
+  [None, 'squint', 'squint', 'squint', None, 'strain', 'squint', None, None, None],
+  [0, 0, 1, 1, 2, 2, 1, 1, 0, 0],
+  dict(fps=10, auraColors=('#c79a5b', '#8a6236'),
+       extra={'weapon': {'rule': 'Ironwood Kanabo summons the Kanabo (Taurus): the cast draws the club as fx; holding it afterwards needs a kanabo weapon layer and a Kanabo stance idle (to author once the cast is approved)', 'item': 'kanabo'}},
+       anchored={2: [('rocks', 'hand', 0, -6), ('dust1', 'hand', -2, -3)],
+                 3: [('kanaboG', 'hand', 0, -11), ('rocks', 'hand', 3, -8), ('dust1', 'hand', -3, -4), ('rocks', 'hand', -4, -24)],
+                 4: [('kanabo', 'hand', 0, -11), ('cryst', 'hand', 2, -20), ('cryst', 'hand', -2, -12), ('dust2', 'hand', 0, -2)],
+                 5: [('kanabo', 'hand', 0, -10), ('cryst', 'hand', -2, -22), ('dust1', 'feet', 6, -2)],
+                 6: [('kanabo', 'hand', 0, -10), ('crystT', 'hand', 3, -18), ('dust1', 'feet', 8, -3)],
+                 7: [('kanabo', 'hand', 0, -10)]})),
  'flowDodge': ('Flow Dodge', 3,
   'Flow Dodge (Sagittarius taijutsu stance buff: the fighter enters a dance-like trance and begins to swing and sway to its own rhythm): from the guard the fighter shakes its arms loose and lets the guard drop low and easy, eyes half closed, catching a beat; then it sways to its own rhythm: rocking back and forward on its feet and dipping on the knees, shoulders rolling, the loose hands swinging opposite to the hips, a flickering fire aura breathing round it on the beat with a few black and purple wisps rising off the shoulders; on the last beat it snaps its eyes open and settles into a loose, low guard (the testbed keeps the stance).', [
      g(),
