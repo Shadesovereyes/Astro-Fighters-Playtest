@@ -117,15 +117,17 @@ CLIPS = {
     rg(grip=(48, 28), rev=None, angle=-55, z={'hilt': 'front', 'blade': 'aboveArm'}, far=(41, 27), fk=None, lean=(1, 3), ln='low-rear', lf='step-lead'),
     rg(grip=(43, 24), root=(-1, 0)),
     rg()]),
- # Scissors (Gunting, Counter): the live hand checks the blow high while the reverse-grip blade sweeps across the
- # attacking arm in an X (spark), the knife hand carries on out and down, then back to the reverse guard
+ # Scissors (Gunting, Counter), v6 (user 2026-10-28: not enough difference from Blade Pass reverse): Blade Pass passes
+ # high and cuts DOWN; Scissors stays planted with the weight rocking back, the knife fist drops to the hip while the
+ # live palm checks forward, then the blade rises UP and in to meet the palm at one point (the scissors closing,
+ # spark), and a return cut draws it back across toward the body before the guard
  'scissors': ('Scissors', 2, None, 'none', 12, 'tantoReverseGuard', [
     rg(),
-    rg(grip=(39, 20), far=(47, 24), lean=(-1, -1), ln='step-rear'),
-    rg(grip=(47, 22), rev=25, far=(46, 24), lean=(-1, 0), ln='step-rear'),
-    rg(grip=(47, 29), rev=None, angle=-62, z={'hilt': 'front', 'blade': 'aboveArm'}, far=(45, 25), lean=(0, 1), ln='step-rear', trail='swing'),
-    rg(grip=(47, 29), rev=None, angle=-62, z={'hilt': 'front', 'blade': 'aboveArm'}, far=(45, 26), lean=(0, 1), ln='step-rear'),
-    rg(grip=(43, 24), far=(46, 28)),
+    rg(grip=(39, 33), rev=-10, far=(48, 24), fk=P, lean=(0, -2), ln='step-rear'),
+    rg(grip=(47, 24), rev=None, angle=-10, z={'hilt': 'front', 'blade': 'aboveArm'}, far=(48, 25), fk=P, lean=(0, -1), ln='step-rear', trail='swing'),
+    rg(grip=(47, 23), rev=None, angle=5, z={'hilt': 'front', 'blade': 'aboveArm'}, far=(48, 26), fk=P, lean=(0, -1), ln='step-rear'),
+    rg(grip=(41, 25), rev=None, angle=-120, z={'hilt': 'front', 'blade': 'aboveArm'}, far=(46, 27), fk=P, lean=(0, -1), ln='step-rear', trail='swing'),
+    rg(grip=(43, 25), far=(43, 24)),
     rg()]),
  # Elbow Hook: the knife forearm cross-blocks high, the live hand reaches over and cups the foe's elbow, then pulls it
  # in to the hip as the body steps forward (the testbed enters the clinch after this clip)
@@ -147,7 +149,7 @@ INTENT = {
  'defang': 'Tantojutsu Defang (Defang the Snake), user 2026-10-27: from the forward grip the point dips, then a short rising cut with a half step meets the attacking wrist (white spark at the tip), follow-through and back to the forward guard.',
  'bladePass': 'Tantojutsu Blade Pass (Hubud-Lubud) from the forward grip, user 2026-10-27: the live hand taps the foe\'s arm up, the knife hand passes over it while the live hand traps it down, then the blade cuts down across the trapped arm (smear), back to the forward guard.',
  'bladePassRev': 'Tantojutsu Blade Pass (Hubud-Lubud) from the reverse grip, user 2026-10-27: the live hand taps the foe\'s arm up, the knife hand passes over it while the live hand traps it down, then a hammer-fist cut drives the blade below the fist down across the trapped arm (smear), back to the reverse guard.',
- 'scissors': 'Tantojutsu Scissors (Gunting, Counter), user 2026-10-27: from the reverse grip the weight rocks back as the live hand checks the incoming blow high and the knife hand sweeps the reverse-grip blade across the attacking arm, the two forearms crossing like scissors (white spark on contact), the blade carries on out and down, then back to the reverse guard.',
+ 'scissors': 'Tantojutsu Scissors (Gunting, Counter), user 2026-10-27, v6 2026-10-28 (must read clearly apart from Blade Pass, which passes high and cuts down): planted, the weight rocks back while the knife fist drops to the hip and the live palm checks forward; the reverse-grip blade then rises up and in to meet the palm at one point, the two hands closing like scissors on the attacking arm (white spark), and a return cut draws the blade back across toward the body before the reverse guard.',
  'elbowHook': 'Tantojutsu Elbow Hook, user 2026-10-27: from the reverse grip the knife forearm cross-blocks high, the live hand reaches over and cups the foe\'s elbow, then pulls it in to the hip as the body steps forward; the ruling of 2026-10-27 takes the pair into the clinch after the clip (not Prone).',
 }
 

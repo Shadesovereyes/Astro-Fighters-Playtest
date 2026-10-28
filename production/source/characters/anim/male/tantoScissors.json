@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Tantojutsu Scissors (Gunting, Counter), user 2026-10-27: from the reverse grip the weight rocks back as the live hand checks the incoming blow high and the knife hand sweeps the reverse-grip blade across the attacking arm, the two forearms crossing like scissors (white spark on contact), the blade carries on out and down, then back to the reverse guard.",
+  "intent": "Tantojutsu Scissors (Gunting, Counter), user 2026-10-27, v6 2026-10-28 (must read clearly apart from Blade Pass, which passes high and cuts down): planted, the weight rocks back while the knife fist drops to the hip and the live palm checks forward; the reverse-grip blade then rises up and in to meet the palm at one point, the two hands closing like scissors on the attacking arm (white spark), and a return cut draws the blade back across toward the body before the reverse guard.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -135,8 +135,8 @@
     "dx": {
       "pelvis": [
         0,
-        -1,
-        -1,
+        0,
+        0,
         0,
         0,
         0,
@@ -144,10 +144,10 @@
       ],
       "head": [
         2,
+        -2,
         -1,
-        0,
-        1,
-        1,
+        -1,
+        -1,
         2,
         2
       ]
@@ -466,46 +466,46 @@
       },
       {
         "construction": "band",
-        "angle": -75.6,
+        "angle": -7.2,
         "elbow": {
           "at": 8,
-          "angle": -182.0
+          "angle": -89.5
         },
         "fistKind": "forward"
       },
       {
         "construction": "band",
-        "angle": -96.9,
+        "angle": -89.3,
         "elbow": {
           "at": 8,
-          "angle": -106.3
+          "angle": -98.7
         },
         "fistKind": "forward"
       },
       {
         "construction": "band",
-        "angle": -70.2,
+        "angle": -93.0,
         "elbow": {
           "at": 8,
-          "angle": -79.6
+          "angle": -102.4
         },
         "fistKind": "forward"
       },
       {
         "construction": "band",
-        "angle": -70.2,
+        "angle": -43.8,
         "elbow": {
           "at": 8,
-          "angle": -79.6
+          "angle": -145.5
         },
         "fistKind": "forward"
       },
       {
         "construction": "band",
-        "angle": -51.9,
+        "angle": -46.0,
         "elbow": {
           "at": 8,
-          "angle": -148.0
+          "angle": -142.6
         },
         "fistKind": "forward"
       },
@@ -530,42 +530,46 @@
       },
       {
         "construction": "band",
-        "angle": -89.3,
+        "angle": -89.0,
         "elbow": {
           "at": 8,
-          "angle": -98.7
-        }
+          "angle": -98.4
+        },
+        "fistKind": "palm"
       },
       {
         "construction": "band",
-        "angle": -74.8,
+        "angle": -85.6,
         "elbow": {
           "at": 8,
-          "angle": -116.2
-        }
+          "angle": -95.0
+        },
+        "fistKind": "palm"
       },
       {
         "construction": "band",
-        "angle": -58.9,
+        "angle": -82.2,
         "elbow": {
           "at": 8,
-          "angle": -126.2
-        }
+          "angle": -91.5
+        },
+        "fistKind": "palm"
       },
       {
         "construction": "band",
-        "angle": -54.6,
+        "angle": -70.3,
         "elbow": {
           "at": 8,
-          "angle": -121.3
-        }
+          "angle": -95.7
+        },
+        "fistKind": "palm"
       },
       {
         "construction": "band",
-        "angle": -51.7,
+        "angle": -51.9,
         "elbow": {
           "at": 8,
-          "angle": -106.2
+          "angle": -148.0
         }
       },
       {
@@ -1400,10 +1404,10 @@
         },
         {
           "grip": [
-            41,
-            20
+            39,
+            33
           ],
-          "angle": -84,
+          "angle": -100,
           "z": {
             "hilt": "front",
             "blade": "aboveArm"
@@ -1411,37 +1415,26 @@
         },
         {
           "grip": [
-            48,
-            22
+            47,
+            24
           ],
-          "angle": -65,
-          "z": {
-            "hilt": "front",
-            "blade": "aboveArm"
-          }
-        },
-        {
-          "grip": [
-            48,
-            29
-          ],
-          "angle": -62,
+          "angle": -10,
           "z": {
             "hilt": "front",
             "blade": "aboveArm"
           },
           "trail": {
-            "from": -65,
-            "to": -62,
+            "from": -100,
+            "to": -10,
             "width": 5
           }
         },
         {
           "grip": [
-            48,
-            29
+            47,
+            23
           ],
-          "angle": -62,
+          "angle": 5,
           "z": {
             "hilt": "front",
             "blade": "aboveArm"
@@ -1449,8 +1442,24 @@
         },
         {
           "grip": [
+            42,
+            25
+          ],
+          "angle": -120,
+          "z": {
+            "hilt": "front",
+            "blade": "aboveArm"
+          },
+          "trail": {
+            "from": 5,
+            "to": -120,
+            "width": 5
+          }
+        },
+        {
+          "grip": [
             46,
-            24
+            25
           ],
           "angle": -84,
           "z": {
