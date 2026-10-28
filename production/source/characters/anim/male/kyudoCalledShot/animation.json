@@ -20,7 +20,7 @@
       "N",
       "W"
     ],
-    "columns": "frames 0\u20139"
+    "columns": "frames 0–9"
   },
   "layers": {
     "body": "body.png",
@@ -64,7 +64,9 @@
     "yumi-stowed-front": "yumi-stowed-front.png",
     "yumi-stowed-back": "yumi-stowed-back.png",
     "kyoketsu-shoge-stowed-front": "kyoketsu-shoge-stowed-front.png",
-    "kyoketsu-shoge-stowed-back": "kyoketsu-shoge-stowed-back.png"
+    "kyoketsu-shoge-stowed-back": "kyoketsu-shoge-stowed-back.png",
+    "tanto-stowed-front": "tanto-stowed-front.png",
+    "tanto-stowed-back": "tanto-stowed-back.png"
   },
   "pendingLayers": [],
   "drawOrder": [

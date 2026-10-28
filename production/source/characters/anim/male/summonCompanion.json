@@ -1140,7 +1140,9 @@
       "yumi-stowed-front",
       "yumi-stowed-back",
       "kyoketsu-shoge-stowed-front",
-      "kyoketsu-shoge-stowed-back"
+      "kyoketsu-shoge-stowed-back",
+      "tanto-stowed-front",
+      "tanto-stowed-back"
     ],
     "sash": {
       "rule": "The hanging flaps swing from the knot like a pendulum: rows below knotRow shift sideways, growing to sway[k] at the flaps' lowest row (+ is screen right in that direction's orientation; mirrored directions use their source's table, flipped). In the profile the flaps trail behind the walk and kick back twice per cycle; in front/back views they swing toward the leg that is stepping; the band and knot stay with the waist. The flaps also lag the body bob by one frame.",
@@ -1759,7 +1761,7 @@
         "#000000": "#000000"
       },
       "clipToFrame": true,
-      "rule": "stowed weapon: a rigid piece that rides its rig part (katana and cord: pelvis, yumi: torso)"
+      "rule": "stowed weapon: a rigid piece that rides its rig part (katana, cord and tanto: pelvis, yumi: torso)"
     },
     "katana-stowed-back": {
       "outline": "#000000",
@@ -1767,7 +1769,7 @@
         "#000000": "#000000"
       },
       "clipToFrame": true,
-      "rule": "stowed weapon: a rigid piece that rides its rig part (katana and cord: pelvis, yumi: torso)"
+      "rule": "stowed weapon: a rigid piece that rides its rig part (katana, cord and tanto: pelvis, yumi: torso)"
     },
     "yumi-stowed-front": {
       "outline": "#000000",
@@ -1775,7 +1777,7 @@
         "#000000": "#000000"
       },
       "clipToFrame": true,
-      "rule": "stowed weapon: a rigid piece that rides its rig part (katana and cord: pelvis, yumi: torso)"
+      "rule": "stowed weapon: a rigid piece that rides its rig part (katana, cord and tanto: pelvis, yumi: torso)"
     },
     "yumi-stowed-back": {
       "outline": "#000000",
@@ -1783,7 +1785,7 @@
         "#000000": "#000000"
       },
       "clipToFrame": true,
-      "rule": "stowed weapon: a rigid piece that rides its rig part (katana and cord: pelvis, yumi: torso)"
+      "rule": "stowed weapon: a rigid piece that rides its rig part (katana, cord and tanto: pelvis, yumi: torso)"
     },
     "kyoketsu-shoge-stowed-front": {
       "outline": "#000000",
@@ -1791,7 +1793,7 @@
         "#000000": "#000000"
       },
       "clipToFrame": true,
-      "rule": "stowed weapon: a rigid piece that rides its rig part (katana and cord: pelvis, yumi: torso)"
+      "rule": "stowed weapon: a rigid piece that rides its rig part (katana, cord and tanto: pelvis, yumi: torso)"
     },
     "kyoketsu-shoge-stowed-back": {
       "outline": "#000000",
@@ -1799,7 +1801,23 @@
         "#000000": "#000000"
       },
       "clipToFrame": true,
-      "rule": "stowed weapon: a rigid piece that rides its rig part (katana and cord: pelvis, yumi: torso)"
+      "rule": "stowed weapon: a rigid piece that rides its rig part (katana, cord and tanto: pelvis, yumi: torso)"
+    },
+    "tanto-stowed-front": {
+      "outline": "#000000",
+      "farShade": {
+        "#000000": "#000000"
+      },
+      "clipToFrame": true,
+      "rule": "stowed weapon: a rigid piece that rides its rig part (katana, cord and tanto: pelvis, yumi: torso)"
+    },
+    "tanto-stowed-back": {
+      "outline": "#000000",
+      "farShade": {
+        "#000000": "#000000"
+      },
+      "clipToFrame": true,
+      "rule": "stowed weapon: a rigid piece that rides its rig part (katana, cord and tanto: pelvis, yumi: torso)"
     }
   },
   "clips": {
