@@ -3,7 +3,7 @@
   "body": "male",
   "state": "tantoBladePass",
   "status": "CANDIDATE 2026-10-27 (E/W; W mirrors E; S/N to author after approval)",
-  "frames": 7,
+  "frames": 8,
   "fps": 12,
   "sourceDirection": "E",
   "directions": [
@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Tantojutsu Blade Pass (Hubud-Lubud) from the forward grip, user 2026-10-27: the live hand taps the foe's arm up, the knife hand passes over it while the live hand traps it down, then the blade cuts down across the trapped arm (smear), back to the forward guard.",
+  "intent": "Tantojutsu Blade Pass (Hubud-Lubud) from the forward grip, user 2026-10-27, v2 2026-10-28 (one clear beat per action): tap, the live palm shoots out and up under the foe's arm while the knife hand chambers low; trap, the live palm presses the arm down as the knife hand rises; pass, the knife is high over the trapped arm; cut, a step in and the blade cuts down across it (smear), held, then back to the forward guard.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -108,9 +108,11 @@
       1,
       1,
       1,
+      1,
       1
     ],
     "head": [
+      1,
       1,
       1,
       1,
@@ -126,6 +128,7 @@
       2,
       2,
       2,
+      2,
       2
     ]
   },
@@ -135,7 +138,8 @@
     "dx": {
       "pelvis": [
         0,
-        0,
+        1,
+        1,
         1,
         2,
         2,
@@ -146,6 +150,7 @@
         3,
         3,
         3,
+        4,
         5,
         5,
         3,
@@ -156,6 +161,10 @@
   "rootMotion": {
     "rule": "E: a step in moves the body forward, the recovery steps back to the start (sum 0)",
     "E": [
+      [
+        0,
+        0
+      ],
       [
         0,
         0
@@ -186,6 +195,10 @@
       ]
     ],
     "W": [
+      [
+        0,
+        0
+      ],
       [
         0,
         0
@@ -427,9 +440,11 @@
       1,
       1,
       1,
+      1,
       1
     ],
     "far": [
+      0,
       0,
       0,
       0,
@@ -466,37 +481,46 @@
       },
       {
         "construction": "band",
-        "angle": -1.3,
+        "angle": 10.8,
         "elbow": {
           "at": 8,
-          "angle": -115.4
+          "angle": -88.8
         },
         "fistKind": "forward"
       },
       {
         "construction": "band",
-        "angle": -59.9,
+        "angle": -46.8,
         "elbow": {
           "at": 8,
-          "angle": -149.2
+          "angle": -157.6
         },
         "fistKind": "forward"
       },
       {
         "construction": "band",
-        "angle": -67.7,
+        "angle": -99.6,
         "elbow": {
           "at": 8,
-          "angle": -77.1
+          "angle": -144.0
         },
         "fistKind": "forward"
       },
       {
         "construction": "band",
-        "angle": -67.7,
+        "angle": -65.6,
         "elbow": {
           "at": 8,
-          "angle": -77.1
+          "angle": -75.0
+        },
+        "fistKind": "forward"
+      },
+      {
+        "construction": "band",
+        "angle": -65.6,
+        "elbow": {
+          "at": 8,
+          "angle": -75.0
         },
         "fistKind": "forward"
       },
@@ -530,37 +554,46 @@
       },
       {
         "construction": "band",
-        "angle": -58.9,
+        "angle": -99.3,
         "elbow": {
           "at": 8,
-          "angle": -126.2
+          "angle": -108.6
         },
         "fistKind": "palm"
       },
       {
         "construction": "band",
-        "angle": -45.3,
+        "angle": -70.2,
         "elbow": {
           "at": 8,
-          "angle": -103.4
+          "angle": -79.6
         },
         "fistKind": "palm"
       },
       {
         "construction": "band",
-        "angle": -26.7,
+        "angle": -49.0,
         "elbow": {
           "at": 8,
-          "angle": -99.4
+          "angle": -83.8
         },
         "fistKind": "palm"
       },
       {
         "construction": "band",
-        "angle": -17.2,
+        "angle": -34.3,
         "elbow": {
           "at": 8,
-          "angle": -143.7
+          "angle": -86.8
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": -16.6,
+        "elbow": {
+          "at": 8,
+          "angle": -131.8
         }
       },
       {
@@ -717,6 +750,7 @@
       "bandFollowsBody": true,
       "sway": {
         "E": [
+          -1,
           -1,
           -1,
           -1,
@@ -1372,7 +1406,8 @@
         3,
         4,
         5,
-        6
+        6,
+        7
       ],
       "fps": 12,
       "next": "tantoForwardGuard",
@@ -1400,30 +1435,38 @@
         },
         {
           "grip": [
-            40,
-            30
+            39,
+            33
           ],
-          "angle": 30,
+          "angle": 10,
           "z": "front"
         },
         {
           "grip": [
-            44,
-            23
+            41,
+            24
           ],
-          "angle": 62,
+          "angle": 45,
           "z": "front"
         },
         {
           "grip": [
-            50,
+            46,
+            18
+          ],
+          "angle": 70,
+          "z": "front"
+        },
+        {
+          "grip": [
+            51,
             30
           ],
-          "angle": -16,
+          "angle": -24,
           "z": "front",
           "trail": {
-            "from": 31,
-            "to": -18,
+            "from": 64,
+            "to": -26,
             "center": [
               33,
               24
@@ -1434,10 +1477,10 @@
         },
         {
           "grip": [
-            50,
+            51,
             30
           ],
-          "angle": -16,
+          "angle": -24,
           "z": "front"
         },
         {
@@ -1484,20 +1527,20 @@
       {
         "frame": 3,
         "clip": "bladePass",
-        "type": "active",
-        "move": "Blade Pass",
-        "hitbox": [
-          46,
-          22,
-          14,
-          14
-        ],
-        "damage": "light"
+        "type": "startup"
       },
       {
         "frame": 4,
         "clip": "bladePass",
-        "type": "recovery"
+        "type": "active",
+        "move": "Blade Pass",
+        "hitbox": [
+          46,
+          24,
+          14,
+          14
+        ],
+        "damage": "light"
       },
       {
         "frame": 5,
@@ -1506,6 +1549,11 @@
       },
       {
         "frame": 6,
+        "clip": "bladePass",
+        "type": "recovery"
+      },
+      {
+        "frame": 7,
         "clip": "bladePass",
         "type": "recovery"
       }
@@ -1529,20 +1577,20 @@
       {
         "frame": 3,
         "clip": "bladePass",
-        "type": "active",
-        "move": "Blade Pass",
-        "hitbox": [
-          4,
-          22,
-          14,
-          14
-        ],
-        "damage": "light"
+        "type": "startup"
       },
       {
         "frame": 4,
         "clip": "bladePass",
-        "type": "recovery"
+        "type": "active",
+        "move": "Blade Pass",
+        "hitbox": [
+          4,
+          24,
+          14,
+          14
+        ],
+        "damage": "light"
       },
       {
         "frame": 5,
@@ -1551,6 +1599,11 @@
       },
       {
         "frame": 6,
+        "clip": "bladePass",
+        "type": "recovery"
+      },
+      {
+        "frame": 7,
         "clip": "bladePass",
         "type": "recovery"
       }
