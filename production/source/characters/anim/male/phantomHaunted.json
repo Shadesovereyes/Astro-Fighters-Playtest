@@ -3,7 +3,7 @@
   "body": "male",
   "state": "phantomHaunted",
   "status": "CANDIDATE 2026-10-27 (E/W; W mirrors E; S/N to author after approval)",
-  "frames": 8,
+  "frames": 12,
   "fps": 8,
   "sourceDirection": "E",
   "directions": [
@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Haunted by the Phantom (target state of Phantom Plague, Christopher 2026-10-28: a target animation for the duration; Psychosomatic 3 rounds 4/tick): the victim hunches low and wary, forearms raised before its face, while the hunched shadow creature with teal eyes hovers close behind it, part see-through, bobbing; the phantom leans in over its shoulder and rakes its clawed arm down past it, three teal claw marks flashing, and the victim flinches forward, wincing; then the phantom draws back and hovers again (loops; the testbed lines the rake up with each 4/tick and draws the genjutsu mark over it).",
+  "intent": "Haunted by the Phantom (target state of Phantom Plague; Psychosomatic 3 rounds 4/tick), v2 (Christopher 2026-10-28: the phantom circles the opponent before hitting): the victim hunches low and wary, forearms raised before its face, while the hunched shadow creature with teal eyes, part see-through, circles round it: from behind it drifts past the far side (fainter, behind the victim), round in front (turned to face it), back across the near side over the victim and round behind again; then it leans in over the victim's shoulder and rakes its clawed arm down past it, three teal claw marks flashing, the victim flinching forward, wincing, and it draws back behind (loops; the testbed lines the rake up with each 4/tick and draws the genjutsu mark over it).",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -106,9 +106,13 @@
       2,
       2,
       2,
-      3,
-      3,
       2,
+      2,
+      2,
+      2,
+      2,
+      3,
+      3,
       2
     ],
     "head": [
@@ -116,12 +120,20 @@
       2,
       2,
       2,
-      3,
-      3,
       2,
+      2,
+      2,
+      2,
+      2,
+      3,
+      3,
       2
     ],
     "arms": [
+      3,
+      3,
+      2,
+      2,
       3,
       3,
       2,
@@ -141,9 +153,13 @@
         0,
         0,
         0,
-        1,
-        1,
         0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
         0
       ],
       "head": [
@@ -151,9 +167,13 @@
         2,
         1,
         1,
+        2,
+        2,
+        1,
+        1,
+        2,
         5,
         4,
-        2,
         2
       ]
     }
@@ -178,6 +198,26 @@
         0
       ],
       [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
         1,
         0
       ],
@@ -187,10 +227,6 @@
       ],
       [
         -1,
-        0
-      ],
-      [
-        0,
         0
       ]
     ],
@@ -212,6 +248,26 @@
         0
       ],
       [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
         -1,
         0
       ],
@@ -221,10 +277,6 @@
       ],
       [
         1,
-        0
-      ],
-      [
-        0,
         0
       ]
     ]
@@ -1132,9 +1184,17 @@
       3,
       3,
       3,
+      3,
+      3,
+      3,
+      3,
       3
     ],
     "far": [
+      2,
+      2,
+      2,
+      2,
       2,
       2,
       2,
@@ -1195,18 +1255,10 @@
       },
       {
         "construction": "band",
-        "angle": -60,
+        "angle": -45,
         "elbow": {
           "at": 8,
-          "angle": -150
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -60,
-        "elbow": {
-          "at": 8,
-          "angle": -150
+          "angle": -140
         }
       },
       {
@@ -1215,6 +1267,46 @@
         "elbow": {
           "at": 8,
           "angle": -140
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -45,
+        "elbow": {
+          "at": 8,
+          "angle": -140
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -45,
+        "elbow": {
+          "at": 8,
+          "angle": -140
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -45,
+        "elbow": {
+          "at": 8,
+          "angle": -140
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -60,
+        "elbow": {
+          "at": 8,
+          "angle": -150
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -60,
+        "elbow": {
+          "at": 8,
+          "angle": -150
         }
       },
       {
@@ -1261,18 +1353,10 @@
       },
       {
         "construction": "band",
-        "angle": -65,
+        "angle": -55,
         "elbow": {
           "at": 8,
-          "angle": -155
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -65,
-        "elbow": {
-          "at": 8,
-          "angle": -155
+          "angle": -150
         }
       },
       {
@@ -1281,6 +1365,46 @@
         "elbow": {
           "at": 8,
           "angle": -150
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -55,
+        "elbow": {
+          "at": 8,
+          "angle": -150
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -55,
+        "elbow": {
+          "at": 8,
+          "angle": -150
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -55,
+        "elbow": {
+          "at": 8,
+          "angle": -150
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -65,
+        "elbow": {
+          "at": 8,
+          "angle": -155
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -65,
+        "elbow": {
+          "at": 8,
+          "angle": -155
         }
       },
       {
@@ -1454,6 +1578,10 @@
       "bandFollowsBody": true,
       "sway": {
         "E": [
+          -1,
+          -1,
+          -1,
+          -1,
           -1,
           -1,
           -1,
@@ -2117,7 +2245,11 @@
         4,
         5,
         6,
-        7
+        7,
+        8,
+        9,
+        10,
+        11
       ],
       "fps": 8,
       "next": "guard",
@@ -2168,6 +2300,26 @@
         "frame": 7,
         "clip": "phantomHaunted",
         "type": "recovery"
+      },
+      {
+        "frame": 8,
+        "clip": "phantomHaunted",
+        "type": "recovery"
+      },
+      {
+        "frame": 9,
+        "clip": "phantomHaunted",
+        "type": "recovery"
+      },
+      {
+        "frame": 10,
+        "clip": "phantomHaunted",
+        "type": "recovery"
+      },
+      {
+        "frame": 11,
+        "clip": "phantomHaunted",
+        "type": "recovery"
       }
     ],
     "W": [
@@ -2210,6 +2362,26 @@
       },
       {
         "frame": 7,
+        "clip": "phantomHaunted",
+        "type": "recovery"
+      },
+      {
+        "frame": 8,
+        "clip": "phantomHaunted",
+        "type": "recovery"
+      },
+      {
+        "frame": 9,
+        "clip": "phantomHaunted",
+        "type": "recovery"
+      },
+      {
+        "frame": 10,
+        "clip": "phantomHaunted",
+        "type": "recovery"
+      },
+      {
+        "frame": 11,
         "clip": "phantomHaunted",
         "type": "recovery"
       }
@@ -2375,9 +2547,13 @@
         "squint",
         "squint",
         "squint",
-        "pain",
-        "pain",
         "squint",
+        "squint",
+        "squint",
+        "squint",
+        "squint",
+        "pain",
+        "pain",
         "squint"
       ]
     },
