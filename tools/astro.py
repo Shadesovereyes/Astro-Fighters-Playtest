@@ -149,6 +149,8 @@ NPAT.update({'pflame1': ['.K.', 'KPK', '.p.'], 'pflame2': ['..K..', '.KP..', '.P
              'pspark': ['P.p', '.W.', 'p.P'],
              'dog1': _arc(4, 2, 'WP'), 'dog2': _arc(7, 3, 'WPp'), 'dog3': _arc(10, 3, 'PpK'), 'dog3d': _arc(12, 4, 'pK', gap=2),   # Dogma: purple waves of belief looping out
              'eyeP': ['.P.', 'PWP', '.P.'], 'eyePF': ['..p..', '.pPp.', 'pPWPp', '.pPp.', '..p..'], 'moteP': ['.P.', 'PWP', '.p.'], 'moteK': ['.p.', 'pKp', '.p.'], 'dotP': ['p'],
+             'sp1': _sag(5, 2, 'Pp'), 'sp2': _sag(8, 3, 'WPp'), 'sp3': _sag(11, 4, 'PpK'), 'sp3d': _sag(13, 4, 'pK', gap=2),   # Soul Pressure: a heavy blanket of spirit bearing down
+             'spWisp': ['K.p', '.p.', 'pP.'],
              'smoke1': ['.g.', 'g.w', '.w.', 'w..'], 'smoke2': ['..g', '.w.', 'g..', '.w.', '..g']})   # Cauterize: a wisp of smoke off the sealed wound
 U.POSES += [U.kleg('lk-axe-top', (34, 39), (38, 31), (41, 22), 'pointUR'),    # Leash Kick v2 axe kick: straight leg raised high, heel above the head
             U.kleg('lk-axe-chop', (34, 40), (41, 38), (48, 37), 'pointFwd'),   # heel chopping down through shoulder height
@@ -546,6 +548,29 @@ CLIPS = {
                  7: _loop(6) + [('eyeP', 'eye', 0, 0), ('dog3d', 'eye', 20, 3), ('dog3', 'eye', 15, 2), ('dog2', 'eye', 10, 1)],
                  8: [it for it in _loop(7) if it[0] != 'dotP'] + [('dog3d', 'eye', 21, 3)],
                  9: [it for it in _loop(0) if it[0] == 'moteP']})),
+ 'soulPressure': ('Soul Pressure', 4,
+  'Soul Pressure (Sagittarius genjutsu, debuff: the caster blankets the foe\'s mind with its spiritual energy, silencing its innermost thoughts; Silence 3 rounds, STR save DC 12; range Zone of Awareness): from the guard the fighter lowers its hands and closes its eyes, gathering itself, and a heavy aura of dark purple and black spirit-flame rises round it, wisps curling up off the shoulders; its eyes snap open, burning purple, and it extends the open near palm toward the target and presses it slowly down, the far hand low at its side, as heavy dome-shaped waves of spirit pressure roll out toward the target, bearing down and sinking as they travel, purple at the crown and black at the rim; it holds the press, then the aura settles and it returns to the guard (the target takes the genjutsu mark, genjutsuAfflicted in Sagittarius colours, for the Silence).', [
+     g(),
+     g(an=band(-20, -50), af=band(-10, -40), bob=(1, 1, 2), lean=(0, 1)),
+     g(an=band(-10, -30), af=band(-5, -25), bob=(2, 2, 2), lean=(0, 0)),
+     g(an=band(-90, -100, fistKind='palm'), af=band(-5, -25), bob=(1, 1, 1), lean=(0, -1)),
+     g(an=band(-75, -65, fistKind='palm'), af=band(-5, -25), bob=(1, 1, 2), lean=(1, 2)),
+     g(an=band(-65, -55, fistKind='palm'), af=band(-5, -25), bob=(2, 2, 2), lean=(1, 3)),
+     g(an=band(-65, -55, fistKind='palm'), af=band(-5, -25), bob=(2, 2, 2), lean=(1, 3)),
+     g(an=band(-65, -55, fistKind='palm'), af=band(-5, -25), bob=(2, 2, 2), lean=(1, 3)),
+     g(an=band(-40, -110), af=band(-25, -90), bob=(1, 1, 1), lean=(0, 1)),
+     g()],
+  [None, 'closed', 'closed', None, 'squint', 'squint', 'squint', 'squint', None, None],
+  [0, 1, 2, 2, 2, 2, 2, 1, 0, 0],
+  dict(fps=10, auraColors=('#55208f', '#1c1024'), extra={'targetState': {'rule': 'Christopher 2026-10-27: every genjutsu marks its target; on the active frame the target starts genjutsuAfflicted (Sagittarius colours, genjutsuMark.recolor.sagittarius) and keeps it until the Silence ends', 'state': 'genjutsuAfflicted', 'element': 'sagittarius'}},
+       anchored={1: [('spWisp', 'head', -6, 12)],
+                 2: [('spWisp', 'head', -7, 10), ('spWisp', 'head', 6, 12), ('pflame1', 'head', -1, -9)],
+                 3: [('eyePF', 'eye', 0, 0), ('pflame2', 'head', -1, -10), ('spWisp', 'head', -8, 8), ('spWisp', 'head', 7, 10)],
+                 4: [('eyePF', 'eye', 0, 0), ('pflame2', 'head', 0, -10), ('sp1', 'feet', 14, -30), ('spWisp', 'head', -7, 6)],
+                 5: [('eyePF', 'eye', 0, 0), ('pflame1', 'head', 0, -9), ('sp2', 'feet', 19, -24), ('sp1', 'feet', 14, -30), ('spWisp', 'head', 7, 8)],
+                 6: [('eyePF', 'eye', 0, 0), ('pflame2', 'head', 0, -10), ('sp3', 'feet', 24, -17), ('sp2', 'feet', 19, -24), ('spWisp', 'head', -7, 5)],
+                 7: [('eyeP', 'eye', 0, 0), ('sp3d', 'feet', 27, -10), ('spWisp', 'head', 6, 4)],
+                 8: [('spWisp', 'head', -6, 2, {'alpha': {'K': 140, 'p': 140, 'P': 160}})]})),
  'flowDodge': ('Flow Dodge', 3,
   'Flow Dodge (Sagittarius taijutsu stance buff: the fighter enters a dance-like trance and begins to swing and sway to its own rhythm): from the guard the fighter shakes its arms loose and lets the guard drop low and easy, eyes half closed, catching a beat; then it sways to its own rhythm: rocking back and forward on its feet and dipping on the knees, shoulders rolling, the loose hands swinging opposite to the hips, a flickering fire aura breathing round it on the beat with a few black and purple wisps rising off the shoulders; on the last beat it snaps its eyes open and settles into a loose, low guard (the testbed keeps the stance).', [
      g(),
