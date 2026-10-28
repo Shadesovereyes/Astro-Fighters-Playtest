@@ -15,10 +15,12 @@
     95
   ],
   "rows": [
+    "S",
     "E",
+    "N",
     "W"
   ],
-  "frames": 7,
+  "frames": 8,
   "depthRule": "each weapon is split into depth slots, one sheet each: behind = under the body; front = over body and clothing, under the arms (the fists close over the hilt); top = over every character layer (a blade pointing at the viewer, a hand in front of the head). z per frame is one slot or { hilt, blade } split at the grip",
   "weapons": [
     {
@@ -27,12 +29,49 @@
       "default": true,
       "hand": "arms",
       "layers": {
+        "behind": "main-tanto-behind.png",
         "front": "main-tanto-front.png",
+        "top": "main-tanto-top.png",
         "trail": "main-tanto-trail.png"
       },
-      "status": "CANDIDATE 2026-10-27 (E/W; W mirrors E; S/N to author after approval)",
+      "status": "CANDIDATE 2026-10-28 S/N v1 (E/W approved by user 2026-10-28; W mirrors E)",
       "z": {
+        "S": [
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          }
+        ],
         "E": [
+          "front",
           "front",
           "front",
           "front",
@@ -41,7 +80,18 @@
           "front",
           "front"
         ],
+        "N": [
+          "behind",
+          "behind",
+          "behind",
+          "behind",
+          "behind",
+          "behind",
+          "behind",
+          "behind"
+        ],
         "W": [
+          "front",
           "front",
           "front",
           "front",
@@ -52,25 +102,63 @@
         ]
       },
       "grips": {
+        "S": [
+          [
+            30,
+            30
+          ],
+          [
+            27,
+            33
+          ],
+          [
+            28,
+            24
+          ],
+          [
+            30,
+            18
+          ],
+          [
+            31,
+            30
+          ],
+          [
+            31,
+            30
+          ],
+          [
+            30,
+            31
+          ],
+          [
+            30,
+            30
+          ]
+        ],
         "E": [
           [
             45,
             30
           ],
           [
-            40,
+            39,
+            33
+          ],
+          [
+            41,
+            24
+          ],
+          [
+            46,
+            18
+          ],
+          [
+            51,
             30
           ],
           [
-            44,
-            23
-          ],
-          [
-            50,
-            30
-          ],
-          [
-            50,
+            51,
             30
           ],
           [
@@ -82,25 +170,63 @@
             30
           ]
         ],
+        "N": [
+          [
+            34,
+            30
+          ],
+          [
+            37,
+            33
+          ],
+          [
+            36,
+            24
+          ],
+          [
+            34,
+            18
+          ],
+          [
+            33,
+            30
+          ],
+          [
+            33,
+            30
+          ],
+          [
+            34,
+            31
+          ],
+          [
+            34,
+            30
+          ]
+        ],
         "W": [
           [
             18,
             30
           ],
           [
-            23,
+            24,
+            33
+          ],
+          [
+            22,
+            24
+          ],
+          [
+            17,
+            18
+          ],
+          [
+            12,
             30
           ],
           [
-            19,
-            23
-          ],
-          [
-            13,
-            30
-          ],
-          [
-            13,
+            12,
             30
           ],
           [
@@ -117,6 +243,14 @@
   ],
   "qc": {
     "gripOnFist": {
+      "main/tanto S:0": true,
+      "main/tanto S:1": true,
+      "main/tanto S:2": true,
+      "main/tanto S:3": true,
+      "main/tanto S:4": true,
+      "main/tanto S:5": true,
+      "main/tanto S:6": true,
+      "main/tanto S:7": true,
       "main/tanto E:0": true,
       "main/tanto E:1": true,
       "main/tanto E:2": true,
@@ -124,13 +258,23 @@
       "main/tanto E:4": true,
       "main/tanto E:5": true,
       "main/tanto E:6": true,
+      "main/tanto E:7": true,
+      "main/tanto N:0": "hidden",
+      "main/tanto N:1": "hidden",
+      "main/tanto N:2": "hidden",
+      "main/tanto N:3": "hidden",
+      "main/tanto N:4": "hidden",
+      "main/tanto N:5": "hidden",
+      "main/tanto N:6": "hidden",
+      "main/tanto N:7": "hidden",
       "main/tanto W:0": true,
       "main/tanto W:1": true,
       "main/tanto W:2": true,
       "main/tanto W:3": true,
       "main/tanto W:4": true,
       "main/tanto W:5": true,
-      "main/tanto W:6": true
+      "main/tanto W:6": true,
+      "main/tanto W:7": true
     },
     "inFrame": true,
     "pass": true

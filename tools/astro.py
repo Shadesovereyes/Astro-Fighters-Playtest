@@ -14,7 +14,7 @@ from gen import load, save
 import stances
 
 STAT = 'CANDIDATE 2026-10-27 (E/W; W mirrors E; S/N to author after approval)'
-APPROVED = {'sandBurial': 'E/W approved by user 2026-10-28 (v1 caster: sand flows along the floor to the target, viewed in the two-fighter scene; W mirrors E); S/N to author', 'sandBuried': 'E/W approved by user 2026-10-28 (v2 sand climbs to the neck, squeeze loop with constriction bands while the Root lasts, e32d553; W mirrors E); S/N to author', 'sandBreakFree': 'E/W approved by user 2026-10-28 (v2 column cracks, arms burst out with a roar, sand chunks blow out, back to guard, e32d553; W mirrors E); S/N to author', 'sandstorm': 'E/W approved by user 2026-10-28 (v2 caster-centred storm zone: storm rises from the feet round the caster in its eye, blasts outward; spec extra.zone, canon A7, 3b513b51; W mirrors E); S/N to author', 'sandstormCaught': 'E/W approved by user 2026-10-28 (v2 sand gusts blowing past, forearms over the eyes, loops while inside the storm, 3b513b51; W mirrors E); S/N to author', 'oakFlesh': 'E/W approved by user 2026-10-28 (v6 honey oak bark with walnut grain over body and face, moss patches, hair turned to moss, 6d538de; W mirrors E); linger keeps the look while the buff lasts; S/N to author', 'ironFist': 'E/W approved by user 2026-10-28 (v1 Shatter Punch body, earth/crystal arm swirl, crystal-white flash, teal/brown shock ring, stone chips, 5d11ccb0; W mirrors E); S/N to author', 'rootSanctuary': 'E/W approved by user 2026-10-28 (v2 roots with root hairs rise from floor cracks and arch into a dome behind the fighter, crystal buds, fdb604b; W mirrors E); linger root ring is a proposal; S/N to author', 'ironwoodKanabo': 'E/W approved by user 2026-10-28 (v2 spiked iron kanabo rises head-first from a crack in the floor and is gripped, after Christopher\'s reference, c58ee3f; W mirrors E); kanabo weapon layer, Kanabo stance idle and weapon attacks in a separate thread; S/N to author', 'planetaryPressure': 'E/W approved by user 2026-10-28 (v1 illusory planet beside the raised hand, fist hauled down, sinking gravity waves and falling dashes, target genjutsu mark in earth colours, 6ce4904; W mirrors E); S/N to author', 'materialFixation': 'E/W approved by user 2026-10-28 (v1 illusory crystal gem offered from the palm, teal eyes, fascination waves, target genjutsu mark in earth colours, 6ce4904; W mirrors E); S/N to author', 'bullRush': 'E/W approved by user 2026-10-28 (v2 sprinter set, head-down charge with arms reaching forward, dust, shoulder ram, e1f5ef2; W mirrors E); S/N to author', 'mountainStance': 'E/W approved by user 2026-10-28 (v1 double shiko stamp, wide rooted stance, earth aura, crystal shards, a651ae52; W mirrors E); S/N to author','flowDodge': 'E/W approved by user 2026-10-28 (v1 trance sway, fire aura on the beat, purple/black wisps, 4d565a4; W mirrors E); S/N to author', 'leashKick': 'E/W approved by user 2026-10-28 (v2 double pirouette in a fire ring, axe kick finish, fea7941; W mirrors E); S/N to author', 'spinningTop': 'E/W approved by user 2026-10-28 (v1 headspin, flaming V legs, fire ring at foot height, turned-over frames via 180-degree layer turn, 68b2808; W mirrors E); S/N to author', 'wispFire': 'E/W approved by user 2026-10-28 (v1 alternating palm pushes, four purple wisps, 63b132e; W mirrors E); S/N to author', 'dogma': 'E/W approved by user 2026-10-28 (v1 fingers to the temple, looping purple motes, belief waves, target genjutsu mark, 6364f3b; W mirrors E); S/N to author', 'soulPressure': 'E/W approved by user 2026-10-28 (v1 dark spirit aura, pressing palm, sinking pressure waves, target genjutsu mark, d7b92b6; W mirrors E); S/N to author', 'cauterize': 'E/W approved by user 2026-10-27 (v1 palm seared to the ribs, fire flare with purple/black licks, smoke, d84e1d7; W mirrors E); S/N to author', 'supernova': 'E/W approved by user 2026-10-27 (v2 ultimate, 16 frames at 8 fps, long trembling build-up, swelling star, flash held 3 frames, rings, 50c8b58; W mirrors E); the S and N rows share the same S turn, S/N to author', 'spotlight': 'E/W approved by user 2026-10-27 (v3 arms lowered, forward lean, cone of light from the eyes, target genjutsu mark, 50c8b58; W mirrors E); S/N to author', 'sunPalm': 'E/W approved by user 2026-10-27 (v2 arm swirl, gathering sun, white-hot flash, fire shock ring, cracks, embers, d059a89; W mirrors E); S/N to author', 'kneel': 'E/W approved by user 2026-10-27 (v1 crown of light, commanding palm, sinking gold pressure waves, target genjutsu mark; W mirrors E); S/N to author', 'kingsPosture': 'E/W approved by user 2026-10-27 (v4 E-facing double biceps in profile, golden aura, flame mane, d4e4c1e; W mirrors E); S/N to author', 'radiance': 'E/W approved by user 2026-10-27 (v4 E-facing, fists down at the sides, erupting spiky gold aura, lingering 2 px aura + motes, d4e4c1e; W mirrors E); S/N to author', 'solarLance': 'E/W approved by user 2026-10-27 (v2 arm swirl, bigger sun, thick sparking beam, shoulder backblast, gold aura, d059a89; W mirrors E); S/N to author', 'battleRoar': 'E/W approved by user 2026-10-27 (v1 big breath, lunging roar, flame mane, golden roar waves, 733e752; W mirrors E); S/N to author', 'killingIntent': 'E/W approved by user 2026-10-27 (v3 illusory demon mask over the head matching the facing, clawed crouch, 02ce6eb; W mirrors E); S/N to author', 'blindRage': 'E/W approved by user 2026-10-27 (v1 genjutsu template: one-hand seal, eye flare, crimson aura, rage waves, 0b27675; W mirrors E); S/N to author', 'genjutsuAfflicted': 'E/W approved by user 2026-10-27 (v1 genjutsu target mark, fire colours, d75144b; W mirrors E); S/N to author', 'meteor': 'E/W approved by user 2026-10-27 (v2 ultimate, 16 frames, swelling fireball + flash + thick trail, f395d5b; W mirrors E); S/N to author', 'explosiveRunes': 'E/W approved by user 2026-10-27 (v1 sowing palm sweep + fire runes, 640aaba; W mirrors E); S/N to author', 'blastWave': 'E/W approved by user 2026-10-27 (v3 S-facing roar release, dd5ab8a; W mirrors E); the S and N rows share the same S turn, their guard frames still to review', 'innerGateAdrenaline': 'E/W approved by user 2026-10-27 (v3 lingering aura, skin flush, veins, aee3dad; W mirrors E) on condition the look lingers while the ability is active; canon A5: a toggle, active until 0 HP or deactivated; S/N to author', 'machLunge': 'E/W approved by user 2026-10-27 (v5 sprint, flaming feet, fire wake, 4 afterimages, fc741f6; W mirrors E); S/N to author', 'shatterPunch': 'E/W approved by user 2026-10-27 (v3 arm swirl + impact burst, fc741f6; W mirrors E); S/N to author'}
+APPROVED = {'phantomHaunted': 'E/W approved by user 2026-10-28 (v2 12-frame loop: the phantom circles the victim behind, far side, in front, near side, then rakes, 41f294d; W mirrors E); S/N to author', 'witherPalm': 'E/W approved by user 2026-10-28 (v2 glowing palms, strike streaks, teal shock rings, dust plumes, teal aura, final burst, f45f621f; W mirrors E); S/N to author', 'coffinSyndrome': 'E/W approved by user 2026-10-28 (v2 caster: palm lifts to raise the coffin behind the target, fist snaps the lid shut, 8baa93ab; target plays coffinEntombed then coffinBreakOut; W mirrors E); S/N to author', 'coffinEntombed': 'E/W approved by user 2026-10-28 (v2 coffin rises behind the target, lid shuts, pounding loop from frame 6, 8baa93ab; W mirrors E); S/N to author', 'coffinBreakOut': 'E/W approved by user 2026-10-28 (v1 lid cracks and bursts, coffin breaks apart into planks and sand, 8baa93ab; W mirrors E); S/N to author', 'phantomPlague': 'E/W approved by user 2026-10-28 (v1 shadow pool, teal-eyed shadow creature claws up and glides at the target, 4af1f46; target plays phantomHaunted; W mirrors E); S/N to author', 'sandBurial': 'E/W approved by user 2026-10-28 (v1 caster: sand flows along the floor to the target, viewed in the two-fighter scene; W mirrors E); S/N to author', 'sandBuried': 'E/W approved by user 2026-10-28 (v2 sand climbs to the neck, squeeze loop with constriction bands while the Root lasts, e32d553; W mirrors E); S/N to author', 'sandBreakFree': 'E/W approved by user 2026-10-28 (v2 column cracks, arms burst out with a roar, sand chunks blow out, back to guard, e32d553; W mirrors E); S/N to author', 'sandstorm': 'E/W approved by user 2026-10-28 (v2 caster-centred storm zone: storm rises from the feet round the caster in its eye, blasts outward; spec extra.zone, canon A7, 3b513b51; W mirrors E); S/N to author', 'sandstormCaught': 'E/W approved by user 2026-10-28 (v2 sand gusts blowing past, forearms over the eyes, loops while inside the storm, 3b513b51; W mirrors E); S/N to author', 'oakFlesh': 'E/W approved by user 2026-10-28 (v6 honey oak bark with walnut grain over body and face, moss patches, hair turned to moss, 6d538de; W mirrors E); linger keeps the look while the buff lasts; S/N to author', 'ironFist': 'E/W approved by user 2026-10-28 (v1 Shatter Punch body, earth/crystal arm swirl, crystal-white flash, teal/brown shock ring, stone chips, 5d11ccb0; W mirrors E); S/N to author', 'rootSanctuary': 'E/W approved by user 2026-10-28 (v2 roots with root hairs rise from floor cracks and arch into a dome behind the fighter, crystal buds, fdb604b; W mirrors E); linger root ring is a proposal; S/N to author', 'ironwoodKanabo': 'E/W approved by user 2026-10-28 (v2 spiked iron kanabo rises head-first from a crack in the floor and is gripped, after Christopher\'s reference, c58ee3f; W mirrors E); kanabo weapon layer, Kanabo stance idle and weapon attacks in a separate thread; S/N to author', 'planetaryPressure': 'E/W approved by user 2026-10-28 (v1 illusory planet beside the raised hand, fist hauled down, sinking gravity waves and falling dashes, target genjutsu mark in earth colours, 6ce4904; W mirrors E); S/N to author', 'materialFixation': 'E/W approved by user 2026-10-28 (v1 illusory crystal gem offered from the palm, teal eyes, fascination waves, target genjutsu mark in earth colours, 6ce4904; W mirrors E); S/N to author', 'bullRush': 'E/W approved by user 2026-10-28 (v2 sprinter set, head-down charge with arms reaching forward, dust, shoulder ram, e1f5ef2; W mirrors E); S/N to author', 'mountainStance': 'E/W approved by user 2026-10-28 (v1 double shiko stamp, wide rooted stance, earth aura, crystal shards, a651ae52; W mirrors E); S/N to author','flowDodge': 'E/W approved by user 2026-10-28 (v1 trance sway, fire aura on the beat, purple/black wisps, 4d565a4; W mirrors E); S/N to author', 'leashKick': 'E/W approved by user 2026-10-28 (v2 double pirouette in a fire ring, axe kick finish, fea7941; W mirrors E); S/N to author', 'spinningTop': 'E/W approved by user 2026-10-28 (v1 headspin, flaming V legs, fire ring at foot height, turned-over frames via 180-degree layer turn, 68b2808; W mirrors E); S/N to author', 'wispFire': 'E/W approved by user 2026-10-28 (v1 alternating palm pushes, four purple wisps, 63b132e; W mirrors E); S/N to author', 'dogma': 'E/W approved by user 2026-10-28 (v1 fingers to the temple, looping purple motes, belief waves, target genjutsu mark, 6364f3b; W mirrors E); S/N to author', 'soulPressure': 'E/W approved by user 2026-10-28 (v1 dark spirit aura, pressing palm, sinking pressure waves, target genjutsu mark, d7b92b6; W mirrors E); S/N to author', 'cauterize': 'E/W approved by user 2026-10-27 (v1 palm seared to the ribs, fire flare with purple/black licks, smoke, d84e1d7; W mirrors E); S/N to author', 'supernova': 'E/W approved by user 2026-10-27 (v2 ultimate, 16 frames at 8 fps, long trembling build-up, swelling star, flash held 3 frames, rings, 50c8b58; W mirrors E); the S and N rows share the same S turn, S/N to author', 'spotlight': 'E/W approved by user 2026-10-27 (v3 arms lowered, forward lean, cone of light from the eyes, target genjutsu mark, 50c8b58; W mirrors E); S/N to author', 'sunPalm': 'E/W approved by user 2026-10-27 (v2 arm swirl, gathering sun, white-hot flash, fire shock ring, cracks, embers, d059a89; W mirrors E); S/N to author', 'kneel': 'E/W approved by user 2026-10-27 (v1 crown of light, commanding palm, sinking gold pressure waves, target genjutsu mark; W mirrors E); S/N to author', 'kingsPosture': 'E/W approved by user 2026-10-27 (v4 E-facing double biceps in profile, golden aura, flame mane, d4e4c1e; W mirrors E); S/N to author', 'radiance': 'E/W approved by user 2026-10-27 (v4 E-facing, fists down at the sides, erupting spiky gold aura, lingering 2 px aura + motes, d4e4c1e; W mirrors E); S/N to author', 'solarLance': 'E/W approved by user 2026-10-27 (v2 arm swirl, bigger sun, thick sparking beam, shoulder backblast, gold aura, d059a89; W mirrors E); S/N to author', 'battleRoar': 'E/W approved by user 2026-10-27 (v1 big breath, lunging roar, flame mane, golden roar waves, 733e752; W mirrors E); S/N to author', 'killingIntent': 'E/W approved by user 2026-10-27 (v3 illusory demon mask over the head matching the facing, clawed crouch, 02ce6eb; W mirrors E); S/N to author', 'blindRage': 'E/W approved by user 2026-10-27 (v1 genjutsu template: one-hand seal, eye flare, crimson aura, rage waves, 0b27675; W mirrors E); S/N to author', 'genjutsuAfflicted': 'E/W approved by user 2026-10-27 (v1 genjutsu target mark, fire colours, d75144b; W mirrors E); S/N to author', 'meteor': 'E/W approved by user 2026-10-27 (v2 ultimate, 16 frames, swelling fireball + flash + thick trail, f395d5b; W mirrors E); S/N to author', 'explosiveRunes': 'E/W approved by user 2026-10-27 (v1 sowing palm sweep + fire runes, 640aaba; W mirrors E); S/N to author', 'blastWave': 'E/W approved by user 2026-10-27 (v3 S-facing roar release, dd5ab8a; W mirrors E); the S and N rows share the same S turn, their guard frames still to review', 'innerGateAdrenaline': 'E/W approved by user 2026-10-27 (v3 lingering aura, skin flush, veins, aee3dad; W mirrors E) on condition the look lingers while the ability is active; canon A5: a toggle, active until 0 HP or deactivated; S/N to author', 'machLunge': 'E/W approved by user 2026-10-27 (v5 sprint, flaming feet, fire wake, 4 afterimages, fc741f6; W mirrors E); S/N to author', 'shatterPunch': 'E/W approved by user 2026-10-27 (v3 arm swirl + impact burst, fc741f6; W mirrors E); S/N to author'}
 
 U.POSES += [leg('ml-dip-lead', (32, 45), (38, 51), 37), leg('ml-dip-rear', (31, 45), (29, 51), 24, wrap=54, kind='toe60'),   # sprinter dip, rear heel up
             kleg('ml-fly-lead', (33, 42), (39, 46), (38, 52), 'toe30k'), kleg('ml-fly-rear', (31, 42), (25, 47), (20, 51), 'toe30k'),   # driving off the rear foot
@@ -295,6 +295,42 @@ NPAT.update({**{'eye%d%s' % (k, fb): q for k in range(4) for fb, q in zip('FB', 
              **{'eyeLow%d%s' % (k, fb): q for k in range(4) for fb, q in zip('FB', _whirl(12, 14, 16, k * math.pi / 2, 50 + k, arms=3))},
              **{'gust%d%s' % (k, fb): q for k in range(4) for fb, q in zip('FB', _gust(34, 40, k, 60 + k, n=18))},
              'stormRing': _whirl(12, 14, 16, 0, 50, arms=2)[0], 'sandSprayL': [r[::-1] for r in NPAT['sandSpray']]})
+U.POSES += [leg('ss-kneel-lead', (33, 50), (41, 49), 42), U.kleg('ss-kneel-rear', (31, 50), (29, 55), (20, 55), 'toe30k')]   # Silica Strike v2: down on the rear knee, lead foot flat in front, thigh level
+NPAT.update({'sandSprayUp': [''.join(r[y] for r in NPAT['sandSpray'][::-1]) for y in range(len(NPAT['sandSpray'][0]))][::-1]})
+def _ring(r, ch='c', ch2='C', gap=0):   # Wither Palm v2: a thin shock ring of radius r (flattened a little), every other pixel when gap
+    w = 2 * r + 1; h = 2 * round(r * 0.8) + 1; rows = [['.'] * w for _ in range(h)]
+    for k in range(int(8 * r)):
+        a = 2 * math.pi * k / (8 * r); x = round(r + r * math.cos(a)); y = round((h - 1) / 2 + (h - 1) / 2 * math.sin(a))
+        if gap and k % 2: continue
+        rows[y][x] = ch if math.sin(a) < 0.3 else ch2
+    return [''.join(q) for q in rows]
+NPAT.update({'palmGlow': ['..ccc..', '.cC.Cc.', 'cC...Cc', 'c.....c', 'cC...Cc', '.cC.Cc.', '..ccc..'], 'streak': ['CCcc.c..c', '.ccc.c...'], 'vRing': _ring(5), 'vRing2': _ring(7), 'vRing3': _ring(9, gap=1),
+             'witherPlume': ['..u.v..', '.uvuvu.', 'vuuvvuv', '.vuvuv.', '..v.u..', '...u...', '..v....'], 'witherBurst': ['u...v...u', '.vu.u.uv.', 'u.vuvuv.u', '.uvvuvvu.', 'vuuvuvuuv', '.uvvuvvu.', 'u.vuvuv.u', '.vu.v.uv.', 'u...u...v']})   # Wither Palm v2: palm glow, strike streak, dust plumes
+def _coffin(w, h, seed, lid=False, crack=0):   # Coffin Syndrome v2: an upright coffin, a box of packed sand outlined in crystal teal; lid: the front lid (a darker seam band, two teal studs); crack: 1-2 crack lines across the lid
+    import random
+    rnd = random.Random(seed); rows = [['.'] * w for _ in range(h)]
+    for y in range(h):
+        sh = 0.62 + 0.38 * min(1, y / (h * 0.22)) if y < h * 0.22 else 1 - 0.3 * (y - h * 0.22) / (h * 0.78)   # wide at the shoulders, tapering to the foot
+        half = (w - 1) / 2 * sh
+        for x in range(w):
+            dx = abs(x - (w - 1) / 2)
+            if dx > half: continue
+            edge = dx > half - 1 or y in (0, h - 1)
+            rows[y][x] = 'C' if edge else ('c' if edge and rnd.random() < 0.2 else 'Z' if rnd.random() < 0.06 else 's' if rnd.random() < 0.25 else 'S')
+            if lid and not edge and (abs(dx - half + 3) < 0.6 or y in (3, h - 4)): rows[y][x] = 's'
+    if lid:
+        for y in (h // 4, 3 * h // 4): rows[y][w // 2] = 'c'
+    for c_ in range(crack):   # cracks zigzagging across the lid
+        y0 = h // 3 + c_ * h // 4; x = 2
+        while x < w - 2:
+            if rows[y0][x] != '.': rows[y0][x] = 'K'
+            x += 1; y0 += rnd.choice((-1, 0, 1)) if 2 < y0 < h - 3 else 0
+    return [''.join(r) for r in rows]
+def _squash(pat, w):   # the lid seen swinging round on its hinge: the same lid squeezed to w columns
+    W = len(pat[0]); return [''.join(r[min(W - 1, int(x * W / w))] for x in range(w)) for r in pat]
+NPAT.update({'cofBack': _coffin(32, 56, 1), 'cofLid': _coffin(32, 56, 2, lid=True), 'cofLidCrack': _coffin(32, 56, 2, lid=True, crack=1), 'cofLidCrack2': _coffin(32, 56, 2, lid=True, crack=2)})
+NPAT.update({'cofLid1': _squash(NPAT['cofLid'], 9), 'cofLid2': _squash(NPAT['cofLid'], 20), 'cofBackLow': _coffin(32, 56, 1)[14:], 'cofBackLow2': _coffin(32, 56, 1)[30:],
+             'plank': ['CCCCCCC', 'CsSsSsC', 'CCCCCCC'], 'plankV': ['CCC', 'CSC', 'CsC', 'CSC', 'CsC', 'CCC']})
 NPAL.update({'X': '#120d16', 'x': '#3a2f40'})   # Virgo genjutsu: the phantom's shadow (near-black, smoky edge)
 def _scale(pat, f):   # nearest-neighbour enlargement of a pattern by f (Virgo genjutsu v1: the phantom and the coffin drawn bigger)
     h, w = len(pat), len(pat[0]); H, W = round(h * f), round(w * f)
@@ -305,6 +341,8 @@ NPAT.update({'wraith0': ['....xxxx.....', '...xXXXXx....', '..xXXXXXXx...', '..x
              'coffinFlat': ['..CCCCCCCCCC...', '.CsssWsssssssC.', 'CsssWWWsssssssC', '.CsssWsssssssC.', '..CCCCCCCCCC...'],
              'cs1': _sag(5, 2, 'Ss'), 'cs2': _sag(8, 3, 'ZSs'), 'cs3': _sag(11, 4, 'SsK'), 'cs3d': _sag(13, 4, 'sK', gap=2)})   # Coffin Syndrome: sand pressure bearing down on the buried
 NPAT.update({'wraith': _scale(NPAT['wraith0'], 1.6), 'wraithRise': _scale(NPAT['wraithRise'], 1.6), 'coffinUp': _scale(NPAT['coffinUp'], 1.5), 'coffinFlat': _scale(NPAT['coffinFlat'], 1.4)})
+NPAT.update({'wraithM': [r[::-1] for r in NPAT['wraith']]})   # Phantom Plague v2: the phantom turned round, facing back at the victim as it passes in front
+NPAT.update({'clawMark': ['C...C...C....', '.C...C...C...', '..C...C...C..', '...C...C...C.', '....c...c...c'], 'clawMark2': ['..........', 'c...c...c.', '.c...c...c.'[:10], '..c...c...']})   # Phantom Plague target: three teal claw marks raked down past the victim
 
 def _column(h, w, phase, tight, cracks=0, seed=0):   # Sand Burial v2 (Christopher 2026-10-28: sand up to the target's neck, squeezing it): a column of sand from the neck down,
     import random                                     # rounded over the shoulders, pinched in by tight (0-1), dark constriction bands winding round it (phase), cracks before the break
@@ -908,47 +946,56 @@ CLIPS = {
                  7: [('eyeC', 'eye', 0, 0), ('gp3d', 'feet', 27, -10), ('gline', 'feet', 25, -34), ('gline', 'feet', 29, -22)],
                  8: [('gline', 'feet', 27, -28, {'alpha': {'e': 120, 'E': 120, 'K': 120}})]})),
  'silicaStrike': ('Silica Strike', 5,
-  'Silica Strike (Virgo taijutsu, Physical 8, Blind 3 rounds INT save DC 12: the fighter grabs a fistful of sand before striking at its opponent\'s face): from the guard the fighter drops low on bent knees and reaches the near hand down to the floor, scooping, sand puffing up round the fingers; it closes the fist on a handful and rises, drawing the fist back beside the ear, sand trickling out between the fingers; then it steps in and drives the fist at the face, opening it on contact so the sand sprays into the eyes, a burst of sand bursting off the face and hanging there in a drifting cloud; it pulls back into the guard.', [
+  'Silica Strike (Virgo taijutsu, Physical 8, Blind 3 rounds INT save DC 12: the fighter grabs a fistful of sand before striking at its opponent\'s face), v2 (Christopher 2026-10-28: the caster really bends down, almost taking a knee, then rises into an uppercut with the sand fx): from the guard the fighter drops down onto the rear knee, the lead foot planted flat in front, and sweeps the near hand along the floor, scooping, sand puffing up round the fingers; it closes the fist on a handful and draws it back low beside the hip, sand trickling; then it drives up out of the kneel, legs straightening, and rips the fist up and out in an uppercut at the opponent\'s chin, arm reaching well out in front, the sand bursting up off the fist into the face, a burst of sand hanging there in a drifting cloud; it settles back into the guard.', [
      g(),
-     g(an=band(-20, -25, fistKind='palm'), af=band(-20, -150), bob=(4, 5, 5), lean=(1, 7), **BRACE),   # reaching down to the floor
-     g(an=band(-15, -20), af=band(-20, -150), bob=(4, 5, 5), lean=(1, 7), **BRACE),                     # fist closed on a handful
-     g(an=band(30, -60), af=band(-75, -100), bob=(1, 1, 1), lean=(0, 0), ln='sp-load-rear', lf='sp-load-lead'),
-     g(an=CHAMBER, af=band(-80, -95), bob=(1, 1, 1), lean=(-1, -2), ln='sp-load-rear', lf='sp-load-lead'),
-     g(an=band(-102, -100, fistKind='palm'), af=band(30, -160), bob=(1, 1, 1), lean=(2, 5), root=(2, 0), ln='sp-drive-rear', lf='sp-drive-lead'),   # at the face, hand opening
-     g(an=band(-102, -100, fistKind='palm'), af=band(30, -160), bob=(1, 1, 1), lean=(2, 5), ln='sp-drive-rear', lf='sp-drive-lead'),
-     g(an=band(-102, -100, fistKind='palm'), af=band(30, -160), bob=(1, 1, 1), lean=(2, 5), ln='sp-drive-rear', lf='sp-drive-lead'),
-     g(an=band(-50, -120), af=band(-30, 215), bob=(1, 1, 2), lean=(1, 3), ln='sp-drive-rear', lf='sp-drive-lead'),
+     g(an=band(-20, -25, fistKind='palm'), af=band(-20, -150), bob=(4, 5, 5), lean=(1, 6), **BRACE),   # dropping toward the floor
+     g(an=band(-25, -40, fistKind='palm'), af=band(-20, -150), bob=(9, 10, 10), lean=(1, 8), ln='ss-kneel-rear', lf='ss-kneel-lead'),   # on the rear knee, palm sweeping the floor
+     g(an=band(-5, -30), af=band(-20, -150), bob=(9, 10, 10), lean=(1, 7), ln='ss-kneel-rear', lf='ss-kneel-lead'),                    # fist closed on a handful
+     g(an=band(25, -20), af=band(-40, -130), bob=(9, 10, 10), lean=(1, 4), ln='ss-kneel-rear', lf='ss-kneel-lead'),                    # fist drawn back low by the hip, coiled
+     g(an=band(-25, -120), af=band(-20, -100), bob=(4, 5, 5), lean=(1, 3), root=(1, 0), **LOW),                                          # driving up out of the kneel
+     g(an=band(-70, -140), bob=(0, 0, 1), lean=(1, 1), root=(2, 0), ln='sp-drive-rear', lf='sp-drive-lead'),         # the uppercut rips up and out at the opponent's chin
+     g(an=band(-112, -128), bob=(0, -1, 0), lean=(1, 2), root=(1, 0), ln='sp-drive-rear', lf='sp-drive-lead'),   # at the top of the uppercut, arm reaching up and out, the sand bursting off the fist into the face
+     g(an=band(-112, -128), bob=(0, -1, 0), lean=(1, 2), ln='sp-drive-rear', lf='sp-drive-lead'),
+     g(an=band(-50, -120), af=band(-30, 215), bob=(1, 1, 2), lean=(1, 2), root=(-2, 0), ln='sp-drive-rear', lf='sp-drive-lead'),
      g(root=(-2, 0))],
-  [None, 'squint', 'squint', 'squint', 'strain', 'strain', 'squint', 'squint', None, None],
+  [None, 'squint', 'squint', 'strain', 'strain', 'strain', 'roar', 'squint', 'squint', None, None],
   None,
-  dict(fps=10, hitbox=[46, 14, 14, 10], damage='light', rm='E: +2 on the step into the strike, -2 settling back',
-       anchored={1: [('sandPuff', 'hand', 1, 1), ('sandPuff', 'feet', 12, -1)], 2: [('sandPuff', 'hand', 2, 0), ('sandH', 'hand', 0, -1), ('grains', 'feet', 12, -4)],
-                 3: [('sandH', 'hand', 0, -1), ('sandTrk', 'hand', 0, 4)], 4: [('sandH', 'hand', 0, 0), ('sandTrk', 'hand', 0, 5)],
-                 5: [('sandSpray', 'hand', 4, -1)], 6: [('sandBurst', 'hand', 3, -1), ('grains', 'hand', -2, 7)],
-                 7: [('sandCloud', 'hand', 2, 1, {'alpha': {'S': 220, 's': 210, 'Z': 230}}), ('grains', 'hand', -3, 10)], 8: [('sandCloud2', 'hand', 0, 5, {'alpha': {'S': 150, 's': 140, 'Z': 160}})]})),
+  dict(fps=10, hitbox=[46, 14, 14, 10], damage='light', rm='E: +1 rising, +3 stepping into the uppercut, -4 settling back',
+       anchored={2: [('sandPuff', 'hand', 2, 1), ('sandPuff', 'feet', 14, -1)], 3: [('sandPuff', 'hand', 1, 0), ('sandH', 'hand', 0, -1), ('grains', 'feet', 13, -4)],
+                 4: [('sandH', 'hand', 0, -1), ('sandTrk', 'hand', 0, 5)], 5: [('sandH', 'hand', 0, -1), ('grains', 'hand', -4, 6)],
+                 6: [('sandH', 'hand', 0, -1), ('sandTrk', 'hand', -1, 7)],
+                 7: [('sandSprayUp', 'hand', 2, -5), ('sandSpray', 'hand', 5, -1), ('grains', 'hand', -3, 6)],
+                 8: [('sandBurst', 'hand', 4, -5, {'alpha': {'S': 230, 's': 220, 'Z': 235}}), ('sandCloud', 'hand', 6, -2, {'alpha': {'S': 180, 's': 170, 'Z': 190}})],
+                 9: [('sandCloud2', 'head', 12, -4, {'alpha': {'S': 150, 's': 140, 'Z': 160}})]})),
  'flowingSandParry': ('Flowing Sand Parry', 6,
-  'Flowing Sand Parry (Virgo taijutsu stance, counter, AGI +20% 1 round: the fighter loosens its muscles and begins to flow like sand in an hourglass while time seems to slow and its senses heighten): from the guard the fighter shakes its arms loose and lets them hang low and easy, eyes closing, sand trickling from its fingertips; an illusory hourglass forms beside its head, sand running through it, and grains of sand hang still in the air round the fighter as time slows; it sways once, then its eyes snap open crystal teal and the lead open hand sweeps up and across in front of it, weight drawn back, in a flowing parry that trails an arc of sand; the hourglass turns, the grains fall, and it settles back into the guard (the testbed keeps the stance for the counter).', [
+  'Flowing Sand Parry (Virgo taijutsu stance, counter, AGI +20% 1 round: the fighter loosens its muscles and begins to flow like sand in an hourglass while time seems to slow and its senses heighten), v2 (Christopher 2026-10-28: one arm makes a large sweeping circle over the head, the other the same down near the knees, like swinging them in converging circles): from the guard the fighter lets its arms hang loose, eyes closing, sand trickling from its fingertips; then the near arm swings up in front and round in a wide circle over its head and down behind, while the fighter sinking deep on bent knees so the far arm swings the opposite way in a low circle down by the knees, both open hands trailing streams of sand along their paths; an illusory hourglass forms beside its head and grains hang still in the air as time slows; the two circles converge in front of it, the high hand coming down and the low hand coming up until the open palms meet before the chest in the parry, eyes snapping open crystal teal, the sand trails closing into a ring; the hourglass turns, the grains fall, and it settles back into the guard (the testbed keeps the stance for the counter).', [
      g(),
-     g(an=band(-10, -40), af=band(-20, -50), bob=(1, 1, 2), lean=(0, 0)),
-     g(an=band(15, -30), af=band(-35, -70), bob=(2, 2, 3), lean=(-1, -3), root=(-1, 0), **LOW),
-     g(an=band(5, -40), af=band(-25, -60), bob=(2, 2, 2), lean=(0, 0), **LOW),
-     g(an=band(-25, -60), af=band(0, -40), bob=(2, 2, 3), lean=(1, 3), root=(1, 0), **LOW),
-     g(an=band(-25, -60), af=band(0, -40), bob=(2, 2, 2), lean=(0, 0), **LOW),
-     g(an=band(-70, -140, fistKind='palm'), af=band(-30, -100), bob=(1, 1, 1), lean=(-1, -3), ln='sp-load-rear', lf='sp-load-lead'),   # the parry: open hand sweeping up across
-     g(an=band(-55, -165, fistKind='palm'), af=band(-30, -100), bob=(1, 1, 1), lean=(-1, -3), ln='sp-load-rear', lf='sp-load-lead'),
+     g(an=band(-10, -30, fistKind='palm'), af=band(10, -20, fistKind='palm'), bob=(1, 1, 2), lean=(0, 0)),
+     g(an=band(-80, -95, fistKind='palm'), af=band(45, 40, fistKind='palm'), bob=(4, 5, 5), lean=(0, 1), **BRACE),
+     g(an=band(-135, -150, fistKind='palm'), af=band(15, 10, fistKind='palm'), bob=(4, 5, 5), lean=(0, 1), **BRACE),
+     g(an=band(-175, -180, fistKind='palm'), af=band(-20, -20, fistKind='palm'), bob=(4, 5, 5), lean=(0, 1), **BRACE),
+     g(an=band(150, 150, fistKind='palm'), af=band(-50, -45, fistKind='palm'), bob=(4, 5, 5), lean=(0, 2), **BRACE),
+     g(an=band(110, 105, fistKind='palm'), af=band(-30, -25, fistKind='palm'), bob=(4, 5, 5), lean=(0, 2), **BRACE),
+     g(an=band(60, 50, fistKind='palm'), af=band(5, 5, fistKind='palm'), bob=(4, 5, 5), lean=(0, 1), **BRACE),
+     g(an=band(-20, -40, fistKind='palm'), af=band(35, 35, fistKind='palm'), bob=(4, 5, 5), lean=(0, 1), **BRACE),
+     g(an=band(-75, -120, fistKind='palm'), af=band(-20, -45, fistKind='palm'), bob=(3, 4, 4), lean=(0, 0), **LOW),
+     g(an=band(-60, -125, fistKind='palm'), af=band(-55, -75, fistKind='palm'), bob=(1, 1, 1), lean=(-1, -3), ln='sp-load-rear', lf='sp-load-lead'),   # the parry: the circles converge, palms meeting before the chest
+     g(an=band(-60, -125, fistKind='palm'), af=band(-55, -75, fistKind='palm'), bob=(1, 1, 1), lean=(-1, -3), ln='sp-load-rear', lf='sp-load-lead'),
      g(an=band(-40, -110), af=band(-50, -120), bob=(1, 1, 2), lean=(0, 1)),
      g()],
-  [None, 'squint', 'closed', 'closed', 'closed', 'closed', None, None, None, None],
-  [0, 0, 1, 1, 2, 2, 2, 1, 1, 0],
-  dict(fps=8, auraColors=('#e6c27a', '#b08d4e'), rm='sways 1 px back and forward (net 0)',
-       anchored={2: [('sandTrk', 'hand', 0, 3)], 3: [('sandTrk', 'hand', 0, 4), ('hglass', 'head', -12, -1, {'alpha': {'s': 150, 'S': 160, 'Z': 170}})],
-                 4: [('sandTrk', 'hand', 0, 3), ('hglass', 'head', -12, -1), ('grains', 'head', -9, 6), ('grains', 'head', 10, 16)],
-                 5: [('sandTrk', 'hand', 0, 4), ('hglass2', 'head', -12, -1), ('grains', 'head', -9, 6), ('grains', 'head', 10, 16), ('grains', 'feet', -10, -20)],
-                 6: [('hglass2', 'head', -12, -1), ('eyeCF', 'eye', 0, 0), ('sandArc', 'hand', 3, 0), ('grains', 'head', -9, 6), ('grains', 'head', 10, 16), ('grains', 'feet', -10, -20)],
-                 7: [('hglass', 'head', -12, -1, {'alpha': {'s': 140, 'S': 140, 'Z': 150}}), ('eyeC', 'eye', 0, 0), ('sandArc2', 'hand', 2, 2), ('grains', 'head', -9, 9), ('grains', 'head', 10, 20)],
-                 8: [('grains', 'head', -9, 14, {'alpha': {'S': 130, 's': 120, 'Z': 140}}), ('grains', 'feet', 10, -8, {'alpha': {'S': 130, 's': 120, 'Z': 140}})]})),
+  [None, 'closed', 'closed', 'closed', 'closed', 'closed', 'closed', 'closed', 'closed', 'closed', None, None, None, None],
+  [0, 0, 1, 1, 1, 2, 2, 2, 2, 2, 2, 1, 1, 0],
+  dict(fps=10, auraColors=('#e6c27a', '#b08d4e'), rm='sways 1 px back and forward (net 0)',
+       trails={'near': range(2, 11), 'far': range(2, 11), 'len': 3}, farLayer=True,
+       anchored={1: [('sandTrk', 'hand', 0, 3)],
+                 3: [('hglass', 'head', -12, -1, {'alpha': {'s': 150, 'S': 160, 'Z': 170}})],
+                 **{k: [('hglass', 'head', -12, -1), ('grains', 'head', -9, 6), ('grains', 'head', 10, 16), ('grains', 'feet', -10, -20)] for k in (4, 5, 6)},
+                 **{k: [('hglass2', 'head', -12, -1), ('grains', 'head', -9, 6), ('grains', 'head', 10, 16), ('grains', 'feet', -10, -20)] for k in (7, 8, 9)},
+                 10: [('hglass2', 'head', -12, -1), ('eyeCF', 'eye', 0, 0), ('grains', 'head', -9, 6), ('grains', 'head', 10, 16), ('grains', 'feet', -10, -20)],
+                 11: [('hglass', 'head', -12, -1, {'alpha': {'s': 140, 'S': 140, 'Z': 150}}), ('eyeC', 'eye', 0, 0), ('grains', 'head', -9, 9), ('grains', 'head', 10, 20)],
+                 12: [('grains', 'head', -9, 14, {'alpha': {'S': 130, 's': 120, 'Z': 140}}), ('grains', 'feet', 10, -8, {'alpha': {'S': 130, 's': 120, 'Z': 140}})]})),
  'witherPalm': ('Wither Palm', 2,
-  'Wither Palm (Virgo taijutsu strike, Physical 12, target Stamina -15: with clinical precision the fighter throws a series of palm strikes at its opponent\'s vital points): from the guard the fighter draws the near open hand back by the hip, then steps in and fires five quick open-palm strikes, alternating hands and changing height, chest, throat, ribs, solar plexus and a last near palm to the chest; each lands with a small crystal-teal flash on the vital point struck and a puff of dull, dry dust as the strength drains out of the foe, the last one a bigger flash; it holds a beat, then settles back into the guard.', [
+  'Wither Palm (Virgo taijutsu strike, Physical 12, target Stamina -15: with clinical precision the fighter throws a series of palm strikes at its opponent\'s vital points): from the guard the fighter draws the near open hand back by the hip, then steps in and fires five quick open-palm strikes, alternating hands and changing height, chest, throat, ribs, solar plexus and a last near palm to the chest; each lands with a crystal-teal flash on the vital point struck, a thin teal shock ring snapping out from it and a plume of dull, dry dust as the strength drains out of the foe, the last one a big flash with a double ring and a burst of withered dust that drifts down; v2 (Christopher 2026-10-28: the animation is good, it needs more fx): the open hands glow crystal teal from the draw-back on, trailing a faint teal streak on each strike, and a thin teal aura clings to the fighter through the flurry; it holds a beat, the dust falling, then settles back into the guard.', [
      g(),
      g(an=band(25, -60, fistKind='palm'), af=band(-75, -100), bob=(1, 1, 1), lean=(-1, -1), ln='sp-load-rear', lf='sp-load-lead'),
      g(an=band(-90, -90, fistKind='palm'), af=band(-40, -120), bob=(1, 1, 1), lean=(1, 3), root=(2, 0), ln='sp-drive-rear', lf='sp-drive-lead'),   # chest
@@ -960,11 +1007,16 @@ CLIPS = {
      g(an=band(-50, -120), af=band(-30, 215), bob=(1, 1, 2), lean=(1, 3), ln='sp-drive-rear', lf='sp-drive-lead'),
      g(root=(-3, 0))],
   [None, 'squint', 'squint', 'squint', 'squint', 'squint', 'strain', 'squint', None, None],
-  None,
-  dict(fps=12, hitbox=[44, 18, 14, 14], damage='light', rm='E: +2 stepping into the strikes, +1 on the last, -3 settling back',
-       anchored={2: [('vital', 'hand', 2, 0)], 3: [('vital', 'farhand', 2, 0), ('wither', 'hand', 0, 6)], 4: [('vital', 'hand', 2, 0), ('wither', 'farhand', 3, 5)],
-                 5: [('vital', 'farhand', 2, 0), ('wither', 'hand', 1, 4)], 6: [('vital2', 'hand', 3, 0), ('wither2', 'hand', 2, 6)],
-                 7: [('vital', 'hand', 3, 0, {'alpha': {'c': 150, 'W': 170}}), ('wither2', 'hand', 2, 9), ('wither', 'hand', -2, 13)], 8: [('wither', 'hand', 2, 14, {'alpha': {'u': 130, 'v': 130}})]})),
+  [0, 1, 1, 1, 1, 1, 2, 2, 1, 0],
+  dict(fps=12, auraColors=('#7fe3d0', '#3a9e8f'), hitbox=[44, 18, 14, 14], damage='light', rm='E: +2 stepping into the strikes, +1 on the last, -3 settling back',
+       anchored={1: [('palmGlow', 'hand', 0, 0), ('palmGlow', 'farhand', 0, 0, {'alpha': {'C': 150, 'c': 170}})],
+                 2: [('palmGlow', 'farhand', 0, 0), ('vital', 'hand', 2, 0), ('vRing', 'hand', 3, 0), ('witherPlume', 'hand', 1, 7), ('streak', 'hand', -6, 0)],
+                 3: [('palmGlow', 'hand', 0, 0), ('vital', 'farhand', 2, 0), ('vRing', 'farhand', 3, 0), ('witherPlume', 'farhand', 1, 7), ('wither', 'hand', 0, 6), ('streak', 'farhand', -6, 0)],
+                 4: [('palmGlow', 'farhand', 0, 0), ('vital', 'hand', 2, 0), ('vRing', 'hand', 3, 0), ('witherPlume', 'hand', 1, 7), ('wither', 'farhand', 3, 5), ('streak', 'hand', -6, 0)],
+                 5: [('palmGlow', 'hand', 0, 0), ('vital', 'farhand', 2, 0), ('vRing', 'farhand', 3, 0), ('witherPlume', 'farhand', 1, 7), ('wither', 'hand', 1, 4), ('streak', 'farhand', -6, 0)],
+                 6: [('vital2', 'hand', 3, 0), ('vRing2', 'hand', 3, 0), ('witherBurst', 'hand', 4, 3), ('wither2', 'hand', 2, 6), ('streak', 'hand', -7, 0)],
+                 7: [('vital', 'hand', 3, 0, {'alpha': {'c': 150, 'W': 170}}), ('vRing3', 'hand', 3, 0, {'alpha': {'c': 170, 'C': 150}}), ('witherBurst', 'hand', 4, 8, {'alpha': {'u': 200, 'v': 200}}), ('wither2', 'hand', 2, 9), ('wither', 'hand', -2, 13)],
+                 8: [('witherPlume', 'hand', 3, 13, {'alpha': {'u': 150, 'v': 150}}), ('wither', 'hand', 2, 17, {'alpha': {'u': 130, 'v': 130}}), ('wither', 'hand', 6, 19, {'alpha': {'u': 110, 'v': 110}})]})),
  'sandBurial': ('Sand Burial', 5,
   'Sand Burial (Virgo ninjutsu, Elemental 22, single target in the Zone of Awareness, Root 2 rounds STR DC 13, 2x poise damage: the caster commands the sand round its opponent to envelop and crush it): from the guard the fighter makes the seal at the chin and sinks, sand grains lifting off the floor round its feet and a sandy aura rising; it sweeps both open palms low and forward over the ground and sand streams away along the floor toward the target; then it lifts the near hand palm up, drawing the sand up round the foe, and clenches it into a fist, squeezing, arm trembling, as the sand closes and crushes; it holds the squeeze, then drops back into the guard. On the target (the testbed plays sandBuried on it from the active frame; v2, Christopher 2026-10-28): sand heaps up round its legs and climbs to its neck, pinning its arms, and the column squeezes it, looping, until the Root ends, when it breaks free (sandBreakFree).', [
      g(),
@@ -1079,7 +1131,7 @@ CLIPS = {
   [None, 'squint', 'squint', 'squint', 'squint', 'squint', 'squint', 'squint', None, None],
   [0, 1, 1, 2, 2, 2, 1, 1, 0, 0],
   dict(fps=10, auraColors=('#3a2f40', '#7fe3d0'), rm='E: +1 into the point, -1 settling back',
-       extra={'targetState': {'rule': 'Christopher 2026-10-27: every genjutsu marks its target; on the active frame the target starts genjutsuAfflicted (earth colours) and keeps it until the Psychosomatic ends', 'state': 'genjutsuAfflicted', 'element': 'earth'},
+       extra={'targetState': {'rule': 'Phantom Plague (Christopher 2026-10-28: the target needs an animation for the duration): on the active frame the target starts phantomHaunted on loop in place of its idle and keeps it until the Psychosomatic ends; the genjutsu mark (genjutsuAfflicted halo, aura and eye glow, earth colours) is drawn over it as on any other state', 'state': 'phantomHaunted', 'element': 'earth', 'mark': 'genjutsuAfflicted'},
               'summon': {'rule': 'Phantom Plague: while the Psychosomatic lasts the testbed draws the phantom (pattern wraith, palette X/x/C, about 70% opacity, bobbing 1 px) hovering just behind the target and following it every move; it stays visible on a target in stealth (ignores stealth, drawn only for the caster and the victim); on each 4/tick it lunges 3 px and the target flinches', 'pattern': 'wraith'}},
        anchored={1: [('eyeC', 'eye', 0, 0)], 2: [('eyeCF', 'eye', 0, 0), ('shadowPool', 'feet', -2, -1)],
                  3: [('eyeCF', 'eye', 0, 0), ('shadowPool2', 'feet', -3, -1), ('wraithRise', 'feet', -13, -7, {'behind': True})],
@@ -1087,28 +1139,97 @@ CLIPS = {
                  5: [('eyeCF', 'eye', 0, 0), ('shadowPool', 'feet', 0, -1), ('wraith', 'feet', 4, -22, {'alpha': {'X': 230, 'x': 172, 'C': 255}})],
                  6: [('eyeC', 'eye', 0, 0), ('wraith', 'feet', 13, -23, {'alpha': {'X': 215, 'x': 161, 'C': 255}})],
                  7: [('wraith', 'feet', 20, -24, {'alpha': {'X': 175, 'x': 131, 'C': 215}})], 8: [('wraith', 'feet', 25, -24, {'alpha': {'X': 120, 'x': 90, 'C': 160}})]})),
+ 'phantomHaunted': ('Haunted by the Phantom', 0,
+  'Haunted by the Phantom (target state of Phantom Plague; Psychosomatic 3 rounds 4/tick), v2 (Christopher 2026-10-28: the phantom circles the opponent before hitting): the victim hunches low and wary, forearms raised before its face, while the hunched shadow creature with teal eyes, part see-through, circles round it: from behind it drifts past the far side (fainter, behind the victim), round in front (turned to face it), back across the near side over the victim and round behind again; then it leans in over the victim\'s shoulder and rakes its clawed arm down past it, three teal claw marks flashing, the victim flinching forward, wincing, and it draws back behind (loops; the testbed lines the rake up with each 4/tick and draws the genjutsu mark over it).', [
+     g(an=band(-45, -140), af=band(-55, -150), bob=(2, 2, 3), lean=(0, 2), **LOW),
+     g(an=band(-45, -140), af=band(-55, -150), bob=(2, 2, 3), lean=(0, 2), **LOW),
+     g(an=band(-45, -140), af=band(-55, -150), bob=(2, 2, 2), lean=(0, 1), **LOW),
+     g(an=band(-45, -140), af=band(-55, -150), bob=(2, 2, 2), lean=(0, 1), **LOW),
+     g(an=band(-45, -140), af=band(-55, -150), bob=(2, 2, 3), lean=(0, 2), **LOW),
+     g(an=band(-45, -140), af=band(-55, -150), bob=(2, 2, 3), lean=(0, 2), **LOW),
+     g(an=band(-45, -140), af=band(-55, -150), bob=(2, 2, 2), lean=(0, 1), **LOW),
+     g(an=band(-45, -140), af=band(-55, -150), bob=(2, 2, 2), lean=(0, 1), **LOW),
+     g(an=band(-45, -140), af=band(-55, -150), bob=(2, 2, 3), lean=(0, 2), **LOW),
+     g(an=band(-60, -150), af=band(-65, -155), bob=(3, 3, 3), lean=(1, 5), root=(1, 0), **LOW),
+     g(an=band(-60, -150), af=band(-65, -155), bob=(3, 3, 3), lean=(1, 4), **LOW),
+     g(an=band(-45, -140), af=band(-55, -150), bob=(2, 2, 3), lean=(0, 2), root=(-1, 0), **LOW)],
+  ['squint'] * 9 + ['pain', 'pain', 'squint'],
+  None,
+  dict(fps=8, extra={'loop': True},
+       anchored={0: [('wraith', 'feet', -13, -22, {'behind': True, 'alpha': {'X': 180, 'x': 135, 'C': 255}})],
+                 1: [('wraith', 'feet', -8, -23, {'behind': True, 'alpha': {'X': 120, 'x': 90, 'C': 200}})],
+                 2: [('wraith', 'feet', 0, -24, {'behind': True, 'alpha': {'X': 120, 'x': 90, 'C': 200}})],
+                 3: [('wraithM', 'feet', 8, -24, {'behind': True, 'alpha': {'X': 120, 'x': 90, 'C': 200}})],
+                 4: [('wraithM', 'feet', 14, -23, {'behind': True, 'alpha': {'X': 180, 'x': 135, 'C': 255}})],
+                 5: [('wraithM', 'feet', 9, -22, {'alpha': {'X': 150, 'x': 110, 'C': 255}})],
+                 6: [('wraith', 'feet', 1, -22, {'alpha': {'X': 150, 'x': 110, 'C': 255}})],
+                 7: [('wraith', 'feet', -7, -23, {'alpha': {'X': 150, 'x': 110, 'C': 255}})],
+                 8: [('wraith', 'feet', -12, -24, {'behind': True, 'alpha': {'X': 180, 'x': 135, 'C': 255}})],
+                 9: [('wraith', 'feet', -7, -24, {'alpha': {'X': 160, 'x': 120, 'C': 255}}), ('clawMark', 'head', 3, 12)],
+                 10: [('wraith', 'feet', -9, -23, {'behind': True, 'alpha': {'X': 180, 'x': 135, 'C': 255}}), ('clawMark2', 'head', 3, 14)],
+                 11: [('wraith', 'feet', -12, -22, {'behind': True, 'alpha': {'X': 180, 'x': 135, 'C': 255}})]})),
  'coffinSyndrome': ('Coffin Syndrome', 4,
-  'Coffin Syndrome (Virgo genjutsu, mental debuff: the caster projects images of being buried alive on its opponent until panic scrambles its mind; Confusion 1 round, STR save DC 13; range Zone of Awareness): from the guard the fighter raises the near hand palm down in front of its chest, eyes kindling crystal teal, and an illusory coffin stands up out of the floor in front of it, a sand-filled box outlined in teal; then the fighter sinks and presses the palm slowly down, and the coffin topples and slams flat into the floor, sand pouring; heavy dome-shaped waves of sand bear down toward the target, each wider; the glow dies and the hand comes back up into the guard (the target takes genjutsuAfflicted in earth colours).', [
+  'Coffin Syndrome (Virgo genjutsu, mental debuff: the caster projects images of being buried alive on its opponent until panic scrambles its mind; Confusion 1 round, STR save DC 13; range Zone of Awareness), v2 (Christopher 2026-10-28: an actual coffin rises up behind the target and encloses it, with a break-out animation): from the guard the fighter raises the near hand palm up before its chest, eyes kindling crystal teal, and slowly lifts it, summoning the coffin up out of the floor behind the target; then it turns the hand over and snaps it shut into a fist, slamming the lid closed on the target; it holds the fist, sand motes drifting off it, then the glow dies and it returns to the guard. The target plays coffinEntombed from the active frame (the coffin rises behind it, the lid swings shut over it, it pounds on the lid inside) until the Confusion ends, then coffinBreakOut once; the genjutsu mark (earth colours) is drawn over both.', [
      g(),
      g(an=band(-60, -100, fistKind='palm'), bob=(1, 1, 1), lean=(0, 0)),
-     g(an=band(-85, -120, fistKind='palm'), bob=(1, 1, 1), lean=(0, -1)),
-     g(an=band(-85, -120, fistKind='palm'), bob=(1, 1, 1), lean=(0, -1)),
-     g(an=band(-50, -40, fistKind='palm'), af=band(-25, -80), bob=(3, 3, 3), lean=(0, 3), **LOW),
-     g(an=band(-45, -35, fistKind='palm'), af=band(-25, -80), bob=(3, 3, 3), lean=(0, 3), **LOW),
-     g(an=band(-45, -35, fistKind='palm'), af=band(-25, -80), bob=(3, 3, 3), lean=(0, 3), **LOW),
-     g(an=band(-45, -35, fistKind='palm'), af=band(-25, -80), bob=(2, 2, 2), lean=(0, 2), **LOW),
-     g(an=band(-50, -120), af=band(-35, -105), bob=(1, 1, 2), lean=(0, 2)),
+     g(an=band(-70, -110, fistKind='palm'), bob=(1, 1, 1), lean=(0, -1)),
+     g(an=band(-90, -135, fistKind='palm'), bob=(1, 1, 1), lean=(0, -1)),
+     g(an=band(-110, -155, fistKind='palm'), bob=(0, 0, 1), lean=(0, -2)),
+     g(an=band(-110, -155, fistKind='palm'), bob=(0, 0, 1), lean=(0, -2)),
+     g(an=band(-92, -92), bob=(1, 1, 1), lean=(1, 3), root=(1, 0)),     # the hand snaps shut: the lid slams
+     g(an=band(-92, -92), bob=(1, 1, 1), lean=(1, 3)),
+     g(an=band(-92, -92), bob=(1, 1, 1), lean=(1, 2)),
+     g(an=band(-50, -120), af=band(-35, -105), bob=(1, 1, 2), lean=(0, 2), root=(-1, 0)),
      g()],
-  [None, 'squint', 'squint', 'squint', 'strain', 'strain', 'squint', 'squint', None, None],
-  [0, 1, 1, 2, 2, 2, 2, 1, 0, 0],
+  [None, 'squint', 'squint', 'squint', 'squint', 'squint', 'strain', 'strain', 'squint', None, None],
+  [0, 1, 1, 1, 2, 2, 2, 2, 1, 0, 0],
   dict(fps=10, auraColors=('#e6c27a', '#7fe3d0'),
-       extra={'targetState': {'rule': 'Christopher 2026-10-27: every genjutsu marks its target; on the active frame the target starts genjutsuAfflicted (earth colours) and keeps it until the Confusion ends', 'state': 'genjutsuAfflicted', 'element': 'earth'}},
-       anchored={1: [('eyeC', 'eye', 0, 0)], 2: [('eyeCF', 'eye', 0, 0), ('coffinUp', 'feet', 18, -10, {'alpha': {'C': 200, 's': 120, 'W': 160}})],
-                 3: [('eyeCF', 'eye', 0, 0), ('coffinUp', 'feet', 18, -10)],
-                 4: [('eyeCF', 'eye', 0, 0), ('coffinFlat', 'feet', 19, -3), ('sandPuff', 'feet', 13, -2), ('sandPuff', 'feet', 25, -2), ('cs1', 'eye', 8, 4)],
-                 5: [('eyeCF', 'eye', 0, 0), ('coffinFlat', 'feet', 19, -3), ('grains', 'feet', 19, -7), ('cs2', 'eye', 12, 6), ('cs1', 'eye', 8, 4)],
-                 6: [('eyeC', 'eye', 0, 0), ('coffinFlat', 'feet', 19, -3, {'alpha': {'C': 160, 's': 110, 'W': 130}}), ('cs3', 'eye', 16, 8), ('cs2', 'eye', 12, 6)],
-                 7: [('coffinFlat', 'feet', 19, -3, {'alpha': {'C': 90, 's': 60, 'W': 70}}), ('cs3d', 'eye', 19, 9), ('cs3', 'eye', 16, 8)]})),
+       extra={'targetState': {'rule': 'Coffin Syndrome v2 (Christopher 2026-10-28): from the active frame (the caster\'s palm starts to lift, frame 2) the target plays coffinEntombed: intro frames 0-5 once (the coffin rises behind it, the lid closes on frame 5, lined up with the caster\'s fist on frame 6), then frames 6-9 on loop until the Confusion ends; then coffinBreakOut once, back to its guard. The genjutsu mark (genjutsuAfflicted halo, aura, eye glow, earth colours) is drawn over it throughout', 'state': 'coffinEntombed', 'loopFrom': 6, 'element': 'earth', 'mark': 'genjutsuAfflicted', 'breakFree': 'coffinBreakOut'}},
+       anchored={1: [('eyeC', 'eye', 0, 0)], 2: [('eyeCF', 'eye', 0, 0), ('grains', 'hand', 0, -4)], 3: [('eyeCF', 'eye', 0, 0), ('sandRise', 'hand', 0, -5)],
+                 4: [('eyeCF', 'eye', 0, 0), ('sandRise', 'hand', 0, -6), ('grains', 'hand', 3, -9)], 5: [('eyeCF', 'eye', 0, 0), ('sandRise', 'hand', 1, -6)],
+                 6: [('eyeCF', 'eye', 0, 0), ('sandPuff', 'hand', 2, 0), ('vRing', 'hand', 2, 0)], 7: [('eyeCF', 'eye', 0, 0), ('sandTrk', 'hand', 0, 5)],
+                 8: [('eyeC', 'eye', 0, 0), ('grains', 'hand', 0, 6, {'alpha': {'S': 140, 's': 130, 'Z': 150}})]})),
+ 'coffinEntombed': ('Entombed', 0,
+  'Entombed (target state of Coffin Syndrome v2, Confusion 1 round): an illusory coffin, a box of packed sand outlined in crystal teal, rises up out of the floor close behind the fighter, sand pouring off it, and stands upright over it; the lid swings round from the hinge at its back edge and slams shut over the fighter in front, a puff of sand and a teal ring bursting off it; inside, the fighter (seen faintly through the illusion) pounds on the lid with both palms, panicking, and the coffin shudders with each blow, sand trickling from its seams (loops from frame 6 until the Confusion ends; then coffinBreakOut).', [
+     g(),
+     g(bob=(1, 1, 2), lean=(-1, -2)),
+     g(an=band(-60, -140), af=band(-70, -150), bob=(1, 1, 1), lean=(-1, -3)),
+     g(an=band(-60, -140), af=band(-70, -150), bob=(1, 1, 1), lean=(-1, -3)),
+     g(an=band(-45, -150, fistKind='palm'), af=band(-50, -155, fistKind='palm'), bob=(1, 1, 1), lean=(0, 0)),
+     g(an=band(-45, -150, fistKind='palm'), af=band(-50, -155, fistKind='palm'), bob=(1, 1, 1), lean=(0, 0)),
+     g(an=band(-55, -140, fistKind='palm'), af=band(-45, -150, fistKind='palm'), bob=(1, 1, 1), lean=(1, 2)),
+     g(an=band(-45, -150, fistKind='palm'), af=band(-55, -140, fistKind='palm'), bob=(1, 1, 2), lean=(0, 0)),
+     g(an=band(-55, -140, fistKind='palm'), af=band(-45, -150, fistKind='palm'), bob=(1, 1, 1), lean=(1, 2)),
+     g(an=band(-45, -150, fistKind='palm'), af=band(-55, -140, fistKind='palm'), bob=(1, 1, 2), lean=(0, 0))],
+  [None, 'squint', 'pain', 'pain', 'pain', 'pain', 'pain', 'pain', 'pain', 'pain'],
+  None,
+  dict(fps=10, extra={'loop': True, 'loopFrom': 6},
+       anchored={0: [('cofBack', 'feet', -2, 24, {'behind': True}), ('sandPuff', 'feet', -10, -1), ('sandPuff', 'feet', 8, -1)],
+                 1: [('cofBack', 'feet', -2, 4, {'behind': True}), ('grains', 'feet', -14, -8), ('sandTrk', 'feet', 9, -10)],
+                 2: [('cofBack', 'feet', -2, -27, {'behind': True}), ('sandTrk', 'feet', -14, -16), ('grains', 'feet', 12, -20)],
+                 3: [('cofBack', 'feet', -2, -27, {'behind': True}), ('cofLid1', 'feet', -13, -27)],
+                 4: [('cofBack', 'feet', -2, -27, {'behind': True}), ('cofLid2', 'feet', -7, -27, {'alpha': {'s': 210, 'S': 210, 'Z': 220}})],
+                 5: [('cofBack', 'feet', -2, -27, {'behind': True}), ('cofLid', 'feet', -2, -27, {'alpha': {'s': 190, 'S': 190, 'Z': 200}}), ('sandPuff', 'feet', 13, -40), ('sandPuff', 'feet', -14, -12), ('vRing2', 'feet', 0, -28, {'alpha': {'c': 200, 'C': 180}})],
+                 **{6 + k: [('cofBack', 'feet', -2 + d, -27, {'behind': True}), ('cofLid', 'feet', -2 + d, -27, {'alpha': {'s': 185, 'S': 185, 'Z': 195}}), ('sandTrk', 'feet', 12 + d, -30 + 6 * k)] + ([('grains', 'feet', -13, -44)] if k % 2 == 0 else [])
+                    for k, d in enumerate((1, 0, -1, 0))}})),
+ 'coffinBreakOut': ('Coffin Break Out', 2,
+  'Coffin Break Out (target state of Coffin Syndrome v2: plays once when the Confusion ends): inside the shut coffin the fighter strains, and cracks split the lid, spreading; then it bursts the lid open with both arms thrown out and a roar, and the coffin breaks apart into teal-edged planks and clumps of sand flying outward, the back of it crumbling into the floor; the pieces fade as they fall and the fighter shakes itself back into the guard.', [
+     g(an=band(-45, -150, fistKind='palm'), af=band(-55, -140, fistKind='palm'), bob=(1, 1, 1), lean=(0, 1)),
+     g(an=band(-45, -150, fistKind='palm'), af=band(-55, -140, fistKind='palm'), bob=(2, 2, 2), lean=(0, 2), **LOW),
+     g(an=band(-135, -175), af=band(120, 175), bob=(0, 0, 0), lean=(0, -1)),
+     g(an=band(-130, -170), af=band(115, 170), bob=(0, 0, 0), lean=(0, -1)),
+     g(an=band(-80, -150), af=band(60, 120), bob=(1, 1, 1), lean=(0, 0)),
+     g(an=band(-50, -120), af=band(-35, -105), bob=(1, 1, 2), lean=(0, 1)),
+     g()],
+  ['pain', 'strain', 'roar', 'roar', 'squint', None, None],
+  [0, 1, 2, 2, 1, 0, 0],
+  dict(fps=10, auraColors=('#e6c27a', '#7fe3d0'),
+       anchored={0: [('cofBack', 'feet', -2, -27, {'behind': True}), ('cofLidCrack', 'feet', -2, -27, {'alpha': {'s': 190, 'S': 190, 'Z': 210}})],
+                 1: [('cofBack', 'feet', -2, -27, {'behind': True}), ('cofLidCrack2', 'feet', -2, -27, {'alpha': {'s': 190, 'S': 190, 'Z': 210}}), ('grains', 'feet', 12, -36)],
+                 2: [('cofBackLow', 'feet', -2, -20, {'behind': True}), ('plank', 'feet', 15, -40), ('plankV', 'feet', -16, -34), ('plank', 'feet', 13, -14), ('sandBurst', 'feet', 0, -30, {'alpha': {'S': 200, 's': 190, 'Z': 210}}), ('sandPuff', 'feet', -14, -12)],
+                 3: [('cofBackLow2', 'feet', -2, -12, {'behind': True}), ('plank', 'feet', 21, -36), ('plankV', 'feet', -22, -28), ('plank', 'feet', 19, -8), ('sandCloud', 'feet', 0, -28, {'alpha': {'S': 150, 's': 140, 'Z': 160}})],
+                 4: [('mound6', 'feet', -2, -3), ('plank', 'feet', 24, -26, {'alpha': {'C': 150, 'c': 150, 's': 120, 'S': 120}}), ('plankV', 'feet', -25, -16, {'alpha': {'C': 150, 'c': 150, 's': 120, 'S': 120}}), ('sandCloud2', 'feet', 0, -24, {'alpha': {'S': 110, 's': 100, 'Z': 120}})],
+                 5: [('grains', 'feet', -8, -4, {'alpha': {'S': 120, 's': 110, 'Z': 130}}), ('grains', 'feet', 10, -5, {'alpha': {'S': 120, 's': 110, 'Z': 130}})]})),
  'flowDodge': ('Flow Dodge', 3,
   'Flow Dodge (Sagittarius taijutsu stance buff: the fighter enters a dance-like trance and begins to swing and sway to its own rhythm): from the guard the fighter shakes its arms loose and lets the guard drop low and easy, eyes half closed, catching a beat; then it sways to its own rhythm: rocking back and forward on its feet and dipping on the knees, shoulders rolling, the loose hands swinging opposite to the hips, a flickering fire aura breathing round it on the beat with a few black and purple wisps rising off the shoulders; on the last beat it snaps its eyes open and settles into a loose, low guard (the testbed keeps the stance).', [
      g(),
@@ -1171,6 +1292,7 @@ def spec(state):
     U.spec(state)
     x = CLIPS[state][6]; s = load(D + state + '.json')
     for k, v in (x.get('extra') or {}).items(): s[k] = v
+    if x.get('farLayer'): s['arms']['farLayer'] = True   # the far arm in its own far-arm sheet (Flowing Sand Parry v2: its hand is tracked for the sand trail)
     if x.get('shapes'): s['expressions']['shapes'].update(copy.deepcopy(x['shapes']))
     if x.get('front') or {'roar', 'strain'} & set(CLIPS[state][4]):   # roar/strain faces (S shapes used by the turn, E for all)
         s['expressions']['shapes']['roar'] = {'E': copy.deepcopy(s['expressions']['shapes']['pain']['E']),
@@ -1226,6 +1348,7 @@ def fx(state):
         f_ = D + state + '/fx.png'
         if not os.path.exists(f_) or ('fx' not in load(D + state + '.json') and not CLIPS[state][5] and not x.get('keepFx')): Image.new('RGBA', Image.open(D + state + '/body.png').size).save(f_)   # clean start unless the aura was just drawn (keepFx: keep the arm swirl / impact drawn above; Sun Palm's approved render predates it)
         anchored(state, x['anchored'])
+        if x.get('trails'): trails(state, x['trails'])
         if x.get('front'):   # turned frames: every row shows the E row's fx (drawn round the same S figure)
             fx_ = Image.open(f_).convert('RGBA'); dirs_ = load(D + state + '.json')['directions']; re_ = dirs_.index('E')
             for k in x['front']:
@@ -1627,6 +1750,46 @@ def meteor(state, frames):
                     X = hx + sg * rnd.randint(-6, 30); Y_ = rnd.randint(2, 20 + 10 * n)
                     if 0 <= X < 64: px[k * 64 + X, r * 64 + Y_] = (O, R_, Y)[i % 3]
     fx.save(f); print(state, 'meteor', list(frames))
+
+def trails(state, t):   # Flowing Sand Parry v2: streams of sand following each open hand along its circle; t = {'near': frames, 'far': frames, 'len': n}
+    """the hand of each arm (the arm pixel farthest from the chest) is found on every frame; on the listed frames a sand stream is
+    drawn back along the hand's path through the last len frames (bent outward from the chest, so the stream follows the circle)"""
+    from PIL import Image
+    import random
+    d = D + state + '/'; f = d + 'fx.png'; dirs = load(D + state + '.json')['directions']; n = load(D + state + '.json')['frames']
+    body = Image.open(d + 'body.png').convert('RGBA').load(); fx = Image.open(f).convert('RGBA'); px = fx.load()
+    lay = {'near': Image.open(d + 'arms.png').convert('RGBA').load(), 'far': Image.open(d + 'far-arm.png').convert('RGBA').load()}
+    hexc = lambda c, a=255: tuple(int(c[i:i + 2], 16) for i in (1, 3, 5)) + (a,)
+    for r, fd in enumerate(dirs):
+        if fd not in ('E', 'W'): continue
+        for side in ('near', 'far'):
+            tips = []
+            for k in range(n):
+                opq = [(x, y) for y in range(64) for x in range(64) if body[k * 64 + x, r * 64 + y][3]]
+                top = min(y for _, y in opq); hx = sum(x for x, y in opq if y <= top + 9) / max(1, sum(1 for x, y in opq if y <= top + 9))
+                chest = (hx, top + 17); L = lay[side]
+                arm = [(x, y) for y in range(64) for x in range(64) if L[k * 64 + x, r * 64 + y][3]]
+                tips.append((max(arm, key=lambda q: (q[0] - chest[0]) ** 2 + (q[1] - chest[1]) ** 2) if arm else None, chest))
+            rnd = random.Random(r * 7 + (side == 'far'))
+            for k in t[side]:
+                pts = [tips[q] for q in range(max(0, k - t['len']), k + 1) if tips[q][0]]
+                for i in range(len(pts) - 1):
+                    (x0, y0), c0 = pts[i]; (x1, y1), _ = pts[i + 1]; age = len(pts) - 1 - i   # 1 = the newest stretch
+                    a0 = math.atan2(y0 - c0[1], x0 - c0[0]); a1 = math.atan2(y1 - c0[1], x1 - c0[0])
+                    if a1 - a0 > math.pi: a1 -= 2 * math.pi
+                    if a0 - a1 > math.pi: a1 += 2 * math.pi
+                    r0 = math.hypot(x0 - c0[0], y0 - c0[1]); r1 = math.hypot(x1 - c0[0], y1 - c0[1])
+                    for u in range(13):
+                        q = u / 12; a = a0 + (a1 - a0) * q; rr = r0 + (r1 - r0) * q
+                        X = round(c0[0] + rr * math.cos(a)); Y = round(c0[1] + rr * math.sin(a))
+                        if not (0 <= X < 64 and 0 <= Y < 64) or rnd.random() < 0.15 * age: continue
+                        if any(L_[k * 64 + X, r * 64 + Y][3] for L_ in (body, lay['near'], lay['far'])) and side == 'far': continue   # the far arm's stream passes behind the body
+                        ch = 'Z' if rnd.random() < 0.15 else 'S' if age == 1 else 's'
+                        px[k * 64 + X, r * 64 + Y] = hexc(NPAL[ch], 255 if age == 1 else 200 if age == 2 else 150)
+                        if age < 3:   # the newer stretches two pixels thick, the second one outward from the chest
+                            X2 = round(c0[0] + (rr + 1) * math.cos(a)); Y2 = round(c0[1] + (rr + 1) * math.sin(a))
+                            if (X2, Y2) != (X, Y) and 0 <= X2 < 64 and 0 <= Y2 < 64 and not (side == 'far' and any(L_[k * 64 + X2, r * 64 + Y2][3] for L_ in (body, lay['near'], lay['far']))): px[k * 64 + X2, r * 64 + Y2] = hexc(NPAL['s'], 210 if age == 1 else 160)
+    fx.save(f); print(state, 'trails')
 
 def anchored(state, frames):
     """Splash fx placed on the fighter itself, so they ride every pose and root step: frames = {frame: [(pattern, anchor,

@@ -101,12 +101,17 @@ CLIPS = {
     fg(root=(-1, 0))]),
  # Blade Pass (Hubud-Lubud): the live hand taps the foe's arm up, the knife hand passes over it while the live hand
  # traps it down, then the blade cuts down across the trapped arm
- 'bladePass': ('Blade Pass', 3, [46, 22, 14, 14], 'light', 12, 'tantoForwardGuard', [
+ # v2 (user 2026-10-28: asked what Blade Pass shows, wanted it clearer): one beat per action. Tap: the live palm
+ # shoots out and up under the foe's arm while the knife hand chambers low. Trap: the live palm presses the arm down
+ # as the knife hand rises over the top. Pass: the knife is high over the trapped arm. Cut: a step in and the blade
+ # cuts down across it (smear), held, then back to the forward guard
+ 'bladePass': ('Blade Pass', 4, [46, 24, 14, 14], 'light', 12, 'tantoForwardGuard', [
     fg(),
-    fg(grip=(40, 30), angle=30, far=(46, 25), fk=P, lean=(0, 3)),
-    fg(grip=(44, 23), angle=62, far=(46, 29), fk=P, lean=(1, 3)),
-    fg(grip=(50, 30), angle=-16, far=(45, 31), fk=P, lean=(2, 5), root=(1, 0), lf='step-lead', trail=arc(31, -18, R=28)),
-    fg(grip=(50, 30), angle=-16, far=(41, 27), lean=(2, 5), lf='step-lead'),
+    fg(grip=(39, 33), angle=10, far=(50, 21), fk=P, lean=(1, 3)),
+    fg(grip=(42, 24), angle=45, far=(48, 29), fk=P, lean=(1, 3)),
+    fg(grip=(46, 18), angle=70, far=(47, 31), fk=P, lean=(1, 4)),
+    fg(grip=(51, 31), angle=-24, far=(46, 32), fk=P, lean=(2, 5), root=(1, 0), lf='step-lead', trail=arc(64, -26, R=28)),
+    fg(grip=(51, 31), angle=-24, far=(42, 28), lean=(2, 5), lf='step-lead'),
     fg(grip=(46, 31), angle=8, root=(-1, 0)),
     fg()]),
  'bladePassRev': ('Blade Pass', 3, [46, 22, 14, 14], 'light', 12, 'tantoReverseGuard', [
@@ -147,7 +152,7 @@ INTENT = {
  'rgd': 'Tantojutsu Reverse Grip Stance idle (defence, counters), user 2026-10-27: a lower stance with the weight back; the knife hand held high in front of the chest in the reverse (ice-pick) grip, the blade pointing straight down out of the little-finger side of the fist, clear of the forearm (user 2026-10-27); the live fist up by the chin; a slow breathing bob.',
  'thrustCut': 'Tantojutsu Thrust Cut (Tsuki-Uchi), user 2026-10-27: from the forward grip the knife hand chambers at the hip, a lunge drives the point straight out (thrust lines), then the edge is drawn down and back through the target (draw-cut smear) as the feet recover to the forward guard.',
  'defang': 'Tantojutsu Defang (Defang the Snake), user 2026-10-27: from the forward grip the point dips, then a short rising cut with a half step meets the attacking wrist (white spark at the tip), follow-through and back to the forward guard.',
- 'bladePass': 'Tantojutsu Blade Pass (Hubud-Lubud) from the forward grip, user 2026-10-27: the live hand taps the foe\'s arm up, the knife hand passes over it while the live hand traps it down, then the blade cuts down across the trapped arm (smear), back to the forward guard.',
+ 'bladePass': 'Tantojutsu Blade Pass (Hubud-Lubud) from the forward grip, user 2026-10-27, v2 2026-10-28 (one clear beat per action): tap, the live palm shoots out and up under the foe\'s arm while the knife hand chambers low; trap, the live palm presses the arm down as the knife hand rises; pass, the knife is high over the trapped arm; cut, a step in and the blade cuts down across it (smear), held, then back to the forward guard.',
  'bladePassRev': 'Tantojutsu Blade Pass (Hubud-Lubud) from the reverse grip, user 2026-10-27: the live hand taps the foe\'s arm up, the knife hand passes over it while the live hand traps it down, then a hammer-fist cut drives the blade below the fist down across the trapped arm (smear), back to the reverse guard.',
  'scissors': 'Tantojutsu Scissors (Gunting, Counter), user 2026-10-27, v6 2026-10-28 (must read clearly apart from Blade Pass, which passes high and cuts down): planted, the weight rocks back while the knife fist drops to the hip and the live palm checks forward; the reverse-grip blade then rises up and in to meet the palm at one point, the two hands closing like scissors on the attacking arm (white spark), and a return cut draws the blade back across toward the body before the reverse guard.',
  'elbowHook': 'Tantojutsu Elbow Hook, user 2026-10-27: from the reverse grip the knife forearm cross-blocks high, the live hand reaches over and cups the foe\'s elbow, then pulls it in to the hip as the body steps forward; the ruling of 2026-10-27 takes the pair into the clinch after the clip (not Prone).',
@@ -290,9 +295,14 @@ def sn(state):
         S['R']['angle'][k], S['R']['elbow'][k], S['R']['scale'][k], S['R']['fist'][k] = a, {'at': 7, 'angle': e}, sc, 'front'
         fx_, fy = f['far']
         lx = round(38 - max(0, min(6, (fx_ - sx) * 0.4)))
-        la, le, ls = ik_s(lx, fy, piv=(38, 24), out=1)
         palm = f['af'].get('fistKind') == P
-        S['L']['angle'][k], S['L']['elbow'][k], S['L']['scale'][k], S['L']['fist'][k] = la, {'at': 7, 'angle': le}, ls, 'palm' if palm else 'up'
+        if state not in REV_STATES and not palm and fx_ - sx < 10:
+            # user 2026-10-28 (Defang S/N v1: the arm looked weird): a live hand that is not reaching keeps the approved
+            # oneHandGuard S arm, raised straight up from the shoulder; a short IK arm folds into a blob
+            la = 0
+        else:
+            la, le, ls = ik_s(lx, fy, piv=(38, 24), out=1)
+            S['L']['angle'][k], S['L']['elbow'][k], S['L']['scale'][k], S['L']['fist'][k] = la, {'at': 7, 'angle': le}, ls, 'palm' if palm else 'up'
         N['R']['angle'][k] = round(min(135, max(-8, -a)), 1); N['L']['angle'][k] = round(max(-135, min(12, -la)), 1)
         t = math.radians(p['angle']); sn_ = math.sin(t)
         blade = {'angle': 90 if sn_ >= 0 else -90, 'scale': round(max(abs(sn_), 0.2), 3)}

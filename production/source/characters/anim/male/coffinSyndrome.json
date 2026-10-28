@@ -2,8 +2,8 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "coffinSyndrome",
-  "status": "CANDIDATE 2026-10-27 (E/W; W mirrors E; S/N to author after approval)",
-  "frames": 10,
+  "status": "E/W approved by user 2026-10-28 (v2 caster: palm lifts to raise the coffin behind the target, fist snaps the lid shut, 8baa93ab; target plays coffinEntombed then coffinBreakOut; W mirrors E); S/N to author",
+  "frames": 11,
   "fps": 10,
   "sourceDirection": "E",
   "directions": [
@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Coffin Syndrome (Virgo genjutsu, mental debuff: the caster projects images of being buried alive on its opponent until panic scrambles its mind; Confusion 1 round, STR save DC 13; range Zone of Awareness): from the guard the fighter raises the near hand palm down in front of its chest, eyes kindling crystal teal, and an illusory coffin stands up out of the floor in front of it, a sand-filled box outlined in teal; then the fighter sinks and presses the palm slowly down, and the coffin topples and slams flat into the floor, sand pouring; heavy dome-shaped waves of sand bear down toward the target, each wider; the glow dies and the hand comes back up into the guard (the target takes genjutsuAfflicted in earth colours).",
+  "intent": "Coffin Syndrome (Virgo genjutsu, mental debuff: the caster projects images of being buried alive on its opponent until panic scrambles its mind; Confusion 1 round, STR save DC 13; range Zone of Awareness), v2 (Christopher 2026-10-28: an actual coffin rises up behind the target and encloses it, with a break-out animation): from the guard the fighter raises the near hand palm up before its chest, eyes kindling crystal teal, and slowly lifts it, summoning the coffin up out of the floor behind the target; then it turns the hand over and snaps it shut into a fist, slamming the lid closed on the target; it holds the fist, sand motes drifting off it, then the glow dies and it returns to the guard. The target plays coffinEntombed from the active frame (the coffin rises behind it, the lid swings shut over it, it pounds on the lid inside) until the Confusion ends, then coffinBreakOut once; the genjutsu mark (earth colours) is drawn over both.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -109,10 +109,11 @@
       1,
       1,
       1,
-      3,
-      3,
-      3,
-      2,
+      0,
+      0,
+      1,
+      1,
+      1,
       1,
       1
     ],
@@ -121,10 +122,11 @@
       1,
       1,
       1,
-      3,
-      3,
-      3,
-      2,
+      0,
+      0,
+      1,
+      1,
+      1,
       1,
       1
     ],
@@ -133,10 +135,11 @@
       1,
       1,
       1,
-      3,
-      3,
-      3,
-      2,
+      1,
+      1,
+      1,
+      1,
+      1,
       2,
       2
     ]
@@ -152,8 +155,9 @@
         0,
         0,
         0,
-        0,
-        0,
+        1,
+        1,
+        1,
         0,
         0
       ],
@@ -162,7 +166,8 @@
         0,
         -1,
         -1,
-        3,
+        -2,
+        -2,
         3,
         3,
         2,
@@ -199,7 +204,7 @@
         0
       ],
       [
-        0,
+        1,
         0
       ],
       [
@@ -208,6 +213,10 @@
       ],
       [
         0,
+        0
+      ],
+      [
+        -1,
         0
       ],
       [
@@ -241,7 +250,7 @@
         0
       ],
       [
-        0,
+        -1,
         0
       ],
       [
@@ -250,6 +259,10 @@
       ],
       [
         0,
+        0
+      ],
+      [
+        1,
         0
       ],
       [
@@ -1127,6 +1140,30 @@
         "footX": 20,
         "wrapRow": 56,
         "foot": "flat"
+      },
+      {
+        "name": "ss-kneel-lead",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 50,
+        "kneeX": 41,
+        "kneeRow": 49,
+        "footX": 42,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "ss-kneel-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 50,
+        "kneeX": 29,
+        "kneeRow": 55,
+        "ankle": [
+          20,
+          55
+        ],
+        "foot": "toe30k"
       }
     ],
     "near": [
@@ -1134,10 +1171,11 @@
       1,
       1,
       1,
-      3,
-      3,
-      3,
-      3,
+      1,
+      1,
+      1,
+      1,
+      1,
       1,
       1
     ],
@@ -1146,10 +1184,11 @@
       0,
       0,
       0,
-      2,
-      2,
-      2,
-      2,
+      0,
+      0,
+      0,
+      0,
+      0,
       0,
       0
     ]
@@ -1189,57 +1228,63 @@
       },
       {
         "construction": "band",
-        "angle": -85,
+        "angle": -70,
         "elbow": {
           "at": 8,
-          "angle": -120
+          "angle": -110
         },
         "fistKind": "palm"
       },
       {
         "construction": "band",
-        "angle": -85,
+        "angle": -90,
         "elbow": {
           "at": 8,
-          "angle": -120
+          "angle": -135
         },
         "fistKind": "palm"
       },
       {
         "construction": "band",
-        "angle": -50,
+        "angle": -110,
         "elbow": {
           "at": 8,
-          "angle": -40
+          "angle": -155
         },
         "fistKind": "palm"
       },
       {
         "construction": "band",
-        "angle": -45,
+        "angle": -110,
         "elbow": {
           "at": 8,
-          "angle": -35
+          "angle": -155
         },
         "fistKind": "palm"
       },
       {
         "construction": "band",
-        "angle": -45,
+        "angle": -92,
         "elbow": {
           "at": 8,
-          "angle": -35
-        },
-        "fistKind": "palm"
+          "angle": -92
+        }
       },
       {
         "construction": "band",
-        "angle": -45,
+        "angle": -92,
         "elbow": {
           "at": 8,
-          "angle": -35
-        },
-        "fistKind": "palm"
+          "angle": -92
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -92,
+        "elbow": {
+          "at": 8,
+          "angle": -92
+        }
       },
       {
         "construction": "band",
@@ -1293,34 +1338,42 @@
       },
       {
         "construction": "band",
-        "angle": -25,
+        "angle": -45,
         "elbow": {
           "at": 8,
-          "angle": -80
+          "angle": 222
         }
       },
       {
         "construction": "band",
-        "angle": -25,
+        "angle": -45,
         "elbow": {
           "at": 8,
-          "angle": -80
+          "angle": 222
         }
       },
       {
         "construction": "band",
-        "angle": -25,
+        "angle": -45,
         "elbow": {
           "at": 8,
-          "angle": -80
+          "angle": 222
         }
       },
       {
         "construction": "band",
-        "angle": -25,
+        "angle": -45,
         "elbow": {
           "at": 8,
-          "angle": -80
+          "angle": 222
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -45,
+        "elbow": {
+          "at": 8,
+          "angle": 222
         }
       },
       {
@@ -1502,6 +1555,7 @@
       "bandFollowsBody": true,
       "sway": {
         "E": [
+          -1,
           -1,
           -1,
           -1,
@@ -2169,7 +2223,8 @@
         6,
         7,
         8,
-        9
+        9,
+        10
       ],
       "fps": 10,
       "next": "guard",
@@ -2230,6 +2285,11 @@
         "frame": 9,
         "clip": "coffinSyndrome",
         "type": "recovery"
+      },
+      {
+        "frame": 10,
+        "clip": "coffinSyndrome",
+        "type": "recovery"
       }
     ],
     "W": [
@@ -2282,6 +2342,11 @@
       },
       {
         "frame": 9,
+        "clip": "coffinSyndrome",
+        "type": "recovery"
+      },
+      {
+        "frame": 10,
         "clip": "coffinSyndrome",
         "type": "recovery"
       }
@@ -2574,9 +2639,10 @@
         "squint",
         "squint",
         "squint",
-        "strain",
-        "strain",
         "squint",
+        "squint",
+        "strain",
+        "strain",
         "squint",
         null,
         null
@@ -2585,8 +2651,11 @@
     "intent": "eyes squeezed shut with the brow pulled down on the impact frames 0-2 (no mouth: user 2026-10-14), a squint on frame 3, open again from frame 4 (user 2026-10-14)"
   },
   "targetState": {
-    "rule": "Christopher 2026-10-27: every genjutsu marks its target; on the active frame the target starts genjutsuAfflicted (earth colours) and keeps it until the Confusion ends",
-    "state": "genjutsuAfflicted",
-    "element": "earth"
+    "rule": "Coffin Syndrome v2 (Christopher 2026-10-28): from the active frame (the caster's palm starts to lift, frame 2) the target plays coffinEntombed: intro frames 0-5 once (the coffin rises behind it, the lid closes on frame 5, lined up with the caster's fist on frame 6), then frames 6-9 on loop until the Confusion ends; then coffinBreakOut once, back to its guard. The genjutsu mark (genjutsuAfflicted halo, aura, eye glow, earth colours) is drawn over it throughout",
+    "state": "coffinEntombed",
+    "loopFrom": 6,
+    "element": "earth",
+    "mark": "genjutsuAfflicted",
+    "breakFree": "coffinBreakOut"
   }
 }

@@ -1191,20 +1191,5 @@
       }
     },
     "pass": false
-  },
-  "weapons": {
-    "frameSize": [
-      128,
-      128
-    ],
-    "origin": [
-      32,
-      32
-    ],
-    "item": "bow",
-    "layers": {
-      "top": "main-bow-top.png",
-      "behind": "main-bow-behind.png"
-    }
   }
 }

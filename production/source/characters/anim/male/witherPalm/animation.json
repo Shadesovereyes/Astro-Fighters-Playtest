@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-animation-output/v1",
   "body": "male",
   "state": "witherPalm",
-  "status": "CANDIDATE 2026-10-27 (E/W; W mirrors E; S/N to author after approval)",
+  "status": "E/W approved by user 2026-10-28 (v2 glowing palms, strike streaks, teal shock rings, dust plumes, teal aura, final burst, f45f621f; W mirrors E); S/N to author",
   "frames": 10,
   "fps": 12,
   "frameSize": [
