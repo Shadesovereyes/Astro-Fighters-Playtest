@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "kanaboGuard",
-  "status": "CANDIDATE 2026-10-28 (E/W; W mirrors E; S/N to author after approval)",
+  "status": "E/W approved by user 2026-10-28 14:08 (v1, 6d5ba34; W mirrors E); S/N to author",
   "frames": 4,
   "fps": 5,
   "sourceDirection": "E",
@@ -1203,7 +1203,7 @@
     {
       "slot": "main",
       "layer": "arms",
-      "status": "CANDIDATE 2026-10-28 (E/W; W mirrors E; S/N to author after approval)",
+      "status": "E/W approved by user 2026-10-28 14:08 (v1, 6d5ba34; W mirrors E); S/N to author",
       "rule": "per frame: grip = pixel at the centre of the near fist (body-frame coordinates; it follows the arm bob, 0, -1, 0, +1), angle = blade direction in degrees above the facing's horizontal, z = depth slot",
       "depthRule": "front: drawn over body and clothing, under the arms layer (the fists close over the hilt); behind: drawn under the body",
       "E": [
