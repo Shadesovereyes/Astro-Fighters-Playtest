@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "diamondCutter",
-  "status": "CANDIDATE 2026-10-27 (E/W; W mirrors E; S/N to author after approval)",
+  "status": "E/W approved by user 2026-10-29 (v1 knife hand chambered behind the head, crystal grows over hand and forearm, diagonal chop with slash and shards, 2ca22687; W mirrors E); S/N to author",
   "frames": 10,
   "fps": 10,
   "sourceDirection": "E",
