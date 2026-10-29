@@ -346,6 +346,49 @@ U.POSES += [kleg('as-lift', (34, 41), (39, 45), (37, 52), 'toe30k'), kleg('as-ch
             kleg('as-kick', (34, 41), (42, 44), (51, 45), 'pointFwd'), kleg('as-kick2', (34, 41), (42, 45), (52, 47), 'pointFwd'),     # the shin swung through level at the opponent's thigh, then driving through
             kleg('as-recoil', (34, 41), (39, 46), (35, 52), 'toe30k')]
 AS_SEG = {'as-lift': ((39, 45), (37, 52)), 'as-chamber': ((41, 38), (39, 46)), 'as-kick': ((42, 44), (51, 45)), 'as-kick2': ((42, 45), (52, 47)), 'as-recoil': ((39, 46), (35, 52))}   # E knee -> ankle of each kick pose (crystal sheath)
+def _spikes(w, h, n, seed, lean=0, widths=(3, 4, 5)):   # Capricorn Geode Blast: a cluster of n crystal spikes erupting from the floor, w wide, the tallest h high: each spike a pointed prism, glint c on its lit (left) face, body C, deep teal T on its shaded face and outline
+    import random
+    rnd = random.Random(seed); rows = [['.'] * w for _ in range(h)]
+    for i in range(n):
+        sw = rnd.choice(widths); sh = max(4, round(h * rnd.uniform(0.45, 1.0)) if i else h); x0 = round((w - sw) * (i + 0.5) / n + rnd.uniform(-1.5, 1.5)); x0 = max(0, min(w - sw, x0))
+        tip = sw // 2
+        for yy in range(sh):
+            y = h - 1 - yy; f = yy / max(1, sh - 1); shift = round(lean * f * 2)
+            half = sw / 2 if f < 0.7 else (sw / 2) * (1 - f) / 0.3 + 0.5
+            for xx in range(sw):
+                if abs(xx + 0.5 - sw / 2) > half: continue
+                X = x0 + xx + shift
+                if not 0 <= X < w: continue
+                edge = xx == 0 or xx == sw - 1 or abs(xx + 0.5 - sw / 2) > half - 1
+                rows[y][X] = 'T' if (edge and xx >= tip) or xx > tip else 'c' if xx < tip and (edge or yy % 4 == 1) else 'C'
+    return [''.join(q) for q in rows]
+NPAT.update({'geoBack': _spikes(34, 30, 6, 11), 'geoFrontL': _spikes(16, 22, 3, 12, lean=-1), 'geoFrontR': _spikes(16, 24, 3, 15, lean=1), 'geoSmall': _spikes(24, 10, 5, 13), 'geoSmallB': _spikes(28, 12, 5, 14),
+             'geoBack2': _spikes(34, 30, 6, 11)[10:], 'geoFrontL2': _spikes(16, 22, 3, 12, lean=-1)[8:], 'geoFrontR2': _spikes(16, 24, 3, 15, lean=1)[8:], 'rubble': ['..T.c..T..', '.TCcT.cCT.', 'TCcCTTCcCT'],
+             'bloodN': ['M.', '.m', 'M.'], 'shardFly': ['c...T', '.C.C.', 'T...c'],
+             'crackGlow': ['C.....C', '.C...C.', '.cCcCc.'], 'crackRun': ['C.........K', '.KC....K.C.', '...KCKC.K..']})
+NPAL.update({'G': '#8c8478', 'H': '#b3aa9a', 'N': '#544c42'})   # Capricorn Mausoleum: tomb stone (mid, lit, dark mortar)
+def _slab(w, h, seed, arch=False, seam=True):   # Mausoleum: a wall of dressed stone blocks w x h (courses 6 px high, joints staggered), lit top/left edge H, dark right edge and mortar N, a crystal-teal seam glowing in one joint; arch: the top rounded like a tomb's headstone
+    import random
+    rnd = random.Random(seed); rows = [['.'] * w for _ in range(h)]
+    seamRow = rnd.randrange(6, max(7, h - 4), 6) if seam and h > 8 else -1
+    for y in range(h):
+        for x in range(w):
+            if arch:
+                r = w / 2; top = r - math.sqrt(max(0, r * r - (x + 0.5 - r) ** 2))
+                if y < top * 0.6: continue
+            course = y // 6; jx = (x + (3 if course % 2 else 0) + seed) % 9
+            ch = 'G'
+            if y % 6 == 5 or jx == 0: ch = 'N'
+            if (x + y * 3 + seed) % 11 == 0: ch = 'H' if ch == 'G' else ch
+            if x == 0 or (arch and y < 3) or y == 0: ch = 'H'
+            if x == w - 1: ch = 'N'
+            if y == seamRow and 0 < x < w - 1: ch = 'C' if x % 3 else 'c'
+            rows[y][x] = ch
+    return [''.join(q) for q in rows]
+NPAT.update({'tombBack': _slab(30, 54, 3, arch=True), 'tombFront': _slab(30, 20, 5)})
+NPAT.update({'stalBack': _spikes(44, 58, 5, 21, widths=(7, 8, 9)), 'stalFrontL': _spikes(18, 34, 2, 22, lean=-1, widths=(6, 7)), 'stalFrontR': _spikes(18, 38, 2, 23, lean=1, widths=(6, 7, 8)), 'stalTips': _spikes(30, 8, 6, 24), 'stalTipsS': _spikes(12, 5, 3, 25)})   # Capricorn Stalactite Rain: giant crystal spears
+NPAT.update({'stalBack2': NPAT['stalBack'][20:], 'stalFrontL2': NPAT['stalFrontL'][12:], 'stalFrontR2': NPAT['stalFrontR'][14:]})
+NPAT.update({**{'tombBack%d' % n: NPAT['tombBack'][-round(54 * n / 3):] for n in (1, 2)}, **{'tombFront%d' % n: NPAT['tombFront'][-round(20 * n / 3):] for n in (1, 2)}})
 NPAT.update({'gemShard': ['.c.', 'cCT', '.T.'], 'gemShard2': ['..c..', '.cCc.', 'cCCTT', '.CTT.', '..T..'], 'gemSpark': ['c.c', '.W.', 'c.c'],   # Capricorn: crystal shards and glints
              'gemBurst': _ring(5, 'c', 'C'), 'gemBurst2': _ring(8, 'C', 'T', gap=1), 'gemCrack': ['T...T', '.T.T.', '..W..', '.T.T.', 'T...T'],
              'slash': ['......cW', '....cWc.', '..cWc...', 'cWc.....', 'c.......'], 'slash2': ['.........cWW', '.......cWWc.', '.....cWWc...', '...cWWc.....', '.cWWc.......', 'cWc.........']})
@@ -1297,6 +1340,133 @@ CLIPS = {
        anchored={3: [('gemSpark', 'head', -7, 14), ('gemShard', 'head', 8, 18)],
                  4: [('gemSpark', 'head', 7, 12), ('gemShard', 'head', -8, 22), ('cryst', 'head', 9, 26)],
                  5: [('gemSpark', 'head', -6, 20), ('cryst', 'head', 7, 16)], 6: [('gemSpark', 'head', 6, 24)], 7: [('cryst', 'head', -6, 18)]})),
+ 'geodeBlast': ('Geode Blast', 5,
+  'Geode Blast (Capricorn ninjutsu, Elemental 18, AoE in the Zone of Awareness, Bleed 2 rounds 3/tick: the fighter calls the minerals in the earth to burst from the ground, sending shrapnel over a wide area): from the guard the fighter makes the seal at the chin and sinks, an earthen aura rising with crystal glints in it; it drops and slams the near palm flat on the floor, cracks glowing teal running away from the hand along the ground toward the target; then it whips the palm up, open, and clenches it into a fist before its face, and at the target the ground splits and clusters of jagged crystal spikes burst up out of it, shards spraying out (the target plays geodeBlasted); it holds the fist, then drops back into the guard.', [
+     g(),
+     g(an=U.SEAL_N, af=U.SEAL_F, bob=(2, 2, 2), lean=(0, 0), **LOW),
+     g(an=U.SEAL_N, af=U.SEAL_F, bob=(3, 3, 3), lean=(0, 1), **LOW),
+     g(an=band(-35, -40, fistKind='palm'), af=band(-30, -100), bob=(5, 6, 6), lean=(1, 8), **BRACE),   # palm slammed flat on the floor
+     g(an=band(-35, -40, fistKind='palm'), af=band(-30, -100), bob=(5, 6, 6), lean=(1, 8), **BRACE),
+     g(an=band(-120, -150, fistKind='palm'), af=band(-30, -100), bob=(2, 2, 2), lean=(0, 1), **LOW),    # the palm whipped up: the geodes burst at the target
+     g(an=band(-115, -155), af=band(-30, -100), bob=(1, 1, 1), lean=(0, 0), **LOW),                       # clenched into a fist overhead
+     g(an=band(-115, -155), af=band(-30, -100), bob=(1, 1, 1), lean=(0, 0), **LOW),
+     g(an=band(-50, -120), af=band(-40, -110), bob=(1, 1, 2), lean=(0, 2)),
+     g()],
+  [None, 'squint', 'closed', 'strain', 'strain', 'roar', 'strain', 'strain', None, None],
+  [0, 1, 1, 2, 2, 2, 1, 1, 0, 0],
+  dict(fps=10, auraColors=('#7fe3d0', '#8a6236'),
+       extra={'targetState': {'rule': 'Geode Blast: on the active frame (the palm whips up, frame 5) the testbed plays geodeBlasted once on every fighter in the blast (crystal spikes burst up round it, shards spray, it flinches and bleeds), then its idle', 'state': 'geodeBlasted', 'loopFrom': None, 'element': 'earth'}},
+       anchored={2: [('cryst', 'head', -9, 12), ('cryst', 'head', 9, 18)],
+                 3: [('crack1', 'feet', 14, -1), ('crackGlow', 'feet', 14, -2), ('dust1', 'feet', 15, -4), ('rocks', 'feet', 12, -8)],
+                 4: [('crack2', 'feet', 16, -1), ('crackRun', 'feet', 24, -1), ('dust1', 'feet', 20, -3), ('gemSpark', 'feet', 14, -6)],
+                 5: [('crackRun', 'feet', 26, -1, {'alpha': {'C': 170, 'K': 170}}), ('gemSpark', 'hand', 0, -3)],
+                 6: [('gemSpark', 'hand', 0, -2), ('cryst', 'hand', 3, 4)], 7: [('cryst', 'hand', -2, 5)]})),
+ 'geodeBlasted': ('Geode Blasted', 1,
+  'Geode Blasted (target state of Geode Blast, plays once): the floor under the fighter cracks, glowing teal; clusters of jagged crystal spikes burst up out of it round its feet, in front and behind, shards and grit spraying out, and the fighter flinches back with its guard up over its face, small cuts bleeding (Bleed); the spikes stand a beat, then crack and crumble into rubble, and the fighter drops back into its guard.', [
+     g(bob=(1, 1, 1), lean=(0, 0)),
+     g(an=band(-60, -150), af=band(-50, -140), bob=(1, 1, 1), lean=(0, -2)),
+     g(an=band(-60, -155), af=band(-50, -145), bob=(0, 0, 1), lean=(-1, -3), root=(-1, 0)),
+     g(an=band(-60, -155), af=band(-50, -145), bob=(0, 0, 1), lean=(-1, -3)),
+     g(an=band(-55, -150), af=band(-45, -140), bob=(1, 1, 1), lean=(0, -2)),
+     g(an=band(-40, -120), af=band(-35, -115), bob=(1, 1, 2), lean=(0, -1), root=(1, 0)),
+     g()],
+  ['squint', 'pain', 'pain', 'pain', 'pain', 'squint', None],
+  None,
+  dict(fps=10, rm='E: -1 flinching back, +1 recovering',
+       anchored={0: [('crack2', 'feet', 0, -1), ('crackGlow', 'feet', 0, -2)],
+                 1: [('geoSmallB', 'feet', -2, -6, {'behind': True}), ('geoSmall', 'feet', 3, -5), ('rocks', 'feet', -10, -12), ('rocks', 'feet', 11, -10)],
+                 2: [('geoBack', 'feet', -2, -15, {'behind': True}), ('geoFrontL', 'feet', -8, -11), ('geoFrontR', 'feet', 9, -12), ('shardFly', 'head', -10, 18), ('shardFly', 'head', 11, 14), ('gemShard', 'head', -12, 6), ('bloodN', 'head', 3, 14)],
+                 3: [('geoBack', 'feet', -2, -15, {'behind': True}), ('geoFrontL', 'feet', -8, -11), ('geoFrontR', 'feet', 9, -12), ('shardFly', 'head', -14, 10), ('shardFly', 'head', 14, 6), ('gemShard', 'head', -15, -2), ('gemShard', 'head', 15, 0), ('bloodN', 'head', 4, 16), ('bloodN', 'head', -3, 22)],
+                 4: [('geoBack2', 'feet', -2, -10, {'behind': True, 'alpha': {'C': 200, 'c': 200, 'T': 200}}), ('geoFrontL2', 'feet', -8, -7, {'alpha': {'C': 200, 'c': 200, 'T': 200}}), ('geoFrontR2', 'feet', 9, -8, {'alpha': {'C': 200, 'c': 200, 'T': 200}}), ('gemShard', 'head', -16, 14), ('gemShard', 'head', 16, 18), ('bloodN', 'head', 4, 18)],
+                 5: [('rubble', 'feet', -7, -2), ('rubble', 'feet', 8, -2), ('dust1', 'feet', 0, -3)]})),
+ 'mausoleum': ('Mausoleum', 3,
+  'Mausoleum (Capricorn ninjutsu, Elemental 6, Terrain, Wall 2 rounds, Root 1 round STR save DC 14: the fighter calls up entombing walls that root the foe): from the guard the fighter makes the seal at the chin and sinks, an earthen aura rising; it sweeps both open palms down low over the floor, then heaves them up, palms up, as if lifting a great weight, and at the target slabs of dressed tomb stone, seamed with glowing crystal teal, grind up out of the ground in front of and behind it; then it pushes both palms forward together, closing the tomb, and holds, arms trembling, before dropping back into the guard (the target plays mausoleumSealed).', [
+     g(),
+     g(an=U.SEAL_N, af=U.SEAL_F, bob=(2, 2, 2), lean=(0, 0), **LOW),
+     g(an=band(-40, -45, fistKind='palm'), af=band(-30, -55, fistKind='palm'), bob=(4, 5, 5), lean=(1, 6), **BRACE),   # palms swept low over the floor
+     g(an=band(-90, -150, fistKind='palm'), af=band(-80, -145, fistKind='palm'), bob=(3, 3, 3), lean=(0, 2), **LOW),     # heaving them up, palms up: the walls rise
+     g(an=band(-120, -160, fistKind='palm'), af=band(-110, -155, fistKind='palm'), bob=(2, 2, 2), lean=(0, 0), **LOW),
+     g(an=band(-92, -92, fistKind='palm'), af=band(-88, -88, fistKind='palm'), bob=(2, 2, 2), lean=(1, 3), root=(1, 0), **LOW),   # both palms pushed forward together: the tomb closes
+     g(an=band(-92, -92, fistKind='palm'), af=band(-88, -88, fistKind='palm'), bob=(2, 2, 2), lean=(1, 3), **LOW),
+     g(an=band(-92, -92, fistKind='palm'), af=band(-88, -88, fistKind='palm'), bob=(2, 2, 3), lean=(1, 3), **LOW),
+     g(an=band(-50, -120), af=band(-40, -110), bob=(1, 1, 2), lean=(0, 2), root=(-1, 0)),
+     g()],
+  [None, 'squint', 'strain', 'strain', 'roar', 'strain', 'strain', 'strain', None, None],
+  [0, 1, 2, 2, 2, 2, 1, 1, 0, 0],
+  dict(fps=10, auraColors=('#b3aa9a', '#8a6236'), rm='E: +1 pushing the palms forward, -1 settling back',
+       extra={'targetState': {'rule': 'Mausoleum: from the active frame (frame 3, the palms heave up) the target plays mausoleumSealed: frames 0-3 once (cracks, the tomb walls grind up in front of and behind it), then frames 4-7 on loop (it shoves at the front wall, the slabs shuddering) until the Root ends; the walls are terrain for 2 rounds: while they stand the testbed keeps drawing tombBack/tombFront round that hex', 'state': 'mausoleumSealed', 'loopFrom': 4, 'element': 'earth', 'wallRounds': 2}},
+       anchored={2: [('crack1', 'feet', 10, -1), ('dust1', 'feet', 12, -3)],
+                 3: [('dust2', 'feet', 12, -3), ('rocks', 'feet', 14, -8), ('cryst', 'hand', 0, -3)],
+                 4: [('rocks', 'hand', 2, -4), ('cryst', 'hand', -3, -6)],
+                 5: [('gemSpark', 'hand', 2, 0)], 6: [('dust1', 'feet', 8, -3)]})),
+ 'mausoleumSealed': ('Sealed in the Mausoleum', 1,
+  'Sealed in the Mausoleum (target state of Mausoleum, Root 1 round): the floor cracks under the fighter and it flinches as slabs of dressed tomb stone, seamed with glowing crystal teal, grind up out of the ground, a waist-high wall in front of it and a tall arched headstone behind, dust spilling off them; it looks round, trapped, then (looping until the Root ends) shoves at the front wall with both palms, straining, the slabs shuddering and grit trickling from the joints.', [
+     g(bob=(1, 1, 1), lean=(0, 0)),
+     g(an=band(-60, -150), af=band(-50, -140), bob=(1, 1, 1), lean=(0, -1)),
+     g(an=band(-60, -150), af=band(-50, -140), bob=(1, 1, 1), lean=(0, -1)),
+     g(an=band(-40, -120), af=band(-35, -115), bob=(1, 1, 1), lean=(0, 0)),
+     g(an=band(-55, -60, fistKind='palm'), af=band(-50, -60, fistKind='palm'), bob=(2, 2, 2), lean=(1, 3), **BRACE),
+     g(an=band(-58, -62, fistKind='palm'), af=band(-52, -62, fistKind='palm'), bob=(2, 2, 2), lean=(1, 4), **BRACE),
+     g(an=band(-55, -60, fistKind='palm'), af=band(-50, -60, fistKind='palm'), bob=(2, 2, 2), lean=(1, 3), **BRACE),
+     g(an=band(-58, -62, fistKind='palm'), af=band(-52, -62, fistKind='palm'), bob=(2, 2, 3), lean=(1, 4), **BRACE)],
+  ['squint', 'pain', 'pain', 'squint', 'strain', 'strain', 'strain', 'strain'],
+  None,
+  dict(fps=8, extra={'loop': True, 'loopFrom': 4},
+       anchored={0: [('crack2', 'feet', 0, -1), ('dust1', 'feet', -8, -3), ('dust1', 'feet', 8, -3)],
+                 1: [('tombBack1', 'feet', -1, -8.5, {'behind': True}), ('tombFront1', 'feet', 1, -3.0), ('dust2', 'feet', 0, -2)],
+                 2: [('tombBack2', 'feet', -1, -17.5, {'behind': True}), ('tombFront2', 'feet', 1, -6.0), ('dust1', 'feet', -12, -10), ('dust1', 'feet', 12, -8)],
+                 3: [('tombBack', 'feet', -1, -26.5, {'behind': True}), ('tombFront', 'feet', 1, -9.5), ('dust2', 'feet', 1, -21), ('rocks', 'feet', -12, -40)],
+                 4: [('tombBack', 'feet', -1, -26.5, {'behind': True}), ('tombFront', 'feet', 1, -9.5)], 5: [('tombBack', 'feet', -1, -26.5, {'behind': True}), ('tombFront', 'feet', 2, -9.5), ('grains', 'feet', 8, -12)], 6: [('tombBack', 'feet', -1, -26.5, {'behind': True}), ('tombFront', 'feet', 1, -9.5)], 7: [('tombBack', 'feet', -1, -26.5, {'behind': True}), ('tombFront', 'feet', 2, -9.5), ('grains', 'feet', -6, -30)]})),
+ 'stalactiteRain': ('Stalactite Rain', 9,
+  'Stalactite Rain (Capricorn ninjutsu ultimate, charge, Elemental 30, wide AoE: the fighter channels its chakra through the earth, forming giant spear-like crystal formations that erupt across an area): from the guard the fighter makes the seal and sinks deep, straining, an earthen aura flaring up round it with crystal glints; it drops and slams both open palms down at the floor, and glowing teal veins crack out along the ground either side, small crystal tips pushing up round its feet as the charge builds over four frames; then it heaves both palms up and thrusts its arms straight up overhead with a roar, and across the target zone giant crystal spears burst up out of the earth (the target plays stalactiteImpaled); it holds the pose a beat, glints flashing, then lowers its arms and settles back into the guard.', [
+     g(),
+     g(an=U.SEAL_N, af=U.SEAL_F, bob=(2, 2, 2), lean=(0, 0), **LOW),
+     g(an=U.SEAL_N, af=U.SEAL_F, bob=(3, 3, 3), lean=(0, 1), **LOW),
+     g(an=U.SEAL_N, af=U.SEAL_F, bob=(4, 4, 4), lean=(0, 1), **BRACE)] + [
+     g(an=band(-35, -40, fistKind='palm'), af=band(-30, -45, fistKind='palm'), bob=(5, 6, 6), lean=(1, 7), **BRACE) for _ in range(4)] + [   # both palms slammed down: the charge builds
+     g(an=band(-110, -150, fistKind='palm'), af=band(-100, -145, fistKind='palm'), bob=(2, 2, 2), lean=(0, 1), **LOW),   # heaving up
+     g(an=band(-160, -176, fistKind='palm'), af=band(-155, -174, fistKind='palm'), bob=(0, -1, 0), lean=(0, -1)),        # arms thrust straight up: the spears erupt
+     g(an=band(-160, -176, fistKind='palm'), af=band(-155, -174, fistKind='palm'), bob=(0, -1, 0), lean=(0, -1)),
+     g(an=band(-160, -176, fistKind='palm'), af=band(-155, -174, fistKind='palm'), bob=(0, -1, 0), lean=(0, -1)),
+     g(an=band(-160, -176, fistKind='palm'), af=band(-155, -174, fistKind='palm'), bob=(0, 0, 0), lean=(0, -1)),
+     g(an=band(-80, -110, fistKind='palm'), af=band(-75, -105, fistKind='palm'), bob=(1, 1, 1), lean=(0, 1)),
+     g(an=band(-50, -120), af=band(-40, -110), bob=(1, 1, 2), lean=(0, 2)),
+     g()],
+  [None, 'squint', 'closed', 'strain', 'strain', 'strain', 'strain', 'strain', 'strain', 'roar', 'roar', 'roar', 'strain', 'squint', None, None],
+  [0, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 0, 0],
+  dict(fps=10, auraColors=('#7fe3d0', '#8a6236'),
+       extra={'targetState': {'rule': 'Stalactite Rain (ultimate, charge): on the active frame (frame 9, arms thrust up) the testbed plays stalactiteImpaled once on every fighter in the zone (giant crystal spears burst up round it, then shatter), then its idle', 'state': 'stalactiteImpaled', 'loopFrom': None, 'element': 'earth'}},
+       anchored={2: [('cryst', 'head', -9, 12), ('cryst', 'head', 9, 16)],
+                 3: [('cryst', 'head', -10, 18), ('gemSpark', 'head', 10, 10), ('dust1', 'feet', 0, -3)],
+                 4: [('crack2', 'feet', 0, -1), ('crackGlow', 'feet', -10, -2), ('crackGlow', 'feet', 12, -2), ('dust2', 'feet', 12, -3), ('rocks', 'feet', -12, -8)],
+                 5: [('crack2', 'feet', 0, -1), ('crackRun', 'feet', -18, -1), ('crackRun', 'feet', 20, -1), ('stalTipsS', 'feet', -14, -3), ('stalTipsS', 'feet', 15, -3)],
+                 6: [('crack2', 'feet', 0, -1), ('crackRun', 'feet', -20, -1), ('crackRun', 'feet', 22, -1), ('stalTips', 'feet', -13, -4, {'behind': True}), ('stalTipsS', 'feet', 16, -3), ('gemSpark', 'feet', 12, -12)],
+                 7: [('crack2', 'feet', 0, -1), ('crackRun', 'feet', -21, -1), ('crackRun', 'feet', 23, -1), ('stalTips', 'feet', -13, -4, {'behind': True}), ('stalTips', 'feet', 15, -4), ('gemSpark', 'feet', -15, -14), ('rocks', 'feet', 18, -10)],
+                 8: [('crackRun', 'feet', 22, -1), ('stalTips', 'feet', 15, -4, {'alpha': {'C': 170, 'c': 170, 'T': 170}}), ('gemSpark', 'hand', 0, -3)],
+                 9: [('gemBurst2', 'hand', 0, -4), ('gemSpark', 'hand', 0, -4), ('stalTipsS', 'feet', 15, -3, {'alpha': {'C': 150, 'c': 150, 'T': 150}})],
+                 10: [('gemSpark', 'hand', -3, -4), ('cryst', 'hand', 4, -2)], 11: [('gemSpark', 'hand', 2, -3), ('cryst', 'head', -9, 8)], 12: [('cryst', 'hand', 0, -2)]})),
+ 'stalactiteImpaled': ('Stalactite Rain Struck', 2,
+  'Stalactite Rain Struck (target state of Stalactite Rain, plays once): the ground under the fighter cracks, glowing teal, and crystal tips stab up round its feet; then giant crystal spears, taller than the fighter, burst up out of the earth all round it, in front leaning out and behind, and it is jolted up onto its toes in pain, shards spraying off; the spears stand a beat, crack and then shatter, crystal chunks and shards bursting outward and raining down into rubble, and the fighter staggers and drops back into its guard.', [
+     g(bob=(1, 1, 1), lean=(0, 0)),
+     g(an=band(-60, -150), af=band(-50, -140), bob=(1, 1, 1), lean=(0, -1)),
+     g(an=band(-20, -60), af=band(-15, -55), bob=(0, -1, 0), lean=(-1, -3), root=(-1, 0)),
+     g(an=band(-20, -60), af=band(-15, -55), bob=(0, -1, 0), lean=(-1, -3)),
+     g(an=band(-25, -70), af=band(-20, -65), bob=(0, 0, 0), lean=(-1, -2)),
+     g(an=band(-40, -110), af=band(-35, -105), bob=(1, 1, 1), lean=(0, -1)),
+     g(an=band(-60, -150), af=band(-50, -140), bob=(2, 2, 2), lean=(0, 1), **LOW),
+     g(an=band(-40, -120), af=band(-35, -115), bob=(2, 2, 3), lean=(1, 2), root=(1, 0), **LOW),
+     g()],
+  ['squint', 'pain', 'roar', 'pain', 'pain', 'pain', 'squint', 'squint', None],
+  None,
+  dict(fps=10, rm='E: -1 jolted back, +1 recovering',
+       anchored={0: [('crack2', 'feet', 0, -1), ('crackGlow', 'feet', 0, -2), ('dust1', 'feet', 9, -3)],
+                 1: [('stalTips', 'feet', -1, -4, {'behind': True}), ('stalTipsS', 'feet', 6, -3), ('rocks', 'feet', -12, -10)],
+                 2: [('stalBack', 'feet', -2, -28.5, {'behind': True}), ('stalFrontL', 'feet', -10, -16.5), ('stalFrontR', 'feet', 11, -18.5), ('gemShard2', 'head', -14, 4), ('gemShard2', 'head', 15, 8), ('bloodN', 'head', 3, 16)],
+                 3: [('stalBack', 'feet', -2, -28.5, {'behind': True}), ('stalFrontL', 'feet', -10, -16.5), ('stalFrontR', 'feet', 11, -18.5), ('shardFly', 'head', -17, -2), ('shardFly', 'head', 18, 2), ('gemSpark', 'head', 0, -8)],
+                 4: [('stalBack', 'feet', -2, -28.5, {'behind': True}), ('stalFrontL', 'feet', -10, -16.5), ('stalFrontR', 'feet', 11, -18.5), ('gemCrack', 'head', -8, 6), ('gemCrack', 'feet', 11, -22)],
+                 5: [('stalBack2', 'feet', -2, -18.5, {'behind': True, 'alpha': {'C': 200, 'c': 200, 'T': 200}}), ('stalFrontL2', 'feet', -10, -10.5, {'alpha': {'C': 200, 'c': 200, 'T': 200}}), ('stalFrontR2', 'feet', 11, -11.5, {'alpha': {'C': 200, 'c': 200, 'T': 200}}), ('gemBurst2', 'head', 0, 14), ('gemShard2', 'head', -16, 0), ('gemShard2', 'head', 16, 4), ('gemShard', 'head', -6, -10), ('gemShard', 'head', 8, -12)],
+                 6: [('rubble', 'feet', -9, -2), ('rubble', 'feet', 9, -2), ('gemShard', 'head', -17, 16), ('gemShard', 'head', 17, 20), ('gemShard', 'head', -4, 2), ('dust2', 'feet', 0, -3)],
+                 7: [('rubble', 'feet', -9, -2), ('rubble', 'feet', 9, -2), ('gemShard', 'feet', -16, -4), ('gemShard', 'feet', 15, -3)]})),
  'flowDodge': ('Flow Dodge', 3,
   'Flow Dodge (Sagittarius taijutsu stance buff: the fighter enters a dance-like trance and begins to swing and sway to its own rhythm): from the guard the fighter shakes its arms loose and lets the guard drop low and easy, eyes half closed, catching a beat; then it sways to its own rhythm: rocking back and forward on its feet and dipping on the knees, shoulders rolling, the loose hands swinging opposite to the hips, a flickering fire aura breathing round it on the beat with a few black and purple wisps rising off the shoulders; on the last beat it snaps its eyes open and settles into a loose, low guard (the testbed keeps the stance).', [
      g(),
