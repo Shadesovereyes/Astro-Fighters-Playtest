@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "kyudoAchillesShot",
-  "status": "S/N v1 CANDIDATE 2026-10-28 (E/W approved by user 2026-10-28; W mirrors E)",
+  "status": "approved by user (E/W 2026-10-28, S/N 2026-10-29 18:04; S, E, N, W; W mirrors E); on a hit the arrow strikes the target in the ankle",
   "frames": 8,
   "fps": 10,
   "sourceDirection": "E",
