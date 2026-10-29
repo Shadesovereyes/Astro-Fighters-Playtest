@@ -3,7 +3,7 @@
   "body": "male",
   "state": "mausoleum",
   "status": "CANDIDATE 2026-10-27 (E/W; W mirrors E; S/N to author after approval)",
-  "frames": 10,
+  "frames": 11,
   "fps": 10,
   "sourceDirection": "E",
   "directions": [
@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Mausoleum (Capricorn ninjutsu, Elemental 6, Terrain, Wall 2 rounds, Root 1 round STR save DC 14: the fighter calls up entombing walls that root the foe): from the guard the fighter makes the seal at the chin and sinks, an earthen aura rising; it sweeps both open palms down low over the floor, then heaves them up, palms up, as if lifting a great weight, and at the target slabs of dressed tomb stone, seamed with glowing crystal teal, grind up out of the ground in front of and behind it; then it pushes both palms forward together, closing the tomb, and holds, arms trembling, before dropping back into the guard (the target plays mausoleumSealed).",
+  "intent": "Mausoleum (Capricorn ninjutsu, Elemental 6, Terrain, Wall 2 rounds, Root 1 round STR save DC 14: the fighter calls up entombing walls that root the foe), v2 (Christopher 2026-10-29: needs a rework; Claude's reading: a small tomb built round the target): from the guard the fighter makes the seal at the chin and sinks, an earthen aura rising; it sweeps both open palms down low over the floor and heaves them up, palms up, as if lifting a great weight, and at the target two fluted stone pillars, ringed with glowing crystal teal, grind up out of the ground on either side of it; then it pushes both palms forward and down together and a stone roof, a pediment over a thick lintel, drops onto the pillars, sealing the target in its tomb (the target plays mausoleumSealed); it holds, arms trembling, then drops back into the guard.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -112,7 +112,8 @@
       2,
       2,
       2,
-      2,
+      3,
+      3,
       1,
       1
     ],
@@ -124,7 +125,8 @@
       2,
       2,
       2,
-      2,
+      3,
+      3,
       1,
       1
     ],
@@ -137,6 +139,7 @@
       2,
       2,
       3,
+      4,
       2,
       2
     ]
@@ -151,6 +154,7 @@
         1,
         0,
         0,
+        0,
         1,
         1,
         1,
@@ -163,9 +167,10 @@
         6,
         2,
         0,
+        0,
         3,
-        3,
-        3,
+        4,
+        4,
         2,
         2
       ]
@@ -174,6 +179,10 @@
   "rootMotion": {
     "rule": "E: +1 pushing the palms forward, -1 settling back",
     "E": [
+      [
+        0,
+        0
+      ],
       [
         0,
         0
@@ -216,6 +225,10 @@
       ]
     ],
     "W": [
+      [
+        0,
+        0
+      ],
       [
         0,
         0
@@ -1227,6 +1240,7 @@
       3,
       3,
       3,
+      3,
       1,
       1
     ],
@@ -1234,6 +1248,7 @@
       0,
       2,
       4,
+      2,
       2,
       2,
       2,
@@ -1305,10 +1320,10 @@
       },
       {
         "construction": "band",
-        "angle": -92,
+        "angle": -120,
         "elbow": {
           "at": 8,
-          "angle": -92
+          "angle": -160
         },
         "fistKind": "palm"
       },
@@ -1323,10 +1338,19 @@
       },
       {
         "construction": "band",
-        "angle": -92,
+        "angle": -75,
         "elbow": {
           "at": 8,
-          "angle": -92
+          "angle": -70
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": -75,
+        "elbow": {
+          "at": 8,
+          "angle": -70
         },
         "fistKind": "palm"
       },
@@ -1394,10 +1418,10 @@
       },
       {
         "construction": "band",
-        "angle": -88,
+        "angle": -110,
         "elbow": {
           "at": 8,
-          "angle": -88
+          "angle": -155
         },
         "fistKind": "palm"
       },
@@ -1412,10 +1436,19 @@
       },
       {
         "construction": "band",
-        "angle": -88,
+        "angle": -72,
         "elbow": {
           "at": 8,
-          "angle": -88
+          "angle": -68
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": -72,
+        "elbow": {
+          "at": 8,
+          "angle": -68
         },
         "fistKind": "palm"
       },
@@ -1600,6 +1633,7 @@
       "bandFollowsBody": true,
       "sway": {
         "E": [
+          -1,
           -1,
           -1,
           -1,
@@ -2283,7 +2317,8 @@
         6,
         7,
         8,
-        9
+        9,
+        10
       ],
       "fps": 10,
       "next": "guard",
@@ -2306,14 +2341,14 @@
       {
         "frame": 2,
         "clip": "mausoleum",
-        "type": "startup"
+        "type": "active",
+        "move": "Mausoleum",
+        "buff": true
       },
       {
         "frame": 3,
         "clip": "mausoleum",
-        "type": "active",
-        "move": "Mausoleum",
-        "buff": true
+        "type": "recovery"
       },
       {
         "frame": 4,
@@ -2342,6 +2377,11 @@
       },
       {
         "frame": 9,
+        "clip": "mausoleum",
+        "type": "recovery"
+      },
+      {
+        "frame": 10,
         "clip": "mausoleum",
         "type": "recovery"
       }
@@ -2360,14 +2400,14 @@
       {
         "frame": 2,
         "clip": "mausoleum",
-        "type": "startup"
+        "type": "active",
+        "move": "Mausoleum",
+        "buff": true
       },
       {
         "frame": 3,
         "clip": "mausoleum",
-        "type": "active",
-        "move": "Mausoleum",
-        "buff": true
+        "type": "recovery"
       },
       {
         "frame": 4,
@@ -2396,6 +2436,11 @@
       },
       {
         "frame": 9,
+        "clip": "mausoleum",
+        "type": "recovery"
+      },
+      {
+        "frame": 10,
         "clip": "mausoleum",
         "type": "recovery"
       }
@@ -2692,6 +2737,7 @@
         "strain",
         "strain",
         "strain",
+        "strain",
         null,
         null
       ]
@@ -2699,9 +2745,9 @@
     "intent": "eyes squeezed shut with the brow pulled down on the impact frames 0-2 (no mouth: user 2026-10-14), a squint on frame 3, open again from frame 4 (user 2026-10-14)"
   },
   "targetState": {
-    "rule": "Mausoleum: from the active frame (frame 3, the palms heave up) the target plays mausoleumSealed: frames 0-3 once (cracks, the tomb walls grind up in front of and behind it), then frames 4-7 on loop (it shoves at the front wall, the slabs shuddering) until the Root ends; the walls are terrain for 2 rounds: while they stand the testbed keeps drawing tombBack/tombFront round that hex",
+    "rule": "Mausoleum v2: from the active frame (frame 2, the palms sweep low) the target plays mausoleumSealed: frames 0-5 once (cracks, the two pillars grind up either side, the roof drops onto them as the caster pushes, frame 5), then frames 6-9 on loop (it shoves at the front pillar) until the Root ends; the tomb is terrain for 2 rounds: while it stands the testbed keeps drawing the pillars and roof round that hex",
     "state": "mausoleumSealed",
-    "loopFrom": 4,
+    "loopFrom": 6,
     "element": "earth",
     "wallRounds": 2
   }
