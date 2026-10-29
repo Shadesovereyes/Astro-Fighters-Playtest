@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Stalactite Rain Struck (target state of Stalactite Rain, plays once): the ground under the fighter cracks, glowing teal, and crystal tips stab up round its feet; then giant crystal spears, taller than the fighter, burst up out of the earth all round it, in front leaning out and behind, and it is jolted up onto its toes in pain, shards spraying off; the spears stand a beat, crack and then shatter, crystal chunks and shards bursting outward and raining down into rubble, and the fighter staggers and drops back into its guard.",
+  "intent": "Stalactite Rain Struck (target state of Stalactite Rain v2, plays once): crystal glints flash in the sky over the fighter and it looks up; then giant crystal spears rain down out of the sky at a slant from the caster's side and stab deep into the ground all round it, in front and behind, dust and grit bursting off each impact, and it is jolted in pain, shards spraying; a second volley drives in; the spears stand embedded a beat, crack and shatter, crystal chunks and shards bursting outward and raining down into rubble, and the fighter staggers and drops back into its guard.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -154,7 +154,7 @@
         0
       ],
       "head": [
-        0,
+        -1,
         -1,
         -3,
         -3,
@@ -1246,10 +1246,10 @@
     "near": [
       {
         "construction": "band",
-        "angle": -20,
+        "angle": -40,
         "elbow": {
           "at": 8,
-          "angle": 212
+          "angle": -120
         }
       },
       {
@@ -1320,10 +1320,10 @@
     "far": [
       {
         "construction": "band",
-        "angle": -45,
+        "angle": -35,
         "elbow": {
           "at": 8,
-          "angle": 222
+          "angle": -115
         }
       },
       {

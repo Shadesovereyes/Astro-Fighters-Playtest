@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "geodeBlast",
-  "status": "CANDIDATE 2026-10-27 (E/W; W mirrors E; S/N to author after approval)",
+  "status": "E/W approved by user 2026-10-29 (v1 palm slam, glowing cracks run to the target, palm whipped up, c59bb3e6; target plays geodeBlasted; W mirrors E); S/N to author",
   "frames": 10,
   "fps": 10,
   "sourceDirection": "E",
