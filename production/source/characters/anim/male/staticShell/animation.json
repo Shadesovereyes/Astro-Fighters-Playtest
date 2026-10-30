@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-animation-output/v1",
   "body": "male",
   "state": "staticShell",
-  "status": "CANDIDATE 2026-10-27 (E/W; W mirrors E; S/N to author after approval)",
+  "status": "E/W approved by user 2026-10-30 (v1 fists at the hips, crackling blue aura, arcs beside the body, shock ring at the feet, f5d859a8; W mirrors E); linger is a proposal; S/N to author",
   "frames": 9,
   "fps": 10,
   "frameSize": [
