@@ -546,6 +546,60 @@ def _titan2(lit, eyes='open', seams=False):   # Titan's Gaze v2 (Christopher 202
             if 0 <= x < W and 0 <= y < H and rows[y][x] in 'GH': rows[y][x] = ('C' if t % 2 else 'T') if seams else 'N'
             x += rnd.choice((-1, 0, 1)); y += 1
     return [''.join(q) for q in rows]
+# ---------- Air: Aquarius lightning (Christopher has not ruled air colours yet: white core, pale cyan, electric blue, deep blue edge) ----------
+NPAL.update({'l': '#9fe8ff', 'L': '#3d7bff', 'D': '#1f3fb0'})
+ELEC_RECOLOR = {'#ffe14d': '#ffffff', '#ff8a1c': '#9fe8ff', '#d8321a': '#3d7bff'}   # fire swirl / impact helpers drawn as lightning
+def _bolt(L, seed, amp=2, branches=1):   # a jagged lightning bolt L px long, left to right: white core, pale cyan glow pixels, a forked branch or two
+    import random
+    rnd = random.Random(seed); H = 2 * amp + 7; rows = [['.'] * L for _ in range(H)]; y = H // 2
+    def put(x, y_, ch):
+        if 0 <= x < L and 0 <= y_ < H and (rows[y_][x] == '.' or ch == 'W'): rows[y_][x] = ch
+    pts = []
+    for x in range(L):
+        if x % 3 == 0: y = max(2, min(H - 3, y + rnd.choice((-2, -1, 1, 2))))
+        pts.append((x, y)); put(x, y, 'W'); put(x, y - 1, 'l'); put(x, y + 1, 'l' if x % 2 else 'L')
+    for _ in range(branches):
+        x, y_ = pts[rnd.randrange(L // 4, 3 * L // 4)]; d = rnd.choice((-1, 1))
+        for t in range(rnd.randint(3, 6)):
+            x += 1; y_ += d if t % 2 == 0 else 0; put(x, y_, 'l' if t < 3 else 'L')
+    return [''.join(q) for q in rows]
+def _crackle(r, seed, n=5):   # short arcs crackling out from a point in every direction (a charged fist / palm)
+    import random
+    rnd = random.Random(seed); w = 2 * r + 1; rows = [['.'] * w for _ in range(w)]
+    for k in range(n):
+        a = 2 * math.pi * (k + rnd.random() * 0.6) / n; x, y = float(r), float(r)
+        for t in range(r):
+            a += rnd.uniform(-0.7, 0.7); x += math.cos(a); y += math.sin(a)
+            xi, yi = round(x), round(y)
+            if 0 <= xi < w and 0 <= yi < w: rows[yi][xi] = 'W' if t < 2 else 'l' if t < r - 2 else 'L'
+    return [''.join(q) for q in rows]
+def _voltOrb(r, seed):   # a ball of lightning: white-hot heart, pale cyan body, electric-blue rim, a few arcs licking off it
+    import random
+    rnd = random.Random(seed); R = r + 3; w = 2 * R + 1; rows = [['.'] * w for _ in range(w)]
+    for y in range(w):
+        for x in range(w):
+            d = math.hypot(x - R, y - R)
+            if d <= r: rows[y][x] = 'W' if d < r * 0.45 else 'l' if d < r - 0.8 else 'L'
+    for k in range(4):
+        a = rnd.uniform(0, 2 * math.pi); x, y = R + r * math.cos(a), R + r * math.sin(a)
+        for t in range(3):
+            a += rnd.uniform(-0.8, 0.8); x += math.cos(a); y += math.sin(a)
+            if 0 <= round(x) < w and 0 <= round(y) < w: rows[round(y)][round(x)] = 'l' if t < 2 else 'L'
+    return [''.join(q) for q in rows]
+def _zapRing(r, seed):   # an electric shock ring: a broken ring of zigzag pale cyan and blue, white sparks on it
+    import random
+    rnd = random.Random(seed); w = 2 * r + 3; rows = [['.'] * w for _ in range(w)]
+    for k in range(int(10 * r)):
+        a = 2 * math.pi * k / (10 * r)
+        if math.sin(a * 5 + seed) > 0.75: continue
+        rr = r + rnd.choice((-1, 0, 0, 1)); x, y = round(r + 1 + rr * math.cos(a)), round(r + 1 + rr * math.sin(a) * 0.85)
+        rows[y][x] = 'W' if rnd.random() < 0.15 else 'l' if rnd.random() < 0.6 else 'L'
+    return [''.join(q) for q in rows]
+NPAT.update({'bolt12': _bolt(12, 1), 'bolt12b': _bolt(12, 2), 'bolt18': _bolt(18, 3, 3, 2), 'bolt18b': _bolt(18, 4, 3, 2), 'bolt8': _bolt(8, 5, 1, 0), 'bolt8b': _bolt(8, 6, 1, 0),
+             'crackle3': _crackle(3, 1, 4), 'crackle4': _crackle(4, 2), 'crackle4b': _crackle(4, 3), 'crackle6': _crackle(6, 4, 7), 'crackle6b': _crackle(6, 5, 7),
+             'voltOrb2': _voltOrb(2, 1), 'voltOrb3': _voltOrb(3, 2), 'voltOrb4': _voltOrb(4, 3), 'voltOrb4b': _voltOrb(4, 4),
+             'zapRing6': _zapRing(6, 1), 'zapRing9': _zapRing(9, 2), 'zapRing12': _zapRing(12, 3),
+             'spark': ['.l.', 'lWl', '.l.'], 'sparkL': ['L.l', '.W.', 'l.L'], 'staticV': ['l', 'W', 'l', '.', 'L'], 'staticV2': ['.l', 'W.', '.l', 'L.']})
 def _crust(w, h, seed):   # Titan's Gaze v2: a jagged crust of stone creeping up over the target's feet and shins (it seizes up, petrified with fear)
     import random
     rnd = random.Random(seed); rows = [['.'] * w for _ in range(h)]; c0 = (w - 1) / 2
@@ -1853,6 +1907,62 @@ CLIPS = {
                  8: [('titan2Dim', 'head', 0, 5, {'behind': True, 'alpha': {'H': 230, 'G': 230, 'N': 230, 'C': 230, 'c': 230, 'T': 230, 'K': 230, 'W': 230}}), ('crust2', 'feet', 0, -6), ('pebbles2', 'feet', 0, -19), ('fearLines', 'head', 0, -9, {'alpha': {'C': 160}})],
                  9: [('titan2Lit', 'head', 0, 5, {'behind': True}), ('crust2', 'feet', 0, -6), ('pebbles', 'feet', 1, -21), ('sweat', 'head', 7, 0)],
                  10: [('titan2Dim', 'head', 0, 5, {'behind': True, 'alpha': {'H': 230, 'G': 230, 'N': 230, 'C': 230, 'c': 230, 'T': 230, 'K': 230, 'W': 230}}), ('crust2', 'feet', 0, -6), ('pebbles2', 'feet', -1, -14), ('fearLines', 'head', 0, -9, {'alpha': {'C': 160}})]})),
+ 'nerveDisruptor': ('Nerve Disruptor', 3,
+  'Nerve Disruptor (Aquarius taijutsu strike, Physical 10, Silence 1 round CHA save DC 12: the fighter channels its inner electrical field into a charged jab that disrupts the opponent\'s chakra flow): from the guard the fighter tightens its lead fist and static crackles over it, small arcs leaping off the knuckles and a pale blue aura flickering up; then it snaps the lead jab straight out and back, fast; on contact a white-hot spark flash bursts at the fist and jagged lightning forks out from it, a broken electric ring snapping out, sparks scattering; the fist comes back into the guard still fizzing.', [
+     g(),
+     g(af=band(-55, -125), bob=(1, 1, 1), lean=(0, 0)),
+     g(af=band(-55, -125), bob=(1, 1, 1), lean=(0, -1)),
+     g(af=band(-88, -88), bob=(1, 1, 1), lean=(1, 4), root=(1, 0), ln='sp-drive-rear', lf='sp-drive-lead'),
+     g(af=band(-88, -88), bob=(1, 1, 1), lean=(1, 4), ln='sp-drive-rear', lf='sp-drive-lead'),
+     g(af=band(-75, -105), bob=(1, 1, 1), lean=(1, 2)),
+     g(root=(-1, 0)),
+     g()],
+  [None, 'squint', 'squint', 'squint', 'squint', None, None, None],
+  [0, 1, 2, 2, 1, 1, 0, 0],
+  dict(fps=12, auraColors=('#9fe8ff', '#3d7bff'), hitbox=[44, 18, 14, 10], damage='light', rm='E: +1 into the jab, -1 back',
+       anchored={1: [('crackle3', 'farhand', 0, 0), ('spark', 'farhand', -3, -3)], 2: [('crackle4', 'farhand', 0, 0), ('sparkL', 'farhand', 2, 3), ('staticV', 'head', -7, 10)],
+                 3: [('voltOrb2', 'farhand', 1, 0), ('bolt8', 'farhand', 6, -2), ('crackle4b', 'farhand', 1, 0)],
+                 4: [('zapRing6', 'farhand', 3, 0), ('bolt12', 'farhand', 8, -3), ('bolt8b', 'farhand', 6, 4), ('spark', 'farhand', 3, 0)],
+                 5: [('zapRing9', 'farhand', 12, 0, {'alpha': {'l': 170, 'L': 170}}), ('spark', 'farhand', 10, -6), ('sparkL', 'farhand', 13, 5)],
+                 6: [('crackle3', 'farhand', 0, 0, {'alpha': {'l': 160, 'L': 160}})], 7: [('spark', 'farhand', 0, -2)]})),
+ 'staticShell': ('Static Shell', 3,
+  'Static Shell (Aquarius taijutsu stance, Posture, Counter, Fortified 1 round (10): the fighter lets its inner electrical field radiate from its body as a small EMP field that disrupts the opponent\'s attacks): from the guard the fighter drops its fists to its hips and sets its feet, eyes narrowing; a crackling pale-blue aura flares up round it and arcs of static dance over its shoulders, arms and legs, sparks spitting off, a broken electric ring pulsing out at its feet; then it rises back into a tight guard with the static still crackling over it (the testbed keeps a thin crackling aura and a spark or two while the stance holds).', [
+     g(),
+     g(an=band(15, -40), af=band(5, -35), bob=(1, 1, 1), lean=(0, 0)),
+     g(an=FLEX_N, af=FLEX_F, bob=(2, 2, 2), lean=(0, 1), **LOW),
+     g(an=FLEX_N, af=FLEX_F, bob=(2, 2, 2), lean=(0, 1), **LOW),
+     g(an=FLEX_N, af=FLEX_F, bob=(2, 2, 2), lean=(0, 1), **LOW),
+     g(an=FLEX_N, af=FLEX_F, bob=(2, 2, 2), lean=(0, 1), **LOW),
+     g(an=band(-30, -100), af=band(-30, -95), bob=(1, 1, 2), lean=(0, 2), **LOW),
+     g(), g()],
+  [None, 'squint', 'strain', 'strain', 'squint', 'squint', 'squint', None, None],
+  [0, 0, 1, 2, 3, 2, 2, 1, 1],
+  dict(fps=10, auraColors=('#9fe8ff', '#3d7bff'),
+       extra={'linger': {'rule': 'Static Shell (stance): the clip ends crackling; while the stance holds the testbed keeps a 1 px pale-blue aura flickering on the fighter and one or two sparks or short arcs popping on the shoulders and arms each frame, on every state it plays; clears when the stance ends', 'aura': 1, 'auraColors': ['#9fe8ff', '#3d7bff'], 'motes': {'pattern': 'spark', 'colors': ['#ffffff', '#9fe8ff', '#3d7bff'], 'perFrame': 2}}},
+       anchored={2: [('crackle4', 'head', -11, 10), ('staticV', 'head', 11, 14), ('spark', 'head', 10, 2)],
+                 3: [('crackle6', 'head', -12, 16), ('bolt8', 'head', 13, 6), ('spark', 'head', 12, 24), ('sparkL', 'head', -11, 30), ('zapRing9', 'feet', 0, -6)],
+                 4: [('crackle6b', 'head', 12, 22), ('bolt8b', 'head', -13, 8), ('staticV2', 'head', -12, 26), ('staticV', 'head', 3, -9), ('spark', 'head', -12, 38), ('zapRing12', 'feet', 0, -8, {'alpha': {'l': 190, 'L': 190}})],
+                 5: [('crackle4b', 'head', -11, 14), ('bolt8', 'head', 13, 18), ('sparkL', 'head', 11, 32), ('spark', 'head', -11, 36), ('zapRing12', 'feet', 0, -8, {'alpha': {'l': 120, 'L': 120, 'W': 150}})],
+                 6: [('crackle4', 'head', 11, 16), ('spark', 'head', -11, 24), ('staticV', 'head', -2, -9)], 7: [('staticV', 'head', -11, 12), ('spark', 'head', 11, 26)], 8: [('sparkL', 'head', 10, 14)]})),
+ 'shockPalm': ('Shock Palm', 4,
+  'Shock Palm (Aquarius taijutsu strike, Physical 16, Debuff: the fighter channels electrical energy into its palm, shocking whoever it touches): from the guard the fighter draws the rear hand back low beside the hip, palm open and turned forward, and a ball of lightning kindles in it, crackling and swelling over two held frames while arcs spiral up round the arm; then it steps in and drives the open palm straight out at chest height, and the charge discharges on contact in a white-hot flash, jagged bolts forking out, an electric shock ring blasting out and sparks scattering; it settles back into the guard.', [
+     g(),
+     g(an=band(25, -60, fistKind='palm'), af=band(-75, -100), bob=(1, 1, 1), lean=(-1, -1), ln='sp-load-rear', lf='sp-load-lead'),
+     g(an=band(25, -60, fistKind='palm'), af=band(-75, -100), bob=(1, 1, 1), lean=(-1, -2), ln='sp-load-rear', lf='sp-load-lead'),
+     g(an=band(25, -60, fistKind='palm'), af=band(-75, -100), bob=(1, 1, 1), lean=(-1, -2), ln='sp-load-rear', lf='sp-load-lead'),
+     g(an=band(-90, -90, fistKind='palm'), af=band(30, -160), bob=(2, 2, 2), lean=(2, 6), root=(2, 0), ln='sp-drive-rear', lf='sp-drive-lead'),
+     g(an=band(-90, -90, fistKind='palm'), af=band(30, -160), bob=(2, 2, 2), lean=(2, 6), ln='sp-drive-rear', lf='sp-drive-lead'),
+     g(an=band(-90, -90, fistKind='palm'), af=band(30, -160), bob=(2, 2, 2), lean=(2, 6), ln='sp-drive-rear', lf='sp-drive-lead'),
+     g(an=band(-50, -120), af=band(-30, 215), bob=(1, 1, 2), lean=(1, 3), ln='sp-drive-rear', lf='sp-drive-lead'),
+     g(root=(-2, 0))],
+  [None, 'squint', 'squint', 'strain', 'squint', 'squint', None, None, None],
+  None,
+  dict(fps=10, hitbox=[46, 20, 14, 10], damage='medium', rm='E: +2 stepping into the palm, -2 settling back',
+       swirl={1: (0, 0.5), 2: (120, 0.8), 3: (240, 1.0)}, impact={4: 0, 5: 1, 6: 2, 7: 3}, recolor=ELEC_RECOLOR, keepFx=True,
+       anchored={1: [('voltOrb2', 'hand', 0, 0)], 2: [('voltOrb3', 'hand', 0, 0), ('crackle4', 'hand', 0, 0)], 3: [('voltOrb4', 'hand', 0, 0), ('crackle6', 'hand', 0, 0), ('spark', 'hand', -2, -8)],
+                 4: [('voltOrb4b', 'hand', 2, 0), ('bolt12', 'hand', 9, -4), ('bolt12b', 'hand', 9, 5)],
+                 5: [('bolt18', 'hand', 12, -5), ('bolt18b', 'hand', 12, 6), ('crackle6b', 'hand', 3, 0)],
+                 6: [('bolt12', 'hand', 10, -7, {'alpha': {'l': 170, 'L': 170}}), ('spark', 'hand', 8, 4), ('sparkL', 'hand', 12, -2)], 7: [('spark', 'hand', 6, -4), ('sparkL', 'hand', 9, 4)]})),
  'flowDodge': ('Flow Dodge', 3,
   'Flow Dodge (Sagittarius taijutsu stance buff: the fighter enters a dance-like trance and begins to swing and sway to its own rhythm): from the guard the fighter shakes its arms loose and lets the guard drop low and easy, eyes half closed, catching a beat; then it sways to its own rhythm: rocking back and forward on its feet and dipping on the knees, shoulders rolling, the loose hands swinging opposite to the hips, a flickering fire aura breathing round it on the beat with a few black and purple wisps rising off the shoulders; on the last beat it snaps its eyes open and settles into a loose, low guard (the testbed keeps the stance).', [
      g(),
