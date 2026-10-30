@@ -2775,7 +2775,7 @@
   "loop": true,
   "loopFrom": 8,
   "breakFree": {
-    "rule": "Mausoleum v3 (Christopher 2026-10-30: a break-free animation): when the Root ends the testbed plays mausoleumBreakOut once (the front slab is smashed; the headstone, pillars and capstone stay standing as the wall terrain for the rest of its 2 rounds), then the idle",
+    "rule": "Mausoleum v3 (Christopher 2026-10-30: a break-free animation): when the Root ends the testbed plays mausoleumBreakOut once (the front slab is smashed and the whole tomb crumbles into rubble; Christopher 2026-10-30), then the idle",
     "state": "mausoleumBreakOut"
   }
 }

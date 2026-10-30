@@ -526,6 +526,8 @@ def _blocks(R, seed, n):   # Mausoleum break out: n blocks of dressed stone (3-5
             if 0 <= X < m and 0 <= Y < m: rows[Y][X] = rnd.choice('eE')
     return [''.join(q) for q in rows]
 STONE = lambda pat: [r.replace('Z', 'H').replace('S', 'G').replace('s', 'N') for r in pat]   # Mausoleum break out: the sand helpers in tomb stone
+NPAT.update({**{'pillarC%d' % n: NPAT['pillar'][-n:] for n in (44, 30, 16)}, **{'tombBackC%d' % n: NPAT['tombBack'][-n:] for n in (42, 28, 14)}, 'rubbleHeap': STONE(_mound(9, w=44, seed=5)), 'rubbleHeap2': STONE(_mound(6, w=46, seed=6)),
+             'roofTilt': [r[2:] + '..' if i < 5 else r for i, r in enumerate(_roof(46, 10))], 'roofBlocks': _blocks(14, 44, 9)})   # Mausoleum v3 crumble (Christopher 2026-10-30: the tomb crumbles to the ground instead of disappearing)
 NPAT.update({'stoneShatter12': STONE(_shatter(12, 41)), 'stoneShatter18': STONE(_shatter(18, 42, chunks=16)), 'stoneShatter23': STONE(_shatter(23, 43, chunks=18)),
              'slabCrack1': _slabcrack(1), 'slabCrack2': _slabcrack(2), 'stoneShatter12': _blocks(12, 41, 7), 'stoneShatter18': _blocks(19, 42, 8), 'stoneShatter23': _blocks(25, 43, 9)})
 
@@ -1520,7 +1522,7 @@ CLIPS = {
      g(an=band(-10, -30), af=band(-8, -25), bob=(1, 1, 2), lean=(0, -1))],
   ['squint', 'pain', 'pain', 'pain', 'squint', 'squint', 'pain', 'strain', 'strain', 'pain', 'strain', 'pain'],
   None,
-  dict(fps=10, extra={'loop': True, 'loopFrom': 8, 'breakFree': {'rule': 'Mausoleum v3 (Christopher 2026-10-30: a break-free animation): when the Root ends the testbed plays mausoleumBreakOut once (the front slab is smashed; the headstone, pillars and capstone stay standing as the wall terrain for the rest of its 2 rounds), then the idle', 'state': 'mausoleumBreakOut'}},
+  dict(fps=10, extra={'loop': True, 'loopFrom': 8, 'breakFree': {'rule': 'Mausoleum v3 (Christopher 2026-10-30: a break-free animation): when the Root ends the testbed plays mausoleumBreakOut once (the front slab is smashed and the whole tomb crumbles into rubble; Christopher 2026-10-30), then the idle', 'state': 'mausoleumBreakOut'}},
        anchored={0: [('ringDim', 'feet', 0, -1), ('crack1', 'feet', 0, -1)],
                  1: [('ringLit', 'feet', 0, -1), ('lightBeam', 'feet', -12, -20, {'alpha': {'c': 150, 'C': 170}}), ('lightBeam', 'feet', 12, -20, {'alpha': {'c': 150, 'C': 170}}), ('lightBeam', 'feet', 0, -22, {'alpha': {'c': 120, 'C': 140}}), ('tombBack1', 'feet', -2, -8.5, {'behind': True}), ('pillar1', 'feet', -16, -8.5), ('pillar1', 'feet', 16, -8.5), ('plume', 'feet', -16, -8), ('plume', 'feet', 16, -8)],
                  2: [('ringLit', 'feet', 0, -1), ('lightBeam', 'feet', -8, -24, {'alpha': {'c': 120, 'C': 140}}), ('lightBeam', 'feet', 9, -24, {'alpha': {'c': 120, 'C': 140}}), ('tombBack2', 'feet', -2, -17.5, {'behind': True}), ('pillar2', 'feet', -16, -18), ('pillar2', 'feet', 16, -18), ('tombSlab1', 'feet', 2, -5.5), ('plume2', 'feet', -17, -20), ('plume2', 'feet', 17, -18), ('rocks', 'feet', 0, -26)],
@@ -1534,26 +1536,36 @@ CLIPS = {
                  10: [('tombBack', 'feet', -2, -26.5, {'behind': True}), ('pillar', 'feet', -16, -27), ('pillar', 'feet', 16, -27), ('tombSlab', 'feet', 2, -17.5), ('sigilDim', 'feet', 2, -18), ('roofBig', 'feet', 0, -59.5)],
                  11: [('tombBack', 'feet', -2, -26.5, {'behind': True}), ('pillar', 'feet', -16, -27), ('pillar', 'feet', 16, -27), ('tombSlab', 'feet', 2, -17.5), ('sigilLit', 'feet', 2, -18, {'alpha': {'c': 190, 'W': 200}}), ('slabGlow', 'feet', 2, -17.5, {'alpha': {'C': 110}}), ('roofBig', 'feet', 0, -59.5), ('grains', 'feet', -8, -46)]})),
  'mausoleumBreakOut': ('Mausoleum Break Out', 3,
-  'Mausoleum Break Out (target state of Mausoleum v3, plays once when the Root ends; Christopher 2026-10-30: a break-free animation): sealed in the tomb up to its chest, the fighter strains and cracks split the front slab, spreading, the Capricorn sigil on it flickering and dying; then it drives both palms forward with a roar and the slab explodes outward, blocks of stone flying in a ring and a plume of stone dust bursting off; the blocks tumble and fall into rubble round its feet and the fighter drops back into its guard, still standing under the headstone, pillars and capstone, which stay as the wall terrain until the Wall ends.', [
+  'Mausoleum Break Out (target state of Mausoleum v3, plays once when the Root ends; Christopher 2026-10-30: a break-free animation, and the tomb crumbles to the ground instead of disappearing): sealed in the tomb up to its chest, the fighter strains and cracks split the front slab, spreading, the Capricorn sigil on it flickering and dying; then it drives both palms forward with a roar and the slab explodes outward, blocks of stone flying in a ring and a plume of stone dust bursting off; with its front gone the tomb gives way: cracks run up the pillars and headstone, the capstone tips and breaks apart into falling blocks, and the pillars and headstone crumble downward into a heap of rubble in a rolling cloud of dust while the fighter covers its head; the dust settles over the rubble and the fighter drops back into its guard.', [
      g(an=band(-10, -30), af=band(-8, -25), bob=(1, 1, 2), lean=(0, 1)),
      g(an=band(-10, -30), af=band(-8, -25), bob=(2, 2, 2), lean=(0, 2), **BRACE),
      g(an=band(-10, -30), af=band(-8, -25), bob=(2, 2, 3), lean=(-1, -1), **BRACE),
      g(an=band(-92, -92, fistKind='palm'), af=band(-88, -88, fistKind='palm'), bob=(1, 1, 1), lean=(1, 4), root=(1, 0)),
      g(an=band(-92, -92, fistKind='palm'), af=band(-88, -88, fistKind='palm'), bob=(1, 1, 1), lean=(1, 4)),
-     g(an=band(-60, -120), af=band(-50, -115), bob=(1, 1, 1), lean=(1, 2)),
+     g(an=band(-60, -120), af=band(-50, -115), bob=(1, 1, 1), lean=(0, 1)),
+     g(an=band(-60, -155), af=band(-50, -145), bob=(2, 2, 2), lean=(0, -1), **LOW),
+     g(an=band(-60, -155), af=band(-50, -145), bob=(2, 2, 2), lean=(0, -1), **LOW),
+     g(an=band(-60, -155), af=band(-50, -145), bob=(2, 2, 3), lean=(0, 0), **LOW),
+     g(an=band(-50, -130), af=band(-45, -125), bob=(1, 1, 2), lean=(0, 0), **LOW),
      g(an=band(-40, -120), af=band(-35, -115), bob=(1, 1, 2), lean=(0, 1), root=(-1, 0)),
+     g(),
      g()],
-  ['strain', 'strain', 'pain', 'roar', 'roar', 'strain', 'squint', None],
+  ['strain', 'strain', 'pain', 'roar', 'roar', 'squint', 'pain', 'pain', 'squint', 'squint', 'squint', None, None],
   None,
   dict(fps=10, rm='E: +1 bursting out, -1 settling back',
+       extra={'crumble': {'rule': 'Mausoleum v3 (Christopher 2026-10-30): the tomb does not vanish: after the front slab bursts it crumbles to the ground in this clip (frames 5-9) and leaves a heap of rubble; the wall terrain ends with it', 'rubble': 'rubbleHeap2'}},
        anchored={0: [('tombBack', 'feet', -2, -26.5, {'behind': True}), ('pillar', 'feet', -16, -27), ('pillar', 'feet', 16, -27), ('roofBig', 'feet', 0, -59.5), ('tombSlab', 'feet', 2, -17.5), ('sigilLit', 'feet', 2, -18, {'alpha': {'c': 190, 'W': 200}}), ('slabCrack1', 'feet', 2, -17.5)],
                  1: [('tombBack', 'feet', -2, -26.5, {'behind': True}), ('pillar', 'feet', -16, -27), ('pillar', 'feet', 16, -27), ('roofBig', 'feet', 0, -59.5), ('tombSlab', 'feet', 2, -17.5), ('sigilDim', 'feet', 2, -18), ('slabCrack2', 'feet', 2, -17.5), ('grains', 'feet', 6, -30)],
                  2: [('tombBack', 'feet', -2, -26.5, {'behind': True}), ('pillar', 'feet', -16, -27), ('pillar', 'feet', 16, -27), ('roofBig', 'feet', 0, -59.5), ('tombSlab', 'feet', 2, -17.5), ('slabCrack2', 'feet', 2, -17.5), ('gemCrack', 'feet', 2, -18), ('rocks', 'feet', 10, -34), ('rocks', 'feet', -6, -32)],
                  3: [('tombBack', 'feet', -2, -26.5, {'behind': True}), ('pillar', 'feet', -16, -27), ('pillar', 'feet', 16, -27), ('roofBig', 'feet', 0, -59.5), ('stoneShatter12', 'feet', 4, -18), ('plume2', 'feet', 8, -16), ('gemBurst2', 'feet', 4, -18)],
                  4: [('tombBack', 'feet', -2, -26.5, {'behind': True}), ('pillar', 'feet', -16, -27), ('pillar', 'feet', 16, -27), ('roofBig', 'feet', 0, -59.5), ('stoneShatter18', 'feet', 4, -16), ('plumeWide', 'feet', 6, -10, {'alpha': {'e': 190, 'E': 190, 'H': 200}})],
-                 5: [('tombBack', 'feet', -2, -26.5, {'behind': True}), ('pillar', 'feet', -16, -27), ('pillar', 'feet', 16, -27), ('roofBig', 'feet', 0, -59.5), ('stoneShatter23', 'feet', 4, -12, {'alpha': {'G': 200, 'N': 200, 'H': 200}}), ('rubble', 'feet', -8, -2), ('rubble', 'feet', 12, -2)],
-                 6: [('tombBack', 'feet', -2, -26.5, {'behind': True}), ('pillar', 'feet', -16, -27), ('pillar', 'feet', 16, -27), ('roofBig', 'feet', 0, -59.5), ('rubble', 'feet', -8, -2), ('rubble', 'feet', 12, -2), ('dust1', 'feet', 2, -3)],
-                 7: [('tombBack', 'feet', -2, -26.5, {'behind': True}), ('pillar', 'feet', -16, -27), ('pillar', 'feet', 16, -27), ('roofBig', 'feet', 0, -59.5), ('rubble', 'feet', -8, -2), ('rubble', 'feet', 12, -2)]})),
+                 5: [('tombBack', 'feet', -2, -26.5, {'behind': True}), ('pillar', 'feet', -16, -27), ('pillar', 'feet', 16, -27), ('roofBig', 'feet', 0, -59.5), ('gemCrack', 'feet', -16, -40), ('gemCrack', 'feet', 16, -30), ('gemCrack', 'feet', -4, -48), ('stoneShatter23', 'feet', 4, -12, {'alpha': {'G': 200, 'N': 200, 'H': 200, '#': 200}}), ('rubble', 'feet', 10, -2)],
+                 6: [('tombBackC42', 'feet', -2, -20.5, {'behind': True}), ('pillarC44', 'feet', -16, -21.5), ('pillarC44', 'feet', 16, -21.5), ('roofTilt', 'feet', 2, -55.5), ('gemCrack', 'feet', -16, -26), ('gemCrack', 'feet', 16, -22), ('plume', 'feet', -16, -44), ('rubble', 'feet', 10, -2)],
+                 7: [('tombBackC28', 'feet', -2, -13.5, {'behind': True}), ('pillarC30', 'feet', -16, -14.5), ('pillarC30', 'feet', 16, -14.5), ('roofBlocks', 'feet', 0, -44), ('plume2', 'feet', -17, -30), ('plume2', 'feet', 17, -28), ('rubble', 'feet', 10, -2), ('rubble', 'feet', -10, -2)],
+                 8: [('tombBackC14', 'feet', -2, -6.5, {'behind': True}), ('pillarC16', 'feet', -16, -7.5), ('pillarC16', 'feet', 16, -7.5), ('stoneShatter18', 'feet', 0, -24), ('plumeWide', 'feet', -10, -14), ('plumeWide', 'feet', 12, -12), ('rubbleHeap', 'feet', 0, -4)],
+                 9: [('rubbleHeap', 'feet', 0, -4), ('plumeWide', 'feet', -10, -8, {'alpha': {'e': 180, 'E': 180, 'H': 190}}), ('plumeWide', 'feet', 12, -6, {'alpha': {'e': 180, 'E': 180, 'H': 190}}), ('rocks', 'feet', -20, -6), ('rocks', 'feet', 20, -4)],
+                 10: [('rubbleHeap', 'feet', 0, -4, {'behind': True}), ('plume', 'feet', -14, -6, {'alpha': {'e': 130, 'E': 130, 'H': 140}}), ('plume', 'feet', 14, -6, {'alpha': {'e': 130, 'E': 130, 'H': 140}})],
+                 11: [('rubbleHeap2', 'feet', 0, -2.5, {'behind': True})], 12: [('rubbleHeap2', 'feet', 0, -2.5, {'behind': True})]})),
  'stalactiteRain': ('Stalactite Rain', 10,
   'Stalactite Rain (Capricorn ninjutsu ultimate, charge, Elemental 30, wide AoE: the fighter channels its chakra through the earth, forming giant spear-like crystal formations), v2 (Christopher 2026-10-29: the crystal spears rise from behind the caster, then rain down on the target): from the guard the fighter makes the seal and sinks deep, straining, an earthen aura flaring with crystal glints; it slams both open palms down at the floor and the ground cracks behind it, glowing teal, and giant crystal spears grind up out of the earth behind it, point first, growing over three frames until they tower over its head; it heaves both palms up and the spears tear free of the ground and shoot up into the sky; then it hurls the near hand forward and down at the target, and the spears rain down out of the sky onto the target zone (the target plays stalactiteImpaled); it holds the throw, then settles back into the guard.', [
      g(),
