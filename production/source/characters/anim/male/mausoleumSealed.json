@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "mausoleumSealed",
-  "status": "CANDIDATE 2026-10-27 (E/W; W mirrors E; S/N to author after approval)",
+  "status": "E/W approved by user 2026-10-30 (v3 headstone, pillars, chest-high slab, capstone slam, pulsing Capricorn sigil loop, 4c2e0d3d; W mirrors E); S/N to author",
   "frames": 12,
   "fps": 10,
   "sourceDirection": "E",
