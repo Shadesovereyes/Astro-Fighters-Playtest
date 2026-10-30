@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "nerveDisruptor",
-  "status": "E/W approved by user 2026-10-30 (v1 static crackles over the lead fist, charged jab, spark flash, forked lightning, f5d859a8; W mirrors E); S/N to author",
+  "status": "E/W approved by user 2026-10-30 (v1 static crackles over the lead fist, charged jab, spark flash, forked lightning, f5d859a8; recoloured electric green-white by user request 2026-10-30; W mirrors E); S/N to author",
   "frames": 8,
   "fps": 12,
   "sourceDirection": "E",
@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Nerve Disruptor (Aquarius taijutsu strike, Physical 10, Silence 1 round CHA save DC 12: the fighter channels its inner electrical field into a charged jab that disrupts the opponent's chakra flow): from the guard the fighter tightens its lead fist and static crackles over it, small arcs leaping off the knuckles and a pale blue aura flickering up; then it snaps the lead jab straight out and back, fast; on contact a white-hot spark flash bursts at the fist and jagged lightning forks out from it, a broken electric ring snapping out, sparks scattering; the fist comes back into the guard still fizzing.",
+  "intent": "Nerve Disruptor (Aquarius taijutsu strike, Physical 10, Silence 1 round CHA save DC 12: the fighter channels its inner electrical field into a charged jab that disrupts the opponent's chakra flow): from the guard the fighter tightens its lead fist and static crackles over it, small arcs leaping off the knuckles and a pale green aura flickering up; then it snaps the lead jab straight out and back, fast; on contact a white-hot spark flash bursts at the fist and jagged lightning forks out from it, a broken electric ring snapping out, sparks scattering; the fist comes back into the guard still fizzing.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",

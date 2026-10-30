@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "staticShell",
-  "status": "E/W approved by user 2026-10-30 (v1 fists at the hips, crackling blue aura, arcs beside the body, shock ring at the feet, f5d859a8; W mirrors E); linger is a proposal; S/N to author",
+  "status": "E/W approved by user 2026-10-30 (v1 fists at the hips, crackling aura, arcs beside the body, shock ring at the feet, f5d859a8; recoloured electric green-white by user request 2026-10-30; W mirrors E); linger is a proposal; S/N to author",
   "frames": 9,
   "fps": 10,
   "sourceDirection": "E",
@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Static Shell (Aquarius taijutsu stance, Posture, Counter, Fortified 1 round (10): the fighter lets its inner electrical field radiate from its body as a small EMP field that disrupts the opponent's attacks): from the guard the fighter drops its fists to its hips and sets its feet, eyes narrowing; a crackling pale-blue aura flares up round it and arcs of static dance over its shoulders, arms and legs, sparks spitting off, a broken electric ring pulsing out at its feet; then it rises back into a tight guard with the static still crackling over it (the testbed keeps a thin crackling aura and a spark or two while the stance holds).",
+  "intent": "Static Shell (Aquarius taijutsu stance, Posture, Counter, Fortified 1 round (10): the fighter lets its inner electrical field radiate from its body as a small EMP field that disrupts the opponent's attacks): from the guard the fighter drops its fists to its hips and sets its feet, eyes narrowing; a crackling pale-green aura flares up round it and arcs of static dance over its shoulders, arms and legs, sparks spitting off, a broken electric ring pulsing out at its feet; then it rises back into a tight guard with the static still crackling over it (the testbed keeps a thin crackling aura and a spark or two while the stance holds).",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -2903,18 +2903,18 @@
     "intent": "eyes squeezed shut with the brow pulled down on the impact frames 0-2 (no mouth: user 2026-10-14), a squint on frame 3, open again from frame 4 (user 2026-10-14)"
   },
   "linger": {
-    "rule": "Static Shell (stance): the clip ends crackling; while the stance holds the testbed keeps a 1 px pale-blue aura flickering on the fighter and one or two sparks or short arcs popping on the shoulders and arms each frame, on every state it plays; clears when the stance ends",
+    "rule": "Static Shell (stance): the clip ends crackling; while the stance holds the testbed keeps a 1 px pale-green aura flickering on the fighter and one or two sparks or short arcs popping on the shoulders and arms each frame, on every state it plays; clears when the stance ends",
     "aura": 1,
     "auraColors": [
-      "#9fe8ff",
-      "#3d7bff"
+      "#b8ffc8",
+      "#39e75f"
     ],
     "motes": {
       "pattern": "spark",
       "colors": [
         "#ffffff",
-        "#9fe8ff",
-        "#3d7bff"
+        "#b8ffc8",
+        "#39e75f"
       ],
       "perFrame": 2
     }
