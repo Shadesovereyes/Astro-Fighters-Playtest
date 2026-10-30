@@ -406,6 +406,40 @@ def _roof(w, h):   # Mausoleum v2: the roof slab dropped on the pillars: a low p
     return rows
 NPAT.update({'pillar': _pillar(7, 55, 1), 'roof': _roof(40, 9)})
 NPAT.update({**{'pillar%d' % n: NPAT['pillar'][-round(55 * n / 3):] for n in (1, 2)}})
+def _runes(w, h, lit):   # Mausoleum v3: carved glyphs over the front slab, glowing crystal teal (lit: white-hot cores) or dim deep teal between pulses
+    G = [['C.C', '.C.', 'C.C'], ['CCC', 'C..', 'CCC'], ['.C.', 'CCC', '.C.'], ['C.C', 'CCC', 'C.C'], ['CC.', '.C.', '.CC'], ['C..', 'CCC', '..C']]
+    rows = [['.'] * w for _ in range(h)]; k = 0
+    for gy in range(4, h - 4, 7):
+        for gx in range(3, w - 4, 7):
+            for yy, r in enumerate(G[k % len(G)]):
+                for xx, ch in enumerate(r):
+                    if ch != '.': rows[gy + yy][gx + xx] = ('W' if (xx, yy) == (1, 1) else 'c') if lit else 'T'
+            k += 1
+    return [''.join(q) for q in rows]
+def _runering(w, h, lit):   # Mausoleum v3: a ring of glowing glyph ticks opening in the floor under the target
+    rows = [['.'] * w for _ in range(h)]
+    for k in range(int(4 * w)):
+        a = 2 * math.pi * k / (4 * w); x = round((w - 1) / 2 + (w - 1) / 2 * math.cos(a)); y = round((h - 1) / 2 + (h - 1) / 2 * math.sin(a))
+        rows[y][x] = 'C' if lit else 'T'
+    for k in range(10):
+        a = 2 * math.pi * k / 10; x = round((w - 1) / 2 + (w - 1) / 2 * 0.7 * math.cos(a)); y = round((h - 1) / 2 + (h - 1) / 2 * 0.6 * math.sin(a))
+        rows[y][x] = 'W' if lit else 'c'
+    return [''.join(q) for q in rows]
+def _plume(w, h, seed):   # Mausoleum v3: a plume of stone dust (the sand cloud in earth browns and stone)
+    return [r.replace('Z', 'H').replace('S', 'e').replace('s', 'E') for r in _sandcloud(w, h, 0.7, seed)]
+NPAT.update({'tombSlab': _slab(26, 36, 9, seam=False), 'runesLit': _runes(26, 36, True), 'runesDim': _runes(26, 36, False), 'roofBig': _roof(46, 10),
+             'ringLit': _runering(36, 7, True), 'ringDim': _runering(36, 7, False), 'plume': _plume(15, 13, 31), 'plume2': _plume(19, 15, 32), 'plumeWide': _plume(31, 11, 33)})
+NPAT.update({'tombSlab1': NPAT['tombSlab'][-12:], 'tombSlab2': NPAT['tombSlab'][-24:], 'runesLit2': NPAT['runesLit'][-24:]})
+def _sigil(r, lit):   # Mausoleum v3: a big carved sigil on the front slab: a ring with the goat-fish glyph of Capricorn inside (a V whose right arm curls into a hook), glowing crystal teal (lit: white-hot glyph)
+    w = 2 * r + 1; rows = [['.'] * w for _ in range(w)]; ring, glyph = ('c', 'W') if lit else ('T', 'C')
+    for k in range(int(8 * r)):
+        a = 2 * math.pi * k / (8 * r); rows[round(r + r * math.sin(a))][round(r + r * math.cos(a))] = ring
+    pts = [(-4, -4), (-3, -2), (-2, 0), (-1, 2), (0, 3), (1, 1), (1, -1), (2, -3), (3, -3), (4, -2), (4, 0), (3, 2), (2, 3), (3, 4)]
+    for (x, y) in pts:
+        rows[r + y][r + x] = glyph
+        if lit: rows[r + y][r + x + 1] = rows[r + y][r + x + 1] if rows[r + y][r + x + 1] != '.' else 'c'
+    return [''.join(q) for q in rows]
+NPAT.update({'sigilLit': _sigil(9, True), 'sigilDim': _sigil(9, False), 'slabGlow': [''.join('C' if ch == 'N' else '.' for ch in r) for r in NPAT['tombSlab']], 'lightBeam': ['c', 'C', 'c', 'c', '.', 'c', 'C', 'c', '.', 'c'] * 4})
 NPAT.update({'tombBack': _slab(30, 54, 3, arch=True), 'tombFront': _slab(30, 20, 5)})
 NPAT.update({'stalBack': _spikes(44, 58, 5, 21, widths=(7, 8, 9)), 'stalFrontL': _spikes(18, 34, 2, 22, lean=-1, widths=(6, 7)), 'stalFrontR': _spikes(18, 38, 2, 23, lean=1, widths=(6, 7, 8)), 'stalTips': _spikes(30, 8, 6, 24), 'stalTipsS': _spikes(12, 5, 3, 25)})   # Capricorn Stalactite Rain: giant crystal spears
 NPAT.update({'stalBack2': NPAT['stalBack'][20:], 'stalFrontL2': NPAT['stalFrontL'][12:], 'stalFrontR2': NPAT['stalFrontR'][14:]})
@@ -1417,49 +1451,61 @@ CLIPS = {
                  3: [('geoBack', 'feet', -2, -15, {'behind': True}), ('geoFrontL', 'feet', -8, -11), ('geoFrontR', 'feet', 9, -12), ('shardFly', 'head', -14, 10), ('shardFly', 'head', 14, 6), ('gemShard', 'head', -15, -2), ('gemShard', 'head', 15, 0), ('bloodN', 'head', 4, 16), ('bloodN', 'head', -3, 22)],
                  4: [('geoBack2', 'feet', -2, -10, {'behind': True, 'alpha': {'C': 200, 'c': 200, 'T': 200}}), ('geoFrontL2', 'feet', -8, -7, {'alpha': {'C': 200, 'c': 200, 'T': 200}}), ('geoFrontR2', 'feet', 9, -8, {'alpha': {'C': 200, 'c': 200, 'T': 200}}), ('gemShard', 'head', -16, 14), ('gemShard', 'head', 16, 18), ('bloodN', 'head', 4, 18)],
                  5: [('rubble', 'feet', -7, -2), ('rubble', 'feet', 8, -2), ('dust1', 'feet', 0, -3)]})),
- 'mausoleum': ('Mausoleum', 2,
-  'Mausoleum (Capricorn ninjutsu, Elemental 6, Terrain, Wall 2 rounds, Root 1 round STR save DC 14: the fighter calls up entombing walls that root the foe), v2 (Christopher 2026-10-29: needs a rework; Claude\'s reading: a small tomb built round the target): from the guard the fighter makes the seal at the chin and sinks, an earthen aura rising; it sweeps both open palms down low over the floor and heaves them up, palms up, as if lifting a great weight, and at the target two fluted stone pillars, ringed with glowing crystal teal, grind up out of the ground on either side of it; then it pushes both palms forward and down together and a stone roof, a pediment over a thick lintel, drops onto the pillars, sealing the target in its tomb (the target plays mausoleumSealed); it holds, arms trembling, then drops back into the guard.', [
+ 'mausoleum': ('Mausoleum', 1,
+  'Mausoleum (Capricorn ninjutsu, Elemental 6, Terrain, Wall 2 rounds, Root 1 round STR save DC 14: the fighter calls up entombing walls that root the foe), v3 (Christopher 2026-10-30: still not cool enough; make it big): from the guard the fighter claps its palms together in the seal before its chest, eyes closing, and a ring of glowing crystal glyphs opens in the floor under the target; it sweeps both palms down low and heaves them up with a roar, and the tomb erupts round the target in plumes of stone dust: a tall arched headstone behind it, a fluted pillar either side and a carved front slab grinding up to its chest; then it raises both fists high overhead and hammers them down at the floor, and a great capstone slams down out of the sky onto the pillars with a shockwave of dust and rubble; the great Capricorn sigil carved in the front slab blazes up crystal teal, light leaking from every joint, and the fighter holds the hammer pose, then rises back into the guard (the target plays mausoleumSealed).', [
      g(),
-     g(an=U.SEAL_N, af=U.SEAL_F, bob=(2, 2, 2), lean=(0, 0), **LOW),
-     g(an=band(-40, -45, fistKind='palm'), af=band(-30, -55, fistKind='palm'), bob=(4, 5, 5), lean=(1, 6), **BRACE),   # palms swept low over the floor: the pillars start to rise
-     g(an=band(-90, -150, fistKind='palm'), af=band(-80, -145, fistKind='palm'), bob=(3, 3, 3), lean=(0, 2), **LOW),     # heaving them up, palms up
-     g(an=band(-120, -160, fistKind='palm'), af=band(-110, -155, fistKind='palm'), bob=(2, 2, 2), lean=(0, 0), **LOW),
-     g(an=band(-120, -160, fistKind='palm'), af=band(-110, -155, fistKind='palm'), bob=(2, 2, 2), lean=(0, 0), **LOW),
-     g(an=band(-92, -92, fistKind='palm'), af=band(-88, -88, fistKind='palm'), bob=(2, 2, 2), lean=(1, 3), root=(1, 0), **LOW),   # both palms pushed forward and down: the roof drops
-     g(an=band(-75, -70, fistKind='palm'), af=band(-72, -68, fistKind='palm'), bob=(3, 3, 3), lean=(1, 4), **LOW),
-     g(an=band(-75, -70, fistKind='palm'), af=band(-72, -68, fistKind='palm'), bob=(3, 3, 4), lean=(1, 4), **LOW),
-     g(an=band(-50, -120), af=band(-40, -110), bob=(1, 1, 2), lean=(0, 2), root=(-1, 0)),
+     g(an=U.SEAL_N, af=U.SEAL_F, bob=(1, 1, 1), lean=(0, 0)),                                                                    # palms clapped in the seal: the glyph ring opens
+     g(an=U.SEAL_N, af=U.SEAL_F, bob=(3, 3, 3), lean=(0, 1), **LOW),
+     g(an=band(-40, -45, fistKind='palm'), af=band(-30, -55, fistKind='palm'), bob=(4, 5, 5), lean=(1, 6), **BRACE),          # palms swept low over the floor
+     g(an=band(-110, -150, fistKind='palm'), af=band(-100, -145, fistKind='palm'), bob=(2, 2, 2), lean=(0, 0), **LOW),         # heaved up: the tomb erupts
+     g(an=band(-130, -160, fistKind='palm'), af=band(-120, -155, fistKind='palm'), bob=(1, 1, 1), lean=(0, -1), **LOW),
+     g(an=band(-165, -178), af=band(-160, -176), bob=(0, -1, 0), lean=(0, -1)),                                                 # both fists raised high overhead
+     g(an=band(-40, -45), af=band(-35, -50), bob=(5, 6, 6), lean=(1, 8), **BRACE),                                               # hammered down at the floor: the capstone slams
+     g(an=band(-40, -45), af=band(-35, -50), bob=(5, 6, 6), lean=(1, 8), **BRACE),
+     g(an=band(-40, -45), af=band(-35, -50), bob=(5, 6, 7), lean=(1, 8), **BRACE),
+     g(an=band(-50, -120), af=band(-40, -110), bob=(2, 2, 2), lean=(0, 2), **LOW),
      g()],
-  [None, 'squint', 'strain', 'strain', 'roar', 'strain', 'strain', 'strain', 'strain', None, None],
-  [0, 1, 2, 2, 2, 2, 2, 1, 1, 0, 0],
-  dict(fps=10, auraColors=('#b3aa9a', '#8a6236'), rm='E: +1 pushing the palms forward, -1 settling back',
-       extra={'targetState': {'rule': 'Mausoleum v2: from the active frame (frame 2, the palms sweep low) the target plays mausoleumSealed: frames 0-5 once (cracks, the two pillars grind up either side, the roof drops onto them as the caster pushes, frame 5), then frames 6-9 on loop (it shoves at the front pillar) until the Root ends; the tomb is terrain for 2 rounds: while it stands the testbed keeps drawing the pillars and roof round that hex', 'state': 'mausoleumSealed', 'loopFrom': 6, 'element': 'earth', 'wallRounds': 2}},
-       anchored={2: [('crack1', 'feet', 10, -1), ('dust1', 'feet', 12, -3)],
-                 3: [('dust2', 'feet', 12, -3), ('rocks', 'feet', 14, -8), ('cryst', 'hand', 0, -3)],
-                 4: [('rocks', 'hand', 2, -4), ('cryst', 'hand', -3, -6)], 5: [('gemSpark', 'hand', 0, -3)],
-                 6: [('gemSpark', 'hand', 2, 0)], 7: [('dust1', 'feet', 8, -3)]})),
- 'mausoleumSealed': ('Sealed in the Mausoleum', 1,
-  'Sealed in the Mausoleum (target state of Mausoleum v2, Root 1 round): the floor cracks under the fighter and two fluted stone pillars, ringed with glowing crystal teal, grind up out of the ground on either side of it, dust spilling off them; it looks up as a stone roof, a pediment over a thick lintel, drops out of the air onto the pillars with a burst of dust, sealing it in; then (looping until the Root ends) it shoves at the front pillar with both palms, straining, grit trickling down from the lintel.', [
-     g(bob=(1, 1, 1), lean=(0, 0)),
+  [None, 'closed', 'closed', 'strain', 'roar', 'roar', 'strain', 'roar', 'strain', 'strain', None, None],
+  [0, 1, 1, 2, 2, 2, 2, 2, 2, 1, 1, 0],
+  dict(fps=10, auraColors=('#7fe3d0', '#8a6236'),
+       extra={'targetState': {'rule': 'Mausoleum v3: from the active frame (frame 1, the seal) the target plays mausoleumSealed: frames 0-7 once (glyph ring, the headstone, pillars and front slab erupt, the capstone slams on frame 6 as the caster hammers down, the glyphs ignite), then frames 8-11 on loop (the glyphs pulse, the target strains) until the Root ends; the tomb is terrain for 2 rounds: while it stands the testbed keeps drawing it round that hex (loop frames)', 'state': 'mausoleumSealed', 'loopFrom': 8, 'element': 'earth', 'wallRounds': 2}},
+       anchored={1: [('gemSpark', 'hand', 0, -4)],
+                 3: [('crack2', 'feet', 9, -1), ('dust1', 'feet', 12, -3)],
+                 4: [('plume', 'feet', 12, -6), ('rocks', 'feet', 15, -10), ('cryst', 'hand', 0, -3)],
+                 5: [('dust2', 'feet', 12, -3), ('cryst', 'hand', -3, -5)],
+                 6: [('gemSpark', 'hand', 0, -3), ('gemSpark', 'farhand', 0, -3)],
+                 7: [('crack2', 'feet', 10, -1), ('plumeWide', 'feet', 12, -5), ('rocks', 'feet', 16, -10), ('rocks', 'feet', 6, -8)],
+                 8: [('crack2', 'feet', 10, -1), ('plume', 'feet', 14, -8, {'alpha': {'e': 190, 'E': 190, 'H': 200}})],
+                 9: [('crack1', 'feet', 10, -1), ('dust1', 'feet', 14, -4)]})),
+ 'mausoleumSealed': ('Sealed in the Mausoleum', 4,
+  'Sealed in the Mausoleum (target state of Mausoleum v3, Root 1 round): a ring of glowing crystal glyphs opens in the floor under the fighter, shafts of teal light shooting up from it; the tomb erupts round it in plumes of stone dust, a tall arched headstone behind, a fluted pillar either side and a carved front slab grinding up to its chest, pinning it; it looks up as a great capstone falls out of the sky and slams onto the pillars with a shockwave of dust and rubble, jolting it; a great sigil carved in the front slab, the goat-fish of Capricorn in a ring, blazes crystal teal and light leaks from every joint of the stone, and (looping until the Root ends) it pulses while the fighter strains inside, grit trickling from the capstone.', [
+     g(an=band(-40, -120), af=band(-35, -115), bob=(1, 1, 1), lean=(0, 1)),
      g(an=band(-60, -150), af=band(-50, -140), bob=(1, 1, 1), lean=(0, -1)),
      g(an=band(-60, -150), af=band(-50, -140), bob=(1, 1, 1), lean=(0, -1)),
-     g(an=band(-40, -120), af=band(-35, -115), bob=(1, 1, 1), lean=(0, 0)),
-     g(an=band(-40, -120), af=band(-35, -115), bob=(1, 1, 1), lean=(-1, -2)),
-     g(an=band(-60, -155), af=band(-50, -145), bob=(2, 2, 2), lean=(0, 0), **LOW),
-     g(an=band(-80, -85, fistKind='palm'), af=band(-75, -80, fistKind='palm'), bob=(1, 1, 1), lean=(1, 3), **BRACE),
-     g(an=band(-82, -86, fistKind='palm'), af=band(-77, -82, fistKind='palm'), bob=(1, 1, 1), lean=(1, 4), **BRACE),
-     g(an=band(-80, -85, fistKind='palm'), af=band(-75, -80, fistKind='palm'), bob=(1, 1, 1), lean=(1, 3), **BRACE),
-     g(an=band(-82, -86, fistKind='palm'), af=band(-77, -82, fistKind='palm'), bob=(1, 1, 2), lean=(1, 4), **BRACE)],
-  ['squint', 'pain', 'pain', 'squint', 'squint', 'pain', 'strain', 'strain', 'strain', 'strain'],
+     g(an=band(-60, -155), af=band(-50, -145), bob=(1, 1, 1), lean=(-1, -2)),
+     g(an=band(-10, -30), af=band(-8, -25), bob=(1, 1, 1), lean=(0, 0)),
+     g(an=band(-10, -30), af=band(-8, -25), bob=(1, 1, 1), lean=(-1, -2)),
+     g(an=band(-10, -30), af=band(-8, -25), bob=(2, 2, 3), lean=(0, 0)),
+     g(an=band(-10, -30), af=band(-8, -25), bob=(2, 2, 2), lean=(0, 0)),
+     g(an=band(-10, -30), af=band(-8, -25), bob=(1, 1, 1), lean=(0, 0)),
+     g(an=band(-10, -30), af=band(-8, -25), bob=(1, 1, 2), lean=(0, 1)),
+     g(an=band(-10, -30), af=band(-8, -25), bob=(1, 1, 1), lean=(0, 0)),
+     g(an=band(-10, -30), af=band(-8, -25), bob=(1, 1, 2), lean=(0, -1))],
+  ['squint', 'pain', 'pain', 'pain', 'squint', 'squint', 'pain', 'strain', 'strain', 'pain', 'strain', 'pain'],
   None,
-  dict(fps=8, extra={'loop': True, 'loopFrom': 6},
-       anchored={0: [('crack2', 'feet', 0, -1), ('dust1', 'feet', -12, -3), ('dust1', 'feet', 12, -3)],
-                 1: [('pillar1', 'feet', -14, -8.5), ('pillar1', 'feet', 14, -8.5), ('dust2', 'feet', -14, -3), ('dust2', 'feet', 14, -3)],
-                 2: [('pillar2', 'feet', -14, -18.0), ('pillar2', 'feet', 14, -18.0), ('dust1', 'feet', -18, -14), ('dust1', 'feet', 18, -12)],
-                 3: [('pillar', 'feet', -14, -27.0), ('pillar', 'feet', 14, -27.0), ('rocks', 'feet', -16, -40), ('dust1', 'feet', 15, -50)],
-                 4: [('pillar', 'feet', -14, -27.0), ('pillar', 'feet', 14, -27.0), ('roof', 'feet', 0, -74)],
-                 5: [('pillar', 'feet', -14, -27.0), ('pillar', 'feet', 14, -27.0), ('roof', 'feet', 0, -59), ('dust2', 'feet', -16, -53), ('dust2', 'feet', 16, -53), ('rocks', 'feet', 20, -44)],
-                 6: [('pillar', 'feet', -14, -27.0), ('pillar', 'feet', 14, -27.0), ('roof', 'feet', 0, -59)], 7: [('pillar', 'feet', -14, -27.0), ('pillar', 'feet', 14, -27.0), ('roof', 'feet', 0, -59), ('grains', 'feet', 10, -48)], 8: [('pillar', 'feet', -14, -27.0), ('pillar', 'feet', 14, -27.0), ('roof', 'feet', 0, -59)], 9: [('pillar', 'feet', -14, -27.0), ('pillar', 'feet', 14, -27.0), ('roof', 'feet', 0, -59), ('grains', 'feet', -9, -46)]})),
+  dict(fps=10, extra={'loop': True, 'loopFrom': 8},
+       anchored={0: [('ringDim', 'feet', 0, -1), ('crack1', 'feet', 0, -1)],
+                 1: [('ringLit', 'feet', 0, -1), ('lightBeam', 'feet', -12, -20, {'alpha': {'c': 150, 'C': 170}}), ('lightBeam', 'feet', 12, -20, {'alpha': {'c': 150, 'C': 170}}), ('lightBeam', 'feet', 0, -22, {'alpha': {'c': 120, 'C': 140}}), ('tombBack1', 'feet', -2, -8.5, {'behind': True}), ('pillar1', 'feet', -16, -8.5), ('pillar1', 'feet', 16, -8.5), ('plume', 'feet', -16, -8), ('plume', 'feet', 16, -8)],
+                 2: [('ringLit', 'feet', 0, -1), ('lightBeam', 'feet', -8, -24, {'alpha': {'c': 120, 'C': 140}}), ('lightBeam', 'feet', 9, -24, {'alpha': {'c': 120, 'C': 140}}), ('tombBack2', 'feet', -2, -17.5, {'behind': True}), ('pillar2', 'feet', -16, -18), ('pillar2', 'feet', 16, -18), ('tombSlab1', 'feet', 2, -5.5), ('plume2', 'feet', -17, -20), ('plume2', 'feet', 17, -18), ('rocks', 'feet', 0, -26)],
+                 3: [('ringLit', 'feet', 0, -1), ('tombBack', 'feet', -2, -26.5, {'behind': True}), ('pillar', 'feet', -16, -27), ('pillar', 'feet', 16, -27), ('tombSlab2', 'feet', 2, -11.5), ('plume', 'feet', -18, -44), ('plume', 'feet', 18, -40), ('rocks', 'feet', 8, -28)],
+                 4: [('tombBack', 'feet', -2, -26.5, {'behind': True}), ('pillar', 'feet', -16, -27), ('pillar', 'feet', 16, -27), ('tombSlab', 'feet', 2, -17.5), ('plumeWide', 'feet', 2, -36), ('rocks', 'feet', -6, -40)],
+                 5: [('tombBack', 'feet', -2, -26.5, {'behind': True}), ('pillar', 'feet', -16, -27), ('pillar', 'feet', 16, -27), ('tombSlab', 'feet', 2, -17.5), ('roofBig', 'feet', 0, -67)],
+                 6: [('tombBack', 'feet', -2, -26.5, {'behind': True}), ('pillar', 'feet', -16, -27), ('pillar', 'feet', 16, -27), ('tombSlab', 'feet', 2, -17.5), ('roofBig', 'feet', 0, -59.5), ('plumeWide', 'feet', -18, -52), ('plumeWide', 'feet', 18, -52), ('rocks', 'feet', -22, -44), ('rocks', 'feet', 22, -40), ('plumeWide', 'feet', 0, -4)],
+                 7: [('tombBack', 'feet', -2, -26.5, {'behind': True}), ('pillar', 'feet', -16, -27), ('pillar', 'feet', 16, -27), ('tombSlab', 'feet', 2, -17.5), ('sigilLit', 'feet', 2, -18), ('slabGlow', 'feet', 2, -17.5, {'alpha': {'C': 170}}), ('roofBig', 'feet', 0, -59.5), ('plume', 'feet', -20, -50, {'alpha': {'e': 170, 'E': 170, 'H': 180}}), ('gemBurst2', 'feet', 2, -18)],
+                 8: [('tombBack', 'feet', -2, -26.5, {'behind': True}), ('pillar', 'feet', -16, -27), ('pillar', 'feet', 16, -27), ('tombSlab', 'feet', 2, -17.5), ('sigilLit', 'feet', 2, -18), ('slabGlow', 'feet', 2, -17.5, {'alpha': {'C': 170}}), ('roofBig', 'feet', 0, -59.5)],
+                 9: [('tombBack', 'feet', -2, -26.5, {'behind': True}), ('pillar', 'feet', -16, -27), ('pillar', 'feet', 16, -27), ('tombSlab', 'feet', 2, -17.5), ('sigilLit', 'feet', 2, -18, {'alpha': {'c': 190, 'W': 200}}), ('slabGlow', 'feet', 2, -17.5, {'alpha': {'C': 110}}), ('roofBig', 'feet', 0, -59.5), ('grains', 'feet', 9, -48)],
+                 10: [('tombBack', 'feet', -2, -26.5, {'behind': True}), ('pillar', 'feet', -16, -27), ('pillar', 'feet', 16, -27), ('tombSlab', 'feet', 2, -17.5), ('sigilDim', 'feet', 2, -18), ('roofBig', 'feet', 0, -59.5)],
+                 11: [('tombBack', 'feet', -2, -26.5, {'behind': True}), ('pillar', 'feet', -16, -27), ('pillar', 'feet', 16, -27), ('tombSlab', 'feet', 2, -17.5), ('sigilLit', 'feet', 2, -18, {'alpha': {'c': 190, 'W': 200}}), ('slabGlow', 'feet', 2, -17.5, {'alpha': {'C': 110}}), ('roofBig', 'feet', 0, -59.5), ('grains', 'feet', -8, -46)]})),
  'stalactiteRain': ('Stalactite Rain', 10,
   'Stalactite Rain (Capricorn ninjutsu ultimate, charge, Elemental 30, wide AoE: the fighter channels its chakra through the earth, forming giant spear-like crystal formations), v2 (Christopher 2026-10-29: the crystal spears rise from behind the caster, then rain down on the target): from the guard the fighter makes the seal and sinks deep, straining, an earthen aura flaring with crystal glints; it slams both open palms down at the floor and the ground cracks behind it, glowing teal, and giant crystal spears grind up out of the earth behind it, point first, growing over three frames until they tower over its head; it heaves both palms up and the spears tear free of the ground and shoot up into the sky; then it hurls the near hand forward and down at the target, and the spears rain down out of the sky onto the target zone (the target plays stalactiteImpaled); it holds the throw, then settles back into the guard.', [
      g(),
