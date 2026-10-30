@@ -305,6 +305,7 @@ def _aw(k, hx):   # Burdened Walk: one leg's pose at walk frame k (0 heel strike
             kleg(None, hip, (hx - 3, 51), (hx - 7, 57), 'toe30k'), kleg(None, hip, (hx, 50), (hx - 2, 56), 'toe30k'), kleg(None, hip, (hx + 4, 49), (hx + 3, 55), 'toe30k'), kleg(None, hip, (hx + 6, 50), (hx + 6, 56), 'toe30k')][k]
 for k_ in range(8):
     U.POSES += [{**_aw(k_, 31), 'name': 'aw-%d-near' % k_}, {**_aw(k_, 33), 'name': 'aw-%d-far' % k_}]
+LC_RUN = band(-70, -80, fistKind='palm')   # Lightning Cutter v2: the bladed knife hand thrust out ahead through the sprint
 AR_SWAY_N, AR_SWAY_F = band(12, -4), band(-4, -8)   # Burdened Walk: the limp arms swing a little with the stride
 AR_HANG_N, AR_HANG_F = band(6, -4), band(2, -6)        # arms hanging limp at the sides
 AR_KNEEL_N, AR_KNEEL_F = band(10, 0), band(4, -4)
@@ -621,10 +622,38 @@ def _edome(rx, ry, frac, seed, lit=True):   # EMP Field: a dome of crackling ele
             xi, yi = round(x), round(y)
             if 0 <= xi <= 2 * rx and 0 <= yi <= ry: rows[yi][xi] = 'W' if t < 2 else 'l'
     return [''.join(q) for q in rows]
+def _eripple(rx, ry):   # EMP Field v2: a thin dotted pulse of the field radiating outward (one shell, mint and green)
+    rows = [['.'] * (2 * rx + 1) for _ in range(ry + 1)]
+    for t in range(0, 1201):
+        a = math.pi * t / 1200; x = round(rx + rx * math.cos(a)); y = round(ry - ry * math.sin(a))
+        if (x + y) % 3 != 2: rows[y][x] = 'l' if (x + y) % 3 == 0 else 'L'
+    return [''.join(q) for q in rows]
+NPAT.update({'edomeA': _edome(10, 18, 1.0, 21), 'edomeB': _edome(18, 32, 1.0, 22), 'edomeC': _edome(25, 44, 1.0, 23), 'edomeD': _edome(30, 52, 1.0, 24),
+             **{'eripple%d' % k: _eripple(rx, ry) for k, (rx, ry) in enumerate(((14, 25), (19, 33), (24, 42), (29, 50)))}})
 NPAT.update({**{'edome%d' % k: _edome(30, 52, f, k) for k, f in enumerate((0.25, 0.55, 0.85, 1.0))}, 'edome4': _edome(30, 52, 1.0, 9), 'edomeDim': _edome(30, 52, 1.0, 11, lit=False),
              'zapRing16': _zapRing(16, 4), 'zapRing20': _zapRing(20, 5), 'voltOrb6': _voltOrb(6, 5), 'voltOrb6b': _voltOrb(6, 6), 'voltOrb8': _voltOrb(8, 7),
              'bolt24': _bolt(24, 8, 3, 3), 'bolt24b': _bolt(24, 9, 3, 3), 'boltV': [''.join(r) for r in zip(*_bolt(20, 10, 3, 2))], 'boltV2': [''.join(r) for r in zip(*_bolt(16, 11, 2, 1))],
              'knifeArc': _crackle(5, 12, 6), 'knifeArc2': _crackle(5, 13, 6)})
+def _eblade(L, seed, spread=1.0):   # Lightning Cutter v2: a sheaf of electric blades enveloping the knife hand, pointing forward (+x): a long central blade and shorter ones fanning above and below, white cores, mint bodies, green jagged edges
+    import random
+    rnd = random.Random(seed); H = 21; rows = [['.'] * (L + 2) for _ in range(H)]; cy = H // 2
+    for (ln, ang, w) in ((L, 0, 3.0), (round(L * 0.75), -0.3 * spread, 2.2), (round(L * 0.7), 0.32 * spread, 2.2), (round(L * 0.5), -0.6 * spread, 1.6), (round(L * 0.45), 0.65 * spread, 1.6)):
+        for i in range(ln * 2):
+            t = i / 2; f = t / ln; half = w * (1 - f) + 0.4
+            y0 = cy + math.sin(ang) * t + (rnd.choice((-0.6, 0, 0.6)) if i % 3 == 0 else 0); x0 = math.cos(ang) * t
+            for j in range(-4, 5):
+                o = j / 2
+                if abs(o) > half: continue
+                x, y = round(x0), round(y0 + o)
+                if 0 <= x < L + 2 and 0 <= y < H:
+                    ch = 'W' if abs(o) < 0.3 and f < 0.7 else 'l' if abs(o) < half - 0.6 else 'L'
+                    if rows[y][x] == '.' or ch == 'W': rows[y][x] = ch
+    for _ in range(4):   # sparks crackling off the edges
+        x, y = rnd.randrange(2, L), rnd.choice((0, 1, H - 2, H - 1))
+        rows[y][x] = 'l'
+    return [''.join(q) for q in rows]
+NPAT.update({'eblade0': _eblade(18, 1), 'eblade1': _eblade(18, 2, 1.2), 'eblade2': _eblade(18, 3, 0.9), 'ebladeS': _eblade(11, 4, 0.8), 'ebladeL': _eblade(24, 5, 0.7),
+             'impaleOut': [r[::-1] for r in _eblade(18, 6, 0.6)], 'impaleOut2': [r[::-1] for r in _eblade(20, 7, 0.8)]})
 ELEC_TRAIL = {(255, 255, 255): (0xff, 0xff, 0xff), (0xe3, 0xe3, 0xe3): (0x39, 0xe7, 0x5f)}   # Lightning Cutter: motion streak white inner half, electric green tail
 ELEC_FEET = [[('spark', _foot(SPRINT_LEGS[k])), ('sparkL', [_foot(SPRINT_LEGS[(k + 4) % 8])[0], _foot(SPRINT_LEGS[(k + 4) % 8])[1]])] + ([('bolt8', [_foot(SPRINT_LEGS[k])[0] - 9, 63])] if _foot(SPRINT_LEGS[k])[1] == 63 else []) for k in range(6)]
 ELEC_WAKE = [[('bolt12', [2, 58]), ('spark', [10, 40]), ('sparkL', [3, 30])], [('bolt12b', [1, 60]), ('sparkL', [12, 44]), ('spark', [4, 34])]]
@@ -2028,48 +2057,82 @@ CLIPS = {
                  4: [('crackle4', 'head', -8, 8), ('crackle4b', 'head', 8, 26), ('spark', 'head', -12, 30), ('sparkL', 'head', 12, 0)],
                  5: [('spark', 'head', 9, 12), ('sparkL', 'head', -9, 30), ('staticV', 'head', 6, -8)], 6: [('spark', 'head', -7, 20)]})),
  'lightningCutter': ('Lightning Cutter', 9,
-  'Lightning Cutter (Aquarius ninjutsu, Mental 24, Melee (Reach +6m), Priority, Gap Closer: an instant piercing lightning charge): from the guard the fighter dips, the near hand drawn back low as a knife hand, lightning crackling up it in a shrieking blade of arcs; then it breaks into the approved sprint at blinding speed, sparks spitting off its feet at every stride, a streak of lightning and four green afterimages trailing behind; on the last stride it plants and drives the crackling knife hand straight through the target at chest height, a white flash and bolts forking out the far side; then it settles back into the guard. The fighter travels 40 px over the clip (the game moves it by that distance).', [
+  'Lightning Cutter (Aquarius ninjutsu, Mental 24, Melee (Reach +6m), Priority, Gap Closer: an instant piercing lightning charge), v2 (Christopher 2026-10-30: electric blades envelop the hand while it runs; end with a strike that impales the target\'s torso): from the guard the fighter dips and draws the near hand back as a knife hand, and a sheaf of crackling electric blades bursts out round it; then it breaks into the approved sprint at blinding speed with the blade hand thrust out ahead of it, the blades flickering and spitting sparks, sparks off its feet at every stride, a streak of lightning and four green afterimages trailing behind; on the last stride it plants and drives the bladed hand straight into the target\'s chest, the blades punching out through its back in a burst of lightning (the target plays lightningImpaled); it holds the thrust while the lightning crackles through the target, then rips the hand free and settles back into the guard. The fighter travels 40 px over the clip (the game moves it by that distance).', [
      g(),
      g(an=band(20, -40, fistKind='palm'), af=band(-40, 215), bob=(3, 3, 3), lean=(1, 4), ln='ml-dip-rear', lf='ml-dip-lead')] + [
-     g(an=SPRINT_N[k], af=SPRINT_F[k], bob=(SPRINT_DY[k],) * 3, lean=(1, 8), root=(6, 0), ln='sr-' + SPRINT_LEGS[k], lf='sr-' + SPRINT_LEGS[(k + 4) % 8]) for k in range(6)] + [
+     g(an=LC_RUN, af=SPRINT_F[k], bob=(SPRINT_DY[k],) * 3, lean=(1, 8), root=(6, 0), ln='sr-' + SPRINT_LEGS[k], lf='sr-' + SPRINT_LEGS[(k + 4) % 8]) for k in range(6)] + [
      g(an=band(-90, -90, fistKind='palm'), af=TUCK_F, bob=(2, 2, 2), lean=(2, 7), root=(3, 0), ln='ml-trail-rear', lf='ml-plant-lead'),
-     g(an=band(-90, -90, fistKind='palm'), af=TUCK_F, bob=(2, 2, 2), lean=(2, 6), root=(1, 0), ln='ml-trail-rear', lf='ml-plant-lead'),
-     g(an=band(-25, 208), af=band(-45, 220), bob=(1, 1, 2), lean=(1, 3)),
+     g(an=band(-92, -92, fistKind='palm'), af=TUCK_F, bob=(2, 2, 2), lean=(2, 8), root=(1, 0), ln='ml-trail-rear', lf='ml-plant-lead'),
+     g(an=band(-92, -92, fistKind='palm'), af=TUCK_F, bob=(2, 2, 2), lean=(2, 8), ln='ml-trail-rear', lf='ml-plant-lead'),
+     g(an=band(-92, -92, fistKind='palm'), af=TUCK_F, bob=(2, 2, 3), lean=(2, 8), ln='ml-trail-rear', lf='ml-plant-lead'),
+     g(an=band(-92, -92, fistKind='palm'), af=TUCK_F, bob=(2, 2, 2), lean=(2, 8), ln='ml-trail-rear', lf='ml-plant-lead'),
+     g(an=band(-40, -150), af=band(-45, 220), bob=(1, 1, 2), lean=(0, 1), ln='ml-trail-rear', lf='ml-plant-lead'),
      g()],
-  [None, 'squint'] + ['squint'] * 6 + ['roar', 'squint', None, None],
+  [None, 'squint'] + ['squint'] * 6 + ['roar', 'roar', 'strain', 'strain', 'strain', 'squint', None],
   None,
   dict(fps=12, hitbox=[42, 20, 16, 12], damage='heavy', rm='E: 6 px a stride through the sprint (as the sprint), +3 and +1 into the thrust; 40 px in all (travel)',
        ghosts={k: (5, 10, 15, 20) for k in range(2, 8)} | {8: (5, 10, 15), 9: (4, 8), 10: (3,)}, ghostColors=(('#ffffff', '#b8ffc8'), ('#b8ffc8', '#ffffff'), ('#39e75f', '#b8ffc8'), ('#39e75f', None)),
        blur={k: 9 for k in range(2, 8)} | {8: 7, 9: 4}, trail=ELEC_TRAIL,
        fx=nfx('lightning (white, pale mint, electric green): sparks spitting off the feet at every stride, a streak of lightning trailing behind',
               [(k, ELEC_FEET[k - 2] + ELEC_WAKE[k % 2]) for k in range(2, 8)] + [(8, ELEC_WAKE[0][:2]), (9, [('spark', [4, 40])])]),
-       extra={'airborneFrames': [5], 'travel': {'rule': 'Lightning Cutter is a gap closer (Reach +6 m): the fighter ends the clip 40 px further forward (sum of rootMotion); the game moves the fighter by that distance', 'E': 40}},
-       anchored={1: [('knifeArc', 'hand', 0, 0), ('spark', 'hand', 3, -4)], 2: [('knifeArc2', 'hand', 0, 0)], 3: [('knifeArc', 'hand', 0, 0)], 4: [('knifeArc2', 'hand', 0, 0)], 5: [('knifeArc', 'hand', 0, 0)], 6: [('knifeArc2', 'hand', 0, 0)], 7: [('knifeArc', 'hand', 0, 0)],
-                 8: [('voltOrb3', 'hand', 2, 0), ('bolt12', 'hand', 9, -3), ('bolt12b', 'hand', 9, 4)], 9: [('zapRing9', 'hand', 6, 0), ('bolt18', 'hand', 12, -4), ('bolt18b', 'hand', 12, 5)],
-                 10: [('spark', 'hand', 8, -3), ('sparkL', 'hand', 12, 4)]})),
+       extra={'airborneFrames': [5], 'travel': {'rule': 'Lightning Cutter is a gap closer (Reach +6 m): the fighter ends the clip 40 px further forward (sum of rootMotion); the game moves the fighter by that distance', 'E': 40},
+              'targetState': {'rule': 'Lightning Cutter v2: on the active frame (frame 9, the bladed hand drives into the chest) the target plays lightningImpaled once (impaled, blades out of its back, convulsing, then the hand rips free and it staggers), then its idle', 'state': 'lightningImpaled', 'loopFrom': None, 'element': 'air'}},
+       anchored={1: [('ebladeS', 'hand', 4, 0), ('crackle3', 'hand', 0, 0)], **{k: [(('eblade0', 'eblade1', 'eblade2')[k % 3], 'hand', 9, 0), ('spark', 'hand', 2, (-5, 5)[k % 2])] for k in range(2, 8)},
+                 8: [('eblade1', 'hand', 9, 0), ('crackle4', 'hand', 0, 0)], 9: [('voltOrb3', 'hand', 0, 0), ('zapRing9', 'hand', 2, 0)],
+                 10: [('crackle6', 'hand', 0, 0), ('spark', 'hand', -3, -7)], 11: [('crackle4b', 'hand', 0, 0)], 12: [('crackle6b', 'hand', 0, 0), ('sparkL', 'hand', -2, 6)],
+                 13: [('ebladeS', 'hand', 4, 0, {'alpha': {'W': 160, 'l': 150, 'L': 140}}), ('spark', 'hand', 8, 2)], 14: [('spark', 'hand', 2, -3)]})),
+ 'lightningImpaled': ('Lightning Impaled', 0,
+  'Lightning Impaled (target state of Lightning Cutter v2, plays once): the bladed hand drives into the fighter\'s chest and the electric blades punch out through its back in a burst of lightning; it doubles over the hand, arms flung out, eyes squeezed, convulsing as lightning crackles through it and arcs off its body; then the hand rips free, the blades vanish, and it staggers back clutching its chest before dropping back into the guard.', [
+     g(an=band(20, -30), af=band(10, -25), bob=(2, 2, 2), lean=(2, 8)),
+     g(an=band(28, -20), af=band(18, -15), bob=(2, 2, 3), lean=(2, 9), root=(-1, 0)),
+     g(an=band(20, -30), af=band(10, -25), bob=(2, 2, 2), lean=(2, 8), root=(1, 0)),
+     g(an=band(28, -20), af=band(18, -15), bob=(2, 2, 3), lean=(2, 9), root=(-1, 0)),
+     g(an=band(20, -30), af=band(10, -25), bob=(2, 2, 2), lean=(2, 8), root=(1, 0)),
+     g(an=band(-60, -100), af=band(-55, -95), bob=(3, 3, 3), lean=(1, 5), root=(-2, 0), **BRACE),
+     g(an=band(-60, -100), af=band(-55, -95), bob=(2, 2, 2), lean=(0, 3), **LOW),
+     g(root=(2, 0))],
+  ['pain', 'pain', 'pain', 'pain', 'pain', 'squint', 'squint', None],
+  None,
+  dict(fps=12, rm='E: 1 px convulsions on frames 1-4 (net 0), -2 staggering back as the hand rips free, +2 back onto the tile',
+       anchored={0: [('impaleOut2', 'head', -16, 15), ('voltOrb4', 'head', 3, 15), ('zapRing12', 'head', -6, 15)],
+                 1: [('impaleOut', 'head', -15, 15), ('bolt12', 'head', -14, 6), ('crackle6', 'head', 0, 18)],
+                 2: [('impaleOut2', 'head', -16, 15), ('boltV2', 'head', 8, 26), ('crackle6b', 'head', -2, 12)],
+                 3: [('impaleOut', 'head', -15, 15), ('bolt12b', 'head', -14, 24), ('crackle4', 'head', 4, 6)],
+                 4: [('impaleOut2', 'head', -16, 15, {'alpha': {'W': 180, 'l': 170, 'L': 160}}), ('spark', 'head', 8, 8), ('sparkL', 'head', -9, 30)],
+                 5: [('crackle4b', 'head', 3, 15), ('spark', 'head', -8, 20)], 6: [('spark', 'head', 6, 14), ('staticV', 'head', -7, 10)]})),
  'empField': ('EMP Field', 5,
-  'EMP Field (Aquarius ninjutsu, Elemental 6, Wide AoE, Slow 2 rounds INT save DC 12: the fighter amplifies its inner electrical field with chakra into a dome that repulses enemies and hinders their attacks): from the guard the fighter makes the seal and sinks, a crackling pale green aura rising round it; it crosses both forearms before its chest, static gathering in them; then it throws both arms wide and down, palms out, with a shout, and a dome of crackling electricity bursts up from the floor round it, the arc climbing both sides and closing overhead, an electric shock ring racing out along the floor and arcs running over the shell; the dome holds, crackling and flickering, then fades as the fighter rises back into the guard (the testbed draws the field over the AoE while it lasts).', [
+  'EMP Field (Aquarius ninjutsu, Elemental 6, Wide AoE, Slow 2 rounds INT save DC 12: the fighter amplifies its inner electrical field with chakra into a dome that repulses enemies and hinders their attacks), v2 (Christopher 2026-10-30: more dramatic; the force field must radiate outward): from the guard the fighter makes the seal and sinks, a crackling green aura rising and arcs leaping off its shoulders; it crosses both forearms before its chest and the charge builds, lightning crawling over its whole body, its eyes blazing white, sparks spitting off the floor; then it throws both arms wide and down with a roar and the field detonates outward: a white flash at its chest, bolts lashing out in every direction, and the dome of crackling electricity blasts out from its body, small, then wider, then full size, with electric shock rings racing outward along the floor; the dome stands round it, crackling, and pulses of force keep radiating outward through it, ring after ring; then it fades as the fighter rises back into the guard (the testbed draws the field over the AoE while it lasts).', [
      g(),
      g(an=U.SEAL_N, af=U.SEAL_F, bob=(1, 1, 1), lean=(0, 0)),
      g(an=U.SEAL_N, af=U.SEAL_F, bob=(2, 2, 2), lean=(0, 1), **LOW),
-     g(an=band(-60, -165), af=band(-55, -160), bob=(3, 3, 3), lean=(0, 1), **LOW),
-     g(an=band(-60, -165), af=band(-55, -160), bob=(3, 3, 3), lean=(0, 2), **LOW),
-     g(an=band(35, 20, fistKind='palm'), af=band(-50, -40, fistKind='palm'), bob=(2, 2, 2), lean=(0, -1), **LOW),
-     g(an=band(35, 20, fistKind='palm'), af=band(-50, -40, fistKind='palm'), bob=(2, 2, 2), lean=(0, -1), **LOW),
-     g(an=band(35, 20, fistKind='palm'), af=band(-50, -40, fistKind='palm'), bob=(2, 2, 2), lean=(0, -1), **LOW),
-     g(an=band(35, 20, fistKind='palm'), af=band(-50, -40, fistKind='palm'), bob=(2, 2, 2), lean=(0, -1), **LOW),
+     g(an=band(-60, -165), af=band(-55, -160), bob=(3, 3, 3), lean=(0, 1), **BRACE),
+     g(an=band(-60, -165), af=band(-55, -160), bob=(3, 3, 4), lean=(0, 2), root=(1, 0), **BRACE),
+     g(an=band(35, 20, fistKind='palm'), af=band(-50, -40, fistKind='palm'), bob=(0, -1, -1), lean=(0, -2), root=(-1, 0), **LOW),
+     g(an=band(35, 20, fistKind='palm'), af=band(-50, -40, fistKind='palm'), bob=(0, -1, -1), lean=(0, -2), **LOW),
+     g(an=band(35, 20, fistKind='palm'), af=band(-50, -40, fistKind='palm'), bob=(1, 0, 0), lean=(0, -1), **LOW),
+     g(an=band(35, 20, fistKind='palm'), af=band(-50, -40, fistKind='palm'), bob=(1, 1, 1), lean=(0, -1), **LOW),
+     g(an=band(35, 20, fistKind='palm'), af=band(-50, -40, fistKind='palm'), bob=(1, 1, 1), lean=(0, -1), **LOW),
+     g(an=band(35, 20, fistKind='palm'), af=band(-50, -40, fistKind='palm'), bob=(1, 1, 1), lean=(0, -1), **LOW),
+     g(an=band(35, 20, fistKind='palm'), af=band(-50, -40, fistKind='palm'), bob=(1, 1, 1), lean=(0, -1), **LOW),
      g(an=band(-30, -100), af=band(-30, -95), bob=(1, 1, 2), lean=(0, 2)),
      g(), g()],
-  [None, 'closed', 'squint', 'strain', 'strain', 'roar', 'roar', 'squint', 'squint', None, None, None],
-  [0, 1, 1, 2, 2, 3, 3, 2, 2, 1, 1, 0],
-  dict(fps=10, auraColors=('#b8ffc8', '#39e75f'),
-       extra={'zone': {'rule': 'EMP Field (Wide AoE): centred on the caster\'s hex (selfCentered, Claude\'s reading of "a dome of protection"), placeholder radius 2 for 2 rounds; the testbed draws the crackling dome (edome4 / edomeDim flickering) over the AoE; enemies inside on the cast take Elemental 6, save or are Slowed 2 rounds, and are pushed to the edge (repulse, placeholder 1 hex)', 'pattern': 'edome4', 'radius': 2, 'rounds': 2},
+  [None, 'closed', 'squint', 'strain', 'strain', 'roar', 'roar', 'roar', 'squint', 'squint', 'squint', 'squint', None, None, None],
+  [0, 1, 2, 3, 3, 3, 3, 3, 2, 2, 2, 2, 1, 1, 0],
+  dict(fps=10, auraColors=('#b8ffc8', '#39e75f'), rm='E: +1 bracing as the charge builds, -1 on the release',
+       extra={'zone': {'rule': 'EMP Field (Wide AoE): centred on the caster\'s hex (selfCentered, Claude\'s reading of "a dome of protection"), placeholder radius 2 for 2 rounds; v2: on the cast the field radiates outward from the caster across the AoE (rings growing hex by hex, as Explosive Tag fills its hexes ring by ring); while it lasts the testbed draws the crackling dome (edomeD / edomeDim flickering) over the AoE with an eripple pulse running outward every few frames; enemies inside on the cast take Elemental 6, save or are Slowed 2 rounds, and are pushed to the edge (repulse, placeholder 1 hex)', 'pattern': 'edomeD', 'pulse': ['eripple0', 'eripple1', 'eripple2', 'eripple3'], 'radius': 2, 'rounds': 2},
               'targetState': {'rule': 'EMP Field: every enemy caught that fails the save plays empSlowed on loop while the Slow lasts', 'state': 'empSlowed', 'loopFrom': 0, 'element': 'air'}},
-       anchored={2: [('spark', 'head', -9, 12), ('sparkL', 'head', 9, 18)], 3: [('crackle4', 'hand', 0, 0), ('spark', 'head', -10, 20)], 4: [('crackle6', 'hand', 0, 0), ('sparkL', 'head', 10, 8)],
-                 5: [('edome0', 'feet', 0, -26), ('zapRing12', 'feet', 0, -6), ('bolt8', 'hand', 2, 0)],
-                 6: [('edome1', 'feet', 0, -26), ('zapRing16', 'feet', 0, -8, {'alpha': {'W': 170, 'l': 170, 'L': 170}})],
-                 7: [('edome2', 'feet', 0, -26), ('zapRing20', 'feet', 0, -10, {'alpha': {'W': 140, 'l': 140, 'L': 140}})],
-                 8: [('edome3', 'feet', 0, -26)], 9: [('edome4', 'feet', 0, -26)], 10: [('edomeDim', 'feet', 0, -26, {'alpha': {'W': 150, 'l': 130, 'L': 120}})], 11: [('edomeDim', 'feet', 0, -26, {'alpha': {'W': 70, 'l': 60, 'L': 50}})]})),
+       anchored={2: [('spark', 'head', -9, 12), ('sparkL', 'head', 9, 18), ('staticV', 'head', -10, 26)],
+                 3: [('crackle6', 'hand', 0, 0), ('crackle4', 'head', -10, 18), ('bolt8', 'head', 11, 10), ('spark', 'feet', -10, -2), ('sparkL', 'feet', 10, -3)],
+                 4: [('crackle6b', 'hand', 0, 0), ('crackle4b', 'head', 10, 24), ('bolt8b', 'head', -12, 8), ('staticV2', 'head', 0, -9), ('spark', 'feet', 11, -2), ('sparkL', 'feet', -9, -4), ('zapRing6', 'feet', 0, -2)],
+                 5: [('voltOrb8', 'head', 2, 16), ('edomeA', 'feet', 0, -10), ('zapRing12', 'feet', 0, -5), ('bolt18', 'head', 13, 6), ('boltV', 'head', -13, 26)],
+                 6: [('edomeB', 'feet', 0, -17), ('zapRing16', 'feet', 0, -7), ('bolt18b', 'head', -14, 2), ('bolt18', 'head', 14, 28), ('voltOrb4', 'head', 2, 16)],
+                 7: [('edomeC', 'feet', 0, -22), ('zapRing20', 'feet', 0, -9), ('eripple0', 'feet', 0, -13, {'alpha': {'W': 170, 'l': 170, 'L': 170}}), ('bolt12', 'head', -15, 30)],
+                 8: [('edomeD', 'feet', 0, -26), ('eripple1', 'feet', 0, -17), ('zapRing20', 'feet', 0, -9, {'alpha': {'W': 120, 'l': 110, 'L': 100}})],
+                 9: [('edome4', 'feet', 0, -26), ('eripple2', 'feet', 0, -21), ('eripple0', 'feet', 0, -13, {'alpha': {'W': 170, 'l': 170, 'L': 170}})],
+                 10: [('edomeD', 'feet', 0, -26), ('eripple3', 'feet', 0, -25), ('eripple1', 'feet', 0, -17)],
+                 11: [('edome4', 'feet', 0, -26), ('eripple2', 'feet', 0, -21, {'alpha': {'W': 170, 'l': 170, 'L': 170}})],
+                 12: [('edomeDim', 'feet', 0, -26, {'alpha': {'W': 150, 'l': 130, 'L': 120}}), ('eripple3', 'feet', 0, -25, {'alpha': {'l': 120, 'L': 110}})],
+                 13: [('edomeDim', 'feet', 0, -26, {'alpha': {'W': 70, 'l': 60, 'L': 50}})]})),
  'empSlowed': ('EMP Slowed', 0,
   'EMP Slowed (target state of EMP Field, loops while the Slow 2 rounds lasts): static crawls over the fighter, small arcs jumping between its shoulders, arms and knees; its guard sags and it twitches in fits, a limb jerking, as if its nerves misfire, sparks spitting off it.', [
      g(an=band(-40, -125), af=band(-35, -120), bob=(2, 2, 2), lean=(0, 1), **LOW),

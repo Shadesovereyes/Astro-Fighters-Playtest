@@ -3,7 +3,7 @@
   "body": "male",
   "state": "empField",
   "status": "CANDIDATE 2026-10-27 (E/W; W mirrors E; S/N to author after approval)",
-  "frames": 12,
+  "frames": 15,
   "fps": 10,
   "sourceDirection": "E",
   "directions": [
@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "EMP Field (Aquarius ninjutsu, Elemental 6, Wide AoE, Slow 2 rounds INT save DC 12: the fighter amplifies its inner electrical field with chakra into a dome that repulses enemies and hinders their attacks): from the guard the fighter makes the seal and sinks, a crackling pale green aura rising round it; it crosses both forearms before its chest, static gathering in them; then it throws both arms wide and down, palms out, with a shout, and a dome of crackling electricity bursts up from the floor round it, the arc climbing both sides and closing overhead, an electric shock ring racing out along the floor and arcs running over the shell; the dome holds, crackling and flickering, then fades as the fighter rises back into the guard (the testbed draws the field over the AoE while it lasts).",
+  "intent": "EMP Field (Aquarius ninjutsu, Elemental 6, Wide AoE, Slow 2 rounds INT save DC 12: the fighter amplifies its inner electrical field with chakra into a dome that repulses enemies and hinders their attacks), v2 (Christopher 2026-10-30: more dramatic; the force field must radiate outward): from the guard the fighter makes the seal and sinks, a crackling green aura rising and arcs leaping off its shoulders; it crosses both forearms before its chest and the charge builds, lightning crawling over its whole body, its eyes blazing white, sparks spitting off the floor; then it throws both arms wide and down with a roar and the field detonates outward: a white flash at its chest, bolts lashing out in every direction, and the dome of crackling electricity blasts out from its body, small, then wider, then full size, with electric shock rings racing outward along the floor; the dome stands round it, crackling, and pulses of force keep radiating outward through it, ring after ring; then it fades as the fighter rises back into the guard (the testbed draws the field over the AoE while it lasts).",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -110,10 +110,13 @@
       2,
       3,
       3,
-      2,
-      2,
-      2,
-      2,
+      0,
+      0,
+      1,
+      1,
+      1,
+      1,
+      1,
       1,
       1,
       1
@@ -124,10 +127,13 @@
       2,
       3,
       3,
-      2,
-      2,
-      2,
-      2,
+      -1,
+      -1,
+      0,
+      1,
+      1,
+      1,
+      1,
       1,
       1,
       1
@@ -137,11 +143,14 @@
       1,
       2,
       3,
-      3,
-      2,
-      2,
-      2,
-      2,
+      4,
+      -1,
+      -1,
+      0,
+      1,
+      1,
+      1,
+      1,
       2,
       2,
       2
@@ -163,6 +172,9 @@
         0,
         0,
         0,
+        0,
+        0,
+        0,
         0
       ],
       "head": [
@@ -171,6 +183,9 @@
         1,
         1,
         2,
+        -2,
+        -2,
+        -1,
         -1,
         -1,
         -1,
@@ -182,7 +197,7 @@
     }
   },
   "rootMotion": {
-    "rule": "in place",
+    "rule": "E: +1 bracing as the charge builds, -1 on the release",
     "E": [
       [
         0,
@@ -194,6 +209,18 @@
       ],
       [
         0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        -1,
         0
       ],
       [
@@ -244,6 +271,18 @@
       ],
       [
         0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        -1,
+        0
+      ],
+      [
+        1,
         0
       ],
       [
@@ -1510,6 +1549,9 @@
       1,
       1,
       3,
+      5,
+      5,
+      3,
       3,
       3,
       3,
@@ -1523,6 +1565,9 @@
     "far": [
       0,
       0,
+      2,
+      4,
+      4,
       2,
       2,
       2,
@@ -1631,6 +1676,33 @@
       },
       {
         "construction": "band",
+        "angle": 35,
+        "elbow": {
+          "at": 8,
+          "angle": 20
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": 35,
+        "elbow": {
+          "at": 8,
+          "angle": 20
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": 35,
+        "elbow": {
+          "at": 8,
+          "angle": 20
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
         "angle": -30,
         "elbow": {
           "at": 8,
@@ -1696,6 +1768,33 @@
           "at": 8,
           "angle": -160
         }
+      },
+      {
+        "construction": "band",
+        "angle": -50,
+        "elbow": {
+          "at": 8,
+          "angle": -40
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": -50,
+        "elbow": {
+          "at": 8,
+          "angle": -40
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": -50,
+        "elbow": {
+          "at": 8,
+          "angle": -40
+        },
+        "fistKind": "palm"
       },
       {
         "construction": "band",
@@ -1922,6 +2021,9 @@
       "bandFollowsBody": true,
       "sway": {
         "E": [
+          -1,
+          -1,
+          -1,
           -1,
           -1,
           -1,
@@ -2609,7 +2711,10 @@
         8,
         9,
         10,
-        11
+        11,
+        12,
+        13,
+        14
       ],
       "fps": 10,
       "next": "guard",
@@ -2680,6 +2785,21 @@
         "frame": 11,
         "clip": "empField",
         "type": "recovery"
+      },
+      {
+        "frame": 12,
+        "clip": "empField",
+        "type": "recovery"
+      },
+      {
+        "frame": 13,
+        "clip": "empField",
+        "type": "recovery"
+      },
+      {
+        "frame": 14,
+        "clip": "empField",
+        "type": "recovery"
       }
     ],
     "W": [
@@ -2742,6 +2862,21 @@
       },
       {
         "frame": 11,
+        "clip": "empField",
+        "type": "recovery"
+      },
+      {
+        "frame": 12,
+        "clip": "empField",
+        "type": "recovery"
+      },
+      {
+        "frame": 13,
+        "clip": "empField",
+        "type": "recovery"
+      },
+      {
+        "frame": 14,
         "clip": "empField",
         "type": "recovery"
       }
@@ -3037,6 +3172,9 @@
         "strain",
         "roar",
         "roar",
+        "roar",
+        "squint",
+        "squint",
         "squint",
         "squint",
         null,
@@ -3047,8 +3185,14 @@
     "intent": "eyes squeezed shut with the brow pulled down on the impact frames 0-2 (no mouth: user 2026-10-14), a squint on frame 3, open again from frame 4 (user 2026-10-14)"
   },
   "zone": {
-    "rule": "EMP Field (Wide AoE): centred on the caster's hex (selfCentered, Claude's reading of \"a dome of protection\"), placeholder radius 2 for 2 rounds; the testbed draws the crackling dome (edome4 / edomeDim flickering) over the AoE; enemies inside on the cast take Elemental 6, save or are Slowed 2 rounds, and are pushed to the edge (repulse, placeholder 1 hex)",
-    "pattern": "edome4",
+    "rule": "EMP Field (Wide AoE): centred on the caster's hex (selfCentered, Claude's reading of \"a dome of protection\"), placeholder radius 2 for 2 rounds; v2: on the cast the field radiates outward from the caster across the AoE (rings growing hex by hex, as Explosive Tag fills its hexes ring by ring); while it lasts the testbed draws the crackling dome (edomeD / edomeDim flickering) over the AoE with an eripple pulse running outward every few frames; enemies inside on the cast take Elemental 6, save or are Slowed 2 rounds, and are pushed to the edge (repulse, placeholder 1 hex)",
+    "pattern": "edomeD",
+    "pulse": [
+      "eripple0",
+      "eripple1",
+      "eripple2",
+      "eripple3"
+    ],
     "radius": 2,
     "rounds": 2
   },

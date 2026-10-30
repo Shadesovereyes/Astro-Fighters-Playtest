@@ -3,7 +3,7 @@
   "body": "male",
   "state": "lightningCutter",
   "status": "CANDIDATE 2026-10-27 (E/W; W mirrors E; S/N to author after approval)",
-  "frames": 12,
+  "frames": 15,
   "fps": 12,
   "sourceDirection": "E",
   "directions": [
@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Lightning Cutter (Aquarius ninjutsu, Mental 24, Melee (Reach +6m), Priority, Gap Closer: an instant piercing lightning charge): from the guard the fighter dips, the near hand drawn back low as a knife hand, lightning crackling up it in a shrieking blade of arcs; then it breaks into the approved sprint at blinding speed, sparks spitting off its feet at every stride, a streak of lightning and four green afterimages trailing behind; on the last stride it plants and drives the crackling knife hand straight through the target at chest height, a white flash and bolts forking out the far side; then it settles back into the guard. The fighter travels 40 px over the clip (the game moves it by that distance).",
+  "intent": "Lightning Cutter (Aquarius ninjutsu, Mental 24, Melee (Reach +6m), Priority, Gap Closer: an instant piercing lightning charge), v2 (Christopher 2026-10-30: electric blades envelop the hand while it runs; end with a strike that impales the target's torso): from the guard the fighter dips and draws the near hand back as a knife hand, and a sheaf of crackling electric blades bursts out round it; then it breaks into the approved sprint at blinding speed with the blade hand thrust out ahead of it, the blades flickering and spitting sparks, sparks off its feet at every stride, a streak of lightning and four green afterimages trailing behind; on the last stride it plants and drives the bladed hand straight into the target's chest, the blades punching out through its back in a burst of lightning (the target plays lightningImpaled); it holds the thrust while the lightning crackles through the target, then rips the hand free and settles back into the guard. The fighter travels 40 px over the clip (the game moves it by that distance).",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -115,6 +115,9 @@
       2,
       2,
       2,
+      2,
+      2,
+      2,
       1,
       1
     ],
@@ -126,6 +129,9 @@
       1,
       0,
       1,
+      2,
+      2,
+      2,
       2,
       2,
       2,
@@ -142,6 +148,9 @@
       1,
       2,
       2,
+      2,
+      2,
+      3,
       2,
       2,
       2
@@ -162,7 +171,10 @@
         1,
         2,
         2,
-        1,
+        2,
+        2,
+        2,
+        0,
         0
       ],
       "head": [
@@ -175,8 +187,11 @@
         8,
         8,
         7,
-        6,
-        3,
+        8,
+        8,
+        8,
+        8,
+        1,
         2
       ]
     }
@@ -231,6 +246,18 @@
       [
         0,
         0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
       ]
     ],
     "W": [
@@ -272,6 +299,18 @@
       ],
       [
         -1,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
         0
       ],
       [
@@ -1519,7 +1558,10 @@
       29,
       19,
       19,
-      1,
+      19,
+      19,
+      19,
+      19,
       1
     ],
     "far": [
@@ -1533,7 +1575,10 @@
       25,
       18,
       18,
-      0,
+      18,
+      18,
+      18,
+      18,
       0
     ]
   },
@@ -1572,34 +1617,55 @@
       },
       {
         "construction": "band",
-        "angle": 70
-      },
-      {
-        "construction": "band",
-        "angle": 70
-      },
-      {
-        "construction": "band",
-        "angle": 72
-      },
-      {
-        "construction": "band",
-        "angle": 72
-      },
-      {
-        "construction": "band",
-        "angle": 70
-      },
-      {
-        "construction": "band",
-        "angle": 70
-      },
-      {
-        "construction": "band",
-        "angle": -90,
+        "angle": -70,
         "elbow": {
           "at": 8,
-          "angle": -90
+          "angle": -80
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": -70,
+        "elbow": {
+          "at": 8,
+          "angle": -80
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": -70,
+        "elbow": {
+          "at": 8,
+          "angle": -80
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": -70,
+        "elbow": {
+          "at": 8,
+          "angle": -80
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": -70,
+        "elbow": {
+          "at": 8,
+          "angle": -80
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": -70,
+        "elbow": {
+          "at": 8,
+          "angle": -80
         },
         "fistKind": "palm"
       },
@@ -1614,10 +1680,46 @@
       },
       {
         "construction": "band",
-        "angle": -25,
+        "angle": -92,
         "elbow": {
           "at": 8,
-          "angle": 208
+          "angle": -92
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": -92,
+        "elbow": {
+          "at": 8,
+          "angle": -92
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": -92,
+        "elbow": {
+          "at": 8,
+          "angle": -92
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": -92,
+        "elbow": {
+          "at": 8,
+          "angle": -92
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": -40,
+        "elbow": {
+          "at": 8,
+          "angle": -150
         }
       },
       {
@@ -1669,6 +1771,30 @@
       {
         "construction": "band",
         "angle": 66
+      },
+      {
+        "construction": "band",
+        "angle": -50,
+        "elbow": {
+          "at": 8,
+          "angle": 215
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -50,
+        "elbow": {
+          "at": 8,
+          "angle": 215
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -50,
+        "elbow": {
+          "at": 8,
+          "angle": 215
+        }
       },
       {
         "construction": "band",
@@ -1867,6 +1993,9 @@
       "bandFollowsBody": true,
       "sway": {
         "E": [
+          -1,
+          -1,
+          -1,
           -1,
           -1,
           -1,
@@ -2554,7 +2683,10 @@
         8,
         9,
         10,
-        11
+        11,
+        12,
+        13,
+        14
       ],
       "fps": 12,
       "next": "guard",
@@ -2631,6 +2763,21 @@
         "frame": 11,
         "clip": "lightningCutter",
         "type": "recovery"
+      },
+      {
+        "frame": 12,
+        "clip": "lightningCutter",
+        "type": "recovery"
+      },
+      {
+        "frame": 13,
+        "clip": "lightningCutter",
+        "type": "recovery"
+      },
+      {
+        "frame": 14,
+        "clip": "lightningCutter",
+        "type": "recovery"
       }
     ],
     "W": [
@@ -2699,6 +2846,21 @@
       },
       {
         "frame": 11,
+        "clip": "lightningCutter",
+        "type": "recovery"
+      },
+      {
+        "frame": 12,
+        "clip": "lightningCutter",
+        "type": "recovery"
+      },
+      {
+        "frame": 13,
+        "clip": "lightningCutter",
+        "type": "recovery"
+      },
+      {
+        "frame": 14,
         "clip": "lightningCutter",
         "type": "recovery"
       }
@@ -9498,6 +9660,167 @@
         "...........",
         "..........."
       ],
+      "eblade0": [
+        "....................",
+        ".........l..........",
+        "....................",
+        "....................",
+        "....................",
+        ".......L............",
+        "....LLLLLLLLL.......",
+        "lLLlWWLWWWLlLL......",
+        "lllWlWWWWWLL........",
+        "WWWWWWWllllLLLLLL...",
+        "WWWWWWWWWWWWWllLLLL.",
+        "lWWWWlWllllLWLL.....",
+        "lWWWlWWWlWLLL.......",
+        ".llLWlLlWLLL........",
+        "....LlL.LLllL.......",
+        "......L....L........",
+        "......L.............",
+        "....................",
+        "....................",
+        ".........l......l...",
+        "..l................."
+      ],
+      "eblade1": [
+        "....................",
+        "....................",
+        "....................",
+        "....................",
+        "......L.............",
+        "...LLLL..L.LLL......",
+        "...WWLLLLLLll.......",
+        "l.lWWWLWWWlL........",
+        "llWWWWWWLLLL........",
+        "WWWWWlWlLLlLLLLL....",
+        "WWWWWWWWWlWWWlLLLLL.",
+        "WWWWWlllWWlLLLl.l...",
+        "llWWWWWWllLL..L.....",
+        "LLLWLlWWWLL.........",
+        "...LWLLLlllL........",
+        "....Ll....LLL.......",
+        "....................",
+        "....................",
+        "....................",
+        "......l......l.l....",
+        ".......l............"
+      ],
+      "eblade2": [
+        ".....l..............",
+        "....................",
+        "....................",
+        "....................",
+        "....................",
+        "......LL............",
+        "....LLLL.LLLLL......",
+        "l.LLWWlLLWLLLL......",
+        "lllWWWWWWWLLL.L.....",
+        "WWWWWWlWLllLLLl.L...",
+        "WWWWWWWWWWWWWllLLLL.",
+        "lWWWWWllWlWLWLLl....",
+        "lllWWWWWWLLLL.......",
+        ".lllWWlLLWlL........",
+        "....LLL..L.LL.......",
+        "......L.....L.......",
+        "....................",
+        "....................",
+        "....................",
+        "......l.............",
+        "..............l....."
+      ],
+      "ebladeS": [
+        ".............",
+        "........l....",
+        ".............",
+        ".............",
+        ".............",
+        ".............",
+        ".............",
+        "lL.LLL.L.....",
+        "lllWWLLL.....",
+        "WWWWWWlLLLL..",
+        "WWWlWWWWWLL..",
+        "WWWWWWlLL....",
+        "lllllLLl.....",
+        "LLLLL........",
+        ".............",
+        ".............",
+        ".............",
+        ".............",
+        ".............",
+        "...ll.l......",
+        "............."
+      ],
+      "ebladeL": [
+        "..........................",
+        "...............l..........",
+        "..........................",
+        "..........................",
+        "..........................",
+        "........LLLL..............",
+        "......LLLLL.LLLLLL........",
+        "LLLLLLWWLLWLWLLllL........",
+        "lllWWWWLWWWWWLLL..L.......",
+        "WWWWWWWWLLllWllWLLLLLL....",
+        "WWWWWWWWWlWWWWWlWllLLLLLL.",
+        "WWWWWWWlWWWllllLWLLL......",
+        "lllWWWlWWWWWLLLLL.........",
+        "lLLlLWWWLWLWLlLlL.........",
+        ".....lLLlL.L..LLL.........",
+        ".........L................",
+        "..........................",
+        "..........................",
+        "..........................",
+        "..l.l.l...................",
+        ".........................."
+      ],
+      "impaleOut": [
+        "........l..l........",
+        "................l...",
+        "....................",
+        "....................",
+        "....................",
+        "....................",
+        "....................",
+        "......LLLLLLLWLLLlLL",
+        "......LLLLWWLWWWllll",
+        ".....LLLLlWWWWWWWWWW",
+        ".LLLLllWWWlWWWWWWWWW",
+        "....lLLWLWLlWWWWWWWW",
+        ".......LLLWWWWWWllll",
+        ".......LLlLLlLLLL..l",
+        "....................",
+        "....................",
+        "....................",
+        "....................",
+        "....................",
+        "....................",
+        "......l............."
+      ],
+      "impaleOut2": [
+        "..............l.l.....",
+        "..................l...",
+        "......................",
+        "......................",
+        "......................",
+        ".............L........",
+        ".......LLL...LLLLL....",
+        ".......LllLLLLLWWWLlLL",
+        "......L.LLLWWWWWlWWlll",
+        ".L.L.LlLLllWLWlWWWWWWW",
+        "..LLLLlLWWWWlWWWWWWWWW",
+        ".....L.WLlllWlWlWWWWlW",
+        ".......L.LLLWWWWlWWlll",
+        "........LLllWlLlWllL.L",
+        "........LL.LL.LLW.....",
+        "..............L.......",
+        "......................",
+        "......................",
+        "......................",
+        ".............l........",
+        "......................"
+      ],
       "globe0": [
         "...........C...........",
         ".......CCCCCCCCC.......",
@@ -12285,8 +12608,11 @@
         "squint",
         "squint",
         "roar",
+        "roar",
+        "strain",
+        "strain",
+        "strain",
         "squint",
-        null,
         null
       ]
     },
@@ -12295,5 +12621,11 @@
   "travel": {
     "rule": "Lightning Cutter is a gap closer (Reach +6 m): the fighter ends the clip 40 px further forward (sum of rootMotion); the game moves the fighter by that distance",
     "E": 40
+  },
+  "targetState": {
+    "rule": "Lightning Cutter v2: on the active frame (frame 9, the bladed hand drives into the chest) the target plays lightningImpaled once (impaled, blades out of its back, convulsing, then the hand rips free and it staggers), then its idle",
+    "state": "lightningImpaled",
+    "loopFrom": null,
+    "element": "air"
   }
 }
