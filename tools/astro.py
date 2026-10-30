@@ -440,6 +440,49 @@ def _sigil(r, lit):   # Mausoleum v3: a big carved sigil on the front slab: a ri
         if lit: rows[r + y][r + x + 1] = rows[r + y][r + x + 1] if rows[r + y][r + x + 1] != '.' else 'c'
     return [''.join(q) for q in rows]
 NPAT.update({'sigilLit': _sigil(9, True), 'sigilDim': _sigil(9, False), 'slabGlow': [''.join('C' if ch == 'N' else '.' for ch in r) for r in NPAT['tombSlab']], 'lightBeam': ['c', 'C', 'c', 'c', '.', 'c', 'C', 'c', '.', 'c'] * 4})
+def _globe(r, phase=0):   # Atlas's Regret: the illusory world on the target's shoulders: a soil-brown sphere with teal crystal seas, latitude and longitude lines in glint, a teal rim; phase turns it
+    w = 2 * r + 1; rows = [['.'] * w for _ in range(w)]
+    for y in range(w):
+        for x in range(w):
+            dx, dy = (x - r) / r, (y - r) / r; d = dx * dx + dy * dy
+            if d > 1: continue
+            if d > 0.8: rows[y][x] = 'C'; continue
+            lon = math.asin(max(-1, min(1, dx / math.sqrt(max(1e-6, 1 - dy * dy))))) + phase
+            sea = math.sin(lon * 2.3 + dy * 3) + math.cos(dy * 4.1 - lon) > 0.6
+            ch = 'T' if sea else 'e' if dx < 0.2 else 'E'
+            if abs(dy * r) % 5 < 0.6 or abs((lon * 6) % 3.2) < 0.25: ch = 'c'
+            rows[y][x] = ch
+    return [''.join(q) for q in rows]
+def _titan(w, h, lit):   # Titan's Gaze: the looming face of a stone giant behind the target: a broad oval face of weathered stone (lit left, shaded right) with a heavy brow ridge, cracks, a nose ridge and a grim mouth line, two huge eyes blazing crystal teal (lit: white-hot cores)
+    import random
+    rnd = random.Random(7); rows = [['.'] * w for _ in range(h)]; cx, cy = (w - 1) / 2, (h - 1) / 2
+    for y in range(h):
+        for x in range(w):
+            dx, dy = (x - cx) / (w / 2), (y - cy) / (h / 2)
+            if dx * dx + dy * dy * (1.0 if dy < 0 else 0.8) > 1: continue
+            edge = dx * dx + dy * dy * (1.0 if dy < 0 else 0.8) > 0.86
+            rows[y][x] = 'N' if edge else 'H' if dx < -0.45 and (x + y) % 3 else 'N' if dx > 0.5 and (x + y) % 2 else 'G'
+    by = round(h * 0.34)
+    for x in range(round(w * 0.12), round(w * 0.88)):
+        yy = by + round(2 * abs(x - cx) / (w / 2)); rows[yy][x] = 'N'; rows[yy - 1][x] = 'H'
+    for ex in (round(w * 0.3), round(w * 0.7)):
+        ey = by + 4
+        for y in range(ey - 3, ey + 4):
+            for x in range(ex - 7, ex + 8):
+                dx, dy = (x - ex) / 7, (y - ey) / 3.2; d = dx * dx + dy * dy
+                if d <= 1: rows[y][x] = ('W' if lit else 'c') if d < 0.22 else 'c' if d < 0.5 else 'C'
+                elif d <= 1.45: rows[y][x] = 'T'
+    for y in range(by + 6, round(h * 0.72)): rows[y][round(cx) - 1] = 'H'; rows[y][round(cx) + 1] = 'N'
+    my = round(h * 0.8)
+    for x in range(round(w * 0.36), round(w * 0.64)): rows[my + (1 if abs(x - cx) > w * 0.1 else 0)][x] = 'N'
+    for _ in range(9):
+        x, y = rnd.randrange(w), rnd.randrange(h)
+        for t in range(rnd.randint(3, 7)):
+            if 0 <= x < w and 0 <= y < h and rows[y][x] in 'GH': rows[y][x] = 'N'
+            x += rnd.choice((-1, 0, 1)); y += 1
+    return [''.join(q) for q in rows]
+NPAT.update({**{'globe%d' % k: _globe(11, k * 0.5) for k in range(4)}, 'globeS': _globe(5), 'globeM': _globe(8),
+             'titanLit': _titan(58, 44, True), 'titanDim': _titan(58, 44, False), 'sweat': ['w', 'W'], 'fearLines': ['C.....C', '.C...C.', '..C.C..']})
 NPAT.update({'tombBack': _slab(30, 54, 3, arch=True), 'tombFront': _slab(30, 20, 5)})
 NPAT.update({'stalBack': _spikes(44, 58, 5, 21, widths=(7, 8, 9)), 'stalFrontL': _spikes(18, 34, 2, 22, lean=-1, widths=(6, 7)), 'stalFrontR': _spikes(18, 38, 2, 23, lean=1, widths=(6, 7, 8)), 'stalTips': _spikes(30, 8, 6, 24), 'stalTipsS': _spikes(12, 5, 3, 25)})   # Capricorn Stalactite Rain: giant crystal spears
 NPAT.update({'stalBack2': NPAT['stalBack'][20:], 'stalFrontL2': NPAT['stalFrontL'][12:], 'stalFrontR2': NPAT['stalFrontR'][14:]})
@@ -1617,6 +1660,82 @@ CLIPS = {
                  5: [('gemBurst2', 'feet', 2, -12), ('gemShard2', 'head', -16, 8), ('gemShard2', 'head', 16, 12), ('gemShard', 'head', -6, -4), ('gemShard', 'head', 8, -6), ('rubble', 'feet', -9, -2), ('rubble', 'feet', 10, -2)],
                  6: [('rubble', 'feet', -9, -2), ('rubble', 'feet', 9, -2), ('gemShard', 'head', -17, 18), ('gemShard', 'head', 17, 22), ('dust2', 'feet', 0, -3)],
                  7: [('rubble', 'feet', -9, -2), ('rubble', 'feet', 9, -2), ('gemShard', 'feet', -16, -4), ('gemShard', 'feet', 15, -3)]})),
+ 'atlasRegret': ('Atlas\'s Regret', 3,
+  'Atlas\'s Regret (Capricorn genjutsu, mental debuff, Slow 2 rounds STR save DC 13, ~12 m: the caster projects the weight of the world onto its opponent): from the guard the fighter raises both open hands before its chest, palms down, its eyes kindling crystal teal; then it presses them slowly down, sinking into its knees as if forcing a great weight onto the foe, the eyes blazing, and holds the press, arms trembling, before rising back into the guard. On the target (the testbed plays atlasBurdened from the active frame, with the genjutsu mark in earth colours): an illusory world, a soil-brown globe with crystal-teal seas, forms over its head and settles onto its shoulders, and it buckles into a deep crouch with both hands raised to hold it up, trembling under the weight while the Slow lasts.', [
+     g(),
+     g(an=band(-80, -140, fistKind='palm'), af=band(-75, -135, fistKind='palm'), bob=(1, 1, 1), lean=(0, 0)),
+     g(an=band(-85, -145, fistKind='palm'), af=band(-80, -140, fistKind='palm'), bob=(1, 1, 1), lean=(0, -1)),
+     g(an=band(-70, -80, fistKind='palm'), af=band(-65, -75, fistKind='palm'), bob=(3, 3, 3), lean=(1, 3), **LOW),
+     g(an=band(-55, -50, fistKind='palm'), af=band(-50, -45, fistKind='palm'), bob=(4, 5, 5), lean=(1, 5), **BRACE),
+     g(an=band(-55, -50, fistKind='palm'), af=band(-50, -45, fistKind='palm'), bob=(4, 5, 5), lean=(1, 5), root=(1, 0), **BRACE),
+     g(an=band(-55, -50, fistKind='palm'), af=band(-50, -45, fistKind='palm'), bob=(4, 5, 6), lean=(1, 5), root=(-1, 0), **BRACE),
+     g(an=band(-40, -110), af=band(-35, -105), bob=(2, 2, 2), lean=(0, 2), **LOW),
+     g()],
+  [None, 'squint', 'squint', 'strain', 'strain', 'strain', 'strain', None, None],
+  [0, 0, 1, 1, 2, 2, 2, 1, 0],
+  dict(fps=10, auraColors=('#7fe3d0', '#8a6236'), rm='a 1 px tremble on frames 5-6 (net 0)',
+       extra={'targetState': {'rule': 'Atlas\'s Regret: from the active frame (frame 3, the press begins) the target plays atlasBurdened: frames 0-3 once (the globe forms and settles on its shoulders, it buckles), then frames 4-7 on loop until the Slow ends, then its idle; the genjutsu mark (genjutsuAfflicted halo, aura, eye glow, earth colours) is drawn over it throughout', 'state': 'atlasBurdened', 'loopFrom': 4, 'element': 'earth', 'mark': 'genjutsuAfflicted'}},
+       anchored={1: [('eyeC', 'eye', 0, 0), ('globeS', 'hand', 4, -8, {'alpha': {'C': 150, 'c': 150, 'e': 140, 'E': 140, 'T': 150}})],
+                 2: [('eyeCF', 'eye', 0, 0), ('globeS', 'hand', 4, -8)],
+                 3: [('eyeCF', 'eye', 0, 0), ('globeM', 'hand', 5, -6, {'alpha': {'C': 180, 'c': 180, 'e': 160, 'E': 160, 'T': 170}})],
+                 4: [('eyeCF', 'eye', 0, 0), ('gp1', 'feet', 16, -24)], 5: [('eyeCF', 'eye', 0, 0), ('gp2', 'feet', 20, -18)], 6: [('eyeC', 'eye', 0, 0), ('gp3d', 'feet', 24, -12)]})),
+ 'atlasBurdened': ('Burdened by the World', 2,
+  'Burdened by the World (target state of Atlas\'s Regret, Slow 2 rounds): an illusory world, a soil-brown globe with crystal-teal seas and glinting lines of latitude, forms out of the air over the fighter\'s head and sinks onto its shoulders; it raises both hands to hold it and drops to one knee like Atlas under the weight, face straining; then (looping while the Slow lasts) it trembles under the slowly turning globe, sweat flying off it, the knees shaking.', [
+     g(an=band(-60, -150), af=band(-50, -140), bob=(1, 1, 1), lean=(0, 0)),
+     g(an=band(-176, 178, fistKind='palm'), af=band(-172, 176, fistKind='palm'), bob=(1, 1, 1), lean=(0, 0)),
+     g(an=band(-176, 178, fistKind='palm'), af=band(-172, 176, fistKind='palm'), bob=(5, 5, 6), lean=(0, 1), **BRACE),
+     g(an=band(-176, 178, fistKind='palm'), af=band(-172, 176, fistKind='palm'), bob=(9, 10, 10), lean=(1, 2), ln='ss-kneel-rear', lf='ss-kneel-lead'),
+     g(an=band(-176, 178, fistKind='palm'), af=band(-172, 176, fistKind='palm'), bob=(9, 10, 10), lean=(1, 2), ln='ss-kneel-rear', lf='ss-kneel-lead'),
+     g(an=band(-176, 178, fistKind='palm'), af=band(-172, 176, fistKind='palm'), bob=(10, 10, 11), lean=(1, 3), ln='ss-kneel-rear', lf='ss-kneel-lead'),
+     g(an=band(-176, 178, fistKind='palm'), af=band(-172, 176, fistKind='palm'), bob=(9, 10, 10), lean=(1, 2), ln='ss-kneel-rear', lf='ss-kneel-lead'),
+     g(an=band(-176, 178, fistKind='palm'), af=band(-172, 176, fistKind='palm'), bob=(10, 10, 11), lean=(1, 3), ln='ss-kneel-rear', lf='ss-kneel-lead')],
+  ['squint', 'pain', 'strain', 'strain', 'strain', 'pain', 'strain', 'pain'],
+  None,
+  dict(fps=8, extra={'loop': True, 'loopFrom': 4},
+       anchored={0: [('globeS', 'head', 0, -12, {'alpha': {'C': 150, 'c': 150, 'e': 140, 'E': 140, 'T': 150}})],
+                 1: [('globeM', 'head', 0, -14, {'alpha': {'C': 200, 'c': 200, 'e': 190, 'E': 190, 'T': 200}})],
+                 2: [('globe0', 'head', -1, -11, {'behind': True})],
+                 3: [('globe1', 'head', -1, -9, {'behind': True}), ('dust1', 'feet', -8, -3), ('dust1', 'feet', 8, -3)],
+                 4: [('globe1', 'head', -1, -9, {'behind': True}), ('sweat', 'head', 7, 0)],
+                 5: [('globe2', 'head', -1, -9, {'behind': True}), ('sweat', 'head', -7, 2), ('sweat', 'head', 9, 4)],
+                 6: [('globe3', 'head', -1, -9, {'behind': True}), ('sweat', 'head', 8, -2)],
+                 7: [('globe0', 'head', -1, -9, {'behind': True}), ('sweat', 'head', -8, 0), ('grains', 'feet', 0, -2)]})),
+ 'titansGaze': ('Titan\'s Gaze', 4,
+  'Titan\'s Gaze (Capricorn genjutsu, mental debuff, Slow 2 rounds INT save DC 12, ~12 m: the caster invokes the terrifying gaze of a giant into the mind\'s eye of its opponent, so it seizes up with fear): from the guard the fighter raises two fingers up beside its near eye, the eyes kindling and then blazing crystal teal, a stone-grey aura rising; then it thrusts the hand out at the target, two fingers pointing, and holds the stare, before lowering the hand back into the guard. On the target (the testbed plays titanGazed from the active frame, with the genjutsu mark in earth colours): the face of a stone giant looms up out of the air behind and above it, a craggy brow and two huge eyes blazing crystal teal, and it seizes up, cowering, frozen and trembling under the gaze while the Slow lasts.', [
+     g(),
+     g(an=band(-40, -170, fistKind='point'), af=band(-30, -100), bob=(1, 1, 1), lean=(0, 0)),
+     g(an=band(-40, -172, fistKind='point'), af=band(-30, -100), bob=(1, 1, 1), lean=(0, -1)),
+     g(an=band(-40, -172, fistKind='point'), af=band(-30, -100), bob=(1, 1, 1), lean=(0, -1)),
+     g(an=band(-92, -92, fistKind='point'), af=band(-30, -100), bob=(1, 1, 1), lean=(1, 3), root=(1, 0)),
+     g(an=band(-92, -92, fistKind='point'), af=band(-30, -100), bob=(1, 1, 1), lean=(1, 3)),
+     g(an=band(-92, -92, fistKind='point'), af=band(-30, -100), bob=(1, 1, 2), lean=(1, 3)),
+     g(an=band(-50, -120), af=band(-40, -110), bob=(1, 1, 2), lean=(0, 1), root=(-1, 0)),
+     g()],
+  [None, 'squint', 'squint', 'squint', 'roar', 'squint', 'squint', None, None],
+  [0, 0, 1, 2, 2, 2, 1, 0, 0],
+  dict(fps=10, auraColors=('#b3aa9a', '#3a9e8f'), rm='E: +1 thrusting the hand out, -1 settling back',
+       extra={'targetState': {'rule': 'Titan\'s Gaze: from the active frame (frame 4, the hand thrusts out) the target plays titanGazed: frames 0-2 once (the giant\'s face looms up behind it, it seizes up), then frames 3-6 on loop until the Slow ends, then its idle; the genjutsu mark (genjutsuAfflicted halo, aura, eye glow, earth colours) is drawn over it throughout', 'state': 'titanGazed', 'loopFrom': 3, 'element': 'earth', 'mark': 'genjutsuAfflicted'}},
+       anchored={1: [('eyeC', 'eye', 0, 0)], 2: [('eyeCF', 'eye', 0, 0), ('gemSpark', 'hand', 0, -2)], 3: [('eyeCF', 'eye', 0, 0), ('gemSpark', 'hand', 1, -3)],
+                 4: [('eyeCF', 'eye', 0, 0), ('fearLines', 'hand', 6, 0)], 5: [('eyeCF', 'eye', 0, 0), ('fearLines', 'hand', 10, 0, {'alpha': {'C': 170}})], 6: [('eyeC', 'eye', 0, 0)]})),
+ 'titanGazed': ('Under the Titan\'s Gaze', 1,
+  'Under the Titan\'s Gaze (target state of Titan\'s Gaze, Slow 2 rounds): out of the air behind and above the fighter looms the face of a stone giant, a craggy brow ridge and cheekbones and two huge eyes blazing crystal teal, the rest of the face only hinted by cracks; the fighter flinches and seizes up, hunched, its guard drawn in tight, eyes wide; then (looping while the Slow lasts) it trembles, frozen, as the giant\'s eyes pulse over it.', [
+     g(an=band(-60, -150), af=band(-50, -140), bob=(1, 1, 1), lean=(0, -1)),
+     g(an=band(-20, -160), af=band(-15, -155), bob=(2, 2, 3), lean=(-1, -2), **LOW),
+     g(an=band(-20, -160), af=band(-15, -155), bob=(3, 3, 3), lean=(-1, -3), **LOW),
+     g(an=band(-20, -160), af=band(-15, -155), bob=(3, 3, 3), lean=(-1, -3), **LOW),
+     g(an=band(-22, -161), af=band(-17, -156), bob=(3, 3, 4), lean=(-1, -2), **LOW),
+     g(an=band(-20, -160), af=band(-15, -155), bob=(3, 3, 3), lean=(-1, -3), **LOW),
+     g(an=band(-22, -161), af=band(-17, -156), bob=(3, 3, 4), lean=(-1, -2), **LOW)],
+  ['squint', 'pain', 'pain', 'pain', 'pain', 'pain', 'pain'],
+  None,
+  dict(fps=8, extra={'loop': True, 'loopFrom': 3},
+       anchored={0: [('titanDim', 'head', -1, 8, {'behind': True, 'alpha': {'H': 90, 'G': 90, 'N': 100, 'C': 110, 'c': 110, 'T': 90}})],
+                 1: [('titanDim', 'head', -1, 8, {'behind': True, 'alpha': {'H': 160, 'G': 160, 'N': 170, 'C': 190, 'c': 190, 'T': 160}}), ('fearLines', 'head', 0, -9)],
+                 2: [('titanLit', 'head', -1, 8, {'behind': True, 'alpha': {'H': 150, 'G': 150, 'N': 190}}), ('fearLines', 'head', 0, -9)],
+                 3: [('titanLit', 'head', -1, 8, {'behind': True, 'alpha': {'H': 150, 'G': 150, 'N': 190}}), ('sweat', 'head', 7, 1)],
+                 4: [('titanDim', 'head', -1, 8, {'behind': True, 'alpha': {'H': 140, 'G': 140, 'N': 180}}), ('fearLines', 'head', 0, -9, {'alpha': {'C': 160}})],
+                 5: [('titanLit', 'head', -1, 8, {'behind': True, 'alpha': {'H': 150, 'G': 150, 'N': 190}}), ('sweat', 'head', -7, 2)],
+                 6: [('titanDim', 'head', -1, 8, {'behind': True, 'alpha': {'H': 140, 'G': 140, 'N': 180}}), ('fearLines', 'head', 0, -9, {'alpha': {'C': 160}})]})),
  'flowDodge': ('Flow Dodge', 3,
   'Flow Dodge (Sagittarius taijutsu stance buff: the fighter enters a dance-like trance and begins to swing and sway to its own rhythm): from the guard the fighter shakes its arms loose and lets the guard drop low and easy, eyes half closed, catching a beat; then it sways to its own rhythm: rocking back and forward on its feet and dipping on the knees, shoulders rolling, the loose hands swinging opposite to the hips, a flickering fire aura breathing round it on the beat with a few black and purple wisps rising off the shoulders; on the last beat it snaps its eyes open and settles into a loose, low guard (the testbed keeps the stance).', [
      g(),
