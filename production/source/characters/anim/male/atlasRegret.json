@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "atlasRegret",
-  "status": "CANDIDATE 2026-10-27 (E/W; W mirrors E; S/N to author after approval)",
+  "status": "E/W approved by user 2026-10-30 (v1 palms press slowly down, blazing eyes, 3c6a7d94; target plays atlasBurdened; W mirrors E); S/N to author",
   "frames": 9,
   "fps": 10,
   "sourceDirection": "E",
@@ -1136,6 +1136,268 @@
         "ankle": [
           20,
           55
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "ar-lift-lead",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 44,
+        "kneeX": 37,
+        "kneeRow": 49,
+        "ankle": [
+          38,
+          54
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "ar-plant-lead",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 45,
+        "kneeX": 38,
+        "kneeRow": 51,
+        "footX": 41,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "ar-plant-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 45,
+        "kneeX": 29,
+        "kneeRow": 51,
+        "footX": 26,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "ar-drag-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 45,
+        "kneeX": 28,
+        "kneeRow": 51,
+        "ankle": [
+          24,
+          55
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "ar-buckle-lead",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 47,
+        "kneeX": 39,
+        "kneeRow": 51,
+        "footX": 40,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "ar-buckle-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 47,
+        "kneeX": 29,
+        "kneeRow": 53,
+        "footX": 25,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "aw-0-near",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 45,
+        "kneeX": 35,
+        "kneeRow": 51,
+        "footX": 37,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "aw-0-far",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 45,
+        "kneeX": 37,
+        "kneeRow": 51,
+        "footX": 39,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "aw-1-near",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 45,
+        "kneeX": 33,
+        "kneeRow": 51,
+        "footX": 34,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "aw-1-far",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 45,
+        "kneeX": 35,
+        "kneeRow": 51,
+        "footX": 36,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "aw-2-near",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 45,
+        "kneeX": 31,
+        "kneeRow": 51,
+        "footX": 31,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "aw-2-far",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 45,
+        "kneeX": 33,
+        "kneeRow": 51,
+        "footX": 33,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "aw-3-near",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 45,
+        "kneeX": 29,
+        "kneeRow": 51,
+        "footX": 27,
+        "wrapRow": 54,
+        "foot": "toe60"
+      },
+      {
+        "name": "aw-3-far",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 45,
+        "kneeX": 31,
+        "kneeRow": 51,
+        "footX": 29,
+        "wrapRow": 54,
+        "foot": "toe60"
+      },
+      {
+        "name": "aw-4-near",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 45,
+        "kneeX": 28,
+        "kneeRow": 51,
+        "ankle": [
+          24,
+          57
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "aw-4-far",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 45,
+        "kneeX": 30,
+        "kneeRow": 51,
+        "ankle": [
+          26,
+          57
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "aw-5-near",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 45,
+        "kneeX": 31,
+        "kneeRow": 50,
+        "ankle": [
+          29,
+          56
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "aw-5-far",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 45,
+        "kneeX": 33,
+        "kneeRow": 50,
+        "ankle": [
+          31,
+          56
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "aw-6-near",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 45,
+        "kneeX": 35,
+        "kneeRow": 49,
+        "ankle": [
+          34,
+          55
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "aw-6-far",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 45,
+        "kneeX": 37,
+        "kneeRow": 49,
+        "ankle": [
+          36,
+          55
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "aw-7-near",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 45,
+        "kneeX": 37,
+        "kneeRow": 50,
+        "ankle": [
+          37,
+          56
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "aw-7-far",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 45,
+        "kneeX": 39,
+        "kneeRow": 50,
+        "ankle": [
+          39,
+          56
         ],
         "foot": "toe30k"
       },

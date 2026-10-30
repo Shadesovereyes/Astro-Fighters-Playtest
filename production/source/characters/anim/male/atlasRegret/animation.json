@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-animation-output/v1",
   "body": "male",
   "state": "atlasRegret",
-  "status": "CANDIDATE 2026-10-27 (E/W; W mirrors E; S/N to author after approval)",
+  "status": "E/W approved by user 2026-10-30 (v1 palms press slowly down, blazing eyes, 3c6a7d94; target plays atlasBurdened; W mirrors E); S/N to author",
   "frames": 9,
   "fps": 10,
   "frameSize": [

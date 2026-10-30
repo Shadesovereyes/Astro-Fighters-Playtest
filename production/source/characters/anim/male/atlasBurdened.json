@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "atlasBurdened",
-  "status": "CANDIDATE 2026-10-27 (E/W; W mirrors E; S/N to author after approval)",
+  "status": "E/W approved by user 2026-10-30 (v3 globe settles on the shoulders, arms hang at the sides, sinks to one knee, trembling loop from frame 5, a1de2d5d; W mirrors E); S/N to author",
   "frames": 9,
   "fps": 7,
   "sourceDirection": "E",
@@ -1216,7 +1216,7 @@
         "hipRow": 45,
         "kneeX": 35,
         "kneeRow": 51,
-        "footX": 36,
+        "footX": 37,
         "wrapRow": 56,
         "foot": "flat"
       },
@@ -1227,7 +1227,7 @@
         "hipRow": 45,
         "kneeX": 37,
         "kneeRow": 51,
-        "footX": 38,
+        "footX": 39,
         "wrapRow": 56,
         "foot": "flat"
       },
@@ -1258,9 +1258,9 @@
         "construction": "band",
         "hipX": 31,
         "hipRow": 45,
-        "kneeX": 32,
+        "kneeX": 31,
         "kneeRow": 51,
-        "footX": 32,
+        "footX": 31,
         "wrapRow": 56,
         "foot": "flat"
       },
@@ -1269,9 +1269,9 @@
         "construction": "band",
         "hipX": 33,
         "hipRow": 45,
-        "kneeX": 34,
+        "kneeX": 33,
         "kneeRow": 51,
-        "footX": 34,
+        "footX": 33,
         "wrapRow": 56,
         "foot": "flat"
       },
@@ -1280,7 +1280,7 @@
         "construction": "band",
         "hipX": 31,
         "hipRow": 45,
-        "kneeX": 30,
+        "kneeX": 29,
         "kneeRow": 51,
         "footX": 27,
         "wrapRow": 54,
@@ -1291,7 +1291,7 @@
         "construction": "band",
         "hipX": 33,
         "hipRow": 45,
-        "kneeX": 32,
+        "kneeX": 31,
         "kneeRow": 51,
         "footX": 29,
         "wrapRow": 54,
@@ -1302,11 +1302,11 @@
         "construction": "band",
         "hipX": 31,
         "hipRow": 45,
-        "kneeX": 29,
+        "kneeX": 28,
         "kneeRow": 51,
         "ankle": [
-          25,
-          55
+          24,
+          57
         ],
         "foot": "toe30k"
       },
@@ -1315,11 +1315,11 @@
         "construction": "band",
         "hipX": 33,
         "hipRow": 45,
-        "kneeX": 31,
+        "kneeX": 30,
         "kneeRow": 51,
         "ankle": [
-          27,
-          55
+          26,
+          57
         ],
         "foot": "toe30k"
       },
@@ -1328,11 +1328,11 @@
         "construction": "band",
         "hipX": 31,
         "hipRow": 45,
-        "kneeX": 32,
+        "kneeX": 31,
         "kneeRow": 50,
         "ankle": [
-          30,
-          55
+          29,
+          56
         ],
         "foot": "toe30k"
       },
@@ -1341,11 +1341,11 @@
         "construction": "band",
         "hipX": 33,
         "hipRow": 45,
-        "kneeX": 34,
+        "kneeX": 33,
         "kneeRow": 50,
         "ankle": [
-          32,
-          55
+          31,
+          56
         ],
         "foot": "toe30k"
       },
@@ -1380,11 +1380,11 @@
         "construction": "band",
         "hipX": 31,
         "hipRow": 45,
-        "kneeX": 36,
+        "kneeX": 37,
         "kneeRow": 50,
         "ankle": [
-          36,
-          55
+          37,
+          56
         ],
         "foot": "toe30k"
       },
@@ -1393,11 +1393,11 @@
         "construction": "band",
         "hipX": 33,
         "hipRow": 45,
-        "kneeX": 38,
+        "kneeX": 39,
         "kneeRow": 50,
         "ankle": [
-          38,
-          55
+          39,
+          56
         ],
         "foot": "toe30k"
       },
