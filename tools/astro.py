@@ -296,6 +296,11 @@ NPAT.update({**{'eye%d%s' % (k, fb): q for k in range(4) for fb, q in zip('FB', 
              **{'gust%d%s' % (k, fb): q for k in range(4) for fb, q in zip('FB', _gust(34, 40, k, 60 + k, n=18))},
              'stormRing': _whirl(12, 14, 16, 0, 50, arms=2)[0], 'sandSprayL': [r[::-1] for r in NPAT['sandSpray']]})
 U.POSES += [leg('ss-kneel-lead', (33, 50), (41, 49), 42), U.kleg('ss-kneel-rear', (31, 50), (29, 55), (20, 55), 'toe30k')]   # Silica Strike v2: down on the rear knee, lead foot flat in front, thigh level
+U.POSES += [kleg('ar-lift-lead', (33, 44), (37, 49), (38, 54), 'toe30k'), leg('ar-plant-lead', (33, 45), (38, 51), 41),   # Burdened by the World v2: a dragging step, the lead foot barely lifts
+            leg('ar-plant-rear', (31, 45), (29, 51), 26), kleg('ar-drag-rear', (31, 45), (28, 51), (24, 55), 'toe30k'),   # rear foot hauled up on its toes
+            leg('ar-buckle-lead', (33, 47), (39, 51), 40), leg('ar-buckle-rear', (31, 47), (29, 53), 25)]   # the knees give
+AR_HANG_N, AR_HANG_F = band(6, -4), band(2, -6)        # arms hanging limp at the sides
+AR_KNEEL_N, AR_KNEEL_F = band(10, 0), band(4, -4)
 NPAT.update({'sandSprayUp': [''.join(r[y] for r in NPAT['sandSpray'][::-1]) for y in range(len(NPAT['sandSpray'][0]))][::-1]})
 def _ring(r, ch='c', ch2='C', gap=0):   # Wither Palm v2: a thin shock ring of radius r (flattened a little), every other pixel when gap
     w = 2 * r + 1; h = 2 * round(r * 0.8) + 1; rows = [['.'] * w for _ in range(h)]
@@ -481,8 +486,81 @@ def _titan(w, h, lit):   # Titan's Gaze: the looming face of a stone giant behin
             if 0 <= x < w and 0 <= y < h and rows[y][x] in 'GH': rows[y][x] = 'N'
             x += rnd.choice((-1, 0, 1)); y += 1
     return [''.join(q) for q in rows]
+def _titan2(lit, eyes='open', seams=False):   # Titan's Gaze v2 (Christopher 2026-10-30: "needs more cool"): the head of a horned stone titan (Capricorn's goat) behind the target:
+    import random                             # an angular face of weathered stone lit from the left, a scowling V brow, slit eyes blazing crystal teal with a goat's bar pupil, ram horns curling round to the sides, cracks that glow teal (seams)
+    W, H = 62, 46; rnd = random.Random(11); rows = [['.'] * W for _ in range(H)]; cx = 30.5
+    def put(x, y, ch):
+        if 0 <= x < W and 0 <= y < H: rows[y][x] = ch
+    for side in (-1, 1):   # ram horns: from the forehead corner they sweep back and out, curl down round the side and forward under themselves
+        ox, oy = cx + side * 21, 15
+        for i in range(0, 260):
+            t = i / 259; a = math.radians(-115 + 360 * t); r = 10.5 - 6.0 * t; th = 6.0 - 3.6 * t
+            px, py = ox + side * r * math.cos(a), oy + r * math.sin(a)
+            for j in range(-6, 7):
+                o = j / 6 * th / 2; qx, qy = round(px + side * o * math.cos(a)), round(py + o * math.sin(a))
+                ridge = int(t * 26) % 2
+                put(qx, qy, 'N' if abs(o) > th / 2 - 0.6 else ('H' if o < 0 else 'G') if not ridge else 'G' if o < 0 else 'N')
+    def half(y):
+        if y < 3: return 0
+        if y < 9: return 12 + (y - 3) * 1.1
+        if y < 30: return 18.5
+        return max(6, 18.5 - (y - 30) * 0.85)
+    for y in range(H):
+        hw = half(y)
+        for x in range(W):
+            dx = x - cx
+            if abs(dx) > hw: continue
+            edge = abs(dx) > hw - 1.2 or y == 3 or y == H - 1
+            rows[y][x] = 'N' if edge else ('H' if (x + y) % 3 else 'G') if dx < -8 else ('N' if (x + y) % 2 else 'G') if dx > 9 else 'G'
+    for x in range(W):   # scowling V brow ridge, low in the middle
+        dx = abs(x - cx)
+        if dx > 17: continue
+        by = 12 + round(5 * (1 - dx / 17) ** 1.5)
+        put(x, by - 1, 'H'); put(x, by, 'N'); put(x, by + 1, 'N')
+    for ex in (cx - 11, cx + 11):   # the eyes: slanted almonds under the brow, set wide so they blaze either side of the target's head
+        for y in range(15, 24):
+            for x in range(W):
+                dx, dy = (x - ex) / 5.6, (y - 19.5 - (x - ex) * 0.3 * (-1 if ex > cx else 1)) / 2.6
+                d = dx * dx + dy * dy
+                if eyes == 'shut':
+                    if d <= 1 and abs(dy) < 0.35: rows[y][x] = 'T' if lit else 'N'
+                    continue
+                if d <= 1: rows[y][x] = ('W' if lit else 'c') if d < 0.3 else 'c' if d < 0.6 else 'C'
+                elif d <= 1.6 and rows[y][x] in 'GHN': rows[y][x] = 'T'
+        if eyes != 'shut':
+            for x in range(round(ex) - 2, round(ex) + 3): put(x, round(19.5 + (x - ex) * 0.3 * (-1 if ex > cx else 1)), 'K')   # goat's bar pupil
+    for y in range(23, 34): put(round(cx) - 1, y, 'H'); put(round(cx) + 1, y, 'N')   # nose ridge
+    put(round(cx) - 2, 34, 'N'); put(round(cx) + 2, 34, 'N')
+    for x in range(round(cx) - 9, round(cx) + 10):   # grim mouth, corners turned down
+        dx = abs(x - cx); my = 39 + (1 if dx > 6 else 0) + (1 if dx > 8 else 0); put(x, my, 'T' if seams and dx < 6 else 'N')
+    for k in range(10):   # cracks (glowing seams when lit)
+        x, y = rnd.randrange(14, 48), rnd.randrange(4, 44)
+        for t in range(rnd.randint(4, 8)):
+            if 0 <= x < W and 0 <= y < H and rows[y][x] in 'GH': rows[y][x] = ('C' if t % 2 else 'T') if seams else 'N'
+            x += rnd.choice((-1, 0, 1)); y += 1
+    return [''.join(q) for q in rows]
+def _crust(w, h, seed):   # Titan's Gaze v2: a jagged crust of stone creeping up over the target's feet and shins (it seizes up, petrified with fear)
+    import random
+    rnd = random.Random(seed); rows = [['.'] * w for _ in range(h)]; c0 = (w - 1) / 2
+    tops = [max(0, round(h * 0.15 + abs(x - c0) / c0 * h * 0.35 + rnd.randint(-2, 2))) for x in range(w)]
+    for x in range(w):
+        for y in range(tops[x], h):
+            rows[y][x] = 'N' if y == tops[x] or x in (0, w - 1) else 'H' if (x * 3 + y * 5 + seed) % 7 < 2 else 'N' if (x + 2 * y + seed) % 9 == 0 else 'G'
+    return [''.join(q) for q in rows]
+def _gazeEye(n):   # Titan's Gaze v2 caster: a great goat's eye opening in the air behind the caster's head (n: 0 a slit, 1 half open, 2 open and blazing)
+    rows = [['.'] * 17 for _ in range(7)]; ry = (0.6, 1.8, 3.2)[n]
+    for y in range(7):
+        for x in range(17):
+            dx, dy = (x - 8) / 8, (y - 3) / max(ry, 0.6); d = dx * dx + dy * dy
+            if d <= 1: rows[y][x] = 'C' if d > 0.6 else 'c' if d > 0.25 or n < 2 else 'W'
+    if n: rows[3][6:11] = ['K'] * 5
+    return [''.join(q) for q in rows]
 NPAT.update({**{'globe%d' % k: _globe(11, k * 0.5) for k in range(4)}, 'globeS': _globe(5), 'globeM': _globe(8),
              'titanLit': _titan(58, 44, True), 'titanDim': _titan(58, 44, False), 'sweat': ['w', 'W'], 'fearLines': ['C.....C', '.C...C.', '..C.C..']})
+NPAT.update({'titan2Lit': _titan2(True, 'open', True), 'titan2Dim': _titan2(False, 'open', False), 'titan2Shut': _titan2(False, 'shut', False), 'titan2Wake': _titan2(True, 'shut', True),
+             'crust1': _crust(20, 6, 3), 'crust2': _crust(22, 12, 5), 'gazeEye0': _gazeEye(0), 'gazeEye1': _gazeEye(1), 'gazeEye2': _gazeEye(2),
+             'pebbles': ['G.....N', '.......', '...H...', 'N.....G'], 'pebbles2': ['...N...', 'H.....G', '.......', '..G..N.'],
+             'gazeBeam': ['......c.....C.....c..W', 'C..c.C..cC.c..CcC.cWcW', '......c.....C.....c..W'], 'gazeBeam2': ['.....C......c....c..', 'c.C..c.C..c..C.c.CcC', '.....C......c....c..']})
 NPAT.update({'tombBack': _slab(30, 54, 3, arch=True), 'tombFront': _slab(30, 20, 5)})
 NPAT.update({'stalBack': _spikes(44, 58, 5, 21, widths=(7, 8, 9)), 'stalFrontL': _spikes(18, 34, 2, 22, lean=-1, widths=(6, 7)), 'stalFrontR': _spikes(18, 38, 2, 23, lean=1, widths=(6, 7, 8)), 'stalTips': _spikes(30, 8, 6, 24), 'stalTipsS': _spikes(12, 5, 3, 25)})   # Capricorn Stalactite Rain: giant crystal spears
 NPAT.update({'stalBack2': NPAT['stalBack'][20:], 'stalFrontL2': NPAT['stalFrontL'][12:], 'stalFrontR2': NPAT['stalFrontR'][14:]})
@@ -1680,28 +1758,41 @@ CLIPS = {
                  3: [('eyeCF', 'eye', 0, 0), ('globeM', 'hand', 5, -6, {'alpha': {'C': 180, 'c': 180, 'e': 160, 'E': 160, 'T': 170}})],
                  4: [('eyeCF', 'eye', 0, 0), ('gp1', 'feet', 16, -24)], 5: [('eyeCF', 'eye', 0, 0), ('gp2', 'feet', 20, -18)], 6: [('eyeC', 'eye', 0, 0), ('gp3d', 'feet', 24, -12)]})),
  'atlasBurdened': ('Burdened by the World', 2,
-  'Burdened by the World (target state of Atlas\'s Regret, Slow 2 rounds): an illusory world, a soil-brown globe with crystal-teal seas and glinting lines of latitude, forms out of the air over the fighter\'s head and sinks onto its shoulders; it raises both hands to hold it and drops to one knee like Atlas under the weight, face straining; then (looping while the Slow lasts) it trembles under the slowly turning globe, sweat flying off it, the knees shaking.', [
-     g(an=band(-60, -150), af=band(-50, -140), bob=(1, 1, 1), lean=(0, 0)),
-     g(an=band(-176, 178, fistKind='palm'), af=band(-172, 176, fistKind='palm'), bob=(1, 1, 1), lean=(0, 0)),
-     g(an=band(-176, 178, fistKind='palm'), af=band(-172, 176, fistKind='palm'), bob=(5, 5, 6), lean=(0, 1), **BRACE),
-     g(an=band(-176, 178, fistKind='palm'), af=band(-172, 176, fistKind='palm'), bob=(9, 10, 10), lean=(1, 2), ln='ss-kneel-rear', lf='ss-kneel-lead'),
-     g(an=band(-176, 178, fistKind='palm'), af=band(-172, 176, fistKind='palm'), bob=(9, 10, 10), lean=(1, 2), ln='ss-kneel-rear', lf='ss-kneel-lead'),
-     g(an=band(-176, 178, fistKind='palm'), af=band(-172, 176, fistKind='palm'), bob=(10, 10, 11), lean=(1, 3), ln='ss-kneel-rear', lf='ss-kneel-lead'),
-     g(an=band(-176, 178, fistKind='palm'), af=band(-172, 176, fistKind='palm'), bob=(9, 10, 10), lean=(1, 2), ln='ss-kneel-rear', lf='ss-kneel-lead'),
-     g(an=band(-176, 178, fistKind='palm'), af=band(-172, 176, fistKind='palm'), bob=(10, 10, 11), lean=(1, 3), ln='ss-kneel-rear', lf='ss-kneel-lead')],
-  ['squint', 'pain', 'strain', 'strain', 'strain', 'pain', 'strain', 'pain'],
+  'Burdened by the World (target state of Atlas\'s Regret, Slow 2 rounds), v2 (Christopher 2026-10-30: arms down by the sides instead of holding the planet up; a slow, struggling walk that ends in the kneel, to show how hard it is to move under the genjutsu): an illusory world, a soil-brown globe with crystal-teal seas and glinting lines of latitude, forms out of the air over the fighter\'s head and sinks onto its shoulders; its guard drops, the arms hang limp at its sides and the knees buckle under the weight; it fights forward two heavy, dragging steps, the lead foot barely lifting and scuffing dust, the rear foot hauled up after it, gaining only a few pixels; then the knees give and it sinks onto one knee, arms still hanging; then (looping while the Slow lasts) it trembles on its knee under the slowly turning globe, sweat flying off it.', [
+     g(an=band(-60, -150), af=band(-50, -140), bob=(1, 1, 1), lean=(0, -1)),
+     g(an=AR_HANG_N, af=AR_HANG_F, bob=(2, 2, 3), lean=(0, 1), **LOW),
+     g(an=AR_HANG_N, af=AR_HANG_F, bob=(4, 5, 5), lean=(1, 3), **BRACE),
+     g(an=AR_HANG_N, af=AR_HANG_F, bob=(3, 4, 4), lean=(1, 4), root=(1, 0), ln='ar-plant-rear', lf='ar-lift-lead'),
+     g(an=AR_HANG_N, af=AR_HANG_F, bob=(4, 5, 5), lean=(1, 4), root=(1, 0), ln='ar-drag-rear', lf='ar-plant-lead'),
+     g(an=AR_HANG_N, af=AR_HANG_F, bob=(5, 5, 6), lean=(1, 4), **BRACE),
+     g(an=AR_HANG_N, af=AR_HANG_F, bob=(4, 5, 5), lean=(1, 5), root=(1, 0), ln='ar-plant-rear', lf='ar-lift-lead'),
+     g(an=AR_HANG_N, af=AR_HANG_F, bob=(5, 6, 6), lean=(1, 5), root=(1, 0), ln='ar-drag-rear', lf='ar-plant-lead'),
+     g(an=AR_HANG_N, af=AR_HANG_F, bob=(7, 7, 8), lean=(1, 4), root=(-1, 0), ln='ar-buckle-rear', lf='ar-buckle-lead'),
+     g(an=AR_KNEEL_N, af=AR_KNEEL_F, bob=(9, 10, 10), lean=(1, 3), root=(-1, 0), ln='ss-kneel-rear', lf='ss-kneel-lead'),
+     g(an=AR_KNEEL_N, af=AR_KNEEL_F, bob=(9, 10, 10), lean=(1, 3), ln='ss-kneel-rear', lf='ss-kneel-lead'),
+     g(an=AR_KNEEL_N, af=AR_KNEEL_F, bob=(10, 10, 11), lean=(1, 4), root=(1, 0), ln='ss-kneel-rear', lf='ss-kneel-lead'),
+     g(an=AR_KNEEL_N, af=AR_KNEEL_F, bob=(9, 10, 10), lean=(1, 3), root=(-1, 0), ln='ss-kneel-rear', lf='ss-kneel-lead'),
+     g(an=AR_KNEEL_N, af=AR_KNEEL_F, bob=(10, 10, 11), lean=(1, 4), ln='ss-kneel-rear', lf='ss-kneel-lead')],
+  ['squint', 'pain', 'strain', 'strain', 'pain', 'strain', 'strain', 'pain', 'pain', 'strain', 'strain', 'pain', 'strain', 'pain'],
   None,
-  dict(fps=8, extra={'loop': True, 'loopFrom': 4},
+  dict(fps=7, rm='E: +1 on each half of the two dragging steps (+4), -1 twice as the knees give and it drops back onto the rear knee (net +2 by the kneel); +1/-1 tremble in the loop (net 0); the testbed snaps back to the tile when the Slow ends',
+       extra={'loop': True, 'loopFrom': 10},
        anchored={0: [('globeS', 'head', 0, -12, {'alpha': {'C': 150, 'c': 150, 'e': 140, 'E': 140, 'T': 150}})],
                  1: [('globeM', 'head', 0, -14, {'alpha': {'C': 200, 'c': 200, 'e': 190, 'E': 190, 'T': 200}})],
-                 2: [('globe0', 'head', -1, -11, {'behind': True})],
-                 3: [('globe1', 'head', -1, -9, {'behind': True}), ('dust1', 'feet', -8, -3), ('dust1', 'feet', 8, -3)],
-                 4: [('globe1', 'head', -1, -9, {'behind': True}), ('sweat', 'head', 7, 0)],
-                 5: [('globe2', 'head', -1, -9, {'behind': True}), ('sweat', 'head', -7, 2), ('sweat', 'head', 9, 4)],
-                 6: [('globe3', 'head', -1, -9, {'behind': True}), ('sweat', 'head', 8, -2)],
-                 7: [('globe0', 'head', -1, -9, {'behind': True}), ('sweat', 'head', -8, 0), ('grains', 'feet', 0, -2)]})),
+                 2: [('globe0', 'head', -2, -10, {'behind': True}), ('dust1', 'feet', -8, -3), ('dust1', 'feet', 8, -3)],
+                 3: [('globe1', 'head', -2, -10, {'behind': True}), ('sweat', 'head', 7, 0)],
+                 4: [('globe1', 'head', -2, -10, {'behind': True}), ('dust1', 'feet', 9, -2), ('grains', 'feet', 4, -2)],
+                 5: [('globe2', 'head', -2, -10, {'behind': True}), ('sweat', 'head', -7, 2)],
+                 6: [('globe2', 'head', -2, -10, {'behind': True}), ('sweat', 'head', 8, -1)],
+                 7: [('globe3', 'head', -2, -10, {'behind': True}), ('dust1', 'feet', 10, -2), ('grains', 'feet', 5, -2)],
+                 8: [('globe3', 'head', -2, -10, {'behind': True}), ('sweat', 'head', -8, 0), ('sweat', 'head', 9, 2)],
+                 9: [('globe0', 'head', -2, -9, {'behind': True}), ('dust2', 'feet', 0, -3)],
+                 10: [('globe0', 'head', -2, -9, {'behind': True}), ('sweat', 'head', 7, 0)],
+                 11: [('globe1', 'head', -2, -9, {'behind': True}), ('sweat', 'head', -7, 2), ('sweat', 'head', 9, 4)],
+                 12: [('globe2', 'head', -2, -9, {'behind': True}), ('sweat', 'head', 8, -2)],
+                 13: [('globe3', 'head', -2, -9, {'behind': True}), ('sweat', 'head', -8, 0), ('grains', 'feet', 0, -2)]})),
  'titansGaze': ('Titan\'s Gaze', 4,
-  'Titan\'s Gaze (Capricorn genjutsu, mental debuff, Slow 2 rounds INT save DC 12, ~12 m: the caster invokes the terrifying gaze of a giant into the mind\'s eye of its opponent, so it seizes up with fear): from the guard the fighter raises two fingers up beside its near eye, the eyes kindling and then blazing crystal teal, a stone-grey aura rising; then it thrusts the hand out at the target, two fingers pointing, and holds the stare, before lowering the hand back into the guard. On the target (the testbed plays titanGazed from the active frame, with the genjutsu mark in earth colours): the face of a stone giant looms up out of the air behind and above it, a craggy brow and two huge eyes blazing crystal teal, and it seizes up, cowering, frozen and trembling under the gaze while the Slow lasts.', [
+  'Titan\'s Gaze (Capricorn genjutsu, mental debuff, Slow 2 rounds INT save DC 12, ~12 m: the caster invokes the terrifying gaze of a giant into the mind\'s eye of its opponent, so it seizes up with fear): from the guard the fighter raises two fingers up beside its near eye, the eyes kindling and then blazing crystal teal, a stone-grey aura rising; a great slit goat\'s eye opening in the air behind its head (v2, Christopher 2026-10-30: "needs more cool"); then it thrusts the hand out at the target, two fingers pointing, a dotted beam of teal light flashing off the fingertips, and holds the stare, the eye blazing, then closing, before lowering the hand back into the guard. On the target (the testbed plays titanGazed from the active frame, with the genjutsu mark in earth colours): the horned head of a stone titan rises out of the earth behind it, its slit eyes snap open blazing teal, and the target seizes up as stone crusts over its legs, frozen and trembling while the Slow lasts.', [
      g(),
      g(an=band(-40, -170, fistKind='point'), af=band(-30, -100), bob=(1, 1, 1), lean=(0, 0)),
      g(an=band(-40, -172, fistKind='point'), af=band(-30, -100), bob=(1, 1, 1), lean=(0, -1)),
@@ -1714,28 +1805,39 @@ CLIPS = {
   [None, 'squint', 'squint', 'squint', 'roar', 'squint', 'squint', None, None],
   [0, 0, 1, 2, 2, 2, 1, 0, 0],
   dict(fps=10, auraColors=('#b3aa9a', '#3a9e8f'), rm='E: +1 thrusting the hand out, -1 settling back',
-       extra={'targetState': {'rule': 'Titan\'s Gaze: from the active frame (frame 4, the hand thrusts out) the target plays titanGazed: frames 0-2 once (the giant\'s face looms up behind it, it seizes up), then frames 3-6 on loop until the Slow ends, then its idle; the genjutsu mark (genjutsuAfflicted halo, aura, eye glow, earth colours) is drawn over it throughout', 'state': 'titanGazed', 'loopFrom': 3, 'element': 'earth', 'mark': 'genjutsuAfflicted'}},
-       anchored={1: [('eyeC', 'eye', 0, 0)], 2: [('eyeCF', 'eye', 0, 0), ('gemSpark', 'hand', 0, -2)], 3: [('eyeCF', 'eye', 0, 0), ('gemSpark', 'hand', 1, -3)],
-                 4: [('eyeCF', 'eye', 0, 0), ('fearLines', 'hand', 6, 0)], 5: [('eyeCF', 'eye', 0, 0), ('fearLines', 'hand', 10, 0, {'alpha': {'C': 170}})], 6: [('eyeC', 'eye', 0, 0)]})),
+       extra={'targetState': {'rule': 'Titan\'s Gaze: from the active frame (frame 4, the hand thrusts out) the target plays titanGazed: frames 0-6 once (the horned titan rises behind it, its eyes snap open, stone creeps up the target\'s legs), then frames 7-10 on loop until the Slow ends, then its idle; the genjutsu mark (genjutsuAfflicted halo, aura, eye glow, earth colours) is drawn over it throughout', 'state': 'titanGazed', 'loopFrom': 7, 'element': 'earth', 'mark': 'genjutsuAfflicted'}},
+       anchored={1: [('eyeC', 'eye', 0, 0), ('gazeEye0', 'head', -13, -3, {'behind': True})], 2: [('eyeCF', 'eye', 0, 0), ('gemSpark', 'hand', 0, -2), ('gazeEye1', 'head', -13, -3, {'behind': True})],
+                 3: [('eyeCF', 'eye', 0, 0), ('gemSpark', 'hand', 1, -3), ('gazeEye2', 'head', -13, -3, {'behind': True}), ('gemSpark', 'head', -22, -5)],
+                 4: [('eyeCF', 'eye', 0, 0), ('gazeEye2', 'head', -13, -3, {'behind': True}), ('gazeBeam', 'hand', 7, 0), ('gemBurst', 'hand', 1, 0)],
+                 5: [('eyeCF', 'eye', 0, 0), ('gazeEye2', 'head', -13, -3, {'behind': True}), ('gazeBeam2', 'hand', 8, 0, {'alpha': {'C': 170, 'c': 170}})],
+                 6: [('eyeC', 'eye', 0, 0), ('gazeEye1', 'head', -13, -3, {'behind': True, 'alpha': {'C': 150, 'c': 150, 'K': 150}})], 7: [('gazeEye0', 'head', -13, -3, {'behind': True, 'alpha': {'C': 110, 'c': 110}})]})),
  'titanGazed': ('Under the Titan\'s Gaze', 1,
-  'Under the Titan\'s Gaze (target state of Titan\'s Gaze, Slow 2 rounds): out of the air behind and above the fighter looms the face of a stone giant, a craggy brow ridge and cheekbones and two huge eyes blazing crystal teal, the rest of the face only hinted by cracks; the fighter flinches and seizes up, hunched, its guard drawn in tight, eyes wide; then (looping while the Slow lasts) it trembles, frozen, as the giant\'s eyes pulse over it.', [
+  'Under the Titan\'s Gaze (target state of Titan\'s Gaze, Slow 2 rounds), v2 (Christopher 2026-10-30: "needs more cool"): the ground cracks and rumbles at the fighter\'s feet, and the head of a horned stone titan, the goat of Capricorn, rises up out of the earth behind it in a burst of dust and falling rubble, eyes shut: an angular face of weathered stone with a scowling brow and great ram horns curling round to the sides; its eyes snap open in a flash, slit and blazing crystal teal with a goat\'s bar pupil, the cracks in its face glowing; the fighter recoils, throwing a forearm up over its eyes, then seizes up in a tight crouch as a crust of stone creeps up over its feet and shins; then (looping while the Slow lasts) it trembles, frozen, the titan\'s eyes and glowing seams pulsing over it and pebbles lifting off the ground round its feet.', [
      g(an=band(-60, -150), af=band(-50, -140), bob=(1, 1, 1), lean=(0, -1)),
-     g(an=band(-20, -160), af=band(-15, -155), bob=(2, 2, 3), lean=(-1, -2), **LOW),
+     g(an=band(-50, -150), af=band(-40, -140), bob=(2, 2, 2), lean=(0, -2), **LOW),
+     g(an=band(-40, -155), af=band(-30, -148), bob=(2, 2, 3), lean=(-1, -2), **LOW),
+     g(an=band(-30, -158), af=band(-25, -150), bob=(2, 2, 3), lean=(-1, -3), **LOW),
+     g(an=band(-130, -165), af=band(-30, -150), bob=(1, 1, 1), lean=(-2, -6), root=(-1, 0)),
      g(an=band(-20, -160), af=band(-15, -155), bob=(3, 3, 3), lean=(-1, -3), **LOW),
+     g(an=band(-20, -160), af=band(-15, -155), bob=(3, 3, 4), lean=(-1, -3), root=(1, 0), **LOW),
      g(an=band(-20, -160), af=band(-15, -155), bob=(3, 3, 3), lean=(-1, -3), **LOW),
-     g(an=band(-22, -161), af=band(-17, -156), bob=(3, 3, 4), lean=(-1, -2), **LOW),
-     g(an=band(-20, -160), af=band(-15, -155), bob=(3, 3, 3), lean=(-1, -3), **LOW),
+     g(an=band(-22, -161), af=band(-17, -156), bob=(3, 3, 4), lean=(-1, -2), root=(1, 0), **LOW),
+     g(an=band(-20, -160), af=band(-15, -155), bob=(3, 3, 3), lean=(-1, -3), root=(-1, 0), **LOW),
      g(an=band(-22, -161), af=band(-17, -156), bob=(3, 3, 4), lean=(-1, -2), **LOW)],
-  ['squint', 'pain', 'pain', 'pain', 'pain', 'pain', 'pain'],
+  ['squint', 'pain', 'pain', 'pain', 'pain', 'pain', 'pain', 'pain', 'pain', 'pain', 'pain'],
   None,
-  dict(fps=8, extra={'loop': True, 'loopFrom': 3},
-       anchored={0: [('titanDim', 'head', -1, 8, {'behind': True, 'alpha': {'H': 90, 'G': 90, 'N': 100, 'C': 110, 'c': 110, 'T': 90}})],
-                 1: [('titanDim', 'head', -1, 8, {'behind': True, 'alpha': {'H': 160, 'G': 160, 'N': 170, 'C': 190, 'c': 190, 'T': 160}}), ('fearLines', 'head', 0, -9)],
-                 2: [('titanLit', 'head', -1, 8, {'behind': True, 'alpha': {'H': 150, 'G': 150, 'N': 190}}), ('fearLines', 'head', 0, -9)],
-                 3: [('titanLit', 'head', -1, 8, {'behind': True, 'alpha': {'H': 150, 'G': 150, 'N': 190}}), ('sweat', 'head', 7, 1)],
-                 4: [('titanDim', 'head', -1, 8, {'behind': True, 'alpha': {'H': 140, 'G': 140, 'N': 180}}), ('fearLines', 'head', 0, -9, {'alpha': {'C': 160}})],
-                 5: [('titanLit', 'head', -1, 8, {'behind': True, 'alpha': {'H': 150, 'G': 150, 'N': 190}}), ('sweat', 'head', -7, 2)],
-                 6: [('titanDim', 'head', -1, 8, {'behind': True, 'alpha': {'H': 140, 'G': 140, 'N': 180}}), ('fearLines', 'head', 0, -9, {'alpha': {'C': 160}})]})),
+  dict(fps=8, rm='E: -1 recoiling from the flash, +1 back as it seizes up (net 0); +1/-1 tremble in the loop (net 0)', extra={'loop': True, 'loopFrom': 7},
+       anchored={0: [('gemCrack', 'feet', -10, -2), ('gemCrack', 'feet', 10, -2), ('dust1', 'feet', 0, -3), ('titan2Shut', 'head', 0, 34, {'behind': True, 'alpha': {'H': 110, 'G': 110, 'N': 110, 'C': 110, 'c': 110, 'T': 110, 'K': 110, 'W': 110}})],
+                 1: [('titan2Shut', 'head', 0, 22, {'behind': True, 'alpha': {'H': 170, 'G': 170, 'N': 170, 'C': 170, 'c': 170, 'T': 170, 'K': 170, 'W': 170}}), ('plume', 'feet', -17, -7, {'alpha': {'e': 190, 'E': 190, 'H': 200}}), ('plume', 'feet', 17, -7, {'alpha': {'e': 190, 'E': 190, 'H': 200}}), ('rocks', 'head', -20, 0)],
+                 2: [('titan2Shut', 'head', 0, 11, {'behind': True, 'alpha': {'H': 210, 'G': 210, 'N': 210, 'C': 210, 'c': 210, 'T': 210, 'K': 210, 'W': 210}}), ('dust2', 'feet', -14, -3), ('dust2', 'feet', 14, -3), ('rocks', 'head', 20, 6), ('rocks', 'head', -22, 12)],
+                 3: [('titan2Wake', 'head', 0, 4, {'behind': True, 'alpha': {'H': 220, 'G': 220, 'N': 220, 'C': 220, 'c': 220, 'T': 220, 'K': 220, 'W': 220}}), ('dust1', 'feet', -14, -3), ('rocks', 'feet', 18, -6)],
+                 4: [('titan2Lit', 'head', 0, 4, {'behind': True}), ('gemBurst2', 'head', -11, 0), ('gemBurst2', 'head', 11, 0), ('fearLines', 'head', 0, -9)],
+                 5: [('titan2Lit', 'head', 0, 5, {'behind': True}), ('gemBurst', 'head', -11, 1), ('gemBurst', 'head', 11, 1), ('crust1', 'feet', 0, -3), ('fearLines', 'head', 0, -9)],
+                 6: [('titan2Lit', 'head', 0, 5, {'behind': True}), ('crust2', 'feet', 0, -6), ('pebbles', 'feet', 0, -14), ('sweat', 'head', 7, 1)],
+                 7: [('titan2Lit', 'head', 0, 5, {'behind': True}), ('crust2', 'feet', 0, -6), ('pebbles', 'feet', 0, -16), ('sweat', 'head', -7, 2)],
+                 8: [('titan2Dim', 'head', 0, 5, {'behind': True, 'alpha': {'H': 230, 'G': 230, 'N': 230, 'C': 230, 'c': 230, 'T': 230, 'K': 230, 'W': 230}}), ('crust2', 'feet', 0, -6), ('pebbles2', 'feet', 0, -19), ('fearLines', 'head', 0, -9, {'alpha': {'C': 160}})],
+                 9: [('titan2Lit', 'head', 0, 5, {'behind': True}), ('crust2', 'feet', 0, -6), ('pebbles', 'feet', 1, -21), ('sweat', 'head', 7, 0)],
+                 10: [('titan2Dim', 'head', 0, 5, {'behind': True, 'alpha': {'H': 230, 'G': 230, 'N': 230, 'C': 230, 'c': 230, 'T': 230, 'K': 230, 'W': 230}}), ('crust2', 'feet', 0, -6), ('pebbles2', 'feet', -1, -14), ('fearLines', 'head', 0, -9, {'alpha': {'C': 160}})]})),
  'flowDodge': ('Flow Dodge', 3,
   'Flow Dodge (Sagittarius taijutsu stance buff: the fighter enters a dance-like trance and begins to swing and sway to its own rhythm): from the guard the fighter shakes its arms loose and lets the guard drop low and easy, eyes half closed, catching a beat; then it sways to its own rhythm: rocking back and forward on its feet and dipping on the knees, shoulders rolling, the loose hands swinging opposite to the hips, a flickering fire aura breathing round it on the beat with a few black and purple wisps rising off the shoulders; on the last beat it snaps its eyes open and settles into a loose, low guard (the testbed keeps the stance).', [
      g(),

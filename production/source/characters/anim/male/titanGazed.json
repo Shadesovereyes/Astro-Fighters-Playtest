@@ -3,7 +3,7 @@
   "body": "male",
   "state": "titanGazed",
   "status": "CANDIDATE 2026-10-27 (E/W; W mirrors E; S/N to author after approval)",
-  "frames": 7,
+  "frames": 11,
   "fps": 8,
   "sourceDirection": "E",
   "directions": [
@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Under the Titan's Gaze (target state of Titan's Gaze, Slow 2 rounds): out of the air behind and above the fighter looms the face of a stone giant, a craggy brow ridge and cheekbones and two huge eyes blazing crystal teal, the rest of the face only hinted by cracks; the fighter flinches and seizes up, hunched, its guard drawn in tight, eyes wide; then (looping while the Slow lasts) it trembles, frozen, as the giant's eyes pulse over it.",
+  "intent": "Under the Titan's Gaze (target state of Titan's Gaze, Slow 2 rounds), v2 (Christopher 2026-10-30: \"needs more cool\"): the ground cracks and rumbles at the fighter's feet, and the head of a horned stone titan, the goat of Capricorn, rises up out of the earth behind it in a burst of dust and falling rubble, eyes shut: an angular face of weathered stone with a scowling brow and great ram horns curling round to the sides; its eyes snap open in a flash, slit and blazing crystal teal with a goat's bar pupil, the cracks in its face glowing; the fighter recoils, throwing a forearm up over its eyes, then seizes up in a tight crouch as a crust of stone creeps up over its feet and shins; then (looping while the Slow lasts) it trembles, frozen, the titan's eyes and glowing seams pulsing over it and pebbles lifting off the ground round its feet.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -107,6 +107,10 @@
     "dy": [
       1,
       2,
+      2,
+      2,
+      1,
+      3,
       3,
       3,
       3,
@@ -116,6 +120,10 @@
     "head": [
       1,
       2,
+      2,
+      2,
+      1,
+      3,
       3,
       3,
       3,
@@ -124,8 +132,12 @@
     ],
     "arms": [
       1,
+      2,
       3,
       3,
+      1,
+      3,
+      4,
       3,
       4,
       3,
@@ -138,6 +150,10 @@
     "dx": {
       "pelvis": [
         0,
+        0,
+        -1,
+        -1,
+        -2,
         -1,
         -1,
         -1,
@@ -148,6 +164,10 @@
       "head": [
         -1,
         -2,
+        -2,
+        -3,
+        -6,
+        -3,
         -3,
         -3,
         -2,
@@ -157,7 +177,7 @@
     }
   },
   "rootMotion": {
-    "rule": "in place",
+    "rule": "E: -1 recoiling from the flash, +1 back as it seizes up (net 0); +1/-1 tremble in the loop (net 0)",
     "E": [
       [
         0,
@@ -176,11 +196,27 @@
         0
       ],
       [
-        0,
+        -1,
         0
       ],
       [
         0,
+        0
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        -1,
         0
       ],
       [
@@ -206,11 +242,27 @@
         0
       ],
       [
-        0,
+        1,
         0
       ],
       [
         0,
+        0
+      ],
+      [
+        -1,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        -1,
+        0
+      ],
+      [
+        1,
         0
       ],
       [
@@ -1114,6 +1166,76 @@
         "foot": "toe30k"
       },
       {
+        "name": "ar-lift-lead",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 44,
+        "kneeX": 37,
+        "kneeRow": 49,
+        "ankle": [
+          38,
+          54
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "ar-plant-lead",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 45,
+        "kneeX": 38,
+        "kneeRow": 51,
+        "footX": 41,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "ar-plant-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 45,
+        "kneeX": 29,
+        "kneeRow": 51,
+        "footX": 26,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "ar-drag-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 45,
+        "kneeX": 28,
+        "kneeRow": 51,
+        "ankle": [
+          24,
+          55
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "ar-buckle-lead",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 47,
+        "kneeX": 39,
+        "kneeRow": 51,
+        "footX": 40,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "ar-buckle-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 47,
+        "kneeX": 29,
+        "kneeRow": 53,
+        "footX": 25,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
         "name": "as-lift",
         "construction": "band",
         "hipX": 34,
@@ -1184,11 +1306,19 @@
       3,
       3,
       3,
+      1,
+      3,
+      3,
+      3,
       3,
       3,
       3
     ],
     "far": [
+      0,
+      2,
+      2,
+      2,
       0,
       2,
       2,
@@ -1220,6 +1350,38 @@
         "elbow": {
           "at": 8,
           "angle": -150
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -50,
+        "elbow": {
+          "at": 8,
+          "angle": -150
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -40,
+        "elbow": {
+          "at": 8,
+          "angle": -155
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -30,
+        "elbow": {
+          "at": 8,
+          "angle": -158
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -130,
+        "elbow": {
+          "at": 8,
+          "angle": -165
         }
       },
       {
@@ -1278,6 +1440,38 @@
         "elbow": {
           "at": 8,
           "angle": -140
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -40,
+        "elbow": {
+          "at": 8,
+          "angle": -140
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -30,
+        "elbow": {
+          "at": 8,
+          "angle": -148
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -25,
+        "elbow": {
+          "at": 8,
+          "angle": -150
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -30,
+        "elbow": {
+          "at": 8,
+          "angle": -150
         }
       },
       {
@@ -1493,6 +1687,10 @@
       "bandFollowsBody": true,
       "sway": {
         "E": [
+          -1,
+          -1,
+          -1,
+          -1,
           -1,
           -1,
           -1,
@@ -2170,7 +2368,11 @@
         3,
         4,
         5,
-        6
+        6,
+        7,
+        8,
+        9,
+        10
       ],
       "fps": 8,
       "next": "guard",
@@ -2216,6 +2418,26 @@
         "frame": 6,
         "clip": "titanGazed",
         "type": "recovery"
+      },
+      {
+        "frame": 7,
+        "clip": "titanGazed",
+        "type": "recovery"
+      },
+      {
+        "frame": 8,
+        "clip": "titanGazed",
+        "type": "recovery"
+      },
+      {
+        "frame": 9,
+        "clip": "titanGazed",
+        "type": "recovery"
+      },
+      {
+        "frame": 10,
+        "clip": "titanGazed",
+        "type": "recovery"
       }
     ],
     "W": [
@@ -2253,6 +2475,26 @@
       },
       {
         "frame": 6,
+        "clip": "titanGazed",
+        "type": "recovery"
+      },
+      {
+        "frame": 7,
+        "clip": "titanGazed",
+        "type": "recovery"
+      },
+      {
+        "frame": 8,
+        "clip": "titanGazed",
+        "type": "recovery"
+      },
+      {
+        "frame": 9,
+        "clip": "titanGazed",
+        "type": "recovery"
+      },
+      {
+        "frame": 10,
         "clip": "titanGazed",
         "type": "recovery"
       }
@@ -2420,11 +2662,15 @@
         "pain",
         "pain",
         "pain",
+        "pain",
+        "pain",
+        "pain",
+        "pain",
         "pain"
       ]
     },
     "intent": "eyes squeezed shut with the brow pulled down on the impact frames 0-2 (no mouth: user 2026-10-14), a squint on frame 3, open again from frame 4 (user 2026-10-14)"
   },
   "loop": true,
-  "loopFrom": 3
+  "loopFrom": 7
 }

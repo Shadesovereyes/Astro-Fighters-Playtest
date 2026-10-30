@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Titan's Gaze (Capricorn genjutsu, mental debuff, Slow 2 rounds INT save DC 12, ~12 m: the caster invokes the terrifying gaze of a giant into the mind's eye of its opponent, so it seizes up with fear): from the guard the fighter raises two fingers up beside its near eye, the eyes kindling and then blazing crystal teal, a stone-grey aura rising; then it thrusts the hand out at the target, two fingers pointing, and holds the stare, before lowering the hand back into the guard. On the target (the testbed plays titanGazed from the active frame, with the genjutsu mark in earth colours): the face of a stone giant looms up out of the air behind and above it, a craggy brow and two huge eyes blazing crystal teal, and it seizes up, cowering, frozen and trembling under the gaze while the Slow lasts.",
+  "intent": "Titan's Gaze (Capricorn genjutsu, mental debuff, Slow 2 rounds INT save DC 12, ~12 m: the caster invokes the terrifying gaze of a giant into the mind's eye of its opponent, so it seizes up with fear): from the guard the fighter raises two fingers up beside its near eye, the eyes kindling and then blazing crystal teal, a stone-grey aura rising; a great slit goat's eye opening in the air behind its head (v2, Christopher 2026-10-30: \"needs more cool\"); then it thrusts the hand out at the target, two fingers pointing, a dotted beam of teal light flashing off the fingertips, and holds the stare, the eye blazing, then closing, before lowering the hand back into the guard. On the target (the testbed plays titanGazed from the active frame, with the genjutsu mark in earth colours): the horned head of a stone titan rises out of the earth behind it, its slit eyes snap open blazing teal, and the target seizes up as stone crusts over its legs, frozen and trembling while the Slow lasts.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -1138,6 +1138,76 @@
           55
         ],
         "foot": "toe30k"
+      },
+      {
+        "name": "ar-lift-lead",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 44,
+        "kneeX": 37,
+        "kneeRow": 49,
+        "ankle": [
+          38,
+          54
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "ar-plant-lead",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 45,
+        "kneeX": 38,
+        "kneeRow": 51,
+        "footX": 41,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "ar-plant-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 45,
+        "kneeX": 29,
+        "kneeRow": 51,
+        "footX": 26,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "ar-drag-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 45,
+        "kneeX": 28,
+        "kneeRow": 51,
+        "ankle": [
+          24,
+          55
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "ar-buckle-lead",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 47,
+        "kneeX": 39,
+        "kneeRow": 51,
+        "footX": 40,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "ar-buckle-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 47,
+        "kneeX": 29,
+        "kneeRow": 53,
+        "footX": 25,
+        "wrapRow": 56,
+        "foot": "flat"
       },
       {
         "name": "as-lift",
@@ -2647,9 +2717,9 @@
     "intent": "eyes squeezed shut with the brow pulled down on the impact frames 0-2 (no mouth: user 2026-10-14), a squint on frame 3, open again from frame 4 (user 2026-10-14)"
   },
   "targetState": {
-    "rule": "Titan's Gaze: from the active frame (frame 4, the hand thrusts out) the target plays titanGazed: frames 0-2 once (the giant's face looms up behind it, it seizes up), then frames 3-6 on loop until the Slow ends, then its idle; the genjutsu mark (genjutsuAfflicted halo, aura, eye glow, earth colours) is drawn over it throughout",
+    "rule": "Titan's Gaze: from the active frame (frame 4, the hand thrusts out) the target plays titanGazed: frames 0-6 once (the horned titan rises behind it, its eyes snap open, stone creeps up the target's legs), then frames 7-10 on loop until the Slow ends, then its idle; the genjutsu mark (genjutsuAfflicted halo, aura, eye glow, earth colours) is drawn over it throughout",
     "state": "titanGazed",
-    "loopFrom": 3,
+    "loopFrom": 7,
     "element": "earth",
     "mark": "genjutsuAfflicted"
   }
