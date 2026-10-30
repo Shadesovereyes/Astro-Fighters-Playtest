@@ -3,7 +3,7 @@
   "body": "male",
   "state": "atlasBurdened",
   "status": "CANDIDATE 2026-10-27 (E/W; W mirrors E; S/N to author after approval)",
-  "frames": 14,
+  "frames": 9,
   "fps": 7,
   "sourceDirection": "E",
   "directions": [
@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Burdened by the World (target state of Atlas's Regret, Slow 2 rounds), v2 (Christopher 2026-10-30: arms down by the sides instead of holding the planet up; a slow, struggling walk that ends in the kneel, to show how hard it is to move under the genjutsu): an illusory world, a soil-brown globe with crystal-teal seas and glinting lines of latitude, forms out of the air over the fighter's head and sinks onto its shoulders; its guard drops, the arms hang limp at its sides and the knees buckle under the weight; it fights forward two heavy, dragging steps, the lead foot barely lifting and scuffing dust, the rear foot hauled up after it, gaining only a few pixels; then the knees give and it sinks onto one knee, arms still hanging; then (looping while the Slow lasts) it trembles on its knee under the slowly turning globe, sweat flying off it.",
+  "intent": "Burdened by the World (target state of Atlas's Regret, Slow 2 rounds), v3 (Christopher 2026-10-30: arms down by the sides; movement under the Slow gets its own walk, atlasBurdenedWalk, that ends in this kneel): an illusory world, a soil-brown globe with crystal-teal seas and glinting lines of latitude, forms out of the air over the fighter's head and sinks onto its shoulders; its guard drops, the arms hang limp at its sides, the knees buckle and it sinks onto one knee; then (looping while the Slow lasts) it trembles on its knee under the slowly turning globe, sweat flying off it.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -108,11 +108,6 @@
       1,
       2,
       4,
-      3,
-      4,
-      5,
-      4,
-      5,
       7,
       9,
       9,
@@ -124,11 +119,6 @@
       1,
       2,
       5,
-      4,
-      5,
-      5,
-      5,
-      6,
       7,
       10,
       10,
@@ -140,11 +130,6 @@
       1,
       3,
       5,
-      4,
-      5,
-      6,
-      5,
-      6,
       8,
       10,
       10,
@@ -166,22 +151,12 @@
         1,
         1,
         1,
-        1,
-        1,
-        1,
-        1,
-        1,
         1
       ],
       "head": [
         -1,
         1,
         3,
-        4,
-        4,
-        4,
-        5,
-        5,
         4,
         3,
         3,
@@ -192,7 +167,7 @@
     }
   },
   "rootMotion": {
-    "rule": "E: +1 on each half of the two dragging steps (+4), -1 twice as the knees give and it drops back onto the rear knee (net +2 by the kneel); +1/-1 tremble in the loop (net 0); the testbed snaps back to the tile when the Slow ends",
+    "rule": "in place; +1/-1 tremble in the loop (net 0)",
     "E": [
       [
         0,
@@ -207,31 +182,11 @@
         0
       ],
       [
-        1,
-        0
-      ],
-      [
-        1,
-        0
-      ],
-      [
         0,
         0
       ],
       [
-        1,
-        0
-      ],
-      [
-        1,
-        0
-      ],
-      [
-        -1,
-        0
-      ],
-      [
-        -1,
+        0,
         0
       ],
       [
@@ -265,31 +220,11 @@
         0
       ],
       [
-        -1,
-        0
-      ],
-      [
-        -1,
-        0
-      ],
-      [
         0,
         0
       ],
       [
-        -1,
-        0
-      ],
-      [
-        -1,
-        0
-      ],
-      [
-        1,
-        0
-      ],
-      [
-        1,
+        0,
         0
       ],
       [
@@ -1275,6 +1210,198 @@
         "foot": "flat"
       },
       {
+        "name": "aw-0-near",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 45,
+        "kneeX": 35,
+        "kneeRow": 51,
+        "footX": 36,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "aw-0-far",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 45,
+        "kneeX": 37,
+        "kneeRow": 51,
+        "footX": 38,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "aw-1-near",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 45,
+        "kneeX": 33,
+        "kneeRow": 51,
+        "footX": 34,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "aw-1-far",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 45,
+        "kneeX": 35,
+        "kneeRow": 51,
+        "footX": 36,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "aw-2-near",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 45,
+        "kneeX": 32,
+        "kneeRow": 51,
+        "footX": 32,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "aw-2-far",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 45,
+        "kneeX": 34,
+        "kneeRow": 51,
+        "footX": 34,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "aw-3-near",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 45,
+        "kneeX": 30,
+        "kneeRow": 51,
+        "footX": 27,
+        "wrapRow": 54,
+        "foot": "toe60"
+      },
+      {
+        "name": "aw-3-far",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 45,
+        "kneeX": 32,
+        "kneeRow": 51,
+        "footX": 29,
+        "wrapRow": 54,
+        "foot": "toe60"
+      },
+      {
+        "name": "aw-4-near",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 45,
+        "kneeX": 29,
+        "kneeRow": 51,
+        "ankle": [
+          25,
+          55
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "aw-4-far",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 45,
+        "kneeX": 31,
+        "kneeRow": 51,
+        "ankle": [
+          27,
+          55
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "aw-5-near",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 45,
+        "kneeX": 32,
+        "kneeRow": 50,
+        "ankle": [
+          30,
+          55
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "aw-5-far",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 45,
+        "kneeX": 34,
+        "kneeRow": 50,
+        "ankle": [
+          32,
+          55
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "aw-6-near",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 45,
+        "kneeX": 35,
+        "kneeRow": 49,
+        "ankle": [
+          34,
+          55
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "aw-6-far",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 45,
+        "kneeX": 37,
+        "kneeRow": 49,
+        "ankle": [
+          36,
+          55
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "aw-7-near",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 45,
+        "kneeX": 36,
+        "kneeRow": 50,
+        "ankle": [
+          36,
+          55
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "aw-7-far",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 45,
+        "kneeX": 38,
+        "kneeRow": 50,
+        "ankle": [
+          38,
+          55
+        ],
+        "foot": "toe30k"
+      },
+      {
         "name": "as-lift",
         "construction": "band",
         "hipX": 34,
@@ -1344,11 +1471,6 @@
       1,
       3,
       5,
-      53,
-      54,
-      5,
-      53,
-      54,
       56,
       50,
       50,
@@ -1360,11 +1482,6 @@
       0,
       2,
       4,
-      51,
-      52,
-      4,
-      51,
-      52,
       55,
       49,
       49,
@@ -1395,46 +1512,6 @@
         "elbow": {
           "at": 8,
           "angle": -150
-        }
-      },
-      {
-        "construction": "band",
-        "angle": 6,
-        "elbow": {
-          "at": 8,
-          "angle": -4
-        }
-      },
-      {
-        "construction": "band",
-        "angle": 6,
-        "elbow": {
-          "at": 8,
-          "angle": -4
-        }
-      },
-      {
-        "construction": "band",
-        "angle": 6,
-        "elbow": {
-          "at": 8,
-          "angle": -4
-        }
-      },
-      {
-        "construction": "band",
-        "angle": 6,
-        "elbow": {
-          "at": 8,
-          "angle": -4
-        }
-      },
-      {
-        "construction": "band",
-        "angle": 6,
-        "elbow": {
-          "at": 8,
-          "angle": -4
         }
       },
       {
@@ -1509,46 +1586,6 @@
         "elbow": {
           "at": 8,
           "angle": -140
-        }
-      },
-      {
-        "construction": "band",
-        "angle": 2,
-        "elbow": {
-          "at": 8,
-          "angle": -6
-        }
-      },
-      {
-        "construction": "band",
-        "angle": 2,
-        "elbow": {
-          "at": 8,
-          "angle": -6
-        }
-      },
-      {
-        "construction": "band",
-        "angle": 2,
-        "elbow": {
-          "at": 8,
-          "angle": -6
-        }
-      },
-      {
-        "construction": "band",
-        "angle": 2,
-        "elbow": {
-          "at": 8,
-          "angle": -6
-        }
-      },
-      {
-        "construction": "band",
-        "angle": 2,
-        "elbow": {
-          "at": 8,
-          "angle": -6
         }
       },
       {
@@ -1780,11 +1817,6 @@
       "bandFollowsBody": true,
       "sway": {
         "E": [
-          -1,
-          -1,
-          -1,
-          -1,
-          -1,
           -1,
           -1,
           -1,
@@ -2466,12 +2498,7 @@
         5,
         6,
         7,
-        8,
-        9,
-        10,
-        11,
-        12,
-        13
+        8
       ],
       "fps": 7,
       "next": "guard",
@@ -2527,31 +2554,6 @@
         "frame": 8,
         "clip": "atlasBurdened",
         "type": "recovery"
-      },
-      {
-        "frame": 9,
-        "clip": "atlasBurdened",
-        "type": "recovery"
-      },
-      {
-        "frame": 10,
-        "clip": "atlasBurdened",
-        "type": "recovery"
-      },
-      {
-        "frame": 11,
-        "clip": "atlasBurdened",
-        "type": "recovery"
-      },
-      {
-        "frame": 12,
-        "clip": "atlasBurdened",
-        "type": "recovery"
-      },
-      {
-        "frame": 13,
-        "clip": "atlasBurdened",
-        "type": "recovery"
       }
     ],
     "W": [
@@ -2599,31 +2601,6 @@
       },
       {
         "frame": 8,
-        "clip": "atlasBurdened",
-        "type": "recovery"
-      },
-      {
-        "frame": 9,
-        "clip": "atlasBurdened",
-        "type": "recovery"
-      },
-      {
-        "frame": 10,
-        "clip": "atlasBurdened",
-        "type": "recovery"
-      },
-      {
-        "frame": 11,
-        "clip": "atlasBurdened",
-        "type": "recovery"
-      },
-      {
-        "frame": 12,
-        "clip": "atlasBurdened",
-        "type": "recovery"
-      },
-      {
-        "frame": 13,
         "clip": "atlasBurdened",
         "type": "recovery"
       }
@@ -2915,11 +2892,6 @@
         "squint",
         "pain",
         "strain",
-        "strain",
-        "pain",
-        "strain",
-        "strain",
-        "pain",
         "pain",
         "strain",
         "strain",
@@ -2931,5 +2903,14 @@
     "intent": "eyes squeezed shut with the brow pulled down on the impact frames 0-2 (no mouth: user 2026-10-14), a squint on frame 3, open again from frame 4 (user 2026-10-14)"
   },
   "loop": true,
-  "loopFrom": 10
+  "loopFrom": 5,
+  "walk": {
+    "rule": "Burdened by the World v3 (Christopher 2026-10-30): while the Slow lasts, any movement plays atlasBurdenedWalk (rise from the kneel once, then the burdened walk loop) instead of the walk; when the move ends the fighter plays frames 3-4 of this state (the knees give, it sinks onto its knee) and returns to this loop",
+    "state": "atlasBurdenedWalk",
+    "loopFrom": 2,
+    "stop": [
+      3,
+      4
+    ]
+  }
 }
