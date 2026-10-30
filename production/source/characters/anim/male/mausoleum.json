@@ -2787,6 +2787,7 @@
     "state": "mausoleumSealed",
     "loopFrom": 8,
     "element": "earth",
-    "wallRounds": 2
+    "wallRounds": 2,
+    "breakFree": "mausoleumBreakOut"
   }
 }

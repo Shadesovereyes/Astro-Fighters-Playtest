@@ -2773,5 +2773,9 @@
     "intent": "eyes squeezed shut with the brow pulled down on the impact frames 0-2 (no mouth: user 2026-10-14), a squint on frame 3, open again from frame 4 (user 2026-10-14)"
   },
   "loop": true,
-  "loopFrom": 8
+  "loopFrom": 8,
+  "breakFree": {
+    "rule": "Mausoleum v3 (Christopher 2026-10-30: a break-free animation): when the Root ends the testbed plays mausoleumBreakOut once (the front slab is smashed; the headstone, pillars and capstone stay standing as the wall terrain for the rest of its 2 rounds), then the idle",
+    "state": "mausoleumBreakOut"
+  }
 }
