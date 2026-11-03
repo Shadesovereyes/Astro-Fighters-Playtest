@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "lightningImpaled",
-  "status": "CANDIDATE 2026-10-27 (E/W; W mirrors E; S/N to author after approval)",
+  "status": "E/W approved by user 2026-11-03 (v3 blades punch up out of the upper back, convulses, hand rips free, staggers, e9311c7d; W mirrors E); S/N to author",
   "frames": 8,
   "fps": 12,
   "sourceDirection": "E",

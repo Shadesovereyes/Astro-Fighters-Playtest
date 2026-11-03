@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "lightningCutter",
-  "status": "CANDIDATE 2026-10-27 (E/W; W mirrors E; S/N to author after approval)",
+  "status": "E/W approved by user 2026-11-03 (v4 sprinting uppercut to the body: electric blade sheaf wraps the knife hand carried low through the run, rips up into the torso, e9311c7d; target plays lightningImpaled; travel 40; W mirrors E); S/N to author",
   "frames": 15,
   "fps": 12,
   "sourceDirection": "E",
