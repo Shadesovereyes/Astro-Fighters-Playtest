@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Lag Switched (target state of Lag Switch, Slow 2 rounds): the rewind hits and the fighter jerks back, then freezes mid-flinch for a beat as time stalls on it: a loading spinner kindles over its head and a looping arrow starts running round the floor under its feet; it comes back to its guard; then (looping while the Slow lasts) it is caught in the time loop: it tries to step in, leaving green lag afterimages behind it, freezes mid-step for two frames while a scan line stutters across it, and is snapped back to where it started, a rewind afterimage left where it had got to; it shakes its head and tries again; the spinner keeps turning and the arrow keeps running round.",
+  "intent": "Lag Switched (target state of Lag Switch, Slow 2 rounds): the rewind hits and the fighter jerks back, then freezes mid-flinch for a beat as time stalls on it: a loading spinner kindles over its head and a looping arrow starts running round the floor under its feet; its guard drops and the arms fall slack at its sides (v2, Christopher 2026-11-03: no reaching, arms dropped, keep the sway); then (looping while the Slow lasts) it is caught in the time loop: arms hanging, it sways in a step, leaving green lag afterimages behind it, freezes mid-step for two frames while a scan line stutters across it, and is snapped back to where it started, a rewind afterimage left where it had got to; it shakes its head and tries again; the spinner keeps turning and the arrow keeps running round.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -136,7 +136,7 @@
       1,
       1,
       1,
-      2,
+      1,
       2,
       2,
       2,
@@ -144,7 +144,7 @@
       1,
       1,
       1,
-      2
+      1
     ]
   },
   "lean": {
@@ -169,7 +169,7 @@
         -3,
         -3,
         -1,
-        2,
+        0,
         3,
         4,
         4,
@@ -177,7 +177,7 @@
         -1,
         -2,
         0,
-        2
+        0
       ]
     }
   },
@@ -1441,6 +1441,56 @@
         "foot": "toe30k"
       },
       {
+        "name": "gs-back-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 50,
+        "kneeX": 24,
+        "kneeRow": 55,
+        "ankle": [
+          16,
+          57
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "gs-mid-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 50,
+        "kneeX": 34,
+        "kneeRow": 54,
+        "ankle": [
+          37,
+          56
+        ],
+        "foot": "pointFwd"
+      },
+      {
+        "name": "gs-front-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 50,
+        "kneeX": 40,
+        "kneeRow": 55,
+        "ankle": [
+          49,
+          57
+        ],
+        "foot": "pointFwd"
+      },
+      {
+        "name": "gs-crouch-lead",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 50,
+        "kneeX": 40,
+        "kneeRow": 49,
+        "footX": 41,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
         "name": "as-lift",
         "construction": "band",
         "hipX": 34,
@@ -1577,74 +1627,74 @@
       },
       {
         "construction": "band",
-        "angle": -20,
+        "angle": -30,
         "elbow": {
           "at": 8,
-          "angle": 212
+          "angle": -70
         }
       },
       {
         "construction": "band",
-        "angle": -70,
+        "angle": 6,
         "elbow": {
           "at": 8,
-          "angle": -110
+          "angle": -4
         }
       },
       {
         "construction": "band",
-        "angle": -75,
+        "angle": 6,
         "elbow": {
           "at": 8,
-          "angle": -105
+          "angle": -4
         }
       },
       {
         "construction": "band",
-        "angle": -75,
+        "angle": 6,
         "elbow": {
           "at": 8,
-          "angle": -105
+          "angle": -4
         }
       },
       {
         "construction": "band",
-        "angle": -75,
+        "angle": 6,
         "elbow": {
           "at": 8,
-          "angle": -105
+          "angle": -4
         }
       },
       {
         "construction": "band",
-        "angle": -20,
+        "angle": 6,
         "elbow": {
           "at": 8,
-          "angle": 212
+          "angle": -4
         }
       },
       {
         "construction": "band",
-        "angle": -20,
+        "angle": 6,
         "elbow": {
           "at": 8,
-          "angle": 212
+          "angle": -4
         }
       },
       {
         "construction": "band",
-        "angle": -20,
+        "angle": 6,
         "elbow": {
           "at": 8,
-          "angle": 212
+          "angle": -4
         }
       },
       {
         "construction": "band",
-        "angle": -20,
+        "angle": 6,
         "elbow": {
           "at": 8,
-          "angle": 212
+          "angle": -4
         }
       }
     ],
@@ -1675,74 +1725,74 @@
       },
       {
         "construction": "band",
-        "angle": -45,
+        "angle": -25,
         "elbow": {
           "at": 8,
-          "angle": 222
+          "angle": -65
         }
       },
       {
         "construction": "band",
-        "angle": -55,
+        "angle": 2,
         "elbow": {
           "at": 8,
-          "angle": -115
+          "angle": -6
         }
       },
       {
         "construction": "band",
-        "angle": -55,
+        "angle": 2,
         "elbow": {
           "at": 8,
-          "angle": -115
+          "angle": -6
         }
       },
       {
         "construction": "band",
-        "angle": -55,
+        "angle": 2,
         "elbow": {
           "at": 8,
-          "angle": -115
+          "angle": -6
         }
       },
       {
         "construction": "band",
-        "angle": -55,
+        "angle": 2,
         "elbow": {
           "at": 8,
-          "angle": -115
+          "angle": -6
         }
       },
       {
         "construction": "band",
-        "angle": -45,
+        "angle": 2,
         "elbow": {
           "at": 8,
-          "angle": 222
+          "angle": -6
         }
       },
       {
         "construction": "band",
-        "angle": -45,
+        "angle": 2,
         "elbow": {
           "at": 8,
-          "angle": 222
+          "angle": -6
         }
       },
       {
         "construction": "band",
-        "angle": -45,
+        "angle": 2,
         "elbow": {
           "at": 8,
-          "angle": 222
+          "angle": -6
         }
       },
       {
         "construction": "band",
-        "angle": -45,
+        "angle": 2,
         "elbow": {
           "at": 8,
-          "angle": 222
+          "angle": -6
         }
       }
     ],
