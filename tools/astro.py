@@ -632,6 +632,44 @@ NPAT.update({'gw1': _glitchWave(4, 2, 1, 'Wl'), 'gw2': _glitchWave(7, 3, 2), 'gw
              'bits4': _dataBits(4, 1), 'bits4b': _dataBits(4, 2), 'bits6': _dataBits(6, 3, 9), 'bits6b': _dataBits(6, 4, 9),
              'scanL': ['WlllL..lL'], 'scanS': ['lLL.W'],
              'eyeG': ['.L.', 'LlL', '.L.'], 'eyeGF': ['..L..', '.LlL.', 'LlWlL', '.LlL.', '..L..']})
+def _dial(r, hand, lit=True):   # Lag Switch: an illusory clock dial (12 ticks, faint dotted rim, centre pin) whose hand sweeps BACKWARD; hand = clock position 0-11, a mint trail on the side it came from
+    w = 2 * r + 1; rows = [['.'] * w for _ in range(w)]
+    def put(x, y, ch, over=False):
+        xi, yi = round(x), round(y)
+        if 0 <= xi < w and 0 <= yi < w and (rows[yi][xi] == '.' or over): rows[yi][xi] = ch
+    pos = lambda p, rr: (r + rr * math.sin(2 * math.pi * p / 12), r - rr * math.cos(2 * math.pi * p / 12))
+    for t in range(48):
+        if t % 4 == 2: put(*pos(t / 4, r), 'L' if lit else 'D')
+    for i in range(12): put(*pos(i, r), 'W' if i % 3 == 0 and lit else 'l' if lit else 'L', True)
+    for q in (0.5, 1.0, 1.5): put(*pos(hand + q, r - 2), 'L')   # trail: where the hand has just been
+    for t in range(1, r - 1): put(*pos(hand, t), 'W' if t < r - 3 else 'l', True)
+    put(r, r, 'W', True); return [''.join(q) for q in rows]
+def _rewindWave(r, w, seed, cols='Wl', gap=0):   # Lag Switch: a ')' wave of clock ticks (every other row) with a '<' rewind chevron at its middle pointing back at the caster
+    import random
+    rnd = random.Random(seed); n = w + 5; rows = [['.'] * n for _ in range(2 * r + 1)]
+    for i, dy in enumerate(range(-r, r + 1)):
+        if gap and (i // 2) % gap == gap - 1: continue
+        x = round(w * (1 - (dy / r) ** 2)) + 3; rows[i][x] = 'W' if dy % 3 == 0 and cols[0] != 'L' else cols[0] if abs(dy) < r / 2 else cols[-1]
+        if rnd.random() < 0.4 and x + 1 < n: rows[i][x + 1] = cols[-1]
+    c = cols[0]
+    for dx, dy in ((0, 0), (1, -1), (1, 1), (2, -2), (2, 2)): rows[r + dy][w - 1 + dx] = c if dx < 2 else cols[-1]
+    return [''.join(q) for q in rows]
+def _buffer(phase, n=8):   # Lag Switch target: a loading spinner over the head, n dots on a small ellipse; the bright dot runs round with a fading tail
+    rows = [['.'] * 9 for _ in range(7)]
+    for i in range(n):
+        a = 2 * math.pi * i / n; x, y = round(4 + 3.6 * math.sin(a)), round(3 - 2.6 * math.cos(a)); d = (phase - i) % n
+        rows[y][x] = 'W' if d == 0 else 'l' if d == 1 else 'L' if d == 2 else 'D'
+    return [''.join(q) for q in rows]
+def _loopRing(rx, ry, phase):   # Lag Switch target: a looping arrow running round the floor under the feet (dotted green ring, white arrow head with a mint tail)
+    rows = [['.'] * (2 * rx + 1) for _ in range(2 * ry + 1)]
+    for t in range(120):
+        a = 2 * math.pi * t / 120; x, y = round(rx + rx * math.cos(a)), round(ry + ry * math.sin(a))
+        d = (phase * 15 - t) % 120
+        rows[y][x] = 'W' if d < 3 else 'l' if d < 14 else 'L' if d < 26 else ('D' if t % 4 < 2 else rows[y][x])
+    return [''.join(q) for q in rows]
+NPAT.update({**{'dial%d_%d' % (r_, h_): _dial(r_, h_) for r_ in (4, 6) for h_ in range(12)}, 'dialDim': _dial(6, 1, lit=False),
+             'rw1': _rewindWave(4, 2, 1), 'rw2': _rewindWave(7, 3, 2, 'Wll'), 'rw3': _rewindWave(10, 4, 3, 'lL'), 'rw3d': _rewindWave(12, 5, 4, 'LD', gap=3),
+             **{'buf%d' % k_: _buffer(k_) for k_ in range(8)}, **{'loopR%d' % k_: _loopRing(11, 3, k_) for k_ in range(8)}})
 def _edome(rx, ry, frac, seed, lit=True):   # EMP Field: a dome of crackling electricity round the caster: a jagged arc (white / pale cyan, blue jitter) grown from the floor up both sides to frac, a dotted inner shell
     import random
     rnd = random.Random(seed); rows = [['.'] * (2 * rx + 1) for _ in range(ry + 1)]
@@ -2249,6 +2287,60 @@ CLIPS = {
                  8: [('gbarC', 'eye', -1, 0), ('bits6b', 'head', 0, -6), ('spark', 'head', -9, 6)],
                  9: [('gbar', 'eye', 0, 0), ('bits4b', 'head', 1, -8), ('scanL', 'head', -12, 16)],
                  10: [('gbarB', 'eye', 0, 0), ('bits4', 'head', 0, -9)]})),
+ 'lagSwitch': ('Lag Switch', 6,
+  'Lag Switch (Aquarius genjutsu, debuff: the caster distorts the foe\'s sense of time and traps it in a time loop; Slow 2 rounds, INT save DC 12; range Zone of Awareness): from the guard the fighter raises its near hand palm out before its face and its eyes kindle electric green; an illusory clock dial forms on the palm, ticks in white, mint and green, and the hand circles once as the dial\'s hand sweeps backward round the face, the dial growing; then it pushes the palm out at the target and the rewind goes out as waves of clock ticks, each a ) with a < rewind chevron at its heart pointing back at the caster, white-mint at the core, deep green at the rim, each one wider; the dial fades and the hand drops back into the guard (the target plays lagSwitched with the genjutsu mark in Aquarius green).', [
+     g(),
+     g(an=band(-100, -150, fistKind='palm'), bob=(1, 1, 1), lean=(0, 0)),
+     g(an=band(-115, -160, fistKind='palm'), bob=(1, 1, 1), lean=(0, -1)),
+     g(an=band(-95, -135, fistKind='palm'), bob=(1, 1, 1), lean=(0, -1)),
+     g(an=band(-105, -150, fistKind='palm'), bob=(1, 1, 2), lean=(0, 0)),
+     g(an=band(-92, -92, fistKind='palm'), bob=(1, 1, 1), lean=(1, 3), root=(1, 0)),
+     *[g(an=band(-92, -92, fistKind='palm'), bob=(1, 1, 1), lean=(1, 3)) for _ in range(2)],
+     g(an=band(-60, -120), bob=(1, 1, 2), lean=(0, 2), root=(-1, 0)),
+     g()],
+  [None, 'squint', 'squint', 'squint', 'strain', 'squint', 'squint', 'squint', None, None],
+  [0, 1, 1, 2, 2, 2, 2, 1, 0, 0],
+  dict(fps=10, auraColors=('#b8ffc8', '#39e75f'), rm='E: +1 pushing the palm out, -1 back',
+       extra={'targetState': {'rule': 'Lag Switch: from the active frame the target plays lagSwitched: frames 0-3 once (the rewind hits, it freezes mid-flinch, a loading spinner kindles over its head and a looping arrow runs round its feet), then frames 4-11 on loop until the Slow ends, then its idle; the genjutsu mark (genjutsuAfflicted, recolour genjutsuMark.recolor.aquarius) is drawn over it throughout', 'state': 'lagSwitched', 'loopFrom': 4, 'element': 'aquarius', 'mark': 'genjutsuAfflicted'}},
+       anchored={1: [('eyeG', 'eye', 0, 0), ('dial4_0', 'hand', 3, 0)],
+                 2: [('eyeGF', 'eye', 0, 0), ('dial4_10', 'hand', 3, 0), ('spark', 'hand', -2, -6)],
+                 3: [('eyeGF', 'eye', 0, 0), ('dial6_8', 'hand', 4, 0), ('bits4', 'head', 0, -5)],
+                 4: [('eyeGF', 'eye', 0, 0), ('dial6_5', 'hand', 4, 0), ('scanS', 'head', -12, 4)],
+                 5: [('eyeGF', 'eye', 0, 0), ('dial6_2', 'hand', 5, 0), ('rw1', 'eye', 8, 0)],
+                 6: [('eyeGF', 'eye', 0, 0), ('dial6_11', 'hand', 5, 0, {'alpha': {'W': 190, 'l': 190, 'L': 160, 'D': 140}}), ('rw2', 'eye', 12, 0), ('rw1', 'eye', 7, 0)],
+                 7: [('eyeG', 'eye', 0, 0), ('dialDim', 'hand', 5, 0, {'alpha': {'L': 120, 'D': 100}}), ('rw3', 'eye', 17, 0), ('rw2', 'eye', 12, 0)],
+                 8: [('rw3d', 'eye', 20, 1, {'alpha': {'L': 130, 'D': 130}})]})),
+ 'lagSwitched': ('Lag Switched', 0,
+  'Lag Switched (target state of Lag Switch, Slow 2 rounds): the rewind hits and the fighter jerks back, then freezes mid-flinch for a beat as time stalls on it: a loading spinner kindles over its head and a looping arrow starts running round the floor under its feet; it comes back to its guard; then (looping while the Slow lasts) it is caught in the time loop: it tries to step in, leaving green lag afterimages behind it, freezes mid-step for two frames while a scan line stutters across it, and is snapped back to where it started, a rewind afterimage left where it had got to; it shakes its head and tries again; the spinner keeps turning and the arrow keeps running round.', [
+     g(an=band(-50, -130), af=band(-45, -120), bob=(1, 1, 1), lean=(-1, -3), root=(-1, 0)),
+     g(an=band(-50, -130), af=band(-45, -120), bob=(1, 1, 1), lean=(-1, -3)),
+     g(an=band(-55, -125), af=band(-48, -118), bob=(1, 1, 1), lean=(0, -1), root=(1, 0)),
+     g(),
+     g(an=band(-70, -110), af=band(-55, -115), bob=(1, 1, 2), lean=(1, 3), root=(1, 0)),
+     g(an=band(-75, -105), af=band(-55, -115), bob=(1, 1, 2), lean=(1, 4), root=(1, 0)),
+     g(an=band(-75, -105), af=band(-55, -115), bob=(1, 1, 2), lean=(1, 4)),
+     g(an=band(-75, -105), af=band(-55, -115), bob=(1, 1, 2), lean=(1, 4)),
+     g(bob=(1, 1, 1), lean=(0, -1), root=(-2, 0)),
+     g(bob=(1, 1, 1), lean=(0, -2)),
+     g(bob=(1, 1, 1), lean=(0, 0)),
+     g()],
+  ['pain', 'pain', 'squint', 'squint', 'strain', 'strain', 'strain', 'strain', 'pain', 'closed', 'squint', 'squint'],
+  None,
+  dict(fps=8, rm='E: -1 jerked back, +1 recovering (net 0); loop +1 +1 stepping in, -2 snapped back (net 0)', extra={'loop': True, 'loopFrom': 4},
+       ghosts={1: (2,), 4: (3,), 5: (3, 6), 6: (3, 6), 7: (3,), 8: (-3, -6), 9: (-3,)},
+       ghostColors=(('#b8ffc8', '#39e75f'), ('#39e75f', None)),
+       anchored={0: [('scanL', 'head', 6, 6), ('bits4', 'head', 0, -6), ('loopR0', 'feet', 0, -2)],
+                 1: [('buf0', 'head', 0, -12), ('scanS', 'head', -10, 14), ('loopR1', 'feet', 0, -2)],
+                 2: [('buf1', 'head', 0, -12), ('loopR2', 'feet', 0, -2)],
+                 3: [('buf2', 'head', 0, -12), ('loopR3', 'feet', 0, -2)],
+                 4: [('buf3', 'head', 0, -12), ('loopR4', 'feet', 0, -2)],
+                 5: [('buf4', 'head', 0, -12), ('loopR5', 'feet', 0, -2)],
+                 6: [('buf5', 'head', 0, -12), ('scanL', 'head', 2, 10), ('loopR6', 'feet', 0, -2)],
+                 7: [('buf6', 'head', 0, -12), ('scanL', 'head', -2, 22), ('scanS', 'head', 8, 4), ('loopR7', 'feet', 0, -2)],
+                 8: [('buf7', 'head', 0, -12), ('rw1', 'head', 8, 10), ('spark', 'head', -7, 4), ('loopR0', 'feet', 0, -2)],
+                 9: [('buf0', 'head', 0, -12), ('loopR1', 'feet', 0, -2)],
+                 10: [('buf1', 'head', 0, -12), ('loopR2', 'feet', 0, -2)],
+                 11: [('buf2', 'head', 0, -12), ('loopR3', 'feet', 0, -2)]})),
  'flowDodge': ('Flow Dodge', 3,
   'Flow Dodge (Sagittarius taijutsu stance buff: the fighter enters a dance-like trance and begins to swing and sway to its own rhythm): from the guard the fighter shakes its arms loose and lets the guard drop low and easy, eyes half closed, catching a beat; then it sways to its own rhythm: rocking back and forward on its feet and dipping on the knees, shoulders rolling, the loose hands swinging opposite to the hips, a flickering fire aura breathing round it on the beat with a few black and purple wisps rising off the shoulders; on the last beat it snaps its eyes open and settles into a loose, low guard (the testbed keeps the stance).', [
      g(),
