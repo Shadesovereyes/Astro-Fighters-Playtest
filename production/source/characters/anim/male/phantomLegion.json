@@ -2877,8 +2877,10 @@
     "intent": "eyes squeezed shut with the brow pulled down on the impact frames 0-2 (no mouth: user 2026-10-14), a squint on frame 3, open again from frame 4 (user 2026-10-14)"
   },
   "targetState": {
-    "rule": "Christopher 2026-10-27: every genjutsu marks its target; from the active frame the target plays genjutsuAfflicted (recolour genjutsuMark.recolor.air) until the Blind ends",
-    "state": "genjutsuAfflicted",
-    "element": "air"
+    "rule": "Phantom Legion v2 target (Christopher 2026-11-03: rework the target fx): from the active frame the target plays phantomBeset: frames 0-1 once, then frames 2-9 on loop until the Blind ends, then its idle; the genjutsu mark (genjutsuAfflicted, recolour genjutsuMark.recolor.air) is drawn over it throughout",
+    "state": "phantomBeset",
+    "loopFrom": 2,
+    "element": "air",
+    "mark": "genjutsuAfflicted"
   }
 }
