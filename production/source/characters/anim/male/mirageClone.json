@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "mirageClone",
-  "status": "CANDIDATE 2026-10-27 (E/W; W mirrors E; S/N to author after approval)",
+  "status": "E/W approved by user 2026-11-03 (v2 seal, blur, dart, indistinguishable full-colour clone 18 px ahead; extra.decoy, canon A8; 39ea3ef; W mirrors E); S/N to author",
   "frames": 8,
   "fps": 10,
   "sourceDirection": "E",
