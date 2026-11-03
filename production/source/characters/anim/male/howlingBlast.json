@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Howling Blast (Gemini ninjutsu, Elemental 8, 6 m AoE centred on the caster, Silence 1 round INT save DC 12: the caster channels chakra into its throat and releases a deafening howl): from the guard the fighter draws a huge breath, chest lifting, head back, a white glow gathering at the throat; then it lunges forward on braced legs, hands flung back, and howls: rings of sound burst out from its mouth in every direction, white and silver, each one wider, with shock spikes, rolling out round it; the howl dies away and it settles back into the guard.",
+  "intent": "Howling Blast (Gemini ninjutsu, Elemental 8, 6 m AoE centred on the caster, Silence 1 round INT save DC 12: the caster channels chakra into its throat and releases a deafening howl): from the guard the fighter draws a huge breath, chest lifting, head back, a white glow gathering at the throat; then it lunges forward on braced legs, hands flung back, and howls (v2, Christopher 2026-11-03: the shockwaves emit outward from the mouth toward the target): sound shockwaves, ')' arcs with a white leading edge, silver body, green rim and shock spikes, roll out of its mouth one after another toward the target, each one wider as it travels; the testbed flies them on to every target in the area; the howl dies away and it settles back into the guard.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -2868,8 +2868,31 @@
     "intent": "eyes squeezed shut with the brow pulled down on the impact frames 0-2 (no mouth: user 2026-10-14), a squint on frame 3, open again from frame 4 (user 2026-10-14)"
   },
   "zone": {
-    "rule": "Howling Blast is a 6 m AoE centred on the caster: on the active frame the testbed may pop boom15 rings on every target in the area (proposal); everyone in it is Silenced 1 round",
+    "rule": "Howling Blast is a 6 m AoE centred on the caster; everyone in it is Silenced 1 round",
     "shape": "radius",
     "centre": "caster"
+  },
+  "projectile": {
+    "rule": "Howling Blast v2 (Christopher 2026-11-03: shockwaves emit outward from the mouth toward the target): from frames 4, 5 and 6 the testbed flies NPAT hw3 from the mouth (eye anchor, 3 px down) to each target in the area at head height over 3 frames, turned to face the target, popping boom8 on each arrival",
+    "volley": [
+      {
+        "frame": 4,
+        "from": "mouth",
+        "pattern": "hw3",
+        "hit": "boom8"
+      },
+      {
+        "frame": 5,
+        "from": "mouth",
+        "pattern": "hw3",
+        "hit": "boom8"
+      },
+      {
+        "frame": 6,
+        "from": "mouth",
+        "pattern": "hw3",
+        "hit": "boom8"
+      }
+    ]
   }
 }

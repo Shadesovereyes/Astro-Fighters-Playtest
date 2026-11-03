@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "lagSwitch",
-  "status": "CANDIDATE 2026-10-27 (E/W; W mirrors E; S/N to author after approval)",
+  "status": "E/W approved by user 2026-11-03 (v2 clock dial on the palm sweeps backward, rewind tick waves at the target; target plays lagSwitched; W mirrors E); S/N to author",
   "frames": 10,
   "fps": 10,
   "sourceDirection": "E",
@@ -1413,6 +1413,56 @@
           56
         ],
         "foot": "toe30k"
+      },
+      {
+        "name": "gs-back-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 50,
+        "kneeX": 24,
+        "kneeRow": 55,
+        "ankle": [
+          16,
+          57
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "gs-mid-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 50,
+        "kneeX": 34,
+        "kneeRow": 54,
+        "ankle": [
+          37,
+          56
+        ],
+        "foot": "pointFwd"
+      },
+      {
+        "name": "gs-front-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 50,
+        "kneeX": 40,
+        "kneeRow": 55,
+        "ankle": [
+          49,
+          57
+        ],
+        "foot": "pointFwd"
+      },
+      {
+        "name": "gs-crouch-lead",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 50,
+        "kneeX": 40,
+        "kneeRow": 49,
+        "footX": 41,
+        "wrapRow": 56,
+        "foot": "flat"
       },
       {
         "name": "as-lift",

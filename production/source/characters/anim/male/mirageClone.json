@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Mirage Clone (Gemini ninjutsu, self buff, AGI +50% 2 rounds: the caster channels chakra to reach extreme speed and leaves an afterimage of itself): from the guard the fighter makes the seal at the chin and blurs, vibrating in place; it darts forward and straight back faster than the eye, and where it stood an instant before a pale, washed copy of itself is left standing, its twin; the twin holds its guard beside it, shimmering, as the fighter settles (spec extra.linger proposes the testbed keeps the twin at 10 px ahead, faint, while the buff lasts).",
+  "intent": "Mirage Clone (Gemini ninjutsu, self buff, AGI +50% 2 rounds: the caster channels chakra to reach extreme speed and leaves an afterimage of itself; v2 decoy behaviour per Christopher 2026-11-03, see extra.decoy): from the guard the fighter makes the seal at the chin and blurs, vibrating in place; it darts forward and straight back faster than the eye, and where it stood an instant before its twin is left standing: for two frames the twin shimmers in, then it is an exact full-colour copy of the fighter, indistinguishable from it, in the same guard (v1 left a pale washed copy)",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -2910,7 +2910,10 @@
     },
     "intent": "eyes squeezed shut with the brow pulled down on the impact frames 0-2 (no mouth: user 2026-10-14), a squint on frame 3, open again from frame 4 (user 2026-10-14)"
   },
-  "linger": {
-    "rule": "Mirage Clone (proposal): while the AGI buff lasts the testbed draws the twin, the fighter's own current frame washed toward pale silver at alpha 140, 10 px ahead of it"
+  "decoy": {
+    "rule": "Mirage Clone v2 (Christopher 2026-11-03): the cast creates an indistinguishable clone of the caster on a free tile next to it (the clip shows it 18 px ahead; the testbed then draws it as its own fighter with the caster's exact look, no tint, no label); every hostile fighter currently targeting the caster switches its target to the clone; the clone copies every movement and attack of the caster (same clip, same facing, mirrored from the caster's tile offset) but deals no damage; the first damage it takes dispels it: it plays mirageCloneDispel and is removed",
+    "state": "mirageCloneDispel",
+    "appearFrame": 6,
+    "offsetPx": 18
   }
 }
