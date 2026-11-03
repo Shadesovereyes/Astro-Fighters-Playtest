@@ -667,6 +667,35 @@ def _loopRing(rx, ry, phase):   # Lag Switch target: a looping arrow running rou
         d = (phase * 15 - t) % 120
         rows[y][x] = 'W' if d < 3 else 'l' if d < 14 else 'L' if d < 26 else ('D' if t % 4 < 2 else rows[y][x])
     return [''.join(q) for q in rows]
+# ---------- Air: Libra wind (air unruled: white / pale silver for now, Christopher 2026-10-27) ----------
+NPAL.update({'f': '#e9eef4', 'F': '#a3aebb', 'q': '#6b7584'})   # wind: pale air, silver, slate rim (v1 had F/q too close to the preview ground)
+def _airCol(L, r, phase):   # Aero Palm: a column of compressed air driven forward, L px long, radius r: streaming edge lines, white core dashes, vortex rings every 7 px (phase shifts them)
+    H = 2 * r + 1; rows = [['.'] * L for _ in range(H)]
+    for x in range(L):
+        fade = x > L - 5
+        if (x + phase) % 3: rows[0][x] = 'q' if fade else 'F'; rows[H - 1][x] = 'q' if fade else 'F'
+        if (x + phase) % 4 < 2: rows[r][x] = 'F' if fade else 'W'
+        if r > 2 and (x + phase + 2) % 5 < 2: rows[r - 2][x] = 'f'; rows[r + 2][x] = 'f'
+        if (x + phase) % 7 == 0:
+            for y in range(H): rows[y][x] = 'f' if 0 < y < H - 1 else 'W'
+    return [''.join(q) for q in rows]
+def _curl(r, a0, a1, seed=0):   # Flow Parry: a curling air current, an arc of radius r from angle a0 to a1 (degrees, 0 = toward the facing, 90 = down), dashed, hooked at the head
+    w = 2 * r + 3; rows = [['.'] * w for _ in range(w)]; n = max(8, int(abs(a1 - a0) / 6))
+    for i in range(n + 1):
+        a = math.radians(a0 + (a1 - a0) * i / n); x, y = round(r + 1 + r * math.cos(a)), round(r + 1 + r * 0.7 * math.sin(a))
+        if (i + seed) % 4 == 3: continue
+        rows[y][x] = 'W' if i > n - 3 else 'f' if i > n / 2 else 'F'
+    a = math.radians(a1); x, y = r + 1 + (r - 2) * math.cos(a), r + 1 + (r - 2) * 0.7 * math.sin(a)
+    if 0 <= round(x) < w and 0 <= round(y) < w: rows[round(y)][round(x)] = 'f'
+    return [''.join(q) for q in rows]
+NPAT.update({'aRing3': _ring(3, 'f', 'W', 1), 'aRing5': _ring(5, 'F', 'f'), 'aRing7': _ring(7, 'q', 'F', 1),
+             'airCol0': _airCol(24, 3, 0), 'airCol1': _airCol(24, 4, 3), 'airCol2': _airCol(24, 4, 6), 'airColF': [r_.replace('W', 'f').replace('F', 'q') for r_ in _airCol(24, 4, 1)],
+             'airSlug': _airCol(16, 4, 0),
+             'aStreak': ['FFff.fW', '.......', '.qFff..'], 'aStreak2': ['qFfffW', '..qFf.'],
+             **{'curl%d' % k_: _curl(14, -150 + 60 * k_, -40 + 60 * k_, k_) for k_ in range(6)},
+             **{'curlS%d' % k_: _curl(9, 30 + 70 * k_, 140 + 70 * k_, k_) for k_ in range(6)},
+             'feather': ['....qWq', '...qfWq', '..qffq.', '.qfFq..', 'qFqq...', 'q......'], 'feather2': ['qWq....', 'qWfq...', '.qffq..', '..qFfq.', '...qqFq', '......q'], 'feather3': ['.qWq', '.qfq', 'qfFq', 'qFq.', 'q...'],
+             'puff': ['.f.f.', 'fWfFf', '.FfF.', '..q..'], 'eyeW': ['.F.', 'FWF', '.F.'], 'eyeWF': ['..F..', '.fWf.', 'FWWWF', '.fWf.', '..F..']})
 NPAT.update({**{'dial%d_%d' % (r_, h_): _dial(r_, h_) for r_ in (4, 6) for h_ in range(12)}, 'dialDim': _dial(6, 1, lit=False),
              'rw1': _rewindWave(4, 2, 1), 'rw2': _rewindWave(7, 3, 2, 'Wll'), 'rw3': _rewindWave(10, 4, 3, 'lL'), 'rw3d': _rewindWave(12, 5, 4, 'LD', gap=3),
              **{'buf%d' % k_: _buffer(k_) for k_ in range(8)}, **{'loopR%d' % k_: _loopRing(11, 3, k_) for k_ in range(8)}})
@@ -2341,6 +2370,79 @@ CLIPS = {
                  9: [('buf0', 'head', 0, -12), ('loopR1', 'feet', 0, -2)],
                  10: [('buf1', 'head', 0, -12), ('loopR2', 'feet', 0, -2)],
                  11: [('buf2', 'head', 0, -12), ('loopR3', 'feet', 0, -2)]})),
+ 'aeroPalm': ('Aero Palm', 6,
+  'Aero Palm (Libra taijutsu strike, Physical 12, Melee with Reach +6 m: the fighter throws a series of palm strikes so fast that they project a column of air that hits the opponent from range): from the guard the fighter draws the near open hand back by the hip, steps in and fires four rapid alternating palm strikes straight out at chest height, near, far, near, far, each one popping a small ring of compressed air off the palm with a streak behind it; on the fifth, full extension of the near palm the rings join into a column of air driven straight out (pale silver edges, white core, vortex rings along it); it streams on for a frame and thins away as the arm comes back and the fighter settles into the guard (spec extra.projectile has the testbed fly the air column on to the target).', [
+     g(),
+     g(an=band(25, -60, fistKind='palm'), af=band(-75, -100), bob=(1, 1, 1), lean=(-1, -1), ln='sp-load-rear', lf='sp-load-lead'),
+     g(an=band(-90, -90, fistKind='palm'), af=band(-40, -120), bob=(1, 1, 1), lean=(1, 3), root=(2, 0), ln='sp-drive-rear', lf='sp-drive-lead'),
+     g(an=band(-40, -110), af=band(-90, -90, fistKind='palm'), bob=(1, 1, 1), lean=(1, 3), ln='sp-drive-rear', lf='sp-drive-lead'),
+     g(an=band(-90, -88, fistKind='palm'), af=band(-40, -120), bob=(1, 1, 1), lean=(1, 3), ln='sp-drive-rear', lf='sp-drive-lead'),
+     g(an=band(-40, -110), af=band(-90, -88, fistKind='palm'), bob=(1, 1, 1), lean=(1, 3), ln='sp-drive-rear', lf='sp-drive-lead'),
+     g(an=band(-92, -92, fistKind='palm'), af=band(-40, -120), bob=(1, 1, 1), lean=(2, 5), root=(1, 0), ln='sp-drive-rear', lf='sp-drive-lead'),
+     g(an=band(-92, -92, fistKind='palm'), af=band(-40, -120), bob=(1, 1, 1), lean=(2, 5), ln='sp-drive-rear', lf='sp-drive-lead'),
+     g(an=band(-50, -120), af=band(-30, 215), bob=(1, 1, 2), lean=(1, 3), ln='sp-drive-rear', lf='sp-drive-lead'),
+     g(root=(-3, 0))],
+  [None, 'squint', 'squint', 'squint', 'squint', 'squint', 'strain', 'squint', None, None],
+  [0, 1, 1, 1, 1, 1, 2, 2, 1, 0],
+  dict(fps=14, auraColors=('#e9eef4', '#a3aebb'), hitbox=[44, 18, 14, 14], damage='light', rm='E: +2 stepping into the strikes, +1 on the last, -3 settling back',
+       extra={'projectile': {'rule': 'Aero Palm reaches +6 m: from frame 6 the testbed flies NPAT airSlug (a 12 px column of air) from the near palm to the target at chest height, then pops aRing5 on it', 'from': 'hand', 'frame': 6, 'pattern': 'airSlug', 'hit': 'aRing5'}},
+       anchored={1: [('puff', 'hand', 0, 0, {'alpha': {'f': 160, 'F': 150, 'q': 140}})],
+                 2: [('aRing3', 'hand', 3, 0), ('aStreak2', 'hand', -6, 0)],
+                 3: [('aRing3', 'farhand', 3, 0), ('aStreak2', 'farhand', -6, 0), ('aRing5', 'hand', 8, 1, {'alpha': {'F': 130, 'f': 130}})],
+                 4: [('aRing3', 'hand', 3, 0), ('aStreak2', 'hand', -6, 0), ('aRing5', 'farhand', 8, 0, {'alpha': {'F': 130, 'f': 130}})],
+                 5: [('aRing3', 'farhand', 3, 0), ('aStreak2', 'farhand', -6, 0), ('aRing5', 'hand', 8, 1, {'alpha': {'F': 130, 'f': 130}})],
+                 6: [('aRing5', 'hand', 2, 0), ('airCol1', 'hand', 14, 0), ('aStreak', 'hand', -7, 1)],
+                 7: [('aRing7', 'hand', 3, 0, {'alpha': {'q': 170, 'F': 170}}), ('airCol2', 'hand', 14, 0)],
+                 8: [('airColF', 'hand', 18, 0, {'alpha': {'f': 140, 'q': 120}})]})),
+ 'flowParry': ('Flow Parry', 8,
+  'Flow Parry (Libra taijutsu posture, stance, counter, AGI +20% 1 round: the fighter quiets its mind and attunes to the air currents round it, gaining reaction time and a feeling of weightlessness): from the guard the fighter lets its hands sink, palms down, and closes its eyes; it breathes out and the arms float slowly up, open palms rising to the chest as if lifted by the air, the body light, a pale silver aura round it; air currents curl round it, sweeping in front of the body and behind it in turn, and a few small feathers rise past it; then its eyes snap open and the lead palm sweeps out and across in a soft parry trailing a curl of wind; it settles into a light, low guard.', [
+     g(),
+     g(an=band(-10, -30, fistKind='palm'), af=band(10, -20, fistKind='palm'), bob=(1, 1, 2), lean=(0, 0)),
+     g(an=band(-25, -45, fistKind='palm'), af=band(-10, -30, fistKind='palm'), bob=(1, 1, 1), lean=(0, 0)),
+     g(an=band(-45, -60, fistKind='palm'), af=band(-25, -45, fistKind='palm'), bob=(0, 0, 1), lean=(0, -1)),
+     g(an=band(-60, -75, fistKind='palm'), af=band(-45, -60, fistKind='palm'), bob=(0, 0, 0), lean=(0, -1)),
+     g(an=band(-70, -85, fistKind='palm'), af=band(-60, -75, fistKind='palm'), bob=(0, 0, 0), lean=(0, -1)),
+     g(an=band(-72, -88, fistKind='palm'), af=band(-62, -78, fistKind='palm'), bob=(0, 0, 0), lean=(0, -1)),
+     g(an=band(-70, -85, fistKind='palm'), af=band(-60, -75, fistKind='palm'), bob=(0, 0, 0), lean=(0, -1)),
+     g(an=band(-110, -130, fistKind='palm'), af=band(-50, -80, fistKind='palm'), bob=(1, 1, 1), lean=(-1, -2)),
+     g(an=band(-55, -40, fistKind='palm'), af=band(-50, -90, fistKind='palm'), bob=(1, 1, 1), lean=(0, 1), root=(1, 0)),
+     g(an=band(-60, -110, fistKind='palm'), af=band(-50, -100, fistKind='palm'), bob=(1, 1, 2), lean=(0, 1), root=(-1, 0), **LOW),
+     g()],
+  [None, 'closed', 'closed', 'closed', 'closed', 'closed', 'closed', 'closed', None, None, None, None],
+  [0, 0, 1, 1, 2, 2, 2, 2, 2, 1, 1, 0],
+  dict(fps=10, auraColors=('#e9eef4', '#a3aebb'), rm='E: +1 into the parry, -1 back (net 0)',
+       trails={'near': range(8, 11), 'far': (), 'len': 2, 'cols': 'Wfq'}, farLayer=True,
+       anchored={2: [('curl0', 'head', 0, 22, {'alpha': {'F': 150, 'f': 160}}), ('feather3', 'feet', -10, -6)],
+                 3: [('curl1', 'head', 0, 20), ('feather3', 'feet', -11, -11), ('feather', 'feet', 12, -4)],
+                 4: [('curl2', 'head', 0, 18, {'behind': True}), ('curlS0', 'head', 0, 4), ('feather2', 'head', -12, 20), ('feather', 'feet', 13, -10)],
+                 5: [('curl3', 'head', 0, 18), ('curlS1', 'head', 0, 4, {'behind': True}), ('feather2', 'head', -12, 14), ('feather3', 'feet', 12, -17)],
+                 6: [('curl4', 'head', 0, 18, {'behind': True}), ('curlS2', 'head', 0, 4), ('feather', 'head', -12, 8), ('feather3', 'head', 13, 22)],
+                 7: [('curl5', 'head', 0, 20), ('curlS3', 'head', 0, 4, {'behind': True}), ('feather', 'head', -13, 2), ('feather2', 'head', 13, 16)],
+                 8: [('eyeWF', 'eye', 0, 0), ('aStreak2', 'hand', 2, -2), ('feather2', 'head', 13, 10)],
+                 9: [('eyeW', 'eye', 0, 0), ('aRing5', 'hand', 3, 0, {'alpha': {'F': 150, 'f': 160}}), ('feather3', 'head', 14, 4)],
+                 10: [('feather3', 'head', 15, -2, {'alpha': {'f': 140, 'F': 130, 'q': 120, 'W': 150}})]})),
+ 'featherStep': ('Feather Step', 2,
+  'Feather Step (Libra taijutsu, teleport, buff, stance, AGI +20% 2 rounds, Move +5 m: the fighter dashes to a new place silently at near-instant speed): from the guard the fighter dips onto the balls of its feet and is gone: two long low strides at blurring speed, the body stretched into a string of pale silver afterimages, no dust, only a thin streak of wind; it lands soft and light 40 px on, a puff of air at its feet, and small white feathers spill out of the wake and drift down round it as it rises into the guard (spec extra.travel: the game moves the fighter by 40 px).', [
+     g(),
+     g(an=band(-25, 205), af=band(-40, 215), bob=(3, 3, 3), lean=(1, 4), ln='ml-dip-rear', lf='ml-dip-lead'),
+     g(an=SPRINT_N[1], af=SPRINT_F[1], bob=(SPRINT_DY[1],) * 3, lean=(1, 8), root=(16, 0), ln='sr-' + SPRINT_LEGS[1], lf='sr-' + SPRINT_LEGS[5]),
+     g(an=SPRINT_N[5], af=SPRINT_F[5], bob=(SPRINT_DY[5],) * 3, lean=(1, 8), root=(16, 0), ln='sr-' + SPRINT_LEGS[5], lf='sr-' + SPRINT_LEGS[1]),
+     g(an=band(-25, 208), af=band(-45, 220), bob=(3, 3, 3), lean=(1, 4), root=(6, 0), ln='ml-dip-rear', lf='ml-dip-lead'),
+     g(an=band(-25, 208), af=band(-45, 220), bob=(2, 2, 2), lean=(1, 3), root=(2, 0)),
+     g(an=band(-40, -110), af=band(-45, -120), bob=(1, 1, 2), lean=(0, 2)),
+     g()],
+  [None, 'squint', 'squint', 'squint', 'squint', None, None, None],
+  None,
+  dict(fps=12, rm='E: +16 +16 through the blink strides, +6 +2 landing; 40 px in all (travel)',
+       ghosts={2: (4, 8, 12, 16), 3: (4, 8, 12, 16), 4: (4, 8), 5: (3,)}, ghostColors=(('#ffffff', '#e9eef4'), ('#e9eef4', None), ('#a3aebb', None), ('#a3aebb', None)),
+       extra={'travel': {'rule': 'Feather Step is a teleport dash (Move +5 m): the fighter ends the clip 40 px further forward (sum of rootMotion); the game moves the fighter by that distance', 'E': 40}},
+       anchored={1: [('puff', 'feet', 0, -2, {'alpha': {'f': 150, 'F': 140, 'q': 120}})],
+                 2: [('aStreak', 'head', -14, 14), ('aStreak2', 'feet', -14, -6)],
+                 3: [('aStreak', 'head', -14, 18), ('aStreak2', 'feet', -14, -8), ('feather', 'head', -9, 8)],
+                 4: [('puff', 'feet', 2, -2), ('feather2', 'head', -9, 2), ('feather3', 'feet', -10, -14)],
+                 5: [('feather', 'head', -9, 12), ('feather3', 'head', 12, 4), ('feather2', 'feet', -10, -8)],
+                 6: [('feather2', 'head', -9, 18), ('feather', 'head', 12, 12), ('feather3', 'feet', -10, -3)],
+                 7: [('feather3', 'head', 12, 20, {'alpha': {'f': 150, 'F': 140, 'q': 120, 'W': 160}}), ('feather', 'feet', -9, -2, {'alpha': {'f': 140, 'F': 130, 'q': 110, 'W': 150}})]})),
  'flowDodge': ('Flow Dodge', 3,
   'Flow Dodge (Sagittarius taijutsu stance buff: the fighter enters a dance-like trance and begins to swing and sway to its own rhythm): from the guard the fighter shakes its arms loose and lets the guard drop low and easy, eyes half closed, catching a beat; then it sways to its own rhythm: rocking back and forward on its feet and dipping on the knees, shoulders rolling, the loose hands swinging opposite to the hips, a flickering fire aura breathing round it on the beat with a few black and purple wisps rising off the shoulders; on the last beat it snaps its eyes open and settles into a loose, low guard (the testbed keeps the stance).', [
      g(),
@@ -2896,11 +2998,11 @@ def trails(state, t):   # Flowing Sand Parry v2: streams of sand following each 
                         X = round(c0[0] + rr * math.cos(a)); Y = round(c0[1] + rr * math.sin(a))
                         if not (0 <= X < 64 and 0 <= Y < 64) or rnd.random() < 0.15 * age: continue
                         if any(L_[k * 64 + X, r * 64 + Y][3] for L_ in (body, lay['near'], lay['far'])) and side == 'far': continue   # the far arm's stream passes behind the body
-                        ch = 'Z' if rnd.random() < 0.15 else 'S' if age == 1 else 's'
+                        cz = t.get('cols', 'ZSs'); ch = cz[0] if rnd.random() < 0.15 else cz[1] if age == 1 else cz[2]   # cols: (glint, newest, older); Libra wind 'Wfq'
                         px[k * 64 + X, r * 64 + Y] = hexc(NPAL[ch], 255 if age == 1 else 200 if age == 2 else 150)
                         if age < 3:   # the newer stretches two pixels thick, the second one outward from the chest
                             X2 = round(c0[0] + (rr + 1) * math.cos(a)); Y2 = round(c0[1] + (rr + 1) * math.sin(a))
-                            if (X2, Y2) != (X, Y) and 0 <= X2 < 64 and 0 <= Y2 < 64 and not (side == 'far' and any(L_[k * 64 + X2, r * 64 + Y2][3] for L_ in (body, lay['near'], lay['far']))): px[k * 64 + X2, r * 64 + Y2] = hexc(NPAL['s'], 210 if age == 1 else 160)
+                            if (X2, Y2) != (X, Y) and 0 <= X2 < 64 and 0 <= Y2 < 64 and not (side == 'far' and any(L_[k * 64 + X2, r * 64 + Y2][3] for L_ in (body, lay['near'], lay['far']))): px[k * 64 + X2, r * 64 + Y2] = hexc(NPAL[cz[2]], 210 if age == 1 else 160)
     fx.save(f); print(state, 'trails')
 
 def crystalize(state, spec):   # Capricorn: crystal growing over the fighter. spec = {'shin': {frame: (pose, cover, alpha)}, 'arm': {frame: (cover, alpha)}}
