@@ -741,6 +741,45 @@ NPAT.update({'galeBlade': _crescent(7, 4), 'galeBladeS': _crescent(5, 3), 'galeC
              'boom4': _boom(4, 1), 'boom8': _boom(8, 2), 'boom12': _boom(12, 3), 'boom15': _boom(15, 4),
              **{'vacF%d_%d' % (r_, k_): _vac(r_, k_) for r_ in (3, 6, 10, 13) for k_ in range(4)}, **{'vacB%d' % r_: _vac(r_, 0, False) for r_ in (3, 6, 10, 13)},
              'vacSeed': ['.o.', 'okο'.replace('ο', 'o'), '.o.']})
+def _scale(tilt):   # Libra Indecision: an illusory balance scale: post and base, a beam tipped by tilt px at each end, a pan hung from each end (the low pan heavier, brighter)
+    W_, H = 15, 12; rows = [['.'] * W_ for _ in range(H)]; c = 7
+    for y in range(2, 10): rows[y][c] = 'F'
+    for x in range(5, 10): rows[10][x] = 'q'
+    rows[11][4] = rows[11][10] = 'q'; rows[1][c] = 'W'
+    for x in range(1, 14):
+        y = round(2 + tilt * (x - c) / 6); rows[max(0, min(H - 1, y))][x] = 'W' if abs(x - c) < 2 else 'f'
+    for end, sg in ((1, -1), (13, 1)):
+        ye = round(2 + tilt * (end - c) / 6); low = sg * tilt > 0
+        for y in range(ye + 1, ye + 4): rows[max(0, min(H - 1, y))][end + (-1 if y == ye + 1 else 0) * 0] = 'F'
+        py = min(H - 1, ye + 4)
+        for x in range(end - 2, end + 3):
+            if 0 <= x < W_: rows[py][x] = 'W' if low else 'f'
+        if 0 <= end - 2 < W_ and py - 1 >= 0: rows[py - 1][end - 2] = 'q'
+        if end + 2 < W_ and py - 1 >= 0: rows[py - 1][end + 2] = 'q'
+    return [''.join(q) for q in rows]
+def _arcW(r, w, cols='Wf', gap=0):   # Libra genjutsu: a plain ')' wave in wind colours, dashed when gap
+    rows = [['.'] * (w + 2) for _ in range(2 * r + 1)]
+    for i, dy in enumerate(range(-r, r + 1)):
+        if gap and i % gap == gap - 1: continue
+        x = round(w * (1 - (dy / r) ** 2)); rows[i][x] = cols[0] if abs(dy) < r / 2 else cols[-1]
+    return [''.join(q) for q in rows]
+def _spiral(r, phase, turns=2.2):   # Libra Vertigo: a dizzy spiral of dots winding in to a white heart, turning with phase
+    w = 2 * r + 1; rows = [['.'] * w for _ in range(w)]; n = int(30 * turns)
+    for i in range(n + 1):
+        t = i / n; a = 2 * math.pi * turns * t + phase * math.pi / 3; rr = r * (1 - t)
+        x, y = round(r + rr * math.cos(a)), round(r + rr * 0.8 * math.sin(a))
+        if i % 3 != 2: rows[y][x] = 'q' if t < 0.3 else 'F' if t < 0.65 else 'f' if t < 0.9 else 'W'
+    return [''.join(q) for q in rows]
+def _motesW(phase, n=6):   # Vertigo target: wind motes reeling round over the head (a small ellipse, bright mote with a fading tail)
+    rows = [['.'] * 15 for _ in range(5)]
+    for i in range(n):
+        a = 2 * math.pi * i / n; x, y = round(7 + 6.5 * math.cos(a)), round(2 + 2 * math.sin(a)); d = (phase - i) % n
+        rows[y][x] = 'W' if d == 0 else 'f' if d == 1 else 'F' if d == 2 else 'q'
+    return [''.join(q) for q in rows]
+NPAT.update({**{'scale%+d' % t_: _scale(t_) for t_ in (-2, -1, 0, 1, 2)},
+             'iw1': _arcW(4, 2), 'iw2': _arcW(7, 3), 'iw3': _arcW(10, 4, 'fF'), 'iw3d': _arcW(12, 5, 'Fq', gap=3),
+             **{'spiral%d_%d' % (r_, k_): _spiral(r_, k_) for r_ in (3, 5, 7) for k_ in range(6)},
+             **{'motesW%d' % k_: _motesW(k_) for k_ in range(6)}})
 NPAT.update({**{'dial%d_%d' % (r_, h_): _dial(r_, h_) for r_ in (4, 6) for h_ in range(12)}, 'dialDim': _dial(6, 1, lit=False),
              'rw1': _rewindWave(4, 2, 1), 'rw2': _rewindWave(7, 3, 2, 'Wll'), 'rw3': _rewindWave(10, 4, 3, 'lL'), 'rw3d': _rewindWave(12, 5, 4, 'LD', gap=3),
              **{'buf%d' % k_: _buffer(k_) for k_ in range(8)}, **{'loopR%d' % k_: _loopRing(11, 3, k_) for k_ in range(8)}})
@@ -2598,6 +2637,92 @@ CLIPS = {
   dict(fps=8, anchored={0: [('vacB6', 'head', -4, 20, {'behind': True}), ('vacF6_0', 'head', -4, 20)],
                         1: [('vacSeed', 'head', 1, 18), ('aRing5', 'head', 1, 18)],
                         2: [('puff', 'head', 2, 16), ('aRing7', 'head', 1, 18, {'alpha': {'q': 140, 'F': 140}})]})),
+ 'indecision': ('Indecision', 5,
+  'Indecision (Libra genjutsu, debuff: the caster projects its own thoughts on to the opponent so it second-guesses which thoughts are its own; Silence 1 round, INT save DC 12; range Zone of Awareness): from the guard the fighter lifts the near hand palm up before its chest and its eyes kindle silver-white; an illusory balance scale, the Libra scales, forms over the palm and tips one way, then the other, then back, weighing; then the fighter pushes the open palm out at the target and the weighing goes out as pale waves of wind-white thought, each one wider; the scale fades and the hand drops back into the guard (the target plays indecisive with the genjutsu mark in air colours).', [
+     g(),
+     g(an=band(-60, -150, fistKind='palm'), bob=(1, 1, 1), lean=(0, 0)),
+     g(an=band(-65, -150, fistKind='palm'), bob=(1, 1, 1), lean=(0, -1)),
+     g(an=band(-65, -150, fistKind='palm'), bob=(1, 1, 1), lean=(0, -1)),
+     g(an=band(-65, -150, fistKind='palm'), bob=(1, 1, 2), lean=(0, -1)),
+     g(an=band(-92, -92, fistKind='palm'), bob=(1, 1, 1), lean=(1, 3), root=(1, 0)),
+     *[g(an=band(-92, -92, fistKind='palm'), bob=(1, 1, 1), lean=(1, 3)) for _ in range(2)],
+     g(an=band(-60, -120), bob=(1, 1, 2), lean=(0, 2), root=(-1, 0)),
+     g()],
+  [None, 'squint', 'squint', 'squint', 'squint', 'strain', 'squint', 'squint', None, None],
+  [0, 1, 1, 1, 2, 2, 2, 1, 0, 0],
+  dict(fps=10, auraColors=('#e9eef4', '#a3aebb'), rm='E: +1 pushing the palm out, -1 back',
+       extra={'targetState': {'rule': 'Indecision: from the active frame the target plays indecisive: frames 0-2 once, then frames 3-10 on loop until the Silence ends, then its idle; the genjutsu mark (genjutsuAfflicted, recolour genjutsuMark.recolor.air) is drawn over it throughout', 'state': 'indecisive', 'loopFrom': 3, 'element': 'air', 'mark': 'genjutsuAfflicted'}},
+       anchored={1: [('eyeW', 'eye', 0, 0), ('scale+0', 'hand', 0, -8, {'alpha': {'W': 170, 'f': 160, 'F': 150, 'q': 140}})],
+                 2: [('eyeWF', 'eye', 0, 0), ('scale+2', 'hand', 0, -8)],
+                 3: [('eyeWF', 'eye', 0, 0), ('scale-2', 'hand', 0, -8)],
+                 4: [('eyeWF', 'eye', 0, 0), ('scale+1', 'hand', 0, -8), ('iw1', 'eye', 5, 0)],
+                 5: [('eyeWF', 'eye', 0, 0), ('iw2', 'eye', 9, 0), ('iw1', 'eye', 4, 0), ('scale+0', 'head', -4, -12, {'alpha': {'W': 150, 'f': 140, 'F': 130, 'q': 120}})],
+                 6: [('eyeWF', 'eye', 0, 0), ('iw3', 'eye', 14, 0), ('iw2', 'eye', 9, 0), ('iw1', 'eye', 4, 0)],
+                 7: [('eyeW', 'eye', 0, 0), ('iw3d', 'eye', 19, 0), ('iw3', 'eye', 14, 0), ('iw2', 'eye', 9, 0)],
+                 8: [('iw3d', 'eye', 21, 1, {'alpha': {'F': 130, 'q': 130}})]})),
+ 'indecisive': ('Indecisive', 0,
+  'Indecisive (target state of Indecision, Silence 1 round): the thought-waves hit and the fighter blinks, an illusory balance scale appearing over its head; its hands sag, unsure; then (looping while the Silence lasts) it is torn two ways: it leans in to act, the near hand reaching, while a pale afterimage of itself hangs back; then it sways back, the hand drawn in, while the afterimage leans on ahead; again with the far hand; the scale over its head tips with every change of mind.', [
+     g(an=band(-55, -125), af=band(-45, -120), bob=(1, 1, 1), lean=(-1, -2)),
+     g(an=band(-40, -110), af=band(-30, -105), bob=(1, 1, 2), lean=(0, 0)),
+     g(an=band(-35, -100), af=band(-30, -100), bob=(1, 1, 2), lean=(0, 0)),
+     g(an=band(-80, -100, fistKind='palm'), af=band(-35, -105), bob=(1, 1, 2), lean=(1, 4)),
+     g(an=band(-80, -100, fistKind='palm'), af=band(-35, -105), bob=(1, 1, 2), lean=(1, 3)),
+     g(an=band(-30, -95), af=band(-30, -100), bob=(1, 1, 1), lean=(-1, -3)),
+     g(an=band(-30, -95), af=band(-30, -100), bob=(1, 1, 1), lean=(-1, -2)),
+     g(an=band(-35, -100), af=band(-80, -95, fistKind='palm'), bob=(1, 1, 2), lean=(1, 4)),
+     g(an=band(-35, -100), af=band(-80, -95, fistKind='palm'), bob=(1, 1, 2), lean=(1, 3)),
+     g(an=band(-30, -95), af=band(-30, -100), bob=(1, 1, 1), lean=(-1, -3)),
+     g(an=band(-35, -100), af=band(-30, -100), bob=(1, 1, 2), lean=(0, 0))],
+  ['squint', 'closed', 'squint', 'squint', 'squint', 'pain', 'squint', 'squint', 'squint', 'pain', 'squint'],
+  None,
+  dict(fps=8, rm='E: sways in place (net 0)', extra={'loop': True, 'loopFrom': 3},
+       ghosts={3: (3,), 4: (4,), 5: (-3,), 6: (-4,), 7: (3,), 8: (4,), 9: (-3,), 10: (-2,)}, ghostColors=(('#e9eef4', None),),
+       anchored={0: [('iw2', 'eye', -4, 0, {'alpha': {'W': 160, 'f': 150}}), ('scale+0', 'head', -13, -2, {'alpha': {'W': 150, 'f': 140, 'F': 130, 'q': 120}})],
+                 1: [('scale+1', 'head', -13, -2)], 2: [('scale-1', 'head', -13, -2)],
+                 3: [('scale+2', 'head', -13, -2)], 4: [('scale+2', 'head', -13, -2)], 5: [('scale-2', 'head', -13, -2)], 6: [('scale-2', 'head', -13, -2)],
+                 7: [('scale+2', 'head', -13, -2)], 8: [('scale+1', 'head', -13, -2)], 9: [('scale-2', 'head', -13, -2)], 10: [('scale+0', 'head', -13, -2)]})),
+ 'vertigo': ('Vertigo', 6,
+  'Vertigo (Libra genjutsu, debuff: the caster induces vertigo in the opponent so it loses its sense of direction; Blind 2 rounds, STR save DC 13; range Zone of Awareness): from the guard the fighter raises the near index finger beside its face and its eyes kindle silver-white; it traces small circles in the air with the fingertip and a spiral of wind-white dots winds up round it, growing and turning; then it points the finger at the target and the spiral is flung out after it, turning as it goes, as widening rings; the finger drops back into the guard (the target plays vertigoSpun with the genjutsu mark in air colours).', [
+     g(),
+     g(an=band(-110, -150, fistKind='point'), bob=(1, 1, 1), lean=(0, 0)),
+     g(an=band(-100, -138, fistKind='point'), bob=(1, 1, 1), lean=(0, -1)),
+     g(an=band(-118, -160, fistKind='point'), bob=(1, 1, 1), lean=(0, -1)),
+     g(an=band(-108, -172, fistKind='point'), bob=(1, 1, 1), lean=(0, -1)),
+     g(an=band(-96, -146, fistKind='point'), bob=(1, 1, 2), lean=(0, 0)),
+     g(an=band(-92, -92, fistKind='point'), bob=(1, 1, 1), lean=(1, 3), root=(1, 0)),
+     *[g(an=band(-92, -92, fistKind='point'), bob=(1, 1, 1), lean=(1, 3)) for _ in range(2)],
+     g(an=band(-60, -120), bob=(1, 1, 2), lean=(0, 2), root=(-1, 0)),
+     g()],
+  [None, 'squint', 'squint', 'squint', 'squint', 'strain', 'squint', 'squint', 'squint', None, None],
+  [0, 1, 1, 1, 2, 2, 2, 2, 1, 0, 0],
+  dict(fps=10, auraColors=('#e9eef4', '#a3aebb'), rm='E: +1 pointing, -1 back',
+       extra={'targetState': {'rule': 'Vertigo: from the active frame the target plays vertigoSpun: frames 0-2 once, then frames 3-10 on loop until the Blind ends, then its idle; the genjutsu mark (genjutsuAfflicted, recolour genjutsuMark.recolor.air) is drawn over it throughout', 'state': 'vertigoSpun', 'loopFrom': 3, 'element': 'air', 'mark': 'genjutsuAfflicted'}},
+       anchored={1: [('eyeW', 'eye', 0, 0), ('spiral3_0', 'hand', 0, -2)],
+                 2: [('eyeWF', 'eye', 0, 0), ('spiral3_1', 'hand', 0, -2)],
+                 3: [('eyeWF', 'eye', 0, 0), ('spiral5_2', 'hand', 0, -2)],
+                 4: [('eyeWF', 'eye', 0, 0), ('spiral5_3', 'hand', 0, -2)],
+                 5: [('eyeWF', 'eye', 0, 0), ('spiral7_4', 'hand', 1, -2)],
+                 6: [('eyeWF', 'eye', 0, 0), ('spiral5_5', 'hand', 5, 0), ('iw1', 'hand', 2, 0)],
+                 7: [('eyeW', 'eye', 0, 0), ('spiral3_0', 'hand', 8, 0, {'alpha': {'q': 150, 'F': 160}}), ('iw2', 'hand', 3, 0)],
+                 8: [('iw3d', 'hand', 5, 0, {'alpha': {'F': 130, 'q': 130}})]})),
+ 'vertigoSpun': ('Vertigo Spun', 0,
+  'Vertigo Spun (target state of Vertigo, Blind 2 rounds): the spiral hits and the fighter\'s head lolls, a spiral of wind-white dots turning over its head and motes reeling round it; its knees go and it throws its arms out for balance, near hand forward and far hand back, eyes squeezed shut; then (looping while the Blind lasts) it reels in a slow circle on the spot, swaying forward, across and back, stumbling a step one way and the other, the spiral turning and the motes reeling over it.', [
+     g(an=band(-55, -125), af=band(-45, -120), bob=(1, 1, 1), lean=(-1, -3)),
+     g(an=band(-40, -60, fistKind='palm'), af=band(30, 15, fistKind='palm'), bob=(2, 2, 2), lean=(0, -1), **LOW),
+     g(an=band(-55, -55, fistKind='palm'), af=band(40, 30, fistKind='palm'), bob=(2, 2, 3), lean=(0, 1), **LOW),
+     g(an=band(-55, -55, fistKind='palm'), af=band(40, 30, fistKind='palm'), bob=(2, 2, 3), lean=(1, 5), root=(1, 0), **LOW),
+     g(an=band(-45, -50, fistKind='palm'), af=band(35, 25, fistKind='palm'), bob=(2, 2, 2), lean=(1, 3), **LOW),
+     g(an=band(-35, -45, fistKind='palm'), af=band(45, 35, fistKind='palm'), bob=(2, 2, 3), lean=(0, 0), root=(-1, 0), **LOW),
+     g(an=band(-30, -40, fistKind='palm'), af=band(50, 40, fistKind='palm'), bob=(2, 2, 2), lean=(-1, -4), root=(-1, 0), **LOW),
+     g(an=band(-40, -45, fistKind='palm'), af=band(45, 35, fistKind='palm'), bob=(2, 2, 3), lean=(-1, -3), **LOW),
+     g(an=band(-50, -55, fistKind='palm'), af=band(40, 30, fistKind='palm'), bob=(2, 2, 2), lean=(0, 0), root=(1, 0), **LOW),
+     g(an=band(-55, -60, fistKind='palm'), af=band(35, 25, fistKind='palm'), bob=(2, 2, 3), lean=(0, 2), **LOW),
+     g(an=band(-55, -55, fistKind='palm'), af=band(40, 30, fistKind='palm'), bob=(2, 2, 3), lean=(0, 1), **LOW)],
+  ['pain', 'closed', 'closed', 'pain', 'closed', 'closed', 'pain', 'closed', 'closed', 'pain', 'closed'],
+  None,
+  dict(fps=8, rm='E: reeling +1, -1, -1, +1 in the loop (net 0)', extra={'loop': True, 'loopFrom': 3},
+       anchored={0: [('spiral3_0', 'head', 0, -9), ('iw2', 'eye', -4, 0, {'alpha': {'W': 160, 'f': 150}})],
+                 **{k_: [('spiral5_%d' % (k_ % 6), 'head', 0, -9), ('motesW%d' % (k_ % 6), 'head', 0, -4)] for k_ in range(1, 11)}})),
  'flowDodge': ('Flow Dodge', 3,
   'Flow Dodge (Sagittarius taijutsu stance buff: the fighter enters a dance-like trance and begins to swing and sway to its own rhythm): from the guard the fighter shakes its arms loose and lets the guard drop low and easy, eyes half closed, catching a beat; then it sways to its own rhythm: rocking back and forward on its feet and dipping on the knees, shoulders rolling, the loose hands swinging opposite to the hips, a flickering fire aura breathing round it on the beat with a few black and purple wisps rising off the shoulders; on the last beat it snaps its eyes open and settles into a loose, low guard (the testbed keeps the stance).', [
      g(),
