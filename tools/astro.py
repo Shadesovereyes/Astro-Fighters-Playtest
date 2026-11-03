@@ -670,7 +670,8 @@ def _loopRing(rx, ry, phase):   # Lag Switch target: a looping arrow running rou
         rows[y][x] = 'W' if d < 3 else 'l' if d < 14 else 'L' if d < 26 else ('D' if t % 4 < 2 else rows[y][x])
     return [''.join(q) for q in rows]
 # ---------- Air: Libra wind (air unruled: white / pale silver for now, Christopher 2026-10-27) ----------
-NPAL.update({'f': '#e9eef4', 'F': '#a3aebb', 'q': '#6b7584'})   # wind: pale air, silver, slate rim (v1 had F/q too close to the preview ground)
+NPAL.update({'f': '#e9eef4', 'F': '#a3aebb', 'q': '#39e75f'})   # v2 (Christopher 2026-11-03: silver alone may not read on every terrain, add a little of the System Crash green): the rim is electric green #39e75f
+#   # wind: pale air, silver, slate rim (v1 had F/q too close to the preview ground)
 def _airCol(L, r, phase):   # Aero Palm: a column of compressed air driven forward, L px long, radius r: streaming edge lines, white core dashes, vortex rings every 7 px (phase shifts them)
     H = 2 * r + 1; rows = [['.'] * L for _ in range(H)]
     for x in range(L):
@@ -2535,7 +2536,7 @@ CLIPS = {
   [None, 'squint', 'squint', 'squint', 'squint', None, None, None],
   None,
   dict(fps=12, rm='E: +16 +16 through the blink strides, +6 +2 landing; 40 px in all (travel)',
-       ghosts={2: (4, 8, 12, 16), 3: (4, 8, 12, 16), 4: (4, 8), 5: (3,)}, ghostColors=(('#ffffff', '#e9eef4'), ('#e9eef4', None), ('#a3aebb', None), ('#a3aebb', None)),
+       ghosts={2: (4, 8, 12, 16), 3: (4, 8, 12, 16), 4: (4, 8), 5: (3,)}, ghostColors=(('#ffffff', '#e9eef4'), ('#e9eef4', None), ('#a3aebb', None), ('#39e75f', None)),
        extra={'travel': {'rule': 'Feather Step is a teleport dash (Move +5 m): the fighter ends the clip 40 px further forward (sum of rootMotion); the game moves the fighter by that distance', 'E': 40}},
        anchored={1: [('puff', 'feet', 0, -2, {'alpha': {'f': 150, 'F': 140, 'q': 120}})],
                  2: [('aStreak', 'head', -14, 14), ('aStreak2', 'feet', -14, -6)],
@@ -2752,7 +2753,7 @@ CLIPS = {
   [None, 'squint'] + ['squint'] * 6 + ['strain', 'squint', None, None],
   None,
   dict(fps=12, rm='E: 6 px a stride through the sprint, +3 +1 braking; 40 px in all (travel)',
-       ghosts={k: (5, 10, 15, 20) for k in range(2, 8)} | {8: (5, 10), 9: (3,)}, ghostColors=(('#ffffff', '#e9eef4'), ('#e9eef4', None), ('#a3aebb', None), ('#a3aebb', None)),
+       ghosts={k: (5, 10, 15, 20) for k in range(2, 8)} | {8: (5, 10), 9: (3,)}, ghostColors=(('#ffffff', '#e9eef4'), ('#e9eef4', None), ('#a3aebb', None), ('#39e75f', None)),
        extra={'travel': {'rule': 'Mach Dash is a teleport dash (Movement +15): the fighter ends the clip 40 px further forward (sum of rootMotion); the game moves the fighter by that distance', 'E': 40}},
        anchored={1: [('puff', 'feet', -4, -2)],
                  2: [('boom8', 'head', -14, 18), ('vcone2', 'head', 6, 18)],
@@ -2834,7 +2835,7 @@ CLIPS = {
   [None, 'squint', 'squint', 'strain', 'strain', None, None, None],
   [0, 1, 2, 2, 1, 1, 0, 0],
   dict(fps=10, auraColors=('#e9eef4', '#a3aebb'), rm='E: +1 +9 darting forward, -10 back (net 0)',
-       ghosts={2: (2, -2), 3: (3, 6, 9), 4: (-3, -6)}, ghostColors=(('#ffffff', '#e9eef4'), ('#e9eef4', None), ('#a3aebb', None)),
+       ghosts={2: (2, -2), 3: (3, 6, 9), 4: (-3, -6)}, ghostColors=(('#ffffff', '#e9eef4'), ('#e9eef4', None), ('#39e75f', None)),
        clones={4: [(10, 200)], 5: [(10, 190)], 6: [(10, 170)], 7: [(10, 150)]},
        extra={'linger': {'rule': 'Mirage Clone (proposal): while the AGI buff lasts the testbed draws the twin, the fighter\'s own current frame washed toward pale silver at alpha 140, 10 px ahead of it'}},
        anchored={1: [('aRing3', 'hand', 0, 0, {'alpha': {'f': 150, 'W': 160}})], 2: [('aStreak2', 'head', -10, 12)],

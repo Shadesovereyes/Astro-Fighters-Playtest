@@ -1419,13 +1419,13 @@
         "construction": "band",
         "hipX": 31,
         "hipRow": 50,
-        "kneeX": 33,
-        "kneeRow": 56,
+        "kneeX": 34,
+        "kneeRow": 54,
         "ankle": [
-          36,
-          58
+          37,
+          56
         ],
-        "foot": "toe30k"
+        "foot": "pointFwd"
       },
       {
         "name": "gs-front-rear",

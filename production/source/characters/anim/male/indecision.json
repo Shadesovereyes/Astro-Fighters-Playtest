@@ -1415,6 +1415,56 @@
         "foot": "toe30k"
       },
       {
+        "name": "gs-back-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 50,
+        "kneeX": 24,
+        "kneeRow": 55,
+        "ankle": [
+          16,
+          57
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "gs-mid-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 50,
+        "kneeX": 34,
+        "kneeRow": 54,
+        "ankle": [
+          37,
+          56
+        ],
+        "foot": "pointFwd"
+      },
+      {
+        "name": "gs-front-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 50,
+        "kneeX": 40,
+        "kneeRow": 55,
+        "ankle": [
+          49,
+          57
+        ],
+        "foot": "pointFwd"
+      },
+      {
+        "name": "gs-crouch-lead",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 50,
+        "kneeX": 40,
+        "kneeRow": 49,
+        "footX": 41,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
         "name": "as-lift",
         "construction": "band",
         "hipX": 34,
