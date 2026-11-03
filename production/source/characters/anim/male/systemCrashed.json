@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "System Crashed (target state of System Crash, Blind 2 rounds): the overload hits and the fighter's head snaps back as a bar of corrupted pixels tears across its eyes, rows shoved against each other; it throws both hands up to clutch its head while static and loose data blocks spit off it and stray scan lines slice past; then (looping while the Blind lasts) it staggers half blind, one hand pressed over the glitching eyes, the other groping out in front of it, the bar flickering and re-tearing, data blocks drifting up off the head.",
+  "intent": "System Crashed (target state of System Crash, Blind 2 rounds): the overload hits and the fighter's head snaps back as a bar of corrupted pixels tears across its eyes, rows shoved against each other; it flinches, hands jerking up to the chest, then throws both arms out in front, palms open, feeling for what it can no longer see, while static and loose data blocks spit off it and stray scan lines slice past; then (looping while the Blind lasts) it staggers blind, both arms held out in front, hands groping and searching (v2, Christopher 2026-11-03: no arm over the face, arms out front for the blindness), the bar flickering and re-tearing, data blocks drifting up off the head.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -1546,91 +1546,90 @@
       },
       {
         "construction": "band",
-        "angle": -145,
+        "angle": -45,
         "elbow": {
           "at": 8,
-          "angle": -170
+          "angle": -125
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -70,
+        "elbow": {
+          "at": 8,
+          "angle": -100
         },
         "fistKind": "palm"
       },
       {
         "construction": "band",
-        "angle": -145,
+        "angle": -82,
         "elbow": {
           "at": 8,
-          "angle": -170
+          "angle": -95
         },
         "fistKind": "palm"
       },
       {
         "construction": "band",
-        "angle": -145,
+        "angle": -85,
         "elbow": {
           "at": 8,
-          "angle": -170
+          "angle": -92
         },
         "fistKind": "palm"
       },
       {
         "construction": "band",
-        "angle": -140,
+        "angle": -85,
         "elbow": {
           "at": 8,
-          "angle": -168
+          "angle": -92
         },
         "fistKind": "palm"
       },
       {
         "construction": "band",
-        "angle": -140,
+        "angle": -78,
         "elbow": {
           "at": 8,
-          "angle": -168
+          "angle": -98
         },
         "fistKind": "palm"
       },
       {
         "construction": "band",
-        "angle": -140,
+        "angle": -72,
         "elbow": {
           "at": 8,
-          "angle": -168
+          "angle": -104
         },
         "fistKind": "palm"
       },
       {
         "construction": "band",
-        "angle": -140,
+        "angle": -82,
         "elbow": {
           "at": 8,
-          "angle": -168
+          "angle": -94
         },
         "fistKind": "palm"
       },
       {
         "construction": "band",
-        "angle": -140,
+        "angle": -90,
         "elbow": {
           "at": 8,
-          "angle": -168
+          "angle": -88
         },
         "fistKind": "palm"
       },
       {
         "construction": "band",
-        "angle": -140,
+        "angle": -85,
         "elbow": {
           "at": 8,
-          "angle": -168
-        },
-        "fistKind": "palm"
-      },
-      {
-        "construction": "band",
-        "angle": -140,
-        "elbow": {
-          "at": 8,
-          "angle": -168
+          "angle": -92
         },
         "fistKind": "palm"
       }
@@ -1646,34 +1645,24 @@
       },
       {
         "construction": "band",
-        "angle": -140,
+        "angle": -40,
         "elbow": {
           "at": 8,
-          "angle": -172
+          "angle": -120
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -60,
+        "elbow": {
+          "at": 8,
+          "angle": -110
         },
         "fistKind": "palm"
       },
       {
         "construction": "band",
-        "angle": -140,
-        "elbow": {
-          "at": 8,
-          "angle": -172
-        },
-        "fistKind": "palm"
-      },
-      {
-        "construction": "band",
-        "angle": -140,
-        "elbow": {
-          "at": 8,
-          "angle": -172
-        },
-        "fistKind": "palm"
-      },
-      {
-        "construction": "band",
-        "angle": -90,
+        "angle": -75,
         "elbow": {
           "at": 8,
           "angle": -100
@@ -1691,7 +1680,16 @@
       },
       {
         "construction": "band",
-        "angle": -70,
+        "angle": -80,
+        "elbow": {
+          "at": 8,
+          "angle": -95
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": -88,
         "elbow": {
           "at": 8,
           "angle": -90
@@ -1700,28 +1698,28 @@
       },
       {
         "construction": "band",
-        "angle": -80,
-        "elbow": {
-          "at": 8,
-          "angle": -95
-        },
-        "fistKind": "palm"
-      },
-      {
-        "construction": "band",
-        "angle": -95,
-        "elbow": {
-          "at": 8,
-          "angle": -105
-        },
-        "fistKind": "palm"
-      },
-      {
-        "construction": "band",
         "angle": -85,
         "elbow": {
           "at": 8,
+          "angle": -93
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": -74,
+        "elbow": {
+          "at": 8,
           "angle": -100
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": -70,
+        "elbow": {
+          "at": 8,
+          "angle": -104
         },
         "fistKind": "palm"
       },
