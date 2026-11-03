@@ -801,15 +801,18 @@ NPAT.update({'vcone': _arcW(18, 5, 'Wf'), 'vcone2': _arcW(16, 4, 'fF', gap=4), '
 def _sine(L, amp, per, phase, cols='Wf'):   # Gemini Tinnitus: a thin high-pitched sine line L px long
     H = 2 * amp + 1; rows = [['.'] * L for _ in range(H)]
     for x in range(L):
-        y = round(amp + amp * math.sin(2 * math.pi * (x + phase) / per)); rows[y][x] = cols[0] if x < L * 0.6 else cols[-1]
+        y = round(amp + amp * math.sin(2 * math.pi * (x + phase) / per)); rows[y][x] = cols[0] if x < L * 0.6 else cols[-1] if len(cols) < 3 or x < L * 0.85 else cols[2]   # v2 (Christopher 2026-11-03 19:04, updated colour scheme): a third colour, the green rim, on the trailing tail
+        if len(cols) > 2 and x % 4 == 1 and 0 <= y + 1 < H and rows[y + 1][x] == '.': rows[y + 1][x] = cols[2]   # green under-glint along the line
     return [''.join(q) for q in rows]
 def _bars(n, h, gap, phase):   # Gemini Resonance Chamber: standing sound waves as vertical bars, tallest at the middle, pulsing with phase
     rows = [['.'] * (n * gap) for _ in range(h)]
     for i in range(n):
         hh = max(2, round(h * (0.45 + 0.55 * abs(math.cos((i + phase) * math.pi / n))))); y0 = (h - hh) // 2
         for y in range(y0, y0 + hh): rows[y][i * gap] = 'W' if y in (y0, y0 + hh - 1) else 'f' if (y + i + phase) % 2 else 'F'
+        for y in (y0 - 1, y0 + hh):   # v2 (updated colour scheme): green caps beyond each bar's white ends
+            if 0 <= y < h: rows[y][i * gap] = 'q'
     return [''.join(q) for q in rows]
-NPAT.update({**{'sine%d' % k_: _sine(14, 2, 4, k_) for k_ in range(4)}, **{'sineL%d' % k_: _sine(22, 2, 4, k_, 'fF') for k_ in range(4)},
+NPAT.update({**{'sine%d' % k_: _sine(14, 2, 4, k_, 'Wfq') for k_ in range(4)}, **{'sineL%d' % k_: _sine(22, 2, 4, k_, 'fFq') for k_ in range(4)},
              **{'bars%d' % k_: _bars(5, 22, 3, k_) for k_ in range(4)}, 'drip': ['R', 'R', '.', 'M'], 'earRing': ['.W.', 'W.W', '.W.']})
 NPAT.update({**{'dial%d_%d' % (r_, h_): _dial(r_, h_) for r_ in (4, 6) for h_ in range(12)}, 'dialDim': _dial(6, 1, lit=False),
              'rw1': _rewindWave(4, 2, 1), 'rw2': _rewindWave(7, 3, 2, 'Wll'), 'rw3': _rewindWave(10, 4, 3, 'lL'), 'rw3d': _rewindWave(12, 5, 4, 'LD', gap=3),
@@ -2891,7 +2894,7 @@ CLIPS = {
      g()],
   [None, 'squint', 'closed', 'closed', 'closed', 'strain', 'strain', 'strain', 'strain', None, None],
   [0, 1, 1, 2, 2, 2, 2, 2, 2, 1, 0],
-  dict(fps=10, auraColors=('#e9eef4', '#a3aebb'), rm='E: trembling 1 px (net 0)',
+  dict(fps=10, auraColors=('#e9eef4', '#39e75f'), rm='E: trembling 1 px (net 0)',
        extra={'zone': {'rule': 'Resonance Chamber is a Wide AoE: from the active frame the testbed may draw bars0-3 pulsing over each target in the area while the hit plays (proposal)', 'shape': 'wide'}},
        anchored={2: [('aRing3', 'hand', 0, 0, {'alpha': {'f': 150, 'W': 160}})], 3: [('aRing5', 'hand', 0, 0, {'alpha': {'F': 150, 'f': 150}})], 4: [('aRing5', 'hand', 0, 0)],
                  **{k_: [('bars%d' % (k_ % 4), 'head', 16, 20), ('bars%d' % ((k_ + 2) % 4), 'head', -17, 20), ('aRing7', 'feet', 0, -2, {'alpha': {'q': 160, 'F': 160}}), ('sine%d' % (k_ % 4), 'hand', 2, -6)] for k_ in (5, 6, 7, 8)},
@@ -2909,7 +2912,7 @@ CLIPS = {
      g()],
   [None, 'squint', 'squint', 'squint', 'squint', 'strain', 'squint', 'squint', None, None],
   [0, 1, 1, 1, 2, 2, 2, 1, 0, 0],
-  dict(fps=10, auraColors=('#e9eef4', '#a3aebb'), rm='E: +1 flicking the finger out, -1 back',
+  dict(fps=10, auraColors=('#e9eef4', '#39e75f'), rm='E: +1 flicking the finger out, -1 back',
        extra={'targetState': {'rule': 'Tinnitus: from the active frame the target plays tinnitusRinging: frames 0-2 once, then frames 3-8 on loop until the Bleed ends, then its idle; the genjutsu mark (genjutsuAfflicted, recolour genjutsuMark.recolor.air) is drawn over it throughout', 'state': 'tinnitusRinging', 'loopFrom': 3, 'element': 'air', 'mark': 'genjutsuAfflicted'}},
        anchored={1: [('eyeW', 'eye', 0, 0)], 2: [('eyeWF', 'eye', 0, 0), ('sine0', 'head', -12, 4)], 3: [('eyeWF', 'eye', 0, 0), ('sine1', 'head', -12, 4), ('earRing', 'hand', 0, -2)],
                  4: [('eyeWF', 'eye', 0, 0), ('sine2', 'head', -12, 4), ('sine0', 'head', -12, 8)],
@@ -2940,9 +2943,9 @@ CLIPS = {
      g()],
   [None, 'squint', 'squint', 'squint', 'squint', 'squint', 'squint', 'squint', None, None],
   [0, 1, 1, 2, 2, 2, 2, 1, 0, 0],
-  dict(fps=10, auraColors=('#e9eef4', '#a3aebb'),
-       clones={2: [(12, 110), (-12, 110)], 3: [(12, 180), (-12, 180)], 4: [(12, 190), (-12, 190), (24, 120), (-24, 120)],
-               5: [(13, 190), (-11, 190), (24, 180), (-25, 180)], 6: [(11, 190), (-13, 190), (25, 180), (-23, 180)], 7: [(12, 120), (-12, 120), (24, 90), (-24, 90)]},
+  dict(fps=10, auraColors=('#e9eef4', '#39e75f'),
+       clones={2: [(12, 110, 0.35, '#39e75f'), (-12, 110, 0.35, '#39e75f')], 3: [(12, 180, 0.35, '#39e75f'), (-12, 180, 0.35, '#39e75f')], 4: [(12, 190, 0.35, '#39e75f'), (-12, 190, 0.35, '#39e75f'), (24, 120, 0.35, '#39e75f'), (-24, 120, 0.35, '#39e75f')],
+               5: [(13, 190, 0.35, '#39e75f'), (-11, 190, 0.35, '#39e75f'), (24, 180, 0.35, '#39e75f'), (-25, 180, 0.35, '#39e75f')], 6: [(11, 190, 0.35, '#39e75f'), (-13, 190, 0.35, '#39e75f'), (25, 180, 0.35, '#39e75f'), (-23, 180, 0.35, '#39e75f')], 7: [(12, 120, 0.35, '#39e75f'), (-12, 120, 0.35, '#39e75f'), (24, 90, 0.35, '#39e75f'), (-24, 90, 0.35, '#39e75f')]},
        extra={'targetState': {'rule': 'Christopher 2026-10-27: every genjutsu marks its target; from the active frame the target plays genjutsuAfflicted (recolour genjutsuMark.recolor.air) until the Blind ends', 'state': 'genjutsuAfflicted', 'element': 'air'}},
        anchored={1: [('eyeW', 'eye', 0, 0)], **{k_: [('eyeWF', 'eye', 0, 0)] for k_ in range(2, 7)}, 7: [('eyeW', 'eye', 0, 0)]})),
  'flowDodge': ('Flow Dodge', 3,
@@ -3639,12 +3642,14 @@ def clones(state, spec):
             sg = -1 if fd == 'W' else 1
             for it in sorted(items, key=lambda t: -abs(t[0])):
                 dx, al = it[:2]; wash = it[2] if len(it) > 2 else 0.35   # Mirage Clone v2: wash 0 = an indistinguishable full-colour copy
+                rim = tuple(int(it[3][i:i + 2], 16) for i in (1, 3, 5)) if len(it) > 3 else None   # Phantom Legion v2: the copy's outline in the green rim
                 for y in range(64):
                     for x in range(64):
                         q = cp[k * 64 + x, r * 64 + y]
                         X = x + sg * dx
                         if not q[3] or not (0 <= X < 64) or cp[k * 64 + X, r * 64 + y][3]: continue
                         c = tuple(round(q[i] * (1 - wash) + tint[i] * wash) for i in range(3))
+                        if rim and any(not (0 <= x + ex < 64 and 0 <= y + ey < 64) or not cp[k * 64 + x + ex, r * 64 + y + ey][3] for ex, ey in ((1, 0), (-1, 0), (0, 1), (0, -1))): c = rim
                         px[k * 64 + X, r * 64 + y] = c + (al,)
     base.alpha_composite(top); base.save(f); print(state, 'clones', list(spec))
 
