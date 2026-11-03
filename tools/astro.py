@@ -3463,6 +3463,131 @@ CLIPS.update({
                  8: [('wPuddle', 'feet', -3, -1, _A(_FADE))]})),
 })
 
+# ---------- Cancer genjutsu v1 (part 12, 2026-11-03): Regression, Pacification ----------
+def _ripple(rx, cols='Ia', gap=0):   # a flat ripple ring seen from the side (an ellipse a third as tall as it is wide)
+    ry = max(1, round(rx / 3)); w, h = 2 * rx + 1, 2 * ry + 1; rows = [['.'] * w for _ in range(h)]
+    for t in range(160):
+        a = t / 160 * 2 * math.pi; x, y = round(rx + rx * math.cos(a)), round(ry + ry * math.sin(a))
+        if gap and (t // 8) % 2: continue
+        rows[y][x] = cols[0] if math.sin(a) < 0 else cols[-1]
+    return [''.join(q) for q in rows]
+def _bubble(r):   # a soap / water bubble: thin ice ring, light lower rim, white glint top-left, hollow
+    w = 2 * r + 1; rows = [['.'] * w for _ in range(w)]
+    for y in range(w):
+        for x in range(w):
+            d = math.hypot(x - r, y - r)
+            if r - 0.6 <= d <= r + 0.4: rows[y][x] = 'a' if y > r else 'I'
+    if r > 1: rows[r - max(1, r // 2)][r - max(1, r // 2)] = 'W'
+    return [''.join(q) for q in rows]
+NPAT.update({'eyeW': ['.a.', 'aIa', '.a.'], 'eyeWF': ['..a..', '.aIa.', 'aIWIa', '.aIa.', '..a..'],
+             'wRip3': _ripple(3), 'wRip5': _ripple(5), 'wRip7': _ripple(7, 'aA'), 'wRip9': _ripple(9, 'aA', gap=1), 'wRip12': _ripple(12, 'aA', gap=1),
+             'wgw1': _arc(4, 2, 'Ia', gap=2), 'wgw2': _arc(6, 3, 'Ia', gap=2), 'wgw3': _arc(8, 4, 'aA', gap=2),
+             'wBub1': _bubble(1), 'wBub2': _bubble(2), 'wBub3': _bubble(3),
+             **{'wLull%d' % p: _sine(20, 2, 8, p * 2, cols='WIa') for p in range(4)}, **{'wLullS%d' % p: _sine(10, 1, 6, p * 2, cols='Ia') for p in range(4)}})
+_TODDLE_N, _TODDLE_F = band(-55, -70, fistKind='palm'), band(-45, -60, fistKind='palm')   # arms held out stiff and low in front, hands splayed, like a toddler
+CLIPS.update({
+ 'regression': ('Regression', 6,
+  'Regression (Cancer genjutsu, debuff: the caster forces the foe\'s mind to regress to that of a small child, before fine motor skills develop; Slow 2 rounds, INT save DC 12; range ~12 m): from the guard the fighter lifts the near hand palm up before its chest and its eyes kindle water blue; a single drop of water falls into the palm and spreads out in ripples, ring after ring, like time running backward; then it pushes the open palm out at the target and the ripples go out as dashed waves of water-blue thought; it settles back into the guard (the target plays regressed with the genjutsu mark in water colours).', [
+     g(),
+     g(an=band(-60, -150, fistKind='palm'), bob=(1, 1, 1), lean=(0, 0)),
+     g(an=band(-65, -150, fistKind='palm'), bob=(1, 1, 1), lean=(0, -1)),
+     g(an=band(-65, -150, fistKind='palm'), bob=(1, 1, 1), lean=(0, -1)),
+     g(an=band(-65, -150, fistKind='palm'), bob=(1, 1, 2), lean=(0, -1)),
+     g(an=band(-92, -92, fistKind='palm'), bob=(1, 1, 1), lean=(1, 3), root=(1, 0)),
+     *[g(an=band(-92, -92, fistKind='palm'), bob=(1, 1, 1), lean=(1, 3)) for _ in range(2)],
+     g(an=band(-60, -120), bob=(1, 1, 2), lean=(0, 2), root=(-1, 0)),
+     g()],
+  [None, 'squint', 'squint', 'squint', 'strain', 'strain', 'squint', 'squint', None, None],
+  [0, 1, 1, 1, 2, 2, 2, 1, 0, 0],
+  dict(fps=10, auraColors=_WAURA, rm='E: +1 pushing the palm out, -1 back',
+       extra={'targetState': {'rule': 'Regression: from the active frame (5) the target plays regressed: frames 0-3 once (its guard melts away and it sinks into a toddler\'s stance), then frames 4-11 on loop until the Slow ends, then its idle; the genjutsu mark (genjutsuAfflicted, recolour genjutsuMark.recolor.water) is drawn over it throughout', 'state': 'regressed', 'loopFrom': 4, 'element': 'water', 'mark': 'genjutsuAfflicted'}},
+       anchored={1: [('eyeW', 'eye', 0, 0), ('wOrb2', 'hand', 0, -12)],
+                 2: [('eyeWF', 'eye', 0, 0), ('wOrb2', 'hand', 0, -5)],
+                 3: [('eyeWF', 'eye', 0, 0), ('wSplashS', 'hand', 0, -4), ('wRip3', 'hand', 0, 0)],
+                 4: [('eyeWF', 'eye', 0, 0), ('wRip5', 'hand', 0, 0), ('wRip3', 'hand', 0, 0, _A(_FADE)), ('wDrops', 'hand', 0, -6, _A(_FADE))],
+                 5: [('eyeWF', 'eye', 0, 0), ('wRip7', 'hand', 2, 0, _A(_FADE)), ('wgw1', 'eye', 6, 0)],
+                 6: [('eyeWF', 'eye', 0, 0), ('wgw2', 'eye', 11, 0), ('wgw1', 'eye', 6, 0)],
+                 7: [('eyeW', 'eye', 0, 0), ('wgw3', 'eye', 16, 0), ('wgw2', 'eye', 11, 0)],
+                 8: [('wgw3', 'eye', 20, 1, _A(_FADE))]})),
+ 'regressed': ('Regressed', 0,
+  'Regressed (target state of Regression, Slow 2 rounds): the ripples wash over the fighter and it blinks, its guard melting away: its fists open, its arms drop and lift out stiffly in front of it, fingers splayed, and it sinks into a wide, knock-kneed toddler\'s stance, a soft ripple spreading round its feet; then (looping while the Slow lasts) it toddles clumsily on the spot, rocking side to side and tipping forward and back, its hands clumsily grabbing at nothing and opening again, almost falling and catching itself, while bubbles float up round its head.', [
+     g(an=band(-50, -130), af=band(-45, -120), bob=(1, 1, 1), lean=(-1, -2), root=(-1, 0)),
+     g(an=band(-45, -110, fistKind='palm'), af=band(-40, -105, fistKind='palm'), bob=(1, 1, 1), lean=(0, -1)),
+     g(an=band(-50, -85, fistKind='palm'), af=band(-42, -75, fistKind='palm'), bob=(2, 2, 2), lean=(0, 1), root=(1, 0), **LOW),
+     g(an=_TODDLE_N, af=_TODDLE_F, bob=(3, 3, 3), lean=(1, 2), **LOW),
+     g(an=_TODDLE_N, af=_TODDLE_F, bob=(3, 3, 3), lean=(2, 5), root=(1, 0), **LOW),
+     g(an=band(-60, -75), af=_TODDLE_F, bob=(3, 3, 4), lean=(2, 6), **LOW),
+     g(an=_TODDLE_N, af=_TODDLE_F, bob=(3, 3, 3), lean=(1, 3), root=(-1, 0), **LOW),
+     g(an=_TODDLE_N, af=_TODDLE_F, bob=(2, 2, 3), lean=(-1, -2), root=(-1, 0), **LOW),
+     g(an=_TODDLE_N, af=band(-50, -65), bob=(2, 2, 3), lean=(-2, -5), **LOW),
+     g(an=band(-75, -95, fistKind='palm'), af=band(-65, -90, fistKind='palm'), bob=(3, 3, 3), lean=(-2, -6), root=(-1, 0), **LOW),
+     g(an=_TODDLE_N, af=_TODDLE_F, bob=(3, 3, 3), lean=(0, 0), root=(1, 0), **LOW),
+     g(an=_TODDLE_N, af=_TODDLE_F, bob=(3, 3, 3), lean=(1, 2), root=(1, 0), **LOW)],
+  ['squint', 'closed', 'squint', None, None, 'squint', None, None, 'squint', 'strain', None, None],
+  None,
+  dict(fps=8, rm='E: -1 hit, +1 sinking in (net 0); loop +1 -1 -1 -1 +1 +1 rocking (net 0)', extra={'loop': True, 'loopFrom': 4},
+       anchored={0: [('wgw2', 'head', 6, 8), ('wDrops', 'head', 4, 4, _A(_FADE))],
+                 1: [('wgw1', 'head', 2, 8, _A(_FADE)), ('wRip5', 'feet', 0, -1)],
+                 2: [('wRip9', 'feet', 0, -2, _A(_FADE)), ('wBub2', 'head', 14, 16)],
+                 3: [('wRip12', 'feet', 0, -2, _A(_FADE)), ('wBub2', 'head', 14, 12), ('wBub1', 'head', -13, 17)],
+                 4: [('wBub2', 'head', 14, 8), ('wBub1', 'head', -13, 14), ('wBub3', 'head', 12, 6, _A(_FADE))],
+                 5: [('wBub1', 'head', -14, 11), ('wBub3', 'head', 12, 2, _A(_FADE)), ('wBub2', 'head', 14, 16)],
+                 6: [('wBub1', 'head', -14, 8, _A(_FADE)), ('wBub2', 'head', 14, 12), ('wRip5', 'feet', 0, -1, _A(_FADE))],
+                 7: [('wBub2', 'head', 14, 8), ('wBub1', 'head', -13, 17), ('wRip7', 'feet', 0, -1, _A(_FADE))],
+                 8: [('wBub2', 'head', 14, 4, _A(_FADE)), ('wBub1', 'head', -13, 13), ('wBub3', 'head', -12, 16)],
+                 9: [('wBub1', 'head', -13, 9), ('wBub3', 'head', -12, 12), ('wDrops', 'hand', 0, 2, _A(_FADE))],
+                 10: [('wBub1', 'head', -13, 5, _A(_FADE)), ('wBub3', 'head', -12, 8), ('wBub2', 'head', 14, 18)],
+                 11: [('wBub3', 'head', -12, 4, _A(_FADE)), ('wBub2', 'head', 14, 14)]})),
+ 'pacification': ('Pacification', 6,
+  'Pacification (Cancer genjutsu, debuff: a soothing lull that makes the foe drop its weapon; Disarm 2 rounds, STR save DC 13; range ~12 m): from the guard the fighter closes its eyes and lowers both open palms in front of it, then presses them slowly down, calming, as if settling still water, a ripple spreading at its feet; its eyes open glowing water blue and it lifts the palms and eases them out toward the target, and a soft lullaby of water flows off them in gentle waving lines that drift on toward the target; it settles back into the guard (the target plays pacified with the genjutsu mark in water colours).', [
+     g(),
+     g(an=band(-55, -75, fistKind='palm'), af=band(-50, -70, fistKind='palm'), bob=(1, 1, 1), lean=(0, 0)),
+     g(an=band(-45, -60, fistKind='palm'), af=band(-40, -55, fistKind='palm'), bob=(2, 2, 2), lean=(0, 1)),
+     g(an=band(-40, -55, fistKind='palm'), af=band(-35, -50, fistKind='palm'), bob=(2, 2, 3), lean=(0, 1)),
+     g(an=band(-70, -85, fistKind='palm'), af=band(-62, -80, fistKind='palm'), bob=(1, 1, 1), lean=(1, 2), root=(1, 0)),
+     g(an=band(-78, -88, fistKind='palm'), af=band(-70, -85, fistKind='palm'), bob=(1, 1, 1), lean=(1, 3)),
+     g(an=band(-78, -88, fistKind='palm'), af=band(-70, -85, fistKind='palm'), bob=(1, 1, 1), lean=(1, 3)),
+     g(an=band(-75, -90, fistKind='palm'), af=band(-68, -88, fistKind='palm'), bob=(1, 1, 1), lean=(1, 2)),
+     g(an=band(-55, -115), af=band(-45, -110), bob=(1, 1, 2), lean=(0, 1), root=(-1, 0)),
+     g()],
+  [None, 'closed', 'closed', 'closed', 'squint', None, None, None, None, None],
+  [0, 1, 1, 1, 2, 2, 2, 1, 0, 0],
+  dict(fps=10, auraColors=_WAURA, rm='E: +1 easing the palms out, -1 back',
+       extra={'targetState': {'rule': 'Pacification: from the active frame (5) the target plays pacified: frames 0-3 once (the lull reaches it, its eyes droop, its hands open and its weapon slips from them), then frames 4-11 on loop until the Disarm ends, then its idle; the testbed drops the target\'s held weapon at its feet on frame 2 (Disarm) and returns it when the Disarm ends; the genjutsu mark (genjutsuAfflicted, recolour genjutsuMark.recolor.water) is drawn over it throughout', 'state': 'pacified', 'loopFrom': 4, 'element': 'water', 'mark': 'genjutsuAfflicted', 'dropFrame': 2}},
+       anchored={1: [('wRip5', 'feet', 4, -1, _A(_FADE))],
+                 2: [('wRip9', 'feet', 4, -2, _A(_FADE)), ('wDrops', 'hand', 0, 4, _A(_FADE))],
+                 3: [('wRip12', 'feet', 4, -2, _A(_FADE))],
+                 4: [('eyeW', 'eye', 0, 0), ('wLullS0', 'hand', 0, -6)],
+                 5: [('eyeWF', 'eye', 0, 0), ('wLull1', 'hand', -2, -7), ('wLullS1', 'hand', 0, 5, _A(_FADE))],
+                 6: [('eyeWF', 'eye', 0, 0), ('wLull2', 'hand', -1, -8), ('wLullS2', 'hand', 1, 5), ('wBub1', 'hand', 2, -14)],
+                 7: [('eyeW', 'eye', 0, 0), ('wLull3', 'hand', 0, -9, _A(_FADE)), ('wLullS3', 'hand', 2, 5, _A(_FADE)), ('wBub2', 'hand', 3, -17, _A(_FADE))],
+                 8: [('wBub1', 'head', 10, -2, _A(_FADE))]})),
+ 'pacified': ('Pacified', 0,
+  'Pacified (target state of Pacification, Disarm 2 rounds): the waving lines of the lullaby wash over the fighter; its eyelids droop, its guard sags, its fists open and its arms fall slack at its sides (the testbed drops its weapon at its feet), its head nodding forward; then (looping while the Disarm lasts) it sways gently on its feet, drowsy and calm, eyes half shut, head nodding and lifting, with soft lull lines drifting round its head, bubbles floating up and slow ripples spreading round its feet.', [
+     g(an=band(-55, -125), af=band(-48, -118), bob=(1, 1, 1), lean=(0, -1)),
+     g(an=band(-40, -90, fistKind='palm'), af=band(-35, -85, fistKind='palm'), bob=(1, 1, 1), lean=(0, 0)),
+     g(an=band(-15, -40, fistKind='palm'), af=band(-10, -35, fistKind='palm'), bob=(1, 1, 2), lean=(1, 2)),
+     g(an=AR_HANG_N, af=AR_HANG_F, bob=(2, 2, 2), lean=(1, 4)),
+     g(an=AR_HANG_N, af=AR_HANG_F, bob=(2, 2, 2), lean=(1, 4)),
+     g(an=AR_HANG_N, af=AR_HANG_F, bob=(2, 2, 2), lean=(1, 5), root=(1, 0)),
+     g(an=AR_HANG_N, af=AR_HANG_F, bob=(2, 2, 3), lean=(2, 6)),
+     g(an=AR_HANG_N, af=AR_HANG_F, bob=(2, 2, 2), lean=(1, 4)),
+     g(an=AR_HANG_N, af=AR_HANG_F, bob=(1, 1, 2), lean=(0, 1), root=(-1, 0)),
+     g(an=AR_HANG_N, af=AR_HANG_F, bob=(1, 1, 1), lean=(0, 0)),
+     g(an=AR_HANG_N, af=AR_HANG_F, bob=(1, 1, 2), lean=(0, 1)),
+     g(an=AR_HANG_N, af=AR_HANG_F, bob=(2, 2, 2), lean=(1, 3))],
+  ['squint', 'squint', 'closed', 'closed', 'closed', 'closed', 'closed', 'closed', 'squint', 'squint', 'closed', 'closed'],
+  None,
+  dict(fps=6, rm='E: loop +1 swaying in, -1 back (net 0)', extra={'loop': True, 'loopFrom': 4},
+       anchored={0: [('wLull1', 'head', 8, 10), ('wLullS0', 'head', 6, 16)],
+                 1: [('wLull2', 'head', 2, 8, _A(_FADE)), ('wLullS1', 'head', 0, 16, _A(_FADE))],
+                 2: [('wRip5', 'feet', 0, -1), ('wBub1', 'head', 11, 12)],
+                 3: [('wRip9', 'feet', 0, -2, _A(_FADE)), ('wBub2', 'head', 12, 8), ('wLullS2', 'head', -12, 6, _A(_FADE))],
+                 **{k_: [('wLullS%d' % (k_ % 4), 'head', -12, 6 - (k_ % 2), _A(_FADE)), ('wLullS%d' % ((k_ + 2) % 4), 'head', 12, 14 + (k_ % 2), _A(_FADE)),
+                         ('wBub%d' % (1 + k_ % 2), 'head', 12 if k_ % 2 else -12, 12 - 3 * (k_ % 4)),
+                         ('wRip%d' % (5, 7, 9, 12)[k_ % 4], 'feet', 0, -2, _A(_FADE))] for k_ in range(4, 12)}})),
+})
+
 def spec(state):
     U.CLIPS[state] = CLIPS[state]
     U.APPROVED[state] = APPROVED.get(state, STAT)
