@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Echo Fist (Gemini taijutsu strike, Physical 14: the fighter throws a punch that reverberates through the opponent's body): from the guard the fighter sets the rear fist back by the ear, a faint ring of sound humming round it, then steps in with a straight cross; on contact a white ring of sound bursts off the fist, and then echoes: a second, then a third ring ripples out from the same point, each one wider and fainter, as the punch reverberates on through the body; the fighter draws back into the guard.",
+  "intent": "Echo Fist (Gemini taijutsu strike, Physical 14: the fighter throws a punch that reverberates through the opponent's body; v2, Christopher 2026-11-03: develop the fx): from the guard the fighter sets the rear fist back by the ear, rings of sound humming and tightening round it, then steps in with a straight cross; on contact a white sonic boom bursts off the fist with a sharp crack; then the punch echoes: twice more a ring pulses out from the knuckles, each echo sending a shockwave arc rolling on through the target, wider each time; the fighter holds the fist in as the echoes ring out, then draws back into the guard (the target plays echoReverb: it jolts with each echo as the shockwave bursts out of its back).",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -1450,6 +1450,84 @@
         "footX": 41,
         "wrapRow": 56,
         "foot": "flat"
+      },
+      {
+        "name": "gs-far-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 50,
+        "kneeX": 41,
+        "kneeRow": 54,
+        "ankle": [
+          51,
+          55
+        ],
+        "foot": "pointFwd"
+      },
+      {
+        "name": "gs-wide-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 50,
+        "kneeX": 22,
+        "kneeRow": 54,
+        "ankle": [
+          13,
+          57
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "sw-up-lead",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 43,
+        "kneeX": 39,
+        "kneeRow": 45,
+        "ankle": [
+          45,
+          47
+        ],
+        "foot": "pointFwd"
+      },
+      {
+        "name": "sw-up-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 43,
+        "kneeX": 36,
+        "kneeRow": 46,
+        "ankle": [
+          42,
+          49
+        ],
+        "foot": "pointFwd"
+      },
+      {
+        "name": "sw-hi-lead",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 43,
+        "kneeX": 39,
+        "kneeRow": 41,
+        "ankle": [
+          45,
+          39
+        ],
+        "foot": "pointUR"
+      },
+      {
+        "name": "sw-hi-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 43,
+        "kneeX": 37,
+        "kneeRow": 43,
+        "ankle": [
+          43,
+          42
+        ],
+        "foot": "pointFwd"
       },
       {
         "name": "as-lift",
@@ -2963,5 +3041,9 @@
       ]
     },
     "intent": "eyes squeezed shut with the brow pulled down on the impact frames 0-2 (no mouth: user 2026-10-14), a squint on frame 3, open again from frame 4 (user 2026-10-14)"
+  },
+  "targetState": {
+    "rule": "Echo Fist v2: on the hit the target plays echoReverb once (three jolts, one per echo, shockwave arcs bursting out of its back), then its idle",
+    "state": "echoReverb"
   }
 }
