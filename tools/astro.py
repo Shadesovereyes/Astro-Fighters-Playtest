@@ -3078,6 +3078,167 @@ CLIPS = {
                  8: [('crown1', 'head', 0, -7, {'alpha': {'Y': 110, 'O': 110, 'W': 140, 'R': 100}})]})),
 }
 
+# ---------- Water: Cancer (water colours: white glint W, ice white-blue I, light water a, deep water A, deep edge n) ----------
+NPAL.update({'n': '#1b4f99'})
+WATER_RECOLOR = {'#ffe14d': '#dff6ff', '#ff8a1c': '#7cc8ff', '#d8321a': '#2f7fe0'}   # fire swirl / impact helpers drawn as water
+WATER_TRAIL = {(255, 255, 255): (0x7c, 0xc8, 0xff), (0xe3, 0xe3, 0xe3): (0x2f, 0x7f, 0xe0)}   # motion streak recoloured to a water trail
+def _wOrb(r, seed):   # a ball of water: glint top-left, ice-white heart, light body, deep rim and a darker belly, a few drops spinning off it
+    import random
+    rnd = random.Random(seed); R = r + 3; w = 2 * R + 1; rows = [['.'] * w for _ in range(w)]
+    for y in range(w):
+        for x in range(w):
+            d = math.hypot(x - R, y - R)
+            if d <= r: rows[y][x] = 'n' if d > r - 0.9 and y > R else 'A' if d > r - 0.9 else 'a' if d > r * 0.45 or y > R else 'I'
+    gx, gy = R - max(1, r // 2), R - max(1, r // 2); rows[gy][gx] = 'W'
+    if r > 3: rows[gy][gx + 1] = 'W'
+    for k in range(3):
+        a = rnd.uniform(0, 2 * math.pi); d = r + rnd.randint(1, 2); x, y = round(R + d * math.cos(a)), round(R + d * math.sin(a))
+        if 0 <= x < w and 0 <= y < w: rows[y][x] = 'a'
+    return [''.join(q) for q in rows]
+def _splash(w, h, seed, n=9, spread=(15, 165), dense=False):   # a crown splash: jets of water thrown up and out from the base, each a parabola of drops, white at the crest
+    import random
+    rnd = random.Random(seed); rows = [['.'] * w for _ in range(h)]
+    for k in range(n):
+        a = math.radians(spread[0] + (spread[1] - spread[0]) * (k + rnd.random() * 0.5) / n); v = rnd.uniform(0.7, 1.0)
+        for t in range(40):
+            s = t / 39; x = w / 2 + math.cos(a) * v * (w / 2) * s; y = h - 1 - (math.sin(a) * v * h * 1.6 * s - h * 0.8 * s * s)
+            if t % 3 and s > (0.8 if dense else 0.5): continue
+            xi, yi = round(x), round(y)
+            if 0 <= xi < w and 0 <= yi < h: rows[yi][xi] = 'W' if 0.45 < s < 0.65 else 'I' if s < 0.3 else 'a' if s < 0.8 else 'A'
+            if dense and s < 0.6 and 0 <= xi + 1 < w and 0 <= yi < h and rows[yi][xi + 1] == '.': rows[yi][xi + 1] = 'a' if s < 0.4 else 'A'
+    for x in range(w // 4, 3 * w // 4): rows[h - 1][x] = 'A' if x % 2 else 'a'   # the foot of the splash, a sheet of water
+    return [''.join(q) for q in rows]
+def _jet(L, seed, h=7):   # a jet of water spraying out to the right: a dense root that breaks into drops, deep water underneath, white spray on top
+    import random
+    rnd = random.Random(seed); rows = [['.'] * L for _ in range(h)]; c = h // 2
+    for x in range(L):
+        s = x / L; half = 1 + s * (h // 2 - 1)
+        for y in range(h):
+            dy = y - c
+            if abs(dy) > half: continue
+            if s > 0.45 and rnd.random() < s * 0.8: continue
+            rows[y][x] = 'W' if dy == -round(half) and s > 0.2 else 'I' if dy < 0 else 'a' if dy < half - 0.5 else 'A'
+    return [''.join(q) for q in rows]
+def _drops(w, h, seed, n=10):   # loose droplets
+    import random
+    rnd = random.Random(seed); rows = [['.'] * w for _ in range(h)]
+    for _ in range(n):
+        x, y = rnd.randrange(w), rnd.randrange(h - 1); rows[y][x] = rnd.choice('aaI'); rows[y + 1][x] = 'A'
+    return [''.join(q) for q in rows]
+def _wake(w, h):   # a floor wake rolling behind a runner: low at the back, rising to a white lip at the front (the front is the right end)
+    rows = [['.'] * w for _ in range(h)]
+    for x in range(w):
+        top = h - 1 - round((h - 1) * (x / (w - 1)) ** 1.6)
+        for y in range(top, h): rows[y][x] = 'W' if y == top and x > w * 0.6 else 'I' if y == top else 'a' if y < top + 2 else 'A' if y < h - 1 else 'n'
+    return [''.join(q) for q in rows]
+def _crest(h, curl=1.0):   # a breaking wave rising behind the runner: gently sloped dark back, light face, white foaming lip hooking forward and down at the top (front = right)
+    w = round(h * 0.8) + 2; r = max(1, round(h * 0.22 * curl)); W_ = w + r + 1
+    rows = [['.'] * W_ for _ in range(h)]
+    for y in range(h):
+        s = 1 - y / (h - 1)
+        x1 = round((w - 1) * (0.62 + 0.38 * s ** 1.4))
+        x0 = round((w - 1) * (0.62 * s ** 1.3))
+        for x in range(x0, x1 + 1):
+            e = x1 - x
+            rows[y][x] = 'W' if e == 0 and s > 0.6 else 'I' if e < 2 else 'a' if e < 3 + round(3 * s) else 'A' if x > x0 + 1 else 'n'
+        if s > 0.85: rows[y][x0] = 'W'
+    cx, cy = w - 1, r
+    for t in range(80):
+        th = math.pi / 2 - t / 79 * (math.pi / 2 + math.pi / 2.6)
+        x, y = round(cx + r * math.cos(th)), round(cy - r * math.sin(th))
+        for dd, ch in ((0, 'W'), (1, 'I')):
+            if 0 <= x - dd < W_ and 0 <= y < h and rows[y][x - dd] == '.': rows[y][x - dd] = ch
+    return [''.join(q) for q in rows]
+def _sq(p, sx=1.0, sy=1.0):   # resize a pattern (nearest)
+    h, w = len(p), len(p[0]); H, Wd = max(1, round(h * sy)), max(1, round(w * sx))
+    return [''.join(p[min(h - 1, int(y / sy))][min(w - 1, int(x / sx))] for x in range(Wd)) for y in range(H)]
+_flipx = lambda p: [q[::-1] for q in p]
+NPAT.update({**{'wOrb%d' % r: _wOrb(r, 40 + r) for r in (2, 3, 4, 5)},
+             'wSplash': _splash(21, 14, 3), 'wSplashL': _splash(29, 19, 5, n=12), 'wSplashS': _splash(13, 8, 7, n=6),
+             'wJet': _jet(14, 2), 'wJetL': _jet(20, 4, h=9), 'wJetB': _flipx(_jet(14, 6)), 'wJetBL': _flipx(_jet(20, 8, h=9)),
+             'wDrops': _drops(15, 12, 1), 'wDropsL': _drops(23, 16, 2, n=16),
+             'wWake': _wake(12, 4), 'wWakeL': _wake(18, 6),
+             **{'wCrest%d' % h: _crest(h, curl=min(1, h / 30)) for h in (10, 20, 30, 40, 52)}, 'wSplashXL': _splash(41, 28, 9, n=20, spread=(10, 170), dense=True), 'wSplashLD': _splash(29, 19, 5, n=14, dense=True),
+             'wRing': _ring(5, 'a', 'I'), 'wRing2': _ring(8, 'a', 'I'), 'wRing3': _ring(11, 'A', 'a', gap=1),
+             'wArc1': _arc(4, 2, 'Ia'), 'wArc2': _arc(6, 3, 'Ia'), 'wArc3': _arc(8, 4, 'aA'), 'wArcB2': _flipx(_arc(6, 3, 'Ia')), 'wArcB3': _flipx(_arc(8, 4, 'aA')),
+             'wClaw': ['...aaIW', '.aaA...', 'aA.....', 'aA.....', 'aA.....', '.aaA...', '...aaIW'], 'wClawShut': ['..aaaIW', '.aA..II', 'aA....I', 'aA....I', '.aA..II', '..aaaIW'],   # the crab pincer: an open C of water round the hand, then snapped shut
+             'wPuddle': ['..aaaaaaa..', '.aAAIAAAAa.', 'aAnnAAnnAAa', '.aAAAAAAAa.']})
+_BR = CLIPS['bullRush']; _SP = CLIPS['shockPalm']
+_A = lambda d: {'alpha': d}
+_FADE = {'W': 150, 'I': 140, 'a': 130, 'A': 120, 'n': 110}
+_CR = {'A': 215, 'n': 200, 'a': 235}   # the wave's body a little see-through
+CLIPS.update({
+ 'tidalSlam': ('Tidal Slam', 10,
+  'Tidal Slam (Cancer taijutsu gap closer, Physical 16, Melee (Reach +4m), Gap Closer: the fighter gathers a running start and gains enough momentum to slam into its opponent): from the guard the fighter drops into the low sprinter\'s set and water pools round its feet; it bursts into a head-down sprint, a wake of water rolling off its heels, and with every stride a wave builds behind it, rising taller and curling forward over its back as the run gains momentum; it tucks and slams the shoulder in, and the wave comes crashing down over the impact in a great crown splash and a jet of water bursting forward, drops raining; it settles back into the guard in a spreading puddle. Body from Bull Rush (approved), water colours; travel 40 px.',
+  copy.deepcopy(_BR[3]), list(_BR[4]), None,
+  dict(fps=12, hitbox=[42, 24, 14, 16], damage='medium', rm='E: as Bull Rush, 6 px a stride through the sprint, +3 and +1 into the slam; 40 px in all (travel)',
+       blur={k: 9 for k in range(4, 10)} | {10: 7, 11: 4}, trail=WATER_TRAIL,
+       extra={'travel': {'rule': 'Tidal Slam is a gap closer: the fighter ends the clip 40 px further forward (sum of rootMotion); the game moves the fighter by that distance', 'E': 40}},
+       anchored={1: [('wPuddle', 'feet', 0, -1, _A(_FADE))], 2: [('wPuddle', 'feet', 0, -1), ('wDrops', 'feet', -6, -5, _A(_FADE))], 3: [('wPuddle', 'feet', -1, -1), ('wSplashS', 'feet', -6, -4)],
+                 4: [('wWake', 'feet', -11, -2), ('wSplashS', 'feet', -5, -4)],
+                 5: [('wWake', 'feet', -12, -2), ('wCrest10', 'feet', -10, -5, {'behind': True, 'alpha': _CR})],
+                 6: [('wWakeL', 'feet', -14, -3), ('wCrest20', 'feet', -11, -10, {'behind': True, 'alpha': _CR}), ('wDrops', 'feet', -18, -14, _A(_FADE))],
+                 7: [('wWakeL', 'feet', -14, -3), ('wCrest30', 'feet', -12, -15, {'behind': True, 'alpha': _CR}), ('wSplashS', 'feet', -4, -4)],
+                 8: [('wWakeL', 'feet', -14, -3), ('wCrest40', 'feet', -13, -20, {'behind': True, 'alpha': _CR}), ('wDrops', 'feet', -20, -22, _A(_FADE))],
+                 9: [('wWakeL', 'feet', -13, -3), ('wCrest52', 'feet', -12, -26, {'behind': True, 'alpha': _CR}), ('wSplashS', 'feet', -3, -4)],
+                 10: [('wCrest40', 'feet', -4, -20, {'behind': True, 'alpha': _CR}), ('wSplashXL', 'head', 7, 2), ('wJetL', 'hand', 12, 0), ('wDropsL', 'head', 6, -6)],
+                 11: [('wCrest20', 'feet', 2, -10, {'behind': True, 'alpha': _FADE}), ('wSplashLD', 'head', 9, 4), ('wSplash', 'feet', 16, -7), ('wDropsL', 'head', 12, 2), ('wJet', 'hand', 14, 0, _A(_FADE)), ('wPuddle', 'feet', 8, -1)],
+                 12: [('wDropsL', 'head', 14, 10, _A(_FADE)), ('wPuddle', 'feet', 6, -1), ('wSplash', 'feet', 16, -7, _A(_FADE))],
+                 13: [('wPuddle', 'feet', 2, -1, _A(_FADE))]})),
+ 'viceGrip': ('Vice Grip', 5,
+  'Vice Grip (Cancer taijutsu, Physical 12, Melee, Grapple: using its manoeuvrability the fighter bypasses the opponent\'s guard to secure a grapple): from the guard the fighter ducks and slips in low and sideways like a crab, a slick of water skimming under its feet; out of the crouch both hands shoot in at once, one high and one low, open like a crab\'s pincers, each wrapped in a C of water; the pincers snap shut on the opponent with a splash, both hands clamped, and the fighter holds the grip as the water drips off. On success the testbed puts both fighters into the clinch with the caster holding (target plays hitReact on the clamp).',
+  [g(),
+   g(an=band(-40, -100), af=band(-50, -110), bob=(5, 6, 6), lean=(2, 7), root=(2, 0), ln='gs-wide-rear', lf='gs-crouch-lead'),
+   g(an=band(-60, -75, fistKind='palm'), af=band(-55, -85, fistKind='palm'), bob=(9, 10, 10), lean=(2, 10), root=(3, 0), ln='gs-wide-rear', lf='gs-crouch-lead'),
+   g(an=band(-108, -125, fistKind='palm'), af=band(-68, -58, fistKind='palm'), bob=(4, 5, 5), lean=(2, 7), root=(3, 0), ln='sp-drive-rear', lf='sp-drive-lead'),
+   g(an=band(-108, -125, fistKind='palm'), af=band(-68, -58, fistKind='palm'), bob=(4, 5, 5), lean=(2, 7), ln='sp-drive-rear', lf='sp-drive-lead'),
+   g(an=band(-96, -100, fistKind='palm'), af=band(-82, -76, fistKind='palm'), bob=(3, 3, 4), lean=(1, 5), root=(1, 0), ln='sp-drive-rear', lf='sp-drive-lead'),
+   g(an=band(-96, -100, fistKind='palm'), af=band(-82, -76, fistKind='palm'), bob=(3, 3, 4), lean=(1, 5), ln='sp-drive-rear', lf='sp-drive-lead'),
+   g(an=band(-94, -100, fistKind='palm'), af=band(-82, -78, fistKind='palm'), bob=(2, 3, 3), lean=(1, 4), ln='sp-drive-rear', lf='sp-drive-lead')],
+  [None, 'squint', 'strain', 'strain', 'strain', 'strain', 'squint', 'squint'],
+  None,
+  dict(fps=10, hitbox=[42, 18, 16, 22], damage='light', rm='E: +2 +3 +3 slipping in low, +1 into the clamp (9 px; the testbed then snaps both fighters to the clinch spacing)',
+       extra={'grapple': {'rule': 'Vice Grip is a Grapple: on success both fighters enter the clinch with the caster holding (testbed clinch rules apply: posOverride, noGrappled, shield bearers immune until Disarmed); the clip ends on the clamp and hands over to the clinch hold idle', 'onSuccess': 'clinch', 'holder': 'caster', 'targetState': 'hitReact'}},
+       anchored={1: [('wWake', 'feet', -8, -2, _A(_FADE))], 2: [('wWakeL', 'feet', -10, -3), ('wDrops', 'feet', -12, -6, _A(_FADE))],
+                 3: [('wClaw', 'hand', 1, 0), ('wClaw', 'farhand', 1, 0), ('wJetB', 'hand', -6, 0, _A(_FADE)), ('wWake', 'feet', -10, -2)],
+                 4: [('wClaw', 'hand', 2, 0), ('wClaw', 'farhand', 2, 0), ('wDrops', 'hand', -3, 4, _A(_FADE))],
+                 5: [('wClawShut', 'hand', 1, 0), ('wClawShut', 'farhand', 1, 0), ('wSplash', 'hand', 3, 2), ('wDrops', 'farhand', 2, 3)],
+                 6: [('wClawShut', 'hand', 1, 0, _A(_FADE)), ('wClawShut', 'farhand', 1, 0, _A(_FADE)), ('wDrops', 'hand', 0, 8)],
+                 7: [('wDrops', 'feet', 4, -6, _A(_FADE)), ('wPuddle', 'feet', 4, -1, _A(_FADE))]})),
+ 'hydroCannonPalm': ('Hydro Cannon Palm', 4,
+  'Hydro Cannon Palm (Cancer taijutsu strike, Physical 14, Melee, 2 slots: the fighter slams its palm into the opponent, creating a hydrostatic pressure wave that travels through its body): from the guard the fighter draws the rear hand back low beside the hip, palm open, and a ball of water gathers and swells in it over three frames, water swirling up round the arm; then it steps in and slams the open palm into the chest: the ball bursts on contact in a white splash, a pressure ring blasts out round the palm and pressure arcs roll forward through the target, a jet of water spraying on out the far side; it settles back into the guard (the target plays hydroWaved). Body from Shock Palm (approved), water colours.',
+  copy.deepcopy(_SP[3]), list(_SP[4]), None,
+  dict(fps=10, hitbox=[46, 20, 14, 10], damage='heavy', rm='E: +2 stepping into the palm, -2 settling back',
+       swirl={1: (0, 0.5), 2: (120, 0.8), 3: (240, 1.0)}, impact={4: 0, 5: 1, 6: 2, 7: 3}, recolor=WATER_RECOLOR, keepFx=True,
+       extra={'targetState': {'rule': 'Hydro Cannon Palm: on the hit the target plays hydroWaved once (the pressure wave ripples through its body and bursts out of its back), then its idle', 'state': 'hydroWaved'}},
+       anchored={1: [('wOrb2', 'hand', 0, 0)], 2: [('wOrb3', 'hand', 0, 0), ('wDrops', 'hand', 0, -4, _A(_FADE))], 3: [('wOrb4', 'hand', 0, 0), ('wSplashS', 'hand', 0, -5, _A(_FADE))],
+                 4: [('wSplash', 'hand', 4, -3), ('wRing', 'hand', 2, 0), ('wArc1', 'hand', 7, 0)],
+                 5: [('wRing2', 'hand', 3, 0), ('wArc2', 'hand', 10, 0), ('wDrops', 'hand', 4, -6)],
+                 6: [('wRing3', 'hand', 4, 0, _A(_FADE)), ('wArc3', 'hand', 14, 0), ('wJetL', 'hand', 20, 0)],
+                 7: [('wArc3', 'hand', 18, 0, _A(_FADE)), ('wDropsL', 'hand', 10, 4, _A(_FADE))]})),
+ 'hydroWaved': ('Hydro Waved', 0,
+  'Hydro Waved (target state of Hydro Cannon Palm): the palm lands on its chest and the water bursts there; the fighter jolts back, then the hydrostatic wave rolls through it: ripples of water cross its body from the chest to the back, and burst out of its back in a jet of spray and drops; it doubles over, arms clutched to the belly, water dripping, staggers a step and recovers its guard.',
+  [g(an=band(-55, -125), af=band(-45, -120), bob=(1, 1, 1), lean=(-2, -5), root=(-1, 0)),
+   g(an=band(-55, -125), af=band(-45, -120), bob=(1, 1, 1), lean=(-2, -4)),
+   g(an=band(-50, -120), af=band(-45, -115), bob=(1, 1, 2), lean=(-1, -3)),
+   g(an=band(-65, -140), af=band(-55, -135), bob=(1, 1, 1), lean=(-3, -8), root=(-1, 0)),
+   g(an=band(-10, -120), af=band(-5, -115), bob=(5, 5, 5), lean=(3, 13), **LOW),
+   g(an=band(-10, -120), af=band(-5, -115), bob=(5, 5, 5), lean=(3, 12), **LOW),
+   g(an=band(-40, -125), af=band(-35, -120), bob=(2, 2, 2), lean=(1, 4), root=(1, 0)),
+   g(an=band(-45, -115), af=band(-40, -110), bob=(1, 1, 1), lean=(0, 1), root=(1, 0)),
+   g()],
+  ['pain', 'pain', 'pain', 'pain', 'strain', 'strain', 'squint', None, None],
+  None,
+  dict(fps=10, rm='E: -1 jolted back, -1 as the wave bursts out of the back, +1 +1 recovering (net 0)',
+       anchored={0: [('wSplash', 'head', 6, 12), ('wRing', 'head', 5, 14)],
+                 1: [('wArc1', 'head', 3, 14, {'onFig': True}), ('wDrops', 'head', 7, 10, _A(_FADE))],
+                 2: [('wArcB2', 'head', -1, 14, {'onFig': True}), ('wArc1', 'head', 3, 14, {'onFig': True, 'alpha': _FADE})],
+                 3: [('wJetBL', 'head', -16, 14), ('wArcB3', 'head', -9, 14), ('wDropsL', 'head', -14, 8, _A(_FADE))],
+                 4: [('wJetB', 'head', -18, 16, _A(_FADE)), ('wDrops', 'head', -16, 12)],
+                 5: [('wDrops', 'feet', 2, -8, _A(_FADE)), ('wPuddle', 'feet', 0, -1)],
+                 6: [('wPuddle', 'feet', -1, -1, _A(_FADE))]})),
+})
+
 def spec(state):
     U.CLIPS[state] = CLIPS[state]
     U.APPROVED[state] = APPROVED.get(state, STAT)
@@ -3640,7 +3801,7 @@ def anchored(state, frames):
     from PIL import Image
     d = D + state + '/'; f = d + 'fx.png'; dirs = load(D + state + '.json')['directions']
     body = Image.open(d + 'body.png').convert('RGBA'); fx = Image.open(f).convert('RGBA') if os.path.exists(f) else Image.new('RGBA', body.size)
-    lays = [Image.open(d + n).convert('RGBA').load() for n in ('body.png', 'arms.png', 'far-arm.png', 'male-gi.png', 'fade-hair.png') if os.path.exists(d + n)]
+    lays = [Image.open(d + n).convert('RGBA').load() for n in FIG_LAYERS if os.path.exists(d + n)]   # 'behind'/'onFig' test the widest outline of any look (ANIMATION_RULES)
     px = fx.load(); bp = lays[0]; ap = Image.open(d + 'arms.png').convert('RGBA').load()
     fp = Image.open(d + 'far-arm.png').convert('RGBA').load() if os.path.exists(d + 'far-arm.png') else None
     hexc = lambda c, a=255: tuple(int(c[i:i + 2], 16) for i in (1, 3, 5)) + (a,)
