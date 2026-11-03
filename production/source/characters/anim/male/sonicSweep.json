@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "sonicSweep",
-  "status": "CANDIDATE 2026-10-27 (E/W; W mirrors E; S/N to author after approval)",
+  "status": "E/W approved by user 2026-11-03 (v2 step-in drop, long rear-leg load, sweep cracks out at ankle height, floor swoosh, vapour cone, follow-through, 06ada59; target plays sonicSwept then prone, getUp; W mirrors E); S/N to author",
   "frames": 12,
   "fps": 14,
   "sourceDirection": "E",
