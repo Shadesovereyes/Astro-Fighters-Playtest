@@ -696,6 +696,51 @@ NPAT.update({'aRing3': _ring(3, 'f', 'W', 1), 'aRing5': _ring(5, 'F', 'f'), 'aRi
              **{'curlS%d' % k_: _curl(9, 30 + 70 * k_, 140 + 70 * k_, k_) for k_ in range(6)},
              'feather': ['....qWq', '...qfWq', '..qffq.', '.qfFq..', 'qFqq...', 'q......'], 'feather2': ['qWq....', 'qWfq...', '.qffq..', '..qFfq.', '...qqFq', '......q'], 'feather3': ['.qWq', '.qfq', 'qfFq', 'qFq.', 'q...'],
              'puff': ['.f.f.', 'fWfFf', '.FfF.', '..q..'], 'eyeW': ['.F.', 'FWF', '.F.'], 'eyeWF': ['..F..', '.fWf.', 'FWWWF', '.fWf.', '..F..']})
+NPAL.update({'k': '#1b1f27', 'o': '#3a4250'})   # Libra Singularity Sphere: the vacuum's near-black heart and its deep slate shell
+def _crescent(r, t):   # Gale Slicer: a ')' blade of compressed wind, r tall-radius, t px thick at the middle tapering to points: white edge, pale air body, silver back, slate rim, two wind streaks trailing
+    H = 2 * r + 1; W_ = t + 9; rows = [['.'] * W_ for _ in range(H)]
+    for i, dy in enumerate(range(-r, r + 1)):
+        u = 1 - (dy / r) ** 2; x1 = 7 + round(t * 0.6 * u + 1); th = max(1, round(t * u))
+        for q in range(th):
+            x = x1 - q
+            if 0 <= x < W_: rows[i][x] = 'W' if q == 0 else 'f' if q < th - 1 else 'F'
+        if 0 <= x1 + 1 < W_ and u > 0.2: rows[i][x1 + 1] = 'q' if abs(dy) > r / 3 else 'F'
+        if dy in (-2, 2): 
+            for x in range(0, x1 - th - 1): rows[i][x] = 'F' if x % 3 else '.'
+    return [''.join(q) for q in rows]
+def _boom(r, seed):   # Pressure Blast: a sonic-boom ring: a white ring broken by silver, slate dashes, and short shock spikes pushed out from it
+    import random
+    rnd = random.Random(seed); w = 2 * r + 7; c = r + 3; rows = [['.'] * w for _ in range(w)]
+    for k in range(int(12 * r)):
+        a = 2 * math.pi * k / (12 * r); x, y = round(c + r * math.cos(a)), round(c + r * 0.8 * math.sin(a))
+        rows[y][x] = 'W' if k % 5 else 'F'
+        x2, y2 = round(c + (r + 1) * math.cos(a)), round(c + (r + 1) * 0.8 * math.sin(a))
+        if k % 3 == 0: rows[y2][x2] = 'f'
+    for k in range(8):
+        a = 2 * math.pi * (k + rnd.random() * 0.5) / 8
+        for d in (r + 2, r + 3):
+            x, y = round(c + d * math.cos(a)), round(c + d * 0.8 * math.sin(a))
+            if 0 <= x < w and 0 <= y < w: rows[y][x] = 'q' if d == r + 3 else 'F'
+    return [''.join(q) for q in rows]
+def _vac(r, phase, front=True):   # Singularity Sphere: a vacuum sphere; front=False: the near-black disc with a slate shell (drawn behind the fighter); front=True: its white event rim and four spiral arms of air being sucked in (rotating with phase)
+    R = r + 7; w = 2 * R + 1; rows = [['.'] * w for _ in range(w)]
+    for y in range(w):
+        for x in range(w):
+            d = math.hypot(x - R, (y - R) / 0.9)
+            if not front and d <= r: rows[y][x] = 'k' if d < r - 2 else 'o'
+            if front and r - 0.6 <= d <= r + 0.4 and (x + y + phase) % 3: rows[y][x] = 'W' if (x + phase) % 2 else 'f'
+    if front:
+        for arm in range(4):
+            for i in range(16):
+                rr = R - i * (R - r) / 16; a = arm * math.pi / 2 + phase * 0.45 + i * 0.12
+                x, y = round(R + rr * math.cos(a)), round(R + rr * 0.9 * math.sin(a))
+                if 0 <= x < w and 0 <= y < w and i % 4 != 3: rows[y][x] = 'q' if i < 5 else 'F' if i < 11 else 'f'
+    return [''.join(q) for q in rows]
+NPAT.update({'galeBlade': _crescent(7, 4), 'galeBladeS': _crescent(5, 3), 'galeCut': ['.......W', '.....Wf.', '...Wff..', '.Wff....', 'Wq......'],
+             'compress': ['.f.', 'fWf', '.f.'], 'compress2': ['..F..', '.fWf.', 'FWWWF', '.fWf.', '..F..'],
+             'boom4': _boom(4, 1), 'boom8': _boom(8, 2), 'boom12': _boom(12, 3), 'boom15': _boom(15, 4),
+             **{'vacF%d_%d' % (r_, k_): _vac(r_, k_) for r_ in (3, 6, 10, 13) for k_ in range(4)}, **{'vacB%d' % r_: _vac(r_, 0, False) for r_ in (3, 6, 10, 13)},
+             'vacSeed': ['.o.', 'okο'.replace('ο', 'o'), '.o.']})
 NPAT.update({**{'dial%d_%d' % (r_, h_): _dial(r_, h_) for r_ in (4, 6) for h_ in range(12)}, 'dialDim': _dial(6, 1, lit=False),
              'rw1': _rewindWave(4, 2, 1), 'rw2': _rewindWave(7, 3, 2, 'Wll'), 'rw3': _rewindWave(10, 4, 3, 'lL'), 'rw3d': _rewindWave(12, 5, 4, 'LD', gap=3),
              **{'buf%d' % k_: _buffer(k_) for k_ in range(8)}, **{'loopR%d' % k_: _loopRing(11, 3, k_) for k_ in range(8)}})
@@ -2443,6 +2488,116 @@ CLIPS = {
                  5: [('feather', 'head', -9, 12), ('feather3', 'head', 12, 4), ('feather2', 'feet', -10, -8)],
                  6: [('feather2', 'head', -9, 18), ('feather', 'head', 12, 12), ('feather3', 'feet', -10, -3)],
                  7: [('feather3', 'head', 12, 20, {'alpha': {'f': 150, 'F': 140, 'q': 120, 'W': 160}}), ('feather', 'feet', -9, -2, {'alpha': {'f': 140, 'F': 130, 'q': 110, 'W': 150}})]})),
+ 'galeSlicer': ('Gale Slicer', 4,
+  'Gale Slicer (Libra ninjutsu, Elemental 16, Ranged, Bleed 2 rounds AGI save DC 12: the caster conjures a blade of compressed wind and hurls it at the opponent): from the guard the fighter makes the seal at the chin; air begins to curl round it; it draws the near knife hand up and back behind its head, the wind gathering and spinning round the hand into a crescent of pressed air; then it whips the knife hand down and across in a chop and the crescent blade (white edge, pale air body, silver back, slate rim) is flung off it and flies on toward the target, the hand finishing low; it settles back into the guard (spec extra.projectile has the testbed fly the blade on to the target and cut on hit).', [
+     g(),
+     g(an=band(-120, -175, fistKind='palm'), af=band(-80, -170), bob=(1, 1, 1), lean=(0, 0)),
+     g(an=band(115, 172, fistKind='palm'), af=band(-75, -100), bob=(1, 1, 1), lean=(-1, -2), ln='sp-load-rear', lf='sp-load-lead'),
+     g(an=band(115, 172, fistKind='palm'), af=band(-75, -100), bob=(1, 1, 1), lean=(-1, -3), ln='sp-load-rear', lf='sp-load-lead'),
+     g(an=band(-100, -100, fistKind='palm'), af=band(-30, -80), bob=(1, 1, 2), lean=(1, 3), root=(2, 0), ln='sp-drive-rear', lf='sp-drive-lead'),
+     g(an=band(-60, -50, fistKind='palm'), af=band(20, -60), bob=(2, 2, 3), lean=(2, 6), ln='sp-drive-rear', lf='sp-drive-lead'),
+     g(an=band(-60, -50, fistKind='palm'), af=band(20, -60), bob=(2, 2, 3), lean=(2, 5), ln='sp-drive-rear', lf='sp-drive-lead'),
+     g(an=band(-40, -90), af=band(-30, -100), bob=(1, 1, 2), lean=(1, 2), root=(-2, 0)),
+     g()],
+  [None, 'squint', 'squint', 'strain', 'roar', 'strain', 'squint', None, None],
+  [0, 1, 1, 2, 2, 2, 1, 0, 0],
+  dict(fps=10, auraColors=('#e9eef4', '#a3aebb'), rm='E: +2 stepping into the throw, -2 settling back',
+       extra={'projectile': {'rule': 'Gale Slicer: from frame 4 the testbed flies NPAT galeBlade from the near hand to the target at chest height (fast, 2-3 frames), then draws galeCut on it', 'from': 'hand', 'frame': 4, 'pattern': 'galeBlade', 'hit': 'galeCut'}},
+       anchored={1: [('curlS0', 'head', 0, 10, {'alpha': {'F': 150, 'f': 160, 'W': 170}})],
+                 2: [('curlS2', 'hand', 0, 0), ('aStreak2', 'head', -10, 14)],
+                 3: [('galeBladeS', 'hand', 0, 0), ('curlS4', 'hand', 0, 0), ('puff', 'hand', -3, 4)],
+                 4: [('galeBlade', 'hand', 7, 0), ('aStreak', 'hand', -4, -3)],
+                 5: [('aStreak2', 'hand', 3, -2, {'alpha': {'q': 160, 'F': 160, 'f': 160}})]})),
+ 'pressureBlast': ('Pressure Blast', 4,
+  'Pressure Blast (Libra ninjutsu, Elemental 8, AoE in the Zone of Awareness: the caster focuses its chakra on the air in an area and makes it expand so fast it sets off a sonic boom): from the guard the fighter makes the seal at the chin, then pushes the near open hand out at the spot with the fingers curled in, gathering, while air streams in toward the palm; then it snaps the fingers wide open and the trapped air at the spot bursts (the targets play pressureBlasted); the hand drops back into the guard.', [
+     g(),
+     g(an=band(-120, -175, fistKind='palm'), af=band(-80, -170), bob=(1, 1, 1), lean=(0, 0)),
+     g(an=band(-85, -100), af=band(-60, -120), bob=(1, 1, 1), lean=(0, 1)),
+     g(an=band(-88, -95), af=band(-60, -120), bob=(1, 1, 2), lean=(0, 2)),
+     g(an=band(-92, -92, fistKind='palm'), af=band(-60, -120), bob=(1, 1, 1), lean=(1, 3), root=(1, 0)),
+     g(an=band(-92, -92, fistKind='palm'), af=band(-60, -120), bob=(1, 1, 1), lean=(1, 3)),
+     g(an=band(-60, -120), bob=(1, 1, 2), lean=(0, 2), root=(-1, 0)),
+     g()],
+  [None, 'squint', 'squint', 'strain', 'roar', 'squint', None, None],
+  [0, 1, 1, 2, 2, 1, 0, 0],
+  dict(fps=10, auraColors=('#e9eef4', '#a3aebb'), rm='E: +1 snapping the hand open, -1 back',
+       extra={'targetState': {'rule': 'Pressure Blast: from the active frame every fighter in the area plays pressureBlasted once', 'state': 'pressureBlasted'}},
+       anchored={1: [('curlS1', 'head', 0, 10, {'alpha': {'F': 150, 'f': 160, 'W': 170}})],
+                 2: [('aStreak2', 'hand', 5, -1), ('compress', 'hand', 2, 0)],
+                 3: [('aStreak2', 'hand', 6, 2), ('aStreak2', 'hand', 7, -3), ('compress2', 'hand', 2, 0)],
+                 4: [('boom4', 'hand', 3, 0), ('puff', 'hand', 1, 0)],
+                 5: [('aRing5', 'hand', 4, 0, {'alpha': {'F': 140, 'f': 140}})]})),
+ 'pressureBlasted': ('Pressure Blasted', 0,
+  'Pressure Blasted (target state of Pressure Blast, plays once): the air round the fighter is crushed to a white-hot point at its chest, then bursts in a sonic boom: rings of white and silver blast out from it, each wider, with shock spikes, and the fighter is slammed back a step, head snapping back, arms flung, clothes and hair blown; it rocks back in and recovers into its guard.', [
+     g(),
+     g(an=band(-50, -140), af=band(-40, -130), bob=(1, 1, 1), lean=(-2, -6), root=(-2, 0)),
+     g(an=band(-25, -95), af=band(-15, -90), bob=(2, 2, 2), lean=(-2, -6), root=(-1, 0)),
+     g(an=band(-30, -100), af=band(-20, -95), bob=(2, 2, 2), lean=(-1, -4)),
+     g(an=band(-45, -115), af=band(-35, -110), bob=(1, 1, 2), lean=(0, -1), root=(2, 0)),
+     g(an=band(-55, -120), af=band(-45, -120), bob=(1, 1, 2), lean=(0, 1), root=(1, 0)),
+     g()],
+  ['squint', 'pain', 'pain', 'pain', 'squint', 'squint', None],
+  None,
+  dict(fps=10, rm='E: -2 -1 slammed back, +2 +1 recovering (net 0)',
+       anchored={0: [('compress2', 'head', 1, 16)],
+                 1: [('boom4', 'head', 2, 16), ('compress', 'head', 2, 16)],
+                 2: [('boom8', 'head', 3, 16), ('boom4', 'head', 3, 16, {'alpha': {'W': 160, 'F': 140, 'f': 140, 'q': 140}})],
+                 3: [('boom12', 'head', 3, 16), ('aStreak2', 'head', -12, 2)],
+                 4: [('boom15', 'head', 3, 16, {'alpha': {'W': 150, 'F': 130, 'f': 130, 'q': 120}})]})),
+ 'singularitySphere': ('Singularity Sphere', 6,
+  'Singularity Sphere (Libra ninjutsu, Elemental 12, Wide AoE, Root 1 round STR save DC 12: the caster focuses its chakra on the air in an area and makes it collapse in on itself into a crushing vacuum): from the guard the fighter makes the seal at the chin, then holds both open palms out facing each other a hand apart; a speck of black vacuum forms between them and air streams in to it; it presses the palms slowly together, straining, the speck darkening, the air spiralling in; then it crushes the hands shut into a fist and drives it forward at the area (the targets play singularityCaught as the sphere collapses on them); it holds, trembling, and drops back into the guard.', [
+     g(),
+     g(an=band(-120, -175, fistKind='palm'), af=band(-80, -170), bob=(1, 1, 1), lean=(0, 0)),
+     g(an=band(-75, -110, fistKind='palm'), af=band(-95, -70, fistKind='palm'), bob=(1, 1, 2), lean=(0, 1)),
+     g(an=band(-78, -105, fistKind='palm'), af=band(-92, -78, fistKind='palm'), bob=(2, 2, 2), lean=(0, 1), **LOW),
+     g(an=band(-80, -100, fistKind='palm'), af=band(-90, -84, fistKind='palm'), bob=(2, 2, 3), lean=(0, 2), **LOW),
+     g(an=band(-82, -96, fistKind='palm'), af=band(-88, -88, fistKind='palm'), bob=(2, 2, 3), lean=(0, 2), **LOW),
+     g(an=band(-92, -92), af=band(-60, -120), bob=(2, 2, 2), lean=(1, 4), root=(1, 0), **LOW),
+     g(an=band(-92, -92), af=band(-60, -120), bob=(2, 2, 2), lean=(1, 4), **LOW),
+     g(an=band(-92, -92), af=band(-60, -120), bob=(2, 2, 2), lean=(1, 4), **LOW),
+     g(an=band(-60, -120), bob=(1, 1, 2), lean=(0, 2), root=(-1, 0)),
+     g()],
+  [None, 'squint', 'squint', 'strain', 'strain', 'strain', 'roar', 'strain', 'strain', None, None],
+  [0, 1, 1, 2, 2, 2, 2, 2, 1, 0, 0],
+  dict(fps=10, auraColors=('#a3aebb', '#3a4250'), rm='E: +1 driving the fist out, -1 back',
+       extra={'targetState': {'rule': 'Singularity Sphere: from the active frame every fighter in the area plays singularityCaught: frames 0-3 once (the vacuum swells and swallows it), then frames 4-9 on loop while the Root lasts, then singularityRelease once', 'state': 'singularityCaught', 'loopFrom': 4, 'release': 'singularityRelease'}},
+       anchored={2: [('vacSeed', 'hand', -3, 2), ('aStreak2', 'hand', 2, -5)],
+                 3: [('vacB3', 'hand', -2, 2), ('vacF3_0', 'hand', -2, 2)],
+                 4: [('vacB3', 'hand', -2, 1), ('vacF3_1', 'hand', -2, 1)],
+                 5: [('vacB3', 'hand', -1, 1), ('vacF3_2', 'hand', -1, 1)],
+                 6: [('vacSeed', 'hand', 3, 0), ('aRing5', 'hand', 3, 0, {'alpha': {'F': 150, 'f': 150}})],
+                 7: [('aStreak2', 'hand', -6, -3), ('aStreak2', 'hand', -6, 3)]})),
+ 'singularityCaught': ('Singularity Caught', 0,
+  'Singularity Caught (target state of Singularity Sphere, Root 1 round): a speck of black vacuum opens at the fighter\'s chest and swells into a sphere round it (near-black heart, slate shell behind the fighter, a white event rim and four arms of air spiralling in over it); the fighter, seen through the dark of it, is dragged in on itself, hunched, arms clamped to its body, knees buckling, feet locked; then (looping while the Root lasts) it strains against the crush, trembling, the spiral arms turning, the rim flickering.', [
+     g(an=band(-50, -130), af=band(-40, -125), bob=(1, 1, 1), lean=(0, 1)),
+     g(an=band(-30, -110), af=band(-25, -110), bob=(2, 2, 2), lean=(1, 3), **LOW),
+     g(an=band(-15, -120), af=band(-10, -120), bob=(3, 3, 3), lean=(1, 4), **LOW),
+     g(an=band(-10, -125), af=band(-5, -125), bob=(3, 3, 4), lean=(1, 5), **LOW),
+     g(an=band(-10, -125), af=band(-5, -125), bob=(3, 3, 4), lean=(1, 5), root=(1, 0), **LOW),
+     g(an=band(-12, -122), af=band(-6, -124), bob=(3, 3, 4), lean=(1, 4), root=(-1, 0), **LOW),
+     g(an=band(-10, -125), af=band(-5, -125), bob=(3, 3, 4), lean=(1, 5), **LOW),
+     g(an=band(-10, -125), af=band(-5, -125), bob=(3, 3, 4), lean=(1, 5), root=(1, 0), **LOW),
+     g(an=band(-12, -122), af=band(-6, -124), bob=(3, 3, 4), lean=(1, 4), root=(-1, 0), **LOW),
+     g(an=band(-10, -125), af=band(-5, -125), bob=(3, 3, 4), lean=(1, 5), **LOW)],
+  ['squint', 'pain', 'pain', 'pain', 'pain', 'closed', 'pain', 'pain', 'closed', 'pain'],
+  None,
+  dict(fps=8, rm='E: trembling 1 px in the loop (net 0)', extra={'loop': True, 'loopFrom': 4},
+       anchored={0: [('vacB3', 'head', -4, 18, {'behind': True}), ('vacF3_0', 'head', -4, 18)],
+                 1: [('vacB10', 'head', -4, 20, {'behind': True}), ('vacB10', 'head', -4, 20, {'alpha': {'k': 70, 'o': 100}, 'onFig': True}), ('vacF10_1', 'head', -4, 20)],
+                 2: [('vacB13', 'head', -4, 21, {'behind': True}), ('vacB13', 'head', -4, 21, {'alpha': {'k': 80, 'o': 110}, 'onFig': True}), ('vacF13_2', 'head', -4, 21)],
+                 **{k_: [('vacB13', 'head', -4, 22, {'behind': True}), ('vacB13', 'head', -4, 22, {'alpha': {'k': 80 + 10 * (k_ % 2), 'o': 110}, 'onFig': True}), ('vacF13_%d' % (k_ % 4), 'head', 1, 22)] for k_ in range(3, 10)}})),
+ 'singularityRelease': ('Singularity Release', 0,
+  'Singularity Release (target state, plays once when the Root of Singularity Sphere ends): the vacuum sphere shrinks back to a speck and pops in a puff of air, the fighter stumbles up out of its crouch gasping and back into the guard.', [
+     g(an=band(-10, -125), af=band(-5, -125), bob=(3, 3, 4), lean=(1, 5), **LOW),
+     g(an=band(-30, -110), af=band(-25, -110), bob=(2, 2, 3), lean=(1, 3), **LOW),
+     g(an=band(-45, -115), af=band(-35, -115), bob=(1, 1, 2), lean=(0, 0)),
+     g(an=band(-50, -120), af=band(-40, -120), bob=(1, 1, 2), lean=(0, 1)),
+     g()],
+  ['pain', 'squint', 'squint', 'squint', None],
+  None,
+  dict(fps=8, anchored={0: [('vacB6', 'head', -4, 20, {'behind': True}), ('vacF6_0', 'head', -4, 20)],
+                        1: [('vacSeed', 'head', 1, 18), ('aRing5', 'head', 1, 18)],
+                        2: [('puff', 'head', 2, 16), ('aRing7', 'head', 1, 18, {'alpha': {'q': 140, 'F': 140}})]})),
  'flowDodge': ('Flow Dodge', 3,
   'Flow Dodge (Sagittarius taijutsu stance buff: the fighter enters a dance-like trance and begins to swing and sway to its own rhythm): from the guard the fighter shakes its arms loose and lets the guard drop low and easy, eyes half closed, catching a beat; then it sways to its own rhythm: rocking back and forward on its feet and dipping on the knees, shoulders rolling, the loose hands swinging opposite to the hips, a flickering fire aura breathing round it on the beat with a few black and purple wisps rising off the shoulders; on the last beat it snaps its eyes open and settles into a loose, low guard (the testbed keeps the stance).', [
      g(),
@@ -3079,6 +3234,7 @@ def anchored(state, frames):
                         X, Y = x0 + xx, y0 + yy
                         if not (0 <= X < 64 and 0 <= Y < 64): continue
                         if opts.get('behind') and any(L[k * 64 + X, r * 64 + Y][3] for L in lays): continue
+                        if opts.get('onFig') and not any(L[k * 64 + X, r * 64 + Y][3] for L in lays): continue   # Singularity: a veil drawn only over the fighter
                         px[k * 64 + X, r * 64 + Y] = hexc(NPAL[ch], opts.get('alpha', {}).get(ch, 255))
     fx.save(f); print(state, 'anchored', list(frames))
 
