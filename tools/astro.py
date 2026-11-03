@@ -305,6 +305,8 @@ def _aw(k, hx):   # Burdened Walk: one leg's pose at walk frame k (0 heel strike
             kleg(None, hip, (hx - 3, 51), (hx - 7, 57), 'toe30k'), kleg(None, hip, (hx, 50), (hx - 2, 56), 'toe30k'), kleg(None, hip, (hx + 4, 49), (hx + 3, 55), 'toe30k'), kleg(None, hip, (hx + 6, 50), (hx + 6, 56), 'toe30k')][k]
 for k_ in range(8):
     U.POSES += [{**_aw(k_, 31), 'name': 'aw-%d-near' % k_}, {**_aw(k_, 33), 'name': 'aw-%d-far' % k_}]
+U.POSES += [kleg('gs-back-rear', (31, 50), (24, 55), (16, 57), 'toe30k'), kleg('gs-mid-rear', (31, 50), (34, 54), (37, 56), 'pointFwd'),   # Gemini Sonic Sweep: the rear leg stretched behind along the floor, swinging under,
+            kleg('gs-front-rear', (31, 50), (40, 55), (49, 57), 'pointFwd'), leg('gs-crouch-lead', (33, 50), (40, 49), 41)]                  # then sweeping out flat in front; crouched on the lead foot
 LC_RUN = band(-15, -40, fistKind='palm')   # Lightning Cutter v3: the bladed knife hand carried low by the hip through the sprint
 LC_RISE, LC_CUT = band(-25, -70, fistKind='palm'), band(-55, -125, fistKind='palm')   # v3: the uppercut rising, then driven up into the body
 AR_SWAY_N, AR_SWAY_F = band(12, -4), band(-4, -8)   # Burdened Walk: the limp arms swing a little with the stride
@@ -780,6 +782,8 @@ NPAT.update({**{'scale%+d' % t_: _scale(t_) for t_ in (-2, -1, 0, 1, 2)},
              'iw1': _arcW(4, 2), 'iw2': _arcW(7, 3), 'iw3': _arcW(10, 4, 'fF'), 'iw3d': _arcW(12, 5, 'Fq', gap=3),
              **{'spiral%d_%d' % (r_, k_): _spiral(r_, k_) for r_ in (3, 5, 7) for k_ in range(6)},
              **{'motesW%d' % k_: _motesW(k_) for k_ in range(6)}})
+NPAT.update({'vcone': _arcW(18, 5, 'Wf'), 'vcone2': _arcW(16, 4, 'fF', gap=4), 'floorStreak': ['......fffWW', 'qqFFFff....'], 'floorStreakL': ['WWfff......', '....ffFFFqq'],
+             'boomFlat': [r_ for r_ in _boom(9, 5)[5:-5]]})   # Gemini Mach Dash vapour cone, Sonic Sweep floor boom
 NPAT.update({**{'dial%d_%d' % (r_, h_): _dial(r_, h_) for r_ in (4, 6) for h_ in range(12)}, 'dialDim': _dial(6, 1, lit=False),
              'rw1': _rewindWave(4, 2, 1), 'rw2': _rewindWave(7, 3, 2, 'Wll'), 'rw3': _rewindWave(10, 4, 3, 'lL'), 'rw3d': _rewindWave(12, 5, 4, 'LD', gap=3),
              **{'buf%d' % k_: _buffer(k_) for k_ in range(8)}, **{'loopR%d' % k_: _loopRing(11, 3, k_) for k_ in range(8)}})
@@ -2723,6 +2727,67 @@ CLIPS = {
   dict(fps=8, rm='E: reeling +1, -1, -1, +1 in the loop (net 0)', extra={'loop': True, 'loopFrom': 3},
        anchored={0: [('spiral3_0', 'head', 0, -9), ('iw2', 'eye', -4, 0, {'alpha': {'W': 160, 'f': 150}})],
                  **{k_: [('spiral5_%d' % (k_ % 6), 'head', 0, -9), ('motesW%d' % (k_ % 6), 'head', 0, -4)] for k_ in range(1, 11)}})),
+ 'machDash': ('Mach Dash', 2,
+  'Mach Dash (Gemini taijutsu, teleport, buff, stance, Movement +15, AGI +10% 1 round: the fighter dashes fast enough to break the sound barrier): from the guard the fighter dips into the sprinter set, then breaks into the approved sprint so fast it blurs: a sonic boom ring bursts behind it on the first stride and a white vapour cone wraps the front of its body, pale afterimages streaming behind; it plants the lead foot and brakes, skidding, a last ring of sound puffing off it, and rises into the guard (spec extra.travel: the game moves the fighter by 40 px).', [
+     g(),
+     g(an=band(-25, 205), af=band(-40, 215), bob=(3, 3, 3), lean=(1, 4), ln='ml-dip-rear', lf='ml-dip-lead')] + [
+     g(an=SPRINT_N[k], af=SPRINT_F[k], bob=(SPRINT_DY[k],) * 3, lean=(1, 8), root=(6, 0), ln='sr-' + SPRINT_LEGS[k], lf='sr-' + SPRINT_LEGS[(k + 4) % 8]) for k in range(6)] + [
+     g(an=band(-25, 208), af=band(-45, 220), bob=(2, 2, 2), lean=(-1, -3), root=(3, 0), ln='ml-trail-rear', lf='ml-plant-lead'),
+     g(an=band(-25, 208), af=band(-45, 220), bob=(2, 2, 2), lean=(0, -1), root=(1, 0), ln='ml-trail-rear', lf='ml-plant-lead'),
+     g(an=band(-40, -110), af=band(-45, -120), bob=(1, 1, 2), lean=(0, 2)),
+     g()],
+  [None, 'squint'] + ['squint'] * 6 + ['strain', 'squint', None, None],
+  None,
+  dict(fps=12, rm='E: 6 px a stride through the sprint, +3 +1 braking; 40 px in all (travel)',
+       ghosts={k: (5, 10, 15, 20) for k in range(2, 8)} | {8: (5, 10), 9: (3,)}, ghostColors=(('#ffffff', '#e9eef4'), ('#e9eef4', None), ('#a3aebb', None), ('#a3aebb', None)),
+       extra={'travel': {'rule': 'Mach Dash is a teleport dash (Movement +15): the fighter ends the clip 40 px further forward (sum of rootMotion); the game moves the fighter by that distance', 'E': 40}},
+       anchored={1: [('puff', 'feet', -4, -2)],
+                 2: [('boom8', 'head', -14, 18), ('vcone2', 'head', 6, 18)],
+                 3: [('boom12', 'head', -18, 18, {'alpha': {'W': 160, 'F': 140, 'f': 140, 'q': 130}}), ('vcone', 'head', 7, 18)],
+                 **{k_: [('vcone', 'head', 7, 18), ('aStreak', 'head', -12, 8 + 4 * (k_ % 2))] for k_ in (4, 5, 6, 7)},
+                 8: [('floorStreakL', 'feet', -10, -2), ('boom4', 'head', 4, 18)],
+                 9: [('puff', 'feet', 4, -2), ('aRing5', 'head', 3, 18, {'alpha': {'F': 140, 'f': 140}})]})),
+ 'echoFist': ('Echo Fist', 3,
+  'Echo Fist (Gemini taijutsu strike, Physical 14: the fighter throws a punch that reverberates through the opponent\'s body): from the guard the fighter sets the rear fist back by the ear, a faint ring of sound humming round it, then steps in with a straight cross; on contact a white ring of sound bursts off the fist, and then echoes: a second, then a third ring ripples out from the same point, each one wider and fainter, as the punch reverberates on through the body; the fighter draws back into the guard.', [
+     g(),
+     g(an=band(40, -170), af=band(-70, -100), bob=(1, 1, 1), lean=(-1, -2), ln='sp-load-rear', lf='sp-load-lead'),
+     g(an=band(40, -170), af=band(-70, -100), bob=(1, 1, 1), lean=(-1, -2), ln='sp-load-rear', lf='sp-load-lead'),
+     g(an=PUNCH, af=band(30, -160), bob=(2, 2, 2), lean=(2, 6), root=(2, 0), ln='sp-drive-rear', lf='sp-drive-lead'),
+     g(an=PUNCH, af=band(30, -160), bob=(2, 2, 2), lean=(2, 6), ln='sp-drive-rear', lf='sp-drive-lead'),
+     g(an=PUNCH, af=band(30, -160), bob=(2, 2, 2), lean=(2, 6), ln='sp-drive-rear', lf='sp-drive-lead'),
+     g(an=PUNCH, af=band(30, -160), bob=(2, 2, 2), lean=(2, 5), ln='sp-drive-rear', lf='sp-drive-lead'),
+     g(an=band(-50, -120), af=band(-30, 215), bob=(1, 1, 2), lean=(1, 3), ln='sp-drive-rear', lf='sp-drive-lead'),
+     g(root=(-2, 0))],
+  [None, 'squint', 'squint', 'strain', 'strain', 'squint', 'squint', None, None],
+  None,
+  dict(fps=10, hitbox=[46, 20, 14, 10], damage='medium', rm='E: +2 on the step into the punch, -2 settling back',
+       anchored={1: [('aRing3', 'hand', 0, 0, {'alpha': {'f': 150, 'W': 160}})],
+                 2: [('aRing5', 'hand', 0, 0, {'alpha': {'F': 150, 'f': 160}}), ('aStreak2', 'hand', 3, -3)],
+                 3: [('boom4', 'hand', 3, 0), ('compress', 'hand', 2, 0)],
+                 4: [('boom8', 'hand', 1, 0), ('aRing3', 'hand', 2, 0)],
+                 5: [('boom8', 'hand', 1, 0, {'alpha': {'W': 190, 'F': 170, 'f': 170, 'q': 150}}), ('aRing3', 'hand', 2, 0)],
+                 6: [('boom8', 'hand', 1, 0, {'alpha': {'W': 140, 'F': 120, 'f': 120, 'q': 110}}), ('aRing5', 'hand', 2, 0, {'alpha': {'F': 160, 'f': 160}})],
+                 7: [('aRing5', 'hand', 4, 0, {'alpha': {'F': 110, 'f': 110}})]})),
+ 'sonicSweep': ('Sonic Sweep', 4,
+  'Sonic Sweep (Gemini taijutsu, Physical 10, Prone 1 round AGI save DC 12: the fighter sweeps its leg fast enough to break the sound barrier and knocks the opponent prone): from the guard the fighter drops into a crouch on the lead foot, a hand down to the floor, the rear leg stretched out behind along the ground; it whips the leg round under itself and out flat in front at ankle height so fast the air cracks: a flattened ring of sound bursts off the foot along the floor with a white streak trailing the sweep; the leg comes back under and the fighter rises into the guard (the target is swept off its feet and lies prone).', [
+     g(),
+     g(an=band(-20, -25, fistKind='palm'), af=band(-20, -150), bob=(4, 5, 5), lean=(1, 6), **BRACE),
+     g(an=band(-15, -20, fistKind='palm'), af=band(-40, -120), bob=(9, 10, 10), lean=(1, 6), ln='gs-back-rear', lf='gs-crouch-lead'),
+     g(an=band(-15, -20, fistKind='palm'), af=band(-40, -120), bob=(9, 10, 10), lean=(1, 5), ln='gs-mid-rear', lf='gs-crouch-lead'),
+     g(an=band(10, -10, fistKind='palm'), af=band(-60, -110), bob=(9, 10, 10), lean=(0, 3), root=(1, 0), ln='gs-front-rear', lf='gs-crouch-lead'),
+     g(an=band(10, -10, fistKind='palm'), af=band(-60, -110), bob=(9, 10, 10), lean=(0, 3), ln='gs-front-rear', lf='gs-crouch-lead'),
+     g(an=band(-15, -20, fistKind='palm'), af=band(-40, -120), bob=(9, 10, 10), lean=(1, 5), ln='gs-mid-rear', lf='gs-crouch-lead'),
+     g(an=band(-55, -130), af=band(-20, -100), bob=(4, 5, 5), lean=(1, 3), root=(-1, 0), **LOW),
+     g()],
+  [None, 'squint', 'strain', 'strain', 'roar', 'strain', 'squint', None, None],
+  None,
+  dict(fps=12, hitbox=[42, 52, 16, 10], damage='light', rm='E: +1 into the sweep, -1 rising',
+       extra={'targetState': {'rule': 'Sonic Sweep: on a hit the target is swept off its feet: it falls (the testbed knockdown fall; the preview borrows knockout), lies prone for the Prone round, then plays getUp', 'state': 'knockout', 'then': ['prone', 'getUp']}},
+       anchored={2: [('floorStreakL', 'feet', -12, -2, {'alpha': {'f': 150, 'F': 140, 'q': 130, 'W': 160}})],
+                 3: [('floorStreak', 'feet', -2, -2), ('puff', 'feet', 2, -3)],
+                 4: [('boomFlat', 'feet', 14, -3), ('floorStreak', 'feet', 6, -1), ('compress', 'feet', 18, -3)],
+                 5: [('boom12', 'feet', 16, -6, {'alpha': {'W': 170, 'F': 150, 'f': 150, 'q': 140}}), ('floorStreak', 'feet', 8, -1, {'alpha': {'f': 150, 'F': 140, 'q': 130, 'W': 160}})],
+                 6: [('puff', 'feet', 12, -3, {'alpha': {'f': 140, 'F': 130, 'q': 120, 'W': 150}})]})),
  'flowDodge': ('Flow Dodge', 3,
   'Flow Dodge (Sagittarius taijutsu stance buff: the fighter enters a dance-like trance and begins to swing and sway to its own rhythm): from the guard the fighter shakes its arms loose and lets the guard drop low and easy, eyes half closed, catching a beat; then it sways to its own rhythm: rocking back and forward on its feet and dipping on the knees, shoulders rolling, the loose hands swinging opposite to the hips, a flickering fire aura breathing round it on the beat with a few black and purple wisps rising off the shoulders; on the last beat it snaps its eyes open and settles into a loose, low guard (the testbed keeps the stance).', [
      g(),
