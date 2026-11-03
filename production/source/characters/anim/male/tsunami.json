@@ -3,7 +3,7 @@
   "body": "male",
   "state": "tsunami",
   "status": "CANDIDATE 2026-10-27 (E/W; W mirrors E; S/N to author after approval)",
-  "frames": 16,
+  "frames": 8,
   "fps": 10,
   "sourceDirection": "E",
   "directions": [
@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Tsunami v2 (Cancer ninjutsu ultimate, charge, Elemental 28, Wide AoE: the caster conjures a giant tidal wave that crashes violently into its opponents; Christopher 2026-11-03: more dramatic, it is an ultimate): from the guard the fighter makes the seal and sinks low; drops of water lift off the floor and rise round it, and a spout of water spirals up round its whole body, its water aura flaring wide; it drives both palms down and the floor bursts, jets of water shooting up behind it, and a wave heaves up behind it, rising frame by frame; it hauls its arms up and the wave towers over its head, foam boiling off a thick curling lip, spray streaming upward; it holds the wave there, the whole body shaking with the strain; then it thrusts both palms forward in a white burst of spray and the wave rolls over and past it toward the targets, crashing down ahead in a great crown, water flooding back round its feet; it settles into the guard. In the testbed the giant wave itself (extra.zone) rolls across the whole AoE. Ultimate: 16 frames.",
+  "intent": "Tsunami v3 (Cancer ninjutsu ultimate, charge, Elemental 28, Wide AoE: the caster conjures a giant tidal wave that crashes violently into its opponents; Christopher 2026-11-03: more dramatic, it is an ultimate; 22:35: better wave, more charging frames): the release, played after tsunamiCharge: holding the towering wave overhead, the fighter hauls back once more, then thrusts both palms forward in a white burst of spray and the wave rolls over and past it toward the targets, crashing down ahead in a great crown, water flooding back round its feet; it settles into the guard. In the testbed the giant breaking wave itself (extra.zone) rolls across the whole AoE.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -105,16 +105,8 @@
   "bob": {
     "rule": "the knees give under the blow (body 2 px low) and come back up to the guard height; the head drops with the body a frame late",
     "dy": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      5,
-      2,
       0,
       1,
-      0,
       2,
       2,
       2,
@@ -123,16 +115,8 @@
       1
     ],
     "head": [
-      1,
-      2,
-      3,
-      4,
-      6,
-      6,
-      2,
       -1,
       0,
-      -1,
       2,
       2,
       2,
@@ -141,16 +125,8 @@
       1
     ],
     "arms": [
-      2,
-      2,
-      3,
-      4,
-      6,
-      6,
-      2,
       0,
       1,
-      0,
       2,
       2,
       2,
@@ -165,15 +141,7 @@
     "dx": {
       "pelvis": [
         0,
-        0,
-        0,
-        0,
-        1,
-        1,
-        0,
-        0,
-        0,
-        0,
+        -1,
         2,
         2,
         1,
@@ -182,16 +150,8 @@
         0
       ],
       "head": [
-        2,
-        0,
-        1,
-        1,
-        7,
-        7,
-        0,
-        -1,
         -2,
-        -1,
+        -4,
         7,
         7,
         4,
@@ -202,7 +162,7 @@
     }
   },
   "rootMotion": {
-    "rule": "E: +1 -1 shaken by the floor burst, +1 -1 shaking under the wave, +2 thrusting the palms forward, -2 settling back",
+    "rule": "E: +2 thrusting the palms forward, -2 settling back",
     "E": [
       [
         0,
@@ -210,38 +170,6 @@
       ],
       [
         0,
-        0
-      ],
-      [
-        0,
-        0
-      ],
-      [
-        0,
-        0
-      ],
-      [
-        0,
-        0
-      ],
-      [
-        1,
-        0
-      ],
-      [
-        -1,
-        0
-      ],
-      [
-        0,
-        0
-      ],
-      [
-        1,
-        0
-      ],
-      [
-        -1,
         0
       ],
       [
@@ -276,38 +204,6 @@
       ],
       [
         0,
-        0
-      ],
-      [
-        0,
-        0
-      ],
-      [
-        0,
-        0
-      ],
-      [
-        0,
-        0
-      ],
-      [
-        -1,
-        0
-      ],
-      [
-        1,
-        0
-      ],
-      [
-        0,
-        0
-      ],
-      [
-        -1,
-        0
-      ],
-      [
-        1,
         0
       ],
       [
@@ -1684,17 +1580,59 @@
           52
         ],
         "foot": "toe30k"
+      },
+      {
+        "name": "tsl-surf-lead",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 46,
+        "kneeX": 40,
+        "kneeRow": 51,
+        "footX": 42,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "tsl-surf-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 46,
+        "kneeX": 25,
+        "kneeRow": 51,
+        "ankle": [
+          21,
+          56
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "tsl-tuck-lead",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 44,
+        "kneeX": 40,
+        "kneeRow": 47,
+        "ankle": [
+          37,
+          53
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "tsl-tuck-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 44,
+        "kneeX": 24,
+        "kneeRow": 47,
+        "ankle": [
+          19,
+          51
+        ],
+        "foot": "toe30k"
       }
     ],
     "near": [
-      1,
-      3,
-      3,
-      5,
-      5,
-      5,
-      3,
-      1,
       1,
       1,
       23,
@@ -1705,14 +1643,6 @@
       1
     ],
     "far": [
-      0,
-      2,
-      2,
-      4,
-      4,
-      4,
-      2,
-      0,
       0,
       0,
       22,
@@ -1741,68 +1671,6 @@
     "near": [
       {
         "construction": "band",
-        "angle": -20,
-        "elbow": {
-          "at": 8,
-          "angle": 212
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -48,
-        "elbow": {
-          "at": 8,
-          "angle": -150
-        },
-        "fistKind": "palm"
-      },
-      {
-        "construction": "band",
-        "angle": -48,
-        "elbow": {
-          "at": 8,
-          "angle": -150
-        },
-        "fistKind": "palm"
-      },
-      {
-        "construction": "band",
-        "angle": -48,
-        "elbow": {
-          "at": 8,
-          "angle": -150
-        },
-        "fistKind": "palm"
-      },
-      {
-        "construction": "band",
-        "angle": -35,
-        "elbow": {
-          "at": 8,
-          "angle": -40
-        },
-        "fistKind": "palm"
-      },
-      {
-        "construction": "band",
-        "angle": -35,
-        "elbow": {
-          "at": 8,
-          "angle": -40
-        },
-        "fistKind": "palm"
-      },
-      {
-        "construction": "band",
-        "angle": -110,
-        "elbow": {
-          "at": 8,
-          "angle": -150
-        },
-        "fistKind": "palm"
-      },
-      {
-        "construction": "band",
         "angle": -160,
         "elbow": {
           "at": 8,
@@ -1812,19 +1680,10 @@
       },
       {
         "construction": "band",
-        "angle": -162,
+        "angle": -165,
         "elbow": {
           "at": 8,
-          "angle": -176
-        },
-        "fistKind": "palm"
-      },
-      {
-        "construction": "band",
-        "angle": -158,
-        "elbow": {
-          "at": 8,
-          "angle": -174
+          "angle": -178
         },
         "fistKind": "palm"
       },
@@ -1884,68 +1743,6 @@
     "far": [
       {
         "construction": "band",
-        "angle": -45,
-        "elbow": {
-          "at": 8,
-          "angle": 222
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -60,
-        "elbow": {
-          "at": 8,
-          "angle": -146
-        },
-        "fistKind": "palm"
-      },
-      {
-        "construction": "band",
-        "angle": -60,
-        "elbow": {
-          "at": 8,
-          "angle": -146
-        },
-        "fistKind": "palm"
-      },
-      {
-        "construction": "band",
-        "angle": -60,
-        "elbow": {
-          "at": 8,
-          "angle": -146
-        },
-        "fistKind": "palm"
-      },
-      {
-        "construction": "band",
-        "angle": -30,
-        "elbow": {
-          "at": 8,
-          "angle": -45
-        },
-        "fistKind": "palm"
-      },
-      {
-        "construction": "band",
-        "angle": -30,
-        "elbow": {
-          "at": 8,
-          "angle": -45
-        },
-        "fistKind": "palm"
-      },
-      {
-        "construction": "band",
-        "angle": -100,
-        "elbow": {
-          "at": 8,
-          "angle": -145
-        },
-        "fistKind": "palm"
-      },
-      {
-        "construction": "band",
         "angle": -155,
         "elbow": {
           "at": 8,
@@ -1955,19 +1752,10 @@
       },
       {
         "construction": "band",
-        "angle": -155,
+        "angle": -160,
         "elbow": {
           "at": 8,
-          "angle": -172
-        },
-        "fistKind": "palm"
-      },
-      {
-        "construction": "band",
-        "angle": -152,
-        "elbow": {
-          "at": 8,
-          "angle": -170
+          "angle": -176
         },
         "fistKind": "palm"
       },
@@ -2187,14 +1975,6 @@
       "bandFollowsBody": true,
       "sway": {
         "E": [
-          -1,
-          -1,
-          -1,
-          -1,
-          -1,
-          -1,
-          -1,
-          -1,
           -1,
           -1,
           -1,
@@ -2874,15 +2654,7 @@
         4,
         5,
         6,
-        7,
-        8,
-        9,
-        10,
-        11,
-        12,
-        13,
-        14,
-        15
+        7
       ],
       "fps": 10,
       "next": "guard",
@@ -2905,72 +2677,32 @@
       {
         "frame": 2,
         "clip": "tsunami",
-        "type": "startup"
-      },
-      {
-        "frame": 3,
-        "clip": "tsunami",
-        "type": "startup"
-      },
-      {
-        "frame": 4,
-        "clip": "tsunami",
-        "type": "startup"
-      },
-      {
-        "frame": 5,
-        "clip": "tsunami",
-        "type": "startup"
-      },
-      {
-        "frame": 6,
-        "clip": "tsunami",
-        "type": "startup"
-      },
-      {
-        "frame": 7,
-        "clip": "tsunami",
-        "type": "startup"
-      },
-      {
-        "frame": 8,
-        "clip": "tsunami",
-        "type": "startup"
-      },
-      {
-        "frame": 9,
-        "clip": "tsunami",
-        "type": "startup"
-      },
-      {
-        "frame": 10,
-        "clip": "tsunami",
         "type": "active",
         "move": "Tsunami",
         "buff": true
       },
       {
-        "frame": 11,
+        "frame": 3,
         "clip": "tsunami",
         "type": "recovery"
       },
       {
-        "frame": 12,
+        "frame": 4,
         "clip": "tsunami",
         "type": "recovery"
       },
       {
-        "frame": 13,
+        "frame": 5,
         "clip": "tsunami",
         "type": "recovery"
       },
       {
-        "frame": 14,
+        "frame": 6,
         "clip": "tsunami",
         "type": "recovery"
       },
       {
-        "frame": 15,
+        "frame": 7,
         "clip": "tsunami",
         "type": "recovery"
       }
@@ -2989,72 +2721,32 @@
       {
         "frame": 2,
         "clip": "tsunami",
-        "type": "startup"
-      },
-      {
-        "frame": 3,
-        "clip": "tsunami",
-        "type": "startup"
-      },
-      {
-        "frame": 4,
-        "clip": "tsunami",
-        "type": "startup"
-      },
-      {
-        "frame": 5,
-        "clip": "tsunami",
-        "type": "startup"
-      },
-      {
-        "frame": 6,
-        "clip": "tsunami",
-        "type": "startup"
-      },
-      {
-        "frame": 7,
-        "clip": "tsunami",
-        "type": "startup"
-      },
-      {
-        "frame": 8,
-        "clip": "tsunami",
-        "type": "startup"
-      },
-      {
-        "frame": 9,
-        "clip": "tsunami",
-        "type": "startup"
-      },
-      {
-        "frame": 10,
-        "clip": "tsunami",
         "type": "active",
         "move": "Tsunami",
         "buff": true
       },
       {
-        "frame": 11,
+        "frame": 3,
         "clip": "tsunami",
         "type": "recovery"
       },
       {
-        "frame": 12,
+        "frame": 4,
         "clip": "tsunami",
         "type": "recovery"
       },
       {
-        "frame": 13,
+        "frame": 5,
         "clip": "tsunami",
         "type": "recovery"
       },
       {
-        "frame": 14,
+        "frame": 6,
         "clip": "tsunami",
         "type": "recovery"
       },
       {
-        "frame": 15,
+        "frame": 7,
         "clip": "tsunami",
         "type": "recovery"
       }
@@ -3343,16 +3035,8 @@
     },
     "frames": {
       "E": [
-        null,
-        "squint",
-        "closed",
-        "strain",
         "strain",
         "roar",
-        "strain",
-        "roar",
-        "strain",
-        "strain",
         "roar",
         "roar",
         "strain",
@@ -3364,17 +3048,28 @@
     "intent": "eyes squeezed shut with the brow pulled down on the impact frames 0-2 (no mouth: user 2026-10-14), a squint on frame 3, open again from frame 4 (user 2026-10-14)"
   },
   "targetState": {
-    "rule": "Tsunami v2 (ultimate, charge): from the active frame (frame 10, the thrust) the testbed rolls the giant wave across the AoE (extra.zone); each fighter in the zone plays tsunamiStruck once when the wave front reaches its hex, then its idle",
+    "rule": "Tsunami v3 (ultimate, charge; after tsunamiCharge): from the active frame (frame 2, the thrust) the testbed rolls the giant wave across the AoE (extra.zone); each fighter in the zone plays tsunamiStruck once when the wave front reaches its hex, then its idle",
     "state": "tsunamiStruck",
     "loopFrom": null,
     "element": "water"
   },
+  "charge": {
+    "rule": "Tsunami v3: the cast plays tsunamiCharge first (its shaking hold loops from frame 13 while the charge lasts), then this clip",
+    "state": "tsunamiCharge"
+  },
   "zone": {
-    "rule": "Tsunami v2 (Christopher 2026-11-03: more dramatic): from frame 10 the testbed draws the giant wave NPAT wTsunamiBig (about twice a fighter's height, base on the floor line, lip toward the targets) starting just behind the caster and rolling away from it across the whole Wide AoE over crossMs, rising from 60% to full height in the first quarter of the run, white foam NPAT wFoamL streaming off its lip, NPAT wSplashXL bursting at each fighter it hits; when it reaches the far edge of the AoE it crashes (it drops over 3 frames into wSplashXL / wDropsL along the edge), then the hexes it crossed hold a sheet of flood water (#2f7fe0 at 45%, white glints) that drains away over floodMs; preview tool hex-sprites/tools/astro_tsunami.py",
+    "rule": "Tsunami v3 (Christopher 2026-11-03: more dramatic; 22:35 make the wave look better): from frame 2 the testbed draws the giant breaking wave (about twice a fighter's height, base on the floor line, lip toward the targets), cycling NPAT frames wTsunamiBig0-3 every frameMs so the streaks and foam slide down its face, starting just behind the caster and rolling away from it across the whole Wide AoE over crossMs, rising from 60% to full height in the first quarter of the run, white foam NPAT wFoamL streaming off its lip, NPAT wSplashXL bursting at each fighter it hits; when it reaches the far edge of the AoE it crashes (it drops over 3 frames into wSplashXL / wDropsL along the edge), then the hexes it crossed hold a sheet of flood water (#2f7fe0 at 45%, white glints) that drains away over floodMs; preview tool hex-sprites/tools/astro_tsunami.py",
     "pattern": "wTsunamiBig",
+    "frames": [
+      "wTsunamiBig0",
+      "wTsunamiBig1",
+      "wTsunamiBig2",
+      "wTsunamiBig3"
+    ],
+    "frameMs": 100,
     "foam": "wFoamL",
     "hit": "wSplashXL",
-    "startFrame": 10,
+    "startFrame": 2,
     "crossMs": 900,
     "floodMs": 700,
     "from": "caster",
@@ -3383,13 +3078,6 @@
   "aura": {
     "rule": "Runtime aura (Christopher 2026-11-03: all auras follow the outline of the hair): on frame k, when widths[k] > 0, the testbed grows the silhouette of every drawn layer except fx (body, clothing or armour, arms, shoulders, hair or helmet, eyes, weapons) by widths[k] rings of 1 px (4-neighbour / 3x3 max growth); ring 0 in colors[0], the others in colors[1]; the outermost ring only on pixels where (x + y + k) is even (flicker); drawn behind the fighter, only outside its silhouette",
     "widths": [
-      0,
-      1,
-      2,
-      2,
-      3,
-      3,
-      3,
       3,
       3,
       3,
@@ -3397,7 +3085,6 @@
       2,
       2,
       1,
-      0,
       0
     ],
     "colors": [

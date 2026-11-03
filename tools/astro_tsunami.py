@@ -1,4 +1,4 @@
-"""Tsunami v2 zone preview (Christopher 2026-11-03: more dramatic, it is an ultimate): a wide scene on a faint hex underlay
+"""Tsunami v2/v3 zone preview (v3: the caster plays tsunamiCharge, its loop once more, then tsunami; the wave cycles extra.zone.frames) (Christopher 2026-11-03: more dramatic, it is an ultimate): a wide scene on a faint hex underlay
 (testbed hexStep 34), the caster on hex 0 facing E, targets on hexes 2 and 3 facing W. From the active frame the giant wave
 NPAT wTsunamiBig (spec extra.zone) rolls from just behind the caster across the AoE over crossMs (10 fps frames), rising from
 60% to full height in the first quarter, foam streaming off the lip; each target plays tsunamiStruck when the front reaches
@@ -26,10 +26,19 @@ def stamp(img, pat, x0, y0, alpha=ALPHA, fade=1.0):
             X, Y = int(x0 + xx), int(y0 + yy)
             if ch != '.' and 0 <= X < img.size[0] and 0 <= Y < img.size[1]: px[X, Y] = hexc(astro.NPAL[ch], int(alpha.get(ch, 220) * fade))
     img.alpha_composite(lay)
-sa = spec('tsunami'); z = sa['zone']; act = z['startFrame']; na = sa['frames']; rm = sa['rootMotion']['E']
+sa = spec('tsunami'); z = sa['zone']; rm_r = sa['rootMotion']['E']
+# v3: the cast plays tsunamiCharge (its loop once more) and then the release; SEQ = the caster's (state, frame) per tick
+SEQ = []
+if 'charge' in sa:
+    sc_ = spec(sa['charge']['state']); lf = sc_.get('loopFrom', sc_['frames'])
+    SEQ = [(sa['charge']['state'], k) for k in list(range(sc_['frames'])) + list(range(lf, sc_['frames']))]
+SEQ += [('tsunami', k) for k in range(sa['frames'])]
+act = len(SEQ) - sa['frames'] + z['startFrame']; na = len(SEQ)
+def rmE(st, k): return spec(st)['rootMotion']['E'][k][0]
+WAVES = [astro.NPAT[n] for n in z.get('frames', [z['pattern']])]
 cross = round(z['crossMs'] / 100); flood = round(z['floodMs'] / 100)
 tx = [X0 + HW * 2, X0 + HW * 3]; edge = X0 + HW * (radius + 0.5)
-big = astro.NPAT['wTsunamiBig']; bw = len(big[0])
+big = WAVES[0]; bw = len(big[0])
 def front(t): return X0 - 20 + (edge - (X0 - 20)) * (t - act) / cross
 hitT = [next(t for t in range(act, act + cross + 1) if front(t) >= x - 10) for x in tx]
 nb = spec('tsunamiStruck')['frames']; n = max(na, max(hitT) + nb, act + cross + 3 + flood) + 2
@@ -39,29 +48,29 @@ for t in range(n):
     for q in range(0, radius + 2):
         cx = X0 + HW * q; col = (0x8a, 0xb8, 0xe0, 110) if q <= radius else (0xa8, 0xae, 0xbb, 80)
         d.polygon([(cx - HW / 2, FEET), (cx, FEET - 8), (cx + HW / 2, FEET), (cx, FEET + 8)], outline=col)
-    ka = min(t, na - 1); xa = X0 + sum(rm[q][0] for q in range(ka + 1))
+    ka = min(t, na - 1); xa = X0 + sum(rmE(*SEQ[q]) for q in range(ka + 1))
     if act + cross + 3 <= t < act + cross + 3 + flood:   # the flood sheet draining off the crossed hexes
         f = 1 - (t - act - cross - 3) / flood; d2 = Image.new('RGBA', c.size); dd = ImageDraw.Draw(d2)
         dd.rectangle([X0 - 30, FEET - 3, edge, FEET + 4], fill=(0x2f, 0x7f, 0xe0, int(115 * f)))
         for gx in range(int(X0 - 26), int(edge), 9): dd.point((gx + (t * 3) % 9, FEET - 1), fill=(255, 255, 255, int(220 * f)))
         c.alpha_composite(d2)
-    cell('tsunami', ka, 'E', xa, c)
+    cell(SEQ[ka][0], SEQ[ka][1], 'E', xa, c)
     for x, ht in zip(tx, hitT):
         kb = t - ht
         if kb < 0: cell('hitReact', 0, 'W', x, c, LAY[:-1])
         else: cell('tsunamiStruck', min(kb, nb - 1), 'W', x, c)
     if act <= t <= act + cross:   # the giant wave rolling across the AoE
-        u = (t - act) / cross; sc = 0.6 + 0.4 * min(1, u * 4); p = astro._sq(big, sc, sc)
-        fx_ = front(t); stamp(c, p, fx_ - len(p[0]) + 8, FEET - len(p) + 1)
-        stamp(c, astro.NPAT['wFoamL'], fx_ - 30, FEET - len(p) - 6)
+        u = (t - act) / cross; sc = 0.6 + 0.4 * min(1, u * 4); p = astro._sq(WAVES[(t - act) % len(WAVES)], sc, sc)
+        fx_ = front(t); x0_ = fx_ - len(p[0]) + 8; stamp(c, p, x0_, FEET - len(p) + 1)
+        stamp(c, astro.NPAT['wFoamL'], x0_ + int(len(p[0]) * 0.45), FEET - len(p) - 3)   # foam boiling off the crest
     elif act + cross < t <= act + cross + 3:   # the crash at the far edge
-        k = t - act - cross; p = astro._sq(big, 1, 1 - 0.3 * k)
+        k = t - act - cross; p = astro._sq(WAVES[(t - act) % len(WAVES)], 1, 1 - 0.3 * k)
         stamp(c, p, edge - len(p[0]) + 8, FEET - len(p) + 1, fade=1 - 0.25 * k)
         sp = astro.NPAT['wSplashXL']; stamp(c, sp, edge - len(sp[0]) // 2, FEET - len(sp) - 4 * k)
         stamp(c, astro.NPAT['wDropsL'], edge - 30, FEET - 60 + 8 * k)
     frames.append(c.resize((W * 3, H * 3), Image.NEAREST))
 frames[0].save(out + '-candidate.gif', save_all=True, append_images=frames[1:], duration=100, loop=0, disposal=2)
-KEY = list(range(act - 2, min(n, act + 16)))
+KEY = list(range(max(0, act - 4), min(n, act + 14)))
 sheet = Image.new('RGBA', (W * 3 * 2 + 16, (H * 3 + 8) * ((len(KEY) + 1) // 2)), 'white')
 for i, q in enumerate(KEY): sheet.paste(frames[q], ((i % 2) * (W * 3 + 16), (i // 2) * (H * 3 + 8)))
 sheet.save(out + '-E-candidate.png'); print('wrote', out, n, hitT)
