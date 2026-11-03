@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Lightning Impaled (target state of Lightning Cutter v2, plays once): the bladed hand drives into the fighter's chest and the electric blades punch out through its back in a burst of lightning; it doubles over the hand, arms flung out, eyes squeezed, convulsing as lightning crackles through it and arcs off its body; then the hand rips free, the blades vanish, and it staggers back clutching its chest before dropping back into the guard.",
+  "intent": "Lightning Impaled (target state of Lightning Cutter v3, plays once): the bladed uppercut drives up into the fighter's body and the electric blades punch up and out through its upper back in a burst of lightning; it doubles over the hand, arms flung out, eyes squeezed, convulsing as lightning crackles through it and arcs off its body; then the hand rips free, the blades vanish, and it staggers back clutching its chest before dropping back into the guard.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -105,7 +105,7 @@
   "bob": {
     "rule": "the knees give under the blow (body 2 px low) and come back up to the guard height; the head drops with the body a frame late",
     "dy": [
-      2,
+      1,
       2,
       2,
       2,
@@ -115,7 +115,7 @@
       1
     ],
     "head": [
-      2,
+      0,
       2,
       2,
       2,
@@ -125,7 +125,7 @@
       1
     ],
     "arms": [
-      2,
+      0,
       3,
       2,
       3,
