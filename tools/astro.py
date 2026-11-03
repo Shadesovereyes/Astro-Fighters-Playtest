@@ -3120,7 +3120,7 @@ def fx(state):
             b.save(f)
         if old: new = Image.open(f).convert('RGBA'); new.alpha_composite(old); new.save(f)
     if x.get('front'): face_front(state, sorted(x['front']))
-    if x.get('front') and CLIPS[state][5]: U.aura(state)   # the aura again, round the turned (S) figure
+    if x.get('front') and CLIPS[state][5] and os.environ.get('AURA_BAKE') == '1': U.aura(state)   # (baked mode only; runtime auras need no redraw) the aura again, round the turned (S) figure
     if x.get('burst'):
         if x.get('burstEvery'):   # the spiked aura drawn on each facing's own row (the fighter keeps its facing)
             for i, r_ in enumerate(load(D + state + '.json')['directions']): burst(state, x['burst'], row=r_, spread=False, clean=i == 0)
