@@ -3636,6 +3636,109 @@ CLIPS.update({
                          ('wRip%d' % (5, 7, 9, 12)[k_ % 4], 'feet', 0, -2, _A(_FADE))] for k_ in range(4, 12)}})),
 })
 
+# ---------- Tidal Slam v2 (part 13, 2026-11-03; Christopher 22:31: summon a wave, ride on top of it, slam the target with an elbow drop) ----------
+def _rideWave(h, phase=0, w=60, p0=16, pk=46, F=12):   # the wave the fighter rides, front = right: a back slope rising to a broad rounded top the feet stand on (p0..pk), a lip curling forward over a hollow face, a churning foam skirt at its foot; h = rows above the floor of the top (the soles' row + 1)
+    import random
+    rnd = random.Random(70 + phase); H = h + 2; rows = [['.'] * w for _ in range(H)]
+    def top(x):
+        if x < p0: return h * (0.15 + 0.85 * (x / p0) ** 1.4)
+        if x <= pk: return h + (1 if p0 + 4 < x < pk - 4 else 0)
+        t = (x - pk) / F
+        return h * (1 - 0.6 * t * t) if t <= 1 else -1
+    for x in range(w):
+        ht = top(x)
+        if ht < 0: continue
+        for yh in range(int(round(ht))):
+            face = pk + 1 + F * 0.8 * (yh / h) ** 1.5
+            if x > pk and x > face and yh < ht - 3: continue   # hollow under the curling lip
+            e = ht - yh; y = H - 1 - yh
+            if e < 1.2: ch = 'W' if x > p0 + 2 else 'I'
+            elif e < 2.5: ch = 'I'
+            elif x > pk - 2 and x > face - 2: ch = 'a'   # the light face inside the curl
+            elif e < 4.5: ch = 'a'
+            elif yh < 2 and x < pk: ch = 'n'
+            else: ch = 'A'
+            if ch == 'A' and (x - 2 * yh + 3 * phase) % 7 == 0: ch = 'a'   # streaks running up and back over the wave's body
+            if ch == 'a' and e > 3 and (x + yh + 2 * phase) % 11 == 0: ch = 'I'   # glints
+            rows[y][x] = ch
+    for x in range(p0, pk + 2):   # foam boiling up round the rider's feet along the top
+        if (x + phase) % 3: rows[H - 2 - h][x] = 'W' if (x + phase) % 3 == 1 else 'I'
+    for x in range(pk + F - 6, min(w, pk + F + 2)):   # spray falling off the lip
+        for _ in range(2):
+            y = rnd.randint(H - h + 2, H - 2)
+            if rows[y][x] == '.': rows[y][x] = rnd.choice('IaW')
+    for x in range(pk - 2, w):   # the foam skirt where the curl meets the floor
+        if rnd.random() < 0.75: rows[H - 1][x] = rnd.choice('WIW')
+        if rnd.random() < 0.45 and rows[H - 2][x] == '.': rows[H - 2][x] = rnd.choice('WIa')
+    for x in range(0, p0):   # spray streaming off the back
+        if rnd.random() < 0.35:
+            y = H - 1 - int(top(x)) - rnd.randint(1, 2)
+            if 0 <= y < H: rows[y][x] = rnd.choice('Ia')
+    return [''.join(q) for q in rows]
+NPAT.update({**{'wRide%d_%d' % (h, p): _rideWave(h, p) for h in (4, 7, 9, 10, 11) for p in range(4)},
+             'wRideBreak': _rideWave(8, 1, p0=22, pk=48, F=10), 'wRideCrash': _rideWave(5, 2, p0=26, pk=50, F=10)})
+U.POSES += [leg('tsl-surf-lead', (33, 46), (40, 51), 42), kleg('tsl-surf-rear', (31, 46), (25, 51), (21, 56), 'toe30k'),   # Tidal Slam v2: a wide, knees-bent surfer's stance on the wave
+            kleg('tsl-tuck-lead', (33, 44), (40, 47), (37, 53), 'toe30k'), kleg('tsl-tuck-rear', (31, 44), (24, 47), (19, 51), 'toe30k')]   # the leap off the wave: knees tucked, feet trailing
+_LIFT = lambda dy: (0, 0, -dy, False)   # bodyRotation with no turn: the whole fighter lifted dy px (all layers stay registered)
+_SURF = dict(ln='tsl-surf-rear', lf='tsl-surf-lead')
+_TUCK = dict(ln='tsl-tuck-rear', lf='tsl-tuck-lead')
+_EL_COCK, _EL_DIVE = band(-178, 80), band(-45, 170)   # elbow drop: arm raised, forearm folded behind the head; then the point of the elbow driven down and forward, forearm folded back up across the chest (the approved Mount Elbow Strike arm)
+CLIPS['tidalSlam'] = ('Tidal Slam', 10,
+  'Tidal Slam v2 (Cancer taijutsu gap closer, Physical 16, Melee (Reach +4m), Gap Closer: the fighter gathers a running start and gains enough momentum to slam into its opponent; Christopher 2026-11-03 22:31: the user summons a wave and rides on top of it before slamming into the target, the slam an elbow drop): from the guard the fighter presses both palms down to the water pooling round its feet, then sweeps them up and a wave swells up behind it; it crouches and springs, and the wave surges up under its feet and carries it forward: it rides on top of the wave in a wide surfer\'s stance, arms out for balance, foam boiling round its feet, the wave rolling on toward the target with a lip curling over its hollow face; at the top it rears back and raises the near arm, forearm folded behind the head, leaps off the crest and drops onto the target elbow first, the wave breaking over the impact in a great crown splash and a jet of water bursting forward; it lands crouched and rises back into the guard in a spreading puddle (the target plays tidalSlammed). The fighter is lifted whole by the bodyRotation dy (no turn) while it rides.', [
+     g(),
+     g(an=band(-25, -40, fistKind='palm'), af=band(-20, -35, fistKind='palm'), bob=(3, 3, 3), lean=(1, 3), **LOW),
+     g(an=band(-120, -140, fistKind='palm'), af=band(-110, -135, fistKind='palm'), bob=(1, 1, 1), lean=(0, -1)),
+     g(an=band(40, 60), af=band(30, 50), bob=(6, 6, 6), lean=(2, 8), root=(1, 0), **BRACE),
+     g(an=band(-75, -70, fistKind='palm'), af=band(70, 85, fistKind='palm'), bob=(3, 3, 3), lean=(1, 5), root=(4, 0), rot=_LIFT(4), **_TUCK),
+     g(an=band(-70, -60, fistKind='palm'), af=band(65, 85, fistKind='palm'), bob=(5, 5, 5), lean=(1, 4), root=(6, 0), rot=_LIFT(9), **_SURF),
+     g(an=band(-75, -65, fistKind='palm'), af=band(60, 80, fistKind='palm'), bob=(5, 5, 6), lean=(1, 5), root=(7, 0), rot=_LIFT(10), **_SURF),
+     g(an=band(-70, -60, fistKind='palm'), af=band(65, 85, fistKind='palm'), bob=(5, 5, 5), lean=(1, 4), root=(7, 0), rot=_LIFT(11), **_SURF),
+     g(an=_EL_COCK, af=band(-70, -80, fistKind='palm'), bob=(6, 6, 6), lean=(-1, -3), root=(6, 0), rot=_LIFT(10), **_SURF),
+     g(an=_EL_COCK, af=band(-10, -120), bob=(3, 3, 3), lean=(3, 12), root=(5, 0), rot=_LIFT(10), **_TUCK),
+     g(an=_EL_DIVE, af=band(-10, -120), bob=(2, 2, 2), lean=(4, 14), root=(4, 0), rot=_LIFT(7), **_TUCK),
+     g(an=band(-30, 168), af=band(-10, -115), bob=(7, 7, 7), lean=(3, 13), root=(2, 0), **LOW),
+     g(an=band(-40, -110), af=band(-30, -100), bob=(7, 7, 7), lean=(2, 8), root=(-2, 0), **LOW),
+     g(an=band(-50, -120), af=band(-40, -115), bob=(3, 3, 3), lean=(1, 3)),
+     g()],
+  [None, 'squint', 'strain', 'strain', 'roar', 'strain', 'strain', 'strain', 'roar', 'roar', 'roar', 'roar', 'strain', 'squint', None],
+  None,
+  dict(fps=12, hitbox=[44, 12, 14, 16], damage='medium', rm='E: +1 into the crouch, +4 +6 +7 +7 riding the wave, +6 at the crest, +5 +4 +2 the leap and the flying elbow drop onto the target, -2 landing back off it; 40 px in all (travel)',
+       blur={9: 7, 10: 6, 11: 4}, trail=WATER_TRAIL,
+       extra={'travel': {'rule': 'Tidal Slam is a gap closer: the fighter ends the clip 40 px further forward (sum of rootMotion); the game moves the fighter by that distance', 'E': 40},
+              'targetState': {'rule': 'Tidal Slam v2: on the hit (frame 10, the elbow lands on the shoulder) the target plays tidalSlammed once, then its idle', 'state': 'tidalSlammed', 'loopFrom': None, 'element': 'water'}},
+       anchored={1: [('wPuddle', 'feet', 0, -1), ('wRip9', 'feet', 0, -2, _A(_FADE)), ('wDrops', 'feet', 0, -6, _A(_FADE))],
+                 2: [('wPuddleL', 'feet', 0, -1), ('wCrest10', 'feet', -10, -5, {'behind': True, 'alpha': _CR}), ('wDrops', 'hand', 0, -4, _A(_FADE)), ('wSplashS', 'feet', 6, -4)],
+                 3: [('wRide4_0', 'feet', -2, -2), ('wCrest20', 'feet', -11, -10, {'behind': True, 'alpha': _CR}), ('wDrops', 'feet', -14, -18, _A(_FADE))],
+                 4: [('wCrest30', 'feet', -12, -15, {'behind': True, 'alpha': _CR}), ('wRide7_1', 'feet', -2, -4), ('wSplashS', 'feet', 0, -12), ('wDrops', 'feet', -16, -24, _A(_FADE))],
+                 5: [('wRide9_2', 'feet', -2, -5), ('wCrest20', 'feet', -16, -17, {'behind': True, 'alpha': _CR}), ('wDropsL', 'feet', -22, -18, _A(_FADE))],
+                 6: [('wRide10_3', 'feet', -2, -5), ('wCrest30', 'feet', -17, -23, {'behind': True, 'alpha': _CR}), ('wDrops', 'feet', -24, -20, _A(_FADE))],
+                 7: [('wRide11_0', 'feet', -2, -6), ('wCrest30', 'feet', -16, -24, {'behind': True, 'alpha': _CR}), ('wFoam', 'feet', -12, -40, _A(_FADE)), ('wDropsL', 'feet', -22, -20, _A(_FADE))],
+                 8: [('wRide10_1', 'feet', -2, -5), ('wCrest30', 'feet', -13, -23, {'behind': True, 'alpha': _CR}), ('wFoam', 'feet', -8, -38, _A(_FADE)), ('wSplashS', 'feet', 20, -12, _A(_FADE))],
+                 9: [('wRideBreak', 'feet', -2, -4), ('wSplash', 'feet', 4, -16, _A(_FADE)), ('wDrops', 'feet', -18, -14, _A(_FADE))],
+                 10: [('wRideCrash', 'feet', -4, -3), ('wSplashS', 'hand', 2, 3), ('wRing', 'hand', 0, 4, _A(_FADE)), ('wDrops', 'hand', -6, -2, _A(_FADE))],
+                 11: [('wSplashXL', 'hand', 0, 4), ('wJetL', 'hand', 12, 10), ('wDropsL', 'hand', 2, -6, _A(_FADE)), ('wPuddleL', 'feet', 8, -1)],
+                 12: [('wSplashLD', 'feet', 12, -10, _A(_FADE)), ('wPuddleL', 'feet', 6, -1), ('wDrops', 'head', 8, 4, _A(_FADE))],
+                 13: [('wPuddle', 'feet', 4, -1, _A(_FADE))]}))
+CLIPS['tidalSlammed'] = ('Tidal Slammed', 0,
+  'Tidal Slammed (target state of Tidal Slam v2, plays once on the hit): the caster\'s elbow crashes down on its head and shoulder and the wave breaks over it: it is crushed straight down, buckling to one knee, head bowed and forearms up over the head, water pouring over it and splashing up round it; it shakes the water off and rises back into the guard.', [
+     g(an=band(-140, -170), af=band(-130, -165), bob=(3, 3, 4), lean=(-1, -3)),
+     g(an=band(-130, -165), af=band(-120, -160), bob=(9, 10, 10), lean=(2, 8), ln='ss-kneel-rear', lf='ss-kneel-lead'),
+     g(an=band(-110, -160), af=band(-100, -155), bob=(10, 10, 10), lean=(3, 11), ln='ss-kneel-rear', lf='ss-kneel-lead'),
+     g(an=band(-40, -110), af=band(-30, -100), bob=(9, 10, 10), lean=(3, 12), ln='ss-kneel-rear', lf='ss-kneel-lead'),
+     g(an=band(-40, -110), af=band(-30, -100), bob=(9, 10, 10), lean=(2, 9), ln='ss-kneel-rear', lf='ss-kneel-lead'),
+     g(an=band(-45, -115), af=band(-35, -110), bob=(4, 4, 4), lean=(1, 4), **LOW),
+     g(an=band(-50, -120), af=band(-40, -115), bob=(2, 2, 2), lean=(0, 2)),
+     g()],
+  ['pain', 'pain', 'closed', 'strain', 'squint', 'squint', None, None],
+  None,
+  dict(fps=10, rm='in place',
+       anchored={0: [('wSplashL', 'head', 2, -2), ('wDrops', 'head', 4, -6)],
+                 1: [('wSplashXL', 'feet', 0, -14), ('wFoamL', 'head', 0, 2, _A(_FADE)), ('wDropsL', 'head', 0, -4), ('wPuddleL', 'feet', 0, -1)],
+                 2: [('wSplashLD', 'feet', 0, -10), ('wPuddleL', 'feet', 0, -1), ('wDropsL', 'head', 2, 0, _A(_FADE))],
+                 3: [('wPuddleL', 'feet', 0, -1), ('wDrops', 'head', 2, 6), ('wSplashS', 'feet', -8, -4)],
+                 4: [('wPuddleL', 'feet', 0, -1), ('wDrops', 'head', 0, 8, _A(_FADE))],
+                 5: [('wPuddle', 'feet', 0, -1, _A(_FADE))]}))
+
 def spec(state):
     U.CLIPS[state] = CLIPS[state]
     U.APPROVED[state] = APPROVED.get(state, STAT)
