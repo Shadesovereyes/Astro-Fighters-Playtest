@@ -1465,6 +1465,84 @@
         "foot": "flat"
       },
       {
+        "name": "gs-far-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 50,
+        "kneeX": 41,
+        "kneeRow": 54,
+        "ankle": [
+          51,
+          55
+        ],
+        "foot": "pointFwd"
+      },
+      {
+        "name": "gs-wide-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 50,
+        "kneeX": 22,
+        "kneeRow": 54,
+        "ankle": [
+          13,
+          57
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "sw-up-lead",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 43,
+        "kneeX": 39,
+        "kneeRow": 45,
+        "ankle": [
+          45,
+          47
+        ],
+        "foot": "pointFwd"
+      },
+      {
+        "name": "sw-up-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 43,
+        "kneeX": 36,
+        "kneeRow": 46,
+        "ankle": [
+          42,
+          49
+        ],
+        "foot": "pointFwd"
+      },
+      {
+        "name": "sw-hi-lead",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 43,
+        "kneeX": 39,
+        "kneeRow": 41,
+        "ankle": [
+          45,
+          39
+        ],
+        "foot": "pointUR"
+      },
+      {
+        "name": "sw-hi-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 43,
+        "kneeX": 37,
+        "kneeRow": 43,
+        "ankle": [
+          43,
+          42
+        ],
+        "foot": "pointFwd"
+      },
+      {
         "name": "as-lift",
         "construction": "band",
         "hipX": 34,
@@ -2999,5 +3077,180 @@
   "loop": true,
   "loopFrom": 2,
   "mark": "genjutsuAfflicted",
-  "element": "air"
+  "element": "air",
+  "legion": {
+    "rule": "Phantom Legion v2 (Christopher 2026-11-03 19:22: the copies must match the caster, whatever it wears): the testbed draws the copies at runtime from the CASTER's own composited sprite (every equipped layer: armour, helmet, hair, eyes, weapons; no fx), frame srcFrame of src in the row that faces the target (a copy ahead of the target, dx > 0, takes the row opposite the target's facing; one behind takes the same facing), washed 35% toward #e9eef4 with a 1 px #39e75f outline, at alpha, dx px along the target's facing, drawn behind the target; frames {k: [[dx, alpha]]}",
+    "src": "phantomLegion",
+    "srcFrame": 0,
+    "frames": {
+      "0": [
+        [
+          14,
+          90
+        ],
+        [
+          -14,
+          90
+        ]
+      ],
+      "1": [
+        [
+          14,
+          170
+        ],
+        [
+          -14,
+          170
+        ],
+        [
+          26,
+          90
+        ]
+      ],
+      "2": [
+        [
+          14,
+          200
+        ],
+        [
+          -14,
+          200
+        ],
+        [
+          26,
+          150
+        ],
+        [
+          -26,
+          110
+        ]
+      ],
+      "3": [
+        [
+          15,
+          210
+        ],
+        [
+          -14,
+          170
+        ],
+        [
+          26,
+          170
+        ],
+        [
+          -26,
+          150
+        ]
+      ],
+      "4": [
+        [
+          16,
+          210
+        ],
+        [
+          -13,
+          140
+        ],
+        [
+          25,
+          120
+        ],
+        [
+          -26,
+          180
+        ]
+      ],
+      "5": [
+        [
+          14,
+          150
+        ],
+        [
+          -16,
+          210
+        ],
+        [
+          27,
+          160
+        ],
+        [
+          -25,
+          120
+        ]
+      ],
+      "6": [
+        [
+          13,
+          120
+        ],
+        [
+          -16,
+          210
+        ],
+        [
+          26,
+          180
+        ],
+        [
+          -24,
+          150
+        ]
+      ],
+      "7": [
+        [
+          15,
+          210
+        ],
+        [
+          -14,
+          150
+        ],
+        [
+          24,
+          130
+        ],
+        [
+          -27,
+          170
+        ]
+      ],
+      "8": [
+        [
+          14,
+          190
+        ],
+        [
+          -15,
+          190
+        ],
+        [
+          26,
+          170
+        ],
+        [
+          -26,
+          120
+        ]
+      ],
+      "9": [
+        [
+          14,
+          200
+        ],
+        [
+          -14,
+          200
+        ],
+        [
+          26,
+          140
+        ],
+        [
+          -26,
+          150
+        ]
+      ]
+    }
+  }
 }

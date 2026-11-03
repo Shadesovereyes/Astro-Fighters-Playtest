@@ -1465,6 +1465,84 @@
         "foot": "flat"
       },
       {
+        "name": "gs-far-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 50,
+        "kneeX": 41,
+        "kneeRow": 54,
+        "ankle": [
+          51,
+          55
+        ],
+        "foot": "pointFwd"
+      },
+      {
+        "name": "gs-wide-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 50,
+        "kneeX": 22,
+        "kneeRow": 54,
+        "ankle": [
+          13,
+          57
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "sw-up-lead",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 43,
+        "kneeX": 39,
+        "kneeRow": 45,
+        "ankle": [
+          45,
+          47
+        ],
+        "foot": "pointFwd"
+      },
+      {
+        "name": "sw-up-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 43,
+        "kneeX": 36,
+        "kneeRow": 46,
+        "ankle": [
+          42,
+          49
+        ],
+        "foot": "pointFwd"
+      },
+      {
+        "name": "sw-hi-lead",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 43,
+        "kneeX": 39,
+        "kneeRow": 41,
+        "ankle": [
+          45,
+          39
+        ],
+        "foot": "pointUR"
+      },
+      {
+        "name": "sw-hi-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 43,
+        "kneeX": 37,
+        "kneeRow": 43,
+        "ankle": [
+          43,
+          42
+        ],
+        "foot": "pointFwd"
+      },
+      {
         "name": "as-lift",
         "construction": "band",
         "hipX": 34,
@@ -2882,5 +2960,142 @@
     "loopFrom": 2,
     "element": "air",
     "mark": "genjutsuAfflicted"
+  },
+  "clones": {
+    "rule": "Christopher 2026-11-03 19:22: copies of the caster must wear whatever the caster wears, so they are not baked into fx: on each listed frame the testbed draws the caster's own composited current frame (every equipped layer, no fx) again dx px toward its facing (negative = behind), washed toward #e9eef4 by wash (default 0.35), outlined 1 px in rim when given, at alpha, only where the caster itself is not drawn; frames {k: [[dx, alpha, wash, rim]]}",
+    "frames": {
+      "2": [
+        [
+          12,
+          110,
+          0.35,
+          "#39e75f"
+        ],
+        [
+          -12,
+          110,
+          0.35,
+          "#39e75f"
+        ]
+      ],
+      "3": [
+        [
+          12,
+          180,
+          0.35,
+          "#39e75f"
+        ],
+        [
+          -12,
+          180,
+          0.35,
+          "#39e75f"
+        ]
+      ],
+      "4": [
+        [
+          12,
+          190,
+          0.35,
+          "#39e75f"
+        ],
+        [
+          -12,
+          190,
+          0.35,
+          "#39e75f"
+        ],
+        [
+          24,
+          120,
+          0.35,
+          "#39e75f"
+        ],
+        [
+          -24,
+          120,
+          0.35,
+          "#39e75f"
+        ]
+      ],
+      "5": [
+        [
+          13,
+          190,
+          0.35,
+          "#39e75f"
+        ],
+        [
+          -11,
+          190,
+          0.35,
+          "#39e75f"
+        ],
+        [
+          24,
+          180,
+          0.35,
+          "#39e75f"
+        ],
+        [
+          -25,
+          180,
+          0.35,
+          "#39e75f"
+        ]
+      ],
+      "6": [
+        [
+          11,
+          190,
+          0.35,
+          "#39e75f"
+        ],
+        [
+          -13,
+          190,
+          0.35,
+          "#39e75f"
+        ],
+        [
+          25,
+          180,
+          0.35,
+          "#39e75f"
+        ],
+        [
+          -23,
+          180,
+          0.35,
+          "#39e75f"
+        ]
+      ],
+      "7": [
+        [
+          12,
+          120,
+          0.35,
+          "#39e75f"
+        ],
+        [
+          -12,
+          120,
+          0.35,
+          "#39e75f"
+        ],
+        [
+          24,
+          90,
+          0.35,
+          "#39e75f"
+        ],
+        [
+          -24,
+          90,
+          0.35,
+          "#39e75f"
+        ]
+      ]
+    }
   }
 }

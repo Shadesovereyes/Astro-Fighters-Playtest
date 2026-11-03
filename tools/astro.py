@@ -2906,7 +2906,7 @@ CLIPS = {
   [0, 1, 2, 2, 1, 1, 0, 0],
   dict(fps=10, auraColors=('#e9eef4', '#a3aebb'), rm='E: +1 +9 darting forward, -10 back (net 0)',
        ghosts={2: (2, -2), 3: (3, 6, 9), 4: (-3, -6)}, ghostColors=(('#ffffff', '#e9eef4'), ('#e9eef4', None), ('#39e75f', None)),
-       clones={4: [(18, 170, 0.35)], 5: [(18, 235, 0.12)], 6: [(18, 255, 0)], 7: [(18, 255, 0)]},
+       runtimeClones=True, clones={4: [(18, 170, 0.35)], 5: [(18, 235, 0.12)], 6: [(18, 255, 0)], 7: [(18, 255, 0)]},
        extra={'decoy': {'rule': 'Mirage Clone v2 (Christopher 2026-11-03): the cast creates an indistinguishable clone of the caster on a free tile next to it (the clip shows it 18 px ahead; the testbed then draws it as its own fighter with the caster\'s exact look, no tint, no label); every hostile fighter currently targeting the caster switches its target to the clone; the clone copies every movement and attack of the caster (same clip, same facing, mirrored from the caster\'s tile offset) but deals no damage; the first damage it takes dispels it: it plays mirageCloneDispel and is removed', 'state': 'mirageCloneDispel', 'appearFrame': 6, 'offsetPx': 18}},
        anchored={1: [('aRing3', 'hand', 0, 0, {'alpha': {'f': 150, 'W': 160}})], 2: [('aStreak2', 'head', -10, 12)],
                  3: [('aStreak', 'head', -14, 14), ('aStreak2', 'feet', -14, -6)], 4: [('aStreak', 'head', 10, 14), ('puff', 'feet', 8, -2)]})),
@@ -2997,7 +2997,7 @@ CLIPS = {
   [None, 'squint', 'squint', 'squint', 'squint', 'squint', 'squint', 'squint', None, None],
   [0, 1, 1, 2, 2, 2, 2, 1, 0, 0],
   dict(fps=10, auraColors=('#e9eef4', '#39e75f'),
-       clones={2: [(12, 110, 0.35, '#39e75f'), (-12, 110, 0.35, '#39e75f')], 3: [(12, 180, 0.35, '#39e75f'), (-12, 180, 0.35, '#39e75f')], 4: [(12, 190, 0.35, '#39e75f'), (-12, 190, 0.35, '#39e75f'), (24, 120, 0.35, '#39e75f'), (-24, 120, 0.35, '#39e75f')],
+       runtimeClones=True, clones={2: [(12, 110, 0.35, '#39e75f'), (-12, 110, 0.35, '#39e75f')], 3: [(12, 180, 0.35, '#39e75f'), (-12, 180, 0.35, '#39e75f')], 4: [(12, 190, 0.35, '#39e75f'), (-12, 190, 0.35, '#39e75f'), (24, 120, 0.35, '#39e75f'), (-24, 120, 0.35, '#39e75f')],
                5: [(13, 190, 0.35, '#39e75f'), (-11, 190, 0.35, '#39e75f'), (24, 180, 0.35, '#39e75f'), (-25, 180, 0.35, '#39e75f')], 6: [(11, 190, 0.35, '#39e75f'), (-13, 190, 0.35, '#39e75f'), (25, 180, 0.35, '#39e75f'), (-23, 180, 0.35, '#39e75f')], 7: [(12, 120, 0.35, '#39e75f'), (-12, 120, 0.35, '#39e75f'), (24, 90, 0.35, '#39e75f'), (-24, 90, 0.35, '#39e75f')]},
        extra={'targetState': {'rule': 'Phantom Legion v2 target (Christopher 2026-11-03: rework the target fx): from the active frame the target plays phantomBeset: frames 0-1 once, then frames 2-9 on loop until the Blind ends, then its idle; the genjutsu mark (genjutsuAfflicted, recolour genjutsuMark.recolor.air) is drawn over it throughout', 'state': 'phantomBeset', 'loopFrom': 2, 'element': 'air', 'mark': 'genjutsuAfflicted'}},
        anchored={1: [('eyeW', 'eye', 0, 0)], **{k_: [('eyeWF', 'eye', 0, 0)] for k_ in range(2, 7)}, 7: [('eyeW', 'eye', 0, 0)]})),
@@ -3016,12 +3016,11 @@ CLIPS = {
   ['pain', 'squint', 'squint', 'strain', 'strain', 'pain', 'pain', 'strain', 'squint', 'squint'],
   None,
   dict(fps=8, rm='E: -1 flinch, +1; loop +1 lunging at the front copy, -1 -1 leaning from the one behind, +1 (net 0)',
-       extra={'loop': True, 'loopFrom': 2, 'mark': 'genjutsuAfflicted', 'element': 'air'},
-       legion={'src': 'phantomLegion', 'srcFrame': 0, 'frames': {0: [(14, 90), (-14, 90)], 1: [(14, 170), (-14, 170), (26, 90)],
+       extra={'loop': True, 'loopFrom': 2, 'mark': 'genjutsuAfflicted', 'element': 'air', 'legion': {'rule': 'Phantom Legion v2 (Christopher 2026-11-03 19:22: the copies must match the caster, whatever it wears): the testbed draws the copies at runtime from the CASTER\'s own composited sprite (every equipped layer: armour, helmet, hair, eyes, weapons; no fx), frame srcFrame of src in the row that faces the target (a copy ahead of the target, dx > 0, takes the row opposite the target\'s facing; one behind takes the same facing), washed 35% toward #e9eef4 with a 1 px #39e75f outline, at alpha, dx px along the target\'s facing, drawn behind the target; frames {k: [[dx, alpha]]}', 'src': 'phantomLegion', 'srcFrame': 0, 'frames': {0: [(14, 90), (-14, 90)], 1: [(14, 170), (-14, 170), (26, 90)],
                2: [(14, 200), (-14, 200), (26, 150), (-26, 110)], 3: [(15, 210), (-14, 170), (26, 170), (-26, 150)],
                4: [(16, 210), (-13, 140), (25, 120), (-26, 180)], 5: [(14, 150), (-16, 210), (27, 160), (-25, 120)],
                6: [(13, 120), (-16, 210), (26, 180), (-24, 150)], 7: [(15, 210), (-14, 150), (24, 130), (-27, 170)],
-               8: [(14, 190), (-15, 190), (26, 170), (-26, 120)], 9: [(14, 200), (-14, 200), (26, 140), (-26, 150)]}},
+               8: [(14, 190), (-15, 190), (26, 170), (-26, 120)], 9: [(14, 200), (-14, 200), (26, 140), (-26, 150)]}}},
        anchored={k_: [('eyeWF' if k_ % 3 else 'eyeW', 'eye', 0, 0)] for k_ in range(10)})),
  'flowDodge': ('Flow Dodge', 3,
   'Flow Dodge (Sagittarius taijutsu stance buff: the fighter enters a dance-like trance and begins to swing and sway to its own rhythm): from the guard the fighter shakes its arms loose and lets the guard drop low and easy, eyes half closed, catching a beat; then it sways to its own rhythm: rocking back and forward on its feet and dipping on the knees, shoulders rolling, the loose hands swinging opposite to the hips, a flickering fire aura breathing round it on the beat with a few black and purple wisps rising off the shoulders; on the last beat it snaps its eyes open and settles into a loose, low guard (the testbed keeps the stance).', [
@@ -3085,6 +3084,8 @@ def spec(state):
     U.spec(state)
     x = CLIPS[state][6]; s = load(D + state + '.json')
     for k, v in (x.get('extra') or {}).items(): s[k] = v
+    if x.get('runtimeClones'):
+        s['clones'] = {'rule': 'Christopher 2026-11-03 19:22: copies of the caster must wear whatever the caster wears, so they are not baked into fx: on each listed frame the testbed draws the caster\'s own composited current frame (every equipped layer, no fx) again dx px toward its facing (negative = behind), washed toward #e9eef4 by wash (default 0.35), outlined 1 px in rim when given, at alpha, only where the caster itself is not drawn; frames {k: [[dx, alpha, wash, rim]]}', 'frames': {str(k): [list(i) for i in v] for k, v in x['clones'].items()}}
     if x.get('farLayer'): s['arms']['farLayer'] = True   # the far arm in its own far-arm sheet (Flowing Sand Parry v2: its hand is tracked for the sand trail)
     if x.get('shapes'): s['expressions']['shapes'].update(copy.deepcopy(x['shapes']))
     if x.get('front') or {'roar', 'strain'} & set(CLIPS[state][4]):   # roar/strain faces (S shapes used by the turn, E for all)
@@ -3176,7 +3177,7 @@ def fx(state):
         if not os.path.exists(f_) or ('fx' not in load(D + state + '.json') and not CLIPS[state][5] and not x.get('anchored')): Image.new('RGBA', Image.open(D + state + '/body.png').size).save(f_)
         for n in ('gather', 'nova', 'flare', 'rays', 'beam', 'cone'):
             if x.get(n): globals()[n](state, x[n])
-    if x.get('clones'): clones(state, x['clones'])
+    if x.get('clones') and not x.get('runtimeClones'): clones(state, x['clones'])   # v2 (Christopher 2026-11-03 19:22): runtimeClones = the testbed draws them from the caster's own sprite, nothing baked
     if x.get('legion'): legion(state, x['legion'])
     if x.get('ghosts'):
         from PIL import Image
