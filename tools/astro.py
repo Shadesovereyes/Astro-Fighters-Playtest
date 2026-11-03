@@ -3447,7 +3447,7 @@ def burst(state, frames, row='S', spread=True, clean=True):
     hexc = lambda c: tuple(int(c[i:i + 2], 16) for i in (1, 3, 5)) + (255,)
     W_, Y, O, R_ = (255, 255, 255, 255), hexc(ELEMENT['Y']), hexc(ELEMENT['O']), hexc(ELEMENT['R'])
     ramp = [W_, Y, O, R_]
-    lay = [Image.open(d + n).convert('RGBA') for n in ('body.png', 'arms.png', 'male-gi.png', 'fade-hair.png', 'far-arm.png') if os.path.exists(d + n)]
+    lay = [Image.open(d + n).convert('RGBA') for n in FIG_LAYERS if os.path.exists(d + n)]   # v2 (2026-11-03): the widest outline of any look (see OUTFIT_LAYERS)
     for k, st in frames.items():
         rnd = random.Random(k * 7)
         box = (k * 64, rs * 64, k * 64 + 64, rs * 64 + 64)
@@ -3820,6 +3820,13 @@ def _eye(state, k, r):   # centre of the eye pixels (brown-eyes layer) in one ce
 
 # ---- Leo ninjutsu / genjutsu (sunlight: white-hot core, gold, orange, red rim) ----
 FIG_LAYERS = ('body.png', 'arms.png', 'far-arm.png', 'male-gi.png', 'fade-hair.png')
+# Christopher 2026-11-03 19:28 (all auras follow the outline of the hair): baked silhouette-hugging fx (spiked eruptions, rays, glows)
+# root outside the widest outline any equipped look can have, so they never paint over a hairstyle, helmet or armour; the plain aura is runtime
+OUTFIT_LAYERS = ('long-hair', 'locs-tied', 'locs-loose', 'wrapped-headscarf', 'modern-topknot', 'braided-side', 'afro-puff', 'bantu-knots', 'ronin-ponytail',
+                 'flat-top', 'afro-hair', 'headband-white', 'headband-red', 'headband-blue', 'scale-coat-helmet', 'lamellar-kabuto', 'molded-leather-cap', 'plate-bascinet',
+                 'male-blue-armor', 'male-red-armor', 'blue-armor-shoulders', 'red-armor-shoulders', 'male-scale-coat', 'male-lamellar', 'male-studded-leather',
+                 'male-plate-harness', 'scale-coat-shoulders', 'lamellar-shoulders', 'studded-leather-shoulders', 'plate-harness-shoulders')
+FIG_LAYERS = FIG_LAYERS + tuple(n + '.png' for n in OUTFIT_LAYERS)
 def _hexc(c, a=255): return tuple(int(c[i:i + 2], 16) for i in (1, 3, 5)) + (a,)
 def _open_fx(state, aura=False):   # the fx layer drawn so far this pass (fx() starts it clean when nothing else drew)
     from PIL import Image
