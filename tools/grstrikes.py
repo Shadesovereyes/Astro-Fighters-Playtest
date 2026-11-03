@@ -83,6 +83,13 @@ def aura(state):
     import os
     from PIL import Image, ImageFilter
     widths = CLIPS[state][9]; d = D + state + '/'
+    if os.environ.get('AURA_BAKE') != '1':   # Christopher 2026-11-03 19:28: every aura follows the outline of the hair (and any armour, helmet or weapon worn), so it is no longer baked here round the base figure: the spec carries it and the testbed draws it round the fighter's own composited silhouette each frame
+        import json
+        rule = {'rule': 'Runtime aura (Christopher 2026-11-03: all auras follow the outline of the hair): on frame k, when widths[k] > 0, the testbed grows the silhouette of every drawn layer except fx (body, clothing or armour, arms, shoulders, hair or helmet, eyes, weapons) by widths[k] rings of 1 px (4-neighbour / 3x3 max growth); ring 0 in colors[0], the others in colors[1]; the outermost ring only on pixels where (x + y + k) is even (flicker); drawn behind the fighter, only outside its silhouette', 'widths': list(widths), 'colors': list(AURA)}
+        for f_ in (D + state + '.json', d + 'animation.json'):
+            if os.path.exists(f_):
+                j = json.load(open(f_)); j['aura'] = rule; json.dump(j, open(f_, 'w'), indent=2)
+        W, Hh = Image.open(d + 'body.png').size; Image.new('RGBA', (W, Hh)).save(d + 'fx.png'); print(state, 'aura (runtime)', widths); return
     lay = [Image.open(d + f).convert('RGBA') for f in sorted(os.listdir(d)) if f in ('body.png', 'arms.png', 'male-gi.png')]   # base figure + gi only: hair and armour variants would bloat it
     W, Hh = lay[0].size; fx = Image.new('RGBA', (W, Hh)); px = fx.load()
     for k, wd in enumerate(widths):

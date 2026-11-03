@@ -1140,6 +1140,396 @@
         "foot": "toe30k"
       },
       {
+        "name": "ar-lift-lead",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 44,
+        "kneeX": 37,
+        "kneeRow": 49,
+        "ankle": [
+          38,
+          54
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "ar-plant-lead",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 45,
+        "kneeX": 38,
+        "kneeRow": 51,
+        "footX": 41,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "ar-plant-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 45,
+        "kneeX": 29,
+        "kneeRow": 51,
+        "footX": 26,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "ar-drag-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 45,
+        "kneeX": 28,
+        "kneeRow": 51,
+        "ankle": [
+          24,
+          55
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "ar-buckle-lead",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 47,
+        "kneeX": 39,
+        "kneeRow": 51,
+        "footX": 40,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "ar-buckle-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 47,
+        "kneeX": 29,
+        "kneeRow": 53,
+        "footX": 25,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "aw-0-near",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 45,
+        "kneeX": 35,
+        "kneeRow": 51,
+        "footX": 37,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "aw-0-far",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 45,
+        "kneeX": 37,
+        "kneeRow": 51,
+        "footX": 39,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "aw-1-near",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 45,
+        "kneeX": 33,
+        "kneeRow": 51,
+        "footX": 34,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "aw-1-far",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 45,
+        "kneeX": 35,
+        "kneeRow": 51,
+        "footX": 36,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "aw-2-near",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 45,
+        "kneeX": 31,
+        "kneeRow": 51,
+        "footX": 31,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "aw-2-far",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 45,
+        "kneeX": 33,
+        "kneeRow": 51,
+        "footX": 33,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "aw-3-near",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 45,
+        "kneeX": 29,
+        "kneeRow": 51,
+        "footX": 27,
+        "wrapRow": 54,
+        "foot": "toe60"
+      },
+      {
+        "name": "aw-3-far",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 45,
+        "kneeX": 31,
+        "kneeRow": 51,
+        "footX": 29,
+        "wrapRow": 54,
+        "foot": "toe60"
+      },
+      {
+        "name": "aw-4-near",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 45,
+        "kneeX": 28,
+        "kneeRow": 51,
+        "ankle": [
+          24,
+          57
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "aw-4-far",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 45,
+        "kneeX": 30,
+        "kneeRow": 51,
+        "ankle": [
+          26,
+          57
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "aw-5-near",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 45,
+        "kneeX": 31,
+        "kneeRow": 50,
+        "ankle": [
+          29,
+          56
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "aw-5-far",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 45,
+        "kneeX": 33,
+        "kneeRow": 50,
+        "ankle": [
+          31,
+          56
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "aw-6-near",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 45,
+        "kneeX": 35,
+        "kneeRow": 49,
+        "ankle": [
+          34,
+          55
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "aw-6-far",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 45,
+        "kneeX": 37,
+        "kneeRow": 49,
+        "ankle": [
+          36,
+          55
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "aw-7-near",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 45,
+        "kneeX": 37,
+        "kneeRow": 50,
+        "ankle": [
+          37,
+          56
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "aw-7-far",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 45,
+        "kneeX": 39,
+        "kneeRow": 50,
+        "ankle": [
+          39,
+          56
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "gs-back-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 50,
+        "kneeX": 24,
+        "kneeRow": 55,
+        "ankle": [
+          16,
+          57
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "gs-mid-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 50,
+        "kneeX": 34,
+        "kneeRow": 54,
+        "ankle": [
+          37,
+          56
+        ],
+        "foot": "pointFwd"
+      },
+      {
+        "name": "gs-front-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 50,
+        "kneeX": 40,
+        "kneeRow": 55,
+        "ankle": [
+          49,
+          57
+        ],
+        "foot": "pointFwd"
+      },
+      {
+        "name": "gs-crouch-lead",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 50,
+        "kneeX": 40,
+        "kneeRow": 49,
+        "footX": 41,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "gs-far-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 50,
+        "kneeX": 41,
+        "kneeRow": 54,
+        "ankle": [
+          51,
+          55
+        ],
+        "foot": "pointFwd"
+      },
+      {
+        "name": "gs-wide-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 50,
+        "kneeX": 22,
+        "kneeRow": 54,
+        "ankle": [
+          13,
+          57
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "sw-up-lead",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 43,
+        "kneeX": 39,
+        "kneeRow": 45,
+        "ankle": [
+          45,
+          47
+        ],
+        "foot": "pointFwd"
+      },
+      {
+        "name": "sw-up-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 43,
+        "kneeX": 36,
+        "kneeRow": 46,
+        "ankle": [
+          42,
+          49
+        ],
+        "foot": "pointFwd"
+      },
+      {
+        "name": "sw-hi-lead",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 43,
+        "kneeX": 39,
+        "kneeRow": 41,
+        "ankle": [
+          45,
+          39
+        ],
+        "foot": "pointUR"
+      },
+      {
+        "name": "sw-hi-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 43,
+        "kneeX": 37,
+        "kneeRow": 43,
+        "ankle": [
+          43,
+          42
+        ],
+        "foot": "pointFwd"
+      },
+      {
         "name": "as-lift",
         "construction": "band",
         "hipX": 34,
@@ -2646,5 +3036,23 @@
     "alpha": 205,
     "streak": "#f0fffc",
     "facet": "#2c8074"
+  },
+  "aura": {
+    "rule": "Runtime aura (Christopher 2026-11-03: all auras follow the outline of the hair): on frame k, when widths[k] > 0, the testbed grows the silhouette of every drawn layer except fx (body, clothing or armour, arms, shoulders, hair or helmet, eyes, weapons) by widths[k] rings of 1 px (4-neighbour / 3x3 max growth); ring 0 in colors[0], the others in colors[1]; the outermost ring only on pixels where (x + y + k) is even (flicker); drawn behind the fighter, only outside its silhouette",
+    "widths": [
+      0,
+      0,
+      1,
+      2,
+      2,
+      2,
+      1,
+      1,
+      0
+    ],
+    "colors": [
+      "#7fe3d0",
+      "#3a9e8f"
+    ]
   }
 }

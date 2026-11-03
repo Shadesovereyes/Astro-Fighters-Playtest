@@ -18,7 +18,7 @@
       "E",
       "W"
     ],
-    "columns": "frames 0–7"
+    "columns": "frames 0\u20137"
   },
   "layers": {
     "body": "body.png",
@@ -1336,5 +1336,22 @@
       }
     },
     "pass": true
+  },
+  "aura": {
+    "rule": "Runtime aura (Christopher 2026-11-03: all auras follow the outline of the hair): on frame k, when widths[k] > 0, the testbed grows the silhouette of every drawn layer except fx (body, clothing or armour, arms, shoulders, hair or helmet, eyes, weapons) by widths[k] rings of 1 px (4-neighbour / 3x3 max growth); ring 0 in colors[0], the others in colors[1]; the outermost ring only on pixels where (x + y + k) is even (flicker); drawn behind the fighter, only outside its silhouette",
+    "widths": [
+      0,
+      1,
+      2,
+      2,
+      1,
+      1,
+      0,
+      0
+    ],
+    "colors": [
+      "#b8ffc8",
+      "#39e75f"
+    ]
   }
 }
