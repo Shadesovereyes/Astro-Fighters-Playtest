@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "EMP Field (Aquarius ninjutsu, Elemental 6, Wide AoE, Slow 2 rounds INT save DC 12: the fighter amplifies its inner electrical field with chakra into a dome that repulses enemies and hinders their attacks), v2 (Christopher 2026-10-30: more dramatic; the force field must radiate outward): from the guard the fighter makes the seal and sinks, a crackling green aura rising and arcs leaping off its shoulders; it crosses both forearms before its chest and the charge builds, lightning crawling over its whole body, its eyes blazing white, sparks spitting off the floor; then it throws both arms wide and down with a roar and the field detonates outward: a white flash at its chest, bolts lashing out in every direction, and the dome of crackling electricity blasts out from its body, small, then wider, then full size, with electric shock rings racing outward along the floor; the dome stands round it, crackling, and pulses of force keep radiating outward through it, ring after ring; then it fades as the fighter rises back into the guard (the testbed draws the field over the AoE while it lasts).",
+  "intent": "EMP Field (Aquarius ninjutsu, Elemental 6, Wide AoE, Slow 2 rounds INT save DC 12: the fighter amplifies its inner electrical field with chakra into a dome that repulses enemies and hinders their attacks), v2 (Christopher 2026-10-30: more dramatic; the force field must radiate outward): from the guard the fighter makes the seal and sinks, a crackling green aura rising and arcs leaping off its shoulders; it crosses both forearms before its chest and the charge builds, lightning crawling over its whole body, its eyes blazing white, sparks spitting off the floor; then it throws both arms wide and down with a roar and the field detonates outward: a white flash at its chest, bolts lashing out in every direction, and the dome of crackling electricity blasts out from its body, small, then wider, then full size, with electric shock rings racing outward along the floor; the dome stands round it, crackling, and pulses of force keep radiating outward through it, ring after ring; then it fades as the fighter rises back into the guard (v4, Christopher 2026-11-03: one field only, with the look of the small dome and the radius of the large one: the clip keeps the charge, the flash, the bolts and the floor shock rings, and the testbed draws the dome itself at radius 2).",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -3185,7 +3185,7 @@
     "intent": "eyes squeezed shut with the brow pulled down on the impact frames 0-2 (no mouth: user 2026-10-14), a squint on frame 3, open again from frame 4 (user 2026-10-14)"
   },
   "zone": {
-    "rule": "EMP Field (Wide AoE): centred on the caster's hex (selfCentered, Claude's reading of \"a dome of protection\"), radius 2 for 2 rounds (Christopher 2026-11-03: the field covers a radius of 2; v3: the clip only shows the burst leaving the body, the testbed draws the field itself at full size: an ellipse of R = (radius + 0.5) * hexStep * sqrt(3) and ry = 0.92 R round the caster, as the Guardian Barrier dome is sized, growing from 0 to R over 0.5 s with an ease-out, then standing with a faint #b8ffc8 fill at alpha 0.10, a jagged 3 px rim (#ffffff glint running round it, #b8ffc8, #39e75f, #14a03c), arcs crawling over it and two pulse rings running outward from the caster every 0.6 s; preview hex-sprites/astro/aquarius/emp-field-radius2-v3, tool hex-sprites/tools/astro_field.py); v2: on the cast the field radiates outward from the caster across the AoE (rings growing hex by hex, as Explosive Tag fills its hexes ring by ring); while it lasts the testbed draws the crackling dome (edomeD / edomeDim flickering) over the AoE with an eripple pulse running outward every few frames; enemies inside on the cast take Elemental 6, save or are Slowed 2 rounds, and are pushed to the edge (repulse, placeholder 1 hex)",
+    "rule": "EMP Field (Wide AoE): centred on the caster's hex (selfCentered, Claude's reading of \"a dome of protection\"), radius 2 for 2 rounds (Christopher 2026-11-03: the field covers a radius of 2; v4 (2026-11-03: one field, the small dome's look at the large one's radius): the clip draws no dome; the testbed draws the field as a dome standing on the caster's floor line, half-width R = (radius + 0.5) * hexStep * sqrt(3) (the Guardian Barrier sizing) and height 0.92 R, no fill: a jagged 3 px arc (#ffffff / #b8ffc8 / #39e75f, a #14a03c dotted inner shell 6 px in), arcs crawling over the shell, growing out from the caster to R over 0.5 s, then standing with dotted pulse domes running outward from the caster every 0.6 s; preview hex-sprites/astro/aquarius/emp-field-radius2-v4, tool hex-sprites/tools/astro_field.py); v2: on the cast the field radiates outward from the caster across the AoE (rings growing hex by hex, as Explosive Tag fills its hexes ring by ring); while it lasts the testbed draws the crackling dome (edomeD / edomeDim flickering) over the AoE with an eripple pulse running outward every few frames; enemies inside on the cast take Elemental 6, save or are Slowed 2 rounds, and are pushed to the edge (repulse, placeholder 1 hex)",
     "pattern": "edomeD",
     "pulse": [
       "eripple0",
@@ -3196,18 +3196,19 @@
     "radius": 2,
     "rounds": 2,
     "draw": {
+      "shape": "dome on the floor line",
       "R": "(radius + 0.5) * hexStep * sqrt(3)",
-      "ry": 0.92,
+      "height": 0.92,
       "riseMs": 500,
-      "fill": [
-        "#b8ffc8",
-        0.1
-      ],
+      "fill": null,
       "rim": [
         "#ffffff",
         "#b8ffc8",
-        "#39e75f",
-        "#14a03c"
+        "#39e75f"
+      ],
+      "innerShell": [
+        "#14a03c",
+        6
       ],
       "pulseMs": 600
     }
