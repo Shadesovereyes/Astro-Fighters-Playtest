@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Aero Palm (Libra taijutsu strike, Physical 12, Melee with Reach +6 m: the fighter throws a series of palm strikes so fast that they project a column of air that hits the opponent from range): from the guard the fighter draws the near open hand back by the hip, steps in and fires four rapid alternating palm strikes straight out at chest height, near, far, near, far, each one popping a small ring of compressed air off the palm with a streak behind it; on the fifth, full extension of the near palm the rings join into a column of air driven straight out (pale silver edges, white core, vortex rings along it); it streams on for a frame and thins away as the arm comes back and the fighter settles into the guard (spec extra.projectile has the testbed fly the air column on to the target).",
+  "intent": "Aero Palm (Libra taijutsu strike, Physical 12, Melee with Reach +6 m: the fighter throws a series of palm strikes so fast that they project a column of air that hits the opponent from range): from the guard the fighter draws the near open hand back by the hip, steps in and fires four rapid alternating palm strikes straight out at chest height, near, far, near, far, each one popping a small ring of compressed air off the palm and firing its own small column of air at the target (v2, Christopher 2026-11-03); on the fifth, full extension of the near palm the rings join into a column of air driven straight out (pale silver edges, white core, vortex rings along it); it streams on for a frame and thins away as the arm comes back and the fighter settles into the guard (spec extra.projectile has the testbed fly the air column on to the target).",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -1413,6 +1413,56 @@
           56
         ],
         "foot": "toe30k"
+      },
+      {
+        "name": "gs-back-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 50,
+        "kneeX": 24,
+        "kneeRow": 55,
+        "ankle": [
+          16,
+          57
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "gs-mid-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 50,
+        "kneeX": 34,
+        "kneeRow": 54,
+        "ankle": [
+          37,
+          56
+        ],
+        "foot": "pointFwd"
+      },
+      {
+        "name": "gs-front-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 50,
+        "kneeX": 40,
+        "kneeRow": 55,
+        "ankle": [
+          49,
+          57
+        ],
+        "foot": "pointFwd"
+      },
+      {
+        "name": "gs-crouch-lead",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 50,
+        "kneeX": 40,
+        "kneeRow": 49,
+        "footX": 41,
+        "wrapRow": 56,
+        "foot": "flat"
       },
       {
         "name": "as-lift",
@@ -2966,10 +3016,38 @@
     "intent": "eyes squeezed shut with the brow pulled down on the impact frames 0-2 (no mouth: user 2026-10-14), a squint on frame 3, open again from frame 4 (user 2026-10-14)"
   },
   "projectile": {
-    "rule": "Aero Palm reaches +6 m: from frame 6 the testbed flies NPAT airSlug (a 12 px column of air) from the near palm to the target at chest height, then pops aRing5 on it",
-    "from": "hand",
-    "frame": 6,
-    "pattern": "airSlug",
-    "hit": "aRing5"
+    "rule": "Aero Palm v2 (Christopher 2026-11-03: a projectile for each strike): every palm fires its own column of air at the target: on frames 2, 3, 4 and 5 the testbed flies NPAT airPuck from the striking palm (near, far, near, far) to the target at chest height, popping aRing3 on each hit; on frame 6 the last, full palm fires airSlug and pops aRing5",
+    "volley": [
+      {
+        "frame": 2,
+        "from": "hand",
+        "pattern": "airPuck",
+        "hit": "aRing3"
+      },
+      {
+        "frame": 3,
+        "from": "farhand",
+        "pattern": "airPuck",
+        "hit": "aRing3"
+      },
+      {
+        "frame": 4,
+        "from": "hand",
+        "pattern": "airPuck",
+        "hit": "aRing3"
+      },
+      {
+        "frame": 5,
+        "from": "farhand",
+        "pattern": "airPuck",
+        "hit": "aRing3"
+      },
+      {
+        "frame": 6,
+        "from": "hand",
+        "pattern": "airSlug",
+        "hit": "aRing5"
+      }
+    ]
   }
 }
