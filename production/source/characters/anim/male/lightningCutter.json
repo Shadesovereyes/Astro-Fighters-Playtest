@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Lightning Cutter (Aquarius ninjutsu, Mental 24, Melee (Reach +6m), Priority, Gap Closer: an instant piercing lightning charge), v3 (Christopher 2026-11-03: play it as a sprinting uppercut to the body with the same fx, the striking arm kept low until the strike is in range; v2 2026-10-30: electric blades envelop the hand while it runs, the strike impales the torso): from the guard the fighter dips and draws the near hand back low as a knife hand, and a sheaf of crackling electric blades bursts out round it; then it breaks into the approved sprint at blinding speed with the bladed hand carried low beside the hip, the blades pointing forward along the floor and spitting sparks, sparks off its feet at every stride, a streak of lightning and four green afterimages trailing behind; in range it plants, dips, and rips the bladed hand up from the hip in an uppercut into the target's body, the blades driving up through its torso and punching out of its upper back in a burst of lightning (the target plays lightningImpaled); it holds the blow while the lightning crackles through the target, then rips the hand free and settles back into the guard. The fighter travels 40 px over the clip (the game moves it by that distance).",
+  "intent": "Lightning Cutter (Aquarius ninjutsu, Mental 24, Melee (Reach +6m), Priority, Gap Closer: an instant piercing lightning charge), v4 (Christopher 2026-11-03: the lightning blades cover the hand, not sit below it; v3: play it as a sprinting uppercut to the body with the same fx, the striking arm kept low until the strike is in range; v2 2026-10-30: electric blades envelop the hand while it runs, the strike impales the torso): from the guard the fighter dips and draws the near hand back low as a knife hand, and a sheaf of crackling electric blades bursts out round it; then it breaks into the approved sprint at blinding speed with the bladed hand carried low beside the hip, the blades pointing forward along the floor and spitting sparks, sparks off its feet at every stride, a streak of lightning and four green afterimages trailing behind; in range it plants, dips, and rips the bladed hand up from the hip in an uppercut into the target's body, the blades driving up through its torso and punching out of its upper back in a burst of lightning (the target plays lightningImpaled); it holds the blow while the lightning crackles through the target, then rips the hand free and settles back into the guard. The fighter travels 40 px over the clip (the game moves it by that distance).",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -10280,6 +10280,62 @@
         "......................",
         ".............l........",
         "......................"
+      ],
+      "ebHand0": [
+        "........L.......",
+        "llLLLLLLl.......",
+        "LllllWWLLLLL....",
+        "lWlWWWWWWLllL...",
+        ".WWWWWllllLLL...",
+        "llWWWWWWWWWWLLL.",
+        "lllWWWWWlllllllL",
+        ".lllWllWlLLLLLlL",
+        "...LlLLLlll.....",
+        ".....L.L........"
+      ],
+      "ebHand1": [
+        "........L........",
+        "..LllLLLLL.......",
+        ".LlllWWWLLLLL....",
+        ".lWWWWWWWWLLl....",
+        "..WWWllllllLLL...",
+        ".lWWWWWWWWlllL...",
+        ".llWWWWlllWWWlLLL",
+        "L.lWWlWWWllllllll",
+        "..LLWLLWlLL..L.L.",
+        ".l.LLLLL.LL......",
+        ".........L......l"
+      ],
+      "ebUp": [
+        "..........L.Ll",
+        ".......L..LLll",
+        "......LllLLlL.",
+        "......LLLLWlL.",
+        "...L.LLLlWlL..",
+        "....LLWWWlll..",
+        "...LLWWlWlLll.",
+        "..LWWWlWlWLlL.",
+        "..llWWWlWWl...",
+        "..llWWWWlL....",
+        ".llWWWWWlL....",
+        "LllWWWWWLL....",
+        "..WWWlll.....l",
+        "...WlllL......",
+        "....Ll........"
+      ],
+      "ebUpS": [
+        "........L.",
+        "......LlLL",
+        ".....Llll.",
+        "...LLLWlL.",
+        "..LLWWWlL.",
+        ".LlWWWlLLL",
+        ".lWWWWWL..",
+        "llWWWWlL..",
+        "LlWWWWl...",
+        ".llWWll...",
+        "..llll....",
+        "...ll....."
       ],
       "globe0": [
         "...........C...........",

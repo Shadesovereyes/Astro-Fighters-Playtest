@@ -659,6 +659,29 @@ NPAT.update({'eblade0': _eblade(18, 1), 'eblade1': _eblade(18, 2, 1.2), 'eblade2
              'ebladeLow': _eblade(16, 8, 0.8, 0.25), 'ebladeLow2': _eblade(16, 9, 0.9, 0.25), 'ebladeUp': _eblade(16, 10, 0.7, -0.85), 'ebladeUp2': _eblade(18, 11, 0.8, -0.95),
              'impaleUp': [r[::-1] for r in _eblade(18, 12, 0.6, -0.8)], 'impaleUp2': [r[::-1] for r in _eblade(20, 13, 0.8, -0.85)],
              'impaleOut': [r[::-1] for r in _eblade(18, 6, 0.6)], 'impaleOut2': [r[::-1] for r in _eblade(20, 7, 0.8)]})
+def _ebladeAt(L, seed, spread, base, back=5):   # Lightning Cutter v4 (Christopher 2026-11-03: the blades cover the hand, not below it): the sheaf rooted `back` px behind the fingertips so it wraps the
+    import random                                  # knife hand and juts past it; returns the rows plus the anchored dx/dy that put the root on the hand anchor (patterns are centred on the anchor)
+    rnd = random.Random(seed); pts = {}
+    for (ln, ang, w) in ((L, 0, 3.4), (round(L * 0.75), -0.3 * spread, 2.4), (round(L * 0.7), 0.32 * spread, 2.4), (round(L * 0.5), -0.6 * spread, 1.8), (round(L * 0.45), 0.65 * spread, 1.8)):
+        for i in range(ln * 2):
+            t = i / 2; f = t / ln; half = w * (1 - f) + 0.5
+            jit = rnd.choice((-0.6, 0, 0.6)) if i % 3 == 0 else 0
+            for j in range(-5, 6):
+                o = j / 2
+                if abs(o) > half: continue
+                a = ang + base; x = round(t * math.cos(a) - (o + jit) * math.sin(a)) - back; y = round(t * math.sin(a) + (o + jit) * math.cos(a))
+                ch = 'W' if abs(o) < 0.3 and f < 0.7 else 'l' if abs(o) < half - 0.6 else 'L'
+                if (x, y) not in pts or ch == 'W': pts[(x, y)] = ch
+    xs = [x for x, _ in pts]; ys = [y for _, y in pts]; x0, y0 = min(xs), min(ys); w_, h_ = max(xs) - x0 + 1, max(ys) - y0 + 1
+    rows = [['.'] * w_ for _ in range(h_)]
+    for (x, y), ch in pts.items(): rows[y - y0][x - x0] = ch
+    for _ in range(5): rows[rnd.randrange(h_)][rnd.randrange(w_)] = 'l'
+    return [''.join(q) for q in rows], (w_ - 1) / 2 + x0, (h_ - 1) / 2 + y0   # dx, dy: offset of the pattern centre from the root
+EB = {}
+for nm, args in {'ebHand0': (15, 21, 0.9, 0.15), 'ebHand1': (15, 22, 1.1, 0.2), 'ebUp': (16, 23, 0.8, -0.9), 'ebUpS': (11, 24, 0.7, -0.9)}.items():
+    NPAT[nm], dx_, dy_ = _ebladeAt(*args); EB[nm] = (round(dx_), round(dy_))
+def eb(nm, alpha=None):   # anchored item: blade sheaf nm rooted on the hand
+    return (nm, 'hand', EB[nm][0], EB[nm][1]) + (({'alpha': alpha},) if alpha else ())
 ELEC_TRAIL = {(255, 255, 255): (0xff, 0xff, 0xff), (0xe3, 0xe3, 0xe3): (0x39, 0xe7, 0x5f)}   # Lightning Cutter: motion streak white inner half, electric green tail
 ELEC_FEET = [[('spark', _foot(SPRINT_LEGS[k])), ('sparkL', [_foot(SPRINT_LEGS[(k + 4) % 8])[0], _foot(SPRINT_LEGS[(k + 4) % 8])[1]])] + ([('bolt8', [_foot(SPRINT_LEGS[k])[0] - 9, 63])] if _foot(SPRINT_LEGS[k])[1] == 63 else []) for k in range(6)]
 ELEC_WAKE = [[('bolt12', [2, 58]), ('spark', [10, 40]), ('sparkL', [3, 30])], [('bolt12b', [1, 60]), ('sparkL', [12, 44]), ('spark', [4, 34])]]
@@ -2062,7 +2085,7 @@ CLIPS = {
                  4: [('crackle4', 'head', -8, 8), ('crackle4b', 'head', 8, 26), ('spark', 'head', -12, 30), ('sparkL', 'head', 12, 0)],
                  5: [('spark', 'head', 9, 12), ('sparkL', 'head', -9, 30), ('staticV', 'head', 6, -8)], 6: [('spark', 'head', -7, 20)]})),
  'lightningCutter': ('Lightning Cutter', 9,
-  'Lightning Cutter (Aquarius ninjutsu, Mental 24, Melee (Reach +6m), Priority, Gap Closer: an instant piercing lightning charge), v3 (Christopher 2026-11-03: play it as a sprinting uppercut to the body with the same fx, the striking arm kept low until the strike is in range; v2 2026-10-30: electric blades envelop the hand while it runs, the strike impales the torso): from the guard the fighter dips and draws the near hand back low as a knife hand, and a sheaf of crackling electric blades bursts out round it; then it breaks into the approved sprint at blinding speed with the bladed hand carried low beside the hip, the blades pointing forward along the floor and spitting sparks, sparks off its feet at every stride, a streak of lightning and four green afterimages trailing behind; in range it plants, dips, and rips the bladed hand up from the hip in an uppercut into the target\'s body, the blades driving up through its torso and punching out of its upper back in a burst of lightning (the target plays lightningImpaled); it holds the blow while the lightning crackles through the target, then rips the hand free and settles back into the guard. The fighter travels 40 px over the clip (the game moves it by that distance).', [
+  'Lightning Cutter (Aquarius ninjutsu, Mental 24, Melee (Reach +6m), Priority, Gap Closer: an instant piercing lightning charge), v4 (Christopher 2026-11-03: the lightning blades cover the hand, not sit below it; v3: play it as a sprinting uppercut to the body with the same fx, the striking arm kept low until the strike is in range; v2 2026-10-30: electric blades envelop the hand while it runs, the strike impales the torso): from the guard the fighter dips and draws the near hand back low as a knife hand, and a sheaf of crackling electric blades bursts out round it; then it breaks into the approved sprint at blinding speed with the bladed hand carried low beside the hip, the blades pointing forward along the floor and spitting sparks, sparks off its feet at every stride, a streak of lightning and four green afterimages trailing behind; in range it plants, dips, and rips the bladed hand up from the hip in an uppercut into the target\'s body, the blades driving up through its torso and punching out of its upper back in a burst of lightning (the target plays lightningImpaled); it holds the blow while the lightning crackles through the target, then rips the hand free and settles back into the guard. The fighter travels 40 px over the clip (the game moves it by that distance).', [
      g(),
      g(an=band(20, -40, fistKind='palm'), af=band(-40, 215), bob=(3, 3, 3), lean=(1, 4), ln='ml-dip-rear', lf='ml-dip-lead')] + [
      g(an=LC_RUN, af=SPRINT_F[k], bob=(SPRINT_DY[k],) * 3, lean=(1, 8), root=(6, 0), ln='sr-' + SPRINT_LEGS[k], lf='sr-' + SPRINT_LEGS[(k + 4) % 8]) for k in range(6)] + [
@@ -2082,10 +2105,10 @@ CLIPS = {
               [(k, ELEC_FEET[k - 2] + ELEC_WAKE[k % 2]) for k in range(2, 8)] + [(8, ELEC_WAKE[0][:2]), (9, [('spark', [4, 40])])]),
        extra={'airborneFrames': [5], 'travel': {'rule': 'Lightning Cutter is a gap closer (Reach +6 m): the fighter ends the clip 40 px further forward (sum of rootMotion); the game moves the fighter by that distance', 'E': 40},
               'targetState': {'rule': 'Lightning Cutter v3: on the active frame (frame 9, the bladed uppercut drives up into the body) the target plays lightningImpaled once (impaled, blades out of its back, convulsing, then the hand rips free and it staggers), then its idle', 'state': 'lightningImpaled', 'loopFrom': None, 'element': 'air'}},
-       anchored={1: [('ebladeS', 'hand', 4, 0), ('crackle3', 'hand', 0, 0)], **{k: [(('ebladeLow', 'ebladeLow2')[k % 2], 'hand', 6, 1), ('spark', 'hand', 2, (-5, 5)[k % 2])] for k in range(2, 8)},
-                 8: [('ebladeUp', 'hand', 4, -5), ('crackle4', 'hand', 0, 0)], 9: [('voltOrb3', 'hand', 0, 0), ('zapRing9', 'hand', 2, -2)],
+       anchored={1: [eb('ebHand0'), ('crackle3', 'hand', -3, 0)], **{k: [eb(('ebHand0', 'ebHand1')[k % 2]), ('spark', 'hand', -3, (-5, 5)[k % 2])] for k in range(2, 8)},
+                 8: [eb('ebUp'), ('crackle4', 'hand', -2, 0)], 9: [('voltOrb3', 'hand', 0, 0), ('zapRing9', 'hand', 2, -2)],
                  10: [('crackle6', 'hand', 0, 0), ('spark', 'hand', -3, -7)], 11: [('crackle4b', 'hand', 0, 0)], 12: [('crackle6b', 'hand', 0, 0), ('sparkL', 'hand', -2, 6)],
-                 13: [('ebladeS', 'hand', 4, 0, {'alpha': {'W': 160, 'l': 150, 'L': 140}}), ('spark', 'hand', 8, 2)], 14: [('spark', 'hand', 2, -3)]})),
+                 13: [eb('ebUpS', {'W': 160, 'l': 150, 'L': 140}), ('spark', 'hand', 6, 2)], 14: [('spark', 'hand', 2, -3)]})),
  'lightningImpaled': ('Lightning Impaled', 0,
   'Lightning Impaled (target state of Lightning Cutter v3, plays once): the bladed uppercut drives up into the fighter\'s body and the electric blades punch up and out through its upper back in a burst of lightning; it doubles over the hand, arms flung out, eyes squeezed, convulsing as lightning crackles through it and arcs off its body; then the hand rips free, the blades vanish, and it staggers back clutching its chest before dropping back into the guard.', [
      g(an=band(20, -30), af=band(10, -25), bob=(1, 0, 0), lean=(2, 8)),
