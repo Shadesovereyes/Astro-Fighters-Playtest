@@ -3131,7 +3131,7 @@ def _wake(w, h):   # a floor wake rolling behind a runner: low at the back, risi
         top = h - 1 - round((h - 1) * (x / (w - 1)) ** 1.6)
         for y in range(top, h): rows[y][x] = 'W' if y == top and x > w * 0.6 else 'I' if y == top else 'a' if y < top + 2 else 'A' if y < h - 1 else 'n'
     return [''.join(q) for q in rows]
-def _crest(h, curl=1.0):   # a breaking wave rising behind the runner: gently sloped dark back, light face, white foaming lip hooking forward and down at the top (front = right)
+def _crest(h, curl=1.0, thick=2):   # a breaking wave rising behind the runner: gently sloped dark back, light face, white foaming lip hooking forward and down at the top (front = right)
     w = round(h * 0.8) + 2; r = max(1, round(h * 0.22 * curl)); W_ = w + r + 1
     rows = [['.'] * W_ for _ in range(h)]
     for y in range(h):
@@ -3146,8 +3146,13 @@ def _crest(h, curl=1.0):   # a breaking wave rising behind the runner: gently sl
     for t in range(80):
         th = math.pi / 2 - t / 79 * (math.pi / 2 + math.pi / 2.6)
         x, y = round(cx + r * math.cos(th)), round(cy - r * math.sin(th))
-        for dd, ch in ((0, 'W'), (1, 'I')):
-            if 0 <= x - dd < W_ and 0 <= y < h and rows[y][x - dd] == '.': rows[y][x - dd] = ch
+        if thick <= 2:
+            for dd, ch in ((0, 'W'), (1, 'I')):
+                if 0 <= x - dd < W_ and 0 <= y < h and rows[y][x - dd] == '.': rows[y][x - dd] = ch
+        else:   # Tsunami: a thick curling lip, the annulus filled radially in toward the curl's centre
+            for dd, ch in zip(range(thick), 'WIaaAn'):
+                xx, yy = round(cx + (r - dd) * math.cos(th)), round(cy - (r - dd) * math.sin(th))
+                if 0 <= xx < W_ and 0 <= yy < h and rows[yy][xx] in '.n' + ('A' if ch in 'WI' else ''): rows[yy][xx] = ch
     return [''.join(q) for q in rows]
 def _sq(p, sx=1.0, sy=1.0):   # resize a pattern (nearest)
     h, w = len(p), len(p[0]); H, Wd = max(1, round(h * sy)), max(1, round(w * sx))
@@ -3237,6 +3242,225 @@ CLIPS.update({
                  4: [('wJetB', 'head', -18, 16, _A(_FADE)), ('wDrops', 'head', -16, 12)],
                  5: [('wDrops', 'feet', 2, -8, _A(_FADE)), ('wPuddle', 'feet', 0, -1)],
                  6: [('wPuddle', 'feet', -1, -1, _A(_FADE))]})),
+})
+
+# ---------- Cancer ninjutsu v1 (part 12, 2026-11-03): Water Cutter, Whirlpool, Tsunami ----------
+def _wBlade(R, t, tail=6, seed=0):   # Water Cutter: a thin ')' blade of high-pressure water flying right: white cutting edge, ice, light body, deep back, deep-edge tips, a spray of drops trailing
+    import random
+    rnd = random.Random(seed); h = 2 * R + 1; w = tail + t + 3; rows = [['.'] * w for _ in range(h)]
+    for y in range(h):
+        dy = (y - R) / R; s = 1 - dy * dy; xf = tail + round(t * s) + 1; th = max(1, round((t * 0.6 + 1) * s ** 0.5))
+        for i in range(th + 1):
+            x = xf - i
+            if 0 <= x < w: rows[y][x] = 'n' if abs(dy) > 0.85 else 'W' if i == 0 else 'I' if i == 1 else 'a' if i < th else 'A'
+        if abs(dy) < 0.5:
+            for x in range(0, xf - th - 1):
+                if rnd.random() < 0.35 * (x + 1) / (xf - th): rows[y][x] = rnd.choice('aAI')
+    return [''.join(q) for q in rows]
+def _wCut(n, seed=0):   # Water Cutter hit: a diagonal slash of water, top-right to bottom-left, white core, ice flanks, drops thrown off it
+    import random
+    rnd = random.Random(seed); rows = [['.'] * n for _ in range(n)]
+    for i in range(n):
+        x, y = n - 1 - i, i; e = abs(i - n / 2) / (n / 2)
+        rows[y][x] = 'W' if e < 0.6 else 'I'
+        for d, ch in ((1, 'I'), (-1, 'a')):
+            if 0 <= x + d < n and e < 0.8: rows[y][x + d] = ch
+    for _ in range(n // 2):
+        x, y = rnd.randrange(n), rnd.randrange(n)
+        if rows[y][x] == '.': rows[y][x] = rnd.choice('aAI')
+    return [''.join(q) for q in rows]
+def _vortex(rx, ry, phase, part='all', arms=3):   # Whirlpool: a churning whirlpool seen from the side as a flat ellipse: deep-edge eye, deep water, spiral arms of light water and ice turning with phase, white foam dashes on the rim
+    w, h = 2 * rx + 1, 2 * ry + 1; rows = [['.'] * w for _ in range(h)]
+    for y in range(h):
+        for x in range(w):
+            u, v = (x - rx) / rx, (y - ry) / ry; d = math.hypot(u, v)
+            if d > 1: continue
+            a = math.atan2(v, u); sp = (a + 2.6 * d * math.pi + phase * math.pi / 2) % (2 * math.pi / arms)
+            ch = 'n' if d < 0.22 else 'A'
+            if d >= 0.22 and sp < 0.55: ch = 'I' if d > 0.6 else 'a'
+            if d > 0.86: ch = 'W' if (x + phase * 2) % 4 < 2 else 'I'
+            rows[y][x] = ch
+    if part == 'front':
+        for y in range(h):
+            if y <= ry: rows[y] = ['.'] * w
+    return [''.join(q) for q in rows]
+def _helix(rx, H, phase, front=True, strands=3, turns=1.6):   # Whirlpool: water spiralling up round the legs; front strands are drawn over the fighter, back strands behind it
+    w = 2 * rx + 1; rows = [['.'] * w for _ in range(H)]
+    for s in range(strands):
+        for t in range(240):
+            u = t / 239; th = phase * math.pi / 2 + s * 2 * math.pi / strands + u * 2 * math.pi * turns
+            r_ = rx * (1 - 0.35 * u); x = round(rx + r_ * math.cos(th)); y = round(H - 1 - u * (H - 1))
+            if (math.sin(th) > 0) != front or not (0 <= x < w): continue
+            rows[y][x] = ('W' if t % 9 == 0 else 'I' if u > 0.6 else 'a') if front else 'A'
+            if y + 1 < H and rows[y + 1][x] == '.': rows[y + 1][x] = ('a' if u > 0.6 else 'A') if front else 'n'   # 2 px thick strands
+    return [''.join(q) for q in rows]
+def _engulf(w, h, seed):   # Tsunami struck: the crashed wave's churning mass swallowing the fighter: a rounded body with a foaming, ragged top, swirling ice-white currents, deep water at the rim, white bubbles
+    import random
+    rnd = random.Random(seed); rows = [['.'] * w for _ in range(h)]
+    for y in range(h):
+        for x in range(w):
+            u = (x - (w - 1) / 2) / (w / 2); v = (y - h * 0.55) / (h * 0.55)
+            wob = 0.12 * math.sin(x * 0.7 + seed) + 0.08 * math.sin(x * 1.9)
+            d = u * u * (1 + 0.6 * max(0, v)) + (v * v if v < 0 else v * v * 0.5) - wob * (v < 0)
+            if d > 1: continue
+            sw = math.sin(0.33 * x + 0.5 * math.sin(0.21 * y + seed) * 6) + math.sin(0.17 * y - 0.4 * x)
+            ch = 'A' if d > 0.82 else 'I' if sw > 1.25 else 'a'
+            if v < 0 and d > 0.72: ch = 'W' if rnd.random() < 0.7 else 'I'
+            rows[y][x] = ch
+    for _ in range(w * h // 30):
+        x, y = rnd.randrange(w), rnd.randrange(h)
+        if rows[y][x] in 'aI': rows[y][x] = 'W'
+    return [''.join(q) for q in rows]
+def _foam(w, h, seed):   # white foam and spray thrown up off a breaking wave
+    import random
+    rnd = random.Random(seed); rows = [['.'] * w for _ in range(h)]
+    for _ in range(w * h // 5):
+        x, y = rnd.randrange(w), rnd.randrange(h)
+        if rnd.random() < 1 - y / h * 0.5: rows[y][x] = rnd.choice('WWI')
+    return [''.join(q) for q in rows]
+NPAT.update({'wBladeS': _wBlade(4, 2, tail=2, seed=1), 'wBlade': _wBlade(7, 4, seed=2), 'wBladeL': _wBlade(9, 5, tail=8, seed=3), 'wCut': _wCut(13, 4),
+             **{'wVortex%d' % p: _vortex(19, 6, p) for p in range(4)}, **{'wVortexF%d' % p: _vortex(19, 6, p, 'front') for p in range(4)},
+             **{'wVortexS%d' % p: _vortex(10, 3, p) for p in range(2)}, **{'wVortexSF%d' % p: _vortex(10, 3, p, 'front') for p in range(2)},
+             **{'wHelixF%d' % p: _helix(11, 20, p) for p in range(4)}, **{'wHelixB%d' % p: _helix(11, 20, p, front=False) for p in range(4)},
+             **{'wCrestB%d' % h: _flipx(_crest(h, curl=min(1, h / 30))) for h in (20, 40, 52)}, 'wCrest56': _crest(56, thick=5), 'wCrestB56': _flipx(_crest(56, thick=5)), 'wCrest56T': [q if i < 17 else '.' * len(q) for i, q in enumerate(_crest(56, thick=5))], 'wCrest52T': [q if i < 16 else '.' * len(q) for i, q in enumerate(_crest(52, thick=5))], 'wCrestB56T': [q if i < 17 else '.' * len(q) for i, q in enumerate(_flipx(_crest(56, thick=5)))],
+             'wEngulf': _engulf(32, 54, 5), 'wEngulfLow': _engulf(32, 54, 5)[30:], 'wFoam': _foam(25, 10, 6), 'wFoamL': _foam(37, 14, 7)})
+_WAURA = ('#dff6ff', '#2f7fe0')   # water aura (runtime, follows the fighter's own outline)
+CLIPS.update({
+ 'waterCutter': ('Water Cutter', 4,
+  'Water Cutter (Cancer ninjutsu, Elemental 20, Ranged: the caster conjures a high-pressure water blade): from the guard the fighter makes the seal at the chin and water beads rise round it; it sweeps the near knife hand back behind it at shoulder height and the water gathers along the edge of the hand, pressed into a thin spinning blade; then it slashes the knife hand forward flat and level, stepping in, and the blade (a thin white-edged crescent of high-pressure water trailing spray) is flung off the edge of the hand and flies on toward the target; the hand follows through high, drops shaken off it, and the fighter settles back into the guard (spec extra.projectile: the testbed flies wBladeL from the near hand to the target, then draws wCut on it; the target plays hitReact).', [
+     g(),
+     g(an=U.SEAL_N, af=U.SEAL_F, bob=(1, 1, 1), lean=(0, 0)),
+     g(an=band(75, 95, fistKind='palm'), af=band(-75, -100), bob=(1, 1, 1), lean=(-1, -2), ln='sp-load-rear', lf='sp-load-lead'),
+     g(an=band(80, 95, fistKind='palm'), af=band(-75, -100), bob=(1, 1, 2), lean=(-1, -3), ln='sp-load-rear', lf='sp-load-lead'),
+     g(an=band(-90, -90, fistKind='palm'), af=band(30, -60), bob=(2, 2, 2), lean=(2, 5), root=(2, 0), ln='sp-drive-rear', lf='sp-drive-lead'),
+     g(an=band(-115, -125, fistKind='palm'), af=band(35, -40), bob=(2, 2, 2), lean=(2, 4), ln='sp-drive-rear', lf='sp-drive-lead'),
+     g(an=band(-115, -125, fistKind='palm'), af=band(35, -40), bob=(1, 1, 2), lean=(1, 3), ln='sp-drive-rear', lf='sp-drive-lead'),
+     g(an=band(-50, -110), af=band(-30, -100), bob=(1, 1, 2), lean=(1, 2), root=(-2, 0)),
+     g()],
+  [None, 'squint', 'squint', 'strain', 'roar', 'strain', 'squint', None, None],
+  [0, 1, 1, 2, 2, 1, 1, 0, 0],
+  dict(fps=10, auraColors=_WAURA, rm='E: +2 stepping into the slash, -2 settling back',
+       extra={'projectile': {'rule': 'Water Cutter: from frame 5 (frame 4 draws the blade leaving the hand) the testbed flies NPAT wBladeL from the near hand to the target at chest height (fast, 2-3 frames), then draws wCut on it; the target plays hitReact', 'from': 'hand', 'frame': 5, 'pattern': 'wBladeL', 'hit': 'wCut', 'targetState': 'hitReact'}},
+       anchored={1: [('wDrops', 'head', 0, 14, _A(_FADE))],
+                 2: [('wOrb2', 'head', -18, 8), ('wDrops', 'head', -15, 4, _A(_FADE)), ('wArcB2', 'head', -12, 8, _A(_FADE))],
+                 3: [('wBladeS', 'head', -20, 8), ('wOrb2', 'head', -14, 9, _A(_FADE)), ('wArcB2', 'head', -11, 8)],
+                 4: [('wBlade', 'hand', 1, 0), ('wJetB', 'hand', -8, 0, _A(_FADE))],
+                 5: [('wDrops', 'hand', -2, 3), ('wArc1', 'hand', -2, 3, _A(_FADE))],
+                 6: [('wDrops', 'hand', -3, 8, _A(_FADE))]})),
+ 'whirlpool': ('Whirlpool', 6,
+  'Whirlpool (Cancer ninjutsu, Elemental 8, 2 m AoE centred on the target, Root 1 round STR save DC 12: the caster conjures a puddle of water that violently turns into a churning whirlpool beneath the opponent): from the guard the fighter makes the seal at the chin; then it reaches the near open hand out low toward the target, palm down, water dripping from it, and circles the palm over the ground, beads of water running round beneath it; it clenches the hand into a fist and wrenches it round (the targets play whirlpoolCaught: the puddle opens under their feet and churns into a whirlpool); it holds the twist a beat and settles back into the guard.', [
+     g(),
+     g(an=U.SEAL_N, af=U.SEAL_F, bob=(1, 1, 1), lean=(0, 0)),
+     g(an=band(-45, -60, fistKind='palm'), bob=(2, 2, 2), lean=(1, 3)),
+     g(an=band(-50, -70, fistKind='palm'), bob=(2, 2, 2), lean=(1, 4)),
+     g(an=band(-42, -65, fistKind='palm'), bob=(2, 2, 3), lean=(1, 4)),
+     g(an=band(-48, -58, fistKind='palm'), bob=(2, 2, 3), lean=(1, 4)),
+     g(an=band(-50, -65), bob=(3, 3, 3), lean=(1, 5), root=(1, 0), **LOW),
+     g(an=band(-50, -65), bob=(3, 3, 3), lean=(1, 5), **LOW),
+     g(an=band(-50, -115), af=band(-40, -110), bob=(1, 1, 2), lean=(0, 2), root=(-1, 0)),
+     g()],
+  [None, 'squint', 'squint', 'strain', 'strain', 'strain', 'roar', 'strain', None, None],
+  [0, 1, 1, 1, 2, 2, 2, 1, 0, 0],
+  dict(fps=10, auraColors=_WAURA, rm='E: +1 wrenching the fist round, -1 back',
+       extra={'targetState': {'rule': 'Whirlpool: from the active frame (6, the wrench) the target and every fighter within the 2 m AoE round it play whirlpoolCaught: frames 0-3 once (the puddle opens and churns into a whirlpool), then frames 4-9 on loop while the Root lasts, then whirlpoolRelease once', 'state': 'whirlpoolCaught', 'loopFrom': 4, 'release': 'whirlpoolRelease', 'element': 'water'}},
+       anchored={1: [('wDrops', 'head', 0, 14, _A(_FADE))],
+                 2: [('wDrops', 'hand', 0, 4, _A(_FADE)), ('wOrb2', 'hand', 3, 6)],
+                 3: [('wDrops', 'hand', 0, 5, _A(_FADE)), ('wOrb2', 'hand', -1, 7), ('wOrb2', 'hand', 5, 5, _A(_FADE))],
+                 4: [('wOrb2', 'hand', -4, 6), ('wOrb2', 'hand', 2, 8, _A(_FADE)), ('wRing', 'hand', 0, 7, _A(_FADE))],
+                 5: [('wOrb2', 'hand', 0, 9), ('wOrb2', 'hand', -4, 5, _A(_FADE)), ('wRing', 'hand', 0, 7)],
+                 6: [('wSplashS', 'hand', 0, -2), ('wRing2', 'hand', 0, 2, _A(_FADE))],
+                 7: [('wDrops', 'hand', 0, 4, _A(_FADE))]})),
+ 'whirlpoolCaught': ('Whirlpool Caught', 0,
+  'Whirlpool Caught (target state of Whirlpool, Root 1 round): a puddle of water spreads under the fighter\'s feet and opens into a churning whirlpool (deep eye, spiral arms of light water, white foam on the rim, the near rim lapping over its feet); the fighter lurches, its feet dragged into the turn, arms thrown out for balance; water spirals up round its legs to the knee; then (looping while the Root lasts) it strains to pull free, sinking a little, arms flailing, the whirlpool turning and the water spiralling round the legs.', [
+     g(an=band(-50, -130), af=band(-40, -125), bob=(1, 1, 1), lean=(0, -1)),
+     g(an=band(-80, -110), af=band(40, 70), bob=(2, 2, 2), lean=(-1, -3)),
+     g(an=band(-100, -130), af=band(60, 95), bob=(3, 3, 3), lean=(1, 3), **LOW),
+     g(an=band(-95, -120), af=band(55, 90), bob=(4, 4, 4), lean=(1, 4), **LOW),
+     g(an=band(-100, -130), af=band(60, 95), bob=(4, 4, 4), lean=(1, 4), root=(1, 0), **LOW),
+     g(an=band(-85, -105), af=band(45, 70), bob=(4, 4, 5), lean=(2, 6), **LOW),
+     g(an=band(-100, -125), af=band(60, 90), bob=(4, 4, 4), lean=(1, 4), root=(-1, 0), **LOW),
+     g(an=band(-110, -140), af=band(65, 100), bob=(4, 4, 4), lean=(0, 2), **LOW),
+     g(an=band(-90, -110), af=band(50, 75), bob=(4, 4, 5), lean=(2, 6), root=(1, 0), **LOW),
+     g(an=band(-100, -130), af=band(60, 95), bob=(4, 4, 4), lean=(1, 4), root=(-1, 0), **LOW)],
+  ['squint', 'pain', 'pain', 'strain', 'strain', 'pain', 'strain', 'strain', 'pain', 'strain'],
+  None,
+  dict(fps=8, rm='E: rocking 1 px in the loop (net 0)', extra={'loop': True, 'loopFrom': 4},
+       anchored={0: [('wPuddle', 'feet', 0, -1)],
+                 1: [('wVortexS0', 'feet', 0, -2, {'behind': True}), ('wVortexSF0', 'feet', 0, -2), ('wDrops', 'feet', 0, -6, _A(_FADE))],
+                 2: [('wVortex1', 'feet', 0, -3, {'behind': True}), ('wVortexF1', 'feet', 0, -3), ('wSplashS', 'feet', 8, -5)],
+                 3: [('wVortex2', 'feet', 0, -3, {'behind': True}), ('wVortexF2', 'feet', 0, -3), ('wHelixB0', 'feet', 0, -12, {'behind': True}), ('wHelixF0', 'feet', 0, -12, _A(_FADE))],
+                 **{k_: [('wVortex%d' % (k_ % 4), 'feet', 0, -3, {'behind': True}), ('wVortexF%d' % (k_ % 4), 'feet', 0, -3), ('wHelixB%d' % (k_ % 4), 'feet', 0, -12, {'behind': True}), ('wHelixF%d' % (k_ % 4), 'feet', 0, -12, {'alpha': {'a': 215, 'A': 215, 'I': 230}})] + ([('wSplashS', 'feet', -9 if k_ % 4 else 9, -6, _A(_FADE))] if k_ % 2 else []) for k_ in range(4, 10)}})),
+ 'whirlpoolRelease': ('Whirlpool Release', 0,
+  'Whirlpool Release (target state, plays once when the Root of Whirlpool ends): the whirlpool slows and drains away into a puddle, the water round the legs falls back, and the fighter hauls its feet free and steps back up into the guard.', [
+     g(an=band(-100, -130), af=band(60, 95), bob=(4, 4, 4), lean=(1, 4), **LOW),
+     g(an=band(-70, -120), af=band(20, -40), bob=(2, 2, 3), lean=(1, 2), **LOW),
+     g(an=band(-50, -125), af=band(-40, -120), bob=(1, 1, 2), lean=(0, 1), root=(-1, 0)),
+     g(an=band(-50, -120), af=band(-40, -120), bob=(1, 1, 1), lean=(0, 0), root=(1, 0)),
+     g()],
+  ['strain', 'squint', 'squint', None, None],
+  None,
+  dict(fps=8, anchored={0: [('wVortexS1', 'feet', 0, -2, {'behind': True}), ('wVortexSF1', 'feet', 0, -2), ('wHelixF1', 'feet', 0, -12, _A(_FADE))],
+                        1: [('wPuddle', 'feet', 0, -1), ('wDrops', 'feet', 0, -8, _A(_FADE))],
+                        2: [('wPuddle', 'feet', 1, -1, _A(_FADE))]})),
+ 'tsunami': ('Tsunami', 10,
+  'Tsunami (Cancer ninjutsu ultimate, charge, Elemental 28, Wide AoE: the caster conjures a giant tidal wave that crashes violently into its opponents): from the guard the fighter makes the seal and sinks low, its water aura flaring; water wells up out of the floor round its feet and spreads; it drives both open palms down at the floor and the water swells up behind it into a wave, rising over three frames; it heaves the palms up and the wave towers over its head, its white lip curling forward; it holds the wave there, trembling; then it thrusts both palms forward and the wave rolls over and past it and away toward the targets, crashing down in front of it in a great crown of spray (the targets play tsunamiStruck); water floods back round its feet and it settles back into the guard. Ultimate: 16 frames.', [
+     g(),
+     g(an=U.SEAL_N, af=U.SEAL_F, bob=(2, 2, 2), lean=(0, 0), **LOW),
+     g(an=U.SEAL_N, af=U.SEAL_F, bob=(3, 3, 3), lean=(0, 1), **LOW),
+     g(an=U.SEAL_N, af=U.SEAL_F, bob=(4, 4, 4), lean=(0, 1), **BRACE)] + [
+     g(an=band(-35, -40, fistKind='palm'), af=band(-30, -45, fistKind='palm'), bob=(5, 6, 6), lean=(1, 7), **BRACE) for _ in range(2)] + [
+     g(an=band(-110, -150, fistKind='palm'), af=band(-100, -145, fistKind='palm'), bob=(2, 2, 2), lean=(0, 0), **LOW),
+     g(an=band(-160, -176, fistKind='palm'), af=band(-155, -174, fistKind='palm'), bob=(0, -1, 0), lean=(0, -1)),
+     g(an=band(-162, -176, fistKind='palm'), af=band(-155, -172, fistKind='palm'), bob=(0, -1, 0), lean=(0, -2)),
+     g(an=band(-158, -174, fistKind='palm'), af=band(-152, -170, fistKind='palm'), bob=(0, 0, 0), lean=(0, -1)),
+     g(an=band(-92, -92, fistKind='palm'), af=band(-85, -88, fistKind='palm'), bob=(2, 2, 2), lean=(2, 6), root=(2, 0), ln='sp-drive-rear', lf='sp-drive-lead'),
+     g(an=band(-92, -92, fistKind='palm'), af=band(-85, -88, fistKind='palm'), bob=(2, 2, 2), lean=(2, 6), ln='sp-drive-rear', lf='sp-drive-lead'),
+     g(an=band(-88, -95, fistKind='palm'), af=band(-80, -95, fistKind='palm'), bob=(2, 2, 2), lean=(1, 4), ln='sp-drive-rear', lf='sp-drive-lead'),
+     g(an=band(-70, -110, fistKind='palm'), af=band(-60, -110), bob=(1, 1, 2), lean=(1, 3)),
+     g(an=band(-50, -120), af=band(-40, -110), bob=(1, 1, 2), lean=(0, 2), root=(-2, 0)),
+     g()],
+  [None, 'squint', 'closed', 'strain', 'strain', 'strain', 'strain', 'roar', 'strain', 'strain', 'roar', 'roar', 'strain', 'squint', None, None],
+  [0, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 0, 0],
+  dict(fps=10, auraColors=_WAURA, rm='E: +2 thrusting the palms forward, -2 settling back',
+       extra={'targetState': {'rule': 'Tsunami (ultimate, charge): on the active frame (frame 10, the thrust) the testbed plays tsunamiStruck once on every fighter in the zone (a giant wave rises over it from the caster\'s side and crashes down on it, swallowing it, then drains away), then its idle; proposal: the testbed may also sweep NPAT wCrest56 across the AoE hexes from the caster\'s side over 0.5 s', 'state': 'tsunamiStruck', 'loopFrom': None, 'element': 'water'}},
+       anchored={1: [('wDrops', 'feet', 0, -6, _A(_FADE))],
+                 2: [('wPuddle', 'feet', 0, -1), ('wDrops', 'feet', -6, -8, _A(_FADE))],
+                 3: [('wPuddle', 'feet', -2, -1), ('wRing2', 'feet', 0, -2, _A(_FADE)), ('wCrest10', 'feet', -12, -5, {'behind': True, 'alpha': _CR})],
+                 4: [('wWakeL', 'feet', -12, -3), ('wCrest20', 'feet', -13, -10, {'behind': True, 'alpha': _CR}), ('wSplashS', 'hand', 0, -2)],
+                 5: [('wWakeL', 'feet', -12, -3), ('wCrest30', 'feet', -14, -15, {'behind': True, 'alpha': _CR}), ('wDrops', 'feet', -16, -18, _A(_FADE))],
+                 6: [('wWakeL', 'feet', -12, -3), ('wCrest40', 'feet', -14, -20, {'behind': True, 'alpha': _CR}), ('wDrops', 'feet', -12, -30, _A(_FADE))],
+                 7: [('wWakeL', 'feet', -12, -3), ('wCrest52', 'feet', -12, -26, {'behind': True, 'alpha': _CR}), ('wFoam', 'feet', -2, -52, _A(_FADE))],
+                 8: [('wWakeL', 'feet', -12, -3), ('wCrest56', 'feet', -11, -28, {'behind': True, 'alpha': _CR}), ('wFoam', 'feet', 0, -55)],
+                 9: [('wWakeL', 'feet', -12, -3), ('wCrest56', 'feet', -9, -28, {'behind': True, 'alpha': _CR}), ('wFoam', 'feet', 3, -54), ('wDrops', 'feet', 6, -44, _A(_FADE))],
+                 10: [('wCrest52', 'feet', 2, -26, {'behind': True, 'alpha': _CR}), ('wFoamL', 'feet', 14, -44), ('wSplashLD', 'feet', 18, -10), ('wJetL', 'hand', 10, 0)],
+                 11: [('wCrest40', 'feet', 12, -20, {'behind': True, 'alpha': _CR}), ('wSplashXL', 'feet', 14, -14), ('wDropsL', 'feet', 16, -30)],
+                 12: [('wCrest20', 'feet', 20, -10, {'behind': True, 'alpha': _FADE}), ('wSplashLD', 'feet', 22, -10, _A(_FADE)), ('wWakeL', 'feet', 12, -3)],
+                 13: [('wPuddle', 'feet', 4, -1), ('wDropsL', 'feet', 14, -10, _A(_FADE)), ('wWake', 'feet', 14, -2, _A(_FADE))],
+                 14: [('wPuddle', 'feet', 2, -1, _A(_FADE))]})),
+ 'tsunamiStruck': ('Tsunami Struck', 2,
+  'Tsunami Struck (target state of Tsunami, plays once): a giant wave rears up in front of the fighter from the caster\'s side, towering over it, its white lip curling down; the fighter throws its forearms up over its head; the wave crashes down on it in a burst of foam and swallows it whole, the fighter seen through the water, swept back and tumbled, bubbles streaming off it; the water drains away round its legs and runs off in a wake, leaving the fighter doubled over, dripping and coughing in a puddle, and it recovers into its guard.', [
+     g(an=band(-60, -150), af=band(-50, -140), bob=(1, 1, 1), lean=(0, -2)),
+     g(an=band(-140, -170), af=band(-130, -165), bob=(2, 2, 2), lean=(-1, -3)),
+     g(an=band(-150, -175), af=band(-140, -170), bob=(3, 3, 3), lean=(-2, -6), root=(-3, 0), **LOW),
+     g(an=band(-120, -160), af=band(40, 90), bob=(2, 2, 2), lean=(-3, -9), root=(-3, 0)),
+     g(an=band(-60, -20), af=band(60, 120), bob=(3, 3, 3), lean=(-2, -10), root=(-2, 0)),
+     g(an=band(-40, -110), af=band(-30, -100), bob=(4, 4, 4), lean=(2, 8), **LOW),
+     g(an=band(-10, -120), af=band(-5, -115), bob=(5, 5, 5), lean=(3, 12), **LOW),
+     g(an=band(-20, -120), af=band(-10, -115), bob=(4, 4, 4), lean=(2, 9), root=(2, 0), **LOW),
+     g(an=band(-45, -120), af=band(-35, -115), bob=(2, 2, 2), lean=(1, 3), root=(3, 0)),
+     g(root=(3, 0))],
+  ['squint', 'pain', 'closed', 'closed', 'pain', 'strain', 'pain', 'squint', 'squint', None],
+  None,
+  dict(fps=10, rm='E: -3 -3 -2 swept back, +2 +3 +3 recovering (net 0)',
+       anchored={0: [('wCrestB40', 'feet', 14, -20, {'behind': True, 'alpha': _CR}), ('wFoam', 'feet', 12, -42, _A(_FADE))],
+                 1: [('wCrestB56', 'feet', 8, -28, {'behind': True, 'alpha': _CR}), ('wFoam', 'feet', 4, -56)],
+                 2: [('wEngulf', 'feet', 2, -27, {'behind': True}), ('wEngulf', 'feet', 2, -27, {'onFig': True, 'alpha': {'a': 150, 'I': 160, 'A': 170, 'W': 220}}), ('wFoamL', 'feet', 4, -46), ('wSplashXL', 'feet', 6, -14)],
+                 3: [('wEngulf', 'feet', 0, -27, {'behind': True}), ('wEngulf', 'feet', 0, -27, {'onFig': True, 'alpha': {'a': 140, 'I': 150, 'A': 160, 'W': 220}}), ('wFoam', 'feet', -4, -46), ('wDrops', 'head', -10, 2)],
+                 4: [('wEngulf', 'feet', -2, -25, {'behind': True, 'alpha': {'a': 200, 'I': 200, 'A': 210, 'W': 230}}), ('wEngulf', 'feet', -2, -25, {'onFig': True, 'alpha': {'a': 120, 'I': 130, 'A': 140, 'W': 200}}), ('wDropsL', 'head', -6, -2)],
+                 5: [('wEngulfLow', 'feet', -2, -12, {'behind': True}), ('wEngulfLow', 'feet', -2, -12, {'onFig': True, 'alpha': {'a': 140, 'I': 150, 'A': 160, 'W': 200}}), ('wWakeL', 'feet', -14, -3), ('wDropsL', 'head', -4, 4, _A(_FADE))],
+                 6: [('wPuddle', 'feet', 0, -1), ('wWakeL', 'feet', -16, -3, _A(_FADE)), ('wDrops', 'head', 2, 8)],
+                 7: [('wPuddle', 'feet', -1, -1), ('wDrops', 'feet', 2, -10, _A(_FADE))],
+                 8: [('wPuddle', 'feet', -3, -1, _A(_FADE))]})),
 })
 
 def spec(state):
