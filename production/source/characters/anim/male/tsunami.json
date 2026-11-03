@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Tsunami (Cancer ninjutsu ultimate, charge, Elemental 28, Wide AoE: the caster conjures a giant tidal wave that crashes violently into its opponents): from the guard the fighter makes the seal and sinks low, its water aura flaring; water wells up out of the floor round its feet and spreads; it drives both open palms down at the floor and the water swells up behind it into a wave, rising over three frames; it heaves the palms up and the wave towers over its head, its white lip curling forward; it holds the wave there, trembling; then it thrusts both palms forward and the wave rolls over and past it and away toward the targets, crashing down in front of it in a great crown of spray (the targets play tsunamiStruck); water floods back round its feet and it settles back into the guard. Ultimate: 16 frames.",
+  "intent": "Tsunami v2 (Cancer ninjutsu ultimate, charge, Elemental 28, Wide AoE: the caster conjures a giant tidal wave that crashes violently into its opponents; Christopher 2026-11-03: more dramatic, it is an ultimate): from the guard the fighter makes the seal and sinks low; drops of water lift off the floor and rise round it, and a spout of water spirals up round its whole body, its water aura flaring wide; it drives both palms down and the floor bursts, jets of water shooting up behind it, and a wave heaves up behind it, rising frame by frame; it hauls its arms up and the wave towers over its head, foam boiling off a thick curling lip, spray streaming upward; it holds the wave there, the whole body shaking with the strain; then it thrusts both palms forward in a white burst of spray and the wave rolls over and past it toward the targets, crashing down ahead in a great crown, water flooding back round its feet; it settles into the guard. In the testbed the giant wave itself (extra.zone) rolls across the whole AoE. Ultimate: 16 frames.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -113,7 +113,7 @@
       5,
       2,
       0,
-      0,
+      1,
       0,
       2,
       2,
@@ -131,8 +131,8 @@
       6,
       2,
       -1,
-      -1,
       0,
+      -1,
       2,
       2,
       2,
@@ -149,7 +149,7 @@
       6,
       2,
       0,
-      0,
+      1,
       0,
       2,
       2,
@@ -192,8 +192,8 @@
         -1,
         -2,
         -1,
-        6,
-        6,
+        7,
+        7,
         4,
         3,
         2,
@@ -202,7 +202,7 @@
     }
   },
   "rootMotion": {
-    "rule": "E: +2 thrusting the palms forward, -2 settling back",
+    "rule": "E: +1 -1 shaken by the floor burst, +1 -1 shaking under the wave, +2 thrusting the palms forward, -2 settling back",
     "E": [
       [
         0,
@@ -225,7 +225,11 @@
         0
       ],
       [
-        0,
+        1,
+        0
+      ],
+      [
+        -1,
         0
       ],
       [
@@ -233,15 +237,11 @@
         0
       ],
       [
-        0,
+        1,
         0
       ],
       [
-        0,
-        0
-      ],
-      [
-        0,
+        -1,
         0
       ],
       [
@@ -291,7 +291,11 @@
         0
       ],
       [
-        0,
+        -1,
+        0
+      ],
+      [
+        1,
         0
       ],
       [
@@ -299,15 +303,11 @@
         0
       ],
       [
-        0,
+        -1,
         0
       ],
       [
-        0,
-        0
-      ],
-      [
-        0,
+        1,
         0
       ],
       [
@@ -3348,7 +3348,7 @@
         "closed",
         "strain",
         "strain",
-        "strain",
+        "roar",
         "strain",
         "roar",
         "strain",
@@ -3364,27 +3364,38 @@
     "intent": "eyes squeezed shut with the brow pulled down on the impact frames 0-2 (no mouth: user 2026-10-14), a squint on frame 3, open again from frame 4 (user 2026-10-14)"
   },
   "targetState": {
-    "rule": "Tsunami (ultimate, charge): on the active frame (frame 10, the thrust) the testbed plays tsunamiStruck once on every fighter in the zone (a giant wave rises over it from the caster's side and crashes down on it, swallowing it, then drains away), then its idle; proposal: the testbed may also sweep NPAT wCrest56 across the AoE hexes from the caster's side over 0.5 s",
+    "rule": "Tsunami v2 (ultimate, charge): from the active frame (frame 10, the thrust) the testbed rolls the giant wave across the AoE (extra.zone); each fighter in the zone plays tsunamiStruck once when the wave front reaches its hex, then its idle",
     "state": "tsunamiStruck",
     "loopFrom": null,
     "element": "water"
+  },
+  "zone": {
+    "rule": "Tsunami v2 (Christopher 2026-11-03: more dramatic): from frame 10 the testbed draws the giant wave NPAT wTsunamiBig (about twice a fighter's height, base on the floor line, lip toward the targets) starting just behind the caster and rolling away from it across the whole Wide AoE over crossMs, rising from 60% to full height in the first quarter of the run, white foam NPAT wFoamL streaming off its lip, NPAT wSplashXL bursting at each fighter it hits; when it reaches the far edge of the AoE it crashes (it drops over 3 frames into wSplashXL / wDropsL along the edge), then the hexes it crossed hold a sheet of flood water (#2f7fe0 at 45%, white glints) that drains away over floodMs; preview tool hex-sprites/tools/astro_tsunami.py",
+    "pattern": "wTsunamiBig",
+    "foam": "wFoamL",
+    "hit": "wSplashXL",
+    "startFrame": 10,
+    "crossMs": 900,
+    "floodMs": 700,
+    "from": "caster",
+    "shape": "wide"
   },
   "aura": {
     "rule": "Runtime aura (Christopher 2026-11-03: all auras follow the outline of the hair): on frame k, when widths[k] > 0, the testbed grows the silhouette of every drawn layer except fx (body, clothing or armour, arms, shoulders, hair or helmet, eyes, weapons) by widths[k] rings of 1 px (4-neighbour / 3x3 max growth); ring 0 in colors[0], the others in colors[1]; the outermost ring only on pixels where (x + y + k) is even (flicker); drawn behind the fighter, only outside its silhouette",
     "widths": [
       0,
       1,
-      1,
       2,
       2,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
       2,
       2,
-      2,
-      2,
-      2,
-      2,
-      1,
-      1,
       1,
       0,
       0
