@@ -3638,6 +3638,7 @@ def _rideWave(h, phase=0, w=60, p0=16, pk=46, F=12):   # the wave the fighter ri
             if 0 <= y < H: rows[y][x] = rnd.choice('Ia')
     return [''.join(q) for q in rows]
 NPAT['wCrest40T'] = [q if i < 14 else '.' * len(q) for i, q in enumerate(NPAT['wCrest40'])]   # Tidal Slam v2.1: the crest's curling top only
+NPAT['wCrest52TS'] = [q if i < 18 else '.' * len(q) for i, q in enumerate(NPAT['wCrest52'])]   # v2.2: the same for the tall crest that carries the elbow down
 NPAT.update({**{'wRide%d_%d' % (h, p): _rideWave(h, p) for h in (4, 7, 9, 10, 11) for p in range(4)},
              'wRideBreak': _rideWave(8, 1, p0=22, pk=48, F=10), 'wRideCrash': _rideWave(5, 2, p0=26, pk=50, F=10)})
 U.POSES += [leg('tsl-surf-lead', (33, 46), (40, 51), 42), kleg('tsl-surf-rear', (31, 46), (25, 51), (21, 56), 'toe30k'),   # Tidal Slam v2: a wide, knees-bent surfer's stance on the wave
@@ -3672,14 +3673,14 @@ CLIPS['tidalSlam'] = ('Tidal Slam', 10,
        anchored={1: [('wPuddle', 'feet', 0, -1), ('wRip9', 'feet', 0, -2, _A(_FADE)), ('wDrops', 'feet', 0, -6, _A(_FADE))],
                  2: [('wPuddleL', 'feet', 0, -1), ('wCrest10', 'feet', -10, -5, {'behind': True, 'alpha': _CR}), ('wDrops', 'hand', 0, -4, _A(_FADE)), ('wSplashS', 'feet', 6, -4)],
                  3: [('wRide4_0', 'feet', -2, -2), ('wCrest20', 'feet', -11, -10, {'behind': True, 'alpha': _CR}), ('wDrops', 'feet', -14, -18, _A(_FADE))],
-                 4: [('wCrest30', 'feet', -12, -15, {'behind': True, 'alpha': _CR}), ('wRide7_1', 'feet', -2, -4), ('wSplashS', 'feet', 0, -12), ('wDrops', 'feet', -16, -24, _A(_FADE))],
-                 5: [('wRide9_2', 'feet', -2, -5), ('wCrest20', 'feet', -16, -17, {'behind': True, 'alpha': _CR}), ('wDropsL', 'feet', -22, -18, _A(_FADE))],
-                 6: [('wRide10_3', 'feet', -2, -5), ('wCrest30', 'feet', -17, -23, {'behind': True, 'alpha': _CR}), ('wDrops', 'feet', -24, -20, _A(_FADE))],
-                 7: [('wRide11_0', 'feet', -2, -6), ('wCrest30', 'feet', -16, -24, {'behind': True, 'alpha': _CR}), ('wFoam', 'feet', -12, -40, _A(_FADE)), ('wDropsL', 'feet', -22, -20, _A(_FADE))],
-                 8: [('wRide10_1', 'feet', -2, -5), ('wCrest30', 'feet', -13, -23, {'behind': True, 'alpha': _CR}), ('wFoam', 'feet', -8, -38, _A(_FADE)), ('wSplashS', 'feet', 20, -12, _A(_FADE))],
-                 9: [('wRideBreak', 'feet', -2, -4), ('wCrest30', 'feet', -10, -19, {'behind': True, 'alpha': _CR}), ('wDrops', 'feet', -18, -14, _A(_FADE))],
-                 10: [('wRideCrash', 'feet', -4, -3), ('wCrest40', 'hand', -15, 12, {'behind': True, 'alpha': _CR}), ('wCrest40T', 'hand', -15, 12, {'alpha': {'n': 120, 'A': 140, 'a': 160, 'I': 190, 'W': 230}}), ('wSplash', 'hand', 3, 2), ('wDrops', 'hand', -2, -3, _A(_FADE))],
-                 11: [('wCrest20', 'hand', -6, 14, {'behind': True, 'alpha': _FADE}), ('wSplashXL', 'hand', 0, 4), ('wJetL', 'hand', 12, 10), ('wDropsL', 'hand', 2, -6, _A(_FADE)), ('wPuddleL', 'feet', 8, -1)],
+                 4: [('wCrest30', 'feet', -12, 0, {'behind': True, 'alpha': _CR, 'bottom': 58}), ('wRide7_1', 'feet', -2, -4), ('wSplashS', 'feet', 0, -12), ('wDrops', 'feet', -16, -24, _A(_FADE))],
+                 5: [('wRide9_2', 'feet', -2, -5), ('wCrest30', 'feet', -16, 0, {'behind': True, 'alpha': _CR, 'bottom': 56}), ('wDropsL', 'feet', -22, -18, _A(_FADE))],
+                 6: [('wRide10_3', 'feet', -2, -5), ('wCrest30', 'feet', -17, 0, {'behind': True, 'alpha': _CR, 'bottom': 55}), ('wDrops', 'feet', -24, -20, _A(_FADE))],
+                 7: [('wRide11_0', 'feet', -2, -6), ('wCrest40', 'feet', -16, 0, {'behind': True, 'alpha': _CR, 'bottom': 54}), ('wFoam', 'feet', -12, -40, _A(_FADE)), ('wDropsL', 'feet', -22, -20, _A(_FADE))],
+                 8: [('wRide10_1', 'feet', -2, -5), ('wCrest40', 'feet', -13, 0, {'behind': True, 'alpha': _CR, 'bottom': 55}), ('wFoam', 'feet', -8, -38, _A(_FADE)), ('wSplashS', 'feet', 20, -12, _A(_FADE))],
+                 9: [('wRideBreak', 'feet', -2, -4), ('wCrest40', 'feet', -10, 0, {'behind': True, 'alpha': _CR, 'bottom': 57}), ('wDrops', 'feet', -18, -14, _A(_FADE))],
+                 10: [('wRideCrash', 'feet', -4, -3), ('wCrest52', 'feet', -6, 0, {'behind': True, 'alpha': _CR, 'bottom': 60}), ('wCrest52TS', 'feet', -6, 0, {'alpha': {'n': 120, 'A': 140, 'a': 160, 'I': 190, 'W': 230}, 'bottom': 60}), ('wSplash', 'hand', 3, 2), ('wDrops', 'hand', -2, -3, _A(_FADE))],
+                 11: [('wCrest20', 'feet', 2, 0, {'behind': True, 'alpha': _FADE, 'bottom': 62}), ('wSplashXL', 'hand', 0, 4), ('wJetL', 'hand', 12, 10), ('wDropsL', 'hand', 2, -6, _A(_FADE)), ('wPuddleL', 'feet', 8, -1)],
                  12: [('wSplashLD', 'feet', 12, -10, _A(_FADE)), ('wPuddleL', 'feet', 6, -1), ('wDrops', 'head', 8, 4, _A(_FADE))],
                  13: [('wPuddle', 'feet', 4, -1, _A(_FADE))]}))
 CLIPS['tidalSlammed'] = ('Tidal Slammed', 0,
@@ -4475,6 +4476,7 @@ def anchored(state, frames):
                 name, an, dx, dy = item[:4]; opts = item[4] if len(item) > 4 else {}
                 pat = NPAT[name]; h, w = len(pat), len(pat[0]); ax, ay = anchors[an]
                 x0 = round(ax + sg * dx - (w - 1) / 2); y0 = round(ay + dy - (h - 1) / 2)
+                if 'bottom' in opts: y0 = opts['bottom'] - h + 1   # Tidal Slam v2.2: the pattern's bottom row pinned to this row (a crest rising out of the wave under it)
                 for yy, row in enumerate(pat):
                     for xx, ch in enumerate(row[::-1] if flip else row):
                         if ch == '.': continue
