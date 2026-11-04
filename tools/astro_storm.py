@@ -57,11 +57,11 @@ def storm(img, t, part, fade):
             a = 2 * math.pi * i / int(fr * 14); j = rnd.uniform(-5, 4); h = rnd.uniform(0, 46)
             put(CX + (fr + j) * math.cos(a), FEET + 0.5 * (fr + j) * math.sin(a) - h, COL[0] if rnd.random() < 0.6 else COL[1], 230)
     img.alpha_composite(lay)
-na, nb = sa['frames'], sb['frames']; lf = sb.get('loopFrom', 0); n = na + 6; frames = []
+na, nb = sa['frames'], sb['frames']; lf = sb.get('loopFrom', 0); HOLD = int(os.environ.get('STORM_HOLD', 24)); n = na + HOLD + 5; frames = []   # v3.1: the storm lingers HOLD frames past the clip (standing in for the zone's rounds), then fades
 GUYS = [(1, 'W'), (2, 'W'), (3, 'W'), (4, 'W'), (-2, 'E')]
 for t in range(n):
     img = Image.new('RGBA', (W, H), (0xc8, 0xcd, 0xd7, 255)); hexes(img)
-    fade = 1.0 if t < na - 4 else max(0.0, (na + 1 - t) / 5)
+    fade = 1.0 if t < na + HOLD else max(0.0, (na + HOLD + 4 - t) / 5)
     storm(img, t, 'back', fade)
     cell(A, min(t, na - 1), 'E', CX, img)
     for h, d in GUYS:
@@ -73,7 +73,7 @@ for t in range(n):
     frames.append(img.resize((W * 2, H * 2), Image.NEAREST))
 fps = sa.get('fps', 10)
 frames[0].save(out + '-candidate.gif', save_all=True, append_images=frames[1:], duration=int(1000 / fps), loop=0, disposal=2)
-KEY = [F0 - 1, F0, F0 + 1, F0 + 2, F0 + 4, na]
+KEY = [F0 - 1, F0, F0 + 2, na, na + HOLD // 2, na + HOLD + 3]
 sheet = Image.new('RGBA', (W * 2 * 2 + 16, (H * 2 + 8) * 3), 'white')
 for i, k in enumerate(KEY): sheet.paste(frames[min(k, n - 1)], ((i % 2) * (W * 2 + 16), (i // 2) * (H * 2 + 8)))
 sheet.save(out + '-E-candidate.png'); print('wrote', out, n, (W, H), 'R', round(R))
