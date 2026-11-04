@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Tsunami v3 (Cancer ninjutsu ultimate, charge, Elemental 28, Wide AoE: the caster conjures a giant tidal wave that crashes violently into its opponents; Christopher 2026-11-03: more dramatic, it is an ultimate; 22:35: better wave, more charging frames): the release, played after tsunamiCharge: holding the towering wave overhead, the fighter hauls back once more, then thrusts both palms forward in a white burst of spray and the wave rolls over and past it toward the targets, crashing down ahead in a great crown, water flooding back round its feet; it settles into the guard. In the testbed the giant breaking wave itself (extra.zone) rolls across the whole AoE.",
+  "intent": "Tsunami v4 (Cancer ninjutsu ultimate, charge, Elemental 28, Wide AoE: the caster conjures a giant tidal wave that crashes violently into its opponents; Christopher 2026-11-03: more dramatic, it is an ultimate; 22:35: better wave, more charging frames): the release, played after tsunamiCharge: arms up inside the whirling vortex, the fighter hauls back once more, then thrusts both palms forward: the vortex bursts in a white explosion of spray and the giant wave surges out from it toward the targets, water flooding back round its feet; it settles into the guard. In the testbed the giant breaking wave itself (extra.zone) rolls across the whole AoE.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -3058,7 +3058,7 @@
     "state": "tsunamiCharge"
   },
   "zone": {
-    "rule": "Tsunami v3 (Christopher 2026-11-03: more dramatic; 22:35 make the wave look better): from frame 2 the testbed draws the giant breaking wave (about twice a fighter's height, base on the floor line, lip toward the targets), cycling NPAT frames wTsunamiBig0-3 every frameMs so the streaks and foam slide down its face, starting just behind the caster and rolling away from it across the whole Wide AoE over crossMs, rising from 60% to full height in the first quarter of the run, white foam NPAT wFoamL streaming off its lip, NPAT wSplashXL bursting at each fighter it hits; when it reaches the far edge of the AoE it crashes (it drops over 3 frames into wSplashXL / wDropsL along the edge), then the hexes it crossed hold a sheet of flood water (#2f7fe0 at 45%, white glints) that drains away over floodMs; preview tool hex-sprites/tools/astro_tsunami.py",
+    "rule": "Tsunami v4 (Christopher 2026-11-03: more dramatic; 22:35 and 2026-11-04 make the wave look better): from frame 2 the testbed draws the giant breaking wave (about twice a fighter's height, base on the floor line, lip toward the targets), cycling NPAT frames wTsunamiBig0-3 every frameMs so the streaks and foam slide down its face, starting just behind the caster and rolling away from it across the whole Wide AoE over crossMs, rising from 60% to full height in the first quarter of the run, white foam NPAT wFoamL streaming off its lip, NPAT wSplashXL bursting at each fighter it hits; when it reaches the far edge of the AoE it crashes (it drops over 3 frames into wSplashXL / wDropsL along the edge), then the hexes it crossed hold a sheet of flood water (#2f7fe0 at 45%, white glints) that drains away over floodMs; preview tool hex-sprites/tools/astro_tsunami.py",
     "pattern": "wTsunamiBig",
     "frames": [
       "wTsunamiBig0",

@@ -3637,6 +3637,7 @@ def _rideWave(h, phase=0, w=60, p0=16, pk=46, F=12):   # the wave the fighter ri
             y = H - 1 - int(top(x)) - rnd.randint(1, 2)
             if 0 <= y < H: rows[y][x] = rnd.choice('Ia')
     return [''.join(q) for q in rows]
+NPAT['wCrest40T'] = [q if i < 14 else '.' * len(q) for i, q in enumerate(NPAT['wCrest40'])]   # Tidal Slam v2.1: the crest's curling top only
 NPAT.update({**{'wRide%d_%d' % (h, p): _rideWave(h, p) for h in (4, 7, 9, 10, 11) for p in range(4)},
              'wRideBreak': _rideWave(8, 1, p0=22, pk=48, F=10), 'wRideCrash': _rideWave(5, 2, p0=26, pk=50, F=10)})
 U.POSES += [leg('tsl-surf-lead', (33, 46), (40, 51), 42), kleg('tsl-surf-rear', (31, 46), (25, 51), (21, 56), 'toe30k'),   # Tidal Slam v2: a wide, knees-bent surfer's stance on the wave
@@ -3676,9 +3677,9 @@ CLIPS['tidalSlam'] = ('Tidal Slam', 10,
                  6: [('wRide10_3', 'feet', -2, -5), ('wCrest30', 'feet', -17, -23, {'behind': True, 'alpha': _CR}), ('wDrops', 'feet', -24, -20, _A(_FADE))],
                  7: [('wRide11_0', 'feet', -2, -6), ('wCrest30', 'feet', -16, -24, {'behind': True, 'alpha': _CR}), ('wFoam', 'feet', -12, -40, _A(_FADE)), ('wDropsL', 'feet', -22, -20, _A(_FADE))],
                  8: [('wRide10_1', 'feet', -2, -5), ('wCrest30', 'feet', -13, -23, {'behind': True, 'alpha': _CR}), ('wFoam', 'feet', -8, -38, _A(_FADE)), ('wSplashS', 'feet', 20, -12, _A(_FADE))],
-                 9: [('wRideBreak', 'feet', -2, -4), ('wSplash', 'feet', 4, -16, _A(_FADE)), ('wDrops', 'feet', -18, -14, _A(_FADE))],
-                 10: [('wRideCrash', 'feet', -4, -3), ('wSplashS', 'hand', 2, 3), ('wRing', 'hand', 0, 4, _A(_FADE)), ('wDrops', 'hand', -6, -2, _A(_FADE))],
-                 11: [('wSplashXL', 'hand', 0, 4), ('wJetL', 'hand', 12, 10), ('wDropsL', 'hand', 2, -6, _A(_FADE)), ('wPuddleL', 'feet', 8, -1)],
+                 9: [('wRideBreak', 'feet', -2, -4), ('wCrest30', 'feet', -10, -19, {'behind': True, 'alpha': _CR}), ('wDrops', 'feet', -18, -14, _A(_FADE))],
+                 10: [('wRideCrash', 'feet', -4, -3), ('wCrest40', 'hand', -15, 12, {'behind': True, 'alpha': _CR}), ('wCrest40T', 'hand', -15, 12, {'alpha': {'n': 120, 'A': 140, 'a': 160, 'I': 190, 'W': 230}}), ('wSplash', 'hand', 3, 2), ('wDrops', 'hand', -2, -3, _A(_FADE))],
+                 11: [('wCrest20', 'hand', -6, 14, {'behind': True, 'alpha': _FADE}), ('wSplashXL', 'hand', 0, 4), ('wJetL', 'hand', 12, 10), ('wDropsL', 'hand', 2, -6, _A(_FADE)), ('wPuddleL', 'feet', 8, -1)],
                  12: [('wSplashLD', 'feet', 12, -10, _A(_FADE)), ('wPuddleL', 'feet', 6, -1), ('wDrops', 'head', 8, 4, _A(_FADE))],
                  13: [('wPuddle', 'feet', 4, -1, _A(_FADE))]}))
 CLIPS['tidalSlammed'] = ('Tidal Slammed', 0,
@@ -3753,7 +3754,78 @@ def _bigWave3(h, phase=0, seed=4):   # Tsunami v3 zone (Christopher 2026-11-03 2
         a = rnd.uniform(0, 1); x = round(T[0] - a * 0.35 * Wd - 2 * phase + rnd.randint(-2, 2)); y = round(T[1] + a * 0.22 * H - rnd.random() * 4 * (1 - a) + 2)
         if 0 <= x < W_ and 0 <= y < H and rows[y][x] == '.': rows[y][x] = rnd.choice('WWI')
     return [''.join(q) for q in rows]
-NPAT.update({'wTsunamiBig': _bigWave3(112, 0), **{'wTsunamiBig%d' % p: _bigWave3(112, p) for p in range(4)}})
+def _bigWave4(h, phase=0, seed=4):   # Tsunami v4 zone (Christopher 2026-11-04: keep the large wave but make it look better): the v3 breaking wave reshaded: flowing current lines that follow the wave's curve and slide with phase (0-3) instead of tick streaks, a lace of foam along the crest, foam fingers clawing off the lip's tip, a smooth deep barrel with a thin see-through curtain, a darker foot, a softer back edge
+    import random
+    from PIL import Image, ImageDraw
+    rnd = random.Random(seed * 10 + phase); Wd = round(h * 0.95); W_ = Wd + 18; H = h
+    def bez(p0, p1, p2, n=60): return [((1 - t) ** 2 * p0[0] + 2 * (1 - t) * t * p1[0] + t * t * p2[0], (1 - t) ** 2 * p0[1] + 2 * (1 - t) * t * p1[1] + t * t * p2[1]) for t in (i / n for i in range(n + 1))]
+    T, P, F, B = (0.6 * Wd, 0.03 * H), (1.0 * Wd, 0.44 * H), (0.72 * Wd, 0.33 * H), (0.93 * Wd, H - 1)
+    LI = (0.88 * Wd, 0.2 * H)   # control point of the lip's underside
+    back = [(0.6 * Wd * s, (H - 1) - (H - 1 - 0.03 * H) * (1 - (1 - s) ** 2.4)) for s in (i / 60 for i in range(61))]
+    poly = back + bez(T, (0.94 * Wd, -0.04 * H), P) + bez(P, LI, F) + bez(F, (0.66 * Wd, 0.78 * H), B) + [(0, H - 1)]
+    m = Image.new('L', (W_, H)); ImageDraw.Draw(m).polygon(poly, fill=1); M = m.load()
+    rows = [['.'] * W_ for _ in range(H)]
+    ins = lambda x, y: 0 <= x < W_ and 0 <= y < H and M[x, y]
+    hsh = lambda x, y: (x * 73856093 ^ y * 19349663) % 97
+    for y in range(H):
+        for x in range(W_):
+            if not M[x, y]: continue
+            v = (H - 1 - y) / (H - 1)
+            e = next(d for d in range(W_) if not ins(x + d, y)); b = next(d for d in range(W_) if not ins(x - d, y)); t = next(d for d in range(H) if not ins(x, y - d))
+            d = min(e, t + 1); dz = (x + y) % 2
+            if d <= 1: c = 'W' if v > 0.25 else 'I'
+            elif d <= 3 + dz: c = 'I' if v > 0.3 else 'a'
+            elif d <= 4 + round(10 * v) + dz and v > 0.5: c = 'I' if d <= 5 + dz else 'a'
+            elif d <= 6 + round(16 * v) + 2 * dz: c = 'a' if v > 0.18 else 'A'
+            elif e > 8 and v < 0.04 + 0.08 * hsh(x, y) / 97: c = 'n'   # the deep, dark foot of the wave, ragged
+            else: c = 'A'
+            if b <= 1: c = 'n'
+            elif b <= 3 and c == 'A' and dz: c = 'n'
+            if c in 'aA' and b > 3:   # current lines: bands parallel to the front edge (face and lip) and to the back, broken, sliding with phase
+                if (d - 2 * phase) % 9 == 0 and hsh(x, y) > 22: c = 'I' if c == 'a' else 'a'
+                elif x < T[0] and (b + 2 * phase) % 11 == 0 and hsh(x, y) > 30 and v > 0.2: c = 'a'
+            if t <= 3 and v > 0.55 and c != 'n':   # a lace of foam along the crest, with holes that drift with phase
+                c = 'I' if t == 3 or (t == 2 and (x // 2 + phase) % 3 == 0) else 'W'
+            rows[y][x] = c
+    for x in range(round(F[0]), round(P[0]) + 1):   # the barrel: deep water inside the curl, darkest against the face, bounded by the curtain from the tip back to the face
+        top_ = next((y for y in range(H) if M[x, y]), None)
+        if top_ is None: continue
+        y = top_
+        while y < H and M[x, y]: y += 1
+        ylim = P[1] + (P[0] - x) * 0.9
+        while y < min(H, ylim) and not M[x, y]:
+            q = (x - F[0]) / max(1, P[0] - F[0]); rows[y][x] = 'n' if q < 0.35 or (q < 0.55 and (x + y) % 2) else 'A'; y += 1
+    curt = bez(P, LI, F, 24)
+    for k, (px, py) in enumerate(curt):   # the curtain: a thin see-through sheet falling from the lip's edge into the barrel
+        for dd in range(1, 4 + round((1 - k / 24) * 5)):
+            yy = round(py + dd + (phase % 2)); xx = round(px - dd * 0.4)
+            if 0 <= yy < H and 0 <= xx < W_ and rows[yy][xx] in '.An' and (dd + k + phase) % 3: rows[yy][xx] = 'I' if dd < 3 else 'a'
+    for f in range(4):   # foam fingers clawing forward and down off the lip's tip
+        a0 = math.radians(-30 + 22 * f + 6 * (phase % 2)); L = 5 + (f * 3 + phase) % 4
+        for s_ in range(L * 2):
+            u = s_ / (L * 2); ang = a0 + u * 1.4
+            xx, yy = round(P[0] - 1 + u * L * math.cos(a0)), round(P[1] - 2 + u * L * math.sin(ang) + 2 * f * u)
+            if 0 <= xx < W_ and 0 <= yy < H: rows[yy][xx] = 'W' if u < 0.7 else 'I'
+    for _ in range(14):   # spray thrown off the tip
+        xx, yy = round(P[0] + rnd.uniform(0, 10) + phase), round(P[1] + rnd.uniform(-4, 10))
+        if 0 <= xx < W_ and 0 <= yy < H and rows[yy][xx] == '.': rows[yy][xx] = rnd.choice('WIa')
+    for _ in range(h // 2):   # foam pouring down the face from under the lip
+        y = round(0.38 * H + rnd.random() ** 1.6 * 0.4 * H + (phase * 3) % 6)
+        if y >= H: continue
+        xs = [x for x in range(W_) if M[x, y]]
+        if xs: x = max(xs) - rnd.randint(0, 3); rows[y][x] = 'W' if rows[y][x] != '.' else rows[y][x]
+    base = round(B[0])
+    for _ in range(h * 3):   # whitewater boiling ahead of the foot, in clumps
+        cxw = base - 8 + rnd.random() ** 0.9 * (W_ - base + 6); hy0 = rnd.random() ** 2 * h * 0.16
+        for _ in range(3):
+            x = round(cxw + rnd.uniform(-1.5, 1.5)); y = H - 1 - round(hy0 + rnd.uniform(0, 1.5))
+            if 0 <= x < W_ and 0 <= y < H: rows[y][x] = rnd.choice('WWWIa') if y < H - 2 else rnd.choice('WIIa')
+    for _ in range(h):   # spray blown back off the crest
+        a = rnd.uniform(0, 1); x = round(T[0] - a * 0.35 * Wd - 2 * phase + rnd.randint(-2, 2)); y = round(T[1] + a * 0.22 * H - rnd.random() * 4 * (1 - a) + 2)
+        if 0 <= x < W_ and 0 <= y < H and rows[y][x] == '.': rows[y][x] = rnd.choice('WWI')
+    return [''.join(q) for q in rows]
+NPAT.update({'wTsunamiBig': _bigWave4(112, 0), **{'wTsunamiBig%d' % p: _bigWave4(112, p) for p in range(4)},   # v4 (2026-11-04); _bigWave3 kept for reference
+             **{'wSpoutXF%d' % p: _helix(17, 52, p, turns=3.0) for p in range(4)}, **{'wSpoutXB%d' % p: _helix(17, 52, p, front=False, turns=3.0) for p in range(4)}})
 # ---------- Tsunami v3 (part 13, 2026-11-03; Christopher 22:35: the fx is getting there, make the wave look better and add charging frames) ----------
 # The renderer caps a clip at 16 frames, so the charge is its own clip, tsunamiCharge (16 frames, the shaking hold loops from 13),
 # and tsunami is the release (8 frames, the thrust on frame 2). The zone wave is the new breaking wave wTsunamiBig0-3.
@@ -3761,7 +3833,7 @@ _OVER_N, _OVER_F = band(-160, -176, fistKind='palm'), band(-155, -174, fistKind=
 _PDN_N, _PDN_F = band(-35, -40, fistKind='palm'), band(-30, -45, fistKind='palm')         # palms driven down at the floor
 _TS_CR = lambda h, dx, dy: ('wCrest%d' % h, 'feet', dx, dy, {'behind': True, 'alpha': _CR})
 CLIPS['tsunamiCharge'] = ('Tsunami Charge', 7,
-  'Tsunami Charge v3 (charge-up of the Cancer ninjutsu ultimate Tsunami; Christopher 2026-11-03 22:35: more charging frames): from the guard the fighter makes the seal and sinks low, eyes closing; drops of water lift off the floor and ripple rings spread round its feet; a spout of water spirals up round its whole body as its water aura flares wide; it drives both palms down and the floor bursts, jets of water shooting up round it, and the wave heaves up behind it; it hauls its arms up and the wave climbs frame by frame until it towers over its head, foam boiling off the curling lip, spray streaming up; then it holds the wave there, the whole body shaking with the strain (frames 13-15 loop while the charge lasts). The testbed then plays tsunami (the release).', [
+  'Tsunami Charge v4 (charge-up of the Cancer ninjutsu ultimate Tsunami; Christopher 2026-11-03 22:35: more charging frames; 2026-11-04: extend the swirling water, remove the small wave): from the guard the fighter makes the seal and sinks low, eyes closing; drops of water lift off the floor and ripple rings spread round its feet; a spout of water spirals up round its whole body as its water aura flares wide; it drives both palms down and the floor bursts, jets of water shooting up round it into the spiral; it hauls its arms up and the spout widens and climbs with them into a towering vortex of water whirling round its whole body, spray streaming up off the top; then it holds its arms up inside the vortex, the whole body shaking with the strain (no wave behind it: the giant wave appears only on the release) (frames 13-15 loop while the charge lasts). The testbed then plays tsunami (the release).', [
      g(),
      g(an=U.SEAL_N, af=U.SEAL_F, bob=(2, 2, 2), lean=(0, 0), **LOW),
      g(an=U.SEAL_N, af=U.SEAL_F, bob=(3, 3, 3), lean=(0, 1), **LOW),
@@ -3789,17 +3861,17 @@ CLIPS['tsunamiCharge'] = ('Tsunami Charge', 7,
                  4: [('wSpoutB0', 'feet', 0, -18, {'behind': True}), ('wSpoutF0', 'feet', 0, -18, _A(_FADE)), ('wDrops', 'head', -8, 0), ('wPuddleL', 'feet', 0, -1)],
                  5: [('wSpoutB1', 'feet', 0, -22, {'behind': True}), ('wSpoutF1', 'feet', 0, -22, {'alpha': {'a': 200, 'A': 200, 'I': 220}}), ('wDrops', 'head', 8, -4), ('wPuddleL', 'feet', 0, -1)],
                  6: [('wSpoutB2', 'feet', 0, -22, {'behind': True}), ('wSpoutF2', 'feet', 0, -22, {'alpha': {'a': 200, 'A': 200, 'I': 220}}), ('wDropsL', 'head', 0, -8, _A(_FADE)), ('wPuddleL', 'feet', 0, -1)],
-                 7: [('wSpoutB3', 'feet', 0, -22, {'behind': True, 'alpha': _FADE}), ('wJetUp', 'feet', -20, -14, {'behind': True}), ('wJetUp', 'feet', 14, -12), ('wSplashL', 'feet', 0, -9), ('wPuddleL', 'feet', 0, -1)],
-                 8: [('wJetUp', 'feet', -22, -18, {'behind': True}), ('wJetUp', 'feet', 16, -16, _A(_FADE)), ('wSplashS', 'feet', 6, -4), ('wPuddleL', 'feet', 0, -1), _TS_CR(10, -12, -5)],
-                 9: [_TS_CR(20, -13, -10), ('wJetUp', 'feet', -22, -20, {'behind': True, 'alpha': _FADE}), ('wDropsL', 'feet', -8, -20), ('wWakeL', 'feet', -12, -3)],
-                 10: [_TS_CR(30, -14, -15), ('wDropsL', 'feet', -8, -26), ('wWakeL', 'feet', -12, -3)],
-                 11: [_TS_CR(40, -14, -20), ('wDropsL', 'feet', -6, -36, _A(_FADE)), ('wFoam', 'feet', -10, -42, _A(_FADE)), ('wWakeL', 'feet', -12, -3)],
-                 12: [_TS_CR(52, -12, -26), ('wFoamL', 'feet', -4, -54), ('wDrops', 'head', 10, -6), ('wWakeL', 'feet', -12, -3)],
-                 13: [_TS_CR(56, -11, -28), ('wFoamL', 'feet', 0, -56), ('wDropsL', 'head', 12, -2, _A(_FADE)), ('wWakeL', 'feet', -12, -3)],
-                 14: [_TS_CR(56, -10, -28), ('wFoamL', 'feet', 2, -55), ('wDropsL', 'head', 14, 2), ('wWakeL', 'feet', -12, -3)],
-                 15: [_TS_CR(56, -11, -28), ('wFoamL', 'feet', -2, -56), ('wDrops', 'head', 10, -4), ('wWakeL', 'feet', -12, -3)]}))
+                 7: [('wSpoutB3', 'feet', 0, -22, {'behind': True}), ('wSpoutF3', 'feet', 0, -22, _A(_FADE)), ('wJetUp', 'feet', -20, -14, {'behind': True}), ('wJetUp', 'feet', 14, -12), ('wSplashL', 'feet', 0, -9), ('wPuddleL', 'feet', 0, -1)],
+                 8: [('wSpoutB0', 'feet', 0, -22, {'behind': True}), ('wSpoutF0', 'feet', 0, -22, {'alpha': {'a': 200, 'A': 200, 'I': 220}}), ('wJetUp', 'feet', -22, -18, {'behind': True}), ('wJetUp', 'feet', 16, -16, _A(_FADE)), ('wSplashS', 'feet', 6, -4), ('wPuddleL', 'feet', 0, -1)],
+                 9: [('wSpoutB1', 'feet', 0, -22, {'behind': True}), ('wSpoutF1', 'feet', 0, -22, {'alpha': {'a': 200, 'A': 200, 'I': 220}}), ('wJetUp', 'feet', -22, -20, {'behind': True, 'alpha': _FADE}), ('wDropsL', 'feet', -8, -20), ('wPuddleL', 'feet', 0, -1)],
+                 10: [('wSpoutB2', 'feet', 0, -22, {'behind': True}), ('wSpoutF2', 'feet', 0, -22, {'alpha': {'a': 200, 'A': 200, 'I': 220}}), ('wDropsL', 'feet', 8, -26), ('wPuddleL', 'feet', 0, -1), ('wRip12', 'feet', 0, -2, _A(_FADE))],
+                 11: [('wSpoutXB3', 'feet', 0, -26, {'behind': True}), ('wSpoutXF3', 'feet', 0, -26, {'alpha': {'a': 200, 'A': 200, 'I': 220}}), ('wDropsL', 'head', -6, -4, _A(_FADE)), ('wPuddleL', 'feet', 0, -1)],
+                 12: [('wSpoutXB0', 'feet', 0, -26, {'behind': True}), ('wSpoutXF0', 'feet', 0, -26, {'alpha': {'a': 200, 'A': 200, 'I': 220}}), ('wDropsL', 'head', 6, -8), ('wPuddleL', 'feet', 0, -1), ('wRip12', 'feet', 0, -2, _A(_FADE))],
+                 13: [('wSpoutXB1', 'feet', 0, -26, {'behind': True}), ('wSpoutXF1', 'feet', 0, -26, {'alpha': {'a': 200, 'A': 200, 'I': 220}}), ('wDropsL', 'head', -4, -8, _A(_FADE)), ('wPuddleL', 'feet', 0, -1), ('wSplashS', 'feet', -10, -4, _A(_FADE))],
+                 14: [('wSpoutXB2', 'feet', 0, -26, {'behind': True}), ('wSpoutXF2', 'feet', 0, -26, {'alpha': {'a': 200, 'A': 200, 'I': 220}}), ('wDropsL', 'head', 8, -6), ('wPuddleL', 'feet', 0, -1), ('wSplashS', 'feet', 10, -4, _A(_FADE))],
+                 15: [('wSpoutXB3', 'feet', 0, -26, {'behind': True}), ('wSpoutXF3', 'feet', 0, -26, {'alpha': {'a': 200, 'A': 200, 'I': 220}}), ('wDropsL', 'head', 0, -10, _A(_FADE)), ('wPuddleL', 'feet', 0, -1), ('wRip12', 'feet', 0, -2, _A(_FADE))]}))
 CLIPS['tsunami'] = ('Tsunami', 2,
-  'Tsunami v3 (Cancer ninjutsu ultimate, charge, Elemental 28, Wide AoE: the caster conjures a giant tidal wave that crashes violently into its opponents; Christopher 2026-11-03: more dramatic, it is an ultimate; 22:35: better wave, more charging frames): the release, played after tsunamiCharge: holding the towering wave overhead, the fighter hauls back once more, then thrusts both palms forward in a white burst of spray and the wave rolls over and past it toward the targets, crashing down ahead in a great crown, water flooding back round its feet; it settles into the guard. In the testbed the giant breaking wave itself (extra.zone) rolls across the whole AoE.', [
+  'Tsunami v4 (Cancer ninjutsu ultimate, charge, Elemental 28, Wide AoE: the caster conjures a giant tidal wave that crashes violently into its opponents; Christopher 2026-11-03: more dramatic, it is an ultimate; 22:35: better wave, more charging frames): the release, played after tsunamiCharge: arms up inside the whirling vortex, the fighter hauls back once more, then thrusts both palms forward: the vortex bursts in a white explosion of spray and the giant wave surges out from it toward the targets, water flooding back round its feet; it settles into the guard. In the testbed the giant breaking wave itself (extra.zone) rolls across the whole AoE.', [
      g(an=_OVER_N, af=_OVER_F, bob=(0, -1, 0), lean=(0, -2)),
      g(an=band(-165, -178, fistKind='palm'), af=band(-160, -176, fistKind='palm'), bob=(1, 0, 1), lean=(-1, -4)),
      g(an=band(-92, -92, fistKind='palm'), af=band(-85, -88, fistKind='palm'), bob=(2, 2, 2), lean=(2, 7), root=(2, 0), ln='sp-drive-rear', lf='sp-drive-lead'),
@@ -3813,12 +3885,12 @@ CLIPS['tsunami'] = ('Tsunami', 2,
   dict(fps=10, auraColors=_WAURA, rm='E: +2 thrusting the palms forward, -2 settling back',
        extra={'targetState': {'rule': 'Tsunami v3 (ultimate, charge; after tsunamiCharge): from the active frame (frame 2, the thrust) the testbed rolls the giant wave across the AoE (extra.zone); each fighter in the zone plays tsunamiStruck once when the wave front reaches its hex, then its idle', 'state': 'tsunamiStruck', 'loopFrom': None, 'element': 'water'},
               'charge': {'rule': 'Tsunami v3: the cast plays tsunamiCharge first (its shaking hold loops from frame 13 while the charge lasts), then this clip', 'state': 'tsunamiCharge'},
-              'zone': {'rule': 'Tsunami v3 (Christopher 2026-11-03: more dramatic; 22:35 make the wave look better): from frame 2 the testbed draws the giant breaking wave (about twice a fighter\'s height, base on the floor line, lip toward the targets), cycling NPAT frames wTsunamiBig0-3 every frameMs so the streaks and foam slide down its face, starting just behind the caster and rolling away from it across the whole Wide AoE over crossMs, rising from 60% to full height in the first quarter of the run, white foam NPAT wFoamL streaming off its lip, NPAT wSplashXL bursting at each fighter it hits; when it reaches the far edge of the AoE it crashes (it drops over 3 frames into wSplashXL / wDropsL along the edge), then the hexes it crossed hold a sheet of flood water (#2f7fe0 at 45%, white glints) that drains away over floodMs; preview tool hex-sprites/tools/astro_tsunami.py', 'pattern': 'wTsunamiBig', 'frames': ['wTsunamiBig0', 'wTsunamiBig1', 'wTsunamiBig2', 'wTsunamiBig3'], 'frameMs': 100, 'foam': 'wFoamL', 'hit': 'wSplashXL', 'startFrame': 2, 'crossMs': 900, 'floodMs': 700, 'from': 'caster', 'shape': 'wide'}},
-       anchored={0: [_TS_CR(56, -11, -28), ('wFoamL', 'feet', 0, -56), ('wDropsL', 'head', 12, -2, _A(_FADE)), ('wWakeL', 'feet', -12, -3)],
-                 1: [_TS_CR(56, -13, -28), ('wFoamL', 'feet', -3, -56), ('wDropsL', 'head', 8, -4), ('wWakeL', 'feet', -12, -3)],
-                 2: [('wFlash', 'hand', 2, 0), ('wCrest52', 'feet', 2, -26, {'behind': True, 'alpha': _CR}), ('wFoamL', 'feet', 14, -44), ('wSplashLD', 'feet', 18, -10), ('wJetL', 'hand', 10, 0)],
-                 3: [('wRing3', 'hand', 3, 0), ('wCrest40', 'feet', 12, -20, {'behind': True, 'alpha': _CR}), ('wSplashXL', 'feet', 14, -14), ('wDropsL', 'feet', 16, -30)],
-                 4: [('wCrest20', 'feet', 20, -10, {'behind': True, 'alpha': _FADE}), ('wSplashLD', 'feet', 22, -10, _A(_FADE)), ('wWakeL', 'feet', 12, -3), ('wPuddleL', 'feet', 4, -1)],
+              'zone': {'rule': 'Tsunami v4 (Christopher 2026-11-03: more dramatic; 22:35 and 2026-11-04 make the wave look better): from frame 2 the testbed draws the giant breaking wave (about twice a fighter\'s height, base on the floor line, lip toward the targets), cycling NPAT frames wTsunamiBig0-3 every frameMs so the streaks and foam slide down its face, starting just behind the caster and rolling away from it across the whole Wide AoE over crossMs, rising from 60% to full height in the first quarter of the run, white foam NPAT wFoamL streaming off its lip, NPAT wSplashXL bursting at each fighter it hits; when it reaches the far edge of the AoE it crashes (it drops over 3 frames into wSplashXL / wDropsL along the edge), then the hexes it crossed hold a sheet of flood water (#2f7fe0 at 45%, white glints) that drains away over floodMs; preview tool hex-sprites/tools/astro_tsunami.py', 'pattern': 'wTsunamiBig', 'frames': ['wTsunamiBig0', 'wTsunamiBig1', 'wTsunamiBig2', 'wTsunamiBig3'], 'frameMs': 100, 'foam': 'wFoamL', 'hit': 'wSplashXL', 'startFrame': 2, 'crossMs': 900, 'floodMs': 700, 'from': 'caster', 'shape': 'wide'}},
+       anchored={0: [('wSpoutXB0', 'feet', 0, -26, {'behind': True}), ('wSpoutXF0', 'feet', 0, -26, {'alpha': {'a': 200, 'A': 200, 'I': 220}}), ('wDropsL', 'head', 12, -2, _A(_FADE)), ('wPuddleL', 'feet', 0, -1)],
+                 1: [('wSpoutXB1', 'feet', 0, -26, {'behind': True}), ('wSpoutXF1', 'feet', 0, -26, {'alpha': {'a': 200, 'A': 200, 'I': 220}}), ('wDropsL', 'head', 8, -4), ('wPuddleL', 'feet', 0, -1)],
+                 2: [('wFlash', 'hand', 2, 0), ('wSpoutXB2', 'feet', 0, -26, {'behind': True, 'alpha': _FADE}), ('wSplashXL', 'feet', 4, -14), ('wSplashLD', 'feet', 18, -10), ('wJetL', 'hand', 10, 0), ('wDropsL', 'head', 0, -8)],
+                 3: [('wRing3', 'hand', 3, 0), ('wSplashXL', 'feet', 14, -14), ('wDropsL', 'feet', 16, -30), ('wDropsL', 'head', -6, -2, _A(_FADE)), ('wWakeL', 'feet', 12, -3)],
+                 4: [('wSplashLD', 'feet', 22, -10, _A(_FADE)), ('wWakeL', 'feet', 12, -3), ('wPuddleL', 'feet', 4, -1), ('wDrops', 'head', 4, 4, _A(_FADE))],
                  5: [('wPuddleL', 'feet', 4, -1), ('wDropsL', 'feet', 14, -10, _A(_FADE)), ('wWake', 'feet', 14, -2, _A(_FADE))],
                  6: [('wPuddleL', 'feet', 2, -1, _A(_FADE))]}))
 
