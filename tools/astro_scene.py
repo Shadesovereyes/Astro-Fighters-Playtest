@@ -52,12 +52,50 @@ def cell(state, k, d, x, img, lay=None, who=None):
     if who == 'caster': lay = outfit(lay)
     if 'fx' in lay: runtime_aura(state, k, d, lay, x, img)
     op_ = (spec(state).get('opacity') or {}).get((arg('--opacity', 1) or ['none'])[0]) if who == 'caster' else None   # Shadow Step: stealth fade (fx = floor fx, kept visible)
+    sh = spec(state).get('iceShell') if 'fx' in lay else None   # Frost Armor v1: the testbed's runtime ice shell, grown from the composited figure like the aura
+    fig = Image.new('RGBA', (64, 64))
     for l in lay:
         p = os.path.join(anim, state, l + '.png')
         if os.path.exists(p):
             im_ = Image.open(p).convert('RGBA').crop((k * 64, row * 64, k * 64 + 64, row * 64 + 64))
             if op_ and l != 'fx' and k < len(op_): im_.putalpha(im_.getchannel('A').point(lambda v, m=op_[k]: round(v * m)))
-            img.alpha_composite(im_, (x, 0))
+            if sh and l == 'fx': ice_shell(sh, k, fig)
+            fig.alpha_composite(im_)
+    img.alpha_composite(fig, (x, 0))
+def ice_shell(sh, k, fig):   # v2 rule text lives in the spec (extra.iceShell)
+    wd = sh['widths'][min(k, len(sh['widths']) - 1)]; wa = sh['wash'][min(k, len(sh['wash']) - 1)]
+    if not wd and not wa: return
+    from PIL import ImageFilter
+    hx = lambda c: tuple(int(c[i:i + 2], 16) for i in (1, 3, 5)); C = [hx(c) for c in sh['colors']]
+    m = fig.getchannel('A').point(lambda v: 255 if v else 0); fp = fig.load(); mp = m.load()
+    for yy in range(64):
+        for xx in range(64):
+            q = fp[xx, yy]
+            if not (q[3] and wa): continue
+            col, a = C[1], wa / 255
+            if (xx + yy) % 7 == 0: col, a = C[0], min(0.9, a * 1.8)        # facet lines: white glints running diagonally
+            elif (xx - yy) % 11 in (0, 1): col, a = C[2], min(0.8, a * 1.3)  # the other facet direction, light water
+            fp[xx, yy] = tuple(round(q[i] * (1 - a) + col[i] * a) for i in range(3)) + (q[3],)
+    prev = m; outer = []
+    for ring in range(wd):
+        g_ = prev.filter(ImageFilter.MaxFilter(3)); gp, pp = g_.load(), prev.load(); c = C[1] if ring == 0 else C[2] if ring < wd - 1 else C[3]
+        for yy in range(64):
+            for xx in range(64):
+                if gp[xx, yy] and not pp[xx, yy]:
+                    fp[xx, yy] = (C[0] if ring == 0 and (xx * 5 + yy) % 6 == 0 else c) + (255,)
+                    if ring == wd - 1: outer.append((xx, yy))
+        prev = g_
+    if wd >= sh.get('spikeFrom', 3):   # crystal spikes: on the outer edge every so often, 2-3 px pushed straight out (away from the figure), white tip
+        gp = prev.load()
+        for xx, yy in outer:
+            if (xx * 7 + yy * 13) % 17: continue
+            vx = sum(ex for ex in (-1, 0, 1) for ey in (-1, 0, 1) if 0 <= xx + ex < 64 and 0 <= yy + ey < 64 and not gp[xx + ex, yy + ey])
+            vy = sum(ey for ex in (-1, 0, 1) for ey in (-1, 0, 1) if 0 <= xx + ex < 64 and 0 <= yy + ey < 64 and not gp[xx + ex, yy + ey])
+            if not (vx or vy) or yy > 58: continue
+            L = 3 if (xx + yy) % 2 else 2; n_ = max(abs(vx), abs(vy))
+            for t in range(1, L + 1):
+                X, Y = round(xx + vx / n_ * t), round(yy + vy / n_ * t)
+                if 0 <= X < 64 and 0 <= Y < 64 and not mp[X, Y]: fp[X, Y] = (C[0] if t == L else C[2]) + (255,)
 def hand(state, k, d, layer='arms'):
     row = spec(state)['directions'].index(d); im = Image.open(os.path.join(anim, state, layer + '.png')).convert('RGBA').load()
     pts = [(x, y) for y in range(64) for x in range(64) if im[k * 64 + x, row * 64 + y][3]]
@@ -120,6 +158,8 @@ for t in range(n):
                     q = mp[xx, yy]
                     if q[3] and q[:3] in rc: mp[xx, yy] = rc[q[:3]] + (q[3],)
             c.alpha_composite(m, (4 + GAP, 0))
+    tf = (sa.get('targetFx') or {}).get('frames', {}).get(str(t)) if tg and t < na + 4 else None   # Ice Shard / Blizzard v1: fx the testbed draws round the target (dx away from the caster, dy up from the floor)
+    for it in tf or []: stamp(c, it[0], 4 + GAP + 32 + it[1], 63 + it[2], it[3] if len(it) > 3 else 255)
     for pr in PR:
         pat, f0, nf, hp = pr[0], int(pr[1]), int(pr[2]), pr[3]; lay = 'far-arm' if len(pr) > 4 and pr[4] == 'farhand' and os.path.exists(os.path.join(anim, A, 'far-arm.png')) else 'arms'
         hx, hy = hand(A, f0, 'E', lay)

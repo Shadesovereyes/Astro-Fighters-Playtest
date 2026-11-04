@@ -4379,6 +4379,148 @@ CLIPS['kidneyStruck'] = (_KT[0], _KT[1], _KT[2].replace('Kidney Struck (', 'Kidn
                           2: [('wDropsL', 'feet', -6, -10, _A(_FADE)), ('wPuddle', 'feet', -2, -1)],
                           3: [('wPuddle', 'feet', -2, -1, _A(_FADE)), ('wDrops', 'head', 0, 26, _A(_FADE))]}})
 
+# ---------- Scorpio (Water) ninjutsu v1 (part 15, 2026-11-04): Ice Shard, Frost Armor, Blizzard ----------
+def _iDart(L=9):   # Ice Shard: an ice dart pointing LEFT (tip at x 0; drawn for darts behind a target facing W, mirrored otherwise): white tip, ice body, deep back, a faint frost tail
+    rows = [['.'] * (L + 3) for _ in range(3)]
+    for x in range(L):
+        rows[1][x] = 'W' if x < 2 else 'I' if x < L * 0.55 else 'a' if x < L - 1 else 'A'
+        if 2 <= x < L - 1: rows[0][x] = 'I' if x < L * 0.4 else 'a'; rows[2][x] = 'a' if x < L * 0.6 else 'A'
+    rows[1][L] = 'a'; rows[1][L + 2] = 'I'
+    return [''.join(q) for q in rows]
+def _iDartForm(n):   # an ice dart freezing out of the air: n = 0 a glint and frost motes, 1 the dart half formed
+    if n == 0: return ['..I..', '.....', 'I.W.I', '.....', '..I..']
+    return ['.......', '..IIa..', 'WIIaaA.', '..aaA..', '.......']
+def _snow(w, h, seed, n, slant=2):   # snow and sleet driven sideways (to the right): short slanted streaks, white heads, ice tails, a few deep flecks
+    import random
+    rnd = random.Random(seed); rows = [['.'] * w for _ in range(h)]
+    for _ in range(n):
+        x, y = rnd.randrange(w), rnd.randrange(h); L = rnd.choice((1, 2, 2, 3))
+        for t in range(L + 1):
+            X, Y = x - t * slant, y - t
+            if 0 <= X < w and 0 <= Y < h: rows[Y][X] = 'W' if t == 0 else 'I' if t == 1 else 'a'
+    for _ in range(n // 4):
+        x, y = rnd.randrange(w), rnd.randrange(h); rows[y][x] = rnd.choice('An')
+    return [''.join(q) for q in rows]
+def _snowSwirl(rx, ry, phase, n=14):   # Blizzard: flakes whirling round an ellipse over the head, a bright lead flake with a fading tail
+    w, h = 2 * rx + 3, 2 * ry + 3; rows = [['.'] * w for _ in range(h)]
+    for i in range(n):
+        a = (i / n + phase / 4) * 2 * math.pi; x, y = round(rx + 1 + rx * math.cos(a)), round(ry + 1 + ry * math.sin(a))
+        rows[y][x] = 'W' if i % 4 == 0 else 'I' if i % 2 else 'a'
+    return [''.join(q) for q in rows]
+def _breath(n):   # a puff of frozen breath
+    return [['..I.', '.I.I', 'I.I.'], ['.I..I', 'I.II.', '.I.I.', 'I....']][n]
+NPAT.update({'iDart': _sq(_iDart(9), 1.5, 1.7), 'iDartS': _iDart(6), 'iDartF0': _sq(_iDartForm(0), 1.6, 1.6), 'iDartF1': _sq(_iDartForm(1), 1.6, 1.6),
+             'iSnowS': _snow(15, 11, 1, 14), 'iSnow': _snow(27, 21, 2, 34), 'iSnowL': _snow(45, 45, 3, 170, 3), 'iSnowL2': _snow(45, 45, 4, 170, 3), 'iSnowL3': _snow(45, 45, 5, 170, 3),
+             **{'iSwirl%d' % p: _snowSwirl(10, 3, p) for p in range(4)}, **{'iSwirlL%d' % p: _snowSwirl(15, 4, p, 22) for p in range(4)},
+             'iBreath': _breath(0), 'iBreathL': _breath(1)})
+_ISHELL = ('#f4fbff', '#bfe8ff', '#7cc8ff', '#2f7fe0')   # Frost Armor shell: white rim glint, ice, light water, deep edge
+_POINT = band(-95, -95, fistKind='point')
+CLIPS.update({
+ 'iceShard': ('Ice Shard', 6,
+  'Ice Shard (Scorpio ninjutsu, Elemental 10, Ranged, Priority: the caster conjures ice darts behind the opponent that strike without warning): from the guard the fighter makes the seal at the chin and its eyes narrow, frost breath curling off it; it points two fingers at the target like a scorpion\'s sting, and behind the target, out of its sight, the air freezes: glints, then three ice darts form in a fan, pointing at its back; the fighter flicks the fingers down and the darts shoot in; on the impact frame (6) they strike the target\'s back (the target plays iceShardStruck); the fighter lowers the hand and settles back into the guard (spec extra.targetFx: the testbed draws the forming and flying darts behind the target, nothing baked on the target before impact).', [
+     g(),
+     g(an=U.SEAL_N, af=U.SEAL_F, bob=(1, 1, 1), lean=(0, 0)),
+     g(an=U.SEAL_N, af=U.SEAL_F, bob=(1, 1, 2), lean=(0, 1)),
+     g(an=_POINT, bob=(1, 1, 1), lean=(1, 2)),
+     g(an=_POINT, bob=(1, 1, 1), lean=(1, 2)),
+     g(an=band(-70, -75, fistKind='point'), bob=(1, 1, 2), lean=(1, 3)),
+     g(an=band(-70, -75, fistKind='point'), bob=(1, 1, 2), lean=(1, 3)),
+     g(an=band(-50, -110), af=band(-40, -110), bob=(1, 1, 1), lean=(0, 1)),
+     g()],
+  [None, 'squint', 'closed', 'squint', 'squint', 'strain', 'squint', None, None],
+  [0, 1, 1, 1, 2, 2, 1, 0, 0],
+  dict(fps=10, auraColors=_WAURA,
+       extra={'targetFx': {'rule': 'Ice Shard v1: drawn by the testbed round the target (dx is away from the caster, i.e. behind the target; dy from the floor up is negative; patterns are drawn for a caster facing E and a target facing W, mirror both when the caster faces W): the darts freeze out of the air behind the target (frames 3-4) and shoot in (frame 5); they strike on frame 6, when the target starts iceShardStruck', 'frames': {'3': [['iDartF0', 18, -40], ['iDartF0', 21, -30], ['iDartF0', 17, -21]], '4': [['iDartF1', 19, -40], ['iDartF1', 22, -30], ['iDartF1', 18, -21], ['iFrostS', 22, -32]], '5': [['iDart', 17, -39], ['iDart', 19, -30], ['iDart', 16, -22]]}},
+              'targetState': {'rule': 'Ice Shard: on the impact frame (6) and not before, the target plays iceShardStruck once (struck in the back), then its idle', 'state': 'iceShardStruck', 'element': 'water'}},
+       anchored={1: [('iBreath', 'head', 5, 2, _A(_FADE))], 2: [('iFrostS', 'head', 1, 16), ('iBreath', 'head', 6, 1, _A(_FADE))],
+                 3: [('iSpark2', 'hand', 1, 0)], 4: [('iSpark3', 'hand', 1, 0), ('iFrostS', 'hand', -2, 1, _A(_FADE))],
+                 5: [('iSpark2', 'hand', 1, 1)], 6: [('iFrostS', 'hand', -1, 2, _A(_FADE))]})),
+ 'iceShardStruck': ('Ice Shard Struck', 0,
+  'Ice Shard Struck (target state of Ice Shard, plays once; frame 0 is the impact): three ice darts slam into the fighter\'s back without warning: it is jolted forward, arching, ice shattering off its back in shards and a frost ring; frost crusts over its shoulder blades, it staggers a step, glances over its shoulder and hauls itself back into its guard.', [
+     g(an=band(-40, -110), af=band(-30, -100), bob=(1, 1, 1), lean=(2, 5), root=(1, 0)),
+     g(an=band(-20, -90), af=band(-10, -85), bob=(1, 1, 2), lean=(-1, -4)),
+     g(an=band(-30, -100), af=band(-20, -95), bob=(1, 1, 2), lean=(-1, -3)),
+     g(an=band(-45, -115), af=band(-35, -110), bob=(1, 1, 1), lean=(0, -1), root=(-1, 0)),
+     g()],
+  ['pain', 'pain', 'strain', 'squint', None],
+  None,
+  dict(fps=10, rm='E: +1 jolted forward, -1 back (net 0)',
+       anchored={0: [('iSpark9', 'head', -8, 16), ('iShards12', 'head', -10, 18), ('iSpark7', 'head', -9, 26), ('iRing11', 'head', -8, 20)],
+                 1: [('iShards12', 'head', -12, 18, _A(_FADE)), ('iRing11', 'head', -10, 20, _A(_FADE)), ('iFrostL', 'head', -5, 18)],
+                 2: [('iFrost', 'head', -5, 18), ('iSpark2', 'head', -7, 15)], 3: [('iFrostS', 'head', -5, 18, _A(_FADE))]})),
+ 'frostArmor': ('Frost Armor', 6,
+  'Frost Armor (Scorpio ninjutsu, Self buff, FORT +20% 2 rounds: the caster freezes the air round its body into a thick layer of ice armour): from the guard the fighter makes the seal at the chin, eyes closing, its breath freezing; it drops into a low braced stance, fists low at the hips, and frost spreads out over the floor round its feet while snow motes rise; the ice grows up over it: a translucent ice-blue glaze over the whole fighter and a thick, faceted ice shell round its outline (white glinting rim, ice, deep-blue edge, crystal points), drawn by the testbed from its actual equipped look; on the active frame (6) it flexes and the shell cracks into place with an ice flash and shards; it rises back into the guard still armoured (the testbed keeps the shell while the buff lasts).', [
+     g(),
+     g(an=U.SEAL_N, af=U.SEAL_F, bob=(1, 1, 1), lean=(0, 0)),
+     g(an=U.SEAL_N, af=U.SEAL_F, bob=(2, 2, 2), lean=(0, 1), **LOW),
+     g(an=FLEX_N, af=FLEX_F, bob=(3, 3, 3), lean=(0, 1), **LOW),
+     g(an=FLEX_N, af=FLEX_F, bob=(3, 3, 3), lean=(0, 1), **LOW),
+     g(an=FLEX_N, af=FLEX_F, bob=(3, 3, 3), lean=(0, 1), **LOW),
+     g(an=FLEX_N, af=FLEX_F, bob=(2, 2, 2), lean=(0, 0), **LOW),
+     g(an=FLEX_N, af=FLEX_F, bob=(2, 2, 2), lean=(0, 0), **LOW),
+     g(an=band(-30, -100), af=band(-30, -95), bob=(1, 1, 1), lean=(0, 1)),
+     g()],
+  [None, 'squint', 'closed', 'strain', 'strain', 'strain', 'roar', 'strain', None, None],
+  [0, 0, 1, 1, 1, 0, 0, 0, 0, 0],
+  dict(fps=10, auraColors=_WAURA,
+       extra={'iceShell': {'rule': 'Frost Armor v1 (runtime, like the aura: follows the outline of whatever the fighter wears): on frame k, grow the silhouette of every drawn layer except fx by widths[k] rings of 1 px; ring 0 in colors[1] (ice, with a colors[0] glint where (x * 5 + y) % 6 == 0), middle rings in colors[2], the outermost ring in colors[3] (deep edge); from spikeFrom rings on, crystal spikes: on outer-ring pixels where (x * 7 + y * 13) % 17 == 0 (not on the bottom 5 rows) push 2 px (3 when x + y is odd) straight out, away from the figure, colors[2] with a colors[0] tip; over the figure itself blend every pixel toward colors[1] by wash[k] / 255, with facet lines: colors[0] at 1.8x the alpha where (x + y) % 7 == 0, colors[2] at 1.3x where (x - y) % 11 is 0 or 1; after the clip the testbed keeps drawing the last frame\'s shell while the buff lasts (linger). Reference implementation: hex-sprites/tools/astro_scene.py ice_shell()', 'spikeFrom': 3, 'widths': [0, 0, 0, 1, 1, 2, 3, 3, 3, 3], 'wash': [0, 0, 0, 30, 50, 70, 85, 80, 80, 80], 'colors': list(_ISHELL), 'linger': True}},
+       anchored={1: [('iBreath', 'head', 5, 2, _A(_FADE))], 2: [('iBreathL', 'head', 6, 2), ('iFrost', 'feet', 0, -2)],
+                 3: [('iFrostL', 'feet', -8, -5), ('iFrostL', 'feet', 8, -5), ('iSpark3', 'head', -9, 30)],
+                 4: [('iFrostL', 'feet', -8, -6), ('iFrostL', 'feet', 8, -6), ('iSpark3', 'head', 9, 22), ('iFrostS', 'head', -10, 12)],
+                 5: [('iFrost', 'feet', 0, -3), ('iSpark5', 'head', -8, 18), ('iFrostS', 'head', 10, 8)],
+                 6: [('iSpark9', 'head', 0, 20), ('iShards12', 'head', 0, 22), ('iRing11', 'head', 0, 24)],
+                 7: [('iShards12', 'head', 0, 22, _A(_FADE)), ('iSpark3', 'head', 8, 10)], 8: [('iSpark2', 'head', -7, 26)]})),
+ 'blizzard': ('Blizzard', 7,
+  'Blizzard (Scorpio ninjutsu, Elemental 10, Wide AoE, Slow 2 rounds INT save DC 12: a charged freezing storm that slows): from the guard the fighter makes the seal, breath freezing; it sinks and circles its open palms round each other before its chest, and snow begins to whirl between them, the whirl widening into a churning ring of snow and a bright cold heart, eyes squeezed as it charges; then it drives both palms forward with a roar and the storm is hurled out: a howling wall of snow and sleet rolls over the zone and buries the targets (they play blizzardStruck from the impact frame 7); it holds the push, then lowers its hands into the guard (spec extra.zone: the testbed rolls the storm over every tile of the AoE from frame 6 and keeps it on them a few frames).', [
+     g(),
+     g(an=U.SEAL_N, af=U.SEAL_F, bob=(1, 1, 1), lean=(0, 0)),
+     g(an=band(-60, -120, fistKind='palm'), af=band(-55, -115, fistKind='palm'), bob=(1, 1, 1), lean=(0, -1)),
+     g(an=band(-45, -125, fistKind='palm'), af=band(-75, -105, fistKind='palm'), bob=(2, 2, 2), lean=(-1, -2), **LOW),
+     g(an=band(-75, -105, fistKind='palm'), af=band(-45, -125, fistKind='palm'), bob=(2, 2, 2), lean=(-1, -3), **LOW),
+     g(an=band(-45, -125, fistKind='palm'), af=band(-75, -105, fistKind='palm'), bob=(3, 3, 3), lean=(-1, -4), **LOW),
+     g(an=band(-90, -90, fistKind='palm'), af=band(-88, -88, fistKind='palm'), bob=(2, 2, 2), lean=(2, 5), root=(2, 0), ln='sp-drive-rear', lf='sp-drive-lead'),
+     g(an=band(-90, -90, fistKind='palm'), af=band(-88, -88, fistKind='palm'), bob=(2, 2, 2), lean=(2, 5), ln='sp-drive-rear', lf='sp-drive-lead'),
+     g(an=band(-90, -90, fistKind='palm'), af=band(-88, -88, fistKind='palm'), bob=(2, 2, 2), lean=(2, 4), ln='sp-drive-rear', lf='sp-drive-lead'),
+     g(an=band(-50, -110), af=band(-40, -110), bob=(1, 1, 1), lean=(1, 2), root=(-2, 0)),
+     g()],
+  [None, 'squint', 'squint', 'strain', 'strain', 'strain', 'roar', 'roar', 'strain', None, None],
+  [0, 1, 1, 1, 2, 2, 3, 2, 1, 0, 0],
+  dict(fps=10, auraColors=_WAURA, farLayer=True, rm='E: +2 driving the palms forward, -2 back',
+       extra={'zone': {'rule': 'Blizzard v1: from frame 6 the testbed rolls the snowstorm (NPAT iSnowL / iSnowL2 / iSnowL3, cycling one per frame, drawn over every fighter in the Wide AoE, centred 20 px above each AoE tile) in from the caster\'s side: frame 6 half way between caster and targets (iSnow), frames 7-10 over the AoE, fading on 10 (alpha 150)', 'from': 6, 'reach': 7, 'tiles': ['iSnowL', 'iSnowL2', 'iSnowL3'], 'front': 'iSnow', 'until': 10},
+              'targetFx': {'rule': 'Blizzard v1 preview of extra.zone round one target (dx away from the caster, dy from the floor up)', 'frames': {'6': [['iSnow', -24, -30]], '7': [['iSnowL', 0, -24]], '8': [['iSnowL2', 0, -24]], '9': [['iSnowL3', 0, -24]], '10': [['iSnowL', 2, -24, 150]]}},
+              'targetState': {'rule': 'Blizzard: on the impact frame (7, the storm reaches the AoE) and not before, every fighter in the AoE plays blizzardStruck: frames 0-3 once, then frames 4-7 on loop while the Slow lasts, then its idle', 'state': 'blizzardStruck', 'loopFrom': 4, 'element': 'water'}},
+       anchored={1: [('iBreath', 'head', 5, 2, _A(_FADE))],
+                 2: [('iSwirl0', 'hand', -2, 0), ('iFrostS', 'farhand', 0, 0)],
+                 3: [('iSwirl1', 'hand', -3, 0), ('iSnowS', 'hand', -2, -2, _A(_FADE)), ('iSpark2', 'hand', -3, 0)],
+                 4: [('iSwirlL2', 'hand', -3, 0), ('iSwirl3', 'hand', -3, -1), ('iSpark3', 'hand', -3, 0), ('iBreath', 'head', 6, 2, _A(_FADE))],
+                 5: [('iSwirlL3', 'hand', -3, 0), ('iSwirlL1', 'hand', -3, -2), ('iSnowS', 'hand', -3, 0), ('iSpark5', 'hand', -3, 0)],
+                 6: [('iSnow', 'hand', 12, 0), ('iSpark5', 'hand', 2, 0), ('iRing8', 'hand', 4, 0, _A(_FADE))],
+                 7: [('iSnow', 'hand', 14, 0, _A(_FADE)), ('iSnowS', 'hand', 6, 0)],
+                 8: [('iSnowS', 'hand', 8, 0, _A(_FADE))]})),
+ 'blizzardStruck': ('Blizzard Struck', 0,
+  'Blizzard Struck (target state of Blizzard, Slow 2 rounds; frame 0 is the impact): the storm hits the fighter: it throws its forearms up over its face and is driven back a step, snow plastering it; frost crusts its shoulders and arms; then, looping while the Slow lasts, it hunches with its arms wrapped round itself, shivering, teeth chattering, frozen breath puffing, frost glinting on it.', [
+     g(an=band(-140, -170), af=band(-130, -165), bob=(1, 1, 1), lean=(-1, -3), root=(-1, 0)),
+     g(an=band(-140, -170), af=band(-130, -165), bob=(1, 1, 2), lean=(-1, -3), root=(-1, 0)),
+     g(an=band(-30, -150), af=band(-20, -150), bob=(2, 2, 2), lean=(1, 2), **LOW),
+     g(an=band(-25, -155), af=band(-15, -155), bob=(2, 2, 3), lean=(1, 3), **LOW),
+     g(an=band(-25, -155), af=band(-15, -155), bob=(2, 2, 3), lean=(1, 3), **LOW),
+     g(an=band(-28, -152), af=band(-18, -152), bob=(3, 3, 3), lean=(1, 3), root=(1, 0), **LOW),
+     g(an=band(-25, -155), af=band(-15, -155), bob=(2, 2, 3), lean=(1, 3), **LOW),
+     g(an=band(-28, -152), af=band(-18, -152), bob=(3, 3, 3), lean=(1, 3), root=(-1, 0), **LOW)],
+  ['pain', 'squint', 'strain', 'strain', 'strain', 'squint', 'strain', 'squint'],
+  None,
+  dict(fps=8, rm='E: -1 -1 driven back, +1 -1 shiver in the loop (the testbed walks it back when the Slow ends)', extra={'loop': True, 'loopFrom': 4},
+       anchored={0: [('iSnow', 'head', 0, 18), ('iSpark5', 'head', 6, 14)],
+                 1: [('iSnow', 'head', -2, 20, _A(_FADE)), ('iFrost', 'head', 2, 14)],
+                 2: [('iFrostL', 'head', 0, 18), ('iBreath', 'head', 6, 4, _A(_FADE))],
+                 3: [('iFrostL', 'head', 0, 18), ('iSpark2', 'head', -5, 12)],
+                 4: [('iFrostL', 'head', 0, 18), ('iBreath', 'head', 6, 3), ('iSnowS', 'head', 0, -2, _A(_FADE))],
+                 5: [('iFrostL', 'head', 0, 18), ('iSpark2', 'head', 5, 22)],
+                 6: [('iFrostL', 'head', 0, 18), ('iBreathL', 'head', 7, 3, _A(_FADE)), ('iSnowS', 'head', 2, 0, _A(_FADE))],
+                 7: [('iFrostL', 'head', 0, 18), ('iSpark2', 'head', -4, 28)]})),
+})
+
+
 def spec(state):
     U.CLIPS[state] = CLIPS[state]
     U.APPROVED[state] = APPROVED.get(state, STAT)
