@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-animation-output/v1",
   "body": "male",
   "state": "regression",
-  "status": "CANDIDATE 2026-10-27 (E/W; W mirrors E; S/N to author after approval)",
+  "status": "E/W approved by user 2026-11-04 (v2 drop in the palm, ripples, ring waves fly to the target as a projectile volley frames 5-6, impact frame 7, f5b09c8; target plays regressed; genjutsu mark water; W mirrors E); S/N to author",
   "frames": 10,
   "fps": 10,
   "frameSize": [
