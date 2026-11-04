@@ -28,6 +28,7 @@ def hexes(img):
 rnd = random.Random(7)
 P = [(rnd.uniform(0, 2 * math.pi), math.sqrt(rnd.random()), rnd.uniform(2, 50) * rnd.random() ** 0.6, rnd.choice((0, 0, 1, 1, 1, 2, 2, 3)), rnd.uniform(0.7, 1.3)) for _ in range(3600)]
 HZ = [(rnd.uniform(0, 2 * math.pi), math.sqrt(rnd.random()), rnd.uniform(0, 44)) for _ in range(7000)]
+DIA = [(rnd.uniform(0, 2 * math.pi), math.sqrt(rnd.random()), rnd.uniform(4, 46), rnd.randrange(6), rnd.choice((1, 2, 2, 3))) for _ in range(150)]
 def front_at(t):   # the storm front's radius in px: ring h reached on RF[h] (the outer edge of ring h is (h + 0.5) hex widths out)
     if t < F0: return 0
     pts = [(F0 - 1, EYE)] + [(RF[h], (h + 0.5) * HW) for h in sorted(RF)]
@@ -52,6 +53,20 @@ def storm(img, t, part, fade):
         tx, ty = -math.sin(a), 0.5 * math.cos(a)   # tangent: the streak trails behind the flake
         for s_ in range(3):
             put(x - tx * s_ * 1.5, y - ty * s_ * 1.5, COL[min(3, ci + s_)], 235 - 40 * s_)
+    for a0, u, h, ph, big in DIA:   # v3.2 (Christopher 2026-11-04 22:09: diamond flashes mixed in with the snow): diamond-dust glints whirling with the snow, each flashing for 3 frames of every 6 (small diamond, full star, small diamond)
+        st = (t + ph) % 6
+        if st > 2: continue
+        d = EYE + u * (fr - EYE); a = a0 + t * 0.16 * (60 / max(60, d)) * 2
+        if (math.sin(a) < 0) != (part == 'back'): continue
+        x, y = CX + d * math.cos(a), FEET + 0.5 * d * math.sin(a) - h * min(1, d / 50)
+        L = (2 + big) if st == 1 else 2
+        put(x, y, COL[0], 255)
+        for k_ in range(1, L + 1):
+            c_ = COL[0] if k_ == 1 else COL[1] if k_ < L else COL[2]
+            for ex, ey in ((1, 0), (-1, 0), (0, 1), (0, -1)): put(x + ex * k_, y + ey * k_, c_, 255 - 30 * k_)
+        for ex, ey in ((1, 1), (-1, 1), (1, -1), (-1, -1)): put(x + ex, y + ey, COL[0] if st == 1 else COL[1], 230)
+        if st == 1:
+            for ex, ey in ((2, 2), (-2, 2), (2, -2), (-2, -2)): put(x + ex, y + ey, COL[2], 200)
     if part == 'front' and fr < R:   # the churning white front at the leading edge
         for i in range(int(fr * 14)):
             a = 2 * math.pi * i / int(fr * 14); j = rnd.uniform(-5, 4); h = rnd.uniform(0, 46)
