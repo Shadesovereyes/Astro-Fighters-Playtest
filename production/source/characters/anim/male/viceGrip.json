@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Vice Grip v2 (Christopher 2026-11-04: fx rework; Cancer taijutsu, Physical 12, Melee, Grapple: using its manoeuvrability the fighter bypasses the opponent's guard to secure a grapple): from the guard the fighter ducks and slips in low and sideways like a crab, a slick of water skimming under its feet; out of the crouch both hands shoot in at once, one high and one low, open like a crab's pincers, and water surges up the arms and forms round each hand into a big crab's pincer of water, two curved jaws with teeth gaping open; the pincers snap shut on the opponent, water squeezed out of the clamp in jets and a ring of spray, both hands clamped, and the fighter holds the grip as the water drips off. On success the testbed puts both fighters into the clinch with the caster holding (target plays hitReact on the clamp).",
+  "intent": "Vice Grip v2 (Christopher 2026-11-04: fx rework; Cancer taijutsu, Physical 12, Melee, Grapple: using its manoeuvrability the fighter bypasses the opponent's guard to secure a grapple): from the guard the fighter ducks and slips in low and sideways like a crab, a slick of water skimming under its feet; out of the crouch both hands shoot in at once, one high and one low, open like a crab's pincers, and water surges up the arms and forms round each hand into a big crab's pincer of water, two curved jaws with teeth gaping open; the pincer shoots off the hand and its jaws close round the opponent's body (drawn on the target, viceGripped), a rope of water still running from the caster's hand to it; the pincers snap shut on the opponent, water squeezed out of the clamp in jets and a ring of spray, both hands clamped, and the fighter holds the grip as the water drips off. On success the testbed puts both fighters into the clinch with the caster holding (target plays hitReact on the clamp).",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -3061,9 +3061,9 @@
     "intent": "eyes squeezed shut with the brow pulled down on the impact frames 0-2 (no mouth: user 2026-10-14), a squint on frame 3, open again from frame 4 (user 2026-10-14)"
   },
   "grapple": {
-    "rule": "Vice Grip is a Grapple: on success both fighters enter the clinch with the caster holding (testbed clinch rules apply: posOverride, noGrappled, shield bearers immune until Disarmed); the clip ends on the clamp and hands over to the clinch hold idle",
+    "rule": "Vice Grip is a Grapple: on success both fighters enter the clinch with the caster holding (testbed clinch rules apply: posOverride, noGrappled, shield bearers immune until Disarmed); the clip ends on the clamp and hands over to the clinch hold idle; Vice Grip v3: from the clamp (frame 5) the target plays viceGripped (the water pincer closes round its body, then it struggles, looping from frame 2) for as long as the hold lasts, instead of the clinch held idle, and the caster holds its last frames (5-7 looping) with the rope of water running from its hand to the clamp",
     "onSuccess": "clinch",
     "holder": "caster",
-    "targetState": "hitReact"
+    "targetState": "viceGripped"
   }
 }

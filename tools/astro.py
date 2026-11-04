@@ -3940,6 +3940,38 @@ CLIPS['viceGrip'] = (_VG[0], _VG[1], _VG[2].replace('Vice Grip (Cancer taijutsu'
                           6: [('wPinShut', 'hand', 6, 2), ('wClampBurstS', 'hand', 9, 2, _A(_FADE)), ('wDrops', 'hand', 2, 8)],
                           7: [('wPinShutS', 'hand', 5, 2, _A(_FADE)), ('wDrops', 'feet', 4, -6, _A(_FADE)), ('wPuddle', 'feet', 4, -1, _A(_FADE))]}})
 
+# Vice Grip v3 (Christopher 2026-11-04 16:44: the water pincers grip round the target's body; the target plays a restrained, struggling animation)
+_flipP = lambda pat: [r[::-1] for r in pat]   # pincer closing toward the left (its root on the right, toward the caster in front of an E-facing target)
+NPAT.update({'wGripOpen': _flipP(_pincer(20, 6, 8)), 'wGrip': _flipP(_pincer(20, 1, 9)), 'wGripT': _flipP(_pincer(19, 0, 8))})
+_GF = {'alpha': {'W': 215, 'I': 175, 'a': 150, 'A': 175}, 'onFig': True}   # the front of the clamp, see-through where it crosses the body
+_grip = lambda nm, dy=15: [(nm, 'head', -2, dy, {'behind': True}), (nm, 'head', -2, dy, _GF)]
+_garm = lambda p: [('wHoseThin%d' % (p % 4), 'head', 15, 13)]   # the water arm from the clamp's root out toward the caster's hand
+_VG = CLIPS['viceGrip']; _VX = _VG[6]
+CLIPS['viceGrip'] = (_VG[0], _VG[1], _VG[2].replace('the pincers snap shut on the opponent', 'the pincer shoots off the hand and its jaws close round the opponent\'s body (drawn on the target, viceGripped), a rope of water still running from the caster\'s hand to it; the pincers snap shut on the opponent'),
+  _VG[3], _VG[4], _VG[5],
+  {**_VX, 'extra': {'grapple': {**_VX['extra']['grapple'], 'targetState': 'viceGripped', 'rule': _VX['extra']['grapple']['rule'] + '; Vice Grip v3: from the clamp (frame 5) the target plays viceGripped (the water pincer closes round its body, then it struggles, looping from frame 2) for as long as the hold lasts, instead of the clinch held idle, and the caster holds its last frames (5-7 looping) with the rope of water running from its hand to the clamp'}},
+   'anchored': {**_VX['anchored'],
+                5: [('wHoseThin0', 'hand', 9, 0), ('wHoseRoot0', 'hand', 1, 0), ('wDrops', 'hand', 2, 6, _A(_FADE))],
+                6: [('wHoseThin1', 'hand', 9, 0), ('wHoseRoot1', 'hand', 1, 0, _A(_FADE)), ('wDrops', 'hand', 2, 8)],
+                7: [('wHoseThin2', 'hand', 9, 0), ('wDrops', 'feet', 4, -6, _A(_FADE)), ('wPuddle', 'feet', 4, -1, _A(_FADE))]}})
+_PIN = lambda u, f, **k: g(an=band(u, f), af=band(-u // 2, f + 8), **k)   # arms clamped to the sides under the pincer, elbows working against it
+CLIPS['viceGripped'] = ('Vice Gripped', 0,
+  'Vice Gripped (target state of Vice Grip, held while the grapple lasts): a giant crab pincer of water shoots in from the caster\'s hand and its jaws snap shut round the fighter\'s body, the upper jaw across the chest and arms, the lower round the hips, the tips meeting behind its back (the jaws see-through where they cross the body); the fighter jolts and its arms are pinned to its sides; then (looping from frame 2 while held) it struggles: wrenching back, twisting forward, elbows working out against the clamp, shoulders heaving, as the pincer squeezes and water squirts out of the joints; a rope of water runs from the clamp toward the caster.',
+  [g(an=band(-30, -95), af=band(-20, -85), bob=(1, 1, 1), lean=(-1, -3)),
+   _PIN(5, -50, bob=(1, 1, 1), lean=(-1, -2)),
+   _PIN(18, -40, bob=(1, 1, 1), lean=(1, 2), root=(1, 0)),
+   _PIN(2, -58, bob=(1, 1, 2), lean=(-2, -4)),
+   _PIN(22, -35, bob=(1, 1, 1), lean=(0, 1)),
+   _PIN(0, -50, bob=(2, 2, 2), lean=(-1, -2), root=(-1, 0)),
+   _PIN(16, -42, bob=(1, 1, 1), lean=(1, 3)),
+   _PIN(4, -56, bob=(1, 1, 2), lean=(-2, -4))],
+  ['pain', 'pain', 'strain', 'pain', 'strain', 'strain', 'strain', 'pain'],
+  None,
+  dict(fps=8, rm='E: rocking 1 px in the struggle (net 0)', extra={'loop': True, 'loopFrom': 2},
+       anchored={0: _grip('wGripOpen', 14) + _garm(0) + [('wSplashS', 'head', 8, 12)],
+                 1: _grip('wGrip') + _garm(1) + [('wClampBurstS', 'head', -12, 15, _A(_FADE)), ('wDrops', 'head', 6, 4)],
+                 **{k_: _grip('wGripT' if k_ % 2 else 'wGrip') + _garm(k_) + ([('wClampBurstS', 'head', -12 if k_ % 4 == 3 else 4, 15 if k_ % 4 == 3 else 26, _A(_FADE))] if k_ % 2 else [('wDrops', 'head', -8, 2, _A(_FADE))]) for k_ in range(2, 8)}}))
+
 # ---------- Hydro Cannon Palm v2 (part 13, 2026-11-04; Christopher 16:31: not a water bullet but a long gushing flow of water, like a fire hose, coming from the caster's palm) ----------
 def _hose(L, phase, h=11):   # one tileable 16 px stretch of the fire-hose stream (front = right), v2 (a straight, solid jet, not a wavy line): a flat centreline and an even thickness with only a small surface chop, lengthwise streaks of white and ice running along it (period 16, so tiles join; phase 0-3 slides them 4 px toward the target), a deep edge, flecks of spray peeling off top and bottom
     rows = [['.'] * L for _ in range(h)]; c = (h - 1) / 2; R = c - 1.2
@@ -4018,6 +4050,20 @@ CLIPS['hydroCannonPalm'] = ('Hydro Cannon Palm', 4,
                  8: _HOSE(0, thin=True) + [('wHoseRoot0', 'hand', 1, 0, _A(_FADE))],
                  9: [('wHoseTail', 'hand', 25, 0), ('wDrops', 'hand', 4, 3)],
                  10: [('wDrops', 'hand', 0, 6, _A(_FADE)), ('wPuddle', 'feet', 6, -1, _A(_FADE))]}))
+
+# Hydro Cannon Palm v3 (Christopher 2026-11-04 16:45: the water swirls round the hand for more frames): the palm loads for six frames, not three; everything from the thrust on moves 3 frames later
+_HC = CLIPS['hydroCannonPalm']; _HCX = _HC[6]; _HCL = _HC[3][1:4]
+_hcs = lambda k: k + 3 if k >= 4 else k
+CLIPS['hydroCannonPalm'] = (_HC[0], 7, _HC[2].replace('swelling over three frames', 'swirling round and round the hand and swelling over six frames'),
+  [_HC[3][0]] + [_HCL[0], _HCL[0], _HCL[1], _HCL[1], _HCL[2], _HCL[2]] + _HC[3][4:],
+  [_HC[4][0], 'squint', 'squint', 'squint', 'strain', 'strain', 'strain'] + _HC[4][4:], _HC[5],
+  {**_HCX, 'swirl': {1: (0, 0.4), 2: (60, 0.55), 3: (120, 0.7), 4: (180, 0.8), 5: (240, 0.9), 6: (300, 1.0)},
+   'rm': _HCX['rm'].replace('+2 stepping', 'six frames loading, +2 stepping'),
+   'extra': {**_HCX['extra'], 'targetState': {**_HCX['extra']['targetState'], 'rule': 'Hydro Cannon Palm v3: when the stream reaches the target (frame 7) the target plays hydroWaved once, then its idle'},
+             'stream': {**_HCX['extra']['stream'], 'rule': _HCX['extra']['stream']['rule'].replace('frames 4-8', 'frames 7-11').replace('frame 9', 'frame 12').replace('(k - 4)', '(k - 7)'), 'frames': [7, 8, 9, 10, 11], 'tailFrame': 12}},
+   'anchored': {1: [('wOrb2', 'hand', 0, 0)], 2: [('wOrb2', 'hand', 0, 0), ('wDrops', 'hand', 0, -4, _A(_FADE))], 3: [('wOrb3', 'hand', 0, 0)],
+                4: [('wOrb3', 'hand', 0, 0), ('wDrops', 'hand', 2, -5, _A(_FADE))], 5: [('wOrb4', 'hand', 0, 0), ('wSplashS', 'hand', 0, -5, _A(_FADE))], 6: [('wOrb4', 'hand', 0, 0), ('wDrops', 'hand', -2, -6, _A(_FADE))],
+                **{_hcs(k): v for k, v in _HCX['anchored'].items() if k >= 4}}})
 
 def spec(state):
     U.CLIPS[state] = CLIPS[state]

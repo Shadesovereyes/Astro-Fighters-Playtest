@@ -3,7 +3,7 @@
   "body": "male",
   "state": "hydroCannonPalm",
   "status": "CANDIDATE 2026-10-27 (E/W; W mirrors E; S/N to author after approval)",
-  "frames": 12,
+  "frames": 15,
   "fps": 10,
   "sourceDirection": "E",
   "directions": [
@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Hydro Cannon Palm v2 (Cancer taijutsu strike, Physical 14, Melee, 2 slots: the fighter slams its palm into the opponent, creating a hydrostatic pressure wave that travels through its body; Christopher 2026-11-04: not a water bullet but a long gushing flow of water, like a fire hose, coming from the palm): from the guard the fighter draws the rear hand back low beside the hip, palm open, and water swirls up the arm and gathers in the palm, swelling over three frames; then it drives the palm out and a thick stream of water blasts from it like a fire hose, a bloom of spray round the hand, the stream gushing straight into the target and breaking over it in fans of spray; the fighter braces against the force, sliding back a little as the stream keeps pouring for four frames, then it cuts off, the end of the stream breaking into a run of drops, and the fighter settles back into the guard (the target plays hydroWaved). Body from Shock Palm (approved) with a held thrust; water colours. In the testbed the stream itself is carried on from the palm to the target (extra.stream).",
+  "intent": "Hydro Cannon Palm v2 (Cancer taijutsu strike, Physical 14, Melee, 2 slots: the fighter slams its palm into the opponent, creating a hydrostatic pressure wave that travels through its body; Christopher 2026-11-04: not a water bullet but a long gushing flow of water, like a fire hose, coming from the palm): from the guard the fighter draws the rear hand back low beside the hip, palm open, and water swirls up the arm and gathers in the palm, swirling round and round the hand and swelling over six frames; then it drives the palm out and a thick stream of water blasts from it like a fire hose, a bloom of spray round the hand, the stream gushing straight into the target and breaking over it in fans of spray; the fighter braces against the force, sliding back a little as the stream keeps pouring for four frames, then it cuts off, the end of the stream breaking into a run of drops, and the fighter settles back into the guard (the target plays hydroWaved). Body from Shock Palm (approved) with a held thrust; water colours. In the testbed the stream itself is carried on from the palm to the target (extra.stream).",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -109,6 +109,9 @@
       1,
       1,
       1,
+      1,
+      1,
+      1,
       2,
       2,
       2,
@@ -119,6 +122,9 @@
       1
     ],
     "head": [
+      1,
+      1,
+      1,
       1,
       1,
       1,
@@ -136,6 +142,9 @@
       2,
       1,
       1,
+      1,
+      1,
+      2,
       2,
       2,
       2,
@@ -156,6 +165,9 @@
         -1,
         -1,
         -1,
+        -1,
+        -1,
+        -1,
         2,
         1,
         1,
@@ -168,7 +180,10 @@
       "head": [
         2,
         -1,
+        -1,
         -2,
+        -2,
+        -3,
         -3,
         6,
         3,
@@ -182,8 +197,20 @@
     }
   },
   "rootMotion": {
-    "rule": "E: +2 stepping into the palm, -1 -1 -1 -1 driven back by the stream, +2 settling (net 0)",
+    "rule": "E: six frames loading, +2 stepping into the palm, -1 -1 -1 -1 driven back by the stream, +2 settling (net 0)",
     "E": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
       [
         0,
         0
@@ -234,6 +261,18 @@
       ]
     ],
     "W": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
       [
         0,
         0
@@ -1689,6 +1728,9 @@
       21,
       21,
       21,
+      21,
+      21,
+      21,
       23,
       23,
       23,
@@ -1700,6 +1742,9 @@
     ],
     "far": [
       0,
+      20,
+      20,
+      20,
       20,
       20,
       20,
@@ -1736,6 +1781,33 @@
           "at": 8,
           "angle": 212
         }
+      },
+      {
+        "construction": "band",
+        "angle": 25,
+        "elbow": {
+          "at": 8,
+          "angle": -60
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": 25,
+        "elbow": {
+          "at": 8,
+          "angle": -60
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": 25,
+        "elbow": {
+          "at": 8,
+          "angle": -60
+        },
+        "fistKind": "palm"
       },
       {
         "construction": "band",
@@ -1842,6 +1914,30 @@
         "elbow": {
           "at": 8,
           "angle": 222
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -75,
+        "elbow": {
+          "at": 8,
+          "angle": -100
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -75,
+        "elbow": {
+          "at": 8,
+          "angle": -100
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -75,
+        "elbow": {
+          "at": 8,
+          "angle": -100
         }
       },
       {
@@ -2097,6 +2193,9 @@
       "bandFollowsBody": true,
       "sway": {
         "E": [
+          -1,
+          -1,
+          -1,
           -1,
           -1,
           -1,
@@ -2784,7 +2883,10 @@
         8,
         9,
         10,
-        11
+        11,
+        12,
+        13,
+        14
       ],
       "fps": 10,
       "next": "guard",
@@ -2817,6 +2919,21 @@
       {
         "frame": 4,
         "clip": "hydroCannonPalm",
+        "type": "startup"
+      },
+      {
+        "frame": 5,
+        "clip": "hydroCannonPalm",
+        "type": "startup"
+      },
+      {
+        "frame": 6,
+        "clip": "hydroCannonPalm",
+        "type": "startup"
+      },
+      {
+        "frame": 7,
+        "clip": "hydroCannonPalm",
         "type": "active",
         "move": "Hydro Cannon Palm",
         "hitbox": [
@@ -2826,21 +2943,6 @@
           10
         ],
         "damage": "heavy"
-      },
-      {
-        "frame": 5,
-        "clip": "hydroCannonPalm",
-        "type": "recovery"
-      },
-      {
-        "frame": 6,
-        "clip": "hydroCannonPalm",
-        "type": "recovery"
-      },
-      {
-        "frame": 7,
-        "clip": "hydroCannonPalm",
-        "type": "recovery"
       },
       {
         "frame": 8,
@@ -2859,6 +2961,21 @@
       },
       {
         "frame": 11,
+        "clip": "hydroCannonPalm",
+        "type": "recovery"
+      },
+      {
+        "frame": 12,
+        "clip": "hydroCannonPalm",
+        "type": "recovery"
+      },
+      {
+        "frame": 13,
+        "clip": "hydroCannonPalm",
+        "type": "recovery"
+      },
+      {
+        "frame": 14,
         "clip": "hydroCannonPalm",
         "type": "recovery"
       }
@@ -2887,6 +3004,21 @@
       {
         "frame": 4,
         "clip": "hydroCannonPalm",
+        "type": "startup"
+      },
+      {
+        "frame": 5,
+        "clip": "hydroCannonPalm",
+        "type": "startup"
+      },
+      {
+        "frame": 6,
+        "clip": "hydroCannonPalm",
+        "type": "startup"
+      },
+      {
+        "frame": 7,
+        "clip": "hydroCannonPalm",
         "type": "active",
         "move": "Hydro Cannon Palm",
         "hitbox": [
@@ -2896,21 +3028,6 @@
           10
         ],
         "damage": "heavy"
-      },
-      {
-        "frame": 5,
-        "clip": "hydroCannonPalm",
-        "type": "recovery"
-      },
-      {
-        "frame": 6,
-        "clip": "hydroCannonPalm",
-        "type": "recovery"
-      },
-      {
-        "frame": 7,
-        "clip": "hydroCannonPalm",
-        "type": "recovery"
       },
       {
         "frame": 8,
@@ -2929,6 +3046,21 @@
       },
       {
         "frame": 11,
+        "clip": "hydroCannonPalm",
+        "type": "recovery"
+      },
+      {
+        "frame": 12,
+        "clip": "hydroCannonPalm",
+        "type": "recovery"
+      },
+      {
+        "frame": 13,
+        "clip": "hydroCannonPalm",
+        "type": "recovery"
+      },
+      {
+        "frame": 14,
         "clip": "hydroCannonPalm",
         "type": "recovery"
       }
@@ -3220,6 +3352,9 @@
         null,
         "squint",
         "squint",
+        "squint",
+        "strain",
+        "strain",
         "strain",
         "roar",
         "strain",
@@ -3234,18 +3369,18 @@
     "intent": "eyes squeezed shut with the brow pulled down on the impact frames 0-2 (no mouth: user 2026-10-14), a squint on frame 3, open again from frame 4 (user 2026-10-14)"
   },
   "targetState": {
-    "rule": "Hydro Cannon Palm v2: when the stream reaches the target (frame 4) the target plays hydroWaved once, then its idle",
+    "rule": "Hydro Cannon Palm v3: when the stream reaches the target (frame 7) the target plays hydroWaved once, then its idle",
     "state": "hydroWaved"
   },
   "stream": {
-    "rule": "Hydro Cannon Palm v2 (Christopher 2026-11-04: a long gushing flow of water like a fire hose, from the palm): on frames 4-8 the testbed draws the stream from the caster's near hand (the arms layer's most forward pixel, the same anchor the clip uses) straight to the target's chest, tiling NPAT tile frames along it (16 px tiles; frame k uses tiles[(k + i) % 4] for the i-th tile so the ripples run toward the target), and NPAT hit[(k - 4) % 4] on the target at the point the stream meets it, its left edge on that point (mirrored for W); on frame 9 it draws tail tiles only over the last third, the stream cutting off; the clip itself bakes the stream from the palm to the edge of the cell",
+    "rule": "Hydro Cannon Palm v2 (Christopher 2026-11-04: a long gushing flow of water like a fire hose, from the palm): on frames 7-11 the testbed draws the stream from the caster's near hand (the arms layer's most forward pixel, the same anchor the clip uses) straight to the target's chest, tiling NPAT tile frames along it (16 px tiles; frame k uses tiles[(k + i) % 4] for the i-th tile so the ripples run toward the target), and NPAT hit[(k - 7) % 4] on the target at the point the stream meets it, its left edge on that point (mirrored for W); on frame 12 it draws tail tiles only over the last third, the stream cutting off; the clip itself bakes the stream from the palm to the edge of the cell",
     "from": "hand",
     "frames": [
-      4,
-      5,
-      6,
       7,
-      8
+      8,
+      9,
+      10,
+      11
     ],
     "tiles": [
       "wHose0",
@@ -3260,7 +3395,7 @@
       "wHoseHit2",
       "wHoseHit3"
     ],
-    "tailFrame": 9,
+    "tailFrame": 12,
     "tail": "wHoseTail"
   }
 }
