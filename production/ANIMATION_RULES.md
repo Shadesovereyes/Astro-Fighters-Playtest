@@ -17,6 +17,7 @@ Christopher made this a standing rule on 2026-11-04 16:51.
 
 - **No reaction before the hit lands.** A target holds its plain guard until the caster's impact frame. That impact frame is the clip's active frame, or the frame a projectile, stream or zone actually reaches the target. The target state's frame 0 is the moment of impact, never anticipation: no flinch, no fx on the target, nothing closing in on it beforehand.
 - **Fx that travels to the target stays with the caster until impact.** Up to the impact frame it belongs to the caster's clip or its spec record (projectile, stream, zone). It moves onto the target state only from the impact frame on.
+- **Previews show the real guard before impact (2026-11-04 19:19).** Two-fighter previews (astro_scene.py) draw the target in the plain boxing guard (`guard`, overridable with SCENE_GUARD) on every frame before the impact. Before this date they drew hitReact frame 0, which is the recoil pose, so every target looked hit from the first frame; earlier previews should be judged with that in mind.
 - **Older clips need checking.** Clips approved before this rule have not been audited against it; review them when asked.
 
 ## Carried rules
