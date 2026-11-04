@@ -51,9 +51,13 @@ def cell(state, k, d, x, img, lay=None, who=None):
     row = spec(state)['directions'].index(d); lay = lay or LAY
     if who == 'caster': lay = outfit(lay)
     if 'fx' in lay: runtime_aura(state, k, d, lay, x, img)
+    op_ = (spec(state).get('opacity') or {}).get((arg('--opacity', 1) or ['none'])[0]) if who == 'caster' else None   # Shadow Step: stealth fade (fx = floor fx, kept visible)
     for l in lay:
         p = os.path.join(anim, state, l + '.png')
-        if os.path.exists(p): img.alpha_composite(Image.open(p).convert('RGBA').crop((k * 64, row * 64, k * 64 + 64, row * 64 + 64)), (x, 0))
+        if os.path.exists(p):
+            im_ = Image.open(p).convert('RGBA').crop((k * 64, row * 64, k * 64 + 64, row * 64 + 64))
+            if op_ and l != 'fx' and k < len(op_): im_.putalpha(im_.getchannel('A').point(lambda v, m=op_[k]: round(v * m)))
+            img.alpha_composite(im_, (x, 0))
 def hand(state, k, d, layer='arms'):
     row = spec(state)['directions'].index(d); im = Image.open(os.path.join(anim, state, layer + '.png')).convert('RGBA').load()
     pts = [(x, y) for y in range(64) for x in range(64) if im[k * 64 + x, row * 64 + y][3]]

@@ -4160,6 +4160,136 @@ for _st, _pat, _hit, _nm in (('regression', 'wgw3', 'wRip5', 'Regression'), ('pa
         'projectile': {'rule': '%s v2 (impact-frame rule): on frames 5 and 6 the testbed flies NPAT %s from the near palm to the target at chest height a third of the way per frame (frames 5, 6, 7 for the first), so the first arrives on frame 7 (the impact frame, when the target state starts) and the second on frame 8; each pops %s on the target' % (_nm, _pat, _hit),
                        'volley': [{'frame': 5, 'from': 'hand', 'pattern': _pat, 'hit': _hit, 'flyFrames': 3}, {'frame': 6, 'from': 'hand', 'pattern': _pat, 'hit': _hit, 'flyFrames': 3}]}}})
 
+# ---------- Scorpio (Water) taijutsu v1 (part 14, 2026-11-04): Numbing Strike, Shadow Step, Kidney Shot ----------
+# Scorpio colours: water and ice (W, I, a, A, n) with Scorpio's shadow (X near-black, x smoky edge) for the stealth work
+def _iceSpark(r):   # an ice crystal flash: a white core, four long ice spikes and four short diagonal ones
+    w = 2 * r + 1; rows = [['.'] * w for _ in range(w)]
+    for d in range(r + 1):
+        ch = 'W' if d < 2 else 'I' if d < r - 1 else 'a'
+        for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)): rows[r + dy * d][r + dx * d] = ch
+        if d <= r // 2:
+            for dx, dy in ((1, 1), (-1, 1), (1, -1), (-1, -1)): rows[r + dy * d][r + dx * d] = 'I' if d < 2 else 'a'
+    return [''.join(q) for q in rows]
+def _frost(w, h, seed, n):   # a crust of frost crystals: scattered ice flecks with white glints and a few deep-blue specks
+    import random
+    rnd = random.Random(seed); rows = [['.'] * w for _ in range(h)]
+    for _ in range(n):
+        x, y = rnd.randrange(w), rnd.randrange(h); rows[y][x] = rnd.choice('WIIaaA')
+    return [''.join(q) for q in rows]
+def _sPool(rx, ry=2):   # Shadow Step: a pool of shadow on the floor: near-black core, smoky edge, a thin deep-water rim
+    w = 2 * rx + 1; h = 2 * ry + 1; rows = [['.'] * w for _ in range(h)]
+    for y in range(h):
+        for x in range(w):
+            q = ((x - rx) / rx) ** 2 + ((y - ry) / max(1, ry)) ** 2
+            if q <= 1: rows[y][x] = 'X' if q < 0.45 else 'x' if q < 0.8 else 'n'
+    return [''.join(q) for q in rows]
+def _sWisp(h, seed):   # shadow wisps curling up off the pool
+    import random
+    rnd = random.Random(seed); w = 9; rows = [['.'] * w for _ in range(h)]
+    for k in range(3):
+        x = 1 + 3 * k + rnd.choice((0, 1))
+        for y in range(h - 1, -1, -1):
+            if rnd.random() < 0.8: rows[y][max(0, min(w - 1, x + round(math.sin(y * 0.9 + k) * 1)))] = 'X' if y > h * 0.6 else 'x' if y > h * 0.3 else 'A'
+    return [''.join(q) for q in rows]
+NPAT.update({'iSpark2': _iceSpark(2), 'iSpark3': _iceSpark(3), 'iSpark5': _iceSpark(5), 'iFrost': _frost(9, 7, 1, 12), 'iFrostL': _frost(11, 13, 2, 22), 'iFrostS': _frost(5, 5, 3, 6),
+             'sPool2': _sPool(4, 1), 'sPool4': _sPool(8, 2), 'sPool6': _sPool(12, 2), 'sPool7': _sPool(14, 3), 'sWisp': _sWisp(10, 1), 'sWisp2': _sWisp(14, 2), 'sWispS': _sWisp(6, 3)})
+_NS_HIT = band(-95, -95, fistKind='point')   # two-finger nerve strike driven straight out at shoulder height
+CLIPS.update({
+ 'numbingStrike': ('Numbing Strike', 4,
+  'Numbing Strike (Scorpio taijutsu, Physical 14, Melee, Slow 2 rounds: a precise nerve strike that slows the opponent\'s reaction speed): from the guard the fighter narrows its eyes, sights the nerve and draws the lead hand back, two fingers out like a scorpion\'s sting, frost gathering on the fingertips; it darts in and stabs the two fingers into the opponent\'s shoulder joint: on the impact frame (4) an ice-crystal flash bursts at the point and frost crackles out; it snaps the hand back and returns to the guard (the target plays numbed).',
+  [g(),
+   g(af=band(-50, -140, fistKind='point'), bob=(1, 1, 1), lean=(0, -1)),
+   g(af=band(-40, -150, fistKind='point'), bob=(1, 1, 2), lean=(-1, -2), ln='sp-load-rear', lf='sp-load-lead'),
+   g(af=band(-80, -100, fistKind='point'), bob=(1, 1, 1), lean=(1, 3), root=(1, 0), ln='sp-drive-rear', lf='sp-drive-lead'),
+   g(af=_NS_HIT, bob=(1, 1, 1), lean=(2, 5), root=(2, 0), ln='sp-drive-rear', lf='sp-drive-lead'),
+   g(af=_NS_HIT, bob=(1, 1, 1), lean=(2, 5), ln='sp-drive-rear', lf='sp-drive-lead'),
+   g(af=band(-60, -130, fistKind='point'), bob=(1, 1, 1), lean=(1, 2), root=(-2, 0)),
+   g(root=(-1, 0)),
+   g()],
+  [None, 'squint', 'squint', 'strain', 'strain', 'squint', None, None, None],
+  None,
+  dict(fps=12, hitbox=[44, 16, 14, 8], damage='light', rm='E: +2 +1 darting in, -2 -1 back (net 0)',
+       extra={'targetState': {'rule': 'Numbing Strike: on the impact frame (4, the active frame) and not before, the target plays numbed once (the struck arm goes dead and frost spreads from the point), then its idle; before that it holds its plain guard', 'state': 'numbed'}},
+       anchored={1: [('iSpark2', 'farhand', 1, 0, _A(_FADE))], 2: [('iSpark2', 'farhand', 1, 0), ('iFrostS', 'farhand', -2, 0, _A(_FADE))],
+                 3: [('iSpark2', 'farhand', 1, 0), ('wDrops', 'farhand', -6, 2, _A(_FADE))],
+                 4: [('iSpark5', 'farhand', 3, 0), ('iFrost', 'farhand', 5, 0)],
+                 5: [('iSpark3', 'farhand', 4, 0, _A(_FADE)), ('iFrostS', 'farhand', 6, 3)],
+                 6: [('iFrostS', 'farhand', 0, 2, _A(_FADE))]})),
+ 'numbed': ('Numbed', 0,
+  'Numbed (target state of Numbing Strike, Slow 2 rounds): frame 0 is the impact: the two fingers strike the lead shoulder, an ice flash, the shoulder jolts back; frost crackles out over the shoulder and down the arm, the arm goes dead and drops limp at its side, the fighter shudders with cold, then hauls the guard back up stiffly and slowly, frost still glinting on the arm.',
+  [g(af=band(-30, -95), bob=(1, 1, 1), lean=(-1, -3), root=(-1, 0)),
+   g(af=band(-10, -60), bob=(1, 1, 1), lean=(-1, -2)),
+   g(af=AR_HANG_F, bob=(1, 1, 2), lean=(0, -1)),
+   g(af=AR_HANG_F, bob=(2, 2, 2), lean=(1, 2)),
+   g(af=AR_HANG_F, bob=(1, 1, 2), lean=(0, 1), root=(1, 0)),
+   g(af=band(-25, -70), bob=(1, 1, 1), lean=(0, 1)),
+   g(af=band(-45, -110), bob=(1, 1, 1), lean=(0, 0)),
+   g()],
+  ['pain', 'pain', 'strain', 'squint', 'squint', 'strain', None, None],
+  None,
+  dict(fps=8, rm='E: -1 struck, +1 recovering (net 0)',
+       anchored={0: [('iSpark5', 'head', 4, 10), ('iFrostS', 'head', 3, 11)],
+                 1: [('iFrost', 'head', 2, 12), ('iSpark2', 'head', 4, 9, _A(_FADE))],
+                 2: [('iFrostL', 'head', 2, 17)], 3: [('iFrostL', 'head', 2, 18), ('iSpark2', 'head', 1, 24)],
+                 4: [('iFrostL', 'head', 2, 18)], 5: [('iFrost', 'head', 3, 14)], 6: [('iFrostS', 'head', 3, 13, _A(_FADE))]})),
+ 'shadowStep': ('Shadow Step', 3,
+  'Shadow Step (Scorpio taijutsu, teleport, buff, stance, priority, gap closer, +6 move, Stealth 1 round: the fighter vanishes and repositions in shadow): from the guard the fighter drops into a low crouch and a pool of shadow spreads under its feet, wisps curling up; it sinks into the pool and is gone, the pool sliding away along the floor; 40 px on the pool opens again and the fighter rises out of it, low, shadow streaming off it, into the guard, then fades into stealth (spec opacity; extra.travel: the game moves the fighter by 40 px).',
+  [g(),
+   g(an=band(-25, 205), af=band(-40, 215), bob=(3, 3, 3), lean=(1, 4), ln='ml-dip-rear', lf='ml-dip-lead'),
+   g(an=band(-25, 205), af=band(-40, 215), bob=(6, 7, 7), lean=(1, 5), rot=_LIFT(-8), **BRACE),
+   g(an=band(-25, 205), af=band(-40, 215), bob=(8, 9, 9), lean=(1, 5), rot=_LIFT(-22), **BRACE),
+   g(an=band(-25, 205), af=band(-40, 215), bob=(8, 9, 9), lean=(1, 5), root=(40, 0), rot=_LIFT(-22), **BRACE),
+   g(an=band(-25, 205), af=band(-40, 215), bob=(6, 7, 7), lean=(1, 5), rot=_LIFT(-12), **BRACE),
+   g(an=band(-25, 208), af=band(-45, 220), bob=(3, 3, 3), lean=(1, 4), rot=_LIFT(-3), ln='ml-dip-rear', lf='ml-dip-lead'),
+   g(an=band(-40, -110), af=band(-45, -120), bob=(1, 1, 2), lean=(0, 2)),
+   g()],
+  [None, 'squint', 'squint', 'closed', 'closed', 'squint', 'squint', None, None],
+  None,
+  dict(fps=10, rm='E: +40 while sunk in the shadow (frame 4, invisible); 40 px in all (travel); sinks 8, 22 px below the floor line (bodyRotation dy, the cell crops it) and rises 12, 3',
+       opacity={'rule': 'Shadow Step: the fighter sinks into the shadow and is gone, and rises from it 40 px on into Stealth 1 round. Multiply the whole composited fighter (every layer, fx included; the shadow pool and wisps are drawn on the floor separately and stay visible) by self[k] for its own side and others[k] for any other viewer; after the clip the Stealth state holds the last value (self 0.4, others 0) until Stealth ends',
+                'self': [1, 1, 0.75, 0.15, 0.15, 0.5, 0.8, 0.6, 0.4], 'others': [1, 1, 0.6, 0, 0, 0.4, 0.7, 0.3, 0]},
+       extra={'travel': {'rule': 'Shadow Step is a teleport (Move +6): the fighter ends the clip 40 px further forward (sum of rootMotion); the game moves the fighter by that distance', 'E': 40},
+              'floorFx': {'rule': 'Shadow Step: the shadow pool (sPool*) and wisps are drawn by the testbed on the floor at the fighter\'s feet and are NOT multiplied by opacity, so the pool shows while the fighter is invisible; frame 3 at the start spot, frame 4 sliding (the pool drawn at the start spot fading and at the new spot growing), frames 5-6 at the new spot; the clip also bakes them into fx for previews', 'frames': {'1': ['sPool2'], '2': ['sPool4', 'sWispS'], '3': ['sPool6', 'sWisp'], '4': ['sPool6', 'sWisp2'], '5': ['sPool6', 'sWisp'], '6': ['sPool4', 'sWispS'], '7': ['sPool2']}}},
+       anchored={1: [('sPool2', 'feet', 0, -1)], 2: [('sPool4', 'feet', 0, -2), ('sWispS', 'feet', -2, -6)],
+                 3: [('sPool6', 'feet', 0, -2), ('sWisp', 'feet', -1, -7), ('sWispS', 'feet', 6, -5)],
+                 4: [('sPool7', 'feet', 0, -3), ('sWisp2', 'feet', 0, -9)],
+                 5: [('sPool6', 'feet', 0, -2), ('sWisp2', 'feet', -2, -9), ('sWispS', 'feet', 6, -5)],
+                 6: [('sPool4', 'feet', 0, -2), ('sWisp', 'feet', -4, -7, _A(_FADE))],
+                 7: [('sPool2', 'feet', 0, -1, _A(_FADE)), ('sWispS', 'head', -6, 6, _A(_FADE))]})),
+ 'kidneyShot': ('Kidney Shot', 4,
+  'Kidney Shot (Scorpio taijutsu, Physical 16, Melee: the fighter feints before delivering a vicious blow to the opponent\'s kidney): from the guard the fighter flicks a half jab at the face as a feint, eyes on the head; as the guard rises to meet it, it snaps the feint back, dips low and steps in to the side, and drives the rear fist round in a hooking blow into the opponent\'s flank under the ribs: on the impact frame (4) water bursts off the fist in a hard splash and a ring of spray; it rolls back out to the guard (the target plays kidneyStruck).',
+  [g(),
+   g(af=band(-72, -105), bob=(1, 1, 1), lean=(1, 2), root=(1, 0)),
+   g(af=band(-55, -125), an=band(20, -40), bob=(3, 4, 4), lean=(2, 6), ln='sp-load-rear', lf='sp-load-lead'),
+   g(af=band(-55, -125), an=band(-20, -70), bob=(4, 4, 4), lean=(2, 8), root=(2, 0), ln='sp-drive-rear', lf='sp-drive-lead'),
+   g(af=band(-55, -125), an=band(-40, -85), bob=(4, 4, 4), lean=(2, 9), root=(1, 0), ln='sp-drive-rear', lf='sp-drive-lead'),
+   g(af=band(-55, -125), an=band(-40, -85), bob=(4, 4, 4), lean=(2, 8), ln='sp-drive-rear', lf='sp-drive-lead'),
+   g(af=band(-55, -125), an=band(-30, -110), bob=(2, 2, 3), lean=(1, 4), root=(-2, 0)),
+   g(root=(-2, 0)),
+   g()],
+  [None, 'squint', 'squint', 'strain', 'strain', 'strain', 'squint', None, None],
+  None,
+  dict(fps=12, hitbox=[42, 30, 14, 10], damage='heavy', rm='E: +1 feint, +2 +1 stepping into the hook, -2 -2 rolling out (net 0)',
+       extra={'targetState': {'rule': 'Kidney Shot: on the impact frame (4, the active frame) and not before, the target plays kidneyStruck once, then its idle; during the feint (frames 1-3) it holds its plain guard', 'state': 'kidneyStruck'}},
+       anchored={3: [('wDrops', 'hand', -6, -2, _A(_FADE))],
+                 4: [('wSplash', 'hand', 4, -2), ('wRing', 'hand', 2, 0), ('wDrops', 'hand', 6, 4)],
+                 5: [('wRing2', 'hand', 3, 0, _A(_FADE)), ('wDropsL', 'hand', 6, 2, _A(_FADE))],
+                 6: [('wDrops', 'feet', 8, -6, _A(_FADE))]})),
+ 'kidneyStruck': ('Kidney Struck', 0,
+  'Kidney Struck (target state of Kidney Shot): frame 0 is the impact: the hook lands in its flank and water bursts off it; it buckles sideways over the blow, the rear hand clutching the kidney, the lead arm dropping, knees dipping, face screwed up; it stays folded a beat, then straightens slowly, hand still on its side, and recovers the guard.',
+  [g(an=band(20, -30), af=band(-35, -100), bob=(2, 2, 2), lean=(1, 3), root=(-2, 0)),
+   g(an=band(30, -20), af=band(-20, -80), bob=(4, 4, 4), lean=(2, 7), root=(-1, 0), **LOW),
+   g(an=band(30, -20), af=band(-10, -60), bob=(5, 5, 5), lean=(2, 8), **LOW),
+   g(an=band(30, -20), af=band(-10, -60), bob=(5, 5, 5), lean=(2, 8), **LOW),
+   g(an=band(25, -25), af=band(-30, -90), bob=(3, 3, 3), lean=(1, 4), root=(1, 0)),
+   g(an=band(-20, -80), af=band(-45, -115), bob=(1, 1, 2), lean=(1, 2), root=(2, 0)),
+   g()],
+  ['pain', 'pain', 'strain', 'strain', 'squint', None, None],
+  None,
+  dict(fps=8, rm='E: -2 -1 driven back, +1 +2 recovering (net 0)',
+       anchored={0: [('wSplashS', 'head', 2, 26), ('wDrops', 'head', -6, 22, _A(_FADE))], 1: [('wDrops', 'feet', -2, -10, _A(_FADE))]})),
+})
+
 def spec(state):
     U.CLIPS[state] = CLIPS[state]
     U.APPROVED[state] = APPROVED.get(state, STAT)
