@@ -2934,6 +2934,11 @@
       {
         "frame": 7,
         "clip": "hydroCannonPalm",
+        "type": "startup"
+      },
+      {
+        "frame": 8,
+        "clip": "hydroCannonPalm",
         "type": "active",
         "move": "Hydro Cannon Palm",
         "hitbox": [
@@ -2943,11 +2948,6 @@
           10
         ],
         "damage": "heavy"
-      },
-      {
-        "frame": 8,
-        "clip": "hydroCannonPalm",
-        "type": "recovery"
       },
       {
         "frame": 9,
@@ -3019,6 +3019,11 @@
       {
         "frame": 7,
         "clip": "hydroCannonPalm",
+        "type": "startup"
+      },
+      {
+        "frame": 8,
+        "clip": "hydroCannonPalm",
         "type": "active",
         "move": "Hydro Cannon Palm",
         "hitbox": [
@@ -3028,11 +3033,6 @@
           10
         ],
         "damage": "heavy"
-      },
-      {
-        "frame": 8,
-        "clip": "hydroCannonPalm",
-        "type": "recovery"
       },
       {
         "frame": 9,
@@ -3369,7 +3369,7 @@
     "intent": "eyes squeezed shut with the brow pulled down on the impact frames 0-2 (no mouth: user 2026-10-14), a squint on frame 3, open again from frame 4 (user 2026-10-14)"
   },
   "targetState": {
-    "rule": "Hydro Cannon Palm v3: when the stream reaches the target (frame 7) the target plays hydroWaved once, then its idle",
+    "rule": "Hydro Cannon Palm v3: when the stream reaches the target (frame 8, the impact frame; Christopher 2026-11-04: targets react only on the impact frame) the target plays hydroWaved once, then its idle; before that it holds its guard",
     "state": "hydroWaved"
   },
   "stream": {
@@ -3396,6 +3396,9 @@
       "wHoseHit3"
     ],
     "tailFrame": 12,
-    "tail": "wHoseTail"
+    "tail": "wHoseTail",
+    "reachFrame": 8,
+    "reachRule": "on frames before reachFrame the stream front is still travelling: draw the tiles only to halfway between the palm and the target, with NPAT front at the leading end and no hit fx; from reachFrame it reaches the target",
+    "front": "wSplashS"
   }
 }

@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Vice Gripped (target state of Vice Grip, held while the grapple lasts): a giant crab pincer of water shoots in from the caster's hand and its jaws snap shut round the fighter's body, the upper jaw across the chest and arms, the lower round the hips, the tips meeting behind its back (the jaws see-through where they cross the body); the fighter jolts and its arms are pinned to its sides; then (looping from frame 2 while held) it struggles: wrenching back, twisting forward, elbows working out against the clamp, shoulders heaving, as the pincer squeezes and water squirts out of the joints; a rope of water runs from the clamp toward the caster.",
+  "intent": "Vice Gripped (target state of Vice Grip, held while the grapple lasts): frame 0 is the impact (Christopher 2026-11-04: targets react only on the impact frame): the caster's giant crab pincer of water has just snapped shut round the fighter's body, the upper jaw across the chest and arms, the lower round the hips, the tips meeting behind its back (the jaws see-through where they cross the body); the fighter jolts and its arms are pinned to its sides; then (looping from frame 2 while held) it struggles: wrenching back, twisting forward, elbows working out against the clamp, shoulders heaving, as the pincer squeezes and water squirts out of the joints; a rope of water runs from the clamp toward the caster.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",

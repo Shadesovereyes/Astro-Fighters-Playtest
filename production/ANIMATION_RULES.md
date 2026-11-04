@@ -11,6 +11,14 @@ Anything that traces or copies the fighter must follow the fighter as it is actu
 - **Copies of the caster wear what the caster wears (19:22).** Clones, decoys and illusory copies are never baked. The spec carries `clones` (copies on the caster's own clip) or `legion` (copies round a target), and the testbed draws them from the caster's composited sprite.
 - **Preview against other looks.** Before posting a candidate that has an aura or copies, check it with `astro_scene.py --outfit <clothing>,<shoulders>,<hair>,<eyes>`, which draws runtime auras and copies the way the testbed does.
 
+## Targets react on the impact frame (2026-11-04)
+
+Christopher made this a standing rule on 2026-11-04 16:51.
+
+- **No reaction before the hit lands.** A target holds its plain guard until the caster's impact frame. That impact frame is the clip's active frame, or the frame a projectile, stream or zone actually reaches the target. The target state's frame 0 is the moment of impact, never anticipation: no flinch, no fx on the target, nothing closing in on it beforehand.
+- **Fx that travels to the target stays with the caster until impact.** Up to the impact frame it belongs to the caster's clip or its spec record (projectile, stream, zone). It moves onto the target state only from the impact frame on.
+- **Older clips need checking.** Clips approved before this rule have not been audited against it; review them when asked.
+
 ## Carried rules
 
 - One state per ability. Every clip starts from and returns to the approved boxing guard.
