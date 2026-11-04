@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Blizzard Struck (target state of Blizzard, Slow 2 rounds; frame 0 is the impact): the storm hits the fighter: it throws its forearms up over its face and is driven back a step, snow plastering it; frost crusts its shoulders and arms; then, looping while the Slow lasts, it hunches with its arms wrapped round itself, shivering, teeth chattering, frozen breath puffing, frost glinting on it.",
+  "intent": "Blizzard Struck v2 (exaggerated fx; target state of Blizzard, Slow 2 rounds; frame 0 is the impact): the storm hits the fighter: it throws its forearms up over its face and is driven back a step, snow plastering it, ice shards bursting round it; frost crusts its shoulders and arms; then, looping while the Slow lasts, it hunches with its arms wrapped round itself, shivering, teeth chattering, frozen breath puffing, frost glinting on it.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",

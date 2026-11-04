@@ -3,7 +3,7 @@
   "body": "male",
   "state": "blizzard",
   "status": "CANDIDATE 2026-10-27 (E/W; W mirrors E; S/N to author after approval)",
-  "frames": 11,
+  "frames": 16,
   "fps": 10,
   "sourceDirection": "E",
   "directions": [
@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Blizzard (Scorpio ninjutsu, Elemental 10, Wide AoE, Slow 2 rounds INT save DC 12: a charged freezing storm that slows): from the guard the fighter makes the seal, breath freezing; it sinks and circles its open palms round each other before its chest, and snow begins to whirl between them, the whirl widening into a churning ring of snow and a bright cold heart, eyes squeezed as it charges; then it drives both palms forward with a roar and the storm is hurled out: a howling wall of snow and sleet rolls over the zone and buries the targets (they play blizzardStruck from the impact frame 7); it holds the push, then lowers its hands into the guard (spec extra.zone: the testbed rolls the storm over every tile of the AoE from frame 6 and keeps it on them a few frames).",
+  "intent": "Blizzard v2 (Scorpio ninjutsu ultimate, Elemental 10, Wide AoE, Slow 2 rounds INT save DC 12: a charged freezing storm that slows; Christopher 2026-11-04: an ultimate, more frames, exaggerated fx): from the guard the fighter makes the seal and its breath freezes; frost spreads over the floor round its feet; it sinks into a wide stance and circles its open palms round each other before its chest, and snow whirls up out of nowhere, a churning ring between the palms; the whirl grows into a howling vortex of snow spiralling round its whole body, the aura blazing ice-blue, the cold heart between its palms swelling; it drags its palms apart and the charge bursts in a white flash and a ring of ice; then it drives both palms forward with a roar and a huge cone of storm is hurled out of them; the wall of snow and sleet rolls over the zone, a whiteout swallowing the targets (they play blizzardStruck from the impact frame 11); it holds the push as the storm rages, then lowers its hands and settles into the guard (spec extra.zone: the testbed rolls the storm over every tile of the AoE).",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -107,10 +107,15 @@
     "dy": [
       1,
       1,
-      1,
       2,
       2,
       3,
+      3,
+      3,
+      3,
+      4,
+      2,
+      2,
       2,
       2,
       2,
@@ -120,10 +125,15 @@
     "head": [
       1,
       1,
-      1,
       2,
       2,
       3,
+      3,
+      3,
+      3,
+      4,
+      2,
+      2,
       2,
       2,
       2,
@@ -133,12 +143,17 @@
     "arms": [
       2,
       1,
-      1,
       2,
       2,
       3,
+      3,
+      3,
+      4,
+      4,
       2,
       2,
+      2,
+      3,
       2,
       1,
       2
@@ -152,9 +167,14 @@
         0,
         0,
         0,
+        0,
         -1,
         -1,
         -1,
+        -1,
+        -1,
+        -1,
+        2,
         2,
         2,
         2,
@@ -164,20 +184,25 @@
       "head": [
         2,
         0,
-        -1,
+        1,
+        0,
+        -2,
         -2,
         -3,
+        -3,
         -4,
-        5,
-        5,
-        4,
+        -3,
+        6,
+        6,
+        7,
+        6,
         2,
         2
       ]
     }
   },
   "rootMotion": {
-    "rule": "E: +2 driving the palms forward, -2 back",
+    "rule": "E: +3 driving the palms forward, -3 back",
     "E": [
       [
         0,
@@ -204,7 +229,11 @@
         0
       ],
       [
-        2,
+        0,
+        0
+      ],
+      [
+        0,
         0
       ],
       [
@@ -216,7 +245,23 @@
         0
       ],
       [
-        -2,
+        3,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        -3,
         0
       ],
       [
@@ -250,7 +295,11 @@
         0
       ],
       [
-        -2,
+        0,
+        0
+      ],
+      [
+        0,
         0
       ],
       [
@@ -262,7 +311,23 @@
         0
       ],
       [
-        2,
+        -3,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        3,
         0
       ],
       [
@@ -1674,10 +1739,15 @@
     "near": [
       1,
       1,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
       1,
-      3,
-      3,
-      3,
+      23,
       23,
       23,
       23,
@@ -1687,10 +1757,15 @@
     "far": [
       0,
       0,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
       0,
-      2,
-      2,
-      2,
+      22,
       22,
       22,
       22,
@@ -1721,6 +1796,15 @@
           "at": 8,
           "angle": 212
         }
+      },
+      {
+        "construction": "band",
+        "angle": -48,
+        "elbow": {
+          "at": 8,
+          "angle": -150
+        },
+        "fistKind": "palm"
       },
       {
         "construction": "band",
@@ -1764,6 +1848,42 @@
         "elbow": {
           "at": 8,
           "angle": -125
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": -75,
+        "elbow": {
+          "at": 8,
+          "angle": -105
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": -60,
+        "elbow": {
+          "at": 8,
+          "angle": -120
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": -100,
+        "elbow": {
+          "at": 8,
+          "angle": -100
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": -90,
+        "elbow": {
+          "at": 8,
+          "angle": -90
         },
         "fistKind": "palm"
       },
@@ -1831,6 +1951,15 @@
       },
       {
         "construction": "band",
+        "angle": -60,
+        "elbow": {
+          "at": 8,
+          "angle": -146
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
         "angle": -55,
         "elbow": {
           "at": 8,
@@ -1862,6 +1991,42 @@
         "elbow": {
           "at": 8,
           "angle": -105
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": -45,
+        "elbow": {
+          "at": 8,
+          "angle": -125
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": -60,
+        "elbow": {
+          "at": 8,
+          "angle": -115
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": -20,
+        "elbow": {
+          "at": 8,
+          "angle": -60
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": -88,
+        "elbow": {
+          "at": 8,
+          "angle": -88
         },
         "fistKind": "palm"
       },
@@ -2074,6 +2239,11 @@
       "bandFollowsBody": true,
       "sway": {
         "E": [
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
           -1,
           -1,
           -1,
@@ -2759,7 +2929,12 @@
         7,
         8,
         9,
-        10
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
       ],
       "fps": 10,
       "next": "guard",
@@ -2807,22 +2982,47 @@
       {
         "frame": 7,
         "clip": "blizzard",
+        "type": "startup"
+      },
+      {
+        "frame": 8,
+        "clip": "blizzard",
+        "type": "startup"
+      },
+      {
+        "frame": 9,
+        "clip": "blizzard",
+        "type": "startup"
+      },
+      {
+        "frame": 10,
+        "clip": "blizzard",
+        "type": "startup"
+      },
+      {
+        "frame": 11,
+        "clip": "blizzard",
         "type": "active",
         "move": "Blizzard",
         "buff": true
       },
       {
-        "frame": 8,
+        "frame": 12,
         "clip": "blizzard",
         "type": "recovery"
       },
       {
-        "frame": 9,
+        "frame": 13,
         "clip": "blizzard",
         "type": "recovery"
       },
       {
-        "frame": 10,
+        "frame": 14,
+        "clip": "blizzard",
+        "type": "recovery"
+      },
+      {
+        "frame": 15,
         "clip": "blizzard",
         "type": "recovery"
       }
@@ -2866,22 +3066,47 @@
       {
         "frame": 7,
         "clip": "blizzard",
+        "type": "startup"
+      },
+      {
+        "frame": 8,
+        "clip": "blizzard",
+        "type": "startup"
+      },
+      {
+        "frame": 9,
+        "clip": "blizzard",
+        "type": "startup"
+      },
+      {
+        "frame": 10,
+        "clip": "blizzard",
+        "type": "startup"
+      },
+      {
+        "frame": 11,
+        "clip": "blizzard",
         "type": "active",
         "move": "Blizzard",
         "buff": true
       },
       {
-        "frame": 8,
+        "frame": 12,
         "clip": "blizzard",
         "type": "recovery"
       },
       {
-        "frame": 9,
+        "frame": 13,
         "clip": "blizzard",
         "type": "recovery"
       },
       {
-        "frame": 10,
+        "frame": 14,
+        "clip": "blizzard",
+        "type": "recovery"
+      },
+      {
+        "frame": 15,
         "clip": "blizzard",
         "type": "recovery"
       }
@@ -3172,74 +3397,132 @@
       "E": [
         null,
         "squint",
+        "closed",
         "squint",
         "strain",
         "strain",
         "strain",
+        "strain",
+        "strain",
+        "roar",
+        "roar",
         "roar",
         "roar",
         "strain",
-        null,
+        "squint",
         null
       ]
     },
     "intent": "eyes squeezed shut with the brow pulled down on the impact frames 0-2 (no mouth: user 2026-10-14), a squint on frame 3, open again from frame 4 (user 2026-10-14)"
   },
   "zone": {
-    "rule": "Blizzard v1: from frame 6 the testbed rolls the snowstorm (NPAT iSnowL / iSnowL2 / iSnowL3, cycling one per frame, drawn over every fighter in the Wide AoE, centred 20 px above each AoE tile) in from the caster's side: frame 6 half way between caster and targets (iSnow), frames 7-10 over the AoE, fading on 10 (alpha 150)",
-    "from": 6,
-    "reach": 7,
+    "rule": "Blizzard v2: from frame 10 the testbed rolls the snowstorm in from the caster's side: frame 10 the front gust half way between caster and targets (iConeL); from frame 11 (impact) to 15 over every fighter in the Wide AoE, centred 26 px above each AoE tile: iHaze (alpha I 110, W 140) under iSnowXL / iSnowXL2 / iSnowXL3 cycling one per frame, with iShards12 bursting on frame 11 and iSpark5 glints; frame 15 fades (alpha 150)",
+    "from": 10,
+    "reach": 11,
     "tiles": [
-      "iSnowL",
-      "iSnowL2",
-      "iSnowL3"
+      "iSnowXL",
+      "iSnowXL2",
+      "iSnowXL3"
     ],
-    "front": "iSnow",
-    "until": 10
+    "haze": "iHaze",
+    "front": "iConeL",
+    "until": 15
   },
   "targetFx": {
-    "rule": "Blizzard v1 preview of extra.zone round one target (dx away from the caster, dy from the floor up)",
+    "rule": "Blizzard v2 preview of extra.zone round one target (dx away from the caster, dy from the floor up)",
     "frames": {
-      "6": [
+      "10": [
         [
-          "iSnow",
-          -24,
+          "iConeL",
+          -30,
           -30
         ]
       ],
-      "7": [
+      "11": [
         [
-          "iSnowL",
+          "iHaze",
           0,
-          -24
+          -27,
+          130
+        ],
+        [
+          "iSnowXL",
+          0,
+          -27
+        ],
+        [
+          "iShards12",
+          0,
+          -30
         ]
       ],
-      "8": [
+      "12": [
         [
-          "iSnowL2",
+          "iHaze",
           0,
-          -24
+          -27,
+          130
+        ],
+        [
+          "iSnowXL2",
+          0,
+          -27
+        ],
+        [
+          "iSpark5",
+          8,
+          -40
         ]
       ],
-      "9": [
+      "13": [
         [
-          "iSnowL3",
+          "iHaze",
           0,
-          -24
+          -27,
+          130
+        ],
+        [
+          "iSnowXL3",
+          0,
+          -27
         ]
       ],
-      "10": [
+      "14": [
         [
-          "iSnowL",
-          2,
-          -24,
+          "iHaze",
+          0,
+          -27,
+          120
+        ],
+        [
+          "iSnowXL",
+          0,
+          -27
+        ],
+        [
+          "iSpark5",
+          -8,
+          -20
+        ]
+      ],
+      "15": [
+        [
+          "iHaze",
+          0,
+          -27,
+          80
+        ],
+        [
+          "iSnowXL2",
+          0,
+          -27,
           150
         ]
       ]
     }
   },
   "targetState": {
-    "rule": "Blizzard: on the impact frame (7, the storm reaches the AoE) and not before, every fighter in the AoE plays blizzardStruck: frames 0-3 once, then frames 4-7 on loop while the Slow lasts, then its idle",
+    "rule": "Blizzard v2: on the impact frame (11, the storm reaches the AoE) and not before, every fighter in the AoE plays blizzardStruck: frames 0-3 once, then frames 4-7 on loop while the Slow lasts, then its idle",
     "state": "blizzardStruck",
     "loopFrom": 4,
     "element": "water"
@@ -3253,10 +3536,15 @@
       1,
       2,
       2,
+      2,
+      3,
+      3,
+      3,
+      3,
       3,
       2,
+      2,
       1,
-      0,
       0
     ],
     "colors": [
