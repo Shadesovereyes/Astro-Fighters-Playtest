@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "blizzardStruck",
-  "status": "CANDIDATE 2026-10-27 (E/W; W mirrors E; S/N to author after approval)",
+  "status": "E/W approved by user 2026-11-04 22:29 (v2 shields face, ice shards, frost crust, shiver loop from 4, 72a2f7d; W mirrors E); S/N to author",
   "frames": 8,
   "fps": 8,
   "sourceDirection": "E",
