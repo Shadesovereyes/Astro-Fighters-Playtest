@@ -64,7 +64,8 @@
     "kyoketsu-shoge-stowed-front": "kyoketsu-shoge-stowed-front.png",
     "kyoketsu-shoge-stowed-back": "kyoketsu-shoge-stowed-back.png",
     "tanto-stowed-front": "tanto-stowed-front.png",
-    "tanto-stowed-back": "tanto-stowed-back.png"
+    "tanto-stowed-back": "tanto-stowed-back.png",
+    "far-arm": "far-arm.png"
   },
   "pendingLayers": [],
   "drawOrder": [

@@ -4074,6 +4074,83 @@ CLIPS['hydroCannonPalm'] = (_HC[0], 8, _HC[2].replace('swelling over three frame
                 4: [('wOrb3', 'hand', 0, 0), ('wDrops', 'hand', 2, -5, _A(_FADE))], 5: [('wOrb4', 'hand', 0, 0), ('wSplashS', 'hand', 0, -5, _A(_FADE))], 6: [('wOrb4', 'hand', 0, 0), ('wDrops', 'hand', -2, -6, _A(_FADE))],
                 **{_hcs(k): v for k, v in _HCX['anchored'].items() if k >= 4}}})
 
+# Hydro Cannon Palm v5 (Christopher 2026-11-04 17:15: v4 still broke the impact-frame rule; the stream got halfway in one frame and the target reacted the same frame it arrived): the stream front now travels for two frames (frame 7 a third of the way, frame 8 two thirds), drawn only by the testbed (no baked tiles reaching ahead of the front), and touches the target on frame 9, the impact frame; one more held pouring frame so the pour on the target still lasts four frames
+_HC = CLIPS['hydroCannonPalm']; _HCX = _HC[6]
+_HCF = list(_HC[3]); _HCF.insert(12, g(an=_HCP_N, af=_HCP_F, bob=(2, 2, 3), lean=(1, 3), ln='sp-drive-rear', lf='sp-drive-lead'))
+_HCE = list(_HC[4]); _HCE.insert(12, 'strain')
+CLIPS['hydroCannonPalm'] = (_HC[0], 9, _HC[2].replace('Hydro Cannon Palm v2 (', 'Hydro Cannon Palm v5 (').replace('a thick stream of water blasts from it like a fire hose', 'a thick stream of water blasts from it like a fire hose, its front rushing across the gap for two frames before it reaches the target, which holds its guard until the water touches it'),
+  _HCF, _HCE, _HC[5],
+  {**_HCX, 'rm': _HCX['rm'].replace('-1 -1 -1 -1 driven back', '-1 -1 -1 -1 0 driven back'),
+   'extra': {**_HCX['extra'],
+             'targetState': {**_HCX['extra']['targetState'], 'rule': 'Hydro Cannon Palm v5: the target holds its plain guard on every frame before the stream touches it; on frame 9 (the impact frame, reachFrame, the clip\'s active frame) it plays hydroWaved once from its frame 0 (the moment the water hits), then its idle (Christopher 2026-11-04: targets react only on the impact frame)'},
+             'stream': {**_HCX['extra']['stream'],
+                        'rule': _HCX['extra']['stream']['rule'].replace('frames 7-11', 'frames 7-12').replace('frame 12', 'frame 13').replace('(k - 7)', '(k - 9)').replace('the clip itself bakes the stream from the palm to the edge of the cell', 'the clip itself bakes the stream from the palm to the edge of the cell from frame 9 only'),
+                        'frames': [7, 8, 9, 10, 11, 12], 'tailFrame': 13, 'reachFrame': 9, 'travel': {'7': 0.33, '8': 0.66},
+                        'reachRule': 'Hydro Cannon Palm v5: on frames before reachFrame the stream front is still travelling: draw the tiles from the palm only to travel[k] of the way to the target (frame 7 a third, frame 8 two thirds), with NPAT front at the leading end, and no hit fx and no target reaction; on reachFrame the front touches the target, the hit fx starts (hit[(k - reachFrame) % 4]) and the target starts hydroWaved'}},
+   'anchored': {**{k: v for k, v in _HCX['anchored'].items() if k < 7},
+                7: [('wHoseRoot0', 'hand', 1, 0), ('wRing', 'hand', 1, 0)],
+                8: [('wHoseRoot1', 'hand', 1, 0), ('wDrops', 'hand', -2, 6, _A(_FADE))],
+                9: _HOSE(2) + [('wHoseRoot0', 'hand', 1, 0)],
+                10: _HOSE(3) + [('wHoseRoot1', 'hand', 1, 0), ('wDrops', 'hand', -3, 6, _A(_FADE))],
+                11: _HOSE(0) + [('wHoseRoot0', 'hand', 1, 0)],
+                12: _HOSE(1, thin=True) + [('wHoseRoot1', 'hand', 1, 0, _A(_FADE))],
+                13: [('wHoseTail', 'hand', 25, 0), ('wDrops', 'hand', 4, 3)],
+                14: [('wDrops', 'hand', 0, 6, _A(_FADE)), ('wPuddle', 'feet', 6, -1, _A(_FADE))]}})
+# hydroWaved v2 (impact-frame rule): frame 0 is the instant the stream touches the chest: a first small jolt with the splash where the water meets it; the big jolt and the wave rolling through follow from frame 1
+_HW = CLIPS['hydroWaved']; _HWX = _HW[6]
+CLIPS['hydroWaved'] = (_HW[0], _HW[1], _HW[2].replace('Hydro Waved (target state of Hydro Cannon Palm): the palm lands on its chest and the water bursts there;', 'Hydro Waved v2 (target state of Hydro Cannon Palm; frame 0 is the impact, Christopher 2026-11-04: targets react only on the impact frame): the stream slams into its chest and the water bursts there, a first small jolt;'),
+  [g(an=band(-40, -105), af=band(-35, -100), bob=(1, 1, 1), lean=(-1, -2))] + list(_HW[3]), ['pain'] + list(_HW[4]), _HW[5],
+  {**_HWX, 'rm': 'E: 0 on the impact, -1 jolted back, -1 as the wave bursts out of the back, +1 +1 recovering (net 0)',
+   'anchored': {0: [('wSplashS', 'head', 7, 12)], **{k + 1: v for k, v in _HWX['anchored'].items()}}})
+
+# Vice Grip v5 (Christopher 2026-11-04 17:15: the water must encompass both of the caster's arms): water surges up over both arms (near and far, the far arm in its own far-arm sheet so its pixels are known) from the hands to the elbows and stays round both through the clamp and the hold; the far hand gets its own knot of water and its own water rope to the clamp
+def water_arms(state, frames):
+    """Vice Grip v5: a coat of water over the caster's arms, following the actual arm pixels: frames = {frame: reach}; every
+    pixel of the near arm (arms.png) and of the visible far arm (far-arm.png where no other figure layer covers it) within
+    reach px of that arm's hand gets a see-through water wash with moving glints, and the empty pixels next to it a deep-water rim"""
+    from PIL import Image
+    d = D + state + '/'; f = d + 'fx.png'; dirs = load(D + state + '.json')['directions']
+    fx = Image.open(f).convert('RGBA'); px = fx.load()
+    near = Image.open(d + 'arms.png').convert('RGBA').load(); far = Image.open(d + 'far-arm.png').convert('RGBA').load()
+    cover = [Image.open(d + n).convert('RGBA').load() for n in FIG_LAYERS if n not in ('far-arm.png',) and os.path.exists(d + n)]
+    hexc = lambda c, a=255: tuple(int(c[i:i + 2], 16) for i in (1, 3, 5)) + (a,)
+    def put(X, Y, c):
+        q = px[X, Y]
+        if q[3] < c[3]: px[X, Y] = c
+    for k, reach in frames.items():
+        for r, fd in enumerate(dirs):
+            if fd not in ('E', 'W'): continue
+            sg = -1 if fd == 'W' else 1; npts = near_pts(near, k, r)
+            for side, L in (('far', far), ('near', near)):
+                pts = {(x, y) for y in range(64) for x in range(64) if L[k * 64 + x, r * 64 + y][3]}
+                if side == 'far': pts = {(x, y) for (x, y) in pts if not any(C[k * 64 + x, r * 64 + y][3] for C in cover)}
+                if not pts: continue
+                tip = max(pts, key=lambda q: (sg * q[0], -q[1]))
+                coat = {(x, y) for (x, y) in pts if math.hypot(x - tip[0], y - tip[1]) <= reach}
+                for (x, y) in coat:
+                    u = (sg * x + 2 * k + y) % 6
+                    put(k * 64 + x, r * 64 + y, hexc(NPAL['W'], 235) if u == 0 else hexc(NPAL['I'], 225) if u == 3 else hexc(NPAL['A'], 225) if (x, y + 1) not in coat else hexc(NPAL['a'], 220))   # v5.1: near-solid water (a thin wash over skin read grey)
+                for (x, y) in coat:
+                    for ex, ey in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+                        X, Y = x + ex, y + ey
+                        if 0 <= X < 64 and 0 <= Y < 64 and (X, Y) not in pts and not (side == 'far' and (X, Y) in npts):
+                            put(k * 64 + X, r * 64 + Y, hexc(NPAL['A'], 235) if (X + Y + k) % 5 else hexc(NPAL['I'], 235))
+    fx.save(f); print(state, 'water_arms', list(frames))
+def near_pts(L, k, r):
+    return {(x, y) for y in range(64) for x in range(64) if L[k * 64 + x, r * 64 + y][3]}
+_VG = CLIPS['viceGrip']; _VX = _VG[6]
+CLIPS['viceGrip'] = (_VG[0], _VG[1], _VG[2].replace('Vice Grip v2 (', 'Vice Grip v5 (').replace('water surges up the arms', 'water surges up over both arms, coating them from the hands to the elbows,'),
+  _VG[3], _VG[4], _VG[5],
+  {**_VX, 'farLayer': True, 'waterArms': {1: 4, 2: 9, 3: 15, 4: 16, 5: 16, 6: 16, 7: 14},
+   'extra': {'grapple': {**_VX['extra']['grapple'], 'rule': _VX['extra']['grapple']['rule'] + '; Vice Grip v5: both of the caster\'s arms stay coated in water through the hold (frames 5-7), each hand with its own water rope to the clamp'}},
+   'anchored': {**_VX['anchored'],
+                2: _VX['anchored'][2] + [('wOrb2', 'farhand', 1, 0)],
+                3: _VX['anchored'][3] + [('wOrb3', 'farhand', 1, 0)],
+                4: _VX['anchored'][4] + [('wOrb3', 'farhand', 1, 0), ('wDrops', 'farhand', 0, 5, _A(_FADE))],
+                5: _VX['anchored'][5] + [('wHoseThin1', 'farhand', 6, 0), ('wHoseRoot1', 'farhand', 0, 0, _A(_FADE))],
+                6: _VX['anchored'][6] + [('wHoseThin2', 'farhand', 6, 0)],
+                7: _VX['anchored'][7] + [('wHoseThin3', 'farhand', 6, 0)]}})
+
 def spec(state):
     U.CLIPS[state] = CLIPS[state]
     U.APPROVED[state] = APPROVED.get(state, STAT)
@@ -4140,6 +4217,7 @@ def fx(state):
         f_ = D + state + '/fx.png'
         if not os.path.exists(f_) or ('fx' not in load(D + state + '.json') and not CLIPS[state][5] and not x.get('keepFx')): Image.new('RGBA', Image.open(D + state + '/body.png').size).save(f_)   # clean start unless the aura was just drawn (keepFx: keep the arm swirl / impact drawn above; Sun Palm's approved render predates it)
         anchored(state, x['anchored'])
+        if x.get('waterArms'): water_arms(state, x['waterArms'])
         if x.get('crystal'): crystalize(state, x['crystal'])
         if x.get('trails'): trails(state, x['trails'])
         if x.get('front'):   # turned frames: every row shows the E row's fx (drawn round the same S figure)
