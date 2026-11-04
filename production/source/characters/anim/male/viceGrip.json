@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Vice Grip (Cancer taijutsu, Physical 12, Melee, Grapple: using its manoeuvrability the fighter bypasses the opponent's guard to secure a grapple): from the guard the fighter ducks and slips in low and sideways like a crab, a slick of water skimming under its feet; out of the crouch both hands shoot in at once, one high and one low, open like a crab's pincers, each wrapped in a C of water; the pincers snap shut on the opponent with a splash, both hands clamped, and the fighter holds the grip as the water drips off. On success the testbed puts both fighters into the clinch with the caster holding (target plays hitReact on the clamp).",
+  "intent": "Vice Grip v2 (Christopher 2026-11-04: fx rework; Cancer taijutsu, Physical 12, Melee, Grapple: using its manoeuvrability the fighter bypasses the opponent's guard to secure a grapple): from the guard the fighter ducks and slips in low and sideways like a crab, a slick of water skimming under its feet; out of the crouch both hands shoot in at once, one high and one low, open like a crab's pincers, and water surges up the arms and forms round each hand into a big crab's pincer of water, two curved jaws with teeth gaping open; the pincers snap shut on the opponent, water squeezed out of the clamp in jets and a ring of spray, both hands clamped, and the fighter holds the grip as the water drips off. On success the testbed puts both fighters into the clinch with the caster holding (target plays hitReact on the clamp).",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -1578,6 +1578,56 @@
         "ankle": [
           35,
           52
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "tsl-surf-lead",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 46,
+        "kneeX": 40,
+        "kneeRow": 51,
+        "footX": 42,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "tsl-surf-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 46,
+        "kneeX": 25,
+        "kneeRow": 51,
+        "ankle": [
+          21,
+          56
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "tsl-tuck-lead",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 44,
+        "kneeX": 40,
+        "kneeRow": 47,
+        "ankle": [
+          37,
+          53
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "tsl-tuck-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 44,
+        "kneeX": 24,
+        "kneeRow": 47,
+        "ankle": [
+          19,
+          51
         ],
         "foot": "toe30k"
       }

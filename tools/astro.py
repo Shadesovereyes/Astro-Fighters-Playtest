@@ -3895,6 +3895,51 @@ CLIPS['tsunami'] = ('Tsunami', 2,
                  5: [('wPuddleL', 'feet', 4, -1), ('wDropsL', 'feet', 14, -10, _A(_FADE)), ('wWake', 'feet', 14, -2, _A(_FADE))],
                  6: [('wPuddleL', 'feet', 2, -1, _A(_FADE))]}))
 
+# ---------- Vice Grip v2 (part 13, 2026-11-04; Christopher 16:28: needs an fx rework) ----------
+def _pincer(L, gt, b=3, seed=0):   # a crab's pincer of water closing forward (front = right) from the hand at the left middle: an upper jaw and a shorter lower jaw (the thumb), each a curved, tapering blade of water with a white glinting back, light body, deep inner edge and teeth along it; gt = half the gap between the tips (0 = snapped shut, tips crossing)
+    H = 2 * (gt + b + 4) + 1; W_ = L + 3; c = H // 2; rows = [['.'] * W_ for _ in range(H)]
+    def jaw(sign, Lj):
+        for i in range(Lj * 3):
+            t = i / (Lj * 3 - 1); x = t * Lj
+            yc = c + sign * (1 + (gt - 1) * t + b * math.sin(math.pi * min(1, t * 1.1)))   # the jaw's centreline bows out, then hooks back in to its tip
+            tk = 4.4 * (1 - t) + 1.2
+            for k in range(int(round(tk))):
+                y = round(yc - sign * k + sign * (tk - 1) / 2); X = round(x)
+                if not (0 <= X < W_ and 0 <= y < H): continue
+                outer = k == 0; inner = k == int(round(tk)) - 1 and k > 0
+                rows[y][X] = 'W' if outer and t < 0.8 else 'I' if outer else 'A' if inner else 'a'
+            if 0.25 < t < 0.85 and i % 6 == 0:   # teeth along the inner edge
+                y = round(yc - sign * (tk - 1) / 2 - sign * 1)
+                if 0 <= y < H and 0 <= round(x) < W_ and rows[y][round(x)] == '.': rows[y][round(x)] = 'I'
+        tx, ty = round(Lj), round(c + sign * max(0, gt))
+        if 0 <= tx < W_ and 0 <= ty < H: rows[ty][tx] = 'W'   # the glinting tip
+    jaw(-1, L); jaw(1, round(L * 0.8))
+    for y in range(c - 1, c + 2):   # the root, a knot of water round the hand
+        for x in range(0, 3):
+            if rows[y][x] == '.': rows[y][x] = 'a' if x else 'A'
+    return [''.join(q) for q in rows]
+def _clampBurst(r, seed=0):   # Vice Grip: water squeezed out sideways from the clamped pincers: short jets up and down, drops flung outward
+    import random
+    rnd = random.Random(seed); w = 2 * r + 1; rows = [['.'] * w for _ in range(w)]
+    for k in range(10):
+        a = math.radians(rnd.choice((-1, 1)) * rnd.uniform(40, 140)); L = rnd.uniform(r * 0.5, r)
+        for d in range(int(L * 2)):
+            q = d / 2; x, y = round(r + q * math.cos(a)), round(r + q * math.sin(a))
+            if 0 <= x < w and 0 <= y < w and (d % 3 or q < L * 0.5): rows[y][x] = 'W' if q < L * 0.4 else 'I' if q < L * 0.75 else 'a'
+    return [''.join(q) for q in rows]
+NPAT.update({'wPinS': _pincer(9, 3, 2), 'wPin': _pincer(15, 7, 4), 'wPinL': _pincer(17, 8, 4), 'wPinHalf': _pincer(16, 3, 4), 'wPinShut': _pincer(17, -1, 2), 'wPinShutS': _pincer(14, -1, 2),
+             'wClampBurst': _clampBurst(10, 3), 'wClampBurstS': _clampBurst(7, 5)})
+_VG = CLIPS['viceGrip']
+CLIPS['viceGrip'] = (_VG[0], _VG[1], _VG[2].replace('Vice Grip (Cancer taijutsu', 'Vice Grip v2 (Christopher 2026-11-04: fx rework; Cancer taijutsu').replace('each wrapped in a C of water; the pincers snap shut on the opponent with a splash', 'and water surges up the arms and forms round each hand into a big crab\'s pincer of water, two curved jaws with teeth gaping open; the pincers snap shut on the opponent, water squeezed out of the clamp in jets and a ring of spray'),
+  _VG[3], _VG[4], _VG[5],
+  {**_VG[6], 'anchored': {1: [('wWakeL', 'feet', -10, -3), ('wDrops', 'feet', -12, -6, _A(_FADE)), ('wOrb2', 'hand', 1, 0, _A(_FADE))],
+                          2: [('wWakeL', 'feet', -12, -3), ('wSplashS', 'feet', -8, -4, _A(_FADE)), ('wPinS', 'hand', 3, 3), ('wDrops', 'hand', -4, -3, _A(_FADE))],
+                          3: [('wPin', 'hand', 5, 5), ('wJetB', 'hand', -8, 2, _A(_FADE)), ('wJetB', 'hand', -8, 10, _A(_FADE)), ('wWake', 'feet', -10, -2)],
+                          4: [('wPinL', 'hand', 6, 5), ('wDrops', 'hand', -2, 8, _A(_FADE))],
+                          5: [('wPinShut', 'hand', 6, 2), ('wClampBurst', 'hand', 10, 2), ('wRing2', 'hand', 9, 2, _A(_FADE))],
+                          6: [('wPinShut', 'hand', 6, 2), ('wClampBurstS', 'hand', 9, 2, _A(_FADE)), ('wDrops', 'hand', 2, 8)],
+                          7: [('wPinShutS', 'hand', 5, 2, _A(_FADE)), ('wDrops', 'feet', 4, -6, _A(_FADE)), ('wPuddle', 'feet', 4, -1, _A(_FADE))]}})
+
 def spec(state):
     U.CLIPS[state] = CLIPS[state]
     U.APPROVED[state] = APPROVED.get(state, STAT)
