@@ -218,14 +218,14 @@
       {
         "frame": 6,
         "clip": "regression",
-        "type": "active",
-        "move": "Regression",
-        "buff": true
+        "type": "startup"
       },
       {
         "frame": 7,
         "clip": "regression",
-        "type": "recovery"
+        "type": "active",
+        "move": "Regression",
+        "buff": true
       },
       {
         "frame": 8,
@@ -272,14 +272,14 @@
       {
         "frame": 6,
         "clip": "regression",
-        "type": "active",
-        "move": "Regression",
-        "buff": true
+        "type": "startup"
       },
       {
         "frame": 7,
         "clip": "regression",
-        "type": "recovery"
+        "type": "active",
+        "move": "Regression",
+        "buff": true
       },
       {
         "frame": 8,

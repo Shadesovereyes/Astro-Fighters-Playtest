@@ -218,14 +218,14 @@
       {
         "frame": 6,
         "clip": "pacification",
-        "type": "active",
-        "move": "Pacification",
-        "buff": true
+        "type": "startup"
       },
       {
         "frame": 7,
         "clip": "pacification",
-        "type": "recovery"
+        "type": "active",
+        "move": "Pacification",
+        "buff": true
       },
       {
         "frame": 8,
@@ -272,14 +272,14 @@
       {
         "frame": 6,
         "clip": "pacification",
-        "type": "active",
-        "move": "Pacification",
-        "buff": true
+        "type": "startup"
       },
       {
         "frame": 7,
         "clip": "pacification",
-        "type": "recovery"
+        "type": "active",
+        "move": "Pacification",
+        "buff": true
       },
       {
         "frame": 8,

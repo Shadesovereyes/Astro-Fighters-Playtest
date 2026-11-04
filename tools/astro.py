@@ -4151,6 +4151,15 @@ CLIPS['viceGrip'] = (_VG[0], _VG[1], _VG[2].replace('Vice Grip v2 (', 'Vice Grip
                 6: _VX['anchored'][6] + [('wHoseThin2', 'farhand', 6, 0)],
                 7: _VX['anchored'][7] + [('wHoseThin3', 'farhand', 6, 0)]}})
 
+# Regression v2 + Pacification v2 (Christopher 2026-11-04 impact-frame rule): the genjutsu waves now fly from the caster's palm to the target (testbed projectile volley, frames 5 and 6, three frames each), so the first wave reaches the target on frame 7 (a third of the way on 5, two thirds on 6); frame 7 is the active (impact) frame and the target's state starts there, holding its guard until then
+for _st, _pat, _hit, _nm in (('regression', 'wgw3', 'wRip5', 'Regression'), ('pacification', 'wLullS3', 'wRip5', 'Pacification')):
+    _C = CLIPS[_st]; _X = _C[6]; _TS = _X['extra']['targetState']
+    CLIPS[_st] = (_C[0], 7, _C[2], _C[3], _C[4], _C[5],
+      {**_X, 'extra': {**_X['extra'],
+        'targetState': {**_TS, 'rule': _TS['rule'].replace('from the active frame (5)', 'from frame 7, the active frame, when the first wave reaches it (v2, impact-frame rule; it holds its plain guard before that)')},
+        'projectile': {'rule': '%s v2 (impact-frame rule): on frames 5 and 6 the testbed flies NPAT %s from the near palm to the target at chest height a third of the way per frame (frames 5, 6, 7 for the first), so the first arrives on frame 7 (the impact frame, when the target state starts) and the second on frame 8; each pops %s on the target' % (_nm, _pat, _hit),
+                       'volley': [{'frame': 5, 'from': 'hand', 'pattern': _pat, 'hit': _hit, 'flyFrames': 3}, {'frame': 6, 'from': 'hand', 'pattern': _pat, 'hit': _hit, 'flyFrames': 3}]}}})
+
 def spec(state):
     U.CLIPS[state] = CLIPS[state]
     U.APPROVED[state] = APPROVED.get(state, STAT)
