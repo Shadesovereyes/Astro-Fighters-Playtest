@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-animation-output/v1",
   "body": "male",
   "state": "numbingStrike",
-  "status": "CANDIDATE 2026-10-27 (E/W; W mirrors E; S/N to author after approval)",
+  "status": "E/W approved by user 2026-11-04 (v2 Numbing Strikes: four alternating two-finger strikes lead/rear/lead/rear frames 2-5, ice flashes, shards and frost rings, d1675b1; renamed Numbing Strikes (canon amendment); target plays numbed; W mirrors E); S/N to author",
   "frames": 10,
   "fps": 12,
   "frameSize": [
@@ -180,7 +180,7 @@
       ],
       "fps": 12,
       "next": "guard",
-      "ability": "Numbing Strike"
+      "ability": "Numbing Strikes"
     }
   },
   "events": {
@@ -200,7 +200,7 @@
         "frame": 2,
         "clip": "numbingStrike",
         "type": "active",
-        "move": "Numbing Strike",
+        "move": "Numbing Strikes",
         "hitbox": [
           44,
           16,
@@ -260,7 +260,7 @@
         "frame": 2,
         "clip": "numbingStrike",
         "type": "active",
-        "move": "Numbing Strike",
+        "move": "Numbing Strikes",
         "hitbox": [
           6,
           16,
