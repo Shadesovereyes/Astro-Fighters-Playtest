@@ -3940,6 +3940,85 @@ CLIPS['viceGrip'] = (_VG[0], _VG[1], _VG[2].replace('Vice Grip (Cancer taijutsu'
                           6: [('wPinShut', 'hand', 6, 2), ('wClampBurstS', 'hand', 9, 2, _A(_FADE)), ('wDrops', 'hand', 2, 8)],
                           7: [('wPinShutS', 'hand', 5, 2, _A(_FADE)), ('wDrops', 'feet', 4, -6, _A(_FADE)), ('wPuddle', 'feet', 4, -1, _A(_FADE))]}})
 
+# ---------- Hydro Cannon Palm v2 (part 13, 2026-11-04; Christopher 16:31: not a water bullet but a long gushing flow of water, like a fire hose, coming from the caster's palm) ----------
+def _hose(L, phase, h=11):   # one tileable 16 px stretch of the fire-hose stream (front = right), v2 (a straight, solid jet, not a wavy line): a flat centreline and an even thickness with only a small surface chop, lengthwise streaks of white and ice running along it (period 16, so tiles join; phase 0-3 slides them 4 px toward the target), a deep edge, flecks of spray peeling off top and bottom
+    rows = [['.'] * L for _ in range(h)]; c = (h - 1) / 2; R = c - 1.2
+    hs = lambda x, y: ((((x - 4 * phase) % 16) * 7919 + y * 104729) % 101)
+    for x in range(L):
+        u = (x - 4 * phase) % 16
+        for y in range(h):
+            side = 1 if y > c else -1
+            hw = R + 0.45 * math.sin(2 * math.pi * (u + (5 if side > 0 else 0)) / 8)   # chop on the surface, top and bottom out of step
+            d = abs(y - c)
+            if d <= hw:
+                q = d / hw; lane = (round(y - c) * 5 + u) % 16
+                if q < 0.2: ch = 'I' if lane in (3, 11) else 'W'
+                elif q < 0.55: ch = 'W' if lane < 4 else 'I'
+                elif q < 0.85: ch = 'a' if lane % 6 else 'I'
+                else: ch = 'A'
+            elif d <= hw + 1.8 and hs(x, y) < 11: ch = 'I' if hs(x, y) < 5 else 'a'
+            else: continue
+            rows[y][x] = ch
+    return [''.join(q) for q in rows]
+def _hoseRoot(r, phase=0):   # the stream bursting out of the open palm: a bloom of spray round the hand, flaring back over the wrist, a ring of drops
+    w = 2 * r + 1; rows = [['.'] * w for _ in range(w)]
+    for k in range(16):
+        a = math.radians(70 + 220 * k / 15 + 7 * phase); L = r * (0.55 + 0.45 * ((k * 5 + phase) % 3) / 2)
+        for t in range(int(L * 2)):
+            q = t / 2; x, y = round(r + q * math.cos(a)), round(r + q * math.sin(a) * 0.8)
+            if 0 <= x < w and 0 <= y < w and (t % 3 or q < L * 0.5): rows[y][x] = 'W' if q < L * 0.35 else 'I' if q < L * 0.7 else 'a'
+    for y in range(r - 2, r + 3):
+        for x in range(r, w):
+            if abs(y - r) <= 2 - (x - r) // 4 and rows[y][x] == '.': rows[y][x] = 'I'
+    return [''.join(q) for q in rows]
+def _hoseHit(phase, w=19, h=31):   # the stream breaking on the target: water hammering into it and deflecting up and down and back toward the caster in fans of drops under gravity, a white burst at the point of impact (the point is at the left edge, middle)
+    import random
+    rnd = random.Random(90 + phase); rows = [['.'] * w for _ in range(h)]; ox, oy = 2, h // 2
+    for k in range(18):
+        a = math.radians(rnd.choice((-1, 1)) * rnd.uniform(25, 160)); v = rnd.uniform(0.6, 1.0)
+        for t in range(30):
+            s = t / 29; x = ox + math.cos(a) * v * (w - 3) * s; y = oy + math.sin(a) * v * (h / 2 - 1) * s + 6 * s * s
+            if t % 3 and s > 0.4: continue
+            xi, yi = round(x), round(y)
+            if 0 <= xi < w and 0 <= yi < h: rows[yi][xi] = 'W' if s < 0.35 else 'I' if s < 0.65 else 'a'
+    for y in range(oy - 3, oy + 4):
+        for x in range(0, 4 - abs(y - oy) // 2):
+            rows[y][x] = 'W' if abs(y - oy) < 2 else 'I'
+    return [''.join(q) for q in rows]
+NPAT.update({**{'wHose%d' % p: _hose(16, p) for p in range(4)}, **{'wHoseThin%d' % p: _hose(16, p, h=7) for p in range(4)},
+             **{'wHoseRoot%d' % p: _hoseRoot(6, p) for p in range(2)}, **{'wHoseHit%d' % p: _hoseHit(p) for p in range(4)}})
+NPAT['wHoseTail'] = [''.join(ch if (x // 3 + y) % 2 == 0 else '.' for x, ch in enumerate(row)) for y, row in enumerate(_hose(16, 1, h=7))]   # the stream breaking up into a run of drops as it cuts off
+_HOSE = lambda p, n=3, thin=False: [('wHose%s%d' % ('Thin' if thin else '', (p + k) % 4), 'hand', 9 + 16 * k, 0) for k in range(n)]   # the stream tiled forward from the palm to the cell's edge (the testbed carries it on to the target)
+_HCP_N, _HCP_F = band(-90, -90, fistKind='palm'), band(30, -160)   # palm driven straight out at chest height, far arm drawn back
+CLIPS['hydroCannonPalm'] = ('Hydro Cannon Palm', 4,
+  'Hydro Cannon Palm v2 (Cancer taijutsu strike, Physical 14, Melee, 2 slots: the fighter slams its palm into the opponent, creating a hydrostatic pressure wave that travels through its body; Christopher 2026-11-04: not a water bullet but a long gushing flow of water, like a fire hose, coming from the palm): from the guard the fighter draws the rear hand back low beside the hip, palm open, and water swirls up the arm and gathers in the palm, swelling over three frames; then it drives the palm out and a thick stream of water blasts from it like a fire hose, a bloom of spray round the hand, the stream gushing straight into the target and breaking over it in fans of spray; the fighter braces against the force, sliding back a little as the stream keeps pouring for four frames, then it cuts off, the end of the stream breaking into a run of drops, and the fighter settles back into the guard (the target plays hydroWaved). Body from Shock Palm (approved) with a held thrust; water colours. In the testbed the stream itself is carried on from the palm to the target (extra.stream).', [
+     g(),
+     g(an=band(25, -60, fistKind='palm'), af=band(-75, -100), bob=(1, 1, 1), lean=(-1, -1), ln='sp-load-rear', lf='sp-load-lead'),
+     g(an=band(25, -60, fistKind='palm'), af=band(-75, -100), bob=(1, 1, 1), lean=(-1, -2), ln='sp-load-rear', lf='sp-load-lead'),
+     g(an=band(25, -60, fistKind='palm'), af=band(-75, -100), bob=(1, 1, 2), lean=(-1, -3), ln='sp-load-rear', lf='sp-load-lead'),
+     g(an=_HCP_N, af=_HCP_F, bob=(2, 2, 2), lean=(2, 6), root=(2, 0), ln='sp-drive-rear', lf='sp-drive-lead'),
+     g(an=_HCP_N, af=_HCP_F, bob=(2, 2, 2), lean=(1, 3), root=(-1, 0), ln='sp-drive-rear', lf='sp-drive-lead'),
+     g(an=_HCP_N, af=_HCP_F, bob=(2, 2, 3), lean=(1, 3), root=(-1, 0), ln='sp-drive-rear', lf='sp-drive-lead'),
+     g(an=_HCP_N, af=_HCP_F, bob=(2, 2, 2), lean=(1, 2), root=(-1, 0), ln='sp-drive-rear', lf='sp-drive-lead'),
+     g(an=_HCP_N, af=_HCP_F, bob=(2, 2, 3), lean=(1, 3), root=(-1, 0), ln='sp-drive-rear', lf='sp-drive-lead'),
+     g(an=band(-80, -95, fistKind='palm'), af=band(20, -150), bob=(1, 1, 2), lean=(1, 2), ln='sp-drive-rear', lf='sp-drive-lead'),
+     g(an=band(-50, -120), af=band(-30, 215), bob=(1, 1, 2), lean=(1, 3), root=(2, 0), ln='sp-drive-rear', lf='sp-drive-lead'),
+     g()],
+  [None, 'squint', 'squint', 'strain', 'roar', 'strain', 'strain', 'strain', 'strain', 'squint', None, None],
+  None,
+  dict(fps=10, hitbox=[46, 20, 18, 10], damage='heavy', rm='E: +2 stepping into the palm, -1 -1 -1 -1 driven back by the stream, +2 settling (net 0)',
+       swirl={1: (0, 0.5), 2: (120, 0.8), 3: (240, 1.0)}, recolor=WATER_RECOLOR, keepFx=True,
+       extra={'targetState': {'rule': 'Hydro Cannon Palm v2: when the stream reaches the target (frame 4) the target plays hydroWaved once, then its idle', 'state': 'hydroWaved'},
+              'stream': {'rule': 'Hydro Cannon Palm v2 (Christopher 2026-11-04: a long gushing flow of water like a fire hose, from the palm): on frames 4-8 the testbed draws the stream from the caster\'s near hand (the arms layer\'s most forward pixel, the same anchor the clip uses) straight to the target\'s chest, tiling NPAT tile frames along it (16 px tiles; frame k uses tiles[(k + i) % 4] for the i-th tile so the ripples run toward the target), and NPAT hit[(k - 4) % 4] on the target at the point the stream meets it, its left edge on that point (mirrored for W); on frame 9 it draws tail tiles only over the last third, the stream cutting off; the clip itself bakes the stream from the palm to the edge of the cell', 'from': 'hand', 'frames': [4, 5, 6, 7, 8], 'tiles': ['wHose0', 'wHose1', 'wHose2', 'wHose3'], 'tile': 16, 'hit': ['wHoseHit0', 'wHoseHit1', 'wHoseHit2', 'wHoseHit3'], 'tailFrame': 9, 'tail': 'wHoseTail'}},
+       anchored={1: [('wOrb2', 'hand', 0, 0)], 2: [('wOrb3', 'hand', 0, 0), ('wDrops', 'hand', 0, -4, _A(_FADE))], 3: [('wOrb4', 'hand', 0, 0), ('wSplashS', 'hand', 0, -5, _A(_FADE))],
+                 4: _HOSE(0) + [('wHoseRoot0', 'hand', 1, 0), ('wRing', 'hand', 1, 0)],
+                 5: _HOSE(1) + [('wHoseRoot1', 'hand', 1, 0), ('wDrops', 'hand', -2, 6, _A(_FADE))],
+                 6: _HOSE(2) + [('wHoseRoot0', 'hand', 1, 0)],
+                 7: _HOSE(3) + [('wHoseRoot1', 'hand', 1, 0), ('wDrops', 'hand', -3, 6, _A(_FADE))],
+                 8: _HOSE(0, thin=True) + [('wHoseRoot0', 'hand', 1, 0, _A(_FADE))],
+                 9: [('wHoseTail', 'hand', 25, 0), ('wDrops', 'hand', 4, 3)],
+                 10: [('wDrops', 'hand', 0, 6, _A(_FADE)), ('wPuddle', 'feet', 6, -1, _A(_FADE))]}))
+
 def spec(state):
     U.CLIPS[state] = CLIPS[state]
     U.APPROVED[state] = APPROVED.get(state, STAT)
