@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "tsunamiCharge",
-  "status": "CANDIDATE 2026-10-27 (E/W; W mirrors E; S/N to author after approval)",
+  "status": "E/W approved by user 2026-11-04 (v4 seal, rising drops and ripples, water spout widening into a vortex round the body, floor burst, shaking hold loops from frame 13, no small wave, e7e649f; then tsunami; W mirrors E); S/N to author",
   "frames": 16,
   "fps": 10,
   "sourceDirection": "E",

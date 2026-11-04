@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "tsunami",
-  "status": "CANDIDATE 2026-10-27 (E/W; W mirrors E; S/N to author after approval)",
+  "status": "E/W approved by user 2026-11-04 (v4 release: haul back, thrust bursts the vortex, giant breaking wave wTsunamiBig0-3 rolled across the AoE by the testbed from extra.zone, e7e649f; targets play tsunamiStruck; W mirrors E); S/N to author",
   "frames": 8,
   "fps": 10,
   "sourceDirection": "E",

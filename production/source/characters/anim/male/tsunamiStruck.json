@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "tsunamiStruck",
-  "status": "CANDIDATE 2026-10-27 (E/W; W mirrors E; S/N to author after approval)",
+  "status": "E/W approved by user 2026-11-04 (v2 arms up, swallowed and tumbled flat through the water, dumped to one knee, recovers, 2cb675b; with Tsunami v4; W mirrors E); S/N to author",
   "frames": 11,
   "fps": 10,
   "sourceDirection": "E",
@@ -1617,6 +1617,56 @@
         "ankle": [
           35,
           52
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "tsl-surf-lead",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 46,
+        "kneeX": 40,
+        "kneeRow": 51,
+        "footX": 42,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "tsl-surf-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 46,
+        "kneeX": 25,
+        "kneeRow": 51,
+        "ankle": [
+          21,
+          56
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "tsl-tuck-lead",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 44,
+        "kneeX": 40,
+        "kneeRow": 47,
+        "ankle": [
+          37,
+          53
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "tsl-tuck-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 44,
+        "kneeX": 24,
+        "kneeRow": 47,
+        "ankle": [
+          19,
+          51
         ],
         "foot": "toe30k"
       }
