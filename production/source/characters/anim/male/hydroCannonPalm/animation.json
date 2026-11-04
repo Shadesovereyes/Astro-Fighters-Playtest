@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-animation-output/v1",
   "body": "male",
   "state": "hydroCannonPalm",
-  "status": "CANDIDATE 2026-10-27 (E/W; W mirrors E; S/N to author after approval)",
+  "status": "E/W approved by user 2026-11-04 (v5 six-frame water swirl round the palm, held palm thrust, fire-hose stream drawn by the testbed from extra.stream, front travels frames 7-8, touches the target on frame 9 (impact), pours four frames, 0c2f0ef; target plays hydroWaved; W mirrors E); S/N to author",
   "frames": 16,
   "fps": 10,
   "frameSize": [

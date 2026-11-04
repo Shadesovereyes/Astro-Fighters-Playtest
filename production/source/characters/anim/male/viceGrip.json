@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "viceGrip",
-  "status": "CANDIDATE 2026-10-27 (E/W; W mirrors E; S/N to author after approval)",
+  "status": "E/W approved by user 2026-11-04 (v5 crab slip-in, water coats both arms, big water pincer rooted in the lowered hand, clamps round the target on frame 5 (impact), hold loops 5-7 with a water rope from each hand, far arm in far-arm sheet, 0c2f0ef; target plays viceGripped; W mirrors E); S/N to author",
   "frames": 8,
   "fps": 10,
   "sourceDirection": "E",

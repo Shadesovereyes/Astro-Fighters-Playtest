@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-animation-output/v1",
   "body": "male",
   "state": "viceGripped",
-  "status": "CANDIDATE 2026-10-27 (E/W; W mirrors E; S/N to author after approval)",
+  "status": "E/W approved by user 2026-11-04 (v4 frame 0 is the clamp shutting round the body, arms pinned, struggle loop from frame 2 while held, 0db0feb; W mirrors E); S/N to author",
   "frames": 8,
   "fps": 8,
   "frameSize": [
