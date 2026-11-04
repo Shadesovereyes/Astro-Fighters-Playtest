@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Kidney Shot (Scorpio taijutsu, Physical 16, Melee: the fighter feints before delivering a vicious blow to the opponent's kidney): from the guard the fighter flicks a half jab at the face as a feint, eyes on the head; as the guard rises to meet it, it snaps the feint back, dips low and steps in to the side, and drives the rear fist round in a hooking blow into the opponent's flank under the ribs: on the impact frame (4) water bursts off the fist in a hard splash and a ring of spray; it rolls back out to the guard (the target plays kidneyStruck).",
+  "intent": "Kidney Shot v2 (exaggerated fx, Christopher 2026-11-04; Scorpio taijutsu, Physical 16, Melee: the fighter feints before delivering a vicious blow to the opponent's kidney): from the guard the fighter flicks a half jab at the face as a feint, eyes on the head; as the guard rises to meet it, it snaps the feint back, dips low and steps in to the side, and drives the rear fist round in a hooking blow into the opponent's flank under the ribs: on the impact frame (4) water explodes off the fist in a huge splash with white shards and a double pressure ring; it rolls back out to the guard (the target plays kidneyStruck).",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -1962,7 +1962,8 @@
         ]
       }
     },
-    "guardRule": "boxing guard: elbows down in front of the ribs, forearms angled up and forward, fists at chin height with knuckles forward; the lead (far) hand sits further forward"
+    "guardRule": "boxing guard: elbows down in front of the ribs, forearms angled up and forward, fists at chin height with knuckles forward; the lead (far) hand sits further forward",
+    "farLayer": true
   },
   "clothing": {
     "rule": "Layer 2 clothing follows the body it is registered to. Front, back and diagonal views move each clothing pixel exactly like the body pixel of the same part. In the authored profile (E) each trouser row is resampled onto the posed leg (thigh rows onto the pose's thigh rows, shin rows onto its shin rows) and shifted by the leg's back edge; wrap and shoe follow the ankle (reference-ankle poses) or the shin line and the authored foot (line poses), where a toe-down foot is drawn as the foot's own shape in the shoe colours. The far trouser leg is the near one on the far pose, shaded one step darker and drawn behind. A mirrored direction whose clothing is not an exact mirror is built from its own clothing frame, flipped through its source's motion. Where clothing newly meets empty space it gets the clothing's outline colour.",
@@ -3095,5 +3096,23 @@
   "targetState": {
     "rule": "Kidney Shot: on the impact frame (4, the active frame) and not before, the target plays kidneyStruck once, then its idle; during the feint (frames 1-3) it holds its plain guard",
     "state": "kidneyStruck"
+  },
+  "aura": {
+    "rule": "Runtime aura (Christopher 2026-11-03: all auras follow the outline of the hair): on frame k, when widths[k] > 0, the testbed grows the silhouette of every drawn layer except fx (body, clothing or armour, arms, shoulders, hair or helmet, eyes, weapons) by widths[k] rings of 1 px (4-neighbour / 3x3 max growth); ring 0 in colors[0], the others in colors[1]; the outermost ring only on pixels where (x + y + k) is even (flicker); drawn behind the fighter, only outside its silhouette",
+    "widths": [
+      0,
+      0,
+      1,
+      2,
+      2,
+      1,
+      0,
+      0,
+      0
+    ],
+    "colors": [
+      "#dff6ff",
+      "#2f7fe0"
+    ]
   }
 }

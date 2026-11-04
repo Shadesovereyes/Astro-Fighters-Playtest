@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-animation-output/v1",
   "body": "male",
   "state": "shadowStep",
-  "status": "CANDIDATE 2026-10-27 (E/W; W mirrors E; S/N to author after approval)",
+  "status": "E/W approved by user 2026-11-04 (v1 crouch, shadow pool spreads, sinks into it with opacity fade, pool slides 40 px, rises and fades into Stealth; extra.floorFx, travel 40, b0fde8e; W mirrors E); S/N to author",
   "frames": 9,
   "fps": 10,
   "frameSize": [

@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Kidney Struck (target state of Kidney Shot): frame 0 is the impact: the hook lands in its flank and water bursts off it; it buckles sideways over the blow, the rear hand clutching the kidney, the lead arm dropping, knees dipping, face screwed up; it stays folded a beat, then straightens slowly, hand still on its side, and recovers the guard.",
+  "intent": "Kidney Struck v2 (exaggerated fx; target state of Kidney Shot): frame 0 is the impact: the hook lands in its flank and water explodes over its flank and blasts out of its back; it buckles sideways over the blow, the rear hand clutching the kidney, the lead arm dropping, knees dipping, face screwed up; it stays folded a beat, then straightens slowly, hand still on its side, and recovers the guard.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
