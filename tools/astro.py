@@ -6326,6 +6326,7 @@ _SRX = _SRR[6]['extra']; _SRX['rain'] = {**_SRX['rain'], 'rule': _SRX['rain']['r
 APPROVED['stalactiteRain'] = 'E/W approved by user 2026-11-05 23:03 (v3.2 ultimate treatment: 16 frames, intense charge-up with blazing aura, crack ring and spiralling shards, a stream of 18 stalactites rising behind the caster frames 4-12 through a glowing split, crystal-white flash as they are hurled up; next round they rain over radius 3 via extra.rain, caster plays stalactiteRainRelease, aeca171e; W mirrors E); S/N to author'
 APPROVED['stalactiteRainRelease'] = 'E/W approved by user 2026-11-05 23:03 (v3.2 eruption-round hurl, palms flash and drive down at the zone, no rising spears, aeca171e; W mirrors E); S/N to author'
 APPROVED['stalactiteImpaled'] = 'E/W approved by user 2026-10-30 (v2 spears rain down at a slant in two volleys, stick, shatter into rubble, 127e2eb5); re-confirmed with Stalactite Rain v3.2 2026-11-05 23:03; W mirrors E; S/N to author'
+APPROVED['rootSanctuary'] = 'E/W approved by user 2026-11-05 23:11 (v6 ultimate: earth aura cast with crystal floor shards; caster-centred radius-2 zone via extra.zone: soil spreads, roots burst up ring by ring, a dense root ball (about 118 roots, buttress and crawling roots, no trees) knots shut on frame 10 with a crown flash, stands 2 rounds, blocks projectiles, fighters inside untargetable from outside; reference tools/astro_grove.py, 80c601ce; W mirrors E); S/N to author'
 
 def spec(state):
     U.CLIPS[state] = CLIPS[state]
