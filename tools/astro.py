@@ -5071,13 +5071,13 @@ CLIPS.update({
      g(an=band(-90, -100), af=band(-120, -95), bob=(1, 1, 1), lean=(0, 2), rot=_LIFT(3), **_TUCK),
      g(an=band(-130, -105), af=band(-75, -95), bob=(1, 1, 1), lean=(0, 1), rot=_LIFT(3), **_TUCK),
      g(an=band(-160, -150), af=band(-150, -140), bob=(1, 1, 1), lean=(0, 0), rot=_LIFT(3), **_TUCK),
-     g(an=band(-40, -110), af=band(-30, -100), bob=(6, 7, 7), lean=(2, 8), **BRACE),
-     g(an=band(-15, -50), af=band(-55, -150, fistKind='palm'), bob=(7, 8, 8), lean=(3, 12), **BRACE),
-     g(an=band(-15, -50), af=band(-55, -150, fistKind='palm'), bob=(8, 9, 9), lean=(3, 15), root=(1, 0), **BRACE),
-     g(an=band(-15, -50), af=band(-55, -150, fistKind='palm'), bob=(7, 8, 8), lean=(3, 12), **BRACE),
-     g(an=band(-15, -50), af=band(-55, -150, fistKind='palm'), bob=(8, 9, 9), lean=(3, 15), root=(-1, 0), **BRACE),
-     g(an=band(-15, -50), af=band(-55, -150, fistKind='palm'), bob=(6, 7, 7), lean=(2, 10), **BRACE),
-     g(an=band(-30, -100), af=band(-55, -150, fistKind='palm'), bob=(3, 3, 3), lean=(1, 4)),
+     g(an=band(-40, -60), af=band(-30, -100), bob=(9, 10, 10), lean=(1, 6), ln='ss-kneel-rear', lf='ss-kneel-lead'),
+     g(an=band(-35, -20), af=band(-55, -150, fistKind='palm'), bob=(9, 10, 10), lean=(1, 7), ln='ss-kneel-rear', lf='ss-kneel-lead'),
+     g(an=band(-35, -20), af=band(-55, -150, fistKind='palm'), bob=(10, 11, 11), lean=(2, 11), ln='ss-kneel-rear', lf='ss-kneel-lead'),
+     g(an=band(-35, -20), af=band(-55, -150, fistKind='palm'), bob=(9, 10, 10), lean=(1, 7), ln='ss-kneel-rear', lf='ss-kneel-lead'),
+     g(an=band(-35, -20), af=band(-55, -150, fistKind='palm'), bob=(10, 11, 11), lean=(2, 11), ln='ss-kneel-rear', lf='ss-kneel-lead'),
+     g(an=band(-35, -20), af=band(-55, -150, fistKind='palm'), bob=(9, 10, 10), lean=(1, 6), ln='ss-kneel-rear', lf='ss-kneel-lead'),
+     g(an=band(-30, -100), af=band(-40, -120), bob=(5, 5, 5), lean=(1, 4), **BRACE),
      g(an=band(-45, -115), af=band(-35, -110), bob=(1, 1, 2), lean=(1, 2))],
   ['pain', 'closed', 'strain', 'strain', 'strain', 'squint', 'pain', 'strain', 'strain', 'pain', 'pain', 'roar', 'squint', 'roar', 'squint', 'pain', 'squint', None],
   None,
@@ -5104,9 +5104,9 @@ CLIPS.update({
 # Bubble Prison v1.1 (Christopher 15:15: the coughing crouch after the burst was missing): the release is its own state (the 16-frame cap), bubblePrisonRelease, like whirlpoolCaught / whirlpoolRelease
 _BPQ = CLIPS['bubblePrisoned']
 CLIPS['bubblePrisonRelease'] = ('Bubble Prison Release', 0,
-  'Bubble Prison Release (target state, plays once when the Stun of Bubble Prison ends, after bubblePrisoned): the sphere bursts in a splash and the fighter drops to the floor; it stays down in a hunched crouch, one hand braced low and the other up at its mouth, and coughs up water twice in hard heaving jerks, spluttering spray, then pushes itself back up into the guard.',
+  'Bubble Prison Release (target state, plays once when the Stun of Bubble Prison ends, after bubblePrisoned): the sphere bursts in a splash and the fighter drops to the floor, landing down on one knee (the approved Silica Strike / Atlas\'s Regret kneel); kneeling, the lead hand braced on the lead knee and the other at its mouth, it coughs up water twice in hard heaving jerks, spluttering spray, then pushes itself up off the knee into the guard.',
   _BPQ[3][9:], _BPQ[4][9:], None,
-  dict(fps=8, rm='E: +1 -1 on the coughs (net 0)', anchored={k - 9: v for k, v in _BPQ[6]['anchored'].items() if k >= 9}))
+  dict(fps=8, rm='E: 0', anchored={k - 9: v for k, v in _BPQ[6]['anchored'].items() if k >= 9}))
 CLIPS['bubblePrisoned'] = (_BPQ[0], _BPQ[1], _BPQ[2].split(' when the Stun ends')[0] + '; when the Stun ends it plays bubblePrisonRelease.', _BPQ[3][:9], _BPQ[4][:9], None,
   {**_BPQ[6], 'extra': {'loop': True, 'loopFrom': 3, 'loopTo': 8, 'then': 'bubblePrisonRelease'}, 'anchored': {k: v for k, v in _BPQ[6]['anchored'].items() if k < 9}})
 CLIPS['bubblePrison'][6]['extra']['targetState'].update({'rule': 'Bubble Prison: on the impact frame (6) and not before, the target plays bubblePrisoned: frames 0-2 once, frames 3-8 on loop while the Stun lasts (one DoT tick = the loop\'s choke on frame 6); when the Stun ends it plays bubblePrisonRelease once (the sphere bursts, it drops into a coughing crouch, rises), then its idle', 'release': 'bubblePrisonRelease'})

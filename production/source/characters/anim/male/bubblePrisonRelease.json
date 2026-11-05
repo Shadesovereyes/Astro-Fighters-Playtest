@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Bubble Prison Release (target state, plays once when the Stun of Bubble Prison ends, after bubblePrisoned): the sphere bursts in a splash and the fighter drops to the floor; it stays down in a hunched crouch, one hand braced low and the other up at its mouth, and coughs up water twice in hard heaving jerks, spluttering spray, then pushes itself back up into the guard.",
+  "intent": "Bubble Prison Release (target state, plays once when the Stun of Bubble Prison ends, after bubblePrisoned): the sphere bursts in a splash and the fighter drops to the floor, landing down on one knee (the approved Silica Strike / Atlas's Regret kneel); kneeling, the lead hand braced on the lead knee and the other at its mouth, it coughs up water twice in hard heaving jerks, spluttering spray, then pushes itself up off the knee into the guard.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -106,35 +106,35 @@
     "rule": "the knees give under the blow (body 2 px low) and come back up to the guard height; the head drops with the body a frame late",
     "dy": [
       1,
-      6,
-      7,
-      8,
-      7,
-      8,
-      6,
-      3,
+      9,
+      9,
+      10,
+      9,
+      10,
+      9,
+      5,
       1
     ],
     "head": [
       1,
-      7,
-      8,
-      9,
-      8,
-      9,
-      7,
-      3,
+      10,
+      10,
+      11,
+      10,
+      11,
+      10,
+      5,
       1
     ],
     "arms": [
       1,
-      7,
-      8,
-      9,
-      8,
-      9,
-      7,
-      3,
+      10,
+      10,
+      11,
+      10,
+      11,
+      10,
+      5,
       2
     ]
   },
@@ -144,30 +144,30 @@
     "dx": {
       "pelvis": [
         0,
+        1,
+        1,
         2,
-        3,
-        3,
-        3,
-        3,
+        1,
         2,
+        1,
         1,
         1
       ],
       "head": [
         0,
-        8,
-        12,
-        15,
-        12,
-        15,
-        10,
+        6,
+        7,
+        11,
+        7,
+        11,
+        6,
         4,
         2
       ]
     }
   },
   "rootMotion": {
-    "rule": "E: +1 -1 on the coughs (net 0)",
+    "rule": "E: 0",
     "E": [
       [
         0,
@@ -182,7 +182,7 @@
         0
       ],
       [
-        1,
+        0,
         0
       ],
       [
@@ -190,7 +190,7 @@
         0
       ],
       [
-        -1,
+        0,
         0
       ],
       [
@@ -220,7 +220,7 @@
         0
       ],
       [
-        -1,
+        0,
         0
       ],
       [
@@ -228,7 +228,7 @@
         0
       ],
       [
-        1,
+        0,
         0
       ],
       [
@@ -1647,24 +1647,24 @@
     ],
     "near": [
       91,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
       5,
-      5,
-      5,
-      5,
-      5,
-      5,
-      1,
       1
     ],
     "far": [
       90,
+      49,
+      49,
+      49,
+      49,
+      49,
+      49,
       4,
-      4,
-      4,
-      4,
-      4,
-      4,
-      0,
       0
     ]
   },
@@ -1697,47 +1697,47 @@
         "angle": -40,
         "elbow": {
           "at": 8,
-          "angle": -110
+          "angle": -60
         }
       },
       {
         "construction": "band",
-        "angle": -15,
+        "angle": -35,
         "elbow": {
           "at": 8,
-          "angle": -50
+          "angle": -20
         }
       },
       {
         "construction": "band",
-        "angle": -15,
+        "angle": -35,
         "elbow": {
           "at": 8,
-          "angle": -50
+          "angle": -20
         }
       },
       {
         "construction": "band",
-        "angle": -15,
+        "angle": -35,
         "elbow": {
           "at": 8,
-          "angle": -50
+          "angle": -20
         }
       },
       {
         "construction": "band",
-        "angle": -15,
+        "angle": -35,
         "elbow": {
           "at": 8,
-          "angle": -50
+          "angle": -20
         }
       },
       {
         "construction": "band",
-        "angle": -15,
+        "angle": -35,
         "elbow": {
           "at": 8,
-          "angle": -50
+          "angle": -20
         }
       },
       {
@@ -1821,12 +1821,11 @@
       },
       {
         "construction": "band",
-        "angle": -55,
+        "angle": -40,
         "elbow": {
           "at": 8,
-          "angle": -150
-        },
-        "fistKind": "palm"
+          "angle": -120
+        }
       },
       {
         "construction": "band",
