@@ -2,12 +2,14 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "betrayed",
-  "status": "CANDIDATE 2026-10-27 (E/W; W mirrors E; S/N to author after approval)",
-  "frames": 12,
+  "status": "CANDIDATE 2026-10-27 (E/W; W mirrors E; S/N CANDIDATE 2026-10-21 (v1))",
+  "frames": 16,
   "fps": 10,
   "sourceDirection": "E",
   "directions": [
+    "S",
     "E",
+    "N",
     "W"
   ],
   "mirror": {
@@ -17,7 +19,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Betrayed (target state of Betrayal, Confusion 1 round; frame 0 is the impact): the shadow waves wash over the fighter and it stiffens; behind it a faceless shadow figure, someone it loves, rises out of the dark with cold ice-white eyes, a knife raised high in both hands; the knife plunges down at its back with a cold flash and the fighter lurches, gasping, its guard falling; the figure melts back into shadow; then (looping while the Confusion lasts) the fighter stands frozen, arms half raised and shaking, trembling all over, and the figure flickers back into sight behind it now and then.",
+  "intent": "Betrayed v2 (target state of Betrayal, Confusion 1 round; frame 0 is the impact; Christopher 2026-11-05: a knife in the shadow's silhouette, several stabs in the back, the target turns round in shock, then back to the caster): the shadow waves wash over the fighter and it stiffens; behind it a faceless shadow figure, someone it loves, rises out of the dark with cold ice-white eyes and a shadow knife in its hand; it drives the knife into the fighter's back three times, the fighter jolting forward with a cold flash and ice shards at each stab; the figure melts back into shadow; the fighter whirls round in shock to face where it stood, forearms up, trembling, finds only a pool of shadow; it turns back to face the caster, and then (looping while the Confusion lasts) stands frozen and trembling, arms half raised and shaking, the figure flickering faintly behind it.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -109,10 +111,14 @@
       1,
       1,
       1,
-      2,
       1,
       1,
       2,
+      2,
+      1,
+      1,
+      1,
+      1,
       1,
       2,
       1,
@@ -123,10 +129,14 @@
       1,
       1,
       1,
-      2,
       1,
       1,
       2,
+      2,
+      1,
+      1,
+      1,
+      1,
       1,
       2,
       1,
@@ -135,12 +145,16 @@
     "arms": [
       1,
       1,
+      2,
+      1,
+      2,
       1,
       2,
       2,
+      1,
+      1,
       2,
-      2,
-      2,
+      1,
       2,
       2,
       2,
@@ -154,11 +168,15 @@
       "pelvis": [
         0,
         0,
-        -1,
         2,
         1,
+        2,
+        1,
+        3,
+        2,
         0,
-        0,
+        -1,
+        -1,
         0,
         0,
         0,
@@ -168,12 +186,16 @@
       "head": [
         -1,
         -1,
-        -2,
         5,
-        4,
-        1,
-        1,
         2,
+        6,
+        3,
+        8,
+        5,
+        0,
+        -3,
+        -2,
+        0,
         1,
         2,
         1,
@@ -182,7 +204,7 @@
     }
   },
   "rootMotion": {
-    "rule": "E: +1 lurching at the stab, -1 back; loop shakes +1 -1 (net 0)",
+    "rule": "E: +1 jolted at the first stab, -1 gasping; loop shakes +1 -1 (net 0)",
     "E": [
       [
         0,
@@ -193,11 +215,19 @@
         0
       ],
       [
+        1,
+        0
+      ],
+      [
         0,
         0
       ],
       [
-        1,
+        0,
+        0
+      ],
+      [
+        0,
         0
       ],
       [
@@ -217,11 +247,19 @@
         0
       ],
       [
-        1,
+        0,
         0
       ],
       [
         0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        1,
         0
       ],
       [
@@ -243,11 +281,19 @@
         0
       ],
       [
+        -1,
+        0
+      ],
+      [
         0,
         0
       ],
       [
-        -1,
+        0,
+        0
+      ],
+      [
+        0,
         0
       ],
       [
@@ -267,7 +313,7 @@
         0
       ],
       [
-        -1,
+        0,
         0
       ],
       [
@@ -275,7 +321,147 @@
         0
       ],
       [
+        0,
+        0
+      ],
+      [
+        -1,
+        0
+      ],
+      [
         1,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "S": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "N": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
         0
       ],
       [
@@ -566,6 +752,34 @@
           "#LLmmmmm",
           ".#dddddd",
           "..######"
+        ]
+      },
+      "sToeDown": {
+        "use": "front view raised foot, instep toward the viewer, toes pointing slightly down (E/W toe30k seen from the front)",
+        "anchor": [
+          3,
+          -1
+        ],
+        "rows": [
+          "#mLLm#",
+          "#mLLLm#",
+          "#dmLLm#",
+          ".#dmd#",
+          "..###"
+        ]
+      },
+      "nToeDown": {
+        "use": "back view raised foot: heel then the sole tilting down to the toes (E/W toe30k seen from behind)",
+        "anchor": [
+          3,
+          -1
+        ],
+        "rows": [
+          "#dmmd#",
+          "#dmmmd#",
+          "#ddmmd#",
+          ".#ddd#",
+          "..###"
         ]
       }
     },
@@ -1696,6 +1910,10 @@
       1,
       1,
       1,
+      1,
+      1,
+      1,
+      1,
       1
     ],
     "far": [
@@ -1710,8 +1928,53 @@
       0,
       0,
       0,
+      0,
+      0,
+      0,
+      0,
       0
-    ]
+    ],
+    "sections": {
+      "rule": "front/back-view kick-leg cross-sections read from the S and N reference legs (thigh rows 40-43, knee rows 44-46, calf rows 48-51, lower shin rows 52-54, wrap rows 55-57), lit in the centre; patterns are read back to front across the limb",
+      "S": {
+        "thigh": "mLLLs",
+        "shin": [
+          {
+            "from": 0,
+            "rows": "mmms"
+          },
+          {
+            "from": 2.5,
+            "rows": "mLmms"
+          },
+          {
+            "from": 6,
+            "rows": "sLs"
+          }
+        ],
+        "wrap": "wWw",
+        "wrapLen": 3
+      },
+      "N": {
+        "thigh": "mLLLm",
+        "shin": [
+          {
+            "from": 0,
+            "rows": "msms"
+          },
+          {
+            "from": 2.5,
+            "rows": "sLLLs"
+          },
+          {
+            "from": 6,
+            "rows": "dLL"
+          }
+        ],
+        "wrap": "wWw",
+        "wrapLen": 3
+      }
+    }
   },
   "arms": {
     "source": "The reference near arm (Arms1, E frame). Every row keeps its reference pixels and only moves sideways. The far arm (hidden in the reference) is the same arm, far-shaded and drawn behind the body.",
@@ -1747,18 +2010,18 @@
       },
       {
         "construction": "band",
-        "angle": -45,
-        "elbow": {
-          "at": 8,
-          "angle": -110
-        }
-      },
-      {
-        "construction": "band",
         "angle": -30,
         "elbow": {
           "at": 8,
           "angle": -70
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -35,
+        "elbow": {
+          "at": 8,
+          "angle": -85
         }
       },
       {
@@ -1774,23 +2037,55 @@
         "angle": -35,
         "elbow": {
           "at": 8,
-          "angle": -100
+          "angle": -85
         }
       },
       {
         "construction": "band",
-        "angle": -40,
+        "angle": -20,
         "elbow": {
           "at": 8,
-          "angle": -110
+          "angle": -50
         }
       },
       {
         "construction": "band",
-        "angle": -43,
+        "angle": -25,
         "elbow": {
           "at": 8,
-          "angle": -113
+          "angle": -60
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -140,
+        "elbow": {
+          "at": 8,
+          "angle": -170
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -140,
+        "elbow": {
+          "at": 8,
+          "angle": -170
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -130,
+        "elbow": {
+          "at": 8,
+          "angle": -160
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -140,
+        "elbow": {
+          "at": 8,
+          "angle": -170
         }
       },
       {
@@ -1845,18 +2140,34 @@
       },
       {
         "construction": "band",
-        "angle": -35,
-        "elbow": {
-          "at": 8,
-          "angle": -105
-        }
-      },
-      {
-        "construction": "band",
         "angle": -20,
         "elbow": {
           "at": 8,
           "angle": -60
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -25,
+        "elbow": {
+          "at": 8,
+          "angle": -80
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -15,
+        "elbow": {
+          "at": 8,
+          "angle": -55
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -25,
+        "elbow": {
+          "at": 8,
+          "angle": -80
         }
       },
       {
@@ -1869,26 +2180,42 @@
       },
       {
         "construction": "band",
-        "angle": -25,
+        "angle": 2,
         "elbow": {
           "at": 8,
-          "angle": -90
+          "angle": -6
         }
       },
       {
         "construction": "band",
-        "angle": -30,
+        "angle": -140,
         "elbow": {
           "at": 8,
-          "angle": -100
+          "angle": -170
         }
       },
       {
         "construction": "band",
-        "angle": -33,
+        "angle": -130,
         "elbow": {
           "at": 8,
-          "angle": -103
+          "angle": -165
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -125,
+        "elbow": {
+          "at": 8,
+          "angle": -160
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -140,
+        "elbow": {
+          "at": 8,
+          "angle": -170
         }
       },
       {
@@ -2099,6 +2426,10 @@
           -1,
           -1,
           -1,
+          -1,
+          -1,
+          -1,
+          -1,
           -1
         ],
         "S": [
@@ -2108,9 +2439,27 @@
           1,
           1,
           1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
           1
         ],
         "N": [
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
           -1,
           -1,
           -1,
@@ -2775,7 +3124,11 @@
         8,
         9,
         10,
-        11
+        11,
+        12,
+        13,
+        14,
+        15
       ],
       "fps": 10,
       "next": "guard",
@@ -2846,6 +3199,26 @@
         "frame": 11,
         "clip": "betrayed",
         "type": "recovery"
+      },
+      {
+        "frame": 12,
+        "clip": "betrayed",
+        "type": "recovery"
+      },
+      {
+        "frame": 13,
+        "clip": "betrayed",
+        "type": "recovery"
+      },
+      {
+        "frame": 14,
+        "clip": "betrayed",
+        "type": "recovery"
+      },
+      {
+        "frame": 15,
+        "clip": "betrayed",
+        "type": "recovery"
       }
     ],
     "W": [
@@ -2908,6 +3281,26 @@
       },
       {
         "frame": 11,
+        "clip": "betrayed",
+        "type": "recovery"
+      },
+      {
+        "frame": 12,
+        "clip": "betrayed",
+        "type": "recovery"
+      },
+      {
+        "frame": 13,
+        "clip": "betrayed",
+        "type": "recovery"
+      },
+      {
+        "frame": 14,
+        "clip": "betrayed",
+        "type": "recovery"
+      },
+      {
+        "frame": 15,
         "clip": "betrayed",
         "type": "recovery"
       }
@@ -3064,6 +3457,175 @@
             2,
             "#000000"
           ]
+        ],
+        "S": [
+          [
+            0,
+            1,
+            "#70241d"
+          ],
+          [
+            1,
+            1,
+            "#70241d"
+          ],
+          [
+            5,
+            1,
+            "#70241d"
+          ],
+          [
+            6,
+            1,
+            "#70241d"
+          ],
+          [
+            0,
+            2,
+            "#000000"
+          ],
+          [
+            1,
+            2,
+            "#000000"
+          ],
+          [
+            5,
+            2,
+            "#000000"
+          ],
+          [
+            6,
+            2,
+            "#000000"
+          ]
+        ]
+      },
+      "roar": {
+        "E": [
+          [
+            0,
+            1,
+            "#000000"
+          ],
+          [
+            1,
+            1,
+            "#000000"
+          ],
+          [
+            1,
+            2,
+            "#70241d"
+          ]
+        ],
+        "S": [
+          [
+            0,
+            1,
+            "#000000"
+          ],
+          [
+            1,
+            1,
+            "#000000"
+          ],
+          [
+            5,
+            1,
+            "#000000"
+          ],
+          [
+            6,
+            1,
+            "#000000"
+          ],
+          [
+            2,
+            3,
+            "#000000"
+          ],
+          [
+            3,
+            3,
+            "#000000"
+          ],
+          [
+            4,
+            3,
+            "#000000"
+          ],
+          [
+            2,
+            4,
+            "#000000"
+          ],
+          [
+            3,
+            4,
+            "#70241d"
+          ],
+          [
+            4,
+            4,
+            "#000000"
+          ]
+        ]
+      },
+      "strain": {
+        "E": [
+          [
+            0,
+            1,
+            "#000000"
+          ],
+          [
+            1,
+            1,
+            "#000000"
+          ],
+          [
+            1,
+            2,
+            "#70241d"
+          ]
+        ],
+        "S": [
+          [
+            0,
+            1,
+            "#000000"
+          ],
+          [
+            1,
+            1,
+            "#000000"
+          ],
+          [
+            5,
+            1,
+            "#000000"
+          ],
+          [
+            6,
+            1,
+            "#000000"
+          ],
+          [
+            2,
+            4,
+            "#000000"
+          ],
+          [
+            3,
+            4,
+            "#000000"
+          ],
+          [
+            4,
+            4,
+            "#000000"
+          ]
         ]
       }
     },
@@ -3076,15 +3638,1185 @@
         "pain",
         "pain",
         "pain",
-        "squint",
+        "pain",
+        "pain",
+        "pain",
+        "pain",
         "pain",
         "squint",
         "pain",
-        "squint"
+        "squint",
+        "pain"
+      ],
+      "S": [
+        "squint",
+        "pain",
+        "pain",
+        "pain",
+        "pain",
+        "pain",
+        "pain",
+        "pain",
+        "pain",
+        "pain",
+        "pain",
+        "pain",
+        "squint",
+        "pain",
+        "squint",
+        "pain"
       ]
     },
     "intent": "eyes squeezed shut with the brow pulled down on the impact frames 0-2 (no mouth: user 2026-10-14), a squint on frame 3, open again from frame 4 (user 2026-10-14)"
   },
   "loop": true,
-  "loopFrom": 6
+  "loopFrom": 13,
+  "awayFrames": {
+    "rule": "Betrayal v2: on frames 9-10 the fighter faces away from its facing (it has turned round to look behind it, through the S frame 8, and turns back through S on 11): the E row holds the W-facing figure and the W row the E-facing one (only the figure layers are swapped; fx stays where it is drawn)",
+    "frames": [
+      9,
+      10
+    ]
+  },
+  "facingOverride": {
+    "rule": "Christopher 2026-10-27: the fighter turns to face S (toward the viewer) for these frames whatever its facing; every row holds the S frame there (the rows are copied after the render), then it turns back",
+    "frames": [
+      8,
+      11
+    ],
+    "to": "S"
+  },
+  "frontal": {
+    "rule": "S and N are built from their reference frames: legs keep their rows (every leg drops the frame's bob rows so the feet stay down); the arms are authored band arms from each shoulder (bent guard arms with the fists up at the chin; a punch toward or away from the viewer is a short, foreshortened straight arm). In S the arms are in front of the body; in N they are behind it.",
+    "legLift": {
+      "R": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "L": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "legLiftRule": "not used (named leg poses)",
+    "views": {
+      "S": {
+        "legPose": {
+          "R": [
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant"
+          ],
+          "L": [
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant"
+          ]
+        },
+        "legPoseRows": {
+          "plant": [],
+          "far": []
+        },
+        "bobRows": [
+          49,
+          53
+        ],
+        "legRows": {
+          "R": [
+            41
+          ],
+          "L": [
+            41
+          ]
+        },
+        "legRepeatRows": {
+          "R": [
+            41
+          ],
+          "L": [
+            41
+          ]
+        },
+        "handDy": {
+          "R": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "L": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "armRows": {
+          "R": [
+            35
+          ],
+          "L": [
+            35
+          ]
+        },
+        "armRepeatRows": {
+          "R": [
+            35
+          ],
+          "L": [
+            35
+          ]
+        },
+        "armBand": {
+          "R": {
+            "pivot": [
+              25,
+              24
+            ],
+            "angle": [
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10
+            ],
+            "elbow": [
+              {
+                "at": 7,
+                "angle": 192
+              },
+              {
+                "at": 7,
+                "angle": 192
+              },
+              {
+                "at": 7,
+                "angle": 192
+              },
+              {
+                "at": 7,
+                "angle": 192
+              },
+              {
+                "at": 7,
+                "angle": 192
+              },
+              {
+                "at": 7,
+                "angle": 192
+              },
+              {
+                "at": 7,
+                "angle": 192
+              },
+              {
+                "at": 7,
+                "angle": 192
+              },
+              {
+                "at": 7,
+                "angle": 192
+              },
+              {
+                "at": 7,
+                "angle": 192
+              },
+              {
+                "at": 7,
+                "angle": 192
+              },
+              {
+                "at": 7,
+                "angle": 192
+              },
+              {
+                "at": 7,
+                "angle": 192
+              },
+              {
+                "at": 7,
+                "angle": 192
+              },
+              {
+                "at": 7,
+                "angle": 192
+              },
+              {
+                "at": 7,
+                "angle": 192
+              }
+            ],
+            "scale": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "fist": [
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
+              "up"
+            ],
+            "z": 4,
+            "pivotDx": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "L": {
+            "pivot": [
+              38,
+              24
+            ],
+            "angle": [
+              -10,
+              -10,
+              -10,
+              -10,
+              -10,
+              -10,
+              -10,
+              -10,
+              -10,
+              -10,
+              -10,
+              -10,
+              -10,
+              -10,
+              -10,
+              -10
+            ],
+            "elbow": [
+              {
+                "at": 7,
+                "angle": 168
+              },
+              {
+                "at": 7,
+                "angle": 168
+              },
+              {
+                "at": 7,
+                "angle": 168
+              },
+              {
+                "at": 7,
+                "angle": 168
+              },
+              {
+                "at": 7,
+                "angle": 168
+              },
+              {
+                "at": 7,
+                "angle": 168
+              },
+              {
+                "at": 7,
+                "angle": 168
+              },
+              {
+                "at": 7,
+                "angle": 168
+              },
+              {
+                "at": 7,
+                "angle": 168
+              },
+              {
+                "at": 7,
+                "angle": 168
+              },
+              {
+                "at": 7,
+                "angle": 168
+              },
+              {
+                "at": 7,
+                "angle": 168
+              },
+              {
+                "at": 7,
+                "angle": 168
+              },
+              {
+                "at": 7,
+                "angle": 168
+              },
+              {
+                "at": 7,
+                "angle": 168
+              },
+              {
+                "at": 7,
+                "angle": 168
+              }
+            ],
+            "scale": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "fist": [
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
+              "up"
+            ],
+            "z": 4,
+            "pivotDx": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "headDy": -1,
+        "armRule": "guard seen from the front: elbows down at the sides, forearms nearly upright, the fists in front of each shoulder at the top of the chest, just below where the long hair hangs (the hair layer draws over the arms); a punch toward the viewer is a short straight arm (50% length) bringing the fist in front of the chest centre; on the jab and cross the punching arm points at the viewer: the arm crosses in front of the chest at shoulder height (45%) to a knuckles-on fist (fistFront) just off the chest centre, outlined over the body",
+        "twist": {
+          "pelvis": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "shoulders": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "twistRule": "the body rotates into each punch: hips, shoulders and head shift sideways (shoulders most, torso sheared between hips and shoulders), toward the punching side's centre on the jab and further on the cross; the legs swing from the hip to the planted feet with the hips (hipDx), and the punching shoulder moves 1 px further in",
+        "hipDx": {
+          "R": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "L": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "footDx": {
+          "R": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "L": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "legPivot": 39,
+        "footFrom": {
+          "R": 56,
+          "L": 56
+        },
+        "variants": {
+          "0": [],
+          "1": [],
+          "2": [],
+          "3": [],
+          "4": [],
+          "5": [],
+          "6": [],
+          "7": [],
+          "8": [],
+          "9": [],
+          "10": [],
+          "11": [],
+          "12": [],
+          "13": [],
+          "14": [],
+          "15": []
+        }
+      },
+      "N": {
+        "legPose": {
+          "R": [
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant"
+          ],
+          "L": [
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant"
+          ]
+        },
+        "legPoseRows": {
+          "plant": [],
+          "far": []
+        },
+        "bobRows": [
+          49,
+          53
+        ],
+        "legRows": {
+          "R": [
+            50
+          ],
+          "L": [
+            50
+          ]
+        },
+        "legRepeatRows": {
+          "R": [
+            50
+          ],
+          "L": [
+            50
+          ]
+        },
+        "handDy": {
+          "R": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "L": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "armRows": {
+          "R": [
+            35
+          ],
+          "L": [
+            35
+          ]
+        },
+        "armRepeatRows": {
+          "R": [
+            35
+          ],
+          "L": [
+            35
+          ]
+        },
+        "armBand": {
+          "R": {
+            "pivot": [
+              39,
+              24
+            ],
+            "angle": [
+              -12,
+              -12,
+              -12,
+              -12,
+              -12,
+              -12,
+              -12,
+              -12,
+              -10,
+              -12,
+              -12,
+              -10,
+              -12,
+              -12,
+              -12,
+              -12
+            ],
+            "elbow": [
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              {
+                "at": 7,
+                "angle": 168
+              },
+              null,
+              null,
+              {
+                "at": 7,
+                "angle": 168
+              },
+              null,
+              null,
+              null,
+              null
+            ],
+            "scale": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "fist": [
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
+              "up"
+            ],
+            "z": -1,
+            "showTo": [
+              7,
+              7,
+              7,
+              7,
+              7,
+              7,
+              7,
+              7,
+              null,
+              7,
+              7,
+              null,
+              7,
+              7,
+              7,
+              7
+            ],
+            "pivotDx": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "L": {
+            "pivot": [
+              24,
+              24
+            ],
+            "angle": [
+              12,
+              12,
+              12,
+              12,
+              12,
+              12,
+              12,
+              12,
+              10,
+              12,
+              12,
+              10,
+              12,
+              12,
+              12,
+              12
+            ],
+            "elbow": [
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              {
+                "at": 7,
+                "angle": -168
+              },
+              null,
+              null,
+              {
+                "at": 7,
+                "angle": -168
+              },
+              null,
+              null,
+              null,
+              null
+            ],
+            "scale": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "fist": [
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
+              "up"
+            ],
+            "z": -1,
+            "showTo": [
+              7,
+              7,
+              7,
+              7,
+              7,
+              7,
+              7,
+              7,
+              null,
+              7,
+              7,
+              null,
+              7,
+              7,
+              7,
+              7
+            ],
+            "pivotDx": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "headDy": -1,
+        "armRule": "from behind the forearms, wrists and fists are in front of the body: only the shoulders and upper arms show (straight band arms cut at 7 px, showTo), hanging slightly out in guard, swinging in when that arm punches away from the viewer",
+        "twist": {
+          "pelvis": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "shoulders": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "twistRule": "the body rotates into each punch: hips, shoulders and head shift sideways (shoulders most, torso sheared between hips and shoulders), toward the punching side's centre on the jab and further on the cross; the legs swing from the hip to the planted feet with the hips (hipDx), and the punching shoulder moves 1 px further in",
+        "hipDx": {
+          "R": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "L": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "footDx": {
+          "R": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "L": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "legPivot": 39,
+        "footFrom": {
+          "R": 56,
+          "L": 56
+        },
+        "variants": {
+          "0": [],
+          "1": [],
+          "2": [],
+          "3": [],
+          "4": [],
+          "5": [],
+          "6": [],
+          "7": [],
+          "8": [],
+          "9": [],
+          "10": [],
+          "11": [],
+          "12": [],
+          "13": [],
+          "14": [],
+          "15": []
+        }
+      }
+    },
+    "partVariants": {}
+  }
 }

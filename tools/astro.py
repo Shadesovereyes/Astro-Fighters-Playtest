@@ -4761,6 +4761,86 @@ _BX['targetState'] = {**_BX['targetState'], 'rule': 'Blizzard v3: each fighter i
 CLIPS['blizzard'] = ('Blizzard', 10, _B2[2].replace('Blizzard v2 (', 'Blizzard v3 (caster-centred AoE radius 3, Christopher 2026-11-04 21:10; ').replace('then it drives both palms forward with a roar and a huge cone of storm is hurled out of them; the wall of snow and sleet rolls over the zone, a whiteout swallowing the targets (they play blizzardStruck from the impact frame 11); it holds the push as the storm rages', 'then it flings its arms out wide with a roar and the storm erupts from it in every direction, racing outward ring by ring to three hexes, a whiteout swallowing everyone in it (each plays blizzardStruck as the front reaches it), while the caster stands in the calm eye; it holds the pose as the storm rages round it'),
   _BF, _B2[4], [0, 1, 1, 1, 2, 2, 2, 3, 3, 3, 3, 3, 3, 2, 1, 0], {**_B2[6], 'rm': 'E: 0 (it stands in the eye)', 'extra': _BX, 'anchored': _BA})
 
+# Betrayal v2 (Christopher 2026-11-05 14:39: refine the shadow, add a knife to its silhouette, have it stab the target in the back several times, then the
+# target turns round in shock before turning back to face the caster): the betrayer is cut from the approved Numbing Strikes poses (frame 1 loaded, frame 5
+# thrust) with a shadow knife in its near hand; three stabs; the target turns through S to face where the shadow stood (rows swapped: extra.awayFrames), then back
+def _silhK(state, k, L=8):   # the shadow figure with a knife held forward in the near hand: a dark blade (smoky edge) with an ice-white cutting edge and tip
+    from PIL import Image
+    d = D + state + '/'; row = load(D + state + '.json')['directions'].index('E'); m = [[0] * 64 for _ in range(64)]; eye = set()
+    for n in ('body.png', 'far-arm.png', 'male-gi.png', 'arms.png', 'fade-hair.png'):
+        if not os.path.exists(d + n): continue
+        px = Image.open(d + n).convert('RGBA').load()
+        for y in range(64):
+            for x in range(64):
+                if px[k * 64 + x, row * 64 + y][3]: m[y][x] = 1
+    ap = Image.open(d + 'arms.png').convert('RGBA').load()
+    arm = [(x, y) for y in range(64) for x in range(64) if ap[k * 64 + x, row * 64 + y][3]]
+    hx, hy = max(arm, key=lambda q: (q[0], -q[1]))
+    ep = d + 'brown-eyes.png'
+    if os.path.exists(ep):
+        px = Image.open(ep).convert('RGBA').load(); eye = {(x, y) for y in range(64) for x in range(64) if px[k * 64 + x, row * 64 + y][3]}
+    knife = {}
+    knife[(hx + 1, hy)] = 'x'; knife[(hx + 1, hy + 1)] = 'x'   # the grip in the fist, a guard
+    knife[(hx + 1, hy - 1)] = 'x'
+    for t in range(2, L + 2):
+        if hx + t < 64:
+            knife[(hx + t, hy)] = 'W' if t >= L else 'x'; knife[(hx + t, hy - 1)] = 'W' if t < L - 1 else 'I' if t < L else '.'   # smoky blade with an ice-white cutting edge and tip
+            if t < L - 2: knife[(hx + t, hy + 1)] = 'X'   # the blade's dark back
+    allx = [x for y in range(64) for x in range(64) if m[y][x]] + [x for (x, y), c in knife.items() if c != '.']
+    ys = [y for y in range(64) if any(m[y])] + [y for (x, y) in knife]
+    x0, x1, y0 = min(allx), max(allx), min(ys); rows = []
+    for y in range(y0, 64):
+        r = ''
+        for x in range(x0, x1 + 1):
+            if (x, y) in knife and knife[(x, y)] != '.': r += knife[(x, y)]; continue
+            if not m[y][x]: r += '.'; continue
+            if (x, y) in eye: r += 'I'; continue
+            edge = any(not (0 <= x + ex < 64 and 0 <= y + ey < 64) or not m[y + ey][x + ex] for ex, ey in ((1, 0), (-1, 0), (0, 1), (0, -1)))
+            r += 'x' if edge else 'X'
+        rows.append(r)
+    return rows, (x0 + x1) / 2 - 32   # rows, the pattern centre's offset from the cell centre (so the feet stay put)
+_PK1, _OK1 = _silhK('numbingStrike', 1, 7); _PK5, _OK5 = _silhK('numbingStrike', 5, 5)   # the blade buried in the back on the thrust (only the hilt shows)
+NPAT.update({'sFigK1': _PK1, 'sFigK5': _PK5, 'sFigG2': _silh('numbingStrike', 0)})
+def _fig(pat, a, dx=-21):   # the betrayer, feet on the floor behind the target (dx from the target's feet, toward its facing); the knife pose is centred on its own box, so shift back by its offset
+    off = {'sFigK1': _OK1, 'sFigK5': _OK5 - 8}.get(pat, 0)   # the thrust pose stands further back, so the fist stops at the target's back
+    return (pat, 'feet', round(dx + off), 0, {**_SHA(a), 'behind': True, 'bottom': 63})
+_SHK = band(-140, -170)   # forearms flung up in shock
+CLIPS['betrayed'] = ('Betrayed', 0,
+  'Betrayed v2 (target state of Betrayal, Confusion 1 round; frame 0 is the impact; Christopher 2026-11-05: a knife in the shadow\'s silhouette, several stabs in the back, the target turns round in shock, then back to the caster): the shadow waves wash over the fighter and it stiffens; behind it a faceless shadow figure, someone it loves, rises out of the dark with cold ice-white eyes and a shadow knife in its hand; it drives the knife into the fighter\'s back three times, the fighter jolting forward with a cold flash and ice shards at each stab; the figure melts back into shadow; the fighter whirls round in shock to face where it stood, forearms up, trembling, finds only a pool of shadow; it turns back to face the caster, and then (looping while the Confusion lasts) stands frozen and trembling, arms half raised and shaking, the figure flickering faintly behind it.', [
+     g(an=band(-55, -125), af=band(-45, -120), bob=(1, 1, 1), lean=(0, -1)),                                   # 0 impact: stiffens
+     g(an=band(-50, -120), af=band(-40, -115), bob=(1, 1, 1), lean=(0, -1)),                                   # 1 the figure rises, knife drawn back
+     g(an=band(-30, -70), af=band(-20, -60), bob=(1, 1, 2), lean=(2, 5), root=(1, 0)),                         # 2 stab 1
+     g(an=band(-35, -85), af=band(-25, -80), bob=(1, 1, 1), lean=(1, 2)),                                      # 3 knife drawn back
+     g(an=band(-25, -60), af=band(-15, -55), bob=(1, 1, 2), lean=(2, 6)),                                      # 4 stab 2
+     g(an=band(-35, -85), af=band(-25, -80), bob=(1, 1, 1), lean=(1, 3)),                                      # 5 drawn back
+     g(an=band(-20, -50), af=AR_HANG_F, bob=(2, 2, 2), lean=(3, 8)),                                           # 6 stab 3, the deepest
+     g(an=band(-25, -60), af=AR_HANG_F, bob=(2, 2, 2), lean=(2, 5), root=(-1, 0)),                             # 7 gasping, the figure melts
+     g(an=_SHK, af=_SHK, bob=(1, 1, 1), lean=(0, 0)),                                                          # 8 turning round (S)
+     g(an=_SHK, af=band(-130, -165), bob=(1, 1, 1), lean=(-1, -3)),                                            # 9 facing where the shadow stood, in shock
+     g(an=band(-130, -160), af=band(-125, -160), bob=(1, 1, 2), lean=(-1, -2)),                                # 10 trembling, looking
+     g(an=_SHK, af=_SHK, bob=(1, 1, 1), lean=(0, 0)),                                                          # 11 turning back (S)
+     g(an=band(-40, -110), af=band(-30, -100), bob=(1, 1, 2), lean=(0, 1)),                                    # 12 facing the caster again
+     g(an=band(-43, -113), af=band(-33, -103), bob=(2, 2, 2), lean=(0, 2), root=(1, 0)),                       # 13-15 trembling loop
+     g(an=band(-40, -110), af=band(-30, -100), bob=(1, 1, 2), lean=(0, 1), root=(-1, 0)),
+     g(an=band(-43, -113), af=band(-33, -103), bob=(2, 2, 2), lean=(0, 2))],
+  ['squint', 'pain', 'pain', 'pain', 'pain', 'pain', 'pain', 'pain', 'pain', 'pain', 'pain', 'pain', 'squint', 'pain', 'squint', 'pain'],
+  None,
+  dict(fps=10, rm='E: +1 jolted at the first stab, -1 gasping; loop shakes +1 -1 (net 0)', front={8: dict(R=stances.GA['R'], L=stances.GA['L']), 11: dict(R=stances.GA['R'], L=stances.GA['L'])},
+       awayFrames=[9, 10],
+       extra={'loop': True, 'loopFrom': 13, 'awayFrames': {'rule': 'Betrayal v2: on frames 9-10 the fighter faces away from its facing (it has turned round to look behind it, through the S frame 8, and turns back through S on 11): the E row holds the W-facing figure and the W row the E-facing one (only the figure layers are swapped; fx stays where it is drawn)', 'frames': [9, 10]}},
+       anchored={0: [_fig('sFigG2', 120), ('sgw2', 'head', 6, 16, _A(_FADE)), ('sWisp', 'feet', -17, -5, _A(_FADE))],
+                 1: [_fig('sFigK1', 225), ('sWispS', 'feet', -17, -3, _A(_FADE))],
+                 2: [_fig('sFigK5', 235), ('iSpark7', 'head', -6, 18), ('iShards9', 'head', -7, 18)],
+                 3: [_fig('sFigK1', 235), ('iFrostS', 'head', -5, 18)],
+                 4: [_fig('sFigK5', 235), ('iSpark7', 'head', -6, 22), ('iShards9', 'head', -7, 22), ('iFrostS', 'head', -5, 18)],
+                 5: [_fig('sFigK1', 235), ('iFrost', 'head', -5, 20)],
+                 6: [_fig('sFigK5', 240), ('iSpark9', 'head', -6, 20), ('iShards12', 'head', -8, 20), ('iRing8', 'head', -6, 20), ('iFrost', 'head', -5, 20)],
+                 7: [_fig('sFigK1', 130), ('sWisp2', 'feet', -17, -8), ('iFrost', 'head', -5, 20)],
+                 8: [('sPool6', 'feet', 0, -1), ('sWispS', 'feet', 0, -4, _A(_FADE))],
+                 9: [('sPool6', 'feet', -17, -1), ('sWispS', 'feet', -17, -4, _A(_FADE))],
+                 10: [('sPool4', 'feet', -17, -1, _A(_FADE))],
+                 14: [_fig('sFigG2', 70)], 15: [_fig('sFigG2', 45)]}))
+
 def spec(state):
     U.CLIPS[state] = CLIPS[state]
     U.APPROVED[state] = APPROVED.get(state, STAT)
@@ -4822,6 +4902,7 @@ def fx(state):
         if x.get('swirl'): swirl(state, x['swirl'])
         if x.get('impact'): impact(state, x['impact'])
         if x.get('blast'): blast(state, x['blast'])
+    if x.get('awayFrames'): away(state, x['awayFrames'])
     if x.get('anchored'):
         from PIL import Image
         f_ = D + state + '/fx.png'
@@ -5101,6 +5182,19 @@ def hair_to(state, spec):   # Oak Flesh v6 (Christopher 2026-10-28: change the h
                     if q[3] and q[:3] in m: px[xx, yy] = m[q[:3]] + (q[3],)
         im.save(f)
     print(state, 'hair', spec['frames'])
+
+def away(state, frames):   # Betrayal v2: the fighter has turned round on these frames: swap the E and W rows of every figure layer (fx untouched)
+    from PIL import Image
+    d = D + state + '/'; dirs = load(D + state + '.json')['directions']; e, w = dirs.index('E'), dirs.index('W')
+    for n in sorted(os.listdir(d)):
+        if not n.endswith('.png') or n == 'fx.png': continue
+        im = Image.open(d + n).convert('RGBA')
+        if im.height < 64 * len(dirs): continue
+        for k in frames:
+            a = im.crop((k * 64, e * 64, k * 64 + 64, e * 64 + 64)); b = im.crop((k * 64, w * 64, k * 64 + 64, w * 64 + 64))
+            im.paste(b, (k * 64, e * 64)); im.paste(a, (k * 64, w * 64))
+        im.save(d + n)
+    print(state, 'away (rows swapped)', frames)
 
 def face_front(state, frames):
     """every row takes the S row's frame on the turned frames (all layers), so each facing turns to the viewer there"""
