@@ -5135,7 +5135,7 @@ NPAT.update({'mMistPuff': _mistPuff(0), 'mMistPuffL': _mistPuff(1),
 _MA = _A({'W': 160, 'I': 135, 'a': 120})   # the mist is see-through
 _MA2 = _A({'W': 110, 'I': 95, 'a': 70})
 CLIPS['hiddenMist'] = ('Hidden Mist', 6,
-  'Hidden Mist (Pisces ninjutsu, Self buff, Stealth 2 rounds: the caster veils itself in mist): from the guard the fighter makes the seal at the chin, eyes closing, and wisps of mist curl up off the floor; it draws a deep breath, then breathes out a long plume of sea mist and sweeps both open palms down and out, low, and the mist rolls out along the floor round it; on the active frame (6) the bank billows up round it to above its head and the fighter fades inside it as it rises back into the guard (spec opacity: the same stealth fade as Shadow Step; extra.mist: the mist is drawn by the testbed, NOT faded, so the bank stays visible where the fighter vanished).', [
+  'Hidden Mist (Pisces ninjutsu, Self buff, Stealth 2 rounds: the caster veils itself in mist): from the guard the fighter makes the seal at the chin, eyes closing, and wisps of mist curl up off the floor; it draws a deep breath, then breathes out a long plume of sea mist, sweeping one open palm down and out low and lifting the other high, and the mist rolls out along the floor round it; on the active frame (6) the bank billows up round it to above its head and the fighter fades inside it as it rises back into the guard (spec opacity: the same stealth fade as Shadow Step; extra.mist: the mist is drawn by the testbed, NOT faded, so the bank stays visible where the fighter vanished).', [
      g(),
      g(an=U.SEAL_N, af=U.SEAL_F, bob=(1, 1, 1), lean=(0, 0)),
      g(an=U.SEAL_N, af=U.SEAL_F, bob=(1, 1, 2), lean=(0, 0)),
