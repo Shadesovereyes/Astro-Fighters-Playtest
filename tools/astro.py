@@ -5053,14 +5053,14 @@ CLIPS.update({
   [0, 1, 1, 1, 2, 2, 2, 1, 0, 0],
   dict(fps=10, auraColors=_WAURA,
        extra={'targetFx': {'rule': 'Bubble Prison v1: drawn by the testbed round the target (dx away from the caster, dy from the floor up; patterns centred; the fill patterns at the given alpha): the floor round the target ripples (frame 3), the water rises round it, a third (frame 4), then most of the way up (frame 5; frame 6 is the impact, when the target starts bubblePrisoned, which draws the closed sphere itself)', 'frames': {'3': [['wRip9', -2, -1], ['wDrops', -2, -6, 150]], '4': [['wRip12', -2, -1], ['bpRiseF1', -2, -30, 80], ['bpRiseR1', -2, -30], ['wDrops', -2, -22]], '5': [['bpRiseF2', -2, -30, 80], ['bpRiseR2', -2, -30], ['wDrops', -2, -46]]}},
-              'targetState': {'rule': 'Bubble Prison: on the impact frame (6) and not before, the target plays bubblePrisoned: frames 0-2 once, frames 3-8 on loop while the Stun lasts (one DoT tick = the loop\'s choke on frame 6), then frames 9-11 once when it ends (the sphere bursts), then its idle', 'state': 'bubblePrisoned', 'loopFrom': 3, 'loopTo': 8, 'release': [9, 10, 11], 'element': 'water'}},
+              'targetState': {'rule': 'Bubble Prison: on the impact frame (6) and not before, the target plays bubblePrisoned: frames 0-2 once, frames 3-8 on loop while the Stun lasts (one DoT tick = the loop\'s choke on frame 6), then frames 9-17 once when it ends (the sphere bursts, it drops into a coughing crouch, rises), then its idle', 'state': 'bubblePrisoned', 'loopFrom': 3, 'loopTo': 8, 'release': [9, 10, 11, 12, 13, 14, 15, 16, 17], 'element': 'water'}},
        anchored={1: [('wPuddle', 'feet', 0, -1, _A(_FADE))], 2: [('wDrops', 'head', 6, 14, _A(_FADE))],
                  3: [('wBub2', 'hand', -3, 0), ('wDrops', 'hand', -3, -4, _A(_FADE))],
                  4: [('wBub3', 'hand', 3, 0), ('wRip5', 'hand', 2, 0, _A(_FADE))],
                  5: [('wDrops', 'hand', 0, -4), ('wBub1', 'hand', 2, -6)],
                  6: [('wSplashS', 'hand', 1, -2), ('wDrops', 'hand', 0, -6, _A(_FADE))], 7: [('wBub1', 'hand', 1, -5, _A(_FADE))]})),
  'bubblePrisoned': ('Bubble Prisoned', 0,
-  'Bubble Prisoned (target state of Bubble Prison, Stun 2 rounds; frame 0 is the impact): the sphere of water closes over the fighter with a splash: it jolts, eyes screwed shut, and floats up off the floor; then, looping while the Stun lasts, it drifts inside the sphere holding its breath, cheeks tight, arms paddling slowly against the water, legs drawn up and trailing, bubbles leaking from its mouth and rising, the sphere wobbling and glinting round it; on each DoT tick (loop frame 6) it chokes and a gush of bubbles escapes; when the Stun ends (frames 9-11) the sphere bursts in a splash, it drops to the floor in a crouch, coughing, and comes back up into the guard.', [
+  'Bubble Prisoned (target state of Bubble Prison, Stun 2 rounds; frame 0 is the impact): the sphere of water closes over the fighter with a splash: it jolts, eyes screwed shut, and floats up off the floor; then, looping while the Stun lasts, it drifts inside the sphere holding its breath, cheeks tight, arms paddling slowly against the water, legs drawn up and trailing, bubbles leaking from its mouth and rising, the sphere wobbling and glinting round it; on each DoT tick (loop frame 6) it chokes and a gush of bubbles escapes; when the Stun ends (frames 9-17) the sphere bursts in a splash and it drops to the floor; it stays down in a hunched crouch, one hand braced low and the other up at its mouth, and coughs up water twice in hard heaving jerks, spluttering spray and breath, then pushes itself back up into the guard.', [
      g(an=band(-140, -170), af=band(-130, -165), bob=(1, 1, 1), lean=(-1, -2)),
      g(an=band(-150, -120), af=band(-140, -110), bob=(1, 1, 2), lean=(0, 0), rot=_LIFT(2), **_TUCK),
      g(an=band(-120, -100), af=band(-110, -90), bob=(1, 1, 1), lean=(0, 1), rot=_LIFT(3), **_TUCK),
@@ -5071,11 +5071,17 @@ CLIPS.update({
      g(an=band(-90, -100), af=band(-120, -95), bob=(1, 1, 1), lean=(0, 2), rot=_LIFT(3), **_TUCK),
      g(an=band(-130, -105), af=band(-75, -95), bob=(1, 1, 1), lean=(0, 1), rot=_LIFT(3), **_TUCK),
      g(an=band(-160, -150), af=band(-150, -140), bob=(1, 1, 1), lean=(0, 0), rot=_LIFT(3), **_TUCK),
-     g(an=band(-40, -110), af=band(-30, -100), bob=(4, 4, 4), lean=(1, 5), **LOW),
-     g(an=band(-45, -115), af=band(-35, -110), bob=(2, 2, 2), lean=(1, 3))],
-  ['pain', 'closed', 'strain', 'strain', 'strain', 'squint', 'pain', 'strain', 'strain', 'pain', 'pain', 'squint'],
+     g(an=band(-40, -110), af=band(-30, -100), bob=(6, 7, 7), lean=(2, 8), **BRACE),
+     g(an=band(-15, -50), af=band(-55, -150, fistKind='palm'), bob=(7, 8, 8), lean=(3, 12), **BRACE),
+     g(an=band(-15, -50), af=band(-55, -150, fistKind='palm'), bob=(8, 9, 9), lean=(3, 15), root=(1, 0), **BRACE),
+     g(an=band(-15, -50), af=band(-55, -150, fistKind='palm'), bob=(7, 8, 8), lean=(3, 12), **BRACE),
+     g(an=band(-15, -50), af=band(-55, -150, fistKind='palm'), bob=(8, 9, 9), lean=(3, 15), root=(-1, 0), **BRACE),
+     g(an=band(-15, -50), af=band(-55, -150, fistKind='palm'), bob=(6, 7, 7), lean=(2, 10), **BRACE),
+     g(an=band(-30, -100), af=band(-55, -150, fistKind='palm'), bob=(3, 3, 3), lean=(1, 4)),
+     g(an=band(-45, -115), af=band(-35, -110), bob=(1, 1, 2), lean=(1, 2))],
+  ['pain', 'closed', 'strain', 'strain', 'strain', 'squint', 'pain', 'strain', 'strain', 'pain', 'pain', 'roar', 'squint', 'roar', 'squint', 'pain', 'squint', None],
   None,
-  dict(fps=8, extra={'loop': True, 'loopFrom': 3, 'loopTo': 8, 'release': [9, 10, 11]},
+  dict(fps=8, extra={'loop': True, 'loopFrom': 3, 'loopTo': 8, 'release': [9, 10, 11, 12, 13, 14, 15, 16, 17]},
        anchored={0: _BPR(0) + [('wSplashL', 'cell', 0, -58), ('wDropsL', 'cell', 0, -52, _A(_FADE))],
                  1: _BPR(1) + [('wDrops', 'cell', 0, -55, _A(_FADE)), ('wBub2', 'eye', 3, 4)],
                  2: _BPR(2) + [('wBub1', 'eye', 3, 4), ('wBub2', 'eye', 1, -11)],
@@ -5087,8 +5093,75 @@ CLIPS.update({
                  8: _BPR(0) + [('wBub1', 'eye', 2, -9), ('wBub1', 'eye', -1, -19)],
                  9: [('wSplashXL', 'cell', 0, -36), ('wDropsL', 'cell', -10, -40), ('wDropsL', 'cell', 10, -44), ('bpRiseF1', 'cell', 0, -30, _A(_FADE))],
                  10: [('wPuddle', 'feet', 0, -1), ('wSplashL', 'feet', 0, -8), ('wDrops', 'cell', 0, -50, _A(_FADE))],
-                 11: [('wPuddle', 'feet', 0, -1, _A(_FADE)), ('wDrops', 'head', 6, 6, _A(_FADE))]})),
+                 11: [('wPuddle', 'feet', 0, -1), ('wSplashS', 'eye', 6, 5), ('wDrops', 'eye', 8, 8)],
+                 12: [('wPuddle', 'feet', 0, -1), ('wDrops', 'eye', 10, 12, _A(_FADE)), ('wDrops', 'eye', 5, 3, _A(_FADE))],
+                 13: [('wPuddle', 'feet', 0, -1), ('wSplashS', 'eye', 6, 5), ('wDrops', 'eye', 8, 9)],
+                 14: [('wPuddle', 'feet', 0, -1), ('wDrops', 'eye', 9, 13, _A(_FADE)), ('wDrops', 'eye', 5, 3, _A(_FADE))],
+                 15: [('wPuddle', 'feet', 0, -1), ('wDrops', 'eye', 4, 6, _A(_FADE))],
+                 16: [('wPuddle', 'feet', 0, -1, _A(_FADE))]})),
 })
+
+# Bubble Prison v1.1 (Christopher 15:15: the coughing crouch after the burst was missing): the release is its own state (the 16-frame cap), bubblePrisonRelease, like whirlpoolCaught / whirlpoolRelease
+_BPQ = CLIPS['bubblePrisoned']
+CLIPS['bubblePrisonRelease'] = ('Bubble Prison Release', 0,
+  'Bubble Prison Release (target state, plays once when the Stun of Bubble Prison ends, after bubblePrisoned): the sphere bursts in a splash and the fighter drops to the floor; it stays down in a hunched crouch, one hand braced low and the other up at its mouth, and coughs up water twice in hard heaving jerks, spluttering spray, then pushes itself back up into the guard.',
+  _BPQ[3][9:], _BPQ[4][9:], None,
+  dict(fps=8, rm='E: +1 -1 on the coughs (net 0)', anchored={k - 9: v for k, v in _BPQ[6]['anchored'].items() if k >= 9}))
+CLIPS['bubblePrisoned'] = (_BPQ[0], _BPQ[1], _BPQ[2].split(' when the Stun ends')[0] + '; when the Stun ends it plays bubblePrisonRelease.', _BPQ[3][:9], _BPQ[4][:9], None,
+  {**_BPQ[6], 'extra': {'loop': True, 'loopFrom': 3, 'loopTo': 8, 'then': 'bubblePrisonRelease'}, 'anchored': {k: v for k, v in _BPQ[6]['anchored'].items() if k < 9}})
+CLIPS['bubblePrison'][6]['extra']['targetState'].update({'rule': 'Bubble Prison: on the impact frame (6) and not before, the target plays bubblePrisoned: frames 0-2 once, frames 3-8 on loop while the Stun lasts (one DoT tick = the loop\'s choke on frame 6); when the Stun ends it plays bubblePrisonRelease once (the sphere bursts, it drops into a coughing crouch, rises), then its idle', 'release': 'bubblePrisonRelease'})
+
+
+# ---------- Pisces (Water) ninjutsu v1 (part 15, 2026-11-05): Hidden Mist ----------
+def _mist(w, h, seed, n, dens=1.0):   # Hidden Mist: a soft bank of sea mist: overlapping puffs summed into a density field; thick cores white, the body ice-white, thin edges dithered light water
+    import random
+    rnd = random.Random(seed); P = [(rnd.uniform(0, w), rnd.uniform(h * 0.15, h), rnd.uniform(4, 9)) for _ in range(n)]
+    rows = [['.'] * w for _ in range(h)]
+    for y in range(h):
+        for x in range(w):
+            v = dens * sum(math.exp(-((x - px) ** 2 + ((y - py) * 1.4) ** 2) / (2 * r * r)) for px, py, r in P)
+            q = rnd.random()   # random speckle, not a regular dither (v1 read as hatching)
+            if v > 1.6: rows[y][x] = 'W' if q < 0.55 else 'I'
+            elif v > 0.9: rows[y][x] = 'I' if q < 0.8 else 'a' if q < 0.9 else 'W'
+            elif v > 0.45 and q < 0.6: rows[y][x] = 'I' if q < 0.35 else 'a'
+            elif v > 0.2 and q < 0.25: rows[y][x] = 'a'
+    return [''.join(q) for q in rows]
+def _mistPuff(n):   # mist breathed out of the mouth (to the right)
+    return [['.II..', 'IWII.', '.IaI.'], ['..III...', '.IWWII..', 'IIWIIIa.', '.aI.III.', '...a..a.']][n]
+NPAT.update({'mMistPuff': _mistPuff(0), 'mMistPuffL': _mistPuff(1),
+             'mMistS': _round(_mist(21, 9, 11, 5), 11, 0.6), 'mMistLow': _round(_mist(51, 15, 12, 16), 12, 0.6), 'mMistLow2': _round(_mist(61, 19, 13, 22), 13, 0.6),
+             **{'mMist%d' % p: _round(_mist(61, 58, 20 + p, 40, 1.1), 20 + p, 0.65) for p in range(3)},
+             'mMistLinger': _round(_mist(61, 30, 30, 18, 0.8), 30, 0.6)})
+_MA = _A({'W': 160, 'I': 135, 'a': 120})   # the mist is see-through
+_MA2 = _A({'W': 110, 'I': 95, 'a': 70})
+CLIPS['hiddenMist'] = ('Hidden Mist', 6,
+  'Hidden Mist (Pisces ninjutsu, Self buff, Stealth 2 rounds: the caster veils itself in mist): from the guard the fighter makes the seal at the chin, eyes closing, and wisps of mist curl up off the floor; it draws a deep breath, then breathes out a long plume of sea mist and sweeps both open palms down and out, low, and the mist rolls out along the floor round it; on the active frame (6) the bank billows up round it to above its head and the fighter fades inside it as it rises back into the guard (spec opacity: the same stealth fade as Shadow Step; extra.mist: the mist is drawn by the testbed, NOT faded, so the bank stays visible where the fighter vanished).', [
+     g(),
+     g(an=U.SEAL_N, af=U.SEAL_F, bob=(1, 1, 1), lean=(0, 0)),
+     g(an=U.SEAL_N, af=U.SEAL_F, bob=(1, 1, 2), lean=(0, 0)),
+     g(an=U.SEAL_N, af=U.SEAL_F, bob=(0, 0, 1), lean=(-1, -2)),
+     g(an=band(-45, -95, fistKind='palm'), af=band(-40, -90, fistKind='palm'), bob=(2, 2, 2), lean=(1, 3), **LOW),
+     g(an=band(-20, -40, fistKind='palm'), af=band(-150, -170, fistKind='palm'), bob=(3, 3, 3), lean=(1, 3), **LOW),
+     g(an=band(-10, -30, fistKind='palm'), af=band(-165, -175, fistKind='palm'), bob=(3, 3, 3), lean=(1, 2), **LOW),
+     g(an=band(-30, -80, fistKind='palm'), af=band(-25, -75, fistKind='palm'), bob=(2, 2, 2), lean=(0, 1)),
+     g(an=band(-45, -110), af=band(-40, -110), bob=(1, 1, 1), lean=(0, 1)),
+     g(),
+     g()],
+  [None, 'squint', 'closed', 'closed', 'closed', 'squint', 'squint', 'squint', None, None, None],
+  [0, 1, 1, 1, 2, 2, 2, 1, 0, 0, 0],
+  dict(fps=10, auraColors=_WAURA,
+       opacity={'rule': 'Hidden Mist: the fighter fades into the mist into Stealth 2 rounds. Multiply the whole composited fighter (every layer and its aura; NOT the mist, extra.mist) by self[k] for its own side and others[k] for any other viewer; after the clip the Stealth state holds the last value (self 0.4, others 0) until Stealth ends',
+                'self': [1, 1, 1, 1, 1, 1, 0.85, 0.65, 0.5, 0.4, 0.4], 'others': [1, 1, 1, 1, 1, 1, 0.6, 0.3, 0.1, 0, 0]},
+       extra={'mist': {'rule': 'Hidden Mist v1: the mist bank is drawn by the testbed over the fighter\'s tile (patterns centred at dx, dy from the middle of the tile\'s floor, at the given alpha table) and is NOT multiplied by the stealth opacity, so it stays where the fighter vanished; the clip also bakes it into fx for previews. Proposal: after the clip a thin bank (mMistLinger, the faint alpha) lingers on the caster\'s tile while the Stealth lasts and drifts 1 px each frame, and thins out when Stealth ends', 'linger': 'mMistLinger'}},
+       anchored={1: [('mMistS', 'feet', 0, -3, _MA2)], 2: [('mMistS', 'feet', -6, -4, _MA2), ('mMistS', 'feet', 7, -3, _MA2)],
+                 3: [('mMistLow', 'cell', 0, -7, _MA2)],
+                 4: [('mMistLow', 'cell', 0, -7, _MA), ('mMistPuff', 'eye', 5, 3, _MA)],
+                 5: [('mMistLow2', 'cell', 0, -9, _MA), ('mMistPuffL', 'eye', 9, 3, _MA), ('mMistS', 'hand', 2, 0, _MA)],
+                 6: [('mMist0', 'cell', 0, -29, _MA), ('mMistLow2', 'cell', 0, -9, _MA)],
+                 7: [('mMist1', 'cell', 0, -29, _MA), ('mMistLow2', 'cell', 0, -9, _MA)],
+                 8: [('mMist2', 'cell', 0, -30, _MA)],
+                 9: [('mMist0', 'cell', 1, -29, _MA)],
+                 10: [('mMistLinger', 'cell', 2, -14, _MA2)]}))
 
 def spec(state):
     U.CLIPS[state] = CLIPS[state]

@@ -3193,15 +3193,11 @@
     }
   },
   "targetState": {
-    "rule": "Bubble Prison: on the impact frame (6) and not before, the target plays bubblePrisoned: frames 0-2 once, frames 3-8 on loop while the Stun lasts (one DoT tick = the loop's choke on frame 6), then frames 9-11 once when it ends (the sphere bursts), then its idle",
+    "rule": "Bubble Prison: on the impact frame (6) and not before, the target plays bubblePrisoned: frames 0-2 once, frames 3-8 on loop while the Stun lasts (one DoT tick = the loop's choke on frame 6); when the Stun ends it plays bubblePrisonRelease once (the sphere bursts, it drops into a coughing crouch, rises), then its idle",
     "state": "bubblePrisoned",
     "loopFrom": 3,
     "loopTo": 8,
-    "release": [
-      9,
-      10,
-      11
-    ],
+    "release": "bubblePrisonRelease",
     "element": "water"
   },
   "aura": {

@@ -3,7 +3,7 @@
   "body": "male",
   "state": "bubblePrisoned",
   "status": "CANDIDATE 2026-10-27 (E/W; W mirrors E; S/N to author after approval)",
-  "frames": 12,
+  "frames": 9,
   "fps": 8,
   "sourceDirection": "E",
   "directions": [
@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Bubble Prisoned (target state of Bubble Prison, Stun 2 rounds; frame 0 is the impact): the sphere of water closes over the fighter with a splash: it jolts, eyes screwed shut, and floats up off the floor; then, looping while the Stun lasts, it drifts inside the sphere holding its breath, cheeks tight, arms paddling slowly against the water, legs drawn up and trailing, bubbles leaking from its mouth and rising, the sphere wobbling and glinting round it; on each DoT tick (loop frame 6) it chokes and a gush of bubbles escapes; when the Stun ends (frames 9-11) the sphere bursts in a splash, it drops to the floor in a crouch, coughing, and comes back up into the guard.",
+  "intent": "Bubble Prisoned (target state of Bubble Prison, Stun 2 rounds; frame 0 is the impact): the sphere of water closes over the fighter with a splash: it jolts, eyes screwed shut, and floats up off the floor; then, looping while the Stun lasts, it drifts inside the sphere holding its breath, cheeks tight, arms paddling slowly against the water, legs drawn up and trailing, bubbles leaking from its mouth and rising, the sphere wobbling and glinting round it; on each DoT tick (loop frame 6) it chokes and a gush of bubbles escapes;; when the Stun ends it plays bubblePrisonRelease.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -113,10 +113,7 @@
       1,
       2,
       1,
-      1,
-      1,
-      4,
-      2
+      1
     ],
     "head": [
       1,
@@ -127,10 +124,7 @@
       1,
       2,
       1,
-      1,
-      1,
-      4,
-      2
+      1
     ],
     "arms": [
       1,
@@ -141,10 +135,7 @@
       1,
       2,
       1,
-      1,
-      1,
-      4,
-      2
+      1
     ]
   },
   "lean": {
@@ -160,10 +151,7 @@
         0,
         1,
         0,
-        0,
-        0,
-        1,
-        1
+        0
       ],
       "head": [
         -2,
@@ -174,10 +162,7 @@
         2,
         4,
         2,
-        1,
-        0,
-        5,
-        3
+        1
       ]
     }
   },
@@ -219,33 +204,9 @@
       [
         0,
         0
-      ],
-      [
-        0,
-        0
-      ],
-      [
-        0,
-        0
-      ],
-      [
-        0,
-        0
       ]
     ],
     "W": [
-      [
-        0,
-        0
-      ],
-      [
-        0,
-        0
-      ],
-      [
-        0,
-        0
-      ],
       [
         0,
         0
@@ -1693,10 +1654,7 @@
       91,
       91,
       91,
-      91,
-      91,
-      3,
-      1
+      91
     ],
     "far": [
       0,
@@ -1707,10 +1665,7 @@
       90,
       90,
       90,
-      90,
-      90,
-      2,
-      0
+      90
     ]
   },
   "arms": {
@@ -1800,30 +1755,6 @@
           "at": 8,
           "angle": -105
         }
-      },
-      {
-        "construction": "band",
-        "angle": -160,
-        "elbow": {
-          "at": 8,
-          "angle": -150
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -40,
-        "elbow": {
-          "at": 8,
-          "angle": -110
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -45,
-        "elbow": {
-          "at": 8,
-          "angle": -115
-        }
       }
     ],
     "far": [
@@ -1897,30 +1828,6 @@
         "elbow": {
           "at": 8,
           "angle": -95
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -150,
-        "elbow": {
-          "at": 8,
-          "angle": -140
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -30,
-        "elbow": {
-          "at": 8,
-          "angle": -100
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -35,
-        "elbow": {
-          "at": 8,
-          "angle": -110
         }
       }
     ],
@@ -2088,9 +1995,6 @@
       "bandFollowsBody": true,
       "sway": {
         "E": [
-          -1,
-          -1,
-          -1,
           -1,
           -1,
           -1,
@@ -2772,10 +2676,7 @@
         5,
         6,
         7,
-        8,
-        9,
-        10,
-        11
+        8
       ],
       "fps": 8,
       "next": "guard",
@@ -2831,21 +2732,6 @@
         "frame": 8,
         "clip": "bubblePrisoned",
         "type": "recovery"
-      },
-      {
-        "frame": 9,
-        "clip": "bubblePrisoned",
-        "type": "recovery"
-      },
-      {
-        "frame": 10,
-        "clip": "bubblePrisoned",
-        "type": "recovery"
-      },
-      {
-        "frame": 11,
-        "clip": "bubblePrisoned",
-        "type": "recovery"
       }
     ],
     "W": [
@@ -2895,21 +2781,6 @@
         "frame": 8,
         "clip": "bubblePrisoned",
         "type": "recovery"
-      },
-      {
-        "frame": 9,
-        "clip": "bubblePrisoned",
-        "type": "recovery"
-      },
-      {
-        "frame": 10,
-        "clip": "bubblePrisoned",
-        "type": "recovery"
-      },
-      {
-        "frame": 11,
-        "clip": "bubblePrisoned",
-        "type": "recovery"
       }
     ]
   },
@@ -2920,9 +2791,6 @@
       44
     ],
     "angle": [
-      0,
-      0,
-      0,
       0,
       0,
       0,
@@ -2942,9 +2810,6 @@
       0,
       0,
       0,
-      0,
-      0,
-      0,
       0
     ],
     "dy": [
@@ -2956,15 +2821,9 @@
       -4,
       -3,
       -3,
-      -3,
-      -3,
-      0,
-      0
+      -3
     ],
     "groundSnap": [
-      false,
-      false,
-      false,
       false,
       false,
       false,
@@ -3267,10 +3126,7 @@
         "squint",
         "pain",
         "strain",
-        "strain",
-        "pain",
-        "pain",
-        "squint"
+        "strain"
       ]
     },
     "intent": "eyes squeezed shut with the brow pulled down on the impact frames 0-2 (no mouth: user 2026-10-14), a squint on frame 3, open again from frame 4 (user 2026-10-14)"
@@ -3278,9 +3134,5 @@
   "loop": true,
   "loopFrom": 3,
   "loopTo": 8,
-  "release": [
-    9,
-    10,
-    11
-  ]
+  "then": "bubblePrisonRelease"
 }
