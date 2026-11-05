@@ -1,6 +1,6 @@
 """Stalactite Rain v3 resolution preview (Christopher 2026-11-05 22:11: the ultimate treatment): the cast round, then the
 eruption round, at the real AoE size (radius 3 round the aimed hex, testbed hexStep 34, pointy hexes, rows squashed by half).
-Round 1: the caster (5 hexes west of the aimed hex, facing E) plays A. Round 2: it replays A's hurl (frames 9-12) and crystal
+Round 1: the caster (5 hexes west of the aimed hex, facing E) plays A. Round 2: it plays zone.release (the hurl with no spears rising behind it) and crystal
 spears rain out of the sky at a slant from the caster's side onto every hex within the radius, ring by ring from the centre
 (extra.rain): each hex tinted crystal teal, each spear streaking down, stabbing in with dust and a glint, standing a beat, then
 shattering into rubble. Fighters on hexes 0, 1, 3 east and 2 west (inside) face the caster and play B from the frame the first
@@ -32,7 +32,7 @@ def stamp(img, name, cx, cy, flip=False, a=255):
     p = pat(name, flip, a); img.alpha_composite(p, (round(cx - p.width / 2), round(cy - p.height / 2)))
 ZONE = [(q, r) for q in range(-radius, radius + 1) for r in range(-radius, radius + 1) if max(abs(q), abs(r), abs(q + r)) <= radius]
 def dist(q, r): return max(abs(q), abs(r), abs(q + r))
-na = sa['frames']; R1 = na; GAP = 4; T2 = R1 + GAP; HURL = [9, 10, 11, 12]; L0 = T2 + 3; RING = 2
+na = sa['frames']; R1 = na; GAP = 4; T2 = R1 + GAP; REL = Z.get('release'); HURL = list(range(json.load(open(os.path.join(anim, REL + '.json')))['frames'])) if REL else [9, 10, 11, 12]; L0 = T2 + 3; RING = 2
 rnd = random.Random(11); SPEARS = []
 for q, r in ZONE:
     x, y = hxy(q, r); n_ = 1 + (rnd.random() < 0.6)
@@ -78,7 +78,7 @@ nb = sb['frames']; n = L0 + RING * radius + FALL + STAND + BREAK + 10; frames = 
 for t in range(n):
     img = Image.new('RGBA', (W, H), (0xc8, 0xcd, 0xd7, 255)); hexes(img); tint(img, t); spears(img, t, True)
     if t < R1: cell(A, t, 'E', hxy(CQ, 0)[0], img)
-    elif T2 <= t < T2 + len(HURL): cell(A, HURL[t - T2], 'E', hxy(CQ, 0)[0], img)
+    elif T2 <= t < T2 + len(HURL): cell(REL or A, HURL[t - T2], 'E', hxy(CQ, 0)[0], img)
     else: cell('guard', 0, 'E', hxy(CQ, 0)[0], img)
     for h, d in GUYS:
         k0 = L0 - FALL + 3 + RING * dist(h, 0) if dist(h, 0) <= radius else None   # the first spear on the hex lands: B's frame 2 (the stab) then

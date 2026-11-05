@@ -6259,8 +6259,25 @@ for k_, extra_ in ((4, [('rocks', 'feet', -24, -10), ('dust2', 'feet', -16, -3)]
                    (9, [('srFlash', 'hand', 0, -4)]), (10, [('srFlashS', 'hand', 2, -2), ('gemSpark', 'hand', 6, -6), ('dust2', 'feet', -12, -3)]), (11, [('gemSpark', 'hand', 2, -3)]),
                    (12, [('cryst', 'hand', 3, -2), ('dust1', 'feet', -22, -3)]), (14, [('gemSpark', 'feet', -14, -3, {'alpha': {'c': 140, 'W': 140}})])):
     _SRA[k_] = _SRA[k_] + extra_
-CLIPS['stalactiteRain'] = ('Stalactite Rain', 10, _SR2[2].replace('Stalactite Rain (Capricorn', 'Stalactite Rain v3.1 (Christopher 2026-11-05 22:11: the ultimate treatment; 22:29: a stream of stalactites: from frame 4 to 12 spear after spear, giants among them, grinds up tip first behind the caster and shoots into the sky, eighteen in all, rising through a wide glowing split, its aura blazes to full, a crystal-white flash bursts off the palms as the spears are hurled up; the next round they rain down over the whole radius-3 zone, see extra.rain) (Capricorn'),
-  _SR2[3], _SR2[4], [0, 1, 2, 3, 3, 3, 3, 3, 3, 3, 3, 2, 2, 1, 0, 0],
+# v3.2 (Christopher 2026-11-05 22:36: a more intense charge-up): the aura jumps to full on frame 2, the fighter shudders 1 px each
+# charge frame, a ring of glowing cracks spreads under the feet, crystal shards lift off the floor and spiral in onto the body,
+# and crystal rings pulse off it, the slam frames keep the shards whirling and the cracks blazing
+NPAT.update({'srRing': _ring(13, 'c', 'C', gap=1), 'srRing2': _ring(18, 'C', 'T', gap=2),
+             'srRay': ['W', 'c', 'c', 'C', '.', 'C', 'C', '.', 'T', '.', 'T'], 'srRayL': ['W', 'W', 'c', 'c', 'C', 'C', '.', 'C', 'C', 'T', '.', 'T', 'T', '.', '.', 'T']})
+_RAYS = lambda k, n: [('srRayL' if (j + k) % 2 else 'srRay', 'feet', x, -10 - 6 * ((j + k) % 3) - 2 * k) for j, x in enumerate((-15, -9, -3, 4, 10, 16)[:n])]
+_SRC = {1: [('crackGlowW', 'feet', 0, -3), ('srRing', 'head', 0, 20), *_RAYS(1, 3), ('gemShard', 'feet', -16, -4), ('gemShard', 'feet', 15, -3), ('geoSmall', 'feet', 0, -6, {'alpha': {'C': 160, 'c': 160, 'T': 160}})],
+        2: [('crackGlowW', 'feet', -6, -3), ('crackGlowW', 'feet', 6, -2), ('srRing2', 'head', 0, 20), ('srRing', 'head', 0, 22), *_RAYS(2, 5), ('gemShard2', 'feet', -14, -14), ('gemShard2', 'feet', 15, -12), ('gemShard', 'feet', -6, -24), ('geoSmall', 'feet', -2, -7), ('rocks', 'feet', 18, -6)],
+        3: [('crackGlowW', 'feet', -6, -3), ('crackGlowW', 'feet', 6, -2), ('srRing2', 'head', 0, 22), ('srFlashS', 'head', 0, 22), *_RAYS(3, 6), ('gemShard2', 'feet', -11, -26), ('gemShard2', 'feet', 12, -22), ('gemShard2', 'feet', 4, -36), ('gemShard', 'feet', -15, -8), ('geoSmallB', 'feet', 0, -8), ('glint', 'head', 9, -4)],
+        4: [('srRing', 'head', 0, 24), *_RAYS(4, 4), ('gemShard2', 'head', -10, 4), ('gemShard2', 'head', 11, 12), ('gemSpark', 'head', 8, -6)],
+        5: [('srRing2', 'head', 0, 24), *_RAYS(5, 3), ('gemShard', 'head', 12, 2), ('gemShard2', 'head', -12, 14)],
+        6: [('srRing', 'head', 0, 24), *_RAYS(6, 3), ('gemShard2', 'head', -11, 0), ('gemShard', 'head', 12, 16), ('gemSpark', 'head', -6, -6)],
+        7: [('srRing2', 'head', 0, 24), *_RAYS(7, 2), ('gemShard', 'head', 12, 4), ('gemShard2', 'head', -10, 16), ('gemSpark', 'head', 10, -4)]}
+for k_, v_ in _SRC.items(): _SRA[k_] = _SRA.get(k_, []) + v_
+_SRF = [dict(f_) for f_ in _SR2[3]]
+for k_, dx_ in ((1, 1), (2, -1), (3, 1), (4, -1), (5, 1), (6, -1)): _SRF[k_]['root'] = (dx_, 0)
+_SR2 = _SR2[:3] + (_SRF, [None, 'strain', 'strain', 'roar', 'roar', 'strain', 'roar', 'strain', 'strain', 'roar', 'roar', 'strain', 'strain', 'squint', None, None]) + _SR2[5:]
+CLIPS['stalactiteRain'] = ('Stalactite Rain', 10, _SR2[2].replace('Stalactite Rain (Capricorn', 'Stalactite Rain v3.2 (Christopher 2026-11-05 22:11: the ultimate treatment; 22:36: a more intense charge-up: the aura blazes to full by frame 2, the fighter shudders, a ring of glowing cracks spreads under it and crystal shards spiral in onto its body as crystal rings pulse off it; 22:29: a stream of stalactites: from frame 4 to 12 spear after spear, giants among them, grinds up tip first behind the caster and shoots into the sky, eighteen in all, rising through a wide glowing split, its aura blazes to full, a crystal-white flash bursts off the palms as the spears are hurled up; the next round they rain down over the whole radius-3 zone, see extra.rain) (Capricorn'),
+  _SR2[3], _SR2[4], [0, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 2, 2, 1, 0, 0],
   {**_SR2[6], 'anchored': _SRA,
    'extra': {**_SR2[6]['extra'],
              'rain': {'rule': 'Stalactite Rain v3 (ultimate, charge; resolves the round after the cast like Meteor): on the eruption round the caster replays frames 9-12 (the hurl); then the testbed rains crystal spears out of the sky over every hex within ultimateAoeRadius (3) of the aimed hex: each hex tinted crystal teal (alpha 0.25, deep teal rim) for the rest of the volley; spears fall at a slant from the caster\'s side (spearFall patterns, a short teal streak behind each), one or two per hex, staggered over ringFrames by distance from the centre (centre first, ring 3 last), each stabbing into the floor with a dust and grit burst and a gemSpark, standing embedded a beat, then cracking and shattering into rubble; every fighter inside plays stalactiteImpaled from the moment the first spear lands on its hex. Reference preview: hex-sprites/tools/astro_rain.py', 'radius': 3, 'centre': 'aimed hex', 'spearsPerHex': [1, 2], 'colors': ['#d9fff6', '#7fe3d0', '#3a9e8f', '#1d5c52']}}})
@@ -6294,6 +6311,18 @@ CLIPS['rootSanctuary'] = ('Root Sanctuary', 10,
                       'blocksProjectiles': 'all', 'untargetableFromOutside': True,
                       'colors': ['#2a1a10', '#8a6236', '#c79a5b', '#e8c99a', '#3a9e8f', '#7fe3d0', '#d9fff6', '#4f7a2a', '#7aa83a']}}})
 _RS4P = APPROVED.pop('rootSanctuary', None)
+
+# Stalactite Rain eruption round (Christopher 2026-11-05 22:37: on turn two, when they rain down, no more stalactites rise behind the
+# caster): its own state, the v3.2 hurl (frames 9-12 poses, 0-based) with only the palm flash and glints, then back to the guard
+_SRR = CLIPS['stalactiteRain']
+CLIPS['stalactiteRainRelease'] = ('Stalactite Rain Release', 1,
+  'Stalactite Rain Release (the eruption round of Stalactite Rain v3.2, charge): the fighter flings both palms up once more, a crystal-white flash bursting off them, and drives them forward and down at the zone as the spears rain onto it (drawn by the testbed, extra.rain); no spears rise behind it; then it settles back into the guard.',
+  [_SRR[3][8], _SRR[3][9], _SRR[3][10], _SRR[3][11], _SRR[3][12], _SRR[3][14], _SRR[3][15]],
+  ['strain', 'roar', 'roar', 'strain', 'strain', 'squint', None],
+  [2, 3, 3, 2, 1, 0, 0],
+  dict(fps=10, auraColors=_SRR[6]['auraColors'], rm='E: +1 into the throw, -1 settling back',
+       anchored={1: [('srFlash', 'hand', 0, -4), ('srRing', 'hand', 0, -2)], 2: [('srFlashS', 'hand', 2, -2), ('gemSpark', 'hand', 6, -6)], 3: [('gemSpark', 'hand', 2, -3), ('glit', 'hand', -4, 4)], 4: [('cryst', 'hand', 3, -2)]}))
+_SRX = _SRR[6]['extra']; _SRX['rain'] = {**_SRX['rain'], 'rule': _SRX['rain']['rule'].replace('on the eruption round the caster replays frames 9-12 (the hurl)', 'on the eruption round the caster plays stalactiteRainRelease (the hurl without the rising spears; Christopher 2026-11-05 22:37), and the rain starts on its frame 2'), 'release': 'stalactiteRainRelease', 'startFrame': 2}
 
 def spec(state):
     U.CLIPS[state] = CLIPS[state]
