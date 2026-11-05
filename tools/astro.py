@@ -5660,6 +5660,130 @@ CLIPS.update({
                  12: [('wBub1', 'head', 9, -8, _A(_FADE))]})),
 })
 
+# Escapism v2 (Christopher 2026-11-05 15:41: the target falls to a kneel, then falls backwards onto its back for the sleeping animation): the sleep loop is now lying flat on its back (a quarter turn, head away from the facing, like Sonic Swept), arms folded on the chest; when the Sleep ends it wakes and the testbed plays getUp
+_FOLD_N, _FOLD_F = band(-8, -16), band(-4, -12)   # arms lying slack along the body (turned flat with it)
+CLIPS['escapismSlept'] = ('Escapism Slept', 0,
+  'Escapism Slept v2 (target state of Escapism, Sleep 2 rounds; frame 0 is the impact): the lullaby washes over the fighter and its eyes grow heavy; it yawns wide behind one hand, its guard sagging; it nods and sinks down onto one knee (the approved Silica Strike / Atlas\'s Regret kneel), head bowed; then it tips slowly backward off the knee, legs sliding out, and falls onto its back, laid out flat on the floor with a soft splash of water, arms lying slack at its sides, fast asleep; then (looping while the Sleep lasts) it lies there breathing slow and deep, its chest rising and falling, while sleepy Zs of water drift up off it; when the Sleep ends its eyes snap open (frame 12) and the testbed plays getUp.', [
+     g(an=band(-70, -140), af=band(-60, -135), bob=(1, 1, 1), lean=(0, 0)),
+     g(an=band(-60, -120), af=band(-55, -150, fistKind='palm'), bob=(1, 1, 1), lean=(-1, -3)),
+     g(an=band(-40, -80), af=band(-35, -75), bob=(2, 2, 2), lean=(1, 3)),
+     g(an=band(-30, -60), af=band(-25, -55), bob=(5, 5, 5), lean=(1, 5), **BRACE),
+     g(an=band(-20, -40), af=band(-15, -35), bob=(9, 10, 10), lean=(1, 7), ln='ss-kneel-rear', lf='ss-kneel-lead'),
+     g(an=band(-30, -60), af=band(-25, -55), bob=(9, 10, 10), lean=(-1, -3), ln='ss-kneel-rear', lf='ss-kneel-lead'),
+     g(an=band(-100, -170), af=band(-110, -175), bob=(0, 0, 0), lean=(-2, -6), ln='sw-up-rear', lf='sw-up-lead'),
+     g(an=_FOLD_N, af=_FOLD_F, bob=(0, 0, 0), lean=(0, 0)),
+     g(an=_FOLD_N, af=_FOLD_F, bob=(0, 0, 0), lean=(0, 0)),
+     g(an=band(-11, -20), af=band(-7, -16), bob=(0, 0, 0), lean=(0, 1)),
+     g(an=band(-13, -22), af=band(-9, -18), bob=(0, 0, 0), lean=(0, 1)),
+     g(an=band(-11, -20), af=band(-7, -16), bob=(0, 0, 0), lean=(0, 0)),
+     g(an=band(-30, -60), af=band(-25, -55), bob=(0, 0, 0), lean=(0, 0))],
+  ['squint', 'roar', 'closed', 'closed', 'closed', 'closed', 'closed', 'closed', 'closed', 'closed', 'closed', 'closed', 'pain'],
+  None,
+  dict(fps=8, rm='E: no travel (it falls back where it knelt; the testbed stands it up with getUp)', invert={k: (1, 90) for k in range(7, 13)},
+       extra={'loop': True, 'loopFrom': 8, 'loopTo': 11, 'release': [12], 'then': 'getUp'},
+       anchored={0: [('wLullS2', 'head', 6, 10, _A(_FADE)), ('esNote1', 'head', 4, -2, _A(_FADE))],
+                 1: [('esNote1', 'head', -6, -6, _A(_FADE)), ('wBub1', 'head', 8, 4)],
+                 2: [('esZ0', 'head', 6, -4, _A(_FADE)), ('wBub1', 'head', -8, -2, _A(_FADE))],
+                 3: [('esZ0', 'head', 7, -8), ('esNote1', 'head', -9, -4, _A(_FADE))],
+                 4: [('esZ0', 'head', 8, -10, _A(_FADE)), ('esZ1', 'head', 6, -2)],
+                 5: [('esZ1', 'head', 8, -6, _A(_FADE))],
+                 7: [('wSplashS', 'feet', -6, -3), ('wRip9', 'feet', -4, -1, _A(_FADE))],
+                 8: [('esZ0', 'head', -14, -6), ('wRip5', 'feet', -4, -1, _A(_FADE))],
+                 9: [('esZ1', 'head', -12, -10), ('esZ0', 'head', -15, -4)],
+                 10: [('esZ1', 'head', -11, -15, _A(_FADE)), ('esZ0', 'head', -13, -8), ('wBub1', 'head', -16, -3)],
+                 11: [('esZ1', 'head', -13, -6), ('esZ0', 'head', -11, -13, _A(_FADE))],
+                 12: [('wBub3', 'head', -14, -6), ('esZ0', 'head', -12, -14, _A(_FADE))]}))
+CLIPS['escapism'][6]['extra']['targetState'].update({'rule': 'Escapism v2: from frame 7, the impact frame, when the first notes reach it (it holds its plain guard before that), the target plays escapismSlept: frames 0-7 once (it yawns, sinks onto one knee, then falls back onto its back asleep), then frames 8-11 on loop while the Sleep lasts, then frame 12 once when it ends (eyes snap open), then getUp, then its idle; if a hit breaks the Sleep frame 12 and getUp play at once; the genjutsu mark (genjutsuAfflicted, recolour genjutsuMark.recolor.water) is drawn over it throughout', 'loopFrom': 8, 'loopTo': 11, 'release': [12], 'then': 'getUp'})
+
+
+# Siren's Lure v2 (Christopher 2026-11-05 15:40: redevelop the target animation; the siren must be more ethereal and more detailed): an ethereal siren drawn in glowing translucent water-light (soft white glow rim instead of a dark outline, graded see-through body), with a detailed face (closed glowing eye, brow, nose, open singing lips), five long flowing hair strands dissolving into motes, a cupped hand at her lips and a long-fingered hand reaching over the victim's shoulder, a scaled tail curling into a wide translucent fin, mist and motes drifting off her; four sway phases. The victim is first lured (guard drops slack, it sways toward the song), then the siren rises over it and dread takes hold: it clamps both hands over its ears and sinks into a crouch, shaking its head, trembling, while she sings over it.
+NPAL.update({'1': '#f4fcff', '2': '#cdeeff', '3': '#94d2fb', '4': '#5aa4e6', '5': '#14305e'})   # siren light: glow, pale body, mid, shade, hollow dark
+_SIRA = {'alpha': {'1': 230, '2': 175, '3': 150, '4': 140, '5': 230}}
+def _siren2(ph=0, W_=28, H_=54):   # faces right (the victim's facing); ph 0-3 sway
+    sw = math.sin(ph * math.pi / 2); sw2 = math.cos(ph * math.pi / 2); P = {}
+    def put(x, y, c, pri):
+        x, y = int(round(x)), int(round(y))
+        if 0 <= x < W_ and 0 <= y < H_ and pri >= P.get((x, y), ('', -1))[1]: P[(x, y)] = (c, pri)
+    for y in range(H_):
+        for x in range(W_):
+            if ((x - 18) / 4.3) ** 2 + ((y - 10) / 5.2) ** 2 <= 1: put(x, y, 'B', 5)                          # head
+            if 13 <= y <= 17 and abs(x - 17.5) <= 1.3: put(x, y, 'B', 4)                                           # neck
+            if ((x - 17) / 4.2) ** 2 + ((y - 23) / 7) ** 2 <= 1: put(x, y, 'B', 4)                                 # torso
+            if 28 <= y <= 46:                                                                                       # tail curling into a fin
+                v = (y - 28) / 18; cx = 17 - 6 * v + 2.5 * math.sin(v * 3.2 + ph * 0.8); wd = 3.8 * (1 - v) + 0.8
+                if abs(x - cx) <= wd: put(x, y, 'T', 3)
+            if 44 <= y < H_:
+                v = (y - 44) / (H_ - 44); cx = 11 + 2 * sw - 3 * v
+                if abs(x - cx) <= 1 + 6 * v and (x + y + ph) % 3 or abs(x - cx) <= 1 + 2 * v: put(x, y, 'F', 2)
+    for st in range(5):   # hair strands: from the crown back and down, waving, thinning to motes
+        x0, y0 = 16.5 - st * 0.6, 5 + st * 0.9
+        for i in range(60):
+            t = i / 59; x = x0 - 13 * t + (1.8 + st * 0.4) * math.sin(t * 5 + ph * math.pi / 2 + st); y = y0 + 34 * t ** 1.1
+            w = 1.3 * (1 - t) + 0.3
+            if t > 0.8 and i % 3: continue
+            for ox in (-1, 0, 1):
+                if abs(ox) <= w: put(x + ox, y, 'H' if st % 2 else 'h', 1)
+    for i in range(12):   # the near arm reaching forward and down over the victim's shoulder, long fingers
+        t = i / 11; put(19 + 6 * t, 18 + 5 * t + 1.5 * sw * t, 'B', 6); put(19 + 6 * t, 19 + 5 * t + 1.5 * sw * t, 'B', 6)
+    for f in range(3):
+        for j in range(4): put(25 + j, 23 + f + j * (0.3 + 0.25 * f) + 1.5 * sw, 'B', 6)
+    for i in range(8): t = i / 7; put(16 + 4 * t, 21 - 6 * t, 'B', 6); put(16 + 4 * t, 22 - 6 * t, 'B', 6)   # far hand cupped at her lips
+    m = {k for k in P}; out = [['.'] * W_ for _ in range(H_)]
+    for (x, y), (c, pri) in P.items():
+        edge = any((x + a, y + b) not in m for a, b in ((1, 0), (-1, 0), (0, 1), (0, -1)))
+        if c == 'B':
+            ch = '1' if edge else '2' if (x - 17) * 0.4 - (y - 10) * 0.2 > 0.6 else '3'
+            if c == 'B' and pri == 5:
+                if y == 9 and 19 <= x <= 20: ch = '5'                                              # the hollow eye
+                elif y == 8 and x == 20: ch = '1'                                                  # its glint
+                elif y == 7 and 18 <= x <= 21: ch = '4'                                            # brow
+                elif 20 <= x <= 21 and 12 <= y <= 13: ch = '5'                                     # open singing lips
+                elif x == 22 and 10 <= y <= 11: ch = '1'                                          # nose
+                elif x < 16 and y < 12: ch = '4' if (x + y) % 2 else '3'                           # hair over the crown
+        elif c == 'T': ch = '1' if edge else '4' if ((y + abs(x - 15)) % 4) == 0 else '3'          # chevron scales
+        elif c == 'F': ch = '1' if edge and (x + y) % 2 else '2' if (x + y + ph) % 4 == 0 else '3'
+        elif c in 'Hh': ch = '1' if (c == 'H' and (y + ph) % 5 == 0) or edge and (x + y) % 3 == 0 else '2' if c == 'H' else '4'
+        out[y][x] = ch
+    for i in range(7):   # motes drifting off her
+        x, y = int((5 + i * 7 + ph * 3) % W_), int((50 - i * 6 - ph * 4) % H_)
+        if out[y][x] == '.': out[y][x] = '1'
+    return [''.join(r) for r in out]
+NPAT.update({'slSirenV%d' % p: _siren2(p) for p in range(4)})
+_SV = lambda p, a=1.0: ('slSirenV%d' % (p % 4), 'cell', -15, -36, {'behind': True, 'alpha': {k: round(v * a) for k, v in _SIRA['alpha'].items()}})
+_EAR_N, _EAR_F = band(-125, -200, fistKind='palm'), band(-120, -200, fistKind='palm')   # both palms clamped over the ears
+CLIPS['sirenLured'] = ('Siren Lured', 0,
+  "Siren Lured v2 (target state of Siren's Lure, Fear 1 round; frame 0 is the impact): the song washes over the fighter and it jolts, eyes wide; then the lure takes it: its guard drops slack, eyes half closing, and it sways back toward the song as a siren of glowing water-light fades up behind it, translucent and shimmering, long hair streaming and dissolving into motes, her tail curling into a wide fin, singing with one hand cupped at her lips, the other reaching over its shoulder; then dread breaks in: its eyes snap open, it clamps both hands over its ears and drops to one knee; (looping while the Fear lasts) it cowers there on one knee, hands over its ears, shaking its head and trembling, while the siren sways over it singing and dark notes circle its head.", [
+     g(an=band(-60, -150), af=band(-50, -140), bob=(1, 1, 1), lean=(-1, -3)),
+     g(an=band(-20, -40), af=band(-15, -35), bob=(1, 1, 1), lean=(-1, -2)),
+     g(an=band(-15, -30), af=band(-10, -25), bob=(1, 1, 2), lean=(-1, -3), root=(-1, 0)),
+     g(an=_EAR_N, af=_EAR_F, bob=(2, 2, 2), lean=(1, 2), root=(1, 0), **LOW),
+     g(an=_EAR_N, af=_EAR_F, bob=(9, 10, 10), lean=(1, 7), ln='ss-kneel-rear', lf='ss-kneel-lead'),
+     g(an=_EAR_N, af=_EAR_F, bob=(9, 10, 10), lean=(1, 7), root=(1, 0), ln='ss-kneel-rear', lf='ss-kneel-lead'),
+     g(an=_EAR_N, af=_EAR_F, bob=(9, 10, 11), lean=(1, 8), root=(-1, 0), ln='ss-kneel-rear', lf='ss-kneel-lead'),
+     g(an=_EAR_N, af=_EAR_F, bob=(9, 10, 10), lean=(1, 6), root=(-1, 0), ln='ss-kneel-rear', lf='ss-kneel-lead'),
+     g(an=_EAR_N, af=_EAR_F, bob=(9, 10, 11), lean=(1, 8), root=(1, 0), ln='ss-kneel-rear', lf='ss-kneel-lead'),
+     g(an=_EAR_N, af=_EAR_F, bob=(9, 10, 10), lean=(1, 7), root=(1, 0), ln='ss-kneel-rear', lf='ss-kneel-lead'),
+     g(an=_EAR_N, af=_EAR_F, bob=(9, 10, 11), lean=(1, 8), root=(-1, 0), ln='ss-kneel-rear', lf='ss-kneel-lead'),
+     g(an=_EAR_N, af=_EAR_F, bob=(9, 10, 10), lean=(1, 6), root=(-1, 0), ln='ss-kneel-rear', lf='ss-kneel-lead')],
+  ['pain', 'squint', 'closed', 'pain', 'pain', 'pain', 'squint', 'pain', 'pain', 'squint', 'pain', 'squint'],
+  None,
+  dict(fps=8, rm='E: -1 swaying back toward the song, +1 cowering; loop trembles +1 -1 -1 +1 +1 -1 -1 (net 0)',
+       extra={'loop': True, 'loopFrom': 5},
+       anchored={0: [('wgw3', 'head', 8, 14, _A(_FADE)), ('slNote1', 'head', 6, 2, _A(_FADE))],
+                 1: [_SV(0, 0.35), ('slNote1', 'head', -4, -4, _A(_FADE))],
+                 2: [_SV(1, 0.7), ('slNote2', 'head', 6, -6, _A(_FADE))],
+                 3: [_SV(2), ('slNote1', 'head', 9, -2), ('wgw1', 'head', -6, 6, _A(_FADE))],
+                 4: [_SV(3), ('slNote2', 'head', 8, -8, _A(_FADE)), ('slNote1', 'head', -9, -4)],
+                 5: [_SV(0), ('slNote1', 'head', 9, -4), ('slNote1', 'head', -2, -12, _A(_FADE))],
+                 6: [_SV(1), ('slNote2', 'head', 4, -12), ('slNote1', 'head', 10, 2, _A(_FADE))],
+                 7: [_SV(2), ('slNote1', 'head', -4, -11), ('slNote1', 'head', 10, -6)],
+                 8: [_SV(3), ('slNote2', 'head', 9, -8, _A(_FADE)), ('slNote1', 'head', -6, -6)],
+                 9: [_SV(0), ('slNote1', 'head', 3, -13), ('slNote1', 'head', 10, 0, _A(_FADE))],
+                 10: [_SV(1), ('slNote2', 'head', -5, -9), ('slNote1', 'head', 9, -9)],
+                 11: [_SV(2), ('slNote1', 'head', 8, -4, _A(_FADE)), ('slNote2', 'head', 0, -13)]}))
+CLIPS['sirensLure'][6]['extra']['targetState'].update({'rule': "Siren's Lure v2: from frame 7, the impact frame, when the first notes reach it (it holds its plain guard before that), the target plays sirenLured: frames 0-4 once (jolt, lured slack sway as the siren fades up, hands clamp over the ears, drops to one knee), then frames 5-11 on loop while the Fear lasts, then its idle; the genjutsu mark (genjutsuAfflicted, recolour genjutsuMark.recolor.water) is drawn over it throughout", 'loopFrom': 5})
+
+
 def spec(state):
     U.CLIPS[state] = CLIPS[state]
     U.APPROVED[state] = APPROVED.get(state, STAT)

@@ -3151,9 +3151,9 @@
     ]
   },
   "targetState": {
-    "rule": "Siren's Lure: from frame 7, the impact frame, when the first notes reach it (it holds its plain guard before that), the target plays sirenLured: frames 0-3 once, then frames 4-9 on loop while the Fear lasts, then its idle; the genjutsu mark (genjutsuAfflicted, recolour genjutsuMark.recolor.water) is drawn over it throughout",
+    "rule": "Siren's Lure v2: from frame 7, the impact frame, when the first notes reach it (it holds its plain guard before that), the target plays sirenLured: frames 0-4 once (jolt, lured slack sway as the siren fades up, hands clamp over the ears, drops to one knee), then frames 5-11 on loop while the Fear lasts, then its idle; the genjutsu mark (genjutsuAfflicted, recolour genjutsuMark.recolor.water) is drawn over it throughout",
     "state": "sirenLured",
-    "loopFrom": 4,
+    "loopFrom": 5,
     "element": "water",
     "mark": "genjutsuAfflicted"
   },

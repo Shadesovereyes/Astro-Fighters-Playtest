@@ -3028,18 +3028,16 @@
     ]
   },
   "targetState": {
-    "rule": "Escapism: from frame 7, the impact frame, when the first notes reach it (it holds its plain guard before that), the target plays escapismSlept: frames 0-4 once (it yawns, nods and sinks onto one knee asleep), then frames 5-10 on loop while the Sleep lasts, then frames 11-14 once when it ends (it starts awake and gets up into the guard), then its idle; if a hit breaks the Sleep the release plays at once; the genjutsu mark (genjutsuAfflicted, recolour genjutsuMark.recolor.water) is drawn over it throughout",
+    "rule": "Escapism v2: from frame 7, the impact frame, when the first notes reach it (it holds its plain guard before that), the target plays escapismSlept: frames 0-7 once (it yawns, sinks onto one knee, then falls back onto its back asleep), then frames 8-11 on loop while the Sleep lasts, then frame 12 once when it ends (eyes snap open), then getUp, then its idle; if a hit breaks the Sleep frame 12 and getUp play at once; the genjutsu mark (genjutsuAfflicted, recolour genjutsuMark.recolor.water) is drawn over it throughout",
     "state": "escapismSlept",
-    "loopFrom": 5,
-    "loopTo": 10,
+    "loopFrom": 8,
+    "loopTo": 11,
     "release": [
-      11,
-      12,
-      13,
-      14
+      12
     ],
     "element": "water",
-    "mark": "genjutsuAfflicted"
+    "mark": "genjutsuAfflicted",
+    "then": "getUp"
   },
   "aura": {
     "rule": "Runtime aura (Christopher 2026-11-03: all auras follow the outline of the hair): on frame k, when widths[k] > 0, the testbed grows the silhouette of every drawn layer except fx (body, clothing or armour, arms, shoulders, hair or helmet, eyes, weapons) by widths[k] rings of 1 px (4-neighbour / 3x3 max growth); ring 0 in colors[0], the others in colors[1]; the outermost ring only on pixels where (x + y + k) is even (flicker); drawn behind the fighter, only outside its silhouette",

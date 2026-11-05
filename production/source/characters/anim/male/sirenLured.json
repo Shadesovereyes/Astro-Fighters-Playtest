@@ -3,7 +3,7 @@
   "body": "male",
   "state": "sirenLured",
   "status": "CANDIDATE 2026-10-27 (E/W; W mirrors E; S/N to author after approval)",
-  "frames": 10,
+  "frames": 12,
   "fps": 8,
   "sourceDirection": "E",
   "directions": [
@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Siren Lured (target state of Siren's Lure, Fear 1 round; frame 0 is the impact): the song washes over the fighter and it freezes, eyes wide; behind it a siren of water rises up out of nothing, a pale water woman with hollow eyes and a wide singing mouth, hair streaming, her tail curling below, and reaches one hand over its shoulder; it jerks round from her touch and shrinks down, knees bent, both arms thrown up over its face; then (looping while the Fear lasts) it cowers and trembles, shaking and edging back and forth, while the siren sways behind it, singing, her hair and tail rippling and dark notes drifting round its head.",
+  "intent": "Siren Lured v2 (target state of Siren's Lure, Fear 1 round; frame 0 is the impact): the song washes over the fighter and it jolts, eyes wide; then the lure takes it: its guard drops slack, eyes half closing, and it sways back toward the song as a siren of glowing water-light fades up behind it, translucent and shimmering, long hair streaming and dissolving into motes, her tail curling into a wide fin, singing with one hand cupped at her lips, the other reaching over its shoulder; then dread breaks in: its eyes snap open, it clamps both hands over its ears and drops to one knee; (looping while the Fear lasts) it cowers there on one knee, hands over its ears, shaking its head and trembling, while the siren sways over it singing and dark notes circle its head.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -107,38 +107,44 @@
     "dy": [
       1,
       1,
+      1,
       2,
-      3,
-      3,
-      3,
-      3,
-      3,
-      3,
-      3
+      9,
+      9,
+      9,
+      9,
+      9,
+      9,
+      9,
+      9
     ],
     "head": [
       1,
       1,
+      1,
       2,
-      3,
-      3,
-      3,
-      3,
-      3,
-      3,
-      3
+      10,
+      10,
+      10,
+      10,
+      10,
+      10,
+      10,
+      10
     ],
     "arms": [
       1,
       1,
-      3,
-      3,
-      3,
-      4,
-      3,
-      4,
-      3,
-      4
+      2,
+      2,
+      10,
+      10,
+      11,
+      10,
+      11,
+      10,
+      11,
+      10
     ]
   },
   "lean": {
@@ -148,6 +154,8 @@
       "pelvis": [
         -1,
         -1,
+        -1,
+        1,
         1,
         1,
         1,
@@ -158,28 +166,38 @@
         1
       ],
       "head": [
+        -3,
         -2,
-        -4,
-        3,
-        4,
-        4,
-        3,
-        4,
-        3,
-        4,
-        3
+        -3,
+        2,
+        7,
+        7,
+        8,
+        6,
+        8,
+        7,
+        8,
+        6
       ]
     }
   },
   "rootMotion": {
-    "rule": "E: -1 recoiling from the siren; loop edges +1 -1 -1 +1 +1 -1 (net 0)",
+    "rule": "E: -1 swaying back toward the song, +1 cowering; loop trembles +1 -1 -1 +1 +1 -1 -1 (net 0)",
     "E": [
       [
         0,
         0
       ],
       [
+        0,
+        0
+      ],
+      [
         -1,
+        0
+      ],
+      [
+        1,
         0
       ],
       [
@@ -187,10 +205,6 @@
         0
       ],
       [
-        0,
-        0
-      ],
-      [
         1,
         0
       ],
@@ -208,6 +222,10 @@
       ],
       [
         1,
+        0
+      ],
+      [
+        -1,
         0
       ],
       [
@@ -221,7 +239,15 @@
         0
       ],
       [
+        0,
+        0
+      ],
+      [
         1,
+        0
+      ],
+      [
+        -1,
         0
       ],
       [
@@ -229,10 +255,6 @@
         0
       ],
       [
-        0,
-        0
-      ],
-      [
         -1,
         0
       ],
@@ -250,6 +272,10 @@
       ],
       [
         -1,
+        0
+      ],
+      [
+        1,
         0
       ],
       [
@@ -1661,26 +1687,30 @@
     "near": [
       1,
       1,
+      1,
       3,
-      3,
-      3,
-      3,
-      3,
-      3,
-      3,
-      3
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50
     ],
     "far": [
       0,
       0,
+      0,
       2,
-      2,
-      2,
-      2,
-      2,
-      2,
-      2,
-      2
+      49,
+      49,
+      49,
+      49,
+      49,
+      49,
+      49,
+      49
     ]
   },
   "arms": {
@@ -1709,81 +1739,98 @@
       },
       {
         "construction": "band",
-        "angle": -100,
+        "angle": -20,
         "elbow": {
           "at": 8,
-          "angle": -160
+          "angle": -40
         }
       },
       {
         "construction": "band",
-        "angle": -130,
+        "angle": -15,
         "elbow": {
           "at": 8,
-          "angle": -170
+          "angle": -30
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -125,
+        "elbow": {
+          "at": 8,
+          "angle": -200
         },
         "fistKind": "palm"
       },
       {
         "construction": "band",
-        "angle": -135,
+        "angle": -125,
         "elbow": {
           "at": 8,
-          "angle": -172
+          "angle": -200
         },
         "fistKind": "palm"
       },
       {
         "construction": "band",
-        "angle": -135,
+        "angle": -125,
         "elbow": {
           "at": 8,
-          "angle": -172
+          "angle": -200
         },
         "fistKind": "palm"
       },
       {
         "construction": "band",
-        "angle": -133,
+        "angle": -125,
         "elbow": {
           "at": 8,
-          "angle": -170
+          "angle": -200
         },
         "fistKind": "palm"
       },
       {
         "construction": "band",
-        "angle": -135,
+        "angle": -125,
         "elbow": {
           "at": 8,
-          "angle": -172
+          "angle": -200
         },
         "fistKind": "palm"
       },
       {
         "construction": "band",
-        "angle": -133,
+        "angle": -125,
         "elbow": {
           "at": 8,
-          "angle": -170
+          "angle": -200
         },
         "fistKind": "palm"
       },
       {
         "construction": "band",
-        "angle": -135,
+        "angle": -125,
         "elbow": {
           "at": 8,
-          "angle": -172
+          "angle": -200
         },
         "fistKind": "palm"
       },
       {
         "construction": "band",
-        "angle": -133,
+        "angle": -125,
         "elbow": {
           "at": 8,
-          "angle": -170
+          "angle": -200
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": -125,
+        "elbow": {
+          "at": 8,
+          "angle": -200
         },
         "fistKind": "palm"
       }
@@ -1799,81 +1846,98 @@
       },
       {
         "construction": "band",
-        "angle": -90,
+        "angle": -15,
         "elbow": {
           "at": 8,
-          "angle": -155
+          "angle": -35
         }
       },
       {
         "construction": "band",
-        "angle": -125,
+        "angle": -10,
         "elbow": {
           "at": 8,
-          "angle": -168
+          "angle": -25
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -120,
+        "elbow": {
+          "at": 8,
+          "angle": -200
         },
         "fistKind": "palm"
       },
       {
         "construction": "band",
-        "angle": -128,
+        "angle": -120,
         "elbow": {
           "at": 8,
-          "angle": -170
+          "angle": -200
         },
         "fistKind": "palm"
       },
       {
         "construction": "band",
-        "angle": -128,
+        "angle": -120,
         "elbow": {
           "at": 8,
-          "angle": -170
+          "angle": -200
         },
         "fistKind": "palm"
       },
       {
         "construction": "band",
-        "angle": -126,
+        "angle": -120,
         "elbow": {
           "at": 8,
-          "angle": -168
+          "angle": -200
         },
         "fistKind": "palm"
       },
       {
         "construction": "band",
-        "angle": -128,
+        "angle": -120,
         "elbow": {
           "at": 8,
-          "angle": -170
+          "angle": -200
         },
         "fistKind": "palm"
       },
       {
         "construction": "band",
-        "angle": -126,
+        "angle": -120,
         "elbow": {
           "at": 8,
-          "angle": -168
+          "angle": -200
         },
         "fistKind": "palm"
       },
       {
         "construction": "band",
-        "angle": -128,
+        "angle": -120,
         "elbow": {
           "at": 8,
-          "angle": -170
+          "angle": -200
         },
         "fistKind": "palm"
       },
       {
         "construction": "band",
-        "angle": -126,
+        "angle": -120,
         "elbow": {
           "at": 8,
-          "angle": -168
+          "angle": -200
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": -120,
+        "elbow": {
+          "at": 8,
+          "angle": -200
         },
         "fistKind": "palm"
       }
@@ -2042,6 +2106,8 @@
       "bandFollowsBody": true,
       "sway": {
         "E": [
+          -1,
+          -1,
           -1,
           -1,
           -1,
@@ -2725,7 +2791,9 @@
         6,
         7,
         8,
-        9
+        9,
+        10,
+        11
       ],
       "fps": 8,
       "next": "guard",
@@ -2786,6 +2854,16 @@
         "frame": 9,
         "clip": "sirenLured",
         "type": "recovery"
+      },
+      {
+        "frame": 10,
+        "clip": "sirenLured",
+        "type": "recovery"
+      },
+      {
+        "frame": 11,
+        "clip": "sirenLured",
+        "type": "recovery"
       }
     ],
     "W": [
@@ -2838,6 +2916,16 @@
       },
       {
         "frame": 9,
+        "clip": "sirenLured",
+        "type": "recovery"
+      },
+      {
+        "frame": 10,
+        "clip": "sirenLured",
+        "type": "recovery"
+      },
+      {
+        "frame": 11,
         "clip": "sirenLured",
         "type": "recovery"
       }
@@ -3000,11 +3088,13 @@
     "frames": {
       "E": [
         "pain",
+        "squint",
+        "closed",
+        "pain",
         "pain",
         "pain",
         "squint",
         "pain",
-        "squint",
         "pain",
         "squint",
         "pain",
@@ -3014,5 +3104,5 @@
     "intent": "eyes squeezed shut with the brow pulled down on the impact frames 0-2 (no mouth: user 2026-10-14), a squint on frame 3, open again from frame 4 (user 2026-10-14)"
   },
   "loop": true,
-  "loopFrom": 4
+  "loopFrom": 5
 }
