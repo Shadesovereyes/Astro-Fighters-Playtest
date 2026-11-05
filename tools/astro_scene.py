@@ -194,7 +194,14 @@ for t in range(n):
     TOP = int((arg('--top', 1) or [0])[0])   # Water Dragon v2: headroom above the fighters so the rearing serpent is not clipped (the testbed has the map above them)
     if TOP:
         c2 = Image.new('RGBA', (CW, 64 + TOP), (0xc8, 0xcd, 0xd7, 255)); c2.alpha_composite(c, (0, TOP)); c = c2
-    if sp_ and t < na: astro.serpent_draw(c, sp_, t, (X0 + 33 + 16, 59 + TOP), (4 + GAP + 30, 37 + TOP))
+    if sp_ and t < na:
+        S_, E_ = (X0 + 33 + 16, 59 + TOP), (4 + GAP + 30, 37 + TOP)
+        if sp_.get('coil'):   # Water Dragon v3: the coil passes behind the caster (drawn only where the caster is not) and in front of it
+            S_ = (X0 + 33 + sp_.get('pool', 16), 62 + TOP)
+            me_ = Image.new('RGBA', (64, 64)); cell(A, ka, 'E', 0, me_, [l for l in LAY if l != 'fx'], who='caster')
+            occ = Image.new('RGBA', c.size); occ.alpha_composite(me_, (xa, TOP))
+            astro.serpent_draw(c, sp_, t, S_, E_, layer='behind', occl=occ); astro.serpent_draw(c, sp_, t, S_, E_, layer='front')
+        else: astro.serpent_draw(c, sp_, t, S_, E_)
     for pr in PR:
         pat, f0, nf, hp = pr[0], int(pr[1]), int(pr[2]), pr[3]; lay = 'far-arm' if len(pr) > 4 and pr[4] == 'farhand' and os.path.exists(os.path.join(anim, A, 'far-arm.png')) else 'arms'
         hx, hy = hand(A, f0, 'E', lay)

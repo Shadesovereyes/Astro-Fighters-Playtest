@@ -5360,6 +5360,150 @@ CLIPS['waterDragonSwallowed'] = ('Water Dragon Swallowed', 0,
                  11: [('wPuddleL', 'feet', 0, -1, _A(_FADE))]}))
 
 
+# Water Dragon v3 (Christopher 2026-11-05 15:38: the dragon needs to look better and swirl round the caster before arcing over to the target): a new look and a new path. Path: the serpent bursts out of the pool in front of the caster, coils 1.5 turns up round the caster's body (passing behind it on the far side, in front of it on the near side) to rear high above it, then arcs over to the target. Look: a proper dragon head drawn analytically at any angle (long snout, hinged jaw with fangs, glowing eye under a brow ridge, branching horns, a mane of fins, two long whiskers), and a scaled tube body (chevron scales, ice ridge, deep belly, dorsal fins every 7 px, shimmering glints), darker where it passes behind the caster.
+def serpent_path3(rec, S, E):   # -> (P(u) -> (x, y, depth, tx, ty), uc): arc-length parametrised; u 0-uc the coil round the caster, uc-1 the arc to the target. S the pool point (rec['pool'] px in front of the caster's feet, on the floor), E the target's chest
+    c = rec['coil']; Cx = S[0] - rec.get('pool', 16); R = c['radius']; H = c['height']; tn = c['turns']
+    ph0 = math.asin(max(-1, min(1, (S[0] - Cx) / R))); pts = []
+    for i in range(301):
+        v = i / 300; ph = ph0 + 2 * math.pi * tn * v
+        pts.append((Cx + R * math.sin(ph) * (1 - 0.25 * v), S[1] - H * v ** 0.85, math.cos(ph)))
+    T = pts[-1]; dx_, dy_ = pts[-1][0] - pts[-6][0], pts[-1][1] - pts[-6][1]; n_ = math.hypot(dx_, dy_) or 1
+    C1 = (T[0] + dx_ / n_ * 30, T[1] + dy_ / n_ * 30 - 10); C2 = (E[0] - 14, E[1] - rec.get('dive', 70))
+    for i in range(1, 301):
+        u = i / 300; d0 = T[2] + (1 - T[2]) * min(1, u / 0.25)
+        pts.append(tuple((1 - u) ** 3 * T[j] + 3 * (1 - u) ** 2 * u * C1[j] + 3 * (1 - u) * u * u * C2[j] + u ** 3 * E[j] for j in (0, 1)) + (d0,))
+    L = [0.0]
+    for a, b in zip(pts, pts[1:]): L.append(L[-1] + math.hypot(b[0] - a[0], b[1] - a[1]))
+    tot = L[-1]; uc = L[300] / tot
+    def P(u):
+        s = max(0.0, min(1.0, u)) * tot; import bisect
+        i = min(len(pts) - 2, max(0, bisect.bisect_right(L, s) - 1)); f = (s - L[i]) / max(1e-6, L[i + 1] - L[i])
+        a, b = pts[i], pts[i + 1]; tx, ty = b[0] - a[0], b[1] - a[1]; m = math.hypot(tx, ty) or 1
+        return (a[0] + (b[0] - a[0]) * f, a[1] + (b[1] - a[1]) * f, a[2] + (b[2] - a[2]) * f, tx / m, ty / m)
+    P.tot = tot
+    return P, uc
+def _seg_d(px, py, ax, ay, bx, by):
+    vx, vy = bx - ax, by - ay; t = max(0, min(1, ((px - ax) * vx + (py - ay) * vy) / (vx * vx + vy * vy or 1)))
+    return math.hypot(px - ax - vx * t, py - ay - vy * t)
+def _in_poly(x, y, poly):
+    ins = False; j = len(poly) - 1
+    for i in range(len(poly)):
+        xi, yi = poly[i]; xj, yj = poly[j]
+        if (yi > y) != (yj > y) and x < (xj - xi) * (y - yi) / (yj - yi) + xi: ins = not ins
+        j = i
+    return ins
+def dragon_head3(lay, cx, cy, tx, ty, jaw, k=0, s=1.25, dark=False):   # the dragon's head at (cx, cy) heading along (tx, ty); jaw 0-1 open; local frame: f forward, n up (screen-upward side)
+    nx, ny = ty, -tx
+    if ny > 0: nx, ny = -nx, -ny
+    hexc = lambda c: tuple(int(NPAL[c][i:i + 2], 16) for i in (1, 3, 5)) + (255,)
+    a = -0.6 * jaw; ca, sa = math.cos(a), math.sin(a)   # opens downward
+    def rj(p):   # the lower jaw rotated open about its hinge (3, -1)
+        f0, n0 = p[0] - 3, p[1] + 1; return (3 + f0 * ca - n0 * sa, -1 + f0 * sa + n0 * ca)
+    upper = [(-2, 5), (4, 5.6), (8, 4.4), (14, 3.0), (18, 2.8), (20, 1.6), (20, -0.6), (4, -0.8), (-2, -1)]
+    lower = [rj(p) for p in [(3, -1), (18, -1), (18, -2.4), (12, -3.4), (4, -4.4), (0, -3.5)]]
+    mouth = [(3, -1), (19, -0.8), rj((18, -1)), rj((4, -1.2))]
+    horns = [((-3, 4.5), (-13, 11)), ((-8, 7.6), (-9, 12)), ((-1, 4), (-11, 7)), ((-6.5, 5.6), (-7, 9))]
+    sway = math.sin(k * 1.1) * 1.5
+    whisk = [[(17, 0.3), (12, -5), (4, -8 + sway), (-6, -9 + sway), (-14, -7 + sway)], [(16, 1.8), (11, 5.5), (2, 9 - sway), (-6, 13 - sway)]]
+    fins = [[(-1, 4.2), (-9, 3 + sway * 0.5), (-4, 1.5)], [(-3, 1), (-12, -1 + sway * 0.5), (-5, -2.2)], [(-2, -2.5), (-9, -6 + sway * 0.5), (-1, -4)]]
+    R = int(22 * s); X0, Y0 = int(cx) - R, int(cy) - R; W_, H_ = lay.size; lp = lay.load(); got = {}
+    for yy in range(2 * R + 1):
+        for xx in range(2 * R + 1):
+            X, Y = X0 + xx, Y0 + yy
+            if not (0 <= X < W_ and 0 <= Y < H_): continue
+            dx, dy = (X - cx) / s, (Y - cy) / s; f = dx * tx + dy * ty; n = dx * nx + dy * ny
+            ch = None
+            if any(_in_poly(f, n, q) for q in fins): ch = 'A' if dark else 'a'
+            for (p, q) in horns:
+                if _seg_d(f, n, p[0], p[1], q[0], q[1]) < 0.9: ch = 'W' if math.hypot(f - q[0], n - q[1]) < 1.6 else 'I'
+            if ((f + 1) / 6.5) ** 2 + (n / 5.2) ** 2 <= 1 or _in_poly(f, n, upper): ch = 'U'
+            if _in_poly(f, n, lower): ch = 'L'
+            if _in_poly(f, n, mouth) and jaw > 0.05: ch = 'M'
+            for wl in whisk:
+                if any(_seg_d(f, n, *wl[i], *wl[i + 1]) < 0.55 for i in range(len(wl) - 1)): ch = ch or 'I'
+            if ch: got[(X, Y)] = (ch, f, n)
+    for (X, Y), (ch, f, n) in got.items():
+        edge = any((X + a_, Y + b_) not in got for a_, b_ in ((1, 0), (-1, 0), (0, 1), (0, -1)))
+        if ch == 'U':
+            c = 'n' if edge else 'I' if n > 3.3 or (n > 1.2 and f > 15) else 'W' if abs(f - 5) < 1.3 and abs(n - 3.4) < 0.8 else 'a'
+            if math.hypot(f - 4.6, n - 2.0) < 0.9: c = 'W'                       # the eye, glowing white
+            elif math.hypot(f - 4.6, n - 2.0) < 1.6: c = 'I'
+            elif math.hypot(f - 16.6, n - 1.9) < 0.6: c = 'n'                    # nostril
+            elif abs(n - 3.9) < 0.6 and 2 < f < 8: c = 'A'                         # brow ridge
+            elif 6 < f < 19 and -0.8 < n < 0.4 and int(f) % 3 == 0: c = 'W'   # upper fangs
+            if dark and c in 'aI': c = {'a': 'A', 'I': 'a'}[c]
+        elif ch == 'L':
+            c = 'n' if edge else 'W' if 6 < f < 18 and int(f) % 3 == 1 and _in_poly(f, n + 0.9, lower) is False else 'A'
+        elif ch == 'M': c = 'n'
+        else: c = 'n' if edge and ch in 'aA' else ch
+        lp[X, Y] = hexc(c)
+def serpent_draw3(img, rec, k, S, E, flip=False, layer='all', occl=None):   # reference drawing of a v3 extra.serpent (coil) for frame k; layer 'behind' (the parts behind the caster, depth < 0; skips pixels where occl, the caster's own silhouette, is drawn), 'front' or 'all'
+    from PIL import Image
+    fr = rec['frames'].get(str(k))
+    if not fr: return
+    uh, ut, jaw = fr[0], fr[1], fr[2] if len(fr) > 2 else 0.5
+    P, uc = serpent_path3(rec, S, E); hexc = lambda c: tuple(int(NPAL[c][i:i + 2], 16) for i in (1, 3, 5)) + (255,)
+    lay = Image.new('RGBA', img.size); lp = lay.load(); Wd, Hd = img.size; G = rec.get('girth', 7.0)
+    uhb = min(uh, 1.0 if uh <= 1 else rec.get('pourStop', 0.9)); tot = P.tot
+    want = (lambda d: d < 0) if layer == 'behind' else (lambda d: d >= 0) if layer == 'front' else (lambda d: True)
+    if uhb > ut:
+        n = max(2, int((uhb - ut) * tot / 0.7)); paint = {}
+        for i in range(n + 1):
+            u = ut + (uhb - ut) * i / n; x, y, d, tx, ty = P(u); w = (u - ut) / max(0.01, min(uh, 1.0) - ut)
+            r = 1.2 + G * max(0.0, min(1.0, w)) ** 0.6 * (1 - 0.25 * max(0, w - 0.9) * 10 if uh <= 1 else 1)
+            if not want(d): continue
+            nx, ny = ty, -tx
+            if ny > 0: nx, ny = -nx, -ny
+            sl = u * tot
+            for yy in range(int(y - r - 1), int(y + r + 2)):
+                for xx in range(int(x - r - 1), int(x + r + 2)):
+                    if 0 <= xx < Wd and 0 <= yy < Hd and (xx - x) ** 2 + (yy - y) ** 2 <= r * r:
+                        paint[(xx, yy)] = (sl, ((xx - x) * nx + (yy - y) * ny) / max(1, r), r, d)
+            if int(sl) % 7 == 0 and r > 3 and int(sl * 10) % 70 < 7:   # dorsal fins along the top side
+                for t in range(1, 5):
+                    for wv in range(-max(0, 2 - t // 2), max(0, 2 - t // 2) + 1):
+                        X, Y = round(x + nx * (r + t) - tx * (t * 0.8) + tx * wv * 0.5), round(y + ny * (r + t) - ty * (t * 0.8) + ty * wv * 0.5)
+                        if 0 <= X < Wd and 0 <= Y < Hd: paint.setdefault((X, Y), (sl, 2.0 if t < 4 else 3.0, r, d))
+        for (X, Y), (sl, dn, r, d) in paint.items():
+            if occl is not None and layer == 'behind' and occl.getpixel((X, Y))[3]: continue
+            edge = any((X + a_, Y + b_) not in paint for a_, b_ in ((1, 0), (-1, 0), (0, 1), (0, -1)))
+            back = d < 0
+            if dn >= 2: c = 'W' if dn >= 3 else ('a' if back else 'I')
+            elif edge: c = 'n'
+            elif dn > 0.6: c = 'a' if back else 'I'
+            elif dn < -0.5: c = 'n' if back else 'A'
+            elif ((sl - abs(dn) * r * 0.9) % 5) < 1.0: c = 'n' if back else 'A'      # chevron scales pointing at the head
+            elif ((sl + 3 * k) % 11) < 1.0 and dn > 0.1: c = 'I' if back else 'W'   # glints running along the back
+            else: c = 'A' if back else 'a'
+            lp[X, Y] = hexc(c)
+        for j in range(0, int((uhb - ut) * tot), 13):   # drops shed off the belly
+            u = ut + j / tot; x, y, d, tx, ty = P(u)
+            if not want(d): continue
+            for q in (4, 7, 11):
+                X, Y = int(x - tx * q * 0.3), int(y + 6 + q + (k % 3))
+                if 0 <= X < Wd and 0 <= Y < Hd and (X, Y) not in paint: lp[X, Y] = hexc('a' if q < 11 else 'I')
+    if uh <= 1.0:
+        x, y, d, tx, ty = P(uh)
+        if want(d): dragon_head3(lay, x + tx * 6, y + ty * 6, tx, ty, jaw, k, rec.get('headScale', 1.25), dark=d < 0)
+    if flip: lay = lay.transpose(Image.FLIP_LEFT_RIGHT)
+    img.alpha_composite(lay)
+_WD2 = CLIPS['waterDragon']; _WX = _WD2[6]
+CLIPS['waterDragon'] = (_WD2[0], 13, _WD2[2].replace('Water Dragon v2 (', 'Water Dragon v3 (').replace('the serpent bursts up out of the pool, horned head rising and rearing high over the caster, jaws opening; it holds both arms overhead, trembling, while the serpent rears and roars over it, then coils back to strike',
+    'the serpent bursts up out of the pool and swirls up round the fighter\'s body, one and a half turns, passing behind it and in front of it as it climbs, horned head rising and rearing high above it, jaws opening; it holds both arms overhead, trembling, while the serpent rears and roars over it, then draws back to strike'),
+  _WD2[3], _WD2[4], _WD2[5],
+  {**_WX, 'extra': {**_WX['extra'], 'serpent': {
+     'rule': 'Water Dragon v3 (Christopher 2026-11-05 15:38: the dragon must look better and swirl round the caster before arcing over to the target). Drawn by the testbed each frame; reference implementation astro.serpent_draw3 (port it). Path (scene px, mirrored for W): S = the pool, pool px in front of the caster\'s feet on the floor; E = the target\'s chest (26 px above its floor). First a coil round the caster: centre x = S.x - pool, angle ph from asin((S.x - centre)/radius) through turns * 360 degrees, x = centre + radius * sin(ph) * (1 - 0.25 v), y = S.y - height * v^0.85 for v 0-1, depth cos(ph) (< 0: behind the caster, drawn behind it and darker; >= 0 in front); then a cubic arc from the coil top T (C1 30 px on along the coil\'s last heading and 10 px up, C2 14 px short of E and dive px above it) to E, its depth easing to front. u is arc length along the whole path (0-1). frames[k] = [uHead, uTail, jaw 0-1]: body = a tube from uTail to min(uHead, 1) (pourStop once uHead > 1), radius 1.2 at the tail growing to 1.2 + girth at the head end; per pixel: outline n, top (dn > 0.6) ice I, belly (dn < -0.5) deep A, chevron scales A every 5 px along, glints W running along the back (+3 px per frame), dorsal fins every 7 px (I, white tips), drops falling off the belly; behind-the-caster parts use the darker set (A body, a top, n scales/belly). Head (dragon_head3, headScale) drawn 6 px ahead of uHead along the heading while uHead <= 1: long snout, hinged lower jaw (jaw opens it), white fangs, glowing white eye under a deep brow, two branching ice horns, a mane of three fins and two long whiskers swaying per frame.',
+     'pool': 16, 'coil': {'radius': 18, 'height': 84, 'turns': 1.5}, 'dive': 70, 'girth': 7, 'headScale': 1.8, 'pourStop': 0.9,
+     'frames': {'3': [0.03, 0.0, 0.2], '4': [0.08, 0.0, 0.2], '5': [0.15, 0.0, 0.4], '6': [0.23, 0.0, 0.5], '7': [0.31, 0.0, 0.8], '8': [0.37, 0.0, 1.0], '9': [0.41, 0.0, 1.0], '10': [0.39, 0.0, 0.6],
+                '11': [0.6, 0.02, 1.0], '12': [0.74, 0.06, 1.0], '13': [1.0, 0.22, 0.1], '14': [1.25, 0.5, 0.0], '15': [1.5, 0.8, 0.0]}}}})
+_WA3 = {k: [it for it in v if not it[0].startswith('wSpout')] for k, v in CLIPS['waterDragon'][6]['anchored'].items()}
+CLIPS['waterDragon'][6]['anchored'] = {k: v for k, v in _WA3.items() if v}   # v3: the serpent's own coil swirls round the caster, so the Tsunami spout is gone
+_sd_v1 = serpent_draw
+def serpent_draw(img, rec, k, S, E, flip=False, layer='all', occl=None):   # dispatch: v3 coil records to serpent_draw3, older records to the v1/v2 drawing (front only)
+    if rec.get('coil'): return serpent_draw3(img, rec, k, S, E, flip, layer, occl)
+    if layer != 'behind': return _sd_v1(img, rec, k, S, E, flip)
+
+
 # ---------- Pisces (Water) genjutsu v1 (part 16, 2026-11-05): Siren's Lure, Escapism ----------
 # Pisces genjutsu are songs: notes of water flow from the singer's mouth and palm to the target (testbed projectile volley, impact-frame rule)
 def _note(n, cols='aIn'):   # a musical note of water: n 1 an eighth note, n 2 two beamed notes; cols = head, highlight, outline

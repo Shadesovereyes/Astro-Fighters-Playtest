@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Water Dragon v2 (Pisces ninjutsu ultimate, Elemental 22, Ranged, Morality Morph: the caster conjures a column of water in the form of a giant sea serpent that swallows the opponent whole; Christopher 2026-11-05: an ultimate): from the guard the fighter makes the seal and sinks low, eyes closing; drops lift off the floor and the floor in front of it pools and churns; a spout of water spirals up round its body as its water aura flares wide; it sweeps both palms up and the serpent bursts up out of the pool, horned head rising and rearing high over the caster, jaws opening; it holds both arms overhead, trembling, while the serpent rears and roars over it, then coils back to strike; the fighter roars and thrusts both palms at the target in a white flash of spray and the serpent lunges, arcing over the field, its thick body pouring after it out of the pool; the head stays clear of the target until the impact frame (13), when the jaws close over it and swallow it whole (the target plays waterDragonSwallowed); the body streams on into the target until the tail is gone and the fighter eases out of the push (spec extra.serpent: the testbed draws the serpent between the two fighters each frame; nothing on the target before impact).",
+  "intent": "Water Dragon v3 (Pisces ninjutsu ultimate, Elemental 22, Ranged, Morality Morph: the caster conjures a column of water in the form of a giant sea serpent that swallows the opponent whole; Christopher 2026-11-05: an ultimate): from the guard the fighter makes the seal and sinks low, eyes closing; drops lift off the floor and the floor in front of it pools and churns; a spout of water spirals up round its body as its water aura flares wide; it sweeps both palms up and the serpent bursts up out of the pool and swirls up round the fighter's body, one and a half turns, passing behind it and in front of it as it climbs, horned head rising and rearing high above it, jaws opening; it holds both arms overhead, trembling, while the serpent rears and roars over it, then draws back to strike; the fighter roars and thrusts both palms at the target in a white flash of spray and the serpent lunges, arcing over the field, its thick body pouring after it out of the pool; the head stays clear of the target until the impact frame (13), when the jaws close over it and swallow it whole (the target plays waterDragonSwallowed); the body streams on into the target until the tail is gone and the fighter eases out of the push (spec extra.serpent: the testbed draws the serpent between the two fighters each frame; nothing on the target before impact).",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -3416,73 +3416,84 @@
     "intent": "eyes squeezed shut with the brow pulled down on the impact frames 0-2 (no mouth: user 2026-10-14), a squint on frame 3, open again from frame 4 (user 2026-10-14)"
   },
   "serpent": {
-    "rule": "Water Dragon v2 (ultimate) (drawn by the testbed between the fighters, like extra.stream): the serpent flies along a quadratic arc from S, 16 px in front of the caster's feet and 4 px above the floor (its pool), through a control point peak px above the midpoint between S and E, to E, the target's chest (26 px above its floor); the head pattern is drawn at 1.5x; frames[k] = [uHead, uTail, jaw]: the body is a tube along the arc from uTail to min(uHead, 1), thin (1.5 px) at the tail and girth + 1.5 px at the head end (girth 8, v1 6), shaded deep-edge outline n, deep belly A, light body a 1 px up, ice ridge I 2 px up, white scale glints along the top and drops falling from the belly; the head (NPAT wdHead<jaw>, facing along the arc, rotated to the arc's tangent) at uHead while uHead <= 1; when uHead > 1 the head is inside the target and only the body is drawn, pouring into it. Reference implementation: astro.serpent_draw()",
-    "peak": 40,
+    "rule": "Water Dragon v3 (Christopher 2026-11-05 15:38: the dragon must look better and swirl round the caster before arcing over to the target). Drawn by the testbed each frame; reference implementation astro.serpent_draw3 (port it). Path (scene px, mirrored for W): S = the pool, pool px in front of the caster's feet on the floor; E = the target's chest (26 px above its floor). First a coil round the caster: centre x = S.x - pool, angle ph from asin((S.x - centre)/radius) through turns * 360 degrees, x = centre + radius * sin(ph) * (1 - 0.25 v), y = S.y - height * v^0.85 for v 0-1, depth cos(ph) (< 0: behind the caster, drawn behind it and darker; >= 0 in front); then a cubic arc from the coil top T (C1 30 px on along the coil's last heading and 10 px up, C2 14 px short of E and dive px above it) to E, its depth easing to front. u is arc length along the whole path (0-1). frames[k] = [uHead, uTail, jaw 0-1]: body = a tube from uTail to min(uHead, 1) (pourStop once uHead > 1), radius 1.2 at the tail growing to 1.2 + girth at the head end; per pixel: outline n, top (dn > 0.6) ice I, belly (dn < -0.5) deep A, chevron scales A every 5 px along, glints W running along the back (+3 px per frame), dorsal fins every 7 px (I, white tips), drops falling off the belly; behind-the-caster parts use the darker set (A body, a top, n scales/belly). Head (dragon_head3, headScale) drawn 6 px ahead of uHead along the heading while uHead <= 1: long snout, hinged lower jaw (jaw opens it), white fangs, glowing white eye under a deep brow, two branching ice horns, a mane of three fins and two long whiskers swaying per frame.",
+    "pool": 16,
+    "coil": {
+      "radius": 18,
+      "height": 84,
+      "turns": 1.5
+    },
+    "dive": 70,
+    "girth": 7,
+    "headScale": 1.8,
+    "pourStop": 0.9,
     "frames": {
-      "4": [
-        0.05,
+      "3": [
+        0.03,
         0.0,
-        1
+        0.2
+      ],
+      "4": [
+        0.08,
+        0.0,
+        0.2
       ],
       "5": [
-        0.12,
+        0.15,
         0.0,
-        1
+        0.4
       ],
       "6": [
-        0.2,
+        0.23,
         0.0,
-        4
+        0.5
       ],
       "7": [
-        0.28,
-        0.0,
-        7
-      ],
-      "8": [
-        0.33,
-        0.0,
-        7
-      ],
-      "9": [
-        0.36,
-        0.0,
-        4
-      ],
-      "10": [
         0.31,
         0.0,
-        7
+        0.8
+      ],
+      "8": [
+        0.37,
+        0.0,
+        1.0
+      ],
+      "9": [
+        0.41,
+        0.0,
+        1.0
+      ],
+      "10": [
+        0.39,
+        0.0,
+        0.6
       ],
       "11": [
-        0.5,
-        0.0,
-        7
+        0.6,
+        0.02,
+        1.0
       ],
       "12": [
-        0.6,
-        0.03,
-        7
+        0.74,
+        0.06,
+        1.0
       ],
       "13": [
         1.0,
-        0.25,
-        1
+        0.22,
+        0.1
       ],
       "14": [
         1.25,
-        0.55,
-        1
+        0.5,
+        0.0
       ],
       "15": [
         1.5,
-        0.82,
-        1
+        0.8,
+        0.0
       ]
-    },
-    "girth": 8,
-    "rear": 110,
-    "rearRule": "v2: the arc is a cubic Bezier from S through C1 (S.x + 4 toward the target, S.y - rear) and C2 (E.x - 8 back toward the caster, min(S.y, E.y) - peak) to E, so the serpent climbs straight up out of the pool and rears high over the caster before it arcs over and dives; once uHead > 1 the body is drawn only to u 0.88 (it pours into the swallowed target)"
+    }
   },
   "targetState": {
     "rule": "Water Dragon v2: on the impact frame (13) and not before, the target plays waterDragonSwallowed once, then its idle",
