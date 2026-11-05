@@ -1656,6 +1656,58 @@
           51
         ],
         "foot": "toe30k"
+      },
+      {
+        "name": "es-sit-lead",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 52,
+        "kneeX": 40,
+        "kneeRow": 48,
+        "ankle": [
+          45,
+          55
+        ],
+        "foot": "pointFwd"
+      },
+      {
+        "name": "es-sit-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 52,
+        "kneeX": 37,
+        "kneeRow": 55,
+        "ankle": [
+          42,
+          56
+        ],
+        "foot": "pointFwd"
+      },
+      {
+        "name": "es-lie-lead",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 53,
+        "kneeX": 40,
+        "kneeRow": 51,
+        "ankle": [
+          46,
+          55
+        ],
+        "foot": "pointFwd"
+      },
+      {
+        "name": "es-lie-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 53,
+        "kneeX": 38,
+        "kneeRow": 55,
+        "ankle": [
+          45,
+          56
+        ],
+        "foot": "pointFwd"
       }
     ],
     "near": [
@@ -3028,12 +3080,12 @@
     ]
   },
   "targetState": {
-    "rule": "Escapism v2: from frame 7, the impact frame, when the first notes reach it (it holds its plain guard before that), the target plays escapismSlept: frames 0-7 once (it yawns, sinks onto one knee, then falls back onto its back asleep), then frames 8-11 on loop while the Sleep lasts, then frame 12 once when it ends (eyes snap open), then getUp, then its idle; if a hit breaks the Sleep frame 12 and getUp play at once; the genjutsu mark (genjutsuAfflicted, recolour genjutsuMark.recolor.water) is drawn over it throughout",
+    "rule": "Escapism v2: from frame 7, the impact frame, when the first notes reach it (it holds its plain guard before that), the target plays escapismSlept: frames 0-9 once (it yawns, sinks onto one knee, sits back, reclines and lies down on its back asleep), then frames 10-13 on loop while the Sleep lasts, then frame 14 once when it ends (eyes snap open), then getUp, then its idle; if a hit breaks the Sleep frame 14 and getUp play at once; the genjutsu mark (genjutsuAfflicted, recolour genjutsuMark.recolor.water) is drawn over it throughout",
     "state": "escapismSlept",
-    "loopFrom": 8,
-    "loopTo": 11,
+    "loopFrom": 10,
+    "loopTo": 13,
     "release": [
-      12
+      14
     ],
     "element": "water",
     "mark": "genjutsuAfflicted",

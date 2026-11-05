@@ -5660,40 +5660,44 @@ CLIPS.update({
                  12: [('wBub1', 'head', 9, -8, _A(_FADE))]})),
 })
 
+U.POSES += [kleg('es-sit-lead', (33, 52), (40, 48), (45, 55), 'pointFwd'), kleg('es-sit-rear', (31, 52), (37, 55), (42, 56), 'pointFwd'),   # Escapism v2.1: sat back off the knee onto the floor, lead knee up, rear leg folded under
+            kleg('es-lie-lead', (33, 53), (40, 51), (46, 55), 'pointFwd'), kleg('es-lie-rear', (31, 53), (38, 55), (45, 56), 'pointFwd')]   # reclining: both legs sliding out along the floor
 # Escapism v2 (Christopher 2026-11-05 15:41: the target falls to a kneel, then falls backwards onto its back for the sleeping animation): the sleep loop is now lying flat on its back (a quarter turn, head away from the facing, like Sonic Swept), arms folded on the chest; when the Sleep ends it wakes and the testbed plays getUp
 _FOLD_N, _FOLD_F = band(-8, -16), band(-4, -12)   # arms lying slack along the body (turned flat with it)
 CLIPS['escapismSlept'] = ('Escapism Slept', 0,
-  'Escapism Slept v2 (target state of Escapism, Sleep 2 rounds; frame 0 is the impact): the lullaby washes over the fighter and its eyes grow heavy; it yawns wide behind one hand, its guard sagging; it nods and sinks down onto one knee (the approved Silica Strike / Atlas\'s Regret kneel), head bowed; then it tips slowly backward off the knee, legs sliding out, and falls onto its back, laid out flat on the floor with a soft splash of water, arms lying slack at its sides, fast asleep; then (looping while the Sleep lasts) it lies there breathing slow and deep, its chest rising and falling, while sleepy Zs of water drift up off it; when the Sleep ends its eyes snap open (frame 12) and the testbed plays getUp.', [
+  'Escapism Slept v2 (target state of Escapism, Sleep 2 rounds; frame 0 is the impact): the lullaby washes over the fighter and its eyes grow heavy; it yawns wide behind one hand, its guard sagging; it nods and sinks down onto one knee (the approved Silica Strike / Atlas\'s Regret kneel), head bowed; then it sits back off the knee onto the floor, lead knee up, then reclines, legs sliding out along the floor, and lowers onto its back (v2.1: three in-between frames, no legs-up pose; it braces on its rear hand as it goes down), laid out flat on the floor with a soft splash of water, arms lying slack at its sides, fast asleep; then (looping while the Sleep lasts) it lies there breathing slow and deep, its chest rising and falling, while sleepy Zs of water drift up off it; when the Sleep ends its eyes snap open (frame 12) and the testbed plays getUp.', [
      g(an=band(-70, -140), af=band(-60, -135), bob=(1, 1, 1), lean=(0, 0)),
      g(an=band(-60, -120), af=band(-55, -150, fistKind='palm'), bob=(1, 1, 1), lean=(-1, -3)),
      g(an=band(-40, -80), af=band(-35, -75), bob=(2, 2, 2), lean=(1, 3)),
      g(an=band(-30, -60), af=band(-25, -55), bob=(5, 5, 5), lean=(1, 5), **BRACE),
      g(an=band(-20, -40), af=band(-15, -35), bob=(9, 10, 10), lean=(1, 7), ln='ss-kneel-rear', lf='ss-kneel-lead'),
-     g(an=band(-30, -60), af=band(-25, -55), bob=(9, 10, 10), lean=(-1, -3), ln='ss-kneel-rear', lf='ss-kneel-lead'),
-     g(an=band(-100, -170), af=band(-110, -175), bob=(0, 0, 0), lean=(-2, -6), ln='sw-up-rear', lf='sw-up-lead'),
+     g(an=band(-25, -50), af=band(-20, -45), bob=(10, 11, 11), lean=(-1, -2), ln='ss-kneel-rear', lf='ss-kneel-lead'),
+     g(an=band(-15, -30), af=band(-35, -70), bob=(10, 11, 11), lean=(-1, -4), ln='es-sit-rear', lf='es-sit-lead'),
+     g(an=band(25, 10), af=band(-40, -70), bob=(11, 12, 13), lean=(-4, -13), ln='es-lie-rear', lf='es-lie-lead'),
+     g(an=band(45, 30), af=band(-60, -90), bob=(12, 13, 15), lean=(-6, -19), ln='es-lie-rear', lf='es-lie-lead'),
      g(an=_FOLD_N, af=_FOLD_F, bob=(0, 0, 0), lean=(0, 0)),
      g(an=_FOLD_N, af=_FOLD_F, bob=(0, 0, 0), lean=(0, 0)),
      g(an=band(-11, -20), af=band(-7, -16), bob=(0, 0, 0), lean=(0, 1)),
      g(an=band(-13, -22), af=band(-9, -18), bob=(0, 0, 0), lean=(0, 1)),
      g(an=band(-11, -20), af=band(-7, -16), bob=(0, 0, 0), lean=(0, 0)),
      g(an=band(-30, -60), af=band(-25, -55), bob=(0, 0, 0), lean=(0, 0))],
-  ['squint', 'roar', 'closed', 'closed', 'closed', 'closed', 'closed', 'closed', 'closed', 'closed', 'closed', 'closed', 'pain'],
+  ['squint', 'roar', 'closed', 'closed', 'closed', 'closed', 'closed', 'closed', 'closed', 'closed', 'closed', 'closed', 'closed', 'closed', 'pain'],
   None,
-  dict(fps=8, rm='E: no travel (it falls back where it knelt; the testbed stands it up with getUp)', invert={k: (1, 90) for k in range(7, 13)},
-       extra={'loop': True, 'loopFrom': 8, 'loopTo': 11, 'release': [12], 'then': 'getUp'},
+  dict(fps=8, rm='E: no travel (it falls back where it knelt; the testbed stands it up with getUp)', invert={k: (1, 90) for k in range(9, 15)},
+       extra={'loop': True, 'loopFrom': 10, 'loopTo': 13, 'release': [14], 'then': 'getUp'},
        anchored={0: [('wLullS2', 'head', 6, 10, _A(_FADE)), ('esNote1', 'head', 4, -2, _A(_FADE))],
                  1: [('esNote1', 'head', -6, -6, _A(_FADE)), ('wBub1', 'head', 8, 4)],
                  2: [('esZ0', 'head', 6, -4, _A(_FADE)), ('wBub1', 'head', -8, -2, _A(_FADE))],
                  3: [('esZ0', 'head', 7, -8), ('esNote1', 'head', -9, -4, _A(_FADE))],
                  4: [('esZ0', 'head', 8, -10, _A(_FADE)), ('esZ1', 'head', 6, -2)],
                  5: [('esZ1', 'head', 8, -6, _A(_FADE))],
-                 7: [('wSplashS', 'feet', -6, -3), ('wRip9', 'feet', -4, -1, _A(_FADE))],
-                 8: [('esZ0', 'head', -14, -6), ('wRip5', 'feet', -4, -1, _A(_FADE))],
-                 9: [('esZ1', 'head', -12, -10), ('esZ0', 'head', -15, -4)],
-                 10: [('esZ1', 'head', -11, -15, _A(_FADE)), ('esZ0', 'head', -13, -8), ('wBub1', 'head', -16, -3)],
-                 11: [('esZ1', 'head', -13, -6), ('esZ0', 'head', -11, -13, _A(_FADE))],
-                 12: [('wBub3', 'head', -14, -6), ('esZ0', 'head', -12, -14, _A(_FADE))]}))
-CLIPS['escapism'][6]['extra']['targetState'].update({'rule': 'Escapism v2: from frame 7, the impact frame, when the first notes reach it (it holds its plain guard before that), the target plays escapismSlept: frames 0-7 once (it yawns, sinks onto one knee, then falls back onto its back asleep), then frames 8-11 on loop while the Sleep lasts, then frame 12 once when it ends (eyes snap open), then getUp, then its idle; if a hit breaks the Sleep frame 12 and getUp play at once; the genjutsu mark (genjutsuAfflicted, recolour genjutsuMark.recolor.water) is drawn over it throughout', 'loopFrom': 8, 'loopTo': 11, 'release': [12], 'then': 'getUp'})
+                 9: [('wSplashS', 'feet', -6, -3), ('wRip9', 'feet', -4, -1, _A(_FADE))],
+                 10: [('esZ0', 'head', -14, -6), ('wRip5', 'feet', -4, -1, _A(_FADE))],
+                 11: [('esZ1', 'head', -12, -10), ('esZ0', 'head', -15, -4)],
+                 12: [('esZ1', 'head', -11, -15, _A(_FADE)), ('esZ0', 'head', -13, -8), ('wBub1', 'head', -16, -3)],
+                 13: [('esZ1', 'head', -13, -6), ('esZ0', 'head', -11, -13, _A(_FADE))],
+                 14: [('wBub3', 'head', -14, -6), ('esZ0', 'head', -12, -14, _A(_FADE))]}))
+CLIPS['escapism'][6]['extra']['targetState'].update({'rule': 'Escapism v2: from frame 7, the impact frame, when the first notes reach it (it holds its plain guard before that), the target plays escapismSlept: frames 0-9 once (it yawns, sinks onto one knee, sits back, reclines and lies down on its back asleep), then frames 10-13 on loop while the Sleep lasts, then frame 14 once when it ends (eyes snap open), then getUp, then its idle; if a hit breaks the Sleep frame 14 and getUp play at once; the genjutsu mark (genjutsuAfflicted, recolour genjutsuMark.recolor.water) is drawn over it throughout', 'loopFrom': 10, 'loopTo': 13, 'release': [14], 'then': 'getUp'})
 
 
 # Siren's Lure v2 (Christopher 2026-11-05 15:40: redevelop the target animation; the siren must be more ethereal and more detailed): an ethereal siren drawn in glowing translucent water-light (soft white glow rim instead of a dark outline, graded see-through body), with a detailed face (closed glowing eye, brow, nose, open singing lips), five long flowing hair strands dissolving into motes, a cupped hand at her lips and a long-fingered hand reaching over the victim's shoulder, a scaled tail curling into a wide translucent fin, mist and motes drifting off her; four sway phases. The victim is first lured (guard drops slack, it sways toward the song), then the siren rises over it and dread takes hold: it clamps both hands over its ears and sinks into a crouch, shaking its head, trembling, while she sings over it.

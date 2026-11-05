@@ -3,7 +3,7 @@
   "body": "male",
   "state": "escapismSlept",
   "status": "CANDIDATE 2026-10-27 (E/W; W mirrors E; S/N to author after approval)",
-  "frames": 13,
+  "frames": 15,
   "fps": 8,
   "sourceDirection": "E",
   "directions": [
@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Escapism Slept v2 (target state of Escapism, Sleep 2 rounds; frame 0 is the impact): the lullaby washes over the fighter and its eyes grow heavy; it yawns wide behind one hand, its guard sagging; it nods and sinks down onto one knee (the approved Silica Strike / Atlas's Regret kneel), head bowed; then it tips slowly backward off the knee, legs sliding out, and falls onto its back, laid out flat on the floor with a soft splash of water, arms lying slack at its sides, fast asleep; then (looping while the Sleep lasts) it lies there breathing slow and deep, its chest rising and falling, while sleepy Zs of water drift up off it; when the Sleep ends its eyes snap open (frame 12) and the testbed plays getUp.",
+  "intent": "Escapism Slept v2 (target state of Escapism, Sleep 2 rounds; frame 0 is the impact): the lullaby washes over the fighter and its eyes grow heavy; it yawns wide behind one hand, its guard sagging; it nods and sinks down onto one knee (the approved Silica Strike / Atlas's Regret kneel), head bowed; then it sits back off the knee onto the floor, lead knee up, then reclines, legs sliding out along the floor, and lowers onto its back (v2.1: three in-between frames, no legs-up pose; it braces on its rear hand as it goes down), laid out flat on the floor with a soft splash of water, arms lying slack at its sides, fast asleep; then (looping while the Sleep lasts) it lies there breathing slow and deep, its chest rising and falling, while sleepy Zs of water drift up off it; when the Sleep ends its eyes snap open (frame 12) and the testbed plays getUp.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -110,8 +110,10 @@
       2,
       5,
       9,
-      9,
-      0,
+      10,
+      10,
+      11,
+      12,
       0,
       0,
       0,
@@ -125,8 +127,10 @@
       2,
       5,
       10,
-      10,
-      0,
+      11,
+      11,
+      12,
+      13,
       0,
       0,
       0,
@@ -140,8 +144,10 @@
       2,
       5,
       10,
-      10,
-      0,
+      11,
+      11,
+      13,
+      15,
       0,
       0,
       0,
@@ -161,7 +167,9 @@
         1,
         1,
         -1,
-        -2,
+        -1,
+        -4,
+        -6,
         0,
         0,
         0,
@@ -175,8 +183,10 @@
         3,
         5,
         7,
-        -3,
-        -6,
+        -2,
+        -4,
+        -13,
+        -19,
         0,
         0,
         1,
@@ -240,9 +250,25 @@
       [
         0,
         0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
       ]
     ],
     "W": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
       [
         0,
         0
@@ -1695,6 +1721,58 @@
           51
         ],
         "foot": "toe30k"
+      },
+      {
+        "name": "es-sit-lead",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 52,
+        "kneeX": 40,
+        "kneeRow": 48,
+        "ankle": [
+          45,
+          55
+        ],
+        "foot": "pointFwd"
+      },
+      {
+        "name": "es-sit-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 52,
+        "kneeX": 37,
+        "kneeRow": 55,
+        "ankle": [
+          42,
+          56
+        ],
+        "foot": "pointFwd"
+      },
+      {
+        "name": "es-lie-lead",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 53,
+        "kneeX": 40,
+        "kneeRow": 51,
+        "ankle": [
+          46,
+          55
+        ],
+        "foot": "pointFwd"
+      },
+      {
+        "name": "es-lie-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 53,
+        "kneeX": 38,
+        "kneeRow": 55,
+        "ankle": [
+          45,
+          56
+        ],
+        "foot": "pointFwd"
       }
     ],
     "near": [
@@ -1704,7 +1782,9 @@
       5,
       50,
       50,
-      80,
+      93,
+      95,
+      95,
       1,
       1,
       1,
@@ -1719,7 +1799,9 @@
       4,
       49,
       49,
-      79,
+      92,
+      94,
+      94,
       0,
       0,
       0,
@@ -1786,18 +1868,34 @@
       },
       {
         "construction": "band",
-        "angle": -30,
+        "angle": -25,
         "elbow": {
           "at": 8,
-          "angle": -60
+          "angle": -50
         }
       },
       {
         "construction": "band",
-        "angle": -100,
+        "angle": -15,
         "elbow": {
           "at": 8,
-          "angle": -170
+          "angle": -30
+        }
+      },
+      {
+        "construction": "band",
+        "angle": 25,
+        "elbow": {
+          "at": 8,
+          "angle": 10
+        }
+      },
+      {
+        "construction": "band",
+        "angle": 45,
+        "elbow": {
+          "at": 8,
+          "angle": 30
         }
       },
       {
@@ -1893,18 +1991,34 @@
       },
       {
         "construction": "band",
-        "angle": -25,
+        "angle": -20,
         "elbow": {
           "at": 8,
-          "angle": -55
+          "angle": -45
         }
       },
       {
         "construction": "band",
-        "angle": -110,
+        "angle": -35,
         "elbow": {
           "at": 8,
-          "angle": -175
+          "angle": -70
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -40,
+        "elbow": {
+          "at": 8,
+          "angle": -70
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -60,
+        "elbow": {
+          "at": 8,
+          "angle": -90
         }
       },
       {
@@ -2120,6 +2234,8 @@
       "bandFollowsBody": true,
       "sway": {
         "E": [
+          -1,
+          -1,
           -1,
           -1,
           -1,
@@ -2809,7 +2925,9 @@
         9,
         10,
         11,
-        12
+        12,
+        13,
+        14
       ],
       "fps": 8,
       "next": "guard",
@@ -2885,6 +3003,16 @@
         "frame": 12,
         "clip": "escapismSlept",
         "type": "recovery"
+      },
+      {
+        "frame": 13,
+        "clip": "escapismSlept",
+        "type": "recovery"
+      },
+      {
+        "frame": 14,
+        "clip": "escapismSlept",
+        "type": "recovery"
       }
     ],
     "W": [
@@ -2952,6 +3080,16 @@
       },
       {
         "frame": 12,
+        "clip": "escapismSlept",
+        "type": "recovery"
+      },
+      {
+        "frame": 13,
+        "clip": "escapismSlept",
+        "type": "recovery"
+      },
+      {
+        "frame": 14,
         "clip": "escapismSlept",
         "type": "recovery"
       }
@@ -3252,16 +3390,18 @@
         "closed",
         "closed",
         "closed",
+        "closed",
+        "closed",
         "pain"
       ]
     },
     "intent": "eyes squeezed shut with the brow pulled down on the impact frames 0-2 (no mouth: user 2026-10-14), a squint on frame 3, open again from frame 4 (user 2026-10-14)"
   },
   "loop": true,
-  "loopFrom": 8,
-  "loopTo": 11,
+  "loopFrom": 10,
+  "loopTo": 13,
   "release": [
-    12
+    14
   ],
   "then": "getUp"
 }
