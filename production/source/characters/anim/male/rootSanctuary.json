@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Root Sanctuary v3 (Taurus ninjutsu ultimate, self buff FORT +20% 2 rounds; Christopher 2026-11-05 22:09: the ultimate treatment): from the guard the fighter makes the seal at the chin and sinks into its knees, eyes closing, as the earth starts to tremble: pebbles shiver on the floor round its feet, hairline cracks run out under them and its earthen aura swells; it braces lower, straining, and the pebbles lift off the floor and float up round it as the aura blazes; then it roars and slams both fists down beside its hips: the floor splits wide open in a long fissure, dust blasts out both ways and the pebbles drop; four gnarled roots burst up out of the split, an outer pair climbing wide either side of the fighter and an inner pair weaving up inside them, root hairs fraying off them,; the roots arch inward and on frame 10 knot shut overhead in a high dome with a crystal-white flash at the crown, teal crystal clusters erupting from the floor at its feet; it stands rooted inside the sanctuary, eyes open and fierce, crystals glinting, then the roots sink back into the split, the crystals crumble and it rises back into the guard (the spec proposes a faint ring of roots at the feet while the buff lasts).",
+  "intent": "Root Sanctuary v4 (Taurus ninjutsu ultimate; Christopher 2026-11-05 22:32: a caster-centred AoE that raises a large root ball, a mini forest, that blocks projectiles and makes everyone inside untargetable from outside its radius; grander fx): the v3 build-up (seal, the earth trembling, pebbles lifting, the aura blazing) and the slam that splits the floor; then, while the fighter rises and throws both palms up with a roar, the testbed raises the grove over the whole zone (extra.zone): gnarled roots burst up out of every hex ring by ring, thick as trunks, and climb and arch inward over the zone until on frame 10 they knot shut into a great root ball, crystal flashing at its crown; saplings and small trees sprout off its shell and round its foot, leaves unfurling, crystal glinting in the bark; it stands for the zone's rounds, swaying faintly, then sinks back into the ground. The fighters inside stay visible through the gaps between the roots.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -114,10 +114,10 @@
       4,
       4,
       4,
-      4,
-      3,
-      3,
-      3,
+      1,
+      0,
+      0,
+      1,
       2,
       1,
       1
@@ -132,10 +132,10 @@
       4,
       4,
       4,
-      4,
-      3,
-      3,
-      3,
+      1,
+      0,
+      0,
+      1,
       2,
       1,
       1
@@ -150,10 +150,10 @@
       4,
       4,
       4,
-      4,
-      3,
-      3,
-      3,
+      1,
+      0,
+      0,
+      1,
       2,
       2,
       2
@@ -191,10 +191,10 @@
         2,
         2,
         2,
-        2,
-        1,
-        1,
-        1,
+        -2,
+        -3,
+        -3,
+        -1,
         2,
         1,
         2
@@ -1799,9 +1799,9 @@
       3,
       3,
       3,
-      3,
-      3,
-      3,
+      1,
+      1,
+      1,
       3,
       1,
       1
@@ -1817,9 +1817,9 @@
       2,
       2,
       2,
-      2,
-      2,
-      2,
+      0,
+      0,
+      0,
       2,
       0,
       0
@@ -1919,35 +1919,39 @@
       },
       {
         "construction": "band",
-        "angle": 50,
+        "angle": -150,
         "elbow": {
           "at": 8,
-          "angle": -20
-        }
+          "angle": -172
+        },
+        "fistKind": "palm"
       },
       {
         "construction": "band",
-        "angle": 50,
+        "angle": -160,
         "elbow": {
           "at": 8,
-          "angle": -20
-        }
+          "angle": -176
+        },
+        "fistKind": "palm"
       },
       {
         "construction": "band",
-        "angle": 50,
+        "angle": -160,
         "elbow": {
           "at": 8,
-          "angle": -20
-        }
+          "angle": -176
+        },
+        "fistKind": "palm"
       },
       {
         "construction": "band",
-        "angle": 50,
+        "angle": -110,
         "elbow": {
           "at": 8,
-          "angle": -20
-        }
+          "angle": -150
+        },
+        "fistKind": "palm"
       },
       {
         "construction": "band",
@@ -2053,35 +2057,39 @@
       },
       {
         "construction": "band",
-        "angle": 40,
+        "angle": -140,
         "elbow": {
           "at": 8,
-          "angle": -15
-        }
+          "angle": -168
+        },
+        "fistKind": "palm"
       },
       {
         "construction": "band",
-        "angle": 40,
+        "angle": -155,
         "elbow": {
           "at": 8,
-          "angle": -15
-        }
+          "angle": -174
+        },
+        "fistKind": "palm"
       },
       {
         "construction": "band",
-        "angle": 40,
+        "angle": -155,
         "elbow": {
           "at": 8,
-          "angle": -15
-        }
+          "angle": -174
+        },
+        "fistKind": "palm"
       },
       {
         "construction": "band",
-        "angle": 40,
+        "angle": -100,
         "elbow": {
           "at": 8,
-          "angle": -15
-        }
+          "angle": -145
+        },
+        "fistKind": "palm"
       },
       {
         "construction": "band",
@@ -3437,9 +3445,9 @@
         "roar",
         "strain",
         "strain",
+        "roar",
+        "roar",
         "strain",
-        "strain",
-        "squint",
         "squint",
         "squint",
         null,
@@ -3448,10 +3456,34 @@
     },
     "intent": "eyes squeezed shut with the brow pulled down on the impact frames 0-2 (no mouth: user 2026-10-14), a squint on frame 3, open again from frame 4 (user 2026-10-14)"
   },
-  "linger": {
-    "rule": "Root Sanctuary (FORT +20% 2 rounds), proposal: while the buff lasts the testbed draws a faint ring of roots on the floor round the fighter (the crack2 floor pattern in soil browns, alpha 150, behind the fighter); clears when the buff ends",
-    "pattern": "crack2",
-    "alpha": 150
+  "zone": {
+    "rule": "Root Sanctuary v4 (Christopher 2026-11-05 22:32): AoE centred on the caster's hex (selfCentered, no aim point), placeholder radius 2 (19 hexes) for 2 rounds, anchored to the hexes it was cast on. While it stands: projectiles cannot pass its edge either way (as Earth Wall), and no fighter outside the radius can target a fighter inside it (inside to inside, and inside to outside, are allowed); the FORT +20% buff applies to the caster as before. Drawing (reference hex-sprites/tools/astro_grove.py): from frame 6 the floor of the zone darkens to soil with roots crawling over it; roots burst up from every hex ring by ring (ring 0 on frame 6, ring 1 on 7, ring 2 on 8), each a thick gnarled strand (dark outline, soil-brown body, lit edge) climbing and arching toward the dome apex over the caster; on frame 10 the canopy closes into a root ball (height about 0.75 of the zone half-width), a crystal-white flash at the crown; from frame 11 saplings and small trees (bark trunks, green-teal canopies with crystal glints) sprout off the shell and round its foot; back half drawn behind the fighters, front strands over them with gaps so the fighters inside stay readable; it sways faintly while it lasts and sinks back into the ground over 0.6 s when the rounds end.",
+    "selfCentered": true,
+    "radius": 2,
+    "rounds": 2,
+    "linger": true,
+    "anchor": "cast hex",
+    "from": 6,
+    "ringFrames": {
+      "0": 6,
+      "1": 7,
+      "2": 8
+    },
+    "closeFrame": 10,
+    "treesFrom": 11,
+    "blocksProjectiles": "all",
+    "untargetableFromOutside": true,
+    "colors": [
+      "#2a1a10",
+      "#8a6236",
+      "#c79a5b",
+      "#e8c99a",
+      "#3a9e8f",
+      "#7fe3d0",
+      "#d9fff6",
+      "#4f7a2a",
+      "#7aa83a"
+    ]
   },
   "aura": {
     "rule": "Runtime aura (Christopher 2026-11-03: all auras follow the outline of the hair): on frame k, when widths[k] > 0, the testbed grows the silhouette of every drawn layer except fx (body, clothing or armour, arms, shoulders, hair or helmet, eyes, weapons) by widths[k] rings of 1 px (4-neighbour / 3x3 max growth); ring 0 in colors[0], the others in colors[1]; the outermost ring only on pixels where (x + y + k) is even (flicker); drawn behind the fighter, only outside its silhouette",

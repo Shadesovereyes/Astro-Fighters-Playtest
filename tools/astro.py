@@ -6270,6 +6270,31 @@ for k_, v_ in (('rootSanctuary', 'v3 ultimate treatment'), ('stalactiteRain', 'v
     APPROVED.pop(k_, None)
 APPROVED['sandstorm'] = 'E/W approved by user 2026-11-05 22:29 (v3 ultimate treatment: 16 frames, towering eyeXL tornado, arms flung wide with a sand flash on frame 10, storm races out over radius 2 via extra.zone ringFrames; W mirrors E); S/N to author'
 
+# ---- Root Sanctuary v4 (Christopher 2026-11-05 22:32: a caster-centred AoE that raises a large root ball / mini forest; it blocks
+# projectiles and fighters inside cannot be targeted from outside; grander fx): the cast keeps v3's build-up and slam; the dome is no
+# longer baked in the cell: from frame 6 the testbed grows the grove over the whole zone (extra.zone, drawn like the storms) ----
+_RS3 = CLIPS['rootSanctuary']; _RS4A = {}
+for k_, v_ in _RS3[6]['anchored'].items():
+    v_ = [a for a in v_ if not a[0].startswith('rs3')]
+    if k_ >= 10: v_ = [a for a in v_ if a[0] not in ('rsFlash', 'rsFlashS')]
+    _RS4A[k_] = v_
+for k_ in (6, 7, 8, 9): _RS4A[k_] = _RS4A[k_] + [('rocks', 'feet', -24 + 6 * (k_ - 6), -20 - 4 * k_), ('dust2', 'feet', 22 - 3 * (k_ - 6), -4)]
+_RS4F = list(_RS3[3])
+_RS4F[9:13] = [g(an=band(-150, -172, fistKind='palm'), af=band(-140, -168, fistKind='palm'), bob=(1, 1, 1), lean=(0, -2), **LOW),   # it rises and throws both palms up: the canopy closes overhead
+               g(an=band(-160, -176, fistKind='palm'), af=band(-155, -174, fistKind='palm'), bob=(0, 0, 0), lean=(0, -3)),
+               g(an=band(-160, -176, fistKind='palm'), af=band(-155, -174, fistKind='palm'), bob=(0, 0, 0), lean=(0, -3)),
+               g(an=band(-110, -150, fistKind='palm'), af=band(-100, -145, fistKind='palm'), bob=(1, 1, 1), lean=(0, -1))]
+_RS4E = list(_RS3[4]); _RS4E[9:13] = ['roar', 'roar', 'strain', 'squint']
+CLIPS['rootSanctuary'] = ('Root Sanctuary', 10,
+  'Root Sanctuary v4 (Taurus ninjutsu ultimate; Christopher 2026-11-05 22:32: a caster-centred AoE that raises a large root ball, a mini forest, that blocks projectiles and makes everyone inside untargetable from outside its radius; grander fx): the v3 build-up (seal, the earth trembling, pebbles lifting, the aura blazing) and the slam that splits the floor; then, while the fighter rises and throws both palms up with a roar, the testbed raises the grove over the whole zone (extra.zone): gnarled roots burst up out of every hex ring by ring, thick as trunks, and climb and arch inward over the zone until on frame 10 they knot shut into a great root ball, crystal flashing at its crown; saplings and small trees sprout off its shell and round its foot, leaves unfurling, crystal glinting in the bark; it stands for the zone\'s rounds, swaying faintly, then sinks back into the ground. The fighters inside stay visible through the gaps between the roots.',
+  _RS4F, _RS4E, _RS3[5],
+  {**_RS3[6], 'anchored': _RS4A,
+   'extra': {'zone': {'rule': 'Root Sanctuary v4 (Christopher 2026-11-05 22:32): AoE centred on the caster\'s hex (selfCentered, no aim point), placeholder radius 2 (19 hexes) for 2 rounds, anchored to the hexes it was cast on. While it stands: projectiles cannot pass its edge either way (as Earth Wall), and no fighter outside the radius can target a fighter inside it (inside to inside, and inside to outside, are allowed); the FORT +20% buff applies to the caster as before. Drawing (reference hex-sprites/tools/astro_grove.py): from frame 6 the floor of the zone darkens to soil with roots crawling over it; roots burst up from every hex ring by ring (ring 0 on frame 6, ring 1 on 7, ring 2 on 8), each a thick gnarled strand (dark outline, soil-brown body, lit edge) climbing and arching toward the dome apex over the caster; on frame 10 the canopy closes into a root ball (height about 0.75 of the zone half-width), a crystal-white flash at the crown; from frame 11 saplings and small trees (bark trunks, green-teal canopies with crystal glints) sprout off the shell and round its foot; back half drawn behind the fighters, front strands over them with gaps so the fighters inside stay readable; it sways faintly while it lasts and sinks back into the ground over 0.6 s when the rounds end.',
+                      'selfCentered': True, 'radius': 2, 'rounds': 2, 'linger': True, 'anchor': 'cast hex', 'from': 6, 'ringFrames': {'0': 6, '1': 7, '2': 8}, 'closeFrame': 10, 'treesFrom': 11,
+                      'blocksProjectiles': 'all', 'untargetableFromOutside': True,
+                      'colors': ['#2a1a10', '#8a6236', '#c79a5b', '#e8c99a', '#3a9e8f', '#7fe3d0', '#d9fff6', '#4f7a2a', '#7aa83a']}}})
+_RS4P = APPROVED.pop('rootSanctuary', None)
+
 def spec(state):
     U.CLIPS[state] = CLIPS[state]
     U.APPROVED[state] = APPROVED.get(state, STAT)
