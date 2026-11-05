@@ -3,7 +3,7 @@
   "body": "male",
   "state": "hiddenMist",
   "status": "CANDIDATE 2026-10-27 (E/W; W mirrors E; S/N to author after approval)",
-  "frames": 11,
+  "frames": 13,
   "fps": 10,
   "sourceDirection": "E",
   "directions": [
@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Hidden Mist (Pisces ninjutsu, Self buff, Stealth 2 rounds: the caster veils itself in mist): from the guard the fighter makes the seal at the chin, eyes closing, and wisps of mist curl up off the floor; it draws a deep breath, then breathes out a long plume of sea mist, sweeping one open palm down and out low and lifting the other high, and the mist rolls out along the floor round it; on the active frame (6) the bank billows up round it to above its head and the fighter fades inside it as it rises back into the guard (spec opacity: the same stealth fade as Shadow Step; extra.mist: the mist is drawn by the testbed, NOT faded, so the bank stays visible where the fighter vanished).",
+  "intent": "Hidden Mist (Pisces ninjutsu, Self buff, Stealth 2 rounds: the caster veils itself in mist): from the guard the fighter makes the seal at the chin, eyes closing, and wisps of mist curl up off the floor; it draws a deep breath, then breathes out a long plume of sea mist, sweeping one open palm down and out low and lifting the other high, and the mist rolls out along the floor round it; on the active frame (6) the bank billows up round it to above its head and the fighter fades inside it as it rises back into the guard; a few frames after it is gone the mist disperses completely, leaving nothing behind (spec opacity: the same stealth fade as Shadow Step; extra.mist: the mist is drawn by the testbed, NOT faded, so the bank stays visible where the fighter vanished).",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -115,6 +115,8 @@
       2,
       1,
       1,
+      1,
+      1,
       1
     ],
     "head": [
@@ -126,6 +128,8 @@
       3,
       3,
       2,
+      1,
+      1,
       1,
       1,
       1
@@ -140,6 +144,8 @@
       3,
       2,
       1,
+      2,
+      2,
       2,
       2
     ]
@@ -159,6 +165,8 @@
         0,
         0,
         0,
+        0,
+        0,
         0
       ],
       "head": [
@@ -171,6 +179,8 @@
         2,
         1,
         1,
+        2,
+        2,
         2,
         2
       ]
@@ -222,9 +232,25 @@
       [
         0,
         0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
       ]
     ],
     "W": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
       [
         0,
         0
@@ -1682,6 +1708,8 @@
       1,
       1,
       1,
+      1,
+      1,
       1
     ],
     "far": [
@@ -1692,6 +1720,8 @@
       2,
       2,
       2,
+      0,
+      0,
       0,
       0,
       0,
@@ -1808,6 +1838,22 @@
           "at": 8,
           "angle": 212
         }
+      },
+      {
+        "construction": "band",
+        "angle": -20,
+        "elbow": {
+          "at": 8,
+          "angle": 212
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -20,
+        "elbow": {
+          "at": 8,
+          "angle": 212
+        }
       }
     ],
     "far": [
@@ -1888,6 +1934,22 @@
         "elbow": {
           "at": 8,
           "angle": -110
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -45,
+        "elbow": {
+          "at": 8,
+          "angle": 222
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -45,
+        "elbow": {
+          "at": 8,
+          "angle": 222
         }
       },
       {
@@ -2071,6 +2133,8 @@
       "bandFollowsBody": true,
       "sway": {
         "E": [
+          -1,
+          -1,
           -1,
           -1,
           -1,
@@ -2756,7 +2820,9 @@
         7,
         8,
         9,
-        10
+        10,
+        11,
+        12
       ],
       "fps": 10,
       "next": "guard",
@@ -2822,6 +2888,16 @@
         "frame": 10,
         "clip": "hiddenMist",
         "type": "recovery"
+      },
+      {
+        "frame": 11,
+        "clip": "hiddenMist",
+        "type": "recovery"
+      },
+      {
+        "frame": 12,
+        "clip": "hiddenMist",
+        "type": "recovery"
       }
     ],
     "W": [
@@ -2881,6 +2957,16 @@
         "frame": 10,
         "clip": "hiddenMist",
         "type": "recovery"
+      },
+      {
+        "frame": 11,
+        "clip": "hiddenMist",
+        "type": "recovery"
+      },
+      {
+        "frame": 12,
+        "clip": "hiddenMist",
+        "type": "recovery"
       }
     ]
   },
@@ -2897,6 +2983,8 @@
       0.65,
       0.5,
       0.4,
+      0.4,
+      0.4,
       0.4
     ],
     "others": [
@@ -2909,6 +2997,8 @@
       0.6,
       0.3,
       0.1,
+      0,
+      0,
       0,
       0
     ]
@@ -3079,14 +3169,16 @@
         "squint",
         null,
         null,
+        null,
+        null,
         null
       ]
     },
     "intent": "eyes squeezed shut with the brow pulled down on the impact frames 0-2 (no mouth: user 2026-10-14), a squint on frame 3, open again from frame 4 (user 2026-10-14)"
   },
   "mist": {
-    "rule": "Hidden Mist v1: the mist bank is drawn by the testbed over the fighter's tile (patterns centred at dx, dy from the middle of the tile's floor, at the given alpha table) and is NOT multiplied by the stealth opacity, so it stays where the fighter vanished; the clip also bakes it into fx for previews. Proposal: after the clip a thin bank (mMistLinger, the faint alpha) lingers on the caster's tile while the Stealth lasts and drifts 1 px each frame, and thins out when Stealth ends",
-    "linger": "mMistLinger"
+    "rule": "Hidden Mist v1: the mist bank is drawn by the testbed over the fighter's tile (patterns centred at dx, dy from the middle of the tile's floor, at the given alpha table) and is NOT multiplied by the stealth opacity, so it stays where the fighter vanished; the clip also bakes it into fx for previews. The mist does NOT linger (Christopher 2026-11-05 15:20): the fighter is gone for opponents from frame 9, the bank thins over frames 9-11 and is gone by frame 12; after the clip only the Stealth fade remains",
+    "linger": false
   },
   "aura": {
     "rule": "Runtime aura (Christopher 2026-11-03: all auras follow the outline of the hair): on frame k, when widths[k] > 0, the testbed grows the silhouette of every drawn layer except fx (body, clothing or armour, arms, shoulders, hair or helmet, eyes, weapons) by widths[k] rings of 1 px (4-neighbour / 3x3 max growth); ring 0 in colors[0], the others in colors[1]; the outermost ring only on pixels where (x + y + k) is even (flicker); drawn behind the fighter, only outside its silhouette",
@@ -3099,6 +3191,8 @@
       2,
       2,
       1,
+      0,
+      0,
       0,
       0,
       0

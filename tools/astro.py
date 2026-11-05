@@ -5135,7 +5135,7 @@ NPAT.update({'mMistPuff': _mistPuff(0), 'mMistPuffL': _mistPuff(1),
 _MA = _A({'W': 160, 'I': 135, 'a': 120})   # the mist is see-through
 _MA2 = _A({'W': 110, 'I': 95, 'a': 70})
 CLIPS['hiddenMist'] = ('Hidden Mist', 6,
-  'Hidden Mist (Pisces ninjutsu, Self buff, Stealth 2 rounds: the caster veils itself in mist): from the guard the fighter makes the seal at the chin, eyes closing, and wisps of mist curl up off the floor; it draws a deep breath, then breathes out a long plume of sea mist, sweeping one open palm down and out low and lifting the other high, and the mist rolls out along the floor round it; on the active frame (6) the bank billows up round it to above its head and the fighter fades inside it as it rises back into the guard (spec opacity: the same stealth fade as Shadow Step; extra.mist: the mist is drawn by the testbed, NOT faded, so the bank stays visible where the fighter vanished).', [
+  'Hidden Mist (Pisces ninjutsu, Self buff, Stealth 2 rounds: the caster veils itself in mist): from the guard the fighter makes the seal at the chin, eyes closing, and wisps of mist curl up off the floor; it draws a deep breath, then breathes out a long plume of sea mist, sweeping one open palm down and out low and lifting the other high, and the mist rolls out along the floor round it; on the active frame (6) the bank billows up round it to above its head and the fighter fades inside it as it rises back into the guard; a few frames after it is gone the mist disperses completely, leaving nothing behind (spec opacity: the same stealth fade as Shadow Step; extra.mist: the mist is drawn by the testbed, NOT faded, so the bank stays visible where the fighter vanished).', [
      g(),
      g(an=U.SEAL_N, af=U.SEAL_F, bob=(1, 1, 1), lean=(0, 0)),
      g(an=U.SEAL_N, af=U.SEAL_F, bob=(1, 1, 2), lean=(0, 0)),
@@ -5146,13 +5146,15 @@ CLIPS['hiddenMist'] = ('Hidden Mist', 6,
      g(an=band(-30, -80, fistKind='palm'), af=band(-25, -75, fistKind='palm'), bob=(2, 2, 2), lean=(0, 1)),
      g(an=band(-45, -110), af=band(-40, -110), bob=(1, 1, 1), lean=(0, 1)),
      g(),
+     g(),
+     g(),
      g()],
-  [None, 'squint', 'closed', 'closed', 'closed', 'squint', 'squint', 'squint', None, None, None],
-  [0, 1, 1, 1, 2, 2, 2, 1, 0, 0, 0],
+  [None, 'squint', 'closed', 'closed', 'closed', 'squint', 'squint', 'squint', None, None, None, None, None],
+  [0, 1, 1, 1, 2, 2, 2, 1, 0, 0, 0, 0, 0],
   dict(fps=10, auraColors=_WAURA,
        opacity={'rule': 'Hidden Mist: the fighter fades into the mist into Stealth 2 rounds. Multiply the whole composited fighter (every layer and its aura; NOT the mist, extra.mist) by self[k] for its own side and others[k] for any other viewer; after the clip the Stealth state holds the last value (self 0.4, others 0) until Stealth ends',
-                'self': [1, 1, 1, 1, 1, 1, 0.85, 0.65, 0.5, 0.4, 0.4], 'others': [1, 1, 1, 1, 1, 1, 0.6, 0.3, 0.1, 0, 0]},
-       extra={'mist': {'rule': 'Hidden Mist v1: the mist bank is drawn by the testbed over the fighter\'s tile (patterns centred at dx, dy from the middle of the tile\'s floor, at the given alpha table) and is NOT multiplied by the stealth opacity, so it stays where the fighter vanished; the clip also bakes it into fx for previews. Proposal: after the clip a thin bank (mMistLinger, the faint alpha) lingers on the caster\'s tile while the Stealth lasts and drifts 1 px each frame, and thins out when Stealth ends', 'linger': 'mMistLinger'}},
+                'self': [1, 1, 1, 1, 1, 1, 0.85, 0.65, 0.5, 0.4, 0.4, 0.4, 0.4], 'others': [1, 1, 1, 1, 1, 1, 0.6, 0.3, 0.1, 0, 0, 0, 0]},
+       extra={'mist': {'rule': 'Hidden Mist v1: the mist bank is drawn by the testbed over the fighter\'s tile (patterns centred at dx, dy from the middle of the tile\'s floor, at the given alpha table) and is NOT multiplied by the stealth opacity, so it stays where the fighter vanished; the clip also bakes it into fx for previews. The mist does NOT linger (Christopher 2026-11-05 15:20): the fighter is gone for opponents from frame 9, the bank thins over frames 9-11 and is gone by frame 12; after the clip only the Stealth fade remains', 'linger': False}},
        anchored={1: [('mMistS', 'feet', 0, -3, _MA2)], 2: [('mMistS', 'feet', -6, -4, _MA2), ('mMistS', 'feet', 7, -3, _MA2)],
                  3: [('mMistLow', 'cell', 0, -7, _MA2)],
                  4: [('mMistLow', 'cell', 0, -7, _MA), ('mMistPuff', 'eye', 5, 3, _MA)],
@@ -5161,7 +5163,8 @@ CLIPS['hiddenMist'] = ('Hidden Mist', 6,
                  7: [('mMist1', 'cell', 0, -29, _MA), ('mMistLow2', 'cell', 0, -9, _MA)],
                  8: [('mMist2', 'cell', 0, -30, _MA)],
                  9: [('mMist0', 'cell', 1, -29, _MA)],
-                 10: [('mMistLinger', 'cell', 2, -14, _MA2)]}))
+                 10: [('mMist1', 'cell', 2, -30, _MA2)],
+                 11: [('mMistLinger', 'cell', 3, -16, _MA2), ('mMistS', 'cell', -12, -40, _MA2)]}))
 
 def spec(state):
     U.CLIPS[state] = CLIPS[state]
