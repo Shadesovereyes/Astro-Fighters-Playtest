@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "stalactiteRain",
-  "status": "CANDIDATE 2026-10-27 (E/W; W mirrors E; S/N to author after approval)",
+  "status": "E/W approved by user 2026-11-05 23:03 (v3.2 ultimate treatment: 16 frames, intense charge-up with blazing aura, crack ring and spiralling shards, a stream of 18 stalactites rising behind the caster frames 4-12 through a glowing split, crystal-white flash as they are hurled up; next round they rain over radius 3 via extra.rain, caster plays stalactiteRainRelease, aeca171e; W mirrors E); S/N to author",
   "frames": 16,
   "fps": 10,
   "sourceDirection": "E",

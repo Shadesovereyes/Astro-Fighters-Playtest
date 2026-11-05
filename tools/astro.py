@@ -6323,6 +6323,9 @@ CLIPS['stalactiteRainRelease'] = ('Stalactite Rain Release', 1,
   dict(fps=10, auraColors=_SRR[6]['auraColors'], rm='E: +1 into the throw, -1 settling back',
        anchored={1: [('srFlash', 'hand', 0, -4), ('srRing', 'hand', 0, -2)], 2: [('srFlashS', 'hand', 2, -2), ('gemSpark', 'hand', 6, -6)], 3: [('gemSpark', 'hand', 2, -3), ('glit', 'hand', -4, 4)], 4: [('cryst', 'hand', 3, -2)]}))
 _SRX = _SRR[6]['extra']; _SRX['rain'] = {**_SRX['rain'], 'rule': _SRX['rain']['rule'].replace('on the eruption round the caster replays frames 9-12 (the hurl)', 'on the eruption round the caster plays stalactiteRainRelease (the hurl without the rising spears; Christopher 2026-11-05 22:37), and the rain starts on its frame 2'), 'release': 'stalactiteRainRelease', 'startFrame': 2}
+APPROVED['stalactiteRain'] = 'E/W approved by user 2026-11-05 23:03 (v3.2 ultimate treatment: 16 frames, intense charge-up with blazing aura, crack ring and spiralling shards, a stream of 18 stalactites rising behind the caster frames 4-12 through a glowing split, crystal-white flash as they are hurled up; next round they rain over radius 3 via extra.rain, caster plays stalactiteRainRelease, aeca171e; W mirrors E); S/N to author'
+APPROVED['stalactiteRainRelease'] = 'E/W approved by user 2026-11-05 23:03 (v3.2 eruption-round hurl, palms flash and drive down at the zone, no rising spears, aeca171e; W mirrors E); S/N to author'
+APPROVED['stalactiteImpaled'] = 'E/W approved by user 2026-10-30 (v2 spears rain down at a slant in two volleys, stick, shatter into rubble, 127e2eb5); re-confirmed with Stalactite Rain v3.2 2026-11-05 23:03; W mirrors E; S/N to author'
 
 def spec(state):
     U.CLIPS[state] = CLIPS[state]
