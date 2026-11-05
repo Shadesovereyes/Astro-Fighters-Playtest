@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "betrayed",
-  "status": "CANDIDATE 2026-10-27 (E/W; W mirrors E; S/N CANDIDATE 2026-10-21 (v1))",
+  "status": "E/W approved by user 2026-11-05 14:59 (v2.1 the target's own eyeless shadow silhouette, drawn at runtime (extra.shadowDouble), stabs its back three times with a shadow knife; it turns round in shock through S (frames 8, 11; awayFrames 9-10) and back; trembling loop from 13, 090c014; W mirrors E); S/N CANDIDATE 2026-10-21 (v1)",
   "frames": 16,
   "fps": 10,
   "sourceDirection": "E",
