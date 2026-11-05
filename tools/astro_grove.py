@@ -1,4 +1,4 @@
-"""Root Sanctuary v5 zone preview (v5 22:50: more roots, fewer trees) (Christopher 2026-11-05 22:32: a caster-centred AoE that raises a large root ball / mini forest,
+"""Root Sanctuary v6 zone preview (v5 22:50: more roots, fewer trees; v6 23:03: no trees) (Christopher 2026-11-05 22:32: a caster-centred AoE that raises a large root ball / mini forest,
 blocking projectiles, fighters inside untargetable from outside): a wide scene on a faint hex underlay (testbed hexStep 34, pointy
 hexes, rows squashed by half), the caster on the centre hex facing E, an ally inside on hex 1 west, a foe outside on hex 4 east.
 From zone.from the soil spreads and roots burst up ring by ring (zone.ringFrames), climb and arch inward and knot shut into a root
@@ -35,11 +35,7 @@ STR += [(rnd.uniform(0, 2 * math.pi), rnd.uniform(0.7, 0.86), rnd.uniform(3.5, 7
 INNER = [(rnd.uniform(0, 2 * math.pi), math.sqrt(rnd.random()) * (R - HW * 0.4), rnd.uniform(12, 34), rnd.uniform(2.5, 5)) for _ in range(44)]
 BUTT = [(2 * math.pi * i / 22 + rnd.uniform(-0.1, 0.1), rnd.uniform(0.45, 0.9), rnd.uniform(6, 10), rnd.uniform(14, 24)) for i in range(22)]   # buttress roots flaring out over the ground round the foot
 CRAWL = [(rnd.uniform(0, 2 * math.pi), rnd.uniform(0.9, 1.5), rnd.uniform(0, 6)) for _ in range(26)]   # surface roots snaking outward past the rim
-TREES = []
-for i in range(4):   # v5: 4 small trees (was 26): two on the crown, two at the foot
-    top = i < 2
-    th = (math.pi * 1.35 if i == 0 else math.pi * 1.68) if top else (math.pi * 0.9 if i == 2 else math.pi * 2.08); s = 0.7 if top else 0.0
-    TREES.append((th, s, rnd.uniform(12, 16) if top else rnd.uniform(14, 18), rnd.uniform(8, 10) if top else rnd.uniform(7, 9), TF + 1 + rnd.randrange(3)))
+TREES = []   # v6 (Christopher 23:03 "no trees for root sanctuary"): roots only
 TREES.sort(key=lambda T: (T[1] == 0 and math.sin(T[0]) > 0, -T[1]))   # crown first, then the far foot ring; the near foot ring last (in front)
 GLINT = [(rnd.randrange(NS), rnd.uniform(0.15, 0.9), rnd.randrange(6)) for _ in range(22)]
 def grow(t):   # how far the rim roots have climbed (1 = knotted at the apex)
