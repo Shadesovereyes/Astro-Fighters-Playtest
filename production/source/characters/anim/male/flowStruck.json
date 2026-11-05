@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Flow Struck (target state of Flow Strike, plays once; frame 0 is the impact): the fist lands on the chin past its guard, which never moves: its head snaps back, a splash bursts off its chin and a ripple of water runs straight through its body and out of its back; it staggers a step with the guard still up, shakes its head and resets.",
+  "intent": "Flow Struck v2 (dramatic impact fx; target state of Flow Strike, plays once; frame 0 is the impact): the fist lands on the chin past its guard, which never moves: its head snaps back, a splash bursts off its chin and a ripple of water runs straight through its body and out of its back; it staggers a step with the guard still up, shakes its head and resets.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",

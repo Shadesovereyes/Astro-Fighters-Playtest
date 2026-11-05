@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Flow Strike (Pisces taijutsu, True 14, Melee, bypasses poise and mitigation: the fighter throws a strike that evades the opponent's defences by being hard to track): from the guard the fighter ripples, its weight rolling one way then the other like water, the lead hand snaking in an S, a ribbon of water following its path; it dips under the line of the guard and the rear fist flows up through the gap like water through cupped hands, landing on the chin on the impact frame (5) in a splash and a ripple that passes straight through the target; the target's guard never moves (flowStruck); the fighter flows back out into the guard.",
+  "intent": "Flow Strike v2 (dramatic impact fx; Pisces taijutsu, True 14, Melee, bypasses poise and mitigation: the fighter throws a strike that evades the opponent's defences by being hard to track): from the guard the fighter ripples, its weight rolling one way then the other like water, the lead hand snaking in an S, a ribbon of water following its path; it dips under the line of the guard and the rear fist flows up through the gap like water through cupped hands, landing on the chin on the impact frame (5) in a splash and a ripple that passes straight through the target; the target's guard never moves (flowStruck); the fighter flows back out into the guard.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
