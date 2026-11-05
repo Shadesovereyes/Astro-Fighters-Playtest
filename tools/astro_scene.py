@@ -221,6 +221,9 @@ for t in range(n):
     zn_ = sa.get('zone') if tg else None
     if zn_ and zn_.get('centre') == 'target' and 0 <= t - zn_['impactFrame'] < zn_.get('blastFrames', 7):
         astro.soul_blast(c, 4 + GAP + 32, 62 + TOP, int((arg('--zonePx', 1) or [44])[0]), t - zn_['impactFrame'])
+    zb_ = spec(B).get('zone') if tg else None   # Soulfire Bomb v1: the explosion centred on the bearer (the target state carries the zone)
+    if zb_ and zb_.get('centre') == 'bearer' and 0 <= t - hit - zb_['impactFrame'] < zb_.get('blastFrames', 7):
+        astro.soul_blast(c, 4 + GAP + 32, 62 + TOP, int((arg('--zonePx', 1) or [44])[0]), t - hit - zb_['impactFrame'])
     for pr in PR:
         pat, f0, nf, hp = pr[0], int(pr[1]), int(pr[2]), pr[3]; lay = 'far-arm' if len(pr) > 4 and pr[4] == 'farhand' and os.path.exists(os.path.join(anim, A, 'far-arm.png')) else 'arms'
         hx, hy = hand(A, f0, 'E', lay)
