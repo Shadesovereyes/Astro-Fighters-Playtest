@@ -5788,6 +5788,166 @@ CLIPS['sirenLured'] = ('Siren Lured', 0,
 CLIPS['sirensLure'][6]['extra']['targetState'].update({'rule': "Siren's Lure v2: from frame 7, the impact frame, when the first notes reach it (it holds its plain guard before that), the target plays sirenLured: frames 0-4 once (jolt, lured slack sway as the siren fades up, hands clamp over the ears, drops to one knee), then frames 5-11 on loop while the Fear lasts, then its idle; the genjutsu mark (genjutsuAfflicted, recolour genjutsuMark.recolor.water) is drawn over it throughout", 'loopFrom': 5})
 
 
+# ---------- Sagittarius Ultimate ninjutsu: Soulfire Orb v1 (Christopher 2026-11-05 16:26, canon A12: "something to the effect of a spirit bomb that after one round of charging would detonate an AOE centered on the target. give it a 2 hex radius") ----------
+NPAL.update({'Q': '#c9a0ff'})   # Soulfire Orb: the lilac glow between the white-hot core and the purple body
+def soul_orb(img, cx, cy, r, ph, alpha=255):
+    """The orb the testbed draws at runtime above the caster's raised palms (extra.orb): white-hot core, lilac, purple body,
+    deep-purple rim with black flame licks round it that turn with ph, a few fire flecks; r in px"""
+    import random
+    px = img.load(); W_, H_ = img.size; rnd = random.Random(int(ph * 7) + r)
+    col = lambda ch: tuple(int(NPAL[ch][i:i + 2], 16) for i in (1, 3, 5))
+    def put(x, y, ch, a=alpha):
+        if 0 <= x < W_ and 0 <= y < H_:
+            c = col(ch); b = px[x, y]; t = a / 255
+            px[x, y] = tuple(round(c[i] * t + b[i] * (1 - t)) for i in range(3)) + (max(b[3], a),)
+    R = r + 4
+    for y in range(-R - 3, R + 2):
+        for x in range(-R - 1, R + 2):
+            d = math.hypot(x, y); th = math.atan2(y, x)
+            lick = r + 1.6 + 2.2 * (0.5 + 0.5 * math.sin(5 * th + ph * 1.7)) * (1.3 if y < 0 else 0.7)
+            if d <= r:
+                q = d / max(r, 1)
+                swirl = math.sin(4 * th - ph * 1.3 + q * 6)
+                ch = 'W' if q < 0.28 else 'Q' if q < 0.5 + 0.06 * swirl else 'P' if q < 0.8 + 0.05 * swirl else 'p'
+                put(cx + x, cy + y, ch)
+            elif d <= lick and r >= 3:
+                put(cx + x, cy + y, 'K' if d > r + 1.2 else 'p', 230)
+    for i in range(max(2, r // 3)):   # fire flecks and black embers lifting off the top
+        a = rnd.uniform(-math.pi, 0); dd = r + 3 + rnd.uniform(0, 5)
+        put(round(cx + dd * math.cos(a)), round(cy + dd * math.sin(a)), rnd.choice('OPKY'))
+
+def soul_gather(img, cx, cy, r, k, n=10, reach=46, alpha=230):
+    """Charge: spirit fire drawn in from all around: n small purple wisps streaming along spokes into the orb, each a
+    white-hot head with a purple body and a black tail pointing back out along its spoke"""
+    px = img.load(); W_, H_ = img.size
+    col = lambda ch: tuple(int(NPAL[ch][i:i + 2], 16) for i in (1, 3, 5))
+    for i in range(n):
+        th = 2 * math.pi * i / n + 0.35 * (i % 3); f = ((k * 0.23 + i * 0.37) % 1.0)
+        dd = r + 3 + (1 - f) * reach
+        for j, ch in enumerate('WWQPPPppKK'):   # v1.1: bigger wisps, a 3 px head tapering to a 1 px black tail
+            for w in ((-1, 0, 1) if j < 3 else (0, 1) if j < 6 else (0,)):
+                X = round(cx + (dd + j) * math.cos(th) - w * math.sin(th)); Y = round(cy + ((dd + j) * math.sin(th) + w * math.cos(th)) * 0.8)
+                if 0 <= X < W_ and 0 <= Y < H_:
+                    c = col(ch if w == 0 or j > 1 else 'Q'); b = px[X, Y]; t = alpha / 255
+                    px[X, Y] = tuple(round(c[q] * t + b[q] * (1 - t)) for q in range(3)) + (max(b[3], alpha),)
+
+def soul_blast(img, cx, fy, rx, n, alpha=255):
+    """The detonation the testbed draws over the radius-2 AoE round the target hex (extra.zone): n = frames since the
+    impact. 0 a white flash disc; 1-3 a dome of purple fire swelling out to the zone edge with a black rim and a ring
+    racing along the floor; 4+ the dome breaks up into black smoke and purple embers. rx = the zone's half-width in px"""
+    import random
+    px = img.load(); W_, H_ = img.size; rnd = random.Random(n * 31)
+    col = lambda ch: tuple(int(NPAL[ch][i:i + 2], 16) for i in (1, 3, 5))
+    def put(x, y, ch, a):
+        if 0 <= x < W_ and 0 <= y < H_:
+            c = col(ch); b = px[x, y]; t = a / 255
+            px[x, y] = tuple(round(c[i] * t + b[i] * (1 - t)) for i in range(3)) + (max(b[3], a),)
+    grow = [0.5, 0.75, 0.95, 1.0, 1.0, 1.0, 1.0][min(n, 6)]; R = rx * grow; Ry = R * 0.85
+    fade = [255, 235, 215, 190, 150, 105, 60][min(n, 6)]
+    for y in range(-round(Ry) - 4, 3):
+        for x in range(-round(R) - 4, round(R) + 5):
+            e = math.hypot(x / max(R, 1), y / max(Ry, 1))
+            if e > 1.08: continue
+            if n == 0: ch, a = ('W' if e < 0.75 else 'Q'), 235
+            elif n <= 3:   # v1.1: a see-through dome (the fighters inside stay readable), its shell bright and its rim black
+                sh = 0.5 + 0.5 * math.sin(7 * math.atan2(y, x) + 2.1 * n + e * 9)   # flame bands swirling round the dome
+                if e < 0.3 - 0.06 * n: ch, a = 'W', 200
+                elif e < 0.78: ch, a = ('Q' if sh > 0.55 else 'P'), 95 + 20 * (3 - n)
+                elif e < 0.9: ch, a = ('P' if sh > 0.4 else 'p'), 210
+                elif e < 1.0: ch, a = 'p', 230
+                else: ch, a = 'K', 230
+                if 0.55 < e < 0.98 and ((x * 7 + y * 13 + n * 5) % 23) == 0: ch, a = 'K', 220   # black flames through the shell
+            else:   # v1.1: clumped black smoke and purple embers rising off the zone as the dome breaks up
+                bx, by = (x + 64) // 3, (y - 2 * (n - 3) + 64) // 3
+                h_ = random.Random(bx * 1009 + by * 31 + n * 7).randrange(1024)
+                if h_ > 330 - 60 * (n - 4) or e < 0.35: continue
+                ch, a = ('K' if h_ % 3 else 'p'), 200
+            put(cx + x, fy + y, ch, min(a, fade) if n >= 4 else a)
+    if 1 <= n <= 5:   # the shock ring racing along the floor out to the zone edge and past it
+        Rr = rx * min(1.15, 0.5 + 0.22 * n)
+        for t in range(0, 360, 2):
+            a = math.radians(t); X = round(cx + Rr * math.cos(a)); Y = round(fy + Rr * 0.18 * math.sin(a))
+            put(X, Y, 'Q' if t % 6 else 'W', fade)
+    for i in range(6 + 3 * min(n, 4)):   # embers and fire flecks thrown up
+        a = rnd.uniform(-math.pi, 0); dd = R * rnd.uniform(0.6, 1.25)
+        put(round(cx + dd * math.cos(a)), round(fy + dd * 0.9 * math.sin(a)), rnd.choice('PKOQ'), fade)
+
+_SOV_N, _SOV_F = band(-162, -176, fistKind='palm'), band(-156, -173, fistKind='palm')   # both palms raised over the head, holding the orb up
+_SAG_AURA = ('#9b45ff', '#1c1024')
+CLIPS['soulfireOrbCharge'] = ('Soulfire Orb Charge', 4,
+  'Soulfire Orb Charge v1 (charge round of the Sagittarius ninjutsu ultimate Soulfire Orb, canon A12; Christopher 2026-11-05 16:26: a spirit bomb that charges for one round then detonates an AoE of radius 2 centred on the target): from the guard the fighter makes the seal and sinks low, eyes closing, a dark purple aura kindling round it; it opens its arms and lifts both palms high over its head; small purple wisps of spirit fire stream in from all around and pour into a spark above its palms, which swells into a great orb of white-hot, lilac and purple fire ringed with black flames (drawn at runtime from extra.orb, so it is never clipped by the cell); it holds the orb overhead, straining and trembling as it grows, the wisps still pouring in, while the charge lasts.',
+  [g(),
+   g(an=U.SEAL_N, af=U.SEAL_F, bob=(2, 2, 2), lean=(0, 0), **LOW),
+   g(an=U.SEAL_N, af=U.SEAL_F, bob=(3, 3, 3), lean=(0, 1), **LOW),
+   g(an=band(-110, -150, fistKind='palm'), af=band(-100, -145, fistKind='palm'), bob=(2, 2, 2), lean=(0, 0), **LOW),
+   g(an=band(-145, -168, fistKind='palm'), af=band(-138, -165, fistKind='palm'), bob=(1, 1, 1), lean=(0, -1)),
+   g(an=_SOV_N, af=_SOV_F, bob=(1, 1, 1), lean=(0, -1)),
+   g(an=_SOV_N, af=_SOV_F, bob=(1, 1, 1), lean=(0, -2)),
+   g(an=_SOV_N, af=_SOV_F, bob=(2, 2, 2), lean=(0, -2), **LOW),
+   g(an=_SOV_N, af=_SOV_F, bob=(2, 2, 2), lean=(0, -2), **LOW),
+   g(an=_SOV_N, af=_SOV_F, bob=(2, 2, 3), lean=(0, -2), **LOW),
+   g(an=_SOV_N, af=_SOV_F, bob=(3, 3, 3), lean=(0, -2), **LOW),
+   g(an=_SOV_N, af=_SOV_F, bob=(3, 3, 3), lean=(0, -2), **LOW),
+   g(an=_SOV_N, af=_SOV_F, bob=(3, 3, 3), lean=(0, -2), root=(1, 0), **LOW),
+   g(an=_SOV_N, af=_SOV_F, bob=(3, 3, 4), lean=(0, -2), root=(-1, 0), **LOW),
+   g(an=_SOV_N, af=_SOV_F, bob=(3, 3, 3), lean=(0, -2), root=(1, 0), **LOW),
+   g(an=_SOV_N, af=_SOV_F, bob=(3, 3, 4), lean=(0, -2), root=(-1, 0), **LOW)],
+  [None, 'squint', 'closed', 'closed', 'strain', 'strain', 'roar', 'strain', 'strain', 'strain', 'roar', 'strain', 'strain', 'strain', 'roar', 'strain'],
+  [0, 1, 1, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+  dict(fps=10, auraColors=_SAG_AURA, rm='E: +1 -1 trembling under the orb in the loop (net 0)',
+       extra={'loop': True, 'loopFrom': 12,
+              'charge': {'rule': 'Soulfire Orb (ultimate, charge 1 round, canon A12): when it is cast the testbed plays soulfireOrbCharge frames 0-11 once, then frames 12-15 on loop for the rest of the charge round, then soulfireOrb (the release) at the start of the next round', 'then': 'soulfireOrb'},
+              'orb': {'rule': 'Soulfire Orb v1: the testbed draws the orb at runtime (astro.soul_orb) centred dy px above the higher of the two raised palms, radius r px, ph the flame phase; where gather > 0 it also draws gather*10 wisps of spirit fire streaming into it from all around (astro.soul_gather), reach 46 px', 'dy': 'r + 3',
+                      'frames': {'3': {'r': 1, 'gather': 0.4}, '4': {'r': 2, 'gather': 0.6}, '5': {'r': 3, 'gather': 1}, '6': {'r': 5, 'gather': 1}, '7': {'r': 7, 'gather': 1}, '8': {'r': 9, 'gather': 1}, '9': {'r': 11, 'gather': 1}, '10': {'r': 13, 'gather': 1}, '11': {'r': 15, 'gather': 1},
+                                 '12': {'r': 16, 'gather': 1}, '13': {'r': 17, 'gather': 1}, '14': {'r': 16, 'gather': 1}, '15': {'r': 17, 'gather': 1}}}},
+       anchored={1: [('pspark', 'hand', 0, -2)], 2: [('pflame1', 'hand', 0, -4), ('pembers', 'feet', 8, -4)],
+                 3: [('pembers', 'feet', -8, -6), ('pflame1', 'feet', 10, -3)], 5: [('pembers', 'feet', 9, -5)], 7: [('pflame2', 'feet', -10, -3), ('pembers', 'feet', 10, -8)],
+                 9: [('pflame2', 'feet', 11, -3), ('pembers', 'feet', -9, -7)], 11: [('pflame2', 'feet', -11, -3), ('pflame1', 'feet', 12, -2)],
+                 12: [('pembers', 'feet', 9, -6), ('pflame1', 'feet', -12, -2)], 13: [('pflame2', 'feet', 11, -3)], 14: [('pembers', 'feet', -10, -6), ('pflame1', 'feet', 12, -2)], 15: [('pflame2', 'feet', -11, -3)]}))
+CLIPS['soulfireOrb'] = ('Soulfire Orb', 6,
+  'Soulfire Orb v1 (Sagittarius ninjutsu ultimate, charge, Elemental 30, AoE radius 2 centred on the target, target Chakra -20, canon A12): the release, played at the start of the round after soulfireOrbCharge: the fighter holds the blazing orb overhead, hauls it back over its shoulders, then heaves it forward with both arms; the orb sails up and over along an arc and drops onto the target hex (impact frame 6), detonating in a white flash and a dome of purple and black fire that swells out over the whole radius-2 zone with a ring racing along the floor, then breaks into black smoke and embers; the fighter settles into its guard.',
+  [g(an=_SOV_N, af=_SOV_F, bob=(3, 3, 3), lean=(0, -2), **LOW),
+   g(an=band(-172, -182, fistKind='palm'), af=band(-166, -180, fistKind='palm'), bob=(2, 2, 2), lean=(-1, -4), root=(-1, 0)),
+   g(an=band(-112, -118, fistKind='palm'), af=band(-106, -116, fistKind='palm'), bob=(2, 2, 2), lean=(2, 6), root=(2, 0), ln='sp-drive-rear', lf='sp-drive-lead'),
+   g(an=band(-100, -105, fistKind='palm'), af=band(-95, -102, fistKind='palm'), bob=(2, 2, 2), lean=(2, 6), ln='sp-drive-rear', lf='sp-drive-lead'),
+   g(an=band(-95, -100, fistKind='palm'), af=band(-90, -98, fistKind='palm'), bob=(2, 2, 2), lean=(1, 5), ln='sp-drive-rear', lf='sp-drive-lead'),
+   g(an=band(-80, -105, fistKind='palm'), af=band(-75, -100, fistKind='palm'), bob=(2, 2, 2), lean=(1, 4), ln='sp-drive-rear', lf='sp-drive-lead'),
+   g(an=band(-70, -110, fistKind='palm'), af=band(-60, -110), bob=(1, 1, 2), lean=(1, 3)),
+   g(an=band(-55, -120), af=band(-45, -115), bob=(1, 1, 2), lean=(0, 2)),
+   g(an=band(-50, -120), af=band(-40, -110), bob=(1, 1, 1), lean=(0, 1), root=(-1, 0)),
+   g()],
+  ['strain', 'roar', 'roar', 'roar', 'strain', 'squint', 'squint', None, None, None],
+  [3, 3, 3, 2, 2, 2, 1, 1, 0, 0],
+  dict(fps=10, auraColors=_SAG_AURA, rm='E: -1 hauling back, +2 heaving forward, -1 settling back',
+       extra={'charge': {'rule': 'Soulfire Orb: the cast plays soulfireOrbCharge first (its trembling hold loops from frame 12 for the rest of the charge round), then this clip at the start of the next round', 'state': 'soulfireOrbCharge'},
+              'orb': {'rule': 'Soulfire Orb v1 release: frames 0-1 the orb is held over the palms as in the charge (r px, dy r + 3 above the higher palm); from frame 2 it flies (fly = u along the arc, 0 at the palms, 1 on the target hex): the testbed moves it on a parabola from over the palms, peaking arcPx above the higher of the two ends, down onto the floor of the target hex; it is gone from frame 6 (the impact)', 'dy': 'r + 3', 'arcPx': 34,
+                      'frames': {'0': {'r': 17}, '1': {'r': 17}, '2': {'r': 16, 'fly': 0.08}, '3': {'r': 15, 'fly': 0.35}, '4': {'r': 14, 'fly': 0.65}, '5': {'r': 13, 'fly': 0.9}}},
+              'zone': {'rule': 'Soulfire Orb v1 (canon A12): an AoE of radius 2 centred on the target hex (19 hexes). From frame 6, the impact, the testbed draws the detonation over the zone (astro.soul_blast, n = frames since the impact, 0-6, rx = the zone\'s half-width): white flash, a dome of purple and black fire swelling out to the zone edge with a floor ring, then black smoke and embers. Every fighter inside plays soulfireOrbStruck from frame 6', 'centre': 'target', 'radius': 2, 'impactFrame': 6, 'blastFrames': 7},
+              'targetState': {'rule': 'Soulfire Orb: from frame 6, the impact, each fighter in the radius-2 zone plays soulfireOrbStruck once, then its idle (it holds its plain guard before that)', 'state': 'soulfireOrbStruck', 'loopFrom': None, 'element': 'sagittarius'}},
+       anchored={0: [('pembers', 'feet', 9, -6)], 1: [('pflame1', 'feet', -10, -3)], 2: [('pspark', 'hand', 2, -2)], 3: [('pembers', 'hand', 4, -2)]}))
+CLIPS['soulfireOrbStruck'] = ('Soulfire Orb Struck', 0,
+  'Soulfire Orb Struck v1 (target state of the Soulfire Orb ultimate, plays once; frame 0 is the impact): the orb detonates on it: it throws its forearms up over its head as the white flash hits, is crushed down onto one knee under the dome of purple fire, black and purple flames licking up its body as its chakra is torn out of it in blue motes; it shoves itself back up and staggers into its guard.',
+  [g(an=band(-140, -170), af=band(-130, -165), bob=(2, 2, 2), lean=(-1, -2)),
+   g(an=band(-150, -175), af=band(-140, -170), bob=(5, 5, 5), lean=(1, 4), **BRACE),
+   g(an=band(-35, -20), af=band(-150, -170), bob=(10, 11, 11), lean=(2, 10), ln='ss-kneel-rear', lf='ss-kneel-lead'),
+   g(an=band(-35, -20), af=band(-140, -165), bob=(10, 11, 11), lean=(2, 11), ln='ss-kneel-rear', lf='ss-kneel-lead'),
+   g(an=band(-35, -20), af=band(-55, -150, fistKind='palm'), bob=(9, 10, 10), lean=(1, 7), ln='ss-kneel-rear', lf='ss-kneel-lead'),
+   g(an=band(-35, -20), af=band(-55, -150, fistKind='palm'), bob=(10, 11, 11), lean=(2, 9), ln='ss-kneel-rear', lf='ss-kneel-lead'),
+   g(an=band(-30, -100), af=band(-40, -120), bob=(5, 5, 5), lean=(1, 4), **BRACE),
+   g(an=band(-45, -115), af=band(-40, -115), bob=(1, 1, 2), lean=(0, 1), root=(-1, 0)),
+   g()],
+  ['pain', 'pain', 'closed', 'pain', 'strain', 'pain', 'strain', 'squint', None],
+  None,
+  dict(fps=8, rm='E: -1 staggering back into the guard',
+       anchored={0: [('pspark', 'head', 3, -6), ('pembers', 'head', -3, -8)],
+                 1: [('pflame2', 'feet', -7, -4), ('pflame2', 'feet', 8, -3), ('pembers', 'head', 4, -6)],
+                 2: [('pflame2', 'feet', -8, -3), ('pflame2', 'feet', 8, -4), ('pflame1', 'head', -5, 2), ('chakraMote', 'head', 6, -6)],
+                 3: [('pflame2', 'feet', -9, -4), ('pflame1', 'feet', 9, -3), ('pflame1', 'head', 5, 3), ('chakraMote', 'head', -4, -9), ('chakraMote', 'head', 7, -12)],
+                 4: [('pflame1', 'feet', -8, -3), ('pembers', 'head', 3, -8), ('chakraMote', 'head', 2, -14)],
+                 5: [('pembers', 'feet', 8, -6), ('pflame1', 'head', -4, 2)],
+                 6: [('pembers', 'head', 4, -6, {'alpha': {'P': 150, 'K': 150, 'p': 150}})]}))
+NPAT.update({'chakraMote': ['.a.', 'aIa', '.a.']})   # Soulfire Orb: a blue chakra mote torn out of the fighter
+
 def spec(state):
     U.CLIPS[state] = CLIPS[state]
     U.APPROVED[state] = APPROVED.get(state, STAT)

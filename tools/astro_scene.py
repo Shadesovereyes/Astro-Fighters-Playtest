@@ -202,6 +202,25 @@ for t in range(n):
             occ = Image.new('RGBA', c.size); occ.alpha_composite(me_, (xa, TOP))
             astro.serpent_draw(c, sp_, t, S_, E_, layer='behind', occl=occ); astro.serpent_draw(c, sp_, t, S_, E_, layer='front')
         else: astro.serpent_draw(c, sp_, t, S_, E_)
+    ob_ = sa.get('orb')   # Soulfire Orb v1: the testbed's orb over the raised palms, the wisps it gathers, its flight to the target hex
+    if ob_ and t < na and str(ka) in ob_['frames']:
+        fr_ = ob_['frames'][str(ka)]; r_ = fr_['r']; tops = []
+        for lay_n in ('arms', 'far-arm'):
+            pth = os.path.join(anim, A, lay_n + '.png')
+            if not os.path.exists(pth): continue
+            im_ = Image.open(pth).convert('RGBA').load(); row_ = spec(A)['directions'].index('E')
+            tops += [(x, y) for y in range(64) for x in range(64) if im_[ka * 64 + x, row_ * 64 + y][3]]
+        tx_, ty_ = min(tops, key=lambda q: q[1]) if tops else (34, 8)
+        ox, oy = xa + tx_, ty_ - r_ - 3 + TOP
+        if fr_.get('fly') is not None:
+            u = fr_['fly']; ex_, ey_ = 4 + GAP + 32, 56 + TOP; pk = min(oy, ey_) - ob_.get('arcPx', 34)
+            bx = ox + (ex_ - ox) * u; by = (1 - u) ** 2 * oy + 2 * (1 - u) * u * pk + u * u * ey_
+            ox, oy = round(bx), round(by)
+        if fr_.get('gather'): astro.soul_gather(c, ox, oy, r_, t, n=round(10 * fr_['gather']))
+        astro.soul_orb(c, ox, oy, r_, t)
+    zn_ = sa.get('zone') if tg else None
+    if zn_ and zn_.get('centre') == 'target' and 0 <= t - zn_['impactFrame'] < zn_.get('blastFrames', 7):
+        astro.soul_blast(c, 4 + GAP + 32, 62 + TOP, int((arg('--zonePx', 1) or [44])[0]), t - zn_['impactFrame'])
     for pr in PR:
         pat, f0, nf, hp = pr[0], int(pr[1]), int(pr[2]), pr[3]; lay = 'far-arm' if len(pr) > 4 and pr[4] == 'farhand' and os.path.exists(os.path.join(anim, A, 'far-arm.png')) else 'arms'
         hx, hy = hand(A, f0, 'E', lay)
