@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "evasiveSway",
-  "status": "CANDIDATE 2026-10-27 (E/W; W mirrors E; S/N to author after approval)",
+  "status": "E/W approved by user 2026-11-05 15:06 (v2 cloud-hands wave: weight rolls like a swell, open hands circle half a turn apart, water ribbons, two water koi circling the waist, 6336b28; while the buff lasts the testbed plays evasiveSwayIdle; W mirrors E); S/N to author",
   "frames": 13,
   "fps": 8,
   "sourceDirection": "E",
@@ -3149,15 +3149,9 @@
     },
     "intent": "eyes squeezed shut with the brow pulled down on the impact frames 0-2 (no mouth: user 2026-10-14), a squint on frame 3, open again from frame 4 (user 2026-10-14)"
   },
-  "linger": {
-    "rule": "Evasive Sway v1 (proposal): while the AGI buff lasts the testbed keeps the two koi (NPAT pKoi / pKoiB) circling the fighter's waist, half a turn apart, one turn every 8 frames on an ellipse rx 16 ry 4 about 26 px below the top of the head (front half over the fighter swimming toward its facing, far half behind it swimming away)",
-    "patterns": [
-      "pKoi",
-      "pKoiB"
-    ],
-    "rx": 16,
-    "ry": 4,
-    "period": 8
+  "idle": {
+    "rule": "Evasive Sway (Christopher 2026-11-05 15:06): after the clip the fighter plays evasiveSwayIdle on loop while the buff lasts (it replaces the earlier koi-linger proposal: the koi circle in the idle)",
+    "state": "evasiveSwayIdle"
   },
   "aura": {
     "rule": "Runtime aura (Christopher 2026-11-03: all auras follow the outline of the hair): on frame k, when widths[k] > 0, the testbed grows the silhouette of every drawn layer except fx (body, clothing or armour, arms, shoulders, hair or helmet, eyes, weapons) by widths[k] rings of 1 px (4-neighbour / 3x3 max growth); ring 0 in colors[0], the others in colors[1]; the outermost ring only on pixels where (x + y + k) is even (flicker); drawn behind the fighter, only outside its silhouette",
