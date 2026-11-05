@@ -4846,6 +4846,114 @@ CLIPS['betrayed'] = (_BT[0], _BT[1], _BT[2].replace('Betrayed v2 (', 'Betrayed v
   {**_BT[6], 'extra': {**_BT[6]['extra'], 'shadowDouble': {'rule': 'Betrayal v2.1 (Christopher 2026-11-05 14:56: no eyes, the silhouette is the target\'s own): drawn by the testbed, nothing baked. On each listed frame k, take the TARGET\'s own composited sprite (every equipped layer: body, clothing or armour, arms, far arm, shoulders, hair or helmet, weapons; no eyes, no fx) in the source state and frame [src, srcFrame], facing the target\'s own facing, and fill it as a flat shadow: #120d16 inside, #3a2f40 on its 1 px outer edge, no eyes or features; draw it dx px from the target\'s feet along its facing (negative = behind it), only where the target itself is not drawn, at alpha. knife > 0: a shadow knife in the near fist (the arms layer\'s most forward pixel): grip/guard #3a2f40 1 px ahead of the fist, then a blade knife px long running forward (#3a2f40 body, #12-0d16 back row under it, #ffffff cutting edge on the row above, #ffffff tip). Reference implementation: hex-sprites/tools/astro_scene.py shadow_double()'.replace('#12-0d16', '#120d16'),
       'frames': {'0': ['numbingStrike', 0, -21, 120, 0], '1': ['numbingStrike', 1, -21, 225, 7], '2': ['numbingStrike', 5, -29, 235, 5], '3': ['numbingStrike', 1, -21, 235, 7], '4': ['numbingStrike', 5, -29, 235, 5], '5': ['numbingStrike', 1, -21, 235, 7], '6': ['numbingStrike', 5, -29, 240, 5], '7': ['numbingStrike', 1, -21, 130, 7], '14': ['numbingStrike', 0, -21, 70, 0], '15': ['numbingStrike', 0, -21, 45, 0]}}}})
 
+# ---------- Pisces (Water) taijutsu v1 (part 15, 2026-11-05): Evasive Sway, Slide Counter, Flow Strike ----------
+# Pisces colours: water and ice (W, I, a, A, n); the sign's two fish circle the fighter as koi of water
+def _koi(flip=False):   # a small fish of water swimming right: ice-white head, light body, deep fins and a forked tail
+    p = ['...aa...', 'IWaaaA.n', '.IaaaAnn', '...AA..n']
+    return [r[::-1] for r in p] if flip else p
+def _ribbon(L, amp, phase, cols='WIa'):   # a ribbon of flowing water L px long: a sine streak, bright at the head (right), thinning to drops
+    h = 2 * amp + 3; rows = [['.'] * L for _ in range(h)]
+    for x in range(L):
+        y = round(amp + 1 + amp * math.sin(x * 0.45 + phase)); u = x / max(1, L - 1)
+        if u < 0.25 and x % 2: continue
+        rows[y][x] = cols[0] if u > 0.8 else cols[1] if u > 0.45 else cols[2]
+        if u > 0.3 and y + 1 < h: rows[y + 1][x] = 'A' if u < 0.7 else 'a'
+    return [''.join(q) for q in rows]
+NPAT.update({'pKoi': _sq(_koi(), 1.7, 1.7), 'pKoiB': _sq(_koi(True), 1.7, 1.7), **{'pRib%d' % p: _ribbon(16, 3, p * 1.6) for p in range(4)}, **{'pRibL%d' % p: _ribbon(28, 4, p * 1.6) for p in range(4)},
+             'pRibB': _flipx(_ribbon(16, 3, 0)), 'pRibBL': _flipx(_ribbon(28, 4, 1.6)), 'pSlick': _sq(NPAT['wPuddle'], 3.0, 1.2), 'pWakeF': _flipx(NPAT['wWakeL'])})
+def _orbit(k, n=8, rx=16, ry=4, dy=26):   # Evasive Sway: the two koi circling the fighter's waist half a turn apart, one turn every n frames; behind on the far side
+    out = []
+    for i, ph in enumerate((0, 0.5)):
+        a = 2 * math.pi * (k / n + ph); x = round(rx * math.cos(a)); y = dy + round(ry * math.sin(a))
+        nm = 'pKoi' if math.sin(a) > 0 else 'pKoiB'   # front half swims toward the facing, far half away
+        out.append((nm, 'head', x, y, {} if math.sin(a) > 0 else {'behind': True}))
+    return out
+_SW = lambda d: dict(an=band(15 if d < 0 else -35, -30 if d < 0 else -70, fistKind='palm'), af=band(-35 if d < 0 else 10, -70 if d < 0 else -30, fistKind='palm'))
+CLIPS.update({
+ 'evasiveSway': ('Evasive Sway', 3,
+  'Evasive Sway (Pisces taijutsu stance buff, AGI +50% 2 rounds: the fighter focuses its mind to feel formless and fluid like water): from the guard the fighter lets its fists open and its guard melt down low and loose, eyes closing; water wells up round it and two koi of water slip out and circle its waist, half a turn apart (the two fish of Pisces); then it sways from side to side like weed in a current, boneless and easy, open hands trailing ribbons of water; it opens its eyes, still swaying, and settles back into the guard, the koi diving away (the testbed may keep the koi circling while the buff lasts: extra.linger).', [
+     g(),
+     g(an=band(-10, -40, fistKind='palm'), af=band(-20, -50, fistKind='palm'), bob=(1, 1, 2), lean=(0, 0)),
+     g(**_SW(-1), bob=(2, 2, 3), lean=(-1, -6), root=(-2, 0), **LOW),
+     g(an=band(5, -40, fistKind='palm'), af=band(-25, -60, fistKind='palm'), bob=(1, 1, 1), lean=(0, 0)),
+     g(**_SW(1), bob=(2, 2, 3), lean=(1, 7), root=(2, 0), **LOW),
+     g(an=band(-25, -60, fistKind='palm'), af=band(0, -40, fistKind='palm'), bob=(1, 1, 1), lean=(0, 1)),
+     g(**_SW(-1), bob=(2, 2, 3), lean=(-1, -6), root=(-2, 0), **LOW),
+     g(an=band(5, -40, fistKind='palm'), af=band(-25, -60, fistKind='palm'), bob=(1, 1, 1), lean=(0, 0)),
+     g(**_SW(1), bob=(2, 2, 3), lean=(1, 7), root=(2, 0), **LOW),
+     g(an=band(-40, -110), af=band(-50, -120), bob=(2, 2, 2), lean=(0, 2)),
+     g()],
+  [None, 'closed', 'closed', 'closed', 'closed', 'closed', 'closed', 'closed', 'squint', None, None],
+  [0, 1, 1, 2, 1, 2, 1, 2, 1, 1, 0],
+  dict(fps=8, auraColors=_WAURA, rm='sways 2 px back and forward on the beat (net 0)',
+       extra={'linger': {'rule': 'Evasive Sway v1 (proposal): while the AGI buff lasts the testbed keeps the two koi (NPAT pKoi / pKoiB) circling the fighter\'s waist, half a turn apart, one turn every 8 frames on an ellipse rx 16 ry 4 about 26 px below the top of the head (front half over the fighter swimming toward its facing, far half behind it swimming away)', 'patterns': ['pKoi', 'pKoiB'], 'rx': 16, 'ry': 4, 'period': 8}},
+       anchored={1: [('wDrops', 'feet', 0, -6, _A(_FADE)), ('wPuddle', 'feet', 0, -1, _A(_FADE))],
+                 2: _orbit(2) + [('pRibB', 'hand', -9, 2), ('wPuddle', 'feet', 0, -1)],
+                 3: _orbit(3) + [('pRib1', 'farhand', -6, 2, _A(_FADE)), ('wPuddle', 'feet', 0, -1)],
+                 4: _orbit(4) + [('pRibBL', 'hand', -12, 2), ('wPuddle', 'feet', 0, -1)],
+                 5: _orbit(5) + [('pRib2', 'hand', -6, 2, _A(_FADE)), ('wPuddle', 'feet', 0, -1)],
+                 6: _orbit(6) + [('pRibB', 'farhand', -9, 2), ('wPuddle', 'feet', 0, -1)],
+                 7: _orbit(7) + [('pRib3', 'hand', -6, 2, _A(_FADE)), ('wPuddle', 'feet', 0, -1)],
+                 8: _orbit(8) + [('pRibBL', 'hand', -12, 2), ('wPuddle', 'feet', 0, -1)],
+                 9: [('wSplashS', 'head', 12, 28, _A(_FADE)), ('wSplashS', 'head', -12, 28, _A(_FADE)), ('wPuddle', 'feet', 0, -1, _A(_FADE))]})),
+ 'slideCounter': ('Slide Counter', 5,
+  'Slide Counter (Pisces taijutsu stance, counter, +6 m move: the fighter slips aside and repositions): from the guard the fighter drops low and water spreads into a slick under its feet; it slips back across the slick in one long frictionless slide, low and side-on, a wake curling off its lead foot; it plants, sinks into a low counter stance with both open hands out in front, water circling the palms, ready to turn the next attack, then rises into the guard (travel 22 px back; the testbed moves it to the chosen hex and keeps the counter stance hint).', [
+     g(),
+     g(an=band(-40, -110), af=band(-30, -105), bob=(3, 3, 3), lean=(0, 2), **LOW),
+     g(an=band(-30, -100), af=band(-20, -95), bob=(4, 4, 4), lean=(-1, -2), root=(-7, 0), **LOW),
+     g(an=band(-30, -100), af=band(-20, -95), bob=(4, 4, 4), lean=(-1, -3), root=(-8, 0), **LOW),
+     g(an=band(-35, -105), af=band(-25, -100), bob=(4, 4, 4), lean=(-1, -2), root=(-5, 0), **LOW),
+     g(an=band(-60, -100, fistKind='palm'), af=band(-80, -130, fistKind='palm'), bob=(4, 4, 4), lean=(1, 3), root=(-2, 0), **BRACE),
+     g(an=band(-60, -100, fistKind='palm'), af=band(-80, -130, fistKind='palm'), bob=(4, 4, 4), lean=(1, 3), **BRACE),
+     g(an=band(-55, -110), af=band(-45, -115), bob=(2, 2, 2), lean=(0, 1)),
+     g()],
+  [None, 'squint', 'squint', 'squint', 'squint', 'strain', 'squint', None, None],
+  [0, 0, 1, 1, 1, 2, 1, 0, 0],
+  dict(fps=10, auraColors=_WAURA, rm='E: -7 -8 -5 -2 sliding back (travel 22 px back)',
+       anchored={1: [('wPuddle', 'feet', 0, -1), ('wDrops', 'feet', 4, -5, _A(_FADE))],
+                 2: [('pSlick', 'feet', 4, -1), ('pWakeF', 'feet', 12, -3), ('wDrops', 'feet', 14, -8, _A(_FADE))],
+                 3: [('pSlick', 'feet', 6, -1), ('pWakeF', 'feet', 13, -3), ('wSplashS', 'feet', 12, -5)],
+                 4: [('pSlick', 'feet', 4, -1, _A(_FADE)), ('pWakeF', 'feet', 10, -3, _A(_FADE)), ('wDrops', 'feet', 10, -6)],
+                 5: [('wPuddle', 'feet', 0, -1), ('wRing', 'hand', 0, 0), ('wRing', 'farhand', 0, 0, _A(_FADE)), ('wSplashS', 'feet', -5, -4)],
+                 6: [('wPuddle', 'feet', 0, -1, _A(_FADE)), ('wRing2', 'hand', 0, 0, _A(_FADE)), ('wDrops', 'hand', 0, 2, _A(_FADE))]})),
+ 'flowStrike': ('Flow Strike', 5,
+  'Flow Strike (Pisces taijutsu, True 14, Melee, bypasses poise and mitigation: the fighter throws a strike that evades the opponent\'s defences by being hard to track): from the guard the fighter ripples, its weight rolling one way then the other like water, the lead hand snaking in an S, a ribbon of water following its path; it dips under the line of the guard and the rear fist flows up through the gap like water through cupped hands, landing on the chin on the impact frame (5) in a splash and a ripple that passes straight through the target; the target\'s guard never moves (flowStruck); the fighter flows back out into the guard.', [
+     g(),
+     g(af=band(-40, -90), bob=(2, 2, 2), lean=(-1, -3), root=(1, 0), **LOW),
+     g(af=band(-80, -120), bob=(2, 2, 3), lean=(1, 4), root=(1, 0), **LOW),
+     g(af=band(-50, -95), an=band(10, -60), bob=(4, 4, 4), lean=(2, 7), root=(1, 0), ln='sp-load-rear', lf='sp-load-lead'),
+     g(af=band(-50, -110), an=band(-60, -130), bob=(3, 3, 3), lean=(2, 6), root=(1, 0), ln='sp-drive-rear', lf='sp-drive-lead'),
+     g(af=band(-50, -110), an=band(-100, -120), bob=(1, 1, 2), lean=(2, 4), ln='sp-drive-rear', lf='sp-drive-lead'),
+     g(af=band(-50, -110), an=band(-100, -120), bob=(1, 1, 2), lean=(1, 3), ln='sp-drive-rear', lf='sp-drive-lead'),
+     g(an=band(-40, -110), bob=(1, 1, 1), lean=(0, 1), root=(-2, 0)),
+     g(root=(-2, 0)),
+     g()],
+  [None, 'squint', 'squint', 'strain', 'strain', 'roar', 'strain', None, None, None],
+  [0, 1, 1, 1, 2, 2, 1, 0, 0, 0],
+  dict(fps=12, auraColors=_WAURA, farLayer=True, hitbox=[42, 14, 14, 12], damage='heavy', rm='E: +1 +1 +1 +1 flowing in, -2 -2 back (net 0)',
+       extra={'targetState': {'rule': 'Flow Strike: on the impact frame (5, the active frame) and not before, the target plays flowStruck once (its guard stays up: the strike went round it), then its idle', 'state': 'flowStruck'}},
+       anchored={1: [('pRib0', 'farhand', -8, 1, _A(_FADE))],
+                 2: [('pRibL1', 'farhand', -12, 2), ('wDrops', 'farhand', -6, 4, _A(_FADE))],
+                 3: [('pRibL2', 'farhand', -12, 3, _A(_FADE)), ('pRibB', 'hand', -6, 2)],
+                 4: [('pRibL3', 'hand', -12, 3), ('wOrb2', 'hand', 0, 0)],
+                 5: [('wSplashL', 'hand', 6, -2), ('wRing3', 'hand', 4, 0), ('wRing2', 'hand', 2, 0), ('pRibL0', 'hand', -12, 4, _A(_FADE))],
+                 6: [('wDropsL', 'hand', 6, 2, _A(_FADE)), ('wRing3', 'hand', 7, 0, _A(_FADE))]})),
+ 'flowStruck': ('Flow Struck', 0,
+  'Flow Struck (target state of Flow Strike, plays once; frame 0 is the impact): the fist lands on the chin past its guard, which never moves: its head snaps back, a splash bursts off its chin and a ripple of water runs straight through its body and out of its back; it staggers a step with the guard still up, shakes its head and resets.', [
+     g(bob=(1, 1, 1), lean=(-2, -6), root=(-1, 0)),
+     g(bob=(1, 1, 2), lean=(-2, -5), root=(-1, 0)),
+     g(bob=(1, 1, 1), lean=(-1, -3)),
+     g(bob=(1, 1, 1), lean=(0, -1), root=(1, 0)),
+     g(root=(1, 0))],
+  ['pain', 'pain', 'squint', 'squint', None],
+  None,
+  dict(fps=12, rm='E: -1 -1 staggering, +1 +1 resetting (net 0)',
+       anchored={0: [('wSplash', 'head', 5, 6), ('wRip7', 'head', 0, 18), ('iSpark5', 'head', 4, 6)],
+                 1: [('wRip9', 'head', -3, 20, _A(_FADE)), ('wJetB', 'head', -14, 18), ('wDrops', 'head', 4, 4)],
+                 2: [('wRip12', 'head', -6, 22, _A(_FADE)), ('wDrops', 'head', -10, 16, _A(_FADE))]})),
+})
+
+
 def spec(state):
     U.CLIPS[state] = CLIPS[state]
     U.APPROVED[state] = APPROVED.get(state, STAT)

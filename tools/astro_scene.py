@@ -11,7 +11,7 @@ import astro
 a = sys.argv[1:]; anim, A, out = a[:3]; opt = a[3:]
 def arg(k, n):
     return opt[opt.index(k) + 1: opt.index(k) + 1 + n] if k in opt else None
-GAP = int((arg('--gap', 1) or [66])[0]); solo = '--solo' in opt
+GAP = int((arg('--gap', 1) or [66])[0]); solo = '--solo' in opt; X0 = int((arg('--x0', 1) or [4])[0])   # --x0: the caster's start x (Slide Counter slides back)
 tg = arg('--target', 2)
 PR = [opt[i + 1:i + 6] for i, o in enumerate(opt) if o == '--proj']   # repeatable: PATTERN FROMFRAME FLYFRAMES HITPATTERN [hand|farhand|mouth]
 LAY = ['far-arm', 'body', 'skin-fx', 'male-gi', 'fade-hair', 'brown-eyes', 'arms', 'arms-fx', 'fx']
@@ -138,7 +138,7 @@ if tg: B, hit = tg[0], int(tg[1]); nb = spec(B)['frames']; n = max(n, hit + nb +
 frames = []
 for t in range(n):
     c = Image.new('RGBA', (CW, 64), (0xc8, 0xcd, 0xd7, 255)); ka = min(t, na - 1)
-    xa = 4 + sum(rm[q][0] for q in range(ka + 1))
+    xa = X0 + sum(rm[q][0] for q in range(ka + 1))
     if sa.get('clones') and t < na:   # runtime copies of the caster (Mirage Clone, Phantom Legion v2): its own outfit, as the testbed draws them
         me = Image.new('RGBA', (64, 64)); cell(A, ka, 'E', 0, me, [l for l in LAY if l not in ('fx', 'skin-fx', 'arms-fx')], who='caster'); mp_ = me.load()
         for it in sorted(sa['clones']['frames'].get(str(ka), []), key=lambda t_: -abs(t_[0])):
