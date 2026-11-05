@@ -5189,7 +5189,7 @@ def _dragonHead(o=4):   # Water Dragon: the sea serpent's head facing right, jaw
         for x in range(W):
             if out[y][x] == '.' and any(0 <= x + a < W and 0 <= y + b < H and out[y + b][x + a] not in '.n' for a, b in ((1, 0), (-1, 0), (0, 1), (0, -1))): out[y][x] = 'n'
     return [''.join(q) for q in out]
-NPAT.update({'wdHead%d' % o: _dragonHead(o) for o in (1, 4, 7)})
+NPAT.update({'wdHead%d' % o: _sq(_dragonHead(o), 1.5, 1.5) for o in (1, 4, 7)})   # drawn 1.5x so the head reads as a giant serpent's
 def serpent_points(S, E, peak):   # the serpent's flight path: a quadratic arc from S (rising out of the water in front of the caster) over a control point peak px above the midpoint to E (the target's chest)
     C = ((S[0] + E[0]) / 2, min(S[1], E[1]) - peak)
     return lambda u: ((1 - u) ** 2 * S[0] + 2 * (1 - u) * u * C[0] + u * u * E[0], (1 - u) ** 2 * S[1] + 2 * (1 - u) * u * C[1] + u * u * E[1])
@@ -5206,7 +5206,7 @@ def serpent_draw(img, rec, k, S, E, flip=False):   # reference drawing of extra.
                 if 0 <= x < Wd and 0 <= y < Hd and (x - cx) ** 2 + (y - cy) ** 2 <= r * r: lp[x, y] = hexc(ch)
     uhb = min(uh, 1.0); n = max(2, int((uhb - ut) * 220))
     pts = [(ut + (uhb - ut) * i / n) for i in range(n + 1)]
-    rad = lambda u: 1.5 + 5.0 * ((u - ut) / max(0.01, uhb - ut)) ** 0.7
+    rad = lambda u: 1.5 + 6.0 * ((u - ut) / max(0.01, uhb - ut)) ** 0.7
     for pas, ch, dr, dy in ((0, 'n', 1, 0), (1, 'A', 0, 0), (2, 'a', -1, -1), (3, 'I', -3, -2)):   # outline, deep belly, light body, ice ridge along the top
         for u in pts:
             x, y = P(u); r = rad(u) + dr
@@ -5249,8 +5249,8 @@ CLIPS['waterDragon'] = ('Water Dragon', 9,
   [None, 'squint', 'closed', 'strain', 'strain', 'roar', 'roar', 'strain', 'strain', 'roar', 'strain', 'strain', None, None],
   [0, 1, 1, 1, 2, 2, 3, 2, 2, 2, 1, 1, 0, 0],
   dict(fps=10, auraColors=_WAURA, farLayer=True, rm='E: +2 driving the palms forward, -2 back',
-       extra={'serpent': {'rule': 'Water Dragon v1 (drawn by the testbed between the fighters, like extra.stream): the serpent flies along a quadratic arc from S, 16 px in front of the caster\'s feet and 4 px above the floor (its pool), through a control point peak px above the midpoint between S and E, to E, the target\'s chest (26 px above its floor); frames[k] = [uHead, uTail, jaw]: the body is a tube along the arc from uTail to min(uHead, 1), thin (1.5 px) at the tail and 6.5 px at the head end, shaded deep-edge outline n, deep belly A, light body a 1 px up, ice ridge I 2 px up, white scale glints along the top and drops falling from the belly; the head (NPAT wdHead<jaw>, facing along the arc, rotated to the arc\'s tangent) at uHead while uHead <= 1; when uHead > 1 the head is inside the target and only the body is drawn, pouring into it. Reference implementation: astro.serpent_draw()', 'peak': 30,
-                              'frames': {'3': [0.04, 0.0, 1], '4': [0.13, 0.0, 4], '5': [0.24, 0.0, 7], '6': [0.45, 0.0, 7], '7': [0.68, 0.04, 7], '8': [0.88, 0.14, 7], '9': [1.0, 0.3, 1], '10': [1.2, 0.55, 1], '11': [1.4, 0.82, 1]}},
+       extra={'serpent': {'rule': 'Water Dragon v1 (drawn by the testbed between the fighters, like extra.stream): the serpent flies along a quadratic arc from S, 16 px in front of the caster\'s feet and 4 px above the floor (its pool), through a control point peak px above the midpoint between S and E, to E, the target\'s chest (26 px above its floor); the head pattern is drawn at 1.5x; frames[k] = [uHead, uTail, jaw]: the body is a tube along the arc from uTail to min(uHead, 1), thin (1.5 px) at the tail and 7.5 px at the head end, shaded deep-edge outline n, deep belly A, light body a 1 px up, ice ridge I 2 px up, white scale glints along the top and drops falling from the belly; the head (NPAT wdHead<jaw>, facing along the arc, rotated to the arc\'s tangent) at uHead while uHead <= 1; when uHead > 1 the head is inside the target and only the body is drawn, pouring into it. Reference implementation: astro.serpent_draw()', 'peak': 50,
+                              'frames': {'3': [0.04, 0.0, 1], '4': [0.13, 0.0, 4], '5': [0.24, 0.0, 7], '6': [0.45, 0.0, 7], '7': [0.68, 0.04, 7], '8': [0.82, 0.14, 7], '9': [1.0, 0.3, 1], '10': [1.2, 0.55, 1], '11': [1.4, 0.82, 1]}},
               'targetState': {'rule': 'Water Dragon: on the impact frame (9) and not before, the target plays waterDragonSwallowed once, then its idle', 'state': 'waterDragonSwallowed', 'element': 'water'}},
        anchored={1: [('wPuddle', 'feet', 14, -1, _A(_FADE))], 2: [('wPuddle', 'feet', 14, -1), ('wRip5', 'feet', 14, -2, _A(_FADE))],
                  3: [('wPuddle', 'feet', 14, -1), ('wRip9', 'feet', 14, -2), ('wDrops', 'feet', 14, -8)],

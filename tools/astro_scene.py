@@ -190,6 +190,8 @@ for t in range(n):
             c.alpha_composite(m, (4 + GAP, 0))
     tf = (sa.get('targetFx') or {}).get('frames', {}).get(str(t)) if tg and t < na + 4 else None   # Ice Shard / Blizzard v1: fx the testbed draws round the target (dx away from the caster, dy up from the floor)
     for it in tf or []: stamp(c, it[0], 4 + GAP + 32 + it[1], 63 + it[2], it[3] if len(it) > 3 else 255)
+    sp_ = sa.get('serpent') if tg else None   # Water Dragon v1: the testbed's serpent between the fighters (astro.serpent_draw)
+    if sp_ and t < na: astro.serpent_draw(c, sp_, t, (X0 + 33 + 16, 59), (4 + GAP + 30, 37))
     for pr in PR:
         pat, f0, nf, hp = pr[0], int(pr[1]), int(pr[2]), pr[3]; lay = 'far-arm' if len(pr) > 4 and pr[4] == 'farhand' and os.path.exists(os.path.join(anim, A, 'far-arm.png')) else 'arms'
         hx, hy = hand(A, f0, 'E', lay)
