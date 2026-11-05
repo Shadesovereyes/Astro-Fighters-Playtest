@@ -6105,6 +6105,148 @@ CLIPS['soulfireBombDetonate'] = ('Soulfire Bomb Detonate', 5,
                  11: [('pembers', 'feet', 8, -6), ('pflame1', 'head', -4, 2)],
                  12: [('pembers', 'head', 4, -6, {'alpha': {'P': 150, 'K': 150, 'p': 150}})]}))
 
+# ---- Root Sanctuary v3 (Christopher 2026-11-05 22:09: the ultimate treatment) ----
+def _crack3(w=41, seed=5):   # a wide split in the floor: a jagged dark fissure with soil-brown lips and side cracks
+    import random
+    rnd = random.Random(seed); rows = [['.'] * w for _ in range(5)]; y = 2
+    for x in range(w):
+        if rnd.random() < 0.3: y = max(1, min(3, y + rnd.choice((-1, 1))))
+        rows[y][x] = 'K'
+        if 2 < x < w - 3 and rnd.random() < 0.7: rows[y - 1 if y > 1 else y + 1][x] = 'E'
+        if x % 7 == 3: rows[0 if y > 1 else 4][x] = 'K'
+    return [''.join(r) for r in rows]
+def _rsflash(r):   # a crystal-white starburst: white core, long cross spikes, short diagonals, teal glints at the tips
+    n = 2 * r + 1; rows = [['.'] * n for _ in range(n)]
+    for i in range(-r, r + 1):
+        rows[r][r + i] = 'W' if abs(i) < r - 1 else 'c'; rows[r + i][r] = 'W' if abs(i) < r - 1 else 'c'
+    for i in range(-(r // 2), r // 2 + 1):
+        rows[r + i][r + i] = 'c' if abs(i) > 1 else 'W'; rows[r + i][r - i] = 'c' if abs(i) > 1 else 'W'
+    for dy in (-1, 0, 1):
+        for dx in (-1, 0, 1): rows[r + dy][r + dx] = 'W'
+    return [''.join(x) for x in rows]
+RS3_DY = -(60 + 1) / 2; RS3_DYI = -(46 + 1) / 2; RS3_DYF = -(14 + 1) / 2
+NPAT.update({**{'rs3o%d' % n: _dome(n / 100, rx=26, ry=60) for n in (15, 35, 55, 75, 90)}, 'rs3o100': _dome(1.0, rx=26, ry=60, crystals=True),
+             **{'rs3i%d' % n: _dome(n / 100, rx=15, ry=46) for n in (35, 60, 85)}, 'rs3i100': _dome(1.0, rx=15, ry=46, crystals=True),
+             'rs3f1': _dome(0.45, rx=13, ry=14), 'rs3f2': _dome(0.8, rx=13, ry=14),   # low roots curling up in front of the shins
+             'crack3': _crack3(), 'crack3b': _crack3(51, 9), 'rsFlash': _rsflash(6), 'rsFlashS': _rsflash(4),
+             'pebble': ['.eE.', 'eEEK', 'EEKK', '.KK.'], 'pebbleS': ['eK']})
+def _rsdome(o, i=None, a=None, front=None):   # the outer pair of roots (behind), the inner pair (behind, over the outer), optional front curls
+    opt = {'behind': True, **({'alpha': {'E': a, 'e': a, 'K': a, 'u': a, 'C': a, 'c': a}} if a else {})}
+    out = [('rs3o%s' % o, 'feet', 0, RS3_DY, opt)]
+    if i: out.append(('rs3i%s' % i, 'feet', 0, RS3_DYI, opt))
+    if front: out.append((front, 'feet', 0, RS3_DYF, {'alpha': {'E': a, 'e': a, 'K': a, 'u': a}} if a else {}))
+    return out
+_RS3_AL = lambda a: {'alpha': {'K': a, 'E': a, 'e': a}}
+CLIPS['rootSanctuary'] = ('Root Sanctuary', 10,
+  'Root Sanctuary v3 (Taurus ninjutsu ultimate, self buff FORT +20% 2 rounds; Christopher 2026-11-05 22:09: the ultimate treatment): from the guard the fighter makes the seal at the chin and sinks into its knees, eyes closing, as the earth starts to tremble: pebbles shiver on the floor round its feet, hairline cracks run out under them and its earthen aura swells; it braces lower, straining, and the pebbles lift off the floor and float up round it as the aura blazes; then it roars and slams both fists down beside its hips: the floor splits wide open in a long fissure, dust blasts out both ways and the pebbles drop; four gnarled roots burst up out of the split, an outer pair climbing wide either side of the fighter and an inner pair weaving up inside them, root hairs fraying off them,; the roots arch inward and on frame 10 knot shut overhead in a high dome with a crystal-white flash at the crown, teal crystal clusters erupting from the floor at its feet; it stands rooted inside the sanctuary, eyes open and fierce, crystals glinting, then the roots sink back into the split, the crystals crumble and it rises back into the guard (the spec proposes a faint ring of roots at the feet while the buff lasts).',
+  [g(),
+   g(an=U.SEAL_N, af=U.SEAL_F, bob=(1, 1, 1), lean=(0, 0)),
+   g(an=U.SEAL_N, af=U.SEAL_F, bob=(2, 2, 2), lean=(0, 0), **LOW),
+   g(an=U.SEAL_N, af=U.SEAL_F, bob=(3, 3, 3), lean=(0, 1), **BRACE),
+   g(an=U.SEAL_N, af=U.SEAL_F, bob=(4, 4, 4), lean=(0, 1), root=(1, 0), **BRACE),
+   *[g(an=FLEX_N, af=FLEX_F, bob=(4, 4, 4), lean=(0, 2), root=(r, 0), **LOW) for r in (-1, 0, 0, 0, 0)],
+   *[g(an=FLEX_N, af=FLEX_F, bob=(3, 3, 3), lean=(0, 1), **LOW) for _ in range(3)],
+   g(an=band(-30, -100), af=band(-30, -95), bob=(2, 2, 2), lean=(0, 2), **LOW),
+   g(an=band(-45, -115), af=band(-40, -115), bob=(1, 1, 2), lean=(0, 1)),
+   g()],
+  [None, 'squint', 'closed', 'closed', 'strain', 'roar', 'roar', 'strain', 'strain', 'strain', 'strain', 'squint', 'squint', 'squint', None, None],
+  [0, 1, 1, 2, 3, 3, 3, 3, 3, 3, 3, 2, 2, 2, 1, 0],
+  dict(fps=10, auraColors=('#c79a5b', '#8a6236'), rm='E: +1 straining, -1 slamming the fists down',
+       extra={'linger': {'rule': 'Root Sanctuary (FORT +20% 2 rounds), proposal: while the buff lasts the testbed draws a faint ring of roots on the floor round the fighter (the crack2 floor pattern in soil browns, alpha 150, behind the fighter); clears when the buff ends', 'pattern': 'crack2', 'alpha': 150}},
+       anchored={1: [('pebble', 'feet', -11, -1), ('pebble', 'feet', 12, -1), ('crack1', 'feet', 0, -1, _RS3_AL(150))],
+                 2: [('pebble', 'feet', -13, -2), ('pebble', 'feet', 14, -2), ('pebble', 'feet', 6, -1), ('crack1', 'feet', 0, -1), ('dust1', 'feet', 12, -3)],
+                 3: [('pebble', 'feet', -14, -7), ('pebble', 'feet', 15, -5), ('pebble', 'feet', 8, -4), ('crack2', 'feet', 0, -1), ('dust1', 'feet', -12, -3)],
+                 4: [('pebble', 'feet', -16, -16), ('pebble', 'feet', 16, -13), ('pebble', 'feet', -9, -10), ('pebble', 'feet', 10, -20), ('rocks', 'feet', -17, -26), ('crack2', 'feet', 0, -1), ('cryst', 'feet', 13, -8)],
+                 5: [('crack3', 'feet', 0, -1), ('rsFlashS', 'feet', 0, -2), ('dust2', 'feet', -18, -3), ('dust2', 'feet', 18, -3), ('pebble', 'feet', -17, -6), ('pebble', 'feet', 17, -4), ('rocks', 'feet', 22, -9)],
+                 6: [('crack3', 'feet', 0, -1), *_rsdome(15), ('dust2', 'feet', -20, -4), ('dust2', 'feet', 20, -4), ('rocks', 'feet', -22, -12), ('rocks', 'feet', 21, -15)],
+                 7: [('crack3b', 'feet', 0, -1), *_rsdome(35, 35), ('dust1', 'feet', -21, -6), ('dust1', 'feet', 21, -6), ('rocks', 'feet', 23, -22)],
+                 8: [('crack3b', 'feet', 0, -1), *_rsdome(55, 60), ('dust1', 'feet', 22, -9), ('cryst', 'feet', -15, -30), ('pebble', 'feet', -24, -26)],
+                 9: [('crack3b', 'feet', 0, -1), *_rsdome(75, 85), ('cryst', 'feet', 14, -36), ('cryst', 'feet', -10, -44)],
+                 10: [('crack3b', 'feet', 0, -1), *_rsdome(90, 100), ('rsFlash', 'head', 0, -9), ('geoSmall', 'feet', -17, -7), ('geoSmallB', 'feet', 17, -8)],
+                 11: [('crack3b', 'feet', 0, -1), *_rsdome(100, 100), ('rsFlashS', 'head', 0, -9), ('geoSmall', 'feet', -17, -7), ('geoSmallB', 'feet', 17, -8), ('glit', 'feet', 15, -28)],
+                 12: [('crack3b', 'feet', 0, -1), *_rsdome(100, 100), ('geoSmall', 'feet', -17, -7), ('geoSmallB', 'feet', 17, -8), ('glint', 'feet', -14, -40), ('glit', 'head', 8, -3)],
+                 13: [('crack3b', 'feet', 0, -1, _RS3_AL(190)), *_rsdome(75, 60, a=180), ('rubble', 'feet', -17, -2), ('rubble', 'feet', 17, -2), ('dust1', 'feet', 14, -3)],
+                 14: [('crack3', 'feet', 0, -1, _RS3_AL(130)), *_rsdome(35, None, a=120), ('rubble', 'feet', -17, -1, {'alpha': {'T': 140, 'C': 140, 'c': 140}}), ('dust1', 'feet', -13, -3)],
+                 15: [('crack1', 'feet', 0, -1, _RS3_AL(90))]}))
+
+# ---- Sandstorm v3 (Christopher 2026-11-05 22:11: the ultimate treatment) ----
+NPAT.update({**{'eyeXL%d%s' % (k, fb): q for k in range(4) for fb, q in zip('FB', _whirl(58, 16, 27, k * math.pi / 2, 70 + k, arms=7, shards=30))},   # the full storm: taller and wider than v2, thick with crystal shrapnel
+             'ssFlash': [r.replace('c', 'Z') for r in _rsflash(9)], 'ssFlashS': [r.replace('c', 'S') for r in _rsflash(4)]})
+_SS2 = CLIPS['sandstorm']; _SSX = dict(_SS2[6]['extra'])
+_SSX['zone'] = {**_SSX['zone'], 'rule': _SSX['zone']['rule'] + ' v3 (Christopher 2026-11-05 22:11, the ultimate treatment; drawn like Blizzard v3): from frame 10 the storm erupts from the caster and races outward ring by ring (ring 1 on frame 10, ring 2 on frame 11), a churning front of sand at its edge, then rages round the caster for zone.rounds rounds over the hexes it was cast on and fades out when they end: sand streaks and crystal grit circling the caster, 2-50 px above the floor, back half behind the fighters and front half over them, a sand-coloured haze over the whole disc and a calm eye (no sand within 20 px of the caster). Each other fighter inside plays sandstormCaught from the frame the front reaches its hex.',
+                'selfCentered': True, 'linger': True, 'anchor': 'cast hex', 'from': 10, 'ringFrames': {'1': 10, '2': 11}, 'eye': 20, 'colors': ['#fff0c4', '#e6c27a', '#c89a52', '#9c7434']}
+_SSX['zone'].setdefault('radius', 2); _SSX['zone'].setdefault('rounds', 3)
+_SSX['targetState'] = {**_SSX['targetState'], 'rule': 'Sandstorm v3: each other fighter inside the AoE plays sandstormCaught on loop from the frame the storm front reaches its hex (ring 1 frame 10, ring 2 frame 11) while it stays inside'}
+_SA = lambda a: {'alpha': {'s': a, 'S': a, 'Z': a, 'C': a, 'c': a, 'K': a}}
+def _ssw(name, k, dy, a=None):   # one turning storm pattern: back half behind the fighter, front half over it (part see-through)
+    return [('%s%dB' % (name, k % 4), 'feet', 0, dy, {'behind': True, **(_SA(a) if a else {})}), ('%s%dF' % (name, k % 4), 'feet', 0, dy, _SA(a or 190))]
+CLIPS['sandstorm'] = ('Sandstorm', 10,
+  'Sandstorm v3 (Virgo ninjutsu ultimate: a hazardous storm round the user, light damage, lowered accuracy, blocks every projectile that is not an ultimate; Christopher 2026-11-05 22:11: the ultimate treatment): from the guard the fighter makes the seal and sinks low, fists driven down beside its hips, eyes closing; sand lifts off the floor round its feet and starts to turn, a low ring spinning round its legs as its sandy aura swells; it braces lower, straining, and the ring climbs to its waist, grit and crystal chips caught up in it; it rises and raises the near hand high, palm up, circling it, and the whirlwind climbs past its head and grows into a towering tornado thick with crystal shrapnel, the aura blazing; on frame 10 it roars and flings both arms out wide: a flash of white-hot sand bursts off it, sand blasts out both ways along the floor and the storm erupts outward (drawn by the testbed over the radius-2 zone, ring by ring) while the fighter stands in its calm eye; the tornado round it thins out to a low ring and it settles back into the guard.',
+  [g(),
+   g(an=U.SEAL_N, af=U.SEAL_F, bob=(1, 1, 1), lean=(0, 0)),
+   g(an=FLEX_N, af=FLEX_F, bob=(2, 2, 2), lean=(0, -1), **LOW),
+   g(an=FLEX_N, af=FLEX_F, bob=(3, 3, 3), lean=(0, -1), **BRACE),
+   g(an=FLEX_N, af=FLEX_F, bob=(4, 4, 4), lean=(0, -2), **BRACE),
+   g(an=band(-115, -140, fistKind='palm'), af=band(-30, -100), bob=(1, 1, 1), lean=(0, -1)),
+   g(an=band(-122, -150, fistKind='palm'), af=band(-30, -100), bob=(1, 1, 1), lean=(0, -1)),
+   g(an=band(-110, -132, fistKind='palm'), af=band(-30, -100), bob=(1, 1, 1), lean=(0, -2)),
+   g(an=band(-122, -150, fistKind='palm'), af=band(-30, -100), bob=(1, 1, 1), lean=(0, -2)),
+   g(an=band(-130, -160, fistKind='palm'), af=band(-40, -110), bob=(2, 2, 2), lean=(0, -3), **LOW),
+   g(**_OUT, bob=(3, 3, 3), lean=(0, -2), **LOW),
+   g(**_OUT, bob=(3, 3, 3), lean=(0, -3), **LOW),
+   g(**_OUT, bob=(3, 3, 4), lean=(0, -3), **LOW),
+   g(**_OUT, bob=(2, 2, 3), lean=(0, -2), **LOW),
+   g(an=band(-50, -110), af=band(-40, -110), bob=(1, 1, 1), lean=(0, 1)),
+   g()],
+  [None, 'squint', 'closed', 'closed', 'strain', 'squint', 'squint', 'strain', 'strain', 'strain', 'roar', 'roar', 'roar', 'strain', 'squint', None],
+  [0, 1, 1, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 2, 1, 0],
+  dict(fps=10, auraColors=('#e6c27a', '#9c7434'), rm='E: 0 (it stands in the eye)', extra=_SSX,
+       anchored={1: [('sandRise', 'feet', -10, -6), ('sandRise', 'feet', 10, -6)],
+                 2: [*_ssw('eyeLow', 0, -8), ('sandRise', 'feet', -14, -10)],
+                 3: [*_ssw('eyeLow', 1, -8), ('grains', 'feet', 12, -14), ('sandRise', 'feet', 15, -9)],
+                 4: [*_ssw('eyeMid', 2, -16), ('grains', 'feet', -13, -22)],
+                 5: [*_ssw('eyeMid', 3, -16), ('grains', 'feet', 14, -26)],
+                 6: _ssw('eye', 0, -26, 170),
+                 7: [*_ssw('eye', 1, -26, 170), ('grains', 'feet', -18, -40)],
+                 8: _ssw('eyeXL', 2, -30, 170),
+                 9: [*_ssw('eyeXL', 3, -30, 170), ('grains', 'feet', 20, -44), ('grains', 'feet', -19, -30)],
+                 10: [*_ssw('eyeXL', 0, -30, 150), ('ssFlash', 'head', 0, 14), ('sandSpray', 'feet', 22, -6), ('sandSprayL', 'feet', -22, -6)],
+                 11: [*_ssw('eyeXL', 1, -30, 140), ('ssFlashS', 'head', 0, 14), ('sandCloud', 'feet', 23, -10), ('sandCloud', 'feet', -23, -10)],
+                 12: [*_ssw('eye', 2, -26, 130), ('sandCloud2', 'feet', 23, -14), ('sandCloud2', 'feet', -23, -14)],
+                 13: _ssw('eyeMid', 3, -16, 130),
+                 14: _ssw('eyeLow', 0, -8, 120),
+                 15: _ssw('eyeLow', 1, -8, 70)}))
+
+# ---- Stalactite Rain v3 (Christopher 2026-11-05 22:11: the ultimate treatment) ----
+NPAT.update({'spearXL': _spear(54, 0, -1, 9), 'crackGlowW': ['C.........C', '.C.c...c.C.', '..cCcCcCc..'], 'srFlash': _rsflash(8), 'srFlashS': _rsflash(5)})
+for n_, L_ in (('spearXL', 54), ('spearUp', 40), ('spearUpS', 30)):
+    for f_ in (0.25, 0.5, 0.75): NPAT['%s_%d' % (n_, f_ * 100)] = NPAT[n_][:max(2, round(L_ * f_))]
+def _sp(name, x, f=None, lift=0, a=None):   # a spear rising behind the caster: f = how far out of the ground (None = whole), lift = px above the floor
+    pat = name if f is None else '%s_%d' % (name, f * 100); h = len(NPAT[pat])
+    return (pat, 'feet', x, -h / 2 - lift, {'behind': True, **({'alpha': {'C': a, 'c': a, 'T': a, 'W': a, 'K': a}} if a else {})})
+_SR2 = CLIPS['stalactiteRain']
+_SRA = {1: [('cryst', 'head', -9, 12), ('gemSpark', 'feet', -14, -6)],
+        2: [('cryst', 'head', -9, 12), ('cryst', 'head', 9, 16), ('gemSpark', 'head', -12, 4), ('crack1', 'feet', -16, -1)],
+        3: [('cryst', 'head', -10, 18), ('gemSpark', 'head', 10, 10), ('crack2', 'feet', -16, -1), ('crackGlow', 'feet', -16, -2), ('rocks', 'feet', -20, -8)],
+        4: [('crack2', 'feet', -16, -1), ('crackGlowW', 'feet', -16, -2), _sp('spearXL', -18, 0.25), _sp('spearUpS', -6, 0.25), ('rocks', 'feet', -24, -10), ('dust2', 'feet', -16, -3)],
+        5: [('crack2', 'feet', -16, -1), ('crackGlowW', 'feet', -16, -2), _sp('spearXL', -18, 0.5), _sp('spearUpS', -6, 0.5), _sp('spearUp', -27, 0.25), ('dust2', 'feet', -22, -3), ('rocks', 'feet', -10, -14)],
+        6: [('crack2', 'feet', -16, -1), ('crackGlowW', 'feet', -16, -2), _sp('spearXL', -18, 0.75), _sp('spearUpS', -6, 0.75), _sp('spearUp', -27, 0.5), _sp('spearUpS', -12, 0.25), ('gemSpark', 'feet', -18, -44)],
+        7: [('crack2', 'feet', -16, -1), ('crackGlowW', 'feet', -16, -2), _sp('spearXL', -18), _sp('spearUpS', -6), _sp('spearUp', -27, 0.75), _sp('spearUpS', -12, 0.5), ('gemSpark', 'feet', -9, -32), ('gemSpark', 'feet', -25, -50)],
+        8: [('crack2', 'feet', -16, -1), _sp('spearXL', -18, lift=8), _sp('spearUpS', -6, lift=6), _sp('spearUp', -27, lift=4), _sp('spearUpS', -12, 0.75), ('rocks', 'feet', -16, -6), ('dust2', 'feet', -16, -3), ('dust2', 'feet', -6, -3)],
+        9: [('crack1', 'feet', -16, -1), _sp('spearXL', -18, lift=24), _sp('spearUpS', -6, lift=22), _sp('spearUp', -27, lift=18), _sp('spearUpS', -12, lift=12), ('spearStreak', 'feet', -18, -10), ('spearStreak', 'feet', -27, -8), ('spearStreak', 'feet', -6, -10), ('srFlash', 'hand', 0, -4)],
+        10: [('spearStreak', 'feet', -12, -50), ('spearStreak', 'feet', -19, -54), ('spearStreak', 'feet', -26, -50), ('spearStreak', 'feet', -6, -46), ('srFlashS', 'hand', 2, -2), ('gemSpark', 'hand', 6, -6)],
+        11: [('gemSpark', 'hand', 2, -3), ('glit', 'hand', -4, 4)], 12: [('cryst', 'hand', 3, -2)],
+        13: [('gemSpark', 'feet', -14, -3, {'alpha': {'c': 140, 'W': 140}})]}
+CLIPS['stalactiteRain'] = ('Stalactite Rain', 10, _SR2[2].replace('Stalactite Rain (Capricorn', 'Stalactite Rain v3 (Christopher 2026-11-05 22:11: the ultimate treatment: four spears, a giant among them, rise behind the caster through a wide glowing split, its aura blazes to full, a crystal-white flash bursts off the palms as the spears are hurled up; the next round they rain down over the whole radius-3 zone, see extra.rain) (Capricorn'),
+  _SR2[3], _SR2[4], [0, 1, 2, 3, 3, 3, 3, 3, 3, 3, 3, 2, 2, 1, 0, 0],
+  {**_SR2[6], 'anchored': _SRA,
+   'extra': {**_SR2[6]['extra'],
+             'rain': {'rule': 'Stalactite Rain v3 (ultimate, charge; resolves the round after the cast like Meteor): on the eruption round the caster replays frames 9-12 (the hurl); then the testbed rains crystal spears out of the sky over every hex within ultimateAoeRadius (3) of the aimed hex: each hex tinted crystal teal (alpha 0.25, deep teal rim) for the rest of the volley; spears fall at a slant from the caster\'s side (spearFall patterns, a short teal streak behind each), one or two per hex, staggered over ringFrames by distance from the centre (centre first, ring 3 last), each stabbing into the floor with a dust and grit burst and a gemSpark, standing embedded a beat, then cracking and shattering into rubble; every fighter inside plays stalactiteImpaled from the moment the first spear lands on its hex. Reference preview: hex-sprites/tools/astro_rain.py', 'radius': 3, 'centre': 'aimed hex', 'spearsPerHex': [1, 2], 'colors': ['#d9fff6', '#7fe3d0', '#3a9e8f', '#1d5c52']}}})
+
+# v3 ultimate-treatment candidates (Christopher 2026-11-05 22:09-22:11): the v2 approvals stay on record until he rules on v3
+for k_, v_ in (('rootSanctuary', 'v3 ultimate treatment'), ('sandstorm', 'v3 ultimate treatment'), ('stalactiteRain', 'v3 ultimate treatment')):
+    APPROVED.pop(k_, None)
+
 def spec(state):
     U.CLIPS[state] = CLIPS[state]
     U.APPROVED[state] = APPROVED.get(state, STAT)

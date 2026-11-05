@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "stalactiteRain",
-  "status": "E/W approved by user 2026-10-30 (v2 16-frame ultimate: crystal spears rise behind the caster, shoot up, hand hurled at the target, 127e2eb5; target plays stalactiteImpaled; W mirrors E); S/N to author",
+  "status": "CANDIDATE 2026-10-27 (E/W; W mirrors E; S/N to author after approval)",
   "frames": 16,
   "fps": 10,
   "sourceDirection": "E",
@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Stalactite Rain (Capricorn ninjutsu ultimate, charge, Elemental 30, wide AoE: the fighter channels its chakra through the earth, forming giant spear-like crystal formations), v2 (Christopher 2026-10-29: the crystal spears rise from behind the caster, then rain down on the target): from the guard the fighter makes the seal and sinks deep, straining, an earthen aura flaring with crystal glints; it slams both open palms down at the floor and the ground cracks behind it, glowing teal, and giant crystal spears grind up out of the earth behind it, point first, growing over three frames until they tower over its head; it heaves both palms up and the spears tear free of the ground and shoot up into the sky; then it hurls the near hand forward and down at the target, and the spears rain down out of the sky onto the target zone (the target plays stalactiteImpaled); it holds the throw, then settles back into the guard.",
+  "intent": "Stalactite Rain v3 (Christopher 2026-11-05 22:11: the ultimate treatment: four spears, a giant among them, rise behind the caster through a wide glowing split, its aura blazes to full, a crystal-white flash bursts off the palms as the spears are hurled up; the next round they rain down over the whole radius-3 zone, see extra.rain) (Capricorn ninjutsu ultimate, charge, Elemental 30, wide AoE: the fighter channels its chakra through the earth, forming giant spear-like crystal formations), v2 (Christopher 2026-10-29: the crystal spears rise from behind the caster, then rain down on the target): from the guard the fighter makes the seal and sinks deep, straining, an earthen aura flaring with crystal glints; it slams both open palms down at the floor and the ground cracks behind it, glowing teal, and giant crystal spears grind up out of the earth behind it, point first, growing over three frames until they tower over its head; it heaves both palms up and the spears tear free of the ground and shoot up into the sky; then it hurls the near hand forward and down at the target, and the spears rain down out of the sky onto the target zone (the target plays stalactiteImpaled); it holds the throw, then settles back into the guard.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -1684,6 +1684,108 @@
           52
         ],
         "foot": "toe30k"
+      },
+      {
+        "name": "tsl-surf-lead",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 46,
+        "kneeX": 40,
+        "kneeRow": 51,
+        "footX": 42,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "tsl-surf-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 46,
+        "kneeX": 25,
+        "kneeRow": 51,
+        "ankle": [
+          21,
+          56
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "tsl-tuck-lead",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 44,
+        "kneeX": 40,
+        "kneeRow": 47,
+        "ankle": [
+          37,
+          53
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "tsl-tuck-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 44,
+        "kneeX": 24,
+        "kneeRow": 47,
+        "ankle": [
+          19,
+          51
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "es-sit-lead",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 52,
+        "kneeX": 40,
+        "kneeRow": 48,
+        "ankle": [
+          45,
+          55
+        ],
+        "foot": "pointFwd"
+      },
+      {
+        "name": "es-sit-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 52,
+        "kneeX": 37,
+        "kneeRow": 55,
+        "ankle": [
+          42,
+          56
+        ],
+        "foot": "pointFwd"
+      },
+      {
+        "name": "es-lie-lead",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 53,
+        "kneeX": 40,
+        "kneeRow": 51,
+        "ankle": [
+          46,
+          55
+        ],
+        "foot": "pointFwd"
+      },
+      {
+        "name": "es-lie-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 53,
+        "kneeX": 38,
+        "kneeRow": 55,
+        "ankle": [
+          45,
+          56
+        ],
+        "foot": "pointFwd"
       }
     ],
     "near": [
@@ -3366,22 +3468,37 @@
     "loopFrom": null,
     "element": "earth"
   },
+  "rain": {
+    "rule": "Stalactite Rain v3 (ultimate, charge; resolves the round after the cast like Meteor): on the eruption round the caster replays frames 9-12 (the hurl); then the testbed rains crystal spears out of the sky over every hex within ultimateAoeRadius (3) of the aimed hex: each hex tinted crystal teal (alpha 0.25, deep teal rim) for the rest of the volley; spears fall at a slant from the caster's side (spearFall patterns, a short teal streak behind each), one or two per hex, staggered over ringFrames by distance from the centre (centre first, ring 3 last), each stabbing into the floor with a dust and grit burst and a gemSpark, standing embedded a beat, then cracking and shattering into rubble; every fighter inside plays stalactiteImpaled from the moment the first spear lands on its hex. Reference preview: hex-sprites/tools/astro_rain.py",
+    "radius": 3,
+    "centre": "aimed hex",
+    "spearsPerHex": [
+      1,
+      2
+    ],
+    "colors": [
+      "#d9fff6",
+      "#7fe3d0",
+      "#3a9e8f",
+      "#1d5c52"
+    ]
+  },
   "aura": {
     "rule": "Runtime aura (Christopher 2026-11-03: all auras follow the outline of the hair): on frame k, when widths[k] > 0, the testbed grows the silhouette of every drawn layer except fx (body, clothing or armour, arms, shoulders, hair or helmet, eyes, weapons) by widths[k] rings of 1 px (4-neighbour / 3x3 max growth); ring 0 in colors[0], the others in colors[1]; the outermost ring only on pixels where (x + y + k) is even (flicker); drawn behind the fighter, only outside its silhouette",
     "widths": [
       0,
       1,
-      1,
+      2,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
       2,
       2,
-      2,
-      2,
-      2,
-      2,
-      2,
-      2,
-      1,
-      1,
       1,
       0,
       0

@@ -2,8 +2,8 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "rootSanctuary",
-  "status": "E/W approved by user 2026-10-28 (v2 roots with root hairs rise from floor cracks and arch into a dome behind the fighter, crystal buds, fdb604b; W mirrors E); linger root ring is a proposal; S/N to author",
-  "frames": 12,
+  "status": "CANDIDATE 2026-10-27 (E/W; W mirrors E; S/N to author after approval)",
+  "frames": 16,
   "fps": 10,
   "sourceDirection": "E",
   "directions": [
@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Root Sanctuary (Taurus ninjutsu self buff, FORT +20% 2 rounds: the fighter forms a rooted earthen sanctuary around itself, reinforcing its body), v2 (Christopher 2026-10-28: more root hairs on the rising roots): from the guard the fighter makes the seal at the chin and sinks into its knees, eyes closing, an earthen aura rising round it; then it drives both fists down beside its hips and the floor cracks open either side of it: two gnarled roots burst up out of the cracks, rootlets kicking out sideways and runners spreading along the floor, and climb either side of the fighter, arching inward over its head until they meet in a dome, teal crystal budding along them as they close; it holds inside the sanctuary, unmoving, crystal glinting, then the roots sink back into the floor and it rises back into the guard (the spec proposes a faint ring of roots at the feet while the buff lasts).",
+  "intent": "Root Sanctuary v3 (Taurus ninjutsu ultimate, self buff FORT +20% 2 rounds; Christopher 2026-11-05 22:09: the ultimate treatment): from the guard the fighter makes the seal at the chin and sinks into its knees, eyes closing, as the earth starts to tremble: pebbles shiver on the floor round its feet, hairline cracks run out under them and its earthen aura swells; it braces lower, straining, and the pebbles lift off the floor and float up round it as the aura blazes; then it roars and slams both fists down beside its hips: the floor splits wide open in a long fissure, dust blasts out both ways and the pebbles drop; four gnarled roots burst up out of the split, an outer pair climbing wide either side of the fighter and an inner pair weaving up inside them, root hairs fraying off them,; the roots arch inward and on frame 10 knot shut overhead in a high dome with a crystal-white flash at the crown, teal crystal clusters erupting from the floor at its feet; it stands rooted inside the sanctuary, eyes open and fierce, crystals glinting, then the roots sink back into the split, the crystals crumble and it rises back into the guard (the spec proposes a faint ring of roots at the feet while the buff lasts).",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -109,13 +109,17 @@
       1,
       2,
       3,
-      3,
-      3,
-      3,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
       3,
       3,
       3,
       2,
+      1,
       1
     ],
     "head": [
@@ -123,13 +127,17 @@
       1,
       2,
       3,
-      3,
-      3,
-      3,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
       3,
       3,
       3,
       2,
+      1,
       1
     ],
     "arms": [
@@ -137,12 +145,16 @@
       1,
       2,
       3,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
       3,
       3,
       3,
-      3,
-      3,
-      3,
+      2,
       2,
       2
     ]
@@ -163,6 +175,10 @@
         0,
         0,
         0,
+        0,
+        0,
+        0,
+        0,
         0
       ],
       "head": [
@@ -171,18 +187,22 @@
         0,
         1,
         1,
-        1,
-        1,
+        2,
+        2,
+        2,
+        2,
+        2,
         1,
         1,
         1,
         2,
+        1,
         2
       ]
     }
   },
   "rootMotion": {
-    "rule": "in place",
+    "rule": "E: +1 straining, -1 slamming the fists down",
     "E": [
       [
         0,
@@ -190,6 +210,22 @@
       ],
       [
         0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        -1,
         0
       ],
       [
@@ -240,6 +276,22 @@
       ],
       [
         0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        -1,
+        0
+      ],
+      [
+        1,
         0
       ],
       [
@@ -1632,12 +1684,116 @@
           52
         ],
         "foot": "toe30k"
+      },
+      {
+        "name": "tsl-surf-lead",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 46,
+        "kneeX": 40,
+        "kneeRow": 51,
+        "footX": 42,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "tsl-surf-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 46,
+        "kneeX": 25,
+        "kneeRow": 51,
+        "ankle": [
+          21,
+          56
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "tsl-tuck-lead",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 44,
+        "kneeX": 40,
+        "kneeRow": 47,
+        "ankle": [
+          37,
+          53
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "tsl-tuck-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 44,
+        "kneeX": 24,
+        "kneeRow": 47,
+        "ankle": [
+          19,
+          51
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "es-sit-lead",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 52,
+        "kneeX": 40,
+        "kneeRow": 48,
+        "ankle": [
+          45,
+          55
+        ],
+        "foot": "pointFwd"
+      },
+      {
+        "name": "es-sit-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 52,
+        "kneeX": 37,
+        "kneeRow": 55,
+        "ankle": [
+          42,
+          56
+        ],
+        "foot": "pointFwd"
+      },
+      {
+        "name": "es-lie-lead",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 53,
+        "kneeX": 40,
+        "kneeRow": 51,
+        "ankle": [
+          46,
+          55
+        ],
+        "foot": "pointFwd"
+      },
+      {
+        "name": "es-lie-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 53,
+        "kneeX": 38,
+        "kneeRow": 55,
+        "ankle": [
+          45,
+          56
+        ],
+        "foot": "pointFwd"
       }
     ],
     "near": [
       1,
       1,
       3,
+      5,
+      5,
       3,
       3,
       3,
@@ -1646,12 +1802,16 @@
       3,
       3,
       3,
+      3,
+      1,
       1
     ],
     "far": [
       0,
       0,
       2,
+      4,
+      4,
       2,
       2,
       2,
@@ -1660,6 +1820,8 @@
       2,
       2,
       2,
+      2,
+      0,
       0
     ]
   },
@@ -1704,6 +1866,32 @@
           "angle": -150
         },
         "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": -48,
+        "elbow": {
+          "at": 8,
+          "angle": -150
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": -48,
+        "elbow": {
+          "at": 8,
+          "angle": -150
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": 50,
+        "elbow": {
+          "at": 8,
+          "angle": -20
+        }
       },
       {
         "construction": "band",
@@ -1771,6 +1959,14 @@
       },
       {
         "construction": "band",
+        "angle": -45,
+        "elbow": {
+          "at": 8,
+          "angle": -115
+        }
+      },
+      {
+        "construction": "band",
         "angle": -20,
         "elbow": {
           "at": 8,
@@ -1804,6 +2000,32 @@
           "angle": -146
         },
         "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": -60,
+        "elbow": {
+          "at": 8,
+          "angle": -146
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": -60,
+        "elbow": {
+          "at": 8,
+          "angle": -146
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": 40,
+        "elbow": {
+          "at": 8,
+          "angle": -15
+        }
       },
       {
         "construction": "band",
@@ -1867,6 +2089,14 @@
         "elbow": {
           "at": 8,
           "angle": -95
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -40,
+        "elbow": {
+          "at": 8,
+          "angle": -115
         }
       },
       {
@@ -2042,6 +2272,10 @@
       "bandFollowsBody": true,
       "sway": {
         "E": [
+          -1,
+          -1,
+          -1,
+          -1,
           -1,
           -1,
           -1,
@@ -2729,7 +2963,11 @@
         8,
         9,
         10,
-        11
+        11,
+        12,
+        13,
+        14,
+        15
       ],
       "fps": 10,
       "next": "guard",
@@ -2767,37 +3005,57 @@
       {
         "frame": 5,
         "clip": "rootSanctuary",
+        "type": "startup"
+      },
+      {
+        "frame": 6,
+        "clip": "rootSanctuary",
+        "type": "startup"
+      },
+      {
+        "frame": 7,
+        "clip": "rootSanctuary",
+        "type": "startup"
+      },
+      {
+        "frame": 8,
+        "clip": "rootSanctuary",
+        "type": "startup"
+      },
+      {
+        "frame": 9,
+        "clip": "rootSanctuary",
+        "type": "startup"
+      },
+      {
+        "frame": 10,
+        "clip": "rootSanctuary",
         "type": "active",
         "move": "Root Sanctuary",
         "buff": true
       },
       {
-        "frame": 6,
-        "clip": "rootSanctuary",
-        "type": "recovery"
-      },
-      {
-        "frame": 7,
-        "clip": "rootSanctuary",
-        "type": "recovery"
-      },
-      {
-        "frame": 8,
-        "clip": "rootSanctuary",
-        "type": "recovery"
-      },
-      {
-        "frame": 9,
-        "clip": "rootSanctuary",
-        "type": "recovery"
-      },
-      {
-        "frame": 10,
-        "clip": "rootSanctuary",
-        "type": "recovery"
-      },
-      {
         "frame": 11,
+        "clip": "rootSanctuary",
+        "type": "recovery"
+      },
+      {
+        "frame": 12,
+        "clip": "rootSanctuary",
+        "type": "recovery"
+      },
+      {
+        "frame": 13,
+        "clip": "rootSanctuary",
+        "type": "recovery"
+      },
+      {
+        "frame": 14,
+        "clip": "rootSanctuary",
+        "type": "recovery"
+      },
+      {
+        "frame": 15,
         "clip": "rootSanctuary",
         "type": "recovery"
       }
@@ -2831,37 +3089,57 @@
       {
         "frame": 5,
         "clip": "rootSanctuary",
+        "type": "startup"
+      },
+      {
+        "frame": 6,
+        "clip": "rootSanctuary",
+        "type": "startup"
+      },
+      {
+        "frame": 7,
+        "clip": "rootSanctuary",
+        "type": "startup"
+      },
+      {
+        "frame": 8,
+        "clip": "rootSanctuary",
+        "type": "startup"
+      },
+      {
+        "frame": 9,
+        "clip": "rootSanctuary",
+        "type": "startup"
+      },
+      {
+        "frame": 10,
+        "clip": "rootSanctuary",
         "type": "active",
         "move": "Root Sanctuary",
         "buff": true
       },
       {
-        "frame": 6,
-        "clip": "rootSanctuary",
-        "type": "recovery"
-      },
-      {
-        "frame": 7,
-        "clip": "rootSanctuary",
-        "type": "recovery"
-      },
-      {
-        "frame": 8,
-        "clip": "rootSanctuary",
-        "type": "recovery"
-      },
-      {
-        "frame": 9,
-        "clip": "rootSanctuary",
-        "type": "recovery"
-      },
-      {
-        "frame": 10,
-        "clip": "rootSanctuary",
-        "type": "recovery"
-      },
-      {
         "frame": 11,
+        "clip": "rootSanctuary",
+        "type": "recovery"
+      },
+      {
+        "frame": 12,
+        "clip": "rootSanctuary",
+        "type": "recovery"
+      },
+      {
+        "frame": 13,
+        "clip": "rootSanctuary",
+        "type": "recovery"
+      },
+      {
+        "frame": 14,
+        "clip": "rootSanctuary",
+        "type": "recovery"
+      },
+      {
+        "frame": 15,
         "clip": "rootSanctuary",
         "type": "recovery"
       }
@@ -3153,10 +3431,14 @@
         null,
         "squint",
         "closed",
+        "closed",
+        "strain",
+        "roar",
+        "roar",
         "strain",
         "strain",
-        "squint",
-        "squint",
+        "strain",
+        "strain",
         "squint",
         "squint",
         "squint",
@@ -3175,15 +3457,19 @@
     "rule": "Runtime aura (Christopher 2026-11-03: all auras follow the outline of the hair): on frame k, when widths[k] > 0, the testbed grows the silhouette of every drawn layer except fx (body, clothing or armour, arms, shoulders, hair or helmet, eyes, weapons) by widths[k] rings of 1 px (4-neighbour / 3x3 max growth); ring 0 in colors[0], the others in colors[1]; the outermost ring only on pixels where (x + y + k) is even (flicker); drawn behind the fighter, only outside its silhouette",
     "widths": [
       0,
-      0,
+      1,
       1,
       2,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
       2,
       2,
       2,
-      2,
-      2,
-      1,
       1,
       0
     ],

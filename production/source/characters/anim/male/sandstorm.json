@@ -2,8 +2,8 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "sandstorm",
-  "status": "E/W approved by user 2026-10-28 (v2 caster-centred storm zone: storm rises from the feet round the caster in its eye, blasts outward; spec extra.zone, canon A7, 3b513b51; W mirrors E); S/N to author",
-  "frames": 12,
+  "status": "CANDIDATE 2026-10-27 (E/W; W mirrors E; S/N to author after approval)",
+  "frames": 16,
   "fps": 10,
   "sourceDirection": "E",
   "directions": [
@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Sandstorm (Virgo ninjutsu), v2 (Christopher 2026-10-28: a user-centred AoE; a hazardous storm round the user that deals light damage, lowers the accuracy of anyone inside and keeps every projectile that is not an ultimate from entering): from the guard the fighter makes the seal, then sinks low with both fists driven down beside the hips; sand lifts off the floor round its feet and starts to turn, a low ring of sand spinning round its legs; it rises and raises the near hand high, palm up, circling it, and the storm climbs with it, round the waist, then the chest, until a sand tornado stands round the whole fighter with the fighter calm in its eye, crystal and grit shrapnel caught in the streaks, the front half drawn over the fighter (part see-through) and the back half behind it; it sweeps the open hand out and down and the storm blasts outward, sand spraying off both sides; it settles back into the guard with a thin ring of storm still turning round it. The testbed then draws the storm over the whole AoE for as long as it lasts (extra.zone).",
+  "intent": "Sandstorm v3 (Virgo ninjutsu ultimate: a hazardous storm round the user, light damage, lowered accuracy, blocks every projectile that is not an ultimate; Christopher 2026-11-05 22:11: the ultimate treatment): from the guard the fighter makes the seal and sinks low, fists driven down beside its hips, eyes closing; sand lifts off the floor round its feet and starts to turn, a low ring spinning round its legs as its sandy aura swells; it braces lower, straining, and the ring climbs to its waist, grit and crystal chips caught up in it; it rises and raises the near hand high, palm up, circling it, and the whirlwind climbs past its head and grows into a towering tornado thick with crystal shrapnel, the aura blazing; on frame 10 it roars and flings both arms out wide: a flash of white-hot sand bursts off it, sand blasts out both ways along the floor and the storm erupts outward (drawn by the testbed over the radius-2 zone, ring by ring) while the fighter stands in its calm eye; the tornado round it thins out to a low ring and it settles back into the guard.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -108,12 +108,16 @@
       1,
       1,
       2,
+      3,
+      4,
+      1,
+      1,
+      1,
+      1,
       2,
-      1,
-      1,
-      1,
-      1,
-      1,
+      3,
+      3,
+      3,
       2,
       1,
       1
@@ -122,12 +126,16 @@
       1,
       1,
       2,
+      3,
+      4,
+      1,
+      1,
+      1,
+      1,
       2,
-      1,
-      1,
-      1,
-      1,
-      1,
+      3,
+      3,
+      3,
       2,
       1,
       1
@@ -136,14 +144,18 @@
       2,
       1,
       2,
+      3,
+      4,
+      1,
+      1,
+      1,
+      1,
       2,
+      3,
+      3,
+      4,
+      3,
       1,
-      1,
-      1,
-      1,
-      1,
-      2,
-      2,
       2
     ]
   },
@@ -163,6 +175,10 @@
         0,
         0,
         0,
+        0,
+        0,
+        0,
+        0,
         0
       ],
       "head": [
@@ -170,20 +186,40 @@
         0,
         -1,
         -1,
+        -2,
         -1,
         -1,
-        -1,
-        -1,
-        -1,
-        1,
+        -2,
+        -2,
+        -3,
+        -2,
+        -3,
+        -3,
+        -2,
         1,
         2
       ]
     }
   },
   "rootMotion": {
-    "rule": "in place",
+    "rule": "E: 0 (it stands in the eye)",
     "E": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
       [
         0,
         0
@@ -234,6 +270,22 @@
       ]
     ],
     "W": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
       [
         0,
         0
@@ -1632,18 +1684,124 @@
           52
         ],
         "foot": "toe30k"
+      },
+      {
+        "name": "tsl-surf-lead",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 46,
+        "kneeX": 40,
+        "kneeRow": 51,
+        "footX": 42,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "tsl-surf-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 46,
+        "kneeX": 25,
+        "kneeRow": 51,
+        "ankle": [
+          21,
+          56
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "tsl-tuck-lead",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 44,
+        "kneeX": 40,
+        "kneeRow": 47,
+        "ankle": [
+          37,
+          53
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "tsl-tuck-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 44,
+        "kneeX": 24,
+        "kneeRow": 47,
+        "ankle": [
+          19,
+          51
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "es-sit-lead",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 52,
+        "kneeX": 40,
+        "kneeRow": 48,
+        "ankle": [
+          45,
+          55
+        ],
+        "foot": "pointFwd"
+      },
+      {
+        "name": "es-sit-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 52,
+        "kneeX": 37,
+        "kneeRow": 55,
+        "ankle": [
+          42,
+          56
+        ],
+        "foot": "pointFwd"
+      },
+      {
+        "name": "es-lie-lead",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 53,
+        "kneeX": 40,
+        "kneeRow": 51,
+        "ankle": [
+          46,
+          55
+        ],
+        "foot": "pointFwd"
+      },
+      {
+        "name": "es-lie-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 53,
+        "kneeX": 38,
+        "kneeRow": 55,
+        "ankle": [
+          45,
+          56
+        ],
+        "foot": "pointFwd"
       }
     ],
     "near": [
       1,
       1,
       3,
+      5,
+      5,
+      1,
+      1,
+      1,
+      1,
       3,
-      1,
-      1,
-      1,
-      1,
-      1,
+      3,
+      3,
+      3,
       3,
       1,
       1
@@ -1652,12 +1810,16 @@
       0,
       0,
       2,
+      4,
+      4,
+      0,
+      0,
+      0,
+      0,
       2,
-      0,
-      0,
-      0,
-      0,
-      0,
+      2,
+      2,
+      2,
       2,
       0,
       0
@@ -1714,6 +1876,14 @@
       },
       {
         "construction": "band",
+        "angle": 50,
+        "elbow": {
+          "at": 8,
+          "angle": -20
+        }
+      },
+      {
+        "construction": "band",
         "angle": -115,
         "elbow": {
           "at": 8,
@@ -1750,30 +1920,56 @@
       },
       {
         "construction": "band",
-        "angle": -110,
+        "angle": -130,
         "elbow": {
           "at": 8,
-          "angle": -132
+          "angle": -160
         },
         "fistKind": "palm"
       },
       {
         "construction": "band",
-        "angle": -40,
+        "angle": -100,
         "elbow": {
           "at": 8,
-          "angle": -40
+          "angle": -130
         },
         "fistKind": "palm"
       },
       {
         "construction": "band",
-        "angle": -40,
+        "angle": -100,
         "elbow": {
           "at": 8,
-          "angle": -40
+          "angle": -130
         },
         "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": -100,
+        "elbow": {
+          "at": 8,
+          "angle": -130
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": -100,
+        "elbow": {
+          "at": 8,
+          "angle": -130
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": -50,
+        "elbow": {
+          "at": 8,
+          "angle": -110
+        }
       },
       {
         "construction": "band",
@@ -1820,10 +2016,10 @@
       },
       {
         "construction": "band",
-        "angle": -30,
+        "angle": 40,
         "elbow": {
           "at": 8,
-          "angle": -100
+          "angle": -15
         }
       },
       {
@@ -1860,18 +2056,54 @@
       },
       {
         "construction": "band",
-        "angle": -30,
+        "angle": -40,
         "elbow": {
           "at": 8,
-          "angle": -100
+          "angle": -110
         }
       },
       {
         "construction": "band",
-        "angle": -30,
+        "angle": 60,
         "elbow": {
           "at": 8,
-          "angle": -100
+          "angle": 95
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": 60,
+        "elbow": {
+          "at": 8,
+          "angle": 95
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": 60,
+        "elbow": {
+          "at": 8,
+          "angle": 95
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": 60,
+        "elbow": {
+          "at": 8,
+          "angle": 95
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": -40,
+        "elbow": {
+          "at": 8,
+          "angle": -110
         }
       },
       {
@@ -2047,6 +2279,10 @@
       "bandFollowsBody": true,
       "sway": {
         "E": [
+          -1,
+          -1,
+          -1,
+          -1,
           -1,
           -1,
           -1,
@@ -2734,7 +2970,11 @@
         8,
         9,
         10,
-        11
+        11,
+        12,
+        13,
+        14,
+        15
       ],
       "fps": 10,
       "next": "guard",
@@ -2777,32 +3017,52 @@
       {
         "frame": 6,
         "clip": "sandstorm",
+        "type": "startup"
+      },
+      {
+        "frame": 7,
+        "clip": "sandstorm",
+        "type": "startup"
+      },
+      {
+        "frame": 8,
+        "clip": "sandstorm",
+        "type": "startup"
+      },
+      {
+        "frame": 9,
+        "clip": "sandstorm",
+        "type": "startup"
+      },
+      {
+        "frame": 10,
+        "clip": "sandstorm",
         "type": "active",
         "move": "Sandstorm",
         "buff": true
       },
       {
-        "frame": 7,
-        "clip": "sandstorm",
-        "type": "recovery"
-      },
-      {
-        "frame": 8,
-        "clip": "sandstorm",
-        "type": "recovery"
-      },
-      {
-        "frame": 9,
-        "clip": "sandstorm",
-        "type": "recovery"
-      },
-      {
-        "frame": 10,
-        "clip": "sandstorm",
-        "type": "recovery"
-      },
-      {
         "frame": 11,
+        "clip": "sandstorm",
+        "type": "recovery"
+      },
+      {
+        "frame": 12,
+        "clip": "sandstorm",
+        "type": "recovery"
+      },
+      {
+        "frame": 13,
+        "clip": "sandstorm",
+        "type": "recovery"
+      },
+      {
+        "frame": 14,
+        "clip": "sandstorm",
+        "type": "recovery"
+      },
+      {
+        "frame": 15,
         "clip": "sandstorm",
         "type": "recovery"
       }
@@ -2841,32 +3101,52 @@
       {
         "frame": 6,
         "clip": "sandstorm",
+        "type": "startup"
+      },
+      {
+        "frame": 7,
+        "clip": "sandstorm",
+        "type": "startup"
+      },
+      {
+        "frame": 8,
+        "clip": "sandstorm",
+        "type": "startup"
+      },
+      {
+        "frame": 9,
+        "clip": "sandstorm",
+        "type": "startup"
+      },
+      {
+        "frame": 10,
+        "clip": "sandstorm",
         "type": "active",
         "move": "Sandstorm",
         "buff": true
       },
       {
-        "frame": 7,
-        "clip": "sandstorm",
-        "type": "recovery"
-      },
-      {
-        "frame": 8,
-        "clip": "sandstorm",
-        "type": "recovery"
-      },
-      {
-        "frame": 9,
-        "clip": "sandstorm",
-        "type": "recovery"
-      },
-      {
-        "frame": 10,
-        "clip": "sandstorm",
-        "type": "recovery"
-      },
-      {
         "frame": 11,
+        "clip": "sandstorm",
+        "type": "recovery"
+      },
+      {
+        "frame": 12,
+        "clip": "sandstorm",
+        "type": "recovery"
+      },
+      {
+        "frame": 13,
+        "clip": "sandstorm",
+        "type": "recovery"
+      },
+      {
+        "frame": 14,
+        "clip": "sandstorm",
+        "type": "recovery"
+      },
+      {
+        "frame": 15,
         "clip": "sandstorm",
         "type": "recovery"
       }
@@ -3157,13 +3437,17 @@
       "E": [
         null,
         "squint",
-        "strain",
+        "closed",
+        "closed",
         "strain",
         "squint",
         "squint",
-        "closed",
-        "closed",
-        "closed",
+        "strain",
+        "strain",
+        "strain",
+        "roar",
+        "roar",
+        "roar",
         "strain",
         "squint",
         null
@@ -3172,32 +3456,50 @@
     "intent": "eyes squeezed shut with the brow pulled down on the impact frames 0-2 (no mouth: user 2026-10-14), a squint on frame 3, open again from frame 4 (user 2026-10-14)"
   },
   "zone": {
-    "rule": "Sandstorm v2 (Christopher 2026-10-28): AoE centred on the caster's hex (selfCentered, no aim point), placeholder radius 2 for 3 rounds; the testbed draws the storm (stormRing pattern turning, sand streaks and grit) over every hex of the AoE, following the caster if it moves; each round every other fighter inside takes light Elemental damage (placeholder 4) and an accuracy penalty while inside (placeholder -20% hit chance, Claude's reading: the caster in the eye is not penalised); a Projectile that is not an ultimate cannot enter: it stops at the first AoE hex on its line and breaks up in a sandPuff; ultimates pass through",
+    "rule": "Sandstorm v2 (Christopher 2026-10-28): AoE centred on the caster's hex (selfCentered, no aim point), placeholder radius 2 for 3 rounds; the testbed draws the storm (stormRing pattern turning, sand streaks and grit) over every hex of the AoE, following the caster if it moves; each round every other fighter inside takes light Elemental damage (placeholder 4) and an accuracy penalty while inside (placeholder -20% hit chance, Claude's reading: the caster in the eye is not penalised); a Projectile that is not an ultimate cannot enter: it stops at the first AoE hex on its line and breaks up in a sandPuff; ultimates pass through v3 (Christopher 2026-11-05 22:11, the ultimate treatment; drawn like Blizzard v3): from frame 10 the storm erupts from the caster and races outward ring by ring (ring 1 on frame 10, ring 2 on frame 11), a churning front of sand at its edge, then rages round the caster for zone.rounds rounds over the hexes it was cast on and fades out when they end: sand streaks and crystal grit circling the caster, 2-50 px above the floor, back half behind the fighters and front half over them, a sand-coloured haze over the whole disc and a calm eye (no sand within 20 px of the caster). Each other fighter inside plays sandstormCaught from the frame the front reaches its hex.",
     "pattern": "stormRing",
     "radius": 2,
     "rounds": 3,
     "selfCentered": true,
-    "blocksProjectiles": "non-ultimate"
+    "blocksProjectiles": "non-ultimate",
+    "linger": true,
+    "anchor": "cast hex",
+    "from": 10,
+    "ringFrames": {
+      "1": 10,
+      "2": 11
+    },
+    "eye": 20,
+    "colors": [
+      "#fff0c4",
+      "#e6c27a",
+      "#c89a52",
+      "#9c7434"
+    ]
   },
   "targetState": {
-    "rule": "Sandstorm v2: every other fighter inside the AoE plays sandstormCaught on loop while it stays inside",
+    "rule": "Sandstorm v3: each other fighter inside the AoE plays sandstormCaught on loop from the frame the storm front reaches its hex (ring 1 frame 10, ring 2 frame 11) while it stays inside",
     "state": "sandstormCaught"
   },
   "aura": {
     "rule": "Runtime aura (Christopher 2026-11-03: all auras follow the outline of the hair): on frame k, when widths[k] > 0, the testbed grows the silhouette of every drawn layer except fx (body, clothing or armour, arms, shoulders, hair or helmet, eyes, weapons) by widths[k] rings of 1 px (4-neighbour / 3x3 max growth); ring 0 in colors[0], the others in colors[1]; the outermost ring only on pixels where (x + y + k) is even (flicker); drawn behind the fighter, only outside its silhouette",
     "widths": [
       0,
-      0,
       1,
       1,
       2,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
       2,
-      3,
-      3,
-      3,
-      3,
-      2,
-      1
+      1,
+      0
     ],
     "colors": [
       "#e6c27a",
