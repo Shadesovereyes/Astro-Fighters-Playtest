@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Soulfire Bomb Stuck v1 (target state, frame 0 is the impact): the wisp hits the fighter's chest with a white flash and sticks there; the fighter jolts, looks down at it and swats at it, but it clings and grows, swelling from a spark into a burning orb of white-hot, lilac and purple fire ringed with black flame; it backs off a step, guard up, forearm shielding its face from the glare; loops 12-15 trembling, the orb throbbing, until the second round.",
+  "intent": "Soulfire Bomb Stuck v2 (v2: bigger impact flash with a ring, the throbbing bomb pulses a ring of light in the loop) (target state, frame 0 is the impact): the wisp hits the fighter's chest with a white flash and sticks there; the fighter jolts, looks down at it and swats at it, but it clings and grows, swelling from a spark into a burning orb of white-hot, lilac and purple fire ringed with black flame; it backs off a step, guard up, forearm shielding its face from the glare; loops 12-15 trembling, the orb throbbing, until the second round.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",

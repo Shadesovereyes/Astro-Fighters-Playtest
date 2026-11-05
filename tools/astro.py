@@ -5967,6 +5967,144 @@ CLIPS['soulfireBombDetonate'] = ('Soulfire Bomb Detonate', 3,
                  7: [('pembers', 'feet', 8, -6), ('pflame1', 'head', -4, 2)],
                  8: [('pembers', 'head', 4, -6, {'alpha': {'P': 150, 'K': 150, 'p': 150}})]}))
 
+# ---------- Soulfire Bomb v2 (Christopher 2026-11-05 16:39: "this is a good first pass lets give it the ultimate treatment"): a 16-frame cast with a long build-up, a bigger wisp and flash, a throbbing bomb, and a longer, bigger explosion ----------
+NPAT.update({'pRing5': _ring(5, 'Q', 'P'), 'pRing8': _ring(8, 'P', 'Q', 1), 'pRing11': _ring(11, 'p', 'P', 1)})
+def _wispTail():   # the wisp in flight: the burning bomb head (r 2) with a tapering purple and black flame tail streaming back
+    h = _sbomb(2, 1); H = len(h); W_ = len(h[0]); tail = 9; rows = []
+    for y, row in enumerate(h):
+        dy = abs(y - H // 2); t = ''
+        for x in range(tail):
+            reach = (tail - x) / tail * 3.2
+            t += ('.' if dy > 3.2 - x / tail * 3.2 else 'K' if x < 3 else 'p' if dy > 1 else 'P') if dy <= 3.2 - x / tail * 3.2 else '.'
+        rows.append(t + row)
+    return rows
+NPAT['sbWisp'] = _wispTail()
+NPAT.update({'sbFlash': _sbomb(4, 0, hot=True)})
+
+def soul_blast2(img, cx, fy, rx, n, alpha=255):
+    """Soulfire Bomb v2 explosion over the radius-2 zone round the bearer, n = frames since the detonation, 0-9:
+    0 a white flash disc; 1 a white-hot core bursting out; 2-5 a see-through dome of purple and black fire filling the
+    zone, black flame tongues licking up off its crown, a first floor ring racing out (2-4) and a second (4-6); 6-9 the dome
+    collapses into rising clumps of black smoke and purple embers"""
+    import random
+    px = img.load(); W_, H_ = img.size; rnd = random.Random(n * 37)
+    col = lambda ch: tuple(int(NPAL[ch][i:i + 2], 16) for i in (1, 3, 5))
+    def put(x, y, ch, a):
+        if 0 <= x < W_ and 0 <= y < H_:
+            c = col(ch); b = px[x, y]; t = a / 255
+            px[x, y] = tuple(round(c[i] * t + b[i] * (1 - t)) for i in range(3)) + (max(b[3], a),)
+    grow = [0.45, 0.7, 0.9, 1.0, 1.04, 1.0, 1.0, 1.0, 1.0, 1.0][min(n, 9)]; R = rx * grow; Ry = R * 0.9
+    for y in range(-round(Ry) - 4, 3):
+        for x in range(-round(R) - 4, round(R) + 5):
+            e = math.hypot(x / max(R, 1), y / max(Ry, 1))
+            if e > 1.06: continue
+            if n == 0: ch, a = ('W' if e < 0.8 else 'Q'), 245
+            elif n == 1: ch, a = ('W' if e < 0.55 else 'Q' if e < 0.85 else 'P'), 225
+            elif n <= 5:
+                sh = 0.5 + 0.5 * math.sin(7 * math.atan2(y, x) + 2.3 * n + e * 10)
+                if e < 0.34 - 0.06 * (n - 2): ch, a = 'W', 210
+                elif e < 0.78: ch, a = ('Q' if sh > 0.55 else 'P'), 120 - 12 * (n - 2)
+                elif e < 0.9: ch, a = ('P' if sh > 0.4 else 'p'), 215
+                elif e < 1.0: ch, a = 'p', 235
+                else: ch, a = 'K', 235
+                if 0.5 < e < 0.98 and random.Random(x * 131 + y * 17 + n).random() < 0.05: ch, a = 'K', 200   # scattered black flames (no hatching)
+            else:
+                bx, by = (x + 64) // 3, (y - 3 * (n - 5) + 64) // 3
+                h_ = random.Random(bx * 1009 + by * 31 + n * 7).randrange(1024)
+                if h_ > 360 - 80 * (n - 6) or e < 0.3: continue
+                ch, a = ('K' if h_ % 3 else 'p' if h_ % 2 else 'P'), 175 - 20 * (n - 6)
+            put(cx + x, fy + y, ch, a)
+    if 2 <= n <= 6:   # black flame tongues licking up off the dome's crown
+        for i in range(7):
+            x0 = round(cx + (i - 3) * R * 0.22 + rnd.uniform(-2, 2)); top = fy - Ry * (0.92 - 0.1 * abs(i - 3) / 3)
+            L = R * (0.25 + 0.2 * math.sin(i * 1.7 + n)) * (1.2 if n in (3, 4) else 0.8)
+            for k in range(round(L)):
+                w = max(0, round(2 * (1 - k / max(L, 1))))
+                for dx in range(-w, w + 1): put(x0 + dx + round(math.sin(k * 0.5 + n + i) * 1.2), round(top - k), 'K' if k > L * 0.4 or abs(dx) == w else 'p', 230)
+    for n0, ch in ((2, 'W'), (4, 'Q')):   # two shock rings racing out along the floor past the zone edge
+        if n0 <= n <= n0 + 2:
+            Rr = rx * (0.7 + 0.25 * (n - n0))
+            for t in range(0, 360, 2):
+                a = math.radians(t); put(round(cx + Rr * math.cos(a)), round(fy + Rr * 0.18 * math.sin(a)), ch if t % 6 else 'P', 230 - 40 * (n - n0))
+    for i in range(8 + 4 * min(n, 5)):   # embers and flecks thrown up and out
+        a = rnd.uniform(-math.pi, 0); dd = R * rnd.uniform(0.6, 1.35)
+        put(round(cx + dd * math.cos(a)), round(fy + dd * 0.95 * math.sin(a)), rnd.choice('PKOQW' if n < 3 else 'PKpQ'), 230)
+
+_SBH = lambda r, ph, dx=1, dy=-1: (('sb%d_%d' % (r, ph % 3)), 'hand', dx, dy)   # the wisp kindling on the raised fingertips
+CLIPS['soulfireBomb'] = ('Soulfire Bomb', 13,
+  'Soulfire Bomb v2 (Sagittarius ninjutsu ultimate, Elemental 30, AoE radius 2 centred on the target, explodes on the second round, target Chakra -20, canon A12; Christopher 2026-11-05 16:35, v2 16:39: the ultimate treatment): from the guard the fighter makes the seal and sinks low, eyes closing, as purple and black flames lick up off the floor round its feet and embers lift; its dark purple aura flares and blazes up round it; it rises and raises two fingers before its face, and a will-o\'-wisp of soulfire kindles on the fingertips, small flames spiralling into it as it swells and throbs; it draws the fingers back past its ear, then flicks them out at the target with a white flash and a ring of purple fire off the fingertips; the wisp streaks off with a flame tail (projectile from frame 10) and sticks to the target\'s chest on frame 13, the impact; the fighter holds the point, then settles into the guard. The target plays soulfireBombStuck, then soulfireBombDetonate at the start of the second round.',
+  [g(),
+   g(an=U.SEAL_N, af=U.SEAL_F, bob=(2, 2, 2), lean=(0, 0), **LOW),
+   g(an=U.SEAL_N, af=U.SEAL_F, bob=(3, 3, 3), lean=(0, 1), **LOW),
+   g(an=U.SEAL_N, af=U.SEAL_F, bob=(4, 4, 4), lean=(0, 1), **BRACE),
+   g(an=U.SEAL_N, af=U.SEAL_F, bob=(4, 4, 4), lean=(0, 1), root=(1, 0), **BRACE),
+   g(an=band(-60, -150, fistKind='point'), af=band(-45, -115), bob=(2, 2, 2), lean=(0, 0), root=(-1, 0), **LOW),
+   g(an=band(-60, -150, fistKind='point'), af=band(-45, -115), bob=(1, 1, 1), lean=(0, -1)),
+   g(an=band(-60, -150, fistKind='point'), af=band(-45, -115), bob=(1, 1, 1), lean=(0, -1)),
+   g(an=band(-60, -150, fistKind='point'), af=band(-45, -115), bob=(1, 1, 1), lean=(0, -1)),
+   g(an=band(-110, -200, fistKind='point'), af=band(-45, -115), bob=(1, 1, 1), lean=(-1, -3), root=(-1, 0)),
+   g(an=band(-92, -92, fistKind='point'), af=band(-40, -120), bob=(2, 2, 2), lean=(2, 6), root=(3, 0), ln='sp-drive-rear', lf='sp-drive-lead'),
+   g(an=band(-92, -92, fistKind='point'), af=band(-40, -120), bob=(2, 2, 2), lean=(2, 6), ln='sp-drive-rear', lf='sp-drive-lead'),
+   g(an=band(-92, -92, fistKind='point'), af=band(-40, -120), bob=(2, 2, 2), lean=(1, 5), ln='sp-drive-rear', lf='sp-drive-lead'),
+   g(an=band(-92, -92, fistKind='point'), af=band(-40, -120), bob=(1, 1, 2), lean=(1, 4), ln='sp-drive-rear', lf='sp-drive-lead'),
+   g(an=band(-60, -120), af=band(-50, -115), bob=(1, 1, 2), lean=(0, 2), root=(-2, 0)),
+   g()],
+  [None, 'squint', 'closed', 'closed', 'strain', 'squint', 'squint', 'squint', 'strain', 'strain', 'roar', 'roar', 'squint', 'squint', None, None],
+  [0, 1, 1, 2, 3, 3, 3, 3, 3, 3, 3, 2, 2, 1, 1, 0],
+  dict(fps=10, auraColors=_SAG_AURA, rm='E: +1 -1 straining, -1 drawing back, +3 flicking the fingers out, -2 settling back',
+       extra={'projectile': {'rule': 'Soulfire Bomb v2: on frame 10 the testbed launches the will-o\'-wisp (NPAT sbWisp: the burning bomb head with a purple and black flame tail) from the near fingertips to the target\'s chest, landing on frame 13 (the impact) with NPAT sbFlash; it does not burst: the target then carries it (soulfireBombStuck)', 'pattern': 'sbWisp', 'from': 10, 'hit': 13, 'hitPattern': 'sbFlash'},
+              'targetState': {'rule': 'Soulfire Bomb (canon A12): from frame 13, the impact, the target plays soulfireBombStuck: frames 0-11 once (the wisp clings to its chest and grows), then frames 12-15 on loop for the rest of the round; at the start of the second round it plays soulfireBombDetonate (the explosion, radius 2 round the bearer), then its idle', 'state': 'soulfireBombStuck', 'loopFrom': 12, 'then': 'soulfireBombDetonate', 'element': 'sagittarius'}},
+       anchored={1: [('pspark', 'hand', 0, -2), ('pembers', 'feet', 8, -4)],
+                 2: [('pflame1', 'feet', -9, -2), ('pflame1', 'feet', 10, -2), ('pembers', 'feet', -6, -8)],
+                 3: [('pflame2', 'feet', -10, -3), ('pflame2', 'feet', 11, -3), ('pembers', 'feet', 7, -12), ('pflame1', 'feet', 3, -1)],
+                 4: [('pflame2', 'feet', -12, -3), ('pflame2', 'feet', 12, -3), ('pflame2', 'feet', -4, -3), ('pembers', 'feet', -8, -14), ('pembers', 'feet', 9, -18)],
+                 5: [_SBH(1, 0), ('pflame2', 'feet', -11, -3), ('pflame2', 'feet', 11, -3), ('pembers', 'head', -9, 2)],
+                 6: [_SBH(2, 1), ('pflame1', 'hand', -6, -6), ('pflame1', 'hand', 6, 3), ('pflame1', 'feet', -10, -2), ('pflame2', 'feet', 10, -3)],
+                 7: [_SBH(3, 2), ('pflame1', 'hand', 5, -8), ('pflame1', 'hand', -7, 2), ('pembers', 'feet', -8, -6), ('pflame1', 'feet', 11, -2)],
+                 8: [_SBH(4, 0), ('pflame1', 'hand', -4, -9), ('pflame1', 'hand', 8, -1), ('pspark', 'hand', 0, -10), ('pflame1', 'feet', -10, -2)],
+                 9: [_SBH(4, 1, 0, -2), ('pembers', 'hand', 3, -8), ('pflame1', 'feet', 10, -2)],
+                 10: [('sbFlash', 'hand', 2, 0), ('pRing8', 'hand', 4, 0), ('pembers', 'hand', -3, -5)],
+                 11: [('pRing11', 'hand', 6, 0), ('pspark', 'hand', 2, 0)],
+                 12: [('pembers', 'hand', 2, -3, {'alpha': {'P': 160, 'K': 160, 'p': 160}})]}))
+_ST = dict(CLIPS['soulfireBombStuck'][6]); _STa = dict(_ST['anchored'])
+_STa[0] = [('sbFlash', 'head', 1, 15), ('pRing8', 'head', 1, 15), _SB(1, 0), ('pembers', 'head', 6, 6)]
+for k_ in (12, 14): _STa[k_] = _STa[k_] + [('pRing5', 'head', 1, 15, {'alpha': {'Q': 150, 'P': 150}})]   # v2: the throbbing bomb pulses a ring of purple light
+_ST['anchored'] = _STa
+CLIPS['soulfireBombStuck'] = CLIPS['soulfireBombStuck'][:1] + (0, CLIPS['soulfireBombStuck'][2].replace('Soulfire Bomb Stuck v1', 'Soulfire Bomb Stuck v2 (v2: bigger impact flash with a ring, the throbbing bomb pulses a ring of light in the loop)')) + CLIPS['soulfireBombStuck'][3:6] + (_ST,)
+CLIPS['soulfireBombDetonate'] = ('Soulfire Bomb Detonate', 5,
+  'Soulfire Bomb Detonate v2 (target state, start of the second round; v2 the ultimate treatment): the bomb on the fighter\'s chest swells and swells, white-hot, black flames flaring and rings of light pulsing off it, as the fighter claws at it, then is lifted onto its toes, arms flung wide; on frame 5 it explodes: a white flash, a white-hot core bursting out, then a see-through dome of purple and black fire filling the whole radius-2 zone round the bearer with black flame tongues licking up off its crown and two shock rings racing out along the floor (astro.soul_blast2, drawn at runtime from extra.zone, centre bearer); the dome collapses into rising black smoke and embers; the bearer is crushed down onto one knee in purple flames, its chakra torn out of it in blue motes, then shoves itself back up into its guard.',
+  [g(an=band(-10, -60, fistKind='palm'), af=band(-20, -70, fistKind='palm'), bob=(1, 1, 1), lean=(1, 3)),
+   g(an=band(-5, -55, fistKind='palm'), af=band(-15, -65, fistKind='palm'), bob=(2, 2, 2), lean=(1, 4), root=(1, 0)),
+   g(an=band(-10, -60, fistKind='palm'), af=band(-20, -70, fistKind='palm'), bob=(2, 2, 2), lean=(1, 4), root=(-1, 0), **BRACE),
+   g(an=band(-60, -150), af=band(-50, -140), bob=(0, 0, 0), lean=(-1, -3)),
+   g(an=band(-80, -175), af=band(-70, -170), bob=(-1, -1, -1), lean=(-2, -5)),
+   g(an=band(-150, -175), af=band(-140, -170), bob=(5, 5, 5), lean=(-1, -3), root=(-1, 0), **BRACE),
+   g(an=band(-150, -175), af=band(-140, -170), bob=(6, 6, 6), lean=(1, 5), **BRACE),
+   g(an=band(-35, -20), af=band(-150, -170), bob=(10, 11, 11), lean=(2, 10), ln='ss-kneel-rear', lf='ss-kneel-lead'),
+   g(an=band(-35, -20), af=band(-140, -165), bob=(10, 11, 11), lean=(2, 11), ln='ss-kneel-rear', lf='ss-kneel-lead'),
+   g(an=band(-35, -20), af=band(-140, -165), bob=(10, 11, 11), lean=(2, 11), ln='ss-kneel-rear', lf='ss-kneel-lead'),
+   g(an=band(-35, -20), af=band(-55, -150, fistKind='palm'), bob=(9, 10, 10), lean=(1, 7), ln='ss-kneel-rear', lf='ss-kneel-lead'),
+   g(an=band(-35, -20), af=band(-55, -150, fistKind='palm'), bob=(10, 11, 11), lean=(2, 9), ln='ss-kneel-rear', lf='ss-kneel-lead'),
+   g(an=band(-35, -20), af=band(-55, -150, fistKind='palm'), bob=(9, 10, 10), lean=(1, 7), ln='ss-kneel-rear', lf='ss-kneel-lead'),
+   g(an=band(-30, -100), af=band(-40, -120), bob=(5, 5, 5), lean=(1, 4), **BRACE),
+   g(an=band(-45, -115), af=band(-40, -115), bob=(1, 1, 2), lean=(0, 1), root=(-1, 0)),
+   g()],
+  ['pain', 'strain', 'pain', 'pain', 'roar', 'closed', 'pain', 'pain', 'pain', 'strain', 'pain', 'strain', 'pain', 'strain', 'squint', None],
+  None,
+  dict(fps=8, rm='E: +1 -1 tearing at it, -1 blown back, -1 staggering into the guard',
+       extra={'zone': {'rule': 'Soulfire Bomb v2 (canon A12): an AoE of radius 2 centred on the bearer\'s hex (19 hexes). From frame 5 the testbed draws the explosion over the zone (astro.soul_blast2, n = frames since frame 5, 0-9, rx = the zone\'s half-width): white flash, white-hot core, a see-through dome of purple and black fire to the zone edge with black flame tongues off its crown and two floor shock rings, then rising black smoke and embers. Every other fighter inside plays hitReact on frame 5 (a blast reaction to author)', 'centre': 'bearer', 'radius': 2, 'impactFrame': 5, 'blastFrames': 10, 'draw': 'soul_blast2'}},
+       anchored={0: [_SB(7, 0, hot=True), ('pRing5', 'head', 1, 15), ('pspark', 'head', 7, 8)],
+                 1: [_SB(8, 1, hot=True), ('pembers', 'head', 8, 4)],
+                 2: [_SB(8, 0, hot=True), ('pRing8', 'head', 1, 15), ('pflame1', 'head', -6, 8)],
+                 3: [_SB(10, 1, hot=True), ('pembers', 'head', 9, 2), ('pspark', 'head', -8, 6)],
+                 4: [_SB(12, 0, hot=True), ('pRing11', 'head', 1, 15)],
+                 7: [('pflame2', 'feet', -8, -3), ('pflame2', 'feet', 8, -4), ('pflame1', 'head', -5, 2), ('chakraMote', 'head', 6, -6)],
+                 8: [('pflame2', 'feet', -9, -4), ('pflame1', 'feet', 9, -3), ('pflame1', 'head', 5, 3), ('chakraMote', 'head', -4, -9), ('chakraMote', 'head', 7, -12)],
+                 9: [('pflame2', 'feet', -7, -3), ('pflame1', 'head', 4, 1), ('chakraMote', 'head', 2, -14), ('chakraMote', 'head', -6, -16)],
+                 10: [('pflame1', 'feet', -8, -3), ('pembers', 'head', 3, -8), ('chakraMote', 'head', 3, -18)],
+                 11: [('pembers', 'feet', 8, -6), ('pflame1', 'head', -4, 2)],
+                 12: [('pembers', 'head', 4, -6, {'alpha': {'P': 150, 'K': 150, 'p': 150}})]}))
+
 def spec(state):
     U.CLIPS[state] = CLIPS[state]
     U.APPROVED[state] = APPROVED.get(state, STAT)

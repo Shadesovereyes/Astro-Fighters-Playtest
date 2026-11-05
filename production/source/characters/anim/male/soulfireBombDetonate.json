@@ -3,7 +3,7 @@
   "body": "male",
   "state": "soulfireBombDetonate",
   "status": "CANDIDATE 2026-10-27 (E/W; W mirrors E; S/N to author after approval)",
-  "frames": 11,
+  "frames": 16,
   "fps": 8,
   "sourceDirection": "E",
   "directions": [
@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Soulfire Bomb Detonate v1 (target state, start of the second round): the orb on the fighter's chest swells white-hot, its black flames flaring, as the fighter tears at it; on frame 3 it explodes: a white flash and a dome of purple and black fire swell out over the whole radius-2 zone round the bearer (drawn at runtime from extra.zone, centre bearer) with a ring racing along the floor, then break into black smoke and embers; the bearer is crushed down onto one knee in purple flames, its chakra torn out of it in blue motes, then shoves itself back up into its guard. Every other fighter in the zone plays hitReact for now (a blast reaction to author).",
+  "intent": "Soulfire Bomb Detonate v2 (target state, start of the second round; v2 the ultimate treatment): the bomb on the fighter's chest swells and swells, white-hot, black flames flaring and rings of light pulsing off it, as the fighter claws at it, then is lifted onto its toes, arms flung wide; on frame 5 it explodes: a white flash, a white-hot core bursting out, then a see-through dome of purple and black fire filling the whole radius-2 zone round the bearer with black flame tongues licking up off its crown and two shock rings racing out along the floor (astro.soul_blast2, drawn at runtime from extra.zone, centre bearer); the dome collapses into rising black smoke and embers; the bearer is crushed down onto one knee in purple flames, its chakra torn out of it in blue motes, then shoves itself back up into its guard.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -108,11 +108,16 @@
       1,
       2,
       2,
+      0,
+      -1,
       5,
+      6,
+      10,
       10,
       10,
       9,
       10,
+      9,
       5,
       1,
       1
@@ -121,11 +126,16 @@
       1,
       2,
       2,
+      0,
+      -1,
       5,
+      6,
+      11,
       11,
       11,
       10,
       11,
+      10,
       5,
       1,
       1
@@ -134,11 +144,16 @@
       1,
       2,
       2,
+      0,
+      -1,
       5,
+      6,
+      11,
       11,
       11,
       10,
       11,
+      10,
       5,
       2,
       2
@@ -153,10 +168,15 @@
         1,
         1,
         -1,
+        -2,
+        -1,
+        1,
+        2,
         2,
         2,
         1,
         2,
+        1,
         1,
         0,
         0
@@ -166,10 +186,15 @@
         4,
         4,
         -3,
+        -5,
+        -3,
+        5,
         10,
+        11,
         11,
         7,
         9,
+        7,
         4,
         1,
         2
@@ -192,7 +217,27 @@
         0
       ],
       [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
         -1,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
         0
       ],
       [
@@ -238,7 +283,27 @@
         0
       ],
       [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
         1,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
         0
       ],
       [
@@ -1727,7 +1792,12 @@
       1,
       1,
       5,
+      1,
+      1,
       5,
+      5,
+      50,
+      50,
       50,
       50,
       50,
@@ -1740,7 +1810,12 @@
       0,
       0,
       4,
+      0,
+      0,
       4,
+      4,
+      49,
+      49,
       49,
       49,
       49,
@@ -1795,10 +1870,50 @@
       },
       {
         "construction": "band",
+        "angle": -60,
+        "elbow": {
+          "at": 8,
+          "angle": -150
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -80,
+        "elbow": {
+          "at": 8,
+          "angle": -175
+        }
+      },
+      {
+        "construction": "band",
         "angle": -150,
         "elbow": {
           "at": 8,
           "angle": -175
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -150,
+        "elbow": {
+          "at": 8,
+          "angle": -175
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -35,
+        "elbow": {
+          "at": 8,
+          "angle": -20
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -35,
+        "elbow": {
+          "at": 8,
+          "angle": -20
         }
       },
       {
@@ -1888,6 +2003,30 @@
       },
       {
         "construction": "band",
+        "angle": -50,
+        "elbow": {
+          "at": 8,
+          "angle": -140
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -70,
+        "elbow": {
+          "at": 8,
+          "angle": -170
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -140,
+        "elbow": {
+          "at": 8,
+          "angle": -170
+        }
+      },
+      {
+        "construction": "band",
         "angle": -140,
         "elbow": {
           "at": 8,
@@ -1909,6 +2048,23 @@
           "at": 8,
           "angle": -165
         }
+      },
+      {
+        "construction": "band",
+        "angle": -140,
+        "elbow": {
+          "at": 8,
+          "angle": -165
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -55,
+        "elbow": {
+          "at": 8,
+          "angle": -150
+        },
+        "fistKind": "palm"
       },
       {
         "construction": "band",
@@ -2117,6 +2273,11 @@
       "bandFollowsBody": true,
       "sway": {
         "E": [
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
           -1,
           -1,
           -1,
@@ -2802,7 +2963,12 @@
         7,
         8,
         9,
-        10
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
       ],
       "fps": 8,
       "next": "guard",
@@ -2830,19 +2996,19 @@
       {
         "frame": 3,
         "clip": "soulfireBombDetonate",
-        "type": "active",
-        "move": "Soulfire Bomb Detonate",
-        "buff": true
+        "type": "startup"
       },
       {
         "frame": 4,
         "clip": "soulfireBombDetonate",
-        "type": "recovery"
+        "type": "startup"
       },
       {
         "frame": 5,
         "clip": "soulfireBombDetonate",
-        "type": "recovery"
+        "type": "active",
+        "move": "Soulfire Bomb Detonate",
+        "buff": true
       },
       {
         "frame": 6,
@@ -2866,6 +3032,31 @@
       },
       {
         "frame": 10,
+        "clip": "soulfireBombDetonate",
+        "type": "recovery"
+      },
+      {
+        "frame": 11,
+        "clip": "soulfireBombDetonate",
+        "type": "recovery"
+      },
+      {
+        "frame": 12,
+        "clip": "soulfireBombDetonate",
+        "type": "recovery"
+      },
+      {
+        "frame": 13,
+        "clip": "soulfireBombDetonate",
+        "type": "recovery"
+      },
+      {
+        "frame": 14,
+        "clip": "soulfireBombDetonate",
+        "type": "recovery"
+      },
+      {
+        "frame": 15,
         "clip": "soulfireBombDetonate",
         "type": "recovery"
       }
@@ -2889,19 +3080,19 @@
       {
         "frame": 3,
         "clip": "soulfireBombDetonate",
-        "type": "active",
-        "move": "Soulfire Bomb Detonate",
-        "buff": true
+        "type": "startup"
       },
       {
         "frame": 4,
         "clip": "soulfireBombDetonate",
-        "type": "recovery"
+        "type": "startup"
       },
       {
         "frame": 5,
         "clip": "soulfireBombDetonate",
-        "type": "recovery"
+        "type": "active",
+        "move": "Soulfire Bomb Detonate",
+        "buff": true
       },
       {
         "frame": 6,
@@ -2925,6 +3116,31 @@
       },
       {
         "frame": 10,
+        "clip": "soulfireBombDetonate",
+        "type": "recovery"
+      },
+      {
+        "frame": 11,
+        "clip": "soulfireBombDetonate",
+        "type": "recovery"
+      },
+      {
+        "frame": 12,
+        "clip": "soulfireBombDetonate",
+        "type": "recovery"
+      },
+      {
+        "frame": 13,
+        "clip": "soulfireBombDetonate",
+        "type": "recovery"
+      },
+      {
+        "frame": 14,
+        "clip": "soulfireBombDetonate",
+        "type": "recovery"
+      },
+      {
+        "frame": 15,
         "clip": "soulfireBombDetonate",
         "type": "recovery"
       }
@@ -3216,8 +3432,13 @@
         "pain",
         "strain",
         "pain",
+        "pain",
+        "roar",
         "closed",
         "pain",
+        "pain",
+        "pain",
+        "strain",
         "pain",
         "strain",
         "pain",
@@ -3229,10 +3450,11 @@
     "intent": "eyes squeezed shut with the brow pulled down on the impact frames 0-2 (no mouth: user 2026-10-14), a squint on frame 3, open again from frame 4 (user 2026-10-14)"
   },
   "zone": {
-    "rule": "Soulfire Bomb v1 (canon A12): an AoE of radius 2 centred on the bearer's hex (19 hexes). From frame 3 the testbed draws the explosion over the zone (astro.soul_blast, n = frames since frame 3, 0-6, rx = the zone's half-width): white flash, a see-through dome of purple and black fire swelling out to the zone edge with a floor ring, then black smoke and embers. Every other fighter inside plays hitReact on frame 3 (a blast reaction to author)",
+    "rule": "Soulfire Bomb v2 (canon A12): an AoE of radius 2 centred on the bearer's hex (19 hexes). From frame 5 the testbed draws the explosion over the zone (astro.soul_blast2, n = frames since frame 5, 0-9, rx = the zone's half-width): white flash, white-hot core, a see-through dome of purple and black fire to the zone edge with black flame tongues off its crown and two floor shock rings, then rising black smoke and embers. Every other fighter inside plays hitReact on frame 5 (a blast reaction to author)",
     "centre": "bearer",
     "radius": 2,
-    "impactFrame": 3,
-    "blastFrames": 7
+    "impactFrame": 5,
+    "blastFrames": 10,
+    "draw": "soul_blast2"
   }
 }
