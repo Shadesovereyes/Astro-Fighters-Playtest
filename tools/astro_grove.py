@@ -1,4 +1,4 @@
-"""Root Sanctuary v4 zone preview (Christopher 2026-11-05 22:32: a caster-centred AoE that raises a large root ball / mini forest,
+"""Root Sanctuary v5 zone preview (v5 22:50: more roots, fewer trees) (Christopher 2026-11-05 22:32: a caster-centred AoE that raises a large root ball / mini forest,
 blocking projectiles, fighters inside untargetable from outside): a wide scene on a faint hex underlay (testbed hexStep 34, pointy
 hexes, rows squashed by half), the caster on the centre hex facing E, an ally inside on hex 1 west, a foe outside on hex 4 east.
 From zone.from the soil spreads and roots burst up ring by ring (zone.ringFrames), climb and arch inward and knot shut into a root
@@ -29,14 +29,17 @@ def hexes(img):
             x, y = hxy(q, r); dist = max(abs(q), abs(r), abs(q + r)); col = (0x9a, 0xc8, 0xe8, 130) if dist <= radius else (0xa8, 0xae, 0xbb, 90)
             d.polygon([(x + HS * math.cos(math.radians(60 * i - 30)), y + HS * 0.5 * math.sin(math.radians(60 * i - 30))) for i in range(6)], outline=col)
 rnd = random.Random(5)
-NS = 46
-STR = [(2 * math.pi * i / NS + rnd.uniform(-0.06, 0.06), rnd.uniform(0.93, 1.04), rnd.uniform(5, 9.5), rnd.uniform(0, 6), rnd.uniform(0.85, 1.1), (0.45 if i % 2 else -0.45) * rnd.uniform(0.6, 1.1)) for i in range(NS)]
-INNER = [(rnd.uniform(0, 2 * math.pi), math.sqrt(rnd.random()) * (R - HW * 0.4), rnd.uniform(10, 26), rnd.uniform(2.5, 4)) for _ in range(16)]
+NS = 84   # v5 (Christopher 22:50 "more roots less trees"): 84 rim roots (was 46) plus an inner shell of 34, thicker and more varied
+STR = [(2 * math.pi * i / NS + rnd.uniform(-0.05, 0.05), rnd.uniform(0.93, 1.04), rnd.uniform(4, 11), rnd.uniform(0, 6), rnd.uniform(0.85, 1.1), (0.45 if i % 2 else -0.45) * rnd.uniform(0.6, 1.1)) for i in range(NS)]
+STR += [(rnd.uniform(0, 2 * math.pi), rnd.uniform(0.7, 0.86), rnd.uniform(3.5, 7), rnd.uniform(0, 6), rnd.uniform(0.9, 1.08), rnd.uniform(-0.6, 0.6)) for _ in range(34)]
+INNER = [(rnd.uniform(0, 2 * math.pi), math.sqrt(rnd.random()) * (R - HW * 0.4), rnd.uniform(12, 34), rnd.uniform(2.5, 5)) for _ in range(44)]
+BUTT = [(2 * math.pi * i / 22 + rnd.uniform(-0.1, 0.1), rnd.uniform(0.45, 0.9), rnd.uniform(6, 10), rnd.uniform(14, 24)) for i in range(22)]   # buttress roots flaring out over the ground round the foot
+CRAWL = [(rnd.uniform(0, 2 * math.pi), rnd.uniform(0.9, 1.5), rnd.uniform(0, 6)) for _ in range(26)]   # surface roots snaking outward past the rim
 TREES = []
-for i in range(26):
-    top = i < 12
-    th = rnd.uniform(math.pi * 1.05, math.pi * 1.95) if top else 2 * math.pi * (i - 12) / 14 + rnd.uniform(-0.15, 0.15); s = rnd.uniform(0.55, 0.92) if top else 0.0
-    TREES.append((th, s, rnd.uniform(12, 22) if top else rnd.uniform(14, 26), rnd.uniform(8, 13) if top else rnd.uniform(7, 11), TF + rnd.randrange(4)))
+for i in range(4):   # v5: 4 small trees (was 26): two on the crown, two at the foot
+    top = i < 2
+    th = (math.pi * 1.35 if i == 0 else math.pi * 1.68) if top else (math.pi * 0.9 if i == 2 else math.pi * 2.08); s = 0.7 if top else 0.0
+    TREES.append((th, s, rnd.uniform(12, 16) if top else rnd.uniform(14, 18), rnd.uniform(8, 10) if top else rnd.uniform(7, 9), TF + 1 + rnd.randrange(3)))
 TREES.sort(key=lambda T: (T[1] == 0 and math.sin(T[0]) > 0, -T[1]))   # crown first, then the far foot ring; the near foot ring last (in front)
 GLINT = [(rnd.randrange(NS), rnd.uniform(0.15, 0.9), rnd.randrange(6)) for _ in range(22)]
 def grow(t):   # how far the rim roots have climbed (1 = knotted at the apex)
@@ -65,6 +68,21 @@ def grove(img, t, part, alpha, hfac):
         k = min(1, (t - RF.get(ring, F0) + 1) / 2) * hfac; x0, y0 = CX + rd * math.cos(th), FEET + 0.5 * rd * math.sin(th)
         pts = [(x0 + math.sin(u * 5 + th) * 2, y0 - L * k * u) for u in [j / 6 for j in range(7)]]
         d.line(pts, fill=a_(OUTL), width=int(w) + 2); d.line(pts, fill=a_(BODY), width=int(w)); d.line([(x + 1, y) for x, y in pts[:-1]], fill=a_(LIT), width=1)
+    if t >= RF[max(RF)]:   # buttress roots flaring out over the ground and roots crawling past the rim
+        kk = min(1.0, (t - RF[max(RF)] + 1) / 3) * hfac
+        for th, ht, w, out in BUTT:
+            if (math.sin(th) > 0) != (part == 'front'): continue
+            x0, y0 = CX + R * 0.97 * math.cos(th), FEET + 0.485 * R * math.sin(th) - DH * ht * 0.35 * kk
+            x1, y1 = CX + (R + out * kk) * math.cos(th), FEET + 0.5 * (R + out * kk) * math.sin(th)
+            pts = [((1 - u) ** 2 * x0 + 2 * (1 - u) * u * (x1 - (x1 - x0) * 0.1) + u * u * x1, (1 - u) ** 2 * y0 + 2 * (1 - u) * u * (y1 - 2) + u * u * y1) for u in [j / 8 for j in range(9)]]
+            d.line(pts, fill=a_(OUTL), width=int(w) + 2, joint='curve'); d.line(pts, fill=a_(BODY), width=int(w), joint='curve'); d.line([(x, y - 1) for x, y in pts[:-2]], fill=a_(LIT, 210), width=1)
+        for th, ln, ph in CRAWL:
+            if (math.sin(th) > 0) != (part == 'front'): continue
+            pts = []
+            for j in range(10):
+                u = j / 9; rr2 = R * (0.95 + (ln - 0.95) * u * kk); a2 = th + math.sin(u * 4 + ph) * 0.08
+                pts.append((CX + rr2 * math.cos(a2), FEET + 0.5 * rr2 * math.sin(a2)))
+            d.line(pts, fill=a_(OUTL, 230), width=4); d.line(pts, fill=a_(BODY, 230), width=2)
     if f > 0:
         for i, (th, sc, w, wob, sp, tw) in enumerate(STR):
             front = math.sin(th) > 0.05
