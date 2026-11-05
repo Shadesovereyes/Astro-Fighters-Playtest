@@ -3,7 +3,7 @@
   "body": "male",
   "state": "waterDragonSwallowed",
   "status": "CANDIDATE 2026-10-27 (E/W; W mirrors E; S/N to author after approval)",
-  "frames": 9,
+  "frames": 13,
   "fps": 8,
   "sourceDirection": "E",
   "directions": [
@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Water Dragon Swallowed (target state of Water Dragon, plays once; frame 0 is the impact): the serpent's jaws close over the fighter and it is swallowed whole: it throws its arms up as the water engulfs it, then is churned and lifted inside the serpent's body as it pours into it, limbs flung, bubbles streaming; the mass bursts apart in a huge splash, it is dumped onto one knee, gasping, and rises back into the guard.",
+  "intent": "Water Dragon Swallowed v2 (target state of the Water Dragon ultimate, plays once; frame 0 is the impact): the serpent's jaws close over the fighter in a burst of spray and it is swallowed whole: it throws its arms up as the water engulfs it, then is churned and tumbled inside the serpent's body as it pours in, lifted off its feet, limbs flung one way then the other, bubbles streaming out of it; the mass bursts apart in a huge explosion of water, it is slammed down onto one knee, coughs up water twice, and pushes itself back up into the guard.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -110,7 +110,11 @@
       1,
       1,
       1,
+      1,
+      1,
+      10,
       9,
+      10,
       9,
       5,
       1
@@ -121,7 +125,11 @@
       1,
       1,
       1,
+      1,
+      1,
+      11,
       10,
+      11,
       10,
       5,
       1
@@ -132,7 +140,11 @@
       1,
       1,
       1,
+      1,
+      1,
+      11,
       10,
+      11,
       10,
       5,
       2
@@ -147,8 +159,12 @@
         -2,
         -1,
         -2,
+        -1,
+        -2,
         0,
+        2,
         1,
+        2,
         1,
         1,
         0
@@ -158,16 +174,20 @@
         -5,
         -6,
         -4,
+        -7,
+        -5,
         0,
+        10,
         7,
-        5,
+        11,
+        6,
         4,
         2
       ]
     }
   },
   "rootMotion": {
-    "rule": "E: -1 swallowed, -1 dumped (the testbed walks it back after)",
+    "rule": "E: -1 swallowed, -1 slammed down (the testbed walks it back after)",
     "E": [
       [
         -1,
@@ -186,7 +206,23 @@
         0
       ],
       [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
         -1,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
         0
       ],
       [
@@ -224,7 +260,23 @@
         0
       ],
       [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
         1,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
         0
       ],
       [
@@ -1650,7 +1702,11 @@
       91,
       91,
       91,
+      91,
+      91,
       1,
+      50,
+      50,
       50,
       50,
       5,
@@ -1661,7 +1717,11 @@
       90,
       90,
       90,
+      90,
+      90,
       0,
+      49,
+      49,
       49,
       49,
       4,
@@ -1718,10 +1778,42 @@
       },
       {
         "construction": "band",
+        "angle": -20,
+        "elbow": {
+          "at": 8,
+          "angle": -70
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -160,
+        "elbow": {
+          "at": 8,
+          "angle": -130
+        }
+      },
+      {
+        "construction": "band",
         "angle": -160,
         "elbow": {
           "at": 8,
           "angle": -150
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -35,
+        "elbow": {
+          "at": 8,
+          "angle": -20
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -35,
+        "elbow": {
+          "at": 8,
+          "angle": -20
         }
       },
       {
@@ -1792,6 +1884,22 @@
       },
       {
         "construction": "band",
+        "angle": -165,
+        "elbow": {
+          "at": 8,
+          "angle": -140
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -40,
+        "elbow": {
+          "at": 8,
+          "angle": -90
+        }
+      },
+      {
+        "construction": "band",
         "angle": -150,
         "elbow": {
           "at": 8,
@@ -1805,6 +1913,24 @@
           "at": 8,
           "angle": -60
         }
+      },
+      {
+        "construction": "band",
+        "angle": -55,
+        "elbow": {
+          "at": 8,
+          "angle": -150
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": -55,
+        "elbow": {
+          "at": 8,
+          "angle": -150
+        },
+        "fistKind": "palm"
       },
       {
         "construction": "band",
@@ -1996,6 +2122,10 @@
       "bandFollowsBody": true,
       "sway": {
         "E": [
+          -1,
+          -1,
+          -1,
+          -1,
           -1,
           -1,
           -1,
@@ -2677,7 +2807,11 @@
         5,
         6,
         7,
-        8
+        8,
+        9,
+        10,
+        11,
+        12
       ],
       "fps": 8,
       "next": "guard",
@@ -2733,6 +2867,26 @@
         "frame": 8,
         "clip": "waterDragonSwallowed",
         "type": "recovery"
+      },
+      {
+        "frame": 9,
+        "clip": "waterDragonSwallowed",
+        "type": "recovery"
+      },
+      {
+        "frame": 10,
+        "clip": "waterDragonSwallowed",
+        "type": "recovery"
+      },
+      {
+        "frame": 11,
+        "clip": "waterDragonSwallowed",
+        "type": "recovery"
+      },
+      {
+        "frame": 12,
+        "clip": "waterDragonSwallowed",
+        "type": "recovery"
       }
     ],
     "W": [
@@ -2782,6 +2936,26 @@
         "frame": 8,
         "clip": "waterDragonSwallowed",
         "type": "recovery"
+      },
+      {
+        "frame": 9,
+        "clip": "waterDragonSwallowed",
+        "type": "recovery"
+      },
+      {
+        "frame": 10,
+        "clip": "waterDragonSwallowed",
+        "type": "recovery"
+      },
+      {
+        "frame": 11,
+        "clip": "waterDragonSwallowed",
+        "type": "recovery"
+      },
+      {
+        "frame": 12,
+        "clip": "waterDragonSwallowed",
+        "type": "recovery"
       }
     ]
   },
@@ -2792,6 +2966,10 @@
       44
     ],
     "angle": [
+      0,
+      0,
+      0,
+      0,
       0,
       0,
       0,
@@ -2811,20 +2989,32 @@
       0,
       0,
       0,
+      0,
+      0,
+      0,
+      0,
       0
     ],
     "dy": [
       0,
       -3,
       -5,
-      -4,
-      -2,
+      -6,
+      -6,
+      -5,
+      -3,
+      0,
+      0,
       0,
       0,
       0,
       0
     ],
     "groundSnap": [
+      false,
+      false,
+      false,
+      false,
       false,
       false,
       false,
@@ -3124,8 +3314,12 @@
         "pain",
         "strain",
         "pain",
+        "strain",
         "pain",
+        "pain",
+        "roar",
         "squint",
+        "roar",
         "squint",
         null
       ]

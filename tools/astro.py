@@ -5190,7 +5190,10 @@ def _dragonHead(o=4):   # Water Dragon: the sea serpent's head facing right, jaw
             if out[y][x] == '.' and any(0 <= x + a < W and 0 <= y + b < H and out[y + b][x + a] not in '.n' for a, b in ((1, 0), (-1, 0), (0, 1), (0, -1))): out[y][x] = 'n'
     return [''.join(q) for q in out]
 NPAT.update({'wdHead%d' % o: _sq(_dragonHead(o), 1.5, 1.5) for o in (1, 4, 7)})   # drawn 1.5x so the head reads as a giant serpent's
-def serpent_points(S, E, peak):   # the serpent's flight path: a quadratic arc from S (rising out of the water in front of the caster) over a control point peak px above the midpoint to E (the target's chest)
+def serpent_points(S, E, peak, rear=0):   # the serpent's flight path: a quadratic arc from S (rising out of the water in front of the caster) over a control point peak px above the midpoint to E (the target's chest); v2 rear > 0: a cubic that climbs straight up out of the pool to rear px above it before arcing over to E
+    if rear:
+        C1, C2 = (S[0] + 4, S[1] - rear), (E[0] - 8, min(S[1], E[1]) - peak)
+        return lambda u: tuple((1 - u) ** 3 * S[i] + 3 * (1 - u) ** 2 * u * C1[i] + 3 * (1 - u) * u * u * C2[i] + u ** 3 * E[i] for i in (0, 1))
     C = ((S[0] + E[0]) / 2, min(S[1], E[1]) - peak)
     return lambda u: ((1 - u) ** 2 * S[0] + 2 * (1 - u) * u * C[0] + u * u * E[0], (1 - u) ** 2 * S[1] + 2 * (1 - u) * u * C[1] + u * u * E[1])
 def serpent_draw(img, rec, k, S, E, flip=False):   # reference drawing of extra.serpent for frame k on a PIL RGBA image (scene coordinates; S/E as in serpent_points; flip for a caster facing W)
@@ -5198,15 +5201,15 @@ def serpent_draw(img, rec, k, S, E, flip=False):   # reference drawing of extra.
     fr = rec['frames'].get(str(k))
     if not fr: return
     uh, ut, o = fr[0], fr[1], fr[2] if len(fr) > 2 else 4
-    P = serpent_points(S, E, rec['peak']); hexc = lambda c: tuple(int(NPAL[c][i:i + 2], 16) for i in (1, 3, 5)) + (255,)
+    P = serpent_points(S, E, rec['peak'], rec.get('rear', 0)); hexc = lambda c: tuple(int(NPAL[c][i:i + 2], 16) for i in (1, 3, 5)) + (255,)
     lay = Image.new('RGBA', img.size); lp = lay.load(); Wd, Hd = img.size
     def disc(cx, cy, r, ch, only=None):
         for y in range(int(cy - r - 1), int(cy + r + 2)):
             for x in range(int(cx - r - 1), int(cx + r + 2)):
                 if 0 <= x < Wd and 0 <= y < Hd and (x - cx) ** 2 + (y - cy) ** 2 <= r * r: lp[x, y] = hexc(ch)
-    uhb = min(uh, 1.0); n = max(2, int((uhb - ut) * 220))
+    uhb = min(uh, 1.0 if uh <= 1 or not rec.get('rear') else 0.88); n = max(2, int((uhb - ut) * 220))   # v2: once the head is inside the target the body stops short of its middle (no end blob over it)
     pts = [(ut + (uhb - ut) * i / n) for i in range(n + 1)]
-    rad = lambda u: 1.5 + 6.0 * ((u - ut) / max(0.01, uhb - ut)) ** 0.7
+    rad = lambda u: 1.5 + rec.get('girth', 6.0) * max(0.0, (u - ut) / max(0.01, min(uh, 1.0) - ut)) ** 0.7
     for pas, ch, dr, dy in ((0, 'n', 1, 0), (1, 'A', 0, 0), (2, 'a', -1, -1), (3, 'I', -3, -2)):   # outline, deep belly, light body, ice ridge along the top
         for u in pts:
             x, y = P(u); r = rad(u) + dr
@@ -5279,6 +5282,239 @@ CLIPS['waterDragonSwallowed'] = ('Water Dragon Swallowed', 0,
                  4: [('wSplashXL', 'cell', 0, -34), ('wDropsL', 'cell', -12, -44), ('wDropsL', 'cell', 12, -40), ('wFoamL', 'feet', 0, -5)],
                  5: [('wPuddle', 'feet', 0, -1), ('wSplashL', 'feet', 0, -8, _A(_FADE)), ('wDrops', 'cell', 0, -50, _A(_FADE))],
                  6: [('wPuddle', 'feet', 0, -1), ('wDrops', 'eye', 6, 5, _A(_FADE))], 7: [('wPuddle', 'feet', 0, -1, _A(_FADE))]}))
+
+
+# Water Dragon v2 (Christopher 2026-11-05 15:28: Water Dragon is an ultimate): 16 frames like Blizzard / Meteor / Stalactite Rain: a long charge (seal, pool churning, a water spout spiralling up round the caster), the serpent rising out of the pool and rearing high over the caster for several frames, roaring, coiling back, a white flash as the palms thrust, the lunge, and the swallow on frame 13; the body is thicker (girth); the head stays clear of the target until the impact frame
+_SPA = {'alpha': {'a': 200, 'A': 200, 'I': 220}}
+_WD1 = CLIPS['waterDragon']
+CLIPS['waterDragon'] = ('Water Dragon', 13,
+  'Water Dragon v2 (Pisces ninjutsu ultimate, Elemental 22, Ranged, Morality Morph: the caster conjures a column of water in the form of a giant sea serpent that swallows the opponent whole; Christopher 2026-11-05: an ultimate): from the guard the fighter makes the seal and sinks low, eyes closing; drops lift off the floor and the floor in front of it pools and churns; a spout of water spirals up round its body as its water aura flares wide; it sweeps both palms up and the serpent bursts up out of the pool, horned head rising and rearing high over the caster, jaws opening; it holds both arms overhead, trembling, while the serpent rears and roars over it, then coils back to strike; the fighter roars and thrusts both palms at the target in a white flash of spray and the serpent lunges, arcing over the field, its thick body pouring after it out of the pool; the head stays clear of the target until the impact frame (13), when the jaws close over it and swallow it whole (the target plays waterDragonSwallowed); the body streams on into the target until the tail is gone and the fighter eases out of the push (spec extra.serpent: the testbed draws the serpent between the two fighters each frame; nothing on the target before impact).', [
+     g(),
+     g(an=U.SEAL_N, af=U.SEAL_F, bob=(2, 2, 2), lean=(0, 0), **LOW),
+     g(an=U.SEAL_N, af=U.SEAL_F, bob=(3, 3, 3), lean=(0, 1), **LOW),
+     g(an=U.SEAL_N, af=U.SEAL_F, bob=(4, 4, 4), lean=(0, 1), **BRACE),
+     g(an=U.SEAL_N, af=U.SEAL_F, bob=(4, 4, 5), lean=(0, 1), **BRACE),
+     g(an=band(-110, -150, fistKind='palm'), af=band(-100, -145, fistKind='palm'), bob=(2, 2, 2), lean=(0, 0), **LOW),
+     g(an=band(-145, -168, fistKind='palm'), af=band(-138, -165, fistKind='palm'), bob=(1, 1, 1), lean=(0, -1)),
+     g(an=_OVER_N, af=_OVER_F, bob=(0, -1, 0), lean=(-1, -2)),
+     g(an=_OVER_N, af=_OVER_F, bob=(0, -1, 0), lean=(-1, -3), root=(1, 0)),
+     g(an=_OVER_N, af=_OVER_F, bob=(0, -1, 0), lean=(-1, -2), root=(-1, 0)),
+     g(an=band(-150, -170, fistKind='palm'), af=band(-145, -168, fistKind='palm'), bob=(1, 1, 1), lean=(-1, -4)),
+     g(an=band(-90, -90, fistKind='palm'), af=band(-88, -88, fistKind='palm'), bob=(2, 2, 2), lean=(2, 6), root=(3, 0), ln='sp-drive-rear', lf='sp-drive-lead'),
+     g(an=band(-90, -90, fistKind='palm'), af=band(-88, -88, fistKind='palm'), bob=(2, 2, 2), lean=(2, 6), ln='sp-drive-rear', lf='sp-drive-lead'),
+     g(an=band(-90, -90, fistKind='palm'), af=band(-88, -88, fistKind='palm'), bob=(2, 2, 3), lean=(2, 7), ln='sp-drive-rear', lf='sp-drive-lead'),
+     g(an=band(-95, -80), af=band(-90, -80), bob=(2, 2, 2), lean=(2, 5), ln='sp-drive-rear', lf='sp-drive-lead'),
+     g(an=band(-50, -110), af=band(-40, -110), bob=(1, 1, 1), lean=(1, 2), root=(-3, 0))],
+  [None, 'squint', 'closed', 'closed', 'strain', 'strain', 'strain', 'roar', 'roar', 'strain', 'strain', 'roar', 'roar', 'roar', 'strain', 'squint'],
+  [0, 1, 1, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 2, 1],
+  {**_WD1[6], 'rm': 'E: +1 -1 trembling under the rearing serpent, +3 driving the palms forward, -3 back (net 0)',
+   'extra': {**_WD1[6]['extra'],
+             'serpent': {**_WD1[6]['extra']['serpent'], 'rule': _WD1[6]['extra']['serpent']['rule'].replace('Water Dragon v1', 'Water Dragon v2 (ultimate)').replace('7.5 px at the head end', 'girth + 1.5 px at the head end (girth 8, v1 6)'), 'girth': 8, 'peak': 40, 'rear': 110, 'rearRule': 'v2: the arc is a cubic Bezier from S through C1 (S.x + 4 toward the target, S.y - rear) and C2 (E.x - 8 back toward the caster, min(S.y, E.y) - peak) to E, so the serpent climbs straight up out of the pool and rears high over the caster before it arcs over and dives; once uHead > 1 the body is drawn only to u 0.88 (it pours into the swallowed target)',
+                         'frames': {'4': [0.05, 0.0, 1], '5': [0.12, 0.0, 1], '6': [0.2, 0.0, 4], '7': [0.28, 0.0, 7], '8': [0.33, 0.0, 7], '9': [0.36, 0.0, 4], '10': [0.31, 0.0, 7],
+                                    '11': [0.5, 0.0, 7], '12': [0.6, 0.03, 7], '13': [1.0, 0.25, 1], '14': [1.25, 0.55, 1], '15': [1.5, 0.82, 1]}},
+             'targetState': {**_WD1[6]['extra']['targetState'], 'rule': 'Water Dragon v2: on the impact frame (13) and not before, the target plays waterDragonSwallowed once, then its idle'}},
+   'anchored': {1: [('wPuddle', 'feet', 14, -1, _A(_FADE)), ('wDrops', 'feet', 0, -4, _A(_FADE))],
+                2: [('wPuddleL', 'feet', 16, -1), ('wRip5', 'feet', 16, -2), ('wDrops', 'feet', -4, -12, _A(_FADE))],
+                3: [('wPuddleL', 'feet', 16, -1), ('wRip9', 'feet', 16, -2), ('wSpoutB0', 'feet', 0, -18, {'behind': True}), ('wSpoutF0', 'feet', 0, -18, _A(_FADE)), ('wDrops', 'feet', 6, -16)],
+                4: [('wPuddleL', 'feet', 16, -1), ('wRip12', 'feet', 16, -2, _A(_FADE)), ('wSpoutB1', 'feet', 0, -22, {'behind': True}), ('wSpoutF1', 'feet', 0, -22, _SPA), ('wSplashS', 'feet', 16, -5)],
+                5: [('wPuddleL', 'feet', 16, -1), ('wSpoutB2', 'feet', 0, -22, {'behind': True}), ('wSpoutF2', 'feet', 0, -22, _SPA), ('wSplashL', 'feet', 17, -9), ('wDropsL', 'head', 0, -6, _A(_FADE))],
+                6: [('wPuddleL', 'feet', 16, -1), ('wSpoutXB3', 'feet', 0, -26, {'behind': True}), ('wSpoutXF3', 'feet', 0, -26, _SPA), ('wSplashS', 'feet', 17, -5)],
+                7: [('wPuddleL', 'feet', 16, -1), ('wSpoutXB0', 'feet', 0, -26, {'behind': True}), ('wSpoutXF0', 'feet', 0, -26, _A(_FADE)), ('wDropsL', 'head', 6, -10), ('wSplashS', 'feet', 17, -5)],
+                8: [('wPuddleL', 'feet', 16, -1), ('wSpoutXB1', 'feet', 0, -26, {'behind': True, **_A(_FADE)}), ('wDropsL', 'head', -6, -8, _A(_FADE)), ('wSplashS', 'feet', 17, -5)],
+                9: [('wPuddleL', 'feet', 16, -1), ('wDrops', 'head', 6, -10), ('wSplashS', 'feet', 17, -5, _A(_FADE))],
+                10: [('wPuddleL', 'feet', 16, -1), ('wDropsL', 'head', 0, -8, _A(_FADE)), ('wSplashS', 'feet', 17, -5)],
+                11: [('wFlash', 'hand', 4, 0), ('iSpark9', 'hand', 4, 0), ('iRing11', 'hand', 4, 0), ('wSplashXL', 'feet', 18, -14), ('wPuddleL', 'feet', 16, -1)],
+                12: [('wSplashL', 'hand', 6, 0, _A(_FADE)), ('iRing11', 'hand', 6, 0, _A(_FADE)), ('wPuddleL', 'feet', 16, -1), ('wDropsL', 'feet', 18, -14)],
+                13: [('wPuddleL', 'feet', 16, -1), ('wDrops', 'feet', 17, -8)], 14: [('wPuddleL', 'feet', 16, -1, _A(_FADE)), ('wRip9', 'feet', 16, -2, _A(_FADE))],
+                15: [('wRip5', 'feet', 16, -2, _A(_FADE))]}})
+_WDS = _A({'W': 210, 'I': 180, 'a': 160, 'A': 170, 'n': 180})
+CLIPS['waterDragonSwallowed'] = ('Water Dragon Swallowed', 0,
+  'Water Dragon Swallowed v2 (target state of the Water Dragon ultimate, plays once; frame 0 is the impact): the serpent\'s jaws close over the fighter in a burst of spray and it is swallowed whole: it throws its arms up as the water engulfs it, then is churned and tumbled inside the serpent\'s body as it pours in, lifted off its feet, limbs flung one way then the other, bubbles streaming out of it; the mass bursts apart in a huge explosion of water, it is slammed down onto one knee, coughs up water twice, and pushes itself back up into the guard.', [
+     g(an=band(-140, -170), af=band(-130, -165), bob=(1, 1, 1), lean=(-1, -3), root=(-1, 0)),
+     g(an=band(-170, -120), af=band(-20, -80), bob=(1, 1, 1), lean=(-2, -5), rot=_LIFT(3), **_TUCK),
+     g(an=band(-30, -90), af=band(-160, -130), bob=(1, 1, 1), lean=(-1, -6), rot=_LIFT(5), **_TUCK),
+     g(an=band(-150, -110), af=band(-60, -100), bob=(1, 1, 1), lean=(-2, -4), rot=_LIFT(6), **_TUCK),
+     g(an=band(-20, -70), af=band(-165, -140), bob=(1, 1, 1), lean=(-1, -7), rot=_LIFT(6), **_TUCK),
+     g(an=band(-160, -130), af=band(-40, -90), bob=(1, 1, 1), lean=(-2, -5), rot=_LIFT(5), **_TUCK),
+     g(an=band(-160, -150), af=band(-150, -140), bob=(1, 1, 1), lean=(0, 0), rot=_LIFT(3), root=(-1, 0)),
+     g(an=band(-35, -20), af=band(-40, -60), bob=(10, 11, 11), lean=(2, 10), ln='ss-kneel-rear', lf='ss-kneel-lead'),
+     g(an=band(-35, -20), af=band(-55, -150, fistKind='palm'), bob=(9, 10, 10), lean=(1, 7), ln='ss-kneel-rear', lf='ss-kneel-lead'),
+     g(an=band(-35, -20), af=band(-55, -150, fistKind='palm'), bob=(10, 11, 11), lean=(2, 11), ln='ss-kneel-rear', lf='ss-kneel-lead'),
+     g(an=band(-35, -20), af=band(-55, -150, fistKind='palm'), bob=(9, 10, 10), lean=(1, 6), ln='ss-kneel-rear', lf='ss-kneel-lead'),
+     g(an=band(-30, -100), af=band(-40, -120), bob=(5, 5, 5), lean=(1, 4), **BRACE),
+     g()],
+  ['pain', 'closed', 'pain', 'strain', 'pain', 'strain', 'pain', 'pain', 'roar', 'squint', 'roar', 'squint', None],
+  None,
+  dict(fps=8, rm='E: -1 swallowed, -1 slammed down (the testbed walks it back after)',
+       anchored={0: [('wEngulf', 'cell', 0, -27, _WDS), ('wSplashXL', 'head', 0, -4), ('iSpark9', 'head', 2, 6), ('wDropsL', 'head', 0, -8, _A(_FADE))],
+                 1: [('wEngulf', 'cell', 0, -28, _WDS), ('wBub2', 'eye', 3, -6), ('wBub1', 'eye', -2, -14), ('wDropsL', 'cell', 0, -54, _A(_FADE))],
+                 2: [('wEngulf', 'cell', 0, -29, _WDS), ('wBub3', 'eye', 4, -8), ('wBub1', 'eye', 1, -16), ('wDrops', 'head', 0, -6)],
+                 3: [('wEngulf', 'cell', 0, -29, _WDS), ('wBub2', 'eye', 2, -10), ('wBub3', 'eye', -3, -16), ('wDrops', 'cell', 8, -50)],
+                 4: [('wEngulf', 'cell', 0, -29, _WDS), ('wBub3', 'eye', 5, -6), ('wBub1', 'eye', 0, -18), ('wBub2', 'eye', -4, -12)],
+                 5: [('wEngulf', 'cell', 0, -28, _WDS), ('wBub2', 'eye', 3, -8), ('wBub1', 'eye', 1, -17), ('wDrops', 'cell', -8, -50)],
+                 6: [('wSplashXL', 'cell', 0, -34), ('wFlash', 'cell', 0, -30), ('iRing11', 'cell', 0, -30), ('wDropsL', 'cell', -14, -44), ('wDropsL', 'cell', 14, -40), ('wFoamL', 'feet', 0, -5)],
+                 7: [('wPuddleL', 'feet', 0, -1), ('wSplashL', 'feet', 0, -8), ('wDropsL', 'cell', 0, -50, _A(_FADE)), ('wRip12', 'feet', 0, -2, _A(_FADE))],
+                 8: [('wPuddleL', 'feet', 0, -1), ('wSplashS', 'eye', 6, 5), ('wDrops', 'eye', 8, 8)],
+                 9: [('wPuddleL', 'feet', 0, -1), ('wDrops', 'eye', 10, 12, _A(_FADE))],
+                 10: [('wPuddleL', 'feet', 0, -1), ('wSplashS', 'eye', 6, 5), ('wDrops', 'eye', 8, 9)],
+                 11: [('wPuddleL', 'feet', 0, -1, _A(_FADE))]}))
+
+
+# ---------- Pisces (Water) genjutsu v1 (part 16, 2026-11-05): Siren's Lure, Escapism ----------
+# Pisces genjutsu are songs: notes of water flow from the singer's mouth and palm to the target (testbed projectile volley, impact-frame rule)
+def _note(n, cols='aIn'):   # a musical note of water: n 1 an eighth note, n 2 two beamed notes; cols = head, highlight, outline
+    h, l, o = cols
+    if n == 1: p = ['..oo.', '..olo', '..o.o', '..o..', 'ooo..', 'ohho.', 'ohho.', '.oo..']
+    else: p = ['..oooooo', '..ollllo', '..o....o', '..o....o', 'ooo..ooo', 'ohho.ohho', 'ohho.ohho', '.oo...oo.']
+    w = max(len(r) for r in p)
+    return [r.ljust(w, '.').replace('o', o).replace('h', h).replace('l', l) for r in p]
+def _zed(n):   # a sleepy Z of water (n 0 small, 1 large) in a thin bubble
+    return [['aaaa', '..a.', '.a..', 'aaaa'], ['IIIII', '...I.', '..I..', '.I...', 'IIIII']][n]
+def _siren(s=1.0, ph=0):   # Siren's Lure: the illusory siren of water that rises behind the victim: a pale water woman, hollow dark eyes and a wide singing mouth, long hair streaming back in strands, one arm reaching forward over the victim's shoulder, her body tapering into a fish tail; faces right (toward the victim's facing); ph 0-1 the hair and tail wave
+    W_, H_ = round(26 * s), round(42 * s); m = [[0] * W_ for _ in range(H_)]; hair = [[0] * W_ for _ in range(H_)]
+    def S(x, y): return x / s, y / s
+    for y in range(H_):
+        for x in range(W_):
+            X, Y = S(x, y)
+            head = ((X - 16) / 4.6) ** 2 + ((Y - 8) / 5.6) ** 2 <= 1
+            torso = ((X - 15.5) / 4.2) ** 2 + ((Y - 20) / 7.5) ** 2 <= 1
+            tw = 4.0 * (1 - (Y - 25) / 15) if 25 <= Y <= 40 else 0; tc = 15 + 2.2 * math.sin(Y / 3.2 + ph * math.pi)
+            tail = tw > 0 and abs(X - tc) <= max(0.6, tw)
+            fin = 37 <= Y <= 41 and abs(X - tc) <= (Y - 36) * 1.6
+            arm = any(math.hypot(X - (17 + 8 * t), Y - (15 + 4.5 * t)) <= 1.3 for t in [i / 12 for i in range(13)])
+            hand = math.hypot(X - 25, Y - 20) <= 1.6
+            hx0 = 5 + 2.2 * math.sin(Y / 3.0 + ph * math.pi) + max(0, (Y - 10) * 0.12)
+            hr = (2 <= Y <= 31 and hx0 <= X <= 16 - max(0, (Y - 6) * 0.25) and not (X > 11 and Y > 14)) or (((X - 15) / 5.4) ** 2 + ((Y - 6) / 4.4) ** 2 <= 1 and Y < 7)
+            if head or torso or tail or fin or arm or hand: m[y][x] = 1
+            if hr: m[y][x] = 1; hair[y][x] = 1
+    rows = []
+    for y in range(H_):
+        r = ''
+        for x in range(W_):
+            if not m[y][x]: r += '.'; continue
+            X, Y = S(x, y)
+            edge = any(not (0 <= x + ex < W_ and 0 <= y + ey < H_) or not m[y + ey][x + ex] for ex, ey in ((1, 0), (-1, 0), (0, 1), (0, -1)))
+            if edge: r += 'n'; continue
+            if hair[y][x] and not (((X - 16) / 4.6) ** 2 + ((Y - 8) / 5.6) ** 2 <= 1 and Y >= 5):
+                r += 'n' if round(X + 2 * math.sin(Y / 3.0 + ph * math.pi)) % 3 == 0 else 'A'; continue
+            if abs(X - 14.3) <= 0.9 * s ** 0 and 7 <= Y <= 8.6 or abs(X - 18.2) <= 0.9 and 7 <= Y <= 8.6: r += 'X'; continue   # hollow eyes
+            if ((X - 16.6) / 1.5) ** 2 + ((Y - 11.6) / 1.6) ** 2 <= 1: r += 'X'; continue   # the wide singing mouth
+            up = y > 0 and not m[y - 1][x]
+            r += 'I' if up or (X < 14 and Y < 22 and (x + y) % 5 == 0) else 'a' if Y < 30 else 'A'
+        rows.append(r)
+    return rows
+NPAT.update({'slNote1': _note(1, 'Ann'), 'slNote2': _note(2, 'Ann'), 'slNoteL': _sq(_note(2, 'AIn'), 1.4, 1.4),
+             'esNote1': _note(1, 'IWa'), 'esNote2': _note(2, 'IWa'), 'esNoteL': _sq(_note(2, 'IWa'), 1.4, 1.4),
+             'esZ0': _sq(_zed(0), 1.5, 1.5), 'esZ1': _sq(_zed(1), 1.6, 1.6), 'slSiren0': _siren(1.0, 0), 'slSiren1': _siren(1.0, 1), 'slSirenS': _siren(0.75, 0)})
+_SIA = lambda a: {'alpha': {'I': a, 'a': round(a * 0.9), 'A': round(a * 0.85), 'n': min(255, a + 30), 'X': min(255, a + 60)}}
+_SING = band(-55, -150, fistKind='palm')   # the near hand raised open before the chin, as a singer holds it
+CLIPS.update({
+ 'sirensLure': ("Siren's Lure", 7,
+  "Siren's Lure (Pisces genjutsu, Mental debuff, Zone of Awareness, Fear 1 round STR save DC 13: the caster projects a song of dread into the opponent's mind): from the guard the fighter lifts the near hand open before its chin like a singer and tips its head back, eyes closing; it sings, mouth wide, and dark notes of deep water rise off its lips and curl round its head; its eyes kindle water blue as it sweeps the open palm out toward the target and the song pours off it, beamed notes riding dark waves of water (projectile volley, frames 5 and 6, impact frame 7); it holds the palm out, the last notes trailing, then settles into the guard (the target plays sirenLured: the siren rises behind it).", [
+     g(),
+     g(an=_SING, bob=(1, 1, 1), lean=(0, 0)),
+     g(an=_SING, bob=(1, 1, 1), lean=(-1, -2)),
+     g(an=_SING, bob=(1, 1, 2), lean=(-1, -3)),
+     g(an=band(-110, -130, fistKind='palm'), bob=(1, 1, 1), lean=(0, 0)),
+     g(an=band(-92, -92, fistKind='palm'), bob=(1, 1, 1), lean=(1, 3), root=(1, 0)),
+     *[g(an=band(-92, -92, fistKind='palm'), bob=(1, 1, 1), lean=(1, 3)) for _ in range(2)],
+     g(an=band(-60, -120), bob=(1, 1, 2), lean=(0, 2), root=(-1, 0)),
+     g()],
+  [None, 'closed', 'roar', 'roar', 'roar', 'roar', 'squint', 'squint', None, None],
+  [0, 1, 1, 1, 2, 2, 2, 1, 0, 0],
+  dict(fps=10, auraColors=_WAURA, rm='E: +1 sweeping the palm out, -1 back',
+       extra={'projectile': {'rule': "Siren's Lure v1 (impact-frame rule): on frames 5 and 6 the testbed flies NPAT slNoteL from the near palm to the target at chest height a third of the way per frame, so the first arrives on frame 7 (the impact frame, when the target state starts) and the second on frame 8; each pops wgw3 on the target", 'volley': [{'frame': 5, 'from': 'hand', 'pattern': 'slNoteL', 'hit': 'wgw3', 'flyFrames': 3}, {'frame': 6, 'from': 'hand', 'pattern': 'slNoteL', 'hit': 'wgw3', 'flyFrames': 3}]},
+              'targetState': {'rule': "Siren's Lure: from frame 7, the impact frame, when the first notes reach it (it holds its plain guard before that), the target plays sirenLured: frames 0-3 once, then frames 4-9 on loop while the Fear lasts, then its idle; the genjutsu mark (genjutsuAfflicted, recolour genjutsuMark.recolor.water) is drawn over it throughout", 'state': 'sirenLured', 'loopFrom': 4, 'element': 'water', 'mark': 'genjutsuAfflicted'}},
+       anchored={1: [('slNote1', 'eye', 4, 6, _A(_FADE))],
+                 2: [('slNote1', 'eye', 5, -2), ('wgw1', 'eye', 5, 4, _A(_FADE))],
+                 3: [('slNote2', 'eye', 4, -9), ('slNote1', 'head', -9, 2), ('wgw2', 'eye', 6, 4, _A(_FADE))],
+                 4: [('eyeWF', 'eye', 0, 0), ('slNote2', 'head', -10, -2, _A(_FADE)), ('slNote1', 'eye', 6, -11), ('wgw1', 'hand', 3, 0)],
+                 5: [('eyeWF', 'eye', 0, 0), ('wgw3', 'hand', 5, 0), ('slNote1', 'eye', 7, -14, _A(_FADE))],
+                 6: [('eyeWF', 'eye', 0, 0), ('wgw2', 'hand', 5, 0, _A(_FADE)), ('slNote1', 'hand', 4, -6, _A(_FADE))],
+                 7: [('eyeW', 'eye', 0, 0)]})),
+ 'sirenLured': ('Siren Lured', 0,
+  "Siren Lured (target state of Siren's Lure, Fear 1 round; frame 0 is the impact): the song washes over the fighter and it freezes, eyes wide; behind it a siren of water rises up out of nothing, a pale water woman with hollow eyes and a wide singing mouth, hair streaming, her tail curling below, and reaches one hand over its shoulder; it jerks round from her touch and shrinks down, knees bent, both arms thrown up over its face; then (looping while the Fear lasts) it cowers and trembles, shaking and edging back and forth, while the siren sways behind it, singing, her hair and tail rippling and dark notes drifting round its head.", [
+     g(an=band(-60, -150), af=band(-50, -140), bob=(1, 1, 1), lean=(-1, -2)),
+     g(an=band(-100, -160), af=band(-90, -155), bob=(1, 1, 1), lean=(-1, -4), root=(-1, 0)),
+     g(an=band(-130, -170, fistKind='palm'), af=band(-125, -168, fistKind='palm'), bob=(2, 2, 3), lean=(1, 3), **LOW),
+     g(an=band(-135, -172, fistKind='palm'), af=band(-128, -170, fistKind='palm'), bob=(3, 3, 3), lean=(1, 4), **LOW),
+     g(an=band(-135, -172, fistKind='palm'), af=band(-128, -170, fistKind='palm'), bob=(3, 3, 3), lean=(1, 4), root=(1, 0), **LOW),
+     g(an=band(-133, -170, fistKind='palm'), af=band(-126, -168, fistKind='palm'), bob=(3, 3, 4), lean=(1, 3), root=(-1, 0), **LOW),
+     g(an=band(-135, -172, fistKind='palm'), af=band(-128, -170, fistKind='palm'), bob=(3, 3, 3), lean=(1, 4), root=(-1, 0), **LOW),
+     g(an=band(-133, -170, fistKind='palm'), af=band(-126, -168, fistKind='palm'), bob=(3, 3, 4), lean=(1, 3), root=(1, 0), **LOW),
+     g(an=band(-135, -172, fistKind='palm'), af=band(-128, -170, fistKind='palm'), bob=(3, 3, 3), lean=(1, 4), root=(1, 0), **LOW),
+     g(an=band(-133, -170, fistKind='palm'), af=band(-126, -168, fistKind='palm'), bob=(3, 3, 4), lean=(1, 3), root=(-1, 0), **LOW)],
+  ['pain', 'pain', 'pain', 'squint', 'pain', 'squint', 'pain', 'squint', 'pain', 'squint'],
+  None,
+  dict(fps=8, rm='E: -1 recoiling from the siren; loop edges +1 -1 -1 +1 +1 -1 (net 0)',
+       extra={'loop': True, 'loopFrom': 4},
+       anchored={0: [('wgw3', 'head', 8, 14, _A(_FADE)), ('slNote1', 'head', 6, 2, _A(_FADE))],
+                 1: [('slSirenS', 'head', -23, 18, {'behind': True, **_SIA(140)}), ('slNote1', 'head', -6, -6, _A(_FADE))],
+                 2: [('slSiren0', 'head', -23, 14, {'behind': True, **_SIA(190)}), ('slNote2', 'head', 8, -4, _A(_FADE))],
+                 3: [('slSiren1', 'head', -23, 13, {'behind': True, **_SIA(215)}), ('slNote1', 'head', 10, -8)],
+                 4: [('slSiren0', 'head', -23, 13, {'behind': True, **_SIA(215)}), ('slNote2', 'head', 9, -10, _A(_FADE))],
+                 5: [('slSiren1', 'head', -23, 12, {'behind': True, **_SIA(205)}), ('slNote1', 'head', -2, -12)],
+                 6: [('slSiren0', 'head', -23, 13, {'behind': True, **_SIA(215)}), ('slNote1', 'head', -4, -16, _A(_FADE)), ('slNote1', 'head', 10, -6)],
+                 7: [('slSiren1', 'head', -23, 14, {'behind': True, **_SIA(205)}), ('slNote2', 'head', 10, -10)],
+                 8: [('slSiren0', 'head', -23, 13, {'behind': True, **_SIA(215)}), ('slNote2', 'head', 11, -14, _A(_FADE))],
+                 9: [('slSiren1', 'head', -23, 12, {'behind': True, **_SIA(205)}), ('slNote1', 'head', -1, -10)]})),
+ 'escapism': ('Escapism', 7,
+  "Escapism (Pisces genjutsu, Mental debuff, Zone of Awareness, Sleep 2 rounds INT save DC 13: the caster projects a song into the opponent's mind that lulls it to sleep): from the guard the fighter opens both hands low before it, palms up, as if cradling a child, and closes its eyes, humming; it rocks gently from side to side and soft pale notes of water drift up off its lips with a few bubbles; its eyes open glowing water blue and it lifts the near palm and blows the lullaby gently off it toward the target, light notes floating on soft waves (projectile volley, frames 5 and 6, impact frame 7); it settles back into the guard (the target plays escapismSlept).", [
+     g(),
+     g(an=band(-25, -60, fistKind='palm'), af=band(-20, -55, fistKind='palm'), bob=(1, 1, 1), lean=(0, 0)),
+     g(an=band(-25, -60, fistKind='palm'), af=band(-20, -55, fistKind='palm'), bob=(1, 1, 2), lean=(0, -1), root=(-1, 0)),
+     g(an=band(-25, -60, fistKind='palm'), af=band(-20, -55, fistKind='palm'), bob=(1, 1, 1), lean=(0, 1), root=(1, 0)),
+     g(an=band(-70, -140, fistKind='palm'), af=band(-40, -85, fistKind='palm'), bob=(1, 1, 1), lean=(0, 0)),
+     g(an=band(-88, -100, fistKind='palm'), af=band(-45, -100), bob=(1, 1, 1), lean=(1, 2), root=(1, 0)),
+     *[g(an=band(-88, -100, fistKind='palm'), af=band(-45, -100), bob=(1, 1, 1), lean=(1, 2)) for _ in range(2)],
+     g(an=band(-60, -120), bob=(1, 1, 2), lean=(0, 1), root=(-1, 0)),
+     g()],
+  [None, 'closed', 'closed', 'closed', 'squint', None, None, None, None, None],
+  [0, 1, 1, 1, 2, 2, 2, 1, 0, 0],
+  dict(fps=10, auraColors=_WAURA, rm='E: -1 +1 rocking, +1 easing the palm out, -1 back',
+       extra={'projectile': {'rule': 'Escapism v1 (impact-frame rule): on frames 5 and 6 the testbed flies NPAT esNoteL from the near palm to the target at chest height a third of the way per frame, so the first arrives on frame 7 (the impact frame, when the target state starts) and the second on frame 8; each pops wLullS2 on the target', 'volley': [{'frame': 5, 'from': 'hand', 'pattern': 'esNoteL', 'hit': 'wLullS2', 'flyFrames': 3}, {'frame': 6, 'from': 'hand', 'pattern': 'esNoteL', 'hit': 'wLullS2', 'flyFrames': 3}]},
+              'targetState': {'rule': 'Escapism: from frame 7, the impact frame, when the first notes reach it (it holds its plain guard before that), the target plays escapismSlept: frames 0-4 once (it yawns, nods and sinks onto one knee asleep), then frames 5-10 on loop while the Sleep lasts, then frames 11-14 once when it ends (it starts awake and gets up into the guard), then its idle; if a hit breaks the Sleep the release plays at once; the genjutsu mark (genjutsuAfflicted, recolour genjutsuMark.recolor.water) is drawn over it throughout', 'state': 'escapismSlept', 'loopFrom': 5, 'loopTo': 10, 'release': [11, 12, 13, 14], 'element': 'water', 'mark': 'genjutsuAfflicted'}},
+       anchored={1: [('esNote1', 'eye', 5, -3, _A(_FADE))],
+                 2: [('esNote1', 'eye', 4, -9), ('wBub1', 'eye', 7, -2)],
+                 3: [('esNote2', 'eye', 3, -13, _A(_FADE)), ('esNote1', 'eye', 7, -4), ('wBub2', 'eye', 2, -8)],
+                 4: [('eyeWF', 'eye', 0, 0), ('esNote1', 'hand', 0, -7), ('wBub1', 'eye', 3, -14, _A(_FADE))],
+                 5: [('eyeWF', 'eye', 0, 0), ('wLullS0', 'hand', 6, 0), ('esNote1', 'hand', 3, -5, _A(_FADE))],
+                 6: [('eyeWF', 'eye', 0, 0), ('wLullS1', 'hand', 6, 0, _A(_FADE)), ('wBub1', 'hand', 3, -6)],
+                 7: [('eyeW', 'eye', 0, 0), ('wBub1', 'hand', 4, -10, _A(_FADE))]})),
+ 'escapismSlept': ('Escapism Slept', 0,
+  'Escapism Slept (target state of Escapism, Sleep 2 rounds; frame 0 is the impact): the lullaby washes over the fighter and its eyes grow heavy; it yawns wide behind one hand, its guard sagging; it nods, sways and sinks down onto one knee (the approved Silica Strike / Atlas\'s Regret kneel), arms hanging limp, head bowed, fast asleep; then (looping while the Sleep lasts) it breathes slow and deep, its shoulders rising and falling, its head nodding lower and jerking back up a little, while sleepy Zs of water drift up off it; when the Sleep ends it starts awake, eyes snapping open, and pushes up off the knee into the guard.', [
+     g(an=band(-70, -140), af=band(-60, -135), bob=(1, 1, 1), lean=(0, 0)),
+     g(an=band(-60, -120), af=band(-55, -150, fistKind='palm'), bob=(1, 1, 1), lean=(-1, -3)),
+     g(an=band(-40, -80), af=band(-35, -75), bob=(2, 2, 2), lean=(1, 3)),
+     g(an=band(-30, -60), af=band(-25, -55), bob=(5, 5, 5), lean=(1, 5), **BRACE),
+     g(an=band(-20, -40), af=band(-15, -35), bob=(9, 10, 10), lean=(1, 7), ln='ss-kneel-rear', lf='ss-kneel-lead'),
+     g(an=band(-20, -40), af=band(-15, -35), bob=(9, 10, 10), lean=(1, 7), ln='ss-kneel-rear', lf='ss-kneel-lead'),
+     g(an=band(-20, -40), af=band(-15, -35), bob=(9, 10, 11), lean=(1, 8), ln='ss-kneel-rear', lf='ss-kneel-lead'),
+     g(an=band(-18, -36), af=band(-13, -32), bob=(10, 11, 11), lean=(2, 10), ln='ss-kneel-rear', lf='ss-kneel-lead'),
+     g(an=band(-20, -40), af=band(-15, -35), bob=(9, 10, 11), lean=(1, 8), ln='ss-kneel-rear', lf='ss-kneel-lead'),
+     g(an=band(-20, -40), af=band(-15, -35), bob=(9, 10, 10), lean=(1, 6), ln='ss-kneel-rear', lf='ss-kneel-lead'),
+     g(an=band(-20, -40), af=band(-15, -35), bob=(9, 10, 10), lean=(1, 7), ln='ss-kneel-rear', lf='ss-kneel-lead'),
+     g(an=band(-45, -110), af=band(-40, -105), bob=(9, 10, 10), lean=(0, 2), ln='ss-kneel-rear', lf='ss-kneel-lead'),
+     g(an=band(-30, -100), af=band(-40, -120), bob=(5, 5, 5), lean=(1, 4), **BRACE),
+     g(an=band(-45, -115), af=band(-35, -110), bob=(1, 1, 2), lean=(1, 2)),
+     g()],
+  ['squint', 'roar', 'closed', 'closed', 'closed', 'closed', 'closed', 'closed', 'closed', 'closed', 'closed', 'pain', 'squint', None, None],
+  None,
+  dict(fps=8, extra={'loop': True, 'loopFrom': 5, 'loopTo': 10, 'release': [11, 12, 13, 14]},
+       anchored={0: [('wLullS2', 'head', 6, 10, _A(_FADE)), ('esNote1', 'head', 4, -2, _A(_FADE))],
+                 1: [('esNote1', 'head', -6, -6, _A(_FADE)), ('wBub1', 'head', 8, 4)],
+                 2: [('esZ0', 'head', 6, -4, _A(_FADE)), ('wBub1', 'head', -8, -2, _A(_FADE))],
+                 3: [('esZ0', 'head', 7, -8), ('esNote1', 'head', -9, -4, _A(_FADE))],
+                 4: [('esZ0', 'head', 8, -10, _A(_FADE)), ('esZ1', 'head', 6, -2)],
+                 5: [('esZ1', 'head', 7, -5), ('esZ0', 'head', 10, -14, _A(_FADE)), ('wBub1', 'head', 4, 2)],
+                 6: [('esZ1', 'head', 8, -9), ('esZ0', 'head', 6, 0)],
+                 7: [('esZ1', 'head', 9, -13, _A(_FADE)), ('esZ0', 'head', 7, -4), ('wBub2', 'head', 3, 3)],
+                 8: [('esZ1', 'head', 7, -2), ('esZ0', 'head', 8, -8)],
+                 9: [('esZ1', 'head', 8, -6), ('esZ0', 'head', 10, -12, _A(_FADE)), ('wBub1', 'head', 4, 2)],
+                 10: [('esZ1', 'head', 9, -10, _A(_FADE)), ('esZ0', 'head', 7, -2)],
+                 11: [('wBub3', 'head', 8, -4), ('esZ0', 'head', 10, -12, _A(_FADE))],
+                 12: [('wBub1', 'head', 9, -8, _A(_FADE))]})),
+})
 
 def spec(state):
     U.CLIPS[state] = CLIPS[state]

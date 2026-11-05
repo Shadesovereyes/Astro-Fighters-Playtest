@@ -191,13 +191,17 @@ for t in range(n):
     tf = (sa.get('targetFx') or {}).get('frames', {}).get(str(t)) if tg and t < na + 4 else None   # Ice Shard / Blizzard v1: fx the testbed draws round the target (dx away from the caster, dy up from the floor)
     for it in tf or []: stamp(c, it[0], 4 + GAP + 32 + it[1], 63 + it[2], it[3] if len(it) > 3 else 255)
     sp_ = sa.get('serpent') if tg else None   # Water Dragon v1: the testbed's serpent between the fighters (astro.serpent_draw)
-    if sp_ and t < na: astro.serpent_draw(c, sp_, t, (X0 + 33 + 16, 59), (4 + GAP + 30, 37))
+    TOP = int((arg('--top', 1) or [0])[0])   # Water Dragon v2: headroom above the fighters so the rearing serpent is not clipped (the testbed has the map above them)
+    if TOP:
+        c2 = Image.new('RGBA', (CW, 64 + TOP), (0xc8, 0xcd, 0xd7, 255)); c2.alpha_composite(c, (0, TOP)); c = c2
+    if sp_ and t < na: astro.serpent_draw(c, sp_, t, (X0 + 33 + 16, 59 + TOP), (4 + GAP + 30, 37 + TOP))
     for pr in PR:
         pat, f0, nf, hp = pr[0], int(pr[1]), int(pr[2]), pr[3]; lay = 'far-arm' if len(pr) > 4 and pr[4] == 'farhand' and os.path.exists(os.path.join(anim, A, 'far-arm.png')) else 'arms'
         hx, hy = hand(A, f0, 'E', lay)
         if len(pr) > 4 and pr[4] == 'mouth':   # Howling Blast v2: from the mouth (eye centre, 3 px down, a few px ahead)
             ex_ = astro._eye(A, f0, spec(A)['directions'].index('E')); hx, hy = (ex_[0], ex_[1] + 3) if ex_ else (hx, hy)
         sx, sy = 4 + sum(rm[q][0] for q in range(f0 + 1)) + hx + 6, hy; ex, ey = 4 + GAP + 26, 24
+        sy += TOP; ey += TOP
         if f0 <= t < f0 + nf:
             u = (t - f0 + 1) / nf; stamp(c, pat, sx + (ex - sx) * u, sy + (ey - sy) * u)
         elif f0 + nf <= t < f0 + nf + 2: stamp(c, hp, ex, ey, 255 if t == f0 + nf else 150)
@@ -218,10 +222,11 @@ for t in range(n):
         if early: stamp(c, st.get('front', 'wSplashS'), ex, hy)
         elif not tail:
             h0 = st.get('reachFrame', st['frames'][0]); hp = astro.NPAT[st['hit'][(ka - h0) % 4]]; stamp(c, st['hit'][(ka - h0) % 4], ex + (len(hp[0]) - 1) / 2, hy)
-    frames.append(c.resize((CW * 4, 256), Image.NEAREST))
+    frames.append(c.resize((CW * 4, c.size[1] * 4), Image.NEAREST))
 fps = sa.get('fps', 10)
 frames[0].save(out + '-candidate.gif', save_all=True, append_images=frames[1:], duration=int(1000 / fps), loop=0, disposal=2)
 KEY = list(range(min(n, 12)))
-sheet = Image.new('RGBA', (CW * 4 * 2 + 16, 264 * ((len(KEY) + 1) // 2)), 'white')
-for i, f in enumerate(frames[q] for q in KEY): sheet.paste(f, ((i % 2) * (CW * 4 + 16), (i // 2) * 264))
+FH = frames[0].size[1] + 8
+sheet = Image.new('RGBA', (CW * 4 * 2 + 16, FH * ((len(KEY) + 1) // 2)), 'white')
+for i, f in enumerate(frames[q] for q in KEY): sheet.paste(f, ((i % 2) * (CW * 4 + 16), (i // 2) * FH))
 sheet.save(out + '-E-candidate.png'); print('wrote', out, n)
