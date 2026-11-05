@@ -6237,15 +6237,38 @@ _SRA = {1: [('cryst', 'head', -9, 12), ('gemSpark', 'feet', -14, -6)],
         10: [('spearStreak', 'feet', -12, -50), ('spearStreak', 'feet', -19, -54), ('spearStreak', 'feet', -26, -50), ('spearStreak', 'feet', -6, -46), ('srFlashS', 'hand', 2, -2), ('gemSpark', 'hand', 6, -6)],
         11: [('gemSpark', 'hand', 2, -3), ('glit', 'hand', -4, 4)], 12: [('cryst', 'hand', 3, -2)],
         13: [('gemSpark', 'feet', -14, -3, {'alpha': {'c': 140, 'W': 140}})]}
-CLIPS['stalactiteRain'] = ('Stalactite Rain', 10, _SR2[2].replace('Stalactite Rain (Capricorn', 'Stalactite Rain v3 (Christopher 2026-11-05 22:11: the ultimate treatment: four spears, a giant among them, rise behind the caster through a wide glowing split, its aura blazes to full, a crystal-white flash bursts off the palms as the spears are hurled up; the next round they rain down over the whole radius-3 zone, see extra.rain) (Capricorn'),
+# v3.1 (Christopher 2026-11-05 22:29: a stream of stalactites rising from behind the caster, not just a few): spears keep
+# grinding up out of the split one after another from frame 4 to 12, each rising tip first over 3 frames, standing a frame, then
+# tearing free and shooting up out of the cell (lift 10, then 30 px with streaks), so a steady stream climbs behind the caster
+_SRS = [(4, -18, 'spearXL'), (4, -6, 'spearUpS'), (5, -27, 'spearUp'), (5, -12, 'spearUpS'), (6, -22, 'spearUpS'), (6, -2, 'spearUpS'),
+        (7, -15, 'spearUp'), (7, -29, 'spearUpS'), (8, -9, 'spearUp'), (8, -24, 'spearXL'), (9, -4, 'spearUpS'), (9, -18, 'spearUp'),
+        (10, -28, 'spearUpS'), (10, -12, 'spearXL'), (11, -21, 'spearUp'), (11, -6, 'spearUpS'), (12, -26, 'spearUpS'), (12, -15, 'spearUp')]
+def _srstream(k):
+    out = []
+    for b, x, n in _SRS:
+        a = k - b
+        if 0 <= a < 3: out.append(_sp(n, x, (0.25, 0.5, 0.75)[a]))
+        elif a == 3: out.append(_sp(n, x))
+        elif a == 4: out.append(_sp(n, x, lift=10))
+        elif a == 5: out += [_sp(n, x, lift=30), ('spearStreak', 'feet', x, -12)]
+        elif a == 6: out.append(('spearStreak', 'feet', x, -50))
+    return out
+_SRKEEP = {1: _SRA[1], 2: _SRA[2], 3: _SRA[3]}
+_SRA = {**_SRKEEP, **{k: [('crack2' if k < 13 else 'crack1', 'feet', -16, -1), *([('crackGlowW', 'feet', -16, -2)] if k < 13 else []), *_srstream(k)] for k in range(4, 15)}}
+for k_, extra_ in ((4, [('rocks', 'feet', -24, -10), ('dust2', 'feet', -16, -3)]), (6, [('dust2', 'feet', -6, -3), ('gemSpark', 'feet', -18, -44)]), (8, [('rocks', 'feet', -16, -6), ('dust2', 'feet', -20, -3)]),
+                   (9, [('srFlash', 'hand', 0, -4)]), (10, [('srFlashS', 'hand', 2, -2), ('gemSpark', 'hand', 6, -6), ('dust2', 'feet', -12, -3)]), (11, [('gemSpark', 'hand', 2, -3)]),
+                   (12, [('cryst', 'hand', 3, -2), ('dust1', 'feet', -22, -3)]), (14, [('gemSpark', 'feet', -14, -3, {'alpha': {'c': 140, 'W': 140}})])):
+    _SRA[k_] = _SRA[k_] + extra_
+CLIPS['stalactiteRain'] = ('Stalactite Rain', 10, _SR2[2].replace('Stalactite Rain (Capricorn', 'Stalactite Rain v3.1 (Christopher 2026-11-05 22:11: the ultimate treatment; 22:29: a stream of stalactites: from frame 4 to 12 spear after spear, giants among them, grinds up tip first behind the caster and shoots into the sky, eighteen in all, rising through a wide glowing split, its aura blazes to full, a crystal-white flash bursts off the palms as the spears are hurled up; the next round they rain down over the whole radius-3 zone, see extra.rain) (Capricorn'),
   _SR2[3], _SR2[4], [0, 1, 2, 3, 3, 3, 3, 3, 3, 3, 3, 2, 2, 1, 0, 0],
   {**_SR2[6], 'anchored': _SRA,
    'extra': {**_SR2[6]['extra'],
              'rain': {'rule': 'Stalactite Rain v3 (ultimate, charge; resolves the round after the cast like Meteor): on the eruption round the caster replays frames 9-12 (the hurl); then the testbed rains crystal spears out of the sky over every hex within ultimateAoeRadius (3) of the aimed hex: each hex tinted crystal teal (alpha 0.25, deep teal rim) for the rest of the volley; spears fall at a slant from the caster\'s side (spearFall patterns, a short teal streak behind each), one or two per hex, staggered over ringFrames by distance from the centre (centre first, ring 3 last), each stabbing into the floor with a dust and grit burst and a gemSpark, standing embedded a beat, then cracking and shattering into rubble; every fighter inside plays stalactiteImpaled from the moment the first spear lands on its hex. Reference preview: hex-sprites/tools/astro_rain.py', 'radius': 3, 'centre': 'aimed hex', 'spearsPerHex': [1, 2], 'colors': ['#d9fff6', '#7fe3d0', '#3a9e8f', '#1d5c52']}}})
 
 # v3 ultimate-treatment candidates (Christopher 2026-11-05 22:09-22:11): the v2 approvals stay on record until he rules on v3
-for k_, v_ in (('rootSanctuary', 'v3 ultimate treatment'), ('sandstorm', 'v3 ultimate treatment'), ('stalactiteRain', 'v3 ultimate treatment')):
+for k_, v_ in (('rootSanctuary', 'v3 ultimate treatment'), ('stalactiteRain', 'v3 ultimate treatment')):
     APPROVED.pop(k_, None)
+APPROVED['sandstorm'] = 'E/W approved by user 2026-11-05 22:29 (v3 ultimate treatment: 16 frames, towering eyeXL tornado, arms flung wide with a sand flash on frame 10, storm races out over radius 2 via extra.zone ringFrames; W mirrors E); S/N to author'
 
 def spec(state):
     U.CLIPS[state] = CLIPS[state]
