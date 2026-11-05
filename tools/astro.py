@@ -4828,18 +4828,23 @@ CLIPS['betrayed'] = ('Betrayed', 0,
   dict(fps=10, rm='E: +1 jolted at the first stab, -1 gasping; loop shakes +1 -1 (net 0)', front={8: dict(R=stances.GA['R'], L=stances.GA['L']), 11: dict(R=stances.GA['R'], L=stances.GA['L'])},
        awayFrames=[9, 10],
        extra={'loop': True, 'loopFrom': 13, 'awayFrames': {'rule': 'Betrayal v2: on frames 9-10 the fighter faces away from its facing (it has turned round to look behind it, through the S frame 8, and turns back through S on 11): the E row holds the W-facing figure and the W row the E-facing one (only the figure layers are swapped; fx stays where it is drawn)', 'frames': [9, 10]}},
-       anchored={0: [_fig('sFigG2', 120), ('sgw2', 'head', 6, 16, _A(_FADE)), ('sWisp', 'feet', -17, -5, _A(_FADE))],
-                 1: [_fig('sFigK1', 225), ('sWispS', 'feet', -17, -3, _A(_FADE))],
-                 2: [_fig('sFigK5', 235), ('iSpark7', 'head', -6, 18), ('iShards9', 'head', -7, 18)],
-                 3: [_fig('sFigK1', 235), ('iFrostS', 'head', -5, 18)],
-                 4: [_fig('sFigK5', 235), ('iSpark7', 'head', -6, 22), ('iShards9', 'head', -7, 22), ('iFrostS', 'head', -5, 18)],
-                 5: [_fig('sFigK1', 235), ('iFrost', 'head', -5, 20)],
-                 6: [_fig('sFigK5', 240), ('iSpark9', 'head', -6, 20), ('iShards12', 'head', -8, 20), ('iRing8', 'head', -6, 20), ('iFrost', 'head', -5, 20)],
-                 7: [_fig('sFigK1', 130), ('sWisp2', 'feet', -17, -8), ('iFrost', 'head', -5, 20)],
+       anchored={0: [('sgw2', 'head', 6, 16, _A(_FADE)), ('sWisp', 'feet', -21, -5, _A(_FADE))],
+                 1: [('sWispS', 'feet', -21, -3, _A(_FADE))],
+                 2: [('iSpark7', 'head', -6, 18), ('iShards9', 'head', -7, 18)],
+                 3: [('iFrostS', 'head', -5, 18)],
+                 4: [('iSpark7', 'head', -6, 22), ('iShards9', 'head', -7, 22), ('iFrostS', 'head', -5, 18)],
+                 5: [('iFrost', 'head', -5, 20)],
+                 6: [('iSpark9', 'head', -6, 20), ('iShards12', 'head', -8, 20), ('iRing8', 'head', -6, 20), ('iFrost', 'head', -5, 20)],
+                 7: [('sWisp2', 'feet', -21, -8), ('iFrost', 'head', -5, 20)],
                  8: [('sPool6', 'feet', 0, -1), ('sWispS', 'feet', 0, -4, _A(_FADE))],
-                 9: [('sPool6', 'feet', -17, -1), ('sWispS', 'feet', -17, -4, _A(_FADE))],
-                 10: [('sPool4', 'feet', -17, -1, _A(_FADE))],
-                 14: [_fig('sFigG2', 70)], 15: [_fig('sFigG2', 45)]}))
+                 9: [('sPool6', 'feet', -21, -1), ('sWispS', 'feet', -21, -4, _A(_FADE))],
+                 10: [('sPool4', 'feet', -21, -1, _A(_FADE))]}))
+# Betrayal v2.1 (Christopher 2026-11-05 14:56: no eyes on the shadow, and the silhouette is the target's own): the betrayer is no longer baked; the testbed draws it from the TARGET's own equipped sprite (the copies rule)
+_BT = CLIPS['betrayed']
+CLIPS['betrayed'] = (_BT[0], _BT[1], _BT[2].replace('Betrayed v2 (', 'Betrayed v2.1 (the shadow is the target\'s own silhouette, no eyes, Christopher 2026-11-05 14:56; ').replace('a faceless shadow figure, someone it loves, rises out of the dark with cold ice-white eyes and a shadow knife in its hand', 'its own shadow, a faceless, eyeless silhouette of itself wearing exactly what it wears, rises out of the dark with a shadow knife in its hand'),
+  _BT[3], _BT[4], _BT[5],
+  {**_BT[6], 'extra': {**_BT[6]['extra'], 'shadowDouble': {'rule': 'Betrayal v2.1 (Christopher 2026-11-05 14:56: no eyes, the silhouette is the target\'s own): drawn by the testbed, nothing baked. On each listed frame k, take the TARGET\'s own composited sprite (every equipped layer: body, clothing or armour, arms, far arm, shoulders, hair or helmet, weapons; no eyes, no fx) in the source state and frame [src, srcFrame], facing the target\'s own facing, and fill it as a flat shadow: #120d16 inside, #3a2f40 on its 1 px outer edge, no eyes or features; draw it dx px from the target\'s feet along its facing (negative = behind it), only where the target itself is not drawn, at alpha. knife > 0: a shadow knife in the near fist (the arms layer\'s most forward pixel): grip/guard #3a2f40 1 px ahead of the fist, then a blade knife px long running forward (#3a2f40 body, #12-0d16 back row under it, #ffffff cutting edge on the row above, #ffffff tip). Reference implementation: hex-sprites/tools/astro_scene.py shadow_double()'.replace('#12-0d16', '#120d16'),
+      'frames': {'0': ['numbingStrike', 0, -21, 120, 0], '1': ['numbingStrike', 1, -21, 225, 7], '2': ['numbingStrike', 5, -29, 235, 5], '3': ['numbingStrike', 1, -21, 235, 7], '4': ['numbingStrike', 5, -29, 235, 5], '5': ['numbingStrike', 1, -21, 235, 7], '6': ['numbingStrike', 5, -29, 240, 5], '7': ['numbingStrike', 1, -21, 130, 7], '14': ['numbingStrike', 0, -21, 70, 0], '15': ['numbingStrike', 0, -21, 45, 0]}}}})
 
 def spec(state):
     U.CLIPS[state] = CLIPS[state]

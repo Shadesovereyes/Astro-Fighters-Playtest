@@ -19,7 +19,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Betrayed v2 (target state of Betrayal, Confusion 1 round; frame 0 is the impact; Christopher 2026-11-05: a knife in the shadow's silhouette, several stabs in the back, the target turns round in shock, then back to the caster): the shadow waves wash over the fighter and it stiffens; behind it a faceless shadow figure, someone it loves, rises out of the dark with cold ice-white eyes and a shadow knife in its hand; it drives the knife into the fighter's back three times, the fighter jolting forward with a cold flash and ice shards at each stab; the figure melts back into shadow; the fighter whirls round in shock to face where it stood, forearms up, trembling, finds only a pool of shadow; it turns back to face the caster, and then (looping while the Confusion lasts) stands frozen and trembling, arms half raised and shaking, the figure flickering faintly behind it.",
+  "intent": "Betrayed v2.1 (the shadow is the target's own silhouette, no eyes, Christopher 2026-11-05 14:56; target state of Betrayal, Confusion 1 round; frame 0 is the impact; Christopher 2026-11-05: a knife in the shadow's silhouette, several stabs in the back, the target turns round in shock, then back to the caster): the shadow waves wash over the fighter and it stiffens; behind it its own shadow, a faceless, eyeless silhouette of itself wearing exactly what it wears, rises out of the dark with a shadow knife in its hand; it drives the knife into the fighter's back three times, the fighter jolting forward with a cold flash and ice shards at each stab; the figure melts back into shadow; the fighter whirls round in shock to face where it stood, forearms up, trembling, finds only a pool of shadow; it turns back to face the caster, and then (looping while the Confusion lasts) stands frozen and trembling, arms half raised and shaking, the figure flickering faintly behind it.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -3677,6 +3677,81 @@
       9,
       10
     ]
+  },
+  "shadowDouble": {
+    "rule": "Betrayal v2.1 (Christopher 2026-11-05 14:56: no eyes, the silhouette is the target's own): drawn by the testbed, nothing baked. On each listed frame k, take the TARGET's own composited sprite (every equipped layer: body, clothing or armour, arms, far arm, shoulders, hair or helmet, weapons; no eyes, no fx) in the source state and frame [src, srcFrame], facing the target's own facing, and fill it as a flat shadow: #120d16 inside, #3a2f40 on its 1 px outer edge, no eyes or features; draw it dx px from the target's feet along its facing (negative = behind it), only where the target itself is not drawn, at alpha. knife > 0: a shadow knife in the near fist (the arms layer's most forward pixel): grip/guard #3a2f40 1 px ahead of the fist, then a blade knife px long running forward (#3a2f40 body, #120d16 back row under it, #ffffff cutting edge on the row above, #ffffff tip). Reference implementation: hex-sprites/tools/astro_scene.py shadow_double()",
+    "frames": {
+      "0": [
+        "numbingStrike",
+        0,
+        -21,
+        120,
+        0
+      ],
+      "1": [
+        "numbingStrike",
+        1,
+        -21,
+        225,
+        7
+      ],
+      "2": [
+        "numbingStrike",
+        5,
+        -29,
+        235,
+        5
+      ],
+      "3": [
+        "numbingStrike",
+        1,
+        -21,
+        235,
+        7
+      ],
+      "4": [
+        "numbingStrike",
+        5,
+        -29,
+        235,
+        5
+      ],
+      "5": [
+        "numbingStrike",
+        1,
+        -21,
+        235,
+        7
+      ],
+      "6": [
+        "numbingStrike",
+        5,
+        -29,
+        240,
+        5
+      ],
+      "7": [
+        "numbingStrike",
+        1,
+        -21,
+        130,
+        7
+      ],
+      "14": [
+        "numbingStrike",
+        0,
+        -21,
+        70,
+        0
+      ],
+      "15": [
+        "numbingStrike",
+        0,
+        -21,
+        45,
+        0
+      ]
+    }
   },
   "facingOverride": {
     "rule": "Christopher 2026-10-27: the fighter turns to face S (toward the viewer) for these frames whatever its facing; every row holds the S frame there (the rows are copied after the render), then it turns back",

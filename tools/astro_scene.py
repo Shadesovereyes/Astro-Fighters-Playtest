@@ -96,6 +96,31 @@ def ice_shell(sh, k, fig):   # v2 rule text lives in the spec (extra.iceShell)
             for t in range(1, L + 1):
                 X, Y = round(xx + vx / n_ * t), round(yy + vy / n_ * t)
                 if 0 <= X < 64 and 0 <= Y < 64 and not mp[X, Y]: fp[X, Y] = (C[0] if t == L else C[2]) + (255,)
+def shadow_double(sd, B, kb, img, X):   # Betrayal v2.1: the target's own silhouette (its own layers, no eyes, no fx) in the source pose, flat shadow, a knife in the near fist; the target faces W here
+    src, sk, dx, al, kn = sd; row = spec(src)['directions'].index('W'); m = Image.new('L', (64, 64))
+    for l in [l for l in LAY if l not in ('fx', 'skin-fx', 'arms-fx', 'brown-eyes')]:
+        p_ = os.path.join(anim, src, l + '.png')
+        if os.path.exists(p_): m.paste(255, (0, 0), Image.open(p_).convert('RGBA').crop((sk * 64, row * 64, sk * 64 + 64, row * 64 + 64)).getchannel('A').point(lambda v: 255 if v else 0))
+    mp = m.load(); out = Image.new('RGBA', (64, 64)); op = out.load()
+    tg = Image.new('RGBA', (64, 64)); cell(B, kb, 'W', 0, tg, LAY[:-1]); tp = tg.load()
+    def put(x, y, c):
+        X_ = x - dx   # facing W: along the facing is -x, so behind (dx < 0) is +x
+        if 0 <= X_ < 64 and 0 <= y < 64 and not tp[X_, y][3]: op[X_, y] = c + (al,)
+    for y in range(64):
+        for x in range(64):
+            if mp[x, y]:
+                edge = any(not (0 <= x + ex < 64 and 0 <= y + ey < 64) or not mp[x + ex, y + ey] for ex, ey in ((1, 0), (-1, 0), (0, 1), (0, -1)))
+                put(x, y, (0x3a, 0x2f, 0x40) if edge else (0x12, 0x0d, 0x16))
+    if kn:
+        ap = Image.open(os.path.join(anim, src, 'arms.png')).convert('RGBA').load()
+        arm = [(x, y) for y in range(64) for x in range(64) if ap[sk * 64 + x, row * 64 + y][3]]
+        hx, hy = min(arm, key=lambda q: (q[0], -q[1]))
+        for t in (1,): put(hx - t, hy, (0x3a, 0x2f, 0x40)); put(hx - t, hy - 1, (0x3a, 0x2f, 0x40)); put(hx - t, hy + 1, (0x3a, 0x2f, 0x40))
+        for t in range(2, kn + 2):
+            put(hx - t, hy, (255, 255, 255) if t >= kn else (0x3a, 0x2f, 0x40))
+            if t < kn: put(hx - t, hy - 1, (255, 255, 255))
+            if t < kn - 2: put(hx - t, hy + 1, (0x12, 0x0d, 0x16))
+    img.alpha_composite(out, (X, 0))
 def hand(state, k, d, layer='arms'):
     row = spec(state)['directions'].index(d); im = Image.open(os.path.join(anim, state, layer + '.png')).convert('RGBA').load()
     pts = [(x, y) for y in range(64) for x in range(64) if im[k * 64 + x, row * 64 + y][3]]
@@ -142,6 +167,8 @@ for t in range(n):
                         edge = any(not (0 <= xx + ex < 64 and 0 <= yy + ey < 64) or not q_[xx + ex, yy + ey][3] for ex, ey in ((1, 0), (-1, 0), (0, 1), (0, -1)))
                         lp[X, yy] = ((0x39, 0xe7, 0x5f) if edge else tuple(round(q[i] * 0.65 + (233, 238, 244)[i] * 0.35) for i in range(3))) + (al,)
                 c.alpha_composite(lay_, (4 + GAP, 0))
+        sd = (spec(B).get('shadowDouble') or {}).get('frames', {}).get(str(kb)) if 0 <= kb < nb else None
+        if sd: shadow_double(sd, B, kb, c, 4 + GAP)
         if 0 <= kb < nb: cell(B, kb, 'W', 4 + GAP, c)
         elif kb < 0: cell(GUARD, 0, 'W', 4 + GAP, c, LAY[:-1])   # before the hit: the target in a plain guard, no fx (v2: B's frame 0 showed its fx before the cast landed)
         else: cell(B, nb - 1, 'W', 4 + GAP, c) if B != 'hitReact' else cell('hitReact', 6, 'W', 4 + GAP, c)
