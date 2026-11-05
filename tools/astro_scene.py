@@ -130,7 +130,10 @@ def stamp(img, name, cx, cy, alpha=255):
     for yy, row in enumerate(pat):
         for xx, ch in enumerate(row):
             if ch != '.' and 0 <= x0 + xx < img.size[0] and 0 <= y0 + yy < img.size[1]:
-                c = astro.NPAL[ch]; px[x0 + xx, y0 + yy] = tuple(int(c[i:i + 2], 16) for i in (1, 3, 5)) + (alpha,)
+                c = tuple(int(astro.NPAL[ch][i:i + 2], 16) for i in (1, 3, 5)); X, Y = x0 + xx, y0 + yy
+                if alpha >= 255: px[X, Y] = c + (255,); continue
+                b = px[X, Y]; t = alpha / 255   # Bubble Prison v1: see-through fx blend over what is already drawn (as the testbed's canvas does)
+                px[X, Y] = tuple(round(c[i] * t + b[i] * (1 - t)) for i in range(3)) + (max(b[3], alpha),)
 GUARD = os.environ.get('SCENE_GUARD', 'guard')   # 2026-11-04: the plain boxing guard (hitReact frame 0 is the recoil pose, which read as the target reacting before the impact)
 sa = spec(A); na = sa['frames']; rm = sa['rootMotion']['E']
 n = na + 4

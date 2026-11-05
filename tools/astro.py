@@ -5003,6 +5003,93 @@ CLIPS['evasiveSwayIdle'] = ('Evasive Sway Idle', 0,
 CLIPS['evasiveSway'][6].setdefault('extra', {})['idle'] = {'rule': 'Evasive Sway (Christopher 2026-11-05 15:06): after the clip the fighter plays evasiveSwayIdle on loop while the buff lasts (it replaces the earlier koi-linger proposal: the koi circle in the idle)', 'state': 'evasiveSwayIdle'}
 CLIPS['evasiveSway'][6]['extra'].pop('linger', None)
 
+
+# ---------- Pisces (Water) ninjutsu v1 (part 15, 2026-11-05): Bubble Prison ----------
+_SPH_R = 30   # the prison sphere fills the 64 px cell round the 55 px fighter; centred on the cell anchor (the fighter's middle, floor - 30)
+def _sphere(r, phase, part='rim', frac=1.0):   # Bubble Prison: a sphere of water. part 'rim': a 2 px shell (ice top-left, light body, deep bottom-right, a dark outer edge low down) with two glints sliding round it and a curved highlight inside top-left; part 'fill': the water inside (light, deeper in the lower third, caustic streaks) for drawing see-through; the shell wobbles like jelly with phase (0-3); frac < 1 keeps only the lower part (the water rising up round the target) with a foaming surface line
+    wob = (0, 1, 0, -1)[phase % 4]; rx, ry = r + wob, r - wob
+    w = 2 * r + 3; c = r + 1; rows = [['.'] * w for _ in range(w)]
+    cut = c + ry - frac * 2 * ry   # rows above the cut are empty
+    g1, g2 = math.radians(-135 + phase * 22), math.radians(45 + phase * 22)
+    for y in range(w):
+        for x in range(w):
+            if y < cut: continue
+            dx_, dy_ = (x - c) / rx, (y - c) / ry; d = math.hypot(dx_, dy_) * r; th = math.atan2(y - c, x - c)
+            if part == 'rim':
+                if r - 1.6 <= d <= r + 0.5:
+                    up = (x - c) + (y - c) < -r * 0.5; dn = (x - c) + (y - c) > r * 0.6
+                    ch = 'I' if up else 'A' if dn else 'a'
+                    if d > r - 0.4 and y > c + r * 0.3: ch = 'n'
+                    for gg in (g1, g2):
+                        if abs(math.atan2(math.sin(th - gg), math.cos(th - gg))) < 0.09: ch = 'W'
+                    rows[y][x] = ch
+                elif r - 5 <= d <= r - 4 and -2.6 < th < -1.9: rows[y][x] = 'W'   # the curved highlight inside, top-left
+            elif d < r - 1.6:
+                ch = 'A' if y > c + r * 0.35 else 'a'
+                if (x + 2 * y + phase * 3) % 13 == 0 and abs((y - c) - 6 * math.sin((x + phase * 4) / 6)) < 1.5: ch = 'I'   # caustic streaks
+                rows[y][x] = ch
+            if frac < 1 and abs(y - cut) < 1 and d < r + 0.5: rows[y][x] = 'W' if (x + phase) % 3 else 'I'   # the rising surface, foaming
+    return [''.join(q) for q in rows]
+NPAT.update({**{'bpRim%d' % p: _sphere(_SPH_R, p) for p in range(4)}, **{'bpFill%d' % p: _sphere(_SPH_R, p, 'fill') for p in range(4)},
+             'bpRiseR1': _sphere(_SPH_R, 0, 'rim', 0.3), 'bpRiseF1': _sphere(_SPH_R, 0, 'fill', 0.3),
+             'bpRiseR2': _sphere(_SPH_R, 1, 'rim', 0.7), 'bpRiseF2': _sphere(_SPH_R, 1, 'fill', 0.7)})
+_BPF = _A({'a': 70, 'A': 95, 'I': 120, 'W': 150})   # the water inside, see-through over the fighter
+_BPR = lambda p: [('bpFill%d' % p, 'cell', 0, -30, _BPF), ('bpRim%d' % p, 'cell', 0, -30)]
+_BPR_TF = lambda p: [['bpFill%d' % p, -2, -30, 80], ['bpRim%d' % p, -2, -30]]
+CLIPS.update({
+ 'bubblePrison': ('Bubble Prison', 6,
+  'Bubble Prison (Pisces ninjutsu, Elemental 6, Zone of Awareness, Stun 2 rounds CHA save DC 14, DoT: the caster traps the foe in a sphere of water): from the guard the fighter makes the seal at the chin, eyes closing; it opens its cupped palms forward and a bubble of water swells between them; it pushes the bubble out toward the target and the floor round the target ripples; it sweeps the palm up and the water rises up round the target, a shell climbing its legs, then its chest; on the impact frame (6) the fighter clenches the hand shut and the sphere closes over the target\'s head with a splash (the target plays bubblePrisoned); it holds the fist, then lowers it into the guard (spec extra.targetFx: the testbed draws the rising water round the target, nothing on the target before impact).', [
+     g(),
+     g(an=U.SEAL_N, af=U.SEAL_F, bob=(1, 1, 1), lean=(0, 0)),
+     g(an=U.SEAL_N, af=U.SEAL_F, bob=(1, 1, 2), lean=(0, 1)),
+     g(an=band(-80, -110, fistKind='palm'), af=band(-75, -105, fistKind='palm'), bob=(1, 1, 1), lean=(0, 1)),
+     g(an=band(-90, -90, fistKind='palm'), af=band(-88, -88, fistKind='palm'), bob=(1, 1, 2), lean=(1, 3), root=(1, 0)),
+     g(an=band(-125, -150, fistKind='palm'), af=band(-50, -110), bob=(1, 1, 1), lean=(0, 1)),
+     g(an=band(-110, -140), af=band(-50, -110), bob=(2, 2, 2), lean=(1, 3)),
+     g(an=band(-110, -140), af=band(-50, -110), bob=(2, 2, 2), lean=(1, 3)),
+     g(an=band(-50, -110), af=band(-40, -110), bob=(1, 1, 1), lean=(0, 1), root=(-1, 0)),
+     g()],
+  [None, 'squint', 'closed', 'squint', 'strain', 'squint', 'roar', 'strain', None, None],
+  [0, 1, 1, 1, 2, 2, 2, 1, 0, 0],
+  dict(fps=10, auraColors=_WAURA,
+       extra={'targetFx': {'rule': 'Bubble Prison v1: drawn by the testbed round the target (dx away from the caster, dy from the floor up; patterns centred; the fill patterns at the given alpha): the floor round the target ripples (frame 3), the water rises round it, a third (frame 4), then most of the way up (frame 5; frame 6 is the impact, when the target starts bubblePrisoned, which draws the closed sphere itself)', 'frames': {'3': [['wRip9', -2, -1], ['wDrops', -2, -6, 150]], '4': [['wRip12', -2, -1], ['bpRiseF1', -2, -30, 80], ['bpRiseR1', -2, -30], ['wDrops', -2, -22]], '5': [['bpRiseF2', -2, -30, 80], ['bpRiseR2', -2, -30], ['wDrops', -2, -46]]}},
+              'targetState': {'rule': 'Bubble Prison: on the impact frame (6) and not before, the target plays bubblePrisoned: frames 0-2 once, frames 3-8 on loop while the Stun lasts (one DoT tick = the loop\'s choke on frame 6), then frames 9-11 once when it ends (the sphere bursts), then its idle', 'state': 'bubblePrisoned', 'loopFrom': 3, 'loopTo': 8, 'release': [9, 10, 11], 'element': 'water'}},
+       anchored={1: [('wPuddle', 'feet', 0, -1, _A(_FADE))], 2: [('wDrops', 'head', 6, 14, _A(_FADE))],
+                 3: [('wBub2', 'hand', -3, 0), ('wDrops', 'hand', -3, -4, _A(_FADE))],
+                 4: [('wBub3', 'hand', 3, 0), ('wRip5', 'hand', 2, 0, _A(_FADE))],
+                 5: [('wDrops', 'hand', 0, -4), ('wBub1', 'hand', 2, -6)],
+                 6: [('wSplashS', 'hand', 1, -2), ('wDrops', 'hand', 0, -6, _A(_FADE))], 7: [('wBub1', 'hand', 1, -5, _A(_FADE))]})),
+ 'bubblePrisoned': ('Bubble Prisoned', 0,
+  'Bubble Prisoned (target state of Bubble Prison, Stun 2 rounds; frame 0 is the impact): the sphere of water closes over the fighter with a splash: it jolts, eyes screwed shut, and floats up off the floor; then, looping while the Stun lasts, it drifts inside the sphere holding its breath, cheeks tight, arms paddling slowly against the water, legs drawn up and trailing, bubbles leaking from its mouth and rising, the sphere wobbling and glinting round it; on each DoT tick (loop frame 6) it chokes and a gush of bubbles escapes; when the Stun ends (frames 9-11) the sphere bursts in a splash, it drops to the floor in a crouch, coughing, and comes back up into the guard.', [
+     g(an=band(-140, -170), af=band(-130, -165), bob=(1, 1, 1), lean=(-1, -2)),
+     g(an=band(-150, -120), af=band(-140, -110), bob=(1, 1, 2), lean=(0, 0), rot=_LIFT(2), **_TUCK),
+     g(an=band(-120, -100), af=band(-110, -90), bob=(1, 1, 1), lean=(0, 1), rot=_LIFT(3), **_TUCK),
+     g(an=band(-150, -110), af=band(-60, -90), bob=(1, 1, 1), lean=(0, 1), rot=_LIFT(3), **_TUCK),
+     g(an=band(-120, -95), af=band(-90, -100), bob=(1, 1, 1), lean=(0, 1), rot=_LIFT(4), **_TUCK),
+     g(an=band(-70, -90), af=band(-140, -110), bob=(1, 1, 1), lean=(0, 2), rot=_LIFT(4), **_TUCK),
+     g(an=band(-40, -120), af=band(-35, -115), bob=(2, 2, 2), lean=(1, 4), rot=_LIFT(3), **_TUCK),
+     g(an=band(-90, -100), af=band(-120, -95), bob=(1, 1, 1), lean=(0, 2), rot=_LIFT(3), **_TUCK),
+     g(an=band(-130, -105), af=band(-75, -95), bob=(1, 1, 1), lean=(0, 1), rot=_LIFT(3), **_TUCK),
+     g(an=band(-160, -150), af=band(-150, -140), bob=(1, 1, 1), lean=(0, 0), rot=_LIFT(3), **_TUCK),
+     g(an=band(-40, -110), af=band(-30, -100), bob=(4, 4, 4), lean=(1, 5), **LOW),
+     g(an=band(-45, -115), af=band(-35, -110), bob=(2, 2, 2), lean=(1, 3))],
+  ['pain', 'closed', 'strain', 'strain', 'strain', 'squint', 'pain', 'strain', 'strain', 'pain', 'pain', 'squint'],
+  None,
+  dict(fps=8, extra={'loop': True, 'loopFrom': 3, 'loopTo': 8, 'release': [9, 10, 11]},
+       anchored={0: _BPR(0) + [('wSplashL', 'cell', 0, -58), ('wDropsL', 'cell', 0, -52, _A(_FADE))],
+                 1: _BPR(1) + [('wDrops', 'cell', 0, -55, _A(_FADE)), ('wBub2', 'eye', 3, 4)],
+                 2: _BPR(2) + [('wBub1', 'eye', 3, 4), ('wBub2', 'eye', 1, -11)],
+                 3: _BPR(3) + [('wBub1', 'eye', 3, 4), ('wBub1', 'eye', 0, -13)],
+                 4: _BPR(0) + [('wBub2', 'eye', 2, -7), ('wBub1', 'eye', -1, -17)],
+                 5: _BPR(1) + [('wBub1', 'eye', 3, 4), ('wBub1', 'eye', 1, -11), ('wBub2', 'eye', -2, -19)],
+                 6: _BPR(2) + [('wBub3', 'eye', 4, -4), ('wBub2', 'eye', 2, -12), ('wBub2', 'eye', 5, -18), ('wBub1', 'eye', 0, -21)],
+                 7: _BPR(3) + [('wBub1', 'eye', 3, 4), ('wBub2', 'eye', 2, -15)],
+                 8: _BPR(0) + [('wBub1', 'eye', 2, -9), ('wBub1', 'eye', -1, -19)],
+                 9: [('wSplashXL', 'cell', 0, -36), ('wDropsL', 'cell', -10, -40), ('wDropsL', 'cell', 10, -44), ('bpRiseF1', 'cell', 0, -30, _A(_FADE))],
+                 10: [('wPuddle', 'feet', 0, -1), ('wSplashL', 'feet', 0, -8), ('wDrops', 'cell', 0, -50, _A(_FADE))],
+                 11: [('wPuddle', 'feet', 0, -1, _A(_FADE)), ('wDrops', 'head', 6, 6, _A(_FADE))]})),
+})
+
 def spec(state):
     U.CLIPS[state] = CLIPS[state]
     U.APPROVED[state] = APPROVED.get(state, STAT)
@@ -5594,7 +5681,7 @@ def anchored(state, frames):
             tip = (max if not flip else min)(arm, key=lambda q: (q[0], -q[1])) if arm else ((max(head), top + 8))
             farm = [(x, y) for y in range(64) for x in range(64) if fp and fp[k * 64 + x, r * 64 + y][3]]   # the far arm's most forward pixel (Wither Palm: the far palm's strikes)
             ftip = (max if not flip else min)(farm, key=lambda q: (q[0], -q[1])) if farm else tip
-            anchors = {'head': ((min(head) + max(head)) / 2, top + 6), 'hand': tip, 'farhand': ftip, 'feet': ((min(x for x, _ in opq) + max(x for x, _ in opq)) / 2, 63), 'eye': _eye(state, k, r) or (max(head) - 2 if not flip else min(head) + 2, top + 5)}
+            anchors = {'head': ((min(head) + max(head)) / 2, top + 6), 'hand': tip, 'farhand': ftip, 'feet': ((min(x for x, _ in opq) + max(x for x, _ in opq)) / 2, 63), 'eye': _eye(state, k, r) or (max(head) - 2 if not flip else min(head) + 2, top + 5), 'cell': (30 if flip else 33, 63)}
             for item in items:
                 name, an, dx, dy = item[:4]; opts = item[4] if len(item) > 4 else {}
                 pat = NPAT[name]; h, w = len(pat), len(pat[0]); ax, ay = anchors[an]
