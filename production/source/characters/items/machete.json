@@ -1,0 +1,85 @@
+{
+  "schema": "astro-fighters-character-item/v1",
+  "item": "machete",
+  "kind": "rigid weapon (AGENTS.md: rigid items are placed by anchor with integer offsets)",
+  "status": "CANDIDATE 2026-11-06 (bandit machete for Machete Slash; Christopher 2026-11-06 asked for the stand-ins to get their own clips)",
+  "construction": "band: a straight band along the weapon axis from the grip point (the centre of the near fist); every pixel takes its colour from the cross-section pattern (back/spine to front/edge) of the segment it falls in, so the weapon keeps its thickness at any angle; pixels are rasterised from the authored data, never rotated or resampled from an image",
+  "palette": {
+    "#": "#000000",
+    "a": "#adadad",
+    "W": "#ffffff",
+    "t": "#3b2014",
+    "s": "#a9977d",
+    "h": "#ddcdb4",
+    "r": "#8a6236"
+  },
+  "paletteSource": "colours already in the approved male clothing layers: #adadad armour grey (blade steel, guard, pommel), #ffffff armour/Gi white (edge), #3b2014 Gi shoe brown (hilt wrap), #a9977d Gi trouser shade (hilt diamonds), #ddcdb4 Gi trouser mid (blade collar); #8a6236 soil brown (rust bloom on the spine, from the approved Taurus earth fx)",
+  "units": "pixels along the axis from the grip point (u, positive toward the tip) and across it (v)",
+  "segments": [
+    {
+      "name": "pommel",
+      "from": -3.5,
+      "to": -2.5,
+      "thickness": 3,
+      "pattern": [
+        "#t#"
+      ]
+    },
+    {
+      "name": "bolster",
+      "from": 2.5,
+      "to": 3.5,
+      "thickness": 4,
+      "pattern": [
+        "#aa#"
+      ]
+    },
+    {
+      "name": "blade",
+      "from": 3.5,
+      "to": 11,
+      "thickness": 4,
+      "pattern": [
+        "#raW"
+      ]
+    },
+    {
+      "name": "belly",
+      "from": 11,
+      "to": 15,
+      "thickness": 5,
+      "pattern": [
+        "#raaW"
+      ]
+    },
+    {
+      "name": "tip",
+      "from": 15,
+      "to": 17,
+      "thickness": 3,
+      "pattern": [
+        "#aW"
+      ]
+    }
+  ],
+  "outline": "every coloured pixel touching empty space gets an outline pixel (#) if it is not already one",
+  "grip": "one-handed chopping blade: the wooden handle is inside the fist, only the pommel nub and the steel bolster show",
+  "note": "a bandit's machete: a broad 13.5 px blade widening toward the tip (the belly that gives the chop its weight), rust on the spine; built like the tanto (band construction)",
+  "trail": {
+    "rule": "swing smear colours, from the blade tip inward (pixels from the outer edge): colours already in the approved palette (Gi/armour white, body wrap grey, armour grey); hard alpha",
+    "bands": [
+      {
+        "to": 1.5,
+        "colour": "#ffffff"
+      },
+      {
+        "to": 3,
+        "colour": "#e3e3e3"
+      },
+      {
+        "to": 99,
+        "colour": "#adadad"
+      }
+    ]
+  }
+}
