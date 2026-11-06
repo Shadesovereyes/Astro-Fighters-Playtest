@@ -15,7 +15,9 @@
     95
   ],
   "rows": [
+    "S",
     "E",
+    "N",
     "W"
   ],
   "frames": 7,
@@ -27,12 +29,43 @@
       "default": true,
       "hand": "arms",
       "layers": {
+        "behind": "main-machete-behind.png",
         "front": "main-machete-front.png",
         "top": "main-machete-top.png",
         "trail": "main-machete-trail.png"
       },
-      "status": "E/W approved by user 2026-11-06 18:12 (v3 raised blade on the top slot over hair and headgear; W mirrors E); S/N to author",
+      "status": "CANDIDATE 2026-10-28 S/N v1 (E/W approved by user 2026-10-28; W mirrors E)",
       "z": {
+        "S": [
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          }
+        ],
         "E": [
           "front",
           {
@@ -47,6 +80,15 @@
           "front",
           "front",
           "front"
+        ],
+        "N": [
+          "behind",
+          "behind",
+          "behind",
+          "behind",
+          "behind",
+          "behind",
+          "behind"
         ],
         "W": [
           "front",
@@ -65,6 +107,36 @@
         ]
       },
       "grips": {
+        "S": [
+          [
+            29,
+            35
+          ],
+          [
+            27,
+            20
+          ],
+          [
+            27,
+            17
+          ],
+          [
+            31,
+            30
+          ],
+          [
+            29,
+            38
+          ],
+          [
+            29,
+            36
+          ],
+          [
+            29,
+            35
+          ]
+        ],
         "E": [
           [
             43,
@@ -92,6 +164,36 @@
           ],
           [
             43,
+            35
+          ]
+        ],
+        "N": [
+          [
+            35,
+            35
+          ],
+          [
+            37,
+            20
+          ],
+          [
+            37,
+            17
+          ],
+          [
+            33,
+            30
+          ],
+          [
+            35,
+            38
+          ],
+          [
+            35,
+            36
+          ],
+          [
+            35,
             35
           ]
         ],
@@ -130,6 +232,13 @@
   ],
   "qc": {
     "gripOnFist": {
+      "main/machete S:0": true,
+      "main/machete S:1": true,
+      "main/machete S:2": true,
+      "main/machete S:3": true,
+      "main/machete S:4": true,
+      "main/machete S:5": true,
+      "main/machete S:6": true,
       "main/machete E:0": true,
       "main/machete E:1": true,
       "main/machete E:2": true,
@@ -137,6 +246,13 @@
       "main/machete E:4": true,
       "main/machete E:5": true,
       "main/machete E:6": true,
+      "main/machete N:0": "hidden",
+      "main/machete N:1": "hidden",
+      "main/machete N:2": "hidden",
+      "main/machete N:3": "hidden",
+      "main/machete N:4": "hidden",
+      "main/machete N:5": "hidden",
+      "main/machete N:6": "hidden",
       "main/machete W:0": true,
       "main/machete W:1": true,
       "main/machete W:2": true,
