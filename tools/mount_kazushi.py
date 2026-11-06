@@ -109,7 +109,9 @@ def _fr(spec, k):   # one frame of an approved spec as a tf() override
     return dict(src=0, bob=(spec['bob']['dy'][k], spec['bob']['head'][k], spec['bob']['arms'][k]), lean=(spec['lean']['dx']['pelvis'][k], spec['lean']['dx']['head'][k]),
                 an=spec['arms']['near'][k], af=spec['arms']['far'][k])
 gt = [tf(0), tf(1, bob=(10, 10, 11), lean=(0, 3), an=band(-75, -100), af=band(-70, -95)),
-      _fr(cc, 2), _fr(cc, 3)] + [dict(_fr(cc, k), lean=(1, cc['lean']['dx']['head'][k] - 3)) for k in (4, 5, 6, 7)]
+      _fr(cc, 2), _fr(cc, 3)] + [   # v2 hold: the fists haul the cord back up toward the chest, so the V of cord shows
+      tf(0, bob=(11, 11, 12), lean=(-1, 3), an=band(5, -100), af=band(9, -104)), tf(1, bob=(11, 11, 12), lean=(-2, 1), an=band(12, -108), af=band(16, -112)),
+      tf(2, bob=(11, 11, 12), lean=(-1, 3), an=band(5, -100), af=band(9, -104)), tf(3, bob=(12, 12, 13), lean=(0, 5), an=band(-4, -92), af=band(0, -96))]
 gb = [tf(0), tf(1), tf(2)] + [_fr(ch, k) for k in (3, 4, 5, 6, 7)]
 gx = [None, None, None, 'pain', 'squint', 'pain', 'squint', 'pain']
 fx_g = {'rule': "strain marks by the mounted fighter's face from the impact frame (3) while the cord squeezes", 'frames': [
@@ -133,17 +135,75 @@ make('mountGarroteHit', Bt, gb, partner='mountGarrote', status='mounted side of 
 def tips(state, k, row=0):
     im = _Image.open(D + state + '/arms.png').convert('RGBA'); px = im.load()
     pts = [(x, y) for y in range(64) for x in range(64) if px[k * 64 + x, row * 64 + y][3] and px[k * 64 + x, row * 64 + y][:3] != (0, 0, 0)]
-    x, y = max(pts, key=lambda q: (q[0], -q[1])); return [x - 1, y]
-# side-on the far fist sits right behind the near one, so the cord is drawn as a loop: from the near fist down round the
-# mounted fighter's throat and back up into the fist. LOOP[k] = (via offset from the fist, to offset from via, droop)
-LOOP = {0: None, 1: ((-4, 3), (4, -3), 2), 2: ((-1, 5), (2, -5), 1)}
+    x, y = max(pts, key=lambda q: (q[0], -q[1]))
+    for q in ((x - 1, y), (x - 1, y + 1), (x - 2, y), (x - 1, y - 1), (x - 2, y + 1), (x, y)):   # an opaque fist pixel (QC gripOnFist)
+        if px[k * 64 + q[0], row * 64 + q[1]][3] == 255: return list(q)
+    return [x, y]
+# side-on the far fist sits right behind the near one. v2: the cord reads as a V of two hemp strands from the fists down to
+# the mounted fighter's throat (the bottom of the V is cut where it passes behind the neck), so it shows between the arms.
+# frame 0: wound in the fist; 1: drawn taut between the fists in front of the chest; 2: dropped over the head;
+# 3+: the V bites at the throat (THROAT, holder-frame coordinates) and the fists haul back on it
+THROAT = (47, 55)
 def garrote_grips(state, top=True):
     s = _json.load(open(D + state + '.json')); w = s['weapons'][0]; row = s['directions'].index('E')
     for k, p in enumerate(w['E']):
         n = tips(state, k, row); p['grip'] = n
-        lp = LOOP.get(k, ((-1, 4), (2, -4), 1))
-        if lp is None: p['chain'] = {'via': [n[0], n[1] + 1], 'droop': 0, 'z': 'front', 'to': [0, 2], 'noWeight': True}   # wound in the fist
-        else: p['chain'] = {'via': [n[0] + lp[0][0], n[1] + lp[0][1]], 'droop': lp[2], 'z': 'front', 'to': list(lp[1]), 'noWeight': True}
+        if k == 0: p['chain'] = {'via': [n[0], n[1] + 1], 'droop': 0, 'z': 'front', 'to': [0, 2], 'noWeight': True}
+        elif k == 1: p['chain'] = {'via': [n[0] + 2, n[1] + 4], 'droop': 2, 'z': 'top', 'to': [-1, 2], 'noWeight': True}
+        elif k == 2: p['chain'] = {'via': [n[0] - 3, n[1] + 9], 'droop': 1, 'z': 'top', 'to': [6, -8], 'noWeight': True}
+        else: p['chain'] = {'via': list(THROAT), 'droop': 0, 'z': 'top', 'to': [n[0] + 3 - THROAT[0], n[1] + 1 - THROAT[1]], 'noWeight': True}
     save(s, D + state + '.json')
 
-if __name__ == '__main__' and len(sys.argv) > 2 and sys.argv[1] == '--grips': garrote_grips(sys.argv[2])
+
+# ================= Cord Garrote from the bottom (Mounted) =================
+# the mounted fighter reaches both fists up, flicks the cord over the top fighter's head and yanks it down by the throat
+# (impact frame 3): the top fighter is dragged forward and down (as in the approved bottom Kazushi reaction) and claws at the
+# cord with both hands on the highest layer; the cord runs as a V from the mounted fighter's fists up to the top's throat
+bg = [tf(0), tf(1, an=band(-70, -100), af=band(-66, -96)), tf(2, an=band(-90, -110), af=band(-86, -106)),
+      tf(3, an=band(-102, -130), af=band(-98, -126)), tf(0, an=band(-104, -134), af=band(-100, -130)),
+      tf(1, an=band(-98, -124), af=band(-94, -120)), tf(2, an=band(-104, -134), af=band(-100, -130)), tf(3, an=band(-98, -124), af=band(-94, -120))]
+bgt = [tf(0), tf(1), tf(2),   # both hands claw at the cord under the chin; the cord runs down across the chest to the mounted fighter's fists
+       tf(3, bob=(17, 17, 18), lean=(4, 16), an=band(-20, -170), af=band(-15, -165), root=(2, 0)),
+       tf(0, bob=(16, 16, 17), lean=(4, 15), an=band(-22, -172), af=band(-17, -167)),
+       tf(1, bob=(17, 17, 18), lean=(4, 16), an=band(-16, -164), af=band(-11, -159)),
+       tf(2, bob=(16, 16, 17), lean=(4, 15), an=band(-22, -172), af=band(-17, -167)),
+       tf(3, bob=(17, 17, 18), lean=(4, 16), an=band(-16, -164), af=band(-11, -159))]
+bgx = [None, 'squint', 'pain', 'pain', 'squint', 'pain', 'squint', 'pain']
+bgtx = [None, None, None, 'pain', 'pain', 'squint', 'pain', 'squint']
+fx_bg = {'rule': "strain marks by the top fighter's face from the impact frame (3) while the cord squeezes", 'top': True, 'frames': [
+    {'frame': 3, 'splash': [{'pattern': 'strain', 'at': [52, 27]}]}, {'frame': 5, 'splash': [{'pattern': 'strain', 'at': [53, 26]}]}, {'frame': 7, 'splash': [{'pattern': 'strain', 'at': [52, 27]}]}]}
+make('mountBottomGarrote', Bt, bg, partner='mountBottomGarroteHit', status='Cord Garrote from the bottom of Mount, paired with mountBottomGarroteHit',
+     intent='Kyoketsu-Shoge Cord Garrote from the bottom (Positional Rules: Both; Maintained Submission): from the mountBottom idle the mounted fighter reaches both fists up with the hemp cord taut between them, flicks it over the top fighter\'s head and yanks it down by the throat (impact frame 3); frames 4-7 loop while the submission holds, the fists sawing down on the cord.',
+     clips={'rule': 'plays from mountBottom; the top fighter plays mountBottomGarroteHit; loops bottomGarroteHold while the Maintained Submission holds, then mountBottom',
+            'mountBottomGarrote': {'frames': [0, 1, 2, 3], 'fps': 12, 'next': 'bottomGarroteHold'}, 'bottomGarroteHold': {'frames': [4, 5, 6, 7], 'fps': 6, 'loop': True, 'next': 'mountBottom'}},
+     ev=events(8, [3], 'Cord Garrote', '10 Physical; Silence 1rd (FORT or STR DC12); no Focus 1rd; Maintained Submission'), expr=bgx,
+     rule='paired Mount move: bottom (W) garrotes, top (E) is choked and dragged down; the top fighter\'s arms are the highest layer', weapons=wrec('mountBottomGarrote'))
+make('mountBottomGarroteHit', Tx, bgt, partner='mountBottomGarrote', status='top side of bottom Cord Garrote, paired with mountBottomGarrote',
+     intent="The top fighter's side of the bottom Cord Garrote: it kneels in the plain mountTop idle until the cord bites (impact frame 3), when it is dragged forward and down 2 px by the throat and both hands claw up at the cord on the highest layer; frames 4-7 loop (bottomGarrotedHold) while the submission holds.",
+     clips={'rule': 'plays on the top fighter when the bottom plays mountBottomGarrote; loops bottomGarrotedHold, then mountTop',
+            'mountBottomGarroteHit': {'frames': [0, 1, 2, 3], 'fps': 12, 'next': 'bottomGarrotedHold'}, 'bottomGarrotedHold': {'frames': [4, 5, 6, 7], 'fps': 6, 'loop': True, 'next': 'mountTop'}},
+     expr=bgtx, fx=fx_bg, rule='paired Mount move: bottom (W) garrotes, top (E) is choked and dragged down', rm='per-frame step (screen px): dragged 2 px forward on the impact frame, held through the loop, back on release')
+
+def bottom_garrote_grips(state='mountBottomGarrote', top='mountBottomGarroteHit'):
+    """grip = the highest fist pixel (the fists point up); from frame 2 the cord's V bottom (via) sits at the top fighter's
+    throat (front-bottom of its head, in the mounted fighter's E-row frame: x mirrored, partnerDx 2, top rootMotion)"""
+    s = _json.load(open(D + state + '.json')); w = s['weapons'][0]; row = s['directions'].index('E')
+    ts = _json.load(open(D + top + '.json')); trow = ts['directions'].index('E'); mot = ts['rootMotion']['E']
+    arms = _Image.open(D + state + '/arms.png').convert('RGBA'); hp = _Image.open(D + top + '/fade-hair.png').convert('RGBA')
+    bd = _Image.open(D + top + '/body.png').convert('RGBA')
+    for k, p in enumerate(w['E']):
+        a = arms.crop((k * 64, row * 64, k * 64 + 64, row * 64 + 64)).load()
+        pts = [(x, y) for y in range(64) for x in range(64) if a[x, y][3] and a[x, y][:3] != (0, 0, 0)]
+        gx, gy = min(pts, key=lambda q: (q[1], -q[0])); n = next(([x, y] for x, y in ((gx, gy + 1), (gx - 1, gy + 1), (gx + 1, gy + 1), (gx, gy)) if a[x, y][3] == 255), [gx, gy]); p['grip'] = n
+        b = bd.crop((k * 64, trow * 64, k * 64 + 64, trow * 64 + 64)).load()
+        head = [(x, y) for y in range(40) for x in range(64) if b[x, y][3]]
+        hb = max(y for x, y in head if y < 36)
+        mx = sum(m[0] for m in mot[:k + 1])
+        hx = max(x for x, y in head if y == hb) - 1 + mx   # the throat under the chin, top-state E frame
+        throat = (63 - (hx - 2), hb + 1)                   # into the mounted fighter's E-row frame
+        if k == 0: p['chain'] = {'via': [n[0], n[1] + 1], 'droop': 0, 'z': 'top', 'to': [0, 2], 'noWeight': True}
+        elif k == 1: p['chain'] = {'via': [n[0] - 4, n[1] - 1], 'droop': -2, 'z': 'top', 'to': [4, 2], 'noWeight': True}
+        else: p['chain'] = {'via': list(throat), 'droop': 0, 'z': 'top', 'to': [n[0] - 2 - throat[0], n[1] + 1 - throat[1]], 'noWeight': True}
+    save(s, D + state + '.json')
+# --grips: snap both garrotes' grips and cords to the rendered fists (run after character-posed on all four states)
+if __name__ == '__main__' and len(sys.argv) > 1 and sys.argv[1] == '--grips': garrote_grips('mountGarrote'); bottom_garrote_grips()

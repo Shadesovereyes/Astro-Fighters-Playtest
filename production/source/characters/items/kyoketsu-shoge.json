@@ -1,0 +1,88 @@
+{
+  "schema": "astro-fighters-character-item/v1",
+  "item": "kyoketsu-shoge",
+  "kind": "rigid weapon (AGENTS.md: rigid items are placed by anchor with integer offsets)",
+  "status": "CANDIDATE 2026-11-06: tanto blade with a hemp cord and an iron ring at the far end (Kyoketsu-Shoge); used by Cord Garrote and Blade Throw, where the cord shows",
+  "construction": "band: a straight band along the weapon axis from the grip point (the centre of the near fist); every pixel takes its colour from the cross-section pattern (back/spine to front/edge) of the segment it falls in, so the weapon keeps its thickness at any angle; pixels are rasterised from the authored data, never rotated or resampled from an image",
+  "palette": {
+    "#": "#000000",
+    "a": "#adadad",
+    "W": "#ffffff",
+    "t": "#3b2014",
+    "s": "#a9977d",
+    "h": "#ddcdb4",
+    "w": "#9e4a31",
+    "d": "#70241d"
+  },
+  "paletteSource": "colours already in the approved male clothing layers: #adadad armour grey (blade steel, guard, pommel), #ffffff armour/Gi white (edge), #3b2014 Gi shoe brown (hilt wrap), #a9977d Gi trouser shade (hilt diamonds), #ddcdb4 Gi trouser mid (blade collar)",
+  "units": "pixels along the axis from the grip point (u, positive toward the tip) and across it (v)",
+  "segments": [
+    {
+      "name": "pommel",
+      "from": -3.5,
+      "to": -2.5,
+      "thickness": 3,
+      "pattern": [
+        "#a#"
+      ]
+    },
+    {
+      "name": "guard",
+      "from": 2.5,
+      "to": 3.5,
+      "thickness": 4,
+      "pattern": [
+        "#aa#"
+      ]
+    },
+    {
+      "name": "blade",
+      "from": 3.5,
+      "to": 10,
+      "thickness": 3,
+      "pattern": [
+        "#aW"
+      ]
+    },
+    {
+      "name": "tip",
+      "from": 10,
+      "to": 12,
+      "thickness": 2,
+      "pattern": [
+        "#W"
+      ]
+    }
+  ],
+  "outline": "every coloured pixel touching empty space gets an outline pixel (#) if it is not already one",
+  "grip": "one-handed off-hand dagger: the hilt is entirely inside the fist, so only the pommel nub and the guard show at the fist's two edges",
+  "note": "the katana construction as a dagger: blade 6.5 px; the hilt segment is not drawn (the fist covers u -2.5 to 2.5)",
+  "trail": {
+    "rule": "swing smear colours, from the blade tip inward (pixels from the outer edge): colours already in the approved palette (Gi/armour white, body wrap grey, armour grey); hard alpha",
+    "bands": [
+      {
+        "to": 1.5,
+        "colour": "#ffffff"
+      },
+      {
+        "to": 3,
+        "colour": "#e3e3e3"
+      },
+      {
+        "to": 99,
+        "colour": "#adadad"
+      }
+    ]
+  },
+  "chain": {
+    "at": -3.5,
+    "length": 14,
+    "links": "wd",
+    "weight": [
+      ".a.",
+      "a.a",
+      ".a."
+    ],
+    "rule": "Kyoketsu-Shoge: a hemp cord (kama handle wood ramp #9e4a31/#70241d, dark enough to read over the white Gi) leaves the tanto pommel and ends in an iron ring (#adadad); hangs in screen space like the kama chain; poses set chain.via/to/droop/noWeight"
+  }
+}
