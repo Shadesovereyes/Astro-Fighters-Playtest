@@ -1,0 +1,160 @@
+"""Own clips for the abilities that still borrowed a nearby clip (Christopher 2026-11-06: "lets fix the 16 that are
+borrowing a nearby one"). Played from the approved boxing guard and returning to it, through astro.py's spec builder
+(universal.py underneath). One state per ability. E/W first (W mirrors E), S/N after approval. Effects white/neutral
+(plain martial technique, no element). Targets hold their guard until the impact frame (ANIMATION_RULES 2026-11-04).
+
+Not authored here, because the move can never be used free-standing, so its stand-in never plays:
+  Headbutt (noFree: clinch or Mount bottom only; clinchHeadbutt / mountBottomHeadbutt are approved)
+  Dirty Boxing (req STANDING grapple = the tie; clinchDirtyBoxing is approved)
+
+Run: python3 tools/standins.py [state] ; node tools/character-posed.mjs male <state> ; python3 tools/stances.py --outline <state> ;
+     python3 tools/standins.py --fx <state>"""
+import sys, os
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import astro
+from universal import band, g, LOW
+
+STAT = 'CANDIDATE 2026-11-06 (E/W; W mirrors E; S/N to author after approval)'
+APPROVED = {}
+
+DRIVE = dict(ln='sp-drive-rear', lf='sp-drive-lead')
+LOAD = dict(ln='sp-load-rear', lf='sp-load-lead')
+GUARD_N = band(-20, 212)   # the approved guard's rear (near) arm
+RECOVER = band(-55, 230)
+
+def tgt(ab, act, state='hitReact'):
+    return {'targetState': {'rule': '%s: on the impact frame (%d, the active frame) and not before, the target plays %s once, then its idle; before it the target holds its plain guard' % (ab, act, state), 'state': state}}
+
+CLIPS = {
+ 'boxUppercut': ('Uppercut', 3,
+  'Uppercut (Boxing, free-standing; inside the clinch it plays clinchUppercut): from the guard the fighter dips at the knees and drops the rear fist to the hip, palm turned up; it drives up off the rear foot and the fist rises close to the body straight up under the chin, elbow tucked, the lead hand guarding the face; it holds a beat on contact (a white snap at the fist) and settles back into the guard.',
+  [g(),
+   g(an=band(8, -70), af=band(-60, -130), bob=(3, 3, 3), lean=(1, 3), **LOW),
+   g(an=band(-35, -140), af=band(-58, -128), bob=(2, 2, 2), lean=(1, 4), root=(1, 0), **DRIVE),
+   g(an=band(-72, -165), af=band(-55, -125), bob=(0, 0, 1), lean=(2, 3), root=(1, 0), **DRIVE),
+   g(an=band(-72, -165), af=band(-55, -125), bob=(0, 0, 1), lean=(2, 3), **DRIVE),
+   g(an=RECOVER, bob=(1, 1, 2), lean=(1, 3), root=(-1, 0)),
+   g(root=(-1, 0))],
+  [None, 'squint', 'strain', 'strain', 'strain', 'squint', None],
+  None,
+  dict(fps=12, hitbox=[42, 14, 12, 10], damage='heavy', rm='E: +1 +1 driving up into it, -1 -1 settling back (net 0)',
+       extra=tgt('Uppercut', 3),
+       anchored={3: [('star6', 'hand', 1, -2)], 4: [('star3', 'hand', 2, -3)]})),
+
+ 'boxHaymaker': ('Haymaker', 4,
+  'Haymaker (Boxing, Guard Break): a big telegraphed loaded punch. From the guard the fighter sits back on the rear leg and swings the rear fist far back and up behind the head, the lead hand reaching out to measure; it holds the load a beat, then hurls the fist round in a wide looping arc over the top, the whole body turning through behind it, rear heel up; it lands at the jaw with a big white burst, the arm carries on through and down across the body, and the fighter pulls back into the guard.',
+  [g(),
+   g(an=band(55, -160), af=band(-80, -100), bob=(1, 1, 1), lean=(-1, -2), **LOAD),
+   g(an=band(72, -178), af=band(-82, -98), bob=(1, 1, 1), lean=(-1, -3), **LOAD),
+   g(an=band(-125, -115), af=band(-30, 215), bob=(2, 2, 2), lean=(2, 5), root=(2, 0), **DRIVE),
+   g(an=band(-95, -112), af=band(20, -150), bob=(2, 2, 2), lean=(2, 7), root=(1, 0), **DRIVE),
+   g(an=band(-45, -40), af=band(20, -150), bob=(3, 3, 3), lean=(2, 7), **DRIVE),
+   g(an=RECOVER, bob=(1, 1, 2), lean=(1, 3), root=(-2, 0)),
+   g(root=(-1, 0))],
+  [None, 'squint', 'squint', 'strain', 'strain', 'strain', 'squint', None],
+  None,
+  dict(fps=12, hitbox=[42, 15, 14, 10], damage='heavy', rm='E: +2 +1 swinging through, -2 -1 back to the guard (net 0)',
+       extra=tgt('Haymaker', 4),
+       anchored={4: [('star9', 'hand', 1, -1)]})),
+
+ 'boxBodyShot': ('Body Shot', 3,
+  'Body Shot (Boxing, drains stamina; inside the clinch it plays clinchBodyShot): a level change and a lead hook to the liver. From the guard the fighter drops its level, knees bending and head ducked behind the rear glove; it steps in at that height and whips the lead fist round in a short hook into the opponent\'s side under the ribs (a white thud at the fist), holds the dig a beat and comes back up into the guard. A lead-hand dig, unlike Kidney Shot\'s feint and rear hook.',
+  [g(),
+   g(af=band(-20, -95), an=band(-35, -160), bob=(4, 4, 4), lean=(2, 6), **LOW),
+   g(af=band(-30, -40), an=band(-35, -160), bob=(4, 4, 4), lean=(2, 7), root=(2, 0), **DRIVE),
+   g(af=band(-88, -62), an=band(-35, -160), bob=(5, 5, 5), lean=(2, 9), root=(1, 0), **DRIVE),
+   g(af=band(-88, -62), an=band(-35, -160), bob=(5, 5, 5), lean=(2, 9), **DRIVE),
+   g(af=band(-40, -110), bob=(2, 2, 3), lean=(1, 4), root=(-2, 0)),
+   g(root=(-1, 0))],
+  [None, 'squint', 'strain', 'strain', 'strain', 'squint', None],
+  None,
+  dict(fps=12, hitbox=[42, 30, 12, 8], damage='light', rm='E: +2 +1 stepping in low, -2 -1 back up (net 0)',
+       extra=tgt('Body Shot', 3),
+       anchored={3: [('star6', 'farhand', 1, 0)], 4: [('star3', 'farhand', 2, 1)]})),
+
+ 'cheapShot': ('Cheap Shot', 4,
+  'Cheap Shot (Bandit, reskin of Haymaker): a sucker punch. The fighter lets its guard drop as if easing off, hands low and loose, head turned half away; for one more beat it looks off guard, then without any wind-up the rear fist snaps straight up from the hip to the jaw, the body lunging in behind it (a white burst on the hit), and it pulls back into the guard.',
+  [g(),
+   g(an=band(10, -25), af=band(0, -40), bob=(0, 0, 1), lean=(-1, -1)),
+   g(an=band(12, -20), af=band(2, -35), bob=(0, 0, 1), lean=(-1, -1)),
+   g(an=band(-40, -110), af=band(-40, -120), bob=(2, 2, 2), lean=(2, 5), root=(2, 0), **DRIVE),
+   g(an=band(-92, -92), af=band(-45, -130), bob=(2, 2, 2), lean=(2, 6), root=(1, 0), **DRIVE),
+   g(an=band(-92, -92), af=band(-45, -130), bob=(2, 2, 2), lean=(2, 6), **DRIVE),
+   g(an=RECOVER, bob=(1, 1, 2), lean=(1, 3), root=(-2, 0)),
+   g(root=(-1, 0))],
+  [None, None, None, 'strain', 'strain', 'strain', 'squint', None],
+  None,
+  dict(fps=12, hitbox=[42, 16, 14, 10], damage='heavy', rm='E: +2 +1 the lunge, -2 -1 back (net 0)',
+       extra=tgt('Cheap Shot', 4),
+       anchored={4: [('star9', 'hand', 1, 0)], 5: [('star3', 'hand', 2, -3)]})),
+
+ 'wildSwing': ('Wild Swing', 3,
+  'Wild Swing (Street Thug, reskin of Haymaker): a sloppy brawler\'s haymaker. The fighter rears way back, the rear fist cocked far behind it and the guard thrown open; it lurches forward and flings the arm round in a huge flat arc, landing at the head (white burst), and overswings: the arm carries on across the body, the weight pitches forward and it stumbles a step before hauling itself back into the guard.',
+  [g(),
+   g(an=band(80, -120), af=band(-40, -60), bob=(0, 0, 1), lean=(-2, -4), **LOAD),
+   g(an=band(-130, -150), af=band(-20, -40), bob=(2, 2, 2), lean=(2, 5), root=(2, 0), **DRIVE),
+   g(an=band(-95, -105), af=band(10, -30), bob=(2, 2, 2), lean=(3, 8), root=(2, 0), **DRIVE),
+   g(an=band(-30, -15), af=band(15, -20), bob=(4, 4, 4), lean=(3, 10), root=(2, 0), ln='ml-trail-rear', lf='ml-plant-lead'),
+   g(an=band(-10, -30), af=band(0, -40), bob=(3, 3, 3), lean=(2, 7), ln='ml-trail-rear', lf='ml-plant-lead'),
+   g(an=RECOVER, bob=(1, 1, 2), lean=(1, 3), root=(-3, 0)),
+   g(root=(-3, 0))],
+  [None, 'squint', 'strain', 'strain', 'pain', 'squint', 'squint', None],
+  None,
+  dict(fps=12, hitbox=[42, 15, 14, 10], damage='heavy', rm='E: +2 +2 lurching in, +2 the stumble, -3 -3 back (net 0)',
+       extra=tgt('Wild Swing', 3),
+       anchored={3: [('star9', 'hand', 1, 0)], 4: [('dust', 'feet', 6, -2)], 5: [('dust', 'feet', 2, -2)]})),
+
+ 'knuckleHaymaker': ('Knuckle Haymaker', 4,
+  'Knuckle Haymaker (Bandit Thug, reskin of Haymaker): an overhand right with iron knuckles. From the guard the fighter cocks the rear fist high behind the head, a glint flashing off the iron on its knuckles; it steps in and brings the fist over the top and down onto the face, the body dropping behind it; on contact a heavy white burst with grit kicked up at the feet; it pulls back into the guard.',
+  [g(),
+   g(an=band(60, -170), af=band(-80, -100), bob=(1, 1, 1), lean=(-1, -2), **LOAD),
+   g(an=band(70, -180), af=band(-82, -98), bob=(1, 1, 1), lean=(-1, -3), **LOAD),
+   g(an=band(-120, -150), af=band(-30, 215), bob=(2, 2, 2), lean=(2, 5), root=(2, 0), **DRIVE),
+   g(an=band(-112, -70), af=band(20, -150), bob=(3, 3, 3), lean=(2, 8), root=(1, 0), **DRIVE),
+   g(an=band(-112, -70), af=band(20, -150), bob=(3, 3, 3), lean=(2, 8), **DRIVE),
+   g(an=RECOVER, bob=(1, 1, 2), lean=(1, 3), root=(-2, 0)),
+   g(root=(-1, 0))],
+  [None, 'squint', 'squint', 'strain', 'strain', 'strain', 'squint', None],
+  None,
+  dict(fps=12, hitbox=[42, 15, 14, 10], damage='heavy', rm='E: +2 +1 stepping into the overhand, -2 -1 back (net 0)',
+       extra=tgt('Knuckle Haymaker', 4),
+       anchored={1: [('glint', 'hand', 0, 0)], 2: [('glint', 'hand', 0, 0)], 4: [('star9', 'hand', 1, 1), ('dust', 'feet', 8, -2)], 5: [('star6', 'hand', 2, 0)], 6: [('star3', 'hand', 2, -2)]})),
+
+ 'shoulderCharge': ('Shoulder Charge', 4,
+  'Shoulder Charge (Bandit Thug, reskin of Iron Mountain, needs a run-up): the fighter dips its head and lowers the lead shoulder, arms tucked in; it drives forward two hard strides and rams the shoulder into the opponent\'s chest (white burst, dust off the feet), holds the drive a beat and steps back into the guard.',
+  [g(),
+   g(an=band(15, -60), af=band(-5, -75), bob=(3, 3, 3), lean=(2, 6), ln='ml-dip-rear', lf='ml-dip-lead'),
+   g(an=band(15, -60), af=band(-5, -75), bob=(2, 2, 2), lean=(2, 9), root=(3, 0), ln='sr-push-off', lf='sr-knee-drive'),
+   g(an=band(15, -60), af=band(-5, -75), bob=(2, 2, 2), lean=(2, 9), root=(3, 0), ln='sr-knee-drive', lf='sr-push-off'),
+   g(an=band(10, -55), af=band(-10, -70), bob=(3, 3, 3), lean=(3, 10), root=(3, 0), ln='ml-trail-rear', lf='ml-plant-lead'),
+   g(an=band(10, -55), af=band(-10, -70), bob=(3, 3, 3), lean=(3, 10), ln='ml-trail-rear', lf='ml-plant-lead'),
+   g(an=band(-25, 208), af=band(-45, 220), bob=(1, 1, 2), lean=(1, 3), root=(-5, 0)),
+   g(root=(-4, 0))],
+  [None, 'squint', 'strain', 'strain', 'strain', 'strain', 'squint', None],
+  None,
+  dict(fps=12, hitbox=[42, 24, 12, 14], damage='heavy', rm='E: +3 +3 the strides, +3 the ram, -5 -4 back to the guard (net 0)',
+       extra=tgt('Shoulder Charge', 4),
+       anchored={2: [('dust', 'feet', -8, -2)], 3: [('dust', 'feet', -8, -2)], 4: [('star9', 'head', 8, 8), ('dust', 'feet', 4, -2)], 5: [('star3', 'head', 9, 6)]})),
+
+ 'clinchEntry': ('Clinch', 3,
+  'Clinch entry (Martial shared; Grab is the NPC reskin): from the guard the fighter steps in and shoots both open hands out at the opponent\'s neck; on the impact frame the hands close behind the head in a collar tie and pull down. When the grab lands the testbed forms the clinch pair from that frame (clinchHold / clinchHeld); when it misses the fighter lets go and steps back into the guard.',
+  [g(),
+   g(an=band(-60, -95, fistKind='palm'), af=band(-70, -105, fistKind='palm'), bob=(1, 1, 2), lean=(2, 5), root=(2, 0), **DRIVE),
+   g(an=band(-88, -110, fistKind='palm'), af=band(-92, -118, fistKind='palm'), bob=(1, 1, 2), lean=(2, 6), root=(2, 0), **DRIVE),
+   g(an=band(-88, -150), af=band(-92, -155), bob=(2, 2, 2), lean=(2, 7), root=(1, 0), **DRIVE),
+   g(an=band(-75, -140), af=band(-80, -145), bob=(2, 2, 3), lean=(2, 6), **DRIVE),
+   g(an=band(-25, 208), af=band(-45, 220), bob=(1, 1, 2), lean=(1, 3), root=(-3, 0)),
+   g(root=(-2, 0))],
+  [None, 'squint', 'squint', 'strain', 'strain', 'squint', None],
+  None,
+  dict(fps=12, hitbox=[42, 14, 14, 16], damage='light', rm='E: +2 +2 +1 stepping in, -3 -2 back on a miss (net 0)',
+       extra={'targetState': {'rule': 'Clinch: on the impact frame (3) and not before, a landed grab forms the clinch pair (holder clinchHold, held clinchHeld); a missed or resisted grab plays the rest of this clip back to the guard and the target keeps its guard', 'state': 'clinchHeld', 'onHit': {'self': 'clinchHold', 'target': 'clinchHeld'}}})),
+}
+
+astro.CLIPS.update(CLIPS)
+astro.APPROVED.update({k: APPROVED.get(k, STAT) for k in CLIPS})
+
+if __name__ == '__main__':
+    a = sys.argv[1:]
+    if '--fx' in a: astro.fx(a[a.index('--fx') + 1]); sys.exit()
+    for st in (a or CLIPS): astro.spec(st)
