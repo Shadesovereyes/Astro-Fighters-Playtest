@@ -1,68 +1,70 @@
-"""Blade Throw (Kyoketsu-Shoge; Grappling only: thrown from the clinch hold, never while Grappled or in Mount; range 3,
-5 Physical + Bleed). The holder keeps the collar tie with the far hand, drops the near hand, cocks the tanto back over its
-shoulder and slings it on its chain past the held fighter's head; the flying tanto and the chain to the target are drawn
-by the testbed from the chainHand anchor (release event), like Kusari Chain Snare; the cord is yanked and the tanto caught
-back in the fist, which returns to the neck. The held fighter keeps its clinchHeld idle (it is not the target).
-E/W first (W mirrors E); S/N after approval.
-Run: python3 tools/blade_throw.py ; node tools/character-posed.mjs male clinchBladeThrow ; python3 tools/blade_throw.py --grips ;
-     node tools/character-weapon.mjs male clinchBladeThrow ; preview: python3 tools/blade_throw.py --scene <out>"""
+"""Blade Throw (Kyoketsu-Shoge; range 3, 5 Physical + Bleed). v2 (Christopher 2026-11-06 20:33: "blade throw should not be
+usable in clinch and the rope should be a chain"): a standing throw from the Kyoketsu-Shoge Stance idle (oneHandGuard); the
+clinch version (clinchBladeThrow) is retired. The near hand raises the blade and cocks it behind the head, slings it forward
+(release frame 3); the arm stays out while the testbed flies the blade on its steel chain from the chainHand anchor to the
+target (impact frame 5, as Kusari Chain Snare), the chain is yanked (6) and the blade caught back in the fist (7), back to
+the guard. E/W first (W mirrors E); S/N after approval.
+Run: python3 tools/blade_throw.py ; node tools/character-posed.mjs male bladeThrow ; python3 tools/blade_throw.py --grips ;
+     node tools/character-weapon.mjs male bladeThrow ; preview: python3 tools/blade_throw.py --scene <out>"""
 import sys, os, copy, json
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, '/mnt/project-files/hex-sprites/tools')
-from gen import load, build, save
-D = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'production/source/characters/anim/male/')
-K = load(D + 'clinchKnife.json')
-band = lambda a, e: {'construction': 'band', 'angle': a, 'elbow': {'at': 8, 'angle': e}}
-def tf(src=0, **k): return dict(src=src, **k)
-TEST = '--test' in sys.argv
-if TEST:
-    A = [(-82, -118), (-30, 210), (-150, -230), (-170, -250), (-130, -200), (-100, -105), (-92, -90), (-60, -120), (-40, -120), (-120, -60)]
-    fr = [tf(0, an=band(a, e)) for a, e in A]
-    s = build(K, 'zzBT', fr, status='x', intent='x', clips={'rule': 'x', 'zzBT': {'frames': list(range(10)), 'fps': 12}})
-    s.pop('weapons', None); save(s, D + 'zzBT.json'); sys.exit()
+import tanto as T
+from tanto import fr
+from gen import load, save
+D = T.D
+ST = 'bladeThrow'
+T.STAT = 'CANDIDATE 2026-11-06 v2 (standing, from the Kyoketsu-Shoge Stance idle; not usable in the clinch) (E/W; W mirrors E; S/N to author after approval)'
+OG = dict(grip=(43, 35), angle=10, far=(39, 24))
+def og(**k): return fr(**{**OG, **k})
+REL, IMP, REC, CATCH = 3, 5, 6, 7
+HIDDEN = (3, 4, 5, 6)   # the blade is out on its chain (testbed-drawn from chainHand)
+FR = [
+    og(),
+    og(grip=(38, 24), angle=110, far=(41, 26), lean=(-1, 0), ln='step-rear'),
+    og(grip=(31, 16), angle=160, far=(43, 27), lean=(-1, -1), ln='step-rear', z='behind'),
+    og(grip=(51, 24), angle=15, far=(38, 27), bob=(2, 2, 2), lean=(2, 5), root=(2, 0), ln='lunge-rear', lf='lunge-lead'),
+    og(grip=(52, 27), angle=0, far=(38, 27), bob=(2, 2, 2), lean=(2, 5), ln='lunge-rear', lf='lunge-lead'),
+    og(grip=(52, 27), angle=0, far=(38, 27), bob=(2, 2, 2), lean=(2, 5), ln='lunge-rear', lf='lunge-lead'),
+    og(grip=(42, 29), angle=0, far=(39, 26), lean=(0, 2), root=(-1, 0)),
+    og(grip=(44, 32), angle=30, far=(39, 25), lean=(0, 2)),
+    og(root=(-1, 0))]
+T.CLIPS[ST] = ('Blade Throw', IMP, None, 'light', 12, 'oneHandGuard', FR)
+T.INTENT[ST] = ('Kyoketsu-Shoge Blade Throw, standing (Christopher 2026-11-06 20:33: not usable in the clinch; the cord is a steel chain): '
+                'from the one-hand guard the near hand raises the blade and cocks it behind the head (frames 1-2), slings it forward (release frame 3); '
+                'the arm stays out while the blade flies on its chain to the target (impact frame 5), yanks it back (6), catches it (7) and returns to the guard (8).')
 
-# near arm per frame (far arm keeps the collar tie from clinchKnife frame 0); lean back on the cock, forward on the sling
-NEAR = [(-82, -118), (-30, 210), (-150, -230), (-170, -250), (-100, -105), (-92, -90), (-92, -90), (-60, -120), (-40, -120), (-82, -118)]
-LEAN = [None, None, (-1, -2), (-1, -3), (1, 3), (1, 3), (1, 2), (0, 1), None, None]
-fr = []
-for k, (a, e) in enumerate(NEAR):
-    f = tf(0, an=band(a, e))
-    if LEAN[k]: f['lean'] = LEAN[k]
-    fr.append(f)
-REL, IMP, REC, CATCH = 4, 6, 7, 8
-ev = [{'frame': i, 'type': 'startup' if i < REL else 'active' if i in (REL, IMP) else 'recovery'} for i in range(10)]
-ev[REL].update({'move': 'bladeThrow', 'release': None, 'rule': 'the tanto leaves the fist at chainHand and flies to the target on its cord (testbed-drawn, as Kusari Chain Snare)'})
-ev[IMP].update({'move': 'Blade Throw', 'impact': True, 'effect': '5 Physical; Bleed 2 (AGI DC12, 3 rds)', 'rule': 'impact frame: the target plays hitReact on this frame, never before (ANIMATION_RULES 2026-11-04)'})
-ev[REC].update({'recall': True, 'rule': 'the cord is yanked: the testbed flies the tanto back from the target to chainHand, arriving on frame 8'})
-ev[CATCH].update({'catch': True})
-events = {'rule': 'per-frame gameplay data per facing (provisional); chainHand = near fist centre while the cord is out; impact frame 6', 'E': ev, 'W': copy.deepcopy(ev),
-          'tactical': {'rule': 'no displacement: the clinch pair stays on its cells; range 3 (Zone of Awareness 1/3 approximated as 3 tiles)'}}
-s = build(K, 'clinchBladeThrow', fr, status='CANDIDATE 2026-11-06 (Blade Throw from the clinch hold, partner keeps clinchHeld) (E/W; W mirrors E; S/N to author after approval)',
-          intent=('Kyoketsu-Shoge Blade Throw (Grappling only): from clinchHold the far hand keeps the collar tie; the near hand drops off the neck with the tanto, '
-                  'swings it up and cocks it behind the head (frames 2-3), then slings it forward over the held fighter\'s head (release frame 4). The arm stays out while the '
-                  'tanto flies on its chain to the target (impact frame 6), yanks it back (7), catches it (8) and returns to the neck (9).'),
-          clips={'rule': 'plays from clinchHold and returns to it; the held partner keeps its clinchHeld idle; a target within 3 tiles plays hitReact on the impact frame',
-                 'clinchBladeThrow': {'frames': list(range(10)), 'fps': 12, 'next': 'clinchHold'}}, events=events)
-s['pair'] = dict(K['pair'], partner='clinchHeld')
-s['weapons'] = [{'slot': 'main', 'layer': 'arms', 'items': ['kyoketsu-shoge'], 'status': s['status'],
-                 'rule': 'per frame: grip = near fist centre (snapped to the rendered fist); frames 4-7 hidden: the tanto and its cord are out at the target, drawn by the testbed from chainHand; the cord is wound in the fist when held (noWeight)',
-                 'depthRule': 'front: over body and clothing, under the arms layer', 'E': [], 'mirror': {'W': 'E'}}]
-ANG = [60, 70, 150, 170, None, None, None, None, 40, 60]
-for k in range(10):
-    p = {'grip': [48, 23], 'angle': ANG[k] if ANG[k] is not None else 0, 'z': 'front'}
-    if ANG[k] is None: p['hidden'] = True; p['chain'] = {'off': True}
-    else: p['chain'] = {'via': [48, 24], 'droop': 0, 'z': 'front', 'to': [0, 1], 'noWeight': True}
-    s['weapons'][0]['E'].append(p)
-if not TEST and '--grips' not in sys.argv and '--scene' not in sys.argv: save(s, D + 'clinchBladeThrow.json'); print('ok')
+def spec():
+    T.spec(ST, ST)
+    s = load(D + ST + '.json'); w = s['weapons'][0]
+    w['items'] = ['kyoketsu-shoge']
+    w['rule'] = ('per frame: grip = near fist centre (snapped to the rendered fist); frames 3-6 hidden: the blade and its steel chain are out at the target, '
+                 'drawn by the testbed from chainHand; while held the chain is wound in the fist (noWeight)')
+    for k, p in enumerate(w['E']):
+        if k in HIDDEN: p['hidden'] = True; p['chain'] = {'off': True}
+        else: p['chain'] = {'via': [p['grip'][0], p['grip'][1] + 1], 'droop': 0, 'z': 'front', 'to': [0, 1], 'noWeight': True}
+    s['extra'] = {'stance': 'Kyoketsu-Shoge Stance', 'notInClinch': True}
+    s['clips']['rule'] = 'plays from the Kyoketsu-Shoge Stance idle (oneHandGuard) and returns to it; never from the clinch or Mount; a target within 3 tiles plays hitReact on the impact frame'
+    ev = [{'frame': i, 'clip': ST, 'type': 'startup' if i < REL else 'active' if REL <= i <= IMP else 'recovery'} for i in range(len(FR))]
+    ev[REL].update({'move': 'bladeThrow', 'release': None, 'rule': 'the blade leaves the fist at chainHand and flies to the target on its chain (testbed-drawn, as Kusari Chain Snare)'})
+    ev[IMP].update({'move': 'Blade Throw', 'impact': True, 'effect': '5 Physical; Bleed 2 (AGI DC12, 3 rds)', 'rule': 'impact frame: the target plays hitReact on this frame, never before (ANIMATION_RULES 2026-11-04)'})
+    ev[REC].update({'recall': True, 'rule': 'the chain is yanked: the testbed flies the blade back from the target to chainHand, arriving on frame 7'})
+    ev[CATCH].update({'catch': True})
+    s['events'] = {'rule': 'per-frame gameplay data per facing (provisional); chainHand = near fist centre while the chain is out; impact frame 5', 'E': ev, 'W': copy.deepcopy(ev),
+                   'tactical': {'rule': 'no displacement; range 3; not usable while clinched, Grappled or in Mount'}}
+    save(s, D + ST + '.json'); print('ok')
 
 if '--grips' in sys.argv:
-    from fistsnap import fists
-    s = load(D + 'clinchBladeThrow.json'); F = fists('clinchBladeThrow')
+    T.grips(ST)
+    s = load(D + ST + '.json')
     for k, p in enumerate(s['weapons'][0]['E']):
-        p['grip'] = list(F[k])
-        if 'chain' in p: p['chain']['via'] = [F[k][0], F[k][1] + 1]
-        s['events']['E'][k]['chainHand'] = list(F[k]); s['events']['W'][k]['chainHand'] = [63 - F[k][0], F[k][1]]
-    s['events']['E'][REL]['release'] = list(F[REL]); s['events']['W'][REL]['release'] = [63 - F[REL][0], F[REL][1]]
-    save(s, D + 'clinchBladeThrow.json'); print('grips', F)
+        g = p['grip']
+        if 'via' in p.get('chain', {}): p['chain']['via'] = [g[0], g[1] + 1]
+        s['events']['E'][k]['chainHand'] = list(g); s['events']['W'][k]['chainHand'] = [63 - g[0], g[1]]
+    s['events']['E'][REL]['release'] = list(s['events']['E'][REL]['chainHand']); s['events']['W'][REL]['release'] = list(s['events']['W'][REL]['chainHand'])
+    save(s, D + ST + '.json'); print('grips', [p['grip'] for p in s['weapons'][0]['E']])
+elif '--scene' not in sys.argv:
+    spec()
 
 if '--scene' in sys.argv:
     from PIL import Image
@@ -101,28 +103,25 @@ if '--scene' in sys.argv:
         for j, r in enumerate(KN):
             for i, ch in enumerate(r[::-1] if back else r):
                 if ch != '.': put(c, x - 4 + i, y - 2 + j, PAL[ch])
-    HX, DX, TX = 4, 4 + 27, 4 + 27 + 50
-    bt = sp('clinchBladeThrow'); ev = bt['events']['E']
+    HX, TX = 4, 4 + 72
+    bt = sp(ST); ev = bt['events']['E']
     frames, durs = [], []
-    seq = list(range(10)) + [9] * 0
+    seq = list(range(len(FR)))
     for k in seq:
         c = Image.new('RGBA', (CW, H), (0xc8, 0xcd, 0xd7, 255))
         hit = k - IMP
         tst, tk = ('hitReact', hit) if 0 <= hit < sp('hitReact')['frames'] else ('guard', k)
         for name in ['far-arm', 'body'] + LOOK['t'] + ['arms']: lay(c, tst, name, tk, 'W', TX)
-        lay(c, 'clinchBladeThrow', 'far-arm', k, 'E', HX); lay(c, 'clinchHeld', 'far-arm', k, 'W', DX)
-        lay(c, 'clinchBladeThrow', 'W:behind', k, 'E', HX)
-        for name in ['body'] + LOOK['h']: lay(c, 'clinchBladeThrow', name, k, 'E', HX)
-        lay(c, 'clinchBladeThrow', 'W:front', k, 'E', HX)
-        for name in ['body'] + LOOK['d']: lay(c, 'clinchHeld', name, k, 'W', DX)
-        lay(c, 'clinchHeld', 'arms', k, 'W', DX); lay(c, 'clinchBladeThrow', 'arms', k, 'E', HX); lay(c, 'clinchBladeThrow', 'W:top', k, 'E', HX)
+        lay(c, ST, 'far-arm', k, 'E', HX); lay(c, ST, 'W:behind', k, 'E', HX)
+        for name in ['body'] + LOOK['h']: lay(c, ST, name, k, 'E', HX)
+        lay(c, ST, 'W:front', k, 'E', HX); lay(c, ST, 'arms', k, 'E', HX); lay(c, ST, 'W:top', k, 'E', HX)
         h = ev[k].get('chainHand'); hp = (HX + h[0], h[1]); tgt = (TX + 26, 31)
-        f = {REL: 0.12, 5: 0.55, IMP: 1.0, REC: 0.5}.get(k)
-        if f is not None:   # the tanto arcs over the held fighter's head (peak ARC px above the straight line); the cord follows it
-            ARC = -9
+        f = {REL: 0.12, 4: 0.55, IMP: 1.0, REC: 0.5}.get(k)
+        if f is not None:   # the blade arcs slightly (peak ARC px above the straight line); the chain follows it
+            ARC = -5
             kp = (round(hp[0] + (tgt[0] - hp[0]) * f), round(hp[1] + (tgt[1] - hp[1]) * f + ARC * 4 * f * (1 - f)))
             cord(c, hp, kp, sag=ARC * f if k != REC else ARC * f + 2); knife(c, kp[0], kp[1], back=(k == REC))
-        frames.append(c.resize((CW * SC, H * SC), Image.NEAREST)); durs.append({3: 160, IMP: 200}.get(k, 83))
+        frames.append(c.resize((CW * SC, H * SC), Image.NEAREST)); durs.append({2: 160, IMP: 200}.get(k, 83))
     frames += [frames[-1]] * 1; durs += [500]
     frames[0].save(out + '-candidate.gif', save_all=True, append_images=frames[1:], duration=durs, loop=0, disposal=2)
     st = Image.new('RGBA', (len(seq) * (CW * SC + 5), H * SC), 'white')
