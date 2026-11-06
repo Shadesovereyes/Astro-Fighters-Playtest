@@ -1,0 +1,94 @@
+{
+  "schema": "astro-fighters-character-item/v1",
+  "kind": "rigid weapon (AGENTS.md: rigid items are placed by anchor with integer offsets)",
+  "construction": "band: a straight band along the weapon axis from the grip point (the centre of the near fist); every pixel takes its colour from the cross-section pattern (back/spine to front/edge) of the segment it falls in, so the weapon keeps its thickness at any angle; pixels are rasterised from the authored data, never rotated or resampled from an image",
+  "outline": "every coloured pixel touching empty space gets an outline pixel (#) if it is not already one",
+  "trail": {
+    "rule": "swing smear colours, from the blade tip inward (pixels from the outer edge): colours already in the approved palette (Gi/armour white, body wrap grey, armour grey); hard alpha",
+    "bands": [
+      {
+        "to": 1.5,
+        "colour": "#ffffff"
+      },
+      {
+        "to": 3,
+        "colour": "#e3e3e3"
+      },
+      {
+        "to": 99,
+        "colour": "#adadad"
+      }
+    ]
+  },
+  "units": "pixels along the axis from the grip point (u, positive toward the tip) and across it (v)",
+  "item": "yari",
+  "status": "CANDIDATE 2026-11-06 (the Guard NPC: yari and shield, Christopher 2026-11-06)",
+  "palette": {
+    "#": "#000000",
+    "a": "#adadad",
+    "W": "#ffffff",
+    "t": "#3b2014",
+    "s": "#a9977d",
+    "h": "#ddcdb4",
+    "r": "#8a6236"
+  },
+  "paletteSource": "colours already in the approved male clothing layers: #adadad armour grey (blade steel, guard, pommel), #ffffff armour/Gi white (edge), #3b2014 Gi shoe brown (hilt wrap), #a9977d Gi trouser shade (hilt diamonds), #ddcdb4 Gi trouser mid (blade collar); #8a6236 soil brown (shaft)",
+  "segments": [
+    {
+      "name": "butt",
+      "from": -11,
+      "to": -9.5,
+      "thickness": 2.5,
+      "pattern": [
+        "#a#"
+      ]
+    },
+    {
+      "name": "shaftBack",
+      "from": -9.5,
+      "to": -2.5,
+      "thickness": 2.5,
+      "pattern": [
+        "#r#"
+      ]
+    },
+    {
+      "name": "shaft",
+      "from": 2.5,
+      "to": 17,
+      "thickness": 2.5,
+      "pattern": [
+        "#r#"
+      ]
+    },
+    {
+      "name": "collar",
+      "from": 17,
+      "to": 18,
+      "thickness": 3.5,
+      "pattern": [
+        "#aa#"
+      ]
+    },
+    {
+      "name": "blade",
+      "from": 18,
+      "to": 23,
+      "thickness": 3.5,
+      "pattern": [
+        "#aW#"
+      ]
+    },
+    {
+      "name": "tip",
+      "from": 23,
+      "to": 25.5,
+      "thickness": 2.5,
+      "pattern": [
+        "#W#"
+      ]
+    }
+  ],
+  "grip": "one-handed, held in the near fist about a third of the way up the shaft; the butt shows behind the fist",
+  "note": "a yari (straight spear): a 34 px shaft with a short double-edged leaf blade and a steel butt cap"
+}

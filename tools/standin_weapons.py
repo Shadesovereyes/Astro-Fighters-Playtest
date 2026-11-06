@@ -62,6 +62,69 @@ STATES = {k: k for k in CLIPS}
 T.CLIPS.update(CLIPS); T.INTENT.update(INTENT); T.STATES = STATES
 T.FX['viperStrike'] = {3: 11}; T.FX['macheteSlash'] = {3: 9}
 
+# ---------------- the Guard NPC: yari and shield (Christopher 2026-11-06 decision: "Yari spear and shield") ----------------
+# yari in the near (main) hand, a wooden tate on the far forearm (off slot, body layer). Every move starts and ends on
+# spearGuard, the Guard's idle: spear level at the hip, point at the foe, shield up in front of the chest.
+SG = dict(grip=(40, 34), angle=4, far=(43, 26), lean=(0, 2))
+def sg(sh=90, **k): d = fr(**{**SG, **k}); d['w']['shield'] = sh; return d
+CLIPS.update({
+ 'spearGuard': ('Spear Guard', None, None, None, 6, 'loop', [
+    sg(), sg(grip=(40, 33), far=(43, 25)), sg(bob=(1, 1, 2), lean=(0, 3), grip=(41, 34)), sg(grip=(40, 35), far=(43, 26))]),
+ 'spearThrust': ('Spear Thrust', 3, [48, 26, 16, 8], 'heavy', 12, 'spearGuard', [
+    sg(),
+    sg(grip=(34, 33), angle=3, far=(44, 25), lean=(0, 1), ln='step-rear'),
+    sg(grip=(33, 33), angle=3, far=(44, 25), lean=(-1, 0), ln='step-rear'),
+    sg(grip=(48, 30), angle=4, far=(41, 26), bob=(2, 2, 2), lean=(2, 5), root=(3, 0), ln='lunge-rear', lf='lunge-lead',
+       trail={'mode': 'thrust', 'clipBody': True, 'lines': [[-3, -8, 4], [3, -6, 3], [6, -9, -1]]}),
+    sg(grip=(48, 30), angle=4, far=(41, 26), bob=(2, 2, 2), lean=(2, 5), ln='lunge-rear', lf='lunge-lead'),
+    sg(grip=(43, 33), angle=4, lean=(1, 3), root=(-2, 0), lf='step-lead'),
+    sg(root=(-1, 0))]),
+ 'yariCut': ('Blade Strike', 3, [44, 18, 20, 18], 'light', 12, 'spearGuard', [
+    sg(),
+    sg(grip=(40, 24), angle=55, far=(44, 28), lean=(-1, 0), ln='step-rear'),
+    sg(grip=(39, 21), angle=70, far=(44, 29), lean=(-1, -1), ln='step-rear'),
+    sg(grip=(46, 30), angle=-20, far=(42, 27), bob=(2, 2, 2), lean=(2, 5), root=(2, 0), ln='lunge-rear', lf='lunge-lead', trail='swing'),
+    sg(grip=(44, 34), angle=-35, far=(42, 27), bob=(2, 2, 2), lean=(2, 5), ln='lunge-rear', lf='lunge-lead'),
+    sg(grip=(41, 34), angle=0, lean=(1, 3), root=(-1, 0)),
+    sg(root=(-1, 0))]),
+ 'shieldBlock': ('Shield Block', 2, None, 'none', 12, 'spearGuard', [
+    sg(),
+    sg(grip=(37, 35), far=(46, 23), bob=(2, 2, 3), lean=(1, 3), ln='low-rear', lf='low-lead', sh=95),
+    sg(grip=(36, 36), far=(46, 23), bob=(3, 3, 3), lean=(0, 2), root=(-2, 0), ln='low-rear', lf='low-lead', sh=95),
+    sg(grip=(36, 36), far=(46, 23), bob=(3, 3, 3), lean=(1, 3), ln='low-rear', lf='low-lead', sh=95),
+    sg(grip=(38, 35), far=(45, 24), bob=(2, 2, 2), lean=(1, 3), root=(1, 0)),
+    sg(root=(1, 0))]),
+ 'shieldBash': ('Shield Bash', 3, [46, 16, 12, 22], 'light', 12, 'spearGuard', [
+    sg(),
+    sg(grip=(37, 34), far=(40, 26), lean=(-1, 0), ln='step-rear'),
+    sg(grip=(36, 34), far=(39, 26), lean=(-1, -1), ln='step-rear'),
+    sg(grip=(40, 33), far=(50, 25), bob=(2, 2, 2), lean=(3, 7), root=(3, 0), ln='lunge-rear', lf='lunge-lead'),
+    sg(grip=(40, 33), far=(50, 25), bob=(2, 2, 2), lean=(3, 7), ln='lunge-rear', lf='lunge-lead'),
+    sg(grip=(40, 34), far=(45, 26), lean=(1, 3), root=(-2, 0), lf='step-lead'),
+    sg(root=(-1, 0))]),
+})
+SHIELD = ('spearGuard', 'spearThrust', 'yariCut', 'shieldBlock', 'shieldBash')
+ITEM.update({k: 'yari' for k in SHIELD})
+INTENT.update({
+ 'spearGuard': 'Spear Guard (the Guard NPC idle; Christopher 2026-11-06: the Guard carries a yari and a shield): the yari held one-handed in the near fist, level at the hip with the point at the foe, the wooden shield (tate) on the far forearm up in front of the chest, a slow breathing bob.',
+ 'spearThrust': 'Spear Thrust (the Guard; reskin of Precision Thrust): from the spear guard the yari is drawn back along the hip, then driven straight out in a lunge, the shield staying up (thrust lines), held, back to the guard.',
+ 'yariCut': 'Blade Strike (the Guard; reskin of Kenjutsu Slash; Christopher 2026-11-06 chose the yari, so the cut is made with its blade): the yari is raised up over the shoulder, then swept down diagonally so the leaf blade slices across the target (smear), back to the spear guard.',
+ 'shieldBlock': 'Shield Block (the Guard; reskin of Parry, Counter): the Guard drops into a braced crouch and thrusts the shield up and forward; it takes the blow on the shield (frame 2), slides back 2 px under it and recovers to the spear guard.',
+ 'shieldBash': 'Shield Bash (the Guard; reskin of Hilt Bash): the shield is pulled in to the chest, then the Guard lunges and punches the shield edge-first into the foe\'s face and chest (white burst), held, back to the spear guard.',
+})
+STATES.update({k: k for k in SHIELD})
+T.CLIPS.update(CLIPS); T.INTENT.update(INTENT)
+T.FX['spearThrust'] = {3: 24}; T.FX['yariCut'] = {3: 20}
+
+def shield_slot(state):
+    s = T.load(T.D + state + '.json'); fr_ = CLIPS[state][6]
+    off = {'slot': 'off', 'layer': 'body', 'item': 'tate', 'gripKind': 'normal', 'status': T.STAT,
+           'rule': 'the shield on the far forearm: grip = the far fist centre, angle 90 = upright (its axis top to bottom), seen edge-on',
+           'E': [{'grip': list(f['far']), 'angle': f['w'].get('shield', 90), 'z': 'front'} for f in fr_], 'mirror': {'W': 'E'}}
+    for p_ in s['weapons'][0]['E']: p_.pop('shield', None)
+    s['weapons'] = [w for w in s['weapons'] if w.get('slot') != 'off'] + [off]
+    T.save(s, T.D + state + '.json')
+
 def spec(state):
     T.spec(state, state)
     s = T.load(T.D + state + '.json'); w = s['weapons'][0]; w['items'] = [ITEM[state]]
@@ -72,6 +135,7 @@ def spec(state):
         for e in s['events']['E'] + s['events']['W']:
             if e.get('effect'): e['effect'] = 'enters Kyoketsu-Shoge Stance'
     T.save(s, T.D + state + '.json')
+    if state in SHIELD: shield_slot(state)
 
 if __name__ == '__main__':
     a = sys.argv[1:]

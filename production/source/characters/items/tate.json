@@ -1,0 +1,54 @@
+{
+  "schema": "astro-fighters-character-item/v1",
+  "kind": "rigid weapon (AGENTS.md: rigid items are placed by anchor with integer offsets)",
+  "construction": "band: a straight band along the weapon axis from the grip point (the centre of the near fist); every pixel takes its colour from the cross-section pattern (back/spine to front/edge) of the segment it falls in, so the weapon keeps its thickness at any angle; pixels are rasterised from the authored data, never rotated or resampled from an image",
+  "outline": "every coloured pixel touching empty space gets an outline pixel (#) if it is not already one",
+  "trail": {
+    "rule": "none",
+    "bands": []
+  },
+  "units": "pixels along the axis from the grip point (u, positive toward the tip) and across it (v)",
+  "item": "tate",
+  "status": "CANDIDATE 2026-11-06 (the Guard NPC: yari and shield, Christopher 2026-11-06)",
+  "palette": {
+    "#": "#000000",
+    "a": "#adadad",
+    "W": "#ffffff",
+    "t": "#3b2014",
+    "s": "#a9977d",
+    "h": "#ddcdb4",
+    "r": "#8a6236"
+  },
+  "paletteSource": "colours already in the approved male clothing layers: #adadad armour grey (blade steel, guard, pommel), #ffffff armour/Gi white (edge), #3b2014 Gi shoe brown (hilt wrap), #a9977d Gi trouser shade (hilt diamonds), #ddcdb4 Gi trouser mid (blade collar); #8a6236 soil brown (shaft)",
+  "segments": [
+    {
+      "name": "rimLow",
+      "from": -10,
+      "to": -8.5,
+      "thickness": 5.5,
+      "pattern": [
+        "#aaa#"
+      ]
+    },
+    {
+      "name": "face",
+      "from": -8.5,
+      "to": 8.5,
+      "thickness": 5.5,
+      "pattern": [
+        "#rrt#"
+      ]
+    },
+    {
+      "name": "rimHigh",
+      "from": 8.5,
+      "to": 10,
+      "thickness": 5.5,
+      "pattern": [
+        "#aaa#"
+      ]
+    }
+  ],
+  "grip": "strapped to the far forearm, gripped at its centre: the axis runs top to bottom of the shield (angle 90 = upright), seen edge-on from the side; the wooden face toward the facing, iron rims top and bottom",
+  "note": "a wooden shield (tate) with iron rims, 18 px tall, seen side-on as a thick upright slab in front of the far arm"
+}
