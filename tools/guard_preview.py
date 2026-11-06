@@ -7,7 +7,7 @@ anim, out = sys.argv[1:3]
 GIF = sys.argv[sys.argv.index('--gif') + 1] if '--gif' in sys.argv else 'spearThrust'
 CLIPS = ('spearGuard', 'spearThrust', 'yariCut', 'shieldBlock', 'shieldBash')
 SHIELDS = ('shield-tower', 'shield-heater', 'shield-buckler')
-LOOK = ('far-arm', 'body', 'male-gi'), ('fade-hair', 'brown-eyes', 'arms')
+LOOK = ('far-arm', 'body', 'male-gi'), ('arms', 'fade-hair', 'brown-eyes')   # the testbed's slot order: front weapons before the arms, hair and eyes after them, top last
 def cell(st, k, shield, x):
     sp = json.load(open(os.path.join(anim, st + '.json'))); row = sp['directions'].index('E')
     items = [(w['slot'], shield if w['slot'] == 'off' else w['items'][0]) for w in sp['weapons']]

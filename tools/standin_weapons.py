@@ -11,7 +11,7 @@ character-weapon.mjs). E/W first (W mirrors E), S/N after approval. Effects whit
                     follow-through low, back to the guard.
 Run: python3 tools/standin_weapons.py [state] ; node tools/character-posed.mjs male <state> ;
      python3 tools/standin_weapons.py --grips <state> ; node tools/character-weapon.mjs male <state> ;
-     python3 tools/standin_weapons.py --fx <state>"""
+     python3 tools/standin_weapons.py --fx <state> ; Guard clips also: python3 tools/standin_weapons.py --occlude <state>"""
 import sys, os, copy
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import tanto as T
@@ -118,13 +118,17 @@ T.CLIPS.update(CLIPS); T.INTENT.update(INTENT)
 T.FX['spearThrust'] = {3: 24}; T.FX['yariCut'] = {3: 20}
 
 SHIELDS = ('shield-tower', 'shield-heater', 'shield-buckler')   # Christopher 2026-11-06 17:47: standing requirement, every shield clip works with every type
+# v3.1 (Christopher 2026-11-06 18:10: "the eyes are in front of the shield layer"): the shield is held out in front of the face,
+# so the half above the grip draws on the top slot (over hair, headgear and eyes) and the half below it on the front slot
+# (under the near arm and the hand on the yari). Split at the grip: u > 0 runs up the shield (angle 90 = upright).
+SHIELD_Z = {'hilt': 'front', 'blade': 'top'}
 def shield_slot(state):
     s = T.load(T.D + state + '.json'); fr_ = CLIPS[state][6]
     # v2 (Christopher 2026-11-06 17:47): a shield family (tower, heater, buckler; the first is the default), all on the same
     # grips; the shield sits 2 px in front of the far fist and is wide enough to cover it, so the hand no longer pokes through
     off = {'slot': 'off', 'layer': 'body', 'item': SHIELDS[0], 'items': list(SHIELDS), 'gripKind': 'normal', 'status': T.STAT,
            'rule': 'the shield on the far forearm: grip = 2 px in front of the far fist centre (covering the fist), angle 90 = upright (its axis top to bottom), seen three-quarter; every shield type uses these grips',
-           'E': [{'grip': [f['far'][0] + 2, f['far'][1]], 'angle': f['w'].get('shield', 90), 'z': 'front'} for f in fr_], 'mirror': {'W': 'E'}}
+           'E': [{'grip': [f['far'][0] + 2, f['far'][1]], 'angle': f['w'].get('shield', 90), 'z': SHIELD_Z} for f in fr_], 'mirror': {'W': 'E'}}
     for p_ in s['weapons'][0]['E']: p_.pop('shield', None)
     # v3 (Christopher 2026-11-06 18:05: "the layering of the shield and spear is wrong"): the shield is on the far arm, the yari in
     # the near hand, so within a depth slot the off-slot shield is drawn first and the main weapon over it. The runtime draws a
@@ -146,8 +150,29 @@ def spec(state):
     T.save(s, T.D + state + '.json')
     if state in SHIELD: shield_slot(state)
 
+def occlude(state):
+    """v3.1: the shield's top half sits over the head layers, but the near arm and the yari are nearer the viewer than the
+    shield, so the top-slot shield sheets are cut away wherever the arms layer or any yari sheet has a pixel (the near arm
+    and the spear then read in front of it at runtime)."""
+    from PIL import Image
+    d = T.D + state + '/'; n = T.load(T.D + state + '.json')['frames']; rows = len(T.load(T.D + state + '.json')['directions'])
+    arms = Image.open(d + 'arms.png').convert('RGBA')
+    big = Image.new('RGBA', (128 * n, 128 * rows))
+    for r in range(rows):
+        for k in range(n): big.alpha_composite(arms.crop((k * 64, r * 64, k * 64 + 64, r * 64 + 64)), (k * 128 + 32, r * 128 + 32))
+    masks = [big] + [Image.open(d + f).convert('RGBA') for f in os.listdir(d) if f.startswith('main-yari-')]
+    for sh in SHIELDS:
+        f = d + 'off-%s-top.png' % sh
+        if not os.path.exists(f): continue
+        im = Image.open(f).convert('RGBA'); px = im.load(); mp = [m.load() for m in masks]
+        for y in range(im.size[1]):
+            for x in range(im.size[0]):
+                if px[x, y][3] and any(m[x, y][3] for m in mp): px[x, y] = (0, 0, 0, 0)
+        im.save(f)
+
 if __name__ == '__main__':
     a = sys.argv[1:]
+    if '--occlude' in a: occlude(a[a.index('--occlude') + 1]); sys.exit()
     if '--grips' in a: T.grips(a[a.index('--grips') + 1])
     elif '--fx' in a: T.fx(a[a.index('--fx') + 1])
     else:

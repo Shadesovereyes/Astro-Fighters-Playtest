@@ -28,25 +28,62 @@
       "grip": "normal",
       "hand": "body",
       "layers": {
-        "front": "off-shield-tower-front.png"
+        "front": "off-shield-tower-front.png",
+        "top": "off-shield-tower-top.png"
       },
       "status": "CANDIDATE 2026-11-06 (E/W; W mirrors E; S/N to author after approval)",
       "z": {
         "E": [
-          "front",
-          "front",
-          "front",
-          "front",
-          "front",
-          "front"
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          }
         ],
         "W": [
-          "front",
-          "front",
-          "front",
-          "front",
-          "front",
-          "front"
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          }
         ]
       },
       "grips": {
@@ -111,25 +148,62 @@
       "grip": "normal",
       "hand": "body",
       "layers": {
-        "front": "off-shield-heater-front.png"
+        "front": "off-shield-heater-front.png",
+        "top": "off-shield-heater-top.png"
       },
       "status": "CANDIDATE 2026-11-06 (E/W; W mirrors E; S/N to author after approval)",
       "z": {
         "E": [
-          "front",
-          "front",
-          "front",
-          "front",
-          "front",
-          "front"
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          }
         ],
         "W": [
-          "front",
-          "front",
-          "front",
-          "front",
-          "front",
-          "front"
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          }
         ]
       },
       "grips": {
@@ -194,25 +268,62 @@
       "grip": "normal",
       "hand": "body",
       "layers": {
-        "front": "off-shield-buckler-front.png"
+        "front": "off-shield-buckler-front.png",
+        "top": "off-shield-buckler-top.png"
       },
       "status": "CANDIDATE 2026-11-06 (E/W; W mirrors E; S/N to author after approval)",
       "z": {
         "E": [
-          "front",
-          "front",
-          "front",
-          "front",
-          "front",
-          "front"
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          }
         ],
         "W": [
-          "front",
-          "front",
-          "front",
-          "front",
-          "front",
-          "front"
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          }
         ]
       },
       "grips": {
