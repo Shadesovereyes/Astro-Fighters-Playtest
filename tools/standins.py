@@ -19,6 +19,9 @@ A = 'E/W approved by user 2026-11-06 %s (v1; W mirrors E); S/N to author'
 APPROVED = {'boxUppercut': A % '17:35', 'boxHaymaker': A % '17:35', 'boxBodyShot': A % '17:35', 'wildSwing': A % '17:35', 'clinchEntry': A % '17:36'}
 
 DRIVE = dict(ln='sp-drive-rear', lf='sp-drive-lead')
+from universal import leg as _leg
+import universal as _U
+_U.POSES += [_leg('tp-lead', (34, 49), (41, 52), 39), _leg('tp-rear', (31, 49), (28, 54), 23, wrap=54, kind='toe60')]   # Shoulder Charge v3: lineman's three-point set, knees deep
 LOAD = dict(ln='sp-load-rear', lf='sp-load-lead')
 GUARD_N = band(-20, 212)   # the approved guard's rear (near) arm
 RECOVER = band(-55, 230)
@@ -126,21 +129,24 @@ CLIPS = {
        anchored={k: [('knux', 'hand', -1, 0)] + v for k, v in {0: [], 1: [], 2: [('mSpark', 'hand', 1, 0)], 3: [], 4: [('mSpark', 'hand', 1, 0)], 5: [], 6: [('knuxGlint', 'hand', 0, -2)],
                  7: [('star9', 'hand', 2, 0), ('mShards', 'hand', 3, -1)], 8: [('mShards', 'hand', 5, 2)], 9: [], 10: []}.items()})),
 
- 'shoulderCharge': ('Shoulder Charge', 4,
-  'Shoulder Charge (Bandit Thug, reskin of Iron Mountain, needs a run-up) v2 (Christopher 2026-11-06: dip lower): the fighter drops low, knees deep, dips its head and lowers the lead shoulder, arms tucked in; it drives forward two hard strides and rams the shoulder into the opponent\'s chest (white burst, dust off the feet), holds the drive a beat and steps back into the guard.',
+ 'shoulderCharge': ('Shoulder Charge', 7,
+  'Shoulder Charge (Bandit Thug, reskin of Iron Mountain, needs a run-up) v3 (Christopher 2026-11-06: drop into a three-point stance, then rush the target like a football player): from the guard the fighter drops into a lineman\'s three-point stance, knees deep, back flat, the near fist planted on the floor in front of the lead foot and the far arm cocked back along the hip; it holds the set a beat, grit spitting off the planted fist, then explodes off the line: three short driving strides with the head and lead shoulder low, arms pumping, dust off every step; it drives the shoulder into the opponent\'s chest like a tackle (white burst, dust), holds the drive a beat and steps back into the guard.',
   [g(),
-   g(an=band(15, -60), af=band(-5, -75), bob=(6, 6, 6), lean=(3, 10), ln='ml-dip-rear', lf='ml-dip-lead'),
-   g(an=band(15, -60), af=band(-5, -75), bob=(5, 5, 5), lean=(3, 12), root=(3, 0), ln='sr-push-off', lf='sr-knee-drive'),
-   g(an=band(15, -60), af=band(-5, -75), bob=(5, 5, 5), lean=(3, 12), root=(3, 0), ln='sr-knee-drive', lf='sr-push-off'),
-   g(an=band(10, -55), af=band(-10, -70), bob=(6, 6, 6), lean=(3, 12), root=(3, 0), ln='ml-trail-rear', lf='ml-plant-lead'),
-   g(an=band(10, -55), af=band(-10, -70), bob=(6, 6, 6), lean=(3, 12), ln='ml-trail-rear', lf='ml-plant-lead'),
-   g(an=band(-25, 208), af=band(-45, 220), bob=(1, 1, 2), lean=(1, 3), root=(-5, 0)),
-   g(root=(-4, 0))],
-  [None, 'squint', 'strain', 'strain', 'strain', 'strain', 'squint', None],
+   g(an=band(-25, 205), af=band(-40, 215), bob=(5, 5, 5), lean=(2, 8), ln='ml-dip-rear', lf='ml-dip-lead'),
+   g(an=band(-22, -18), af=band(50, 40), bob=(12, 12, 12), lean=(4, 17), ln='tp-rear', lf='tp-lead'),
+   g(an=band(-22, -18), af=band(50, 40), bob=(12, 12, 12), lean=(4, 17), ln='tp-rear', lf='tp-lead')] + [
+   g(an=band(-55 + 30 * (k % 2), -70 + 30 * (k % 2)), af=band(-25 - 30 * (k % 2), -40 - 30 * (k % 2)), bob=(astro.SPRINT_DY[k] + 5,) * 3, lean=(3, 16), root=(5, 0),
+     ln='sr-' + astro.SPRINT_LEGS[k], lf='sr-' + astro.SPRINT_LEGS[(k + 4) % 8]) for k in range(3)] + [
+   g(an=astro.TUCK_N, af=astro.TUCK_F, bob=(6, 6, 6), lean=(3, 13), root=(3, 0), ln='ml-trail-rear', lf='ml-plant-lead'),
+   g(an=astro.TUCK_N, af=astro.TUCK_F, bob=(6, 6, 6), lean=(3, 13), root=(1, 0), ln='ml-trail-rear', lf='ml-plant-lead'),
+   g(an=band(-25, 208), af=band(-45, 220), bob=(2, 2, 3), lean=(1, 4), root=(-10, 0)),
+   g(root=(-9, 0))],
+  [None, 'squint', 'strain', 'strain', 'strain', 'strain', 'strain', 'strain', 'strain', 'squint', None],
   None,
-  dict(fps=12, hitbox=[42, 28, 12, 14], damage='heavy', rm='E: +3 +3 the strides, +3 the ram, -5 -4 back to the guard (net 0)',
-       extra=tgt('Shoulder Charge', 4),
-       anchored={2: [('dust', 'feet', -8, -2)], 3: [('dust', 'feet', -8, -2)], 4: [('star9', 'head', 8, 8), ('dust', 'feet', 4, -2)], 5: [('star3', 'head', 9, 6)]})),
+  dict(fps=12, hitbox=[42, 26, 12, 14], damage='heavy', rm='E: +5 +5 +5 the strides, +3 +1 the tackle, -10 -9 back to the guard (net 0)',
+       extra=tgt('Shoulder Charge', 7),
+       anchored={3: [('dust', 'hand', 2, 1)], 4: [('dust', 'feet', -8, -2)], 5: [('dust', 'feet', -8, -2)], 6: [('dust', 'feet', -8, -2)],
+                 7: [('star9', 'head', 8, 8), ('dust', 'feet', 4, -2)], 8: [('star3', 'head', 9, 6)]})),
 
  'clinchEntry': ('Clinch', 3,
   'Clinch entry (Martial shared; Grab is the NPC reskin): from the guard the fighter steps in and shoots both open hands out at the opponent\'s neck; on the impact frame the hands close behind the head in a collar tie and pull down. When the grab lands the testbed forms the clinch pair from that frame (clinchHold / clinchHeld); when it misses the fighter lets go and steps back into the guard.',
