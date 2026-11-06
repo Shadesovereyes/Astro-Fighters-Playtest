@@ -1,6 +1,6 @@
 """Blade Throw (Kyoketsu-Shoge; Grappling only: thrown from the clinch hold, never while Grappled or in Mount; range 3,
 5 Physical + Bleed). The holder keeps the collar tie with the far hand, drops the near hand, cocks the tanto back over its
-shoulder and slings it on its hemp cord past the held fighter's head; the flying tanto and the cord to the target are drawn
+shoulder and slings it on its chain past the held fighter's head; the flying tanto and the chain to the target are drawn
 by the testbed from the chainHand anchor (release event), like Kusari Chain Snare; the cord is yanked and the tanto caught
 back in the fist, which returns to the neck. The held fighter keeps its clinchHeld idle (it is not the target).
 E/W first (W mirrors E); S/N after approval.
@@ -39,7 +39,7 @@ events = {'rule': 'per-frame gameplay data per facing (provisional); chainHand =
 s = build(K, 'clinchBladeThrow', fr, status='CANDIDATE 2026-11-06 (Blade Throw from the clinch hold, partner keeps clinchHeld) (E/W; W mirrors E; S/N to author after approval)',
           intent=('Kyoketsu-Shoge Blade Throw (Grappling only): from clinchHold the far hand keeps the collar tie; the near hand drops off the neck with the tanto, '
                   'swings it up and cocks it behind the head (frames 2-3), then slings it forward over the held fighter\'s head (release frame 4). The arm stays out while the '
-                  'tanto flies on its hemp cord to the target (impact frame 6), yanks it back (7), catches it (8) and returns to the neck (9).'),
+                  'tanto flies on its chain to the target (impact frame 6), yanks it back (7), catches it (8) and returns to the neck (9).'),
           clips={'rule': 'plays from clinchHold and returns to it; the held partner keeps its clinchHeld idle; a target within 3 tiles plays hitReact on the impact frame',
                  'clinchBladeThrow': {'frames': list(range(10)), 'fps': 12, 'next': 'clinchHold'}}, events=events)
 s['pair'] = dict(K['pair'], partner='clinchHeld')
@@ -94,7 +94,7 @@ if '--scene' in sys.argv:
         for x, y in pts:
             for dx, dy in ((0, 1), (0, -1), (1, 0), (-1, 0)):
                 if (x + dx, y + dy) not in pts: put(c, x + dx, y + dy, (0, 0, 0, 255))
-        for i, (x, y) in enumerate(pts): put(c, x, y, (0x9e, 0x4a, 0x31, 255) if i % 2 else (0x70, 0x24, 0x1d, 255))
+        for i, (x, y) in enumerate(pts): put(c, x, y, (255, 255, 255, 255) if i % 2 else (0xad, 0xad, 0xad, 255))
     KN = ['.####....', '#tta#####', '#ttaWWWW#', '.####....']   # tanto in flight, point toward +x (the target)
     PAL = {'#': (0, 0, 0, 255), 't': (0x3b, 0x20, 0x14, 255), 'a': (0xad, 0xad, 0xad, 255), 'W': (255, 255, 255, 255)}
     def knife(c, x, y, back=False):

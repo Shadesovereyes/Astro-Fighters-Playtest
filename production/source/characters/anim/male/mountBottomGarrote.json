@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "mountBottomGarrote",
-  "status": "CANDIDATE 2026-11-06 (Cord Garrote from the bottom of Mount, paired with mountBottomGarroteHit) (E/W; W mirrors E; S/N to author after approval)",
+  "status": "E/W approved by user 2026-11-06 20:32 (v1, the cord drawn as a steel chain; Cord Garrote from the bottom of Mount, paired with mountBottomGarroteHit; W mirrors E); S/N to author",
   "frames": 8,
   "fps": 6,
   "sourceDirection": "E",
@@ -1555,8 +1555,8 @@
       "items": [
         "kyoketsu-shoge"
       ],
-      "status": "CANDIDATE 2026-11-06 (mountBottomGarrote) (E/W; W mirrors E; S/N to author after approval)",
-      "rule": "per frame: grip = near fist centre (snapped to the rendered fist); chainOnly: the blade is closed in the fist; chain.via = far fist centre, so the hemp cord runs taut between the fists across the throat; noWeight: the ring end is wound round the far hand",
+      "status": "E/W approved by user 2026-11-06 20:32 (v1, the cord drawn as a steel chain; mountBottomGarrote; W mirrors E); S/N to author",
+      "rule": "per frame: grip = near fist centre (snapped to the rendered fist); chainOnly: the blade is closed in the fist; chain.via = far fist centre, so the chain runs taut between the fists across the throat; noWeight: the ring end is wound round the far hand",
       "depthRule": "front: over body and clothing, under the arms layer (the fists close over the cord)",
       "E": [
         {

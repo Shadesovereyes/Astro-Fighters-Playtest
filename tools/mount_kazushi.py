@@ -12,6 +12,8 @@ LAY = ['mountBottom body, clothing, hair, eyes', 'mountTop body, clothing, hair,
 STAT = 'CANDIDATE 2026-11-06 ({}) (E/W; W mirrors E; S/N to author after approval)'
 KZ_OK = 'E/W approved by user 2026-11-06 20:31 (v2 with the lingering exclamation mark; {}; W mirrors E); S/N to author'
 APPROVED = {st: KZ_OK for st in ('mountKazushi', 'mountKazushiHit', 'mountBottomKazushi', 'mountBottomKazushiHit')}
+GT_OK = 'E/W approved by user 2026-11-06 20:32 (v1, the cord drawn as a steel chain; {}; W mirrors E); S/N to author'
+APPROVED.update({st: GT_OK for st in ('mountGarrote', 'mountGarroteHit', 'mountBottomGarrote', 'mountBottomGarroteHit')})
 patterns = dict(H['fx']['patterns'], hitStar=['..#..', '#.#.#', '.#W#.', '#.#.#', '..#..'], strain=['#.#', '...', '#.#'],
                 tug=['W.W', '.W.'], shift=['W..', '.W.', 'W..'],
                 kzMark=['###', '#W#', '#W#', '#W#', '#W#', '###', '#W#', '###'])   # Kazushi: off-balance exclamation mark over the target's head (Christopher 2026-11-06 18:16)
@@ -120,7 +122,7 @@ fx_g = {'rule': "strain marks by the mounted fighter's face from the impact fram
     {'frame': 3, 'splash': [{'pattern': 'strain', 'at': [7, 50]}]}, {'frame': 5, 'splash': [{'pattern': 'strain', 'at': [6, 49]}]}, {'frame': 7, 'splash': [{'pattern': 'strain', 'at': [7, 50]}]}]}
 HIGH = ['mountBottom body, clothing, hair, eyes', 'mountTop body, clothing, hair, eyes, far arm', 'mountTop arms', 'mountBottom arms (highest: the hands at the cord)']
 def wrec(state):
-    return [{'slot': 'main', 'layer': 'arms', 'items': ['kyoketsu-shoge'], 'status': STAT.format(state), 'rule': 'per frame: grip = near fist centre (snapped to the rendered fist); chainOnly: the blade is closed in the fist; chain.via = far fist centre, so the hemp cord runs taut between the fists across the throat; noWeight: the ring end is wound round the far hand',
+    return [{'slot': 'main', 'layer': 'arms', 'items': ['kyoketsu-shoge'], 'status': APPROVED.get(state, STAT).format(state), 'rule': 'per frame: grip = near fist centre (snapped to the rendered fist); chainOnly: the blade is closed in the fist; chain.via = far fist centre, so the chain runs taut between the fists across the throat; noWeight: the ring end is wound round the far hand',
              'depthRule': 'front: over body and clothing, under the arms layer (the fists close over the cord)', 'E': [{'grip': [44, 40], 'angle': -60, 'z': 'front', 'chainOnly': True, 'chain': {'via': [40, 40], 'droop': 0, 'z': 'front', 'to': [0, 1], 'noWeight': True}} for _ in range(8)], 'mirror': {'W': 'E'}}]
 make('mountGarrote', T, gt, partner='mountGarroteHit', status='Cord Garrote from the top of Mount, paired with mountGarroteHit',
      intent='Kyoketsu-Shoge Cord Garrote from the top (Positional Rules: Both; Maintained Submission): from the mountTop idle the top fighter draws the hemp cord taut between its fists in front of its chest, drops it over the mounted fighter\'s head and sinks onto it, the cord biting across the throat on the impact frame (3); frames 4-7 loop while the submission is held, the fists hauling back.',
