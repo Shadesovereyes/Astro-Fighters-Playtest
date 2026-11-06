@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Machete Slash (Bandit, Bandit Thug; reskin of Kenjutsu Slash; Christopher 2026-11-06: its own clip instead of the katana cut): from the one-hand guard the bandit hauls the machete up over the shoulder, weight back, then steps in and chops it down diagonally through the target (heavy smear, white spark at the blade on contact), the blade carrying through low, then back to the guard.",
+  "intent": "Machete Slash (Bandit, Bandit Thug; reskin of Kenjutsu Slash; Christopher 2026-11-06: its own clip instead of the katana cut): from the one-hand guard the bandit hauls the machete up over the shoulder, the blade drawn in front of the head (Christopher 2026-11-06 v2 layering), weight back, then steps in and chops it down diagonally through the target (heavy smear, white spark at the blade on contact), the blade carrying through low, then back to the guard.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -1422,7 +1422,7 @@
             20
           ],
           "angle": 120,
-          "z": "behind"
+          "z": "front"
         },
         {
           "grip": [
@@ -1430,7 +1430,7 @@
             17
           ],
           "angle": 135,
-          "z": "behind"
+          "z": "front"
         },
         {
           "grip": [

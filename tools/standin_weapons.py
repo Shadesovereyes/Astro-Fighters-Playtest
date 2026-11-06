@@ -44,8 +44,8 @@ CLIPS = {
     og()]),
  'macheteSlash': ('Machete Slash', 3, [44, 22, 16, 18], 'heavy', 12, 'oneHandGuard', [
     og(),
-    og(grip=(38, 20), angle=120, far=(42, 27), lean=(-1, 0), ln='step-rear', z='behind'),
-    og(grip=(36, 17), angle=135, far=(43, 28), lean=(-1, -1), ln='step-rear', z='behind'),
+    og(grip=(38, 20), angle=120, far=(42, 27), lean=(-1, 0), ln='step-rear'),
+    og(grip=(36, 17), angle=135, far=(43, 28), lean=(-1, -1), ln='step-rear'),
     og(grip=(50, 30), angle=-35, far=(38, 28), bob=(2, 2, 2), lean=(2, 6), root=(3, 0), ln='lunge-rear', lf='lunge-lead', trail='swing'),
     og(grip=(45, 39), angle=-70, far=(38, 27), bob=(2, 2, 3), lean=(2, 6), ln='lunge-rear', lf='lunge-lead', trail='swing'),
     og(grip=(44, 36), angle=-20, lean=(1, 3), root=(-2, 0), lf='step-lead'),
@@ -56,7 +56,7 @@ HIDE = {'ksStanceEntry': [0]}   # the blade is still stowed on the hip on the fi
 INTENT = {
  'viperStrike': 'Viper Strike (general Taijutsu, Bleed), free-standing (Christopher 2026-11-06: its own clip instead of the open-palm stand-in; the approved clinch and Mount versions are knife stabs, so the standing one is too): from the one-hand knife guard the fighter coils low, knees bent, the knife hand drawn back beside the hip; it darts up off the rear foot and the point bites into the midsection, snaps back an inch and bites again higher (two fangs), then recovers to the guard. White spark on the first bite.',
  'ksStanceEntry': 'Kyoketsu-Shoge Stance entry (Christopher 2026-11-06: its own clip instead of playing the tanto idle as the act): from the boxing guard the near hand drops to the hip and draws the Kyoketsu-Shoge blade, flicks it up and round in one turn (smear) and settles into the one-hand guard, the stance idle (oneHandGuard).',
- 'macheteSlash': 'Machete Slash (Bandit, Bandit Thug; reskin of Kenjutsu Slash; Christopher 2026-11-06: its own clip instead of the katana cut): from the one-hand guard the bandit hauls the machete up over the shoulder, weight back, then steps in and chops it down diagonally through the target (heavy smear, white spark at the blade on contact), the blade carrying through low, then back to the guard.',
+ 'macheteSlash': 'Machete Slash (Bandit, Bandit Thug; reskin of Kenjutsu Slash; Christopher 2026-11-06: its own clip instead of the katana cut): from the one-hand guard the bandit hauls the machete up over the shoulder, the blade drawn in front of the head (Christopher 2026-11-06 v2 layering), weight back, then steps in and chops it down diagonally through the target (heavy smear, white spark at the blade on contact), the blade carrying through low, then back to the guard.',
 }
 STATES = {k: k for k in CLIPS}
 T.CLIPS.update(CLIPS); T.INTENT.update(INTENT); T.STATES = STATES

@@ -27,7 +27,6 @@
       "default": true,
       "hand": "arms",
       "layers": {
-        "behind": "main-machete-behind.png",
         "front": "main-machete-front.png",
         "trail": "main-machete-trail.png"
       },
@@ -35,8 +34,8 @@
       "z": {
         "E": [
           "front",
-          "behind",
-          "behind",
+          "front",
+          "front",
           "front",
           "front",
           "front",
@@ -44,8 +43,8 @@
         ],
         "W": [
           "front",
-          "behind",
-          "behind",
+          "front",
+          "front",
           "front",
           "front",
           "front",
