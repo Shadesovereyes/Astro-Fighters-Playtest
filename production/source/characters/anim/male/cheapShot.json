@@ -3,7 +3,7 @@
   "body": "male",
   "state": "cheapShot",
   "status": "CANDIDATE 2026-11-06 (E/W; W mirrors E; S/N to author after approval)",
-  "frames": 8,
+  "frames": 9,
   "fps": 12,
   "sourceDirection": "E",
   "directions": [
@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Cheap Shot (Bandit, reskin of Haymaker): a sucker punch. The fighter lets its guard drop as if easing off, hands low and loose, head turned half away; for one more beat it looks off guard, then without any wind-up the rear fist snaps straight up from the hip to the jaw, the body lunging in behind it (a white burst on the hit), and it pulls back into the guard.",
+  "intent": "Cheap Shot (Bandit, reskin of Haymaker) v2 (Christopher 2026-11-06: a low blow that lands below the belt): the fighter lets its guard drop as if easing off, hands low and loose, head turned half away; then it ducks in sharply, knees bending, and drives the rear fist low and straight into the groin below the belt (white burst at belt height), holds the dig a beat with a nasty grin, and pulls back into the guard.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -108,30 +108,33 @@
       1,
       0,
       0,
+      3,
+      5,
+      6,
+      6,
       2,
-      2,
-      2,
-      1,
       1
     ],
     "head": [
       1,
       0,
       0,
+      3,
+      5,
+      6,
+      6,
       2,
-      2,
-      2,
-      1,
       1
     ],
     "arms": [
       2,
       1,
       1,
-      2,
-      2,
-      2,
-      2,
+      3,
+      5,
+      6,
+      6,
+      3,
       2
     ]
   },
@@ -143,6 +146,7 @@
         0,
         -1,
         -1,
+        1,
         2,
         2,
         2,
@@ -153,17 +157,22 @@
         2,
         -1,
         -1,
-        5,
-        6,
-        6,
+        4,
+        8,
+        9,
+        9,
         3,
         2
       ]
     }
   },
   "rootMotion": {
-    "rule": "E: +2 +1 the lunge, -2 -1 back (net 0)",
+    "rule": "E: +2 +1 ducking in, -2 -1 back (net 0)",
     "E": [
+      [
+        0,
+        0
+      ],
       [
         0,
         0
@@ -198,6 +207,10 @@
       ]
     ],
     "W": [
+      [
+        0,
+        0
+      ],
       [
         0,
         0
@@ -1688,6 +1701,7 @@
       1,
       1,
       1,
+      3,
       23,
       23,
       23,
@@ -1698,6 +1712,7 @@
       0,
       0,
       0,
+      2,
       22,
       22,
       22,
@@ -1747,26 +1762,34 @@
       },
       {
         "construction": "band",
+        "angle": 15,
+        "elbow": {
+          "at": 8,
+          "angle": -60
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -25,
+        "elbow": {
+          "at": 8,
+          "angle": -55
+        }
+      },
+      {
+        "construction": "band",
         "angle": -40,
         "elbow": {
           "at": 8,
-          "angle": -110
+          "angle": -30
         }
       },
       {
         "construction": "band",
-        "angle": -92,
+        "angle": -40,
         "elbow": {
           "at": 8,
-          "angle": -92
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -92,
-        "elbow": {
-          "at": 8,
-          "angle": -92
+          "angle": -30
         }
       },
       {
@@ -1817,6 +1840,14 @@
         "elbow": {
           "at": 8,
           "angle": -120
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -45,
+        "elbow": {
+          "at": 8,
+          "angle": -130
         }
       },
       {
@@ -2016,6 +2047,7 @@
       "bandFollowsBody": true,
       "sway": {
         "E": [
+          -1,
           -1,
           -1,
           -1,
@@ -2695,7 +2727,8 @@
         4,
         5,
         6,
-        7
+        7,
+        8
       ],
       "fps": 12,
       "next": "guard",
@@ -2728,20 +2761,20 @@
       {
         "frame": 4,
         "clip": "cheapShot",
-        "type": "active",
-        "move": "Cheap Shot",
-        "hitbox": [
-          42,
-          16,
-          14,
-          10
-        ],
-        "damage": "heavy"
+        "type": "startup"
       },
       {
         "frame": 5,
         "clip": "cheapShot",
-        "type": "recovery"
+        "type": "active",
+        "move": "Cheap Shot",
+        "hitbox": [
+          42,
+          40,
+          12,
+          8
+        ],
+        "damage": "heavy"
       },
       {
         "frame": 6,
@@ -2750,6 +2783,11 @@
       },
       {
         "frame": 7,
+        "clip": "cheapShot",
+        "type": "recovery"
+      },
+      {
+        "frame": 8,
         "clip": "cheapShot",
         "type": "recovery"
       }
@@ -2778,20 +2816,20 @@
       {
         "frame": 4,
         "clip": "cheapShot",
-        "type": "active",
-        "move": "Cheap Shot",
-        "hitbox": [
-          8,
-          16,
-          14,
-          10
-        ],
-        "damage": "heavy"
+        "type": "startup"
       },
       {
         "frame": 5,
         "clip": "cheapShot",
-        "type": "recovery"
+        "type": "active",
+        "move": "Cheap Shot",
+        "hitbox": [
+          10,
+          40,
+          12,
+          8
+        ],
+        "damage": "heavy"
       },
       {
         "frame": 6,
@@ -2800,6 +2838,11 @@
       },
       {
         "frame": 7,
+        "clip": "cheapShot",
+        "type": "recovery"
+      },
+      {
+        "frame": 8,
         "clip": "cheapShot",
         "type": "recovery"
       }
@@ -3091,6 +3134,7 @@
         null,
         null,
         null,
+        "squint",
         "strain",
         "strain",
         "strain",
@@ -3101,7 +3145,7 @@
     "intent": "eyes squeezed shut with the brow pulled down on the impact frames 0-2 (no mouth: user 2026-10-14), a squint on frame 3, open again from frame 4 (user 2026-10-14)"
   },
   "targetState": {
-    "rule": "Cheap Shot: on the impact frame (4, the active frame) and not before, the target plays hitReact once, then its idle; before it the target holds its plain guard",
+    "rule": "Cheap Shot: on the impact frame (5, the active frame) and not before, the target plays hitReact once, then its idle; before it the target holds its plain guard",
     "state": "hitReact"
   }
 }

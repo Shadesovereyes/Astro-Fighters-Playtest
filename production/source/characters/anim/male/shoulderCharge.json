@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Shoulder Charge (Bandit Thug, reskin of Iron Mountain, needs a run-up): the fighter dips its head and lowers the lead shoulder, arms tucked in; it drives forward two hard strides and rams the shoulder into the opponent's chest (white burst, dust off the feet), holds the drive a beat and steps back into the guard.",
+  "intent": "Shoulder Charge (Bandit Thug, reskin of Iron Mountain, needs a run-up) v2 (Christopher 2026-11-06: dip lower): the fighter drops low, knees deep, dips its head and lowers the lead shoulder, arms tucked in; it drives forward two hard strides and rams the shoulder into the opponent's chest (white burst, dust off the feet), holds the drive a beat and steps back into the guard.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -106,31 +106,31 @@
     "rule": "the knees give under the blow (body 2 px low) and come back up to the guard height; the head drops with the body a frame late",
     "dy": [
       1,
-      3,
-      2,
-      2,
-      3,
-      3,
+      6,
+      5,
+      5,
+      6,
+      6,
       1,
       1
     ],
     "head": [
       1,
-      3,
-      2,
-      2,
-      3,
-      3,
+      6,
+      5,
+      5,
+      6,
+      6,
       1,
       1
     ],
     "arms": [
       2,
-      3,
-      2,
-      2,
-      3,
-      3,
+      6,
+      5,
+      5,
+      6,
+      6,
       2,
       2
     ]
@@ -141,9 +141,9 @@
     "dx": {
       "pelvis": [
         0,
-        2,
-        2,
-        2,
+        3,
+        3,
+        3,
         3,
         3,
         1,
@@ -151,11 +151,11 @@
       ],
       "head": [
         2,
-        6,
-        9,
-        9,
         10,
-        10,
+        12,
+        12,
+        12,
+        12,
         3,
         2
       ]
@@ -2732,7 +2732,7 @@
         "move": "Shoulder Charge",
         "hitbox": [
           42,
-          24,
+          28,
           12,
           14
         ],
@@ -2782,7 +2782,7 @@
         "move": "Shoulder Charge",
         "hitbox": [
           10,
-          24,
+          28,
           12,
           14
         ],
