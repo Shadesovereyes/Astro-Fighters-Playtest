@@ -10,6 +10,8 @@ T = load(D + 'mountTop.json'); Bt = load(D + 'mountBottom.json'); H = load(D + '
 band = lambda a, e: {'construction': 'band', 'angle': a, 'elbow': {'at': 8, 'angle': e}}
 LAY = ['mountBottom body, clothing, hair, eyes', 'mountTop body, clothing, hair, eyes, far arm', 'mountBottom arms', 'mountTop arms']
 STAT = 'CANDIDATE 2026-11-06 ({}) (E/W; W mirrors E; S/N to author after approval)'
+KZ_OK = 'E/W approved by user 2026-11-06 20:31 (v2 with the lingering exclamation mark; {}; W mirrors E); S/N to author'
+APPROVED = {st: KZ_OK for st in ('mountKazushi', 'mountKazushiHit', 'mountBottomKazushi', 'mountBottomKazushiHit')}
 patterns = dict(H['fx']['patterns'], hitStar=['..#..', '#.#.#', '.#W#.', '#.#.#', '..#..'], strain=['#.#', '...', '#.#'],
                 tug=['W.W', '.W.'], shift=['W..', '.W.', 'W..'],
                 kzMark=['###', '#W#', '#W#', '#W#', '#W#', '###', '#W#', '###'])   # Kazushi: off-balance exclamation mark over the target's head (Christopher 2026-11-06 18:16)
@@ -21,7 +23,7 @@ def events(F, active, move, effect):
 
 def make(state, base, frames, *, partner, status, intent, clips, ev=None, fx=None, expr=None, newPoses=(), rule='', rm='in place', order=None, weapons=None):
     p = {'rule': rule, 'partner': partner, 'partnerDx': 2, 'layering': order or LAY, 'mountLayering': {'fromFrame': 0, 'order': order or LAY, **({'bottomArmsOver': True} if order else {})}}
-    s = build(base, state, frames, status=STAT.format(status), intent=intent, newPoses=newPoses, pair=p, clips=clips, events=ev, fx=fx, rmRule=rm)
+    s = build(base, state, frames, status=(APPROVED.get(state) or STAT).format(status), intent=intent, newPoses=newPoses, pair=p, clips=clips, events=ev, fx=fx, rmRule=rm)
     if expr is not None:
         s['expressions'] = copy.deepcopy(Bt['expressions']); s['expressions']['frames'] = {'E': expr}
     if fx: s['fx']['palette'] = H['fx']['palette']; s['fx']['patterns'] = patterns

@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "mountKazushiHit",
-  "status": "CANDIDATE 2026-11-06 (mounted side of Kazushi, paired with mountKazushi) (E/W; W mirrors E; S/N to author after approval)",
+  "status": "E/W approved by user 2026-11-06 20:31 (v2 with the lingering exclamation mark; mounted side of Kazushi, paired with mountKazushi; W mirrors E); S/N to author",
   "frames": 8,
   "fps": 6,
   "sourceDirection": "E",
