@@ -3,7 +3,7 @@
   "body": "male",
   "state": "cheapShot",
   "status": "CANDIDATE 2026-11-06 (E/W; W mirrors E; S/N to author after approval)",
-  "frames": 9,
+  "frames": 8,
   "fps": 12,
   "sourceDirection": "E",
   "directions": [
@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Cheap Shot (Bandit, reskin of Haymaker) v3 (Christopher 2026-11-06: a low blow below the belt; v2 read like a missed hug): the fighter lets its guard drop as if easing off, hands low and loose, head turned half away; then the lead hand snaps back up to cover the face while it ducks in, knees bent, the rear fist chambered at the hip; the rear arm shoots out straight and down, one fist driven into the groin below the belt (white burst at belt height), the arm jerks on contact and holds a beat, then it pulls back into the guard. Only the rear arm reaches: the lead hand stays up at the face the whole strike.",
+  "intent": "Cheap Shot (Bandit, reskin of Haymaker) v4 (Christopher 2026-11-06 17:50: complete rework, drop low and punch up into the groin): the fighter drops suddenly low, knees deep, under the opponent's guard, the lead hand staying up at the face and the rear fist sunk down by the knee; it springs up off the crouch and drives the rear fist in a short rising punch up into the groin (white burst below the belt), holds it a beat, then rises back into the guard.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -106,35 +106,32 @@
     "rule": "the knees give under the blow (body 2 px low) and come back up to the guard height; the head drops with the body a frame late",
     "dy": [
       1,
-      0,
-      0,
+      5,
+      13,
+      13,
+      13,
+      13,
       4,
-      6,
-      6,
-      6,
-      2,
       1
     ],
     "head": [
       1,
-      0,
-      0,
+      5,
+      13,
+      13,
+      13,
+      13,
       4,
-      6,
-      6,
-      6,
-      2,
       1
     ],
     "arms": [
       2,
-      1,
-      1,
+      5,
+      13,
+      13,
+      13,
+      13,
       4,
-      6,
-      6,
-      6,
-      3,
       2
     ]
   },
@@ -144,30 +141,28 @@
     "dx": {
       "pelvis": [
         0,
-        -1,
-        -1,
         1,
-        2,
-        2,
-        2,
+        3,
+        3,
+        3,
+        3,
         1,
         0
       ],
       "head": [
         2,
-        -1,
-        -1,
-        5,
-        8,
-        8,
-        8,
+        4,
+        10,
+        10,
+        9,
+        9,
         3,
         2
       ]
     }
   },
   "rootMotion": {
-    "rule": "E: +3 +3 ducking in, -1 +1 the jerk on contact, -3 -3 back (net 0)",
+    "rule": "E: +3 +2 +1 dropping in under the guard, -3 -3 back (net 0)",
     "E": [
       [
         0,
@@ -178,23 +173,19 @@
         0
       ],
       [
-        0,
-        0
-      ],
-      [
         3,
         0
       ],
       [
-        3,
-        0
-      ],
-      [
-        -1,
+        2,
         0
       ],
       [
         1,
+        0
+      ],
+      [
+        0,
         0
       ],
       [
@@ -216,23 +207,19 @@
         0
       ],
       [
-        0,
-        0
-      ],
-      [
         -3,
         0
       ],
       [
-        -3,
-        0
-      ],
-      [
-        1,
+        -2,
         0
       ],
       [
         -1,
+        0
+      ],
+      [
+        0,
         0
       ],
       [
@@ -1695,28 +1682,48 @@
           56
         ],
         "foot": "pointFwd"
+      },
+      {
+        "name": "tp-lead",
+        "construction": "band",
+        "hipX": 34,
+        "hipRow": 49,
+        "kneeX": 41,
+        "kneeRow": 52,
+        "footX": 39,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "tp-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 49,
+        "kneeX": 28,
+        "kneeRow": 54,
+        "footX": 23,
+        "wrapRow": 54,
+        "foot": "toe60"
       }
     ],
     "near": [
       1,
-      1,
-      1,
-      3,
-      23,
-      23,
-      23,
-      1,
+      15,
+      97,
+      97,
+      97,
+      97,
+      15,
       1
     ],
     "far": [
       0,
-      0,
-      0,
-      2,
-      22,
-      22,
-      22,
-      0,
+      14,
+      96,
+      96,
+      96,
+      96,
+      14,
       0
     ]
   },
@@ -1746,10 +1753,10 @@
       },
       {
         "construction": "band",
-        "angle": 10,
+        "angle": -10,
         "elbow": {
           "at": 8,
-          "angle": -25
+          "angle": -60
         }
       },
       {
@@ -1762,34 +1769,26 @@
       },
       {
         "construction": "band",
-        "angle": 18,
+        "angle": 5,
         "elbow": {
           "at": 8,
-          "angle": -75
+          "angle": -55
         }
       },
       {
         "construction": "band",
-        "angle": -40,
+        "angle": -14,
         "elbow": {
           "at": 8,
-          "angle": -38
+          "angle": -96
         }
       },
       {
         "construction": "band",
-        "angle": -37,
+        "angle": -16,
         "elbow": {
           "at": 8,
-          "angle": -34
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -40,
-        "elbow": {
-          "at": 8,
-          "angle": -38
+          "angle": -102
         }
       },
       {
@@ -1820,18 +1819,10 @@
       },
       {
         "construction": "band",
-        "angle": 0,
+        "angle": -45,
         "elbow": {
           "at": 8,
-          "angle": -40
-        }
-      },
-      {
-        "construction": "band",
-        "angle": 2,
-        "elbow": {
-          "at": 8,
-          "angle": -35
+          "angle": 222
         }
       },
       {
@@ -2047,7 +2038,6 @@
       "bandFollowsBody": true,
       "sway": {
         "E": [
-          -1,
           -1,
           -1,
           -1,
@@ -2727,8 +2717,7 @@
         4,
         5,
         6,
-        7,
-        8
+        7
       ],
       "fps": 12,
       "next": "guard",
@@ -2785,11 +2774,6 @@
         "frame": 7,
         "clip": "cheapShot",
         "type": "recovery"
-      },
-      {
-        "frame": 8,
-        "clip": "cheapShot",
-        "type": "recovery"
       }
     ],
     "W": [
@@ -2838,11 +2822,6 @@
       },
       {
         "frame": 7,
-        "clip": "cheapShot",
-        "type": "recovery"
-      },
-      {
-        "frame": 8,
         "clip": "cheapShot",
         "type": "recovery"
       }
@@ -3132,9 +3111,8 @@
     "frames": {
       "E": [
         null,
-        null,
-        null,
         "squint",
+        "strain",
         "strain",
         "strain",
         "strain",

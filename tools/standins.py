@@ -77,21 +77,20 @@ CLIPS = {
        anchored={3: [('star6', 'farhand', 1, 0)], 4: [('star3', 'farhand', 2, 1)]})),
 
  'cheapShot': ('Cheap Shot', 4,
-  'Cheap Shot (Bandit, reskin of Haymaker) v3 (Christopher 2026-11-06: a low blow below the belt; v2 read like a missed hug): the fighter lets its guard drop as if easing off, hands low and loose, head turned half away; then the lead hand snaps back up to cover the face while it ducks in, knees bent, the rear fist chambered at the hip; the rear arm shoots out straight and down, one fist driven into the groin below the belt (white burst at belt height), the arm jerks on contact and holds a beat, then it pulls back into the guard. Only the rear arm reaches: the lead hand stays up at the face the whole strike.',
+  'Cheap Shot (Bandit, reskin of Haymaker) v4 (Christopher 2026-11-06 17:50: complete rework, drop low and punch up into the groin): the fighter drops suddenly low, knees deep, under the opponent\'s guard, the lead hand staying up at the face and the rear fist sunk down by the knee; it springs up off the crouch and drives the rear fist in a short rising punch up into the groin (white burst below the belt), holds it a beat, then rises back into the guard.',
   [g(),
-   g(an=band(10, -25), af=band(0, -40), bob=(0, 0, 1), lean=(-1, -1)),
-   g(an=band(12, -20), af=band(2, -35), bob=(0, 0, 1), lean=(-1, -1)),
-   g(an=band(18, -75), bob=(4, 4, 4), lean=(1, 5), root=(3, 0), **LOW),
-   g(an=band(-40, -38), bob=(6, 6, 6), lean=(2, 8), root=(3, 0), **DRIVE),
-   g(an=band(-37, -34), bob=(6, 6, 6), lean=(2, 8), root=(-1, 0), **DRIVE),
-   g(an=band(-40, -38), bob=(6, 6, 6), lean=(2, 8), root=(1, 0), **DRIVE),
-   g(an=RECOVER, bob=(2, 2, 3), lean=(1, 3), root=(-3, 0)),
+   g(an=band(-10, -60), bob=(5, 5, 5), lean=(1, 4), ln='ml-dip-rear', lf='ml-dip-lead'),
+   g(an=band(12, -20), bob=(13, 13, 13), lean=(3, 10), root=(3, 0), ln='tp-rear', lf='tp-lead'),
+   g(an=band(5, -55), bob=(13, 13, 13), lean=(3, 10), root=(2, 0), ln='tp-rear', lf='tp-lead'),
+   g(an=band(-14, -96), bob=(13, 13, 13), lean=(3, 9), root=(1, 0), ln='tp-rear', lf='tp-lead'),
+   g(an=band(-16, -102), bob=(13, 13, 13), lean=(3, 9), ln='tp-rear', lf='tp-lead'),
+   g(an=RECOVER, bob=(4, 4, 4), lean=(1, 3), root=(-3, 0), ln='ml-dip-rear', lf='ml-dip-lead'),
    g(root=(-3, 0))],
-  [None, None, None, 'squint', 'strain', 'strain', 'strain', 'squint', None],
+  [None, 'squint', 'strain', 'strain', 'strain', 'strain', 'squint', None],
   None,
-  dict(fps=12, hitbox=[42, 40, 12, 8], damage='heavy', rm='E: +3 +3 ducking in, -1 +1 the jerk on contact, -3 -3 back (net 0)',
+  dict(fps=12, hitbox=[42, 40, 12, 8], damage='heavy', rm='E: +3 +2 +1 dropping in under the guard, -3 -3 back (net 0)',
        extra=tgt('Cheap Shot', 4),
-       anchored={4: [('star9', 'hand', 1, 0)], 5: [('star3', 'hand', 2, 0)]})),
+       anchored={4: [('star9', 'hand', 1, -1)], 5: [('star3', 'hand', 2, -2)]})),
 
  'wildSwing': ('Wild Swing', 3,
   'Wild Swing (Street Thug, reskin of Haymaker): a sloppy brawler\'s haymaker. The fighter rears way back, the rear fist cocked far behind it and the guard thrown open; it lurches forward and flings the arm round in a huge flat arc, landing at the head (white burst), and overswings: the arm carries on across the body, the weight pitches forward and it stumbles a step before hauling itself back into the guard.',
@@ -290,6 +289,56 @@ CLIPS.update({
 })
 
 _addx(CLIPS['cellularRecovery'], CELL_X); _addx(CLIPS['cellRecovered'], CELLED_X)
+
+# ---------------- self-cast versions (Christopher 2026-11-06 17:48: Palm Healing and Cellular Recovery approved, "it also needs a cast on self animation") ----------------
+CHEST = band(-18, 195, fistKind='palm')   # near palm laid flat on its own chest
+def _selfx(d): return {k: [(n, 'head', dx, dy) for (n, dx, dy) in v] for k, v in d.items()}
+CLIPS.update({
+ 'palmHealingSelf': ('Palm Healing (self)', 4,
+  'Palm Healing cast on self (Medical; Christopher 2026-11-06: the approved Palm Healing also needs a cast-on-self clip): the fighter brings both open hands together in a seal, eyes closing, green medical chakra kindling between the palms; it lays the near palm flat on its own chest, the glow pooling under it and pulsing in (the heal lands on frame 4, the first pulse), a thin green aura round the body; small green health crosses swell and shrink as they rise off the chest; it lowers the hand and settles back into the guard.',
+  [g(),
+   g(an=SEAL_N, af=SEAL_F, bob=(1, 1, 2), lean=(0, 1)),
+   g(an=SEAL_N, af=SEAL_F, bob=(1, 1, 2), lean=(0, 1)),
+   g(an=CHEST, af=band(-35, -120), bob=(1, 1, 2), lean=(0, 1)),
+   g(an=CHEST, af=band(-35, -120), bob=(1, 1, 2), lean=(-1, 0)),
+   g(an=CHEST, af=band(-35, -120), bob=(1, 1, 2), lean=(-1, 0)),
+   g(an=CHEST, af=band(-35, -120), bob=(1, 1, 2), lean=(-1, 0)),
+   g(an=CHEST, af=band(-35, -120), bob=(1, 1, 2), lean=(-1, 0)),
+   g(an=band(-40, -110), bob=(1, 1, 2), lean=(0, 1)),
+   g()],
+  [None, 'closed', 'closed', 'closed', 'closed', 'closed', 'closed', 'closed', None, None],
+  [0, 0, 0, 0, 1, 1, 1, 1, 0, 0],
+  dict(fps=10, react=True, auraColors=MED_AURA, rm='in place',
+       anchored={1: [('orbMed', 'hand', 0, -2)], 2: [('orbBigMed', 'hand', 0, -2), ('sparkMed', 'hand', 3, -6)],
+                 **_selfx({3: [('palmGlowMed', 4, 13)], 4: [('palmGlowMed', 4, 13), ('star6Med', 4, 13), ('healX1', 7, 9)],
+                           5: [('palmGlowMed', 4, 13), ('vRingMed', 1, 13), ('healX2', 7, 6), ('healX1', -4, 9)],
+                           6: [('palmGlowMed', 4, 13), ('vRing2Med', 1, 13), ('healX3', 7, 2), ('healX2', -5, 5), ('healX1', 2, 8)],
+                           7: [('palmGlowMed', 4, 13), ('moteFMed', 0, 6), ('healX2', 7, -3), ('healX3', -5, 1), ('healX2', 2, 4)],
+                           8: [('healX1', 7, -7), ('healX2', -5, -3), ('healX3', 2, 0)], 9: [('healX1', -5, -7), ('healX1', 2, -4)]})})),
+ 'cellularRecoverySelf': ('Cellular Recovery (self)', 5,
+  'Cellular Recovery cast on self (Medical, Regen 3 rounds; Christopher 2026-11-06: also needs a cast-on-self clip): the fighter presses its open hands together in a seal, eyes closing, and a green medical orb swells between them with health crosses round it; instead of sending it, it draws the orb in and presses it into its own chest with both palms; the orb bursts into a green ring round the chest (frame 5, the heal), a pulse ring opens on the floor under the feet and green motes and health crosses spiral up the body as the cells knit, a thin green aura round it; it settles back into the guard.',
+  [g(),
+   g(an=SEAL_N, af=SEAL_F, bob=(1, 1, 2), lean=(0, 1)),
+   g(an=SEAL_N, af=SEAL_F, bob=(1, 1, 2), lean=(0, 1)),
+   g(an=SEAL_N, af=SEAL_F, bob=(1, 1, 2), lean=(0, 1)),
+   g(an=CHEST, af=band(-20, 195, fistKind='palm'), bob=(1, 1, 2), lean=(-1, 0)),
+   g(an=CHEST, af=band(-20, 195, fistKind='palm'), bob=(1, 1, 2), lean=(-1, -1)),
+   g(an=CHEST, af=band(-20, 195, fistKind='palm'), bob=(0, 0, 1), lean=(-1, -1)),
+   g(an=band(-40, -110), bob=(0, 0, 1), lean=(-1, 0)),
+   g(bob=(1, 1, 2), lean=(0, 1)),
+   g()],
+  [None, 'closed', 'closed', 'closed', 'closed', 'closed', 'closed', None, None, None],
+  [0, 1, 1, 1, 1, 1, 1, 1, 0, 0],
+  dict(fps=10, react=True, auraColors=MED_AURA, rm='in place',
+       anchored={1: [('orbMed', 'hand', 0, -2)], 2: [('orbBigMed', 'hand', 0, -2), ('healX1', 'hand', 5, -6)],
+                 3: [('orbBigMed', 'hand', 0, -2), ('healX2', 'hand', -5, -7), ('healX1', 'hand', 6, -9)],
+                 **_selfx({4: [('orbBigMed', 3, 13)], 5: [('vRing2Med', 1, 13), ('star6Med', 3, 13), ('healX2', 7, 8)],
+                           6: [('moteFMed', -5, 20), ('healX3', 7, 4), ('healX1', -6, 12)],
+                           7: [('moteFMed', 5, 12), ('healX2', 7, -1), ('healX2', -6, 8), ('healX1', 2, 16)],
+                           8: [('moteFMed', -4, 4), ('healX1', 7, -5), ('healX3', -6, 3), ('healX2', 2, 10)], 9: [('healX1', -6, -2), ('healX2', 2, 5)]})})),
+})
+
+_an = CLIPS['cellularRecoverySelf'][-1]['anchored']; _an[6] = _an[6] + [('vRingMed', 'feet', 0, -2)]; _an[7] = _an[7] + [('vRing2Med', 'feet', 0, -2)]
 
 # Knuckle Haymaker v3: the thin knuckle-duster band on the rear fist, a glint off it and grey metal sparks on the hit
 astro.NPAT['knux'] = ['#####', '#WFF#', '#####']   # v3: a thin 1 px steel band across the knuckles, glint at the front, outlined
