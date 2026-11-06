@@ -1464,7 +1464,8 @@
     }
   },
   "fx": {
-    "rule": "white tug marks at the collar on the jerk (impact frame 3) and off-balance strain by the mounted fighter's head",
+    "rule": "white tug marks at the collar on the jerk (impact frame 3), off-balance strain by the mounted fighter's head, and from the impact frame the Kazushi exclamation mark over its head (drawn over both fighters)",
+    "top": true,
     "frames": [
       {
         "frame": 3,
@@ -1482,6 +1483,13 @@
               5,
               49
             ]
+          },
+          {
+            "pattern": "kzMark",
+            "at": [
+              5,
+              45
+            ]
           }
         ]
       },
@@ -1493,6 +1501,49 @@
             "at": [
               4,
               48
+            ]
+          },
+          {
+            "pattern": "kzMark",
+            "at": [
+              5,
+              45
+            ]
+          }
+        ]
+      },
+      {
+        "frame": 5,
+        "splash": [
+          {
+            "pattern": "kzMark",
+            "at": [
+              5,
+              47
+            ]
+          }
+        ]
+      },
+      {
+        "frame": 6,
+        "splash": [
+          {
+            "pattern": "kzMark",
+            "at": [
+              5,
+              47
+            ]
+          }
+        ]
+      },
+      {
+        "frame": 7,
+        "splash": [
+          {
+            "pattern": "kzMark",
+            "at": [
+              5,
+              47
             ]
           }
         ]
@@ -1553,7 +1604,43 @@
         "W..",
         ".W.",
         "W.."
+      ],
+      "kzMark": [
+        "###",
+        "#W#",
+        "#W#",
+        "#W#",
+        "#W#",
+        "###",
+        "#W#",
+        "###"
       ]
+    }
+  },
+  "extra": {
+    "linger": {
+      "rule": "Kazushi (Christopher 2026-11-06 18:16: an exclamation mark over the target's head that lingers for the duration of the Kazushi effect): the clip ends with kzMark over the target's head; while the caster's Kazushi mark is up (the rest of the round, or until the next Jiu-Jitsu technique spends it) the testbed keeps drawing NPAT kzMark 2 px above the top of the target's head on every state it plays, bobbing 1 px every 4 frames; it clears when the mark is spent or expires",
+      "mark": {
+        "pattern": "kzMark",
+        "palette": {
+          "W": "#ffffff",
+          "#": "#000000"
+        },
+        "anchor": "headTop",
+        "gap": 2,
+        "bob": [
+          0,
+          0,
+          0,
+          0,
+          -1,
+          -1,
+          -1,
+          -1
+        ],
+        "on": "target",
+        "while": "Kazushi"
+      }
     }
   }
 }

@@ -1629,5 +1629,164 @@
       ]
     },
     "intent": "strained: eyes squeezed under the weight"
+  },
+  "fx": {
+    "rule": "from the impact frame (3) the Kazushi exclamation mark over the top fighter's head",
+    "top": true,
+    "frames": [
+      {
+        "frame": 3,
+        "splash": [
+          {
+            "pattern": "kzMark",
+            "at": [
+              46,
+              16
+            ]
+          }
+        ]
+      },
+      {
+        "frame": 4,
+        "splash": [
+          {
+            "pattern": "kzMark",
+            "at": [
+              47,
+              16
+            ]
+          }
+        ]
+      },
+      {
+        "frame": 5,
+        "splash": [
+          {
+            "pattern": "kzMark",
+            "at": [
+              40,
+              15
+            ]
+          }
+        ]
+      },
+      {
+        "frame": 6,
+        "splash": [
+          {
+            "pattern": "kzMark",
+            "at": [
+              38,
+              15
+            ]
+          }
+        ]
+      },
+      {
+        "frame": 7,
+        "splash": [
+          {
+            "pattern": "kzMark",
+            "at": [
+              37,
+              15
+            ]
+          }
+        ]
+      }
+    ],
+    "palette": {
+      "W": "#ffffff",
+      "w": "#e3e3e3",
+      "#": "#000000"
+    },
+    "patterns": {
+      "dustBig": [
+        "......##.........##.....",
+        ".....#WW#..##...#WW#....",
+        "..##.#WWw##WW#.#WWWw#.#.",
+        ".#WW##WWwwWWWw##WWwww#W#",
+        "#WWWwWWwwwWWwwwWWWwwwWw#",
+        "#wWWwwwwWWWWwwwwWWwwwww#",
+        "#wwwwwWWWWWWWwwwwwwwwww#",
+        ".#wwwwwwwwwwwwwwwwwwww#.",
+        "..####################.."
+      ],
+      "lines": [
+        "#.....#.....#",
+        ".#....#....#.",
+        "..#...#...#..",
+        "......#......",
+        "...#.....#..."
+      ],
+      "puff": [
+        "..##..",
+        ".#WW#.",
+        "#WWww#",
+        "#wwww#",
+        ".####."
+      ],
+      "speck": [
+        "#w#",
+        ".#."
+      ],
+      "hitStar": [
+        "..#..",
+        "#.#.#",
+        ".#W#.",
+        "#.#.#",
+        "..#.."
+      ],
+      "strain": [
+        "#.#",
+        "...",
+        "#.#"
+      ],
+      "tug": [
+        "W.W",
+        ".W."
+      ],
+      "shift": [
+        "W..",
+        ".W.",
+        "W.."
+      ],
+      "kzMark": [
+        "###",
+        "#W#",
+        "#W#",
+        "#W#",
+        "#W#",
+        "###",
+        "#W#",
+        "###"
+      ]
+    }
+  },
+  "extra": {
+    "linger": {
+      "rule": "Kazushi (Christopher 2026-11-06 18:16: an exclamation mark over the target's head that lingers for the duration of the Kazushi effect): the clip ends with kzMark over the target's head; while the caster's Kazushi mark is up (the rest of the round, or until the next Jiu-Jitsu technique spends it) the testbed keeps drawing NPAT kzMark 2 px above the top of the target's head on every state it plays, bobbing 1 px every 4 frames; it clears when the mark is spent or expires",
+      "mark": {
+        "pattern": "kzMark",
+        "palette": {
+          "W": "#ffffff",
+          "#": "#000000"
+        },
+        "anchor": "headTop",
+        "gap": 2,
+        "bob": [
+          0,
+          0,
+          0,
+          0,
+          -1,
+          -1,
+          -1,
+          -1
+        ],
+        "on": "target",
+        "while": "Kazushi"
+      }
+    }
   }
 }
