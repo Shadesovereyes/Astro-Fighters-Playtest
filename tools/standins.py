@@ -320,7 +320,7 @@ CLIPS.update({
   [g(),
    g(an=SEAL_N, af=SEAL_F, bob=(1, 1, 2), lean=(0, 1)),
    g(an=SEAL_N, af=SEAL_F, bob=(1, 1, 2), lean=(0, 1)),
-   *[g(an=band(-6, -6, fistKind='palm'), af=band(-12, -12, fistKind='palm'), bob=(1, 1, 1) if k % 2 else (1, 0, 1), lean=(0, 0)) for k in range(12)],
+   *[g(an=band(-6, -6, fistKind='palm'), af=band(-12, -12, fistKind='palm'), bob=(1, 1, 1), lean=(0, 0)) for k in range(12)],
    g()],
   [None, 'closed', 'closed'] + ['closed'] * 12 + [None],
   [0, 1, 1] + [1] * 12 + [0],
