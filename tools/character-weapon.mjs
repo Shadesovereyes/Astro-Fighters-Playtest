@@ -41,12 +41,14 @@ function draw(item, pose) {
   const main = item.segments.filter((s) => !s.branch), branches = item.segments.filter((s) => s.branch)
     .map((s) => (pose.branches?.[s.name] ? { ...s, ...pose.branches[s.name], branch: { ...s.branch, ...pose.branches[s.name].branch } } : s));
   const lo = Math.min(...main.map((s) => s.from)), hi = Math.max(...main.map((s) => s.to)), sc = pose.scale ?? 1;
+  // pose.widthScale widens the band across its axis (a shield turned face-on to the viewer in S shows its full width)
+  const ws = pose.widthScale ?? 1;
   const paint = (s, u, v) => {
-    const h = s.thickness / 2;
+    const th = s.thickness * ws, h = th / 2;
     if (v < -h || v >= h) return null;
     const row = s.pattern[Math.floor(u - s.from) % s.pattern.length];
     // '.' in a cross-section is empty (a spiked club's profile: spikes stand out of the band only on some rows)
-    const ch = row[Math.min(row.length - 1, Math.floor((v + h) * row.length / s.thickness))];
+    const ch = row[Math.min(row.length - 1, Math.floor((v + h) * row.length / th))];
     return ch === '.' ? null : ch;
   };
   // chainOnly: the weapon is hidden (its hand is out of sight) but the chain hanging from it shows

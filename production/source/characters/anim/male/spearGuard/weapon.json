@@ -15,7 +15,9 @@
     95
   ],
   "rows": [
+    "S",
     "E",
+    "N",
     "W"
   ],
   "frames": 4,
@@ -28,11 +30,18 @@
       "grip": "normal",
       "hand": "body",
       "layers": {
+        "behind": "off-shield-tower-behind.png",
         "front": "off-shield-tower-front.png",
         "top": "off-shield-tower-top.png"
       },
-      "status": "CANDIDATE 2026-11-06 (E/W; W mirrors E; S/N to author after approval)",
+      "status": "E/W CANDIDATE 2026-11-06 (Guard set v3.1, layering accepted 18:14; W mirrors E); S/N CANDIDATE 2026-11-06 (v1)",
       "z": {
+        "S": [
+          "top",
+          "top",
+          "top",
+          "top"
+        ],
         "E": [
           {
             "hilt": "front",
@@ -50,6 +59,12 @@
             "hilt": "front",
             "blade": "top"
           }
+        ],
+        "N": [
+          "behind",
+          "behind",
+          "behind",
+          "behind"
         ],
         "W": [
           {
@@ -71,6 +86,24 @@
         ]
       },
       "grips": {
+        "S": [
+          [
+            37,
+            28
+          ],
+          [
+            36,
+            28
+          ],
+          [
+            39,
+            30
+          ],
+          [
+            37,
+            28
+          ]
+        ],
         "E": [
           [
             45,
@@ -87,6 +120,24 @@
           [
             45,
             26
+          ]
+        ],
+        "N": [
+          [
+            27,
+            28
+          ],
+          [
+            28,
+            28
+          ],
+          [
+            25,
+            30
+          ],
+          [
+            27,
+            28
           ]
         ],
         "W": [
@@ -116,11 +167,18 @@
       "grip": "normal",
       "hand": "body",
       "layers": {
+        "behind": "off-shield-heater-behind.png",
         "front": "off-shield-heater-front.png",
         "top": "off-shield-heater-top.png"
       },
-      "status": "CANDIDATE 2026-11-06 (E/W; W mirrors E; S/N to author after approval)",
+      "status": "E/W CANDIDATE 2026-11-06 (Guard set v3.1, layering accepted 18:14; W mirrors E); S/N CANDIDATE 2026-11-06 (v1)",
       "z": {
+        "S": [
+          "top",
+          "top",
+          "top",
+          "top"
+        ],
         "E": [
           {
             "hilt": "front",
@@ -138,6 +196,12 @@
             "hilt": "front",
             "blade": "top"
           }
+        ],
+        "N": [
+          "behind",
+          "behind",
+          "behind",
+          "behind"
         ],
         "W": [
           {
@@ -159,6 +223,24 @@
         ]
       },
       "grips": {
+        "S": [
+          [
+            37,
+            28
+          ],
+          [
+            36,
+            28
+          ],
+          [
+            39,
+            30
+          ],
+          [
+            37,
+            28
+          ]
+        ],
         "E": [
           [
             45,
@@ -175,6 +257,24 @@
           [
             45,
             26
+          ]
+        ],
+        "N": [
+          [
+            27,
+            28
+          ],
+          [
+            28,
+            28
+          ],
+          [
+            25,
+            30
+          ],
+          [
+            27,
+            28
           ]
         ],
         "W": [
@@ -204,11 +304,18 @@
       "grip": "normal",
       "hand": "body",
       "layers": {
+        "behind": "off-shield-buckler-behind.png",
         "front": "off-shield-buckler-front.png",
         "top": "off-shield-buckler-top.png"
       },
-      "status": "CANDIDATE 2026-11-06 (E/W; W mirrors E; S/N to author after approval)",
+      "status": "E/W CANDIDATE 2026-11-06 (Guard set v3.1, layering accepted 18:14; W mirrors E); S/N CANDIDATE 2026-11-06 (v1)",
       "z": {
+        "S": [
+          "top",
+          "top",
+          "top",
+          "top"
+        ],
         "E": [
           {
             "hilt": "front",
@@ -226,6 +333,12 @@
             "hilt": "front",
             "blade": "top"
           }
+        ],
+        "N": [
+          "behind",
+          "behind",
+          "behind",
+          "behind"
         ],
         "W": [
           {
@@ -247,6 +360,24 @@
         ]
       },
       "grips": {
+        "S": [
+          [
+            37,
+            28
+          ],
+          [
+            36,
+            28
+          ],
+          [
+            39,
+            30
+          ],
+          [
+            37,
+            28
+          ]
+        ],
         "E": [
           [
             45,
@@ -263,6 +394,24 @@
           [
             45,
             26
+          ]
+        ],
+        "N": [
+          [
+            27,
+            28
+          ],
+          [
+            28,
+            28
+          ],
+          [
+            25,
+            30
+          ],
+          [
+            27,
+            28
           ]
         ],
         "W": [
@@ -291,15 +440,41 @@
       "default": true,
       "hand": "arms",
       "layers": {
-        "front": "main-yari-front.png"
+        "behind": "main-yari-behind.png",
+        "front": "main-yari-front.png",
+        "top": "main-yari-top.png"
       },
-      "status": "CANDIDATE 2026-11-06 (E/W; W mirrors E; S/N to author after approval)",
+      "status": "E/W CANDIDATE 2026-11-06 (Guard set v3.1, layering accepted 18:14; W mirrors E); S/N CANDIDATE 2026-11-06 (v1)",
       "z": {
+        "S": [
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          }
+        ],
         "E": [
           "front",
           "front",
           "front",
           "front"
+        ],
+        "N": [
+          "behind",
+          "behind",
+          "behind",
+          "behind"
         ],
         "W": [
           "front",
@@ -309,6 +484,24 @@
         ]
       },
       "grips": {
+        "S": [
+          [
+            28,
+            34
+          ],
+          [
+            28,
+            33
+          ],
+          [
+            28,
+            34
+          ],
+          [
+            28,
+            35
+          ]
+        ],
         "E": [
           [
             40,
@@ -324,6 +517,24 @@
           ],
           [
             40,
+            35
+          ]
+        ],
+        "N": [
+          [
+            36,
+            34
+          ],
+          [
+            36,
+            33
+          ],
+          [
+            36,
+            34
+          ],
+          [
+            36,
             35
           ]
         ],
@@ -350,40 +561,72 @@
   ],
   "qc": {
     "gripOnFist": {
+      "off/shield-tower S:0": false,
+      "off/shield-tower S:1": false,
+      "off/shield-tower S:2": false,
+      "off/shield-tower S:3": false,
       "off/shield-tower E:0": true,
       "off/shield-tower E:1": true,
       "off/shield-tower E:2": true,
       "off/shield-tower E:3": true,
+      "off/shield-tower N:0": true,
+      "off/shield-tower N:1": true,
+      "off/shield-tower N:2": true,
+      "off/shield-tower N:3": true,
       "off/shield-tower W:0": true,
       "off/shield-tower W:1": true,
       "off/shield-tower W:2": true,
       "off/shield-tower W:3": true,
+      "off/shield-heater S:0": false,
+      "off/shield-heater S:1": false,
+      "off/shield-heater S:2": false,
+      "off/shield-heater S:3": false,
       "off/shield-heater E:0": true,
       "off/shield-heater E:1": true,
       "off/shield-heater E:2": true,
       "off/shield-heater E:3": true,
+      "off/shield-heater N:0": true,
+      "off/shield-heater N:1": true,
+      "off/shield-heater N:2": true,
+      "off/shield-heater N:3": true,
       "off/shield-heater W:0": true,
       "off/shield-heater W:1": true,
       "off/shield-heater W:2": true,
       "off/shield-heater W:3": true,
+      "off/shield-buckler S:0": false,
+      "off/shield-buckler S:1": false,
+      "off/shield-buckler S:2": false,
+      "off/shield-buckler S:3": false,
       "off/shield-buckler E:0": true,
       "off/shield-buckler E:1": true,
       "off/shield-buckler E:2": true,
       "off/shield-buckler E:3": true,
+      "off/shield-buckler N:0": true,
+      "off/shield-buckler N:1": true,
+      "off/shield-buckler N:2": true,
+      "off/shield-buckler N:3": true,
       "off/shield-buckler W:0": true,
       "off/shield-buckler W:1": true,
       "off/shield-buckler W:2": true,
       "off/shield-buckler W:3": true,
+      "main/yari S:0": true,
+      "main/yari S:1": true,
+      "main/yari S:2": true,
+      "main/yari S:3": true,
       "main/yari E:0": true,
       "main/yari E:1": true,
       "main/yari E:2": true,
       "main/yari E:3": true,
+      "main/yari N:0": "hidden",
+      "main/yari N:1": "hidden",
+      "main/yari N:2": "hidden",
+      "main/yari N:3": "hidden",
       "main/yari W:0": true,
       "main/yari W:1": true,
       "main/yari W:2": true,
       "main/yari W:3": true
     },
     "inFrame": true,
-    "pass": true
+    "pass": false
   }
 }

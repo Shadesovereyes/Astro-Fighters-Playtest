@@ -15,7 +15,9 @@
     95
   ],
   "rows": [
+    "S",
     "E",
+    "N",
     "W"
   ],
   "frames": 7,
@@ -28,11 +30,21 @@
       "grip": "normal",
       "hand": "body",
       "layers": {
+        "behind": "off-shield-tower-behind.png",
         "front": "off-shield-tower-front.png",
         "top": "off-shield-tower-top.png"
       },
-      "status": "CANDIDATE 2026-11-06 (E/W; W mirrors E; S/N to author after approval)",
+      "status": "E/W CANDIDATE 2026-11-06 (Guard set v3.1, layering accepted 18:14; W mirrors E); S/N CANDIDATE 2026-11-06 (v1)",
       "z": {
+        "S": [
+          "top",
+          "top",
+          "top",
+          "top",
+          "top",
+          "top",
+          "top"
+        ],
         "E": [
           {
             "hilt": "front",
@@ -62,6 +74,15 @@
             "hilt": "front",
             "blade": "top"
           }
+        ],
+        "N": [
+          "behind",
+          "behind",
+          "behind",
+          "behind",
+          "behind",
+          "behind",
+          "behind"
         ],
         "W": [
           {
@@ -95,6 +116,36 @@
         ]
       },
       "grips": {
+        "S": [
+          [
+            37,
+            28
+          ],
+          [
+            35,
+            28
+          ],
+          [
+            35,
+            28
+          ],
+          [
+            39,
+            30
+          ],
+          [
+            39,
+            30
+          ],
+          [
+            39,
+            30
+          ],
+          [
+            37,
+            28
+          ]
+        ],
         "E": [
           [
             45,
@@ -123,6 +174,36 @@
           [
             45,
             26
+          ]
+        ],
+        "N": [
+          [
+            27,
+            28
+          ],
+          [
+            29,
+            28
+          ],
+          [
+            29,
+            28
+          ],
+          [
+            25,
+            30
+          ],
+          [
+            25,
+            30
+          ],
+          [
+            25,
+            30
+          ],
+          [
+            27,
+            28
           ]
         ],
         "W": [
@@ -164,11 +245,21 @@
       "grip": "normal",
       "hand": "body",
       "layers": {
+        "behind": "off-shield-heater-behind.png",
         "front": "off-shield-heater-front.png",
         "top": "off-shield-heater-top.png"
       },
-      "status": "CANDIDATE 2026-11-06 (E/W; W mirrors E; S/N to author after approval)",
+      "status": "E/W CANDIDATE 2026-11-06 (Guard set v3.1, layering accepted 18:14; W mirrors E); S/N CANDIDATE 2026-11-06 (v1)",
       "z": {
+        "S": [
+          "top",
+          "top",
+          "top",
+          "top",
+          "top",
+          "top",
+          "top"
+        ],
         "E": [
           {
             "hilt": "front",
@@ -198,6 +289,15 @@
             "hilt": "front",
             "blade": "top"
           }
+        ],
+        "N": [
+          "behind",
+          "behind",
+          "behind",
+          "behind",
+          "behind",
+          "behind",
+          "behind"
         ],
         "W": [
           {
@@ -231,6 +331,36 @@
         ]
       },
       "grips": {
+        "S": [
+          [
+            37,
+            28
+          ],
+          [
+            35,
+            28
+          ],
+          [
+            35,
+            28
+          ],
+          [
+            39,
+            30
+          ],
+          [
+            39,
+            30
+          ],
+          [
+            39,
+            30
+          ],
+          [
+            37,
+            28
+          ]
+        ],
         "E": [
           [
             45,
@@ -259,6 +389,36 @@
           [
             45,
             26
+          ]
+        ],
+        "N": [
+          [
+            27,
+            28
+          ],
+          [
+            29,
+            28
+          ],
+          [
+            29,
+            28
+          ],
+          [
+            25,
+            30
+          ],
+          [
+            25,
+            30
+          ],
+          [
+            25,
+            30
+          ],
+          [
+            27,
+            28
           ]
         ],
         "W": [
@@ -300,11 +460,21 @@
       "grip": "normal",
       "hand": "body",
       "layers": {
+        "behind": "off-shield-buckler-behind.png",
         "front": "off-shield-buckler-front.png",
         "top": "off-shield-buckler-top.png"
       },
-      "status": "CANDIDATE 2026-11-06 (E/W; W mirrors E; S/N to author after approval)",
+      "status": "E/W CANDIDATE 2026-11-06 (Guard set v3.1, layering accepted 18:14; W mirrors E); S/N CANDIDATE 2026-11-06 (v1)",
       "z": {
+        "S": [
+          "top",
+          "top",
+          "top",
+          "top",
+          "top",
+          "top",
+          "top"
+        ],
         "E": [
           {
             "hilt": "front",
@@ -334,6 +504,15 @@
             "hilt": "front",
             "blade": "top"
           }
+        ],
+        "N": [
+          "behind",
+          "behind",
+          "behind",
+          "behind",
+          "behind",
+          "behind",
+          "behind"
         ],
         "W": [
           {
@@ -367,6 +546,36 @@
         ]
       },
       "grips": {
+        "S": [
+          [
+            37,
+            28
+          ],
+          [
+            35,
+            28
+          ],
+          [
+            35,
+            28
+          ],
+          [
+            39,
+            30
+          ],
+          [
+            39,
+            30
+          ],
+          [
+            39,
+            30
+          ],
+          [
+            37,
+            28
+          ]
+        ],
         "E": [
           [
             45,
@@ -395,6 +604,36 @@
           [
             45,
             26
+          ]
+        ],
+        "N": [
+          [
+            27,
+            28
+          ],
+          [
+            29,
+            28
+          ],
+          [
+            29,
+            28
+          ],
+          [
+            25,
+            30
+          ],
+          [
+            25,
+            30
+          ],
+          [
+            25,
+            30
+          ],
+          [
+            27,
+            28
           ]
         ],
         "W": [
@@ -435,11 +674,43 @@
       "default": true,
       "hand": "arms",
       "layers": {
+        "behind": "main-yari-behind.png",
         "front": "main-yari-front.png",
+        "top": "main-yari-top.png",
         "trail": "main-yari-trail.png"
       },
-      "status": "CANDIDATE 2026-11-06 (E/W; W mirrors E; S/N to author after approval)",
+      "status": "E/W CANDIDATE 2026-11-06 (Guard set v3.1, layering accepted 18:14; W mirrors E); S/N CANDIDATE 2026-11-06 (v1)",
       "z": {
+        "S": [
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          }
+        ],
         "E": [
           "front",
           "front",
@@ -448,6 +719,15 @@
           "front",
           "front",
           "front"
+        ],
+        "N": [
+          "behind",
+          "behind",
+          "behind",
+          "behind",
+          "behind",
+          "behind",
+          "behind"
         ],
         "W": [
           "front",
@@ -460,6 +740,36 @@
         ]
       },
       "grips": {
+        "S": [
+          [
+            28,
+            34
+          ],
+          [
+            26,
+            33
+          ],
+          [
+            25,
+            33
+          ],
+          [
+            30,
+            30
+          ],
+          [
+            30,
+            30
+          ],
+          [
+            29,
+            33
+          ],
+          [
+            28,
+            34
+          ]
+        ],
         "E": [
           [
             40,
@@ -487,6 +797,36 @@
           ],
           [
             40,
+            34
+          ]
+        ],
+        "N": [
+          [
+            36,
+            34
+          ],
+          [
+            38,
+            33
+          ],
+          [
+            39,
+            33
+          ],
+          [
+            34,
+            30
+          ],
+          [
+            34,
+            30
+          ],
+          [
+            35,
+            33
+          ],
+          [
+            36,
             34
           ]
         ],
@@ -525,6 +865,13 @@
   ],
   "qc": {
     "gripOnFist": {
+      "off/shield-tower S:0": false,
+      "off/shield-tower S:1": true,
+      "off/shield-tower S:2": true,
+      "off/shield-tower S:3": false,
+      "off/shield-tower S:4": false,
+      "off/shield-tower S:5": false,
+      "off/shield-tower S:6": false,
       "off/shield-tower E:0": true,
       "off/shield-tower E:1": true,
       "off/shield-tower E:2": true,
@@ -532,6 +879,13 @@
       "off/shield-tower E:4": true,
       "off/shield-tower E:5": true,
       "off/shield-tower E:6": true,
+      "off/shield-tower N:0": true,
+      "off/shield-tower N:1": true,
+      "off/shield-tower N:2": true,
+      "off/shield-tower N:3": true,
+      "off/shield-tower N:4": true,
+      "off/shield-tower N:5": true,
+      "off/shield-tower N:6": true,
       "off/shield-tower W:0": true,
       "off/shield-tower W:1": true,
       "off/shield-tower W:2": true,
@@ -539,6 +893,13 @@
       "off/shield-tower W:4": true,
       "off/shield-tower W:5": true,
       "off/shield-tower W:6": true,
+      "off/shield-heater S:0": false,
+      "off/shield-heater S:1": true,
+      "off/shield-heater S:2": true,
+      "off/shield-heater S:3": false,
+      "off/shield-heater S:4": false,
+      "off/shield-heater S:5": false,
+      "off/shield-heater S:6": false,
       "off/shield-heater E:0": true,
       "off/shield-heater E:1": true,
       "off/shield-heater E:2": true,
@@ -546,6 +907,13 @@
       "off/shield-heater E:4": true,
       "off/shield-heater E:5": true,
       "off/shield-heater E:6": true,
+      "off/shield-heater N:0": true,
+      "off/shield-heater N:1": true,
+      "off/shield-heater N:2": true,
+      "off/shield-heater N:3": true,
+      "off/shield-heater N:4": true,
+      "off/shield-heater N:5": true,
+      "off/shield-heater N:6": true,
       "off/shield-heater W:0": true,
       "off/shield-heater W:1": true,
       "off/shield-heater W:2": true,
@@ -553,6 +921,13 @@
       "off/shield-heater W:4": true,
       "off/shield-heater W:5": true,
       "off/shield-heater W:6": true,
+      "off/shield-buckler S:0": false,
+      "off/shield-buckler S:1": true,
+      "off/shield-buckler S:2": true,
+      "off/shield-buckler S:3": false,
+      "off/shield-buckler S:4": false,
+      "off/shield-buckler S:5": false,
+      "off/shield-buckler S:6": false,
       "off/shield-buckler E:0": true,
       "off/shield-buckler E:1": true,
       "off/shield-buckler E:2": true,
@@ -560,6 +935,13 @@
       "off/shield-buckler E:4": true,
       "off/shield-buckler E:5": true,
       "off/shield-buckler E:6": true,
+      "off/shield-buckler N:0": true,
+      "off/shield-buckler N:1": true,
+      "off/shield-buckler N:2": true,
+      "off/shield-buckler N:3": true,
+      "off/shield-buckler N:4": true,
+      "off/shield-buckler N:5": true,
+      "off/shield-buckler N:6": true,
       "off/shield-buckler W:0": true,
       "off/shield-buckler W:1": true,
       "off/shield-buckler W:2": true,
@@ -567,6 +949,13 @@
       "off/shield-buckler W:4": true,
       "off/shield-buckler W:5": true,
       "off/shield-buckler W:6": true,
+      "main/yari S:0": true,
+      "main/yari S:1": true,
+      "main/yari S:2": true,
+      "main/yari S:3": true,
+      "main/yari S:4": true,
+      "main/yari S:5": true,
+      "main/yari S:6": true,
       "main/yari E:0": true,
       "main/yari E:1": true,
       "main/yari E:2": true,
@@ -574,6 +963,13 @@
       "main/yari E:4": true,
       "main/yari E:5": true,
       "main/yari E:6": true,
+      "main/yari N:0": "hidden",
+      "main/yari N:1": "hidden",
+      "main/yari N:2": "hidden",
+      "main/yari N:3": "hidden",
+      "main/yari N:4": "hidden",
+      "main/yari N:5": "hidden",
+      "main/yari N:6": "hidden",
       "main/yari W:0": true,
       "main/yari W:1": true,
       "main/yari W:2": true,
@@ -583,6 +979,6 @@
       "main/yari W:6": true
     },
     "inFrame": true,
-    "pass": true
+    "pass": false
   }
 }
