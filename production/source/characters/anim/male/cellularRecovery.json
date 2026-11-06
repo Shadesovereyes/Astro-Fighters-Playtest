@@ -1,10 +1,10 @@
 {
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
-  "state": "cellActivated",
+  "state": "cellularRecovery",
   "status": "CANDIDATE 2026-11-06 (E/W; W mirrors E; S/N to author after approval)",
-  "frames": 6,
-  "fps": 8,
+  "frames": 9,
+  "fps": 10,
   "sourceDirection": "E",
   "directions": [
     "E",
@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Cell Activated (target of Cellular Activation): frame 0 is the orb arriving: it bursts into a green ring round the chest; a pulse ring opens on the floor under the feet and green motes spiral up the body as the cells knit, a thin green aura round the fighter, the guard easing a little; it settles back into the guard (the Regen status keeps a faint aura while it lasts: proposal).",
+  "intent": "Cellular Recovery (renamed from Cellular Activation 2026-11-06; v2 adds pulsing green health crosses) (Medical, single ally up to 6 tiles, Regen 3 rounds): the fighter presses its open hands together in a seal, eyes closing, and a green medical orb swells between them; it opens the near palm toward the ally and sends the orb flying (projectile orbBigMed, frames 5-6, the testbed flies it to the ally and pops vRingMed there); the ally plays cellRecovered. A thin green aura round the caster while it gathers.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -106,25 +106,34 @@
     "rule": "the knees give under the blow (body 2 px low) and come back up to the guard height; the head drops with the body a frame late",
     "dy": [
       1,
-      0,
-      0,
-      0,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
       1,
       1
     ],
     "head": [
       1,
-      0,
-      0,
-      0,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
       1,
       1
     ],
     "arms": [
       2,
-      1,
-      1,
-      1,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
       2,
       2
     ]
@@ -135,24 +144,30 @@
     "dx": {
       "pelvis": [
         0,
-        -1,
-        -1,
-        -1,
         0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
         0
       ],
       "head": [
+        2,
         1,
-        0,
-        0,
-        0,
         1,
+        1,
+        2,
+        4,
+        4,
+        3,
         2
       ]
     }
   },
   "rootMotion": {
-    "rule": "in place",
+    "rule": "E: +1 sending it, -1 back (net 0)",
     "E": [
       [
         0,
@@ -172,6 +187,18 @@
       ],
       [
         0,
+        0
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        -1,
         0
       ],
       [
@@ -198,6 +225,18 @@
       ],
       [
         0,
+        0
+      ],
+      [
+        -1,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        1,
         0
       ],
       [
@@ -1664,6 +1703,9 @@
       1,
       1,
       1,
+      23,
+      23,
+      1,
       1
     ],
     "far": [
@@ -1671,6 +1713,9 @@
       0,
       0,
       0,
+      0,
+      22,
+      22,
       0,
       0
     ]
@@ -1701,34 +1746,64 @@
       },
       {
         "construction": "band",
-        "angle": -20,
+        "angle": -48,
         "elbow": {
           "at": 8,
-          "angle": 212
-        }
+          "angle": -150
+        },
+        "fistKind": "palm"
       },
       {
         "construction": "band",
-        "angle": -20,
+        "angle": -48,
         "elbow": {
           "at": 8,
-          "angle": 212
-        }
+          "angle": -150
+        },
+        "fistKind": "palm"
       },
       {
         "construction": "band",
-        "angle": -20,
+        "angle": -48,
         "elbow": {
           "at": 8,
-          "angle": 212
-        }
+          "angle": -150
+        },
+        "fistKind": "palm"
       },
       {
         "construction": "band",
-        "angle": -20,
+        "angle": -30,
         "elbow": {
           "at": 8,
-          "angle": 212
+          "angle": -110
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": -90,
+        "elbow": {
+          "at": 8,
+          "angle": -95
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": -90,
+        "elbow": {
+          "at": 8,
+          "angle": -95
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": -40,
+        "elbow": {
+          "at": 8,
+          "angle": -110
         }
       },
       {
@@ -1751,10 +1826,37 @@
       },
       {
         "construction": "band",
+        "angle": -60,
+        "elbow": {
+          "at": 8,
+          "angle": -146
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": -60,
+        "elbow": {
+          "at": 8,
+          "angle": -146
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": -60,
+        "elbow": {
+          "at": 8,
+          "angle": -146
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
         "angle": -45,
         "elbow": {
           "at": 8,
-          "angle": 222
+          "angle": -120
         }
       },
       {
@@ -1762,7 +1864,7 @@
         "angle": -45,
         "elbow": {
           "at": 8,
-          "angle": 222
+          "angle": -120
         }
       },
       {
@@ -1770,7 +1872,7 @@
         "angle": -45,
         "elbow": {
           "at": 8,
-          "angle": 222
+          "angle": -120
         }
       },
       {
@@ -1954,6 +2056,9 @@
       "bandFollowsBody": true,
       "sway": {
         "E": [
+          -1,
+          -1,
+          -1,
           -1,
           -1,
           -1,
@@ -2622,18 +2727,21 @@
   },
   "clips": {
     "rule": "starts and ends in the approved guard frame and returns to that idle (next: guard)",
-    "cellActivated": {
+    "cellularRecovery": {
       "frames": [
         0,
         1,
         2,
         3,
         4,
-        5
+        5,
+        6,
+        7,
+        8
       ],
-      "fps": 8,
+      "fps": 10,
       "next": "guard",
-      "ability": "Cell Activated"
+      "ability": "Cellular Recovery"
     }
   },
   "events": {
@@ -2641,66 +2749,104 @@
     "E": [
       {
         "frame": 0,
-        "clip": "cellActivated",
-        "type": "active",
-        "react": true
+        "clip": "cellularRecovery",
+        "type": "startup"
       },
       {
         "frame": 1,
-        "clip": "cellActivated",
-        "type": "recovery"
+        "clip": "cellularRecovery",
+        "type": "startup"
       },
       {
         "frame": 2,
-        "clip": "cellActivated",
-        "type": "recovery"
+        "clip": "cellularRecovery",
+        "type": "startup"
       },
       {
         "frame": 3,
-        "clip": "cellActivated",
-        "type": "recovery"
+        "clip": "cellularRecovery",
+        "type": "startup"
       },
       {
         "frame": 4,
-        "clip": "cellActivated",
-        "type": "recovery"
+        "clip": "cellularRecovery",
+        "type": "startup"
       },
       {
         "frame": 5,
-        "clip": "cellActivated",
+        "clip": "cellularRecovery",
+        "type": "active",
+        "move": "Cellular Recovery",
+        "release": [
+          50,
+          24
+        ]
+      },
+      {
+        "frame": 6,
+        "clip": "cellularRecovery",
+        "type": "recovery"
+      },
+      {
+        "frame": 7,
+        "clip": "cellularRecovery",
+        "type": "recovery"
+      },
+      {
+        "frame": 8,
+        "clip": "cellularRecovery",
         "type": "recovery"
       }
     ],
     "W": [
       {
         "frame": 0,
-        "clip": "cellActivated",
-        "type": "active",
-        "react": true
+        "clip": "cellularRecovery",
+        "type": "startup"
       },
       {
         "frame": 1,
-        "clip": "cellActivated",
-        "type": "recovery"
+        "clip": "cellularRecovery",
+        "type": "startup"
       },
       {
         "frame": 2,
-        "clip": "cellActivated",
-        "type": "recovery"
+        "clip": "cellularRecovery",
+        "type": "startup"
       },
       {
         "frame": 3,
-        "clip": "cellActivated",
-        "type": "recovery"
+        "clip": "cellularRecovery",
+        "type": "startup"
       },
       {
         "frame": 4,
-        "clip": "cellActivated",
-        "type": "recovery"
+        "clip": "cellularRecovery",
+        "type": "startup"
       },
       {
         "frame": 5,
-        "clip": "cellActivated",
+        "clip": "cellularRecovery",
+        "type": "active",
+        "move": "Cellular Recovery",
+        "release": [
+          14,
+          24
+        ]
+      },
+      {
+        "frame": 6,
+        "clip": "cellularRecovery",
+        "type": "recovery"
+      },
+      {
+        "frame": 7,
+        "clip": "cellularRecovery",
+        "type": "recovery"
+      },
+      {
+        "frame": 8,
+        "clip": "cellularRecovery",
         "type": "recovery"
       }
     ]
@@ -2864,6 +3010,9 @@
         null,
         "closed",
         "closed",
+        "closed",
+        null,
+        null,
         null,
         null,
         null
@@ -2871,13 +3020,27 @@
     },
     "intent": "eyes squeezed shut with the brow pulled down on the impact frames 0-2 (no mouth: user 2026-10-14), a squint on frame 3, open again from frame 4 (user 2026-10-14)"
   },
+  "projectile": {
+    "rule": "Cellular Recovery: from frame 5 the testbed flies NPAT orbBigMed from the near hand to the ally at chest height, then draws vRingMed on it; the ally plays cellRecovered on arrival (the impact frame), not before",
+    "from": "hand",
+    "frame": 5,
+    "pattern": "orbBigMed",
+    "hit": "vRingMed"
+  },
+  "targetState": {
+    "rule": "Cellular Recovery: when the orb reaches the ally and not before, the ally plays cellRecovered once, then its idle",
+    "state": "cellRecovered"
+  },
   "aura": {
     "rule": "Runtime aura (Christopher 2026-11-03: all auras follow the outline of the hair): on frame k, when widths[k] > 0, the testbed grows the silhouette of every drawn layer except fx (body, clothing or armour, arms, shoulders, hair or helmet, eyes, weapons) by widths[k] rings of 1 px (4-neighbour / 3x3 max growth); ring 0 in colors[0], the others in colors[1]; the outermost ring only on pixels where (x + y + k) is even (flicker); drawn behind the fighter, only outside its silhouette",
     "widths": [
+      0,
       1,
       1,
       1,
       1,
+      0,
+      0,
       0,
       0
     ],

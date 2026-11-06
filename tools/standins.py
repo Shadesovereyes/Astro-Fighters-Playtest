@@ -207,16 +207,48 @@ def _healed(ab, k, src):
        anchored={0: [('vRing' + m, 'head', 0, 12)], 1: [('vRing2' + m, 'head', 0, 12), ('moteF' + m, 'head', 2, 4)],
                  2: [('moteF' + m, 'head', -2, 0), ('moteF' + m, 'head', 4, 6)], 3: [('moteF' + m, 'head', 1, -4)]}))
 
+# Palm Healing v2 (Christopher 2026-11-06 17:39: "give palm healing more fx like small green pulsing Health crosses"):
+# small green health crosses that swell and shrink as they drift up off the palm and, on the ally, off the chest
+astro.NPAT['healX1'] = ['.L.', 'LlL', '.L.']
+astro.NPAT['healX2'] = ['.DLD.', 'DLlLD', 'LlllL', 'DLlLD', '.DLD.']
+astro.NPAT['healX3'] = ['..DDD..', '..DlD..', 'DDDlDDD', 'DllllLD', 'DDDlDDD', '..DlD..', '..DDD..']
+HEAL_X = {4: [('healX2', 'hand', 2, -7), ('healX1', 'hand', -3, -3)],
+          5: [('healX3', 'hand', 3, -10), ('healX2', 'hand', -4, -7), ('healX1', 'hand', 6, -3)],
+          6: [('healX2', 'hand', 4, -14), ('healX3', 'hand', -4, -11), ('healX2', 'hand', 7, -7)],
+          7: [('healX1', 'hand', 4, -18), ('healX2', 'hand', -5, -15), ('healX3', 'hand', 7, -11)],
+          8: [('healX1', 'hand', -5, -19), ('healX1', 'hand', 7, -15)]}
+HEALED_X = {0: [('healX1', 'head', 4, 10)],
+            1: [('healX2', 'head', 5, 6), ('healX1', 'head', -5, 12)],
+            2: [('healX3', 'head', 6, 2), ('healX2', 'head', -6, 8), ('healX1', 'head', 1, 14)],
+            3: [('healX2', 'head', 6, -3), ('healX3', 'head', -6, 3), ('healX2', 'head', 1, 9)],
+            4: [('healX1', 'head', 6, -7), ('healX2', 'head', -6, -2), ('healX3', 'head', 1, 4)],
+            5: [('healX1', 'head', -6, -6), ('healX1', 'head', 1, -1)]}
+def _addx(clip, xs):
+    an = clip[-1]['anchored']
+    for k, v in xs.items(): an[k] = an.get(k, []) + v
+    return clip
+
 CLIPS.update({
- 'palmHealing': _heal('Palm Healing', 'Med', 'palmHealed', MED_AURA),
- 'palmHealed': _healed('Palm Healed', 'Med', 'Palm Healing'),
+ 'palmHealing': _addx(_heal('Palm Healing', 'Med', 'palmHealed', MED_AURA), HEAL_X),
+ 'palmHealed': _addx(_healed('Palm Healed', 'Med', 'Palm Healing'), HEALED_X),
  'darkCommunion': _heal('Dark Communion', 'Dark', 'darkCommuned', DARK_AURA),
  'darkCommuned': _healed('Dark Communed', 'Dark', 'Dark Communion'),
 })
 
+# Cellular Recovery (renamed from Cellular Activation, Christopher 2026-11-06 17:39, canon amendment) v2: the same pulsing
+# green health crosses as Palm Healing, swelling round the orb as it gathers and rising off the ally as the cells knit
+CELL_X = {2: [('healX1', 'hand', 5, -6)], 3: [('healX2', 'hand', -5, -7), ('healX1', 'hand', 6, -9)],
+          4: [('healX3', 'hand', 4, -9), ('healX2', 'hand', -5, -10)], 5: [('healX1', 'hand', 2, -13), ('healX2', 'hand', -4, -14)]}
+CELLED_X = {0: [('healX2', 'head', 6, 12)],
+            1: [('healX3', 'head', 6, 8), ('healX1', 'head', -6, 16)],
+            2: [('healX2', 'head', 7, 3), ('healX2', 'head', -6, 11), ('healX1', 'head', 2, 20)],
+            3: [('healX1', 'head', 7, -2), ('healX3', 'head', -6, 6), ('healX2', 'head', 2, 15)],
+            4: [('healX2', 'head', -6, 1), ('healX3', 'head', 2, 9)],
+            5: [('healX1', 'head', -6, -4), ('healX1', 'head', 2, 3)]}
+
 CLIPS.update({
- 'cellularActivation': ('Cellular Activation', 5,
-  'Cellular Activation (Medical, single ally up to 6 tiles, Regen 3 rounds): the fighter presses its open hands together in a seal, eyes closing, and a green medical orb swells between them; it opens the near palm toward the ally and sends the orb flying (projectile orbBigMed, frames 5-6, the testbed flies it to the ally and pops vRingMed there); the ally plays cellActivated. A thin green aura round the caster while it gathers.',
+ 'cellularRecovery': ('Cellular Recovery', 5,
+  'Cellular Recovery (renamed from Cellular Activation 2026-11-06; v2 adds pulsing green health crosses) (Medical, single ally up to 6 tiles, Regen 3 rounds): the fighter presses its open hands together in a seal, eyes closing, and a green medical orb swells between them; it opens the near palm toward the ally and sends the orb flying (projectile orbBigMed, frames 5-6, the testbed flies it to the ally and pops vRingMed there); the ally plays cellRecovered. A thin green aura round the caster while it gathers.',
   [g(),
    g(an=SEAL_N, af=SEAL_F, bob=(1, 1, 2), lean=(0, 1)),
    g(an=SEAL_N, af=SEAL_F, bob=(1, 1, 2), lean=(0, 1)),
@@ -229,12 +261,12 @@ CLIPS.update({
   [None, 'closed', 'closed', 'closed', None, None, None, None, None],
   [0, 1, 1, 1, 1, 0, 0, 0, 0],
   dict(fps=10, release=[50, 24], auraColors=MED_AURA, rm='E: +1 sending it, -1 back (net 0)',
-       extra={'projectile': {'rule': 'Cellular Activation: from frame 5 the testbed flies NPAT orbBigMed from the near hand to the ally at chest height, then draws vRingMed on it; the ally plays cellActivated on arrival (the impact frame), not before', 'from': 'hand', 'frame': 5, 'pattern': 'orbBigMed', 'hit': 'vRingMed'},
-              'targetState': {'rule': 'Cellular Activation: when the orb reaches the ally and not before, the ally plays cellActivated once, then its idle', 'state': 'cellActivated'}},
+       extra={'projectile': {'rule': 'Cellular Recovery: from frame 5 the testbed flies NPAT orbBigMed from the near hand to the ally at chest height, then draws vRingMed on it; the ally plays cellRecovered on arrival (the impact frame), not before', 'from': 'hand', 'frame': 5, 'pattern': 'orbBigMed', 'hit': 'vRingMed'},
+              'targetState': {'rule': 'Cellular Recovery: when the orb reaches the ally and not before, the ally plays cellRecovered once, then its idle', 'state': 'cellRecovered'}},
        anchored={1: [('orbMed', 'hand', 0, -2)], 2: [('orbBigMed', 'hand', 0, -2)], 3: [('orbBigMed', 'hand', 0, -2), ('sparkMed', 'hand', 3, -7)],
                  4: [('orbBigMed', 'hand', 2, 0)], 5: [('star6Med', 'hand', 3, 0)]})),
- 'cellActivated': ('Cell Activated', 0,
-  'Cell Activated (target of Cellular Activation): frame 0 is the orb arriving: it bursts into a green ring round the chest; a pulse ring opens on the floor under the feet and green motes spiral up the body as the cells knit, a thin green aura round the fighter, the guard easing a little; it settles back into the guard (the Regen status keeps a faint aura while it lasts: proposal).',
+ 'cellRecovered': ('Cell Recovered', 0,
+  'Cell Recovered (target of Cellular Recovery): frame 0 is the orb arriving: it bursts into a green ring round the chest; a pulse ring opens on the floor under the feet and green motes spiral up the body as the cells knit, a thin green aura round the fighter, the guard easing a little; it settles back into the guard (the Regen status keeps a faint aura while it lasts: proposal).',
   [g(bob=(1, 1, 2), lean=(0, 1)),
    g(bob=(0, 0, 1), lean=(-1, 0)),
    g(bob=(0, 0, 1), lean=(-1, 0)),
@@ -248,6 +280,8 @@ CLIPS.update({
                  2: [('vRing2Med', 'feet', 0, -2), ('moteFMed', 'head', 5, 12), ('moteFMed', 'head', -4, 22)],
                  3: [('moteFMed', 'head', -4, 4), ('moteFMed', 'head', 4, 14)], 4: [('moteFMed', 'head', 2, -2)]})),
 })
+
+_addx(CLIPS['cellularRecovery'], CELL_X); _addx(CLIPS['cellRecovered'], CELLED_X)
 
 # Knuckle Haymaker v2: the iron knuckle-duster on the rear fist, a glint off it and grey metal sparks on the hit
 astro.NPAT['knux'] = ['.###.', '#FWF#', '#FFF#', '.###.']
