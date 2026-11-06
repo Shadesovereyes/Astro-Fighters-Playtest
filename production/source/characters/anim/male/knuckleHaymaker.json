@@ -3,7 +3,7 @@
   "body": "male",
   "state": "knuckleHaymaker",
   "status": "CANDIDATE 2026-11-06 (E/W; W mirrors E; S/N to author after approval)",
-  "frames": 9,
+  "frames": 11,
   "fps": 12,
   "sourceDirection": "E",
   "directions": [
@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Knuckle Haymaker (Bandit Thug, reskin of Haymaker) v2 (Christopher 2026-11-06: it read too like Wild Swing): a controlled, brutal brass-knuckle punch, the opposite of the sloppy Wild Swing. The rear fist wears an iron knuckle-duster the whole clip (grey band over the knuckles, glinting); the thug first smacks the iron into its own open lead palm twice as a threat, then plants, keeps its balance and throws one short, tight hook to the jaw with no wind-up loop and no overswing; on contact the iron rings with grey metal sparks and a white burst; it snaps straight back into the guard.",
+  "intent": "Knuckle Haymaker (Bandit Thug, reskin of Haymaker) v3 (Christopher 2026-11-06: not a fan of the v2 duster look, and the animation did not match the description): a controlled, brutal brass-knuckle hook, the opposite of the sloppy Wild Swing. The rear fist wears a thin knuckle-duster, a 1 px steel band across the knuckles with a white glint, outlined. The thug raises its open lead palm in front of the chest and slams the iron fist into it twice as a threat, the fist pulled well back between smacks, a small grey spark each time; then it plants and throws one short, tight hook to the jaw: the elbow comes up level with the shoulder and the fist arrives from the side with no wind-up loop and no overswing; on contact the iron rings with grey metal sparks and a white burst; it snaps straight back into the guard.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -109,6 +109,8 @@
       1,
       1,
       1,
+      1,
+      2,
       2,
       2,
       2,
@@ -120,6 +122,8 @@
       1,
       1,
       1,
+      1,
+      2,
       2,
       2,
       2,
@@ -127,6 +131,8 @@
       1
     ],
     "arms": [
+      2,
+      2,
       2,
       2,
       2,
@@ -144,8 +150,10 @@
     "dx": {
       "pelvis": [
         0,
-        0,
-        0,
+        -1,
+        1,
+        -1,
+        1,
         0,
         1,
         2,
@@ -155,19 +163,21 @@
       ],
       "head": [
         2,
+        -1,
         2,
+        -1,
         2,
-        2,
-        3,
-        5,
-        5,
+        1,
+        4,
+        6,
+        6,
         3,
         2
       ]
     }
   },
   "rootMotion": {
-    "rule": "E: +2 the planted hook, -2 back (net 0)",
+    "rule": "E: +1 +1 the planted hook, -2 back (net 0)",
     "E": [
       [
         0,
@@ -190,7 +200,15 @@
         0
       ],
       [
-        2,
+        0,
+        0
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        1,
         0
       ],
       [
@@ -228,7 +246,15 @@
         0
       ],
       [
-        -2,
+        0,
+        0
+      ],
+      [
+        -1,
+        0
+      ],
+      [
+        -1,
         0
       ],
       [
@@ -1702,7 +1728,9 @@
       1,
       1,
       1,
+      1,
       21,
+      23,
       23,
       23,
       1,
@@ -1713,7 +1741,9 @@
       0,
       0,
       0,
+      0,
       20,
+      22,
       22,
       22,
       0,
@@ -1746,31 +1776,47 @@
       },
       {
         "construction": "band",
-        "angle": -55,
+        "angle": -20,
         "elbow": {
           "at": 8,
-          "angle": -120
+          "angle": 212
         }
       },
       {
         "construction": "band",
-        "angle": -65,
+        "angle": -45,
         "elbow": {
           "at": 8,
-          "angle": -110
+          "angle": -125
         }
       },
       {
         "construction": "band",
-        "angle": -55,
+        "angle": -20,
         "elbow": {
           "at": 8,
-          "angle": -120
+          "angle": 212
         }
       },
       {
         "construction": "band",
-        "angle": -10,
+        "angle": -45,
+        "elbow": {
+          "at": 8,
+          "angle": -125
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -70,
+        "elbow": {
+          "at": 8,
+          "angle": -185
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -110,
         "elbow": {
           "at": 8,
           "angle": -150
@@ -1778,18 +1824,18 @@
       },
       {
         "construction": "band",
-        "angle": -92,
+        "angle": -110,
         "elbow": {
           "at": 8,
-          "angle": -108
+          "angle": -80
         }
       },
       {
         "construction": "band",
-        "angle": -92,
+        "angle": -110,
         "elbow": {
           "at": 8,
-          "angle": -108
+          "angle": -80
         }
       },
       {
@@ -1823,7 +1869,7 @@
         "angle": -70,
         "elbow": {
           "at": 8,
-          "angle": -100
+          "angle": -160
         },
         "fistKind": "palm"
       },
@@ -1832,7 +1878,7 @@
         "angle": -70,
         "elbow": {
           "at": 8,
-          "angle": -100
+          "angle": -160
         },
         "fistKind": "palm"
       },
@@ -1841,7 +1887,16 @@
         "angle": -70,
         "elbow": {
           "at": 8,
-          "angle": -100
+          "angle": -160
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": -70,
+        "elbow": {
+          "at": 8,
+          "angle": -160
         },
         "fistKind": "palm"
       },
@@ -1850,7 +1905,7 @@
         "angle": -45,
         "elbow": {
           "at": 8,
-          "angle": -125
+          "angle": 222
         }
       },
       {
@@ -1858,7 +1913,7 @@
         "angle": -45,
         "elbow": {
           "at": 8,
-          "angle": -125
+          "angle": 222
         }
       },
       {
@@ -1866,7 +1921,15 @@
         "angle": -45,
         "elbow": {
           "at": 8,
-          "angle": -125
+          "angle": 222
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -45,
+        "elbow": {
+          "at": 8,
+          "angle": 222
         }
       },
       {
@@ -2050,6 +2113,8 @@
       "bandFollowsBody": true,
       "sway": {
         "E": [
+          -1,
+          -1,
           -1,
           -1,
           -1,
@@ -2731,7 +2796,9 @@
         5,
         6,
         7,
-        8
+        8,
+        9,
+        10
       ],
       "fps": 12,
       "next": "guard",
@@ -2769,28 +2836,38 @@
       {
         "frame": 5,
         "clip": "knuckleHaymaker",
+        "type": "startup"
+      },
+      {
+        "frame": 6,
+        "clip": "knuckleHaymaker",
+        "type": "startup"
+      },
+      {
+        "frame": 7,
+        "clip": "knuckleHaymaker",
         "type": "active",
         "move": "Knuckle Haymaker",
         "hitbox": [
           42,
-          16,
+          14,
           14,
           10
         ],
         "damage": "heavy"
       },
       {
-        "frame": 6,
-        "clip": "knuckleHaymaker",
-        "type": "recovery"
-      },
-      {
-        "frame": 7,
-        "clip": "knuckleHaymaker",
-        "type": "recovery"
-      },
-      {
         "frame": 8,
+        "clip": "knuckleHaymaker",
+        "type": "recovery"
+      },
+      {
+        "frame": 9,
+        "clip": "knuckleHaymaker",
+        "type": "recovery"
+      },
+      {
+        "frame": 10,
         "clip": "knuckleHaymaker",
         "type": "recovery"
       }
@@ -2824,28 +2901,38 @@
       {
         "frame": 5,
         "clip": "knuckleHaymaker",
+        "type": "startup"
+      },
+      {
+        "frame": 6,
+        "clip": "knuckleHaymaker",
+        "type": "startup"
+      },
+      {
+        "frame": 7,
+        "clip": "knuckleHaymaker",
         "type": "active",
         "move": "Knuckle Haymaker",
         "hitbox": [
           8,
-          16,
+          14,
           14,
           10
         ],
         "damage": "heavy"
       },
       {
-        "frame": 6,
-        "clip": "knuckleHaymaker",
-        "type": "recovery"
-      },
-      {
-        "frame": 7,
-        "clip": "knuckleHaymaker",
-        "type": "recovery"
-      },
-      {
         "frame": 8,
+        "clip": "knuckleHaymaker",
+        "type": "recovery"
+      },
+      {
+        "frame": 9,
+        "clip": "knuckleHaymaker",
+        "type": "recovery"
+      },
+      {
+        "frame": 10,
         "clip": "knuckleHaymaker",
         "type": "recovery"
       }
@@ -3136,9 +3223,11 @@
       "E": [
         null,
         "squint",
-        null,
         "squint",
         "squint",
+        "squint",
+        "squint",
+        "strain",
         "strain",
         "strain",
         "squint",
@@ -3148,7 +3237,7 @@
     "intent": "eyes squeezed shut with the brow pulled down on the impact frames 0-2 (no mouth: user 2026-10-14), a squint on frame 3, open again from frame 4 (user 2026-10-14)"
   },
   "targetState": {
-    "rule": "Knuckle Haymaker: on the impact frame (5, the active frame) and not before, the target plays hitReact once, then its idle; before it the target holds its plain guard",
+    "rule": "Knuckle Haymaker: on the impact frame (7, the active frame) and not before, the target plays hitReact once, then its idle; before it the target holds its plain guard",
     "state": "hitReact"
   }
 }

@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Cheap Shot (Bandit, reskin of Haymaker) v2 (Christopher 2026-11-06: a low blow that lands below the belt): the fighter lets its guard drop as if easing off, hands low and loose, head turned half away; then it ducks in sharply, knees bending, and drives the rear fist low and straight into the groin below the belt (white burst at belt height), holds the dig a beat with a nasty grin, and pulls back into the guard.",
+  "intent": "Cheap Shot (Bandit, reskin of Haymaker) v3 (Christopher 2026-11-06: a low blow below the belt; v2 read like a missed hug): the fighter lets its guard drop as if easing off, hands low and loose, head turned half away; then the lead hand snaps back up to cover the face while it ducks in, knees bent, the rear fist chambered at the hip; the rear arm shoots out straight and down, one fist driven into the groin below the belt (white burst at belt height), the arm jerks on contact and holds a beat, then it pulls back into the guard. Only the rear arm reaches: the lead hand stays up at the face the whole strike.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -108,8 +108,8 @@
       1,
       0,
       0,
-      3,
-      5,
+      4,
+      6,
       6,
       6,
       2,
@@ -119,8 +119,8 @@
       1,
       0,
       0,
-      3,
-      5,
+      4,
+      6,
       6,
       6,
       2,
@@ -130,8 +130,8 @@
       2,
       1,
       1,
-      3,
-      5,
+      4,
+      6,
       6,
       6,
       3,
@@ -157,17 +157,17 @@
         2,
         -1,
         -1,
-        4,
+        5,
         8,
-        9,
-        9,
+        8,
+        8,
         3,
         2
       ]
     }
   },
   "rootMotion": {
-    "rule": "E: +2 +1 ducking in, -2 -1 back (net 0)",
+    "rule": "E: +3 +3 ducking in, -1 +1 the jerk on contact, -3 -3 back (net 0)",
     "E": [
       [
         0,
@@ -182,11 +182,15 @@
         0
       ],
       [
-        0,
+        3,
         0
       ],
       [
-        2,
+        3,
+        0
+      ],
+      [
+        -1,
         0
       ],
       [
@@ -194,15 +198,11 @@
         0
       ],
       [
-        0,
+        -3,
         0
       ],
       [
-        -2,
-        0
-      ],
-      [
-        -1,
+        -3,
         0
       ]
     ],
@@ -220,11 +220,15 @@
         0
       ],
       [
-        0,
+        -3,
         0
       ],
       [
-        -2,
+        -3,
+        0
+      ],
+      [
+        1,
         0
       ],
       [
@@ -232,15 +236,11 @@
         0
       ],
       [
-        0,
+        3,
         0
       ],
       [
-        2,
-        0
-      ],
-      [
-        1,
+        3,
         0
       ]
     ]
@@ -1762,18 +1762,10 @@
       },
       {
         "construction": "band",
-        "angle": 15,
+        "angle": 18,
         "elbow": {
           "at": 8,
-          "angle": -60
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -25,
-        "elbow": {
-          "at": 8,
-          "angle": -55
+          "angle": -75
         }
       },
       {
@@ -1781,7 +1773,15 @@
         "angle": -40,
         "elbow": {
           "at": 8,
-          "angle": -30
+          "angle": -38
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -37,
+        "elbow": {
+          "at": 8,
+          "angle": -34
         }
       },
       {
@@ -1789,7 +1789,7 @@
         "angle": -40,
         "elbow": {
           "at": 8,
-          "angle": -30
+          "angle": -38
         }
       },
       {
@@ -1836,10 +1836,10 @@
       },
       {
         "construction": "band",
-        "angle": -40,
+        "angle": -45,
         "elbow": {
           "at": 8,
-          "angle": -120
+          "angle": 222
         }
       },
       {
@@ -1847,7 +1847,7 @@
         "angle": -45,
         "elbow": {
           "at": 8,
-          "angle": -130
+          "angle": 222
         }
       },
       {
@@ -1855,7 +1855,7 @@
         "angle": -45,
         "elbow": {
           "at": 8,
-          "angle": -130
+          "angle": 222
         }
       },
       {
@@ -1863,7 +1863,7 @@
         "angle": -45,
         "elbow": {
           "at": 8,
-          "angle": -130
+          "angle": 222
         }
       },
       {
@@ -2761,11 +2761,6 @@
       {
         "frame": 4,
         "clip": "cheapShot",
-        "type": "startup"
-      },
-      {
-        "frame": 5,
-        "clip": "cheapShot",
         "type": "active",
         "move": "Cheap Shot",
         "hitbox": [
@@ -2775,6 +2770,11 @@
           8
         ],
         "damage": "heavy"
+      },
+      {
+        "frame": 5,
+        "clip": "cheapShot",
+        "type": "recovery"
       },
       {
         "frame": 6,
@@ -2816,11 +2816,6 @@
       {
         "frame": 4,
         "clip": "cheapShot",
-        "type": "startup"
-      },
-      {
-        "frame": 5,
-        "clip": "cheapShot",
         "type": "active",
         "move": "Cheap Shot",
         "hitbox": [
@@ -2830,6 +2825,11 @@
           8
         ],
         "damage": "heavy"
+      },
+      {
+        "frame": 5,
+        "clip": "cheapShot",
+        "type": "recovery"
       },
       {
         "frame": 6,
@@ -3145,7 +3145,7 @@
     "intent": "eyes squeezed shut with the brow pulled down on the impact frames 0-2 (no mouth: user 2026-10-14), a squint on frame 3, open again from frame 4 (user 2026-10-14)"
   },
   "targetState": {
-    "rule": "Cheap Shot: on the impact frame (5, the active frame) and not before, the target plays hitReact once, then its idle; before it the target holds its plain guard",
+    "rule": "Cheap Shot: on the impact frame (4, the active frame) and not before, the target plays hitReact once, then its idle; before it the target holds its plain guard",
     "state": "hitReact"
   }
 }

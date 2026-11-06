@@ -73,22 +73,22 @@ CLIPS = {
        extra=tgt('Body Shot', 3),
        anchored={3: [('star6', 'farhand', 1, 0)], 4: [('star3', 'farhand', 2, 1)]})),
 
- 'cheapShot': ('Cheap Shot', 5,
-  'Cheap Shot (Bandit, reskin of Haymaker) v2 (Christopher 2026-11-06: a low blow that lands below the belt): the fighter lets its guard drop as if easing off, hands low and loose, head turned half away; then it ducks in sharply, knees bending, and drives the rear fist low and straight into the groin below the belt (white burst at belt height), holds the dig a beat with a nasty grin, and pulls back into the guard.',
+ 'cheapShot': ('Cheap Shot', 4,
+  'Cheap Shot (Bandit, reskin of Haymaker) v3 (Christopher 2026-11-06: a low blow below the belt; v2 read like a missed hug): the fighter lets its guard drop as if easing off, hands low and loose, head turned half away; then the lead hand snaps back up to cover the face while it ducks in, knees bent, the rear fist chambered at the hip; the rear arm shoots out straight and down, one fist driven into the groin below the belt (white burst at belt height), the arm jerks on contact and holds a beat, then it pulls back into the guard. Only the rear arm reaches: the lead hand stays up at the face the whole strike.',
   [g(),
    g(an=band(10, -25), af=band(0, -40), bob=(0, 0, 1), lean=(-1, -1)),
    g(an=band(12, -20), af=band(2, -35), bob=(0, 0, 1), lean=(-1, -1)),
-   g(an=band(15, -60), af=band(-40, -120), bob=(3, 3, 3), lean=(1, 4), **LOW),
-   g(an=band(-25, -55), af=band(-45, -130), bob=(5, 5, 5), lean=(2, 8), root=(2, 0), **DRIVE),
-   g(an=band(-40, -30), af=band(-45, -130), bob=(6, 6, 6), lean=(2, 9), root=(1, 0), **DRIVE),
-   g(an=band(-40, -30), af=band(-45, -130), bob=(6, 6, 6), lean=(2, 9), **DRIVE),
-   g(an=RECOVER, bob=(2, 2, 3), lean=(1, 3), root=(-2, 0)),
-   g(root=(-1, 0))],
+   g(an=band(18, -75), bob=(4, 4, 4), lean=(1, 5), root=(3, 0), **LOW),
+   g(an=band(-40, -38), bob=(6, 6, 6), lean=(2, 8), root=(3, 0), **DRIVE),
+   g(an=band(-37, -34), bob=(6, 6, 6), lean=(2, 8), root=(-1, 0), **DRIVE),
+   g(an=band(-40, -38), bob=(6, 6, 6), lean=(2, 8), root=(1, 0), **DRIVE),
+   g(an=RECOVER, bob=(2, 2, 3), lean=(1, 3), root=(-3, 0)),
+   g(root=(-3, 0))],
   [None, None, None, 'squint', 'strain', 'strain', 'strain', 'squint', None],
   None,
-  dict(fps=12, hitbox=[42, 40, 12, 8], damage='heavy', rm='E: +2 +1 ducking in, -2 -1 back (net 0)',
-       extra=tgt('Cheap Shot', 5),
-       anchored={5: [('star9', 'hand', 1, 0)], 6: [('star3', 'hand', 2, -2)]})),
+  dict(fps=12, hitbox=[42, 40, 12, 8], damage='heavy', rm='E: +3 +3 ducking in, -1 +1 the jerk on contact, -3 -3 back (net 0)',
+       extra=tgt('Cheap Shot', 4),
+       anchored={4: [('star9', 'hand', 1, 0)], 5: [('star3', 'hand', 2, 0)]})),
 
  'wildSwing': ('Wild Swing', 3,
   'Wild Swing (Street Thug, reskin of Haymaker): a sloppy brawler\'s haymaker. The fighter rears way back, the rear fist cocked far behind it and the guard thrown open; it lurches forward and flings the arm round in a huge flat arc, landing at the head (white burst), and overswings: the arm carries on across the body, the weight pitches forward and it stumbles a step before hauling itself back into the guard.',
@@ -106,23 +106,25 @@ CLIPS = {
        extra=tgt('Wild Swing', 3),
        anchored={3: [('star9', 'hand', 1, 0)], 4: [('dust', 'feet', 6, -2)], 5: [('dust', 'feet', 2, -2)]})),
 
- 'knuckleHaymaker': ('Knuckle Haymaker', 5,
-  'Knuckle Haymaker (Bandit Thug, reskin of Haymaker) v2 (Christopher 2026-11-06: it read too like Wild Swing): a controlled, brutal brass-knuckle punch, the opposite of the sloppy Wild Swing. The rear fist wears an iron knuckle-duster the whole clip (grey band over the knuckles, glinting); the thug first smacks the iron into its own open lead palm twice as a threat, then plants, keeps its balance and throws one short, tight hook to the jaw with no wind-up loop and no overswing; on contact the iron rings with grey metal sparks and a white burst; it snaps straight back into the guard.',
+ 'knuckleHaymaker': ('Knuckle Haymaker', 7,
+  'Knuckle Haymaker (Bandit Thug, reskin of Haymaker) v3 (Christopher 2026-11-06: not a fan of the v2 duster look, and the animation did not match the description): a controlled, brutal brass-knuckle hook, the opposite of the sloppy Wild Swing. The rear fist wears a thin knuckle-duster, a 1 px steel band across the knuckles with a white glint, outlined. The thug raises its open lead palm in front of the chest and slams the iron fist into it twice as a threat, the fist pulled well back between smacks, a small grey spark each time; then it plants and throws one short, tight hook to the jaw: the elbow comes up level with the shoulder and the fist arrives from the side with no wind-up loop and no overswing; on contact the iron rings with grey metal sparks and a white burst; it snaps straight back into the guard.',
   [g(),
-   g(an=band(-55, -120), af=band(-70, -100, fistKind='palm'), bob=(1, 1, 2), lean=(0, 2)),
-   g(an=band(-65, -110), af=band(-70, -100, fistKind='palm'), bob=(1, 1, 2), lean=(0, 2)),
-   g(an=band(-55, -120), af=band(-70, -100, fistKind='palm'), bob=(1, 1, 2), lean=(0, 2)),
-   g(an=band(-10, -150), af=band(-45, -125), bob=(2, 2, 2), lean=(1, 3), **LOAD),
-   g(an=band(-92, -108), af=band(-45, -125), bob=(2, 2, 2), lean=(2, 5), root=(2, 0), **DRIVE),
-   g(an=band(-92, -108), af=band(-45, -125), bob=(2, 2, 2), lean=(2, 5), **DRIVE),
+   g(af=band(-70, -160, fistKind='palm'), bob=(1, 1, 2), lean=(-1, -1)),
+   g(an=band(-45, -125), af=band(-70, -160, fistKind='palm'), bob=(1, 1, 2), lean=(1, 2)),
+   g(af=band(-70, -160, fistKind='palm'), bob=(1, 1, 2), lean=(-1, -1)),
+   g(an=band(-45, -125), af=band(-70, -160, fistKind='palm'), bob=(1, 1, 2), lean=(1, 2)),
+   g(an=band(-70, -185), bob=(2, 2, 2), lean=(0, 1), **LOAD),
+   g(an=band(-110, -150), bob=(2, 2, 2), lean=(1, 4), root=(1, 0), **DRIVE),
+   g(an=band(-110, -80), bob=(2, 2, 2), lean=(2, 6), root=(1, 0), **DRIVE),
+   g(an=band(-110, -80), bob=(2, 2, 2), lean=(2, 6), **DRIVE),
    g(an=RECOVER, bob=(1, 1, 2), lean=(1, 3), root=(-2, 0)),
    g()],
-  [None, 'squint', None, 'squint', 'squint', 'strain', 'strain', 'squint', None],
+  [None, 'squint', 'squint', 'squint', 'squint', 'squint', 'strain', 'strain', 'strain', 'squint', None],
   None,
-  dict(fps=12, hitbox=[42, 16, 14, 10], damage='heavy', rm='E: +2 the planted hook, -2 back (net 0)',
-       extra=tgt('Knuckle Haymaker', 5),
-       anchored={k: [('knux', 'hand', -1, 0)] + v for k, v in {0: [], 1: [], 2: [('knuxGlint', 'hand', 0, -3)], 3: [], 4: [('knuxGlint', 'hand', 0, -3)],
-                 5: [('star9', 'hand', 2, 0), ('mShards', 'hand', 3, -1)], 6: [('mShards', 'hand', 5, 2)], 7: [], 8: []}.items()})),
+  dict(fps=12, hitbox=[42, 14, 14, 10], damage='heavy', rm='E: +1 +1 the planted hook, -2 back (net 0)',
+       extra=tgt('Knuckle Haymaker', 7),
+       anchored={k: [('knux', 'hand', -1, 0)] + v for k, v in {0: [], 1: [], 2: [('mSpark', 'hand', 1, 0)], 3: [], 4: [('mSpark', 'hand', 1, 0)], 5: [], 6: [('knuxGlint', 'hand', 0, -2)],
+                 7: [('star9', 'hand', 2, 0), ('mShards', 'hand', 3, -1)], 8: [('mShards', 'hand', 5, 2)], 9: [], 10: []}.items()})),
 
  'shoulderCharge': ('Shoulder Charge', 4,
   'Shoulder Charge (Bandit Thug, reskin of Iron Mountain, needs a run-up) v2 (Christopher 2026-11-06: dip lower): the fighter drops low, knees deep, dips its head and lowers the lead shoulder, arms tucked in; it drives forward two hard strides and rams the shoulder into the opponent\'s chest (white burst, dust off the feet), holds the drive a beat and steps back into the guard.',
@@ -283,8 +285,9 @@ CLIPS.update({
 
 _addx(CLIPS['cellularRecovery'], CELL_X); _addx(CLIPS['cellRecovered'], CELLED_X)
 
-# Knuckle Haymaker v2: the iron knuckle-duster on the rear fist, a glint off it and grey metal sparks on the hit
-astro.NPAT['knux'] = ['.###.', '#FWF#', '#FFF#', '.###.']
+# Knuckle Haymaker v3: the thin knuckle-duster band on the rear fist, a glint off it and grey metal sparks on the hit
+astro.NPAT['knux'] = ['#####', '#WFF#', '#####']   # v3: a thin 1 px steel band across the knuckles, glint at the front, outlined
+astro.NPAT['mSpark'] = ['F.W', '.W.', 'W.F']
 astro.NPAT['knuxGlint'] = ['.W.', 'WWW', '.W.']
 astro.NPAT['mShards'] = ['F...F', '.W.W.', '..W..', '.W.F.', 'F...W']
 astro.CLIPS.update(CLIPS)
