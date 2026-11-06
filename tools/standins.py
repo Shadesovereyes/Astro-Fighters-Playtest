@@ -16,7 +16,7 @@ from universal import band, g, LOW
 
 STAT = 'CANDIDATE 2026-11-06 (E/W; W mirrors E; S/N to author after approval)'
 A = 'E/W approved by user 2026-11-06 %s (v1; W mirrors E); S/N to author'
-APPROVED = {'cellularRecovery': 'E/W approved by user 2026-11-06 17:48 (v2 health crosses; W mirrors E); S/N to author; also needs a self-cast clip', 'cellRecovered': 'E/W approved by user 2026-11-06 17:48 (v2; W mirrors E); S/N to author', 'palmHealing': 'E/W approved by user 2026-11-06 17:48 (v2 health crosses; W mirrors E); S/N to author; also needs a self-cast clip', 'palmHealed': 'E/W approved by user 2026-11-06 17:48 (v2; W mirrors E); S/N to author', 'boxUppercut': A % '17:35', 'boxHaymaker': A % '17:35', 'boxBodyShot': A % '17:35', 'wildSwing': A % '17:35', 'clinchEntry': A % '17:36'}
+APPROVED = {'darkCommunion': 'E/W approved by user 2026-11-06 18:04 (v2 violet eyes, shadow pools, black flames, tendrils on the ally; W mirrors E); S/N to author', 'darkCommuned': 'E/W approved by user 2026-11-06 18:04 (v2; W mirrors E); S/N to author', 'cellularRecovery': 'E/W approved by user 2026-11-06 17:48 (v2 health crosses; W mirrors E); S/N to author; also needs a self-cast clip', 'cellRecovered': 'E/W approved by user 2026-11-06 17:48 (v2; W mirrors E); S/N to author', 'palmHealing': 'E/W approved by user 2026-11-06 17:48 (v2 health crosses; W mirrors E); S/N to author; also needs a self-cast clip', 'palmHealed': 'E/W approved by user 2026-11-06 17:48 (v2; W mirrors E); S/N to author', 'boxUppercut': A % '17:35', 'boxHaymaker': A % '17:35', 'boxBodyShot': A % '17:35', 'wildSwing': A % '17:35', 'clinchEntry': A % '17:36'}
 
 DRIVE = dict(ln='sp-drive-rear', lf='sp-drive-lead')
 from universal import leg as _leg
@@ -89,7 +89,7 @@ CLIPS = {
   [None, 'squint', 'strain', 'strain', 'strain', 'strain', 'squint', None],
   None,
   dict(fps=12, hitbox=[42, 40, 12, 8], damage='heavy', rm='E: +3 +2 +1 dropping in under the guard, -3 -3 back (net 0)',
-       extra=tgt('Cheap Shot', 4),
+       extra=tgt('Cheap Shot', 4, 'groinHit'),
        anchored={4: [('star9', 'hand', 1, -1)], 5: [('star3', 'hand', 2, -2)]})),
 
  'wildSwing': ('Wild Swing', 3,
@@ -315,30 +315,35 @@ CLIPS.update({
                            6: [('palmGlowMed', 4, 13), ('vRing2Med', 1, 13), ('healX3', 7, 2), ('healX2', -5, 5), ('healX1', 2, 8)],
                            7: [('palmGlowMed', 4, 13), ('moteFMed', 0, 6), ('healX2', 7, -3), ('healX3', -5, 1), ('healX2', 2, 4)],
                            8: [('healX1', 7, -7), ('healX2', -5, -3), ('healX3', 2, 0)], 9: [('healX1', -5, -7), ('healX1', 2, -4)]})})),
- 'cellularRecoverySelf': ('Cellular Recovery (self)', 5,
-  'Cellular Recovery cast on self (Medical, Regen 3 rounds; Christopher 2026-11-06: also needs a cast-on-self clip): the fighter presses its open hands together in a seal, eyes closing, and a green medical orb swells between them with health crosses round it; instead of sending it, it draws the orb in and presses it into its own chest with both palms; the orb bursts into a green ring round the chest (frame 5, the heal), a pulse ring opens on the floor under the feet and green motes and health crosses spiral up the body as the cells knit, a thin green aura round it; it settles back into the guard.',
+ 'cellularRecoverySelf': ('Cellular Recovery (self)', 3,
+  'Cellular Recovery cast on self v2 (Medical, Regen 3 rounds; Christopher 2026-11-06 18:03: must differ from self-cast Palm Healing: "green ring pulses of energy rising through the body from the feet to the head multiple times"): the fighter presses its open hands together in a seal, eyes closing, green chakra kindling; it opens both palms down at its sides and a green ring of energy wraps its ankles (frame 3, the heal) and rises up through the body to the head, where it bursts into motes; a second and a third ring follow three frames apart, the back of each ring passing behind the body and the front over it, health crosses drifting up in their wake, a thin green aura round it; it settles back into the guard.',
   [g(),
    g(an=SEAL_N, af=SEAL_F, bob=(1, 1, 2), lean=(0, 1)),
    g(an=SEAL_N, af=SEAL_F, bob=(1, 1, 2), lean=(0, 1)),
-   g(an=SEAL_N, af=SEAL_F, bob=(1, 1, 2), lean=(0, 1)),
-   g(an=CHEST, af=band(-20, 195, fistKind='palm'), bob=(1, 1, 2), lean=(-1, 0)),
-   g(an=CHEST, af=band(-20, 195, fistKind='palm'), bob=(1, 1, 2), lean=(-1, -1)),
-   g(an=CHEST, af=band(-20, 195, fistKind='palm'), bob=(0, 0, 1), lean=(-1, -1)),
-   g(an=band(-40, -110), bob=(0, 0, 1), lean=(-1, 0)),
-   g(bob=(1, 1, 2), lean=(0, 1)),
+   *[g(an=band(-6, -6, fistKind='palm'), af=band(-12, -12, fistKind='palm'), bob=(1, 1, 1) if k % 2 else (1, 0, 1), lean=(0, 0)) for k in range(12)],
    g()],
-  [None, 'closed', 'closed', 'closed', 'closed', 'closed', 'closed', None, None, None],
-  [0, 1, 1, 1, 1, 1, 1, 1, 0, 0],
+  [None, 'closed', 'closed'] + ['closed'] * 12 + [None],
+  [0, 1, 1] + [1] * 12 + [0],
   dict(fps=10, react=True, auraColors=MED_AURA, rm='in place',
-       anchored={1: [('orbMed', 'hand', 0, -2)], 2: [('orbBigMed', 'hand', 0, -2), ('healX1', 'hand', 5, -6)],
-                 3: [('orbBigMed', 'hand', 0, -2), ('healX2', 'hand', -5, -7), ('healX1', 'hand', 6, -9)],
-                 **_selfx({4: [('orbBigMed', 3, 13)], 5: [('vRing2Med', 1, 13), ('star6Med', 3, 13), ('healX2', 7, 8)],
-                           6: [('moteFMed', -5, 20), ('healX3', 7, 4), ('healX1', -6, 12)],
-                           7: [('moteFMed', 5, 12), ('healX2', 7, -1), ('healX2', -6, 8), ('healX1', 2, 16)],
-                           8: [('moteFMed', -4, 4), ('healX1', 7, -5), ('healX3', -6, 3), ('healX2', 2, 10)], 9: [('healX1', -6, -2), ('healX2', 2, 5)]})})),
+       anchored={1: [('orbMed', 'hand', 0, -2)], 2: [('orbBigMed', 'hand', 0, -2), ('sparkMed', 'hand', 3, -6)]})),
 })
 
-_an = CLIPS['cellularRecoverySelf'][-1]['anchored']; _an[6] = _an[6] + [('vRingMed', 'feet', 0, -2)]; _an[7] = _an[7] + [('vRing2Med', 'feet', 0, -2)]
+# v2 body rings: the back arc is drawn behind the fighter, the front arc and the sides over it, so each ring reads as wrapping the body
+astro.NPAT['bodyRingB'] = ['.......lllllllll.......', '....llLL.......LLll....', '..lL...............Ll..', '.......................', '.......................', '.......................', '.......................']
+astro.NPAT['bodyRingF'] = ['.......................', '.......................', '.......................', 'DlL.................LlD', 'DlLL...............LLlD', '.DDlLLL.........LLLlDD.', '...DDDlLLLLLLLLLlDDD...']
+astro.NPAT['bodyRingBurst'] = ['l...L...l', '.l..l..l.', '..L...L..', '.l..l..l.', 'l...L...l']
+_an = CLIPS['cellularRecoverySelf'][-1]['anchored']
+for w0 in (3, 6, 9):                       # three rings, three frames apart, each climbing feet to head over six frames
+    for n, dy in enumerate((-2, -11, -20, -29, -38, -46)):
+        f = w0 + n
+        if f > 14: break
+        _an.setdefault(f, []).extend([('bodyRingB', 'feet', 0, dy, {'behind': True}), ('bodyRingF', 'feet', 0, dy)])
+    if w0 + 6 <= 14: _an.setdefault(w0 + 6, []).extend([('bodyRingBurst', 'head', 0, -6), ('moteFMed', 'head', -5, -9), ('moteFMed', 'head', 5, -8)])
+for f, xs in {4: [('healX1', 'head', 8, 26)], 5: [('healX2', 'head', 8, 20), ('healX1', 'head', -7, 28)], 6: [('healX3', 'head', 8, 13), ('healX2', 'head', -7, 22)],
+              7: [('healX2', 'head', 8, 6), ('healX3', 'head', -7, 15), ('healX1', 'head', 3, 30)], 8: [('healX1', 'head', 8, 0), ('healX2', 'head', -7, 8), ('healX2', 'head', 3, 24)],
+              9: [('healX1', 'head', -7, 2), ('healX3', 'head', 3, 17)], 10: [('healX2', 'head', 8, 22), ('healX2', 'head', 3, 10)], 11: [('healX3', 'head', 8, 15), ('healX1', 'head', -7, 26)],
+              12: [('healX2', 'head', 8, 8), ('healX2', 'head', -7, 19)], 13: [('healX1', 'head', 8, 2), ('healX3', 'head', -7, 12)], 14: [('healX1', 'head', -7, 5)]}.items():
+    _an.setdefault(f, []).extend(xs)
 
 # Dark Communion v2 (Christopher 2026-11-06 17:46: "needs more dramatic fx more sinister"; still a heal): the caster's eyes
 # burn violet in the seal, a shadow pool opens under its feet with black-violet wisps curling up out of it, the palm laid on the
@@ -388,6 +393,23 @@ astro.NPAT['knux'] = ['#####', '#WFF#', '#####']   # v3: a thin 1 px steel band 
 astro.NPAT['mSpark'] = ['F.W', '.W.', 'W.F']
 astro.NPAT['knuxGlint'] = ['.W.', 'WWW', '.W.']
 astro.NPAT['mShards'] = ['F...F', '.W.W.', '..W..', '.W.F.', 'F...W']
+
+# Cheap Shot target (Christopher 2026-11-06 18:01: "on impact back up holding their groin in pain"): its own target state
+CLIPS['groinHit'] = ('Cheap Shot', 0,
+  'groinHit (target of Cheap Shot): frame 0 is the rising fist landing below the belt; the hips jerk back, the fighter doubles over with both hands clamped to the groin, knees knocking in, and backs up two shuffling steps in pain; it hangs there hunched a beat, then straightens, still wincing, back into the guard.',
+  [g(an=band(-12, -62), af=band(-18, -58), bob=(4, 5, 5), lean=(-2, 5), root=(-2, 0), **LOW),
+   g(an=band(-10, -60), af=band(-16, -56), bob=(6, 7, 7), lean=(-2, 7), root=(-1, 0), **LOW),
+   g(an=band(-10, -60), af=band(-16, -56), bob=(6, 7, 7), lean=(-2, 8), **LOW),
+   g(an=band(-10, -60), af=band(-16, -56), bob=(6, 7, 7), lean=(-2, 8), **LOW),
+   g(an=band(-12, -62), af=band(-18, -58), bob=(5, 6, 6), lean=(-2, 7), **LOW),
+   g(an=band(-30, -70), af=band(-40, -90), bob=(3, 3, 4), lean=(-1, 4)),
+   g(an=RECOVER, bob=(1, 1, 2), lean=(0, 2)),
+   g()],
+  ['pain', 'pain', 'pain', 'pain', 'pain', 'squint', 'squint', None],
+  None,
+  dict(fps=10, react=True, rm='E: -2 -1 backing up (net -3, as hitReact)',
+       anchored={0: [('star6', 'hand', 0, -1)], 1: [('star3', 'hand', 0, -1)]}))
+APPROVED['groinHit'] = STAT
 astro.CLIPS.update(CLIPS)
 astro.APPROVED.update({k: APPROVED.get(k, STAT) for k in CLIPS})
 

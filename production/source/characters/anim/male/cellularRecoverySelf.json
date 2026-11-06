@@ -3,7 +3,7 @@
   "body": "male",
   "state": "cellularRecoverySelf",
   "status": "CANDIDATE 2026-11-06 (E/W; W mirrors E; S/N to author after approval)",
-  "frames": 10,
+  "frames": 16,
   "fps": 10,
   "sourceDirection": "E",
   "directions": [
@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Cellular Recovery cast on self (Medical, Regen 3 rounds; Christopher 2026-11-06: also needs a cast-on-self clip): the fighter presses its open hands together in a seal, eyes closing, and a green medical orb swells between them with health crosses round it; instead of sending it, it draws the orb in and presses it into its own chest with both palms; the orb bursts into a green ring round the chest (frame 5, the heal), a pulse ring opens on the floor under the feet and green motes and health crosses spiral up the body as the cells knit, a thin green aura round it; it settles back into the guard.",
+  "intent": "Cellular Recovery cast on self v2 (Medical, Regen 3 rounds; Christopher 2026-11-06 18:03: must differ from self-cast Palm Healing: \"green ring pulses of energy rising through the body from the feet to the head multiple times\"): the fighter presses its open hands together in a seal, eyes closing, green chakra kindling; it opens both palms down at its sides and a green ring of energy wraps its ankles (frame 3, the heal) and rises up through the body to the head, where it bursts into motes; a second and a third ring follow three frames apart, the back of each ring passing behind the body and the front over it, health crosses drifting up in their wake, a thin green aura round it; it settles back into the guard.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -111,8 +111,14 @@
       1,
       1,
       1,
-      0,
-      0,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
       1,
       1
     ],
@@ -120,10 +126,16 @@
       1,
       1,
       1,
-      1,
-      1,
+      0,
       1,
       0,
+      1,
+      0,
+      1,
+      0,
+      1,
+      0,
+      1,
       0,
       1,
       1
@@ -132,12 +144,18 @@
       2,
       2,
       2,
-      2,
-      2,
-      2,
       1,
       1,
-      2,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
       2
     ]
   },
@@ -150,10 +168,16 @@
         0,
         0,
         0,
-        -1,
-        -1,
-        -1,
-        -1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
         0,
         0
       ],
@@ -161,12 +185,18 @@
         2,
         1,
         1,
-        1,
         0,
-        -1,
-        -1,
         0,
-        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
         2
       ]
     }
@@ -213,9 +243,57 @@
       [
         0,
         0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
       ]
     ],
     "W": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
       [
         0,
         0
@@ -1742,9 +1820,21 @@
       1,
       1,
       1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
       1
     ],
     "far": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
       0,
       0,
       0,
@@ -1801,55 +1891,111 @@
       },
       {
         "construction": "band",
-        "angle": -48,
+        "angle": -6,
         "elbow": {
           "at": 8,
-          "angle": -150
+          "angle": -6
         },
         "fistKind": "palm"
       },
       {
         "construction": "band",
-        "angle": -18,
+        "angle": -6,
         "elbow": {
           "at": 8,
-          "angle": 195
+          "angle": -6
         },
         "fistKind": "palm"
       },
       {
         "construction": "band",
-        "angle": -18,
+        "angle": -6,
         "elbow": {
           "at": 8,
-          "angle": 195
+          "angle": -6
         },
         "fistKind": "palm"
       },
       {
         "construction": "band",
-        "angle": -18,
+        "angle": -6,
         "elbow": {
           "at": 8,
-          "angle": 195
+          "angle": -6
         },
         "fistKind": "palm"
       },
       {
         "construction": "band",
-        "angle": -40,
+        "angle": -6,
         "elbow": {
           "at": 8,
-          "angle": -110
-        }
+          "angle": -6
+        },
+        "fistKind": "palm"
       },
       {
         "construction": "band",
-        "angle": -20,
+        "angle": -6,
         "elbow": {
           "at": 8,
-          "angle": 212
-        }
+          "angle": -6
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": -6,
+        "elbow": {
+          "at": 8,
+          "angle": -6
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": -6,
+        "elbow": {
+          "at": 8,
+          "angle": -6
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": -6,
+        "elbow": {
+          "at": 8,
+          "angle": -6
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": -6,
+        "elbow": {
+          "at": 8,
+          "angle": -6
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": -6,
+        "elbow": {
+          "at": 8,
+          "angle": -6
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": -6,
+        "elbow": {
+          "at": 8,
+          "angle": -6
+        },
+        "fistKind": "palm"
       },
       {
         "construction": "band",
@@ -1889,55 +2035,111 @@
       },
       {
         "construction": "band",
-        "angle": -60,
+        "angle": -12,
         "elbow": {
           "at": 8,
-          "angle": -146
+          "angle": -12
         },
         "fistKind": "palm"
       },
       {
         "construction": "band",
-        "angle": -20,
+        "angle": -12,
         "elbow": {
           "at": 8,
-          "angle": 195
+          "angle": -12
         },
         "fistKind": "palm"
       },
       {
         "construction": "band",
-        "angle": -20,
+        "angle": -12,
         "elbow": {
           "at": 8,
-          "angle": 195
+          "angle": -12
         },
         "fistKind": "palm"
       },
       {
         "construction": "band",
-        "angle": -20,
+        "angle": -12,
         "elbow": {
           "at": 8,
-          "angle": 195
+          "angle": -12
         },
         "fistKind": "palm"
       },
       {
         "construction": "band",
-        "angle": -45,
+        "angle": -12,
         "elbow": {
           "at": 8,
-          "angle": 222
-        }
+          "angle": -12
+        },
+        "fistKind": "palm"
       },
       {
         "construction": "band",
-        "angle": -45,
+        "angle": -12,
         "elbow": {
           "at": 8,
-          "angle": 222
-        }
+          "angle": -12
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": -12,
+        "elbow": {
+          "at": 8,
+          "angle": -12
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": -12,
+        "elbow": {
+          "at": 8,
+          "angle": -12
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": -12,
+        "elbow": {
+          "at": 8,
+          "angle": -12
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": -12,
+        "elbow": {
+          "at": 8,
+          "angle": -12
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": -12,
+        "elbow": {
+          "at": 8,
+          "angle": -12
+        },
+        "fistKind": "palm"
+      },
+      {
+        "construction": "band",
+        "angle": -12,
+        "elbow": {
+          "at": 8,
+          "angle": -12
+        },
+        "fistKind": "palm"
       },
       {
         "construction": "band",
@@ -2112,6 +2314,12 @@
       "bandFollowsBody": true,
       "sway": {
         "E": [
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
           -1,
           -1,
           -1,
@@ -2795,7 +3003,13 @@
         6,
         7,
         8,
-        9
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
       ],
       "fps": 10,
       "next": "guard",
@@ -2823,18 +3037,18 @@
       {
         "frame": 3,
         "clip": "cellularRecoverySelf",
-        "type": "startup"
+        "type": "active",
+        "react": true
       },
       {
         "frame": 4,
         "clip": "cellularRecoverySelf",
-        "type": "startup"
+        "type": "recovery"
       },
       {
         "frame": 5,
         "clip": "cellularRecoverySelf",
-        "type": "active",
-        "react": true
+        "type": "recovery"
       },
       {
         "frame": 6,
@@ -2853,6 +3067,36 @@
       },
       {
         "frame": 9,
+        "clip": "cellularRecoverySelf",
+        "type": "recovery"
+      },
+      {
+        "frame": 10,
+        "clip": "cellularRecoverySelf",
+        "type": "recovery"
+      },
+      {
+        "frame": 11,
+        "clip": "cellularRecoverySelf",
+        "type": "recovery"
+      },
+      {
+        "frame": 12,
+        "clip": "cellularRecoverySelf",
+        "type": "recovery"
+      },
+      {
+        "frame": 13,
+        "clip": "cellularRecoverySelf",
+        "type": "recovery"
+      },
+      {
+        "frame": 14,
+        "clip": "cellularRecoverySelf",
+        "type": "recovery"
+      },
+      {
+        "frame": 15,
         "clip": "cellularRecoverySelf",
         "type": "recovery"
       }
@@ -2876,18 +3120,18 @@
       {
         "frame": 3,
         "clip": "cellularRecoverySelf",
-        "type": "startup"
+        "type": "active",
+        "react": true
       },
       {
         "frame": 4,
         "clip": "cellularRecoverySelf",
-        "type": "startup"
+        "type": "recovery"
       },
       {
         "frame": 5,
         "clip": "cellularRecoverySelf",
-        "type": "active",
-        "react": true
+        "type": "recovery"
       },
       {
         "frame": 6,
@@ -2906,6 +3150,36 @@
       },
       {
         "frame": 9,
+        "clip": "cellularRecoverySelf",
+        "type": "recovery"
+      },
+      {
+        "frame": 10,
+        "clip": "cellularRecoverySelf",
+        "type": "recovery"
+      },
+      {
+        "frame": 11,
+        "clip": "cellularRecoverySelf",
+        "type": "recovery"
+      },
+      {
+        "frame": 12,
+        "clip": "cellularRecoverySelf",
+        "type": "recovery"
+      },
+      {
+        "frame": 13,
+        "clip": "cellularRecoverySelf",
+        "type": "recovery"
+      },
+      {
+        "frame": 14,
+        "clip": "cellularRecoverySelf",
+        "type": "recovery"
+      },
+      {
+        "frame": 15,
         "clip": "cellularRecoverySelf",
         "type": "recovery"
       }
@@ -3074,8 +3348,14 @@
         "closed",
         "closed",
         "closed",
-        null,
-        null,
+        "closed",
+        "closed",
+        "closed",
+        "closed",
+        "closed",
+        "closed",
+        "closed",
+        "closed",
         null
       ]
     },
@@ -3092,7 +3372,13 @@
       1,
       1,
       1,
-      0,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
       0
     ],
     "colors": [

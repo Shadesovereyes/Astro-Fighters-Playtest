@@ -3123,7 +3123,7 @@
     "intent": "eyes squeezed shut with the brow pulled down on the impact frames 0-2 (no mouth: user 2026-10-14), a squint on frame 3, open again from frame 4 (user 2026-10-14)"
   },
   "targetState": {
-    "rule": "Cheap Shot: on the impact frame (4, the active frame) and not before, the target plays hitReact once, then its idle; before it the target holds its plain guard",
-    "state": "hitReact"
+    "rule": "Cheap Shot: on the impact frame (4, the active frame) and not before, the target plays groinHit once, then its idle; before it the target holds its plain guard",
+    "state": "groinHit"
   }
 }
