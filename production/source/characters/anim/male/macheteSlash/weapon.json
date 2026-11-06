@@ -28,14 +28,21 @@
       "hand": "arms",
       "layers": {
         "front": "main-machete-front.png",
+        "top": "main-machete-top.png",
         "trail": "main-machete-trail.png"
       },
       "status": "CANDIDATE 2026-11-06 (E/W; W mirrors E; S/N to author after approval)",
       "z": {
         "E": [
           "front",
-          "front",
-          "front",
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
           "front",
           "front",
           "front",
@@ -43,8 +50,14 @@
         ],
         "W": [
           "front",
-          "front",
-          "front",
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
           "front",
           "front",
           "front",

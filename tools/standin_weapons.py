@@ -45,8 +45,8 @@ CLIPS = {
     og()]),
  'macheteSlash': ('Machete Slash', 3, [44, 22, 16, 18], 'heavy', 12, 'oneHandGuard', [
     og(),
-    og(grip=(38, 20), angle=120, far=(42, 27), lean=(-1, 0), ln='step-rear'),
-    og(grip=(36, 17), angle=135, far=(43, 28), lean=(-1, -1), ln='step-rear'),
+    og(grip=(38, 20), angle=120, far=(42, 27), lean=(-1, 0), ln='step-rear', z={'hilt': 'front', 'blade': 'top'}),   # v3 (Christopher 17:45): the raised blade over the hair and every headgear layer
+    og(grip=(36, 17), angle=135, far=(43, 28), lean=(-1, -1), ln='step-rear', z={'hilt': 'front', 'blade': 'top'}),
     og(grip=(50, 30), angle=-35, far=(38, 28), bob=(2, 2, 2), lean=(2, 6), root=(3, 0), ln='lunge-rear', lf='lunge-lead', trail='swing'),
     og(grip=(45, 39), angle=-70, far=(38, 27), bob=(2, 2, 3), lean=(2, 6), ln='lunge-rear', lf='lunge-lead', trail='swing'),
     og(grip=(44, 36), angle=-20, lean=(1, 3), root=(-2, 0), lf='step-lead'),

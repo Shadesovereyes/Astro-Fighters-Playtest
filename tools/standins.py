@@ -16,7 +16,7 @@ from universal import band, g, LOW
 
 STAT = 'CANDIDATE 2026-11-06 (E/W; W mirrors E; S/N to author after approval)'
 A = 'E/W approved by user 2026-11-06 %s (v1; W mirrors E); S/N to author'
-APPROVED = {'boxUppercut': A % '17:35', 'boxHaymaker': A % '17:35', 'boxBodyShot': A % '17:35', 'wildSwing': A % '17:35', 'clinchEntry': A % '17:36'}
+APPROVED = {'cellularRecovery': 'E/W approved by user 2026-11-06 17:48 (v2 health crosses; W mirrors E); S/N to author; also needs a self-cast clip', 'cellRecovered': 'E/W approved by user 2026-11-06 17:48 (v2; W mirrors E); S/N to author', 'palmHealing': 'E/W approved by user 2026-11-06 17:48 (v2 health crosses; W mirrors E); S/N to author; also needs a self-cast clip', 'palmHealed': 'E/W approved by user 2026-11-06 17:48 (v2; W mirrors E); S/N to author', 'boxUppercut': A % '17:35', 'boxHaymaker': A % '17:35', 'boxBodyShot': A % '17:35', 'wildSwing': A % '17:35', 'clinchEntry': A % '17:36'}
 
 DRIVE = dict(ln='sp-drive-rear', lf='sp-drive-lead')
 from universal import leg as _leg
