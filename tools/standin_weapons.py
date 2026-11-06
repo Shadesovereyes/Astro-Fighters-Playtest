@@ -126,7 +126,11 @@ def shield_slot(state):
            'rule': 'the shield on the far forearm: grip = 2 px in front of the far fist centre (covering the fist), angle 90 = upright (its axis top to bottom), seen three-quarter; every shield type uses these grips',
            'E': [{'grip': [f['far'][0] + 2, f['far'][1]], 'angle': f['w'].get('shield', 90), 'z': 'front'} for f in fr_], 'mirror': {'W': 'E'}}
     for p_ in s['weapons'][0]['E']: p_.pop('shield', None)
-    s['weapons'] = [w for w in s['weapons'] if w.get('slot') != 'off'] + [off]
+    # v3 (Christopher 2026-11-06 18:05: "the layering of the shield and spear is wrong"): the shield is on the far arm, the yari in
+    # the near hand, so within a depth slot the off-slot shield is drawn first and the main weapon over it. The runtime draws a
+    # state's weapon items in this list order, so the off slot comes first.
+    off['drawOrder'] = 'within each depth slot: off (shield) under main (yari)'
+    s['weapons'] = [off] + [w for w in s['weapons'] if w.get('slot') != 'off']
     T.save(s, T.D + state + '.json')
 
 def spec(state):

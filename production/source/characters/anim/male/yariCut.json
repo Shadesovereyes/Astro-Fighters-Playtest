@@ -1399,6 +1399,81 @@
   },
   "weapons": [
     {
+      "slot": "off",
+      "layer": "body",
+      "item": "shield-tower",
+      "items": [
+        "shield-tower",
+        "shield-heater",
+        "shield-buckler"
+      ],
+      "gripKind": "normal",
+      "status": "CANDIDATE 2026-11-06 (E/W; W mirrors E; S/N to author after approval)",
+      "rule": "the shield on the far forearm: grip = 2 px in front of the far fist centre (covering the fist), angle 90 = upright (its axis top to bottom), seen three-quarter; every shield type uses these grips",
+      "E": [
+        {
+          "grip": [
+            45,
+            26
+          ],
+          "angle": 90,
+          "z": "front"
+        },
+        {
+          "grip": [
+            46,
+            28
+          ],
+          "angle": 90,
+          "z": "front"
+        },
+        {
+          "grip": [
+            46,
+            29
+          ],
+          "angle": 90,
+          "z": "front"
+        },
+        {
+          "grip": [
+            44,
+            27
+          ],
+          "angle": 90,
+          "z": "front"
+        },
+        {
+          "grip": [
+            44,
+            27
+          ],
+          "angle": 90,
+          "z": "front"
+        },
+        {
+          "grip": [
+            45,
+            26
+          ],
+          "angle": 90,
+          "z": "front"
+        },
+        {
+          "grip": [
+            45,
+            26
+          ],
+          "angle": 90,
+          "z": "front"
+        }
+      ],
+      "mirror": {
+        "W": "E"
+      },
+      "drawOrder": "within each depth slot: off (shield) under main (yari)"
+    },
+    {
       "slot": "main",
       "layer": "arms",
       "items": [
@@ -1474,80 +1549,6 @@
         "W": "E"
       },
       "grip": "forward"
-    },
-    {
-      "slot": "off",
-      "layer": "body",
-      "item": "shield-tower",
-      "items": [
-        "shield-tower",
-        "shield-heater",
-        "shield-buckler"
-      ],
-      "gripKind": "normal",
-      "status": "CANDIDATE 2026-11-06 (E/W; W mirrors E; S/N to author after approval)",
-      "rule": "the shield on the far forearm: grip = 2 px in front of the far fist centre (covering the fist), angle 90 = upright (its axis top to bottom), seen three-quarter; every shield type uses these grips",
-      "E": [
-        {
-          "grip": [
-            45,
-            26
-          ],
-          "angle": 90,
-          "z": "front"
-        },
-        {
-          "grip": [
-            46,
-            28
-          ],
-          "angle": 90,
-          "z": "front"
-        },
-        {
-          "grip": [
-            46,
-            29
-          ],
-          "angle": 90,
-          "z": "front"
-        },
-        {
-          "grip": [
-            44,
-            27
-          ],
-          "angle": 90,
-          "z": "front"
-        },
-        {
-          "grip": [
-            44,
-            27
-          ],
-          "angle": 90,
-          "z": "front"
-        },
-        {
-          "grip": [
-            45,
-            26
-          ],
-          "angle": 90,
-          "z": "front"
-        },
-        {
-          "grip": [
-            45,
-            26
-          ],
-          "angle": 90,
-          "z": "front"
-        }
-      ],
-      "mirror": {
-        "W": "E"
-      }
     }
   ],
   "events": {

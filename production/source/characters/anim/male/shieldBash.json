@@ -1399,78 +1399,6 @@
   },
   "weapons": [
     {
-      "slot": "main",
-      "layer": "arms",
-      "items": [
-        "yari"
-      ],
-      "status": "CANDIDATE 2026-11-06 (E/W; W mirrors E; S/N to author after approval)",
-      "rule": "per frame: grip = pixel at the centre of the near fist (body-frame coordinates; it follows the arm bob, 0, -1, 0, +1), angle = blade direction in degrees above the facing's horizontal, z = depth slot",
-      "depthRule": "front: drawn over body and clothing, under the arms layer (the fists close over the hilt); behind: drawn under the body",
-      "E": [
-        {
-          "grip": [
-            40,
-            34
-          ],
-          "angle": 4,
-          "z": "front"
-        },
-        {
-          "grip": [
-            37,
-            34
-          ],
-          "angle": 4,
-          "z": "front"
-        },
-        {
-          "grip": [
-            36,
-            34
-          ],
-          "angle": 4,
-          "z": "front"
-        },
-        {
-          "grip": [
-            40,
-            33
-          ],
-          "angle": 4,
-          "z": "front"
-        },
-        {
-          "grip": [
-            40,
-            33
-          ],
-          "angle": 4,
-          "z": "front"
-        },
-        {
-          "grip": [
-            40,
-            34
-          ],
-          "angle": 4,
-          "z": "front"
-        },
-        {
-          "grip": [
-            40,
-            34
-          ],
-          "angle": 4,
-          "z": "front"
-        }
-      ],
-      "mirror": {
-        "W": "E"
-      },
-      "grip": "forward"
-    },
-    {
       "slot": "off",
       "layer": "body",
       "item": "shield-tower",
@@ -1542,7 +1470,80 @@
       ],
       "mirror": {
         "W": "E"
-      }
+      },
+      "drawOrder": "within each depth slot: off (shield) under main (yari)"
+    },
+    {
+      "slot": "main",
+      "layer": "arms",
+      "items": [
+        "yari"
+      ],
+      "status": "CANDIDATE 2026-11-06 (E/W; W mirrors E; S/N to author after approval)",
+      "rule": "per frame: grip = pixel at the centre of the near fist (body-frame coordinates; it follows the arm bob, 0, -1, 0, +1), angle = blade direction in degrees above the facing's horizontal, z = depth slot",
+      "depthRule": "front: drawn over body and clothing, under the arms layer (the fists close over the hilt); behind: drawn under the body",
+      "E": [
+        {
+          "grip": [
+            40,
+            34
+          ],
+          "angle": 4,
+          "z": "front"
+        },
+        {
+          "grip": [
+            37,
+            34
+          ],
+          "angle": 4,
+          "z": "front"
+        },
+        {
+          "grip": [
+            36,
+            34
+          ],
+          "angle": 4,
+          "z": "front"
+        },
+        {
+          "grip": [
+            40,
+            33
+          ],
+          "angle": 4,
+          "z": "front"
+        },
+        {
+          "grip": [
+            40,
+            33
+          ],
+          "angle": 4,
+          "z": "front"
+        },
+        {
+          "grip": [
+            40,
+            34
+          ],
+          "angle": 4,
+          "z": "front"
+        },
+        {
+          "grip": [
+            40,
+            34
+          ],
+          "angle": 4,
+          "z": "front"
+        }
+      ],
+      "mirror": {
+        "W": "E"
+      },
+      "grip": "forward"
     }
   ],
   "events": {

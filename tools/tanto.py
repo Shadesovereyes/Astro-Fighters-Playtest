@@ -201,12 +201,15 @@ def spec(state, c):
 
 REV_STATES = ('tantoReverseGuard', 'tantoBladePassReverse', 'tantoScissors', 'tantoElbowHook')
 KNIFE_OUT = 3
+def mainw(s): return next((w for w in s['weapons'] if w.get('slot', 'main') == 'main'), s['weapons'][0])   # the main-hand weapon (an off-slot shield may be listed first)
+
 def grips(state):
     """snap each authored grip to the nearest rendered fist pixel so the hilt registers in the hand (character-weapon --check)"""
     s = json.load(open(D + state + '.json')); arms = Image.open(D + state + '/arms.png').convert('RGBA')
-    for d in [d for d in ('E', 'S') if d in s['directions'] and d in s['weapons'][0]]:
+    mw = next((w for w in s['weapons'] if w.get('slot', 'main') == 'main'), s['weapons'][0])   # the main hand (an off-slot shield may be listed first)
+    for d in [d for d in ('E', 'S') if d in s['directions'] and d in mw]:
       row = s['directions'].index(d)
-      for k, p in enumerate(s['weapons'][0][d]):
+      for k, p in enumerate(mw[d]):
         x, y = p['grip']; best = None
         for yy in range(y - 4, y + 5):
             for xx in range(x - 4, x + 5):
@@ -230,10 +233,10 @@ def fx(state):
     s = json.load(open(D + state + '.json')); n = s['frames']; dirs = s['directions']
     out = Image.new('RGBA', (64 * n, 64 * len(dirs)), (0, 0, 0, 0))
     for k, u in FX.get(state, {}).items():
-        p = s['weapons'][0]['E'][k]; t = math.radians(p['angle'])
+        p = mainw(s)['E'][k]; t = math.radians(p['angle'])
         cx, cy = p['grip'][0] + 0.5 + u * math.cos(t), p['grip'][1] + 0.5 - u * math.sin(t)
         for di, d in enumerate(dirs):
-            if d == 'S' and 'S' in s['weapons'][0]: c = tuple(s['weapons'][0]['S'][k]['grip'])   # S: the hands meet toward the viewer
+            if d == 'S' and 'S' in mainw(s): c = tuple(mainw(s)['S'][k]['grip'])   # S: the hands meet toward the viewer
             elif d in ('E', 'W'): c = ((63 - int(cx)) if d == 'W' else int(cx), int(cy))
             else: continue   # N: the contact is in front of the body, hidden
             px = {(c[0] - 3 + i, c[1] - 3 + j) for j, r in enumerate(SPARK) for i, ch in enumerate(r) if ch == 'W'}
@@ -286,7 +289,7 @@ def sn(state):
         v['bobRows'] = (GV[d]['bobRows'] * 2)[:max(mb, 1)]
     fr['legLift'] = {'R': [0] * F, 'L': [0] * F}
     S, N = fr['views']['S']['armBand'], fr['views']['N']['armBand']
-    wE = spec['weapons'][0]['E']; wS, wN = [], []
+    wE = mainw(spec)['E']; wS, wN = [], []
     for k, p in enumerate(wE):
         f = frames[k]; sx = 32 + f['lean'][1] * 0.5
         row = p['grip'][1]; reach = p['grip'][0] - sx
@@ -311,7 +314,7 @@ def sn(state):
     sw = spec['clothing']['sash']['sway']; sw['S'] = [1] * F; sw['N'] = [-1] * F
     spec['frontal'] = fr; spec['directions'] = ['S', 'E', 'N', 'W']
     spec['rootMotion'] = {**spec['rootMotion'], 'S': [[0, 0]] * F, 'N': [[0, 0]] * F}
-    w = spec['weapons'][0]; w['S'] = wS; w['N'] = wN; w['status'] = SN_STAT
+    w = mainw(spec); w['S'] = wS; w['N'] = wN; w['status'] = SN_STAT
     w['projectionRule'] = copy.deepcopy(BASE['weapons'][0]['projectionRule'])
     if spec.get('events'):
         spec['events']['S'] = copy.deepcopy(spec['events']['E']); spec['events']['N'] = copy.deepcopy(spec['events']['E'])
