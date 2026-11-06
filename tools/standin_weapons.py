@@ -21,6 +21,7 @@ T.STAT = 'CANDIDATE 2026-11-06 (E/W; W mirrors E; S/N to author after approval)'
 OG = dict(grip=(43, 35), angle=10, far=(39, 24))   # the approved oneHandGuard frame
 def og(**k): return fr(**{**OG, **k})
 H = dict(hidden=True)
+APPROVED = {'viperStrike': 'E/W approved by user 2026-11-06 17:38 (v1; W mirrors E); S/N to author'}
 
 CLIPS = {
  'viperStrike': ('Viper Strike', 3, [46, 26, 14, 10], 'light', 12, 'oneHandGuard', [
@@ -128,6 +129,7 @@ def shield_slot(state):
 def spec(state):
     T.spec(state, state)
     s = T.load(T.D + state + '.json'); w = s['weapons'][0]; w['items'] = [ITEM[state]]
+    if state in APPROVED: s['status'] = w['status'] = APPROVED[state]
     for k in HIDE.get(state, []): w['E'][k]['hidden'] = True
     s['extra'] = s.get('extra', {}); s['extra'].pop('stance', None)
     if state == 'ksStanceEntry':

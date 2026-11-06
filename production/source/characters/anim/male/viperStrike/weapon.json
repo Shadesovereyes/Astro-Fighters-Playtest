@@ -30,7 +30,7 @@
         "front": "main-tanto-front.png",
         "trail": "main-tanto-trail.png"
       },
-      "status": "CANDIDATE 2026-11-06 (E/W; W mirrors E; S/N to author after approval)",
+      "status": "E/W approved by user 2026-11-06 17:38 (v1; W mirrors E); S/N to author",
       "z": {
         "E": [
           "front",
