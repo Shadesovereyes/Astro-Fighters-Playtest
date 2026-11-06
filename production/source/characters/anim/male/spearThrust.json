@@ -1494,14 +1494,19 @@
     {
       "slot": "off",
       "layer": "body",
-      "item": "tate",
+      "item": "shield-tower",
+      "items": [
+        "shield-tower",
+        "shield-heater",
+        "shield-buckler"
+      ],
       "gripKind": "normal",
       "status": "CANDIDATE 2026-11-06 (E/W; W mirrors E; S/N to author after approval)",
-      "rule": "the shield on the far forearm: grip = the far fist centre, angle 90 = upright (its axis top to bottom), seen edge-on",
+      "rule": "the shield on the far forearm: grip = 2 px in front of the far fist centre (covering the fist), angle 90 = upright (its axis top to bottom), seen three-quarter; every shield type uses these grips",
       "E": [
         {
           "grip": [
-            43,
+            45,
             26
           ],
           "angle": 90,
@@ -1509,7 +1514,7 @@
         },
         {
           "grip": [
-            44,
+            46,
             25
           ],
           "angle": 90,
@@ -1517,7 +1522,7 @@
         },
         {
           "grip": [
-            44,
+            46,
             25
           ],
           "angle": 90,
@@ -1525,22 +1530,6 @@
         },
         {
           "grip": [
-            41,
-            26
-          ],
-          "angle": 90,
-          "z": "front"
-        },
-        {
-          "grip": [
-            41,
-            26
-          ],
-          "angle": 90,
-          "z": "front"
-        },
-        {
-          "grip": [
             43,
             26
           ],
@@ -1550,6 +1539,22 @@
         {
           "grip": [
             43,
+            26
+          ],
+          "angle": 90,
+          "z": "front"
+        },
+        {
+          "grip": [
+            45,
+            26
+          ],
+          "angle": 90,
+          "z": "front"
+        },
+        {
+          "grip": [
+            45,
             26
           ],
           "angle": 90,

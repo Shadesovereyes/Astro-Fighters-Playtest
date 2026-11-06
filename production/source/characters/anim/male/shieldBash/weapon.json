@@ -115,12 +115,12 @@
     },
     {
       "slot": "off",
-      "item": "tate",
+      "item": "shield-tower",
       "default": true,
       "grip": "normal",
       "hand": "body",
       "layers": {
-        "front": "off-tate-front.png"
+        "front": "off-shield-tower-front.png"
       },
       "status": "CANDIDATE 2026-11-06 (E/W; W mirrors E; S/N to author after approval)",
       "z": {
@@ -146,61 +146,247 @@
       "grips": {
         "E": [
           [
-            43,
-            26
-          ],
-          [
-            40,
-            26
-          ],
-          [
-            39,
-            26
-          ],
-          [
-            50,
-            25
-          ],
-          [
-            50,
-            25
-          ],
-          [
             45,
             26
           ],
           [
-            43,
+            42,
+            26
+          ],
+          [
+            41,
+            26
+          ],
+          [
+            52,
+            25
+          ],
+          [
+            52,
+            25
+          ],
+          [
+            47,
+            26
+          ],
+          [
+            45,
             26
           ]
         ],
         "W": [
           [
-            20,
+            18,
             26
           ],
           [
-            23,
+            21,
             26
           ],
           [
-            24,
+            22,
             26
           ],
           [
-            13,
+            11,
             25
           ],
           [
-            13,
+            11,
             25
           ],
+          [
+            16,
+            26
+          ],
+          [
+            18,
+            26
+          ]
+        ]
+      }
+    },
+    {
+      "slot": "off",
+      "item": "shield-heater",
+      "default": false,
+      "grip": "normal",
+      "hand": "body",
+      "layers": {
+        "front": "off-shield-heater-front.png"
+      },
+      "status": "CANDIDATE 2026-11-06 (E/W; W mirrors E; S/N to author after approval)",
+      "z": {
+        "E": [
+          "front",
+          "front",
+          "front",
+          "front",
+          "front",
+          "front",
+          "front"
+        ],
+        "W": [
+          "front",
+          "front",
+          "front",
+          "front",
+          "front",
+          "front",
+          "front"
+        ]
+      },
+      "grips": {
+        "E": [
+          [
+            45,
+            26
+          ],
+          [
+            42,
+            26
+          ],
+          [
+            41,
+            26
+          ],
+          [
+            52,
+            25
+          ],
+          [
+            52,
+            25
+          ],
+          [
+            47,
+            26
+          ],
+          [
+            45,
+            26
+          ]
+        ],
+        "W": [
           [
             18,
             26
           ],
           [
-            20,
+            21,
+            26
+          ],
+          [
+            22,
+            26
+          ],
+          [
+            11,
+            25
+          ],
+          [
+            11,
+            25
+          ],
+          [
+            16,
+            26
+          ],
+          [
+            18,
+            26
+          ]
+        ]
+      }
+    },
+    {
+      "slot": "off",
+      "item": "shield-buckler",
+      "default": false,
+      "grip": "normal",
+      "hand": "body",
+      "layers": {
+        "front": "off-shield-buckler-front.png"
+      },
+      "status": "CANDIDATE 2026-11-06 (E/W; W mirrors E; S/N to author after approval)",
+      "z": {
+        "E": [
+          "front",
+          "front",
+          "front",
+          "front",
+          "front",
+          "front",
+          "front"
+        ],
+        "W": [
+          "front",
+          "front",
+          "front",
+          "front",
+          "front",
+          "front",
+          "front"
+        ]
+      },
+      "grips": {
+        "E": [
+          [
+            45,
+            26
+          ],
+          [
+            42,
+            26
+          ],
+          [
+            41,
+            26
+          ],
+          [
+            52,
+            25
+          ],
+          [
+            52,
+            25
+          ],
+          [
+            47,
+            26
+          ],
+          [
+            45,
+            26
+          ]
+        ],
+        "W": [
+          [
+            18,
+            26
+          ],
+          [
+            21,
+            26
+          ],
+          [
+            22,
+            26
+          ],
+          [
+            11,
+            25
+          ],
+          [
+            11,
+            25
+          ],
+          [
+            16,
+            26
+          ],
+          [
+            18,
             26
           ]
         ]
@@ -223,20 +409,48 @@
       "main/yari W:4": true,
       "main/yari W:5": true,
       "main/yari W:6": true,
-      "off/tate E:0": true,
-      "off/tate E:1": true,
-      "off/tate E:2": true,
-      "off/tate E:3": true,
-      "off/tate E:4": true,
-      "off/tate E:5": true,
-      "off/tate E:6": true,
-      "off/tate W:0": true,
-      "off/tate W:1": true,
-      "off/tate W:2": true,
-      "off/tate W:3": true,
-      "off/tate W:4": true,
-      "off/tate W:5": true,
-      "off/tate W:6": true
+      "off/shield-tower E:0": true,
+      "off/shield-tower E:1": true,
+      "off/shield-tower E:2": true,
+      "off/shield-tower E:3": true,
+      "off/shield-tower E:4": true,
+      "off/shield-tower E:5": true,
+      "off/shield-tower E:6": true,
+      "off/shield-tower W:0": true,
+      "off/shield-tower W:1": true,
+      "off/shield-tower W:2": true,
+      "off/shield-tower W:3": true,
+      "off/shield-tower W:4": true,
+      "off/shield-tower W:5": true,
+      "off/shield-tower W:6": true,
+      "off/shield-heater E:0": true,
+      "off/shield-heater E:1": true,
+      "off/shield-heater E:2": true,
+      "off/shield-heater E:3": true,
+      "off/shield-heater E:4": true,
+      "off/shield-heater E:5": true,
+      "off/shield-heater E:6": true,
+      "off/shield-heater W:0": true,
+      "off/shield-heater W:1": true,
+      "off/shield-heater W:2": true,
+      "off/shield-heater W:3": true,
+      "off/shield-heater W:4": true,
+      "off/shield-heater W:5": true,
+      "off/shield-heater W:6": true,
+      "off/shield-buckler E:0": true,
+      "off/shield-buckler E:1": true,
+      "off/shield-buckler E:2": true,
+      "off/shield-buckler E:3": true,
+      "off/shield-buckler E:4": true,
+      "off/shield-buckler E:5": true,
+      "off/shield-buckler E:6": true,
+      "off/shield-buckler W:0": true,
+      "off/shield-buckler W:1": true,
+      "off/shield-buckler W:2": true,
+      "off/shield-buckler W:3": true,
+      "off/shield-buckler W:4": true,
+      "off/shield-buckler W:5": true,
+      "off/shield-buckler W:6": true
     },
     "inFrame": true,
     "pass": true

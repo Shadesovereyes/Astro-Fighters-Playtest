@@ -1,0 +1,72 @@
+{
+  "schema": "astro-fighters-character-item/v1",
+  "kind": "rigid weapon (AGENTS.md: rigid items are placed by anchor with integer offsets)",
+  "construction": "band: a straight band along the weapon axis from the grip point (the centre of the near fist); every pixel takes its colour from the cross-section pattern (back/spine to front/edge) of the segment it falls in, so the weapon keeps its thickness at any angle; pixels are rasterised from the authored data, never rotated or resampled from an image",
+  "outline": "every coloured pixel touching empty space gets an outline pixel (#) if it is not already one",
+  "trail": {
+    "rule": "none",
+    "bands": []
+  },
+  "units": "pixels along the axis from the grip point (u, positive toward the tip) and across it (v)",
+  "item": "shield-heater",
+  "status": "CANDIDATE 2026-11-06 (shield family, Christopher 2026-11-06 17:47: tower shields, bucklers, heaters; every shield clip works with all of them)",
+  "palette": {
+    "#": "#000000",
+    "a": "#adadad",
+    "W": "#ffffff",
+    "t": "#3b2014",
+    "s": "#a9977d",
+    "h": "#ddcdb4",
+    "r": "#8a6236"
+  },
+  "paletteSource": "colours already in the approved male clothing layers: #adadad armour grey (blade steel, guard, pommel), #ffffff armour/Gi white (edge), #3b2014 Gi shoe brown (hilt wrap), #a9977d Gi trouser shade (hilt diamonds), #ddcdb4 Gi trouser mid (blade collar); #8a6236 soil brown (shaft)",
+  "segments": [
+    {
+      "name": "point",
+      "from": -9,
+      "to": -7.5,
+      "thickness": 3,
+      "pattern": [
+        "#a#"
+      ]
+    },
+    {
+      "name": "tipLow",
+      "from": -7.5,
+      "to": -5,
+      "thickness": 5,
+      "pattern": [
+        "#raW#"
+      ]
+    },
+    {
+      "name": "taper",
+      "from": -5,
+      "to": -2,
+      "thickness": 7,
+      "pattern": [
+        "#raaWa#"
+      ]
+    },
+    {
+      "name": "face",
+      "from": -2,
+      "to": 7.5,
+      "thickness": 8,
+      "pattern": [
+        "#raaaWr#"
+      ]
+    },
+    {
+      "name": "rimTop",
+      "from": 7.5,
+      "to": 9,
+      "thickness": 8,
+      "pattern": [
+        "#tttttt#"
+      ]
+    }
+  ],
+  "grip": "strapped to the far forearm, gripped at its centre; axis top to bottom (angle 90 = upright), seen three-quarter from the side so the face shows; the face toward the facing",
+  "note": "heater shield: 18 px, steel face with a white highlight and a leather edge, flat top and a pointed bottom"
+}

@@ -1,0 +1,90 @@
+{
+  "schema": "astro-fighters-character-item/v1",
+  "kind": "rigid weapon (AGENTS.md: rigid items are placed by anchor with integer offsets)",
+  "construction": "band: a straight band along the weapon axis from the grip point (the centre of the near fist); every pixel takes its colour from the cross-section pattern (back/spine to front/edge) of the segment it falls in, so the weapon keeps its thickness at any angle; pixels are rasterised from the authored data, never rotated or resampled from an image",
+  "outline": "every coloured pixel touching empty space gets an outline pixel (#) if it is not already one",
+  "trail": {
+    "rule": "none",
+    "bands": []
+  },
+  "units": "pixels along the axis from the grip point (u, positive toward the tip) and across it (v)",
+  "item": "shield-tower",
+  "status": "CANDIDATE 2026-11-06 (shield family, Christopher 2026-11-06 17:47: tower shields, bucklers, heaters; every shield clip works with all of them)",
+  "palette": {
+    "#": "#000000",
+    "a": "#adadad",
+    "W": "#ffffff",
+    "t": "#3b2014",
+    "s": "#a9977d",
+    "h": "#ddcdb4",
+    "r": "#8a6236"
+  },
+  "paletteSource": "colours already in the approved male clothing layers: #adadad armour grey (blade steel, guard, pommel), #ffffff armour/Gi white (edge), #3b2014 Gi shoe brown (hilt wrap), #a9977d Gi trouser shade (hilt diamonds), #ddcdb4 Gi trouser mid (blade collar); #8a6236 soil brown (shaft)",
+  "segments": [
+    {
+      "name": "rimLow",
+      "from": -14,
+      "to": -12.5,
+      "thickness": 8,
+      "pattern": [
+        "#aaaaaa#"
+      ]
+    },
+    {
+      "name": "faceLow",
+      "from": -12.5,
+      "to": -7,
+      "thickness": 8,
+      "pattern": [
+        "#trrrrt#"
+      ]
+    },
+    {
+      "name": "studLow",
+      "from": -7,
+      "to": -6,
+      "thickness": 8,
+      "pattern": [
+        "#tarart#"
+      ]
+    },
+    {
+      "name": "faceMid",
+      "from": -6,
+      "to": 6,
+      "thickness": 8,
+      "pattern": [
+        "#trrhrt#"
+      ]
+    },
+    {
+      "name": "studHigh",
+      "from": 6,
+      "to": 7,
+      "thickness": 8,
+      "pattern": [
+        "#tarart#"
+      ]
+    },
+    {
+      "name": "faceHigh",
+      "from": 7,
+      "to": 12.5,
+      "thickness": 8,
+      "pattern": [
+        "#trrrrt#"
+      ]
+    },
+    {
+      "name": "rimHigh",
+      "from": 12.5,
+      "to": 14,
+      "thickness": 8,
+      "pattern": [
+        "#aaaaaa#"
+      ]
+    }
+  ],
+  "grip": "strapped to the far forearm, gripped at its centre; axis top to bottom (angle 90 = upright), seen three-quarter from the side so the face shows; the face toward the facing",
+  "note": "tower shield: a tall wooden pavise, 28 px, iron-rimmed planks with two rows of iron studs, flat and straight"
+}

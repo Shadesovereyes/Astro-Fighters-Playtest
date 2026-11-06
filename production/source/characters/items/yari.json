@@ -36,8 +36,8 @@
   "segments": [
     {
       "name": "butt",
-      "from": -11,
-      "to": -9.5,
+      "from": -13,
+      "to": -11.5,
       "thickness": 2.5,
       "pattern": [
         "#a#"
@@ -45,7 +45,7 @@
     },
     {
       "name": "shaftBack",
-      "from": -9.5,
+      "from": -11.5,
       "to": -2.5,
       "thickness": 2.5,
       "pattern": [
@@ -55,7 +55,7 @@
     {
       "name": "shaft",
       "from": 2.5,
-      "to": 17,
+      "to": 21,
       "thickness": 2.5,
       "pattern": [
         "#r#"
@@ -63,8 +63,8 @@
     },
     {
       "name": "collar",
-      "from": 17,
-      "to": 18,
+      "from": 21,
+      "to": 22,
       "thickness": 3.5,
       "pattern": [
         "#aa#"
@@ -72,8 +72,8 @@
     },
     {
       "name": "blade",
-      "from": 18,
-      "to": 23,
+      "from": 22,
+      "to": 27,
       "thickness": 3.5,
       "pattern": [
         "#aW#"
@@ -81,8 +81,8 @@
     },
     {
       "name": "tip",
-      "from": 23,
-      "to": 25.5,
+      "from": 27,
+      "to": 29.5,
       "thickness": 2.5,
       "pattern": [
         "#W#"
@@ -90,5 +90,5 @@
     }
   ],
   "grip": "one-handed, held in the near fist about a third of the way up the shaft; the butt shows behind the fist",
-  "note": "a yari (straight spear): a 34 px shaft with a short double-edged leaf blade and a steel butt cap"
+  "note": "a yari (straight spear): a 40 px shaft with a short double-edged leaf blade and a steel butt cap (v2, Christopher 2026-11-06 17:47: a bit longer, +6 px)"
 }

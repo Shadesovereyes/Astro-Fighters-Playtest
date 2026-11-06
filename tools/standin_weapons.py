@@ -117,11 +117,14 @@ STATES.update({k: k for k in SHIELD})
 T.CLIPS.update(CLIPS); T.INTENT.update(INTENT)
 T.FX['spearThrust'] = {3: 24}; T.FX['yariCut'] = {3: 20}
 
+SHIELDS = ('shield-tower', 'shield-heater', 'shield-buckler')   # Christopher 2026-11-06 17:47: standing requirement, every shield clip works with every type
 def shield_slot(state):
     s = T.load(T.D + state + '.json'); fr_ = CLIPS[state][6]
-    off = {'slot': 'off', 'layer': 'body', 'item': 'tate', 'gripKind': 'normal', 'status': T.STAT,
-           'rule': 'the shield on the far forearm: grip = the far fist centre, angle 90 = upright (its axis top to bottom), seen edge-on',
-           'E': [{'grip': list(f['far']), 'angle': f['w'].get('shield', 90), 'z': 'front'} for f in fr_], 'mirror': {'W': 'E'}}
+    # v2 (Christopher 2026-11-06 17:47): a shield family (tower, heater, buckler; the first is the default), all on the same
+    # grips; the shield sits 2 px in front of the far fist and is wide enough to cover it, so the hand no longer pokes through
+    off = {'slot': 'off', 'layer': 'body', 'item': SHIELDS[0], 'items': list(SHIELDS), 'gripKind': 'normal', 'status': T.STAT,
+           'rule': 'the shield on the far forearm: grip = 2 px in front of the far fist centre (covering the fist), angle 90 = upright (its axis top to bottom), seen three-quarter; every shield type uses these grips',
+           'E': [{'grip': [f['far'][0] + 2, f['far'][1]], 'angle': f['w'].get('shield', 90), 'z': 'front'} for f in fr_], 'mirror': {'W': 'E'}}
     for p_ in s['weapons'][0]['E']: p_.pop('shield', None)
     s['weapons'] = [w for w in s['weapons'] if w.get('slot') != 'off'] + [off]
     T.save(s, T.D + state + '.json')
