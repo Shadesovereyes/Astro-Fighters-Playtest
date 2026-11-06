@@ -340,6 +340,49 @@ CLIPS.update({
 
 _an = CLIPS['cellularRecoverySelf'][-1]['anchored']; _an[6] = _an[6] + [('vRingMed', 'feet', 0, -2)]; _an[7] = _an[7] + [('vRing2Med', 'feet', 0, -2)]
 
+# Dark Communion v2 (Christopher 2026-11-06 17:46: "needs more dramatic fx more sinister"; still a heal): the caster's eyes
+# burn violet in the seal, a shadow pool opens under its feet with black-violet wisps curling up out of it, the palm laid on the
+# ally burns with black Sagittarius flame; on the ally a shadow pool spreads underfoot, black tendrils crawl up its legs and
+# body as the dark chakra knits it, violet motes rise and black flame flickers off it
+astro.NPAT['tendril1'] = ['.K', 'Kp', 'pK', 'K.']
+astro.NPAT['tendril2'] = ['..K', '.Kp', 'KpK', 'pK.', 'Kp.', '.K.']
+astro.NPAT['tendril3'] = ['...K', '..Kp', '.KpK', 'KpP.', 'pK..', 'Kp..', '.pK.', '..K.']
+
+def _ell(w, h):   # a flat pool: black heart, violet rim
+    rows = []
+    for y in range(h):
+        r = ''
+        for x in range(w):
+            d = ((x - (w - 1) / 2) / (w / 2)) ** 2 + ((y - (h - 1) / 2) / (h / 2)) ** 2
+            r += 'K' if d < 0.45 else ('p' if d < 0.8 else ('P' if d < 1.0 else '.'))
+        rows.append(r)
+    return rows
+astro.NPAT['dcPool1'] = _ell(15, 3); astro.NPAT['dcPool2'] = _ell(23, 5); astro.NPAT['dcPool3'] = _ell(31, 7)
+astro.NPAT['dcFlameA'] = ['..P...', '.Pp...', '.pK.P.', 'PpKPp.', 'pKKpK.', 'pKKKp.', '.KKKpP', 'PpKKKp', 'pKKKKp', 'pKKKKp', '.pKKp.', '..pp..']
+astro.NPAT['dcFlameB'] = ['....P.', '...pP.', '.P.Kp.', '.pPKp.', '.pKKpP', 'PKKKKp', 'pKKKp.', 'pKKKpP', 'pKKKKp', 'pKKKKp', '.pKKp.', '..pp..']
+astro.NPAT['dcFlameS'] = ['.P..', 'Pp..', 'pKP.', 'pKKp', 'pKKp', '.pp.']
+_DC = CLIPS['darkCommunion'][-1]['anchored']
+B = {'behind': True}
+for k, v in {1: [('eyeP', 'eye', 0, 0), ('dcPool1', 'feet', 0, 0)],
+             2: [('eyeP', 'eye', 0, 0), ('dcPool2', 'feet', 0, 0), ('dcFlameS', 'feet', -9, -4, B), ('spWisp', 'feet', 8, -6)],
+             3: [('eyeP', 'eye', 0, 0), ('dcPool3', 'feet', 0, 0), ('dcFlameA', 'feet', -10, -8, B), ('dcFlameS', 'feet', 9, -4, B), ('pflame1', 'hand', 1, -3)],
+             4: [('eyeP', 'eye', 0, 0), ('dcPool3', 'feet', 0, 0), ('dcFlameB', 'feet', -10, -12, B), ('dcFlameA', 'feet', 10, -8, B), ('pflame2', 'hand', 1, -4), ('pwisp', 'feet', -6, -30)],
+             5: [('eyeP', 'eye', 0, 0), ('dcPool3', 'feet', 0, 0), ('dcFlameA', 'feet', -11, -16, B), ('dcFlameB', 'feet', 10, -12, B), ('pflame1', 'hand', 2, -5), ('pwisp2', 'feet', 5, -34)],
+             6: [('eyeP', 'eye', 0, 0), ('dcPool3', 'feet', 0, 0), ('dcFlameB', 'feet', -10, -14, B), ('dcFlameA', 'feet', 11, -16, B), ('pflame2', 'hand', 1, -4)],
+             7: [('eyeP', 'eye', 0, 0), ('dcPool2', 'feet', 0, 0), ('dcFlameS', 'feet', -9, -10, B), ('pflame1', 'hand', 1, -3)],
+             8: [('dcPool1', 'feet', 0, 0)], 9: [('dcPool1', 'feet', 0, 0)]}.items():
+    _DC[k] = _DC.get(k, []) + v
+_DD = CLIPS['darkCommuned'][-1]['anchored']
+for k, v in {0: [('dcPool1', 'feet', 0, 0), ('pflame1', 'head', 3, 12)],
+             1: [('dcPool2', 'feet', 0, 0), ('tendril2', 'feet', -5, -5), ('tendril2', 'feet', 5, -4), ('pflame2', 'head', 3, 11), ('dcFlameS', 'feet', 0, -4, B)],
+             2: [('dcPool2', 'feet', 0, 0), ('tendril3', 'feet', -5, -8), ('tendril3', 'feet', 6, -7), ('tendril2', 'head', -4, 16), ('tendril2', 'head', 5, 18), ('moteP', 'head', 6, 4), ('dcFlameA', 'feet', -1, -8, B)],
+             3: [('dcPool2', 'feet', 0, 0), ('tendril3', 'feet', -5, -14), ('tendril3', 'feet', 6, -12), ('tendril3', 'head', -4, 12), ('tendril2', 'head', 5, 10), ('pflame2', 'head', 5, 6), ('moteP', 'head', -6, 0), ('dcFlameB', 'feet', 0, -12, B)],
+             4: [('dcPool1', 'feet', 0, 0), ('tendril2', 'feet', -5, -10), ('tendril2', 'feet', 6, -6), ('moteP', 'head', 4, -4), ('pflame1', 'head', -3, 2)],
+             5: [('dcPool1', 'feet', 0, 0), ('tendril1', 'feet', -5, -4), ('moteP', 'head', -3, -6)]}.items():
+    _DD[k] = _DD.get(k, []) + v
+CLIPS['darkCommunion'][-1]['auraColors'] = CLIPS['darkCommuned'][-1]['auraColors'] = ('#9b45ff', '#1c1024')   # v2: black-violet aura
+CLIPS['darkCommunion'] = (CLIPS['darkCommunion'][0], CLIPS['darkCommunion'][1], CLIPS['darkCommunion'][2].replace('(Medical,', '(Medical; v2 2026-11-06: darker and more sinister, burning violet eyes, a shadow pool with black-violet wisps, black flame on the palm;', 1)) + CLIPS['darkCommunion'][3:]
+
 # Knuckle Haymaker v3: the thin knuckle-duster band on the rear fist, a glint off it and grey metal sparks on the hit
 astro.NPAT['knux'] = ['#####', '#WFF#', '#####']   # v3: a thin 1 px steel band across the knuckles, glint at the front, outlined
 astro.NPAT['mSpark'] = ['F.W', '.W.', 'W.F']

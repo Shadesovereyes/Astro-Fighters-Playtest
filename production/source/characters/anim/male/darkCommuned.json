@@ -1656,6 +1656,28 @@
           56
         ],
         "foot": "pointFwd"
+      },
+      {
+        "name": "tp-lead",
+        "construction": "band",
+        "hipX": 34,
+        "hipRow": 49,
+        "kneeX": 41,
+        "kneeRow": 52,
+        "footX": 39,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "tp-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 49,
+        "kneeX": 28,
+        "kneeRow": 54,
+        "footX": 23,
+        "wrapRow": 54,
+        "foot": "toe60"
       }
     ],
     "near": [
@@ -2882,8 +2904,8 @@
       0
     ],
     "colors": [
-      "#c9a0ff",
-      "#55208f"
+      "#9b45ff",
+      "#1c1024"
     ]
   }
 }

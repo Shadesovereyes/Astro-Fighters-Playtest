@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Dark Communion (Medical, single ally in reach): the fighter brings both open hands together in a seal, eyes closing, and dark violet chakra kindles between the palms; it steps in and lays the near palm flat on the ally's chest, the glow pooling there and pulsing as the chakra flows in (the heal lands on frame 4, the first pulse), a thin violet aura round the caster while it channels; it lifts the palm away and steps back into the guard (the ally plays darkCommuned).",
+  "intent": "Dark Communion (Medical; v2 2026-11-06: darker and more sinister, burning violet eyes, a shadow pool with black-violet wisps, black flame on the palm; single ally in reach): the fighter brings both open hands together in a seal, eyes closing, and dark violet chakra kindles between the palms; it steps in and lays the near palm flat on the ally's chest, the glow pooling there and pulsing as the chakra flows in (the heal lands on frame 4, the first pulse), a thin violet aura round the caster while it channels; it lifts the palm away and steps back into the guard (the ally plays darkCommuned).",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -1708,6 +1708,28 @@
           56
         ],
         "foot": "pointFwd"
+      },
+      {
+        "name": "tp-lead",
+        "construction": "band",
+        "hipX": 34,
+        "hipRow": 49,
+        "kneeX": 41,
+        "kneeRow": 52,
+        "footX": 39,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "tp-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 49,
+        "kneeX": 28,
+        "kneeRow": 54,
+        "footX": 23,
+        "wrapRow": 54,
+        "foot": "toe60"
       }
     ],
     "near": [
@@ -3075,8 +3097,8 @@
       0
     ],
     "colors": [
-      "#c9a0ff",
-      "#55208f"
+      "#9b45ff",
+      "#1c1024"
     ]
   }
 }
