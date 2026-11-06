@@ -151,10 +151,106 @@ CLIPS = {
        extra={'targetState': {'rule': 'Clinch: on the impact frame (3) and not before, a landed grab forms the clinch pair (holder clinchHold, held clinchHeld); a missed or resisted grab plays the rest of this clip back to the guard and the target keeps its guard', 'state': 'clinchHeld', 'onHit': {'self': 'clinchHold', 'target': 'clinchHeld'}}})),
 }
 
+# ---------------- Medical (Christopher 2026-11-06: "then move on to the medical") ----------------
+# Healing chakra is drawn in soft medical green (proposal: no colour ruling yet), from the palette already in use
+# (#b8ffc8 / #39e75f / #14a03c); Dark Communion, the cultist reskin of Palm Healing, in the Sagittarius dark purples.
+from universal import SEAL_N, SEAL_F
+def _re(pat, m): return [''.join(m.get(ch, ch) for ch in r) for r in pat]
+GREEN = {'c': 'l', 'C': 'L', 'Y': 'l', 'O': 'L', 'R': 'D', 'W': 'l', 'w': 'L'}
+DARK = {'c': 'Q', 'C': 'P', 'Y': 'Q', 'O': 'P', 'R': 'p', 'W': 'Q', 'w': 'P'}
+for nm in ('palmGlow', 'vRing', 'vRing2', 'moteF', 'spark', 'star6', 'orb', 'orbBig'):
+    astro.NPAT[nm + 'Med'] = _re(astro.NPAT[nm], GREEN); astro.NPAT[nm + 'Dark'] = _re(astro.NPAT[nm], DARK)
+MED_AURA, DARK_AURA = ('#b8ffc8', '#39e75f'), ('#c9a0ff', '#55208f')
+PALM_ON = band(-88, -92, fistKind='palm')   # open palm laid flat on the ally's chest, arm level
+PALM_TGT = band(-60, -40)                    # healed fighter: guard eased, near hand drifting to the warm spot
+
+def _heal(ab, k, tgt, aura):
+    m = 'Med' if k == 'Med' else 'Dark'
+    return (ab, 4,
+  ('%s (Medical, single ally in reach): the fighter brings both open hands together in a seal, eyes closing, and %s chakra kindles between the palms; it steps in and lays the near palm flat on the ally\'s chest, the glow pooling there and pulsing as the chakra flows in (the heal lands on frame 4, the first pulse), a thin %s aura round the caster while it channels; it lifts the palm away and steps back into the guard (the ally plays %s).') % (ab, 'green medical' if k == 'Med' else 'dark violet', 'green' if k == 'Med' else 'violet', tgt),
+  [g(),
+   g(an=SEAL_N, af=SEAL_F, bob=(1, 1, 2), lean=(0, 1)),
+   g(an=SEAL_N, af=SEAL_F, bob=(1, 1, 2), lean=(0, 1)),
+   g(an=band(-70, -80, fistKind='palm'), af=band(-45, -120), bob=(1, 1, 2), lean=(1, 3), root=(2, 0), **DRIVE),
+   g(an=PALM_ON, af=band(-45, -120), bob=(1, 1, 2), lean=(1, 4), root=(1, 0), **DRIVE),
+   g(an=PALM_ON, af=band(-45, -120), bob=(1, 1, 2), lean=(1, 4), **DRIVE),
+   g(an=PALM_ON, af=band(-45, -120), bob=(1, 1, 2), lean=(1, 4), **DRIVE),
+   g(an=PALM_ON, af=band(-45, -120), bob=(1, 1, 2), lean=(1, 4), **DRIVE),
+   g(an=band(-40, -110), bob=(1, 1, 2), lean=(1, 3), root=(-2, 0)),
+   g(root=(-1, 0))],
+  [None, 'closed', 'closed', 'closed', 'closed', 'closed', 'closed', 'closed', None, None],
+  [0, 0, 0, 0, 1, 1, 1, 1, 0, 0],
+  dict(fps=10, react=True, auraColors=aura, rm='E: +2 +1 stepping in to lay the palm on, -2 -1 back (net 0)',
+       extra={'targetState': {'rule': '%s: on frame 4 (the palm lands and the first pulse flows in) and not before, the ally plays %s once, then its idle' % (ab, tgt), 'state': tgt}},
+       anchored={1: [('orb' + m, 'hand', 0, -2)], 2: [('orbBig' + m, 'hand', 0, -2), ('spark' + m, 'hand', 3, -6)],
+                 3: [('palmGlow' + m, 'hand', 1, 0)], 4: [('palmGlow' + m, 'hand', 2, 0), ('star6' + m, 'hand', 3, 0)],
+                 5: [('palmGlow' + m, 'hand', 2, 0), ('vRing' + m, 'hand', 3, 0)], 6: [('palmGlow' + m, 'hand', 2, 0), ('vRing2' + m, 'hand', 3, 0)],
+                 7: [('palmGlow' + m, 'hand', 2, 0), ('moteF' + m, 'hand', 0, -6)], 8: [('moteF' + m, 'hand', 0, -6)]}))
+
+def _healed(ab, k, src):
+    m = 'Med' if k == 'Med' else 'Dark'
+    return (ab, 0,
+  '%s (target of %s): frame 0 is the palm landing on its chest; the %s glow spreads from the spot, motes drift up off it, the guard eases and the shoulders drop as the hurt goes out of it, a thin aura round the body for three pulses, then it settles back into the guard.' % (ab, src, 'green' if k == 'Med' else 'violet'),
+  [g(bob=(1, 1, 2), lean=(0, 1)),
+   g(an=PALM_TGT, bob=(0, 0, 1), lean=(-1, 0)),
+   g(an=PALM_TGT, bob=(0, 0, 1), lean=(-1, -1)),
+   g(an=PALM_TGT, bob=(0, 0, 1), lean=(-1, -1)),
+   g(an=band(-40, -110), bob=(1, 1, 2), lean=(0, 1)),
+   g()],
+  ['closed', 'closed', 'closed', None, None, None],
+  [1, 1, 1, 1, 0, 0],
+  dict(fps=8, react=True, auraColors=MED_AURA if k == 'Med' else DARK_AURA, rm='in place',
+       anchored={0: [('vRing' + m, 'head', 0, 12)], 1: [('vRing2' + m, 'head', 0, 12), ('moteF' + m, 'head', 2, 4)],
+                 2: [('moteF' + m, 'head', -2, 0), ('moteF' + m, 'head', 4, 6)], 3: [('moteF' + m, 'head', 1, -4)]}))
+
+CLIPS.update({
+ 'palmHealing': _heal('Palm Healing', 'Med', 'palmHealed', MED_AURA),
+ 'palmHealed': _healed('Palm Healed', 'Med', 'Palm Healing'),
+ 'darkCommunion': _heal('Dark Communion', 'Dark', 'darkCommuned', DARK_AURA),
+ 'darkCommuned': _healed('Dark Communed', 'Dark', 'Dark Communion'),
+})
+
+CLIPS.update({
+ 'cellularActivation': ('Cellular Activation', 5,
+  'Cellular Activation (Medical, single ally up to 6 tiles, Regen 3 rounds): the fighter presses its open hands together in a seal, eyes closing, and a green medical orb swells between them; it opens the near palm toward the ally and sends the orb flying (projectile orbBigMed, frames 5-6, the testbed flies it to the ally and pops vRingMed there); the ally plays cellActivated. A thin green aura round the caster while it gathers.',
+  [g(),
+   g(an=SEAL_N, af=SEAL_F, bob=(1, 1, 2), lean=(0, 1)),
+   g(an=SEAL_N, af=SEAL_F, bob=(1, 1, 2), lean=(0, 1)),
+   g(an=SEAL_N, af=SEAL_F, bob=(1, 1, 2), lean=(0, 1)),
+   g(an=band(-30, -110, fistKind='palm'), af=band(-45, -120), bob=(1, 1, 2), lean=(0, 2)),
+   g(an=band(-90, -95, fistKind='palm'), af=band(-45, -120), bob=(1, 1, 2), lean=(1, 4), root=(1, 0), **DRIVE),
+   g(an=band(-90, -95, fistKind='palm'), af=band(-45, -120), bob=(1, 1, 2), lean=(1, 4), **DRIVE),
+   g(an=band(-40, -110), bob=(1, 1, 2), lean=(1, 3), root=(-1, 0)),
+   g()],
+  [None, 'closed', 'closed', 'closed', None, None, None, None, None],
+  [0, 1, 1, 1, 1, 0, 0, 0, 0],
+  dict(fps=10, release=[50, 24], auraColors=MED_AURA, rm='E: +1 sending it, -1 back (net 0)',
+       extra={'projectile': {'rule': 'Cellular Activation: from frame 5 the testbed flies NPAT orbBigMed from the near hand to the ally at chest height, then draws vRingMed on it; the ally plays cellActivated on arrival (the impact frame), not before', 'from': 'hand', 'frame': 5, 'pattern': 'orbBigMed', 'hit': 'vRingMed'},
+              'targetState': {'rule': 'Cellular Activation: when the orb reaches the ally and not before, the ally plays cellActivated once, then its idle', 'state': 'cellActivated'}},
+       anchored={1: [('orbMed', 'hand', 0, -2)], 2: [('orbBigMed', 'hand', 0, -2)], 3: [('orbBigMed', 'hand', 0, -2), ('sparkMed', 'hand', 3, -7)],
+                 4: [('orbBigMed', 'hand', 2, 0)], 5: [('star6Med', 'hand', 3, 0)]})),
+ 'cellActivated': ('Cell Activated', 0,
+  'Cell Activated (target of Cellular Activation): frame 0 is the orb arriving: it bursts into a green ring round the chest; a pulse ring opens on the floor under the feet and green motes spiral up the body as the cells knit, a thin green aura round the fighter, the guard easing a little; it settles back into the guard (the Regen status keeps a faint aura while it lasts: proposal).',
+  [g(bob=(1, 1, 2), lean=(0, 1)),
+   g(bob=(0, 0, 1), lean=(-1, 0)),
+   g(bob=(0, 0, 1), lean=(-1, 0)),
+   g(bob=(0, 0, 1), lean=(-1, 0)),
+   g(bob=(1, 1, 2), lean=(0, 1)),
+   g()],
+  [None, 'closed', 'closed', None, None, None],
+  [1, 1, 1, 1, 0, 0],
+  dict(fps=8, react=True, auraColors=MED_AURA, rm='in place',
+       anchored={0: [('vRing2Med', 'head', 0, 14)], 1: [('vRingMed', 'feet', 0, -2), ('moteFMed', 'head', -5, 20)],
+                 2: [('vRing2Med', 'feet', 0, -2), ('moteFMed', 'head', 5, 12), ('moteFMed', 'head', -4, 22)],
+                 3: [('moteFMed', 'head', -4, 4), ('moteFMed', 'head', 4, 14)], 4: [('moteFMed', 'head', 2, -2)]})),
+})
+
 astro.CLIPS.update(CLIPS)
 astro.APPROVED.update({k: APPROVED.get(k, STAT) for k in CLIPS})
 
 if __name__ == '__main__':
     a = sys.argv[1:]
+    if a and a[0] == '--scene':   # astro_scene.py with this file's patterns registered
+        import runpy; sys.argv = ['astro_scene.py'] + a[1:]; runpy.run_path(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'astro_scene.py'), run_name='__main__'); sys.exit()
     if '--fx' in a: astro.fx(a[a.index('--fx') + 1]); sys.exit()
     for st in (a or CLIPS): astro.spec(st)
