@@ -30,7 +30,7 @@
         "front": "main-kyoketsu-shoge-sickle-front.png",
         "trail": "main-kyoketsu-shoge-sickle-trail.png"
       },
-      "status": "CANDIDATE 2026-11-06 (E/W; W mirrors E; S/N to author after approval)",
+      "status": "E/W approved by user 2026-11-09 17:43 (v3 base-tier sickle, chain and ring; W mirrors E); S/N to author",
       "z": {
         "E": [
           "front",

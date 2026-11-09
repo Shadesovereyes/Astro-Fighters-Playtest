@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-item/v1",
   "item": "kyoketsu-shoge-sickle",
   "kind": "rigid weapon (AGENTS.md: rigid items are placed by anchor with integer offsets)",
-  "status": "CANDIDATE 2026-11-09 (Kyoketsu-Shoge Stance base tier: kama sickle + steel chain + iron ring; the hooked blade is the higher-tier variant kyoketsu-shoge-hooked)",
+  "status": "APPROVED by user 2026-11-09 17:43 (Kyoketsu-Shoge Stance base tier: kama sickle + steel chain + iron ring; the hooked blade is the higher-tier concept kyoketsu-shoge-hooked)",
   "construction": "band: a straight band along the weapon axis from the grip point (the centre of the near fist); every pixel takes its colour from the cross-section pattern (back/spine to front/edge) of the segment it falls in, so the weapon keeps its thickness at any angle; pixels are rasterised from the authored data, never rotated or resampled from an image; the sickle blade is two branch segments (character-weapon.mjs branch: own axis from a point on the handle, turned from the handle axis toward +v), the second bent further in so the blade curves back toward the handle; the chain and weight hang from the butt cap in screen space (character-weapon.mjs chain), not along the weapon axis",
   "palette": {
     "#": "#000000",
