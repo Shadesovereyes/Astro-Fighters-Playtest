@@ -34,7 +34,7 @@
         "front": "off-shield-tower-front.png",
         "top": "off-shield-tower-top.png"
       },
-      "status": "E/W CANDIDATE 2026-11-06 (Guard set v3.1, layering accepted 18:14; W mirrors E); S/N CANDIDATE 2026-11-06 (v1)",
+      "status": "E/W approved by user 2026-11-06 18:14 (Guard set v3.1 layering); S/N approved by user 2026-11-09 16:26 (v1; tower shield art to be reworked, animation approved); W mirrors E",
       "z": {
         "S": [
           "top",
@@ -171,7 +171,7 @@
         "front": "off-shield-heater-front.png",
         "top": "off-shield-heater-top.png"
       },
-      "status": "E/W CANDIDATE 2026-11-06 (Guard set v3.1, layering accepted 18:14; W mirrors E); S/N CANDIDATE 2026-11-06 (v1)",
+      "status": "E/W approved by user 2026-11-06 18:14 (Guard set v3.1 layering); S/N approved by user 2026-11-09 16:26 (v1; tower shield art to be reworked, animation approved); W mirrors E",
       "z": {
         "S": [
           "top",
@@ -308,7 +308,7 @@
         "front": "off-shield-buckler-front.png",
         "top": "off-shield-buckler-top.png"
       },
-      "status": "E/W CANDIDATE 2026-11-06 (Guard set v3.1, layering accepted 18:14; W mirrors E); S/N CANDIDATE 2026-11-06 (v1)",
+      "status": "E/W approved by user 2026-11-06 18:14 (Guard set v3.1 layering); S/N approved by user 2026-11-09 16:26 (v1; tower shield art to be reworked, animation approved); W mirrors E",
       "z": {
         "S": [
           "top",
@@ -444,7 +444,7 @@
         "front": "main-yari-front.png",
         "top": "main-yari-top.png"
       },
-      "status": "E/W CANDIDATE 2026-11-06 (Guard set v3.1, layering accepted 18:14; W mirrors E); S/N CANDIDATE 2026-11-06 (v1)",
+      "status": "E/W approved by user 2026-11-06 18:14 (Guard set v3.1 layering); S/N approved by user 2026-11-09 16:26 (v1; tower shield art to be reworked, animation approved); W mirrors E",
       "z": {
         "S": [
           {
