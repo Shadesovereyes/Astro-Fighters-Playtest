@@ -21,7 +21,7 @@ APPROVED = {'palmHealingSelf': 'E/W approved by user 2026-11-06 18:12 (v1 palm o
 DRIVE = dict(ln='sp-drive-rear', lf='sp-drive-lead')
 from universal import leg as _leg
 import universal as _U
-_U.POSES += [_leg('tp5-lead', (34, 47), (39, 53), 38), _leg('tp5-rear', (32, 47), (31, 54), 27, wrap=54, kind='toe60')]   # Shoulder Charge v5: three-point set, hips up, feet staggered under the hips
+_U.POSES += [_leg('tp5-lead', (37, 47), (42, 53), 41), _leg('tp5-rear', (35, 47), (33, 54), 29, wrap=54, kind='toe60')]   # Shoulder Charge v5: three-point set, hips up, feet staggered under the hips
 _U.POSES += [_leg('tp4-lead', (34, 46), (40, 52), 39), _leg('tp4-rear', (31, 46), (29, 53), 25, wrap=54, kind='toe60')]   # Shoulder Charge v4: three-point set, both feet under the hips
 _U.POSES += [_leg('tp-lead', (34, 49), (41, 52), 39), _leg('tp-rear', (31, 49), (28, 54), 23, wrap=54, kind='toe60')]   # Shoulder Charge v3: lineman's three-point set, knees deep
 LOAD = dict(ln='sp-load-rear', lf='sp-load-lead')
@@ -119,9 +119,9 @@ CLIPS = {
    g(an=band(-10, -4), af=band(25, -45), bob=(13, 14, 24), lean=(6, 16), ln='tp5-rear', lf='tp5-lead'),
    g(an=band(-10, -4), af=band(25, -45), bob=(13, 14, 24), lean=(6, 16), ln='tp5-rear', lf='tp5-lead'),
    g(an=band(-2, 0), af=band(25, -45), bob=(13, 14, 24), lean=(4, 13), root=(-2, 0), ln='tp5-rear', lf='tp5-lead'),
-   g(an=band(30, 20), af=band(-70, -110), bob=(9, 10, 9), lean=(4, 14), root=(3, 0), ln='ml-dip-rear', lf='ml-dip-lead')] + [
-   g(an=band(-50, -115) if k % 4 == 2 else band(45, -25), af=band(45, -25) if k % 4 == 2 else band(-50, -115),
-     bob=(astro.SPRINT_DY[k] + 6, astro.SPRINT_DY[k] + 8, astro.SPRINT_DY[k] + 6), lean=(4, 16), root=(r, 0),
+   g(an=band(30, 20), af=band(-70, -110), bob=(8, 9, 8), lean=(3, 11), root=(3, 0), ln='ml-dip-rear', lf='ml-dip-lead')] + [
+   g(an=band(-55, -150) if k % 4 == 2 else band(55, 15), af=band(55, 15) if k % 4 == 2 else band(-55, -150),
+     bob=(astro.SPRINT_DY[k] + 5, astro.SPRINT_DY[k] + 6, astro.SPRINT_DY[k] + 5), lean=(3, 10), root=(r, 0),
      ln='sr-' + astro.SPRINT_LEGS[k], lf='sr-' + astro.SPRINT_LEGS[(k + 4) % 8]) for k, r in ((2, 4), (4, 6), (6, 7))] + [
    g(an=band(15, 195), af=band(5, 200), bob=(6, 8, 6), lean=(5, 16), root=(3, 0), ln='ml-trail-rear', lf='ml-plant-lead'),
    g(an=band(15, 195), af=band(5, 200), bob=(6, 8, 6), lean=(5, 16), ln='ml-trail-rear', lf='ml-plant-lead'),

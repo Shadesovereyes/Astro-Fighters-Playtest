@@ -110,10 +110,10 @@
       13,
       13,
       13,
-      9,
-      7,
-      7,
-      7,
+      8,
+      6,
+      6,
+      6,
       6,
       6,
       6,
@@ -128,10 +128,10 @@
       14,
       14,
       14,
-      10,
       9,
-      9,
-      9,
+      7,
+      7,
+      7,
       8,
       8,
       8,
@@ -146,10 +146,10 @@
       24,
       24,
       24,
-      9,
-      7,
-      7,
-      7,
+      8,
+      6,
+      6,
+      6,
       6,
       6,
       6,
@@ -169,10 +169,10 @@
         6,
         6,
         4,
-        4,
-        4,
-        4,
-        4,
+        3,
+        3,
+        3,
+        3,
         5,
         5,
         5,
@@ -187,10 +187,10 @@
         16,
         16,
         13,
-        14,
-        16,
-        16,
-        16,
+        11,
+        10,
+        10,
+        10,
         16,
         16,
         16,
@@ -1790,22 +1790,22 @@
       {
         "name": "tp5-lead",
         "construction": "band",
-        "hipX": 34,
+        "hipX": 37,
         "hipRow": 47,
-        "kneeX": 39,
+        "kneeX": 42,
         "kneeRow": 53,
-        "footX": 38,
+        "footX": 41,
         "wrapRow": 56,
         "foot": "flat"
       },
       {
         "name": "tp5-rear",
         "construction": "band",
-        "hipX": 32,
+        "hipX": 35,
         "hipRow": 47,
-        "kneeX": 31,
+        "kneeX": 33,
         "kneeRow": 54,
-        "footX": 27,
+        "footX": 29,
         "wrapRow": 54,
         "foot": "toe60"
       },
@@ -1957,26 +1957,26 @@
       },
       {
         "construction": "band",
-        "angle": -50,
+        "angle": -55,
         "elbow": {
           "at": 8,
-          "angle": -115
+          "angle": -150
         }
       },
       {
         "construction": "band",
-        "angle": 45,
+        "angle": 55,
         "elbow": {
           "at": 8,
-          "angle": -25
+          "angle": 15
         }
       },
       {
         "construction": "band",
-        "angle": -50,
+        "angle": -55,
         "elbow": {
           "at": 8,
-          "angle": -115
+          "angle": -150
         }
       },
       {
@@ -2087,26 +2087,26 @@
       },
       {
         "construction": "band",
-        "angle": 45,
+        "angle": 55,
         "elbow": {
           "at": 8,
-          "angle": -25
+          "angle": 15
         }
       },
       {
         "construction": "band",
-        "angle": -50,
+        "angle": -55,
         "elbow": {
           "at": 8,
-          "angle": -115
+          "angle": -150
         }
       },
       {
         "construction": "band",
-        "angle": 45,
+        "angle": 55,
         "elbow": {
           "at": 8,
-          "angle": -25
+          "angle": 15
         }
       },
       {
