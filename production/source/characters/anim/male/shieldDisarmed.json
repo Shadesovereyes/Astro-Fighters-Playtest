@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "shieldDisarmed",
-  "status": "CANDIDATE 2026-11-09 (E/W v1; W mirrors E; S/N to author after approval)",
+  "status": "E/W approved by user 2026-11-09 17:47 (v1.1; W mirrors E); S/N to author",
   "frames": 6,
   "fps": 10,
   "sourceDirection": "E",
@@ -1351,7 +1351,7 @@
     }
   },
   "clips": {
-    "rule": "target reaction: plays when a Disarm lands on a shield bearer (impact-frame rule: frame 0 is the impact), then the Guard idles in spearTwoHandGuard and uses the two-handed spear moves; the testbed leaves the shield lying on the tile (last frame of the off slot) as a floor prop",
+    "rule": "target reaction: plays when a Disarm lands on a shield bearer (impact-frame rule: frame 0 is the impact), then the Guard idles in spearTwoHandGuard and uses the two-handed spear moves; the shield stays off for the rest of the fight (Christopher 2026-11-09 17:47); the testbed leaves it lying on the tile (last frame of the off slot) as a floor prop",
     "shieldDisarmed": {
       "frames": [
         0,
@@ -1377,7 +1377,7 @@
         "shield-buckler"
       ],
       "gripKind": "normal",
-      "status": "CANDIDATE 2026-11-09 (E/W v1; W mirrors E; S/N to author after approval)",
+      "status": "E/W approved by user 2026-11-09 17:47 (v1.1; W mirrors E); S/N to author",
       "rule": "the shield is off the fighter from the impact frame: free poses (hidden, no fist to register to) flying up and back over the shoulder and tumbling to the floor behind the rear foot; every shield type takes the same flight",
       "E": [
         {
@@ -1448,7 +1448,7 @@
       "items": [
         "yari"
       ],
-      "status": "CANDIDATE 2026-11-09 (E/W v1; W mirrors E; S/N to author after approval)",
+      "status": "E/W approved by user 2026-11-09 17:47 (v1.1; W mirrors E); S/N to author",
       "rule": "per frame: grip = pixel at the centre of the near fist (body-frame coordinates; it follows the arm bob, 0, -1, 0, +1), angle = blade direction in degrees above the facing's horizontal, z = depth slot",
       "depthRule": "front: drawn over body and clothing, under the arms layer (the fists close over the hilt); behind: drawn under the body",
       "E": [
@@ -1514,7 +1514,7 @@
         "frame": 0,
         "clip": "shieldDisarmed",
         "type": "impact",
-        "effect": "Disarm on a shield bearer: the shield is knocked away; Shield Bash and Shield Block are unavailable and Spear Thrust / Blade Strike play the two-handed clips (proposed; duration follows the Disarm status)"
+        "effect": "Disarm on a shield bearer: the shield is knocked away; Shield Bash and Shield Block are unavailable and Spear Thrust / Blade Strike play the two-handed clips (Christopher 2026-11-09 17:47: for the rest of the fight; shield first, then weapon; up to three disarms, each harder)"
       },
       {
         "frame": 1,
@@ -1547,7 +1547,7 @@
         "frame": 0,
         "clip": "shieldDisarmed",
         "type": "impact",
-        "effect": "Disarm on a shield bearer: the shield is knocked away; Shield Bash and Shield Block are unavailable and Spear Thrust / Blade Strike play the two-handed clips (proposed; duration follows the Disarm status)"
+        "effect": "Disarm on a shield bearer: the shield is knocked away; Shield Bash and Shield Block are unavailable and Spear Thrust / Blade Strike play the two-handed clips (Christopher 2026-11-09 17:47: for the rest of the fight; shield first, then weapon; up to three disarms, each harder)"
       },
       {
         "frame": 1,

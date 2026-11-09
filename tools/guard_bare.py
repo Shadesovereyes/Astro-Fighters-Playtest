@@ -20,7 +20,7 @@ import standin_weapons as SW, tanto as T
 from tanto import fr
 from PIL import Image
 
-STAT = 'CANDIDATE 2026-11-09 (E/W v1; W mirrors E; S/N to author after approval)'
+STAT = 'E/W approved by user 2026-11-09 17:47 (v1.1; W mirrors E); S/N to author'
 HAND = 8   # near fist to far fist along the shaft
 def tw(grip, angle, hand=HAND, **k):
     """both hands on the yari: the far fist sits `hand` px back down the shaft from the near fist"""
@@ -91,9 +91,9 @@ def spec(state):
         off['status'] = STAT
         off['rule'] = 'the shield is off the fighter from the impact frame: free poses (hidden, no fist to register to) flying up and back over the shoulder and tumbling to the floor behind the rear foot; every shield type takes the same flight'
         off['E'] = [{'grip': list(g), 'angle': a, 'z': z, 'hidden': True, **({'widthScale': ws} if ws != 1 else {})} for g, a, ws, z in FLIGHT]
-        s['clips']['rule'] = 'target reaction: plays when a Disarm lands on a shield bearer (impact-frame rule: frame 0 is the impact), then the Guard idles in spearTwoHandGuard and uses the two-handed spear moves; the testbed leaves the shield lying on the tile (last frame of the off slot) as a floor prop'
+        s['clips']['rule'] = 'target reaction: plays when a Disarm lands on a shield bearer (impact-frame rule: frame 0 is the impact), then the Guard idles in spearTwoHandGuard and uses the two-handed spear moves; the shield stays off for the rest of the fight (Christopher 2026-11-09 17:47); the testbed leaves it lying on the tile (last frame of the off slot) as a floor prop'
         ev = [{'frame': k, 'clip': 'shieldDisarmed', 'type': 'impact' if k == 0 else 'recovery'} for k in range(s['frames'])]
-        ev[0]['effect'] = 'Disarm on a shield bearer: the shield is knocked away; Shield Bash and Shield Block are unavailable and Spear Thrust / Blade Strike play the two-handed clips (proposed; duration follows the Disarm status)'
+        ev[0]['effect'] = 'Disarm on a shield bearer: the shield is knocked away; Shield Bash and Shield Block are unavailable and Spear Thrust / Blade Strike play the two-handed clips (Christopher 2026-11-09 17:47: for the rest of the fight; shield first, then weapon; up to three disarms, each harder)'
         s['events'] = {'rule': 'per-frame data (W mirrors E)', 'E': ev, 'W': [dict(e) for e in ev]}
         s['status'] = STAT
         for w in s['weapons']: w['status'] = STAT
