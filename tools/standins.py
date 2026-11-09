@@ -77,7 +77,21 @@ CLIPS = {
        extra=tgt('Body Shot', 3),
        anchored={3: [('star6', 'farhand', 1, 0)], 4: [('star3', 'farhand', 2, 1)]})),
 
- # cheapShot v4 deleted (Christopher 2026-11-09 17:10: "cheap shot v4 delete keep cheap shot groin hit"); groinHit kept and approved
+ 'cheapShot': ('Cheap Shot', 4,
+  'Cheap Shot (Bandit, reskin of Haymaker) v4 (Christopher 2026-11-06 17:50: complete rework, drop low and punch up into the groin): the fighter drops suddenly low, knees deep, under the opponent\'s guard, the lead hand staying up at the face and the rear fist sunk down by the knee; it springs up off the crouch and drives the rear fist in a short rising punch up into the groin (white burst below the belt), holds it a beat, then rises back into the guard.',
+  [g(),
+   g(an=band(-10, -60), bob=(5, 5, 5), lean=(1, 4), ln='ml-dip-rear', lf='ml-dip-lead'),
+   g(an=band(12, -20), bob=(13, 13, 13), lean=(3, 10), root=(3, 0), ln='tp-rear', lf='tp-lead'),
+   g(an=band(5, -55), bob=(13, 13, 13), lean=(3, 10), root=(2, 0), ln='tp-rear', lf='tp-lead'),
+   g(an=band(-14, -96), bob=(13, 13, 13), lean=(3, 9), root=(1, 0), ln='tp-rear', lf='tp-lead'),
+   g(an=band(-16, -102), bob=(13, 13, 13), lean=(3, 9), ln='tp-rear', lf='tp-lead'),
+   g(an=RECOVER, bob=(4, 4, 4), lean=(1, 3), root=(-3, 0), ln='ml-dip-rear', lf='ml-dip-lead'),
+   g(root=(-3, 0))],
+  [None, 'squint', 'strain', 'strain', 'strain', 'strain', 'squint', None],
+  None,
+  dict(fps=12, hitbox=[42, 40, 12, 8], damage='heavy', rm='E: +3 +2 +1 dropping in under the guard, -3 -3 back (net 0)',
+       extra=tgt('Cheap Shot', 4, 'groinHit'),
+       anchored={4: [('star9', 'hand', 1, -1)], 5: [('star3', 'hand', 2, -2)]})),
 
  'wildSwing': ('Wild Swing', 3,
   'Wild Swing (Street Thug, reskin of Haymaker): a sloppy brawler\'s haymaker. The fighter rears way back, the rear fist cocked far behind it and the guard thrown open; it lurches forward and flings the arm round in a huge flat arc, landing at the head (white burst), and overswings: the arm carries on across the body, the weight pitches forward and it stumbles a step before hauling itself back into the guard.',
@@ -382,6 +396,7 @@ CLIPS['groinHit'] = ('Cheap Shot', 0,
   None,
   dict(fps=10, react=True, rm='E: -2 -1 backing up (net -3, as hitReact)',
        anchored={0: [('star6', 'hand', 0, -1)], 1: [('star3', 'hand', 0, -1)]}))
+APPROVED['cheapShot'] = 'E/W approved by user 2026-11-09 17:42 (v4 as shown in the groinHit preview: drop low, rising punch into the groin; W mirrors E); S/N to author'
 APPROVED['groinHit'] = 'E/W approved by user 2026-11-09 17:10 (v1, target of Cheap Shot; W mirrors E); S/N to author'
 CLIPS['chargedBack'] = ('Shoulder Charge', 0,
   'chargedBack (target of Shoulder Charge v4, Christopher 2026-11-09: the charge must feel heavy): frame 0 is the shoulder slamming into the chest; the fighter is folded round the shoulder and lifted, both feet off the floor, and driven back a long way, arms flung forward, then it lands heavily on its heels, staggers one more step back, catches its balance and comes back up into the guard.',
