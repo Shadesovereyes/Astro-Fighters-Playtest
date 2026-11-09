@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "ksStanceEntry",
-  "status": "E/W approved by user 2026-11-09 17:43 (v3 base-tier sickle, chain and ring; W mirrors E); S/N v1 CANDIDATE 2026-11-09",
+  "status": "E/W approved by user 2026-11-09 17:43 (v3 base-tier sickle, chain and ring; W mirrors E); S/N v1 approved by user 2026-11-09 17:47",
   "frames": 7,
   "fps": 10,
   "sourceDirection": "E",
@@ -1472,7 +1472,7 @@
       "items": [
         "kyoketsu-shoge-sickle"
       ],
-      "status": "E/W approved by user 2026-11-09 17:43 (v3 base-tier sickle, chain and ring; W mirrors E); S/N v1 CANDIDATE 2026-11-09",
+      "status": "E/W approved by user 2026-11-09 17:43 (v3 base-tier sickle, chain and ring; W mirrors E); S/N v1 approved by user 2026-11-09 17:47",
       "rule": "per frame: grip = pixel at the centre of the near fist (body-frame coordinates; it follows the arm bob, 0, -1, 0, +1), angle = blade direction in degrees above the facing's horizontal, z = depth slot",
       "depthRule": "front: drawn over body and clothing, under the arms layer (the fists close over the hilt); behind: drawn under the body",
       "E": [

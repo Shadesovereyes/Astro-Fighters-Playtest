@@ -10,7 +10,7 @@ args = sys.argv[1:]; sys.argv = sys.argv[:1]
 import standin_weapons as SW, tanto as T
 from PIL import Image
 R, D = T.R, T.D; ST = 'ksStanceEntry'
-STAT = 'E/W approved by user 2026-11-09 17:43 (v3 base-tier sickle, chain and ring; W mirrors E); S/N v1 CANDIDATE 2026-11-09'
+STAT = 'E/W approved by user 2026-11-09 17:43 (v3 base-tier sickle, chain and ring; W mirrors E); S/N v1 approved by user 2026-11-09 17:47'
 sh = lambda *c: subprocess.run(c, cwd=R, check=True, capture_output=True)
 T.sn(ST)
 s = T.load(D + ST + '.json'); w = T.mainw(s); E = w['E']
