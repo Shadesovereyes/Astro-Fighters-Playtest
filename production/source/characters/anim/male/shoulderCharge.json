@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Shoulder Charge (Bandit Thug, reskin of Iron Mountain, needs a run-up) v5 (Christopher 2026-11-09 17:57: corrected against the 19-point v4 review): from the guard the fighter sinks straight down (no lunge) into a lineman's three-point set: hips up over the knees, feet staggered under the hips with the rear heel raised, back sloping down to the head, the near fist planted on the floor ahead of the lead foot (grit), the far forearm resting across the far thigh; it sinks its hips back to load, then the rear foot drives it off the line low: a push-off frame, then three sprint strides with the arms pumping one forward and one back, head down behind the lead shoulder; on the last stride it tucks both arms tight to its body and drives the lead shoulder (not the hands) into the chest: a white burst at the shoulder, a dust ring at the feet, a three-frame hit-stop, then the legs keep driving a short step; it walks back to its start in three steps.",
+  "intent": "Shoulder Charge (Bandit Thug, reskin of Iron Mountain, needs a run-up) v6 (Christopher 2026-11-09 18:04 chose the bull crouch over the three-point set): from the guard the fighter drops into a low bull crouch, knees deep, lead shoulder down and forward, both fists tucked low in front of the chest, head down behind the lead shoulder; the rear foot paws the ground twice, kicking dust back, the second paw sinking the weight back to load; then the rear foot drives it off the line low: a push-off frame, then three sprint strides with the arms pumping one forward and one back; on the last stride it tucks both arms tight to its body and drives the lead shoulder (not the hands) into the chest: a white burst at the shoulder, a dust ring at the feet, a three-frame hit-stop, then the legs keep driving a short step; it walks back to its start in three steps.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -107,9 +107,9 @@
     "dy": [
       1,
       4,
-      13,
-      13,
-      13,
+      7,
+      7,
+      7,
       8,
       6,
       6,
@@ -125,9 +125,9 @@
     "head": [
       1,
       4,
-      14,
-      14,
-      14,
+      8,
+      8,
+      8,
       9,
       7,
       7,
@@ -143,9 +143,9 @@
     "arms": [
       2,
       4,
-      24,
-      24,
-      24,
+      7,
+      7,
+      7,
       8,
       6,
       6,
@@ -166,9 +166,9 @@
       "pelvis": [
         0,
         1,
-        6,
-        6,
-        4,
+        3,
+        3,
+        3,
         3,
         3,
         3,
@@ -184,9 +184,9 @@
       "head": [
         2,
         5,
-        16,
-        16,
-        13,
+        9,
+        9,
+        10,
         11,
         10,
         10,
@@ -202,7 +202,7 @@
     }
   },
   "rootMotion": {
-    "rule": "E: -2 sinking back, +3 push-off, +4 +6 +7 the strides, +3 the shoulder arriving, 0 0 the hit-stop, 0 driving, -7 -7 -7 walking back (net 0)",
+    "rule": "E: bull crouch, two paws, -2 sinking back on the second, +3 push-off, +4 +6 +7 the strides, +3 the shoulder arriving, 0 0 the hit-stop, 0 driving, -7 -7 -7 walking back (net 0)",
     "E": [
       [
         0,
@@ -1857,9 +1857,9 @@
     "near": [
       1,
       21,
-      97,
-      97,
-      97,
+      19,
+      5,
+      19,
       15,
       26,
       28,
@@ -1875,9 +1875,9 @@
     "far": [
       0,
       20,
-      96,
-      96,
-      96,
+      4,
+      4,
+      4,
       14,
       30,
       24,
@@ -1928,7 +1928,7 @@
         "angle": -10,
         "elbow": {
           "at": 8,
-          "angle": -4
+          "angle": 195
         }
       },
       {
@@ -1936,15 +1936,15 @@
         "angle": -10,
         "elbow": {
           "at": 8,
-          "angle": -4
+          "angle": 195
         }
       },
       {
         "construction": "band",
-        "angle": -2,
+        "angle": -10,
         "elbow": {
           "at": 8,
-          "angle": 0
+          "angle": 195
         }
       },
       {
@@ -2055,26 +2055,26 @@
       },
       {
         "construction": "band",
-        "angle": 25,
+        "angle": -25,
         "elbow": {
           "at": 8,
-          "angle": -45
+          "angle": 205
         }
       },
       {
         "construction": "band",
-        "angle": 25,
+        "angle": -25,
         "elbow": {
           "at": 8,
-          "angle": -45
+          "angle": 205
         }
       },
       {
         "construction": "band",
-        "angle": 25,
+        "angle": -25,
         "elbow": {
           "at": 8,
-          "angle": -45
+          "angle": 205
         }
       },
       {
@@ -3528,6 +3528,6 @@
       10,
       11
     ],
-    "rule": "Shoulder Charge v5: the contact pose is held three frames (a 250 ms hit-stop at 12 fps)"
+    "rule": "Shoulder Charge v5/v6: the contact pose is held three frames (a 250 ms hit-stop at 12 fps)"
   }
 }

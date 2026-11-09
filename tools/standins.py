@@ -113,12 +113,12 @@ CLIPS = {
  # knuckleHaymaker v3 deleted (Christopher 2026-11-09 17:10: "delete knuckle haymaker")
 
  'shoulderCharge': ('Shoulder Charge', 9,
-  'Shoulder Charge (Bandit Thug, reskin of Iron Mountain, needs a run-up) v5 (Christopher 2026-11-09 17:57: corrected against the 19-point v4 review): from the guard the fighter sinks straight down (no lunge) into a lineman\'s three-point set: hips up over the knees, feet staggered under the hips with the rear heel raised, back sloping down to the head, the near fist planted on the floor ahead of the lead foot (grit), the far forearm resting across the far thigh; it sinks its hips back to load, then the rear foot drives it off the line low: a push-off frame, then three sprint strides with the arms pumping one forward and one back, head down behind the lead shoulder; on the last stride it tucks both arms tight to its body and drives the lead shoulder (not the hands) into the chest: a white burst at the shoulder, a dust ring at the feet, a three-frame hit-stop, then the legs keep driving a short step; it walks back to its start in three steps.',
+  'Shoulder Charge (Bandit Thug, reskin of Iron Mountain, needs a run-up) v6 (Christopher 2026-11-09 18:04 chose the bull crouch over the three-point set): from the guard the fighter drops into a low bull crouch, knees deep, lead shoulder down and forward, both fists tucked low in front of the chest, head down behind the lead shoulder; the rear foot paws the ground twice, kicking dust back, the second paw sinking the weight back to load; then the rear foot drives it off the line low: a push-off frame, then three sprint strides with the arms pumping one forward and one back; on the last stride it tucks both arms tight to its body and drives the lead shoulder (not the hands) into the chest: a white burst at the shoulder, a dust ring at the feet, a three-frame hit-stop, then the legs keep driving a short step; it walks back to its start in three steps.',
   [g(),
    g(an=band(-20, 200), af=band(-35, 212), bob=(4, 4, 4), lean=(1, 5), ln='sp-load-rear', lf='sp-load-lead'),
-   g(an=band(-10, -4), af=band(25, -45), bob=(13, 14, 24), lean=(6, 16), ln='tp5-rear', lf='tp5-lead'),
-   g(an=band(-10, -4), af=band(25, -45), bob=(13, 14, 24), lean=(6, 16), ln='tp5-rear', lf='tp5-lead'),
-   g(an=band(-2, 0), af=band(25, -45), bob=(13, 14, 24), lean=(4, 13), root=(-2, 0), ln='tp5-rear', lf='tp5-lead'),
+   g(an=band(-10, 195), af=band(-25, 205), bob=(7, 8, 7), lean=(3, 9), ln='ml-trail-rear', lf='cb-brace-lead'),   # paw 1
+   g(an=band(-10, 195), af=band(-25, 205), bob=(7, 8, 7), lean=(3, 9), ln='cb-brace-rear', lf='cb-brace-lead'),
+   g(an=band(-10, 195), af=band(-25, 205), bob=(7, 8, 7), lean=(3, 10), root=(-2, 0), ln='ml-trail-rear', lf='cb-brace-lead'),   # paw 2, loading back
    g(an=band(30, 20), af=band(-70, -110), bob=(8, 9, 8), lean=(3, 11), root=(3, 0), ln='ml-dip-rear', lf='ml-dip-lead')] + [
    g(an=band(-55, -150) if k % 4 == 2 else band(55, 15), af=band(55, 15) if k % 4 == 2 else band(-55, -150),
      bob=(astro.SPRINT_DY[k] + 5, astro.SPRINT_DY[k] + 6, astro.SPRINT_DY[k] + 5), lean=(3, 10), root=(r, 0),
@@ -132,9 +132,9 @@ CLIPS = {
    g(root=(-7, 0))],
   [None, 'squint', 'strain', 'strain', 'strain', 'strain', 'strain', 'strain', 'strain', 'strain', 'strain', 'strain', 'strain', 'squint', 'squint', None],
   None,
-  dict(fps=12, hitbox=[42, 24, 12, 14], damage='heavy', rm='E: -2 sinking back, +3 push-off, +4 +6 +7 the strides, +3 the shoulder arriving, 0 0 the hit-stop, 0 driving, -7 -7 -7 walking back (net 0)',
-       extra={**tgt('Shoulder Charge', 9, 'chargedBack'), 'hitStop': {'frames': [9, 10, 11], 'rule': 'Shoulder Charge v5: the contact pose is held three frames (a 250 ms hit-stop at 12 fps)'}},
-       anchored={2: [('dust', 'hand', 1, 2)], 3: [('dust', 'hand', -1, 2)], 5: [('dust', 'feet', -10, -2)], 6: [('dust', 'feet', -8, -2)], 7: [('dust', 'feet', -8, -2)], 8: [('dust', 'feet', -8, -2)],
+  dict(fps=12, hitbox=[42, 24, 12, 14], damage='heavy', rm='E: bull crouch, two paws, -2 sinking back on the second, +3 push-off, +4 +6 +7 the strides, +3 the shoulder arriving, 0 0 the hit-stop, 0 driving, -7 -7 -7 walking back (net 0)',
+       extra={**tgt('Shoulder Charge', 9, 'chargedBack'), 'hitStop': {'frames': [9, 10, 11], 'rule': 'Shoulder Charge v5/v6: the contact pose is held three frames (a 250 ms hit-stop at 12 fps)'}},
+       anchored={2: [('dust', 'feet', -10, -2), ('dust', 'feet', -15, -1)], 4: [('dust', 'feet', -10, -2), ('dust', 'feet', -15, -1)], 5: [('dust', 'feet', -10, -2)], 6: [('dust', 'feet', -8, -2)], 7: [('dust', 'feet', -8, -2)], 8: [('dust', 'feet', -8, -2)],
                  9: [('star9', 'head', 7, 9), ('puffRing', 'feet', 4, -4)], 10: [('star9', 'head', 7, 9), ('puffRing', 'feet', 4, -4)], 11: [('star6', 'head', 7, 9), ('dust', 'feet', 6, -2)], 12: [('dust', 'feet', 2, -2)]})),
 
  'clinchEntry': ('Clinch', 3,
