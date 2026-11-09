@@ -1648,7 +1648,7 @@
         "wakizashi",
         "tanto",
         "kama",
-        "kyoketsu-shoge"
+        "kyoketsu-shoge-sickle"
       ],
       "status": "approved by user 2026-10-13",
       "rule": "per frame: grip = pixel at the centre of the near fist (body-frame coordinates; it follows the arm bob, 0, -1, 0, +1), angle = blade direction in degrees above the facing's horizontal, z = depth slot",
@@ -2125,10 +2125,10 @@
             }
           ]
         },
-        "kyoketsu-shoge": {
+        "kyoketsu-shoge-sickle": {
           "E": [
             {
-              "angle": 35,
+              "angle": 55,
               "chain": {
                 "via": [
                   45,
@@ -2144,7 +2144,7 @@
               }
             },
             {
-              "angle": 35,
+              "angle": 55,
               "chain": {
                 "via": [
                   45,
@@ -2160,7 +2160,7 @@
               }
             },
             {
-              "angle": 35,
+              "angle": 55,
               "chain": {
                 "via": [
                   45,
@@ -2176,7 +2176,7 @@
               }
             },
             {
-              "angle": 35,
+              "angle": 55,
               "chain": {
                 "via": [
                   45,
@@ -2196,7 +2196,7 @@
       },
       "itemStatus": {
         "kama": "approved by user 2026-10-19 (idle with the kusarigama chain twirl)",
-        "kyoketsu-shoge": "CANDIDATE 2026-11-09 (Christopher 17:11: the Kyoketsu-Shoge Stance must show the sickle and chain, not a plain dagger): hooked blade in the near fist at the tanto angle, the chain drooping from the pommel into the far fist and the iron ring hanging below it; E/W first"
+        "kyoketsu-shoge-sickle": "CANDIDATE 2026-11-09 v3 (Christopher 17:41: base-tier sickle on the Kyoketsu-Shoge Stance): sickle held as the kama idle (angle 55), the chain drooping from the butt into the far fist, the iron ring hanging below; E/W first"
       }
     }
   ]

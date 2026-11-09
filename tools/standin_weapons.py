@@ -41,8 +41,8 @@ CLIPS = {
     og(grip=(35, 37), angle=-40, far=(40, 24), lean=(0, 2)),
     og(grip=(44, 25), angle=70, far=(40, 24), lean=(1, 3), trail='swing'),
     og(grip=(46, 30), angle=-10, far=(40, 24), lean=(1, 3), trail='swing'),
-    og(grip=(44, 34), angle=8, far=(39, 24), lean=(0, 2)),
-    og()]),
+    og(grip=(44, 34), angle=40, far=(39, 24), lean=(0, 2)),
+    og(angle=55)]),   # v3: ends on the sickle idle angle (oneHandGuard itemPoses kyoketsu-shoge-sickle)
  'macheteSlash': ('Machete Slash', 3, [44, 22, 16, 18], 'heavy', 12, 'oneHandGuard', [
     og(),
     og(grip=(38, 20), angle=120, far=(42, 27), lean=(-1, 0), ln='step-rear', z={'hilt': 'front', 'blade': 'top'}),   # v3 (Christopher 17:45): the raised blade over the hair and every headgear layer
@@ -52,7 +52,7 @@ CLIPS = {
     og(grip=(44, 36), angle=-20, lean=(1, 3), root=(-2, 0), lf='step-lead'),
     og(root=(-1, 0))]),
 }
-ITEM = {'viperStrike': 'tanto', 'ksStanceEntry': 'kyoketsu-shoge', 'macheteSlash': 'machete'}   # v2 (Christopher 2026-11-09 17:11): the stance shows the hooked blade and chain, not the tanto
+ITEM = {'viperStrike': 'tanto', 'ksStanceEntry': 'kyoketsu-shoge-sickle', 'macheteSlash': 'machete'}   # v3 (Christopher 2026-11-09 17:41): the base-tier sickle with chain and ring (the hooked blade is a higher-tier variant)
 HIDE = {'ksStanceEntry': [0]}   # the blade is still stowed on the hip on the first frame
 INTENT = {
  'viperStrike': 'Viper Strike (general Taijutsu, Bleed), free-standing (Christopher 2026-11-06: its own clip instead of the open-palm stand-in; the approved clinch and Mount versions are knife stabs, so the standing one is too): from the one-hand knife guard the fighter coils low, knees bent, the knife hand drawn back beside the hip; it darts up off the rear foot and the point bites into the midsection, snaps back an inch and bites again higher (two fangs), then recovers to the guard. White spark on the first bite.',
