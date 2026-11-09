@@ -15,7 +15,7 @@ from gen import load, save
 D = T.D
 ST = 'bladeThrow'
 T.STAT = 'E/W approved by user 2026-11-09 15:45 (v2.1: standing, from the Kyoketsu-Shoge Stance idle, not usable in the clinch; the blade leaves the hand on frames 3-6; W mirrors E); S/N to author'
-SN_STAT = 'CANDIDATE 2026-11-09 S/N v1 (E/W approved by user 2026-11-09 15:45, v2.1; W mirrors E)'
+SN_STAT = 'approved by user: E/W 2026-11-09 15:45 (v2.1), S/N 2026-11-09 15:54 (v1.1 layering); W mirrors E'
 OG = dict(grip=(43, 35), angle=10, far=(39, 24))
 def og(**k): return fr(**{**OG, **k})
 REL, IMP, REC, CATCH = 3, 5, 6, 7

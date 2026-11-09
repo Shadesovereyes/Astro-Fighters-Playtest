@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "bladeThrow",
-  "status": "CANDIDATE 2026-11-09 S/N v1 (E/W approved by user 2026-11-09 15:45, v2.1; W mirrors E)",
+  "status": "approved by user: E/W 2026-11-09 15:45 (v2.1), S/N 2026-11-09 15:54 (v1.1 layering); W mirrors E",
   "frames": 9,
   "fps": 12,
   "sourceDirection": "E",
@@ -1560,7 +1560,7 @@
       "items": [
         "kyoketsu-shoge"
       ],
-      "status": "CANDIDATE 2026-11-09 S/N v1 (E/W approved by user 2026-11-09 15:45, v2.1; W mirrors E)",
+      "status": "approved by user: E/W 2026-11-09 15:45 (v2.1), S/N 2026-11-09 15:54 (v1.1 layering); W mirrors E",
       "rule": "per frame: grip = near fist centre (snapped to the rendered fist); frames 3-6 hidden: the blade and its steel chain are out at the target, drawn by the testbed from chainHand; while held the chain is wound in the fist (noWeight)",
       "depthRule": "front: drawn over body and clothing, under the arms layer (the fists close over the hilt); behind: drawn under the body",
       "E": [

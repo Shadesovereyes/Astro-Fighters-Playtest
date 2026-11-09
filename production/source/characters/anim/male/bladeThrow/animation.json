@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-animation-output/v1",
   "body": "male",
   "state": "bladeThrow",
-  "status": "CANDIDATE 2026-11-09 S/N v1 (E/W approved by user 2026-11-09 15:45, v2.1; W mirrors E)",
+  "status": "approved by user: E/W 2026-11-09 15:45 (v2.1), S/N 2026-11-09 15:54 (v1.1 layering); W mirrors E",
   "frames": 9,
   "fps": 12,
   "frameSize": [
