@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-item/v1",
   "item": "kyoketsu-shoge",
   "kind": "rigid weapon (AGENTS.md: rigid items are placed by anchor with integer offsets)",
-  "status": "Cord Garrote APPROVED E/W by user 2026-11-06 20:32 with the cord changed to a chain; tanto blade with a steel chain and an iron ring at the far end (Kyoketsu-Shoge); used by Cord Garrote and Blade Throw",
+  "status": "CANDIDATE 2026-11-09 v2 (hooked sickle blade added); v1 Cord Garrote APPROVED E/W by user 2026-11-06 20:32 with the cord changed to a chain; tanto blade with a steel chain and an iron ring at the far end (Kyoketsu-Shoge); used by Cord Garrote and Blade Throw",
   "construction": "band: a straight band along the weapon axis from the grip point (the centre of the near fist); every pixel takes its colour from the cross-section pattern (back/spine to front/edge) of the segment it falls in, so the weapon keeps its thickness at any angle; pixels are rasterised from the authored data, never rotated or resampled from an image",
   "palette": {
     "#": "#000000",
@@ -52,6 +52,38 @@
       "pattern": [
         "#W"
       ]
+    },
+    {
+      "name": "hook",
+      "from": 0,
+      "to": 4.5,
+      "thickness": 2.5,
+      "pattern": [
+        "#aW"
+      ],
+      "branch": {
+        "at": [
+          4,
+          -1.5
+        ],
+        "angle": -75
+      }
+    },
+    {
+      "name": "hookTip",
+      "from": 0,
+      "to": 4.5,
+      "thickness": 2,
+      "pattern": [
+        "#W"
+      ],
+      "branch": {
+        "at": [
+          5.16,
+          -5.85
+        ],
+        "angle": -5
+      }
     }
   ],
   "outline": "every coloured pixel touching empty space gets an outline pixel (#) if it is not already one",
@@ -84,5 +116,6 @@
       ".a."
     ],
     "rule": "Kyoketsu-Shoge (Christopher 2026-11-06 20:32: the cord is a chain): a steel chain (links alternating #ffffff / #adadad, as the kama's) leaves the tanto pommel and ends in an iron ring (#adadad); hangs in screen space like the kama chain; poses set chain.via/to/droop/noWeight"
-  }
+  },
+  "hookRule": "v2 (Christopher 2026-11-09 17:11: the Kyoketsu-Shoge Stance showed a plain dagger, like the tanto stance; it must show the sickle and chain): the straight blade gets the second, hooked sickle blade of a real kyoketsu-shoge, springing from the spine side just above the guard and rising off the spine and curving forward alongside the blade (the sickle hook); chain and iron ring unchanged"
 }

@@ -394,6 +394,130 @@
           ]
         ]
       }
+    },
+    {
+      "slot": "main",
+      "item": "kyoketsu-shoge",
+      "default": false,
+      "hand": "arms",
+      "layers": {
+        "behind": "main-kyoketsu-shoge-behind.png",
+        "front": "main-kyoketsu-shoge-front.png",
+        "top": "main-kyoketsu-shoge-top.png"
+      },
+      "status": "approved by user 2026-10-13",
+      "z": {
+        "S": [
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          }
+        ],
+        "E": [
+          "front",
+          "front",
+          "front",
+          "front"
+        ],
+        "N": [
+          "behind",
+          "behind",
+          "behind",
+          "behind"
+        ],
+        "W": [
+          "front",
+          "front",
+          "front",
+          "front"
+        ]
+      },
+      "grips": {
+        "S": [
+          [
+            25,
+            35
+          ],
+          [
+            25,
+            34
+          ],
+          [
+            25,
+            35
+          ],
+          [
+            25,
+            36
+          ]
+        ],
+        "E": [
+          [
+            43,
+            35
+          ],
+          [
+            43,
+            34
+          ],
+          [
+            43,
+            35
+          ],
+          [
+            43,
+            36
+          ]
+        ],
+        "N": [
+          [
+            40,
+            38
+          ],
+          [
+            40,
+            37
+          ],
+          [
+            40,
+            38
+          ],
+          [
+            40,
+            39
+          ]
+        ],
+        "W": [
+          [
+            20,
+            35
+          ],
+          [
+            20,
+            34
+          ],
+          [
+            20,
+            35
+          ],
+          [
+            20,
+            36
+          ]
+        ]
+      }
     }
   ],
   "qc": {
@@ -445,7 +569,23 @@
       "main/kama W:0": true,
       "main/kama W:1": true,
       "main/kama W:2": true,
-      "main/kama W:3": true
+      "main/kama W:3": true,
+      "main/kyoketsu-shoge S:0": true,
+      "main/kyoketsu-shoge S:1": true,
+      "main/kyoketsu-shoge S:2": true,
+      "main/kyoketsu-shoge S:3": true,
+      "main/kyoketsu-shoge E:0": true,
+      "main/kyoketsu-shoge E:1": true,
+      "main/kyoketsu-shoge E:2": true,
+      "main/kyoketsu-shoge E:3": true,
+      "main/kyoketsu-shoge N:0": "hidden",
+      "main/kyoketsu-shoge N:1": "hidden",
+      "main/kyoketsu-shoge N:2": "hidden",
+      "main/kyoketsu-shoge N:3": "hidden",
+      "main/kyoketsu-shoge W:0": true,
+      "main/kyoketsu-shoge W:1": true,
+      "main/kyoketsu-shoge W:2": true,
+      "main/kyoketsu-shoge W:3": true
     },
     "inFrame": true,
     "pass": true

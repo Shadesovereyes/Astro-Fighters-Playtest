@@ -1647,7 +1647,8 @@
       "items": [
         "wakizashi",
         "tanto",
-        "kama"
+        "kama",
+        "kyoketsu-shoge"
       ],
       "status": "approved by user 2026-10-13",
       "rule": "per frame: grip = pixel at the centre of the near fist (body-frame coordinates; it follows the arm bob, 0, -1, 0, +1), angle = blade direction in degrees above the facing's horizontal, z = depth slot",
@@ -2123,10 +2124,79 @@
               }
             }
           ]
+        },
+        "kyoketsu-shoge": {
+          "E": [
+            {
+              "angle": 35,
+              "chain": {
+                "via": [
+                  45,
+                  26
+                ],
+                "droop": 5,
+                "to": [
+                  0,
+                  8
+                ],
+                "sag": 0,
+                "z": "front"
+              }
+            },
+            {
+              "angle": 35,
+              "chain": {
+                "via": [
+                  45,
+                  25
+                ],
+                "droop": 5,
+                "to": [
+                  1,
+                  8
+                ],
+                "sag": 0,
+                "z": "front"
+              }
+            },
+            {
+              "angle": 35,
+              "chain": {
+                "via": [
+                  45,
+                  26
+                ],
+                "droop": 5,
+                "to": [
+                  0,
+                  8
+                ],
+                "sag": 0,
+                "z": "front"
+              }
+            },
+            {
+              "angle": 35,
+              "chain": {
+                "via": [
+                  45,
+                  27
+                ],
+                "droop": 5,
+                "to": [
+                  -1,
+                  8
+                ],
+                "sag": 0,
+                "z": "front"
+              }
+            }
+          ]
         }
       },
       "itemStatus": {
-        "kama": "approved by user 2026-10-19 (idle with the kusarigama chain twirl)"
+        "kama": "approved by user 2026-10-19 (idle with the kusarigama chain twirl)",
+        "kyoketsu-shoge": "CANDIDATE 2026-11-09 (Christopher 17:11: the Kyoketsu-Shoge Stance must show the sickle and chain, not a plain dagger): hooked blade in the near fist at the tanto angle, the chain drooping from the pommel into the far fist and the iron ring hanging below it; E/W first"
       }
     }
   ]

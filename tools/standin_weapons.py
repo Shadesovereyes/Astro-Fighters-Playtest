@@ -52,7 +52,7 @@ CLIPS = {
     og(grip=(44, 36), angle=-20, lean=(1, 3), root=(-2, 0), lf='step-lead'),
     og(root=(-1, 0))]),
 }
-ITEM = {'viperStrike': 'tanto', 'ksStanceEntry': 'tanto', 'macheteSlash': 'machete'}
+ITEM = {'viperStrike': 'tanto', 'ksStanceEntry': 'kyoketsu-shoge', 'macheteSlash': 'machete'}   # v2 (Christopher 2026-11-09 17:11): the stance shows the hooked blade and chain, not the tanto
 HIDE = {'ksStanceEntry': [0]}   # the blade is still stowed on the hip on the first frame
 INTENT = {
  'viperStrike': 'Viper Strike (general Taijutsu, Bleed), free-standing (Christopher 2026-11-06: its own clip instead of the open-palm stand-in; the approved clinch and Mount versions are knife stabs, so the standing one is too): from the one-hand knife guard the fighter coils low, knees bent, the knife hand drawn back beside the hip; it darts up off the rear foot and the point bites into the midsection, snaps back an inch and bites again higher (two fangs), then recovers to the guard. White spark on the first bite.',
@@ -144,6 +144,12 @@ def spec(state):
     for k in HIDE.get(state, []): w['E'][k]['hidden'] = True
     s['extra'] = s.get('extra', {}); s['extra'].pop('stance', None)
     if state == 'ksStanceEntry':
+        # v2: drawn, the chain hangs free from the pommel with the ring swinging; on the last two frames the far hand takes
+        # the chain as in the stance idle (oneHandGuard itemPoses kyoketsu-shoge)
+        for k, ch in ((1, {'to': [-2, 12]}), (2, {'to': [3, 12]}), (3, {'to': [-6, 10]}), (4, {'to': [5, 11]}),
+                      (5, {'via': [45, 26], 'droop': 5, 'to': [2, 8], 'sag': 0, 'z': 'front'}), (6, {'via': [45, 26], 'droop': 5, 'to': [0, 8], 'sag': 0, 'z': 'front'})):
+            w['E'][k]['chain'] = ch
+        w['E'][0]['chain'] = {'off': True}
         s['clips']['rule'] = 'stance entry: starts in the boxing guard and ends in the stance idle (next: oneHandGuard)'
         for e in s['events']['E'] + s['events']['W']:
             if e.get('effect'): e['effect'] = 'enters Kyoketsu-Shoge Stance'
