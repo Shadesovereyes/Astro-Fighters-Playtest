@@ -3,7 +3,7 @@
   "body": "male",
   "state": "shoulderCharge",
   "status": "CANDIDATE 2026-11-06 (E/W; W mirrors E; S/N to author after approval)",
-  "frames": 11,
+  "frames": 14,
   "fps": 12,
   "sourceDirection": "E",
   "directions": [
@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Shoulder Charge (Bandit Thug, reskin of Iron Mountain, needs a run-up) v3 (Christopher 2026-11-06: drop into a three-point stance, then rush the target like a football player): from the guard the fighter drops into a lineman's three-point stance, knees deep, back flat, the near fist planted on the floor in front of the lead foot and the far arm cocked back along the hip; it holds the set a beat, grit spitting off the planted fist, then explodes off the line: three short driving strides with the head and lead shoulder low, arms pumping, dust off every step; it drives the shoulder into the opponent's chest like a tackle (white burst, dust), holds the drive a beat and steps back into the guard.",
+  "intent": "Shoulder Charge (Bandit Thug, reskin of Iron Mountain, needs a run-up) v4 (Christopher 2026-11-09: the three-point stance did not read and the charge did not feel heavy enough): from the guard the fighter sinks into a lineman's three-point stance, both feet under the hips, knees deep, back flat and head up, the near fist planted on the floor in front of the lead foot (grit) and the far arm cocked back along the hip; it rocks back onto its heels to load, then explodes off the line: three accelerating driving strides, head and lead shoulder low, arms pumping, dust off every step; the lead shoulder slams into the chest (big white burst, dust ring, a two-frame hit-stop), the legs keep driving through the target, then it steps back into the guard. The target plays chargedBack: lifted off its feet and driven back a long step.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -106,40 +106,49 @@
     "rule": "the knees give under the blow (body 2 px low) and come back up to the guard height; the head drops with the body a frame late",
     "dy": [
       1,
-      5,
-      12,
-      12,
       6,
+      13,
+      13,
+      13,
+      8,
+      9,
+      8,
       7,
-      6,
-      6,
-      6,
+      7,
+      7,
+      5,
       2,
       1
     ],
     "head": [
       1,
-      5,
-      12,
-      12,
       6,
+      12,
+      12,
+      12,
+      8,
+      9,
+      8,
       7,
-      6,
-      6,
-      6,
+      7,
+      7,
+      5,
       2,
       1
     ],
     "arms": [
       2,
-      5,
-      12,
-      12,
       6,
+      25,
+      25,
+      13,
+      8,
+      9,
+      8,
       7,
-      6,
-      6,
-      6,
+      7,
+      7,
+      5,
       3,
       2
     ]
@@ -151,12 +160,15 @@
       "pelvis": [
         0,
         2,
+        7,
+        7,
+        4,
+        3,
+        3,
+        3,
         4,
         4,
-        3,
-        3,
-        3,
-        3,
+        4,
         3,
         1,
         0
@@ -164,20 +176,23 @@
       "head": [
         2,
         8,
-        17,
-        17,
+        19,
+        19,
         16,
-        16,
-        16,
-        13,
-        13,
+        14,
+        14,
+        14,
+        15,
+        15,
+        15,
+        11,
         4,
         2
       ]
     }
   },
   "rootMotion": {
-    "rule": "E: +5 +5 +5 the strides, +3 +1 the tackle, -10 -9 back to the guard (net 0)",
+    "rule": "E: -1 rocking back, +4 +6 +8 the accelerating strides, +5 the slam, 0 the hit-stop, +1 +1 driving through, -12 -12 back to the guard (net 0)",
     "E": [
       [
         0,
@@ -196,7 +211,19 @@
         0
       ],
       [
-        5,
+        -1,
+        0
+      ],
+      [
+        4,
+        0
+      ],
+      [
+        6,
+        0
+      ],
+      [
+        8,
         0
       ],
       [
@@ -204,11 +231,7 @@
         0
       ],
       [
-        5,
-        0
-      ],
-      [
-        3,
+        0,
         0
       ],
       [
@@ -216,11 +239,15 @@
         0
       ],
       [
-        -10,
+        1,
         0
       ],
       [
-        -9,
+        -12,
+        0
+      ],
+      [
+        -12,
         0
       ]
     ],
@@ -242,7 +269,19 @@
         0
       ],
       [
-        -5,
+        1,
+        0
+      ],
+      [
+        -4,
+        0
+      ],
+      [
+        -6,
+        0
+      ],
+      [
+        -8,
         0
       ],
       [
@@ -250,11 +289,7 @@
         0
       ],
       [
-        -5,
-        0
-      ],
-      [
-        -3,
+        0,
         0
       ],
       [
@@ -262,11 +297,15 @@
         0
       ],
       [
-        10,
+        -1,
         0
       ],
       [
-        9,
+        12,
+        0
+      ],
+      [
+        12,
         0
       ]
     ]
@@ -1723,6 +1762,28 @@
         "foot": "pointFwd"
       },
       {
+        "name": "tp4-lead",
+        "construction": "band",
+        "hipX": 34,
+        "hipRow": 46,
+        "kneeX": 40,
+        "kneeRow": 52,
+        "footX": 39,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "tp4-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 46,
+        "kneeX": 29,
+        "kneeRow": 53,
+        "footX": 25,
+        "wrapRow": 54,
+        "foot": "toe60"
+      },
+      {
         "name": "tp-lead",
         "construction": "band",
         "hipX": 34,
@@ -1750,11 +1811,14 @@
       15,
       97,
       97,
+      97,
       24,
       25,
       26,
       19,
       19,
+      19,
+      23,
       1,
       1
     ],
@@ -1763,11 +1827,14 @@
       14,
       96,
       96,
+      96,
       28,
       29,
       30,
       18,
       18,
+      18,
+      22,
       0,
       0
     ]
@@ -1806,18 +1873,26 @@
       },
       {
         "construction": "band",
-        "angle": -22,
+        "angle": -4,
         "elbow": {
           "at": 8,
-          "angle": -18
+          "angle": -2
         }
       },
       {
         "construction": "band",
-        "angle": -22,
+        "angle": -4,
         "elbow": {
           "at": 8,
-          "angle": -18
+          "angle": -2
+        }
+      },
+      {
+        "construction": "band",
+        "angle": 2,
+        "elbow": {
+          "at": 8,
+          "angle": 4
         }
       },
       {
@@ -1842,6 +1917,22 @@
         "elbow": {
           "at": 8,
           "angle": -70
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -35,
+        "elbow": {
+          "at": 8,
+          "angle": 200
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -35,
+        "elbow": {
+          "at": 8,
+          "angle": 200
         }
       },
       {
@@ -1896,18 +1987,26 @@
       },
       {
         "construction": "band",
-        "angle": 50,
+        "angle": 48,
         "elbow": {
           "at": 8,
-          "angle": 40
+          "angle": 30
         }
       },
       {
         "construction": "band",
-        "angle": 50,
+        "angle": 48,
         "elbow": {
           "at": 8,
-          "angle": 40
+          "angle": 30
+        }
+      },
+      {
+        "construction": "band",
+        "angle": 55,
+        "elbow": {
+          "at": 8,
+          "angle": 35
         }
       },
       {
@@ -1932,6 +2031,22 @@
         "elbow": {
           "at": 8,
           "angle": -40
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -50,
+        "elbow": {
+          "at": 8,
+          "angle": 215
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -50,
+        "elbow": {
+          "at": 8,
+          "angle": 215
         }
       },
       {
@@ -2131,6 +2246,9 @@
       "bandFollowsBody": true,
       "sway": {
         "E": [
+          -1,
+          -1,
+          -1,
           -1,
           -1,
           -1,
@@ -2816,7 +2934,10 @@
         7,
         8,
         9,
-        10
+        10,
+        11,
+        12,
+        13
       ],
       "fps": 12,
       "next": "guard",
@@ -2864,6 +2985,16 @@
       {
         "frame": 7,
         "clip": "shoulderCharge",
+        "type": "startup"
+      },
+      {
+        "frame": 8,
+        "clip": "shoulderCharge",
+        "type": "startup"
+      },
+      {
+        "frame": 9,
+        "clip": "shoulderCharge",
         "type": "active",
         "move": "Shoulder Charge",
         "hitbox": [
@@ -2875,17 +3006,22 @@
         "damage": "heavy"
       },
       {
-        "frame": 8,
-        "clip": "shoulderCharge",
-        "type": "recovery"
-      },
-      {
-        "frame": 9,
-        "clip": "shoulderCharge",
-        "type": "recovery"
-      },
-      {
         "frame": 10,
+        "clip": "shoulderCharge",
+        "type": "recovery"
+      },
+      {
+        "frame": 11,
+        "clip": "shoulderCharge",
+        "type": "recovery"
+      },
+      {
+        "frame": 12,
+        "clip": "shoulderCharge",
+        "type": "recovery"
+      },
+      {
+        "frame": 13,
         "clip": "shoulderCharge",
         "type": "recovery"
       }
@@ -2929,6 +3065,16 @@
       {
         "frame": 7,
         "clip": "shoulderCharge",
+        "type": "startup"
+      },
+      {
+        "frame": 8,
+        "clip": "shoulderCharge",
+        "type": "startup"
+      },
+      {
+        "frame": 9,
+        "clip": "shoulderCharge",
         "type": "active",
         "move": "Shoulder Charge",
         "hitbox": [
@@ -2940,17 +3086,22 @@
         "damage": "heavy"
       },
       {
-        "frame": 8,
-        "clip": "shoulderCharge",
-        "type": "recovery"
-      },
-      {
-        "frame": 9,
-        "clip": "shoulderCharge",
-        "type": "recovery"
-      },
-      {
         "frame": 10,
+        "clip": "shoulderCharge",
+        "type": "recovery"
+      },
+      {
+        "frame": 11,
+        "clip": "shoulderCharge",
+        "type": "recovery"
+      },
+      {
+        "frame": 12,
+        "clip": "shoulderCharge",
+        "type": "recovery"
+      },
+      {
+        "frame": 13,
         "clip": "shoulderCharge",
         "type": "recovery"
       }
@@ -3248,6 +3399,9 @@
         "strain",
         "strain",
         "strain",
+        "strain",
+        "strain",
+        "strain",
         "squint",
         null
       ]
@@ -3255,7 +3409,7 @@
     "intent": "eyes squeezed shut with the brow pulled down on the impact frames 0-2 (no mouth: user 2026-10-14), a squint on frame 3, open again from frame 4 (user 2026-10-14)"
   },
   "targetState": {
-    "rule": "Shoulder Charge: on the impact frame (7, the active frame) and not before, the target plays hitReact once, then its idle; before it the target holds its plain guard",
-    "state": "hitReact"
+    "rule": "Shoulder Charge: on the impact frame (9, the active frame) and not before, the target plays chargedBack once, then its idle; before it the target holds its plain guard",
+    "state": "chargedBack"
   }
 }
