@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "darkCommuned",
-  "status": "E/W approved by user 2026-11-06 18:04 (v2; W mirrors E); S/N CANDIDATE 2026-10-21 (v1)",
+  "status": "E/W approved by user 2026-11-06 18:04 (v2; W mirrors E); S/N approved by user 2026-11-09 16:27 (v1)",
   "frames": 6,
   "fps": 8,
   "sourceDirection": "E",

@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-animation-output/v1",
   "body": "male",
   "state": "palmHealingSelf",
-  "status": "E/W approved by user 2026-11-06 18:12 (v1 palm on its own chest, green pulses and crosses; W mirrors E); S/N CANDIDATE 2026-10-21 (v1)",
+  "status": "E/W approved by user 2026-11-06 18:12 (v1 palm on its own chest, green pulses and crosses; W mirrors E); S/N approved by user 2026-11-09 16:27 (v1)",
   "frames": 10,
   "fps": 10,
   "frameSize": [
