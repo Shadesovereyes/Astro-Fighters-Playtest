@@ -21,6 +21,7 @@ APPROVED = {'palmHealingSelf': 'E/W approved by user 2026-11-06 18:12 (v1 palm o
 DRIVE = dict(ln='sp-drive-rear', lf='sp-drive-lead')
 from universal import leg as _leg
 import universal as _U
+_U.POSES += [_leg('tp5-lead', (34, 47), (39, 53), 38), _leg('tp5-rear', (32, 47), (31, 54), 27, wrap=54, kind='toe60')]   # Shoulder Charge v5: three-point set, hips up, feet staggered under the hips
 _U.POSES += [_leg('tp4-lead', (34, 46), (40, 52), 39), _leg('tp4-rear', (31, 46), (29, 53), 25, wrap=54, kind='toe60')]   # Shoulder Charge v4: three-point set, both feet under the hips
 _U.POSES += [_leg('tp-lead', (34, 49), (41, 52), 39), _leg('tp-rear', (31, 49), (28, 54), 23, wrap=54, kind='toe60')]   # Shoulder Charge v3: lineman's three-point set, knees deep
 LOAD = dict(ln='sp-load-rear', lf='sp-load-lead')
@@ -112,27 +113,29 @@ CLIPS = {
  # knuckleHaymaker v3 deleted (Christopher 2026-11-09 17:10: "delete knuckle haymaker")
 
  'shoulderCharge': ('Shoulder Charge', 9,
-  'Shoulder Charge (Bandit Thug, reskin of Iron Mountain, needs a run-up) v4 (Christopher 2026-11-09: the three-point stance did not read and the charge did not feel heavy enough): from the guard the fighter sinks into a lineman\'s three-point stance, both feet under the hips, knees deep, back flat and head up, the near fist planted on the floor in front of the lead foot (grit) and the far arm cocked back along the hip; it rocks back onto its heels to load, then explodes off the line: three accelerating driving strides, head and lead shoulder low, arms pumping, dust off every step; the lead shoulder slams into the chest (big white burst, dust ring, a two-frame hit-stop), the legs keep driving through the target, then it steps back into the guard. The target plays chargedBack: lifted off its feet and driven back a long step.',
+  'Shoulder Charge (Bandit Thug, reskin of Iron Mountain, needs a run-up) v5 (Christopher 2026-11-09 17:57: corrected against the 19-point v4 review): from the guard the fighter sinks straight down (no lunge) into a lineman\'s three-point set: hips up over the knees, feet staggered under the hips with the rear heel raised, back sloping down to the head, the near fist planted on the floor ahead of the lead foot (grit), the far forearm resting across the far thigh; it sinks its hips back to load, then the rear foot drives it off the line low: a push-off frame, then three sprint strides with the arms pumping one forward and one back, head down behind the lead shoulder; on the last stride it tucks both arms tight to its body and drives the lead shoulder (not the hands) into the chest: a white burst at the shoulder, a dust ring at the feet, a three-frame hit-stop, then the legs keep driving a short step; it walks back to its start in three steps.',
   [g(),
-   g(an=band(-25, 205), af=band(-40, 215), bob=(6, 6, 6), lean=(2, 8), ln='ml-dip-rear', lf='ml-dip-lead'),
-   g(an=band(-4, -2), af=band(48, 30), bob=(13, 12, 25), lean=(7, 19), ln='tp4-rear', lf='tp4-lead'),
-   g(an=band(-4, -2), af=band(48, 30), bob=(13, 12, 25), lean=(7, 19), ln='tp4-rear', lf='tp4-lead'),
-   g(an=band(2, 4), af=band(55, 35), bob=(13, 12, 13), lean=(4, 16), root=(-1, 0), ln='tp4-rear', lf='tp4-lead')] + [
-   g(an=band(-55 + 30 * (k % 2), -70 + 30 * (k % 2)), af=band(-25 - 30 * (k % 2), -40 - 30 * (k % 2)), bob=(astro.SPRINT_DY[k] + 7,) * 3, lean=(3, 14), root=(r, 0),
-     ln='sr-' + astro.SPRINT_LEGS[k], lf='sr-' + astro.SPRINT_LEGS[(k + 4) % 8]) for k, r in ((0, 4), (1, 6), (2, 8))] + [
-   g(an=astro.TUCK_N, af=astro.TUCK_F, bob=(7, 7, 7), lean=(4, 15), root=(5, 0), ln='ml-trail-rear', lf='ml-plant-lead'),
-   g(an=astro.TUCK_N, af=astro.TUCK_F, bob=(7, 7, 7), lean=(4, 15), root=(0, 0), ln='ml-trail-rear', lf='ml-plant-lead'),
-   g(an=astro.TUCK_N, af=astro.TUCK_F, bob=(7, 7, 7), lean=(4, 15), root=(1, 0), ln='ml-trail-rear', lf='ml-plant-lead'),
-   g(an=astro.TUCK_N, af=astro.TUCK_F, bob=(5, 5, 5), lean=(3, 11), root=(1, 0), ln='sp-drive-rear', lf='sp-drive-lead'),
-   g(an=band(-25, 208), af=band(-45, 220), bob=(2, 2, 3), lean=(1, 4), root=(-12, 0)),
-   g(root=(-12, 0))],
-  [None, 'squint', 'strain', 'strain', 'strain', 'strain', 'strain', 'strain', 'strain', 'strain', 'strain', 'strain', 'squint', None],
+   g(an=band(-20, 200), af=band(-35, 212), bob=(4, 4, 4), lean=(1, 5), ln='sp-load-rear', lf='sp-load-lead'),
+   g(an=band(-10, -4), af=band(25, -45), bob=(13, 14, 24), lean=(6, 16), ln='tp5-rear', lf='tp5-lead'),
+   g(an=band(-10, -4), af=band(25, -45), bob=(13, 14, 24), lean=(6, 16), ln='tp5-rear', lf='tp5-lead'),
+   g(an=band(-2, 0), af=band(25, -45), bob=(13, 14, 24), lean=(4, 13), root=(-2, 0), ln='tp5-rear', lf='tp5-lead'),
+   g(an=band(30, 20), af=band(-70, -110), bob=(9, 10, 9), lean=(4, 14), root=(3, 0), ln='ml-dip-rear', lf='ml-dip-lead')] + [
+   g(an=band(-50, -115) if k % 4 == 2 else band(45, -25), af=band(45, -25) if k % 4 == 2 else band(-50, -115),
+     bob=(astro.SPRINT_DY[k] + 6, astro.SPRINT_DY[k] + 8, astro.SPRINT_DY[k] + 6), lean=(4, 16), root=(r, 0),
+     ln='sr-' + astro.SPRINT_LEGS[k], lf='sr-' + astro.SPRINT_LEGS[(k + 4) % 8]) for k, r in ((2, 4), (4, 6), (6, 7))] + [
+   g(an=band(15, 195), af=band(5, 200), bob=(6, 8, 6), lean=(5, 16), root=(3, 0), ln='ml-trail-rear', lf='ml-plant-lead'),
+   g(an=band(15, 195), af=band(5, 200), bob=(6, 8, 6), lean=(5, 16), ln='ml-trail-rear', lf='ml-plant-lead'),
+   g(an=band(15, 195), af=band(5, 200), bob=(6, 8, 6), lean=(5, 16), ln='ml-trail-rear', lf='ml-plant-lead'),
+   g(an=band(10, 200), af=band(0, 205), bob=(5, 6, 5), lean=(4, 13), root=(0, 0), ln='sp-drive-rear', lf='sp-drive-lead'),
+   g(an=band(-20, 208), af=band(-40, 218), bob=(2, 2, 3), lean=(1, 4), root=(-7, 0), ln='im-step-rear', lf='im-step-lead'),
+   g(an=band(-20, 208), af=band(-40, 218), bob=(1, 1, 2), lean=(0, 3), root=(-7, 0)),
+   g(root=(-7, 0))],
+  [None, 'squint', 'strain', 'strain', 'strain', 'strain', 'strain', 'strain', 'strain', 'strain', 'strain', 'strain', 'strain', 'squint', 'squint', None],
   None,
-  dict(fps=12, hitbox=[42, 26, 12, 14], damage='heavy', rm='E: -1 rocking back, +4 +6 +8 the accelerating strides, +5 the slam, 0 the hit-stop, +1 +1 driving through, -12 -12 back to the guard (net 0)',
-       extra=tgt('Shoulder Charge', 9, 'chargedBack'),
-       anchored={2: [('dust', 'hand', 2, 1)], 3: [('dust', 'hand', -2, 1)], 5: [('dust', 'feet', -8, -2)], 6: [('dust', 'feet', -8, -2)], 7: [('dust', 'feet', -8, -2), ('dust', 'feet', -14, -1)],
-                 8: [('dust', 'feet', -6, -2)], 9: [('puffRing', 'head', 9, 9), ('star9', 'head', 9, 8), ('dust', 'feet', 4, -2), ('dust', 'feet', -4, -2)],
-                 10: [('star9', 'head', 9, 8), ('puffRing', 'head', 10, 9)], 11: [('star3', 'head', 10, 6), ('dust', 'feet', 2, -2)], 12: [('dust', 'feet', 0, -2)]})),
+  dict(fps=12, hitbox=[42, 24, 12, 14], damage='heavy', rm='E: -2 sinking back, +3 push-off, +4 +6 +7 the strides, +3 the shoulder arriving, 0 0 the hit-stop, 0 driving, -7 -7 -7 walking back (net 0)',
+       extra={**tgt('Shoulder Charge', 9, 'chargedBack'), 'hitStop': {'frames': [9, 10, 11], 'rule': 'Shoulder Charge v5: the contact pose is held three frames (a 250 ms hit-stop at 12 fps)'}},
+       anchored={2: [('dust', 'hand', 1, 2)], 3: [('dust', 'hand', -1, 2)], 5: [('dust', 'feet', -10, -2)], 6: [('dust', 'feet', -8, -2)], 7: [('dust', 'feet', -8, -2)], 8: [('dust', 'feet', -8, -2)],
+                 9: [('star9', 'head', 7, 9), ('puffRing', 'feet', 4, -4)], 10: [('star9', 'head', 7, 9), ('puffRing', 'feet', 4, -4)], 11: [('star6', 'head', 7, 9), ('dust', 'feet', 6, -2)], 12: [('dust', 'feet', 2, -2)]})),
 
  'clinchEntry': ('Clinch', 3,
   'Clinch entry (Martial shared; Grab is the NPC reskin): from the guard the fighter steps in and shoots both open hands out at the opponent\'s neck; on the impact frame the hands close behind the head in a collar tie and pull down. When the grab lands the testbed forms the clinch pair from that frame (clinchHold / clinchHeld); when it misses the fighter lets go and steps back into the guard.',
@@ -399,19 +402,21 @@ CLIPS['groinHit'] = ('Cheap Shot', 0,
 APPROVED['cheapShot'] = 'E/W approved by user 2026-11-09 17:42 (v4 as shown in the groinHit preview: drop low, rising punch into the groin; W mirrors E); S/N to author'
 APPROVED['groinHit'] = 'E/W approved by user 2026-11-09 17:10 (v1, target of Cheap Shot; W mirrors E); S/N to author'
 CLIPS['chargedBack'] = ('Shoulder Charge', 0,
-  'chargedBack (target of Shoulder Charge v4, Christopher 2026-11-09: the charge must feel heavy): frame 0 is the shoulder slamming into the chest; the fighter is folded round the shoulder and lifted, both feet off the floor, and driven back a long way, arms flung forward, then it lands heavily on its heels, staggers one more step back, catches its balance and comes back up into the guard.',
-  [g(an=band(-70, -40), af=band(-80, -50), bob=(2, 4, 3), lean=(-3, -2), root=(-4, 0), ln='ml-dip-rear', lf='ml-dip-lead'),
-   g(an=band(-75, -45), af=band(-85, -55), bob=(-2, 0, -1), lean=(-4, -4), root=(-6, 0), ln='ml-dip-rear', lf='ml-dip-lead'),
-   g(an=band(-70, -40), af=band(-80, -50), bob=(-2, 0, -1), lean=(-4, -4), root=(-5, 0), ln='ml-dip-rear', lf='ml-dip-lead'),
-   g(an=band(-40, -80), af=band(-50, -90), bob=(5, 5, 5), lean=(-3, 2), root=(-3, 0), **LOW),
-   g(an=band(-30, -90), af=band(-40, -100), bob=(4, 4, 4), lean=(-2, 0), root=(-2, 0), ln='sp-load-rear', lf='sp-load-lead'),
-   g(an=band(-30, -95), af=band(-40, -105), bob=(3, 3, 3), lean=(-1, 2), **LOW),
-   g(an=RECOVER, bob=(2, 2, 2), lean=(0, 2), root=(7, 0)),
-   g(root=(10, 0))],
-  ['pain', 'pain', 'pain', 'pain', 'strain', 'squint', 'squint', None],
+  'chargedBack v2 (target of Shoulder Charge v5): frame 0 is the shoulder driving into the chest; the fighter folds over the shoulder, arms flung back and down (never reaching for the attacker), and is lifted clear of the floor and carried back through the hit-stop, legs trailing; it lands heavily on its heels with a puff of dust, staggers one more step back, then steps back in to its tile over three steps and comes up into the guard.',
+  [g(an=band(35, 20), af=band(45, 25), bob=(3, 5, 3), lean=(-2, 4), root=(-2, 0), ln='ml-dip-rear', lf='ml-dip-lead'),
+   g(an=band(45, 25), af=band(55, 30), bob=(-1, 0, -1), lean=(-3, 3), root=(-3, 0), ln='hk-drop', lf='ml-dip-lead'),
+   g(an=band(50, 30), af=band(60, 35), bob=(-2, -1, -2), lean=(-4, 2), root=(-4, 0), ln='hk-drop', lf='ml-dip-lead'),
+   g(an=band(40, 20), af=band(50, 25), bob=(-1, 0, -1), lean=(-4, 0), root=(-5, 0), ln='ml-dip-rear', lf='ml-dip-lead'),
+   g(an=band(-10, -60), af=band(-20, -70), bob=(5, 6, 5), lean=(-2, 3), root=(-3, 0), **LOW),
+   g(an=band(-20, -80), af=band(-30, -90), bob=(4, 4, 4), lean=(-2, 1), root=(-2, 0), ln='sp-load-rear', lf='sp-load-lead'),
+   g(an=band(-25, -95), af=band(-35, -105), bob=(3, 3, 3), lean=(-1, 2), **LOW),
+   g(an=RECOVER, bob=(2, 2, 2), lean=(0, 2), root=(5, 0), ln='im-step-rear', lf='im-step-lead'),
+   g(an=RECOVER, bob=(1, 1, 2), lean=(0, 2), root=(6, 0)),
+   g(root=(5, 0))],
+  ['pain', 'pain', 'pain', 'pain', 'pain', 'strain', 'squint', 'squint', 'squint', None],
   None,
-  dict(fps=12, react=True, extra={'airborneFrames': [1, 2]}, rm='E: -4 -6 -5 lifted and driven back, -3 -2 the landing stagger, +7 +10 stepping back in (net -3, as hitReact)',
-       anchored={0: [('star6', 'head', -2, 8)], 3: [('dust', 'feet', 0, -2)], 4: [('dust', 'feet', -3, -2)]}))
+  dict(fps=12, react=True, extra={'airborneFrames': [1, 2, 3]}, rm='E: -2 -3 -4 -5 lifted and carried back, -3 -2 the landing stagger, +5 +6 +5 stepping back in (net -3, as hitReact)',
+       anchored={0: [('star6', 'head', -1, 9)], 4: [('dust', 'feet', 0, -2), ('dust', 'feet', -6, -2)], 5: [('dust', 'feet', -3, -2)]}))
 APPROVED['chargedBack'] = STAT
 astro.CLIPS.update(CLIPS)
 astro.APPROVED.update({k: APPROVED.get(k, STAT) for k in CLIPS})

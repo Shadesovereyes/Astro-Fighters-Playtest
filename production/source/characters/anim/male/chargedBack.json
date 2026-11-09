@@ -3,7 +3,7 @@
   "body": "male",
   "state": "chargedBack",
   "status": "CANDIDATE 2026-11-06 (E/W; W mirrors E; S/N to author after approval)",
-  "frames": 8,
+  "frames": 10,
   "fps": 12,
   "sourceDirection": "E",
   "directions": [
@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "chargedBack (target of Shoulder Charge v4, Christopher 2026-11-09: the charge must feel heavy): frame 0 is the shoulder slamming into the chest; the fighter is folded round the shoulder and lifted, both feet off the floor, and driven back a long way, arms flung forward, then it lands heavily on its heels, staggers one more step back, catches its balance and comes back up into the guard.",
+  "intent": "chargedBack v2 (target of Shoulder Charge v5): frame 0 is the shoulder driving into the chest; the fighter folds over the shoulder, arms flung back and down (never reaching for the attacker), and is lifted clear of the floor and carried back through the hit-stop, legs trailing; it lands heavily on its heels with a puff of dust, staggers one more step back, then steps back in to its tile over three steps and comes up into the guard.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -105,32 +105,38 @@
   "bob": {
     "rule": "the knees give under the blow (body 2 px low) and come back up to the guard height; the head drops with the body a frame late",
     "dy": [
-      2,
+      3,
+      -1,
       -2,
-      -2,
+      -1,
       5,
       4,
       3,
       2,
+      1,
       1
     ],
     "head": [
-      4,
-      0,
-      0,
       5,
+      0,
+      -1,
+      0,
+      6,
       4,
       3,
       2,
+      1,
       1
     ],
     "arms": [
       3,
       -1,
+      -2,
       -1,
       5,
       4,
       3,
+      2,
       2,
       2
     ]
@@ -140,21 +146,25 @@
     "torsoShear": true,
     "dx": {
       "pelvis": [
+        -2,
         -3,
         -4,
         -4,
-        -3,
+        -2,
         -2,
         -1,
+        0,
         0,
         0
       ],
       "head": [
-        -2,
-        -4,
-        -4,
+        4,
+        3,
         2,
         0,
+        3,
+        1,
+        2,
         2,
         2,
         2
@@ -162,14 +172,18 @@
     }
   },
   "rootMotion": {
-    "rule": "E: -4 -6 -5 lifted and driven back, -3 -2 the landing stagger, +7 +10 stepping back in (net -3, as hitReact)",
+    "rule": "E: -2 -3 -4 -5 lifted and carried back, -3 -2 the landing stagger, +5 +6 +5 stepping back in (net -3, as hitReact)",
     "E": [
       [
-        -4,
+        -2,
         0
       ],
       [
-        -6,
+        -3,
+        0
+      ],
+      [
+        -4,
         0
       ],
       [
@@ -189,21 +203,29 @@
         0
       ],
       [
-        7,
+        5,
         0
       ],
       [
-        10,
+        6,
+        0
+      ],
+      [
+        5,
         0
       ]
     ],
     "W": [
       [
-        4,
+        2,
         0
       ],
       [
-        6,
+        3,
+        0
+      ],
+      [
+        4,
         0
       ],
       [
@@ -223,18 +245,23 @@
         0
       ],
       [
-        -7,
+        -5,
         0
       ],
       [
-        -10,
+        -6,
+        0
+      ],
+      [
+        -5,
         0
       ]
     ]
   },
   "airborneFrames": [
     1,
-    2
+    2,
+    3
   ],
   "legs": {
     "source": "The reference near leg (R-thigh, R-shin-foot) of the E frame is replaced by row-span legs. Every leg is outlined; the reference wrap+foot block (R-shin-foot rows 56-63) is reused unchanged by the reference-ankle construction.",
@@ -1687,6 +1714,28 @@
         "foot": "pointFwd"
       },
       {
+        "name": "tp5-lead",
+        "construction": "band",
+        "hipX": 34,
+        "hipRow": 47,
+        "kneeX": 39,
+        "kneeRow": 53,
+        "footX": 38,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "tp5-rear",
+        "construction": "band",
+        "hipX": 32,
+        "hipRow": 47,
+        "kneeX": 31,
+        "kneeRow": 54,
+        "footX": 27,
+        "wrapRow": 54,
+        "foot": "toe60"
+      },
+      {
         "name": "tp4-lead",
         "construction": "band",
         "hipX": 34,
@@ -1733,11 +1782,13 @@
     ],
     "near": [
       15,
-      15,
+      10,
+      10,
       15,
       3,
       21,
       3,
+      7,
       1,
       1
     ],
@@ -1745,9 +1796,11 @@
       14,
       14,
       14,
+      14,
       2,
       20,
       2,
+      6,
       0,
       0
     ]
@@ -1770,31 +1823,47 @@
     "near": [
       {
         "construction": "band",
-        "angle": -70,
+        "angle": 35,
         "elbow": {
           "at": 8,
-          "angle": -40
+          "angle": 20
         }
       },
       {
         "construction": "band",
-        "angle": -75,
+        "angle": 45,
         "elbow": {
           "at": 8,
-          "angle": -45
+          "angle": 25
         }
       },
       {
         "construction": "band",
-        "angle": -70,
+        "angle": 50,
         "elbow": {
           "at": 8,
-          "angle": -40
+          "angle": 30
         }
       },
       {
         "construction": "band",
-        "angle": -40,
+        "angle": 40,
+        "elbow": {
+          "at": 8,
+          "angle": 20
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -10,
+        "elbow": {
+          "at": 8,
+          "angle": -60
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -20,
         "elbow": {
           "at": 8,
           "angle": -80
@@ -1802,18 +1871,18 @@
       },
       {
         "construction": "band",
-        "angle": -30,
+        "angle": -25,
         "elbow": {
           "at": 8,
-          "angle": -90
+          "angle": -95
         }
       },
       {
         "construction": "band",
-        "angle": -30,
+        "angle": -55,
         "elbow": {
           "at": 8,
-          "angle": -95
+          "angle": 230
         }
       },
       {
@@ -1836,31 +1905,47 @@
     "far": [
       {
         "construction": "band",
-        "angle": -80,
+        "angle": 45,
         "elbow": {
           "at": 8,
-          "angle": -50
+          "angle": 25
         }
       },
       {
         "construction": "band",
-        "angle": -85,
+        "angle": 55,
         "elbow": {
           "at": 8,
-          "angle": -55
+          "angle": 30
         }
       },
       {
         "construction": "band",
-        "angle": -80,
+        "angle": 60,
         "elbow": {
           "at": 8,
-          "angle": -50
+          "angle": 35
         }
       },
       {
         "construction": "band",
-        "angle": -50,
+        "angle": 50,
+        "elbow": {
+          "at": 8,
+          "angle": 25
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -20,
+        "elbow": {
+          "at": 8,
+          "angle": -70
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -30,
         "elbow": {
           "at": 8,
           "angle": -90
@@ -1868,18 +1953,18 @@
       },
       {
         "construction": "band",
-        "angle": -40,
+        "angle": -35,
         "elbow": {
           "at": 8,
-          "angle": -100
+          "angle": -105
         }
       },
       {
         "construction": "band",
-        "angle": -40,
+        "angle": -45,
         "elbow": {
           "at": 8,
-          "angle": -105
+          "angle": 222
         }
       },
       {
@@ -2063,6 +2148,8 @@
       "bandFollowsBody": true,
       "sway": {
         "E": [
+          -1,
+          -1,
           -1,
           -1,
           -1,
@@ -2742,7 +2829,9 @@
         4,
         5,
         6,
-        7
+        7,
+        8,
+        9
       ],
       "fps": 12,
       "next": "guard",
@@ -2792,6 +2881,16 @@
         "frame": 7,
         "clip": "chargedBack",
         "type": "recovery"
+      },
+      {
+        "frame": 8,
+        "clip": "chargedBack",
+        "type": "recovery"
+      },
+      {
+        "frame": 9,
+        "clip": "chargedBack",
+        "type": "recovery"
       }
     ],
     "W": [
@@ -2833,6 +2932,16 @@
       },
       {
         "frame": 7,
+        "clip": "chargedBack",
+        "type": "recovery"
+      },
+      {
+        "frame": 8,
+        "clip": "chargedBack",
+        "type": "recovery"
+      },
+      {
+        "frame": 9,
         "clip": "chargedBack",
         "type": "recovery"
       }
@@ -3125,7 +3234,9 @@
         "pain",
         "pain",
         "pain",
+        "pain",
         "strain",
+        "squint",
         "squint",
         "squint",
         null
