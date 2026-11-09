@@ -25,6 +25,23 @@ _U.POSES += [_leg('tp5-lead', (37, 47), (42, 53), 41), _leg('tp5-rear', (35, 47)
 _U.POSES += [_leg('tp4-lead', (34, 46), (40, 52), 39), _leg('tp4-rear', (31, 46), (29, 53), 25, wrap=54, kind='toe60')]   # Shoulder Charge v4: three-point set, both feet under the hips
 _U.POSES += [_leg('tp-lead', (34, 49), (41, 52), 39), _leg('tp-rear', (31, 49), (28, 54), 23, wrap=54, kind='toe60')]   # Shoulder Charge v3: lineman's three-point set, knees deep
 LOAD = dict(ln='sp-load-rear', lf='sp-load-lead')
+def _low(name, hip):
+    """a copy of leg pose `name` whose hip sits on row `hip` (the body's hip row at that bob), feet left where they are, the
+    knee taking half the drop (Shoulder Charge v6.1: the borrowed legs kept a standing hip row under a body sunk 4-8 px,
+    so the thighs started above the belt and bulged out behind the seat)"""
+    src = next(q for q in _U.POSES if q['name'] == name); d = hip - src['hipRow']
+    if d == 0: return name
+    nm = '%s@%d' % (name, hip)
+    if not any(q['name'] == nm for q in _U.POSES):
+        q = dict(src, name=nm, hipRow=hip, kneeRow=src['kneeRow'] + (d + 1) // 2)
+        _U.POSES.append(q)
+    return nm
+def gl(**k):
+    """g() with both legs re-hipped to the body's hip row (41 + bob)"""
+    hip = 41 + k.get('bob', (0,))[0]
+    for s in ('ln', 'lf'):
+        if s in k: k[s] = _low(k[s], hip)
+    return g(**k)
 GUARD_N = band(-20, 212)   # the approved guard's rear (near) arm
 RECOVER = band(-55, 230)
 
@@ -113,22 +130,22 @@ CLIPS = {
  # knuckleHaymaker v3 deleted (Christopher 2026-11-09 17:10: "delete knuckle haymaker")
 
  'shoulderCharge': ('Shoulder Charge', 9,
-  'Shoulder Charge (Bandit Thug, reskin of Iron Mountain, needs a run-up) v6 (Christopher 2026-11-09 18:04 chose the bull crouch over the three-point set): from the guard the fighter drops into a low bull crouch, knees deep, lead shoulder down and forward, both fists tucked low in front of the chest, head down behind the lead shoulder; the rear foot paws the ground twice, kicking dust back, the second paw sinking the weight back to load; then the rear foot drives it off the line low: a push-off frame, then three sprint strides with the arms pumping one forward and one back; on the last stride it tucks both arms tight to its body and drives the lead shoulder (not the hands) into the chest: a white burst at the shoulder, a dust ring at the feet, a three-frame hit-stop, then the legs keep driving a short step; it walks back to its start in three steps.',
+  'Shoulder Charge (Bandit Thug, reskin of Iron Mountain, needs a run-up) v6.1 (Christopher 2026-11-09 18:04 chose the bull crouch over the three-point set; 18:10 hips fixed: every leg re-hipped to the sunk body): from the guard the fighter drops into a low bull crouch, knees deep, lead shoulder down and forward, both fists tucked low in front of the chest, head down behind the lead shoulder; the rear foot paws the ground twice, kicking dust back, the second paw sinking the weight back to load; then the rear foot drives it off the line low: a push-off frame, then three sprint strides with the arms pumping one forward and one back; on the last stride it tucks both arms tight to its body and drives the lead shoulder (not the hands) into the chest: a white burst at the shoulder, a dust ring at the feet, a three-frame hit-stop, then the legs keep driving a short step; it walks back to its start in three steps.',
   [g(),
-   g(an=band(-20, 200), af=band(-35, 212), bob=(4, 4, 4), lean=(1, 5), ln='sp-load-rear', lf='sp-load-lead'),
-   g(an=band(-10, 195), af=band(-25, 205), bob=(7, 8, 7), lean=(3, 9), ln='ml-trail-rear', lf='cb-brace-lead'),   # paw 1
-   g(an=band(-10, 195), af=band(-25, 205), bob=(7, 8, 7), lean=(3, 9), ln='cb-brace-rear', lf='cb-brace-lead'),
-   g(an=band(-10, 195), af=band(-25, 205), bob=(7, 8, 7), lean=(3, 10), root=(-2, 0), ln='ml-trail-rear', lf='cb-brace-lead'),   # paw 2, loading back
-   g(an=band(30, 20), af=band(-70, -110), bob=(8, 9, 8), lean=(3, 11), root=(3, 0), ln='ml-dip-rear', lf='ml-dip-lead')] + [
-   g(an=band(-55, -150) if k % 4 == 2 else band(55, 15), af=band(55, 15) if k % 4 == 2 else band(-55, -150),
+   gl(an=band(-20, 200), af=band(-35, 212), bob=(4, 4, 4), lean=(1, 5), ln='sp-load-rear', lf='sp-load-lead'),
+   gl(an=band(-10, 195), af=band(-25, 205), bob=(7, 8, 7), lean=(3, 9), ln='ml-trail-rear', lf='cb-brace-lead'),   # paw 1
+   gl(an=band(-10, 195), af=band(-25, 205), bob=(7, 8, 7), lean=(3, 9), ln='cb-brace-rear', lf='cb-brace-lead'),
+   gl(an=band(-10, 195), af=band(-25, 205), bob=(7, 8, 7), lean=(3, 10), root=(-2, 0), ln='ml-trail-rear', lf='cb-brace-lead'),   # paw 2, loading back
+   gl(an=band(30, 20), af=band(-70, -110), bob=(8, 9, 8), lean=(3, 11), root=(3, 0), ln='ml-dip-rear', lf='ml-dip-lead')] + [
+   gl(an=band(-55, -150) if k % 4 == 2 else band(55, 15), af=band(55, 15) if k % 4 == 2 else band(-55, -150),
      bob=(astro.SPRINT_DY[k] + 5, astro.SPRINT_DY[k] + 6, astro.SPRINT_DY[k] + 5), lean=(3, 10), root=(r, 0),
      ln='sr-' + astro.SPRINT_LEGS[k], lf='sr-' + astro.SPRINT_LEGS[(k + 4) % 8]) for k, r in ((2, 4), (4, 6), (6, 7))] + [
-   g(an=band(15, 195), af=band(5, 200), bob=(6, 8, 6), lean=(5, 16), root=(3, 0), ln='ml-trail-rear', lf='ml-plant-lead'),
-   g(an=band(15, 195), af=band(5, 200), bob=(6, 8, 6), lean=(5, 16), ln='ml-trail-rear', lf='ml-plant-lead'),
-   g(an=band(15, 195), af=band(5, 200), bob=(6, 8, 6), lean=(5, 16), ln='ml-trail-rear', lf='ml-plant-lead'),
-   g(an=band(10, 200), af=band(0, 205), bob=(5, 6, 5), lean=(4, 13), root=(0, 0), ln='sp-drive-rear', lf='sp-drive-lead'),
-   g(an=band(-20, 208), af=band(-40, 218), bob=(2, 2, 3), lean=(1, 4), root=(-7, 0), ln='im-step-rear', lf='im-step-lead'),
-   g(an=band(-20, 208), af=band(-40, 218), bob=(1, 1, 2), lean=(0, 3), root=(-7, 0)),
+   gl(an=band(15, 195), af=band(5, 200), bob=(6, 8, 6), lean=(5, 16), root=(3, 0), ln='ml-trail-rear', lf='ml-plant-lead'),
+   gl(an=band(15, 195), af=band(5, 200), bob=(6, 8, 6), lean=(5, 16), ln='ml-trail-rear', lf='ml-plant-lead'),
+   gl(an=band(15, 195), af=band(5, 200), bob=(6, 8, 6), lean=(5, 16), ln='ml-trail-rear', lf='ml-plant-lead'),
+   gl(an=band(10, 200), af=band(0, 205), bob=(5, 6, 5), lean=(4, 13), root=(0, 0), ln='sp-drive-rear', lf='sp-drive-lead'),
+   gl(an=band(-20, 208), af=band(-40, 218), bob=(2, 2, 3), lean=(1, 4), root=(-7, 0), ln='im-step-rear', lf='im-step-lead'),
+   gl(an=band(-20, 208), af=band(-40, 218), bob=(1, 1, 2), lean=(0, 3), root=(-7, 0)),
    g(root=(-7, 0))],
   [None, 'squint', 'strain', 'strain', 'strain', 'strain', 'strain', 'strain', 'strain', 'strain', 'strain', 'strain', 'strain', 'squint', 'squint', None],
   None,
