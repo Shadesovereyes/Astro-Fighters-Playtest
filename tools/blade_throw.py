@@ -81,6 +81,10 @@ elif '--sn' in sys.argv:
             else:
                 p['chain'] = {'via': [p['grip'][0], p['grip'][1] + 1], 'droop': 0, 'z': 'front' if d == 'S' else 'behind', 'to': [0, 1], 'noWeight': True}
                 if d == 'N': p['hidden'] = True
+                # layering (Christopher 2026-11-09 15:50 "check the layering"): frames 1-2 the blade is cocked up beside and
+                # behind the head, so in S it passes behind the head (the hilt stays in the fist, in front) and in N, where
+                # the back of the head faces the viewer, it shows over the head and hair
+                if k in (1, 2): p['z'] = {'hilt': 'front', 'blade': 'behind'} if d == 'S' else {'hilt': 'behind', 'blade': 'top'}
     w['status'] = s['status'] = SN_STAT
     save(s, D + ST + '.json'); print('S/N spec')
 elif '--approve' in sys.argv:

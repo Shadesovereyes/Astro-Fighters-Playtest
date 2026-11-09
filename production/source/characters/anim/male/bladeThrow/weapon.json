@@ -42,11 +42,11 @@
           },
           {
             "hilt": "front",
-            "blade": "top"
+            "blade": "behind"
           },
           {
             "hilt": "front",
-            "blade": "top"
+            "blade": "behind"
           },
           {
             "hilt": "front",
@@ -86,8 +86,14 @@
         ],
         "N": [
           "behind",
-          "behind",
-          "behind",
+          {
+            "hilt": "behind",
+            "blade": "top"
+          },
+          {
+            "hilt": "behind",
+            "blade": "top"
+          },
           "behind",
           "behind",
           "behind",

@@ -1761,7 +1761,7 @@
           "scale": 0.94,
           "z": {
             "hilt": "front",
-            "blade": "top"
+            "blade": "behind"
           },
           "chain": {
             "via": [
@@ -1786,7 +1786,7 @@
           "scale": 0.342,
           "z": {
             "hilt": "front",
-            "blade": "top"
+            "blade": "behind"
           },
           "chain": {
             "via": [
@@ -1952,7 +1952,10 @@
           ],
           "angle": 90,
           "scale": 0.94,
-          "z": "behind",
+          "z": {
+            "hilt": "behind",
+            "blade": "top"
+          },
           "hidden": true,
           "chain": {
             "via": [
@@ -1975,7 +1978,10 @@
           ],
           "angle": 90,
           "scale": 0.342,
-          "z": "behind",
+          "z": {
+            "hilt": "behind",
+            "blade": "top"
+          },
           "hidden": true,
           "chain": {
             "via": [

@@ -62,8 +62,11 @@ def scene(view):
             tgt = (32, GY + (20 if view == 'S' else 42))    # S: the target's upper back; N: its chest, seen past the thrower
             kp = (round(hp[0] + (tgt[0] - hp[0]) * f), round(hp[1] + (tgt[1] - hp[1]) * f))
             cord(c, hp, kp, sag=2 * f); knife(c, kp[0], kp[1], view == 'S')
-        if view == 'S': thrower(); target(); blade()      # the target is nearer the viewer: drawn over the thrower
-        else: target(); thrower(); blade()
+        # layering (Christopher 2026-11-09 15:50): the blade and chain run between the two fighters, so they pass behind the
+        # nearer one: S = thrower, blade, target (the blade strikes the target's front, hidden by its back);
+        # N = target, blade, thrower (the chain leaves the throwing hand in front of the thrower's body, hidden by his back)
+        if view == 'S': thrower(); blade(); target()
+        else: target(); blade(); thrower()
         out.append(c)
     return out
 o = sys.argv[1]; SC = 4
