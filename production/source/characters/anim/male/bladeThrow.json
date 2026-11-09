@@ -2,12 +2,14 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "bladeThrow",
-  "status": "E/W approved by user 2026-11-09 15:45 (v2.1: standing, from the Kyoketsu-Shoge Stance idle, not usable in the clinch; the blade leaves the hand on frames 3-6; W mirrors E); S/N to author",
+  "status": "CANDIDATE 2026-11-09 S/N v1 (E/W approved by user 2026-11-09 15:45, v2.1; W mirrors E)",
   "frames": 9,
   "fps": 12,
   "sourceDirection": "E",
   "directions": [
+    "S",
     "E",
+    "N",
     "W"
   ],
   "mirror": {
@@ -241,6 +243,82 @@
       ],
       [
         1,
+        0
+      ]
+    ],
+    "S": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "N": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
         0
       ]
     ]
@@ -797,9 +875,19 @@
           1,
           1,
           1,
+          1,
+          1,
+          1,
+          1,
+          1,
           1
         ],
         "N": [
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
           -1,
           -1,
           -1,
@@ -1472,7 +1560,7 @@
       "items": [
         "kyoketsu-shoge"
       ],
-      "status": "E/W approved by user 2026-11-09 15:45 (v2.1: standing, from the Kyoketsu-Shoge Stance idle, not usable in the clinch; the blade leaves the hand on frames 3-6; W mirrors E); S/N to author",
+      "status": "CANDIDATE 2026-11-09 S/N v1 (E/W approved by user 2026-11-09 15:45, v2.1; W mirrors E)",
       "rule": "per frame: grip = near fist centre (snapped to the rendered fist); frames 3-6 hidden: the blade and its steel chain are out at the target, drawn by the testbed from chainHand; while held the chain is wound in the fist (noWeight)",
       "depthRule": "front: drawn over body and clothing, under the arms layer (the fists close over the hilt); behind: drawn under the body",
       "E": [
@@ -1637,7 +1725,376 @@
       "mirror": {
         "W": "E"
       },
-      "grip": "forward"
+      "grip": "forward",
+      "S": [
+        {
+          "grip": [
+            29,
+            35
+          ],
+          "angle": 90,
+          "scale": 0.2,
+          "z": {
+            "hilt": "front",
+            "blade": "top"
+          },
+          "chain": {
+            "via": [
+              29,
+              36
+            ],
+            "droop": 0,
+            "z": "front",
+            "to": [
+              0,
+              1
+            ],
+            "noWeight": true
+          }
+        },
+        {
+          "grip": [
+            27,
+            24
+          ],
+          "angle": 90,
+          "scale": 0.94,
+          "z": {
+            "hilt": "front",
+            "blade": "top"
+          },
+          "chain": {
+            "via": [
+              27,
+              25
+            ],
+            "droop": 0,
+            "z": "front",
+            "to": [
+              0,
+              1
+            ],
+            "noWeight": true
+          }
+        },
+        {
+          "grip": [
+            25,
+            16
+          ],
+          "angle": 90,
+          "scale": 0.342,
+          "z": {
+            "hilt": "front",
+            "blade": "top"
+          },
+          "chain": {
+            "via": [
+              25,
+              17
+            ],
+            "droop": 0,
+            "z": "front",
+            "to": [
+              0,
+              1
+            ],
+            "noWeight": true
+          }
+        },
+        {
+          "grip": [
+            31,
+            24
+          ],
+          "angle": 90,
+          "scale": 0.259,
+          "z": {
+            "hilt": "front",
+            "blade": "top"
+          },
+          "hidden": true,
+          "omit": true,
+          "chain": {
+            "off": true
+          }
+        },
+        {
+          "grip": [
+            31,
+            27
+          ],
+          "angle": 90,
+          "scale": 0.2,
+          "z": {
+            "hilt": "front",
+            "blade": "top"
+          },
+          "hidden": true,
+          "omit": true,
+          "chain": {
+            "off": true
+          }
+        },
+        {
+          "grip": [
+            31,
+            27
+          ],
+          "angle": 90,
+          "scale": 0.2,
+          "z": {
+            "hilt": "front",
+            "blade": "top"
+          },
+          "hidden": true,
+          "omit": true,
+          "chain": {
+            "off": true
+          }
+        },
+        {
+          "grip": [
+            29,
+            29
+          ],
+          "angle": 90,
+          "scale": 0.2,
+          "z": {
+            "hilt": "front",
+            "blade": "top"
+          },
+          "hidden": true,
+          "omit": true,
+          "chain": {
+            "off": true
+          }
+        },
+        {
+          "grip": [
+            29,
+            32
+          ],
+          "angle": 90,
+          "scale": 0.5,
+          "z": {
+            "hilt": "front",
+            "blade": "top"
+          },
+          "chain": {
+            "via": [
+              29,
+              33
+            ],
+            "droop": 0,
+            "z": "front",
+            "to": [
+              0,
+              1
+            ],
+            "noWeight": true
+          }
+        },
+        {
+          "grip": [
+            29,
+            35
+          ],
+          "angle": 90,
+          "scale": 0.2,
+          "z": {
+            "hilt": "front",
+            "blade": "top"
+          },
+          "chain": {
+            "via": [
+              29,
+              36
+            ],
+            "droop": 0,
+            "z": "front",
+            "to": [
+              0,
+              1
+            ],
+            "noWeight": true
+          }
+        }
+      ],
+      "N": [
+        {
+          "grip": [
+            35,
+            35
+          ],
+          "angle": 90,
+          "scale": 0.2,
+          "z": "behind",
+          "hidden": true,
+          "chain": {
+            "via": [
+              35,
+              36
+            ],
+            "droop": 0,
+            "z": "behind",
+            "to": [
+              0,
+              1
+            ],
+            "noWeight": true
+          }
+        },
+        {
+          "grip": [
+            37,
+            24
+          ],
+          "angle": 90,
+          "scale": 0.94,
+          "z": "behind",
+          "hidden": true,
+          "chain": {
+            "via": [
+              37,
+              25
+            ],
+            "droop": 0,
+            "z": "behind",
+            "to": [
+              0,
+              1
+            ],
+            "noWeight": true
+          }
+        },
+        {
+          "grip": [
+            39,
+            16
+          ],
+          "angle": 90,
+          "scale": 0.342,
+          "z": "behind",
+          "hidden": true,
+          "chain": {
+            "via": [
+              39,
+              17
+            ],
+            "droop": 0,
+            "z": "behind",
+            "to": [
+              0,
+              1
+            ],
+            "noWeight": true
+          }
+        },
+        {
+          "grip": [
+            33,
+            24
+          ],
+          "angle": 90,
+          "scale": 0.259,
+          "z": "behind",
+          "hidden": true,
+          "omit": true,
+          "chain": {
+            "off": true
+          }
+        },
+        {
+          "grip": [
+            33,
+            27
+          ],
+          "angle": 90,
+          "scale": 0.2,
+          "z": "behind",
+          "hidden": true,
+          "omit": true,
+          "chain": {
+            "off": true
+          }
+        },
+        {
+          "grip": [
+            33,
+            27
+          ],
+          "angle": 90,
+          "scale": 0.2,
+          "z": "behind",
+          "hidden": true,
+          "omit": true,
+          "chain": {
+            "off": true
+          }
+        },
+        {
+          "grip": [
+            35,
+            29
+          ],
+          "angle": 90,
+          "scale": 0.2,
+          "z": "behind",
+          "hidden": true,
+          "omit": true,
+          "chain": {
+            "off": true
+          }
+        },
+        {
+          "grip": [
+            35,
+            32
+          ],
+          "angle": 90,
+          "scale": 0.5,
+          "z": "behind",
+          "hidden": true,
+          "chain": {
+            "via": [
+              35,
+              33
+            ],
+            "droop": 0,
+            "z": "behind",
+            "to": [
+              0,
+              1
+            ],
+            "noWeight": true
+          }
+        },
+        {
+          "grip": [
+            35,
+            35
+          ],
+          "angle": 90,
+          "scale": 0.2,
+          "z": "behind",
+          "hidden": true,
+          "chain": {
+            "via": [
+              35,
+              36
+            ],
+            "droop": 0,
+            "z": "behind",
+            "to": [
+              0,
+              1
+            ],
+            "noWeight": true
+          }
+        }
+      ],
+      "projectionRule": "S matches E by projection lines: every point of the weapon keeps its E row; the blade's E angle a above horizontal turns into a vertical screen line in S (the blade points at the viewer), foreshortened by sin(a)"
     }
   ],
   "events": {
@@ -1836,11 +2293,881 @@
     ],
     "tactical": {
       "rule": "no displacement; range 3; not usable while clinched, Grappled or in Mount"
-    }
+    },
+    "S": [
+      {
+        "frame": 0,
+        "clip": "bladeThrow",
+        "type": "startup",
+        "chainHand": [
+          29,
+          35
+        ]
+      },
+      {
+        "frame": 1,
+        "clip": "bladeThrow",
+        "type": "startup",
+        "chainHand": [
+          27,
+          24
+        ]
+      },
+      {
+        "frame": 2,
+        "clip": "bladeThrow",
+        "type": "startup",
+        "chainHand": [
+          25,
+          16
+        ]
+      },
+      {
+        "frame": 3,
+        "clip": "bladeThrow",
+        "type": "active",
+        "move": "bladeThrow",
+        "release": [
+          31,
+          24
+        ],
+        "rule": "the blade leaves the fist at chainHand and flies to the target on its chain (testbed-drawn, as Kusari Chain Snare)",
+        "chainHand": [
+          31,
+          24
+        ]
+      },
+      {
+        "frame": 4,
+        "clip": "bladeThrow",
+        "type": "active",
+        "chainHand": [
+          31,
+          27
+        ]
+      },
+      {
+        "frame": 5,
+        "clip": "bladeThrow",
+        "type": "active",
+        "move": "Blade Throw",
+        "impact": true,
+        "effect": "5 Physical; Bleed 2 (AGI DC12, 3 rds)",
+        "rule": "impact frame: the target plays hitReact on this frame, never before (ANIMATION_RULES 2026-11-04)",
+        "chainHand": [
+          31,
+          27
+        ]
+      },
+      {
+        "frame": 6,
+        "clip": "bladeThrow",
+        "type": "recovery",
+        "recall": true,
+        "rule": "the chain is yanked: the testbed flies the blade back from the target to chainHand, arriving on frame 7",
+        "chainHand": [
+          29,
+          29
+        ]
+      },
+      {
+        "frame": 7,
+        "clip": "bladeThrow",
+        "type": "recovery",
+        "catch": true,
+        "chainHand": [
+          29,
+          32
+        ]
+      },
+      {
+        "frame": 8,
+        "clip": "bladeThrow",
+        "type": "recovery",
+        "chainHand": [
+          29,
+          35
+        ]
+      }
+    ],
+    "N": [
+      {
+        "frame": 0,
+        "clip": "bladeThrow",
+        "type": "startup",
+        "chainHand": [
+          35,
+          35
+        ]
+      },
+      {
+        "frame": 1,
+        "clip": "bladeThrow",
+        "type": "startup",
+        "chainHand": [
+          37,
+          24
+        ]
+      },
+      {
+        "frame": 2,
+        "clip": "bladeThrow",
+        "type": "startup",
+        "chainHand": [
+          39,
+          16
+        ]
+      },
+      {
+        "frame": 3,
+        "clip": "bladeThrow",
+        "type": "active",
+        "move": "bladeThrow",
+        "release": [
+          33,
+          24
+        ],
+        "rule": "the blade leaves the fist at chainHand and flies to the target on its chain (testbed-drawn, as Kusari Chain Snare)",
+        "chainHand": [
+          33,
+          24
+        ]
+      },
+      {
+        "frame": 4,
+        "clip": "bladeThrow",
+        "type": "active",
+        "chainHand": [
+          33,
+          27
+        ]
+      },
+      {
+        "frame": 5,
+        "clip": "bladeThrow",
+        "type": "active",
+        "move": "Blade Throw",
+        "impact": true,
+        "effect": "5 Physical; Bleed 2 (AGI DC12, 3 rds)",
+        "rule": "impact frame: the target plays hitReact on this frame, never before (ANIMATION_RULES 2026-11-04)",
+        "chainHand": [
+          33,
+          27
+        ]
+      },
+      {
+        "frame": 6,
+        "clip": "bladeThrow",
+        "type": "recovery",
+        "recall": true,
+        "rule": "the chain is yanked: the testbed flies the blade back from the target to chainHand, arriving on frame 7",
+        "chainHand": [
+          35,
+          29
+        ]
+      },
+      {
+        "frame": 7,
+        "clip": "bladeThrow",
+        "type": "recovery",
+        "catch": true,
+        "chainHand": [
+          35,
+          32
+        ]
+      },
+      {
+        "frame": 8,
+        "clip": "bladeThrow",
+        "type": "recovery",
+        "chainHand": [
+          35,
+          35
+        ]
+      }
+    ]
   },
   "stance": "Forward Grip Stance",
   "extra": {
     "stance": "Kyoketsu-Shoge Stance",
     "notInClinch": true
+  },
+  "frontal": {
+    "rule": "S and N are built from their reference frames: legs keep their rows (every leg drops the frame's bob rows so the feet stay down); the arms are authored band arms from each shoulder (bent guard arms with the fists up at the chin; a punch toward or away from the viewer is a short, foreshortened straight arm). In S the arms are in front of the body; in N they are behind it.",
+    "legLift": {
+      "R": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "L": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "legLiftRule": "not used (named leg poses)",
+    "views": {
+      "S": {
+        "legPose": {
+          "R": [
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant"
+          ],
+          "L": [
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant"
+          ]
+        },
+        "legPoseRows": {
+          "plant": []
+        },
+        "bobRows": [
+          59,
+          45
+        ],
+        "legRows": {
+          "R": [
+            41
+          ],
+          "L": [
+            41
+          ]
+        },
+        "legRepeatRows": {
+          "R": [
+            41
+          ],
+          "L": [
+            41
+          ]
+        },
+        "handDy": {
+          "R": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "L": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "armRows": {
+          "R": [
+            35
+          ],
+          "L": [
+            35
+          ]
+        },
+        "armRepeatRows": {
+          "R": [
+            35
+          ],
+          "L": [
+            35
+          ]
+        },
+        "armBand": {
+          "R": {
+            "pivot": [
+              25,
+              24
+            ],
+            "angle": [
+              8.6,
+              5.7,
+              151.4,
+              -61.4,
+              -34.8,
+              -34.8,
+              -10.1,
+              2.0,
+              8.6
+            ],
+            "elbow": [
+              {
+                "at": 7,
+                "angle": -41.8
+              },
+              {
+                "at": 7,
+                "angle": -140.7
+              },
+              {
+                "at": 7,
+                "angle": 201.9
+              },
+              {
+                "at": 7,
+                "angle": -111.9
+              },
+              {
+                "at": 7,
+                "angle": -85.3
+              },
+              {
+                "at": 7,
+                "angle": -85.3
+              },
+              {
+                "at": 7,
+                "angle": -60.5
+              },
+              {
+                "at": 7,
+                "angle": -48.4
+              },
+              {
+                "at": 7,
+                "angle": -41.8
+              }
+            ],
+            "scale": [
+              0.81,
+              0.4,
+              0.55,
+              0.41,
+              0.46,
+              0.46,
+              0.44,
+              0.62,
+              0.81
+            ],
+            "fist": [
+              "front",
+              "front",
+              "front",
+              "front",
+              "front",
+              "front",
+              "front",
+              "front",
+              "front"
+            ],
+            "z": 4,
+            "pivotDx": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "L": {
+            "pivot": [
+              38,
+              24
+            ],
+            "angle": [
+              0,
+              0,
+              30.4,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "elbow": [
+              {
+                "at": 9,
+                "angle": 178
+              },
+              {
+                "at": 9,
+                "angle": 178
+              },
+              {
+                "at": 7,
+                "angle": 80.9
+              },
+              {
+                "at": 9,
+                "angle": 178
+              },
+              {
+                "at": 9,
+                "angle": 178
+              },
+              {
+                "at": 9,
+                "angle": 178
+              },
+              {
+                "at": 9,
+                "angle": 178
+              },
+              {
+                "at": 9,
+                "angle": 178
+              },
+              {
+                "at": 9,
+                "angle": 178
+              }
+            ],
+            "scale": [
+              0.6,
+              0.6,
+              0.4,
+              0.6,
+              0.6,
+              0.6,
+              0.6,
+              0.6,
+              0.6
+            ],
+            "fist": [
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
+              "up",
+              "up"
+            ],
+            "z": 4,
+            "pivotDx": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "headDy": -1,
+        "armRule": "S arms match E by projection lines: each fist sits on its E row at its own side (weapon hand at the right hip, row 35; guard hand raised straight up from the left shoulder line, row 26); the forearms point toward the viewer, so the band arms are foreshortened (scale) instead of swung across the body",
+        "twist": {
+          "pelvis": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "shoulders": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "twistRule": "the body rotates into each punch: hips, shoulders and head shift sideways (shoulders most, torso sheared between hips and shoulders), toward the punching side's centre on the jab and further on the cross; the legs swing from the hip to the planted feet with the hips (hipDx), and the punching shoulder moves 1 px further in",
+        "hipDx": {
+          "R": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "L": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "footDx": {
+          "R": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "L": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "legPivot": 39,
+        "footFrom": {
+          "R": 56,
+          "L": 56
+        }
+      },
+      "N": {
+        "legPose": {
+          "R": [
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant"
+          ],
+          "L": [
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant",
+            "plant"
+          ]
+        },
+        "legPoseRows": {
+          "plant": []
+        },
+        "bobRows": [
+          54,
+          46
+        ],
+        "legRows": {
+          "R": [
+            50
+          ],
+          "L": [
+            50
+          ]
+        },
+        "legRepeatRows": {
+          "R": [
+            50
+          ],
+          "L": [
+            50
+          ]
+        },
+        "handDy": {
+          "R": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "L": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "armRows": {
+          "R": [
+            35
+          ],
+          "L": [
+            35
+          ]
+        },
+        "armRepeatRows": {
+          "R": [
+            35
+          ],
+          "L": [
+            35
+          ]
+        },
+        "armBand": {
+          "R": {
+            "pivot": [
+              39,
+              24
+            ],
+            "angle": [
+              -8,
+              -5.7,
+              -8,
+              61.4,
+              34.8,
+              34.8,
+              10.1,
+              -2.0,
+              -8
+            ],
+            "elbow": [
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null
+            ],
+            "scale": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "fist": "up",
+            "z": -1,
+            "showTo": 7,
+            "pivotDx": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "L": {
+            "pivot": [
+              24,
+              24
+            ],
+            "angle": [
+              0,
+              0,
+              -30.4,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "elbow": [
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null
+            ],
+            "scale": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "fist": "up",
+            "z": -1,
+            "showTo": 7,
+            "pivotDx": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "headDy": -1,
+        "armRule": "from behind the forearms, wrists and fists are in front of the body: only the shoulders and upper arms show (straight band arms cut at 7 px, showTo), hanging slightly out in guard, swinging in when that arm punches away from the viewer",
+        "twist": {
+          "pelvis": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "shoulders": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "head": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "twistRule": "the body rotates into each punch: hips, shoulders and head shift sideways (shoulders most, torso sheared between hips and shoulders), toward the punching side's centre on the jab and further on the cross; the legs swing from the hip to the planted feet with the hips (hipDx), and the punching shoulder moves 1 px further in",
+        "hipDx": {
+          "R": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "L": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "footDx": {
+          "R": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "L": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "legPivot": 39,
+        "footFrom": {
+          "R": 56,
+          "L": 56
+        }
+      }
+    }
   }
 }

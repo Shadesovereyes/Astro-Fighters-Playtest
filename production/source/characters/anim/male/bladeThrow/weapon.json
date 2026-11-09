@@ -15,7 +15,9 @@
     95
   ],
   "rows": [
+    "S",
     "E",
+    "N",
     "W"
   ],
   "frames": 9,
@@ -28,10 +30,49 @@
       "hand": "arms",
       "layers": {
         "behind": "main-kyoketsu-shoge-behind.png",
-        "front": "main-kyoketsu-shoge-front.png"
+        "front": "main-kyoketsu-shoge-front.png",
+        "top": "main-kyoketsu-shoge-top.png"
       },
-      "status": "CANDIDATE 2026-11-06 v2 (standing, from the Kyoketsu-Shoge Stance idle; not usable in the clinch) (E/W; W mirrors E; S/N to author after approval)",
+      "status": "CANDIDATE 2026-11-09 S/N v1 (E/W approved by user 2026-11-09 15:45, v2.1; W mirrors E)",
       "z": {
+        "S": [
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          }
+        ],
         "E": [
           "front",
           "front",
@@ -42,6 +83,17 @@
           "front",
           "front",
           "front"
+        ],
+        "N": [
+          "behind",
+          "behind",
+          "behind",
+          "behind",
+          "behind",
+          "behind",
+          "behind",
+          "behind",
+          "behind"
         ],
         "W": [
           "front",
@@ -56,6 +108,44 @@
         ]
       },
       "grips": {
+        "S": [
+          [
+            29,
+            35
+          ],
+          [
+            27,
+            24
+          ],
+          [
+            25,
+            16
+          ],
+          [
+            31,
+            24
+          ],
+          [
+            31,
+            27
+          ],
+          [
+            31,
+            27
+          ],
+          [
+            29,
+            29
+          ],
+          [
+            29,
+            32
+          ],
+          [
+            29,
+            35
+          ]
+        ],
         "E": [
           [
             43,
@@ -91,6 +181,44 @@
           ],
           [
             43,
+            35
+          ]
+        ],
+        "N": [
+          [
+            35,
+            35
+          ],
+          [
+            37,
+            24
+          ],
+          [
+            39,
+            16
+          ],
+          [
+            33,
+            24
+          ],
+          [
+            33,
+            27
+          ],
+          [
+            33,
+            27
+          ],
+          [
+            35,
+            29
+          ],
+          [
+            35,
+            32
+          ],
+          [
+            35,
             35
           ]
         ],
@@ -137,6 +265,15 @@
   ],
   "qc": {
     "gripOnFist": {
+      "main/kyoketsu-shoge S:0": true,
+      "main/kyoketsu-shoge S:1": true,
+      "main/kyoketsu-shoge S:2": true,
+      "main/kyoketsu-shoge S:3": "hidden",
+      "main/kyoketsu-shoge S:4": "hidden",
+      "main/kyoketsu-shoge S:5": "hidden",
+      "main/kyoketsu-shoge S:6": "hidden",
+      "main/kyoketsu-shoge S:7": true,
+      "main/kyoketsu-shoge S:8": true,
       "main/kyoketsu-shoge E:0": true,
       "main/kyoketsu-shoge E:1": true,
       "main/kyoketsu-shoge E:2": true,
@@ -146,6 +283,15 @@
       "main/kyoketsu-shoge E:6": "hidden",
       "main/kyoketsu-shoge E:7": true,
       "main/kyoketsu-shoge E:8": true,
+      "main/kyoketsu-shoge N:0": "hidden",
+      "main/kyoketsu-shoge N:1": "hidden",
+      "main/kyoketsu-shoge N:2": "hidden",
+      "main/kyoketsu-shoge N:3": "hidden",
+      "main/kyoketsu-shoge N:4": "hidden",
+      "main/kyoketsu-shoge N:5": "hidden",
+      "main/kyoketsu-shoge N:6": "hidden",
+      "main/kyoketsu-shoge N:7": "hidden",
+      "main/kyoketsu-shoge N:8": "hidden",
       "main/kyoketsu-shoge W:0": true,
       "main/kyoketsu-shoge W:1": true,
       "main/kyoketsu-shoge W:2": true,
