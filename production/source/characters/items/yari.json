@@ -22,7 +22,7 @@
   },
   "units": "pixels along the axis from the grip point (u, positive toward the tip) and across it (v)",
   "item": "yari",
-  "status": "CANDIDATE 2026-11-06 (the Guard NPC: yari and shield, Christopher 2026-11-06)",
+  "status": "APPROVED by user 2026-11-09 16:51 (spear and shield kit approved); was 2026-11-06 (the Guard NPC: yari and shield, Christopher 2026-11-06)",
   "palette": {
     "#": "#000000",
     "a": "#adadad",

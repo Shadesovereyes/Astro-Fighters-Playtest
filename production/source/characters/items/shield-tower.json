@@ -9,7 +9,7 @@
   },
   "units": "pixels along the axis from the grip point (u, positive toward the tip) and across it (v)",
   "item": "shield-tower",
-  "status": "CANDIDATE 2026-11-09 v2.2 plain tate in the heater/buckler colours, no emblem (shield family: every shield clip works with tower, heater and buckler)",
+  "status": "APPROVED by user 2026-11-09 16:51 (spear and shield kit approved); was 2026-11-09 v2.2 plain tate in the heater/buckler colours, no emblem (shield family: every shield clip works with tower, heater and buckler)",
   "palette": {
     "#": "#000000",
     "a": "#adadad",

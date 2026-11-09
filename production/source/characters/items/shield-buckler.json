@@ -9,7 +9,7 @@
   },
   "units": "pixels along the axis from the grip point (u, positive toward the tip) and across it (v)",
   "item": "shield-buckler",
-  "status": "CANDIDATE 2026-11-06 (shield family, Christopher 2026-11-06 17:47: tower shields, bucklers, heaters; every shield clip works with all of them)",
+  "status": "APPROVED by user 2026-11-09 16:51 (spear and shield kit approved); was 2026-11-06 (shield family, Christopher 2026-11-06 17:47: tower shields, bucklers, heaters; every shield clip works with all of them)",
   "palette": {
     "#": "#000000",
     "a": "#adadad",

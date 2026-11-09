@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "viperStrike",
-  "status": "E/W approved by user 2026-11-06 17:38 (v1; W mirrors E); S/N CANDIDATE 2026-11-06 (v1)",
+  "status": "E/W approved by user 2026-11-06 17:38 (v1; W mirrors E); S/N approved by user 2026-11-09 16:51 (v1)",
   "frames": 8,
   "fps": 12,
   "sourceDirection": "E",
@@ -1516,7 +1516,7 @@
       "items": [
         "tanto"
       ],
-      "status": "E/W approved by user 2026-11-06 17:38 (v1; W mirrors E); S/N CANDIDATE 2026-11-06 (v1)",
+      "status": "E/W approved by user 2026-11-06 17:38 (v1; W mirrors E); S/N approved by user 2026-11-09 16:51 (v1)",
       "rule": "per frame: grip = pixel at the centre of the near fist (body-frame coordinates; it follows the arm bob, 0, -1, 0, +1), angle = blade direction in degrees above the facing's horizontal, z = depth slot",
       "depthRule": "front: drawn over body and clothing, under the arms layer (the fists close over the hilt); behind: drawn under the body",
       "E": [

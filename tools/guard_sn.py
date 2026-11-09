@@ -42,7 +42,7 @@ def run(state):
         off['N'].append({'grip': [64 - lx - 1, ly], 'angle': ang, 'z': 'behind'})
     off['itemPoses'] = {it: {'S': {'widthScale': w_}} for it, w_ in FACE.items()}
     off['projectionRule'] = 'S: upright on the far fist, turned face-on (itemPoses widthScale), the whole shield on the top slot in front of both forearms, cut away only under the yari; N: behind the body, only the rim shows outside the figure'
-    s['status'] = 'E/W approved by user 2026-11-06 18:14 (Guard set v3.1 layering); S/N approved by user 2026-11-09 16:26 (v1; tower shield art to be reworked, animation approved); W mirrors E'
+    s['status'] = 'E/W approved by user 2026-11-06 18:14 (Guard set v3.1 layering); S/N approved by user 2026-11-09 16:26 (v1); whole spear-and-shield kit incl. tower shield v2.2 approved by user 2026-11-09 16:51; W mirrors E'
     for w in s['weapons']: w['status'] = s['status']
     T.save(s, D + state + '.json')
     sh = lambda *c: subprocess.run(c, cwd=R, check=True, capture_output=True)
