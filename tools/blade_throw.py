@@ -41,7 +41,7 @@ def spec():
     w['rule'] = ('per frame: grip = near fist centre (snapped to the rendered fist); frames 3-6 hidden: the blade and its steel chain are out at the target, '
                  'drawn by the testbed from chainHand; while held the chain is wound in the fist (noWeight)')
     for k, p in enumerate(w['E']):
-        if k in HIDDEN: p['hidden'] = True; p['chain'] = {'off': True}
+        if k in HIDDEN: p['hidden'] = True; p['omit'] = True; p['chain'] = {'off': True}   # v2.1 (Christopher 2026-11-09: the blade still showed in the hand): omit = not drawn at all
         else: p['chain'] = {'via': [p['grip'][0], p['grip'][1] + 1], 'droop': 0, 'z': 'front', 'to': [0, 1], 'noWeight': True}
     s['extra'] = {'stance': 'Kyoketsu-Shoge Stance', 'notInClinch': True}
     s['clips']['rule'] = 'plays from the Kyoketsu-Shoge Stance idle (oneHandGuard) and returns to it; never from the clinch or Mount; a target within 3 tiles plays hitReact on the impact frame'
@@ -97,12 +97,14 @@ if '--scene' in sys.argv:
             for dx, dy in ((0, 1), (0, -1), (1, 0), (-1, 0)):
                 if (x + dx, y + dy) not in pts: put(c, x + dx, y + dy, (0, 0, 0, 255))
         for i, (x, y) in enumerate(pts): put(c, x, y, (255, 255, 255, 255) if i % 2 else (0xad, 0xad, 0xad, 255))
-    KN = ['.####....', '#tta#####', '#ttaWWWW#', '.####....']   # tanto in flight, point toward +x (the target)
+    # v2.1 (Christopher 2026-11-09): the flying object read as the weight. It is the blade: a full-size tanto, point leading
+    # toward the target, the chain fixed to its pommel; on the recall it is hauled back pommel first, point still at the target.
+    KN = ['.###.#########..', '#ttt#WWWWWWWWW##', '#ttt#aaaaaaaaa#.', '.###.#########..']
     PAL = {'#': (0, 0, 0, 255), 't': (0x3b, 0x20, 0x14, 255), 'a': (0xad, 0xad, 0xad, 255), 'W': (255, 255, 255, 255)}
-    def knife(c, x, y, back=False):
+    def knife(c, x, y, back=False):   # (x, y) = the pommel, where the chain is fixed
         for j, r in enumerate(KN):
-            for i, ch in enumerate(r[::-1] if back else r):
-                if ch != '.': put(c, x - 4 + i, y - 2 + j, PAL[ch])
+            for i, ch in enumerate(r):
+                if ch != '.': put(c, x + i, y - 1 + j, PAL[ch])
     HX, TX = 4, 4 + 72
     bt = sp(ST); ev = bt['events']['E']
     frames, durs = [], []
@@ -115,12 +117,12 @@ if '--scene' in sys.argv:
         lay(c, ST, 'far-arm', k, 'E', HX); lay(c, ST, 'W:behind', k, 'E', HX)
         for name in ['body'] + LOOK['h']: lay(c, ST, name, k, 'E', HX)
         lay(c, ST, 'W:front', k, 'E', HX); lay(c, ST, 'arms', k, 'E', HX); lay(c, ST, 'W:top', k, 'E', HX)
-        h = ev[k].get('chainHand'); hp = (HX + h[0], h[1]); tgt = (TX + 26, 31)
+        h = ev[k].get('chainHand'); hp = (HX + h[0], h[1]); tgt = (TX + 26 - len(KN[0]) + 3, 31)
         f = {REL: 0.12, 4: 0.55, IMP: 1.0, REC: 0.5}.get(k)
         if f is not None:   # the blade arcs slightly (peak ARC px above the straight line); the chain follows it
             ARC = -5
             kp = (round(hp[0] + (tgt[0] - hp[0]) * f), round(hp[1] + (tgt[1] - hp[1]) * f + ARC * 4 * f * (1 - f)))
-            cord(c, hp, kp, sag=ARC * f if k != REC else ARC * f + 2); knife(c, kp[0], kp[1], back=(k == REC))
+            cord(c, hp, kp, sag=ARC * f if k != REC else ARC * f + 2); knife(c, kp[0], kp[1])
         frames.append(c.resize((CW * SC, H * SC), Image.NEAREST)); durs.append({2: 160, IMP: 200}.get(k, 83))
     frames += [frames[-1]] * 1; durs += [500]
     frames[0].save(out + '-candidate.gif', save_all=True, append_images=frames[1:], duration=durs, loop=0, disposal=2)
