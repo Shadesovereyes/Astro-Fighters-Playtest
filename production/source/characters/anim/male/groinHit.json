@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "groinHit",
-  "status": "CANDIDATE 2026-11-06 (E/W; W mirrors E; S/N to author after approval)",
+  "status": "E/W approved by user 2026-11-09 17:10 (v1, target of Cheap Shot; W mirrors E); S/N to author",
   "frames": 8,
   "fps": 10,
   "sourceDirection": "E",
@@ -1682,6 +1682,28 @@
           56
         ],
         "foot": "pointFwd"
+      },
+      {
+        "name": "tp4-lead",
+        "construction": "band",
+        "hipX": 34,
+        "hipRow": 46,
+        "kneeX": 40,
+        "kneeRow": 52,
+        "footX": 39,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "tp4-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 46,
+        "kneeX": 29,
+        "kneeRow": 53,
+        "footX": 25,
+        "wrapRow": 54,
+        "foot": "toe60"
       },
       {
         "name": "tp-lead",

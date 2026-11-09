@@ -77,21 +77,7 @@ CLIPS = {
        extra=tgt('Body Shot', 3),
        anchored={3: [('star6', 'farhand', 1, 0)], 4: [('star3', 'farhand', 2, 1)]})),
 
- 'cheapShot': ('Cheap Shot', 4,
-  'Cheap Shot (Bandit, reskin of Haymaker) v4 (Christopher 2026-11-06 17:50: complete rework, drop low and punch up into the groin): the fighter drops suddenly low, knees deep, under the opponent\'s guard, the lead hand staying up at the face and the rear fist sunk down by the knee; it springs up off the crouch and drives the rear fist in a short rising punch up into the groin (white burst below the belt), holds it a beat, then rises back into the guard.',
-  [g(),
-   g(an=band(-10, -60), bob=(5, 5, 5), lean=(1, 4), ln='ml-dip-rear', lf='ml-dip-lead'),
-   g(an=band(12, -20), bob=(13, 13, 13), lean=(3, 10), root=(3, 0), ln='tp-rear', lf='tp-lead'),
-   g(an=band(5, -55), bob=(13, 13, 13), lean=(3, 10), root=(2, 0), ln='tp-rear', lf='tp-lead'),
-   g(an=band(-14, -96), bob=(13, 13, 13), lean=(3, 9), root=(1, 0), ln='tp-rear', lf='tp-lead'),
-   g(an=band(-16, -102), bob=(13, 13, 13), lean=(3, 9), ln='tp-rear', lf='tp-lead'),
-   g(an=RECOVER, bob=(4, 4, 4), lean=(1, 3), root=(-3, 0), ln='ml-dip-rear', lf='ml-dip-lead'),
-   g(root=(-3, 0))],
-  [None, 'squint', 'strain', 'strain', 'strain', 'strain', 'squint', None],
-  None,
-  dict(fps=12, hitbox=[42, 40, 12, 8], damage='heavy', rm='E: +3 +2 +1 dropping in under the guard, -3 -3 back (net 0)',
-       extra=tgt('Cheap Shot', 4, 'groinHit'),
-       anchored={4: [('star9', 'hand', 1, -1)], 5: [('star3', 'hand', 2, -2)]})),
+ # cheapShot v4 deleted (Christopher 2026-11-09 17:10: "cheap shot v4 delete keep cheap shot groin hit"); groinHit kept and approved
 
  'wildSwing': ('Wild Swing', 3,
   'Wild Swing (Street Thug, reskin of Haymaker): a sloppy brawler\'s haymaker. The fighter rears way back, the rear fist cocked far behind it and the guard thrown open; it lurches forward and flings the arm round in a huge flat arc, landing at the head (white burst), and overswings: the arm carries on across the body, the weight pitches forward and it stumbles a step before hauling itself back into the guard.',
@@ -109,25 +95,7 @@ CLIPS = {
        extra=tgt('Wild Swing', 3),
        anchored={3: [('star9', 'hand', 1, 0)], 4: [('dust', 'feet', 6, -2)], 5: [('dust', 'feet', 2, -2)]})),
 
- 'knuckleHaymaker': ('Knuckle Haymaker', 7,
-  'Knuckle Haymaker (Bandit Thug, reskin of Haymaker) v3 (Christopher 2026-11-06: not a fan of the v2 duster look, and the animation did not match the description): a controlled, brutal brass-knuckle hook, the opposite of the sloppy Wild Swing. The rear fist wears a thin knuckle-duster, a 1 px steel band across the knuckles with a white glint, outlined. The thug raises its open lead palm in front of the chest and slams the iron fist into it twice as a threat, the fist pulled well back between smacks, a small grey spark each time; then it plants and throws one short, tight hook to the jaw: the elbow comes up level with the shoulder and the fist arrives from the side with no wind-up loop and no overswing; on contact the iron rings with grey metal sparks and a white burst; it snaps straight back into the guard.',
-  [g(),
-   g(af=band(-70, -160, fistKind='palm'), bob=(1, 1, 2), lean=(-1, -1)),
-   g(an=band(-45, -125), af=band(-70, -160, fistKind='palm'), bob=(1, 1, 2), lean=(1, 2)),
-   g(af=band(-70, -160, fistKind='palm'), bob=(1, 1, 2), lean=(-1, -1)),
-   g(an=band(-45, -125), af=band(-70, -160, fistKind='palm'), bob=(1, 1, 2), lean=(1, 2)),
-   g(an=band(-70, -185), bob=(2, 2, 2), lean=(0, 1), **LOAD),
-   g(an=band(-110, -150), bob=(2, 2, 2), lean=(1, 4), root=(1, 0), **DRIVE),
-   g(an=band(-110, -80), bob=(2, 2, 2), lean=(2, 6), root=(1, 0), **DRIVE),
-   g(an=band(-110, -80), bob=(2, 2, 2), lean=(2, 6), **DRIVE),
-   g(an=RECOVER, bob=(1, 1, 2), lean=(1, 3), root=(-2, 0)),
-   g()],
-  [None, 'squint', 'squint', 'squint', 'squint', 'squint', 'strain', 'strain', 'strain', 'squint', None],
-  None,
-  dict(fps=12, hitbox=[42, 14, 14, 10], damage='heavy', rm='E: +1 +1 the planted hook, -2 back (net 0)',
-       extra=tgt('Knuckle Haymaker', 7),
-       anchored={k: [('knux', 'hand', -1, 0)] + v for k, v in {0: [], 1: [], 2: [('mSpark', 'hand', 1, 0)], 3: [], 4: [('mSpark', 'hand', 1, 0)], 5: [], 6: [('knuxGlint', 'hand', 0, -2)],
-                 7: [('star9', 'hand', 2, 0), ('mShards', 'hand', 3, -1)], 8: [('mShards', 'hand', 5, 2)], 9: [], 10: []}.items()})),
+ # knuckleHaymaker v3 deleted (Christopher 2026-11-09 17:10: "delete knuckle haymaker")
 
  'shoulderCharge': ('Shoulder Charge', 9,
   'Shoulder Charge (Bandit Thug, reskin of Iron Mountain, needs a run-up) v4 (Christopher 2026-11-09: the three-point stance did not read and the charge did not feel heavy enough): from the guard the fighter sinks into a lineman\'s three-point stance, both feet under the hips, knees deep, back flat and head up, the near fist planted on the floor in front of the lead foot (grit) and the far arm cocked back along the hip; it rocks back onto its heels to load, then explodes off the line: three accelerating driving strides, head and lead shoulder low, arms pumping, dust off every step; the lead shoulder slams into the chest (big white burst, dust ring, a two-frame hit-stop), the legs keep driving through the target, then it steps back into the guard. The target plays chargedBack: lifted off its feet and driven back a long step.',
@@ -414,7 +382,7 @@ CLIPS['groinHit'] = ('Cheap Shot', 0,
   None,
   dict(fps=10, react=True, rm='E: -2 -1 backing up (net -3, as hitReact)',
        anchored={0: [('star6', 'hand', 0, -1)], 1: [('star3', 'hand', 0, -1)]}))
-APPROVED['groinHit'] = STAT
+APPROVED['groinHit'] = 'E/W approved by user 2026-11-09 17:10 (v1, target of Cheap Shot; W mirrors E); S/N to author'
 CLIPS['chargedBack'] = ('Shoulder Charge', 0,
   'chargedBack (target of Shoulder Charge v4, Christopher 2026-11-09: the charge must feel heavy): frame 0 is the shoulder slamming into the chest; the fighter is folded round the shoulder and lifted, both feet off the floor, and driven back a long way, arms flung forward, then it lands heavily on its heels, staggers one more step back, catches its balance and comes back up into the guard.',
   [g(an=band(-70, -40), af=band(-80, -50), bob=(2, 4, 3), lean=(-3, -2), root=(-4, 0), ln='ml-dip-rear', lf='ml-dip-lead'),
