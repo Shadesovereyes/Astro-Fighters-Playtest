@@ -9,7 +9,7 @@
   },
   "units": "pixels along the axis from the grip point (u, positive toward the tip) and across it (v)",
   "item": "shield-tower",
-  "status": "CANDIDATE 2026-11-09 v2.1 tate in the heater/buckler colours (shield family: every shield clip works with tower, heater and buckler)",
+  "status": "CANDIDATE 2026-11-09 v2.2 plain tate in the heater/buckler colours, no emblem (shield family: every shield clip works with tower, heater and buckler)",
   "palette": {
     "#": "#000000",
     "a": "#adadad",
@@ -31,44 +31,8 @@
       ]
     },
     {
-      "name": "panelLow",
+      "name": "panel",
       "from": -13,
-      "to": -3,
-      "thickness": 8,
-      "pattern": [
-        "#raaaWr#"
-      ]
-    },
-    {
-      "name": "monLow",
-      "from": -3,
-      "to": -2,
-      "thickness": 8,
-      "pattern": [
-        "#rattar#"
-      ]
-    },
-    {
-      "name": "monMid",
-      "from": -2,
-      "to": 2,
-      "thickness": 8,
-      "pattern": [
-        "#rtaatr#"
-      ]
-    },
-    {
-      "name": "monHigh",
-      "from": 2,
-      "to": 3,
-      "thickness": 8,
-      "pattern": [
-        "#rattar#"
-      ]
-    },
-    {
-      "name": "panelHigh",
-      "from": 3,
       "to": 13,
       "thickness": 8,
       "pattern": [
@@ -86,5 +50,6 @@
     }
   ],
   "grip": "strapped to the far forearm, gripped at its centre; axis top to bottom (angle 90 = upright), seen three-quarter from the side so the face shows; the face toward the facing",
-  "note": "tower shield v2.1: a tall flat tate, 28 px, in the shield family colours (steel face with a white sheen, wood side edges, dark rims as on the heater and buckler) with a dark ring mon at the centre"
+  "note": "tower shield v2.2 (Christopher 2026-11-09 16:35: no emblem; the shield will be recoloured per faction, e.g. city guard, royal guard, town guard): a tall flat tate, 28 px, plain steel face with a white sheen, wood side edges and dark rims in the shield family colours",
+  "recolor": "planned: per-faction colour schemes (city/royal/town guard); the face (a, W) and edges (r, t) are the recolour slots"
 }
