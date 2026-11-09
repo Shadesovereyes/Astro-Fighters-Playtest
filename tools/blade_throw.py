@@ -14,7 +14,8 @@ from tanto import fr
 from gen import load, save
 D = T.D
 ST = 'bladeThrow'
-T.STAT = 'CANDIDATE 2026-11-06 v2 (standing, from the Kyoketsu-Shoge Stance idle; not usable in the clinch) (E/W; W mirrors E; S/N to author after approval)'
+T.STAT = 'E/W approved by user 2026-11-09 15:45 (v2.1: standing, from the Kyoketsu-Shoge Stance idle, not usable in the clinch; the blade leaves the hand on frames 3-6; W mirrors E); S/N to author'
+SN_STAT = 'CANDIDATE 2026-11-09 S/N v1 (E/W approved by user 2026-11-09 15:45, v2.1; W mirrors E)'
 OG = dict(grip=(43, 35), angle=10, far=(39, 24))
 def og(**k): return fr(**{**OG, **k})
 REL, IMP, REC, CATCH = 3, 5, 6, 7
@@ -63,6 +64,27 @@ if '--grips' in sys.argv:
         s['events']['E'][k]['chainHand'] = list(g); s['events']['W'][k]['chainHand'] = [63 - g[0], g[1]]
     s['events']['E'][REL]['release'] = list(s['events']['E'][REL]['chainHand']); s['events']['W'][REL]['release'] = list(s['events']['W'][REL]['chainHand'])
     save(s, D + ST + '.json'); print('grips', [p['grip'] for p in s['weapons'][0]['E']])
+    for d in [d for d in ('S', 'N') if d in s['directions']]:   # S/N: the chain leaves from the near fist (S grip; N: mirrored, the arm in front of the body)
+        for k, p in enumerate(s['weapons'][0][d]):
+            g = p['grip']; s['events'][d][k]['chainHand'] = list(g)
+            if 'via' in p.get('chain', {}): p['chain']['via'] = [g[0], g[1] + 1]
+        s['events'][d][REL]['release'] = list(s['events'][d][REL]['chainHand'])
+    save(s, D + ST + '.json'); print('grips S/N', [p['grip'] for p in s['weapons'][0].get('S', [])])
+elif '--sn' in sys.argv:
+    # S/N v1 (Christopher 2026-11-09 15:45: v2.1 approved): tanto.sn projection of the E frames (the throw toward the viewer
+    # in S, away in N); frames 3-6 the blade is out on its chain, drawn by the testbed from chainHand, so nothing in the hand.
+    T.STATES[ST] = ST; T.SN_STAT = SN_STAT; T.sn(ST)
+    s = load(D + ST + '.json'); w = s['weapons'][0]
+    for d in ('S', 'N'):
+        for k, p in enumerate(w[d]):
+            if k in HIDDEN: p.update(hidden=True, omit=True, chain={'off': True})
+            else:
+                p['chain'] = {'via': [p['grip'][0], p['grip'][1] + 1], 'droop': 0, 'z': 'front' if d == 'S' else 'behind', 'to': [0, 1], 'noWeight': True}
+                if d == 'N': p['hidden'] = True
+    w['status'] = s['status'] = SN_STAT
+    save(s, D + ST + '.json'); print('S/N spec')
+elif '--approve' in sys.argv:
+    s = load(D + ST + '.json'); s['status'] = s['weapons'][0]['status'] = T.STAT; save(s, D + ST + '.json'); print('approved')
 elif '--scene' not in sys.argv:
     spec()
 
