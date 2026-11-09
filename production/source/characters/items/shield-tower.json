@@ -9,15 +9,17 @@
   },
   "units": "pixels along the axis from the grip point (u, positive toward the tip) and across it (v)",
   "item": "shield-tower",
-  "status": "CANDIDATE 2026-11-09 v2 lacquered tate (shield family: every shield clip works with tower, heater and buckler)",
+  "status": "CANDIDATE 2026-11-09 v2.1 tate in the heater/buckler colours (shield family: every shield clip works with tower, heater and buckler)",
   "palette": {
     "#": "#000000",
+    "a": "#adadad",
     "W": "#ffffff",
-    "h": "#4a4c55",
-    "k": "#24252b",
-    "R": "#70241d"
+    "t": "#3b2014",
+    "s": "#a9977d",
+    "h": "#ddcdb4",
+    "r": "#8a6236"
   },
-  "paletteSource": "v2 lacquered tate: #24252b lacquer black and #4a4c55 its sheen, #70241d deep red lacquer rim, #ffffff mon white (all colours already used by approved items)",
+  "paletteSource": "v2.1 (Christopher 2026-11-09 16:32: colour-match the heater and buckler): the shield family palette, #adadad steel face with a #ffffff sheen column, #8a6236 wood side edges, #3b2014 dark rims and mon",
   "segments": [
     {
       "name": "rimLow",
@@ -25,7 +27,7 @@
       "to": -13,
       "thickness": 8,
       "pattern": [
-        "#RRRRRR#"
+        "#tttttt#"
       ]
     },
     {
@@ -34,7 +36,7 @@
       "to": -3,
       "thickness": 8,
       "pattern": [
-        "#RkkkhR#"
+        "#raaaWr#"
       ]
     },
     {
@@ -43,7 +45,7 @@
       "to": -2,
       "thickness": 8,
       "pattern": [
-        "#RkWWkR#"
+        "#rattar#"
       ]
     },
     {
@@ -52,7 +54,7 @@
       "to": 2,
       "thickness": 8,
       "pattern": [
-        "#RWkkWR#"
+        "#rtaatr#"
       ]
     },
     {
@@ -61,7 +63,7 @@
       "to": 3,
       "thickness": 8,
       "pattern": [
-        "#RkWWkR#"
+        "#rattar#"
       ]
     },
     {
@@ -70,7 +72,7 @@
       "to": 13,
       "thickness": 8,
       "pattern": [
-        "#RkkkhR#"
+        "#raaaWr#"
       ]
     },
     {
@@ -79,10 +81,10 @@
       "to": 14,
       "thickness": 8,
       "pattern": [
-        "#RRRRRR#"
+        "#tttttt#"
       ]
     }
   ],
   "grip": "strapped to the far forearm, gripped at its centre; axis top to bottom (angle 90 = upright), seen three-quarter from the side so the face shows; the face toward the facing",
-  "note": "tower shield v2 (Christopher 2026-11-09 16:27: \"Lacquered samurai tate\"): a tall flat wooden tate, 28 px, black lacquer with a thin deep-red lacquer rim and a white ring mon at the centre; replaces the v1 iron-rimmed pavise"
+  "note": "tower shield v2.1: a tall flat tate, 28 px, in the shield family colours (steel face with a white sheen, wood side edges, dark rims as on the heater and buckler) with a dark ring mon at the centre"
 }
