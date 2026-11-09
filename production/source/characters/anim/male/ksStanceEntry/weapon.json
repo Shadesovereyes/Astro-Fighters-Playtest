@@ -15,7 +15,9 @@
     95
   ],
   "rows": [
+    "S",
     "E",
+    "N",
     "W"
   ],
   "frames": 7,
@@ -27,11 +29,43 @@
       "default": true,
       "hand": "arms",
       "layers": {
+        "behind": "main-kyoketsu-shoge-sickle-behind.png",
         "front": "main-kyoketsu-shoge-sickle-front.png",
+        "top": "main-kyoketsu-shoge-sickle-top.png",
         "trail": "main-kyoketsu-shoge-sickle-trail.png"
       },
-      "status": "E/W approved by user 2026-11-09 17:43 (v3 base-tier sickle, chain and ring; W mirrors E); S/N to author",
+      "status": "E/W approved by user 2026-11-09 17:43 (v3 base-tier sickle, chain and ring; W mirrors E); S/N v1 CANDIDATE 2026-11-09",
       "z": {
+        "S": [
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          },
+          {
+            "hilt": "front",
+            "blade": "top"
+          }
+        ],
         "E": [
           "front",
           "front",
@@ -40,6 +74,15 @@
           "front",
           "front",
           "front"
+        ],
+        "N": [
+          "behind",
+          "behind",
+          "behind",
+          "behind",
+          "behind",
+          "behind",
+          "behind"
         ],
         "W": [
           "front",
@@ -52,6 +95,36 @@
         ]
       },
       "grips": {
+        "S": [
+          [
+            28,
+            28
+          ],
+          [
+            25,
+            39
+          ],
+          [
+            26,
+            37
+          ],
+          [
+            29,
+            25
+          ],
+          [
+            30,
+            30
+          ],
+          [
+            29,
+            34
+          ],
+          [
+            29,
+            35
+          ]
+        ],
         "E": [
           [
             41,
@@ -79,6 +152,36 @@
           ],
           [
             43,
+            35
+          ]
+        ],
+        "N": [
+          [
+            36,
+            28
+          ],
+          [
+            39,
+            39
+          ],
+          [
+            38,
+            37
+          ],
+          [
+            35,
+            25
+          ],
+          [
+            34,
+            30
+          ],
+          [
+            35,
+            34
+          ],
+          [
+            35,
             35
           ]
         ],
@@ -117,6 +220,13 @@
   ],
   "qc": {
     "gripOnFist": {
+      "main/kyoketsu-shoge-sickle S:0": true,
+      "main/kyoketsu-shoge-sickle S:1": true,
+      "main/kyoketsu-shoge-sickle S:2": true,
+      "main/kyoketsu-shoge-sickle S:3": true,
+      "main/kyoketsu-shoge-sickle S:4": true,
+      "main/kyoketsu-shoge-sickle S:5": true,
+      "main/kyoketsu-shoge-sickle S:6": true,
       "main/kyoketsu-shoge-sickle E:0": "hidden",
       "main/kyoketsu-shoge-sickle E:1": true,
       "main/kyoketsu-shoge-sickle E:2": true,
@@ -124,6 +234,13 @@
       "main/kyoketsu-shoge-sickle E:4": true,
       "main/kyoketsu-shoge-sickle E:5": true,
       "main/kyoketsu-shoge-sickle E:6": true,
+      "main/kyoketsu-shoge-sickle N:0": "hidden",
+      "main/kyoketsu-shoge-sickle N:1": "hidden",
+      "main/kyoketsu-shoge-sickle N:2": "hidden",
+      "main/kyoketsu-shoge-sickle N:3": "hidden",
+      "main/kyoketsu-shoge-sickle N:4": "hidden",
+      "main/kyoketsu-shoge-sickle N:5": "hidden",
+      "main/kyoketsu-shoge-sickle N:6": "hidden",
       "main/kyoketsu-shoge-sickle W:0": "hidden",
       "main/kyoketsu-shoge-sickle W:1": true,
       "main/kyoketsu-shoge-sickle W:2": true,

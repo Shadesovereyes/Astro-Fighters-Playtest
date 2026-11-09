@@ -2191,12 +2191,276 @@
                 "z": "front"
               }
             }
+          ],
+          "S": [
+            {
+              "angle": 90,
+              "scale": 1,
+              "z": {
+                "hilt": "front",
+                "blade": "top"
+              },
+              "chain": {
+                "via": [
+                  37,
+                  25
+                ],
+                "droop": 5,
+                "to": [
+                  0,
+                  8
+                ],
+                "sag": 0,
+                "z": "front"
+              },
+              "branches": {
+                "blade": {
+                  "branch": {
+                    "at": [
+                      12.5,
+                      0
+                    ],
+                    "angle": 180
+                  },
+                  "to": 6,
+                  "thickness": 1,
+                  "pattern": [
+                    "W",
+                    "a",
+                    "a",
+                    "a",
+                    "a",
+                    "a"
+                  ]
+                },
+                "bladeTip": {
+                  "to": 0
+                }
+              },
+              "branchesOver": true
+            },
+            {
+              "angle": 90,
+              "scale": 1,
+              "z": {
+                "hilt": "front",
+                "blade": "top"
+              },
+              "chain": {
+                "via": [
+                  37,
+                  24
+                ],
+                "droop": 5,
+                "to": [
+                  1,
+                  8
+                ],
+                "sag": 0,
+                "z": "front"
+              },
+              "branches": {
+                "blade": {
+                  "branch": {
+                    "at": [
+                      12.5,
+                      0
+                    ],
+                    "angle": 180
+                  },
+                  "to": 6,
+                  "thickness": 1,
+                  "pattern": [
+                    "W",
+                    "a",
+                    "a",
+                    "a",
+                    "a",
+                    "a"
+                  ]
+                },
+                "bladeTip": {
+                  "to": 0
+                }
+              },
+              "branchesOver": true
+            },
+            {
+              "angle": 90,
+              "scale": 1,
+              "z": {
+                "hilt": "front",
+                "blade": "top"
+              },
+              "chain": {
+                "via": [
+                  37,
+                  25
+                ],
+                "droop": 5,
+                "to": [
+                  0,
+                  8
+                ],
+                "sag": 0,
+                "z": "front"
+              },
+              "branches": {
+                "blade": {
+                  "branch": {
+                    "at": [
+                      12.5,
+                      0
+                    ],
+                    "angle": 180
+                  },
+                  "to": 6,
+                  "thickness": 1,
+                  "pattern": [
+                    "W",
+                    "a",
+                    "a",
+                    "a",
+                    "a",
+                    "a"
+                  ]
+                },
+                "bladeTip": {
+                  "to": 0
+                }
+              },
+              "branchesOver": true
+            },
+            {
+              "angle": 90,
+              "scale": 1,
+              "z": {
+                "hilt": "front",
+                "blade": "top"
+              },
+              "chain": {
+                "via": [
+                  37,
+                  26
+                ],
+                "droop": 5,
+                "to": [
+                  -1,
+                  8
+                ],
+                "sag": 0,
+                "z": "front"
+              },
+              "branches": {
+                "blade": {
+                  "branch": {
+                    "at": [
+                      12.5,
+                      0
+                    ],
+                    "angle": 180
+                  },
+                  "to": 6,
+                  "thickness": 1,
+                  "pattern": [
+                    "W",
+                    "a",
+                    "a",
+                    "a",
+                    "a",
+                    "a"
+                  ]
+                },
+                "bladeTip": {
+                  "to": 0
+                }
+              },
+              "branchesOver": true
+            }
+          ],
+          "N": [
+            {
+              "angle": 90,
+              "scale": 1,
+              "z": "behind",
+              "chainOnly": true,
+              "chain": {
+                "via": [
+                  26,
+                  26
+                ],
+                "droop": 5,
+                "to": [
+                  0,
+                  8
+                ],
+                "sag": 0,
+                "z": "behind"
+              }
+            },
+            {
+              "angle": 90,
+              "scale": 1,
+              "z": "behind",
+              "chainOnly": true,
+              "chain": {
+                "via": [
+                  26,
+                  25
+                ],
+                "droop": 5,
+                "to": [
+                  1,
+                  8
+                ],
+                "sag": 0,
+                "z": "behind"
+              }
+            },
+            {
+              "angle": 90,
+              "scale": 1,
+              "z": "behind",
+              "chainOnly": true,
+              "chain": {
+                "via": [
+                  26,
+                  26
+                ],
+                "droop": 5,
+                "to": [
+                  0,
+                  8
+                ],
+                "sag": 0,
+                "z": "behind"
+              }
+            },
+            {
+              "angle": 90,
+              "scale": 1,
+              "z": "behind",
+              "chainOnly": true,
+              "chain": {
+                "via": [
+                  26,
+                  27
+                ],
+                "droop": 5,
+                "to": [
+                  -1,
+                  8
+                ],
+                "sag": 0,
+                "z": "behind"
+              }
+            }
           ]
         }
       },
       "itemStatus": {
         "kama": "approved by user 2026-10-19 (idle with the kusarigama chain twirl)",
-        "kyoketsu-shoge-sickle": "E/W approved by user 2026-11-09 17:43 (v3 Kyoketsu-Shoge Stance idle: base-tier sickle, chain and ring; W mirrors E); S/N to author"
+        "kyoketsu-shoge-sickle": "E/W approved by user 2026-11-09 17:43 (v3 Kyoketsu-Shoge Stance idle: base-tier sickle, chain and ring; W mirrors E); S/N to author; S/N v1 CANDIDATE 2026-11-09 (kama idle S/N poses, ring hangs still)"
       }
     }
   ]
