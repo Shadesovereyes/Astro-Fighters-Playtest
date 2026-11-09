@@ -9,82 +9,80 @@
   },
   "units": "pixels along the axis from the grip point (u, positive toward the tip) and across it (v)",
   "item": "shield-tower",
-  "status": "CANDIDATE 2026-11-06 (shield family, Christopher 2026-11-06 17:47: tower shields, bucklers, heaters; every shield clip works with all of them)",
+  "status": "CANDIDATE 2026-11-09 v2 lacquered tate (shield family: every shield clip works with tower, heater and buckler)",
   "palette": {
     "#": "#000000",
-    "a": "#adadad",
     "W": "#ffffff",
-    "t": "#3b2014",
-    "s": "#a9977d",
-    "h": "#ddcdb4",
-    "r": "#8a6236"
+    "h": "#4a4c55",
+    "k": "#24252b",
+    "R": "#70241d"
   },
-  "paletteSource": "colours already in the approved male clothing layers: #adadad armour grey (blade steel, guard, pommel), #ffffff armour/Gi white (edge), #3b2014 Gi shoe brown (hilt wrap), #a9977d Gi trouser shade (hilt diamonds), #ddcdb4 Gi trouser mid (blade collar); #8a6236 soil brown (shaft)",
+  "paletteSource": "v2 lacquered tate: #24252b lacquer black and #4a4c55 its sheen, #70241d deep red lacquer rim, #ffffff mon white (all colours already used by approved items)",
   "segments": [
     {
       "name": "rimLow",
       "from": -14,
-      "to": -12.5,
+      "to": -13,
       "thickness": 8,
       "pattern": [
-        "#aaaaaa#"
+        "#RRRRRR#"
       ]
     },
     {
-      "name": "faceLow",
-      "from": -12.5,
-      "to": -7,
+      "name": "panelLow",
+      "from": -13,
+      "to": -3,
       "thickness": 8,
       "pattern": [
-        "#trrrrt#"
+        "#RkkkhR#"
       ]
     },
     {
-      "name": "studLow",
-      "from": -7,
-      "to": -6,
+      "name": "monLow",
+      "from": -3,
+      "to": -2,
       "thickness": 8,
       "pattern": [
-        "#tarart#"
+        "#RkWWkR#"
       ]
     },
     {
-      "name": "faceMid",
-      "from": -6,
-      "to": 6,
+      "name": "monMid",
+      "from": -2,
+      "to": 2,
       "thickness": 8,
       "pattern": [
-        "#trrhrt#"
+        "#RWkkWR#"
       ]
     },
     {
-      "name": "studHigh",
-      "from": 6,
-      "to": 7,
+      "name": "monHigh",
+      "from": 2,
+      "to": 3,
       "thickness": 8,
       "pattern": [
-        "#tarart#"
+        "#RkWWkR#"
       ]
     },
     {
-      "name": "faceHigh",
-      "from": 7,
-      "to": 12.5,
+      "name": "panelHigh",
+      "from": 3,
+      "to": 13,
       "thickness": 8,
       "pattern": [
-        "#trrrrt#"
+        "#RkkkhR#"
       ]
     },
     {
       "name": "rimHigh",
-      "from": 12.5,
+      "from": 13,
       "to": 14,
       "thickness": 8,
       "pattern": [
-        "#aaaaaa#"
+        "#RRRRRR#"
       ]
     }
   ],
   "grip": "strapped to the far forearm, gripped at its centre; axis top to bottom (angle 90 = upright), seen three-quarter from the side so the face shows; the face toward the facing",
-  "note": "tower shield: a tall wooden pavise, 28 px, iron-rimmed planks with two rows of iron studs, flat and straight"
+  "note": "tower shield v2 (Christopher 2026-11-09 16:27: \"Lacquered samurai tate\"): a tall flat wooden tate, 28 px, black lacquer with a thin deep-red lacquer rim and a white ring mon at the centre; replaces the v1 iron-rimmed pavise"
 }
