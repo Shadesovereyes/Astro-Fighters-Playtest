@@ -21,7 +21,7 @@ T.STAT = 'CANDIDATE 2026-11-06 (E/W; W mirrors E; S/N to author after approval)'
 OG = dict(grip=(43, 35), angle=10, far=(39, 24))   # the approved oneHandGuard frame
 def og(**k): return fr(**{**OG, **k})
 H = dict(hidden=True)
-APPROVED = {'ksStanceEntry': 'E/W approved by user 2026-11-09 17:43 (v3 base-tier sickle, chain and ring; W mirrors E); S/N to author', 'macheteSlash': 'E/W approved by user 2026-11-06 18:12 (v3 raised blade on the top slot over hair and headgear; W mirrors E); S/N to author', 'viperStrike': 'E/W approved by user 2026-11-06 17:38 (v1; W mirrors E); S/N approved by user 2026-11-09 16:51 (v1)'}
+APPROVED = {'ksStanceEntry': 'E/W approved by user 2026-11-09 17:43 (v3 base-tier sickle, chain and ring; W mirrors E); S/N to author', 'macheteSlash': 'E/W approved by user 2026-11-06 18:12 (v3 raised blade on the top slot over hair and headgear; W mirrors E); S/N approved by user 2026-11-10 14:32 (v1)', 'viperStrike': 'E/W approved by user 2026-11-06 17:38 (v1; W mirrors E); S/N approved by user 2026-11-09 16:51 (v1)'}
 
 CLIPS = {
  'viperStrike': ('Viper Strike', 3, [46, 26, 14, 10], 'light', 12, 'oneHandGuard', [

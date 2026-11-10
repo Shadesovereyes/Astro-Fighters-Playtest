@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "macheteSlash",
-  "status": "E/W approved by user 2026-11-06 18:12 (v3 raised blade on the top slot over hair and headgear; W mirrors E); S/N CANDIDATE 2026-11-06 (v1)",
+  "status": "E/W approved by user 2026-11-06 18:12 (v3 raised blade on the top slot over hair and headgear; W mirrors E); S/N approved by user 2026-11-10 14:32 (v1)",
   "frames": 7,
   "fps": 12,
   "sourceDirection": "E",
@@ -1472,7 +1472,7 @@
       "items": [
         "machete"
       ],
-      "status": "E/W approved by user 2026-11-06 18:12 (v3 raised blade on the top slot over hair and headgear; W mirrors E); S/N CANDIDATE 2026-11-06 (v1)",
+      "status": "E/W approved by user 2026-11-06 18:12 (v3 raised blade on the top slot over hair and headgear; W mirrors E); S/N approved by user 2026-11-10 14:32 (v1)",
       "rule": "per frame: grip = pixel at the centre of the near fist (body-frame coordinates; it follows the arm bob, 0, -1, 0, +1), angle = blade direction in degrees above the facing's horizontal, z = depth slot",
       "depthRule": "front: drawn over body and clothing, under the arms layer (the fists close over the hilt); behind: drawn under the body",
       "E": [

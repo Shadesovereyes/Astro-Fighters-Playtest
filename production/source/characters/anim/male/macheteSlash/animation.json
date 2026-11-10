@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-animation-output/v1",
   "body": "male",
   "state": "macheteSlash",
-  "status": "CANDIDATE 2026-10-28 S/N v1 (E/W approved by user 2026-10-28; W mirrors E)",
+  "status": "S/N approved by user 2026-11-10 14:32 (v1); E/W approved by user 2026-11-06 18:12 (v3); W mirrors E",
   "frames": 7,
   "fps": 12,
   "frameSize": [
