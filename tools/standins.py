@@ -434,7 +434,8 @@ CLIPS['chargedBack'] = ('Shoulder Charge', 0,
   None,
   dict(fps=12, react=True, extra={'airborneFrames': [1, 2, 3]}, rm='E: -2 -3 -4 -5 lifted and carried back, -3 -2 the landing stagger, +5 +6 +5 stepping back in (net -3, as hitReact)',
        anchored={0: [('star6', 'head', -1, 9)], 4: [('dust', 'feet', 0, -2), ('dust', 'feet', -6, -2)], 5: [('dust', 'feet', -3, -2)]}))
-APPROVED['chargedBack'] = STAT
+APPROVED['chargedBack'] = 'E/W approved by user 2026-11-11 15:55 (v2, target of Shoulder Charge v7; W mirrors E); S/N to author'
+APPROVED['shoulderCharge'] = 'E/W approved by user 2026-11-11 15:55 (v7 bull crouch, torso turns toward the camera on frames 8-11 via tools/shoulder_twist.py; W mirrors E); S/N to author'
 astro.CLIPS.update(CLIPS)
 astro.APPROVED.update({k: APPROVED.get(k, STAT) for k in CLIPS})
 

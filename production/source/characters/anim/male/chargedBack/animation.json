@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-animation-output/v1",
   "body": "male",
   "state": "chargedBack",
-  "status": "CANDIDATE 2026-11-06 (E/W; W mirrors E; S/N to author after approval)",
+  "status": "E/W approved by user 2026-11-11 15:55 (v2, target of Shoulder Charge v7; W mirrors E); S/N to author",
   "frames": 10,
   "fps": 12,
   "frameSize": [

@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "shoulderCharge",
-  "status": "CANDIDATE 2026-11-06 (E/W; W mirrors E; S/N to author after approval)",
+  "status": "E/W approved by user 2026-11-11 15:55 (v7 bull crouch, torso turns toward the camera on frames 8-11 via tools/shoulder_twist.py; W mirrors E); S/N to author",
   "frames": 16,
   "fps": 12,
   "sourceDirection": "E",
