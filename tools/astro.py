@@ -5802,6 +5802,7 @@ def _lw(k, hx):   # Lured Walk: one leg's pose at walk frame k (0 heel lands, 1-
             kleg(None, hip, (hx - 1, 50), (hx - 5, 55), 'toe30k'), kleg(None, hip, (hx + 3, 49), (hx + 1, 55), 'toe30k'), kleg(None, hip, (hx + 5, 49), (hx + 5, 55), 'toe30k')][k]
 for k_ in range(8):
     U.POSES += [{**_lw(k_, 31), 'name': 'lw-%d-near' % k_}, {**_lw(k_, 32), 'name': 'lw-%d-far' % k_}]
+_EAR3_N, _EAR3_F = band(115, -140, fistKind='palm'), band(110, -140, fistKind='palm')   # v3.1 (Christopher 2026-11-13 14:52: v3's palms read as covering the eyes): elbows flared back, palms flat over the ears, face clear
 _LHEAD = [3, 4, 5, 4, 3, 2, 3, 4]   # the head lolls forward and back with the stride, drawn toward the song
 _NOTES = lambda k: [('slNote1' if k % 2 else 'slNote2', 'head', 12 - (k % 4) * 2, -6 - (k % 3) * 3, _A(_FADE) if k % 2 else {}),
                     ('slNote1', 'head', 8 - (k % 4) * 3, -12 + (k % 2) * 3, _A(_FADE))]   # the song's notes drift from her back across its head
@@ -5810,15 +5811,15 @@ CLIPS['sirenLured'] = ('Siren Lured', 0,
      g(an=band(-60, -150), af=band(-50, -140), bob=(1, 1, 1), lean=(-1, -3)),
      g(an=band(-20, -40), af=band(-15, -35), bob=(1, 1, 1), lean=(0, 1)),
      g(an=band(-15, -30), af=band(-10, -25), bob=(2, 2, 2), lean=(1, 4), root=(1, 0), ln='duel-rear', lf='duel-lead'),
-     g(an=band(-90, -170, fistKind='palm'), af=band(-85, -170, fistKind='palm'), bob=(2, 2, 2), lean=(1, 3), ln='duel-rear', lf='duel-lead'),
-     g(an=_EAR_N, af=_EAR_F, bob=(2, 2, 2), lean=(1, 4), ln='duel-rear', lf='duel-lead'),
-     g(an=_EAR_N, af=_EAR_F, bob=(2, 2, 2), lean=(1, 5), root=(1, 0), ln='duel-rear', lf='duel-lead'),
-     g(an=_EAR_N, af=_EAR_F, bob=(2, 3, 2), lean=(1, 6), ln='duel-rear', lf='duel-lead'),
-     g(an=_EAR_N, af=_EAR_F, bob=(2, 2, 2), lean=(1, 5), ln='duel-rear', lf='duel-lead'),
-     g(an=_EAR_N, af=_EAR_F, bob=(2, 2, 2), lean=(0, 3), root=(-1, 0), ln='duel-rear', lf='duel-lead'),
-     g(an=_EAR_N, af=_EAR_F, bob=(2, 2, 2), lean=(0, 2), ln='duel-rear', lf='duel-lead'),
-     g(an=_EAR_N, af=_EAR_F, bob=(2, 2, 2), lean=(0, 3), ln='duel-rear', lf='duel-lead'),
-     g(an=_EAR_N, af=_EAR_F, bob=(2, 2, 2), lean=(1, 4), ln='duel-rear', lf='duel-lead')],
+     g(an=band(80, -110, fistKind='palm'), af=band(75, -110, fistKind='palm'), bob=(2, 2, 2), lean=(1, 3), ln='duel-rear', lf='duel-lead'),
+     g(an=_EAR3_N, af=_EAR3_F, bob=(2, 2, 2), lean=(1, 4), ln='duel-rear', lf='duel-lead'),
+     g(an=_EAR3_N, af=_EAR3_F, bob=(2, 2, 2), lean=(1, 5), root=(1, 0), ln='duel-rear', lf='duel-lead'),
+     g(an=_EAR3_N, af=_EAR3_F, bob=(2, 3, 2), lean=(1, 6), ln='duel-rear', lf='duel-lead'),
+     g(an=_EAR3_N, af=_EAR3_F, bob=(2, 2, 2), lean=(1, 5), ln='duel-rear', lf='duel-lead'),
+     g(an=_EAR3_N, af=_EAR3_F, bob=(2, 2, 2), lean=(0, 3), root=(-1, 0), ln='duel-rear', lf='duel-lead'),
+     g(an=_EAR3_N, af=_EAR3_F, bob=(2, 2, 2), lean=(0, 2), ln='duel-rear', lf='duel-lead'),
+     g(an=_EAR3_N, af=_EAR3_F, bob=(2, 2, 2), lean=(0, 3), ln='duel-rear', lf='duel-lead'),
+     g(an=_EAR3_N, af=_EAR3_F, bob=(2, 2, 2), lean=(1, 4), ln='duel-rear', lf='duel-lead')],
   ['pain', 'squint', 'closed', 'squint', 'squint', 'closed', 'closed', 'squint', 'squint', 'closed', 'squint', 'squint'],
   None,
   dict(fps=8, rm='E: +1 swaying toward the song, then the loop sways +1 -1 (net 0)',
@@ -5832,7 +5833,7 @@ CLIPS['sirenLured'] = ('Siren Lured', 0,
                  **{k: [_SVF(k)] + _NOTES(k) for k in range(5, 12)}}))
 CLIPS['sirenLuredWalk'] = ('Lured Walk', 0,
   "Lured Walk (movement under Siren's Lure v3; Christopher 2026-11-13: the target spends its move walking toward the caster with its hands over its ears): a slow, entranced walk cycle toward the caster: both palms still clamped over its ears, eyes half shut, head lolling forward and back with each step, knees soft, the feet barely lifting so the toes drag through each swing, as if it were walking in its sleep; the siren hovers just ahead of it, between it and the caster, singing and reaching back for it, and drifts on ahead as it comes, always just out of reach, the notes of her song trailing back over its head. When the move ends it goes straight back to sirenLured's loop.", [
-     *[g(an=_EAR_N, af=_EAR_F, bob=(2, 2 + (k % 4 == 1), 2), lean=(1, _LHEAD[k]), root=(3, 0), ln='lw-%d-near' % k, lf='lw-%d-far' % ((k + 4) % 8)) for k in range(8)]],
+     *[g(an=_EAR3_N, af=_EAR3_F, bob=(2, 2 + (k % 4 == 1), 2), lean=(1, _LHEAD[k]), root=(3, 0), ln='lw-%d-near' % k, lf='lw-%d-far' % ((k + 4) % 8)) for k in range(8)]],
   ['squint', 'closed', 'closed', 'squint', 'squint', 'closed', 'closed', 'squint'],
   None,
   dict(fps=6, rm="E: +3 per frame (the planted foot slides back 3 px a frame; at 6 fps it covers ground at about 3/4 of the normal walk's pace, a sleepwalker's gait); the testbed paces the move along the path at this speed",
