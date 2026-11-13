@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Siren Lured v2 (target state of Siren's Lure, Fear 1 round; frame 0 is the impact): the song washes over the fighter and it jolts, eyes wide; then the lure takes it: its guard drops slack, eyes half closing, and it sways back toward the song as a siren of glowing water-light fades up behind it, translucent and shimmering, long hair streaming and dissolving into motes, her tail curling into a wide fin, singing with one hand cupped at her lips, the other reaching over its shoulder; then dread breaks in: its eyes snap open, it clamps both hands over its ears and drops to one knee; (looping while the Fear lasts) it cowers there on one knee, hands over its ears, shaking its head and trembling, while the siren sways over it singing and dark notes circle its head.",
+  "intent": "Siren Lured v3 (target state of Siren's Lure, lure; Christopher 2026-11-13: the target walks toward the caster instead of kneeling; frame 0 is the impact): the song washes over the fighter and it jolts, eyes wide; then the lure takes it: its guard drops slack, its eyes half close and it sways forward toward the song as a siren of glowing water-light fades up in front of it, between it and the caster, translucent and shimmering, hair streaming into motes, her tail curling into a wide fin, singing, one hand cupped at her lips and the other reaching back for it; it lifts both palms and clamps them over its ears, but stays on its feet; then (looping while the lure lasts) it stands dazed, hands over its ears, swaying toward her and back, head lolling, eyes half shut, while she sings and beckons in front of it. When it moves under the lure it plays sirenLuredWalk.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -107,44 +107,44 @@
     "dy": [
       1,
       1,
-      1,
       2,
-      9,
-      9,
-      9,
-      9,
-      9,
-      9,
-      9,
-      9
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2
     ],
     "head": [
       1,
       1,
-      1,
       2,
-      10,
-      10,
-      10,
-      10,
-      10,
-      10,
-      10,
-      10
+      2,
+      2,
+      2,
+      3,
+      2,
+      2,
+      2,
+      2,
+      2
     ],
     "arms": [
       1,
       1,
       2,
       2,
-      10,
-      10,
-      11,
-      10,
-      11,
-      10,
-      11,
-      10
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2
     ]
   },
   "lean": {
@@ -153,36 +153,36 @@
     "dx": {
       "pelvis": [
         -1,
-        -1,
-        -1,
+        0,
         1,
         1,
         1,
         1,
         1,
         1,
-        1,
-        1,
+        0,
+        0,
+        0,
         1
       ],
       "head": [
         -3,
-        -2,
-        -3,
-        2,
-        7,
-        7,
-        8,
+        1,
+        4,
+        3,
+        4,
+        5,
         6,
-        8,
-        7,
-        8,
-        6
+        5,
+        3,
+        2,
+        3,
+        4
       ]
     }
   },
   "rootMotion": {
-    "rule": "E: -1 swaying back toward the song, +1 cowering; loop trembles +1 -1 -1 +1 +1 -1 -1 (net 0)",
+    "rule": "E: +1 swaying toward the song, then the loop sways +1 -1 (net 0)",
     "E": [
       [
         0,
@@ -193,11 +193,11 @@
         0
       ],
       [
-        -1,
+        1,
         0
       ],
       [
-        1,
+        0,
         0
       ],
       [
@@ -209,7 +209,11 @@
         0
       ],
       [
-        -1,
+        0,
+        0
+      ],
+      [
+        0,
         0
       ],
       [
@@ -217,19 +221,15 @@
         0
       ],
       [
-        1,
+        0,
         0
       ],
       [
-        1,
+        0,
         0
       ],
       [
-        -1,
-        0
-      ],
-      [
-        -1,
+        0,
         0
       ]
     ],
@@ -243,11 +243,11 @@
         0
       ],
       [
-        1,
+        -1,
         0
       ],
       [
-        -1,
+        0,
         0
       ],
       [
@@ -259,7 +259,11 @@
         0
       ],
       [
-        1,
+        0,
+        0
+      ],
+      [
+        0,
         0
       ],
       [
@@ -267,19 +271,15 @@
         0
       ],
       [
-        -1,
+        0,
         0
       ],
       [
-        -1,
+        0,
         0
       ],
       [
-        1,
-        0
-      ],
-      [
-        1,
+        0,
         0
       ]
     ]
@@ -1682,35 +1682,275 @@
           51
         ],
         "foot": "toe30k"
+      },
+      {
+        "name": "es-sit-lead",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 52,
+        "kneeX": 40,
+        "kneeRow": 48,
+        "ankle": [
+          45,
+          55
+        ],
+        "foot": "pointFwd"
+      },
+      {
+        "name": "es-sit-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 52,
+        "kneeX": 37,
+        "kneeRow": 55,
+        "ankle": [
+          42,
+          56
+        ],
+        "foot": "pointFwd"
+      },
+      {
+        "name": "es-lie-lead",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 53,
+        "kneeX": 40,
+        "kneeRow": 51,
+        "ankle": [
+          46,
+          55
+        ],
+        "foot": "pointFwd"
+      },
+      {
+        "name": "es-lie-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 53,
+        "kneeX": 38,
+        "kneeRow": 55,
+        "ankle": [
+          45,
+          56
+        ],
+        "foot": "pointFwd"
+      },
+      {
+        "name": "lw-0-near",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 43,
+        "kneeX": 36,
+        "kneeRow": 50,
+        "footX": 37,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "lw-0-far",
+        "construction": "band",
+        "hipX": 32,
+        "hipRow": 43,
+        "kneeX": 37,
+        "kneeRow": 50,
+        "footX": 38,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "lw-1-near",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 43,
+        "kneeX": 34,
+        "kneeRow": 50,
+        "footX": 34,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "lw-1-far",
+        "construction": "band",
+        "hipX": 32,
+        "hipRow": 43,
+        "kneeX": 35,
+        "kneeRow": 50,
+        "footX": 35,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "lw-2-near",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 43,
+        "kneeX": 32,
+        "kneeRow": 50,
+        "footX": 31,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "lw-2-far",
+        "construction": "band",
+        "hipX": 32,
+        "hipRow": 43,
+        "kneeX": 33,
+        "kneeRow": 50,
+        "footX": 32,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "lw-3-near",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 43,
+        "kneeX": 30,
+        "kneeRow": 50,
+        "footX": 28,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "lw-3-far",
+        "construction": "band",
+        "hipX": 32,
+        "hipRow": 43,
+        "kneeX": 31,
+        "kneeRow": 50,
+        "footX": 29,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "lw-4-near",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 43,
+        "kneeX": 29,
+        "kneeRow": 50,
+        "footX": 25,
+        "wrapRow": 54,
+        "foot": "toe60"
+      },
+      {
+        "name": "lw-4-far",
+        "construction": "band",
+        "hipX": 32,
+        "hipRow": 43,
+        "kneeX": 30,
+        "kneeRow": 50,
+        "footX": 26,
+        "wrapRow": 54,
+        "foot": "toe60"
+      },
+      {
+        "name": "lw-5-near",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 43,
+        "kneeX": 30,
+        "kneeRow": 50,
+        "ankle": [
+          26,
+          55
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "lw-5-far",
+        "construction": "band",
+        "hipX": 32,
+        "hipRow": 43,
+        "kneeX": 31,
+        "kneeRow": 50,
+        "ankle": [
+          27,
+          55
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "lw-6-near",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 43,
+        "kneeX": 34,
+        "kneeRow": 49,
+        "ankle": [
+          32,
+          55
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "lw-6-far",
+        "construction": "band",
+        "hipX": 32,
+        "hipRow": 43,
+        "kneeX": 35,
+        "kneeRow": 49,
+        "ankle": [
+          33,
+          55
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "lw-7-near",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 43,
+        "kneeX": 36,
+        "kneeRow": 49,
+        "ankle": [
+          36,
+          55
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "lw-7-far",
+        "construction": "band",
+        "hipX": 32,
+        "hipRow": 43,
+        "kneeX": 37,
+        "kneeRow": 49,
+        "ankle": [
+          37,
+          55
+        ],
+        "foot": "toe30k"
       }
     ],
     "near": [
       1,
       1,
-      1,
-      3,
-      50,
-      50,
-      50,
-      50,
-      50,
-      50,
-      50,
-      50
+      13,
+      13,
+      13,
+      13,
+      13,
+      13,
+      13,
+      13,
+      13,
+      13
     ],
     "far": [
       0,
       0,
-      0,
-      2,
-      49,
-      49,
-      49,
-      49,
-      49,
-      49,
-      49,
-      49
+      12,
+      12,
+      12,
+      12,
+      12,
+      12,
+      12,
+      12,
+      12,
+      12
     ]
   },
   "arms": {
@@ -1755,10 +1995,10 @@
       },
       {
         "construction": "band",
-        "angle": -125,
+        "angle": -90,
         "elbow": {
           "at": 8,
-          "angle": -200
+          "angle": -170
         },
         "fistKind": "palm"
       },
@@ -1862,10 +2102,10 @@
       },
       {
         "construction": "band",
-        "angle": -120,
+        "angle": -85,
         "elbow": {
           "at": 8,
-          "angle": -200
+          "angle": -170
         },
         "fistKind": "palm"
       },
@@ -3090,19 +3330,25 @@
         "pain",
         "squint",
         "closed",
-        "pain",
-        "pain",
-        "pain",
         "squint",
-        "pain",
-        "pain",
         "squint",
-        "pain",
+        "closed",
+        "closed",
+        "squint",
+        "squint",
+        "closed",
+        "squint",
         "squint"
       ]
     },
     "intent": "eyes squeezed shut with the brow pulled down on the impact frames 0-2 (no mouth: user 2026-10-14), a squint on frame 3, open again from frame 4 (user 2026-10-14)"
   },
   "loop": true,
-  "loopFrom": 5
+  "loopFrom": 5,
+  "walk": {
+    "rule": "Siren's Lure v3 (Christopher 2026-11-13): the lure spends the target's move walking toward the caster; any movement while lured plays sirenLuredWalk (the dazed walk loop, hands over the ears) instead of the walk, paced along the path at its root motion; when the move ends the fighter goes straight back to this state's loop (frame 5)",
+    "state": "sirenLuredWalk",
+    "loopFrom": 0,
+    "stop": []
+  }
 }

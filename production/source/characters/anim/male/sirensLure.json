@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "sirensLure",
-  "status": "CANDIDATE 2026-10-27 (E/W; W mirrors E; S/N to author after approval)",
+  "status": "E/W approved by user 2026-11-05 15:57 (v2 ethereal siren rises behind the target, volley slNoteL frames 5-6, impact 7; W mirrors E); S/N to author",
   "frames": 10,
   "fps": 10,
   "sourceDirection": "E",
@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Siren's Lure (Pisces genjutsu, Mental debuff, Zone of Awareness, Fear 1 round STR save DC 13: the caster projects a song of dread into the opponent's mind): from the guard the fighter lifts the near hand open before its chin like a singer and tips its head back, eyes closing; it sings, mouth wide, and dark notes of deep water rise off its lips and curl round its head; its eyes kindle water blue as it sweeps the open palm out toward the target and the song pours off it, beamed notes riding dark waves of water (projectile volley, frames 5 and 6, impact frame 7); it holds the palm out, the last notes trailing, then settles into the guard (the target plays sirenLured: the siren rises behind it).",
+  "intent": "Siren's Lure (Pisces genjutsu, Mental debuff, Zone of Awareness, lure: on a failed CHA save the target spends its move walking toward the caster (v3, Christopher 2026-11-13): the caster projects a song of dread into the opponent's mind): from the guard the fighter lifts the near hand open before its chin like a singer and tips its head back, eyes closing; it sings, mouth wide, and dark notes of deep water rise off its lips and curl round its head; its eyes kindle water blue as it sweeps the open palm out toward the target and the song pours off it, beamed notes riding dark waves of water (projectile volley, frames 5 and 6, impact frame 7); it holds the palm out, the last notes trailing, then settles into the guard (the target plays sirenLured: the siren rises in front of it and it walks toward her, hands over its ears).",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -1656,6 +1656,246 @@
           51
         ],
         "foot": "toe30k"
+      },
+      {
+        "name": "es-sit-lead",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 52,
+        "kneeX": 40,
+        "kneeRow": 48,
+        "ankle": [
+          45,
+          55
+        ],
+        "foot": "pointFwd"
+      },
+      {
+        "name": "es-sit-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 52,
+        "kneeX": 37,
+        "kneeRow": 55,
+        "ankle": [
+          42,
+          56
+        ],
+        "foot": "pointFwd"
+      },
+      {
+        "name": "es-lie-lead",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 53,
+        "kneeX": 40,
+        "kneeRow": 51,
+        "ankle": [
+          46,
+          55
+        ],
+        "foot": "pointFwd"
+      },
+      {
+        "name": "es-lie-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 53,
+        "kneeX": 38,
+        "kneeRow": 55,
+        "ankle": [
+          45,
+          56
+        ],
+        "foot": "pointFwd"
+      },
+      {
+        "name": "lw-0-near",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 43,
+        "kneeX": 35,
+        "kneeRow": 50,
+        "footX": 36,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "lw-0-far",
+        "construction": "band",
+        "hipX": 32,
+        "hipRow": 43,
+        "kneeX": 36,
+        "kneeRow": 50,
+        "footX": 37,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "lw-1-near",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 43,
+        "kneeX": 34,
+        "kneeRow": 50,
+        "footX": 34,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "lw-1-far",
+        "construction": "band",
+        "hipX": 32,
+        "hipRow": 43,
+        "kneeX": 35,
+        "kneeRow": 50,
+        "footX": 35,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "lw-2-near",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 43,
+        "kneeX": 32,
+        "kneeRow": 50,
+        "footX": 32,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "lw-2-far",
+        "construction": "band",
+        "hipX": 32,
+        "hipRow": 43,
+        "kneeX": 33,
+        "kneeRow": 50,
+        "footX": 33,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "lw-3-near",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 43,
+        "kneeX": 31,
+        "kneeRow": 50,
+        "footX": 30,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "lw-3-far",
+        "construction": "band",
+        "hipX": 32,
+        "hipRow": 43,
+        "kneeX": 32,
+        "kneeRow": 50,
+        "footX": 31,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "lw-4-near",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 43,
+        "kneeX": 30,
+        "kneeRow": 50,
+        "footX": 28,
+        "wrapRow": 54,
+        "foot": "toe60"
+      },
+      {
+        "name": "lw-4-far",
+        "construction": "band",
+        "hipX": 32,
+        "hipRow": 43,
+        "kneeX": 31,
+        "kneeRow": 50,
+        "footX": 29,
+        "wrapRow": 54,
+        "foot": "toe60"
+      },
+      {
+        "name": "lw-5-near",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 43,
+        "kneeX": 30,
+        "kneeRow": 50,
+        "ankle": [
+          28,
+          56
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "lw-5-far",
+        "construction": "band",
+        "hipX": 32,
+        "hipRow": 43,
+        "kneeX": 31,
+        "kneeRow": 50,
+        "ankle": [
+          29,
+          56
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "lw-6-near",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 43,
+        "kneeX": 33,
+        "kneeRow": 49,
+        "ankle": [
+          32,
+          56
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "lw-6-far",
+        "construction": "band",
+        "hipX": 32,
+        "hipRow": 43,
+        "kneeX": 34,
+        "kneeRow": 49,
+        "ankle": [
+          33,
+          56
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "lw-7-near",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 43,
+        "kneeX": 35,
+        "kneeRow": 49,
+        "ankle": [
+          35,
+          56
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "lw-7-far",
+        "construction": "band",
+        "hipX": 32,
+        "hipRow": 43,
+        "kneeX": 36,
+        "kneeRow": 49,
+        "ankle": [
+          36,
+          56
+        ],
+        "foot": "toe30k"
       }
     ],
     "near": [
@@ -3151,7 +3391,7 @@
     ]
   },
   "targetState": {
-    "rule": "Siren's Lure v2: from frame 7, the impact frame, when the first notes reach it (it holds its plain guard before that), the target plays sirenLured: frames 0-4 once (jolt, lured slack sway as the siren fades up, hands clamp over the ears, drops to one knee), then frames 5-11 on loop while the Fear lasts, then its idle; the genjutsu mark (genjutsuAfflicted, recolour genjutsuMark.recolor.water) is drawn over it throughout",
+    "rule": "Siren's Lure v3 (lure, Christopher 2026-11-13): from frame 7, the impact frame, when the first notes reach it (it holds its plain guard before that), the target plays sirenLured: frames 0-4 once (jolt, lured slack sway as the siren fades up in front of it, hands clamp over the ears, still standing), then frames 5-11 on loop while the lure lasts, then its idle; whenever it moves under the lure (the lure spends its move walking toward the caster) it plays sirenLuredWalk instead of the walk (sirenLured extra.walk); the genjutsu mark (genjutsuAfflicted, recolour genjutsuMark.recolor.water) is drawn over it throughout",
     "state": "sirenLured",
     "loopFrom": 5,
     "element": "water",

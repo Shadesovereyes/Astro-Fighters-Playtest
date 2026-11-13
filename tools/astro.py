@@ -5788,6 +5788,61 @@ CLIPS['sirenLured'] = ('Siren Lured', 0,
 CLIPS['sirensLure'][6]['extra']['targetState'].update({'rule': "Siren's Lure v2: from frame 7, the impact frame, when the first notes reach it (it holds its plain guard before that), the target plays sirenLured: frames 0-4 once (jolt, lured slack sway as the siren fades up, hands clamp over the ears, drops to one knee), then frames 5-11 on loop while the Fear lasts, then its idle; the genjutsu mark (genjutsuAfflicted, recolour genjutsuMark.recolor.water) is drawn over it throughout", 'loopFrom': 5})
 
 
+# Siren's Lure v3 (Christopher 2026-11-13 14:40, rebalance thread: Siren's Lure is no longer Fear 1 round but a lure; on a failed CHA save
+# the target spends its move walking toward the caster, hands over its ears). The kneel goes: the target stays on its feet in a dazed sway and,
+# whenever it moves under the lure, plays sirenLuredWalk, a slow entranced walk toward the caster with both palms still clamped over its ears.
+# The siren now hovers in front of it, between it and the caster, mirrored to face it and reaching back for it, so it follows her song;
+# she is anchored to the target's cell, so she drifts ahead as it walks, always just out of reach. Genjutsu: only the target sees her.
+NPAT.update({'slSirenVL%d' % p: [r[::-1] for r in NPAT['slSirenV%d' % p]] for p in range(4)})
+_SVF = lambda p, a=1.0, dx=21: ('slSirenVL%d' % (p % 4), 'cell', dx, -36, {'behind': True, 'alpha': {k: round(v * a) for k, v in _SIRA['alpha'].items()}})
+def _lw(k, hx):   # Lured Walk: one leg's pose at walk frame k (0 heel lands, 1-3 loaded and sliding back 3 px a frame, 4 toe-off behind, 5-7 a low swing forward, the toes scuffing); hips sunk 1 px, knees soft
+    hip = (hx, 43)
+    return [leg(None, hip, (hx + 5, 50), hx + 6), leg(None, hip, (hx + 3, 50), hx + 3), leg(None, hip, (hx + 1, 50), hx), leg(None, hip, (hx - 1, 50), hx - 3),
+            leg(None, hip, (hx - 2, 50), hx - 6, wrap=54, kind='toe60'),
+            kleg(None, hip, (hx - 1, 50), (hx - 5, 55), 'toe30k'), kleg(None, hip, (hx + 3, 49), (hx + 1, 55), 'toe30k'), kleg(None, hip, (hx + 5, 49), (hx + 5, 55), 'toe30k')][k]
+for k_ in range(8):
+    U.POSES += [{**_lw(k_, 31), 'name': 'lw-%d-near' % k_}, {**_lw(k_, 32), 'name': 'lw-%d-far' % k_}]
+_LHEAD = [3, 4, 5, 4, 3, 2, 3, 4]   # the head lolls forward and back with the stride, drawn toward the song
+_NOTES = lambda k: [('slNote1' if k % 2 else 'slNote2', 'head', 12 - (k % 4) * 2, -6 - (k % 3) * 3, _A(_FADE) if k % 2 else {}),
+                    ('slNote1', 'head', 8 - (k % 4) * 3, -12 + (k % 2) * 3, _A(_FADE))]   # the song's notes drift from her back across its head
+CLIPS['sirenLured'] = ('Siren Lured', 0,
+  "Siren Lured v3 (target state of Siren's Lure, lure; Christopher 2026-11-13: the target walks toward the caster instead of kneeling; frame 0 is the impact): the song washes over the fighter and it jolts, eyes wide; then the lure takes it: its guard drops slack, its eyes half close and it sways forward toward the song as a siren of glowing water-light fades up in front of it, between it and the caster, translucent and shimmering, hair streaming into motes, her tail curling into a wide fin, singing, one hand cupped at her lips and the other reaching back for it; it lifts both palms and clamps them over its ears, but stays on its feet; then (looping while the lure lasts) it stands dazed, hands over its ears, swaying toward her and back, head lolling, eyes half shut, while she sings and beckons in front of it. When it moves under the lure it plays sirenLuredWalk.", [
+     g(an=band(-60, -150), af=band(-50, -140), bob=(1, 1, 1), lean=(-1, -3)),
+     g(an=band(-20, -40), af=band(-15, -35), bob=(1, 1, 1), lean=(0, 1)),
+     g(an=band(-15, -30), af=band(-10, -25), bob=(2, 2, 2), lean=(1, 4), root=(1, 0), ln='duel-rear', lf='duel-lead'),
+     g(an=band(-90, -170, fistKind='palm'), af=band(-85, -170, fistKind='palm'), bob=(2, 2, 2), lean=(1, 3), ln='duel-rear', lf='duel-lead'),
+     g(an=_EAR_N, af=_EAR_F, bob=(2, 2, 2), lean=(1, 4), ln='duel-rear', lf='duel-lead'),
+     g(an=_EAR_N, af=_EAR_F, bob=(2, 2, 2), lean=(1, 5), root=(1, 0), ln='duel-rear', lf='duel-lead'),
+     g(an=_EAR_N, af=_EAR_F, bob=(2, 3, 2), lean=(1, 6), ln='duel-rear', lf='duel-lead'),
+     g(an=_EAR_N, af=_EAR_F, bob=(2, 2, 2), lean=(1, 5), ln='duel-rear', lf='duel-lead'),
+     g(an=_EAR_N, af=_EAR_F, bob=(2, 2, 2), lean=(0, 3), root=(-1, 0), ln='duel-rear', lf='duel-lead'),
+     g(an=_EAR_N, af=_EAR_F, bob=(2, 2, 2), lean=(0, 2), ln='duel-rear', lf='duel-lead'),
+     g(an=_EAR_N, af=_EAR_F, bob=(2, 2, 2), lean=(0, 3), ln='duel-rear', lf='duel-lead'),
+     g(an=_EAR_N, af=_EAR_F, bob=(2, 2, 2), lean=(1, 4), ln='duel-rear', lf='duel-lead')],
+  ['pain', 'squint', 'closed', 'squint', 'squint', 'closed', 'closed', 'squint', 'squint', 'closed', 'squint', 'squint'],
+  None,
+  dict(fps=8, rm='E: +1 swaying toward the song, then the loop sways +1 -1 (net 0)',
+       extra={'loop': True, 'loopFrom': 5,
+              'walk': {'rule': "Siren's Lure v3 (Christopher 2026-11-13): the lure spends the target's move walking toward the caster; any movement while lured plays sirenLuredWalk (the dazed walk loop, hands over the ears) instead of the walk, paced along the path at its root motion; when the move ends the fighter goes straight back to this state's loop (frame 5)", 'state': 'sirenLuredWalk', 'loopFrom': 0, 'stop': []}},
+       anchored={0: [('wgw3', 'head', 8, 14, _A(_FADE)), ('slNote1', 'head', 6, 2, _A(_FADE))],
+                 1: [_SVF(0, 0.35), ('slNote1', 'head', 8, -4, _A(_FADE))],
+                 2: [_SVF(1, 0.7), ('slNote2', 'head', 10, -6, _A(_FADE))],
+                 3: [_SVF(2), ('slNote1', 'head', 11, -2), ('wgw1', 'head', 9, 6, _A(_FADE))],
+                 4: [_SVF(3), ('slNote2', 'head', 10, -8, _A(_FADE)), ('slNote1', 'head', 4, -11)],
+                 **{k: [_SVF(k)] + _NOTES(k) for k in range(5, 12)}}))
+CLIPS['sirenLuredWalk'] = ('Lured Walk', 0,
+  "Lured Walk (movement under Siren's Lure v3; Christopher 2026-11-13: the target spends its move walking toward the caster with its hands over its ears): a slow, entranced walk cycle toward the caster: both palms still clamped over its ears, eyes half shut, head lolling forward and back with each step, knees soft, the feet barely lifting so the toes drag through each swing, as if it were walking in its sleep; the siren hovers just ahead of it, between it and the caster, singing and reaching back for it, and drifts on ahead as it comes, always just out of reach, the notes of her song trailing back over its head. When the move ends it goes straight back to sirenLured's loop.", [
+     *[g(an=_EAR_N, af=_EAR_F, bob=(2, 2 + (k % 4 == 1), 2), lean=(1, _LHEAD[k]), root=(3, 0), ln='lw-%d-near' % k, lf='lw-%d-far' % ((k + 4) % 8)) for k in range(8)]],
+  ['squint', 'closed', 'closed', 'squint', 'squint', 'closed', 'closed', 'squint'],
+  None,
+  dict(fps=6, rm="E: +3 per frame (the planted foot slides back 3 px a frame; at 6 fps it covers ground at about 3/4 of the normal walk's pace, a sleepwalker's gait); the testbed paces the move along the path at this speed",
+       extra={'loop': True, 'loopFrom': 0},
+       anchored={k: [_SVF(k, 0.9 + 0.1 * (k % 2), 21 + (k % 4 == 2))] + _NOTES(k) for k in range(8)}))
+CLIPS['sirensLure'][6]['extra']['targetState'].update({'rule': "Siren's Lure v3 (lure, Christopher 2026-11-13): from frame 7, the impact frame, when the first notes reach it (it holds its plain guard before that), the target plays sirenLured: frames 0-4 once (jolt, lured slack sway as the siren fades up in front of it, hands clamp over the ears, still standing), then frames 5-11 on loop while the lure lasts, then its idle; whenever it moves under the lure (the lure spends its move walking toward the caster) it plays sirenLuredWalk instead of the walk (sirenLured extra.walk); the genjutsu mark (genjutsuAfflicted, recolour genjutsuMark.recolor.water) is drawn over it throughout", 'loopFrom': 5})
+CLIPS['sirensLure'] = (CLIPS['sirensLure'][0], CLIPS['sirensLure'][1], CLIPS['sirensLure'][2].replace('Fear 1 round STR save DC 13', 'lure: on a failed CHA save the target spends its move walking toward the caster (v3, Christopher 2026-11-13)').replace('the siren rises behind it', 'the siren rises in front of it and it walks toward her, hands over its ears'), *CLIPS['sirensLure'][3:])
+APPROVED.pop('sirenLured', None)
+
+
 # ---------- Sagittarius Ultimate ninjutsu: Soulfire Bomb (Christopher 2026-11-05 16:26/16:35, canon A12; v0 'Soulfire Orb' overhead charge replaced by the stuck wisp: "something to the effect of a spirit bomb that after one round of charging would detonate an AOE centered on the target. give it a 2 hex radius") ----------
 NPAL.update({'Q': '#c9a0ff'})   # Soulfire Orb: the lilac glow between the white-hot core and the purple body
 def soul_orb(img, cx, cy, r, ph, alpha=255):
