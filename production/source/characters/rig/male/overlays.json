@@ -745,6 +745,152 @@
       ]
     },
     {
+      "source": "Paperdolls/Male/Layer 2 - Clothing/Male Muay Thai Shorts.png",
+      "class": "under-arms",
+      "partMap": "overlays/male-muay-thai-shorts.png",
+      "frames": [
+        {
+          "direction": "S",
+          "pixelCounts": {
+            "pelvis": 82,
+            "R-thigh": 40,
+            "L-thigh": 38
+          }
+        },
+        {
+          "direction": "SE",
+          "pixelCounts": {
+            "pelvis": 74,
+            "R-thigh": 36,
+            "L-thigh": 31
+          }
+        },
+        {
+          "direction": "E",
+          "pixelCounts": {
+            "pelvis": 63,
+            "R-thigh": 51
+          }
+        },
+        {
+          "direction": "NE",
+          "pixelCounts": {
+            "pelvis": 80,
+            "R-thigh": 35,
+            "L-thigh": 34
+          }
+        },
+        {
+          "direction": "N",
+          "pixelCounts": {
+            "pelvis": 80,
+            "R-thigh": 34,
+            "L-thigh": 36
+          }
+        },
+        {
+          "direction": "NW",
+          "pixelCounts": {
+            "pelvis": 80,
+            "R-thigh": 27,
+            "L-thigh": 42
+          }
+        },
+        {
+          "direction": "W",
+          "pixelCounts": {
+            "pelvis": 63,
+            "L-thigh": 51
+          }
+        },
+        {
+          "direction": "SW",
+          "pixelCounts": {
+            "pelvis": 75,
+            "R-thigh": 34,
+            "L-thigh": 33
+          }
+        }
+      ]
+    },
+    {
+      "source": "Paperdolls/Male/Layer 2 - Clothing/Male Boxing Trunks.png",
+      "class": "under-arms",
+      "partMap": "overlays/male-boxing-trunks.png",
+      "frames": [
+        {
+          "direction": "S",
+          "pixelCounts": {
+            "torso": 11,
+            "pelvis": 82,
+            "R-thigh": 67,
+            "L-thigh": 62
+          }
+        },
+        {
+          "direction": "SE",
+          "pixelCounts": {
+            "torso": 11,
+            "pelvis": 74,
+            "R-thigh": 67,
+            "L-thigh": 57
+          }
+        },
+        {
+          "direction": "E",
+          "pixelCounts": {
+            "torso": 10,
+            "pelvis": 63,
+            "R-thigh": 78
+          }
+        },
+        {
+          "direction": "NE",
+          "pixelCounts": {
+            "torso": 10,
+            "pelvis": 80,
+            "R-thigh": 59,
+            "L-thigh": 62
+          }
+        },
+        {
+          "direction": "N",
+          "pixelCounts": {
+            "torso": 11,
+            "pelvis": 80,
+            "R-thigh": 61,
+            "L-thigh": 66
+          }
+        },
+        {
+          "direction": "NW",
+          "pixelCounts": {
+            "torso": 10,
+            "pelvis": 80,
+            "R-thigh": 51,
+            "L-thigh": 70
+          }
+        },
+        {
+          "direction": "W",
+          "pixelCounts": {
+            "torso": 10,
+            "pelvis": 63,
+            "L-thigh": 78
+          }
+        },
+        {
+          "direction": "SW",
+          "pixelCounts": {
+            "torso": 11,
+            "pelvis": 75,
+            "R-thigh": 61,
+            "L-thigh": 63
+          }
+        }
+      ]
+    },
+    {
       "source": "Paperdolls/Male/Layer 2b - Stowed Weapons/Katana Stowed Front.png",
       "class": "component",
       "partMap": "overlays/katana-stowed-front.png",
@@ -1596,6 +1742,189 @@
             "R-forearm-hand": 46,
             "L-upper-arm": 56,
             "L-forearm-hand": 44
+          }
+        }
+      ]
+    },
+    {
+      "source": "Paperdolls/Male/Layer 4 - Shoulders and Arms accessories/Thai Gloves.png",
+      "class": "component",
+      "partMap": "overlays/thai-gloves.png",
+      "frames": [
+        {
+          "direction": "S",
+          "pixelCounts": {
+            "R-forearm-hand": 43,
+            "L-forearm-hand": 46
+          }
+        },
+        {
+          "direction": "SE",
+          "pixelCounts": {
+            "R-forearm-hand": 36,
+            "L-forearm-hand": 33
+          }
+        },
+        {
+          "direction": "E",
+          "pixelCounts": {
+            "R-forearm-hand": 44
+          }
+        },
+        {
+          "direction": "NE",
+          "pixelCounts": {
+            "R-forearm-hand": 41,
+            "L-forearm-hand": 41
+          }
+        },
+        {
+          "direction": "N",
+          "pixelCounts": {
+            "R-forearm-hand": 38,
+            "L-forearm-hand": 41
+          }
+        },
+        {
+          "direction": "NW",
+          "pixelCounts": {
+            "R-forearm-hand": 41,
+            "L-forearm-hand": 41
+          }
+        },
+        {
+          "direction": "W",
+          "pixelCounts": {
+            "L-forearm-hand": 44
+          }
+        },
+        {
+          "direction": "SW",
+          "pixelCounts": {
+            "R-forearm-hand": 33,
+            "L-forearm-hand": 36
+          }
+        }
+      ]
+    },
+    {
+      "source": "Paperdolls/Male/Layer 4 - Shoulders and Arms accessories/Boxing Gloves.png",
+      "class": "component",
+      "partMap": "overlays/boxing-gloves.png",
+      "frames": [
+        {
+          "direction": "S",
+          "pixelCounts": {
+            "R-forearm-hand": 56,
+            "L-forearm-hand": 58
+          }
+        },
+        {
+          "direction": "SE",
+          "pixelCounts": {
+            "R-forearm-hand": 49,
+            "L-forearm-hand": 45
+          }
+        },
+        {
+          "direction": "E",
+          "pixelCounts": {
+            "R-forearm-hand": 55
+          }
+        },
+        {
+          "direction": "NE",
+          "pixelCounts": {
+            "R-forearm-hand": 52,
+            "L-forearm-hand": 52
+          }
+        },
+        {
+          "direction": "N",
+          "pixelCounts": {
+            "R-forearm-hand": 51,
+            "L-forearm-hand": 53
+          }
+        },
+        {
+          "direction": "NW",
+          "pixelCounts": {
+            "R-forearm-hand": 52,
+            "L-forearm-hand": 52
+          }
+        },
+        {
+          "direction": "W",
+          "pixelCounts": {
+            "L-forearm-hand": 55
+          }
+        },
+        {
+          "direction": "SW",
+          "pixelCounts": {
+            "R-forearm-hand": 45,
+            "L-forearm-hand": 49
+          }
+        }
+      ]
+    },
+    {
+      "source": "Paperdolls/Male/Layer 4 - Shoulders and Arms accessories/Prajioud.png",
+      "class": "component",
+      "partMap": "overlays/prajioud.png",
+      "frames": [
+        {
+          "direction": "S",
+          "pixelCounts": {
+            "R-upper-arm": 13,
+            "L-upper-arm": 13
+          }
+        },
+        {
+          "direction": "SE",
+          "pixelCounts": {
+            "R-upper-arm": 14,
+            "L-upper-arm": 9
+          }
+        },
+        {
+          "direction": "E",
+          "pixelCounts": {
+            "R-upper-arm": 10
+          }
+        },
+        {
+          "direction": "NE",
+          "pixelCounts": {
+            "R-upper-arm": 14,
+            "L-upper-arm": 11
+          }
+        },
+        {
+          "direction": "N",
+          "pixelCounts": {
+            "R-upper-arm": 15,
+            "L-upper-arm": 15
+          }
+        },
+        {
+          "direction": "NW",
+          "pixelCounts": {
+            "R-upper-arm": 11,
+            "L-upper-arm": 14
+          }
+        },
+        {
+          "direction": "W",
+          "pixelCounts": {
+            "L-upper-arm": 10
+          }
+        },
+        {
+          "direction": "SW",
+          "pixelCounts": {
+            "R-upper-arm": 9,
+            "L-upper-arm": 14
           }
         }
       ]
@@ -2759,6 +3088,121 @@
           "direction": "SW",
           "pixelCounts": {
             "head": 95
+          }
+        }
+      ]
+    },
+    {
+      "source": "Paperdolls/Male/Layer 5 - Hair/Mongkol.png",
+      "class": "head",
+      "partMap": "overlays/mongkol.png",
+      "frames": [
+        {
+          "direction": "S",
+          "pixelCounts": {
+            "head": 52,
+            "hair-fall-upper": 2
+          }
+        },
+        {
+          "direction": "SE",
+          "pixelCounts": {
+            "head": 60,
+            "hair-fall-upper": 2
+          }
+        },
+        {
+          "direction": "E",
+          "pixelCounts": {
+            "head": 78,
+            "hair-fall-upper": 4
+          }
+        },
+        {
+          "direction": "NE",
+          "pixelCounts": {
+            "head": 54
+          }
+        },
+        {
+          "direction": "N",
+          "pixelCounts": {
+            "head": 50
+          }
+        },
+        {
+          "direction": "NW",
+          "pixelCounts": {
+            "head": 53
+          }
+        },
+        {
+          "direction": "W",
+          "pixelCounts": {
+            "head": 78,
+            "hair-fall-upper": 4
+          }
+        },
+        {
+          "direction": "SW",
+          "pixelCounts": {
+            "head": 60,
+            "hair-fall-upper": 2
+          }
+        }
+      ]
+    },
+    {
+      "source": "Paperdolls/Male/Layer 5 - Hair/Boxing Headgear.png",
+      "class": "head",
+      "partMap": "overlays/boxing-headgear.png",
+      "frames": [
+        {
+          "direction": "S",
+          "pixelCounts": {
+            "head": 99
+          }
+        },
+        {
+          "direction": "SE",
+          "pixelCounts": {
+            "head": 107
+          }
+        },
+        {
+          "direction": "E",
+          "pixelCounts": {
+            "head": 99
+          }
+        },
+        {
+          "direction": "NE",
+          "pixelCounts": {
+            "head": 150
+          }
+        },
+        {
+          "direction": "N",
+          "pixelCounts": {
+            "head": 153
+          }
+        },
+        {
+          "direction": "NW",
+          "pixelCounts": {
+            "head": 150
+          }
+        },
+        {
+          "direction": "W",
+          "pixelCounts": {
+            "head": 99
+          }
+        },
+        {
+          "direction": "SW",
+          "pixelCounts": {
+            "head": 107
           }
         }
       ]

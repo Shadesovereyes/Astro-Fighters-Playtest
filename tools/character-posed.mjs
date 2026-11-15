@@ -1045,6 +1045,7 @@ const refLegBack = (() => {
 const resample = (t, t0, t1, s0, s1) => (t1 === t0 ? s0 : s0 + roundHalfEven((t - t0) * (s1 - s0) / (t1 - t0)));
 // One posed leg's garment (trouser rows authored on the leg, wrap or boot shaft, shoe): byRow holds the profile
 // garment's leg pixels by row (used for the reference ankle block and the flat shoe).
+const BODY_KNEE = 46, BODY_HIP = 38;   // reference body rows (male: kneeOverride E/W, pelvis end)
 function legGarment(l, items, byRow, isFar, z, pose, legMap) {
   const LR = l.legRows, BODY_WRAP = 56;
     const col = (c) => (isFar ? (l.shade[c] ?? c) : c);
@@ -1054,7 +1055,9 @@ function legGarment(l, items, byRow, isFar, z, pose, legMap) {
     // trouser margins, shaded with the trouser row pattern; the row above the wrap is the hem (outline).
     const T = l.trouser, extent = {};
     for (const p of legMap.keys()) { const [x, y] = unkey(p); const e = (extent[y] ??= [99, -1]); e[0] = Math.min(e[0], x); e[1] = Math.max(e[1], x); }
-    const shift = pose.wrapRow - BODY_WRAP, hemRow = LR.wrap + shift - 1;
+    // shorts (trouser.hem = last cloth row on the reference body, knee at BODY_KNEE): the hem sits the same number of
+    // rows above the posed knee, and the leg below is the body's own (no wrap or shoe)
+    const shift = pose.wrapRow - BODY_WRAP, hemRow = T.hem !== undefined ? pose.kneeRow - (BODY_KNEE - T.hem - 1) : LR.wrap + shift - 1;
     // a raised band thigh can rise above the hip row; its trouser starts at the leg's top row
     const legTop = pose.construction === 'band' ? Math.min(...[...legMap.keys()].map((q) => unkey(q)[1])) + 1 : pose.hipRow;
     for (let t = Math.min(pose.hipRow, legTop) - 1; t <= hemRow; t++) {
@@ -1065,6 +1068,7 @@ function legGarment(l, items, byRow, isFar, z, pose, legMap) {
       const row = 'a' + (t === pose.kneeRow + 1 && !hem ? pat.slice(0, 1) + 'd' + pat.slice(2) : pat) + 'a';
       [...row].forEach((c, j) => items.push([z, x0 + j, t, col(T.colours[c]), null]));
     }
+    if (T.hem !== undefined) return;
     if (pose.construction === 'reference-ankle') {
       for (let sr = LR.wrap; sr < FRAME; sr++) put(sr, sr + shift, pose.ankleX - ankleX);
     } else {
@@ -1097,6 +1101,20 @@ function kickGarment(l, items, isFar, z, legMap, col) {
     const m = n - 2, j = i - 1, h = Math.ceil((m - 2) / 2);
     return j === 0 ? 'd' : j === m - 1 ? 'F' : j <= h ? 'c' : 'b';
   };
+  // shorts: cloth only on the upper part of the thigh band, ending in a hem line; shin, wrap and foot stay bare
+  const shortTo = T.hem !== undefined ? th.len * (T.hem + 1 - BODY_HIP) / (BODY_KNEE - BODY_HIP) : null;
+  if (shortTo !== null) {
+    for (let y = 0; y < FRAME; y++) for (let x = 0; x < FRAME; x++) {
+      const [tu, tv] = th.uv(x, y);
+      if (tu < -1 || tu > shortTo) continue;
+      const taper = section ? 1 : Math.max(1, roundHalfEven(T.back - (T.back - 1) * Math.max(0, Math.min(1, tu / th.len))));
+      let c = across(tv, 2.5, 1.5 + T.front, taper);
+      if (!c) continue;
+      if (tu > shortTo - 1) c = 'a';
+      items.push([z, x, y, col(T.colours[c === 'F' ? T.thighFront : c]), null]);
+    }
+    return;
+  }
   for (let y = 0; y < FRAME; y++) for (let x = 0; x < FRAME; x++) {
     const q = key(x, y), sg = seg.get(q);
     if (sg === 'wrap') { const [, sv] = sh.uv(x, y); items.push([z, x, y, col(Wp.colours[sv < -0.5 ? Wp.pattern : Wp.fill] ?? Wp.colours[Wp.fill]), null]); continue; }

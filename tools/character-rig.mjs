@@ -48,6 +48,9 @@ const CONFIG = {
         colourParts: { '3e2a1f': 'sash', '444853': 'sash', '5a4031': 'sash', '6a6f7b': 'sash', 'a2a7b3': 'sash' }, outline: '000000' },
       { file: 'Paperdolls/Male/Layer 2 - Clothing/Male Lamellar.png', class: 'under-arms', belt: { colours: ['c43a30', '7e1c18'], outline: '000000', topRows: [30, 46], part: 'sash' },
         colourParts: { '3d4051': 'sash', '6c7283': 'sash', '6e1415': 'sash', 'a7adba': 'sash', 'b02a2b': 'sash' }, outline: '000000' },
+      // Fight gear (candidates 2026-11-15, generator tools/fight-gear/): cosmetic, arena-legal shorts cut from the Gi silhouette.
+      { file: 'Paperdolls/Male/Layer 2 - Clothing/Male Muay Thai Shorts.png', class: 'under-arms' },
+      { file: 'Paperdolls/Male/Layer 2 - Clothing/Male Boxing Trunks.png', class: 'under-arms' },
       // Stowed weapons (approved by Christopher 2026-10-26, generator tools/stowed-weapons/build_stowed.py): each piece is
       // rigid and rides one part (part), the katana and the cord on the pelvis, the yumi on the torso. The back sheet is
       // drawn behind the body, the front sheet over the clothing and under the arms (runtime slots stowedBack/stowedFront).
@@ -65,6 +68,10 @@ const CONFIG = {
       { file: 'Paperdolls/Male/Layer 4 - Shoulders and Arms accessories/Lamellar Shoulders.png', class: 'component' },
       { file: 'Paperdolls/Male/Layer 4 - Shoulders and Arms accessories/Studded Leather Shoulders.png', class: 'component' },
       { file: 'Paperdolls/Male/Layer 4 - Shoulders and Arms accessories/Plate Harness Shoulders.png', class: 'component' },
+      // Fight gear gloves (candidates 2026-11-15, tools/fight-gear/build_gloves.py): ride the forearm-hand part like a vambrace.
+      { file: 'Paperdolls/Male/Layer 4 - Shoulders and Arms accessories/Thai Gloves.png', class: 'component' },
+      { file: 'Paperdolls/Male/Layer 4 - Shoulders and Arms accessories/Boxing Gloves.png', class: 'component' },
+      { file: 'Paperdolls/Male/Layer 4 - Shoulders and Arms accessories/Prajioud.png', class: 'component' },
       { file: 'Paperdolls/Male/Layer 5 - Hair/Afro Hair.png', class: 'head' },
       { file: 'Paperdolls/Male/Layer 5 - Hair/Fade Hair.png', class: 'head' },
       // Long hair sways: cap stays on the head (rows <= 15), upper fall rows 16-19, lower fall rows 20+.
@@ -88,6 +95,10 @@ const CONFIG = {
       { file: 'Paperdolls/Male/Layer 5 - Hair/Lamellar Kabuto.png', class: 'head' },
       { file: 'Paperdolls/Male/Layer 5 - Hair/Molded Leather Cap.png', class: 'head' },
       { file: 'Paperdolls/Male/Layer 5 - Hair/Plate Bascinet.png', class: 'head' },
+      // Fight-gear head items (candidates 2026-11-15, tools/fight-gear/build_head.py): mongkol over the hair (short tail sways),
+      // boxing headgear in the helmet slot.
+      { file: 'Paperdolls/Male/Layer 5 - Hair/Mongkol.png', class: 'head', rowBands: [[15, 'head'], [19, 'hair-fall-upper'], [63, 'hair-fall-lower']] },
+      { file: 'Paperdolls/Male/Layer 5 - Hair/Boxing Headgear.png', class: 'head' },
       { file: 'Paperdolls/Male/Layer 6 - Eyes/Brown Eyes.png', class: 'head' },
       { file: 'Paperdolls/Male/Layer 6 - Eyes/Purple Eyes.png', class: 'head' }
     ],
