@@ -55,23 +55,23 @@ def split_by_axis(wc, arm):
     return hand if 4 <= len(hand) <= 26 else None
 
 def masked_fists(img, mask, fx, fy):
-    """Fists known exactly from hand_masks.py (band arms): marker pixels are the hand, wraps touching it the cuff."""
+    """Fists known exactly from hand_masks.py: mask 0-4 = hand (skin tone), 5-6 = wrist wrap (glove cuff). Every
+    visible wrist wrap becomes cuff, even when its fist is hidden, so a bare wrap never shows under a glove."""
     px = {}
     for y in range(F):
         for x in range(F):
             a = img[fy + y, fx + x]
             if a[3]: px[(x, y)] = tuple(int(v) for v in a[:3])
-    hand = [(x, y) for y in range(F) for x in range(F) if mask[fy + y, fx + x] >= 0 and (x, y) in px]
+    cell = lambda x, y: int(mask[fy + y, fx + x])
+    hand = [(x, y) for (x, y) in px if 0 <= cell(x, y) <= 4]
+    cuffs = {(x, y) for (x, y) in px if cell(x, y) >= 5}
     out = []
     for hc in comps(hand):
         hs = set(hc)
-        near = {(x + dx, y + dy) for (x, y) in hs for dx in range(-2, 3) for dy in range(-2, 3)}
-        cuff = {p for p in near if px.get(p) in WRAPC}
-        cuffc = [c for c in comps(list(cuff))]
-        cuff = set().union(*cuffc) if cuffc else set()
         outl = {(x + dx, y + dy) for (x, y) in hs for dx, dy in N8 if px.get((x + dx, y + dy)) == BLACK}
-        tone = {p: int(mask[fy + p[1], fx + p[0]]) for p in hs}
-        out.append((hs, outl, cuff, px, tone))
+        out.append((hs, outl, set(), px, {p: cell(*p) for p in hs}))
+    if cuffs:
+        out.append((set(), set(), cuffs, {p: ((255, 255, 255) if cell(*p) == 5 else (227, 227, 227)) for p in cuffs}, {}))
     return out
 
 def fists(img, fx, fy, body=False):
@@ -139,7 +139,7 @@ def run(d):
     arms = np.array(Image.open(d / anim['layers']['arms']).convert('RGBA'))
     body = np.array(Image.open(d / anim['layers']['body']).convert('RGBA'))
     H, W = arms.shape[:2]
-    mp = d / '.hand-masks.npz'
+    mp = Path(__file__).resolve().parents[2] / '.git/fight-gear-hand-masks' / f'{d.name}.npz'
     masks = dict(np.load(mp)) if mp.exists() else {}
     for name, g in GLOVES.items():
         layer = np.zeros_like(arms)
@@ -147,7 +147,7 @@ def run(d):
             for fx in range(0, W, F):
                 for img, key, m in ((body, 'body', arms), (arms, 'arms', None)):
                     mk = masks.get(key)
-                    exact = masked_fists(img, mk, fx, fy) if mk is not None and (mk[fy:fy + F, fx:fx + F] >= 0).any() else None
+                    exact = masked_fists(img, mk, fx, fy) if mk is not None else None   # masks mark every hand the renderer drew
                     paint(layer, fx, fy, exact if exact is not None else fists(img, fx, fy, body=(key == 'body')), g, mask=m)
         Image.fromarray(layer).save(d / f'{name}.png')
         anim['layers'][name] = f'{name}.png'

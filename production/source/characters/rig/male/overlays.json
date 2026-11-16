@@ -3164,19 +3164,19 @@
         {
           "direction": "SE",
           "pixelCounts": {
-            "head": 71
+            "head": 67
           }
         },
         {
           "direction": "E",
           "pixelCounts": {
-            "head": 103
+            "head": 99
           }
         },
         {
           "direction": "NE",
           "pixelCounts": {
-            "head": 98
+            "head": 94
           }
         },
         {
@@ -3188,19 +3188,19 @@
         {
           "direction": "NW",
           "pixelCounts": {
-            "head": 98
+            "head": 94
           }
         },
         {
           "direction": "W",
           "pixelCounts": {
-            "head": 103
+            "head": 99
           }
         },
         {
           "direction": "SW",
           "pixelCounts": {
-            "head": 71
+            "head": 67
           }
         }
       ]

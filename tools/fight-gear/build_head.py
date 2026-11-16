@@ -124,13 +124,18 @@ def headgear():
                 q = (x + dx, y + dy)
                 if q not in gear and (q not in head or is_face(*q) or q[1] > chin):
                     out[y, ox + x] = hx('000000'); break
-        # ear pad: a darker 2x2 at the ear, midway along the side panel at eye height
+        # ear opening (Christopher 2026-11-16): a 2x2 hole over the ear, midway along the side panel at eye height,
+        # ringed in black, so the ear shows through the side panel
         side = sorted(x for (x, y) in gear if y == ey0 + 1 and tuple(out[y, ox + x, :3]) != (0, 0, 0))
-        if len(side) >= 4:
+        if len(side) >= 3:
             ex_ = side[len(side) // 2] - (1 if front > 0 else 0)
-            for dx in (0, 1):
-                for dy in (0, 1):
-                    if (ex_ + dx, ey0 + 1 + dy) in gear: out[ey0 + 1 + dy, ox + ex_ + dx] = hx(DK)
+            hole = {(ex_ + dx, ey0 + 1 + dy) for dx in (0, 1) for dy in (0, 1)}
+            for (x, y) in hole:
+                for dx in (-1, 0, 1):
+                    for dy in (-1, 0, 1):
+                        q = (x + dx, y + dy)
+                        if q in gear and q not in hole: out[q[1], ox + q[0]] = hx('000000')
+            for (x, y) in hole: out[y, ox + x] = 0
         # lower edge: close the cheek guards and back pad one row under the chin row
         for x in range(F):
             if out[chin, ox + x, 3] and tuple(out[chin, ox + x, :3]) != (0, 0, 0) and (x, chin + 1) not in gear:
