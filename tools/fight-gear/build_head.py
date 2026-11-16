@@ -44,8 +44,11 @@ def mongkol():
     return out
 
 LEATHER = {'4e3022': 'b0201f', '6e4630': 'd8403a', '2f1b12': '6e0f12', 'c48a58': 'ff8a70'}
+HI, MID, DK = 'd8403a', 'b0201f', '6e0f12'
+HEAD = (230, 25, 75)
 
-def headgear():
+def headgear_v1():
+    """v1 (S and N approved 2026-11-16): the Molded Leather Cap in red leather with its ear flaps carried down the cheeks."""
     src = load(P / 'Molded Leather Cap.png'); out = np.zeros_like(src)
     H, W = src.shape[:2]
     for y in range(H):
@@ -55,7 +58,6 @@ def headgear():
             out[y, x] = hx('000000') if c == '000000' else hx(LEATHER.get(c, 'b0201f'))
     for f in range(W // F):
         ox = f * F
-        # ear flaps: runs of cap pixels on row 14; carry them down as cheek guards to row 19
         row = [x for x in range(F) if src[14, ox + x, 3]]
         runs, cur = [], []
         for x in row:
@@ -70,14 +72,12 @@ def headgear():
                     edge = x in (lo, hi)
                     out[y, ox + x] = hx('000000') if edge else hx('d8403a' if x == lo + 1 else 'b0201f')
             for x in range(lo, hi + 1): out[20, ox + x] = hx('000000')
-            # padding: widen the guard 1px toward the face where the flap is a bare outline pair
             if hi - lo == 1:
                 inward = 1 if (lo % F) < 32 else -1
                 for y in range(13, 20):
                     xi = (hi if inward > 0 else lo)
                     out[y, ox + xi] = hx('b0201f'); out[y, ox + xi + inward] = hx('000000')
                 for x in range(min(lo, lo + inward), max(hi, hi + inward) + 1): out[20, ox + x] = hx('000000')
-    # back views: a dark lacing seam down the middle of the back pad
     for f in (3, 4, 5):
         ox = f * F
         xs = [x for x in range(F) if out[14, ox + x, 3] and tuple(out[14, ox + x, :3]) != (0, 0, 0)]
@@ -85,6 +85,56 @@ def headgear():
             cx = (xs[0] + xs[-1]) // 2
             for y in range(11, 20):
                 if out[y, ox + cx, 3] and tuple(out[y, ox + cx, :3]) != (0, 0, 0): out[y, ox + cx] = hx('6e0f12' if y % 2 else 'f4efe2')
+    return out
+
+def headgear():
+    """v2 (2026-11-16): S and N kept from v1 (approved); the side and 3/4 views are rebuilt from the head itself so the
+    gear frames the ears and face and never sits in front of the face: it covers the head except the face (from one
+    px behind the eyes to the head's front edge, brow to chin), with a black rim round the face opening, and adds one
+    px of padding only on top and at the back of the head."""
+    out = headgear_v1()
+    B = load(ROOT / 'Paperdolls/Male/Layer 1 - Base Body/Male Base Body1.png')
+    M = load(ROOT / 'production/source/characters/rig/male/part-map.png')
+    E = load(ROOT / 'Paperdolls/Male/Layer 6 - Eyes/Brown Eyes.png')
+    for f in (1, 2, 3, 5, 6, 7):
+        ox = f * F
+        out[:, ox:ox + F] = 0
+        head = {(x, y) for y in range(22) for x in range(F) if B[y, ox + x, 3] and tuple(M[y, ox + x, :3]) == HEAD}
+        eyes = [(x, y) for y in range(F) for x in range(F) if E[y, ox + x, 3]]
+        hx0 = min(x for x, _ in head); hx1 = max(x for x, _ in head); hcx = (hx0 + hx1) / 2
+        ex = [x for x, _ in eyes]; ey0 = min(y for _, y in eyes)
+        front = 1 if sum(ex) / len(ex) > hcx else -1                 # the side the face looks to
+        edge = (min(ex) - 1) if front > 0 else (max(ex) + 1)         # the face starts one px behind the eyes
+        brow, chin = ey0 - 2, 19
+        def is_face(x, y): return brow <= y <= chin and ((x >= edge) if front > 0 else (x <= edge))
+        gear = {p for p in head if not is_face(*p) and p[1] <= chin}
+        # padding: one px outward on top and at the back only (never in front of the face)
+        pad = set()
+        for (x, y) in gear:
+            for dx, dy in ((0, -1), (-front, 0)):
+                q = (x + dx, y + dy)
+                if q not in head and 0 <= q[0] < F and q[1] >= 0: pad.add(q)
+        gear |= pad
+        top = min(y for _, y in gear)
+        for (x, y) in gear:
+            out[y, ox + x] = hx(HI if y <= top + 1 else (DK if (x - hcx) * front < -3 and y > brow else MID))
+        # black outline: gear pixels that border empty space or the face opening
+        for (x, y) in gear:
+            for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+                q = (x + dx, y + dy)
+                if q not in gear and (q not in head or is_face(*q) or q[1] > chin):
+                    out[y, ox + x] = hx('000000'); break
+        # ear pad: a darker 2x2 at the ear, midway along the side panel at eye height
+        side = sorted(x for (x, y) in gear if y == ey0 + 1 and tuple(out[y, ox + x, :3]) != (0, 0, 0))
+        if len(side) >= 4:
+            ex_ = side[len(side) // 2] - (1 if front > 0 else 0)
+            for dx in (0, 1):
+                for dy in (0, 1):
+                    if (ex_ + dx, ey0 + 1 + dy) in gear: out[ey0 + 1 + dy, ox + ex_ + dx] = hx(DK)
+        # lower edge: close the cheek guards and back pad one row under the chin row
+        for x in range(F):
+            if out[chin, ox + x, 3] and tuple(out[chin, ox + x, :3]) != (0, 0, 0) and (x, chin + 1) not in gear:
+                out[chin + 1, ox + x] = hx('000000')
     return out
 
 if __name__ == '__main__':

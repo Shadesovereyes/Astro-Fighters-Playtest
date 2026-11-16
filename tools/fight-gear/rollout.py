@@ -2,7 +2,7 @@
 
 Like tools/armor-classes/rollout.py: each state gets the fight-gear spec entries, is rendered, and only the new
 fight-gear sheets (and their animation.json layer entries) are kept; then the gloves are drawn from the state's
-own fists (glove_states.py).
+own fists (hand_masks.py exact band-arm fists, then glove_states.py).
 Usage: python3 tools/fight-gear/rollout.py [state ...]   (default: every state)
 """
 import json, subprocess, sys
@@ -12,7 +12,7 @@ ROOT = Path(__file__).resolve().parents[2]
 ANIM = ROOT / 'production/source/characters/anim/male'
 sys.path.insert(0, str(Path(__file__).parent))
 from add_state_config import add, NEW_LAYERS
-import glove_states
+import glove_states, hand_masks
 
 def git(*a): return subprocess.run(['git', *a], cwd=ROOT, capture_output=True, text=True)
 
@@ -50,4 +50,4 @@ if __name__ == '__main__':
         if not progress: break
     for s, e in errors.items(): print('FAILED', s, e)
     for s in states:
-        if s not in errors: glove_states.run(ANIM / s)
+        if s not in errors: hand_masks.run(s); glove_states.run(ANIM / s)

@@ -4,7 +4,8 @@ Fists are posed differently in every clip (band arms, frontal arms, the far arm 
 found from the rendered pixels instead of carried by the rig: each wrist wrap (white run) splits its arm into a
 forearm and a hand; the small skin piece beyond the wrap is the fist. The fist becomes the glove (padded outward by
 the glove's grow and re-outlined), the wrap becomes the cuff. The near arm (arms.png) is drawn over a far glove
-(found on body.png). Writes <glove>.png into each state and lists it in animation.json.
+(found on body.png). Band-arm fists come exactly from tools/fight-gear/hand_masks.py when its masks exist
+(the heuristic mistook a raised fist for a forearm in muayThaiElbow S). Writes <glove>.png into each state and lists it in animation.json.
 Usage: python3 tools/fight-gear/glove_states.py <state dir> [...]
 """
 import json, sys
@@ -53,6 +54,26 @@ def split_by_axis(wc, arm):
     hand = {p for p in side if abs(pr(p) - edge) <= 5.5 and pe(p) <= 3.5}
     return hand if 4 <= len(hand) <= 26 else None
 
+def masked_fists(img, mask, fx, fy):
+    """Fists known exactly from hand_masks.py (band arms): marker pixels are the hand, wraps touching it the cuff."""
+    px = {}
+    for y in range(F):
+        for x in range(F):
+            a = img[fy + y, fx + x]
+            if a[3]: px[(x, y)] = tuple(int(v) for v in a[:3])
+    hand = [(x, y) for y in range(F) for x in range(F) if mask[fy + y, fx + x] >= 0 and (x, y) in px]
+    out = []
+    for hc in comps(hand):
+        hs = set(hc)
+        near = {(x + dx, y + dy) for (x, y) in hs for dx in range(-2, 3) for dy in range(-2, 3)}
+        cuff = {p for p in near if px.get(p) in WRAPC}
+        cuffc = [c for c in comps(list(cuff))]
+        cuff = set().union(*cuffc) if cuffc else set()
+        outl = {(x + dx, y + dy) for (x, y) in hs for dx, dy in N8 if px.get((x + dx, y + dy)) == BLACK}
+        tone = {p: int(mask[fy + p[1], fx + p[0]]) for p in hs}
+        out.append((hs, outl, cuff, px, tone))
+    return out
+
 def fists(img, fx, fy, body=False):
     """[(hand pixels, outline pixels, cuff pixels)] for one frame cell."""
     px = {}
@@ -88,8 +109,10 @@ def fists(img, fx, fy, body=False):
 def paint(layer, fx, fy, found, g, mask=None):
     H = W = F
     cell = {}
-    for hand, outl, cuff, px in found:
-        for p in hand: cell[p] = hx(g['glove'][SKIN.get('%02x%02x%02x' % px[p], 1)])
+    for item in found:
+        hand, outl, cuff, px = item[:4]
+        tone = item[4] if len(item) > 4 else None
+        for p in hand: cell[p] = hx(g['glove'][min(3, tone[p])] if tone else g['glove'][SKIN.get('%02x%02x%02x' % px[p], 1)])
         for p in cuff: cell[p] = hx(g['cuff'][0 if px[p] == (255, 255, 255) else 1])
         for p in outl:
             if p not in cell: cell[p] = hx('000000')
@@ -116,12 +139,16 @@ def run(d):
     arms = np.array(Image.open(d / anim['layers']['arms']).convert('RGBA'))
     body = np.array(Image.open(d / anim['layers']['body']).convert('RGBA'))
     H, W = arms.shape[:2]
+    mp = d / '.hand-masks.npz'
+    masks = dict(np.load(mp)) if mp.exists() else {}
     for name, g in GLOVES.items():
         layer = np.zeros_like(arms)
         for fy in range(0, H, F):
             for fx in range(0, W, F):
-                paint(layer, fx, fy, fists(body, fx, fy, body=True), g, mask=arms)
-                paint(layer, fx, fy, fists(arms, fx, fy), g)
+                for img, key, m in ((body, 'body', arms), (arms, 'arms', None)):
+                    mk = masks.get(key)
+                    exact = masked_fists(img, mk, fx, fy) if mk is not None and (mk[fy:fy + F, fx:fx + F] >= 0).any() else None
+                    paint(layer, fx, fy, exact if exact is not None else fists(img, fx, fy, body=(key == 'body')), g, mask=m)
         Image.fromarray(layer).save(d / f'{name}.png')
         anim['layers'][name] = f'{name}.png'
     (d / 'animation.json').write_text(json.dumps(anim, indent=2, ensure_ascii=False) + '\n')

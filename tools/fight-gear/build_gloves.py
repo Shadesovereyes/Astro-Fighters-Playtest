@@ -24,7 +24,7 @@ WRAP = {'ffffff': 0, 'e3e3e3': 1}
 GLOVES = {
     'boxing-gloves': dict(file='Boxing Gloves.png', grow=1,
         glove=['#ff6a5c', '#d42a2a', '#8e1418', '#560a0e'], cuff=['#ffffff', '#d8d8e0']),
-    'thai-gloves': dict(file='Thai Gloves.png', grow=0,
+    'thai-gloves': dict(file='Thai Gloves.png', grow=1,
         glove=['#6a6a7a', '#3e3e4a', '#26262e', '#18181e'], cuff=['#ffd75e', '#d9a42e']),
 }
 

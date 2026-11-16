@@ -1754,55 +1754,55 @@
         {
           "direction": "S",
           "pixelCounts": {
-            "R-forearm-hand": 43,
-            "L-forearm-hand": 46
+            "R-forearm-hand": 56,
+            "L-forearm-hand": 58
           }
         },
         {
           "direction": "SE",
           "pixelCounts": {
-            "R-forearm-hand": 36,
-            "L-forearm-hand": 33
+            "R-forearm-hand": 49,
+            "L-forearm-hand": 45
           }
         },
         {
           "direction": "E",
           "pixelCounts": {
-            "R-forearm-hand": 44
+            "R-forearm-hand": 55
           }
         },
         {
           "direction": "NE",
           "pixelCounts": {
-            "R-forearm-hand": 41,
-            "L-forearm-hand": 41
+            "R-forearm-hand": 52,
+            "L-forearm-hand": 52
           }
         },
         {
           "direction": "N",
           "pixelCounts": {
-            "R-forearm-hand": 38,
-            "L-forearm-hand": 41
+            "R-forearm-hand": 51,
+            "L-forearm-hand": 53
           }
         },
         {
           "direction": "NW",
           "pixelCounts": {
-            "R-forearm-hand": 41,
-            "L-forearm-hand": 41
+            "R-forearm-hand": 52,
+            "L-forearm-hand": 52
           }
         },
         {
           "direction": "W",
           "pixelCounts": {
-            "L-forearm-hand": 44
+            "L-forearm-hand": 55
           }
         },
         {
           "direction": "SW",
           "pixelCounts": {
-            "R-forearm-hand": 33,
-            "L-forearm-hand": 36
+            "R-forearm-hand": 45,
+            "L-forearm-hand": 49
           }
         }
       ]
@@ -3164,19 +3164,19 @@
         {
           "direction": "SE",
           "pixelCounts": {
-            "head": 107
+            "head": 71
           }
         },
         {
           "direction": "E",
           "pixelCounts": {
-            "head": 99
+            "head": 103
           }
         },
         {
           "direction": "NE",
           "pixelCounts": {
-            "head": 150
+            "head": 98
           }
         },
         {
@@ -3188,19 +3188,19 @@
         {
           "direction": "NW",
           "pixelCounts": {
-            "head": 150
+            "head": 98
           }
         },
         {
           "direction": "W",
           "pixelCounts": {
-            "head": 99
+            "head": 103
           }
         },
         {
           "direction": "SW",
           "pixelCounts": {
-            "head": 107
+            "head": 71
           }
         }
       ]
