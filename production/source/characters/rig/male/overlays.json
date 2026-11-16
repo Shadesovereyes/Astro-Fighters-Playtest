@@ -1876,15 +1876,14 @@
         {
           "direction": "S",
           "pixelCounts": {
-            "R-upper-arm": 13,
-            "L-upper-arm": 13
+            "R-upper-arm": 8,
+            "L-upper-arm": 8
           }
         },
         {
           "direction": "SE",
           "pixelCounts": {
-            "R-upper-arm": 14,
-            "L-upper-arm": 9
+            "R-upper-arm": 10
           }
         },
         {
@@ -1896,22 +1895,22 @@
         {
           "direction": "NE",
           "pixelCounts": {
-            "R-upper-arm": 14,
-            "L-upper-arm": 11
+            "R-upper-arm": 10,
+            "L-upper-arm": 8
           }
         },
         {
           "direction": "N",
           "pixelCounts": {
-            "R-upper-arm": 15,
-            "L-upper-arm": 15
+            "R-upper-arm": 10,
+            "L-upper-arm": 10
           }
         },
         {
           "direction": "NW",
           "pixelCounts": {
-            "R-upper-arm": 11,
-            "L-upper-arm": 14
+            "R-upper-arm": 8,
+            "L-upper-arm": 10
           }
         },
         {
@@ -1923,8 +1922,7 @@
         {
           "direction": "SW",
           "pixelCounts": {
-            "R-upper-arm": 9,
-            "L-upper-arm": 14
+            "L-upper-arm": 10
           }
         }
       ]

@@ -1,7 +1,7 @@
 """Prajioud (Muay Thai armbands), Layer 4 arm accessory, candidate 2026-11-15.
 
-A 2-row red cloth band round each upper arm a third of the way down from the shoulder, tied on the outer side with
-a short hanging tail; every pixel sits on the upper-arm part, so the rig carries it like a shoulder piece.
+A 2-row red cloth band round each upper arm halfway down from the shoulder (on the bicep), tied with a knot on the outer
+side; every pixel sits on the upper-arm part, so the rig carries it like a shoulder piece.
 Usage: python3 tools/fight-gear/build_prajioud.py [outdir]
 """
 import sys
@@ -32,7 +32,9 @@ def build():
             pts = [(x, y) for y in range(F) for x in range(F) if A[y, ox + x, 3] and col(M, ox + x, y) == part]
             if not pts: continue
             top = min(y for _, y in pts); bot = max(y for _, y in pts)
-            r0 = top + max(2, (bot - top) // 3)
+            r0 = top + max(2, (bot - top) // 2)       # on the bicep, clear of the shoulder cap (v1 sat on the cap)
+            band = sorted(x for x, yy in pts if yy == r0)
+            if not band or band[-1] - band[0] < 3: continue   # a far arm showing as a sliver gets no band
             cx = sum(x for x, _ in pts) / len(pts)
             outer = -1 if cx < 32 else 1
             for y in (r0, r0 + 1):
@@ -41,15 +43,12 @@ def build():
                 for x in range(xs[0], xs[-1] + 1):
                     edge = x in (xs[0], xs[-1])
                     out[y, ox + x] = hx('000000') if edge else hx(RED[0] if y == r0 else RED[1])
-            # tail on the outer side, hanging two rows
+            # knot: a darker pixel on the outer side of the band (v1's hanging tail read as a stripe down the arm)
             xs = sorted(x for x, yy in pts if yy == r0 + 1)
-            if xs and f not in (2, 6):
-                tx = xs[0] if outer < 0 else xs[-1]
-                for y in (r0 + 2, r0 + 3):
-                    out[y, ox + tx] = hx(RED[2]); out[y, ox + tx + outer] = hx('000000')
-                out[r0 + 4, ox + tx] = hx('000000')
-            elif xs:   # profile: knot shows as a darker pixel at the band's back
-                out[r0 + 1, ox + xs[1]] = hx(RED[2])
+            if len(xs) >= 4:
+                kx = xs[1] if outer < 0 else xs[-2]
+                if f in (2, 6): kx = xs[1]
+                out[r0 + 1, ox + kx] = hx(RED[2]); out[r0, ox + kx] = hx(RED[1])
     return out
 
 if __name__ == '__main__':
