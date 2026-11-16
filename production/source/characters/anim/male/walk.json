@@ -381,79 +381,268 @@
     },
     "near": [
       {
-        "construction": "pendulum",
-        "total": -5
+        "construction": "band",
+        "angle": -14,
+        "elbow": {
+          "at": 8,
+          "angle": -75
+        }
       },
       {
-        "construction": "pendulum",
-        "total": -3
+        "construction": "band",
+        "angle": -10,
+        "elbow": {
+          "at": 8,
+          "angle": -75
+        }
       },
       {
-        "construction": "reference"
+        "construction": "band",
+        "angle": -4,
+        "elbow": {
+          "at": 8,
+          "angle": -75
+        }
       },
       {
-        "construction": "line",
-        "upper": 1,
-        "lean": 4
+        "construction": "band",
+        "angle": 2,
+        "elbow": {
+          "at": 8,
+          "angle": -75
+        }
       },
       {
-        "construction": "line",
-        "upper": 2,
-        "lean": 5
+        "construction": "band",
+        "angle": 6,
+        "elbow": {
+          "at": 8,
+          "angle": -75
+        }
       },
       {
-        "construction": "line",
-        "upper": 1,
-        "lean": 4
+        "construction": "band",
+        "angle": 2,
+        "elbow": {
+          "at": 8,
+          "angle": -75
+        }
       },
       {
-        "construction": "reference"
+        "construction": "band",
+        "angle": -4,
+        "elbow": {
+          "at": 8,
+          "angle": -75
+        }
       },
       {
-        "construction": "pendulum",
-        "total": -3
+        "construction": "band",
+        "angle": -10,
+        "elbow": {
+          "at": 8,
+          "angle": -75
+        }
       }
     ],
     "far": [
       {
-        "construction": "line",
-        "upper": 2,
-        "lean": 5
+        "construction": "band",
+        "angle": 6,
+        "elbow": {
+          "at": 8,
+          "angle": -75
+        }
       },
       {
-        "construction": "line",
-        "upper": 1,
-        "lean": 4
+        "construction": "band",
+        "angle": 2,
+        "elbow": {
+          "at": 8,
+          "angle": -75
+        }
       },
       {
-        "construction": "reference"
+        "construction": "band",
+        "angle": -4,
+        "elbow": {
+          "at": 8,
+          "angle": -75
+        }
       },
       {
-        "construction": "line",
-        "upper": -1,
-        "lean": -1
+        "construction": "band",
+        "angle": -10,
+        "elbow": {
+          "at": 8,
+          "angle": -75
+        }
       },
       {
-        "construction": "line",
-        "upper": -2,
-        "lean": -2
+        "construction": "band",
+        "angle": -14,
+        "elbow": {
+          "at": 8,
+          "angle": -75
+        }
       },
       {
-        "construction": "line",
-        "upper": -1,
-        "lean": -1
+        "construction": "band",
+        "angle": -10,
+        "elbow": {
+          "at": 8,
+          "angle": -75
+        }
       },
       {
-        "construction": "reference"
+        "construction": "band",
+        "angle": -4,
+        "elbow": {
+          "at": 8,
+          "angle": -75
+        }
       },
       {
-        "construction": "line",
-        "upper": 1,
-        "lean": 4
+        "construction": "band",
+        "angle": 2,
+        "elbow": {
+          "at": 8,
+          "angle": -75
+        }
       }
     ],
     "outline": "Arm pixels touching empty space get an outline, except above the shoulder row; the near arm is not outlined where it lies over the body (its dark back column separates it).",
-    "approved": "2026-10-06"
+    "approved": "2026-10-06",
+    "band": {
+      "pivot": [
+        32,
+        23
+      ],
+      "thickness": 4,
+      "start": -2,
+      "length": 16,
+      "wrapFrom": 11,
+      "handFrom": 14,
+      "pattern": {
+        "skin": "DLLm",
+        "wrap": "wwWW"
+      },
+      "note": "Lengths from the reference arm: pivot at the shoulder joint (row 23, centre column 32), wrap from row 34, hand from row 37, last colour row 40; cross-section from the reference rows 26-29 (D back edge, L L, m front).",
+      "fist": {
+        "use": "closed fist pointing back along the raised arm, knuckles at the left (back) end; outline is added by the arm outline rule",
+        "anchor": [
+          3,
+          1
+        ],
+        "rows": [
+          "mLLm",
+          "LLLm",
+          "mLms",
+          ".sDs"
+        ]
+      },
+      "fistUp": {
+        "use": "closed fist held up in guard, knuckles on top",
+        "anchor": [
+          1,
+          3
+        ],
+        "rows": [
+          "mLLm",
+          "LLLm",
+          "LLms",
+          "sDDs"
+        ]
+      },
+      "fistForwardUpTo": -165,
+      "fistRule": "the knuckles face forward (mirrored fist) for any hand pointing between straight ahead and 15 degrees short of straight up, so a boxing guard shows the fist face-on to the opponent; fistUp only for a hand pointing straight up",
+      "bentFistDy": -1,
+      "bentFistRule": "on a bent arm (guard, recoil, wind-up, recover) the fist sits 1 px higher on the wrist",
+      "fistFront": {
+        "use": "fist seen knuckles-on, punching toward the viewer: wider than the profile fist because the arm behind it is foreshortened",
+        "anchor": [
+          2,
+          2
+        ],
+        "rows": [
+          ".mLLm.",
+          "mLLLLm",
+          "LLmLLs",
+          "mLLLms",
+          ".sDDs."
+        ]
+      },
+      "palmUp": {
+        "use": "open hand angled forward, fingers leaning toward the opponent (judo grip hunt)",
+        "anchor": [
+          0,
+          4
+        ],
+        "rows": [
+          "...Lm",
+          "..LLm",
+          ".LLLm",
+          "LLLLm",
+          "LLLms",
+          "mLLs.",
+          ".sDs."
+        ]
+      },
+      "palmDown": {
+        "use": "open hand, heel of the palm leading a downward thrust, fingers pointing forward (palm strikes from Mount)",
+        "anchor": [
+          0,
+          1
+        ],
+        "rows": [
+          "mLLLLm.",
+          "LLLLLLm",
+          "mLLms..",
+          ".sDs..."
+        ]
+      },
+      "palmHeel": {
+        "use": "open hand, heel of the palm leading a straight thrust, fingers together and up (standing Sumo Palm)",
+        "anchor": [
+          0,
+          4
+        ],
+        "rows": [
+          ".Lm.",
+          "LLm.",
+          "LLm.",
+          "LLLm",
+          "LLLm",
+          "mLLs",
+          ".sDs"
+        ]
+      },
+      "fingerGun": {
+        "use": "finger gun (Chakra Bullet): index finger pointing along the arm, thumb up, the other fingers curled",
+        "anchor": [
+          0,
+          1
+        ],
+        "rows": [
+          ".Lm....",
+          "LLLLLLm",
+          "LLLms..",
+          "msDs..."
+        ]
+      },
+      "fingerPoint": {
+        "use": "pointing hand (Shadow Possession v2): index finger pointing along the arm, thumb tucked, the other fingers curled",
+        "anchor": [
+          0,
+          0
+        ],
+        "rows": [
+          "LLLLLLm",
+          "LLLms..",
+          "msDs..."
+        ]
+      }
+    }
   },
   "armRemovalFill": {
     "rule": "The reference near arm is also painted into Body1. Where it is removed from the body layer, the uncovered pixels are filled: torso rows up to 32 take mid skin; trunk rows 33-37 take white (light grey from column 35); row 38 white; row 39 outline (the trunk hem); rows from 40 down stay empty so the legs show. The frontmost fill pixel of trunk rows 33-38 becomes outline (the trunk's front edge). Outline pixels in trunk rows 33-37, columns 30-32, that only separated the trunk from the arm become white; a lone d pixel inside the white row 38 becomes white.",

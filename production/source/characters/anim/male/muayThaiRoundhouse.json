@@ -615,6 +615,16 @@
           ".#ddd#",
           "..###"
         ]
+      },
+      "pivot": {
+        "use": "standing foot turned on the ball for a round kick: heel swung toward the target, so in profile the foot is foreshortened (toes pointing away from the viewer) with the heel 1 px up (study fix 4)",
+        "rows": [
+          "#dmmL#",
+          "#DmLL#",
+          "#DdmLL#",
+          ".#DDsL#",
+          ".######"
+        ]
       }
     },
     "constructions": {
@@ -1013,6 +1023,17 @@
         ],
         "foot": "pointUR",
         "section": "N"
+      },
+      {
+        "name": "lead-pivot-turn",
+        "construction": "band",
+        "hipX": 32,
+        "hipRow": 42,
+        "kneeX": 34,
+        "kneeRow": 50,
+        "footX": 35,
+        "wrapRow": 56,
+        "foot": "pivot"
       }
     ],
     "near": [
@@ -1028,10 +1049,10 @@
     "far": [
       4,
       16,
-      16,
-      16,
-      16,
-      16,
+      31,
+      31,
+      31,
+      31,
       18,
       4
     ],

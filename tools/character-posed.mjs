@@ -132,7 +132,7 @@ function buildLeg(p) {
     const bot = p.wrapRow + 2;
     const band = (ax, ay, bx, by) => {
       const len = Math.hypot(bx - ax, by - ay), d = [(bx - ax) / len, (by - ay) / len], n = [d[1], -d[0]];
-      return { len, uv: (x, y) => { const cx = x + 0.5 - ax, cy = y + 0.5 - ay; return [cx * d[0] + cy * d[1], cx * n[0] + cy * n[1]]; } };
+      return { len, dir: d, uv: (x, y) => { const cx = x + 0.5 - ax, cy = y + 0.5 - ay; return [cx * d[0] + cy * d[1], cx * n[0] + cy * n[1]]; } };
     };
     const kx = p.kneeX + 2.5, ky = p.kneeRow + 0.5;
     const th = band(p.hipX + 2.5, p.hipRow + 0.5, kx, ky), sh = band(p.kneeX + 2, ky, p.footX + 1.5, bot + 0.5);
@@ -162,7 +162,7 @@ function buildLeg(p) {
 function kickLeg(p, out) {
   const band = (ax, ay, bx, by) => {
     const len = Math.hypot(bx - ax, by - ay), d = [(bx - ax) / len, (by - ay) / len], n = [d[1], -d[0]];
-    return { len, uv: (x, y) => { const cx = x + 0.5 - ax, cy = y + 0.5 - ay; return [cx * d[0] + cy * d[1], cx * n[0] + cy * n[1]]; } };
+    return { len, dir: d, uv: (x, y) => { const cx = x + 0.5 - ax, cy = y + 0.5 - ay; return [cx * d[0] + cy * d[1], cx * n[0] + cy * n[1]]; } };
   };
   // the shin's front (L) side faces the band's normal; a leg pointing right has its front up, pointing left down
   const kx = p.kneeX + 0.5, ky = p.kneeRow + 0.5, ax = p.ankle[0] + 0.5, ay = p.ankle[1] + 0.5;
@@ -1107,7 +1107,10 @@ function kickGarment(l, items, isFar, z, legMap, col) {
     for (let y = 0; y < FRAME; y++) for (let x = 0; x < FRAME; x++) {
       const [tu, tv] = th.uv(x, y);
       if (tu < -1 || tu > shortTo) continue;
-      const taper = section ? 1 : Math.max(1, roundHalfEven(T.back - (T.back - 1) * Math.max(0, Math.min(1, tu / th.len))));
+      // shorts hug a raised thigh: once the thigh is lifted past 30 deg from hanging, the back (under-thigh) margin is
+      // 1 px all along, so the cloth does not sag into a block below the leg (study fix 5, 2026-11-16)
+      const lifted = Math.abs(th.dir ? th.dir[0] : 0) > 0.5;
+      const taper = section || lifted ? 1 : Math.max(1, roundHalfEven(T.back - (T.back - 1) * Math.max(0, Math.min(1, tu / th.len))));
       let c = across(tv, 2.5, 1.5 + T.front, taper);
       if (!c) continue;
       if (tu > shortTo - 1) c = 'a';

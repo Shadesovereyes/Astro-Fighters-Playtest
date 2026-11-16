@@ -900,12 +900,12 @@
         "name": "mt-knee",
         "construction": "band",
         "hipX": 35,
-        "hipRow": 40,
-        "kneeX": 46,
+        "hipRow": 39,
+        "kneeX": 47,
         "kneeRow": 33,
         "ankle": [
-          40,
-          43
+          44,
+          46
         ],
         "foot": "toe30k"
       },
@@ -2480,43 +2480,104 @@
           "1": [
             "S-hikeR1",
             "bend1",
-            "S-plantL1",
-            "S-liftR50"
+            "S-plantL1"
           ],
           "2": [
             "S-hikeR",
             "bend2",
             "S-kneeL",
-            "S-plantL",
-            "S-liftR43"
+            "S-plantL"
           ],
           "3": [
             "S-hikeR",
             "bend2",
             "S-kneeL",
             "S-turn1",
-            "S-plantL",
-            "S-liftR40"
+            "S-plantL"
           ],
           "4": [
             "S-hikeR",
             "bend2",
             "S-kneeL",
             "S-turn1",
-            "S-plantL",
-            "S-liftR40"
+            "S-plantL"
           ],
           "5": [
             "S-hikeR1",
             "bend1",
-            "S-plantL1",
-            "S-liftR50"
+            "S-plantL1"
           ],
           "6": [
             "S-muayThaiGuard-kneeR0",
             "S-muayThaiGuard-kneeL0",
             "S-muayThaiGuard-tiptoe"
           ]
+        },
+        "legBand": {
+          "sides": {
+            "R": [
+              false,
+              true,
+              true,
+              true,
+              true,
+              true,
+              false
+            ],
+            "L": [
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false
+            ]
+          },
+          "pose": {
+            "R": [
+              null,
+              "S-lift-R",
+              "S-chamber-R",
+              "S-chamber-R",
+              "S-chamber-R",
+              "S-lift-R",
+              null
+            ],
+            "L": [
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null
+            ]
+          },
+          "z": {
+            "R": [
+              3.5,
+              3.5,
+              3.5,
+              3.5,
+              3.5,
+              3.5,
+              3.5
+            ],
+            "L": [
+              3.5,
+              3.5,
+              3.5,
+              3.5,
+              3.5,
+              3.5,
+              3.5
+            ]
+          },
+          "offset": {
+            "R": 0,
+            "L": 0
+          }
         }
       },
       "N": {
@@ -2854,43 +2915,104 @@
           "1": [
             "N-hikeR1",
             "bend1",
-            "N-plantL1",
-            "N-liftR50"
+            "N-plantL1"
           ],
           "2": [
             "N-hikeR",
             "bend2",
             "N-kneeL",
-            "N-plantL",
-            "N-liftR43"
+            "N-plantL"
           ],
           "3": [
             "N-hikeR",
             "bend2",
             "N-kneeL",
             "N-turn1",
-            "N-plantL",
-            "N-liftR40"
+            "N-plantL"
           ],
           "4": [
             "N-hikeR",
             "bend2",
             "N-kneeL",
             "N-turn1",
-            "N-plantL",
-            "N-liftR40"
+            "N-plantL"
           ],
           "5": [
             "N-hikeR1",
             "bend1",
-            "N-plantL1",
-            "N-liftR50"
+            "N-plantL1"
           ],
           "6": [
             "N-muayThaiGuard-kneeR0",
             "N-muayThaiGuard-kneeL0",
             "N-muayThaiGuard-tiptoe"
           ]
+        },
+        "legBand": {
+          "sides": {
+            "R": [
+              false,
+              true,
+              true,
+              true,
+              true,
+              true,
+              false
+            ],
+            "L": [
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false
+            ]
+          },
+          "pose": {
+            "R": [
+              null,
+              "N-lift-R",
+              "N-chamber-R",
+              "N-chamber-R",
+              "N-chamber-R",
+              "N-lift-R",
+              null
+            ],
+            "L": [
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null
+            ]
+          },
+          "z": {
+            "R": [
+              3.5,
+              3.5,
+              3.5,
+              3.5,
+              3.5,
+              3.5,
+              3.5
+            ],
+            "L": [
+              3.5,
+              3.5,
+              3.5,
+              3.5,
+              3.5,
+              3.5,
+              3.5
+            ]
+          },
+          "offset": {
+            "R": 0,
+            "L": 0
+          }
         }
       }
     },
