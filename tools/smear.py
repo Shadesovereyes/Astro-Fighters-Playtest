@@ -140,7 +140,7 @@ def insert_smear(state, k, limbs, t=0.55):
             if dn in ('E', 'W'): col[di * F:(di + 1) * F] = tmp[di * F:(di + 1) * F]
         new[n] = np.concatenate([a[:, :k * F], col, a[:, k * F:]], axis=1)
     orig = {n: a.copy() for n, a in new.items()}
-    thrust(new, orig, rows, k)
+    if any(l.startswith('arm') for l in limbs): thrust(new, orig, rows, k)   # legs get the sweep (run) on the inserted frame
     for n, a in new.items(): Image.fromarray(a).save(d / anim['layers'][n])
     # animation.json
     sh = lambda i: i + 1 if i >= k else i
@@ -185,29 +185,30 @@ SPARK = [  # impact fx stages (white / light grey, grey rim for contrast; effect
      ".a...a...a.",
      ".....w....."]]
 def half_pop(stage):
-    """Half pop (Christopher 2026-11-17 references: an edge-on shock ring at the contact with tapered rays fanning
-    forward; white/neutral per the effects rule): offsets (dx forward of the fist front, dy) -> colour key. Stage 0 on
-    the impact frame: a tight ring, a flash on the contact and short wedge rays; stage 1 on the held copy: the ring
-    opens and the rays fly out and break off the contact."""
+    """Half pop (Christopher 2026-11-17: an edge-on shock ring at the contact with rays fanning forward, white/neutral;
+    then "less visible, not transparent, just less dense"): offsets (dx forward of the contact, dy) -> colour key.
+    Every pixel is opaque; density comes from gaps: a broken ring (only its arcs above and below the contact and its
+    front tip), single-pixel rays with a gap, a 3 px flash. Stage 0 on the impact frame, stage 1 (ring opened, rays
+    flown out) on the held copy."""
     out = {}
     def put(x, y, c):
         q = (int(round(x)), int(round(y)))
         if out.get(q) != 'W': out[q] = c
     ox, rx, ry = ((1, 1.0, 3.0), (1, 1.5, 4.5))[stage]
-    for i in range(96):   # edge-on ring: front rim bright, back rim grey
-        t = 2 * np.pi * i / 96
-        put(ox + rx * np.cos(t), ry * np.sin(t), 'W' if np.cos(t) > 0.3 else ('a' if np.cos(t) > -0.4 else 'g'))
-    rays = ((-60, 3), (-30, 4), (0, 4), (30, 4), (60, 3)) if stage == 0 else ((-60, 4), (-30, 6), (0, 7), (30, 6), (60, 4))
+    for i in range(96):
+        t = 2 * np.pi * i / 96; ct, st = np.cos(t), np.sin(t)
+        if ct < -0.2 or (abs(st) < 0.75 and ct < 0.9): continue   # keep the upper/lower arcs and the front tip
+        put(ox + rx * ct, ry * st, 'W' if ct > 0.5 else 'a')
+    rays = ((-55, 3), (0, 4), (55, 3)) if stage == 0 else ((-60, 4), (-25, 5), (0, 6), (25, 5), (60, 4))
     r0 = 2 if stage == 0 else 3
     for ang, ln in rays:
-        t = np.radians(ang); nx, ny = -np.sin(t), np.cos(t)
+        t = np.radians(ang)
         for j in range(ln):
+            if stage == 1 and j == 1: continue   # a gap: the ray breaks off the contact
             r = r0 + j; f = j / max(1, ln - 1)
-            c = 'W' if f < 0.55 else ('a' if f < 0.9 else 'g')
-            put(r * np.cos(t), r * np.sin(t), c)
-            if f < 0.3 and stage == 1: put(r * np.cos(t) + nx * 0.8, r * np.sin(t) + ny * 0.8, c)   # wedge: 2 px wide near the base
+            put(r * np.cos(t), r * np.sin(t), 'W' if f < 0.5 else ('a' if f < 0.9 else 'g'))
     if stage == 0:
-        for q in ((0, 0), (1, 0), (0, -1), (0, 1)): out[q] = 'W'   # flash on the contact
+        for q in ((0, 0), (0, -1), (0, 1)): out[q] = 'W'   # flash on the contact
     return out
 
 SPARK_C = {'W': (255, 255, 255, 255), 'w': (255, 255, 255, 255), 'a': (0xe3, 0xe3, 0xe3, 255), 'g': (0xa8, 0xa8, 0xb4, 255)}
@@ -333,7 +334,7 @@ def run(state, jobs, steps=tuple(round(0.1 * i, 2) for i in range(1, 10))):
                 add[n] = acc
             # motion blur: the older half of the path (t below DITHER) is dithered (every other pixel), the newer half
             # solid, so the smear fades out behind the limb
-            dith = (tmap >= 0) & (tmap < DITHER) & ((np.add.outer(np.arange(F), np.arange(F)) % 2) == 1)
+            dith = (tmap >= 0) & (tmap < DITHER * max(steps)) & ((np.add.outer(np.arange(F), np.arange(F)) % 2) == 1)
             for n in add: add[n][dith] = 0
             union = np.zeros((F, F), bool)
             for n, acc in add.items(): union |= acc[..., 3] > 0
@@ -366,7 +367,7 @@ if __name__ == '__main__' and '--insert' in sys.argv:
     # smear.py <state> --insert k:limbs[,k2:limbs] (impact frames of the ORIGINAL clip; inserted from the last back)
     state = sys.argv[1]; jobs = sys.argv[sys.argv.index('--insert') + 1].split(',')
     for j in sorted(jobs, key=lambda j: -int(j.split(':')[0])):
-        k, l = j.split(':'); insert_smear(state, int(k), l.split('+'))
+        k, l, *t = j.split(':'); insert_smear(state, int(k), l.split('+'), *(float(x) for x in t))   # k:limbs[:t]
     sys.exit()
 if __name__ == '__main__':
     state = sys.argv[1]; jobs = []
