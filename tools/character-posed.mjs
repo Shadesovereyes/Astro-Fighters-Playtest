@@ -305,8 +305,11 @@ function bandArm(p) {
     else if (p.fistKind === 'back') F = B.fist;
     else if (a < -45 && a >= fwdTo) F = { anchor: [B.fist.rows[0].length - 1 - B.fist.anchor[0], B.fist.anchor[1]], rows: B.fist.rows.map((r) => [...r].reverse().join('')) };
     else if ((a > 135 || a < -135) && B.fistUp) F = B.fistUp;
-    // fistDy: a bent arm's fist may sit higher or lower on the wrist (whole pixels)
-    const x0 = Math.floor(ax) - F.anchor[0], y0 = Math.floor(ay) - F.anchor[1] + (E ? (E.fistDy ?? B.bentFistDy ?? 0) : 0);
+    // fistDy: a bent arm's fist may sit higher or lower on the wrist (whole pixels). A straight arm (elbow angle within
+    // 15 degrees of the upper arm) held near horizontal is not bent: its fist stays centred on the forearm band, so a
+    // straight punch's knuckles do not rise above the forearm (Christopher 2026-11-17: the cross fist looked rotated upward).
+    const straight = E && Math.abs(((E.angle - p.angle) % 360 + 540) % 360 - 180) <= 15 && Math.abs(Math.abs(a) - 90) <= 30;
+    const x0 = Math.floor(ax) - F.anchor[0], y0 = Math.floor(ay) - F.anchor[1] + (E ? (E.fistDy ?? (straight ? 0 : B.bentFistDy ?? 0)) : 0);
     F.rows.forEach((row, r) => [...row].forEach((c, j) => {
       if (c === '.') return;
       const q = key(x0 + j, y0 + r);
@@ -451,9 +454,13 @@ function frame(k) {
   // thickness of its pivot), so overlapping parts keep reading (outlineRule, user 2026-10-14)
   const joint = (p) => (x, y) => {
     if (y >= AR.shoulder + DROP) return false;
-    if (!(OUTLINE_RAISED && p.construction === 'band')) return true;
+    if (p.construction !== 'band') return true;
     const B = { ...A.band, ...(p.band || {}) };
-    return Math.hypot(x + 0.5 - T - B.pivot[0], y + 0.5 - DROP - B.pivot[1]) <= B.thickness / 2 + 1.5;
+    const atJoint = Math.hypot(x + 0.5 - T - B.pivot[0], y + 0.5 - DROP - B.pivot[1]) <= B.thickness / 2 + 1.5;
+    if (OUTLINE_RAISED) return atJoint;
+    // against empty space a band arm is always outlined, also above the shoulder row: an extended arm's top edge
+    // there was left open (Christopher 2026-11-17: top outline missing on extended arms and the bare fist)
+    return atJoint || rest.has(key(x, y));
   };
   const nj = joint(A.near[k]), fj = joint(A.far[k]);
   const na = closeArm(shifted(buildArm(A.near[k])), (x, y, q) => nj(x, y) || (A.near[k].construction !== 'band' && rest.has(q)));
