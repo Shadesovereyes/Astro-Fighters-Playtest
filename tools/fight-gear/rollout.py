@@ -12,7 +12,7 @@ ROOT = Path(__file__).resolve().parents[2]
 ANIM = ROOT / 'production/source/characters/anim/male'
 sys.path.insert(0, str(Path(__file__).parent))
 from add_state_config import add, NEW_LAYERS
-import glove_states, hand_masks
+import glove_states, hand_masks, close_seams
 
 def git(*a): return subprocess.run(['git', *a], cwd=ROOT, capture_output=True, text=True)
 
@@ -50,4 +50,4 @@ if __name__ == '__main__':
         if not progress: break
     for s, e in errors.items(): print('FAILED', s, e)
     for s in states:
-        if s not in errors: hand_masks.run(s); glove_states.run(ANIM / s)
+        if s not in errors: hand_masks.run(s); glove_states.run(ANIM / s); close_seams.run(ANIM / s)

@@ -73,7 +73,8 @@
     "mongkol": "mongkol.png",
     "boxing-headgear": "boxing-headgear.png",
     "boxing-gloves": "boxing-gloves.png",
-    "thai-gloves": "thai-gloves.png"
+    "thai-gloves": "thai-gloves.png",
+    "male-boxing-boots": "male-boxing-boots.png"
   },
   "drawOrder": [
     "contact shadow",

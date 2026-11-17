@@ -65,7 +65,17 @@
     "kyoketsu-shoge-stowed-back": "kyoketsu-shoge-stowed-back.png",
     "tanto-stowed-front": "tanto-stowed-front.png",
     "tanto-stowed-back": "tanto-stowed-back.png",
-    "fx": "fx.png"
+    "fx": "fx.png",
+    "male-muay-thai-shorts": "male-muay-thai-shorts.png",
+    "male-boxing-trunks": "male-boxing-trunks.png",
+    "prajioud": "prajioud.png",
+    "mongkol": "mongkol.png",
+    "boxing-headgear": "boxing-headgear.png",
+    "male-boxing-boots": "male-boxing-boots.png",
+    "boxing-gloves": "boxing-gloves.png",
+    "boxing-gloves-far": "boxing-gloves-far.png",
+    "thai-gloves": "thai-gloves.png",
+    "thai-gloves-far": "thai-gloves-far.png"
   },
   "pendingLayers": [],
   "drawOrder": [

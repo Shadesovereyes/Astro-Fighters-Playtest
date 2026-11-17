@@ -891,6 +891,69 @@
       ]
     },
     {
+      "source": "Paperdolls/Male/Layer 2 - Clothing/Male Boxing Boots.png",
+      "class": "under-arms",
+      "partMap": "overlays/male-boxing-boots.png",
+      "frames": [
+        {
+          "direction": "S",
+          "pixelCounts": {
+            "R-shin-foot": 61,
+            "L-shin-foot": 61
+          }
+        },
+        {
+          "direction": "SE",
+          "pixelCounts": {
+            "R-shin-foot": 73,
+            "L-shin-foot": 67
+          }
+        },
+        {
+          "direction": "E",
+          "pixelCounts": {
+            "R-shin-foot": 70,
+            "L-shin-foot": 6
+          }
+        },
+        {
+          "direction": "NE",
+          "pixelCounts": {
+            "R-shin-foot": 78,
+            "L-shin-foot": 56
+          }
+        },
+        {
+          "direction": "N",
+          "pixelCounts": {
+            "R-shin-foot": 70,
+            "L-shin-foot": 70
+          }
+        },
+        {
+          "direction": "NW",
+          "pixelCounts": {
+            "R-shin-foot": 56,
+            "L-shin-foot": 78
+          }
+        },
+        {
+          "direction": "W",
+          "pixelCounts": {
+            "R-shin-foot": 6,
+            "L-shin-foot": 70
+          }
+        },
+        {
+          "direction": "SW",
+          "pixelCounts": {
+            "R-shin-foot": 67,
+            "L-shin-foot": 73
+          }
+        }
+      ]
+    },
+    {
       "source": "Paperdolls/Male/Layer 2b - Stowed Weapons/Katana Stowed Front.png",
       "class": "component",
       "partMap": "overlays/katana-stowed-front.png",
@@ -1815,55 +1878,55 @@
         {
           "direction": "S",
           "pixelCounts": {
-            "R-forearm-hand": 56,
-            "L-forearm-hand": 58
+            "R-forearm-hand": 60,
+            "L-forearm-hand": 62
           }
         },
         {
           "direction": "SE",
           "pixelCounts": {
-            "R-forearm-hand": 49,
-            "L-forearm-hand": 45
+            "R-forearm-hand": 53,
+            "L-forearm-hand": 48
           }
         },
         {
           "direction": "E",
           "pixelCounts": {
-            "R-forearm-hand": 55
+            "R-forearm-hand": 59
           }
         },
         {
           "direction": "NE",
           "pixelCounts": {
-            "R-forearm-hand": 52,
-            "L-forearm-hand": 52
+            "R-forearm-hand": 54,
+            "L-forearm-hand": 57
           }
         },
         {
           "direction": "N",
           "pixelCounts": {
-            "R-forearm-hand": 51,
-            "L-forearm-hand": 53
+            "R-forearm-hand": 55,
+            "L-forearm-hand": 57
           }
         },
         {
           "direction": "NW",
           "pixelCounts": {
-            "R-forearm-hand": 52,
-            "L-forearm-hand": 52
+            "R-forearm-hand": 57,
+            "L-forearm-hand": 54
           }
         },
         {
           "direction": "W",
           "pixelCounts": {
-            "L-forearm-hand": 55
+            "L-forearm-hand": 59
           }
         },
         {
           "direction": "SW",
           "pixelCounts": {
-            "R-forearm-hand": 45,
-            "L-forearm-hand": 49
+            "R-forearm-hand": 48,
+            "L-forearm-hand": 53
           }
         }
       ]

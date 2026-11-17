@@ -97,6 +97,8 @@
       "lamellar-kabuto",
       "molded-leather-cap",
       "plate-bascinet",
+      "mongkol",
+      "boxing-headgear",
       "brown-eyes",
       "purple-eyes"
     ],
@@ -1999,7 +2001,11 @@
       "kyoketsu-shoge-stowed-front",
       "kyoketsu-shoge-stowed-back",
       "tanto-stowed-front",
-      "tanto-stowed-back"
+      "tanto-stowed-back",
+      "male-muay-thai-shorts",
+      "male-boxing-trunks",
+      "prajioud",
+      "male-boxing-boots"
     ],
     "sash": {
       "rule": "The hanging flaps swing from the knot like a pendulum: rows below knotRow shift sideways, growing to sway[k] at the flaps' lowest row (+ is screen right in that direction's orientation; mirrored directions use their source's table, flipped). In the profile the flaps trail behind the walk and kick back twice per cycle; in front/back views they swing toward the leg that is stepping; the band and knot stay with the waist. The flaps also lag the body bob by one frame.",
@@ -2676,6 +2682,124 @@
       },
       "clipToFrame": true,
       "rule": "stowed weapon: a rigid piece that rides its rig part (katana, cord and tanto: pelvis, yumi: torso)"
+    },
+    "male-muay-thai-shorts": {
+      "outline": "#000000",
+      "rule": "fight-gear shorts (2026-11-15): profile trouser rows end at hem, rows above the posed knee; legs below are bare",
+      "legRows": {
+        "wrap": 56,
+        "foot": 59
+      },
+      "trouser": {
+        "hem": 41,
+        "back": 2,
+        "front": 1,
+        "thighFront": "f",
+        "shinFront": "d",
+        "colours": {
+          "a": "#000000",
+          "b": "#ef4a52",
+          "c": "#c81e2c",
+          "d": "#8a0f1e",
+          "f": "#c81e2c"
+        }
+      },
+      "farShade": {
+        "#ef4a52": "#c81e2c",
+        "#c81e2c": "#8a0f1e",
+        "#8a0f1e": "#520812",
+        "#520812": "#520812",
+        "#000000": "#000000",
+        "#ffd75e": "#d9a42e",
+        "#d9a42e": "#8f6516",
+        "#8f6516": "#8f6516",
+        "#7a0f1c": "#7a0f1c"
+      }
+    },
+    "male-boxing-trunks": {
+      "outline": "#000000",
+      "rule": "fight-gear shorts (2026-11-15): profile trouser rows end at hem, rows above the posed knee; legs below are bare",
+      "legRows": {
+        "wrap": 56,
+        "foot": 59
+      },
+      "trouser": {
+        "hem": 44,
+        "back": 1,
+        "front": 1,
+        "thighFront": "f",
+        "shinFront": "d",
+        "colours": {
+          "a": "#000000",
+          "b": "#5b8ef0",
+          "c": "#2f5fcf",
+          "d": "#1d3c94",
+          "f": "#2f5fcf"
+        }
+      },
+      "farShade": {
+        "#5b8ef0": "#2f5fcf",
+        "#2f5fcf": "#1d3c94",
+        "#1d3c94": "#10225c",
+        "#10225c": "#10225c",
+        "#000000": "#000000",
+        "#ffffff": "#e3e3e8",
+        "#e3e3e8": "#a8a8b4",
+        "#a8a8b4": "#a8a8b4",
+        "#c81e2c": "#c81e2c",
+        "#d8d8e0": "#d8d8e0",
+        "#e8e8f0": "#e8e8f0"
+      }
+    },
+    "prajioud": {
+      "outline": "#000000",
+      "farShade": {
+        "#e8434a": "#c81e2c",
+        "#c81e2c": "#8a0f1e",
+        "#8a0f1e": "#8a0f1e",
+        "#000000": "#000000"
+      },
+      "rule": "Layer 4 pieces follow the arm part they sit on: pads with the upper arm, bracers with the forearm, through the same row edits and swing as the arm"
+    },
+    "male-boxing-boots": {
+      "outline": "#000000",
+      "shoe": "#1d3c94",
+      "rule": "fight-gear boxing boots (2026-11-16): no cloth on the leg (trouser.none); the shaft takes the wrap rows from legRows.wrap, the foot the shoe colour",
+      "legRows": {
+        "wrap": 53,
+        "foot": 59
+      },
+      "wrap": {
+        "margin": 0,
+        "pattern": "i",
+        "fill": "h",
+        "colours": {
+          "a": "#000000",
+          "i": "#10225c",
+          "h": "#2f5fcf"
+        }
+      },
+      "trouser": {
+        "none": true,
+        "back": 0,
+        "front": 0,
+        "thighFront": "a",
+        "shinFront": "a",
+        "colours": {
+          "a": "#000000"
+        }
+      },
+      "farShade": {
+        "#3b6fe0": "#2f5fcf",
+        "#2f5fcf": "#1d3c94",
+        "#1d3c94": "#10225c",
+        "#10225c": "#0a1640",
+        "#0a1640": "#0a1640",
+        "#ffffff": "#e3e3e8",
+        "#e3e3e8": "#a8a8b4",
+        "#a8a8b4": "#a8a8b4",
+        "#000000": "#000000"
+      }
     }
   },
   "clips": {

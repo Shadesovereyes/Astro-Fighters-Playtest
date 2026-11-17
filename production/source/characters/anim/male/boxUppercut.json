@@ -2113,7 +2113,8 @@
       "tanto-stowed-back",
       "male-muay-thai-shorts",
       "male-boxing-trunks",
-      "prajioud"
+      "prajioud",
+      "male-boxing-boots"
     ],
     "sash": {
       "rule": "The hanging flaps swing from the knot like a pendulum: rows below knotRow shift sideways, growing to sway[k] at the flaps' lowest row (+ is screen right in that direction's orientation; mirrored directions use their source's table, flipped). In the profile the flaps trail behind the walk and kick back twice per cycle; in front/back views they swing toward the leg that is stepping; the band and knot stay with the waist. The flaps also lag the body bob by one frame.",
@@ -2864,6 +2865,46 @@
         "#000000": "#000000"
       },
       "rule": "Layer 4 pieces follow the arm part they sit on: pads with the upper arm, bracers with the forearm, through the same row edits and swing as the arm"
+    },
+    "male-boxing-boots": {
+      "outline": "#000000",
+      "shoe": "#1d3c94",
+      "rule": "fight-gear boxing boots (2026-11-16): no cloth on the leg (trouser.none); the shaft takes the wrap rows from legRows.wrap, the foot the shoe colour",
+      "legRows": {
+        "wrap": 53,
+        "foot": 59
+      },
+      "wrap": {
+        "margin": 0,
+        "pattern": "i",
+        "fill": "h",
+        "colours": {
+          "a": "#000000",
+          "i": "#10225c",
+          "h": "#2f5fcf"
+        }
+      },
+      "trouser": {
+        "none": true,
+        "back": 0,
+        "front": 0,
+        "thighFront": "a",
+        "shinFront": "a",
+        "colours": {
+          "a": "#000000"
+        }
+      },
+      "farShade": {
+        "#3b6fe0": "#2f5fcf",
+        "#2f5fcf": "#1d3c94",
+        "#1d3c94": "#10225c",
+        "#10225c": "#0a1640",
+        "#0a1640": "#0a1640",
+        "#ffffff": "#e3e3e8",
+        "#e3e3e8": "#a8a8b4",
+        "#a8a8b4": "#a8a8b4",
+        "#000000": "#000000"
+      }
     }
   },
   "clips": {

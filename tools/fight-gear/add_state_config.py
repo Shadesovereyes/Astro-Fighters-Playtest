@@ -31,6 +31,17 @@ def entry(name):
         'farShade': far,
     }
 
+# Boxing boots (2026-11-16): a trouser-less garment (trouser.none) whose shaft is the wrap rows from row 53 and whose
+# foot is the shoe colour; tones match build_boots.py
+BOOTS = {'male-boxing-boots': {
+    'outline': '#000000', 'shoe': '#1d3c94',
+    'rule': 'fight-gear boxing boots (2026-11-16): no cloth on the leg (trouser.none); the shaft takes the wrap rows from legRows.wrap, the foot the shoe colour',
+    'legRows': {'wrap': 53, 'foot': 59},
+    'wrap': {'margin': 0, 'pattern': 'i', 'fill': 'h', 'colours': {'a': '#000000', 'i': '#10225c', 'h': '#2f5fcf'}},
+    'trouser': {'none': True, 'back': 0, 'front': 0, 'thighFront': 'a', 'shinFront': 'a', 'colours': {'a': '#000000'}},
+    'farShade': {'#3b6fe0': '#2f5fcf', '#2f5fcf': '#1d3c94', '#1d3c94': '#10225c', '#10225c': '#0a1640', '#0a1640': '#0a1640',
+                 '#ffffff': '#e3e3e8', '#e3e3e8': '#a8a8b4', '#a8a8b4': '#a8a8b4', '#000000': '#000000'}}}
+
 sys.path.insert(0, str(Path(__file__).parent))
 from build_gloves import GLOVES
 HEADS = ['mongkol', 'boxing-headgear']
@@ -49,6 +60,9 @@ def add(state):
     for name in SHORTS:
         cl[name] = entry(name)
         if name not in cl['layers']: cl['layers'].append(name)
+    for name, e in BOOTS.items():
+        cl[name] = json.loads(json.dumps(e))
+        if name not in cl['layers']: cl['layers'].append(name)
     if 'blue-armor-shoulders' in cl:
         e = json.loads(json.dumps(cl['blue-armor-shoulders']))
         e['farShade'] = {'#e8434a': '#c81e2c', '#c81e2c': '#8a0f1e', '#8a0f1e': '#8a0f1e', '#000000': '#000000'}
@@ -65,7 +79,7 @@ def add(state):
     return True
 
 HEADS = ['mongkol', 'boxing-headgear']
-NEW_LAYERS = list(SHORTS) + ['prajioud'] + HEADS
+NEW_LAYERS = list(SHORTS) + list(BOOTS) + ['prajioud'] + HEADS
 
 if __name__ == '__main__':
     for s in sys.argv[1:]: print(s, add(s))

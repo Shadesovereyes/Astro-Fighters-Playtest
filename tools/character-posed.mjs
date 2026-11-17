@@ -631,6 +631,11 @@ function twistOf(d, k, g, y) {
 //   knee    the bent standing leg's knee moves dx sideways (rows: hip, knee, ankle; full at the knee)
 //   plant   the standing leg (side) moves dx as a whole, toward the centre line
 //   tiptoe  the heel raised: hem and sock risen 'up' rows over the shortened shin, the shoe drawn as an authored foot (rows, at, sample)
+//   kneeFront  a knee driven at (S) or away from (N) the viewer: that side's leg is left out from reference row 'from' down
+//           (every layer), and authored blocks (rows of sample chars, at) are drawn in front of the body and every outfit
+//           layer; each char takes the layer's own reference pixel at sample[char] (skin in body, cloth in the trousers or
+//           shorts that cover that spot, boot on the foot) and where a layer has nothing there the block cuts a hole in it,
+//           so a knee shows bare under shorts and clothed under long trousers
 //   rotate  torso and hips turned into the kick: on the far side of 'center' the listed columns are dropped per part
 //           (the outer columns close in, so that side narrows); the near side moves nearDx toward the centre; the
 //           head moves headDx and each band arm's shoulder armDx[side]
@@ -723,6 +728,7 @@ function frontalMove(d, k, part, y, x) {
       else rows = rows.filter((r) => r < pH - t.up - (t.keep || 0));
       if (t.z !== undefined) zOver = t.z;
     }
+    for (const v of variantsOf(d, k)) if (v.kneeFront?.side === s && y >= (v.kneeFront.from ?? 0)) rows = [];
     for (const v of variantsOf(d, k)) if (v.knee?.side === s) {
       const [h0, kn, a0] = v.knee.rows, t = y <= h0 || y >= a0 ? 0 : y <= kn ? (y - h0) / (kn - h0) : (a0 - y) / (a0 - kn);
       dx += roundHalfEven(v.knee.dx * t);
@@ -857,12 +863,31 @@ function tiptoeFeet(d, k, img, fx, items) {
     f.rows.forEach((row, r) => [...row].forEach((c, j) => { if (c !== '.') items.push([t.z ?? (t.side === d.far ? 0 : 2), f.at[0] + j, f.at[1] + r, cs[c], 'tiptoe']); }));
   }
 }
+const KNEE_Z = 9;
+function kneeFrontBlocks(d, k, img, fx, items) {
+  let any = false;
+  for (const v of variantsOf(d, k)) if (v.kneeFront) for (const bl of v.kneeFront.blocks) {
+    any = true;
+    bl.rows.forEach((row, r) => [...row].forEach((c, j) => {
+      if (c === '.') return;
+      const smp = bl.sample[c];
+      if (!smp) throw new Error(`kneeFront: no sample for '${c}'`);
+      // a literal colour (the outline) is drawn in every layer; a sample takes that layer's own reference pixel
+      if (typeof smp === 'string') { items.push([KNEE_Z, bl.at[0] + j, bl.at[1] + r, smp, 'kneeFront']); return; }
+      const [sx, sy] = smp;
+      items.push([KNEE_Z, bl.at[0] + j, bl.at[1] + r, opaque(img, fx + sx, sy) ? hexAt(img, fx + sx, sy) : null, 'kneeFront']);
+    }));
+  }
+  if (!any) return items;
+  const cut = new Set(items.filter((it) => it[4] === 'kneeFront').map((it) => key(it[1], it[2])));
+  return items.filter((it) => (it[4] === 'kneeFront' ? it[3] !== null : !cut.has(key(it[1], it[2]))));
+}
 function frontalFrame(dir, k) {
   const d = FR.views[dir], fx = order.indexOf(dir) * FRAME;
   const srcLayers = [['body', body, partMap], ['arms', arms, partMap], ...overlayLayers.map((l) => [l.name, l.img, l.map])];
   const out = {}, src = {};
   for (const [name, img, map] of srcLayers) {
-    const items = [];
+    let items = [];
     for (let y = 0; y < FRAME; y++) for (let x = 0; x < FRAME; x++) {
       if (!opaque(img, fx + x, y)) continue;
       const part = partNear(map, fx, x, y);
@@ -912,6 +937,7 @@ function frontalFrame(dir, k) {
       }
     }
     const m = new Map(), sm = new Map(), hz = new Set();
+    if (name !== 'arms') items = kneeFrontBlocks(d, k, img, fx, items);
     for (const [z, x, y, c, s0] of items.sort((a, c) => a[0] - c[0])) { m.set(key(x, y), c); sm.set(key(x, y), s0); if (d.headZ > 3 && z === d.headZ) hz.add(key(x, y)); else hz.delete(key(x, y)); }
     if (name === 'arms') for (const q of LEG_FRONT[`${dir}:${k}`] || []) { m.delete(q); sm.delete(q); }
     // a hand or wrist shown in front of the body keeps a 1px outline wherever it meets the body (a leg kicking in front
@@ -1046,6 +1072,24 @@ const resample = (t, t0, t1, s0, s1) => (t1 === t0 ? s0 : s0 + roundHalfEven((t 
 // One posed leg's garment (trouser rows authored on the leg, wrap or boot shaft, shoe): byRow holds the profile
 // garment's leg pixels by row (used for the reference ankle block and the flat shoe).
 const BODY_KNEE = 46, BODY_HIP = 38;   // reference body rows (male: kneeOverride E/W, pelvis end)
+// The garment of the far leg is drawn on the clothing layer, which sits above body.png, so where the near leg
+// (on body.png, in front of the far leg) crosses it, the far leg's cloth would cover the near leg's bare skin
+// (shorts on a raised knee, a near foot in front of the far trouser). Those far-garment pixels are dropped; where the
+// near leg is clothed its own garment is drawn there anyway. (2026-11-16, fight-gear layering review)
+function hideFarGarmentUnderNearLeg(items, from, to, nearLegMap) {
+  if (!nearLegMap) return;
+  for (let i = to - 1; i >= from; i--) if (nearLegMap.has(key(items[i][1], items[i][2]))) items.splice(i, 1);
+}
+// A raised near thigh carries its trouser along the limb, which takes the seat (the cloth over the glutes, behind the
+// hip) with it and leaves a flat or notched seat. When the knee rises above the reference knee by 8 rows or more, the
+// reference trouser's top leg rows behind the hip stay on the hip (moved with the posed hip), under the near leg's
+// own cloth. (2026-11-16, Christopher: knee and roundhouse look strange at the glutes)
+const REF_HIP_X = 32, REF_HIP_ROW = 41, REF_KNEE_ROW = 48;
+function seatPatch(l, items, byRow, pose) {
+  if (!pose || pose.kneeRow > REF_KNEE_ROW - 8) return;
+  const rows = Object.keys(byRow).map(Number).sort((a, b) => a - b), dx = pose.hipX - REF_HIP_X, dy = pose.hipRow - REF_HIP_ROW;
+  for (const y of rows.slice(0, 4)) for (const p of byRow[y]) if (p.x <= REF_HIP_X) items.push([1, p.x + dx, y + dy, p.c, null]);
+}
 function legGarment(l, items, byRow, isFar, z, pose, legMap) {
   const LR = l.legRows, BODY_WRAP = 56;
     const col = (c) => (isFar ? (l.shade[c] ?? c) : c);
@@ -1060,11 +1104,13 @@ function legGarment(l, items, byRow, isFar, z, pose, legMap) {
     const shift = pose.wrapRow - BODY_WRAP, hemRow = T.hem !== undefined ? pose.kneeRow - (BODY_KNEE - T.hem - 1) : LR.wrap + shift - 1;
     // a raised band thigh can rise above the hip row; its trouser starts at the leg's top row
     const legTop = pose.construction === 'band' ? Math.min(...[...legMap.keys()].map((q) => unkey(q)[1])) + 1 : pose.hipRow;
-    for (let t = Math.min(pose.hipRow, legTop) - 1; t <= hemRow; t++) {
+    // trouser.none (boots): no cloth on the leg, only the shaft (wrap rows) and the shoe
+    for (let t = Math.min(pose.hipRow, legTop) - 1; !T.none && t <= hemRow; t++) {
       const e = extent[t] ?? extent[t + 1] ?? extent[t - 1];
       const x0 = e[0] - T.back, x1 = e[1] + T.front, n = x1 - x0 - 1;
       const hem = t === hemRow, thighRow = t <= pose.kneeRow;
-      const half = Math.ceil((n - 2) / 2), pat = hem ? 'a'.repeat(n) : 'd' + 'c'.repeat(half) + 'b'.repeat(n - 2 - half) + (thighRow ? T.thighFront : T.shinFront);
+      // (a nearly level thigh can leave a row only 1-2 px wide: it is drawn as outline, never a negative repeat)
+      const half = Math.max(0, Math.ceil((n - 2) / 2)), pat = hem || n < 3 ? 'a'.repeat(Math.max(1, n)) : 'd' + 'c'.repeat(half) + 'b'.repeat(n - 2 - half) + (thighRow ? T.thighFront : T.shinFront);
       const row = 'a' + (t === pose.kneeRow + 1 && !hem ? pat.slice(0, 1) + 'd' + pat.slice(2) : pat) + 'a';
       [...row].forEach((c, j) => items.push([z, x0 + j, t, col(T.colours[c]), null]));
     }
@@ -1119,6 +1165,7 @@ function kickGarment(l, items, isFar, z, legMap, col) {
     const q = key(x, y), sg = seg.get(q);
     if (sg === 'wrap') { const [, sv] = sh.uv(x, y); items.push([z, x, y, col(Wp.colours[sv < -0.5 ? Wp.pattern : Wp.fill] ?? Wp.colours[Wp.fill]), null]); continue; }
     if (sg === 'foot') { const c = legMap.get(q); items.push([z, x, y, col(c === '#' || c === 'o' ? l.outline : l.shoe), null]); continue; }
+    if (T.none) continue;   // boots: shaft and shoe only
     const [tu, tv] = th.uv(x, y), [su, sv] = sh.uv(x, y);
     let c = null;
     // front/back-view legs (section) keep a 1 px margin all along, so a lifted thigh meets the shorts without a step
@@ -1150,7 +1197,14 @@ function posedClothing(l, px, k) {
   const byRow = {}; for (const p of legPx) (byRow[p.y] ??= []).push(p);
   const legRows = Object.keys(byRow).map(Number), top = Math.min(...legRows);
   const LR = l.legRows, BODY_WRAP = 56;   // LR.wrap: first rigid row of the garment's ankle (wrap / boot); LR.foot: first shoe row
-  for (const [which, z] of legPx.length ? [['far', 0], ['near', 2]] : []) legGarment(l, items, byRow, which === 'far', z, L.poses[L[which][k]], legPoses[L[which][k]]);
+  if (legPx.length) {
+    const farFrom = items.length;
+    legGarment(l, items, byRow, true, 0, L.poses[L.far[k]], legPoses[L.far[k]]);
+    const farTo = items.length;
+    legGarment(l, items, byRow, false, 2, L.poses[L.near[k]], legPoses[L.near[k]]);
+    hideFarGarmentUnderNearLeg(items, farFrom, farTo, legPoses[L.near[k]]);
+    seatPatch(l, items, byRow, L.poses[L.near[k]]);
+  }
   // Jacket under the reference near arm: the arm swings away from it, so its under-arm shading becomes jacket
   // base colour (the pixel against the jacket's own outline keeps the edge shade).
   const sway = sashSway(spec.sourceDirection, px, k, l);
@@ -1218,7 +1272,11 @@ function frontalClothing(l, geom, px, k) {
     // garments on band legs are authored on each leg as in E, from the profile garment's leg rows
     const byRow = {};
     for (const p of clothingPixels(l, spec.sourceDirection, false)) if (LIMB[p.part]?.[0] === 'leg') (byRow[p.y] ??= []).push(p);
-    if (Object.keys(byRow).length) for (const lg of frontalLegs(d, k)) legGarment(l, items, byRow, lg.isFar, lg.z, lg.pose, lg.legMap);
+    if (Object.keys(byRow).length) {
+      const legs = frontalLegs(d, k), near = legs.find((lg) => !lg.isFar), spans = [];
+      for (const lg of legs) { const a = items.length; legGarment(l, items, byRow, lg.isFar, lg.z, lg.pose, lg.legMap); if (lg.isFar) spans.push([a, items.length, lg.z]); }
+      if (near) for (const [a, b, z] of spans) if (z < near.z) hideFarGarmentUnderNearLeg(items, a, b, near.legMap);
+    }
   }
   for (const p of px) {
     const part = p.part === 'sash' && isBand(p, l) ? 'pelvis' : p.part;
@@ -1233,7 +1291,7 @@ function frontalClothing(l, geom, px, k) {
     }
   }
   tiptoeFeet(d, k, l.img, order.indexOf(geom) * FRAME, items);
-  return items;
+  return kneeFrontBlocks(d, k, l.img, order.indexOf(geom) * FRAME, items);
 }
 // The sash's hanging flaps swing from the knot: rows below the knot row shift sideways, growing to sashSway[k] at the
 // flaps' lowest row (a pendulum, phased with the step). The band and knot stay with the waist.

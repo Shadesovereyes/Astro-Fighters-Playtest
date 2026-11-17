@@ -141,16 +141,21 @@ def run(d):
     H, W = arms.shape[:2]
     mp = Path(__file__).resolve().parents[2] / '.git/fight-gear-hand-masks' / f'{d.name}.npz'
     masks = dict(np.load(mp)) if mp.exists() else {}
+    # Far hands (drawn on body.png, behind the torso) get their own '<glove>-far' sheet, which the game draws between
+    # the body and the clothing, so shorts, trunks, the Gi or armour hide a far glove the way they hide the far hand;
+    # near hands (arms.png) stay on '<glove>' above the arms.
     for name, g in GLOVES.items():
-        layer = np.zeros_like(arms)
+        layers = {'body': np.zeros_like(arms), 'arms': np.zeros_like(arms)}
         for fy in range(0, H, F):
             for fx in range(0, W, F):
                 for img, key, m in ((body, 'body', arms), (arms, 'arms', None)):
                     mk = masks.get(key)
                     exact = masked_fists(img, mk, fx, fy) if mk is not None else None   # masks mark every hand the renderer drew
-                    paint(layer, fx, fy, exact if exact is not None else fists(img, fx, fy, body=(key == 'body')), g, mask=m)
-        Image.fromarray(layer).save(d / f'{name}.png')
+                    paint(layers[key], fx, fy, exact if exact is not None else fists(img, fx, fy, body=(key == 'body')), g, mask=m)
+        Image.fromarray(layers['arms']).save(d / f'{name}.png')
+        Image.fromarray(layers['body']).save(d / f'{name}-far.png')
         anim['layers'][name] = f'{name}.png'
+        anim['layers'][f'{name}-far'] = f'{name}-far.png'
     (d / 'animation.json').write_text(json.dumps(anim, indent=2, ensure_ascii=False) + '\n')
 
 if __name__ == '__main__':

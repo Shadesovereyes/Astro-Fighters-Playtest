@@ -51,6 +51,7 @@ const CONFIG = {
       // Fight gear (candidates 2026-11-15, generator tools/fight-gear/): cosmetic, arena-legal shorts cut from the Gi silhouette.
       { file: 'Paperdolls/Male/Layer 2 - Clothing/Male Muay Thai Shorts.png', class: 'under-arms' },
       { file: 'Paperdolls/Male/Layer 2 - Clothing/Male Boxing Trunks.png', class: 'under-arms' },
+      { file: 'Paperdolls/Male/Layer 2 - Clothing/Male Boxing Boots.png', class: 'under-arms' },   // 2026-11-16, tools/fight-gear/build_boots.py
       // Stowed weapons (approved by Christopher 2026-10-26, generator tools/stowed-weapons/build_stowed.py): each piece is
       // rigid and rides one part (part), the katana and the cord on the pelvis, the yumi on the torso. The back sheet is
       // drawn behind the body, the front sheet over the clothing and under the arms (runtime slots stowedBack/stowedFront).
