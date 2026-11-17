@@ -60,6 +60,138 @@ def temp_spec(spec, k, limbs, t, tag):
             poses.append(lerp_pose(a, b, t, f'smear-{side}-{k}-{t}')); arr[k - 1] = len(poses) - 1
     return s
 
+TRAIL_FROM = 0.0
+def fist_trail(state, k, side='near', segs=((None, (0.25, 0.5, 0.75, 1.0)), (None, (0.25, 0.5, 0.75, 1.0))), solid=0.5, onto=False):
+    """Hooks and swings (haymaker, hook, uppercut, elbow, body shot): the fist leaves a tapered ribbon along its real
+    path, drawn on the inserted smear frame k (the frame before the impact, see insert_smear). Path: the rig's fist at
+    in-between poses of the two spec moves leading into the inserted frame (spec frames k-2 -> k-1 and k-1 -> k, where
+    k-1/k are the ORIGINAL spec indices of the frames around the insert), found exactly with hand_masks. The ribbon
+    is painted per layer in that layer's own fist colours (bare skin on arms/body, leather on each glove sheet), widens
+    from a point to the fist's own height, the older half dithered, outlined only against empty space, and never
+    covers the figure (own-look and impact rules, Christopher 2026-11-16/17)."""
+    spec = json.loads((ANIM / f'{state}.json').read_text())
+    d = ANIM / state; anim = layers_of(d); rows = anim['sheetLayout']['rows']
+    sys.path.insert(0, str(ROOT / 'tools/fight-gear'))
+    import hand_masks, glove_states
+    sheets = {n: np.array(Image.open(d / f).convert('RGBA')) for n, f in anim['layers'].items() if (d / f).exists()}
+    lay = 'arms' if side == 'near' else 'body'
+    path = {dn: [] for dn in ('E', 'W')}   # per direction: [(t_global, cx, cy, {layer: (mid rgb, light rgb)}, half)]
+    tags = []
+    # onto=True: the trail goes on an existing pre-impact frame k (path spec k-1 -> k), no insert needed
+    jobs = [(k, (0.0, 0.2, 0.4, 0.6, 0.8, 1.0))] if onto else [(k - 1, ts) for ts in [segs[0][1]]] + [(k, [t * 0.55 for t in segs[1][1]])]
+    order = 0
+    for kk, ts in jobs:
+        for t in ts:
+            tag = f'zzTrail{order}{state}'; order += 1; tags.append(tag)
+            (ANIM / f'{tag}.json').write_text(json.dumps(temp_spec(spec, kk, [f'arm-{side}'], t, tag)))
+            r = subprocess.run(['node', 'tools/character-posed.mjs', 'male', tag], cwd=ROOT, capture_output=True, text=True)
+            if r.returncode: raise SystemExit(r.stderr[-800:])
+            hand_masks.run(tag)
+            if any(n.endswith('gloves') for n in sheets): glove_states.run(ANIM / tag)
+            m = np.load(hand_masks.MASKS / f'{tag}.npz')[lay]
+            ta = layers_of(ANIM / tag)
+            tl = {n: np.array(Image.open(ANIM / tag / ta['layers'][n]).convert('RGBA')) for n in sheets if n in ta['layers'] and (ANIM / tag / ta['layers'][n]).exists()}
+            for di, dn in enumerate(rows):
+                if dn not in path: continue
+                y0, x0 = di * F, (kk - 1) * F
+                hm = (m[y0:y0 + F, x0:x0 + F] >= 0) & (m[y0:y0 + F, x0:x0 + F] <= 4)
+                ys, xs = np.nonzero(hm)
+                if not len(ys): continue
+                cols = {}
+                for n, a in tl.items():
+                    c = a[y0:y0 + F, x0:x0 + F]
+                    if n == lay: blob = hm; px = c[hm]
+                    elif n.endswith('gloves'):
+                        g = c[..., 3] > 0
+                        near = np.zeros_like(g)
+                        for yy, xx in zip(ys, xs): near[max(0, yy - 4):yy + 5, max(0, xx - 4):xx + 5] = True
+                        blob = g & near; px = c[blob]
+                    else: continue
+                    px = [tuple(int(v) for v in p[:3]) for p in px if p[3] and tuple(int(v) for v in p[:3]) != (0, 0, 0)]
+                    if not px: continue
+                    if n.endswith('gloves'):   # leather only (the cuff is not part of the swinging fist)
+                        from build_gloves import GLOVES
+                        gl = [tuple(int(h.lstrip('#')[i:i + 2], 16) for i in (0, 2, 4)) for h in GLOVES[n]['glove']]
+                        mid, light = gl[1], gl[0]
+                    else:
+                        lum = sorted(set(px), key=lambda q: -sum(q)); mid = max(set(px), key=px.count); light = lum[0]
+                    # each look's band follows its own fist: the centre and size of that layer's fist (the glove is
+                    # bigger than the hand), so the trail is the fist stretched along its path, not a band off the wrist
+                    by_, bx_ = np.nonzero(blob)
+                    cols[n] = (mid, light, len(px), bx_.mean(), by_.mean(), math.sqrt(blob.sum() / math.pi))
+                path[dn].append((len(path[dn]), xs.mean(), ys.mean(), cols, (ys.max() - ys.min() + 1) / 2))
+    for tag in tags:
+        shutil.rmtree(ANIM / tag, ignore_errors=True); (ANIM / f'{tag}.json').unlink(missing_ok=True)
+        (hand_masks.MASKS / f'{tag}.npz').unlink(missing_ok=True)
+    for di, dn in enumerate(rows):
+        pts = path.get(dn)
+        if not pts or len(pts) < 2: continue
+        y0, x0 = di * F, k * F
+        cur = np.zeros((F, F), bool)
+        # a near fist swings in front of the body: its trail may cross torso and head, stopping only at what is drawn
+        # in front of the body (the arm itself, gloves, armbands); a far fist's trail stays outside the figure
+        # the band reaches the fist itself: it may cover the swinging forearm (it is blurred in the swing), only the
+        # fist (its glove, or the bare hand from the frame's hand mask) stays on top
+        for n, a in sheets.items():
+            if side == 'far' or n.endswith('gloves'): cur |= a[y0:y0 + F, x0:x0 + F, 3] > 0
+        hmk = hand_masks.MASKS / f'{state}.npz'
+        if hmk.exists() and side == 'near':
+            mk = np.load(hmk)[lay]
+            if mk.shape[1] > x0:   # mask of the original sheet (column k is the same frame when trailing onto it)
+                hand = (mk[y0:y0 + F, x0:x0 + F] >= 0) & (mk[y0:y0 + F, x0:x0 + F] <= 4)
+                for dy, dx in ((0, 0), (1, 0), (-1, 0), (0, 1), (0, -1)): cur |= np.roll(np.roll(hand, dy, 0), dx, 1)
+        n_ = len(pts)
+        for n in list(sheets):
+            if n.endswith('trail') or not any(n in p[3] for p in pts): continue
+            grow = 0.5 if n.endswith('gloves') else 0
+            acc = np.zeros((F, F, 4), np.uint8); tmap = np.full((F, F), -1.0)
+            # dense samples along the polyline; the ribbon reaches the in-between fist (last point)
+            for i in range(n_ - 1):
+                (_, ax, ay, ac, ah), (_, bx, by, bc, bh) = pts[i], pts[i + 1]
+                cols = bc.get(n) or ac.get(n)
+                if not cols or n not in ac or n not in bc: continue
+                mid, light = cols[0], cols[1]
+                ax, ay, ah = ac[n][3], ac[n][4], ac[n][5]; bx, by, bh = bc[n][3], bc[n][4], bc[n][5]
+                for u in np.linspace(0, 1, 12, endpoint=False):
+                    tg = (i + u) / (n_ - 1)
+                    cx, cy = ax + (bx - ax) * u, ay + (by - ay) * u
+                    hw = 0.5 + (ah + (bh - ah) * u - 0.5) * tg ** 0.8
+                    for yy in range(int(cy - hw - 1), int(cy + hw + 2)):
+                        for xx in range(int(cx - hw - 1), int(cx + hw + 2)):
+                            if not (0 <= xx < F and 0 <= yy < F): continue
+                            dd = math.hypot(xx - cx, yy - cy)
+                            if dd > hw: continue
+                            if tg >= tmap[yy, xx]:
+                                tmap[yy, xx] = tg
+                                acc[yy, xx, :3] = light if (yy < cy - hw * 0.35) else mid
+                                acc[yy, xx, 3] = 255
+            dith = (tmap >= 0) & (tmap < solid) & ((np.add.outer(np.arange(F), np.arange(F)) % 2) == 1)
+            acc[dith] = 0
+            body = acc[..., 3] > 0
+            outl = np.zeros((F, F), bool)
+            for dy, dx in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+                sh_ = np.roll(np.roll(body, dy, 0), dx, 1)
+                outl |= sh_ & ~body & ~cur
+            # the trail goes on its own sheet per look ('trail' = bare fist, '<glove>-trail'), drawn above the head items
+            # (hair, mongkol, headgear), since a near fist passes in front of the head; the testbed draws the one that
+            # matches the equipped gloves
+            tn = 'trail' if n == lay else f'{n}-trail'
+            if tn not in sheets:
+                sheets[tn] = np.zeros_like(sheets[n]); anim['layers'][tn] = f'{tn}.png'
+            tgt = sheets[tn][y0:y0 + F, x0:x0 + F]
+            put = body & ~cur & (tgt[..., 3] == 0)
+            tgt[put] = acc[put]
+            ob = outl & (tmap < 0) & (tgt[..., 3] == 0)
+            # outline only around the solid (newer) part, so the dithered tail stays soft
+            near_solid = np.zeros((F, F), bool)
+            sol = body & (tmap >= solid)
+            for dy, dx in ((1, 0), (-1, 0), (0, 1), (0, -1)): near_solid |= np.roll(np.roll(sol, dy, 0), dx, 1)
+            ob &= near_solid
+            tgt[ob] = (0, 0, 0, 255)
+    for n, a in sheets.items(): Image.fromarray(a).save(d / anim['layers'][n])
+    (d / 'animation.json').write_text(json.dumps(anim, indent=2))
+    print(state, 'fist trail on', k)
+
 FRONT_LAYERS = ('arms', 'boxing-gloves', 'thai-gloves', 'prajioud')
 HAND_LAYERS = ('arms', 'boxing-gloves', 'thai-gloves', 'prajioud')
 def thrust(sheets, orig, rows, k, reach=5, length=16, solid=0.7):
@@ -111,7 +243,7 @@ def thrust(sheets, orig, rows, k, reach=5, length=16, solid=0.7):
                 if i >= ln // 2 and (X + y) % 2: continue
                 tgt[y, X] = (255, 255, 255, 255) if i < ln // 2 else (0xe3, 0xe3, 0xe3, 255)
 
-def insert_smear(state, k, limbs, t=0.55):
+def insert_smear(state, k, limbs, t=0.55, swing=False):
     """Insert a smear in-between frame before impact frame k (Christopher 2026-11-17: the impact frames have no smear).
     E/W: the limb at an in-between pose (rendered through the rig, every layer) with the exaggerated fist streak
     behind it; S/N: a copy of frame k-1 for now. Every layer sheet gains a column; animation.json frames, columns,
@@ -140,7 +272,7 @@ def insert_smear(state, k, limbs, t=0.55):
             if dn in ('E', 'W'): col[di * F:(di + 1) * F] = tmp[di * F:(di + 1) * F]
         new[n] = np.concatenate([a[:, :k * F], col, a[:, k * F:]], axis=1)
     orig = {n: a.copy() for n, a in new.items()}
-    if any(l.startswith('arm') for l in limbs): thrust(new, orig, rows, k)   # legs get the sweep (run) on the inserted frame
+    if any(l.startswith('arm') for l in limbs) and not swing: thrust(new, orig, rows, k)   # legs get the sweep (run) on the inserted frame
     for n, a in new.items(): Image.fromarray(a).save(d / anim['layers'][n])
     # animation.json
     sh = lambda i: i + 1 if i >= k else i
@@ -359,6 +491,10 @@ def run(state, jobs, steps=tuple(round(0.1 * i, 2) for i in range(1, 10))):
         for p in (ROOT / '.git/fight-gear-hand-masks').glob(f'{tag}*'): p.unlink()
     print(state, 'smear', jobs)
 
+if __name__ == '__main__' and '--trail' in sys.argv:
+    # smear.py <state> --trail k[:far]   (k = the inserted smear frame; run after --insert ... with a :nothrust limb)
+    state = sys.argv[1]; j = sys.argv[sys.argv.index('--trail') + 1].split(':')
+    fist_trail(state, int(j[0]), j[1] if len(j) > 1 else 'near', onto='onto' in j); sys.exit()
 if __name__ == '__main__' and '--impact' in sys.argv:
     state = sys.argv[1]
     for k in sorted((int(x) for x in sys.argv[sys.argv.index('--impact') + 1].split(',')), reverse=True): impact_hold(state, k)
@@ -367,7 +503,7 @@ if __name__ == '__main__' and '--insert' in sys.argv:
     # smear.py <state> --insert k:limbs[,k2:limbs] (impact frames of the ORIGINAL clip; inserted from the last back)
     state = sys.argv[1]; jobs = sys.argv[sys.argv.index('--insert') + 1].split(',')
     for j in sorted(jobs, key=lambda j: -int(j.split(':')[0])):
-        k, l, *t = j.split(':'); insert_smear(state, int(k), l.split('+'), *(float(x) for x in t))   # k:limbs[:t]
+        k, l, *t = j.split(':'); insert_smear(state, int(k), l.split('+'), *(float(x) for x in t), swing='--swing' in sys.argv)   # k:limbs[:t]
     sys.exit()
 if __name__ == '__main__':
     state = sys.argv[1]; jobs = []
