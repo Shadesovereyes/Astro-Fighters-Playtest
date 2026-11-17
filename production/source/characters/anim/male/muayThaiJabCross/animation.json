@@ -3,7 +3,7 @@
   "body": "male",
   "state": "muayThaiJabCross",
   "status": "E/W approved by user 2026-10-20 (W mirrors E); S/N approved by user 2026-10-20 (hands and wrists in front of the body outlined)",
-  "frames": 8,
+  "frames": 12,
   "fps": 12,
   "frameSize": [
     64,
@@ -20,7 +20,7 @@
       "N",
       "W"
     ],
-    "columns": "frames 0–7"
+    "columns": "frames 0\u00e2\u0080\u009311"
   },
   "layers": {
     "body": "body.png",
@@ -121,6 +121,22 @@
       [
         0,
         0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
       ]
     ],
     "E": [
@@ -129,23 +145,39 @@
         0
       ],
       [
-        1,
-        0
-      ],
-      [
-        0,
-        0
-      ],
-      [
-        0,
-        0
-      ],
-      [
         0,
         0
       ],
       [
         1,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        0,
         0
       ],
       [
@@ -189,6 +221,22 @@
       [
         0,
         0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
       ]
     ],
     "W": [
@@ -197,23 +245,39 @@
         0
       ],
       [
-        -1,
-        0
-      ],
-      [
-        0,
-        0
-      ],
-      [
-        0,
-        0
-      ],
-      [
         0,
         0
       ],
       [
         -1,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        -1,
+        0
+      ],
+      [
+        0,
         0
       ],
       [
@@ -233,7 +297,9 @@
         0,
         1,
         2,
-        3
+        3,
+        4,
+        5
       ],
       "fps": 12,
       "next": "muayThaiGuard",
@@ -241,10 +307,12 @@
     },
     "cross": {
       "frames": [
-        4,
-        5,
         6,
-        7
+        7,
+        8,
+        9,
+        10,
+        11
       ],
       "fps": 12,
       "next": "muayThaiGuard",
@@ -262,33 +330,50 @@
       {
         "frame": 1,
         "clip": "jab",
-        "type": "active",
-        "move": "Jab-Cross",
-        "hitbox": [
-          44,
-          26,
-          12,
-          6
-        ],
-        "damage": "light"
+        "type": "startup",
+        "smear": true
       },
       {
         "frame": 2,
         "clip": "jab",
-        "type": "recovery"
+        "type": "active",
+        "move": "Jab-Cross",
+        "hitbox": [
+          44,
+          26,
+          12,
+          6
+        ],
+        "damage": "light"
       },
       {
         "frame": 3,
         "clip": "jab",
-        "type": "recovery"
+        "type": "impactHold"
       },
       {
         "frame": 4,
+        "clip": "jab",
+        "type": "recovery"
+      },
+      {
+        "frame": 5,
+        "clip": "jab",
+        "type": "recovery"
+      },
+      {
+        "frame": 6,
         "clip": "cross",
         "type": "startup"
       },
       {
-        "frame": 5,
+        "frame": 7,
+        "clip": "cross",
+        "type": "startup",
+        "smear": true
+      },
+      {
+        "frame": 8,
         "clip": "cross",
         "type": "active",
         "move": "Jab-Cross",
@@ -301,12 +386,17 @@
         "damage": "light"
       },
       {
-        "frame": 6,
+        "frame": 9,
+        "clip": "cross",
+        "type": "impactHold"
+      },
+      {
+        "frame": 10,
         "clip": "cross",
         "type": "recovery"
       },
       {
-        "frame": 7,
+        "frame": 11,
         "clip": "cross",
         "type": "recovery"
       }
@@ -320,33 +410,50 @@
       {
         "frame": 1,
         "clip": "jab",
-        "type": "active",
-        "move": "Jab-Cross",
-        "hitbox": [
-          8,
-          26,
-          12,
-          6
-        ],
-        "damage": "light"
+        "type": "startup",
+        "smear": true
       },
       {
         "frame": 2,
         "clip": "jab",
-        "type": "recovery"
+        "type": "active",
+        "move": "Jab-Cross",
+        "hitbox": [
+          8,
+          26,
+          12,
+          6
+        ],
+        "damage": "light"
       },
       {
         "frame": 3,
         "clip": "jab",
-        "type": "recovery"
+        "type": "impactHold"
       },
       {
         "frame": 4,
+        "clip": "jab",
+        "type": "recovery"
+      },
+      {
+        "frame": 5,
+        "clip": "jab",
+        "type": "recovery"
+      },
+      {
+        "frame": 6,
         "clip": "cross",
         "type": "startup"
       },
       {
-        "frame": 5,
+        "frame": 7,
+        "clip": "cross",
+        "type": "startup",
+        "smear": true
+      },
+      {
+        "frame": 8,
         "clip": "cross",
         "type": "active",
         "move": "Jab-Cross",
@@ -359,12 +466,17 @@
         "damage": "light"
       },
       {
-        "frame": 6,
+        "frame": 9,
+        "clip": "cross",
+        "type": "impactHold"
+      },
+      {
+        "frame": 10,
         "clip": "cross",
         "type": "recovery"
       },
       {
-        "frame": 7,
+        "frame": 11,
         "clip": "cross",
         "type": "recovery"
       }
@@ -963,5 +1075,81 @@
       }
     },
     "pass": true
-  }
+  },
+  "smearFrames": [
+    {
+      "before": 5,
+      "frame": 5,
+      "limbs": [
+        "arm-near"
+      ],
+      "rule": "smear in-between inserted before the impact frame (tools/smear.py --insert)"
+    },
+    {
+      "before": 1,
+      "frame": 1,
+      "limbs": [
+        "arm-far"
+      ],
+      "rule": "smear in-between inserted before the impact frame (tools/smear.py --insert)"
+    }
+  ],
+  "impactFx": [
+    {
+      "dir": "E",
+      "frame": 8,
+      "held": 9,
+      "x": 54,
+      "y": 24.5,
+      "facing": 1,
+      "style": "halfPop",
+      "gearReach": {
+        "boxing-gloves": 1,
+        "thai-gloves": 1
+      }
+    },
+    {
+      "dir": "W",
+      "frame": 8,
+      "held": 9,
+      "x": 9,
+      "y": 24.5,
+      "facing": -1,
+      "style": "halfPop",
+      "gearReach": {
+        "boxing-gloves": 1,
+        "thai-gloves": 1
+      }
+    },
+    {
+      "dir": "E",
+      "frame": 2,
+      "held": 3,
+      "x": 52,
+      "y": 24.0,
+      "facing": 1,
+      "style": "halfPop"
+    },
+    {
+      "dir": "W",
+      "frame": 2,
+      "held": 3,
+      "x": 11,
+      "y": 24.0,
+      "facing": -1,
+      "style": "halfPop"
+    }
+  ],
+  "impactHolds": [
+    {
+      "frame": 8,
+      "held": 9,
+      "rule": "impact frame held one extra tick with impact fx (tools/smear.py --impact)"
+    },
+    {
+      "frame": 2,
+      "held": 3,
+      "rule": "impact frame held one extra tick with impact fx (tools/smear.py --impact)"
+    }
+  ]
 }
