@@ -72,7 +72,9 @@
     "boxing-headgear": "boxing-headgear.png",
     "boxing-gloves": "boxing-gloves.png",
     "thai-gloves": "thai-gloves.png",
-    "male-boxing-boots": "male-boxing-boots.png"
+    "male-boxing-boots": "male-boxing-boots.png",
+    "boxing-gloves-far": "boxing-gloves-far.png",
+    "thai-gloves-far": "thai-gloves-far.png"
   },
   "pendingLayers": [],
   "drawOrder": [

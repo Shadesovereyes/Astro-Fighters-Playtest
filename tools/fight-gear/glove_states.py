@@ -106,9 +106,22 @@ def fists(img, fx, fy, body=False):
         out.append((hand, outl, set(wc), px))
     return out
 
+def align_to_cuff(glove_px, hand, cuffs):
+    """A straight (horizontal) forearm ends in a vertical wrap stripe: the glove is centred on that stripe's rows, so
+    it sits on the forearm's line instead of following the band hand's raised knuckles (Christopher 2026-11-17: the
+    cross glove looked rotated upward, not aligned with the forearm). Returns the row shift (0 when not straight)."""
+    near = {q for q in cuffs if any(abs(q[0] - x) + abs(q[1] - y) <= 2 for (x, y) in hand)}
+    if len(near) < 3: return 0
+    xs = [x for x, _ in near]; ys = [y for _, y in near]
+    if max(xs) - min(xs) > 2 or max(ys) - min(ys) < 2: return 0
+    gy = [y for _, y in glove_px]
+    dy = round((min(ys) + max(ys)) / 2 - (min(gy) + max(gy)) / 2)
+    return dy if abs(dy) <= 2 else 0
+
 def paint(layer, fx, fy, found, g, mask=None):
     H = W = F
     cell = {}
+    allcuff = set().union(*[item[2] for item in found]) if found else set()
     for item in found:
         hand, outl, cuff, px = item[:4]
         tone = item[4] if len(item) > 4 else None
@@ -123,6 +136,12 @@ def paint(layer, fx, fy, found, g, mask=None):
             for q in ring - glove - cuff:
                 if 0 <= q[0] < W and 0 <= q[1] < H:
                     cell[q] = hx(g['glove'][2]); glove.add(q)
+        dy = align_to_cuff(glove, hand, allcuff) if hand else 0
+        if dy:
+            moved = {(x, y + dy): cell[(x, y)] for (x, y) in glove if (x, y) in cell}
+            for q in glove | {q for q in outl if q in cell and not cell[q][:3].any()}: cell.pop(q, None)
+            glove = {q for q in moved if 0 <= q[1] < H}
+            cell.update({q: c for q, c in moved.items() if 0 <= q[1] < H})
         # fresh outline round leather and cuff
         for (x, y) in list(glove | cuff):
             for dx, dy in N4:
