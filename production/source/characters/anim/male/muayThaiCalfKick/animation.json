@@ -3,7 +3,7 @@
   "body": "male",
   "state": "muayThaiCalfKick",
   "status": "E/W approved by user 2026-10-20 (W mirrors E); S/N approved by user 2026-10-20 (turned trunk keeps its depth, edf90c3)",
-  "frames": 5,
+  "frames": 7,
   "fps": 12,
   "frameSize": [
     64,
@@ -20,7 +20,7 @@
       "N",
       "W"
     ],
-    "columns": "frames 0–4"
+    "columns": "frames 0\u00e2\u0080\u00936"
   },
   "layers": {
     "body": "body.png",
@@ -109,6 +109,14 @@
       [
         0,
         0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
       ]
     ],
     "E": [
@@ -121,7 +129,15 @@
         0
       ],
       [
+        0,
+        0
+      ],
+      [
         1,
+        0
+      ],
+      [
+        0,
         0
       ],
       [
@@ -153,6 +169,14 @@
       [
         0,
         0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
       ]
     ],
     "W": [
@@ -165,7 +189,15 @@
         0
       ],
       [
+        0,
+        0
+      ],
+      [
         -1,
+        0
+      ],
+      [
+        0,
         0
       ],
       [
@@ -186,7 +218,9 @@
         1,
         2,
         3,
-        4
+        4,
+        5,
+        6
       ],
       "fps": 12,
       "next": "muayThaiGuard",
@@ -209,6 +243,12 @@
       {
         "frame": 2,
         "clip": "calfKick",
+        "type": "startup",
+        "smear": true
+      },
+      {
+        "frame": 3,
+        "clip": "calfKick",
         "type": "active",
         "move": "Calf Kick",
         "hitbox": [
@@ -220,12 +260,17 @@
         "damage": "heavy"
       },
       {
-        "frame": 3,
+        "frame": 4,
+        "clip": "calfKick",
+        "type": "impactHold"
+      },
+      {
+        "frame": 5,
         "clip": "calfKick",
         "type": "recovery"
       },
       {
-        "frame": 4,
+        "frame": 6,
         "clip": "calfKick",
         "type": "recovery"
       }
@@ -244,6 +289,12 @@
       {
         "frame": 2,
         "clip": "calfKick",
+        "type": "startup",
+        "smear": true
+      },
+      {
+        "frame": 3,
+        "clip": "calfKick",
         "type": "active",
         "move": "Calf Kick",
         "hitbox": [
@@ -255,12 +306,17 @@
         "damage": "heavy"
       },
       {
-        "frame": 3,
+        "frame": 4,
+        "clip": "calfKick",
+        "type": "impactHold"
+      },
+      {
+        "frame": 5,
         "clip": "calfKick",
         "type": "recovery"
       },
       {
-        "frame": 4,
+        "frame": 6,
         "clip": "calfKick",
         "type": "recovery"
       }
@@ -656,5 +712,44 @@
       }
     },
     "pass": false
-  }
+  },
+  "smearFrames": [
+    {
+      "before": 2,
+      "frame": 2,
+      "limbs": [
+        "leg-far"
+      ],
+      "rule": "smear in-between inserted before the impact frame (tools/smear.py --insert)"
+    }
+  ],
+  "impactFx": [
+    {
+      "dir": "E",
+      "frame": 3,
+      "held": 4,
+      "x": 59,
+      "y": 48.0,
+      "facing": 1,
+      "style": "halfPop",
+      "angle": 0
+    },
+    {
+      "dir": "W",
+      "frame": 3,
+      "held": 4,
+      "x": 4,
+      "y": 48.0,
+      "facing": -1,
+      "style": "halfPop",
+      "angle": 0
+    }
+  ],
+  "impactHolds": [
+    {
+      "frame": 3,
+      "held": 4,
+      "rule": "impact frame held one extra tick with impact fx (tools/smear.py --impact)"
+    }
+  ]
 }

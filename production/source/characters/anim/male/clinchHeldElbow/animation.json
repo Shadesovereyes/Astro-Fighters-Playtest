@@ -3,7 +3,7 @@
   "body": "male",
   "state": "clinchHeldElbow",
   "status": "E/W approved by user 2026-10-14 (paired; hit-recoil eyes on the holder); S/N to author",
-  "frames": 8,
+  "frames": 9,
   "fps": 12,
   "frameSize": [
     64,
@@ -18,7 +18,7 @@
       "E",
       "W"
     ],
-    "columns": "frames 0–7"
+    "columns": "frames 0\u00e2\u0080\u00938"
   },
   "layers": {
     "body": "body.png",
@@ -75,7 +75,10 @@
     "thai-gloves": "thai-gloves.png",
     "male-boxing-boots": "male-boxing-boots.png",
     "boxing-gloves-far": "boxing-gloves-far.png",
-    "thai-gloves-far": "thai-gloves-far.png"
+    "thai-gloves-far": "thai-gloves-far.png",
+    "trail": "trail.png",
+    "boxing-gloves-trail": "boxing-gloves-trail.png",
+    "thai-gloves-trail": "thai-gloves-trail.png"
   },
   "pendingLayers": [],
   "drawOrder": [
@@ -114,6 +117,10 @@
         0
       ],
       [
+        0,
+        0
+      ],
+      [
         -1,
         0
       ],
@@ -148,6 +155,10 @@
         0
       ],
       [
+        0,
+        0
+      ],
+      [
         1,
         0
       ],
@@ -168,7 +179,8 @@
         4,
         5,
         6,
-        7
+        7,
+        8
       ],
       "fps": 12,
       "next": "clinchHeld"
@@ -207,7 +219,8 @@
       },
       {
         "frame": 5,
-        "type": "recovery"
+        "clip": null,
+        "type": "impactHold"
       },
       {
         "frame": 6,
@@ -215,6 +228,10 @@
       },
       {
         "frame": 7,
+        "type": "recovery"
+      },
+      {
+        "frame": 8,
         "type": "recovery"
       }
     ],
@@ -249,7 +266,8 @@
       },
       {
         "frame": 5,
-        "type": "recovery"
+        "clip": null,
+        "type": "impactHold"
       },
       {
         "frame": 6,
@@ -257,6 +275,10 @@
       },
       {
         "frame": 7,
+        "type": "recovery"
+      },
+      {
+        "frame": 8,
         "type": "recovery"
       }
     ]
@@ -562,5 +584,34 @@
       }
     },
     "pass": true
-  }
+  },
+  "impactFx": [
+    {
+      "dir": "E",
+      "frame": 4,
+      "held": 5,
+      "x": 43,
+      "y": 23.5,
+      "facing": 1,
+      "style": "halfPop",
+      "angle": 0
+    },
+    {
+      "dir": "W",
+      "frame": 4,
+      "held": 5,
+      "x": 20,
+      "y": 23.5,
+      "facing": -1,
+      "style": "halfPop",
+      "angle": 0
+    }
+  ],
+  "impactHolds": [
+    {
+      "frame": 4,
+      "held": 5,
+      "rule": "impact frame held one extra tick with impact fx (tools/smear.py --impact)"
+    }
+  ]
 }

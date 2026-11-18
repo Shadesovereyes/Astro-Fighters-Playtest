@@ -3,7 +3,7 @@
   "body": "male",
   "state": "clinchHeldHeadbutt",
   "status": "E/W candidate 2026-10-16 (Headbutt from the held side of the clinch, paired with clinchHoldHeadbuttHit), awaiting user approval; S/N to author",
-  "frames": 8,
+  "frames": 9,
   "fps": 12,
   "frameSize": [
     64,
@@ -18,7 +18,7 @@
       "E",
       "W"
     ],
-    "columns": "frames 0–7"
+    "columns": "frames 0\u00e2\u0080\u00938"
   },
   "layers": {
     "body": "body.png",
@@ -121,9 +121,17 @@
       [
         0,
         0
+      ],
+      [
+        0,
+        0
       ]
     ],
     "W": [
+      [
+        0,
+        0
+      ],
       [
         0,
         0
@@ -169,7 +177,8 @@
         4,
         5,
         6,
-        7
+        7,
+        8
       ],
       "fps": 12,
       "next": "clinchHeld"
@@ -204,7 +213,8 @@
       },
       {
         "frame": 4,
-        "type": "recovery"
+        "clip": null,
+        "type": "impactHold"
       },
       {
         "frame": 5,
@@ -216,6 +226,10 @@
       },
       {
         "frame": 7,
+        "type": "recovery"
+      },
+      {
+        "frame": 8,
         "type": "recovery"
       }
     ],
@@ -246,7 +260,8 @@
       },
       {
         "frame": 4,
-        "type": "recovery"
+        "clip": null,
+        "type": "impactHold"
       },
       {
         "frame": 5,
@@ -258,6 +273,10 @@
       },
       {
         "frame": 7,
+        "type": "recovery"
+      },
+      {
+        "frame": 8,
         "type": "recovery"
       }
     ]
@@ -563,5 +582,34 @@
       }
     },
     "pass": true
-  }
+  },
+  "impactFx": [
+    {
+      "dir": "E",
+      "frame": 3,
+      "held": 4,
+      "x": 47,
+      "y": 14.5,
+      "facing": 1,
+      "style": "halfPop",
+      "angle": 0
+    },
+    {
+      "dir": "W",
+      "frame": 3,
+      "held": 4,
+      "x": 16,
+      "y": 14.5,
+      "facing": -1,
+      "style": "halfPop",
+      "angle": 0
+    }
+  ],
+  "impactHolds": [
+    {
+      "frame": 3,
+      "held": 4,
+      "rule": "impact frame held one extra tick with impact fx (tools/smear.py --impact)"
+    }
+  ]
 }

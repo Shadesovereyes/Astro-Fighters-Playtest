@@ -2,8 +2,8 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "adamantineShin",
-  "status": "E/W approved by user 2026-10-29 (v1 crystal sheath grows over the shin, crystal shin kick at thigh height with crack and shard burst, 2ca22687; W mirrors E); S/N to author",
-  "frames": 9,
+  "status": "E/W approved by user 2026-11-18 18:07 (v3.1 13 frames: knee lift, rise, chamber, half-way swing, snap kick, two-step set-down; crystal shin guard plate forms on the front of the shin and shatters on impact; W mirrors E); v1 2026-10-29 crystal sheath; S/N to author",
+  "frames": 13,
   "fps": 12,
   "sourceDirection": "E",
   "directions": [
@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Adamantine Shin (Capricorn taijutsu strike, Physical 16, Guard Break, 1.5x poise damage, Bleed 2 rounds 3/tick: a bone-hard shin that cracks structure): from the guard the fighter lifts the near knee and crystal starts to grow over the shin from the ankle up, teal facets with white glints; it chambers the knee high as the crystal sheath closes over the whole shin, a glint flashing on it; then it pivots on the lead foot and snaps the crystal shin through level at the opponent's thigh, a crystal-white burst, a teal shock ring and a cross-shaped crack flashing at the point of impact and crystal shards and grit flying off; it drives through, recoils the leg and sets it down, the crystal flaking away, back into the guard.",
+  "intent": "Adamantine Shin (Capricorn taijutsu strike, Physical 16, Guard Break, 1.5x poise damage, Bleed 2 rounds 3/tick: a bone-hard shin that cracks structure): from the guard the fighter lifts the near knee and crystal starts to grow over the shin from the ankle up, teal facets with white glints; it chambers the knee high as the crystal sheath closes over the whole shin, a glint flashing on it; then it pivots on the lead foot and snaps the crystal shin through level at the opponent's thigh, a crystal-white burst, a teal shock ring and a cross-shaped crack flashing at the point of impact and crystal shards and grit flying off; it drives through, recoils the leg and sets it down, the crystal flaking away, back into the guard. v3 (2026-11-18): 13 frames, in-betweens on the knee lift, the rise into the chamber, a half-way swing of the crystal shin before it snaps through, and a two-step set-down.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -109,8 +109,12 @@
     "dy": [
       1,
       1,
+      1,
       0,
       0,
+      0,
+      1,
+      1,
       1,
       1,
       1,
@@ -120,8 +124,12 @@
     "head": [
       1,
       1,
+      1,
       0,
       0,
+      0,
+      1,
+      1,
       1,
       1,
       1,
@@ -135,7 +143,11 @@
       1,
       1,
       1,
+      1,
+      1,
+      1,
       2,
+      1,
       1,
       2
     ]
@@ -149,8 +161,12 @@
         0,
         0,
         0,
+        0,
+        0,
         -1,
         -1,
+        -1,
+        0,
         0,
         0,
         0
@@ -158,11 +174,15 @@
       "head": [
         2,
         0,
+        0,
         -1,
         -1,
+        -1,
+        -2,
         -3,
         -3,
         -1,
+        0,
         0,
         2
       ]
@@ -188,7 +208,23 @@
         0
       ],
       [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
         1,
+        0
+      ],
+      [
+        0,
         0
       ],
       [
@@ -226,7 +262,23 @@
         0
       ],
       [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
         -1,
+        0
+      ],
+      [
+        0,
         0
       ],
       [
@@ -1142,6 +1194,396 @@
         "foot": "toe30k"
       },
       {
+        "name": "ar-lift-lead",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 44,
+        "kneeX": 37,
+        "kneeRow": 49,
+        "ankle": [
+          38,
+          54
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "ar-plant-lead",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 45,
+        "kneeX": 38,
+        "kneeRow": 51,
+        "footX": 41,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "ar-plant-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 45,
+        "kneeX": 29,
+        "kneeRow": 51,
+        "footX": 26,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "ar-drag-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 45,
+        "kneeX": 28,
+        "kneeRow": 51,
+        "ankle": [
+          24,
+          55
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "ar-buckle-lead",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 47,
+        "kneeX": 39,
+        "kneeRow": 51,
+        "footX": 40,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "ar-buckle-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 47,
+        "kneeX": 29,
+        "kneeRow": 53,
+        "footX": 25,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "aw-0-near",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 45,
+        "kneeX": 35,
+        "kneeRow": 51,
+        "footX": 37,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "aw-0-far",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 45,
+        "kneeX": 37,
+        "kneeRow": 51,
+        "footX": 39,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "aw-1-near",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 45,
+        "kneeX": 33,
+        "kneeRow": 51,
+        "footX": 34,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "aw-1-far",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 45,
+        "kneeX": 35,
+        "kneeRow": 51,
+        "footX": 36,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "aw-2-near",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 45,
+        "kneeX": 31,
+        "kneeRow": 51,
+        "footX": 31,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "aw-2-far",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 45,
+        "kneeX": 33,
+        "kneeRow": 51,
+        "footX": 33,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "aw-3-near",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 45,
+        "kneeX": 29,
+        "kneeRow": 51,
+        "footX": 27,
+        "wrapRow": 54,
+        "foot": "toe60"
+      },
+      {
+        "name": "aw-3-far",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 45,
+        "kneeX": 31,
+        "kneeRow": 51,
+        "footX": 29,
+        "wrapRow": 54,
+        "foot": "toe60"
+      },
+      {
+        "name": "aw-4-near",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 45,
+        "kneeX": 28,
+        "kneeRow": 51,
+        "ankle": [
+          24,
+          57
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "aw-4-far",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 45,
+        "kneeX": 30,
+        "kneeRow": 51,
+        "ankle": [
+          26,
+          57
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "aw-5-near",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 45,
+        "kneeX": 31,
+        "kneeRow": 50,
+        "ankle": [
+          29,
+          56
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "aw-5-far",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 45,
+        "kneeX": 33,
+        "kneeRow": 50,
+        "ankle": [
+          31,
+          56
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "aw-6-near",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 45,
+        "kneeX": 35,
+        "kneeRow": 49,
+        "ankle": [
+          34,
+          55
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "aw-6-far",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 45,
+        "kneeX": 37,
+        "kneeRow": 49,
+        "ankle": [
+          36,
+          55
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "aw-7-near",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 45,
+        "kneeX": 37,
+        "kneeRow": 50,
+        "ankle": [
+          37,
+          56
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "aw-7-far",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 45,
+        "kneeX": 39,
+        "kneeRow": 50,
+        "ankle": [
+          39,
+          56
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "gs-back-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 50,
+        "kneeX": 24,
+        "kneeRow": 55,
+        "ankle": [
+          16,
+          57
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "gs-mid-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 50,
+        "kneeX": 34,
+        "kneeRow": 54,
+        "ankle": [
+          37,
+          56
+        ],
+        "foot": "pointFwd"
+      },
+      {
+        "name": "gs-front-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 50,
+        "kneeX": 40,
+        "kneeRow": 55,
+        "ankle": [
+          49,
+          57
+        ],
+        "foot": "pointFwd"
+      },
+      {
+        "name": "gs-crouch-lead",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 50,
+        "kneeX": 40,
+        "kneeRow": 49,
+        "footX": 41,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "gs-far-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 50,
+        "kneeX": 41,
+        "kneeRow": 54,
+        "ankle": [
+          51,
+          55
+        ],
+        "foot": "pointFwd"
+      },
+      {
+        "name": "gs-wide-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 50,
+        "kneeX": 22,
+        "kneeRow": 54,
+        "ankle": [
+          13,
+          57
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "sw-up-lead",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 43,
+        "kneeX": 39,
+        "kneeRow": 45,
+        "ankle": [
+          45,
+          47
+        ],
+        "foot": "pointFwd"
+      },
+      {
+        "name": "sw-up-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 43,
+        "kneeX": 36,
+        "kneeRow": 46,
+        "ankle": [
+          42,
+          49
+        ],
+        "foot": "pointFwd"
+      },
+      {
+        "name": "sw-hi-lead",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 43,
+        "kneeX": 39,
+        "kneeRow": 41,
+        "ankle": [
+          45,
+          39
+        ],
+        "foot": "pointUR"
+      },
+      {
+        "name": "sw-hi-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 43,
+        "kneeX": 37,
+        "kneeRow": 43,
+        "ankle": [
+          43,
+          42
+        ],
+        "foot": "pointFwd"
+      },
+      {
         "name": "as-lift",
         "construction": "band",
         "hipX": 34,
@@ -1205,21 +1647,371 @@
           52
         ],
         "foot": "toe30k"
+      },
+      {
+        "name": "tsl-surf-lead",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 46,
+        "kneeX": 40,
+        "kneeRow": 51,
+        "footX": 42,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "tsl-surf-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 46,
+        "kneeX": 25,
+        "kneeRow": 51,
+        "ankle": [
+          21,
+          56
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "tsl-tuck-lead",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 44,
+        "kneeX": 40,
+        "kneeRow": 47,
+        "ankle": [
+          37,
+          53
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "tsl-tuck-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 44,
+        "kneeX": 24,
+        "kneeRow": 47,
+        "ankle": [
+          19,
+          51
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "es-sit-lead",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 52,
+        "kneeX": 40,
+        "kneeRow": 48,
+        "ankle": [
+          45,
+          55
+        ],
+        "foot": "pointFwd"
+      },
+      {
+        "name": "es-sit-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 52,
+        "kneeX": 37,
+        "kneeRow": 55,
+        "ankle": [
+          42,
+          56
+        ],
+        "foot": "pointFwd"
+      },
+      {
+        "name": "es-lie-lead",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 53,
+        "kneeX": 40,
+        "kneeRow": 51,
+        "ankle": [
+          46,
+          55
+        ],
+        "foot": "pointFwd"
+      },
+      {
+        "name": "es-lie-rear",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 53,
+        "kneeX": 38,
+        "kneeRow": 55,
+        "ankle": [
+          45,
+          56
+        ],
+        "foot": "pointFwd"
+      },
+      {
+        "name": "lw-0-near",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 43,
+        "kneeX": 36,
+        "kneeRow": 50,
+        "footX": 37,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "lw-0-far",
+        "construction": "band",
+        "hipX": 32,
+        "hipRow": 43,
+        "kneeX": 37,
+        "kneeRow": 50,
+        "footX": 38,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "lw-1-near",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 43,
+        "kneeX": 34,
+        "kneeRow": 50,
+        "footX": 34,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "lw-1-far",
+        "construction": "band",
+        "hipX": 32,
+        "hipRow": 43,
+        "kneeX": 35,
+        "kneeRow": 50,
+        "footX": 35,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "lw-2-near",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 43,
+        "kneeX": 32,
+        "kneeRow": 50,
+        "footX": 31,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "lw-2-far",
+        "construction": "band",
+        "hipX": 32,
+        "hipRow": 43,
+        "kneeX": 33,
+        "kneeRow": 50,
+        "footX": 32,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "lw-3-near",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 43,
+        "kneeX": 30,
+        "kneeRow": 50,
+        "footX": 28,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "lw-3-far",
+        "construction": "band",
+        "hipX": 32,
+        "hipRow": 43,
+        "kneeX": 31,
+        "kneeRow": 50,
+        "footX": 29,
+        "wrapRow": 56,
+        "foot": "flat"
+      },
+      {
+        "name": "lw-4-near",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 43,
+        "kneeX": 29,
+        "kneeRow": 50,
+        "footX": 25,
+        "wrapRow": 54,
+        "foot": "toe60"
+      },
+      {
+        "name": "lw-4-far",
+        "construction": "band",
+        "hipX": 32,
+        "hipRow": 43,
+        "kneeX": 30,
+        "kneeRow": 50,
+        "footX": 26,
+        "wrapRow": 54,
+        "foot": "toe60"
+      },
+      {
+        "name": "lw-5-near",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 43,
+        "kneeX": 30,
+        "kneeRow": 50,
+        "ankle": [
+          26,
+          55
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "lw-5-far",
+        "construction": "band",
+        "hipX": 32,
+        "hipRow": 43,
+        "kneeX": 31,
+        "kneeRow": 50,
+        "ankle": [
+          27,
+          55
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "lw-6-near",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 43,
+        "kneeX": 34,
+        "kneeRow": 49,
+        "ankle": [
+          32,
+          55
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "lw-6-far",
+        "construction": "band",
+        "hipX": 32,
+        "hipRow": 43,
+        "kneeX": 35,
+        "kneeRow": 49,
+        "ankle": [
+          33,
+          55
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "lw-7-near",
+        "construction": "band",
+        "hipX": 31,
+        "hipRow": 43,
+        "kneeX": 36,
+        "kneeRow": 49,
+        "ankle": [
+          36,
+          55
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "lw-7-far",
+        "construction": "band",
+        "hipX": 32,
+        "hipRow": 43,
+        "kneeX": 37,
+        "kneeRow": 49,
+        "ankle": [
+          37,
+          55
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "as-lift0",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 42,
+        "kneeX": 34,
+        "kneeRow": 48,
+        "ankle": [
+          32,
+          54
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "as-rise",
+        "construction": "band",
+        "hipX": 34,
+        "hipRow": 40,
+        "kneeX": 40,
+        "kneeRow": 41,
+        "ankle": [
+          38,
+          49
+        ],
+        "foot": "toe30k"
+      },
+      {
+        "name": "as-swing",
+        "construction": "band",
+        "hipX": 34,
+        "hipRow": 41,
+        "kneeX": 42,
+        "kneeRow": 41,
+        "ankle": [
+          46,
+          47
+        ],
+        "foot": "pointFwd"
+      },
+      {
+        "name": "as-recoil2",
+        "construction": "band",
+        "hipX": 33,
+        "hipRow": 42,
+        "kneeX": 34,
+        "kneeRow": 48,
+        "ankle": [
+          31,
+          54
+        ],
+        "foot": "toe30k"
       }
     ],
     "near": [
       1,
-      51,
-      52,
-      52,
-      53,
-      54,
-      55,
+      112,
+      83,
+      113,
+      84,
+      84,
+      114,
+      85,
+      86,
+      87,
+      115,
       1,
       1
     ],
     "far": [
       0,
+      35,
+      35,
+      35,
+      35,
       35,
       35,
       35,
@@ -1256,6 +2048,14 @@
       },
       {
         "construction": "band",
+        "angle": 5,
+        "elbow": {
+          "at": 8,
+          "angle": -65
+        }
+      },
+      {
+        "construction": "band",
         "angle": 10,
         "elbow": {
           "at": 8,
@@ -1264,6 +2064,14 @@
       },
       {
         "construction": "band",
+        "angle": 12,
+        "elbow": {
+          "at": 8,
+          "angle": -55
+        }
+      },
+      {
+        "construction": "band",
         "angle": 15,
         "elbow": {
           "at": 8,
@@ -1276,6 +2084,14 @@
         "elbow": {
           "at": 8,
           "angle": -50
+        }
+      },
+      {
+        "construction": "band",
+        "angle": 28,
+        "elbow": {
+          "at": 8,
+          "angle": -35
         }
       },
       {
@@ -1300,6 +2116,14 @@
         "elbow": {
           "at": 8,
           "angle": -40
+        }
+      },
+      {
+        "construction": "band",
+        "angle": 10,
+        "elbow": {
+          "at": 8,
+          "angle": -50
         }
       },
       {
@@ -1330,6 +2154,14 @@
       },
       {
         "construction": "band",
+        "angle": -55,
+        "elbow": {
+          "at": 8,
+          "angle": -88
+        }
+      },
+      {
+        "construction": "band",
         "angle": -60,
         "elbow": {
           "at": 8,
@@ -1338,6 +2170,14 @@
       },
       {
         "construction": "band",
+        "angle": -62,
+        "elbow": {
+          "at": 8,
+          "angle": -92
+        }
+      },
+      {
+        "construction": "band",
         "angle": -65,
         "elbow": {
           "at": 8,
@@ -1350,6 +2190,14 @@
         "elbow": {
           "at": 8,
           "angle": -95
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -72,
+        "elbow": {
+          "at": 8,
+          "angle": -98
         }
       },
       {
@@ -1374,6 +2222,14 @@
         "elbow": {
           "at": 8,
           "angle": -90
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -60,
+        "elbow": {
+          "at": 8,
+          "angle": -88
         }
       },
       {
@@ -1561,6 +2417,10 @@
       "bandFollowsBody": true,
       "sway": {
         "E": [
+          -1,
+          -1,
+          -1,
+          -1,
           -1,
           -1,
           -1,
@@ -2360,7 +3220,11 @@
         5,
         6,
         7,
-        8
+        8,
+        9,
+        10,
+        11,
+        12
       ],
       "fps": 12,
       "next": "guard",
@@ -2393,6 +3257,21 @@
       {
         "frame": 4,
         "clip": "adamantineShin",
+        "type": "startup"
+      },
+      {
+        "frame": 5,
+        "clip": "adamantineShin",
+        "type": "startup"
+      },
+      {
+        "frame": 6,
+        "clip": "adamantineShin",
+        "type": "startup"
+      },
+      {
+        "frame": 7,
+        "clip": "adamantineShin",
         "type": "active",
         "move": "Adamantine Shin",
         "hitbox": [
@@ -2404,22 +3283,27 @@
         "damage": "heavy"
       },
       {
-        "frame": 5,
-        "clip": "adamantineShin",
-        "type": "recovery"
-      },
-      {
-        "frame": 6,
-        "clip": "adamantineShin",
-        "type": "recovery"
-      },
-      {
-        "frame": 7,
-        "clip": "adamantineShin",
-        "type": "recovery"
-      },
-      {
         "frame": 8,
+        "clip": "adamantineShin",
+        "type": "recovery"
+      },
+      {
+        "frame": 9,
+        "clip": "adamantineShin",
+        "type": "recovery"
+      },
+      {
+        "frame": 10,
+        "clip": "adamantineShin",
+        "type": "recovery"
+      },
+      {
+        "frame": 11,
+        "clip": "adamantineShin",
+        "type": "recovery"
+      },
+      {
+        "frame": 12,
         "clip": "adamantineShin",
         "type": "recovery"
       }
@@ -2448,6 +3332,21 @@
       {
         "frame": 4,
         "clip": "adamantineShin",
+        "type": "startup"
+      },
+      {
+        "frame": 5,
+        "clip": "adamantineShin",
+        "type": "startup"
+      },
+      {
+        "frame": 6,
+        "clip": "adamantineShin",
+        "type": "startup"
+      },
+      {
+        "frame": 7,
+        "clip": "adamantineShin",
         "type": "active",
         "move": "Adamantine Shin",
         "hitbox": [
@@ -2459,22 +3358,27 @@
         "damage": "heavy"
       },
       {
-        "frame": 5,
-        "clip": "adamantineShin",
-        "type": "recovery"
-      },
-      {
-        "frame": 6,
-        "clip": "adamantineShin",
-        "type": "recovery"
-      },
-      {
-        "frame": 7,
-        "clip": "adamantineShin",
-        "type": "recovery"
-      },
-      {
         "frame": 8,
+        "clip": "adamantineShin",
+        "type": "recovery"
+      },
+      {
+        "frame": 9,
+        "clip": "adamantineShin",
+        "type": "recovery"
+      },
+      {
+        "frame": 10,
+        "clip": "adamantineShin",
+        "type": "recovery"
+      },
+      {
+        "frame": 11,
+        "clip": "adamantineShin",
+        "type": "recovery"
+      },
+      {
+        "frame": 12,
         "clip": "adamantineShin",
         "type": "recovery"
       }
@@ -2764,11 +3668,15 @@
     "frames": {
       "E": [
         null,
+        null,
         "squint",
+        "squint",
+        "strain",
         "strain",
         "strain",
         "roar",
         "strain",
+        "squint",
         "squint",
         null,
         null

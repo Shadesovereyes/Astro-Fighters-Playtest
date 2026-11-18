@@ -3,7 +3,7 @@
   "body": "male",
   "state": "aeroPalm",
   "status": "E/W approved by user 2026-11-03 (v2 four palm pops each firing its own airPuck at the target, final full palm fires airSlug, green rim; W mirrors E); S/N to author",
-  "frames": 10,
+  "frames": 11,
   "fps": 14,
   "frameSize": [
     64,
@@ -18,7 +18,7 @@
       "E",
       "W"
     ],
-    "columns": "frames 0–9"
+    "columns": "frames 0\u00e2\u0080\u009310"
   },
   "layers": {
     "body": "body.png",
@@ -74,7 +74,10 @@
     "thai-gloves": "thai-gloves.png",
     "male-boxing-boots": "male-boxing-boots.png",
     "boxing-gloves-far": "boxing-gloves-far.png",
-    "thai-gloves-far": "thai-gloves-far.png"
+    "thai-gloves-far": "thai-gloves-far.png",
+    "trail": "trail.png",
+    "boxing-gloves-trail": "boxing-gloves-trail.png",
+    "thai-gloves-trail": "thai-gloves-trail.png"
   },
   "pendingLayers": [],
   "drawOrder": [
@@ -114,6 +117,10 @@
       ],
       [
         1,
+        0
+      ],
+      [
+        0,
         0
       ],
       [
@@ -167,6 +174,10 @@
         0
       ],
       [
+        0,
+        0
+      ],
+      [
         3,
         0
       ]
@@ -185,7 +196,8 @@
         6,
         7,
         8,
-        9
+        9,
+        10
       ],
       "fps": 14,
       "next": "guard",
@@ -241,7 +253,7 @@
       {
         "frame": 7,
         "clip": "aeroPalm",
-        "type": "recovery"
+        "type": "impactHold"
       },
       {
         "frame": 8,
@@ -250,6 +262,11 @@
       },
       {
         "frame": 9,
+        "clip": "aeroPalm",
+        "type": "recovery"
+      },
+      {
+        "frame": 10,
         "clip": "aeroPalm",
         "type": "recovery"
       }
@@ -301,7 +318,7 @@
       {
         "frame": 7,
         "clip": "aeroPalm",
-        "type": "recovery"
+        "type": "impactHold"
       },
       {
         "frame": 8,
@@ -310,6 +327,11 @@
       },
       {
         "frame": 9,
+        "clip": "aeroPalm",
+        "type": "recovery"
+      },
+      {
+        "frame": 10,
         "clip": "aeroPalm",
         "type": "recovery"
       }
@@ -1659,6 +1681,7 @@
       1,
       2,
       2,
+      2,
       1,
       0
     ],
@@ -1666,5 +1689,44 @@
       "#e9eef4",
       "#a3aebb"
     ]
-  }
+  },
+  "impactFx": [
+    {
+      "dir": "E",
+      "frame": 6,
+      "held": 7,
+      "x": 56,
+      "y": 24.0,
+      "facing": 1,
+      "style": "halfPop",
+      "angle": 0,
+      "element": "air",
+      "gearReach": {
+        "boxing-gloves": 1,
+        "thai-gloves": 1
+      }
+    },
+    {
+      "dir": "W",
+      "frame": 6,
+      "held": 7,
+      "x": 7,
+      "y": 24.0,
+      "facing": -1,
+      "style": "halfPop",
+      "angle": 0,
+      "element": "air",
+      "gearReach": {
+        "boxing-gloves": 1,
+        "thai-gloves": 1
+      }
+    }
+  ],
+  "impactHolds": [
+    {
+      "frame": 6,
+      "held": 7,
+      "rule": "impact frame held one extra tick with impact fx (tools/smear.py --impact)"
+    }
+  ]
 }

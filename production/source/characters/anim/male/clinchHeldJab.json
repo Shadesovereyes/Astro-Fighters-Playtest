@@ -2,8 +2,8 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "clinchHeldJab",
-  "status": "E/W approved by user 2026-10-16 (Jab-Cross from the held side of the clinch, paired with clinchHoldJabHit); S/N to author",
-  "frames": 8,
+  "status": "E/W approved by user 2026-11-18 18:04 (v2 jab morphs into a short hook; W mirrors E); v1 E/W approved by user 2026-10-16 (Jab-Cross from the held side of the clinch, paired with clinchHoldJabHit); S/N to author",
+  "frames": 11,
   "fps": 12,
   "sourceDirection": "E",
   "directions": [
@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Jab-Cross thrown while Grappled (grapple ruling 2026-10-16: legal while held): bent under the collar tie, the held fighter keeps the far hand on the holder's chest and fires two short punches up into the holder's chin with the near hand.",
+  "intent": "Jab-Cross thrown while Grappled (grapple ruling 2026-10-16: legal while held): bent under the collar tie, the held fighter keeps the far hand on the holder's chest and fires two short punches up into the holder's chin with the near hand. v2 (Christopher 2026-11-18): each jab leaves the chin straight, then the elbow lifts and the fist curls round into a short hook to the side of the head (frames 2-4 and 6-8), so in the clinch Jab-Cross lands as two hooks.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -114,14 +114,20 @@
       2,
       2,
       2,
+      2,
+      2,
+      2,
       2
     ],
     "head": [
       4,
       4,
-      3,
+      4,
+      1,
       3,
       4,
+      4,
+      1,
       3,
       4,
       4
@@ -129,9 +135,12 @@
     "arms": [
       2,
       2,
+      2,
       1,
       1,
       2,
+      2,
+      1,
       1,
       2,
       2
@@ -144,9 +153,12 @@
       "pelvis": [
         0,
         0,
+        0,
         1,
         1,
         0,
+        0,
+        1,
         1,
         0,
         0
@@ -154,8 +166,11 @@
       "head": [
         5,
         5,
+        5,
+        5,
         4,
-        4,
+        5,
+        5,
         5,
         4,
         5,
@@ -197,9 +212,33 @@
       [
         0,
         0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
       ]
     ],
     "W": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
       [
         0,
         0
@@ -391,6 +430,9 @@
       3,
       3,
       3,
+      3,
+      3,
+      3,
       3
     ],
     "far": [
@@ -401,220 +443,11 @@
       2,
       2,
       2,
+      2,
+      2,
+      2,
       2
     ]
-  },
-  "arms": {
-    "source": "The reference near arm (Arms1, E frame). Every row keeps its reference pixels and only moves sideways. The far arm (hidden in the reference) is the same arm, far-shaded and drawn behind the body.",
-    "rows": {
-      "shoulder": 21,
-      "elbow": 31,
-      "pendulumRigidFrom": 34,
-      "lineHand": 38
-    },
-    "constructions": {
-      "reference": "the reference arm unchanged",
-      "pendulum": "swing from the shoulder: dx grows linearly from the shoulder row to row pendulumRigidFrom and reaches 'total' there (rounded half to even); the wrist wrap and hand below move rigidly with it",
-      "line": "each row's back edge is placed on a straight line: shoulder to elbow moves 'upper' px, elbow to lineHand leans 'lean' px (measured from the shoulder's back column, rounded half up); rows below lineHand move with it",
-      "straight": "the whole arm, wrist and hand included, on one straight line from the shoulder: dx grows linearly from the shoulder row to the arm's lowest row, reaching total there. 'drop' removes that many rows, evenly spaced between the shoulder row and the wrist wrap, so the raised arm keeps its length",
-      "band": "authored raised arm: a straight band of constant thickness from the shoulder pivot at 'angle' degrees behind vertical; each pixel takes its colour from the authored cross-section pattern (back to front) of its segment, so the arm keeps its thickness at any angle. Arm accessories are placed by the reference arm pixel at the same place along and across the arm (provisional). With 'elbow' {at, angle} the arm bends: the upper arm runs at 'angle' to 'at' along the arm, the forearm at elbow.angle from there (round elbow joint); the fist follows the hand's direction (back, forward = mirrored, up = fistUp)."
-    },
-    "near": [
-      {
-        "construction": "band",
-        "angle": -62,
-        "elbow": {
-          "at": 8,
-          "angle": -100
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -40,
-        "elbow": {
-          "at": 8,
-          "angle": 210
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -112,
-        "elbow": {
-          "at": 8,
-          "angle": -116
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -112,
-        "elbow": {
-          "at": 8,
-          "angle": -116
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -40,
-        "elbow": {
-          "at": 8,
-          "angle": 210
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -112,
-        "elbow": {
-          "at": 8,
-          "angle": -116
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -66,
-        "elbow": {
-          "at": 8,
-          "angle": -120
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -62,
-        "elbow": {
-          "at": 8,
-          "angle": -100
-        }
-      }
-    ],
-    "far": [
-      {
-        "construction": "band",
-        "angle": -58,
-        "elbow": {
-          "at": 8,
-          "angle": -96
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -58,
-        "elbow": {
-          "at": 8,
-          "angle": -96
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -58,
-        "elbow": {
-          "at": 8,
-          "angle": -96
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -58,
-        "elbow": {
-          "at": 8,
-          "angle": -96
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -58,
-        "elbow": {
-          "at": 8,
-          "angle": -96
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -58,
-        "elbow": {
-          "at": 8,
-          "angle": -96
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -58,
-        "elbow": {
-          "at": 8,
-          "angle": -96
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -58,
-        "elbow": {
-          "at": 8,
-          "angle": -96
-        }
-      }
-    ],
-    "outline": "Arm pixels touching empty space get an outline, except above the shoulder row; the near arm is not outlined where it lies over the body (its dark back column separates it).",
-    "band": {
-      "pivot": [
-        32,
-        23
-      ],
-      "thickness": 4,
-      "start": -2,
-      "length": 16,
-      "wrapFrom": 11,
-      "handFrom": 14,
-      "pattern": {
-        "skin": "DLLm",
-        "wrap": "wwWW"
-      },
-      "note": "Lengths from the reference arm: pivot at the shoulder joint (row 23, centre column 32), wrap from row 34, hand from row 37, last colour row 40; cross-section from the reference rows 26-29 (D back edge, L L, m front).",
-      "fist": {
-        "use": "closed fist pointing back along the raised arm, knuckles at the left (back) end; outline is added by the arm outline rule",
-        "anchor": [
-          3,
-          1
-        ],
-        "rows": [
-          "mLLm",
-          "LLLm",
-          "mLms",
-          ".sDs"
-        ]
-      },
-      "fistUp": {
-        "use": "closed fist held up in guard, knuckles on top",
-        "anchor": [
-          1,
-          3
-        ],
-        "rows": [
-          "mLLm",
-          "LLLm",
-          "LLms",
-          "sDDs"
-        ]
-      },
-      "fistForwardUpTo": -165,
-      "fistRule": "the knuckles face forward (mirrored fist) for any hand pointing between straight ahead and 15 degrees short of straight up, so a boxing guard shows the fist face-on to the opponent; fistUp only for a hand pointing straight up",
-      "bentFistDy": -1,
-      "bentFistRule": "on a bent arm (guard, recoil, wind-up, recover) the fist sits 1 px higher on the wrist",
-      "fistFront": {
-        "use": "fist seen knuckles-on, punching toward the viewer: wider than the profile fist because the arm behind it is foreshortened",
-        "anchor": [
-          2,
-          2
-        ],
-        "rows": [
-          ".mLLm.",
-          "mLLLLm",
-          "LLmLLs",
-          "mLLLms",
-          ".sDDs."
-        ]
-      }
-    },
-    "guardRule": "boxing guard: elbows down in front of the ribs, forearms angled up and forward, fists at chin height with knuckles forward; the lead (far) hand sits further forward",
-    "outlineRaised": true,
-    "farLayer": true
   },
   "clothing": {
     "rule": "Layer 2 clothing follows the body it is registered to. Front, back and diagonal views move each clothing pixel exactly like the body pixel of the same part. In the authored profile (E) each trouser row is resampled onto the posed leg (thigh rows onto the pose's thigh rows, shin rows onto its shin rows) and shifted by the leg's back edge; wrap and shoe follow the ankle (reference-ankle poses) or the shin line and the authored foot (line poses), where a toe-down foot is drawn as the foot's own shape in the shoe colours. The far trouser leg is the near one on the far pose, shaded one step darker and drawn behind. A mirrored direction whose clothing is not an exact mirror is built from its own clothing frame, flipped through its source's motion. Where clothing newly meets empty space it gets the clothing's outline colour.",
@@ -651,6 +484,9 @@
       "bandFollowsBody": true,
       "sway": {
         "E": [
+          -1,
+          -1,
+          -1,
           -1,
           -1,
           -1,
@@ -1430,7 +1266,10 @@
         4,
         5,
         6,
-        7
+        7,
+        8,
+        9,
+        10
       ],
       "fps": 12,
       "next": "clinchHeld"
@@ -1450,6 +1289,266 @@
     ],
     "layeringRule": "back to front (user 2026-10-14): the holder's far arm is the bottom layer (it wraps behind the held head to the back of the neck) and the holder's near arm the top layer (it wraps over the held head); between them the held fighter's far arm, the holder's body, the held fighter's body (its head is pulled down in front of the holder's chest) and the held fighter's near arm (pushing on the holder's chest)"
   },
+  "arms": {
+    "source": "The reference near arm (Arms1, E frame). Every row keeps its reference pixels and only moves sideways. The far arm (hidden in the reference) is the same arm, far-shaded and drawn behind the body.",
+    "rows": {
+      "shoulder": 21,
+      "elbow": 31,
+      "pendulumRigidFrom": 34,
+      "lineHand": 38
+    },
+    "constructions": {
+      "reference": "the reference arm unchanged",
+      "pendulum": "swing from the shoulder: dx grows linearly from the shoulder row to row pendulumRigidFrom and reaches 'total' there (rounded half to even); the wrist wrap and hand below move rigidly with it",
+      "line": "each row's back edge is placed on a straight line: shoulder to elbow moves 'upper' px, elbow to lineHand leans 'lean' px (measured from the shoulder's back column, rounded half up); rows below lineHand move with it",
+      "straight": "the whole arm, wrist and hand included, on one straight line from the shoulder: dx grows linearly from the shoulder row to the arm's lowest row, reaching total there. 'drop' removes that many rows, evenly spaced between the shoulder row and the wrist wrap, so the raised arm keeps its length",
+      "band": "authored raised arm: a straight band of constant thickness from the shoulder pivot at 'angle' degrees behind vertical; each pixel takes its colour from the authored cross-section pattern (back to front) of its segment, so the arm keeps its thickness at any angle. Arm accessories are placed by the reference arm pixel at the same place along and across the arm (provisional). With 'elbow' {at, angle} the arm bends: the upper arm runs at 'angle' to 'at' along the arm, the forearm at elbow.angle from there (round elbow joint); the fist follows the hand's direction (back, forward = mirrored, up = fistUp)."
+    },
+    "outline": "Arm pixels touching empty space get an outline, except above the shoulder row; the near arm is not outlined where it lies over the body (its dark back column separates it).",
+    "band": {
+      "pivot": [
+        32,
+        23
+      ],
+      "thickness": 4,
+      "start": -2,
+      "length": 16,
+      "wrapFrom": 11,
+      "handFrom": 14,
+      "pattern": {
+        "skin": "DLLm",
+        "wrap": "wwWW"
+      },
+      "note": "Lengths from the reference arm: pivot at the shoulder joint (row 23, centre column 32), wrap from row 34, hand from row 37, last colour row 40; cross-section from the reference rows 26-29 (D back edge, L L, m front).",
+      "fist": {
+        "use": "closed fist pointing back along the raised arm, knuckles at the left (back) end; outline is added by the arm outline rule",
+        "anchor": [
+          3,
+          1
+        ],
+        "rows": [
+          "mLLm",
+          "LLLm",
+          "mLms",
+          ".sDs"
+        ]
+      },
+      "fistUp": {
+        "use": "closed fist held up in guard, knuckles on top",
+        "anchor": [
+          1,
+          3
+        ],
+        "rows": [
+          "mLLm",
+          "LLLm",
+          "LLms",
+          "sDDs"
+        ]
+      },
+      "fistForwardUpTo": -165,
+      "fistRule": "the knuckles face forward (mirrored fist) for any hand pointing between straight ahead and 15 degrees short of straight up, so a boxing guard shows the fist face-on to the opponent; fistUp only for a hand pointing straight up",
+      "bentFistDy": -1,
+      "bentFistRule": "on a bent arm (guard, recoil, wind-up, recover) the fist sits 1 px higher on the wrist",
+      "fistFront": {
+        "use": "fist seen knuckles-on, punching toward the viewer: wider than the profile fist because the arm behind it is foreshortened",
+        "anchor": [
+          2,
+          2
+        ],
+        "rows": [
+          ".mLLm.",
+          "mLLLLm",
+          "LLmLLs",
+          "mLLLms",
+          ".sDDs."
+        ]
+      }
+    },
+    "guardRule": "boxing guard: elbows down in front of the ribs, forearms angled up and forward, fists at chin height with knuckles forward; the lead (far) hand sits further forward",
+    "outlineRaised": true,
+    "farLayer": true,
+    "near": [
+      {
+        "construction": "band",
+        "angle": -62,
+        "elbow": {
+          "at": 8,
+          "angle": -100
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -40,
+        "elbow": {
+          "at": 8,
+          "angle": 210
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -104,
+        "elbow": {
+          "at": 8,
+          "angle": -112
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -96,
+        "elbow": {
+          "at": 8,
+          "angle": -128
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -100,
+        "elbow": {
+          "at": 8,
+          "angle": -140
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -40,
+        "elbow": {
+          "at": 8,
+          "angle": 210
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -104,
+        "elbow": {
+          "at": 8,
+          "angle": -112
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -96,
+        "elbow": {
+          "at": 8,
+          "angle": -128
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -100,
+        "elbow": {
+          "at": 8,
+          "angle": -140
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -66,
+        "elbow": {
+          "at": 8,
+          "angle": -120
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -62,
+        "elbow": {
+          "at": 8,
+          "angle": -100
+        }
+      }
+    ],
+    "far": [
+      {
+        "construction": "band",
+        "angle": -58,
+        "elbow": {
+          "at": 8,
+          "angle": -96
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -58,
+        "elbow": {
+          "at": 8,
+          "angle": -96
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -58,
+        "elbow": {
+          "at": 8,
+          "angle": -96
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -58,
+        "elbow": {
+          "at": 8,
+          "angle": -96
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -58,
+        "elbow": {
+          "at": 8,
+          "angle": -96
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -58,
+        "elbow": {
+          "at": 8,
+          "angle": -96
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -58,
+        "elbow": {
+          "at": 8,
+          "angle": -96
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -58,
+        "elbow": {
+          "at": 8,
+          "angle": -96
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -58,
+        "elbow": {
+          "at": 8,
+          "angle": -96
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -58,
+        "elbow": {
+          "at": 8,
+          "angle": -96
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -58,
+        "elbow": {
+          "at": 8,
+          "angle": -96
+        }
+      }
+    ]
+  },
   "events": {
     "rule": "per-frame gameplay data per facing (W mirrors E: x -> 64 - x - w) (provisional)",
     "E": [
@@ -1463,35 +1562,28 @@
       },
       {
         "frame": 2,
-        "type": "active",
-        "move": "clinchHeldJab",
-        "hitbox": [
-          18,
-          8,
-          10,
-          10
-        ],
-        "damage": "light"
+        "type": "startup"
       },
       {
         "frame": 3,
-        "type": "recovery"
+        "type": "startup"
       },
       {
         "frame": 4,
-        "type": "recovery"
-      },
-      {
-        "frame": 5,
         "type": "active",
         "move": "clinchHeldJab",
         "hitbox": [
           18,
-          8,
-          10,
-          10
+          6,
+          12,
+          12
         ],
-        "damage": "light"
+        "damage": "light",
+        "morph": "hook"
+      },
+      {
+        "frame": 5,
+        "type": "recovery"
       },
       {
         "frame": 6,
@@ -1499,6 +1591,27 @@
       },
       {
         "frame": 7,
+        "type": "recovery"
+      },
+      {
+        "frame": 8,
+        "type": "active",
+        "move": "clinchHeldJab",
+        "hitbox": [
+          18,
+          6,
+          12,
+          12
+        ],
+        "damage": "light",
+        "morph": "hook"
+      },
+      {
+        "frame": 9,
+        "type": "recovery"
+      },
+      {
+        "frame": 10,
         "type": "recovery"
       }
     ],
@@ -1513,35 +1626,28 @@
       },
       {
         "frame": 2,
-        "type": "active",
-        "move": "clinchHeldJab",
-        "hitbox": [
-          36,
-          8,
-          10,
-          10
-        ],
-        "damage": "light"
+        "type": "startup"
       },
       {
         "frame": 3,
-        "type": "recovery"
+        "type": "startup"
       },
       {
         "frame": 4,
-        "type": "recovery"
-      },
-      {
-        "frame": 5,
         "type": "active",
         "move": "clinchHeldJab",
         "hitbox": [
-          36,
-          8,
-          10,
-          10
+          34,
+          6,
+          12,
+          12
         ],
-        "damage": "light"
+        "damage": "light",
+        "morph": "hook"
+      },
+      {
+        "frame": 5,
+        "type": "recovery"
       },
       {
         "frame": 6,
@@ -1549,6 +1655,27 @@
       },
       {
         "frame": 7,
+        "type": "recovery"
+      },
+      {
+        "frame": 8,
+        "type": "active",
+        "move": "clinchHeldJab",
+        "hitbox": [
+          34,
+          6,
+          12,
+          12
+        ],
+        "damage": "light",
+        "morph": "hook"
+      },
+      {
+        "frame": 9,
+        "type": "recovery"
+      },
+      {
+        "frame": 10,
         "type": "recovery"
       }
     ]

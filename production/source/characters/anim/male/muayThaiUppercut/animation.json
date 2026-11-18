@@ -3,7 +3,7 @@
   "body": "male",
   "state": "muayThaiUppercut",
   "status": "E/W approved by user 2026-10-20 (W mirrors E); S/N approved by user 2026-10-20 (hands and wrists in front of the body outlined)",
-  "frames": 6,
+  "frames": 7,
   "fps": 12,
   "frameSize": [
     64,
@@ -20,7 +20,7 @@
       "N",
       "W"
     ],
-    "columns": "frames 0–5"
+    "columns": "frames 0\u00e2\u0080\u00936"
   },
   "layers": {
     "body": "body.png",
@@ -76,7 +76,10 @@
     "boxing-gloves": "boxing-gloves.png",
     "boxing-gloves-far": "boxing-gloves-far.png",
     "thai-gloves": "thai-gloves.png",
-    "thai-gloves-far": "thai-gloves-far.png"
+    "thai-gloves-far": "thai-gloves-far.png",
+    "trail": "trail.png",
+    "boxing-gloves-trail": "boxing-gloves-trail.png",
+    "thai-gloves-trail": "thai-gloves-trail.png"
   },
   "pendingLayers": [],
   "drawOrder": [
@@ -90,6 +93,10 @@
   ],
   "rootMotion": {
     "S": [
+      [
+        0,
+        0
+      ],
       [
         0,
         0
@@ -139,9 +146,17 @@
       [
         0,
         0
+      ],
+      [
+        0,
+        0
       ]
     ],
     "N": [
+      [
+        0,
+        0
+      ],
       [
         0,
         0
@@ -191,6 +206,10 @@
       [
         0,
         0
+      ],
+      [
+        0,
+        0
       ]
     ]
   },
@@ -203,7 +222,8 @@
         2,
         3,
         4,
-        5
+        5,
+        6
       ],
       "fps": 12,
       "next": "muayThaiGuard",
@@ -244,10 +264,15 @@
       {
         "frame": 4,
         "clip": "uppercut",
-        "type": "recovery"
+        "type": "impactHold"
       },
       {
         "frame": 5,
+        "clip": "uppercut",
+        "type": "recovery"
+      },
+      {
+        "frame": 6,
         "clip": "uppercut",
         "type": "recovery"
       }
@@ -284,10 +309,15 @@
       {
         "frame": 4,
         "clip": "uppercut",
-        "type": "recovery"
+        "type": "impactHold"
       },
       {
         "frame": 5,
+        "clip": "uppercut",
+        "type": "recovery"
+      },
+      {
+        "frame": 6,
         "clip": "uppercut",
         "type": "recovery"
       }
@@ -746,5 +776,34 @@
       }
     },
     "pass": true
-  }
+  },
+  "impactFx": [
+    {
+      "dir": "E",
+      "frame": 3,
+      "held": 4,
+      "x": 48,
+      "y": 21.5,
+      "facing": 1,
+      "style": "halfPop",
+      "angle": 45
+    },
+    {
+      "dir": "W",
+      "frame": 3,
+      "held": 4,
+      "x": 15,
+      "y": 21.5,
+      "facing": -1,
+      "style": "halfPop",
+      "angle": 45
+    }
+  ],
+  "impactHolds": [
+    {
+      "frame": 3,
+      "held": 4,
+      "rule": "impact frame held one extra tick with impact fx (tools/smear.py --impact)"
+    }
+  ]
 }

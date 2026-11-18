@@ -3,7 +3,7 @@
   "body": "male",
   "state": "cheapShot",
   "status": "CANDIDATE 2026-11-06 (E/W; W mirrors E; S/N to author after approval)",
-  "frames": 8,
+  "frames": 10,
   "fps": 12,
   "frameSize": [
     64,
@@ -18,7 +18,7 @@
       "E",
       "W"
     ],
-    "columns": "frames 0–7"
+    "columns": "frames 0\u00e2\u0080\u00939"
   },
   "layers": {
     "body": "body.png",
@@ -74,7 +74,10 @@
     "thai-gloves": "thai-gloves.png",
     "male-boxing-boots": "male-boxing-boots.png",
     "boxing-gloves-far": "boxing-gloves-far.png",
-    "thai-gloves-far": "thai-gloves-far.png"
+    "thai-gloves-far": "thai-gloves-far.png",
+    "trail": "trail.png",
+    "boxing-gloves-trail": "boxing-gloves-trail.png",
+    "thai-gloves-trail": "thai-gloves-trail.png"
   },
   "pendingLayers": [],
   "drawOrder": [
@@ -105,7 +108,15 @@
         0
       ],
       [
+        0,
+        0
+      ],
+      [
         1,
+        0
+      ],
+      [
+        0,
         0
       ],
       [
@@ -139,7 +150,15 @@
         0
       ],
       [
+        0,
+        0
+      ],
+      [
         -1,
+        0
+      ],
+      [
+        0,
         0
       ],
       [
@@ -167,7 +186,9 @@
         4,
         5,
         6,
-        7
+        7,
+        8,
+        9
       ],
       "fps": 12,
       "next": "guard",
@@ -200,6 +221,12 @@
       {
         "frame": 4,
         "clip": "cheapShot",
+        "type": "startup",
+        "smear": true
+      },
+      {
+        "frame": 5,
+        "clip": "cheapShot",
         "type": "active",
         "move": "Cheap Shot",
         "hitbox": [
@@ -211,17 +238,22 @@
         "damage": "heavy"
       },
       {
-        "frame": 5,
-        "clip": "cheapShot",
-        "type": "recovery"
-      },
-      {
         "frame": 6,
         "clip": "cheapShot",
-        "type": "recovery"
+        "type": "impactHold"
       },
       {
         "frame": 7,
+        "clip": "cheapShot",
+        "type": "recovery"
+      },
+      {
+        "frame": 8,
+        "clip": "cheapShot",
+        "type": "recovery"
+      },
+      {
+        "frame": 9,
         "clip": "cheapShot",
         "type": "recovery"
       }
@@ -250,6 +282,12 @@
       {
         "frame": 4,
         "clip": "cheapShot",
+        "type": "startup",
+        "smear": true
+      },
+      {
+        "frame": 5,
+        "clip": "cheapShot",
         "type": "active",
         "move": "Cheap Shot",
         "hitbox": [
@@ -261,17 +299,22 @@
         "damage": "heavy"
       },
       {
-        "frame": 5,
-        "clip": "cheapShot",
-        "type": "recovery"
-      },
-      {
         "frame": 6,
         "clip": "cheapShot",
-        "type": "recovery"
+        "type": "impactHold"
       },
       {
         "frame": 7,
+        "clip": "cheapShot",
+        "type": "recovery"
+      },
+      {
+        "frame": 8,
+        "clip": "cheapShot",
+        "type": "recovery"
+      },
+      {
+        "frame": 9,
         "clip": "cheapShot",
         "type": "recovery"
       }
@@ -1349,5 +1392,52 @@
       }
     },
     "pass": false
-  }
+  },
+  "smearFrames": [
+    {
+      "before": 4,
+      "frame": 4,
+      "limbs": [
+        "arm-near"
+      ],
+      "rule": "smear in-between inserted before the impact frame (tools/smear.py --insert)"
+    }
+  ],
+  "impactFx": [
+    {
+      "dir": "E",
+      "frame": 5,
+      "held": 6,
+      "x": 53,
+      "y": 42.5,
+      "facing": 1,
+      "style": "halfPop",
+      "angle": 0,
+      "gearReach": {
+        "boxing-gloves": 1,
+        "thai-gloves": 1
+      }
+    },
+    {
+      "dir": "W",
+      "frame": 5,
+      "held": 6,
+      "x": 10,
+      "y": 42.5,
+      "facing": -1,
+      "style": "halfPop",
+      "angle": 0,
+      "gearReach": {
+        "boxing-gloves": 1,
+        "thai-gloves": 1
+      }
+    }
+  ],
+  "impactHolds": [
+    {
+      "frame": 5,
+      "held": 6,
+      "rule": "impact frame held one extra tick with impact fx (tools/smear.py --impact)"
+    }
+  ]
 }

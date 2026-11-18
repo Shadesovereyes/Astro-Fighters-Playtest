@@ -1020,7 +1020,8 @@
       "x": 60,
       "y": 30.0,
       "facing": 1,
-      "style": "halfPop"
+      "style": "halfPop",
+      "angle": 0
     },
     {
       "dir": "W",
@@ -1029,7 +1030,8 @@
       "x": 3,
       "y": 30.0,
       "facing": -1,
-      "style": "halfPop"
+      "style": "halfPop",
+      "angle": 0
     }
   ],
   "impactHolds": [

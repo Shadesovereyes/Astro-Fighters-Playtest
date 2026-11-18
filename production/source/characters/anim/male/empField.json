@@ -3437,7 +3437,7 @@
     "intent": "eyes squeezed shut with the brow pulled down on the impact frames 0-2 (no mouth: user 2026-10-14), a squint on frame 3, open again from frame 4 (user 2026-10-14)"
   },
   "zone": {
-    "rule": "EMP Field (Wide AoE): centred on the caster's hex (selfCentered, Claude's reading of \"a dome of protection\"), radius 2 for 2 rounds (Christopher 2026-11-03: the field covers a radius of 2; v4 (2026-11-03: one field, the small dome's look at the large one's radius): the clip draws no dome; the testbed draws the field as a dome standing on the caster's floor line, half-width R = (radius + 0.5) * hexStep * sqrt(3) (the Guardian Barrier sizing) and height 0.92 R, no fill: a jagged 3 px arc (#ffffff / #b8ffc8 / #39e75f, a #14a03c dotted inner shell 6 px in), arcs crawling over the shell, growing out from the caster to R over 0.5 s, then standing with dotted pulse domes running outward from the caster every 0.6 s; preview hex-sprites/astro/aquarius/emp-field-radius2-v4, tool hex-sprites/tools/astro_field.py); v2: on the cast the field radiates outward from the caster across the AoE (rings growing hex by hex, as Explosive Tag fills its hexes ring by ring); while it lasts the testbed draws the crackling dome (edomeD / edomeDim flickering) over the AoE with an eripple pulse running outward every few frames; enemies inside on the cast take Elemental 6, save or are Slowed 2 rounds, and are pushed to the edge (repulse, placeholder 1 hex)",
+    "rule": "EMP Field (Wide AoE): centred on the caster's hex (selfCentered, Claude's reading of \"a dome of protection\"), radius 2 for 2 rounds (Christopher 2026-11-03: the field covers a radius of 2; v4 (2026-11-03: one field, the small dome's look at the large one's radius): the clip draws no dome; the testbed draws the field as a dome standing on the caster's floor line, half-width R = (radius + 0.5) * hexStep * sqrt(3) (the Guardian Barrier sizing) and height 0.92 R, no fill: a jagged 3 px arc (#ffffff / #e2fff0 / #9ff2c4, a #5fbf94 dotted inner shell 6 px in), arcs crawling over the shell, growing out from the caster to R over 0.5 s, then standing with dotted pulse domes running outward from the caster every 0.6 s; preview hex-sprites/astro/aquarius/emp-field-radius2-v4, tool hex-sprites/tools/astro_field.py); v2: on the cast the field radiates outward from the caster across the AoE (rings growing hex by hex, as Explosive Tag fills its hexes ring by ring); while it lasts the testbed draws the crackling dome (edomeD / edomeDim flickering) over the AoE with an eripple pulse running outward every few frames; enemies inside on the cast take Elemental 6, save or are Slowed 2 rounds, and are pushed to the edge (repulse, placeholder 1 hex)",
     "pattern": "edomeD",
     "pulse": [
       "eripple0",
@@ -3455,11 +3455,11 @@
       "fill": null,
       "rim": [
         "#ffffff",
-        "#b8ffc8",
-        "#39e75f"
+        "#e2fff0",
+        "#9ff2c4"
       ],
       "innerShell": [
-        "#14a03c",
+        "#5fbf94",
         6
       ],
       "pulseMs": 600
@@ -3491,8 +3491,8 @@
       0
     ],
     "colors": [
-      "#b8ffc8",
-      "#39e75f"
+      "#e2fff0",
+      "#9ff2c4"
     ]
   }
 }

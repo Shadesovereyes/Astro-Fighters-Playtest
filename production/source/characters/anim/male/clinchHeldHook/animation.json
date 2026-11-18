@@ -3,7 +3,7 @@
   "body": "male",
   "state": "clinchHeldHook",
   "status": "E/W candidate 2026-10-16 (Haymaker from the held side of the clinch (short hook), paired with clinchHoldHookHit), awaiting user approval; S/N to author",
-  "frames": 8,
+  "frames": 9,
   "fps": 12,
   "frameSize": [
     64,
@@ -18,7 +18,7 @@
       "E",
       "W"
     ],
-    "columns": "frames 0–7"
+    "columns": "frames 0\u00e2\u0080\u00938"
   },
   "layers": {
     "body": "body.png",
@@ -75,7 +75,10 @@
     "thai-gloves": "thai-gloves.png",
     "male-boxing-boots": "male-boxing-boots.png",
     "boxing-gloves-far": "boxing-gloves-far.png",
-    "thai-gloves-far": "thai-gloves-far.png"
+    "thai-gloves-far": "thai-gloves-far.png",
+    "trail": "trail.png",
+    "boxing-gloves-trail": "boxing-gloves-trail.png",
+    "thai-gloves-trail": "thai-gloves-trail.png"
   },
   "pendingLayers": [],
   "drawOrder": [
@@ -120,9 +123,17 @@
       [
         0,
         0
+      ],
+      [
+        0,
+        0
       ]
     ],
     "W": [
+      [
+        0,
+        0
+      ],
       [
         0,
         0
@@ -168,7 +179,8 @@
         4,
         5,
         6,
-        7
+        7,
+        8
       ],
       "fps": 12,
       "next": "clinchHeld"
@@ -203,7 +215,8 @@
       },
       {
         "frame": 4,
-        "type": "recovery"
+        "clip": null,
+        "type": "impactHold"
       },
       {
         "frame": 5,
@@ -215,6 +228,10 @@
       },
       {
         "frame": 7,
+        "type": "recovery"
+      },
+      {
+        "frame": 8,
         "type": "recovery"
       }
     ],
@@ -245,7 +262,8 @@
       },
       {
         "frame": 4,
-        "type": "recovery"
+        "clip": null,
+        "type": "impactHold"
       },
       {
         "frame": 5,
@@ -257,6 +275,10 @@
       },
       {
         "frame": 7,
+        "type": "recovery"
+      },
+      {
+        "frame": 8,
         "type": "recovery"
       }
     ]
@@ -562,5 +584,42 @@
       }
     },
     "pass": true
-  }
+  },
+  "impactFx": [
+    {
+      "dir": "E",
+      "frame": 3,
+      "held": 4,
+      "x": 51,
+      "y": 18.5,
+      "facing": 1,
+      "style": "halfPop",
+      "angle": 30,
+      "gearReach": {
+        "boxing-gloves": 1,
+        "thai-gloves": 1
+      }
+    },
+    {
+      "dir": "W",
+      "frame": 3,
+      "held": 4,
+      "x": 12,
+      "y": 18.5,
+      "facing": -1,
+      "style": "halfPop",
+      "angle": 30,
+      "gearReach": {
+        "boxing-gloves": 1,
+        "thai-gloves": 1
+      }
+    }
+  ],
+  "impactHolds": [
+    {
+      "frame": 3,
+      "held": 4,
+      "rule": "impact frame held one extra tick with impact fx (tools/smear.py --impact)"
+    }
+  ]
 }

@@ -3,7 +3,7 @@
   "body": "male",
   "state": "witherPalm",
   "status": "E/W approved by user 2026-10-28 (v2 glowing palms, strike streaks, teal shock rings, dust plumes, teal aura, final burst, f45f621f; W mirrors E); S/N to author",
-  "frames": 10,
+  "frames": 12,
   "fps": 12,
   "frameSize": [
     64,
@@ -18,7 +18,7 @@
       "E",
       "W"
     ],
-    "columns": "frames 0–9"
+    "columns": "frames 0\u00e2\u0080\u009311"
   },
   "layers": {
     "body": "body.png",
@@ -97,7 +97,15 @@
         0
       ],
       [
+        0,
+        0
+      ],
+      [
         2,
+        0
+      ],
+      [
+        0,
         0
       ],
       [
@@ -139,7 +147,15 @@
         0
       ],
       [
+        0,
+        0
+      ],
+      [
         -2,
+        0
+      ],
+      [
+        0,
         0
       ],
       [
@@ -185,7 +201,9 @@
         6,
         7,
         8,
-        9
+        9,
+        10,
+        11
       ],
       "fps": 12,
       "next": "guard",
@@ -208,6 +226,12 @@
       {
         "frame": 2,
         "clip": "witherPalm",
+        "type": "startup",
+        "smear": true
+      },
+      {
+        "frame": 3,
+        "clip": "witherPalm",
         "type": "active",
         "move": "Wither Palm",
         "hitbox": [
@@ -219,14 +243,9 @@
         "damage": "light"
       },
       {
-        "frame": 3,
-        "clip": "witherPalm",
-        "type": "recovery"
-      },
-      {
         "frame": 4,
         "clip": "witherPalm",
-        "type": "recovery"
+        "type": "impactHold"
       },
       {
         "frame": 5,
@@ -250,6 +269,16 @@
       },
       {
         "frame": 9,
+        "clip": "witherPalm",
+        "type": "recovery"
+      },
+      {
+        "frame": 10,
+        "clip": "witherPalm",
+        "type": "recovery"
+      },
+      {
+        "frame": 11,
         "clip": "witherPalm",
         "type": "recovery"
       }
@@ -268,6 +297,12 @@
       {
         "frame": 2,
         "clip": "witherPalm",
+        "type": "startup",
+        "smear": true
+      },
+      {
+        "frame": 3,
+        "clip": "witherPalm",
         "type": "active",
         "move": "Wither Palm",
         "hitbox": [
@@ -279,14 +314,9 @@
         "damage": "light"
       },
       {
-        "frame": 3,
-        "clip": "witherPalm",
-        "type": "recovery"
-      },
-      {
         "frame": 4,
         "clip": "witherPalm",
-        "type": "recovery"
+        "type": "impactHold"
       },
       {
         "frame": 5,
@@ -310,6 +340,16 @@
       },
       {
         "frame": 9,
+        "clip": "witherPalm",
+        "type": "recovery"
+      },
+      {
+        "frame": 10,
+        "clip": "witherPalm",
+        "type": "recovery"
+      },
+      {
+        "frame": 11,
         "clip": "witherPalm",
         "type": "recovery"
       }
@@ -1657,6 +1697,8 @@
       1,
       1,
       1,
+      1,
+      1,
       2,
       2,
       1,
@@ -1666,5 +1708,54 @@
       "#7fe3d0",
       "#3a9e8f"
     ]
-  }
+  },
+  "smearFrames": [
+    {
+      "before": 2,
+      "frame": 2,
+      "limbs": [
+        "arm-near"
+      ],
+      "rule": "smear in-between inserted before the impact frame (tools/smear.py --insert)"
+    }
+  ],
+  "impactFx": [
+    {
+      "dir": "E",
+      "frame": 3,
+      "held": 4,
+      "x": 55,
+      "y": 23.0,
+      "facing": 1,
+      "style": "halfPop",
+      "angle": 0,
+      "element": "sand",
+      "gearReach": {
+        "boxing-gloves": 1,
+        "thai-gloves": 1
+      }
+    },
+    {
+      "dir": "W",
+      "frame": 3,
+      "held": 4,
+      "x": 8,
+      "y": 23.0,
+      "facing": -1,
+      "style": "halfPop",
+      "angle": 0,
+      "element": "sand",
+      "gearReach": {
+        "boxing-gloves": 1,
+        "thai-gloves": 1
+      }
+    }
+  ],
+  "impactHolds": [
+    {
+      "frame": 3,
+      "held": 4,
+      "rule": "impact frame held one extra tick with impact fx (tools/smear.py --impact)"
+    }
+  ]
 }

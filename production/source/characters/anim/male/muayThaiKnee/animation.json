@@ -3,7 +3,7 @@
   "body": "male",
   "state": "muayThaiKnee",
   "status": "E/W approved by user 2026-10-20 (W mirrors E); S/N approved by user 2026-10-20 (turned trunk keeps its depth, edf90c3)",
-  "frames": 7,
+  "frames": 9,
   "fps": 12,
   "frameSize": [
     64,
@@ -20,7 +20,7 @@
       "N",
       "W"
     ],
-    "columns": "frames 0–6"
+    "columns": "frames 0\u00e2\u0080\u00938"
   },
   "layers": {
     "body": "body.png",
@@ -117,6 +117,14 @@
       [
         0,
         0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
       ]
     ],
     "E": [
@@ -147,9 +155,25 @@
       [
         0,
         0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
       ]
     ],
     "N": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
       [
         0,
         0
@@ -207,6 +231,14 @@
       [
         0,
         0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
       ]
     ]
   },
@@ -220,7 +252,9 @@
         3,
         4,
         5,
-        6
+        6,
+        7,
+        8
       ],
       "fps": 12,
       "next": "muayThaiGuard",
@@ -248,6 +282,12 @@
       {
         "frame": 3,
         "clip": "knee",
+        "type": "startup",
+        "smear": true
+      },
+      {
+        "frame": 4,
+        "clip": "knee",
         "type": "active",
         "move": "Knee Strikes",
         "hitbox": [
@@ -259,17 +299,22 @@
         "damage": "heavy"
       },
       {
-        "frame": 4,
-        "clip": "knee",
-        "type": "recovery"
-      },
-      {
         "frame": 5,
         "clip": "knee",
-        "type": "recovery"
+        "type": "impactHold"
       },
       {
         "frame": 6,
+        "clip": "knee",
+        "type": "recovery"
+      },
+      {
+        "frame": 7,
+        "clip": "knee",
+        "type": "recovery"
+      },
+      {
+        "frame": 8,
         "clip": "knee",
         "type": "recovery"
       }
@@ -293,6 +338,12 @@
       {
         "frame": 3,
         "clip": "knee",
+        "type": "startup",
+        "smear": true
+      },
+      {
+        "frame": 4,
+        "clip": "knee",
         "type": "active",
         "move": "Knee Strikes",
         "hitbox": [
@@ -304,17 +355,22 @@
         "damage": "heavy"
       },
       {
-        "frame": 4,
-        "clip": "knee",
-        "type": "recovery"
-      },
-      {
         "frame": 5,
         "clip": "knee",
-        "type": "recovery"
+        "type": "impactHold"
       },
       {
         "frame": 6,
+        "clip": "knee",
+        "type": "recovery"
+      },
+      {
+        "frame": 7,
+        "clip": "knee",
+        "type": "recovery"
+      },
+      {
+        "frame": 8,
         "clip": "knee",
         "type": "recovery"
       }
@@ -843,5 +899,44 @@
       }
     },
     "pass": true
-  }
+  },
+  "smearFrames": [
+    {
+      "before": 3,
+      "frame": 3,
+      "limbs": [
+        "leg-near"
+      ],
+      "rule": "smear in-between inserted before the impact frame (tools/smear.py --insert)"
+    }
+  ],
+  "impactFx": [
+    {
+      "dir": "E",
+      "frame": 4,
+      "held": 5,
+      "x": 49,
+      "y": 29.5,
+      "facing": 1,
+      "style": "halfPop",
+      "angle": 0
+    },
+    {
+      "dir": "W",
+      "frame": 4,
+      "held": 5,
+      "x": 14,
+      "y": 29.5,
+      "facing": -1,
+      "style": "halfPop",
+      "angle": 0
+    }
+  ],
+  "impactHolds": [
+    {
+      "frame": 4,
+      "held": 5,
+      "rule": "impact frame held one extra tick with impact fx (tools/smear.py --impact)"
+    }
+  ]
 }

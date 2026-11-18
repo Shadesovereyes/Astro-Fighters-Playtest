@@ -3,7 +3,7 @@
   "body": "male",
   "state": "clinchPalm",
   "status": "E/W approved by user 2026-10-16 (Sumo Palm in the clinch, paired with clinchPalmHit); S/N to author; open-hand revision approved by user 2026-10-16",
-  "frames": 8,
+  "frames": 10,
   "fps": 12,
   "frameSize": [
     64,
@@ -18,7 +18,7 @@
       "E",
       "W"
     ],
-    "columns": "frames 0–7"
+    "columns": "frames 0\u00e2\u0080\u00939"
   },
   "layers": {
     "body": "body.png",
@@ -120,9 +120,25 @@
       [
         0,
         0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
       ]
     ],
     "W": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
       [
         0,
         0
@@ -168,7 +184,9 @@
         4,
         5,
         6,
-        7
+        7,
+        8,
+        9
       ],
       "fps": 12,
       "next": "clinchHold"
@@ -191,6 +209,12 @@
       },
       {
         "frame": 3,
+        "clip": null,
+        "type": "startup",
+        "smear": true
+      },
+      {
+        "frame": 4,
         "type": "active",
         "move": "clinchPalm",
         "hitbox": [
@@ -202,12 +226,9 @@
         "damage": "heavy"
       },
       {
-        "frame": 4,
-        "type": "recovery"
-      },
-      {
         "frame": 5,
-        "type": "recovery"
+        "clip": null,
+        "type": "impactHold"
       },
       {
         "frame": 6,
@@ -215,6 +236,14 @@
       },
       {
         "frame": 7,
+        "type": "recovery"
+      },
+      {
+        "frame": 8,
+        "type": "recovery"
+      },
+      {
+        "frame": 9,
         "type": "recovery"
       }
     ],
@@ -233,6 +262,12 @@
       },
       {
         "frame": 3,
+        "clip": null,
+        "type": "startup",
+        "smear": true
+      },
+      {
+        "frame": 4,
         "type": "active",
         "move": "clinchPalm",
         "hitbox": [
@@ -244,12 +279,9 @@
         "damage": "heavy"
       },
       {
-        "frame": 4,
-        "type": "recovery"
-      },
-      {
         "frame": 5,
-        "type": "recovery"
+        "clip": null,
+        "type": "impactHold"
       },
       {
         "frame": 6,
@@ -257,6 +289,14 @@
       },
       {
         "frame": 7,
+        "type": "recovery"
+      },
+      {
+        "frame": 8,
+        "type": "recovery"
+      },
+      {
+        "frame": 9,
         "type": "recovery"
       }
     ]
@@ -562,5 +602,52 @@
       }
     },
     "pass": true
-  }
+  },
+  "smearFrames": [
+    {
+      "before": 3,
+      "frame": 3,
+      "limbs": [
+        "arm-near"
+      ],
+      "rule": "smear in-between inserted before the impact frame (tools/smear.py --insert)"
+    }
+  ],
+  "impactFx": [
+    {
+      "dir": "E",
+      "frame": 4,
+      "held": 5,
+      "x": 58,
+      "y": 26.0,
+      "facing": 1,
+      "style": "halfPop",
+      "angle": 0,
+      "gearReach": {
+        "boxing-gloves": 1,
+        "thai-gloves": 1
+      }
+    },
+    {
+      "dir": "W",
+      "frame": 4,
+      "held": 5,
+      "x": 5,
+      "y": 26.0,
+      "facing": -1,
+      "style": "halfPop",
+      "angle": 0,
+      "gearReach": {
+        "boxing-gloves": 1,
+        "thai-gloves": 1
+      }
+    }
+  ],
+  "impactHolds": [
+    {
+      "frame": 4,
+      "held": 5,
+      "rule": "impact frame held one extra tick with impact fx (tools/smear.py --impact)"
+    }
+  ]
 }

@@ -3,7 +3,7 @@
   "body": "male",
   "state": "shockPalm",
   "status": "E/W approved by user 2026-10-30 (v1 lightning orb swells in the drawn-back palm, palm drive discharges in bolts and a shock ring, f5d859a8; recoloured electric green-white by user request 2026-10-30; W mirrors E); S/N to author",
-  "frames": 9,
+  "frames": 11,
   "fps": 10,
   "frameSize": [
     64,
@@ -18,7 +18,7 @@
       "E",
       "W"
     ],
-    "columns": "frames 0–8"
+    "columns": "frames 0\u00e2\u0080\u009310"
   },
   "layers": {
     "body": "body.png",
@@ -74,7 +74,10 @@
     "boxing-gloves": "boxing-gloves.png",
     "boxing-gloves-far": "boxing-gloves-far.png",
     "thai-gloves": "thai-gloves.png",
-    "thai-gloves-far": "thai-gloves-far.png"
+    "thai-gloves-far": "thai-gloves-far.png",
+    "trail": "trail.png",
+    "boxing-gloves-trail": "boxing-gloves-trail.png",
+    "thai-gloves-trail": "thai-gloves-trail.png"
   },
   "pendingLayers": [],
   "drawOrder": [
@@ -105,7 +108,15 @@
         0
       ],
       [
+        0,
+        0
+      ],
+      [
         2,
+        0
+      ],
+      [
+        0,
         0
       ],
       [
@@ -143,7 +154,15 @@
         0
       ],
       [
+        0,
+        0
+      ],
+      [
         -2,
+        0
+      ],
+      [
+        0,
         0
       ],
       [
@@ -176,7 +195,9 @@
         5,
         6,
         7,
-        8
+        8,
+        9,
+        10
       ],
       "fps": 10,
       "next": "guard",
@@ -209,6 +230,12 @@
       {
         "frame": 4,
         "clip": "shockPalm",
+        "type": "startup",
+        "smear": true
+      },
+      {
+        "frame": 5,
+        "clip": "shockPalm",
         "type": "active",
         "move": "Shock Palm",
         "hitbox": [
@@ -220,14 +247,9 @@
         "damage": "medium"
       },
       {
-        "frame": 5,
-        "clip": "shockPalm",
-        "type": "recovery"
-      },
-      {
         "frame": 6,
         "clip": "shockPalm",
-        "type": "recovery"
+        "type": "impactHold"
       },
       {
         "frame": 7,
@@ -236,6 +258,16 @@
       },
       {
         "frame": 8,
+        "clip": "shockPalm",
+        "type": "recovery"
+      },
+      {
+        "frame": 9,
+        "clip": "shockPalm",
+        "type": "recovery"
+      },
+      {
+        "frame": 10,
         "clip": "shockPalm",
         "type": "recovery"
       }
@@ -264,6 +296,12 @@
       {
         "frame": 4,
         "clip": "shockPalm",
+        "type": "startup",
+        "smear": true
+      },
+      {
+        "frame": 5,
+        "clip": "shockPalm",
         "type": "active",
         "move": "Shock Palm",
         "hitbox": [
@@ -275,14 +313,9 @@
         "damage": "medium"
       },
       {
-        "frame": 5,
-        "clip": "shockPalm",
-        "type": "recovery"
-      },
-      {
         "frame": 6,
         "clip": "shockPalm",
-        "type": "recovery"
+        "type": "impactHold"
       },
       {
         "frame": 7,
@@ -291,6 +324,16 @@
       },
       {
         "frame": 8,
+        "clip": "shockPalm",
+        "type": "recovery"
+      },
+      {
+        "frame": 9,
+        "clip": "shockPalm",
+        "type": "recovery"
+      },
+      {
+        "frame": 10,
         "clip": "shockPalm",
         "type": "recovery"
       }
@@ -1502,5 +1545,54 @@
       }
     },
     "pass": false
-  }
+  },
+  "smearFrames": [
+    {
+      "before": 4,
+      "frame": 4,
+      "limbs": [
+        "arm-far"
+      ],
+      "rule": "smear in-between inserted before the impact frame (tools/smear.py --insert)"
+    }
+  ],
+  "impactFx": [
+    {
+      "dir": "E",
+      "frame": 5,
+      "held": 6,
+      "x": 58,
+      "y": 24.0,
+      "facing": 1,
+      "style": "halfPop",
+      "angle": 0,
+      "element": "volt",
+      "gearReach": {
+        "boxing-gloves": 1,
+        "thai-gloves": 1
+      }
+    },
+    {
+      "dir": "W",
+      "frame": 5,
+      "held": 6,
+      "x": 5,
+      "y": 24.0,
+      "facing": -1,
+      "style": "halfPop",
+      "angle": 0,
+      "element": "volt",
+      "gearReach": {
+        "boxing-gloves": 1,
+        "thai-gloves": 1
+      }
+    }
+  ],
+  "impactHolds": [
+    {
+      "frame": 5,
+      "held": 6,
+      "rule": "impact frame held one extra tick with impact fx (tools/smear.py --impact)"
+    }
+  ]
 }

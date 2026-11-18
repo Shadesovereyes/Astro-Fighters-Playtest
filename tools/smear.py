@@ -11,7 +11,7 @@ Usage: python3 tools/smear.py <state> <k>:<limbs>[,...] [--steps 0.35,0.7]
   limbs: arm-near arm-far leg-near leg-far joined with '+', e.g. muayThaiJabCross 5:arm-far
 Writes the smear into the state's E and W layer sheets in place (run after render, gloves and close_seams).
 """
-import copy, json, math, subprocess, sys, shutil
+import copy, json, math, re, subprocess, sys, shutil
 from pathlib import Path
 import numpy as np
 from PIL import Image
@@ -61,7 +61,7 @@ def temp_spec(spec, k, limbs, t, tag):
     return s
 
 TRAIL_FROM = 0.0
-def fist_trail(state, k, side='near', segs=((None, (0.25, 0.5, 0.75, 1.0)), (None, (0.25, 0.5, 0.75, 1.0))), solid=0.5, onto=False):
+def fist_trail(state, k, side='near', segs=((None, (0.25, 0.5, 0.75, 1.0)), (None, (0.25, 0.5, 0.75, 1.0))), solid=0.5, onto=False, ins=False):
     """Hooks and swings (haymaker, hook, uppercut, elbow, body shot): the fist leaves a tapered ribbon along its real
     path, drawn on the inserted smear frame k (the frame before the impact, see insert_smear). Path: the rig's fist at
     in-between poses of the two spec moves leading into the inserted frame (spec frames k-2 -> k-1 and k-1 -> k, where
@@ -78,7 +78,7 @@ def fist_trail(state, k, side='near', segs=((None, (0.25, 0.5, 0.75, 1.0)), (Non
     path = {dn: [] for dn in ('E', 'W')}   # per direction: [(t_global, cx, cy, {layer: (mid rgb, light rgb)}, half)]
     tags = []
     # onto=True: the trail goes on an existing pre-impact frame k (path spec k-1 -> k), no insert needed
-    jobs = [(k, (0.0, 0.2, 0.4, 0.6, 0.8, 1.0))] if onto else [(k - 1, ts) for ts in [segs[0][1]]] + [(k, [t * 0.55 for t in segs[1][1]])]
+    jobs = [(k, (0.0, 0.2, 0.4, 0.6, 0.8, 1.0))] if onto else [(k, (0.0, 0.11, 0.22, 0.33, 0.44, 0.55))] if ins else [(k - 1, ts) for ts in [segs[0][1]]] + [(k, [t * 0.55 for t in segs[1][1]])]
     order = 0
     for kk, ts in jobs:
         for t in ts:
@@ -274,6 +274,7 @@ def insert_smear(state, k, limbs, t=0.55, swing=False):
     orig = {n: a.copy() for n, a in new.items()}
     if any(l.startswith('arm') for l in limbs) and not swing: thrust(new, orig, rows, k)   # legs get the sweep (run) on the inserted frame
     for n, a in new.items(): Image.fromarray(a).save(d / anim['layers'][n])
+    shift_extras(d, anim, 'insert', k)
     # animation.json
     sh = lambda i: i + 1 if i >= k else i
     anim['frames'] = F0 + 1
@@ -345,6 +346,206 @@ def half_pop(stage):
 
 SPARK_C = {'W': (255, 255, 255, 255), 'w': (255, 255, 255, 255), 'a': (0xe3, 0xe3, 0xe3, 255), 'g': (0xa8, 0xa8, 0xb4, 255)}
 
+# Sign-kit strikes (Christopher 2026-11-18: "adamantine shin should have fx related to its sign, same with aero
+# palm"): the half pop keeps its shape and density but is drawn in the element's own colours (the palettes of
+# tools/astro.py ELEMENT/NPAL), and its rays take the element's form. Keys: W core, a body, g tip, r rim.
+def _hx(h): return (int(h[1:3], 16), int(h[3:5], 16), int(h[5:7], 16), 255)
+POP_ELEMENTS = {
+    'crystal': {'W': '#d9fff6', 'a': '#7fe3d0', 'g': '#3a9e8f', 'r': '#3a9e8f'},   # Capricorn: crystal glint, teal, deep facet
+    'earth':   {'W': '#d9fff6', 'a': '#7fe3d0', 'g': '#c79a5b', 'r': '#8a6236'},   # Taurus: crystal glint over soil
+    'sand':    {'W': '#fff0c4', 'a': '#e6c27a', 'g': '#9c7434', 'r': '#9c7434'},   # Virgo: sunlit sand grain
+    'air':     {'W': '#ffffff', 'a': '#e9eef4', 'g': '#a3aebb', 'r': '#39e75f'},   # Libra/Gemini: white/silver, light green rim
+    'volt':    {'W': '#ffffff', 'a': '#e2fff0', 'g': '#9ff2c4', 'r': '#5fbf94'},   # Aquarius: pastel mint (Christopher 2026-11-18, was electric green)
+    'fire':    {'W': '#ffe14d', 'a': '#ff8a1c', 'g': '#d8321a', 'r': '#d8321a'},   # Aries/Leo: yellow core, orange, red edge
+    'water':   {'W': '#dff6ff', 'a': '#7cc8ff', 'g': '#2f7fe0', 'r': '#2f7fe0'},   # Scorpio/Pisces: ice white, light and deep water
+}
+SIGN_POP = {'adamantineShin': 'crystal', 'diamondCutter': 'crystal', 'ironFist': 'earth', 'silicaStrike': 'sand',
+            'witherPalm': 'sand', 'aeroPalm': 'air', 'echoFist': 'air', 'shockPalm': 'volt', 'nerveDisruptor': 'volt',
+            'shatterPunch': 'fire', 'sunPalm': 'fire', 'numbingStrike': 'water', 'kidneyShot': 'water', 'flowStrike': 'water'}
+def sign_element(state): return SIGN_POP.get(state) or SIGN_POP.get(re.sub(r'V\d+$', '', state))
+
+def pop_colours(element=None):
+    if not element: return SPARK_C
+    e = POP_ELEMENTS[element]; return {k: _hx(v) for k, v in e.items()}
+
+def sign_pop(stage, element):
+    """The half pop in an element's form: crystal/earth rays become 2 px shards (a facet pixel beside the base),
+    air gets a second broken wind arc outside the ring with a green rim, volt rays zig-zag, fire rays lick upward,
+    water rays break into droplets, sand rays scatter into grains."""
+    out = dict(half_pop(stage))
+    rays = ((-55, 3), (0, 4), (55, 3)) if stage == 0 else ((-60, 4), (-25, 5), (0, 6), (25, 5), (60, 4))
+    r0 = 2 if stage == 0 else 3
+    if element in ('crystal', 'earth'):
+        for ang, ln in rays:
+            t = np.radians(ang); nx, ny = -np.sin(t), np.cos(t)
+            for j in range(min(2, ln - 1)):
+                r = r0 + j + (1 if stage else 0)
+                q = (int(round(r * np.cos(t) + nx)), int(round(r * np.sin(t) + ny)))
+                if q not in out: out[q] = 'r'
+            r = r0 + ln - 1; q = (int(round(r * np.cos(t))), int(round(r * np.sin(t))))
+            out[q] = 'g'
+    elif element == 'air':
+        ox, rx, ry = ((2, 2.5, 5.0), (3, 3.5, 6.5))[stage]
+        for i in range(120):
+            t = 2 * np.pi * i / 120; ct, st = np.cos(t), np.sin(t)
+            if ct < 0.1 or abs(st) < 0.55 or i % 3 == 0: continue
+            q = (int(round(ox + rx * ct)), int(round(ry * st)))
+            if q not in out: out[q] = 'r'
+    elif element == 'volt':
+        for q in [q for q, c in out.items() if c in ('a', 'g') and abs(q[1]) <= 6 and q[0] > 1]:
+            if (q[0] + q[1]) % 2: c = out.pop(q); out[(q[0], q[1] + (1 if q[1] >= 0 else -1))] = 'g' if c == 'a' else 'r'
+    elif element == 'fire':
+        for q in [q for q, c in out.items() if c in ('a', 'g')]:
+            if q[0] > 1 and q[1] < 0: c = out.pop(q); out[(q[0], q[1] - 1)] = c   # tongues lick upward
+    elif element in ('water', 'sand'):
+        for q in [q for q, c in out.items() if c == 'g']:
+            out.pop(q); out[(q[0] + 1, q[1] + 1)] = 'g'   # the tips break off and fall as droplets / grains
+    return out
+
+
+def contact(sheets, y0, k, hitbox, east, side=None):
+    """Where the strike lands, for the impact pop (Christopher 2026-11-17: on the striking fist/foot, centred on its
+    centreline). A punch: the glove sheets hold only the fists, so the fist is the glove blob nearest the hitbox (its
+    bare hand sits 1 px inside the glove; the pop's x is the bare fist front + gearReach per glove). Otherwise (kicks,
+    knees, headbutts) the frontmost bare pixel in the hitbox rows and the unbroken run of rows around it.
+    Returns (bare front x, centreline y at half-pixel precision, {glove: reach}) or None."""
+    hx_, hy, hw, hh = hitbox
+    def lay(names):
+        m = np.zeros((F, F), bool)
+        for n in names:
+            if n in sheets: m |= sheets[n][y0:y0 + F, k * F:(k + 1) * F, 3] > 0
+        return m
+    bare = lay(('body', 'arms'))
+    xs = np.where(bare[hy:hy + hh].any(0))[0]
+    if not len(xs): return None
+    bfront = int(xs.max()) if east else int(xs.min())
+    gl = [n for n in sheets if n.endswith('gloves') or n.endswith('gloves-far')]
+    best = None
+    cands = [n for n in gl if not n.endswith('-far')][:1] + [n for n in gl if n.endswith('-far')][:1]
+    global LAST_GLOVE; LAST_GLOVE = None
+    if side in ('near', 'far'): cands = [n for n in cands if n.endswith('-far') == (side == 'far')]
+    for g in cands:
+        m = lay((g,))
+        if not m.any(): continue
+        # components of this glove sheet
+        seen = np.zeros_like(m); H, W = m.shape
+        for y, x in zip(*np.nonzero(m)):
+            if seen[y, x]: continue
+            st = [(y, x)]; seen[y, x] = True; comp = []
+            while st:
+                cy_, cx_ = st.pop(); comp.append((cy_, cx_))
+                for dy in (-1, 0, 1):
+                    for dx in (-1, 0, 1):
+                        qy, qx = cy_ + dy, cx_ + dx
+                        if 0 <= qy < H and 0 <= qx < W and m[qy, qx] and not seen[qy, qx]: seen[qy, qx] = True; st.append((qy, qx))
+            ys_ = [c[0] for c in comp]; xs_ = [c[1] for c in comp]
+            gf = max(xs_) if east else min(xs_)
+            # a glove that reaches the hitbox rows (+-3) and stands near the front of the strike
+            if max(ys_) < hy - 3 or min(ys_) > hy + hh + 3: continue
+            score = gf if east else -gf
+            if side == 'nearest':   # the striking fist is the glove whose centre sits closest to the hitbox centre (an uppercut's far guard glove may stand further forward)
+                score = -((min(xs_) + max(xs_)) / 2 - (hx_ + hw / 2)) ** 2 - ((min(ys_) + max(ys_)) / 2 - (hy + hh / 2)) ** 2
+            if best is None or score > best[0]: best = (score, gf, (min(ys_) + max(ys_)) / 2, g, (min(ys_), max(ys_), min(xs_), max(xs_)))
+    if best is not None and (side or abs(best[1] - bfront) <= 3):
+        gf, cy = best[1], best[2]
+        y1, y2, x1, x2 = best[4]
+        box = bare[y1:y2 + 1, x1:x2 + 1]
+        bx = np.where(box.any(0))[0]
+        fx_ = (x1 + int(bx.max()) if east else x1 + int(bx.min())) if len(bx) else gf
+        reach = {n: int(abs(gf - fx_)) for n in gl if not n.endswith('-far')}
+        reach = {n: v for n, v in reach.items() if v}
+        LAST_GLOVE = best[3]
+        return fx_, cy, reach
+    near = (bare[:, max(0, bfront - 3):bfront + 1] if east else bare[:, bfront:bfront + 4]).any(1)
+    seed = hy + int(np.where(bare[hy:hy + hh, bfront])[0][0])
+    top = bot = seed
+    while top > 0 and near[top - 1]: top -= 1
+    while bot < F - 1 and near[bot + 1]: bot += 1
+    return bfront, (top + bot) / 2, {}
+
+LAST_GLOVE = None
+def pop_angle(state, nth, dn='E', want_side=False, side=None):
+    force = side
+    """Orientation of the pop (Christopher 2026-11-18: "the pop should follow the orientation of the fist/gloves; an
+    uppercut's pop is slightly vertical, not horizontal like a jab"). From the rig spec: the nth active event of the
+    clip's spec is the impact; the striking arm is the one that moved most into it among the arms reaching forward
+    (band angles: 0 down, -90 forward, -180 up; elbow.angle is the forearm's own direction). The pop points along
+    the forearm (an elbow strike: along the upper arm), damped to 0.6 so it turns only slightly vertical, clamped
+    to +-60 degrees, in 15 degree steps. Kicks and knees keep 0. Returns degrees, positive = up."""
+    try: spec = json.loads((ANIM / f'{state}.json').read_text())
+    except Exception: return 0
+    evs = spec.get('events', {}).get('E') if isinstance(spec.get('events'), dict) else None
+    acts = sorted(e['frame'] for e in (evs or []) if e.get('type') == 'active')
+    if nth >= len(acts): return 0
+    f = acts[nth]
+    L = spec.get('legs', {}); P = L.get('poses', [])
+    for side in ('near', 'far'):
+        v = (L.get(side) or [None] * (f + 1))[f]
+        nm = P[v].get('name', '') if isinstance(v, int) and isinstance(P, list) and v < len(P) and isinstance(P[v], dict) else str(v)
+        if re.search(r'round|side|knee|kick|teep|sweep|hk-', nm): return 0   # a leg strike
+    if re.search(r'(?i)headbutt|ironMountain', state): return 0
+    def arm(side, i):
+        a = spec.get('arms', {}).get(side, [None] * (i + 1))[i]
+        if not isinstance(a, dict) or a.get('construction') != 'band': return None
+        return a['angle'], a.get('elbow', {}).get('angle', a['angle'])
+    def nd(x): return ((x + 180) % 360) - 180
+    best = alt = None
+    for side in ('near', 'far'):
+        cur = arm(side, f); prv = arm(side, f - 1) if f > 0 else None
+        if not cur: continue
+        def fist(an): return (np.sin(np.radians(-an[0])) + np.sin(np.radians(-an[1])), np.cos(np.radians(an[0])) + np.cos(np.radians(an[1])))
+        fx1, fy1 = fist(cur); fx0, fy0 = fist(prv) if prv else (fx1, fy1)
+        if fx1 < 0.8: continue
+        drive = (fx1 - fx0) + 0.5 * abs(fy1 - fy0)   # the fist driving forward (or rising/dropping into the target); a retracting arm scores below zero
+        moved = abs(nd(cur[0] - prv[0])) + abs(nd(cur[1] - prv[1])) if prv else 0
+        if best is None or drive > best[0]: best = (drive, cur, side)
+        if moved > 10 and (alt is None or moved > alt[0]): alt = (moved, cur, side)
+    if force and not want_side:   # the striking glove found on the sheet decides the arm
+        cur = arm(force, f)
+        if cur: best = (99, cur, force)
+    if (not best or best[0] < 0.15) and alt: best = (0.15, alt[1], alt[2])   # a hook: the fist curls round rather than driving forward; the arm that moved most
+    if not best or best[0] < 0.15: return 0   # no arm drove into the impact: a kick, knee or headbutt
+    if want_side: return best[2]
+    a = best[1][0] if 'lbow' in state else best[1][1]
+    elev = -nd(a) - 90   # degrees above the forward horizontal
+    return int(max(-60, min(60, round(elev * 0.6 / 15) * 15)))
+
+def striking_arm(state, nth):
+    """'near' / 'far' for a punch (the arm pop_angle picks), None for kicks, knees, headbutts."""
+    r = pop_angle(state, nth, want_side=True)
+    return r if r in ('near', 'far') else None
+
+def rotate_pop(px, ang):
+    """Rotate pop offsets (dx forward, dy down) by ang degrees (positive turns the pop upward)."""
+    if not ang: return px
+    t = np.radians(ang); c, s_ = np.cos(t), np.sin(t); rank = {'W': 0, 'a': 1, 'g': 2, 'r': 3}
+    out = {}
+    for (dx, dy), col in sorted(px.items(), key=lambda kv: rank.get(kv[1], 4), reverse=True):
+        out[(int(round(dx * c + dy * s_)), int(round(-dx * s_ + dy * c)))] = col
+    return out
+
+def recontact(state):
+    """Recompute every impactFx record's contact point with contact() (sheets unchanged)."""
+    d = ANIM / state; anim = layers_of(d); rows = anim['sheetLayout']['rows']
+    sheets = {n: np.array(Image.open(d / f).convert('RGBA')) for n, f in anim['layers'].items() if (d / f).exists()}
+    for rec in anim.get('impactFx', []):
+        di = rows.index(rec['dir']); evs = anim['events'].get(rec['dir']) or []
+        ev = next((e for e in evs if e['frame'] == rec['frame'] and e.get('hitbox')), None)
+        if not ev: continue
+        east = rec['facing'] > 0 if rec['dir'] not in ('E', 'W') else rec['dir'] == 'E'
+        nth = sum(1 for e in evs if e.get('type') == 'active' and e['frame'] < rec['frame'])
+        got = contact(sheets, di * F, rec['frame'], ev['hitbox'], east, striking_arm(state, nth))
+        gside = striking_arm(state, nth)
+        if not got: continue
+        fx_, cy, reach = got
+        rec.update({'x': int(fx_) + (1 if east else -1), 'y': float(cy), 'facing': 1 if east else -1,
+                    'angle': pop_angle(state, nth, side=gside)})
+        if sign_element(state): rec['element'] = sign_element(state)
+        rec.pop('gearReach', None)
+        if reach: rec['gearReach'] = reach
+    (d / 'animation.json').write_text(json.dumps(anim, indent=2))
+    print(state, 'contacts', [(r['dir'], r['frame'], r['x'], r['y']) for r in anim.get('impactFx', [])])
+
 def impact_hold(state, k):
     """Rule (Christopher 2026-11-17): the impact frame lasts longer and shows impact fx. The impact column is
     duplicated (held for two ticks); the fx layer gets a hit spark at the contact point: a tight star on the impact
@@ -363,35 +564,19 @@ def impact_hold(state, k):
         cur = np.zeros((F, F), bool)
         for n, a in sheets.items():
             if n != 'fx': cur |= a[y0:y0 + F, k * F:(k + 1) * F, 3] > 0
-        east = hx_ >= 32
-        # contact = the striking fist/foot itself, measured on the bare figure (body + arms, no gear): its front is the
-        # frontmost pixel in the hitbox rows, its centreline the middle of its rows (outline included) within 3 px of
-        # that front, kept at half-pixel precision (Christopher 2026-11-17: centre the pop on the fist's centreline).
-        # Gloves stand proud of the fist: their extra reach per glove layer is recorded so the pop touches the glove.
-        def front(names):
-            m = np.zeros((F, F), bool)
-            for n in names:
-                if n in sheets: m |= sheets[n][y0:y0 + F, k * F:(k + 1) * F, 3] > 0
-            xs = np.where(m[hy:hy + hh].any(0))[0]
-            return (m, int(xs.max()) if east else int(xs.min())) if len(xs) else (m, None)
-        bare, fx_ = front(('body', 'arms'))
-        if fx_ is None: continue
-        # the fist's rows: the unbroken run of rows near the front that holds the frontmost hitbox pixel (the hitbox
-        # rows may cut the fist, so the run is followed past them)
-        near = (bare[:, max(0, fx_ - 3):fx_ + 1] if east else bare[:, fx_:fx_ + 4]).any(1)
-        seed = hy + int(np.where(bare[hy:hy + hh, fx_])[0][0])
-        top = bot = seed
-        while top > 0 and near[top - 1]: top -= 1
-        while bot < F - 1 and near[bot + 1]: bot += 1
-        cy = (top + bot) / 2
-        reach = {}
-        for g in [n for n in sheets if n.endswith('gloves')]:
-            _, gx = front(('body', 'arms', g))
-            if gx is not None and gx != fx_: reach[g] = abs(gx - fx_)
-        rec = {'dir': dn, 'frame': k, 'held': k + 1, 'x': fx_ + (1 if east else -1), 'y': float(cy), 'facing': 1 if east else -1, 'style': 'halfPop'}
+        east = (dn == 'E') if dn in ('E', 'W') else hx_ >= 32   # the fighter's own facing (a held fighter's hitbox may sit behind)
+        nth = sum(1 for e in evs if e.get('type') == 'active' and e['frame'] < k)
+        got = contact(sheets, y0, k, ev['hitbox'], east, striking_arm(state, nth))
+        gside = striking_arm(state, nth)
+        if not got: continue
+        fx_, cy, reach = got
+        rec = {'dir': dn, 'frame': k, 'held': k + 1, 'x': int(fx_) + (1 if east else -1), 'y': float(cy), 'facing': 1 if east else -1, 'style': 'halfPop',
+               'angle': pop_angle(state, nth, side=gside)}
+        if sign_element(state): rec['element'] = sign_element(state)
         if reach: rec['gearReach'] = reach
         anim.setdefault('impactFx', []).append(rec)
     for n, a in sheets.items(): Image.fromarray(a).save(d / anim['layers'][n])
+    shift_extras(d, anim, 'hold', k)
     sh = lambda i: i + 1 if i > k else i
     anim['frames'] = F0 + 1
     anim['sheetLayout']['columns'] = 'frames 0\u2013%d' % F0
@@ -412,6 +597,19 @@ def impact_hold(state, k):
     anim.setdefault('impactHolds', []).append({'frame': k, 'held': k + 1, 'rule': 'impact frame held one extra tick with impact fx (tools/smear.py --impact)'})
     (d / 'animation.json').write_text(json.dumps(anim, indent=2))
     print(state, 'impact held + fx at', k)
+
+def shift_extras(d, anim, op, k):
+    """Sheets and per-frame records outside anim['layers'] keep step with an inserted column: the baked astro fx
+    sheet (fx.png, drawn by astro.py --fx) and the runtime aura widths. An inserted smear frame (op 'insert', new
+    column k) carries frame k-1's fx and aura; a held impact (op 'hold', new column k+1) repeats frame k's."""
+    src = k - 1 if op == 'insert' else k; at = k if op == 'insert' else k + 1
+    f = d / 'fx.png'
+    if f.exists():
+        a = np.array(Image.open(f).convert('RGBA'))
+        if a.shape[1] // F == anim['frames']:
+            Image.fromarray(np.concatenate([a[:, :at * F], a[:, src * F:(src + 1) * F], a[:, at * F:]], axis=1)).save(f)
+    w = anim.get('aura', {}).get('widths') if isinstance(anim.get('aura'), dict) else None
+    if isinstance(w, list) and len(w) == anim['frames']: w.insert(at, w[src])
 
 def layers_of(d):
     return json.loads((d / 'animation.json').read_text())
@@ -494,7 +692,10 @@ def run(state, jobs, steps=tuple(round(0.1 * i, 2) for i in range(1, 10))):
 if __name__ == '__main__' and '--trail' in sys.argv:
     # smear.py <state> --trail k[:far]   (k = the inserted smear frame; run after --insert ... with a :nothrust limb)
     state = sys.argv[1]; j = sys.argv[sys.argv.index('--trail') + 1].split(':')
-    fist_trail(state, int(j[0]), j[1] if len(j) > 1 else 'near', onto='onto' in j); sys.exit()
+    fist_trail(state, int(j[0]), j[1] if len(j) > 1 else 'near', onto='onto' in j, ins='ins' in j); sys.exit()
+if __name__ == '__main__' and '--recontact' in sys.argv:
+    for st in sys.argv[sys.argv.index('--recontact') + 1:]: recontact(st)
+    sys.exit()
 if __name__ == '__main__' and '--impact' in sys.argv:
     state = sys.argv[1]
     for k in sorted((int(x) for x in sys.argv[sys.argv.index('--impact') + 1].split(',')), reverse=True): impact_hold(state, k)

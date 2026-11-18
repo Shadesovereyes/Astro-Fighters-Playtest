@@ -2,8 +2,8 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "clinchJabHit",
-  "status": "E/W approved by user 2026-10-16 (held side of the clinch jab, paired with clinchJab); S/N to author",
-  "frames": 8,
+  "status": "E/W approved by user 2026-11-18 18:04 (v2 hook hits on frames 4 and 8; W mirrors E); v1 E/W approved by user 2026-10-16 (held side of the clinch jab, paired with clinchJab); S/N to author",
+  "frames": 11,
   "fps": 12,
   "sourceDirection": "E",
   "directions": [
@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "The held fighter's side of the clinch jab: hands stay on the holder's chest (ruling 2026-10-14); the lowered head snaps back on each jab with pain eyes and is pulled forward again.",
+  "intent": "The held fighter's side of the clinch jab: hands stay on the holder's chest (ruling 2026-10-14); the lowered head snaps back on each jab with pain eyes and is pulled forward again. v2 (2026-11-18): the partner now throws two morphing hooks, so the head is knocked back and sideways like the clinch hook hit on frames 4 and 8.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -114,19 +114,28 @@
       2,
       2,
       2,
+      2,
+      2,
+      2,
       2
     ],
     "head": [
       4,
       4,
+      4,
+      4,
       2,
       3,
+      4,
       4,
       2,
       3,
       4
     ],
     "arms": [
+      2,
+      2,
+      2,
       2,
       2,
       2,
@@ -146,18 +155,24 @@
         0,
         0,
         0,
+        1,
         0,
         0,
+        0,
+        1,
         0,
         0
       ],
       "head": [
         5,
         5,
-        2,
+        5,
+        5,
+        1,
         3,
         5,
-        2,
+        5,
+        1,
         3,
         5
       ]
@@ -197,9 +212,33 @@
       [
         0,
         0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
       ]
     ],
     "W": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
       [
         0,
         0
@@ -369,9 +408,15 @@
       3,
       3,
       3,
+      3,
+      3,
+      3,
       3
     ],
     "far": [
+      2,
+      2,
+      2,
       2,
       2,
       2,
@@ -461,9 +506,57 @@
           "at": 8,
           "angle": -100
         }
+      },
+      {
+        "construction": "band",
+        "angle": -62,
+        "elbow": {
+          "at": 8,
+          "angle": -100
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -62,
+        "elbow": {
+          "at": 8,
+          "angle": -100
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -62,
+        "elbow": {
+          "at": 8,
+          "angle": -100
+        }
       }
     ],
     "far": [
+      {
+        "construction": "band",
+        "angle": -58,
+        "elbow": {
+          "at": 8,
+          "angle": -96
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -58,
+        "elbow": {
+          "at": 8,
+          "angle": -96
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -58,
+        "elbow": {
+          "at": 8,
+          "angle": -96
+        }
+      },
       {
         "construction": "band",
         "angle": -58,
@@ -629,6 +722,9 @@
       "bandFollowsBody": true,
       "sway": {
         "E": [
+          -1,
+          -1,
+          -1,
           -1,
           -1,
           -1,
@@ -1408,7 +1504,10 @@
         4,
         5,
         6,
-        7
+        7,
+        8,
+        9,
+        10
       ],
       "fps": 12,
       "next": "clinchHeld"
@@ -1503,8 +1602,11 @@
       "E": [
         null,
         null,
+        null,
+        null,
         "pain",
         "squint",
+        null,
         null,
         "pain",
         "squint",

@@ -3,7 +3,7 @@
   "body": "male",
   "state": "hook",
   "status": "E/W approved by user 2026-10-14 (\"great\" after the main-hand, longer-reach and outline revisions); S/N to author",
-  "frames": 6,
+  "frames": 8,
   "fps": 12,
   "frameSize": [
     64,
@@ -18,7 +18,7 @@
       "E",
       "W"
     ],
-    "columns": "frames 0–5"
+    "columns": "frames 0\u00e2\u0080\u00937"
   },
   "layers": {
     "body": "body.png",
@@ -74,7 +74,10 @@
     "thai-gloves": "thai-gloves.png",
     "male-boxing-boots": "male-boxing-boots.png",
     "boxing-gloves-far": "boxing-gloves-far.png",
-    "thai-gloves-far": "thai-gloves-far.png"
+    "thai-gloves-far": "thai-gloves-far.png",
+    "trail": "trail.png",
+    "boxing-gloves-trail": "boxing-gloves-trail.png",
+    "thai-gloves-trail": "thai-gloves-trail.png"
   },
   "pendingLayers": [],
   "drawOrder": [
@@ -97,7 +100,15 @@
         0
       ],
       [
+        0,
+        0
+      ],
+      [
         1,
+        0
+      ],
+      [
+        0,
         0
       ],
       [
@@ -123,7 +134,15 @@
         0
       ],
       [
+        0,
+        0
+      ],
+      [
         -1,
+        0
+      ],
+      [
+        0,
         0
       ],
       [
@@ -149,7 +168,9 @@
         2,
         3,
         4,
-        5
+        5,
+        6,
+        7
       ],
       "fps": 12,
       "next": "guard",
@@ -174,6 +195,12 @@
       },
       {
         "frame": 2,
+        "clip": "hook",
+        "type": "startup",
+        "smear": true
+      },
+      {
+        "frame": 3,
         "type": "active",
         "move": "hook",
         "hitbox": [
@@ -186,18 +213,23 @@
         "clip": "hook"
       },
       {
-        "frame": 3,
+        "frame": 4,
+        "clip": "hook",
+        "type": "impactHold"
+      },
+      {
+        "frame": 5,
         "type": "recovery",
         "clip": "hook"
       },
       {
-        "frame": 4,
+        "frame": 6,
         "type": "recovery",
         "chainWindow": true,
         "clip": "hook"
       },
       {
-        "frame": 5,
+        "frame": 7,
         "type": "recovery",
         "chainWindow": true,
         "clip": "hook"
@@ -216,6 +248,12 @@
       },
       {
         "frame": 2,
+        "clip": "hook",
+        "type": "startup",
+        "smear": true
+      },
+      {
+        "frame": 3,
         "type": "active",
         "move": "hook",
         "hitbox": [
@@ -228,18 +266,23 @@
         "clip": "hook"
       },
       {
-        "frame": 3,
+        "frame": 4,
+        "clip": "hook",
+        "type": "impactHold"
+      },
+      {
+        "frame": 5,
         "type": "recovery",
         "clip": "hook"
       },
       {
-        "frame": 4,
+        "frame": 6,
         "type": "recovery",
         "chainWindow": true,
         "clip": "hook"
       },
       {
-        "frame": 5,
+        "frame": 7,
         "type": "recovery",
         "chainWindow": true,
         "clip": "hook"
@@ -479,5 +522,52 @@
       }
     },
     "pass": true
-  }
+  },
+  "smearFrames": [
+    {
+      "before": 2,
+      "frame": 2,
+      "limbs": [
+        "arm-near"
+      ],
+      "rule": "smear in-between inserted before the impact frame (tools/smear.py --insert)"
+    }
+  ],
+  "impactFx": [
+    {
+      "dir": "E",
+      "frame": 3,
+      "held": 4,
+      "x": 55,
+      "y": 22.5,
+      "facing": 1,
+      "style": "halfPop",
+      "angle": 15,
+      "gearReach": {
+        "boxing-gloves": 1,
+        "thai-gloves": 1
+      }
+    },
+    {
+      "dir": "W",
+      "frame": 3,
+      "held": 4,
+      "x": 8,
+      "y": 22.5,
+      "facing": -1,
+      "style": "halfPop",
+      "angle": 15,
+      "gearReach": {
+        "boxing-gloves": 1,
+        "thai-gloves": 1
+      }
+    }
+  ],
+  "impactHolds": [
+    {
+      "frame": 3,
+      "held": 4,
+      "rule": "impact frame held one extra tick with impact fx (tools/smear.py --impact)"
+    }
+  ]
 }

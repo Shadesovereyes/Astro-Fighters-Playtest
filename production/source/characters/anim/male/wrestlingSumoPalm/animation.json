@@ -3,7 +3,7 @@
   "body": "male",
   "state": "wrestlingSumoPalm",
   "status": "E/W approved by user 2026-10-20 (W mirrors E); S/N approved by user 2026-10-20 (hands and wrists in front of the body outlined)",
-  "frames": 7,
+  "frames": 9,
   "fps": 12,
   "frameSize": [
     64,
@@ -20,7 +20,7 @@
       "N",
       "W"
     ],
-    "columns": "frames 0–6"
+    "columns": "frames 0\u00e2\u0080\u00938"
   },
   "layers": {
     "body": "body.png",
@@ -117,6 +117,14 @@
       [
         0,
         0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
       ]
     ],
     "E": [
@@ -129,7 +137,15 @@
         0
       ],
       [
+        0,
+        0
+      ],
+      [
         1,
+        0
+      ],
+      [
+        0,
         0
       ],
       [
@@ -177,6 +193,14 @@
       [
         0,
         0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
       ]
     ],
     "W": [
@@ -189,7 +213,15 @@
         0
       ],
       [
+        0,
+        0
+      ],
+      [
         -1,
+        0
+      ],
+      [
+        0,
         0
       ],
       [
@@ -220,7 +252,9 @@
         3,
         4,
         5,
-        6
+        6,
+        7,
+        8
       ],
       "fps": 12,
       "next": "wrestlingGuard",
@@ -243,6 +277,12 @@
       {
         "frame": 2,
         "clip": "wrestlingSumoPalm",
+        "type": "startup",
+        "smear": true
+      },
+      {
+        "frame": 3,
+        "clip": "wrestlingSumoPalm",
         "type": "active",
         "move": "Sumo Palm",
         "hitbox": [
@@ -254,14 +294,9 @@
         "damage": "heavy"
       },
       {
-        "frame": 3,
-        "clip": "wrestlingSumoPalm",
-        "type": "recovery"
-      },
-      {
         "frame": 4,
         "clip": "wrestlingSumoPalm",
-        "type": "recovery"
+        "type": "impactHold"
       },
       {
         "frame": 5,
@@ -270,6 +305,16 @@
       },
       {
         "frame": 6,
+        "clip": "wrestlingSumoPalm",
+        "type": "recovery"
+      },
+      {
+        "frame": 7,
+        "clip": "wrestlingSumoPalm",
+        "type": "recovery"
+      },
+      {
+        "frame": 8,
         "clip": "wrestlingSumoPalm",
         "type": "recovery"
       }
@@ -288,6 +333,12 @@
       {
         "frame": 2,
         "clip": "wrestlingSumoPalm",
+        "type": "startup",
+        "smear": true
+      },
+      {
+        "frame": 3,
+        "clip": "wrestlingSumoPalm",
         "type": "active",
         "move": "Sumo Palm",
         "hitbox": [
@@ -299,14 +350,9 @@
         "damage": "heavy"
       },
       {
-        "frame": 3,
-        "clip": "wrestlingSumoPalm",
-        "type": "recovery"
-      },
-      {
         "frame": 4,
         "clip": "wrestlingSumoPalm",
-        "type": "recovery"
+        "type": "impactHold"
       },
       {
         "frame": 5,
@@ -315,6 +361,16 @@
       },
       {
         "frame": 6,
+        "clip": "wrestlingSumoPalm",
+        "type": "recovery"
+      },
+      {
+        "frame": 7,
+        "clip": "wrestlingSumoPalm",
+        "type": "recovery"
+      },
+      {
+        "frame": 8,
         "clip": "wrestlingSumoPalm",
         "type": "recovery"
       }
@@ -852,5 +908,44 @@
       }
     },
     "pass": false
-  }
+  },
+  "smearFrames": [
+    {
+      "before": 2,
+      "frame": 2,
+      "limbs": [
+        "arm-near"
+      ],
+      "rule": "smear in-between inserted before the impact frame (tools/smear.py --insert)"
+    }
+  ],
+  "impactFx": [
+    {
+      "dir": "E",
+      "frame": 3,
+      "held": 4,
+      "x": 54,
+      "y": 27.5,
+      "facing": 1,
+      "style": "halfPop",
+      "angle": 0
+    },
+    {
+      "dir": "W",
+      "frame": 3,
+      "held": 4,
+      "x": 9,
+      "y": 27.5,
+      "facing": -1,
+      "style": "halfPop",
+      "angle": 0
+    }
+  ],
+  "impactHolds": [
+    {
+      "frame": 3,
+      "held": 4,
+      "rule": "impact frame held one extra tick with impact fx (tools/smear.py --impact)"
+    }
+  ]
 }

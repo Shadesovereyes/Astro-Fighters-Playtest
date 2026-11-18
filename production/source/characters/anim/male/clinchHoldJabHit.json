@@ -2,8 +2,8 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "clinchHoldJabHit",
-  "status": "E/W approved by user 2026-10-16 (holder side of the held jab, paired with clinchHeldJab); S/N to author",
-  "frames": 8,
+  "status": "E/W approved by user 2026-11-18 18:04 (v2 hook hits on frames 4 and 8; W mirrors E); v1 E/W approved by user 2026-10-16 (holder side of the held jab, paired with clinchHeldJab); S/N to author",
+  "frames": 11,
   "fps": 12,
   "sourceDirection": "E",
   "directions": [
@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "The holder's side of the held jab: the chin snaps up and back on each punch with pain eyes, the collar tie holds.",
+  "intent": "The holder's side of the held jab: the chin snaps up and back on each punch with pain eyes, the collar tie holds. v2 (2026-11-18): the partner now throws two morphing hooks, so the head is knocked back and sideways like the clinch hook hit on frames 4 and 8.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -114,12 +114,18 @@
       1,
       1,
       1,
+      1,
+      1,
+      1,
       1
     ],
     "head": [
       1,
       1,
+      1,
+      1,
       0,
+      1,
       1,
       1,
       0,
@@ -127,6 +133,9 @@
       1
     ],
     "arms": [
+      2,
+      2,
+      2,
       2,
       2,
       2,
@@ -144,7 +153,10 @@
       "pelvis": [
         1,
         1,
+        1,
+        1,
         2,
+        1,
         1,
         1,
         2,
@@ -154,11 +166,14 @@
       "head": [
         4,
         4,
-        1,
-        3,
         4,
-        1,
-        3,
+        4,
+        -1,
+        2,
+        4,
+        4,
+        -1,
+        2,
         4
       ]
     }
@@ -197,9 +212,33 @@
       [
         0,
         0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
       ]
     ],
     "W": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
       [
         0,
         0
@@ -369,9 +408,15 @@
       1,
       1,
       1,
+      1,
+      1,
+      1,
       1
     ],
     "far": [
+      0,
+      0,
+      0,
       0,
       0,
       0,
@@ -416,6 +461,22 @@
       },
       {
         "construction": "band",
+        "angle": -82,
+        "elbow": {
+          "at": 8,
+          "angle": -118
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -76,
+        "elbow": {
+          "at": 8,
+          "angle": -110
+        }
+      },
+      {
+        "construction": "band",
         "angle": -76,
         "elbow": {
           "at": 8,
@@ -436,6 +497,14 @@
         "elbow": {
           "at": 8,
           "angle": -118
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -76,
+        "elbow": {
+          "at": 8,
+          "angle": -110
         }
       },
       {
@@ -494,6 +563,30 @@
         "elbow": {
           "at": 8,
           "angle": -126
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -90,
+        "elbow": {
+          "at": 8,
+          "angle": -126
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -88,
+        "elbow": {
+          "at": 8,
+          "angle": -122
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -88,
+        "elbow": {
+          "at": 8,
+          "angle": -122
         }
       },
       {
@@ -629,6 +722,9 @@
       "bandFollowsBody": true,
       "sway": {
         "E": [
+          -1,
+          -1,
+          -1,
           -1,
           -1,
           -1,
@@ -1408,7 +1504,10 @@
         4,
         5,
         6,
-        7
+        7,
+        8,
+        9,
+        10
       ],
       "fps": 12,
       "next": "clinchHold"
@@ -1503,8 +1602,11 @@
       "E": [
         null,
         null,
+        null,
+        null,
         "pain",
         "squint",
+        null,
         null,
         "pain",
         "squint",

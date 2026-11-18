@@ -3,7 +3,7 @@
   "body": "male",
   "state": "heavyAttack",
   "status": "approved by user 2026-10-12: low kick, snap kick, spin roundhouse in S, E, N, W (W mirrors E), with the S/N part variants",
-  "frames": 16,
+  "frames": 22,
   "fps": 12,
   "frameSize": [
     64,
@@ -20,7 +20,7 @@
       "N",
       "W"
     ],
-    "columns": "frames 0–15"
+    "columns": "frames 0\u00e2\u0080\u009321"
   },
   "layers": {
     "body": "body.png",
@@ -100,6 +100,38 @@
       ],
       [
         0,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
         1
       ],
       [
@@ -113,14 +145,6 @@
       [
         0,
         0
-      ],
-      [
-        0,
-        0
-      ],
-      [
-        0,
-        1
       ],
       [
         0,
@@ -165,6 +189,38 @@
         0
       ],
       [
+        0,
+        0
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
         1,
         0
       ],
@@ -178,14 +234,6 @@
       ],
       [
         0,
-        0
-      ],
-      [
-        0,
-        0
-      ],
-      [
-        1,
         0
       ],
       [
@@ -232,6 +280,38 @@
       ],
       [
         0,
+        0
+      ],
+      [
+        0,
+        -1
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
         -1
       ],
       [
@@ -245,14 +325,6 @@
       [
         0,
         0
-      ],
-      [
-        0,
-        0
-      ],
-      [
-        0,
-        -1
       ],
       [
         0,
@@ -297,6 +369,38 @@
         0
       ],
       [
+        0,
+        0
+      ],
+      [
+        -1,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
         -1,
         0
       ],
@@ -310,14 +414,6 @@
       ],
       [
         0,
-        0
-      ],
-      [
-        0,
-        0
-      ],
-      [
-        -1,
         0
       ],
       [
@@ -362,7 +458,9 @@
         1,
         2,
         3,
-        4
+        4,
+        5,
+        6
       ],
       "fps": 12,
       "next": "guard",
@@ -373,11 +471,13 @@
     },
     "snapKick": {
       "frames": [
-        5,
-        6,
         7,
         8,
-        9
+        9,
+        10,
+        11,
+        12,
+        13
       ],
       "fps": 12,
       "next": "guard",
@@ -388,12 +488,14 @@
     },
     "spinRoundhouse": {
       "frames": [
-        10,
-        11,
-        12,
-        13,
         14,
-        15
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21
       ],
       "fps": 12,
       "next": "guard",
@@ -416,6 +518,12 @@
       {
         "frame": 2,
         "clip": "lowKick",
+        "type": "startup",
+        "smear": true
+      },
+      {
+        "frame": 3,
+        "clip": "lowKick",
         "type": "active",
         "move": "low kick",
         "hitbox": [
@@ -427,29 +535,40 @@
         "damage": "heavy"
       },
       {
-        "frame": 3,
-        "clip": "lowKick",
-        "type": "recovery",
-        "chainWindow": true
-      },
-      {
         "frame": 4,
         "clip": "lowKick",
-        "type": "recovery",
-        "chainWindow": true
+        "type": "impactHold"
       },
       {
         "frame": 5,
-        "clip": "snapKick",
-        "type": "startup"
+        "clip": "lowKick",
+        "type": "recovery",
+        "chainWindow": true
       },
       {
         "frame": 6,
+        "clip": "lowKick",
+        "type": "recovery",
+        "chainWindow": true
+      },
+      {
+        "frame": 7,
         "clip": "snapKick",
         "type": "startup"
       },
       {
-        "frame": 7,
+        "frame": 8,
+        "clip": "snapKick",
+        "type": "startup"
+      },
+      {
+        "frame": 9,
+        "clip": "snapKick",
+        "type": "startup",
+        "smear": true
+      },
+      {
+        "frame": 10,
         "clip": "snapKick",
         "type": "active",
         "move": "snap kick",
@@ -462,34 +581,45 @@
         "damage": "heavy"
       },
       {
-        "frame": 8,
-        "clip": "snapKick",
-        "type": "recovery",
-        "chainWindow": true
-      },
-      {
-        "frame": 9,
-        "clip": "snapKick",
-        "type": "recovery",
-        "chainWindow": true
-      },
-      {
-        "frame": 10,
-        "clip": "spinRoundhouse",
-        "type": "startup"
-      },
-      {
         "frame": 11,
-        "clip": "spinRoundhouse",
-        "type": "startup"
+        "clip": "snapKick",
+        "type": "impactHold"
       },
       {
         "frame": 12,
+        "clip": "snapKick",
+        "type": "recovery",
+        "chainWindow": true
+      },
+      {
+        "frame": 13,
+        "clip": "snapKick",
+        "type": "recovery",
+        "chainWindow": true
+      },
+      {
+        "frame": 14,
         "clip": "spinRoundhouse",
         "type": "startup"
       },
       {
-        "frame": 13,
+        "frame": 15,
+        "clip": "spinRoundhouse",
+        "type": "startup"
+      },
+      {
+        "frame": 16,
+        "clip": "spinRoundhouse",
+        "type": "startup"
+      },
+      {
+        "frame": 17,
+        "clip": "spinRoundhouse",
+        "type": "startup",
+        "smear": true
+      },
+      {
+        "frame": 18,
         "clip": "spinRoundhouse",
         "type": "active",
         "move": "spinning roundhouse",
@@ -502,12 +632,17 @@
         "damage": "heavy+"
       },
       {
-        "frame": 14,
+        "frame": 19,
+        "clip": "spinRoundhouse",
+        "type": "impactHold"
+      },
+      {
+        "frame": 20,
         "clip": "spinRoundhouse",
         "type": "recovery"
       },
       {
-        "frame": 15,
+        "frame": 21,
         "clip": "spinRoundhouse",
         "type": "recovery"
       }
@@ -526,6 +661,12 @@
       {
         "frame": 2,
         "clip": "lowKick",
+        "type": "startup",
+        "smear": true
+      },
+      {
+        "frame": 3,
+        "clip": "lowKick",
         "type": "active",
         "move": "low kick",
         "hitbox": [
@@ -537,29 +678,40 @@
         "damage": "heavy"
       },
       {
-        "frame": 3,
-        "clip": "lowKick",
-        "type": "recovery",
-        "chainWindow": true
-      },
-      {
         "frame": 4,
         "clip": "lowKick",
-        "type": "recovery",
-        "chainWindow": true
+        "type": "impactHold"
       },
       {
         "frame": 5,
-        "clip": "snapKick",
-        "type": "startup"
+        "clip": "lowKick",
+        "type": "recovery",
+        "chainWindow": true
       },
       {
         "frame": 6,
+        "clip": "lowKick",
+        "type": "recovery",
+        "chainWindow": true
+      },
+      {
+        "frame": 7,
         "clip": "snapKick",
         "type": "startup"
       },
       {
-        "frame": 7,
+        "frame": 8,
+        "clip": "snapKick",
+        "type": "startup"
+      },
+      {
+        "frame": 9,
+        "clip": "snapKick",
+        "type": "startup",
+        "smear": true
+      },
+      {
+        "frame": 10,
         "clip": "snapKick",
         "type": "active",
         "move": "snap kick",
@@ -572,34 +724,45 @@
         "damage": "heavy"
       },
       {
-        "frame": 8,
-        "clip": "snapKick",
-        "type": "recovery",
-        "chainWindow": true
-      },
-      {
-        "frame": 9,
-        "clip": "snapKick",
-        "type": "recovery",
-        "chainWindow": true
-      },
-      {
-        "frame": 10,
-        "clip": "spinRoundhouse",
-        "type": "startup"
-      },
-      {
         "frame": 11,
-        "clip": "spinRoundhouse",
-        "type": "startup"
+        "clip": "snapKick",
+        "type": "impactHold"
       },
       {
         "frame": 12,
+        "clip": "snapKick",
+        "type": "recovery",
+        "chainWindow": true
+      },
+      {
+        "frame": 13,
+        "clip": "snapKick",
+        "type": "recovery",
+        "chainWindow": true
+      },
+      {
+        "frame": 14,
         "clip": "spinRoundhouse",
         "type": "startup"
       },
       {
-        "frame": 13,
+        "frame": 15,
+        "clip": "spinRoundhouse",
+        "type": "startup"
+      },
+      {
+        "frame": 16,
+        "clip": "spinRoundhouse",
+        "type": "startup"
+      },
+      {
+        "frame": 17,
+        "clip": "spinRoundhouse",
+        "type": "startup",
+        "smear": true
+      },
+      {
+        "frame": 18,
         "clip": "spinRoundhouse",
         "type": "active",
         "move": "spinning roundhouse",
@@ -612,12 +775,17 @@
         "damage": "heavy+"
       },
       {
-        "frame": 14,
+        "frame": 19,
+        "clip": "spinRoundhouse",
+        "type": "impactHold"
+      },
+      {
+        "frame": 20,
         "clip": "spinRoundhouse",
         "type": "recovery"
       },
       {
-        "frame": 15,
+        "frame": 21,
         "clip": "spinRoundhouse",
         "type": "recovery"
       }
@@ -636,6 +804,12 @@
       {
         "frame": 2,
         "clip": "lowKick",
+        "type": "startup",
+        "smear": true
+      },
+      {
+        "frame": 3,
+        "clip": "lowKick",
         "type": "active",
         "move": "low kick",
         "hitbox": [
@@ -647,29 +821,40 @@
         "damage": "heavy"
       },
       {
-        "frame": 3,
-        "clip": "lowKick",
-        "type": "recovery",
-        "chainWindow": true
-      },
-      {
         "frame": 4,
         "clip": "lowKick",
-        "type": "recovery",
-        "chainWindow": true
+        "type": "impactHold"
       },
       {
         "frame": 5,
-        "clip": "snapKick",
-        "type": "startup"
+        "clip": "lowKick",
+        "type": "recovery",
+        "chainWindow": true
       },
       {
         "frame": 6,
+        "clip": "lowKick",
+        "type": "recovery",
+        "chainWindow": true
+      },
+      {
+        "frame": 7,
         "clip": "snapKick",
         "type": "startup"
       },
       {
-        "frame": 7,
+        "frame": 8,
+        "clip": "snapKick",
+        "type": "startup"
+      },
+      {
+        "frame": 9,
+        "clip": "snapKick",
+        "type": "startup",
+        "smear": true
+      },
+      {
+        "frame": 10,
         "clip": "snapKick",
         "type": "active",
         "move": "snap kick",
@@ -682,34 +867,45 @@
         "damage": "heavy"
       },
       {
-        "frame": 8,
-        "clip": "snapKick",
-        "type": "recovery",
-        "chainWindow": true
-      },
-      {
-        "frame": 9,
-        "clip": "snapKick",
-        "type": "recovery",
-        "chainWindow": true
-      },
-      {
-        "frame": 10,
-        "clip": "spinRoundhouse",
-        "type": "startup"
-      },
-      {
         "frame": 11,
-        "clip": "spinRoundhouse",
-        "type": "startup"
+        "clip": "snapKick",
+        "type": "impactHold"
       },
       {
         "frame": 12,
+        "clip": "snapKick",
+        "type": "recovery",
+        "chainWindow": true
+      },
+      {
+        "frame": 13,
+        "clip": "snapKick",
+        "type": "recovery",
+        "chainWindow": true
+      },
+      {
+        "frame": 14,
         "clip": "spinRoundhouse",
         "type": "startup"
       },
       {
-        "frame": 13,
+        "frame": 15,
+        "clip": "spinRoundhouse",
+        "type": "startup"
+      },
+      {
+        "frame": 16,
+        "clip": "spinRoundhouse",
+        "type": "startup"
+      },
+      {
+        "frame": 17,
+        "clip": "spinRoundhouse",
+        "type": "startup",
+        "smear": true
+      },
+      {
+        "frame": 18,
         "clip": "spinRoundhouse",
         "type": "active",
         "move": "spinning roundhouse",
@@ -722,12 +918,17 @@
         "damage": "heavy+"
       },
       {
-        "frame": 14,
+        "frame": 19,
+        "clip": "spinRoundhouse",
+        "type": "impactHold"
+      },
+      {
+        "frame": 20,
         "clip": "spinRoundhouse",
         "type": "recovery"
       },
       {
-        "frame": 15,
+        "frame": 21,
         "clip": "spinRoundhouse",
         "type": "recovery"
       }
@@ -1886,5 +2087,134 @@
       }
     },
     "pass": true
-  }
+  },
+  "smearFrames": [
+    {
+      "before": 13,
+      "frame": 13,
+      "limbs": [
+        "leg-near"
+      ],
+      "rule": "smear in-between inserted before the impact frame (tools/smear.py --insert)"
+    },
+    {
+      "before": 7,
+      "frame": 7,
+      "limbs": [
+        "leg-near"
+      ],
+      "rule": "smear in-between inserted before the impact frame (tools/smear.py --insert)"
+    },
+    {
+      "before": 2,
+      "frame": 2,
+      "limbs": [
+        "leg-near"
+      ],
+      "rule": "smear in-between inserted before the impact frame (tools/smear.py --insert)"
+    }
+  ],
+  "impactFx": [
+    {
+      "dir": "S",
+      "frame": 16,
+      "held": 17,
+      "x": 18,
+      "y": 25.5,
+      "facing": -1,
+      "style": "halfPop"
+    },
+    {
+      "dir": "E",
+      "frame": 16,
+      "held": 17,
+      "x": 56,
+      "y": 21.0,
+      "facing": 1,
+      "style": "halfPop"
+    },
+    {
+      "dir": "N",
+      "frame": 16,
+      "held": 17,
+      "x": 25,
+      "y": 21.5,
+      "facing": -1,
+      "style": "halfPop"
+    },
+    {
+      "dir": "S",
+      "frame": 9,
+      "held": 10,
+      "x": 28,
+      "y": 30.5,
+      "facing": -1,
+      "style": "halfPop"
+    },
+    {
+      "dir": "E",
+      "frame": 9,
+      "held": 10,
+      "x": 60,
+      "y": 35.0,
+      "facing": 1,
+      "style": "halfPop"
+    },
+    {
+      "dir": "N",
+      "frame": 9,
+      "held": 10,
+      "x": 19,
+      "y": 29.0,
+      "facing": -1,
+      "style": "halfPop"
+    },
+    {
+      "dir": "S",
+      "frame": 3,
+      "held": 4,
+      "x": 28,
+      "y": 32.0,
+      "facing": -1,
+      "style": "halfPop",
+      "angle": 0
+    },
+    {
+      "dir": "E",
+      "frame": 3,
+      "held": 4,
+      "x": 59,
+      "y": 48.0,
+      "facing": 1,
+      "style": "halfPop",
+      "angle": 0
+    },
+    {
+      "dir": "N",
+      "frame": 3,
+      "held": 4,
+      "x": 19,
+      "y": 29.0,
+      "facing": -1,
+      "style": "halfPop",
+      "angle": 0
+    }
+  ],
+  "impactHolds": [
+    {
+      "frame": 16,
+      "held": 17,
+      "rule": "impact frame held one extra tick with impact fx (tools/smear.py --impact)"
+    },
+    {
+      "frame": 9,
+      "held": 10,
+      "rule": "impact frame held one extra tick with impact fx (tools/smear.py --impact)"
+    },
+    {
+      "frame": 3,
+      "held": 4,
+      "rule": "impact frame held one extra tick with impact fx (tools/smear.py --impact)"
+    }
+  ]
 }

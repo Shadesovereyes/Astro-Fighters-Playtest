@@ -3,7 +3,7 @@
   "body": "male",
   "state": "karateSideKick",
   "status": "E/W approved by user 2026-10-20 (W mirrors E); S/N approved by user 2026-10-20 (turned trunk keeps its depth, edf90c3)",
-  "frames": 8,
+  "frames": 10,
   "fps": 12,
   "frameSize": [
     64,
@@ -20,7 +20,7 @@
       "N",
       "W"
     ],
-    "columns": "frames 0–7"
+    "columns": "frames 0\u00e2\u0080\u00939"
   },
   "layers": {
     "body": "body.png",
@@ -121,6 +121,14 @@
       [
         0,
         0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
       ]
     ],
     "E": [
@@ -137,7 +145,15 @@
         0
       ],
       [
+        0,
+        0
+      ],
+      [
         1,
+        0
+      ],
+      [
+        0,
         0
       ],
       [
@@ -189,9 +205,21 @@
       [
         0,
         0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
       ]
     ],
     "W": [
+      [
+        0,
+        0
+      ],
       [
         0,
         0
@@ -223,6 +251,10 @@
       [
         0,
         0
+      ],
+      [
+        0,
+        0
       ]
     ]
   },
@@ -237,7 +269,9 @@
         4,
         5,
         6,
-        7
+        7,
+        8,
+        9
       ],
       "fps": 12,
       "next": "karateGuard",
@@ -265,6 +299,12 @@
       {
         "frame": 3,
         "clip": "sideKick",
+        "type": "startup",
+        "smear": true
+      },
+      {
+        "frame": 4,
+        "clip": "sideKick",
         "type": "active",
         "move": "Side Kick",
         "hitbox": [
@@ -276,14 +316,9 @@
         "damage": "heavy"
       },
       {
-        "frame": 4,
-        "clip": "sideKick",
-        "type": "recovery"
-      },
-      {
         "frame": 5,
         "clip": "sideKick",
-        "type": "recovery"
+        "type": "impactHold"
       },
       {
         "frame": 6,
@@ -292,6 +327,16 @@
       },
       {
         "frame": 7,
+        "clip": "sideKick",
+        "type": "recovery"
+      },
+      {
+        "frame": 8,
+        "clip": "sideKick",
+        "type": "recovery"
+      },
+      {
+        "frame": 9,
         "clip": "sideKick",
         "type": "recovery"
       }
@@ -315,6 +360,12 @@
       {
         "frame": 3,
         "clip": "sideKick",
+        "type": "startup",
+        "smear": true
+      },
+      {
+        "frame": 4,
+        "clip": "sideKick",
         "type": "active",
         "move": "Side Kick",
         "hitbox": [
@@ -326,14 +377,9 @@
         "damage": "heavy"
       },
       {
-        "frame": 4,
-        "clip": "sideKick",
-        "type": "recovery"
-      },
-      {
         "frame": 5,
         "clip": "sideKick",
-        "type": "recovery"
+        "type": "impactHold"
       },
       {
         "frame": 6,
@@ -342,6 +388,16 @@
       },
       {
         "frame": 7,
+        "clip": "sideKick",
+        "type": "recovery"
+      },
+      {
+        "frame": 8,
+        "clip": "sideKick",
+        "type": "recovery"
+      },
+      {
+        "frame": 9,
         "clip": "sideKick",
         "type": "recovery"
       }
@@ -945,5 +1001,44 @@
       }
     },
     "pass": false
-  }
+  },
+  "smearFrames": [
+    {
+      "before": 3,
+      "frame": 3,
+      "limbs": [
+        "leg-near"
+      ],
+      "rule": "smear in-between inserted before the impact frame (tools/smear.py --insert)"
+    }
+  ],
+  "impactFx": [
+    {
+      "dir": "E",
+      "frame": 4,
+      "held": 5,
+      "x": 57,
+      "y": 37.0,
+      "facing": 1,
+      "style": "halfPop",
+      "angle": 0
+    },
+    {
+      "dir": "W",
+      "frame": 4,
+      "held": 5,
+      "x": 6,
+      "y": 37.0,
+      "facing": -1,
+      "style": "halfPop",
+      "angle": 0
+    }
+  ],
+  "impactHolds": [
+    {
+      "frame": 4,
+      "held": 5,
+      "rule": "impact frame held one extra tick with impact fx (tools/smear.py --impact)"
+    }
+  ]
 }

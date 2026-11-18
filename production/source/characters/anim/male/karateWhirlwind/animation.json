@@ -3,7 +3,7 @@
   "body": "male",
   "state": "karateWhirlwind",
   "status": "E/W approved by user 2026-10-20 (v2 swing arc; W mirrors E); S/N CANDIDATE 2026-10-20",
-  "frames": 7,
+  "frames": 9,
   "fps": 12,
   "frameSize": [
     64,
@@ -20,7 +20,7 @@
       "N",
       "W"
     ],
-    "columns": "frames 0–6"
+    "columns": "frames 0\u00e2\u0080\u00938"
   },
   "layers": {
     "body": "body.png",
@@ -117,9 +117,25 @@
       [
         0,
         0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
       ]
     ],
     "E": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
       [
         0,
         0
@@ -177,9 +193,25 @@
       [
         0,
         0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
       ]
     ],
     "W": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
       [
         0,
         0
@@ -220,7 +252,9 @@
         3,
         4,
         5,
-        6
+        6,
+        7,
+        8
       ],
       "fps": 12,
       "next": "karateGuard",
@@ -253,6 +287,12 @@
       {
         "frame": 4,
         "clip": "whirlwindKick",
+        "type": "startup",
+        "smear": true
+      },
+      {
+        "frame": 5,
+        "clip": "whirlwindKick",
         "type": "active",
         "move": "Whirlwind Kick",
         "hitbox": [
@@ -264,12 +304,17 @@
         "damage": "heavy"
       },
       {
-        "frame": 5,
+        "frame": 6,
+        "clip": "whirlwindKick",
+        "type": "impactHold"
+      },
+      {
+        "frame": 7,
         "clip": "whirlwindKick",
         "type": "recovery"
       },
       {
-        "frame": 6,
+        "frame": 8,
         "clip": "whirlwindKick",
         "type": "recovery"
       }
@@ -298,6 +343,12 @@
       {
         "frame": 4,
         "clip": "whirlwindKick",
+        "type": "startup",
+        "smear": true
+      },
+      {
+        "frame": 5,
+        "clip": "whirlwindKick",
         "type": "active",
         "move": "Whirlwind Kick",
         "hitbox": [
@@ -309,12 +360,17 @@
         "damage": "heavy"
       },
       {
-        "frame": 5,
+        "frame": 6,
+        "clip": "whirlwindKick",
+        "type": "impactHold"
+      },
+      {
+        "frame": 7,
         "clip": "whirlwindKick",
         "type": "recovery"
       },
       {
-        "frame": 6,
+        "frame": 8,
         "clip": "whirlwindKick",
         "type": "recovery"
       }
@@ -846,5 +902,44 @@
       }
     },
     "pass": false
-  }
+  },
+  "smearFrames": [
+    {
+      "before": 4,
+      "frame": 4,
+      "limbs": [
+        "leg-near"
+      ],
+      "rule": "smear in-between inserted before the impact frame (tools/smear.py --insert)"
+    }
+  ],
+  "impactFx": [
+    {
+      "dir": "E",
+      "frame": 5,
+      "held": 6,
+      "x": 56,
+      "y": 21.0,
+      "facing": 1,
+      "style": "halfPop",
+      "angle": 0
+    },
+    {
+      "dir": "W",
+      "frame": 5,
+      "held": 6,
+      "x": 7,
+      "y": 21.0,
+      "facing": -1,
+      "style": "halfPop",
+      "angle": 0
+    }
+  ],
+  "impactHolds": [
+    {
+      "frame": 5,
+      "held": 6,
+      "rule": "impact frame held one extra tick with impact fx (tools/smear.py --impact)"
+    }
+  ]
 }

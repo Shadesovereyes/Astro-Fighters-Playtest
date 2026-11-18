@@ -3,7 +3,7 @@
   "body": "male",
   "state": "clinchElbow",
   "status": "E/W approved by user 2026-10-14 (paired; hit-recoil eyes on the held fighter); S/N to author",
-  "frames": 8,
+  "frames": 10,
   "fps": 12,
   "frameSize": [
     64,
@@ -18,7 +18,7 @@
       "E",
       "W"
     ],
-    "columns": "frames 0–7"
+    "columns": "frames 0\u00e2\u0080\u00939"
   },
   "layers": {
     "body": "body.png",
@@ -75,7 +75,10 @@
     "thai-gloves": "thai-gloves.png",
     "male-boxing-boots": "male-boxing-boots.png",
     "boxing-gloves-far": "boxing-gloves-far.png",
-    "thai-gloves-far": "thai-gloves-far.png"
+    "thai-gloves-far": "thai-gloves-far.png",
+    "trail": "trail.png",
+    "boxing-gloves-trail": "boxing-gloves-trail.png",
+    "thai-gloves-trail": "thai-gloves-trail.png"
   },
   "pendingLayers": [],
   "drawOrder": [
@@ -120,9 +123,25 @@
       [
         0,
         0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
       ]
     ],
     "W": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
       [
         0,
         0
@@ -168,7 +187,9 @@
         4,
         5,
         6,
-        7
+        7,
+        8,
+        9
       ],
       "fps": 12,
       "next": "clinchHold"
@@ -195,6 +216,12 @@
       },
       {
         "frame": 4,
+        "clip": null,
+        "type": "startup",
+        "smear": true
+      },
+      {
+        "frame": 5,
         "type": "active",
         "move": "clinchElbow",
         "hitbox": [
@@ -206,15 +233,20 @@
         "damage": "light+"
       },
       {
-        "frame": 5,
-        "type": "recovery"
-      },
-      {
         "frame": 6,
-        "type": "recovery"
+        "clip": null,
+        "type": "impactHold"
       },
       {
         "frame": 7,
+        "type": "recovery"
+      },
+      {
+        "frame": 8,
+        "type": "recovery"
+      },
+      {
+        "frame": 9,
         "type": "recovery"
       }
     ],
@@ -237,6 +269,12 @@
       },
       {
         "frame": 4,
+        "clip": null,
+        "type": "startup",
+        "smear": true
+      },
+      {
+        "frame": 5,
         "type": "active",
         "move": "clinchElbow",
         "hitbox": [
@@ -248,15 +286,20 @@
         "damage": "light+"
       },
       {
-        "frame": 5,
-        "type": "recovery"
-      },
-      {
         "frame": 6,
-        "type": "recovery"
+        "clip": null,
+        "type": "impactHold"
       },
       {
         "frame": 7,
+        "type": "recovery"
+      },
+      {
+        "frame": 8,
+        "type": "recovery"
+      },
+      {
+        "frame": 9,
         "type": "recovery"
       }
     ]
@@ -562,5 +605,44 @@
       }
     },
     "pass": true
-  }
+  },
+  "smearFrames": [
+    {
+      "before": 4,
+      "frame": 4,
+      "limbs": [
+        "arm-near"
+      ],
+      "rule": "smear in-between inserted before the impact frame (tools/smear.py --insert)"
+    }
+  ],
+  "impactFx": [
+    {
+      "dir": "E",
+      "frame": 5,
+      "held": 6,
+      "x": 50,
+      "y": 23.0,
+      "facing": 1,
+      "style": "halfPop",
+      "angle": 0
+    },
+    {
+      "dir": "W",
+      "frame": 5,
+      "held": 6,
+      "x": 13,
+      "y": 23.0,
+      "facing": -1,
+      "style": "halfPop",
+      "angle": 0
+    }
+  ],
+  "impactHolds": [
+    {
+      "frame": 5,
+      "held": 6,
+      "rule": "impact frame held one extra tick with impact fx (tools/smear.py --impact)"
+    }
+  ]
 }

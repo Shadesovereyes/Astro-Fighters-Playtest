@@ -1173,7 +1173,7 @@ CLIPS = {
   ['entranced'] * 8,
   [1] * 8,
   dict(fps=6, auraColors=('#d8321a', '#7a1016'), shapes={'entranced': {'E': [[0, 1, '#d8321a'], [1, 1, '#d8321a'], [0, 2, '#ff8a1c'], [1, 2, '#ff3a1a']], 'S': [[0, 2, '#ff3a1a'], [1, 2, '#ff8a1c'], [5, 2, '#ff8a1c'], [6, 2, '#ff3a1a']]}},
-       extra={'loop': True, 'genjutsuMark': {'rule': 'Christopher 2026-10-27: every genjutsu target shows it is under a genjutsu. The testbed plays genjutsuAfflicted on loop in place of the target\'s idle (and draws its halo motes, aura and eye glow over any other state it plays) for as long as a genjutsu holds it; clears when the genjutsu ends', 'element': 'fire', 'recolor': {'rule': 'swap the fire colours for the caster sign\'s element: fire as drawn', 'sagittarius': {'#ffe14d': '#c9a0ff', '#ff8a1c': '#9b45ff', '#d8321a': '#55208f', '#7a1016': '#1c1024', '#ff3a1a': '#9b45ff'}, 'earth': {'#ffe14d': '#d9fff6', '#ff8a1c': '#7fe3d0', '#d8321a': '#c79a5b', '#7a1016': '#8a6236', '#ff3a1a': '#7fe3d0'}, 'water': {'#ffe14d': '#dff6ff', '#ff8a1c': '#7cc8ff', '#d8321a': '#2f7fe0', '#7a1016': '#1b4f99', '#ff3a1a': '#7cc8ff'}, 'aquarius': {'#ffe14d': '#ffffff', '#ff8a1c': '#b8ffc8', '#d8321a': '#39e75f', '#7a1016': '#14a03c', '#ff3a1a': '#b8ffc8'}, 'air': {'#ffe14d': '#ffffff', '#ff8a1c': '#e9eef4', '#d8321a': '#a3aebb', '#7a1016': '#39e75f', '#ff3a1a': '#e9eef4'}}}},
+       extra={'loop': True, 'genjutsuMark': {'rule': 'Christopher 2026-10-27: every genjutsu target shows it is under a genjutsu. The testbed plays genjutsuAfflicted on loop in place of the target\'s idle (and draws its halo motes, aura and eye glow over any other state it plays) for as long as a genjutsu holds it; clears when the genjutsu ends', 'element': 'fire', 'recolor': {'rule': 'swap the fire colours for the caster sign\'s element: fire as drawn', 'sagittarius': {'#ffe14d': '#c9a0ff', '#ff8a1c': '#9b45ff', '#d8321a': '#55208f', '#7a1016': '#1c1024', '#ff3a1a': '#9b45ff'}, 'earth': {'#ffe14d': '#d9fff6', '#ff8a1c': '#7fe3d0', '#d8321a': '#c79a5b', '#7a1016': '#8a6236', '#ff3a1a': '#7fe3d0'}, 'water': {'#ffe14d': '#dff6ff', '#ff8a1c': '#7cc8ff', '#d8321a': '#2f7fe0', '#7a1016': '#1b4f99', '#ff3a1a': '#7cc8ff'}, 'aquarius': {'#ffe14d': '#ffffff', '#ff8a1c': '#e2fff0', '#d8321a': '#9ff2c4', '#7a1016': '#5fbf94', '#ff3a1a': '#e2fff0'}, 'air': {'#ffe14d': '#ffffff', '#ff8a1c': '#e9eef4', '#d8321a': '#a3aebb', '#7a1016': '#39e75f', '#ff3a1a': '#e9eef4'}}}},
        fx=nfx('the genjutsu mark: three glowing motes circling slowly over the head (one turn per loop), bright in front of the head, dark crimson behind it', _halo(8)))),
  'kingsPosture': ('King\'s Posture', 3,
   'King\'s Posture (Leo taijutsu stance buff: a regal guard, FORT +30% for 3 rounds, holds firm), v4 (Christopher 2026-10-27: see it E facing; v3 turned to the viewer for a front double biceps): the fighter keeps its facing; from the guard it throws both upper arms up level, the near one forward and the far one back, and curls both fists up beside the head in a double biceps flex seen in profile, chest out, teeth clenched, squeezing the flex harder on the peak frame; a golden aura flares round it and a lion\'s mane of flame bursts up behind and round its head, blazing, as it holds the pose; then the mane settles to a proud glow and it drops back into the guard (the testbed keeps the buff, not the mane).', [
@@ -6928,7 +6928,8 @@ def crystalize(state, spec):   # Capricorn: crystal growing over the fighter. sp
             edge = any((x + a, y + b) not in pts for a, b in ((1, 0), (-1, 0), (0, 1), (0, -1)))
             col = T_ if edge or (x - y) % 5 == 0 else c_ if (x + y) % 4 == 0 else C_
             px[k * 64 + x, r * 64 + y] = col + (al,)
-    for k, (pose, cov, al) in (spec.get('shin') or {}).items():
+    for k, ent in (spec.get('shin') or {}).items():
+        pose, cov, al = ent[:3]; guard = len(ent) > 3 and ent[3] == 'guard'
         (kx, ky), (ax_, ay_) = AS_SEG[pose]
         for r, fd in enumerate(dirs):
             if fd not in ('E', 'W'): continue
@@ -6940,7 +6941,10 @@ def crystalize(state, spec):   # Capricorn: crystal growing over the fighter. sp
                     ex = 63 - x if flip else x
                     vx, vy = ax_ - kx, ay_ - ky; L2 = vx * vx + vy * vy
                     t = max(0, min(1.25, ((ex - kx) * vx + (y - ky) * vy) / L2))
-                    if math.hypot(ex - (kx + t * vx), y - (ky + t * vy)) <= 2.5 and t >= 1 - cov: pts.add((x, y))
+                    if guard:   # Adamantine Shin v3.1 (Christopher 2026-11-18: "just a shin guard that shatters on impact"): a plate over the front of the shin only, centred between knee and ankle, cov = its share of the shin
+                        Ln = math.sqrt(L2); side = ((ex - kx) * vy - (y - ky) * vx) / Ln   # + toward the shin's front (forward when it hangs, up when it is level)
+                        if abs(t - 0.5) <= 0.4 * cov and -1.5 <= side <= 3.5 and math.hypot(ex - (kx + t * vx), y - (ky + t * vy)) <= 3.5: pts.add((x, y))
+                    elif math.hypot(ex - (kx + t * vx), y - (ky + t * vy)) <= 2.5 and t >= 1 - cov: pts.add((x, y))
             paint(pts, al, k, r)
     for k, (cov, al) in (spec.get('arm') or {}).items():
         for r, fd in enumerate(dirs):
@@ -7468,7 +7472,73 @@ def nova(state, frames, aura=False):
             if r != rs: fx.paste(cell, (k * 64, r * 64))
     fx.save(D + state + '/fx.png'); print(state, 'nova', list(frames))
 
+# ---- Adamantine Shin v3 candidate (Christopher 2026-11-18: "all these attacks may need to be more than 4 frames for
+# better readability"): 9 -> 13 frames. New in-betweens: the knee starts up (as-lift0), rises between lift and chamber
+# (as-rise), the crystal shin swings out half way before it snaps through (as-swing), and the leg comes down in two steps
+# (as-recoil2). Built as its own state adamantineShinV3 so the approved v1 stays untouched until a verdict.
+U.POSES += [kleg('as-lift0', (33, 42), (34, 48), (32, 54), 'toe30k'), kleg('as-rise', (34, 40), (40, 41), (38, 49), 'toe30k'),
+            kleg('as-swing', (34, 41), (42, 41), (46, 47), 'pointFwd'), kleg('as-recoil2', (33, 42), (34, 48), (31, 54), 'toe30k')]
+AS_SEG.update({'as-lift0': ((34, 48), (32, 54)), 'as-rise': ((40, 41), (38, 49)), 'as-swing': ((42, 41), (46, 47)), 'as-recoil2': ((34, 48), (31, 54))})
+_AS = CLIPS['adamantineShin']; _ASx = copy.deepcopy(_AS[6])
+_ASmap = {0: 0, 1: 2, 2: 4, 3: 5, 4: 7, 5: 8, 6: 9, 7: 11, 8: 12}
+_ASx['crystal'] = {'shin': {1: ('as-lift0', 0.15, 220), 2: ('as-lift', 0.35, 235), 3: ('as-rise', 0.55, 240), 4: ('as-chamber', 0.75, 245), 5: ('as-chamber', 1.0, 255),
+                            6: ('as-swing', 1.0, 255), 7: ('as-kick', 1.0, 255), 8: ('as-kick2', 1.0, 255), 9: ('as-recoil', 0.8, 190), 10: ('as-recoil2', 0.45, 150)}}
+_ASx['anchored'] = {_ASmap[k]: v for k, v in _AS[6]['anchored'].items()}
+_ASx['anchored'][6] = [('gemSpark', 'head', 12, 30)]
+_ASx['anchored'][10] = [('gemShard', 'feet', 8, -6), ('dust1', 'feet', 6, -2)]
+# v3.1: the crystal is a shin guard plate on the front of the shin, not a sheath over the whole leg; it forms during the
+# lift and chamber, cracks on the impact frame and shatters into shards there and on the next two frames.
+_ASx['crystal'] = {'shin': {1: ('as-lift0', 0.35, 220, 'guard'), 2: ('as-lift', 0.6, 235, 'guard'), 3: ('as-rise', 0.85, 245, 'guard'), 4: ('as-chamber', 1.0, 255, 'guard'),
+                            5: ('as-chamber', 1.0, 255, 'guard'), 6: ('as-swing', 1.0, 255, 'guard'), 7: ('as-kick', 1.0, 255, 'guard')}}
+_ASx['anchored'][1] = [('gemSpark', 'feet', 4, -10)]
+_ASx['anchored'][3] = [('gemSpark', 'feet', 9, -12)]
+_ASx['anchored'][7] = _ASx['anchored'][7] + [('gemCrack', 'head', 12, 30)]
+_ASx['anchored'][8] = _ASx['anchored'][8] + [('gemShard2', 'head', 10, 27), ('gemShard', 'head', 15, 26), ('gemShard', 'head', 8, 33), ('gemShard2', 'head', 18, 32), ('gemSpark', 'head', 13, 30)]
+_ASx['anchored'][9] = _ASx['anchored'][9] + [('gemShard', 'head', 9, 36), ('gemShard', 'head', 14, 38), ('gemShard', 'head', 19, 35)]
+_ASx['anchored'][10] = [('gemShard', 'feet', 6, -3), ('gemShard', 'feet', 12, -2), ('dust1', 'feet', 6, -2)]
+CLIPS['adamantineShinV3'] = ('Adamantine Shin', 7, _AS[2] + ' v3 (2026-11-18): 13 frames, in-betweens on the knee lift, the rise into the chamber, a half-way swing of the crystal shin before it snaps through, and a two-step set-down.', [
+     g(),
+     g(an=band(5, -65), af=band(-55, -88), bob=(1, 1, 1), lean=(0, 0), ln='as-lift0', lf='lk-lead-pivot'),
+     g(an=band(10, -60), af=band(-60, -90), bob=(1, 1, 1), lean=(0, 0), ln='as-lift', lf='lk-lead-pivot'),
+     g(an=band(12, -55), af=band(-62, -92), bob=(0, 0, 1), lean=(0, -1), ln='as-rise', lf='lk-lead-pivot'),
+     g(an=band(15, -50), af=band(-65, -95), bob=(0, 0, 1), lean=(0, -1), ln='as-chamber', lf='lk-lead-pivot'),
+     g(an=band(15, -50), af=band(-65, -95), bob=(0, 0, 1), lean=(0, -1), ln='as-chamber', lf='lk-lead-pivot'),
+     g(an=band(28, -35), af=band(-72, -98), bob=(1, 1, 1), lean=(-1, -2), ln='as-swing', lf='lk-lead-pivot'),
+     g(an=band(40, -20), af=band(-80, -100), bob=(1, 1, 1), lean=(-1, -3), root=(1, 0), ln='as-kick', lf='lk-lead-pivot'),
+     g(an=band(40, -20), af=band(-80, -100), bob=(1, 1, 1), lean=(-1, -3), ln='as-kick2', lf='lk-lead-pivot'),
+     g(an=band(20, -40), af=band(-65, -90), bob=(1, 1, 2), lean=(0, -1), ln='as-recoil', lf='lk-lead-pivot'),
+     g(an=band(10, -50), af=band(-60, -88), bob=(1, 1, 1), lean=(0, 0), ln='as-recoil2', lf='lk-lead-pivot'),
+     g(bob=(1, 1, 1), lean=(0, 0), root=(-1, 0)),
+     g()],
+  [None, None, 'squint', 'squint', 'strain', 'strain', 'strain', 'roar', 'strain', 'squint', 'squint', None, None],
+  None, _ASx)
+CLIPS['adamantineShin'] = CLIPS.pop('adamantineShinV3')   # v3.1 APPROVED 2026-11-18 18:07: replaces v1
+APPROVED['adamantineShin'] = 'E/W approved by user 2026-11-18 18:07 (v3.1 13 frames: knee lift, rise, chamber, half-way swing, snap kick, two-step set-down; crystal shin guard plate forms on the front of the shin and shatters on impact; W mirrors E); v1 2026-10-29 crystal sheath; S/N to author'
+
+# Aquarius mint (Christopher 2026-11-18 18:07: "instead of volt green could it be a more pastel color", picked A mint):
+# every Aquarius clip's electric greens (NPAL l/L/D, shared with the Libra/Gemini air rims, which keep them) are swapped
+# for pastel mint after the fx pass and in the clip's spec records (aura, zone, genjutsu mark).
+AQUARIUS = {'nerveDisruptor', 'staticShell', 'shockPalm', 'voltaicOrb', 'voltaicShocked', 'lightningCutter', 'lightningImpaled',
+            'empField', 'empSlowed', 'systemCrash', 'systemCrashed', 'lagSwitch', 'lagSwitched'}
+AQUA_MINT = {'#b8ffc8': '#e2fff0', '#39e75f': '#9ff2c4', '#14a03c': '#5fbf94'}
+def aqua_mint(state):
+    if state not in AQUARIUS: return
+    from PIL import Image
+    for p_ in (D + state + '.json', D + state + '/animation.json'):
+        if os.path.exists(p_):
+            t = open(p_).read()
+            for a_, b_ in AQUA_MINT.items(): t = t.replace(a_, b_)
+            open(p_, 'w').write(t)
+    f = D + state + '/fx.png'
+    if os.path.exists(f):
+        im = Image.open(f).convert('RGBA'); px = im.load(); m = {_hexc(a_)[:3]: _hexc(b_)[:3] for a_, b_ in AQUA_MINT.items()}
+        for y in range(im.size[1]):
+            for x in range(im.size[0]):
+                c = px[x, y]
+                if c[3] and c[:3] in m: px[x, y] = m[c[:3]] + (c[3],)
+        im.save(f)
+
 if __name__ == '__main__':
     a = sys.argv[1:]
-    if '--fx' in a: fx(a[a.index('--fx') + 1]); sys.exit()
-    for st in (a or CLIPS): spec(st)
+    if '--fx' in a: fx(a[a.index('--fx') + 1]); aqua_mint(a[a.index('--fx') + 1]); sys.exit()
+    for st in (a or CLIPS): spec(st); aqua_mint(st)

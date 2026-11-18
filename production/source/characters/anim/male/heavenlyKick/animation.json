@@ -3,7 +3,7 @@
   "body": "male",
   "state": "heavenlyKick",
   "status": "CANDIDATE 2026-10-20 (E/W; W mirrors E; S/N to author after approval)",
-  "frames": 8,
+  "frames": 10,
   "fps": 12,
   "frameSize": [
     64,
@@ -18,7 +18,7 @@
       "E",
       "W"
     ],
-    "columns": "frames 0–7"
+    "columns": "frames 0\u00e2\u0080\u00939"
   },
   "layers": {
     "body": "body.png",
@@ -102,7 +102,15 @@
         0
       ],
       [
+        0,
+        0
+      ],
+      [
         1,
+        0
+      ],
+      [
+        0,
         0
       ],
       [
@@ -136,7 +144,15 @@
         0
       ],
       [
+        0,
+        0
+      ],
+      [
         -1,
+        0
+      ],
+      [
+        0,
         0
       ],
       [
@@ -168,7 +184,9 @@
         4,
         5,
         6,
-        7
+        7,
+        8,
+        9
       ],
       "fps": 12,
       "next": "guard",
@@ -196,6 +214,12 @@
       {
         "frame": 3,
         "clip": "heavenlyKick",
+        "type": "startup",
+        "smear": true
+      },
+      {
+        "frame": 4,
+        "clip": "heavenlyKick",
         "type": "active",
         "move": "Heavenly Kick",
         "hitbox": [
@@ -207,14 +231,9 @@
         "damage": "heavy"
       },
       {
-        "frame": 4,
-        "clip": "heavenlyKick",
-        "type": "recovery"
-      },
-      {
         "frame": 5,
         "clip": "heavenlyKick",
-        "type": "recovery"
+        "type": "impactHold"
       },
       {
         "frame": 6,
@@ -223,6 +242,16 @@
       },
       {
         "frame": 7,
+        "clip": "heavenlyKick",
+        "type": "recovery"
+      },
+      {
+        "frame": 8,
+        "clip": "heavenlyKick",
+        "type": "recovery"
+      },
+      {
+        "frame": 9,
         "clip": "heavenlyKick",
         "type": "recovery"
       }
@@ -246,6 +275,12 @@
       {
         "frame": 3,
         "clip": "heavenlyKick",
+        "type": "startup",
+        "smear": true
+      },
+      {
+        "frame": 4,
+        "clip": "heavenlyKick",
         "type": "active",
         "move": "Heavenly Kick",
         "hitbox": [
@@ -257,14 +292,9 @@
         "damage": "heavy"
       },
       {
-        "frame": 4,
-        "clip": "heavenlyKick",
-        "type": "recovery"
-      },
-      {
         "frame": 5,
         "clip": "heavenlyKick",
-        "type": "recovery"
+        "type": "impactHold"
       },
       {
         "frame": 6,
@@ -273,6 +303,16 @@
       },
       {
         "frame": 7,
+        "clip": "heavenlyKick",
+        "type": "recovery"
+      },
+      {
+        "frame": 8,
+        "clip": "heavenlyKick",
+        "type": "recovery"
+      },
+      {
+        "frame": 9,
         "clip": "heavenlyKick",
         "type": "recovery"
       }
@@ -582,5 +622,44 @@
       }
     },
     "pass": false
-  }
+  },
+  "smearFrames": [
+    {
+      "before": 3,
+      "frame": 3,
+      "limbs": [
+        "leg-near"
+      ],
+      "rule": "smear in-between inserted before the impact frame (tools/smear.py --insert)"
+    }
+  ],
+  "impactFx": [
+    {
+      "dir": "E",
+      "frame": 4,
+      "held": 5,
+      "x": 51,
+      "y": 23.5,
+      "facing": 1,
+      "style": "halfPop",
+      "angle": 0
+    },
+    {
+      "dir": "W",
+      "frame": 4,
+      "held": 5,
+      "x": 12,
+      "y": 23.5,
+      "facing": -1,
+      "style": "halfPop",
+      "angle": 0
+    }
+  ],
+  "impactHolds": [
+    {
+      "frame": 4,
+      "held": 5,
+      "rule": "impact frame held one extra tick with impact fx (tools/smear.py --impact)"
+    }
+  ]
 }

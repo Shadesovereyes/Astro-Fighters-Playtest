@@ -3,7 +3,7 @@
   "body": "male",
   "state": "clinchDirtyBoxing",
   "status": "E/W candidate 2026-10-16 (Dirty Boxing in the clinch, holder; jab, hook, hook from the approved clinch jab and hook), awaiting user approval; S/N to author",
-  "frames": 15,
+  "frames": 21,
   "fps": 12,
   "frameSize": [
     64,
@@ -18,7 +18,7 @@
       "E",
       "W"
     ],
-    "columns": "frames 0–14"
+    "columns": "frames 0\u00e2\u0080\u009320"
   },
   "layers": {
     "body": "body.png",
@@ -75,7 +75,10 @@
     "thai-gloves": "thai-gloves.png",
     "male-boxing-boots": "male-boxing-boots.png",
     "boxing-gloves-far": "boxing-gloves-far.png",
-    "thai-gloves-far": "thai-gloves-far.png"
+    "thai-gloves-far": "thai-gloves-far.png",
+    "trail": "trail.png",
+    "boxing-gloves-trail": "boxing-gloves-trail.png",
+    "thai-gloves-trail": "thai-gloves-trail.png"
   },
   "pendingLayers": [],
   "drawOrder": [
@@ -148,9 +151,57 @@
       [
         0,
         0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
       ]
     ],
     "W": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
       [
         0,
         0
@@ -231,7 +282,13 @@
         11,
         12,
         13,
-        14
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20
       ],
       "fps": 12,
       "next": "clinchHold"
@@ -250,6 +307,12 @@
       },
       {
         "frame": 2,
+        "clip": null,
+        "type": "startup",
+        "smear": true
+      },
+      {
+        "frame": 3,
         "type": "active",
         "move": "clinchDirtyBoxing",
         "hitbox": [
@@ -261,12 +324,9 @@
         "damage": "light"
       },
       {
-        "frame": 3,
-        "type": "recovery"
-      },
-      {
         "frame": 4,
-        "type": "recovery"
+        "clip": null,
+        "type": "impactHold"
       },
       {
         "frame": 5,
@@ -274,15 +334,7 @@
       },
       {
         "frame": 6,
-        "type": "active",
-        "move": "clinchDirtyBoxing",
-        "hitbox": [
-          38,
-          10,
-          12,
-          12
-        ],
-        "damage": "medium"
+        "type": "recovery"
       },
       {
         "frame": 7,
@@ -290,18 +342,12 @@
       },
       {
         "frame": 8,
-        "type": "recovery"
+        "clip": null,
+        "type": "startup",
+        "smear": true
       },
       {
         "frame": 9,
-        "type": "recovery"
-      },
-      {
-        "frame": 10,
-        "type": "recovery"
-      },
-      {
-        "frame": 11,
         "type": "active",
         "move": "clinchDirtyBoxing",
         "hitbox": [
@@ -311,6 +357,15 @@
           12
         ],
         "damage": "medium"
+      },
+      {
+        "frame": 10,
+        "clip": null,
+        "type": "impactHold"
+      },
+      {
+        "frame": 11,
+        "type": "recovery"
       },
       {
         "frame": 12,
@@ -322,6 +377,41 @@
       },
       {
         "frame": 14,
+        "type": "recovery"
+      },
+      {
+        "frame": 15,
+        "clip": null,
+        "type": "startup",
+        "smear": true
+      },
+      {
+        "frame": 16,
+        "type": "active",
+        "move": "clinchDirtyBoxing",
+        "hitbox": [
+          38,
+          10,
+          12,
+          12
+        ],
+        "damage": "medium"
+      },
+      {
+        "frame": 17,
+        "clip": null,
+        "type": "impactHold"
+      },
+      {
+        "frame": 18,
+        "type": "recovery"
+      },
+      {
+        "frame": 19,
+        "type": "recovery"
+      },
+      {
+        "frame": 20,
         "type": "recovery"
       }
     ],
@@ -336,6 +426,12 @@
       },
       {
         "frame": 2,
+        "clip": null,
+        "type": "startup",
+        "smear": true
+      },
+      {
+        "frame": 3,
         "type": "active",
         "move": "clinchDirtyBoxing",
         "hitbox": [
@@ -347,12 +443,9 @@
         "damage": "light"
       },
       {
-        "frame": 3,
-        "type": "recovery"
-      },
-      {
         "frame": 4,
-        "type": "recovery"
+        "clip": null,
+        "type": "impactHold"
       },
       {
         "frame": 5,
@@ -360,15 +453,7 @@
       },
       {
         "frame": 6,
-        "type": "active",
-        "move": "clinchDirtyBoxing",
-        "hitbox": [
-          14,
-          10,
-          12,
-          12
-        ],
-        "damage": "medium"
+        "type": "recovery"
       },
       {
         "frame": 7,
@@ -376,18 +461,12 @@
       },
       {
         "frame": 8,
-        "type": "recovery"
+        "clip": null,
+        "type": "startup",
+        "smear": true
       },
       {
         "frame": 9,
-        "type": "recovery"
-      },
-      {
-        "frame": 10,
-        "type": "recovery"
-      },
-      {
-        "frame": 11,
         "type": "active",
         "move": "clinchDirtyBoxing",
         "hitbox": [
@@ -397,6 +476,15 @@
           12
         ],
         "damage": "medium"
+      },
+      {
+        "frame": 10,
+        "clip": null,
+        "type": "impactHold"
+      },
+      {
+        "frame": 11,
+        "type": "recovery"
       },
       {
         "frame": 12,
@@ -408,6 +496,41 @@
       },
       {
         "frame": 14,
+        "type": "recovery"
+      },
+      {
+        "frame": 15,
+        "clip": null,
+        "type": "startup",
+        "smear": true
+      },
+      {
+        "frame": 16,
+        "type": "active",
+        "move": "clinchDirtyBoxing",
+        "hitbox": [
+          14,
+          10,
+          12,
+          12
+        ],
+        "damage": "medium"
+      },
+      {
+        "frame": 17,
+        "clip": null,
+        "type": "impactHold"
+      },
+      {
+        "frame": 18,
+        "type": "recovery"
+      },
+      {
+        "frame": 19,
+        "type": "recovery"
+      },
+      {
+        "frame": 20,
         "type": "recovery"
       }
     ]
@@ -951,5 +1074,130 @@
       }
     },
     "pass": true
-  }
+  },
+  "smearFrames": [
+    {
+      "before": 11,
+      "frame": 11,
+      "limbs": [
+        "arm-near"
+      ],
+      "rule": "smear in-between inserted before the impact frame (tools/smear.py --insert)"
+    },
+    {
+      "before": 6,
+      "frame": 6,
+      "limbs": [
+        "arm-near"
+      ],
+      "rule": "smear in-between inserted before the impact frame (tools/smear.py --insert)"
+    },
+    {
+      "before": 2,
+      "frame": 2,
+      "limbs": [
+        "arm-near"
+      ],
+      "rule": "smear in-between inserted before the impact frame (tools/smear.py --insert)"
+    }
+  ],
+  "impactFx": [
+    {
+      "dir": "E",
+      "frame": 14,
+      "held": 15,
+      "x": 54,
+      "y": 18.5,
+      "facing": 1,
+      "style": "halfPop",
+      "gearReach": {
+        "boxing-gloves": 1,
+        "thai-gloves": 1
+      }
+    },
+    {
+      "dir": "W",
+      "frame": 14,
+      "held": 15,
+      "x": 9,
+      "y": 18.5,
+      "facing": -1,
+      "style": "halfPop",
+      "gearReach": {
+        "boxing-gloves": 1,
+        "thai-gloves": 1
+      }
+    },
+    {
+      "dir": "E",
+      "frame": 8,
+      "held": 9,
+      "x": 54,
+      "y": 18.5,
+      "facing": 1,
+      "style": "halfPop",
+      "gearReach": {
+        "boxing-gloves": 1,
+        "thai-gloves": 1
+      }
+    },
+    {
+      "dir": "W",
+      "frame": 8,
+      "held": 9,
+      "x": 9,
+      "y": 18.5,
+      "facing": -1,
+      "style": "halfPop",
+      "gearReach": {
+        "boxing-gloves": 1,
+        "thai-gloves": 1
+      }
+    },
+    {
+      "dir": "E",
+      "frame": 3,
+      "held": 4,
+      "x": 56,
+      "y": 24.5,
+      "facing": 1,
+      "style": "halfPop",
+      "angle": 0,
+      "gearReach": {
+        "boxing-gloves": 1,
+        "thai-gloves": 1
+      }
+    },
+    {
+      "dir": "W",
+      "frame": 3,
+      "held": 4,
+      "x": 7,
+      "y": 24.5,
+      "facing": -1,
+      "style": "halfPop",
+      "angle": 0,
+      "gearReach": {
+        "boxing-gloves": 1,
+        "thai-gloves": 1
+      }
+    }
+  ],
+  "impactHolds": [
+    {
+      "frame": 14,
+      "held": 15,
+      "rule": "impact frame held one extra tick with impact fx (tools/smear.py --impact)"
+    },
+    {
+      "frame": 8,
+      "held": 9,
+      "rule": "impact frame held one extra tick with impact fx (tools/smear.py --impact)"
+    },
+    {
+      "frame": 3,
+      "held": 4,
+      "rule": "impact frame held one extra tick with impact fx (tools/smear.py --impact)"
+    }
+  ]
 }

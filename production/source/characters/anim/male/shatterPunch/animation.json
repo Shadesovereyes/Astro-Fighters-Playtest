@@ -3,7 +3,7 @@
   "body": "male",
   "state": "shatterPunch",
   "status": "E/W approved by user 2026-10-27 (v3 arm swirl + impact burst, fc741f6; W mirrors E); S/N to author",
-  "frames": 10,
+  "frames": 12,
   "fps": 10,
   "frameSize": [
     64,
@@ -18,7 +18,7 @@
       "E",
       "W"
     ],
-    "columns": "frames 0–9"
+    "columns": "frames 0\u00e2\u0080\u009311"
   },
   "layers": {
     "body": "body.png",
@@ -109,7 +109,15 @@
         0
       ],
       [
+        0,
+        0
+      ],
+      [
         2,
+        0
+      ],
+      [
+        0,
         0
       ],
       [
@@ -151,7 +159,15 @@
         0
       ],
       [
+        0,
+        0
+      ],
+      [
         -2,
+        0
+      ],
+      [
+        0,
         0
       ],
       [
@@ -185,7 +201,9 @@
         6,
         7,
         8,
-        9
+        9,
+        10,
+        11
       ],
       "fps": 10,
       "next": "guard",
@@ -223,6 +241,12 @@
       {
         "frame": 5,
         "clip": "shatterPunch",
+        "type": "startup",
+        "smear": true
+      },
+      {
+        "frame": 6,
+        "clip": "shatterPunch",
         "type": "active",
         "move": "Shatter Punch",
         "hitbox": [
@@ -234,14 +258,9 @@
         "damage": "heavy"
       },
       {
-        "frame": 6,
-        "clip": "shatterPunch",
-        "type": "recovery"
-      },
-      {
         "frame": 7,
         "clip": "shatterPunch",
-        "type": "recovery"
+        "type": "impactHold"
       },
       {
         "frame": 8,
@@ -250,6 +269,16 @@
       },
       {
         "frame": 9,
+        "clip": "shatterPunch",
+        "type": "recovery"
+      },
+      {
+        "frame": 10,
+        "clip": "shatterPunch",
+        "type": "recovery"
+      },
+      {
+        "frame": 11,
         "clip": "shatterPunch",
         "type": "recovery"
       }
@@ -283,6 +312,12 @@
       {
         "frame": 5,
         "clip": "shatterPunch",
+        "type": "startup",
+        "smear": true
+      },
+      {
+        "frame": 6,
+        "clip": "shatterPunch",
         "type": "active",
         "move": "Shatter Punch",
         "hitbox": [
@@ -294,14 +329,9 @@
         "damage": "heavy"
       },
       {
-        "frame": 6,
-        "clip": "shatterPunch",
-        "type": "recovery"
-      },
-      {
         "frame": 7,
         "clip": "shatterPunch",
-        "type": "recovery"
+        "type": "impactHold"
       },
       {
         "frame": 8,
@@ -310,6 +340,16 @@
       },
       {
         "frame": 9,
+        "clip": "shatterPunch",
+        "type": "recovery"
+      },
+      {
+        "frame": 10,
+        "clip": "shatterPunch",
+        "type": "recovery"
+      },
+      {
+        "frame": 11,
         "clip": "shatterPunch",
         "type": "recovery"
       }
@@ -1533,5 +1573,54 @@
       }
     },
     "pass": false
-  }
+  },
+  "smearFrames": [
+    {
+      "before": 5,
+      "frame": 5,
+      "limbs": [
+        "arm-near"
+      ],
+      "rule": "smear in-between inserted before the impact frame (tools/smear.py --insert)"
+    }
+  ],
+  "impactFx": [
+    {
+      "dir": "E",
+      "frame": 6,
+      "held": 7,
+      "x": 56,
+      "y": 24.5,
+      "facing": 1,
+      "style": "halfPop",
+      "angle": 0,
+      "element": "fire",
+      "gearReach": {
+        "boxing-gloves": 1,
+        "thai-gloves": 1
+      }
+    },
+    {
+      "dir": "W",
+      "frame": 6,
+      "held": 7,
+      "x": 7,
+      "y": 24.5,
+      "facing": -1,
+      "style": "halfPop",
+      "angle": 0,
+      "element": "fire",
+      "gearReach": {
+        "boxing-gloves": 1,
+        "thai-gloves": 1
+      }
+    }
+  ],
+  "impactHolds": [
+    {
+      "frame": 6,
+      "held": 7,
+      "rule": "impact frame held one extra tick with impact fx (tools/smear.py --impact)"
+    }
+  ]
 }

@@ -3158,15 +3158,15 @@
     "rule": "Static Shell (stance): the clip ends crackling; while the stance holds the testbed keeps a 1 px pale-green aura flickering on the fighter and one or two sparks or short arcs popping on the shoulders and arms each frame, on every state it plays; clears when the stance ends",
     "aura": 1,
     "auraColors": [
-      "#b8ffc8",
-      "#39e75f"
+      "#e2fff0",
+      "#9ff2c4"
     ],
     "motes": {
       "pattern": "spark",
       "colors": [
         "#ffffff",
-        "#b8ffc8",
-        "#39e75f"
+        "#e2fff0",
+        "#9ff2c4"
       ],
       "perFrame": 2
     }
@@ -3185,8 +3185,8 @@
       1
     ],
     "colors": [
-      "#b8ffc8",
-      "#39e75f"
+      "#e2fff0",
+      "#9ff2c4"
     ]
   }
 }

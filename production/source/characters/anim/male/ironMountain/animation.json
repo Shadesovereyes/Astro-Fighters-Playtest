@@ -3,7 +3,7 @@
   "body": "male",
   "state": "ironMountain",
   "status": "CANDIDATE 2026-10-20 (E/W; W mirrors E; S/N to author after approval)",
-  "frames": 8,
+  "frames": 9,
   "fps": 12,
   "frameSize": [
     64,
@@ -18,7 +18,7 @@
       "E",
       "W"
     ],
-    "columns": "frames 0–7"
+    "columns": "frames 0\u00e2\u0080\u00938"
   },
   "layers": {
     "body": "body.png",
@@ -110,6 +110,10 @@
         0
       ],
       [
+        0,
+        0
+      ],
+      [
         -2,
         0
       ],
@@ -144,6 +148,10 @@
         0
       ],
       [
+        0,
+        0
+      ],
+      [
         2,
         0
       ],
@@ -168,7 +176,8 @@
         4,
         5,
         6,
-        7
+        7,
+        8
       ],
       "fps": 12,
       "next": "guard",
@@ -209,7 +218,7 @@
       {
         "frame": 4,
         "clip": "ironMountain",
-        "type": "recovery"
+        "type": "impactHold"
       },
       {
         "frame": 5,
@@ -223,6 +232,11 @@
       },
       {
         "frame": 7,
+        "clip": "ironMountain",
+        "type": "recovery"
+      },
+      {
+        "frame": 8,
         "clip": "ironMountain",
         "type": "recovery"
       }
@@ -259,7 +273,7 @@
       {
         "frame": 4,
         "clip": "ironMountain",
-        "type": "recovery"
+        "type": "impactHold"
       },
       {
         "frame": 5,
@@ -273,6 +287,11 @@
       },
       {
         "frame": 7,
+        "clip": "ironMountain",
+        "type": "recovery"
+      },
+      {
+        "frame": 8,
         "clip": "ironMountain",
         "type": "recovery"
       }
@@ -584,5 +603,42 @@
       }
     },
     "pass": false
-  }
+  },
+  "impactFx": [
+    {
+      "dir": "E",
+      "frame": 3,
+      "held": 4,
+      "x": 48,
+      "y": 30.5,
+      "facing": 1,
+      "style": "halfPop",
+      "angle": 0,
+      "gearReach": {
+        "boxing-gloves": 1,
+        "thai-gloves": 1
+      }
+    },
+    {
+      "dir": "W",
+      "frame": 3,
+      "held": 4,
+      "x": 15,
+      "y": 30.5,
+      "facing": -1,
+      "style": "halfPop",
+      "angle": 0,
+      "gearReach": {
+        "boxing-gloves": 1,
+        "thai-gloves": 1
+      }
+    }
+  ],
+  "impactHolds": [
+    {
+      "frame": 3,
+      "held": 4,
+      "rule": "impact frame held one extra tick with impact fx (tools/smear.py --impact)"
+    }
+  ]
 }

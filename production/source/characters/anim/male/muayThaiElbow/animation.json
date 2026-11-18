@@ -3,7 +3,7 @@
   "body": "male",
   "state": "muayThaiElbow",
   "status": "E/W approved by user 2026-10-20 (W mirrors E); S/N approved by user 2026-10-20 (hands and wrists in front of the body outlined)",
-  "frames": 6,
+  "frames": 8,
   "fps": 12,
   "frameSize": [
     64,
@@ -20,7 +20,7 @@
       "N",
       "W"
     ],
-    "columns": "frames 0–5"
+    "columns": "frames 0\u00e2\u0080\u00937"
   },
   "layers": {
     "body": "body.png",
@@ -76,7 +76,10 @@
     "thai-gloves": "thai-gloves.png",
     "male-boxing-boots": "male-boxing-boots.png",
     "boxing-gloves-far": "boxing-gloves-far.png",
-    "thai-gloves-far": "thai-gloves-far.png"
+    "thai-gloves-far": "thai-gloves-far.png",
+    "trail": "trail.png",
+    "boxing-gloves-trail": "boxing-gloves-trail.png",
+    "thai-gloves-trail": "thai-gloves-trail.png"
   },
   "pendingLayers": [],
   "drawOrder": [
@@ -113,6 +116,14 @@
       [
         0,
         0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
       ]
     ],
     "E": [
@@ -125,7 +136,15 @@
         0
       ],
       [
+        0,
+        0
+      ],
+      [
         1,
+        0
+      ],
+      [
+        0,
         0
       ],
       [
@@ -165,6 +184,14 @@
       [
         0,
         0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
       ]
     ],
     "W": [
@@ -177,7 +204,15 @@
         0
       ],
       [
+        0,
+        0
+      ],
+      [
         -1,
+        0
+      ],
+      [
+        0,
         0
       ],
       [
@@ -203,7 +238,9 @@
         2,
         3,
         4,
-        5
+        5,
+        6,
+        7
       ],
       "fps": 12,
       "next": "muayThaiGuard",
@@ -226,6 +263,12 @@
       {
         "frame": 2,
         "clip": "elbow",
+        "type": "startup",
+        "smear": true
+      },
+      {
+        "frame": 3,
+        "clip": "elbow",
         "type": "active",
         "move": "Elbow Strike",
         "hitbox": [
@@ -237,17 +280,22 @@
         "damage": "heavy"
       },
       {
-        "frame": 3,
-        "clip": "elbow",
-        "type": "recovery"
-      },
-      {
         "frame": 4,
         "clip": "elbow",
-        "type": "recovery"
+        "type": "impactHold"
       },
       {
         "frame": 5,
+        "clip": "elbow",
+        "type": "recovery"
+      },
+      {
+        "frame": 6,
+        "clip": "elbow",
+        "type": "recovery"
+      },
+      {
+        "frame": 7,
         "clip": "elbow",
         "type": "recovery"
       }
@@ -266,6 +314,12 @@
       {
         "frame": 2,
         "clip": "elbow",
+        "type": "startup",
+        "smear": true
+      },
+      {
+        "frame": 3,
+        "clip": "elbow",
         "type": "active",
         "move": "Elbow Strike",
         "hitbox": [
@@ -277,17 +331,22 @@
         "damage": "heavy"
       },
       {
-        "frame": 3,
-        "clip": "elbow",
-        "type": "recovery"
-      },
-      {
         "frame": 4,
         "clip": "elbow",
-        "type": "recovery"
+        "type": "impactHold"
       },
       {
         "frame": 5,
+        "clip": "elbow",
+        "type": "recovery"
+      },
+      {
+        "frame": 6,
+        "clip": "elbow",
+        "type": "recovery"
+      },
+      {
+        "frame": 7,
         "clip": "elbow",
         "type": "recovery"
       }
@@ -746,5 +805,52 @@
       }
     },
     "pass": true
-  }
+  },
+  "smearFrames": [
+    {
+      "before": 2,
+      "frame": 2,
+      "limbs": [
+        "arm-near"
+      ],
+      "rule": "smear in-between inserted before the impact frame (tools/smear.py --insert)"
+    }
+  ],
+  "impactFx": [
+    {
+      "dir": "E",
+      "frame": 3,
+      "held": 4,
+      "x": 49,
+      "y": 26.5,
+      "facing": 1,
+      "style": "halfPop",
+      "angle": 0,
+      "gearReach": {
+        "boxing-gloves": 1,
+        "thai-gloves": 1
+      }
+    },
+    {
+      "dir": "W",
+      "frame": 3,
+      "held": 4,
+      "x": 14,
+      "y": 26.5,
+      "facing": -1,
+      "style": "halfPop",
+      "angle": 0,
+      "gearReach": {
+        "boxing-gloves": 1,
+        "thai-gloves": 1
+      }
+    }
+  ],
+  "impactHolds": [
+    {
+      "frame": 3,
+      "held": 4,
+      "rule": "impact frame held one extra tick with impact fx (tools/smear.py --impact)"
+    }
+  ]
 }

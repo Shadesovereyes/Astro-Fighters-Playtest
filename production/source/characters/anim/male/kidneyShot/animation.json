@@ -3,7 +3,7 @@
   "body": "male",
   "state": "kidneyShot",
   "status": "E/W approved by user 2026-11-04 (v2 half-jab feint, dip and step in, rear hook to the flank, huge water burst with shards and double ring on impact frame 4, d1675b1; target plays kidneyStruck; W mirrors E); S/N to author",
-  "frames": 9,
+  "frames": 10,
   "fps": 12,
   "frameSize": [
     64,
@@ -18,7 +18,7 @@
       "E",
       "W"
     ],
-    "columns": "frames 0–8"
+    "columns": "frames 0\u00e2\u0080\u00939"
   },
   "layers": {
     "body": "body.png",
@@ -75,7 +75,10 @@
     "boxing-gloves": "boxing-gloves.png",
     "boxing-gloves-far": "boxing-gloves-far.png",
     "thai-gloves": "thai-gloves.png",
-    "thai-gloves-far": "thai-gloves-far.png"
+    "thai-gloves-far": "thai-gloves-far.png",
+    "trail": "trail.png",
+    "boxing-gloves-trail": "boxing-gloves-trail.png",
+    "thai-gloves-trail": "thai-gloves-trail.png"
   },
   "pendingLayers": [],
   "drawOrder": [
@@ -107,6 +110,10 @@
       ],
       [
         1,
+        0
+      ],
+      [
+        0,
         0
       ],
       [
@@ -152,6 +159,10 @@
         0
       ],
       [
+        0,
+        0
+      ],
+      [
         2,
         0
       ],
@@ -177,7 +188,8 @@
         5,
         6,
         7,
-        8
+        8,
+        9
       ],
       "fps": 12,
       "next": "guard",
@@ -223,7 +235,7 @@
       {
         "frame": 5,
         "clip": "kidneyShot",
-        "type": "recovery"
+        "type": "impactHold"
       },
       {
         "frame": 6,
@@ -237,6 +249,11 @@
       },
       {
         "frame": 8,
+        "clip": "kidneyShot",
+        "type": "recovery"
+      },
+      {
+        "frame": 9,
         "clip": "kidneyShot",
         "type": "recovery"
       }
@@ -278,7 +295,7 @@
       {
         "frame": 5,
         "clip": "kidneyShot",
-        "type": "recovery"
+        "type": "impactHold"
       },
       {
         "frame": 6,
@@ -292,6 +309,11 @@
       },
       {
         "frame": 8,
+        "clip": "kidneyShot",
+        "type": "recovery"
+      },
+      {
+        "frame": 9,
         "clip": "kidneyShot",
         "type": "recovery"
       }
@@ -1505,6 +1527,7 @@
       1,
       2,
       2,
+      2,
       1,
       0,
       0,
@@ -1514,5 +1537,44 @@
       "#dff6ff",
       "#2f7fe0"
     ]
-  }
+  },
+  "impactFx": [
+    {
+      "dir": "E",
+      "frame": 4,
+      "held": 5,
+      "x": 56,
+      "y": 33.5,
+      "facing": 1,
+      "style": "halfPop",
+      "angle": 0,
+      "element": "water",
+      "gearReach": {
+        "boxing-gloves": 1,
+        "thai-gloves": 1
+      }
+    },
+    {
+      "dir": "W",
+      "frame": 4,
+      "held": 5,
+      "x": 7,
+      "y": 33.5,
+      "facing": -1,
+      "style": "halfPop",
+      "angle": 0,
+      "element": "water",
+      "gearReach": {
+        "boxing-gloves": 1,
+        "thai-gloves": 1
+      }
+    }
+  ],
+  "impactHolds": [
+    {
+      "frame": 4,
+      "held": 5,
+      "rule": "impact frame held one extra tick with impact fx (tools/smear.py --impact)"
+    }
+  ]
 }

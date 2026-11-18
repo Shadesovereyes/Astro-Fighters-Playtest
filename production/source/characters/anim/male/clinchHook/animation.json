@@ -3,7 +3,7 @@
   "body": "male",
   "state": "clinchHook",
   "status": "E/W candidate 2026-10-16 (Haymaker in the clinch (short hook), paired with clinchHookHit), awaiting user approval; S/N to author",
-  "frames": 8,
+  "frames": 10,
   "fps": 12,
   "frameSize": [
     64,
@@ -18,7 +18,7 @@
       "E",
       "W"
     ],
-    "columns": "frames 0–7"
+    "columns": "frames 0\u00e2\u0080\u00939"
   },
   "layers": {
     "body": "body.png",
@@ -75,7 +75,10 @@
     "thai-gloves": "thai-gloves.png",
     "male-boxing-boots": "male-boxing-boots.png",
     "boxing-gloves-far": "boxing-gloves-far.png",
-    "thai-gloves-far": "thai-gloves-far.png"
+    "thai-gloves-far": "thai-gloves-far.png",
+    "trail": "trail.png",
+    "boxing-gloves-trail": "boxing-gloves-trail.png",
+    "thai-gloves-trail": "thai-gloves-trail.png"
   },
   "pendingLayers": [],
   "drawOrder": [
@@ -120,9 +123,25 @@
       [
         0,
         0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
       ]
     ],
     "W": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
       [
         0,
         0
@@ -168,7 +187,9 @@
         4,
         5,
         6,
-        7
+        7,
+        8,
+        9
       ],
       "fps": 12,
       "next": "clinchHold"
@@ -191,6 +212,12 @@
       },
       {
         "frame": 3,
+        "clip": null,
+        "type": "startup",
+        "smear": true
+      },
+      {
+        "frame": 4,
         "type": "active",
         "move": "clinchHook",
         "hitbox": [
@@ -202,12 +229,9 @@
         "damage": "medium"
       },
       {
-        "frame": 4,
-        "type": "recovery"
-      },
-      {
         "frame": 5,
-        "type": "recovery"
+        "clip": null,
+        "type": "impactHold"
       },
       {
         "frame": 6,
@@ -215,6 +239,14 @@
       },
       {
         "frame": 7,
+        "type": "recovery"
+      },
+      {
+        "frame": 8,
+        "type": "recovery"
+      },
+      {
+        "frame": 9,
         "type": "recovery"
       }
     ],
@@ -233,6 +265,12 @@
       },
       {
         "frame": 3,
+        "clip": null,
+        "type": "startup",
+        "smear": true
+      },
+      {
+        "frame": 4,
         "type": "active",
         "move": "clinchHook",
         "hitbox": [
@@ -244,12 +282,9 @@
         "damage": "medium"
       },
       {
-        "frame": 4,
-        "type": "recovery"
-      },
-      {
         "frame": 5,
-        "type": "recovery"
+        "clip": null,
+        "type": "impactHold"
       },
       {
         "frame": 6,
@@ -257,6 +292,14 @@
       },
       {
         "frame": 7,
+        "type": "recovery"
+      },
+      {
+        "frame": 8,
+        "type": "recovery"
+      },
+      {
+        "frame": 9,
         "type": "recovery"
       }
     ]
@@ -562,5 +605,52 @@
       }
     },
     "pass": true
-  }
+  },
+  "smearFrames": [
+    {
+      "before": 3,
+      "frame": 3,
+      "limbs": [
+        "arm-near"
+      ],
+      "rule": "smear in-between inserted before the impact frame (tools/smear.py --insert)"
+    }
+  ],
+  "impactFx": [
+    {
+      "dir": "E",
+      "frame": 4,
+      "held": 5,
+      "x": 54,
+      "y": 17.5,
+      "facing": 1,
+      "style": "halfPop",
+      "angle": 30,
+      "gearReach": {
+        "boxing-gloves": 1,
+        "thai-gloves": 1
+      }
+    },
+    {
+      "dir": "W",
+      "frame": 4,
+      "held": 5,
+      "x": 9,
+      "y": 17.5,
+      "facing": -1,
+      "style": "halfPop",
+      "angle": 30,
+      "gearReach": {
+        "boxing-gloves": 1,
+        "thai-gloves": 1
+      }
+    }
+  ],
+  "impactHolds": [
+    {
+      "frame": 4,
+      "held": 5,
+      "rule": "impact frame held one extra tick with impact fx (tools/smear.py --impact)"
+    }
+  ]
 }

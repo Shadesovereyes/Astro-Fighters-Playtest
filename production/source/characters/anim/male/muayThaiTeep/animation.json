@@ -3,7 +3,7 @@
   "body": "male",
   "state": "muayThaiTeep",
   "status": "E/W approved by user 2026-10-20 (W mirrors E); S/N approved by user 2026-10-20 (hands and wrists in front of the body outlined)",
-  "frames": 6,
+  "frames": 8,
   "fps": 12,
   "frameSize": [
     64,
@@ -20,7 +20,7 @@
       "N",
       "W"
     ],
-    "columns": "frames 0–5"
+    "columns": "frames 0\u00e2\u0080\u00937"
   },
   "layers": {
     "body": "body.png",
@@ -113,6 +113,14 @@
       [
         0,
         0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
       ]
     ],
     "E": [
@@ -125,7 +133,15 @@
         0
       ],
       [
+        0,
+        0
+      ],
+      [
         1,
+        0
+      ],
+      [
+        0,
         0
       ],
       [
@@ -165,6 +181,14 @@
       [
         0,
         0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
       ]
     ],
     "W": [
@@ -177,7 +201,15 @@
         0
       ],
       [
+        0,
+        0
+      ],
+      [
         -1,
+        0
+      ],
+      [
+        0,
         0
       ],
       [
@@ -203,7 +235,9 @@
         2,
         3,
         4,
-        5
+        5,
+        6,
+        7
       ],
       "fps": 12,
       "next": "muayThaiGuard",
@@ -226,6 +260,12 @@
       {
         "frame": 2,
         "clip": "teep",
+        "type": "startup",
+        "smear": true
+      },
+      {
+        "frame": 3,
+        "clip": "teep",
         "type": "active",
         "move": "Teep Kick",
         "hitbox": [
@@ -237,17 +277,22 @@
         "damage": "heavy"
       },
       {
-        "frame": 3,
-        "clip": "teep",
-        "type": "recovery"
-      },
-      {
         "frame": 4,
         "clip": "teep",
-        "type": "recovery"
+        "type": "impactHold"
       },
       {
         "frame": 5,
+        "clip": "teep",
+        "type": "recovery"
+      },
+      {
+        "frame": 6,
+        "clip": "teep",
+        "type": "recovery"
+      },
+      {
+        "frame": 7,
         "clip": "teep",
         "type": "recovery"
       }
@@ -266,6 +311,12 @@
       {
         "frame": 2,
         "clip": "teep",
+        "type": "startup",
+        "smear": true
+      },
+      {
+        "frame": 3,
+        "clip": "teep",
         "type": "active",
         "move": "Teep Kick",
         "hitbox": [
@@ -277,17 +328,22 @@
         "damage": "heavy"
       },
       {
-        "frame": 3,
-        "clip": "teep",
-        "type": "recovery"
-      },
-      {
         "frame": 4,
         "clip": "teep",
-        "type": "recovery"
+        "type": "impactHold"
       },
       {
         "frame": 5,
+        "clip": "teep",
+        "type": "recovery"
+      },
+      {
+        "frame": 6,
+        "clip": "teep",
+        "type": "recovery"
+      },
+      {
+        "frame": 7,
         "clip": "teep",
         "type": "recovery"
       }
@@ -746,5 +802,44 @@
       }
     },
     "pass": true
-  }
+  },
+  "smearFrames": [
+    {
+      "before": 2,
+      "frame": 2,
+      "limbs": [
+        "leg-far"
+      ],
+      "rule": "smear in-between inserted before the impact frame (tools/smear.py --insert)"
+    }
+  ],
+  "impactFx": [
+    {
+      "dir": "E",
+      "frame": 3,
+      "held": 4,
+      "x": 56,
+      "y": 36.0,
+      "facing": 1,
+      "style": "halfPop",
+      "angle": 0
+    },
+    {
+      "dir": "W",
+      "frame": 3,
+      "held": 4,
+      "x": 7,
+      "y": 36.0,
+      "facing": -1,
+      "style": "halfPop",
+      "angle": 0
+    }
+  ],
+  "impactHolds": [
+    {
+      "frame": 3,
+      "held": 4,
+      "rule": "impact frame held one extra tick with impact fx (tools/smear.py --impact)"
+    }
+  ]
 }

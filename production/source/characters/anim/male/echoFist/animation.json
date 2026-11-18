@@ -3,7 +3,7 @@
   "body": "male",
   "state": "echoFist",
   "status": "CANDIDATE 2026-10-27 (E/W; W mirrors E; S/N to author after approval)",
-  "frames": 9,
+  "frames": 11,
   "fps": 10,
   "frameSize": [
     64,
@@ -18,7 +18,7 @@
       "E",
       "W"
     ],
-    "columns": "frames 0–8"
+    "columns": "frames 0\u00e2\u0080\u009310"
   },
   "layers": {
     "body": "body.png",
@@ -101,7 +101,15 @@
         0
       ],
       [
+        0,
+        0
+      ],
+      [
         2,
+        0
+      ],
+      [
+        0,
         0
       ],
       [
@@ -139,7 +147,15 @@
         0
       ],
       [
+        0,
+        0
+      ],
+      [
         -2,
+        0
+      ],
+      [
+        0,
         0
       ],
       [
@@ -176,7 +192,9 @@
         5,
         6,
         7,
-        8
+        8,
+        9,
+        10
       ],
       "fps": 10,
       "next": "guard",
@@ -204,6 +222,12 @@
       {
         "frame": 3,
         "clip": "echoFist",
+        "type": "startup",
+        "smear": true
+      },
+      {
+        "frame": 4,
+        "clip": "echoFist",
         "type": "active",
         "move": "Echo Fist",
         "hitbox": [
@@ -215,14 +239,9 @@
         "damage": "medium"
       },
       {
-        "frame": 4,
-        "clip": "echoFist",
-        "type": "recovery"
-      },
-      {
         "frame": 5,
         "clip": "echoFist",
-        "type": "recovery"
+        "type": "impactHold"
       },
       {
         "frame": 6,
@@ -236,6 +255,16 @@
       },
       {
         "frame": 8,
+        "clip": "echoFist",
+        "type": "recovery"
+      },
+      {
+        "frame": 9,
+        "clip": "echoFist",
+        "type": "recovery"
+      },
+      {
+        "frame": 10,
         "clip": "echoFist",
         "type": "recovery"
       }
@@ -259,6 +288,12 @@
       {
         "frame": 3,
         "clip": "echoFist",
+        "type": "startup",
+        "smear": true
+      },
+      {
+        "frame": 4,
+        "clip": "echoFist",
         "type": "active",
         "move": "Echo Fist",
         "hitbox": [
@@ -270,14 +305,9 @@
         "damage": "medium"
       },
       {
-        "frame": 4,
-        "clip": "echoFist",
-        "type": "recovery"
-      },
-      {
         "frame": 5,
         "clip": "echoFist",
-        "type": "recovery"
+        "type": "impactHold"
       },
       {
         "frame": 6,
@@ -291,6 +321,16 @@
       },
       {
         "frame": 8,
+        "clip": "echoFist",
+        "type": "recovery"
+      },
+      {
+        "frame": 9,
+        "clip": "echoFist",
+        "type": "recovery"
+      },
+      {
+        "frame": 10,
         "clip": "echoFist",
         "type": "recovery"
       }
@@ -1500,5 +1540,54 @@
       }
     },
     "pass": false
-  }
+  },
+  "smearFrames": [
+    {
+      "before": 3,
+      "frame": 3,
+      "limbs": [
+        "arm-near"
+      ],
+      "rule": "smear in-between inserted before the impact frame (tools/smear.py --insert)"
+    }
+  ],
+  "impactFx": [
+    {
+      "dir": "E",
+      "frame": 4,
+      "held": 5,
+      "x": 56,
+      "y": 24.5,
+      "facing": 1,
+      "style": "halfPop",
+      "angle": 0,
+      "element": "air",
+      "gearReach": {
+        "boxing-gloves": 1,
+        "thai-gloves": 1
+      }
+    },
+    {
+      "dir": "W",
+      "frame": 4,
+      "held": 5,
+      "x": 7,
+      "y": 24.5,
+      "facing": -1,
+      "style": "halfPop",
+      "angle": 0,
+      "element": "air",
+      "gearReach": {
+        "boxing-gloves": 1,
+        "thai-gloves": 1
+      }
+    }
+  ],
+  "impactHolds": [
+    {
+      "frame": 4,
+      "held": 5,
+      "rule": "impact frame held one extra tick with impact fx (tools/smear.py --impact)"
+    }
+  ]
 }
