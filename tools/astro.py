@@ -7538,6 +7538,15 @@ def aqua_mint(state):
                 if c[3] and c[:3] in m: px[x, y] = m[c[:3]] + (c[3],)
         im.save(f)
 
+# Numbing Strike v2 candidate (Christopher 2026-11-18 20:29: "upper body appears to be sheared from the legs"): the v2
+# clip of 2026-11-04 sheared the torso up to 5 px between hips and head (head jerked 4 px back on the load, then 5-7 px
+# forward over hips 1-2 px ahead). v2 candidate keeps every pose and fx and caps the shear at 2 px: the load settles the
+# head 1 px back from the guard, the flurry leans 2 px forward, the finisher 2 px. Its own state until a verdict.
+_NSV2_LEAN = [None, (0, 1), (1, 3), (1, 3), (1, 3), (2, 4), (2, 4), (1, 2), None, None]
+_ns = CLIPS['numbingStrike']
+CLIPS['numbingStrikeV2'] = (_ns[0], _ns[1], _ns[2] + ' v2 candidate (2026-11-18): torso shear capped at 2 px (lean), poses and fx unchanged.',
+    [dict(f, lean=_NSV2_LEAN[i]) if _NSV2_LEAN[i] else dict(f) for i, f in enumerate(_ns[3])], list(_ns[4]), list(_ns[5]), dict(_ns[6]))
+
 if __name__ == '__main__':
     a = sys.argv[1:]
     if '--fx' in a: fx(a[a.index('--fx') + 1]); aqua_mint(a[a.index('--fx') + 1]); sys.exit()

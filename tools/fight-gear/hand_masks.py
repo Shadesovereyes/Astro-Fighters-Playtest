@@ -25,7 +25,7 @@ def git(*a): return subprocess.run(['git', *a], cwd=ROOT, capture_output=True, t
 def mark(spec):
     if 'palette' not in spec: return False      # (character-animate states: no palette; gloves fall back to the heuristic)
     hit = True
-    for name in ('fist', 'fistUp', 'fistFront', 'palmUp', 'palmDown'):
+    for name in ('fist', 'fistUp', 'fistFront', 'palmUp', 'palmDown', 'palmHeel', 'fingerGun', 'fingerPoint'):
         f = spec.get('arms', {}).get('band', {}).get(name)
         if f: f['rows'] = [''.join(MARK[c][0] if c in MARK else c for c in r) for r in f['rows']]
     for k, (sym, hexc) in list(MARK.items()) + list(WMARK.items()): spec['palette'][sym] = hexc
