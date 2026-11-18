@@ -1848,15 +1848,7 @@
       },
       {
         "frame": 7,
-        "type": "active",
-        "move": "mountPalm",
-        "hitbox": [
-          4,
-          46,
-          12,
-          10
-        ],
-        "damage": "heavy"
+        "type": "recovery"
       },
       {
         "frame": 8,
@@ -1910,15 +1902,7 @@
       },
       {
         "frame": 7,
-        "type": "active",
-        "move": "mountPalm",
-        "hitbox": [
-          48,
-          46,
-          12,
-          10
-        ],
-        "damage": "heavy"
+        "type": "recovery"
       },
       {
         "frame": 8,

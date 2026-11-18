@@ -2,8 +2,8 @@
   "schema": "astro-fighters-character-animation-output/v1",
   "body": "male",
   "state": "mountPalm",
-  "status": "E/W approved by user 2026-10-16 (two-strike Sumo Palm from the top of the Mount, paired with mountPalmHit); S/N to author; open-hand revision approved by user 2026-10-16",
-  "frames": 15,
+  "status": "E/W approved by user 2026-10-16 (two-strike Sumo Palm from the top of the Mount, paired with mountPalmHit); S/N to author; open-hand revision approved by user 2026-10-16; one palm strike (user 2026-11-18 20:30): the phantom second hit (spec frame 7, no strike in the art) is recovery",
+  "frames": 13,
   "fps": 6,
   "frameSize": [
     64,
@@ -18,7 +18,7 @@
       "E",
       "W"
     ],
-    "columns": "frames 0\u00e2\u0080\u009314"
+    "columns": "frames 0\u201312"
   },
   "layers": {
     "body": "body.png",
@@ -143,25 +143,9 @@
       [
         0,
         0
-      ],
-      [
-        0,
-        0
-      ],
-      [
-        0,
-        0
       ]
     ],
     "W": [
-      [
-        0,
-        0
-      ],
-      [
-        0,
-        0
-      ],
       [
         0,
         0
@@ -232,9 +216,7 @@
         9,
         10,
         11,
-        12,
-        13,
-        14
+        12
       ],
       "fps": 12,
       "next": "mountTop"
@@ -293,36 +275,18 @@
       {
         "frame": 9,
         "clip": null,
-        "type": "startup",
-        "smear": true
+        "type": "recovery"
       },
       {
         "frame": 10,
-        "type": "active",
-        "move": "mountPalm",
-        "hitbox": [
-          4,
-          46,
-          12,
-          10
-        ],
-        "damage": "heavy"
+        "type": "recovery"
       },
       {
         "frame": 11,
-        "clip": null,
-        "type": "impactHold"
+        "type": "recovery"
       },
       {
         "frame": 12,
-        "type": "recovery"
-      },
-      {
-        "frame": 13,
-        "type": "recovery"
-      },
-      {
-        "frame": 14,
         "type": "recovery"
       }
     ],
@@ -377,36 +341,18 @@
       {
         "frame": 9,
         "clip": null,
-        "type": "startup",
-        "smear": true
+        "type": "recovery"
       },
       {
         "frame": 10,
-        "type": "active",
-        "move": "mountPalm",
-        "hitbox": [
-          48,
-          46,
-          12,
-          10
-        ],
-        "damage": "heavy"
+        "type": "recovery"
       },
       {
         "frame": 11,
-        "clip": null,
-        "type": "impactHold"
+        "type": "recovery"
       },
       {
         "frame": 12,
-        "type": "recovery"
-      },
-      {
-        "frame": 13,
-        "type": "recovery"
-      },
-      {
-        "frame": 14,
         "type": "recovery"
       }
     ]
@@ -824,14 +770,6 @@
   },
   "smearFrames": [
     {
-      "before": 7,
-      "frame": 7,
-      "limbs": [
-        "arm-far"
-      ],
-      "rule": "smear in-between inserted before the impact frame (tools/smear.py --insert)"
-    },
-    {
       "before": 3,
       "frame": 3,
       "limbs": [
@@ -889,11 +827,6 @@
     }
   ],
   "impactHolds": [
-    {
-      "frame": 9,
-      "held": 10,
-      "rule": "impact frame held one extra tick with impact fx (tools/smear.py --impact)"
-    },
     {
       "frame": 4,
       "held": 5,
