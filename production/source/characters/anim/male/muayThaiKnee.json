@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "muayThaiKnee",
-  "status": "E/W approved by user 2026-10-20 (W mirrors E); S/N approved by user 2026-10-20 (turned trunk keeps its depth, edf90c3)",
+  "status": "E/W approved by user 2026-10-20 (W mirrors E); S/N approved by user 2026-10-20 (turned trunk keeps its depth, edf90c3); knee v2 (higher knee, hip drive, shin under the knee, S/N kneeFront foreshortening) approved by user 2026-11-18 20:26",
   "frames": 7,
   "fps": 12,
   "sourceDirection": "E",
@@ -144,8 +144,8 @@
         0,
         1,
         2,
-        3,
-        3,
+        4,
+        4,
         1,
         0
       ],
@@ -153,8 +153,8 @@
         2,
         3,
         1,
-        -1,
-        -1,
+        -2,
+        -2,
         1,
         2
       ]
@@ -751,11 +751,11 @@
         "construction": "band",
         "hipX": 34,
         "hipRow": 40,
-        "kneeX": 41,
-        "kneeRow": 37,
+        "kneeX": 42,
+        "kneeRow": 35,
         "ankle": [
           38,
-          46
+          44
         ],
         "foot": "toe30k"
       },
@@ -900,12 +900,12 @@
         "name": "mt-knee",
         "construction": "band",
         "hipX": 35,
-        "hipRow": 40,
+        "hipRow": 39,
         "kneeX": 46,
-        "kneeRow": 33,
+        "kneeRow": 30,
         "ankle": [
-          40,
-          43
+          42,
+          41
         ],
         "foot": "toe30k"
       },
@@ -2522,14 +2522,14 @@
             "S-hikeR1",
             "bend1",
             "S-plantL1",
-            "S-liftR50"
+            "S-kneeFront-low"
           ],
           "2": [
             "S-hikeR",
             "bend2",
             "S-kneeL",
             "S-plantL",
-            "S-liftR43"
+            "S-kneeFront-mid"
           ],
           "3": [
             "S-hikeR",
@@ -2537,7 +2537,7 @@
             "S-kneeL",
             "S-turn1",
             "S-plantL",
-            "S-liftR40"
+            "S-kneeFront-peak"
           ],
           "4": [
             "S-hikeR",
@@ -2545,13 +2545,13 @@
             "S-kneeL",
             "S-turn1",
             "S-plantL",
-            "S-liftR40"
+            "S-kneeFront-peak"
           ],
           "5": [
             "S-hikeR1",
             "bend1",
             "S-plantL1",
-            "S-liftR50"
+            "S-kneeFront-mid"
           ],
           "6": [
             "S-muayThaiGuard-kneeR0",
@@ -2896,14 +2896,14 @@
             "N-hikeR1",
             "bend1",
             "N-plantL1",
-            "N-liftR50"
+            "N-kneeFront-low"
           ],
           "2": [
             "N-hikeR",
             "bend2",
             "N-kneeL",
             "N-plantL",
-            "N-liftR43"
+            "N-kneeFront-mid"
           ],
           "3": [
             "N-hikeR",
@@ -2911,7 +2911,7 @@
             "N-kneeL",
             "N-turn1",
             "N-plantL",
-            "N-liftR40"
+            "N-kneeFront-peak"
           ],
           "4": [
             "N-hikeR",
@@ -2919,13 +2919,13 @@
             "N-kneeL",
             "N-turn1",
             "N-plantL",
-            "N-liftR40"
+            "N-kneeFront-peak"
           ],
           "5": [
             "N-hikeR1",
             "bend1",
             "N-plantL1",
-            "N-liftR50"
+            "N-kneeFront-mid"
           ],
           "6": [
             "N-muayThaiGuard-kneeR0",
@@ -3396,6 +3396,477 @@
               "..##.."
             ]
           }
+        }
+      },
+      "S-kneeFront-peak": {
+        "kneeFront": {
+          "side": "R",
+          "from": 40,
+          "blocks": [
+            {
+              "at": [
+                24,
+                36
+              ],
+              "rows": [
+                "oKIGGHHHHGKo",
+                "oKIGHHHHHGKo",
+                "oKI#######Ko",
+                "oK#mLLLLms#o",
+                "oo#mLLLLms#o",
+                "..#mmLLmss#.",
+                "..#dmmmssd#.",
+                "...#dmssd#..",
+                "...#dssdd#..",
+                "....#dsd#...",
+                "....%NFN%...",
+                "....%QNQ%...",
+                ".....%%%...."
+              ],
+              "sample": {
+                "o": "000000",
+                "#": "000000",
+                "%": "000000",
+                "K": [
+                  24,
+                  40
+                ],
+                "I": [
+                  29,
+                  41
+                ],
+                "G": [
+                  25,
+                  41
+                ],
+                "H": [
+                  27,
+                  41
+                ],
+                "L": [
+                  25,
+                  46
+                ],
+                "m": [
+                  25,
+                  47
+                ],
+                "s": [
+                  27,
+                  45
+                ],
+                "d": [
+                  27,
+                  46
+                ],
+                "D": [
+                  27,
+                  47
+                ],
+                "F": [
+                  22,
+                  61
+                ],
+                "N": [
+                  25,
+                  61
+                ],
+                "Q": [
+                  22,
+                  62
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "N-kneeFront-peak": {
+        "kneeFront": {
+          "side": "R",
+          "from": 40,
+          "blocks": [
+            {
+              "at": [
+                28,
+                36
+              ],
+              "rows": [
+                "oKGHHHGIKo.",
+                "oKGHHHHGIKo",
+                "oKGHHHHGIKo",
+                "oKoooooooKo",
+                "..#sLLLs#..",
+                "..#mLLLm#..",
+                "..%QNNNQ%..",
+                "..%QFFFQ%..",
+                "...%QFQ%...",
+                "....%%%...."
+              ],
+              "sample": {
+                "o": "000000",
+                "#": "000000",
+                "%": "000000",
+                "K": [
+                  33,
+                  41
+                ],
+                "I": [
+                  33,
+                  41
+                ],
+                "G": [
+                  34,
+                  41
+                ],
+                "H": [
+                  35,
+                  41
+                ],
+                "L": [
+                  35,
+                  48
+                ],
+                "m": [
+                  35,
+                  46
+                ],
+                "s": [
+                  34,
+                  46
+                ],
+                "d": [
+                  35,
+                  47
+                ],
+                "F": [
+                  37,
+                  60
+                ],
+                "N": [
+                  39,
+                  60
+                ],
+                "Q": [
+                  37,
+                  62
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "S-kneeFront-mid": {
+        "kneeFront": {
+          "side": "R",
+          "from": 40,
+          "blocks": [
+            {
+              "at": [
+                22,
+                38
+              ],
+              "rows": [
+                "oKIGGHHHGKo.",
+                "oKIGHHHHGKo.",
+                "oKI######Ko.",
+                "oK#mLLLms#o.",
+                "oo#mLLLms#o.",
+                "..#dmmmsd#..",
+                "..#dmmssd#..",
+                "...#dmsd#...",
+                "...#dssd#...",
+                "...#dssd#...",
+                "...%NFFN%...",
+                "...%QNNQ%...",
+                "....%%%%...."
+              ],
+              "sample": {
+                "o": "000000",
+                "#": "000000",
+                "%": "000000",
+                "K": [
+                  24,
+                  40
+                ],
+                "I": [
+                  29,
+                  41
+                ],
+                "G": [
+                  25,
+                  41
+                ],
+                "H": [
+                  27,
+                  41
+                ],
+                "L": [
+                  25,
+                  46
+                ],
+                "m": [
+                  25,
+                  47
+                ],
+                "s": [
+                  27,
+                  45
+                ],
+                "d": [
+                  27,
+                  46
+                ],
+                "D": [
+                  27,
+                  47
+                ],
+                "F": [
+                  22,
+                  61
+                ],
+                "N": [
+                  25,
+                  61
+                ],
+                "Q": [
+                  22,
+                  62
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "N-kneeFront-mid": {
+        "kneeFront": {
+          "side": "R",
+          "from": 40,
+          "blocks": [
+            {
+              "at": [
+                29,
+                38
+              ],
+              "rows": [
+                "oKGHHHGIKo.",
+                "oKGHHHHGIKo",
+                "oKoooooooKo",
+                "..#sLLLs#..",
+                "..#mLLLm#..",
+                "..#sLLLs#..",
+                "..%QNNNQ%..",
+                "..%QFFFQ%..",
+                "...%QFQ%...",
+                "....%%%...."
+              ],
+              "sample": {
+                "o": "000000",
+                "#": "000000",
+                "%": "000000",
+                "K": [
+                  33,
+                  41
+                ],
+                "I": [
+                  33,
+                  41
+                ],
+                "G": [
+                  34,
+                  41
+                ],
+                "H": [
+                  35,
+                  41
+                ],
+                "L": [
+                  35,
+                  48
+                ],
+                "m": [
+                  35,
+                  46
+                ],
+                "s": [
+                  34,
+                  46
+                ],
+                "d": [
+                  35,
+                  47
+                ],
+                "F": [
+                  37,
+                  60
+                ],
+                "N": [
+                  39,
+                  60
+                ],
+                "Q": [
+                  37,
+                  62
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "S-kneeFront-low": {
+        "kneeFront": {
+          "side": "R",
+          "from": 41,
+          "blocks": [
+            {
+              "at": [
+                21,
+                41
+              ],
+              "rows": [
+                "oKIGGHHHGKo.",
+                "oKIGHHHHGKo.",
+                "oKI######Ko.",
+                "oK#mLLLms#o.",
+                "oo#mLLLms#o.",
+                "..#dmmmsd#..",
+                "..#dmmssd#..",
+                "...#dmsd#...",
+                "...#dssd#...",
+                "...#dssd#...",
+                "...%NFFN%...",
+                "...%QNNQ%...",
+                "....%%%%...."
+              ],
+              "sample": {
+                "o": "000000",
+                "#": "000000",
+                "%": "000000",
+                "K": [
+                  24,
+                  40
+                ],
+                "I": [
+                  29,
+                  41
+                ],
+                "G": [
+                  25,
+                  41
+                ],
+                "H": [
+                  27,
+                  41
+                ],
+                "L": [
+                  25,
+                  46
+                ],
+                "m": [
+                  25,
+                  47
+                ],
+                "s": [
+                  27,
+                  45
+                ],
+                "d": [
+                  27,
+                  46
+                ],
+                "D": [
+                  27,
+                  47
+                ],
+                "F": [
+                  22,
+                  61
+                ],
+                "N": [
+                  25,
+                  61
+                ],
+                "Q": [
+                  22,
+                  62
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "N-kneeFront-low": {
+        "kneeFront": {
+          "side": "R",
+          "from": 41,
+          "blocks": [
+            {
+              "at": [
+                30,
+                41
+              ],
+              "rows": [
+                "oKGHHHGIKo.",
+                "oKGHHHHGIKo",
+                "oKoooooooKo",
+                "..#sLLLs#..",
+                "..#mLLLm#..",
+                "..#sLLLs#..",
+                "..%QNNNQ%..",
+                "..%QFFFQ%..",
+                "...%QFQ%...",
+                "....%%%...."
+              ],
+              "sample": {
+                "o": "000000",
+                "#": "000000",
+                "%": "000000",
+                "K": [
+                  33,
+                  41
+                ],
+                "I": [
+                  33,
+                  41
+                ],
+                "G": [
+                  34,
+                  41
+                ],
+                "H": [
+                  35,
+                  41
+                ],
+                "L": [
+                  35,
+                  48
+                ],
+                "m": [
+                  35,
+                  46
+                ],
+                "s": [
+                  34,
+                  46
+                ],
+                "d": [
+                  35,
+                  47
+                ],
+                "F": [
+                  37,
+                  60
+                ],
+                "N": [
+                  39,
+                  60
+                ],
+                "Q": [
+                  37,
+                  62
+                ]
+              }
+            }
+          ]
         }
       }
     }
