@@ -411,6 +411,57 @@ const viewLeanY = (d, group, y) => {
 const restGroup = new Map();
 for (const p of bodyRest.keys()) { const [x, y] = unkey(p); restGroup.set(p, leanGroup(bodyPart(x, y), y)); }
 
+// ---- hip bend (lean.bend "hip", or HIP_BEND=1 for a sheared spec) ---------------------------------------------
+// In place of the torso shear the upper body tilts as one rigid piece: the trunk curves over the pelvis rows (from the
+// hip joint at the hem row up to the waist) and the torso above is straight, so it keeps its width across its own
+// axis and its length (the shoulders drop as it tilts). The tilt angle per frame is the one that brings the shoulder
+// point as far forward as the sheared spec put it (head lean minus pelvis lean). The head stays upright and moves with
+// the neck point; arms move with the shoulder point. Profile (source direction) only; the front/back views keep their
+// row edits. Pixels are placed by a supersampled forward map (each destination pixel takes the nearest source sample).
+const BEND = TORSO_SHEAR && (spec.lean?.bend === 'hip' || process.env.HIP_BEND === '1') && spec.lean?.bend !== 'none';
+const BEND_MAX = (+(spec.lean?.bendMax ?? process.env.HIP_BEND_MAX ?? 72)) * Math.PI / 180;
+const PY = R.hemRow, BEND_H = PY - (R.torsoMaxRow + 1);
+const PX = (() => { const xs = [...bodyRest.keys()].map(unkey).filter(([, y]) => y === PY - 1).map(([x]) => x); return (Math.min(...xs) + Math.max(...xs) + 1) / 2; })();
+// spine point at height h above the hip joint for tilt th: the angle ramps from 0 to th over BEND_H rows, then holds
+const spineAt = (th, h) => {
+  if (Math.abs(th) < 1e-9) return [0, h, 0];
+  const a = Math.min(h, BEND_H), phi = th * a / BEND_H;
+  let X = BEND_H / th * (1 - Math.cos(phi)), Y = BEND_H / th * Math.sin(phi);
+  if (h > BEND_H) { X += (h - BEND_H) * Math.sin(th); Y += (h - BEND_H) * Math.cos(th); }
+  return [X, Y, phi];
+};
+const SHOULDER_H = PY - (AR.shoulder + 0.5);
+const bendTheta = [];
+for (let k = 0; k < F; k++) {
+  const want = TORSO_SHEAR ? leanVal('head', k) - leanVal('pelvis', k) : 0;
+  let lo = -BEND_MAX, hi = BEND_MAX;
+  for (let i = 0; i < 60; i++) { const m = (lo + hi) / 2; if (spineAt(m, SHOULDER_H)[0] < want) lo = m; else hi = m; }
+  bendTheta[k] = (lo + hi) / 2;
+}
+// forward map of a (sub)pixel position (centre coordinates) for frame k, pelvis lean included
+const bendFwd = (k, fx, fy) => {
+  const pv = leanVal('pelvis', k), h = PY - fy;
+  if (h <= 0) return [fx + pv, fy];
+  const [X, Y, phi] = spineAt(bendTheta[k], h), u = fx - PX;
+  return [PX + pv + X + u * Math.cos(phi), PY - Y + u * Math.sin(phi)];
+};
+// rigid moves (whole pixels) of the neck point (head, hair, eyes) and the shoulder point (arms) at frame k
+const bendPoint = (k, x, y) => { const [fx, fy] = bendFwd(k, x + 0.5, y + 0.5); return [roundHalfEven(fx - x - 0.5), roundHalfEven(fy - y - 0.5)]; };
+const NECK_X = (() => { const xs = [...bodyRest.keys()].map(unkey).filter(([, y]) => y === AR.shoulder).map(([x]) => x); return Math.round((Math.min(...xs) + Math.max(...xs)) / 2); })();
+const bendHead = (k) => bendPoint(k, NECK_X, AR.shoulder - 1);
+const bendShoulder = (k) => bendPoint(k, NECK_X, AR.shoulder);
+// bends a list of [x, y, value] source pixels (torso / pelvis / rest-arm pixels) at frame k: returns [x, y, value, srcX, srcY]
+const BEND_SS = 4;
+function bendList(k, list) {
+  const best = new Map();
+  for (const [x, y, v] of list) for (let i = 0; i < BEND_SS; i++) for (let j = 0; j < BEND_SS; j++) {
+    const [fx, fy] = bendFwd(k, x + (i + 0.5) / BEND_SS, y + (j + 0.5) / BEND_SS), dx = Math.floor(fx), dy = Math.floor(fy);
+    const d = (fx - dx - 0.5) ** 2 + (fy - dy - 0.5) ** 2, q = key(dx, dy), cur = best.get(q);
+    if (!cur || d < cur[0]) best.set(q, [d, v, x, y]);
+  }
+  return [...best].map(([q, [, v, sx, sy]]) => { const [x, y] = unkey(q); return [x, y, v, sx, sy]; });
+}
+
 // ---- overlays (hair, eyes) ------------------------------------------------------------------------------
 const overlayLayers = spec.overlays.layers.map((name) => {
   const l = overlays.layers.find((o) => path.basename(o.partMap, '.png') === name);
@@ -429,16 +480,36 @@ const report = { cleanupRemoved: [], cleanupMerged: [], frontalOutlineAdded: {},
 const headDelta = (k) => (spec.bob.head ? spec.bob.head[k] - bob[k] : 0);
 const armDelta = (k) => (spec.bob.arms ? spec.bob.arms[k] - bob[k] : 0);
 for (const t of ['head', 'arms']) if (spec.bob[t] && spec.bob[t].length !== F) throw new Error(`bob.${t} needs ${F} entries`);
+// the body without the near limbs at frame k, hip-bent: torso and pelvis pixels above the hip joint bend, the head
+// moves with the neck point and is drawn over the torso; where the bend opens an edge the reference had covered,
+// outline is added
+function bendRest(k, HD) {
+  const torsoPx = [], other = [], [hx, hy] = bendHead(k), pv = leanVal('pelvis', k);
+  for (const [p, c] of bodyRest) {
+    const [x, y] = unkey(p), g = restGroup.get(p);
+    if (g === 'head') other.push([x + hx, y + hy + HEAD_DY + HD, c]);
+    else if (g === 'torso' || (g === 'pelvis' && y < PY)) torsoPx.push([x, y, c]);
+    else other.push([x + (g ? pv : 0), y, c]);
+  }
+  const m = new Map(), bent = bendList(k, torsoPx);
+  for (const [x, y, c] of bent) m.set(key(x, y), c);
+  for (const [x, y, c] of other) m.set(key(x, y), c);
+  for (const [x, y, c, sx, sy] of bent) {
+    if (c === '#' || c === 'o') continue;
+    for (const [dx, dy] of N4) if (!m.has(key(x + dx, y + dy)) && N4.every(([ax, ay]) => bodyRest.has(key(sx + ax, sy + ay)))) m.set(key(x + dx, y + dy), 'o');
+  }
+  return m;
+}
 function frame(k) {
   const b = bob[k], HD = headDelta(k), AD = armDelta(k);
   const bodyL = new Map(), armsL = new Map();
   const far = legPoses[L.far[k]], near = legPoses[L.near[k]];
-  const T = leanOf('torso', k, AR.shoulder);
-  const shifted = (m) => new Map([...m].map(([p, c]) => { const [x, y] = unkey(p); return [key(x + T, y + DROP), c]; }));
-  const rest = new Map([...bodyRest].sort(([p], [q]) => (restGroup.get(p) === 'head') - (restGroup.get(q) === 'head')).flatMap(([p, c]) => { const [x, y] = unkey(p), g = restGroup.get(p), ny = leanY(g, y); return ny === null ? [] : [[key(x + leanOf(g, k, y), ny + (g === 'head' ? HD : 0)), c]]; }));
+  const [T, PD] = BEND ? bendShoulder(k) : [leanOf('torso', k, AR.shoulder), DROP];
+  const shifted = (m) => new Map([...m].map(([p, c]) => { const [x, y] = unkey(p); return [key(x + T, y + PD), c]; }));
+  const rest = BEND ? bendRest(k, HD) : new Map([...bodyRest].sort(([p], [q]) => (restGroup.get(p) === 'head') - (restGroup.get(q) === 'head')).flatMap(([p, c]) => { const [x, y] = unkey(p), g = restGroup.get(p), ny = leanY(g, y); return ny === null ? [] : [[key(x + leanOf(g, k, y), ny + (g === 'head' ? HD : 0)), c]]; }));
   // where the lean slides one block past the next (torso over pelvis, head over neck), an edge that was covered in the
   // reference is now open and gets outline
-  if (LEAN) for (const [p, c] of bodyRest) {
+  if (LEAN && !BEND) for (const [p, c] of bodyRest) {
     if (c === '#' || c === 'o') continue;
     const [x, y] = unkey(p), g = restGroup.get(p), lx = x + leanOf(g, k, y), ly0 = leanY(g, y);
     if (ly0 === null) continue;
@@ -453,10 +524,10 @@ function frame(k) {
   // (forearm and fist over the face) is outlined there too, except at the shoulder joint itself (within the arm's
   // thickness of its pivot), so overlapping parts keep reading (outlineRule, user 2026-10-14)
   const joint = (p) => (x, y) => {
-    if (y >= AR.shoulder + DROP) return false;
+    if (y >= AR.shoulder + PD) return false;
     if (p.construction !== 'band') return true;
     const B = { ...A.band, ...(p.band || {}) };
-    const atJoint = Math.hypot(x + 0.5 - T - B.pivot[0], y + 0.5 - DROP - B.pivot[1]) <= B.thickness / 2 + 1.5;
+    const atJoint = Math.hypot(x + 0.5 - T - B.pivot[0], y + 0.5 - PD - B.pivot[1]) <= B.thickness / 2 + 1.5;
     if (OUTLINE_RAISED) return atJoint;
     // against empty space a band arm is always outlined, also above the shoulder row: an extended arm's top edge
     // there was left open (Christopher 2026-11-17: top outline missing on extended arms and the bare fist)
@@ -532,7 +603,8 @@ function frame(k) {
       if (!opaque(l.img, ox + x, y)) continue;
       const part = colourToPart.get(hexAt(l.map, ox + x, y)), lag = lagOf(part);
       if (lag === undefined) throw new Error(`${l.name}: pixel ${x},${y} has part ${part}, which has no walk motion`);
-      m.set(key(x + leanOf(leanGroup(part), k, y), leanY(leanGroup(part), y) + dyOf[lag]), hexAt(l.img, ox + x, y));
+      if (BEND) { const [hx, hy] = bendHead(k); m.set(key(x + hx, y + hy + HEAD_DY + dyOf[lag]), hexAt(l.img, ox + x, y)); }
+      else m.set(key(x + leanOf(leanGroup(part), k, y), leanY(leanGroup(part), y) + dyOf[lag]), hexAt(l.img, ox + x, y));
     }
     ov[l.name] = m;
   }
@@ -1216,7 +1288,7 @@ function posedClothing(l, px, k) {
   // base colour (the pixel against the jacket's own outline keeps the edge shade).
   const sway = sashSway(spec.sourceDirection, px, k, l);
   const under = CL[l.name].underArm && Object.fromEntries(Object.entries(CL[l.name].underArm).map(([k2, v]) => [k2, v.slice(1).toLowerCase()])), at = new Map(px.map((p) => [key(p.x, p.y), p]));
-  const T = leanOf('torso', k, AR.shoulder), nearArm = (y) => armShift(A.near[k])(y) + T, farArm = (y) => armShift(A.far[k])(y) + T;
+  const [T, PD] = BEND ? bendShoulder(k) : [leanOf('torso', k, AR.shoulder), DROP], nearArm = (y) => armShift(A.near[k])(y) + T, farArm = (y) => armShift(A.far[k])(y) + T;
   // accessories on a band arm: each band pixel takes the accessory pixel of the reference arm at the same place
   // along and across the arm (provisional placement until per-pose accessory variants are authored)
   const armAt = new Map(px.filter((p) => LIMB[p.part]?.[0] === 'arm').map((p) => [key(p.x, p.y), p]));
@@ -1227,29 +1299,42 @@ function posedClothing(l, px, k) {
     for (const q of bandArm(ap).keys()) {
       const [x, y] = unkey(q), [rx, ry] = ref(x, y), hit = armAt.get(key(rx, ry));
       if (!hit || !nearSide.arm.includes(hit.part)) continue;
-      if (which === 'near') items.push([z, x + T, y + DROP + b + armDelta(k), hit.c, hit.src]);
-      else items.push([z, x + T, y + DROP + b + armDelta(k), l.shade[hit.c] ?? hit.c, null, 'farArm']);
+      if (which === 'near') items.push([z, x + T, y + PD + b + armDelta(k), hit.c, hit.src]);
+      else items.push([z, x + T, y + PD + b + armDelta(k), l.shade[hit.c] ?? hit.c, null, 'farArm']);
     }
   }
+  const bendBatch = [], bendMeta = [];
   for (const p of px) {
     if (LIMB[p.part]?.[0] === 'leg') continue;
     if (LIMB[p.part]?.[0] === 'arm') {
       const near = nearSide.arm.includes(p.part), nr = armRow(A.near[k])(p.y), fr = armRow(A.far[k])(p.y);
       const ny = near ? nr : fr;
       const bandNear = A.near[k].construction === 'band', bandFar = A.far[k].construction === 'band';
-      if (ny !== null && !(near ? bandNear : bandFar)) items.push([near ? 4 : -1, p.x + (near ? nearArm : farArm)(p.y), ny + DROP + b + armDelta(k), p.c, p.src]);
+      if (ny !== null && !(near ? bandNear : bandFar)) items.push([near ? 4 : -1, p.x + (near ? nearArm : farArm)(p.y), ny + PD + b + armDelta(k), p.c, p.src]);
       // the far arm is hidden in the profile reference, so its pieces are the near ones on the far arm, shaded
       // darker and kept only where the far arm itself shows
-      if (near && fr !== null && !bandFar) items.push([-1, p.x + farArm(p.y), fr + DROP + b + armDelta(k), l.shade[p.c] ?? p.c, null, 'farArm']);
+      if (near && fr !== null && !bandFar) items.push([-1, p.x + farArm(p.y), fr + PD + b + armDelta(k), l.shade[p.c] ?? p.c, null, 'farArm']);
       continue;
     }
     let c = p.c;
     if (under && p.part === 'torso' && refArm.has(key(p.x, p.y)) && c !== l.outline) c = at.get(key(p.x + 1, p.y))?.c === l.outline ? under.edge : under.base;
     const lag = p.part === 'sash' && !isBand(p, l) ? lagOf('sash') : 0;
-    const g = leanGroup(p.part, p.y), ln = leanOf(g, k, p.y), ly = leanY(g, p.y);
+    const g = leanGroup(p.part, p.y);
+    if (BEND && g) {
+      const z = p.part === 'sash' ? 3 : 1, ex = sway(p), ey = dyOf[lag];
+      if (g === 'head') { const [hx, hy] = bendHead(k); items.push([z, p.x + ex + hx, p.y + hy + HEAD_DY + ey, c, p.src]); }
+      else if (g === 'pelvis' && p.y >= PY) items.push([z, p.x + ex + leanVal('pelvis', k), p.y + ey, c, p.src]);
+      else bendBatch.push([p.x, p.y, bendMeta.push([z, ex, ey, c, p.src]) - 1]);
+      continue;
+    }
+    const ln = leanOf(g, k, p.y), ly = leanY(g, p.y);
     if (ly === null) continue;
     items.push([p.part === 'sash' ? 3 : 1, p.x + sway(p) + ln, ly + dyOf[lag], c, p.src]);
     if (p.part === 'sash' && !isBand(p, l) && l.gapFill) items.push([-2, p.x + ln, ly + dyOf[lag], l.gapFill, null, 'backing']);
+  }
+  // hip bend: the garment's torso and upper pelvis pixels bend together (sorted by depth so the nearest sample wins per layer)
+  for (const z of [...new Set(bendMeta.map((m) => m[0]))]) for (const [x, y, i] of bendList(k, bendBatch.filter((e) => bendMeta[e[2]][0] === z))) {
+    const [zz, ex, ey, c, s0] = bendMeta[i]; items.push([zz, x + ex, y + ey, c, s0]);
   }
   return items;
 }
