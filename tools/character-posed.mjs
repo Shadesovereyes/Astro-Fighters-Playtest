@@ -95,6 +95,7 @@ function pinchFill(out) {
     if ((out.has(key(x - 1, y)) && out.has(key(x + 1, y))) || (out.has(key(x, y - 1)) && out.has(key(x, y + 1)))) out.set(key(x, y), 'o');
   }
 }
+const LR_WRAP_OF = (l) => (l.legRows?.wrap ?? 56) - 1;
 const SLANT_WRAP = (+(process.env.SLANT_WRAP ?? 45)) * Math.PI / 180;
 function buildLeg(p) {
   const out = new Map();
@@ -160,7 +161,7 @@ function buildLeg(p) {
     ft.rows.forEach((row, r) => [...row].forEach((c, j) => { const q = key(p.footX - 1 + (ft.dx || 0) + j, bot + 1 + r); if (c !== '.' && !out.has(q)) { out.set(q, c); seg.set(q, 'foot'); } }));
     closeLeg(out, true);
     // a slanted shin's garment is drawn along the limb too (kickGarment), with the same wrap length
-    if (slanted) { pinchFill(out); out.limb = { th, sh, kx, ky, wrapLen: 3, seg, band: true }; return out; }
+    if (slanted) { pinchFill(out); out.limb = { th, sh, kx, ky, wrapLen: 3, seg, band: true, shinRows: bot - p.kneeRow }; return out; }
   } else throw new Error(`unknown leg construction ${p.construction}`);
   pinchFill(out);
   return out;
@@ -1245,7 +1246,13 @@ function legGarment(l, items, byRow, isFar, z, pose, legMap) {
 // margins (back/front), shaded across the limb back to front like a profile trouser row, ending in a hem line one
 // pixel before the wrap; the wrap/boot shaft and the shoe take the leg's own wrap and foot pixels.
 function kickGarment(l, items, isFar, z, legMap, col) {
-  const T = l.trouser, Wp = l.wrap, { th, sh, kx, ky, wrapLen, seg, section } = legMap.limb, hemU = sh.len - wrapLen - 1;
+  // a slanted band leg (buildLeg) takes the garment's own shaft length (rows legRows.wrap to the last wrap row in the
+  // row cut), so a boot keeps its height on a slanted shin
+  const T = l.trouser, Wp = l.wrap, { th, sh, kx, ky, seg, section } = legMap.limb;
+  // (a boot shaft, trouser.none, scales with the slanted shin's length per row, so it still reaches the shorts' hem)
+  const shaftRows = 59 - (l.legRows?.wrap ?? 56), perRow = legMap.limb.band ? sh.len / Math.max(1, legMap.limb.shinRows) : 1;
+  const wrapLen = legMap.limb.band ? Math.max(legMap.limb.wrapLen, T.none ? Math.round(shaftRows * perRow) : shaftRows) : legMap.limb.wrapLen, hemU = sh.len - wrapLen - 1;
+  const segOf = (q, x, y) => { const g0 = seg.get(q); if (!legMap.limb.band || !g0 || g0 === 'foot' || g0 === 'thigh') return g0; return sh.uv(x, y)[0] >= sh.len - wrapLen ? 'wrap' : g0 === 'wrap' ? 'shin' : g0; };
   // the trouser's back margin tapers from the reference margin at the hip to 1 px at the knee, so a raised or folded
   // thigh is not a block
   const across = (v, half, front, back = T.back) => {
@@ -1270,7 +1277,7 @@ function kickGarment(l, items, isFar, z, legMap, col) {
     return;
   }
   for (let y = 0; y < FRAME; y++) for (let x = 0; x < FRAME; x++) {
-    const q = key(x, y), sg = seg.get(q);
+    const q = key(x, y), sg = segOf(q, x, y);
     if (sg === 'wrap') { const [, sv] = sh.uv(x, y); items.push([z, x, y, col(Wp.colours[sv < -0.5 ? Wp.pattern : Wp.fill] ?? Wp.colours[Wp.fill]), null]); continue; }
     if (sg === 'foot') { const c = legMap.get(q); items.push([z, x, y, col(c === '#' || c === 'o' ? l.outline : l.shoe), null]); continue; }
     if (T.none) continue;   // boots: shaft and shoe only
@@ -1489,6 +1496,29 @@ function clothingFrame(l, dir, k, fr) {
         if (!fill) fill = which === 'far' ? (l.shade[TR.colours.c] ?? TR.colours.c) : TR.colours.c;
         layer.set(P, fill); filled++;
       }
+    }
+  }
+  // ...and the leg's own outline and seam pixels left between that cloth and the rest of the garment are closed with
+  // cloth too, so the trouser reads as one piece of fabric over the gap instead of a patch inside the body's leg
+  // outline (Christopher 2026-11-19 16:14: the gi or the trousers must fill the gap, not just hide the legs). Only
+  // pixels inside the figure are closed (every 4-neighbour drawn); silhouette edges keep their outline.
+  if (TR && !TR.none && TR.hem === undefined && geom === spec.sourceDirection) {
+    const cloth = (q) => { const v = layer.get(q); return v !== undefined && v !== l.outline && v !== BLACK; };
+    const drawn = (q) => layer.has(q) || fr.body.has(q) || fr.arms.has(q);
+    const legTop = Math.min(...[L.near[kk], L.far[kk]].map((pi) => L.poses[pi].hipRow ?? FRAME));
+    for (let pass = 0; pass < 3; pass++) {
+      const add = [];
+      for (const [P] of fr.body) {
+        if (layer.has(P) || fr.arms.has(P)) continue;
+        const [x, y] = unkey(P);
+        if (y < legTop - 4 || y >= LR_WRAP_OF(l)) continue;
+        const nb = N4.map(([dx, dy]) => key(x + dx, y + dy));
+        if (!nb.every(drawn)) continue;
+        const c = nb.map(cloth), n = c.filter(Boolean).length;
+        if (n >= 3 || (c[0] && c[1]) || (c[2] && c[3])) add.push([P, layer.get(nb[c.indexOf(true)])]);
+      }
+      if (!add.length) break;
+      for (const [P, v] of add) { layer.set(P, v); filled++; }
     }
   }
   report.clothingGapFill[`${l.name} ${dir}:${k}`] = filled;
