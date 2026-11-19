@@ -425,10 +425,15 @@ const PX = (() => { const xs = [...bodyRest.keys()].map(unkey).filter(([, y]) =>
 // spine point at height h above the hip joint for tilt th. The pelvis tilts only part of the way (PELVIS_SHARE of the
 // tilt, at most PELVIS_MAX) over the pelvis rows, so the belt stays close to level; the lower back (LUMBAR_H torso rows
 // above the waist) takes the rest; the chest and shoulders above are straight. Integrated numerically, cached per tilt.
-const PELVIS_SHARE = +(spec.lean?.pelvisShare ?? process.env.HIP_BEND_PELVIS ?? 0.3), PELVIS_MAX = 18 * Math.PI / 180, LUMBAR_H = +(spec.lean?.lumbarRows ?? 4);
+// Forward leans (th > 0): the pelvis stays upright, so the belt stays level and the jacket skirt stays on the
+// trousers (a tilted pelvis opened a seam over the thighs: Christopher 2026-11-19 "pants are coming off"); the lower
+// back (LUMBAR_H torso rows above the waist) takes the whole bend. Backward leans keep v1 (approved on Hip Toss
+// 2026-11-19): the tilt ramps up over the pelvis rows. lean.pelvisShare overrides the forward share.
+const PELVIS_SHARE = +(spec.lean?.pelvisShare ?? process.env.HIP_BEND_PELVIS ?? 0), LUMBAR_H = +(spec.lean?.lumbarRows ?? 4);
 const phiAt = (th, t) => {
-  const tp = Math.sign(th) * Math.min(Math.abs(th) * PELVIS_SHARE, PELVIS_MAX);
-  if (t <= BEND_H) return tp;   // the pelvis tilts rigidly about the hip joint, so the belt stays one straight line
+  if (th < 0) return th * Math.min(1, t / BEND_H);
+  const tp = th * PELVIS_SHARE;
+  if (t <= BEND_H) return tp * t / BEND_H;
   if (t <= BEND_H + LUMBAR_H) return tp + (th - tp) * (t - BEND_H) / LUMBAR_H;
   return th;
 };
