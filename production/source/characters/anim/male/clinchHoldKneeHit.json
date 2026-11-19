@@ -161,7 +161,9 @@
         5,
         4
       ]
-    }
+    },
+    "bend": "hip",
+    "bendRule": "hip bend approved by Christopher 2026-11-19 (rigid torso from the hips in place of the shear)"
   },
   "rootMotion": {
     "rule": "the holder is drawn 2 px in toward the knee (frames 1-2) and eases back out to the idle spacing on the recover (frames 6-7)",

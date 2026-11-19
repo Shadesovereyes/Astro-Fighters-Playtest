@@ -1408,29 +1408,21 @@
       "dir": "E",
       "frame": 5,
       "held": 6,
-      "x": 53,
+      "x": 54,
       "y": 42.5,
       "facing": 1,
       "style": "halfPop",
-      "angle": 0,
-      "gearReach": {
-        "boxing-gloves": 1,
-        "thai-gloves": 1
-      }
+      "angle": 0
     },
     {
       "dir": "W",
       "frame": 5,
       "held": 6,
-      "x": 10,
+      "x": 9,
       "y": 42.5,
       "facing": -1,
       "style": "halfPop",
-      "angle": 0,
-      "gearReach": {
-        "boxing-gloves": 1,
-        "thai-gloves": 1
-      }
+      "angle": 0
     }
   ],
   "impactHolds": [

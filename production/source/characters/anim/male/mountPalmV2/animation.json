@@ -1590,7 +1590,7 @@
       "y": 47.5,
       "facing": 1,
       "style": "halfPop",
-      "angle": -45,
+      "angle": 0,
       "gearReach": {
         "boxing-gloves": 1,
         "thai-gloves": 1
@@ -1604,7 +1604,7 @@
       "y": 47.5,
       "facing": -1,
       "style": "halfPop",
-      "angle": -45,
+      "angle": 0,
       "gearReach": {
         "boxing-gloves": 1,
         "thai-gloves": 1

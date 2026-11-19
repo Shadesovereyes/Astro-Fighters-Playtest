@@ -2271,29 +2271,21 @@
       "dir": "E",
       "frame": 4,
       "held": 5,
-      "x": 58,
+      "x": 59,
       "y": 30.5,
       "facing": 1,
       "style": "halfPop",
-      "angle": -15,
-      "gearReach": {
-        "boxing-gloves": 1,
-        "thai-gloves": 1
-      }
+      "angle": -15
     },
     {
       "dir": "W",
       "frame": 4,
       "held": 5,
-      "x": 5,
+      "x": 4,
       "y": 30.5,
       "facing": -1,
       "style": "halfPop",
-      "angle": -15,
-      "gearReach": {
-        "boxing-gloves": 1,
-        "thai-gloves": 1
-      }
+      "angle": -15
     }
   ],
   "impactHolds": [

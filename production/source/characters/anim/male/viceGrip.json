@@ -161,7 +161,9 @@
         5,
         4
       ]
-    }
+    },
+    "bend": "hip",
+    "bendRule": "hip bend approved by Christopher 2026-11-19 (rigid torso from the hips in place of the shear)"
   },
   "rootMotion": {
     "rule": "E: +2 +3 +3 slipping in low, +1 into the clamp (9 px; the testbed then snaps both fighters to the clinch spacing)",

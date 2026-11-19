@@ -161,7 +161,9 @@
         4,
         5
       ]
-    }
+    },
+    "bend": "hip",
+    "bendRule": "hip bend approved by Christopher 2026-11-19 (rigid torso from the hips in place of the shear)"
   },
   "rootMotion": {
     "rule": "the held fighter steps 1 px in for the elbow (frame 3) and back out to the idle spacing on the recover (frame 6)",

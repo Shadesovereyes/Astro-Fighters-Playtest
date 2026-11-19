@@ -201,7 +201,9 @@
         3,
         2
       ]
-    }
+    },
+    "bend": "hip",
+    "bendRule": "hip bend approved by Christopher 2026-11-19 (rigid torso from the hips in place of the shear)"
   },
   "rootMotion": {
     "rule": "E: bull crouch, two paws, -2 sinking back on the second, +3 push-off, +4 +6 +7 the strides, +3 the shoulder arriving, 0 0 the hit-stop, 0 driving, -7 -7 -7 walking back (net 0)",

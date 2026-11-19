@@ -171,7 +171,9 @@
         2,
         2
       ]
-    }
+    },
+    "bend": "hip",
+    "bendRule": "hip bend approved by Christopher 2026-11-19 (rigid torso from the hips in place of the shear)"
   },
   "rootMotion": {
     "rule": "E: +2 into the flurry, +1 stepping into the finisher, -2 -1 back (net 0)",

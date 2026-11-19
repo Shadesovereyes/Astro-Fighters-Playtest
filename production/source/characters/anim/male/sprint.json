@@ -69,7 +69,9 @@
       "head": 8
     },
     "torsoDrop": 3,
-    "headDy": 2
+    "headDy": 2,
+    "bend": "hip",
+    "bendRule": "hip bend approved by Christopher 2026-11-19 (rigid torso from the hips in place of the shear)"
   },
   "rootMotion": {
     "E": [

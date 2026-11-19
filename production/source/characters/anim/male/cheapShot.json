@@ -161,7 +161,9 @@
         3,
         2
       ]
-    }
+    },
+    "bend": "hip",
+    "bendRule": "hip bend approved by Christopher 2026-11-19 (rigid torso from the hips in place of the shear)"
   },
   "rootMotion": {
     "rule": "E: +3 +2 +1 dropping in under the guard, -3 -3 back (net 0)",

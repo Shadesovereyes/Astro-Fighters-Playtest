@@ -169,7 +169,9 @@
         -3,
         2
       ]
-    }
+    },
+    "bend": "hip",
+    "bendRule": "hip bend approved by Christopher 2026-11-19 (rigid torso from the hips in place of the shear)"
   },
   "rootMotion": {
     "rule": "per-frame displacement applied when the frame is shown: each kick drives the body 1 px forward; the spin pivots in place",

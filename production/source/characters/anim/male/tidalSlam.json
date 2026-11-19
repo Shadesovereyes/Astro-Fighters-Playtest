@@ -196,7 +196,9 @@
         3,
         2
       ]
-    }
+    },
+    "bend": "hip",
+    "bendRule": "hip bend approved by Christopher 2026-11-19 (rigid torso from the hips in place of the shear)"
   },
   "rootMotion": {
     "rule": "E: +1 into the crouch, +4 +6 +7 +7 riding the wave, +6 at the crest, +5 +4 +2 the leap and the flying elbow drop onto the target, -2 landing back off it; 40 px in all (travel)",

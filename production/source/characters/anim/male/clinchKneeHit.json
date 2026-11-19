@@ -27,14 +27,7 @@
     "D": "#3f0505",
     "W": "#ffffff",
     "w": "#e3e3e3",
-    "#": "#000000",
-    "1": "#01fe01",
-    "2": "#02fe02",
-    "3": "#03fe03",
-    "4": "#04fe04",
-    "5": "#05fe05",
-    "6": "#06fe06",
-    "7": "#07fe07"
+    "#": "#000000"
   },
   "farShade": {
     "rule": "The far leg and far arm are drawn one ramp step darker. Cloth has two steps only, so far-side wraps go flat #e3e3e3 and never into skin colours.",
@@ -46,14 +39,7 @@
       "D": "D",
       "W": "w",
       "w": "w",
-      "#": "#",
-      "1": "2",
-      "2": "3",
-      "3": "4",
-      "4": "5",
-      "5": "5",
-      "6": "7",
-      "7": "7"
+      "#": "#"
     }
   },
   "armRemovalFill": {
@@ -175,7 +161,9 @@
         6,
         5
       ]
-    }
+    },
+    "bend": "hip",
+    "bendRule": "hip bend approved by Christopher 2026-11-19 (rigid torso from the hips in place of the shear)"
   },
   "rootMotion": {
     "rule": "the tie pulls the held fighter 2 px in toward the holder for the knee (frames 1-2), and they are pushed back out to the idle spacing on the recover (frames 6-7)",
@@ -556,7 +544,7 @@
       "handFrom": 14,
       "pattern": {
         "skin": "DLLm",
-        "wrap": "7766"
+        "wrap": "wwWW"
       },
       "note": "Lengths from the reference arm: pivot at the shoulder joint (row 23, centre column 32), wrap from row 34, hand from row 37, last colour row 40; cross-section from the reference rows 26-29 (D back edge, L L, m front).",
       "fist": {
@@ -566,10 +554,10 @@
           1
         ],
         "rows": [
-          "2112",
-          "1112",
-          "2123",
-          ".353"
+          "mLLm",
+          "LLLm",
+          "mLms",
+          ".sDs"
         ]
       },
       "fistUp": {
@@ -579,10 +567,10 @@
           3
         ],
         "rows": [
-          "2112",
-          "1112",
-          "1123",
-          "3553"
+          "mLLm",
+          "LLLm",
+          "LLms",
+          "sDDs"
         ]
       },
       "fistForwardUpTo": -165,
@@ -596,11 +584,11 @@
           2
         ],
         "rows": [
-          ".2112.",
-          "211112",
-          "112113",
-          "211123",
-          ".3553."
+          ".mLLm.",
+          "mLLLLm",
+          "LLmLLs",
+          "mLLLms",
+          ".sDDs."
         ]
       }
     },

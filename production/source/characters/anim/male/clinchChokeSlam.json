@@ -191,7 +191,9 @@
         5,
         4
       ]
-    }
+    },
+    "bend": "hip",
+    "bendRule": "hip bend approved by Christopher 2026-11-19 (rigid torso from the hips in place of the shear)"
   },
   "rootMotion": {
     "rule": "per-frame step (screen px): steps in with the slam and back to the clinch spot as the held fighter is hauled up",

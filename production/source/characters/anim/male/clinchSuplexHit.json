@@ -191,7 +191,9 @@
         0,
         0
       ]
-    }
+    },
+    "bend": "hip",
+    "bendRule": "hip bend approved by Christopher 2026-11-19 (rigid torso from the hips in place of the shear)"
   },
   "rootMotion": {
     "rule": "per-frame step (screen px): carried back a little by the hoist",

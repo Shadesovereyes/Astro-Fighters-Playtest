@@ -196,7 +196,9 @@
         1,
         2
       ]
-    }
+    },
+    "bend": "hip",
+    "bendRule": "hip bend approved by Christopher 2026-11-19 (rigid torso from the hips in place of the shear)"
   },
   "rootMotion": {
     "rule": "E: 6 px a stride through the sprint (as the sprint), +3 and +1 into the thrust; 40 px in all (travel)",
