@@ -422,13 +422,28 @@ const BEND = TORSO_SHEAR && (spec.lean?.bend === 'hip' || process.env.HIP_BEND =
 const BEND_MAX = (+(spec.lean?.bendMax ?? process.env.HIP_BEND_MAX ?? 72)) * Math.PI / 180;
 const PY = R.hemRow, BEND_H = PY - (R.torsoMaxRow + 1);
 const PX = (() => { const xs = [...bodyRest.keys()].map(unkey).filter(([, y]) => y === PY - 1).map(([x]) => x); return (Math.min(...xs) + Math.max(...xs) + 1) / 2; })();
-// spine point at height h above the hip joint for tilt th: the angle ramps from 0 to th over BEND_H rows, then holds
+// spine point at height h above the hip joint for tilt th. The pelvis tilts only part of the way (PELVIS_SHARE of the
+// tilt, at most PELVIS_MAX) over the pelvis rows, so the belt stays close to level; the lower back (LUMBAR_H torso rows
+// above the waist) takes the rest; the chest and shoulders above are straight. Integrated numerically, cached per tilt.
+const PELVIS_SHARE = +(spec.lean?.pelvisShare ?? process.env.HIP_BEND_PELVIS ?? 0.3), PELVIS_MAX = 18 * Math.PI / 180, LUMBAR_H = +(spec.lean?.lumbarRows ?? 4);
+const phiAt = (th, t) => {
+  const tp = Math.sign(th) * Math.min(Math.abs(th) * PELVIS_SHARE, PELVIS_MAX);
+  if (t <= BEND_H) return tp;   // the pelvis tilts rigidly about the hip joint, so the belt stays one straight line
+  if (t <= BEND_H + LUMBAR_H) return tp + (th - tp) * (t - BEND_H) / LUMBAR_H;
+  return th;
+};
+const SPINE_STEP = 0.02, spineCache = new Map();
 const spineAt = (th, h) => {
-  if (Math.abs(th) < 1e-9) return [0, h, 0];
-  const a = Math.min(h, BEND_H), phi = th * a / BEND_H;
-  let X = BEND_H / th * (1 - Math.cos(phi)), Y = BEND_H / th * Math.sin(phi);
-  if (h > BEND_H) { X += (h - BEND_H) * Math.sin(th); Y += (h - BEND_H) * Math.cos(th); }
-  return [X, Y, phi];
+  let tab = spineCache.get(th);
+  if (!tab) {
+    tab = [[0, 0, 0]];
+    let X = 0, Y = 0;
+    for (let i = 1; i * SPINE_STEP <= 64; i++) { const ph = phiAt(th, (i - 0.5) * SPINE_STEP); X += Math.sin(ph) * SPINE_STEP; Y += Math.cos(ph) * SPINE_STEP; tab.push([X, Y, phiAt(th, i * SPINE_STEP)]); }
+    if (spineCache.size > 4096) spineCache.clear();
+    spineCache.set(th, tab);
+  }
+  const f = h / SPINE_STEP, i = Math.min(Math.floor(f), tab.length - 2), r = f - i, A = tab[i], B = tab[i + 1];
+  return [A[0] + (B[0] - A[0]) * r, A[1] + (B[1] - A[1]) * r, A[2] + (B[2] - A[2]) * r];
 };
 const SHOULDER_H = PY - (AR.shoulder + 0.5);
 const bendTheta = [];
