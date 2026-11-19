@@ -7544,7 +7544,8 @@ def aqua_mint(state):
 # head 1 px back from the guard, the flurry leans 2 px forward, the finisher 2 px. Its own state until a verdict.
 _NSV2_LEAN = [None, (0, 1), (1, 3), (1, 3), (1, 3), (2, 4), (2, 4), (1, 2), None, None]
 _ns = CLIPS['numbingStrike']
-CLIPS['numbingStrikeV2'] = (_ns[0], _ns[1], _ns[2] + ' v2 candidate (2026-11-18): torso shear capped at 2 px (lean), poses and fx unchanged.',
+# APPROVED 2026-11-18 21:55 and promoted 2026-11-19: the capped lean replaces numbingStrike's own.
+CLIPS['numbingStrike'] = (_ns[0], _ns[1], _ns[2] + ' Torso shear capped at 2 px (approved 2026-11-18).',
     [dict(f, lean=_NSV2_LEAN[i]) if _NSV2_LEAN[i] else dict(f) for i, f in enumerate(_ns[3])], list(_ns[4]), list(_ns[5]), dict(_ns[6]))
 
 if __name__ == '__main__':
