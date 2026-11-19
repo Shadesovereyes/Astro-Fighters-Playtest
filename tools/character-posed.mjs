@@ -95,6 +95,7 @@ function pinchFill(out) {
     if ((out.has(key(x - 1, y)) && out.has(key(x + 1, y))) || (out.has(key(x, y - 1)) && out.has(key(x, y + 1)))) out.set(key(x, y), 'o');
   }
 }
+const SLANT_WRAP = (+(process.env.SLANT_WRAP ?? 45)) * Math.PI / 180;
 function buildLeg(p) {
   const out = new Map();
   thigh(out, p);
@@ -137,21 +138,29 @@ function buildLeg(p) {
     const kx = p.kneeX + 2.5, ky = p.kneeRow + 0.5;
     const th = band(p.hipX + 2.5, p.hipRow + 0.5, kx, ky), sh = band(p.kneeX + 2, ky, p.footX + 1.5, bot + 0.5);
     // the wrap is cut by rows (wrapRow to the last shin row), as in 'line', so it reads as a level band at the ankle
-    const shinPat = (u, y) => (y >= p.wrapRow ? L.wrap : u < 3 ? L.shinRows4[Math.max(0, Math.min(2, Math.floor(u)))] : L.shinRow3);
+    // a slanted shin (more than SLANT_WRAP from vertical) cuts its wrap across the limb instead (the last 3 px along
+    // the shin), so the wrap keeps its width and meets the trouser hem square; level row cuts on a slanted shin made a
+    // long white bar (Christopher 2026-11-19: clean up the leg wraps / Gi transition)
+    const slanted = Math.atan2(Math.abs(p.footX + 1.5 - kx + 0.5), bot - p.kneeRow) > SLANT_WRAP && !p.rowWrap;
+    const isWrap = (u, y) => (slanted ? u >= sh.len - 3 : y >= p.wrapRow);
+    const shinPat = (u, y) => (isWrap(u, y) ? L.wrap : u < 3 ? L.shinRows4[Math.max(0, Math.min(2, Math.floor(u)))] : L.shinRow3);
+    const seg = new Map();
     const pick = (pat, v) => pat[Math.max(0, Math.min(pat.length - 1, Math.floor(v + pat.length / 2)))];
     for (let y = 0; y < FRAME; y++) for (let x = 0; x < FRAME; x++) {
       const [su, sv] = sh.uv(x, y), [tu, tv] = th.uv(x, y);
       const sp = shinPat(su, y), inShin = y <= bot && su >= 0 && su <= sh.len + 1.5 && Math.abs(sv + 0.5 - 0.5) <= sp.length / 2 && sv >= -sp.length / 2 && sv < sp.length / 2;
       const inThigh = tu >= -2 && tu <= th.len && tv >= -2.5 && tv < 2.5;
       const inKnee = Math.hypot(x + 0.5 - kx + 0.25, y + 0.5 - ky) <= 2.3;
-      if (inThigh) out.set(key(x, y), pick(L.thighRows[Math.max(0, Math.min(3, Math.floor(tu * 4 / th.len)))], tv));
-      else if (inShin) out.set(key(x, y), pick(sp, sv));
-      else if (inKnee) out.set(key(x, y), pick(L.shinRows4[0], sv));
+      if (inThigh) { out.set(key(x, y), pick(L.thighRows[Math.max(0, Math.min(3, Math.floor(tu * 4 / th.len)))], tv)); seg.set(key(x, y), 'thigh'); }
+      else if (inShin) { out.set(key(x, y), pick(sp, sv)); seg.set(key(x, y), isWrap(su, y) ? 'wrap' : 'shin'); }
+      else if (inKnee) { out.set(key(x, y), pick(L.shinRows4[0], sv)); seg.set(key(x, y), 'knee'); }
     }
     // the foot hangs under the wrap; where the slanted wrap end overlaps it, the wrap stays on top
     const ft = L.feet[p.foot];
-    ft.rows.forEach((row, r) => [...row].forEach((c, j) => { const q = key(p.footX - 1 + (ft.dx || 0) + j, bot + 1 + r); if (c !== '.' && !out.has(q)) out.set(q, c); }));
+    ft.rows.forEach((row, r) => [...row].forEach((c, j) => { const q = key(p.footX - 1 + (ft.dx || 0) + j, bot + 1 + r); if (c !== '.' && !out.has(q)) { out.set(q, c); seg.set(q, 'foot'); } }));
     closeLeg(out, true);
+    // a slanted shin's garment is drawn along the limb too (kickGarment), with the same wrap length
+    if (slanted) { pinchFill(out); out.limb = { th, sh, kx, ky, wrapLen: 3, seg, band: true }; return out; }
   } else throw new Error(`unknown leg construction ${p.construction}`);
   pinchFill(out);
   return out;
@@ -1460,6 +1469,26 @@ function clothingFrame(l, dir, k, fr) {
       const [x, y] = unkey(p);
       if (y < CL[l.name].gapFill.fromRow) continue;
       if (N4.some(([dx, dy]) => layer.has(key(x + dx, y + dy)) && layer.get(key(x + dx, y + dy)) !== l.outline)) { layer.set(p, l.gapFill); filled++; }
+    }
+  }
+  // Trousers cover the whole leg down to the wrap: in the profile, leg skin (thigh, knee, shin above the wrap) that
+  // no garment pixel covers (a kneeling thigh under the jacket skirt, a folded knee) takes the trouser colour of the
+  // nearest cloth on its row, or the trouser mid tone (Christopher 2026-11-19: the leg/hip transition exposed the legs)
+  const TR = l.trouser;
+  if (TR && !TR.none && TR.hem === undefined && geom === spec.sourceDirection) {
+    const skinHex = new Set(Object.entries(pal).filter(([sy]) => 'LmsdD'.includes(sy)).map(([, h]) => h));
+    for (const [which, pi] of [['far', L.far[kk]], ['near', L.near[kk]]]) {
+      const pose = L.poses[pi], lm = legPoses[pi], seg = lm.limb?.seg;
+      for (const q of lm.keys()) {
+        const [x0, y] = unkey(q);
+        if (seg ? !['thigh', 'shin', 'knee'].includes(seg.get(q)) : y >= (pose.wrapRow ?? FRAME)) continue;
+        const X = flip ? FRAME - 1 - x0 : x0, P = key(X, y), c = fr.body.get(P);
+        if (!skinHex.has(c) || layer.has(P) || fr.arms.has(P)) continue;
+        let fill = null;
+        for (let r = 1; r <= 3 && !fill; r++) for (const dx of [-r, r]) { const n = layer.get(key(X + dx, y)); if (n && n !== l.outline && n !== BLACK) { fill = n; break; } }
+        if (!fill) fill = which === 'far' ? (l.shade[TR.colours.c] ?? TR.colours.c) : TR.colours.c;
+        layer.set(P, fill); filled++;
+      }
     }
   }
   report.clothingGapFill[`${l.name} ${dir}:${k}`] = filled;
