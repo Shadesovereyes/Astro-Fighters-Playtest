@@ -78,13 +78,15 @@ def run(state):
         if r.returncode: print('render failed', state, r.stderr.strip().splitlines()[-1:]); return False
         anim = json.loads((ANIM / state / 'animation.json').read_text())
         masks = {}
-        for layer in ('arms', 'body'):
+        for layer in ('arms', 'body', 'far-arm'):   # far-arm: states drawing the far arm on its own sheet (arms.farLayer)
+            if layer not in anim['layers'] or not (ANIM / state / anim['layers'][layer]).exists(): continue
             a = np.array(Image.open(ANIM / state / anim['layers'][layer]).convert('RGBA'))
             m = np.full(a.shape[:2], -1, np.int8)
             for hexc, t in TONE.items():
                 rgb = [int(hexc[i:i + 2], 16) for i in (1, 3, 5)]
                 m[(a[..., 3] > 0) & (a[..., 0] == rgb[0]) & (a[..., 1] == rgb[1]) & (a[..., 2] == rgb[2])] = t
             masks[layer] = m
+            masks[layer + '-alpha'] = a[..., 3] > 0   # rendered coverage: lets a reshaped sheet (smear / held frames) find its source cell
     finally:
         for sh, data in saved.items(): sh.write_bytes(data)
         p.write_text(spec_text)

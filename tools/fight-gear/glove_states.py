@@ -157,6 +157,10 @@ def run(d):
     anim = json.loads((d / 'animation.json').read_text())
     arms = np.array(Image.open(d / anim['layers']['arms']).convert('RGBA'))
     body = np.array(Image.open(d / anim['layers']['body']).convert('RGBA'))
+    # a far arm drawn on its own sheet (arms.farLayer: the Mount, clinch and other band-arm states) holds the far hand;
+    # its glove joins the '<glove>-far' sheet, kept out from under the body so the torso still covers the hidden part
+    fa_path = d / anim['layers']['far-arm'] if 'far-arm' in anim['layers'] else None
+    farm = np.array(Image.open(fa_path).convert('RGBA')) if fa_path and fa_path.exists() else None
     H, W = arms.shape[:2]
     mp = Path(__file__).resolve().parents[2] / '.git/fight-gear-hand-masks' / f'{d.name}.npz'
     masks = dict(np.load(mp)) if mp.exists() else {}
@@ -167,10 +171,13 @@ def run(d):
         layers = {'body': np.zeros_like(arms), 'arms': np.zeros_like(arms)}
         for fy in range(0, H, F):
             for fx in range(0, W, F):
-                for img, key, m in ((body, 'body', arms), (arms, 'arms', None)):
+                srcs = [(body, 'body', 'body', arms), (arms, 'arms', 'arms', None)]
+                if farm is not None: srcs.append((farm, 'far-arm', 'body', np.maximum(body, arms)))
+                for img, key, out, m in srcs:
                     mk = masks.get(key)
+                    if key == 'far-arm' and mk is None: continue   # far-arm hands only from exact masks
                     exact = masked_fists(img, mk, fx, fy) if mk is not None else None   # masks mark every hand the renderer drew
-                    paint(layers[key], fx, fy, exact if exact is not None else fists(img, fx, fy, body=(key == 'body')), g, mask=m)
+                    paint(layers[out], fx, fy, exact if exact is not None else fists(img, fx, fy, body=(key == 'body')), g, mask=m)
         Image.fromarray(layers['arms']).save(d / f'{name}.png')
         Image.fromarray(layers['body']).save(d / f'{name}-far.png')
         anim['layers'][name] = f'{name}.png'
