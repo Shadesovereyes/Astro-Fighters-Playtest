@@ -548,7 +548,7 @@
           36,
           57
         ],
-        "foot": "toe30k"
+        "foot": "pointDL"
       },
       {
         "name": "scb-far",
@@ -558,10 +558,10 @@
         "kneeX": 42,
         "kneeRow": 48,
         "ankle": [
-          36,
+          35,
           57
         ],
-        "foot": "toe30k"
+        "foot": "pointDL"
       }
     ],
     "near": [
@@ -595,68 +595,68 @@
     "near": [
       {
         "construction": "band",
-        "angle": -95,
+        "angle": -72,
         "elbow": {
           "at": 8,
-          "angle": -175
+          "angle": -18
         }
       },
       {
         "construction": "band",
-        "angle": -93,
+        "angle": -70,
         "elbow": {
           "at": 8,
-          "angle": -175
+          "angle": -18
         }
       },
       {
         "construction": "band",
-        "angle": -93,
+        "angle": -70,
         "elbow": {
           "at": 8,
-          "angle": -175
+          "angle": -18
         }
       },
       {
         "construction": "band",
-        "angle": -95,
+        "angle": -72,
         "elbow": {
           "at": 8,
-          "angle": -175
+          "angle": -18
         }
       }
     ],
     "far": [
       {
         "construction": "band",
-        "angle": -70,
+        "angle": -45,
         "elbow": {
           "at": 8,
-          "angle": -150
+          "angle": -30
         }
       },
       {
         "construction": "band",
-        "angle": -70,
+        "angle": -45,
         "elbow": {
           "at": 8,
-          "angle": -150
+          "angle": -30
         }
       },
       {
         "construction": "band",
-        "angle": -68,
+        "angle": -43,
         "elbow": {
           "at": 8,
-          "angle": -150
+          "angle": -30
         }
       },
       {
         "construction": "band",
-        "angle": -68,
+        "angle": -43,
         "elbow": {
           "at": 8,
-          "angle": -150
+          "angle": -30
         }
       }
     ],
@@ -1529,7 +1529,7 @@
   "pair": {
     "rule": "paired position idle: sideControlTop (E, the controlling fighter) with sideControlBottom (W); the partner pivot sits partnerDx px ahead along the facing",
     "partner": "sideControlTop",
-    "partnerDx": 9,
+    "partnerDx": 14,
     "top": "partner",
     "layering": [
       "sideControlBottom far-arm, body, clothing, hair, eyes",

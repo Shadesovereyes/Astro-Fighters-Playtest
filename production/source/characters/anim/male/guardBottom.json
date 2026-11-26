@@ -542,26 +542,26 @@
         "construction": "band",
         "hipX": 32,
         "hipRow": 42,
-        "kneeX": 47,
-        "kneeRow": 47,
+        "kneeX": 49,
+        "kneeRow": 45,
         "ankle": [
-          42,
-          58
+          45,
+          56
         ],
-        "foot": "pointFwd"
+        "foot": "pointDL"
       },
       {
         "name": "cg-far",
         "construction": "band",
         "hipX": 31,
         "hipRow": 42,
-        "kneeX": 45,
-        "kneeRow": 48,
+        "kneeX": 47,
+        "kneeRow": 46,
         "ankle": [
-          40,
-          59
+          43,
+          57
         ],
-        "foot": "pointFwd"
+        "foot": "pointDL"
       }
     ],
     "near": [
@@ -1451,16 +1451,18 @@
     "partnerDx": 12,
     "top": "partner",
     "layering": [
+      "guardBottom far-arm (gripping the far collar, behind the top fighter)",
       "guardTop far-arm, body, clothing, hair, eyes",
-      "guardBottom far-arm, body, clothing, hair, eyes (its legs wrap over the top fighter's hips)",
+      "guardBottom body, clothing, hair, eyes (its legs wrap over the top fighter's hips)",
       "guardTop arms",
       "guardBottom arms"
     ],
     "mountLayering": {
       "fromFrame": 0,
       "order": [
+        "guardBottom far-arm (gripping the far collar, behind the top fighter)",
         "guardTop far-arm, body, clothing, hair, eyes",
-        "guardBottom far-arm, body, clothing, hair, eyes (its legs wrap over the top fighter's hips)",
+        "guardBottom body, clothing, hair, eyes (its legs wrap over the top fighter's hips)",
         "guardTop arms",
         "guardBottom arms"
       ],

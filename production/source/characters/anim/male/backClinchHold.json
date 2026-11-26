@@ -105,22 +105,22 @@
   "bob": {
     "rule": "a slow breath",
     "dy": [
-      1,
-      1,
-      2,
-      2
+      3,
+      3,
+      4,
+      4
     ],
     "head": [
-      1,
-      1,
-      2,
-      1
+      3,
+      3,
+      4,
+      3
     ],
     "arms": [
-      2,
-      3,
-      3,
-      3
+      4,
+      5,
+      5,
+      5
     ]
   },
   "lean": {
@@ -134,10 +134,10 @@
         1
       ],
       "head": [
-        4,
-        4,
-        4,
-        4
+        5,
+        5,
+        5,
+        5
       ]
     }
   },
@@ -517,16 +517,16 @@
       }
     ],
     "near": [
-      1,
-      1,
-      1,
-      1
+      3,
+      3,
+      3,
+      3
     ],
     "far": [
-      0,
-      0,
-      0,
-      0
+      2,
+      2,
+      2,
+      2
     ]
   },
   "arms": {
@@ -547,68 +547,68 @@
     "near": [
       {
         "construction": "band",
-        "angle": -48,
+        "angle": -35,
         "elbow": {
           "at": 8,
-          "angle": -84
+          "angle": -70
         }
       },
       {
         "construction": "band",
-        "angle": -48,
+        "angle": -35,
         "elbow": {
           "at": 8,
-          "angle": -84
+          "angle": -70
         }
       },
       {
         "construction": "band",
-        "angle": -48,
+        "angle": -35,
         "elbow": {
           "at": 8,
-          "angle": -84
+          "angle": -70
         }
       },
       {
         "construction": "band",
-        "angle": -48,
+        "angle": -35,
         "elbow": {
           "at": 8,
-          "angle": -84
+          "angle": -70
         }
       }
     ],
     "far": [
       {
         "construction": "band",
-        "angle": -54,
+        "angle": -40,
         "elbow": {
           "at": 8,
-          "angle": -90
+          "angle": -75
         }
       },
       {
         "construction": "band",
-        "angle": -54,
+        "angle": -40,
         "elbow": {
           "at": 8,
-          "angle": -90
+          "angle": -75
         }
       },
       {
         "construction": "band",
-        "angle": -54,
+        "angle": -40,
         "elbow": {
           "at": 8,
-          "angle": -90
+          "angle": -75
         }
       },
       {
         "construction": "band",
-        "angle": -54,
+        "angle": -40,
         "elbow": {
           "at": 8,
-          "angle": -90
+          "angle": -75
         }
       }
     ],

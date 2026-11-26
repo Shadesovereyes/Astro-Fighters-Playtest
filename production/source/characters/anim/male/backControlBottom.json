@@ -1422,7 +1422,7 @@
   "pair": {
     "rule": "paired position idle: backControlTop (E, the controlling fighter) with backControlBottom (W); the partner faces away (faceFlip): both look E; the partner pivot sits partnerDx px ahead along the facing",
     "partner": "backControlTop",
-    "partnerDx": 14,
+    "partnerDx": 17,
     "top": "partner",
     "layering": [
       "backControlTop far-arm, body, clothing, hair, eyes (behind)",

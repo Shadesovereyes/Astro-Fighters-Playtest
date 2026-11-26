@@ -41,16 +41,16 @@ def breathe(f, amp=((0, 0, 0), (0, 0, 1), (0, 1, 1), (0, 0, 1)), arms=None):
     return out
 
 # layering, back to front (pair.layering strings follow the existing clips' wording)
-L_GUARD = ['guardTop far-arm, body, clothing, hair, eyes', 'guardBottom far-arm, body, clothing, hair, eyes (its legs wrap over the top fighter\'s hips)', 'guardTop arms', 'guardBottom arms']
+L_GUARD = ['guardBottom far-arm (gripping the far collar, behind the top fighter)', 'guardTop far-arm, body, clothing, hair, eyes', 'guardBottom body, clothing, hair, eyes (its legs wrap over the top fighter\'s hips)', 'guardTop arms', 'guardBottom arms']
 L_SIDE = ['sideControlBottom far-arm, body, clothing, hair, eyes', 'sideControlTop far-arm, body, clothing, hair, eyes', 'sideControlTop arms', 'sideControlBottom arms (the framing forearm over the top fighter\'s neck)']
 L_BACK = lambda a, b: [f'{a} far-arm, body, clothing, hair, eyes (behind)', f'{b} far-arm, body, clothing, hair, eyes', f'{b} arms', f'{a} arms (wrapped in front)']
 
 def specs():
     out = {}
     # ---------------- Guard (closed guard) ----------------
-    gl = [P('cg-near', 32, 42, 47, 47, 42, 58, 'pointFwd'), P('cg-far', 31, 42, 45, 48, 40, 59, 'pointFwd')]
+    gl = [P('cg-near', 32, 42, 49, 45, 45, 56, 'pointDL'), P('cg-far', 31, 42, 47, 46, 43, 57, 'pointDL')]
     b = F(fr(MB), ln='cg-near', lf='cg-far', an=band(-40, -70), af=band(-36, -66), expr=None)
-    t = F(fr(MT), lean=(0, 1), an=band(-20, -40), af=band(-26, -36))
+    t = F(fr(MT), lean=(0, 1), an=band(-40, -40), af=band(-46, -46))
     out['guard'] = dict(names=('guardTop', 'guardBottom'), base=(MT, MB), pdx=12, newB=gl,
         A=breathe(t, arms=[(0, 0), (1, 0), (1, 1), (0, 1)]), B=breathe(b, amp=((0, 0, 0), (0, 0, 0), (0, 1, 1), (0, 1, 1)), arms=[(0, 0), (-2, 0), (-2, -2), (0, -2)]),
         layering=L_GUARD, bottomOver=True,
@@ -59,29 +59,29 @@ def specs():
         rot='bottom: laid flat on the back (270, as mountBottom)')
     # ---------------- Side Control ----------------
     tl = [P('sc-near', 33, 42, 46, 44, 45, 54, 'pointDR'), P('sc-far', 31, 42, 45, 44, 45, 54, 'pointDR')]
-    bl = [P('scb-near', 32, 42, 44, 48, 36, 57, 'toe30k'), P('scb-far', 31, 42, 42, 48, 36, 57, 'toe30k')]
+    bl = [P('scb-near', 32, 42, 44, 48, 36, 57, 'pointDL'), P('scb-far', 31, 42, 42, 48, 35, 57, 'pointDL')]
     t = F(fr(MT), bob=(0, 0, 0), lean=(0, 0), ln='sc-near', lf='sc-far', an=band(-60, -40), af=band(-75, -60), rot=(90, -12, 2, False))
-    b = F(fr(MB), ln='scb-near', lf='scb-far', an=band(-95, -175), af=band(-70, -150), expr='squint')
-    out['side'] = dict(names=('sideControlTop', 'sideControlBottom'), base=(MT, MB), pdx=9, newA=tl, newB=bl,
+    b = F(fr(MB), ln='scb-near', lf='scb-far', an=band(-72, -18), af=band(-45, -30), expr='squint')
+    out['side'] = dict(names=('sideControlTop', 'sideControlBottom'), base=(MT, MB), pdx=14, newA=tl, newB=bl,
         A=breathe(t, amp=((0, 0, 0), (0, 0, 0), (0, 0, 1), (0, 0, 1)), arms=[(0, 0), (0, 0), (-2, 0), (-2, 0)]), B=breathe(b, amp=((0, 0, 0), (0, 1, 0), (0, 1, 1), (0, 0, 1)), arms=[(0, 0), (2, 0), (2, 2), (0, 2)]),
         layering=L_SIDE, bottomOver=False,
         intentA='Side Control, top: a quarter turn chest-down (90), hips up on the knees beside the bottom fighter\'s hip, chest pinned across their chest, crossface arm around the head and the far arm under the shoulder.',
         intentB='Side Control, bottom: flat on the back (270), knees bent with the feet planted, the near forearm framing against the top fighter\'s neck and the far hand on their hip, face squeezed.',
         rot='top: a quarter turn chest-down (90, held above the ground on its knees); bottom: flat on the back (270)')
     # ---------------- Back Control (ground, seated, hooks in) ----------------
-    al = [P('hook-near', 33, 52, 42, 52, 50, 53, 'levelR'), P('hook-far', 31, 52, 41, 52, 49, 53, 'levelR')]
+    al = [P('hook-near', 33, 52, 42, 51, 50, 53, 'levelR'), P('hook-far', 31, 52, 41, 51, 49, 53, 'levelR')]
     vl = [P('sitx-near', 33, 52, 43, 53, 53, 53, 'levelR'), P('sitx-far', 31, 52, 42, 53, 52, 53, 'levelR')]
-    a = F(fr(MT), bob=(9, 9, 9), lean=(0, 2), ln='hook-near', lf='hook-far', an=band(-100, -150), af=band(-80, -120), rot=(0, 0, 0, True))
+    a = F(fr(MT), bob=(9, 9, 9), lean=(1, 5), ln='hook-near', lf='hook-far', an=band(-75, -125), af=band(-70, -110), rot=(0, 0, 0, True))
     v = F(fr(MT), bob=(11, 11, 11), lean=(-2, -5), ln='sitx-near', lf='sitx-far', an=band(-40, -170), af=band(-46, -160), expr='squint', rot=(0, 0, 0, True))
-    out['backctl'] = dict(names=('backControlTop', 'backControlBottom'), base=(MT, MT), pdx=14, newA=al, newB=vl, flipB=True,
+    out['backctl'] = dict(names=('backControlTop', 'backControlBottom'), base=(MT, MT), pdx=17, newA=al, newB=vl, flipB=True,
         A=breathe(a, amp=((0, 0, 0), (0, 0, 1), (0, 1, 1), (0, 0, 1))), B=breathe(v, amp=((0, 0, 0), (0, 1, 0), (0, 1, 1), (0, 0, 1)), arms=[(0, 0), (3, 0), (3, 3), (0, 3)]),
         layering=L_BACK('backControlTop', 'backControlBottom'), bottomOver=False,
         intentA='Back Control, taker: sitting behind the opponent with both hooks in over their thighs, seat-belt grip (near arm over the shoulder across the chest, far arm under the armpit), chest glued to their back.',
         intentB='Back Control, victim: sat on the ground facing away from the taker (faceFlip), legs out, leaning back into the taker\'s chest, both hands fighting the seat-belt wrist at the chest.',
         rot='both seated upright on the ground (groundSnap)')
     # ---------------- Back Clinch (standing) ----------------
-    a = F(fr(CH), lean=(1, 4), bob=(1, 1, 2), an=band(-48, -84), af=band(-54, -90), ln='stance-rear', lf='stance-lead')
-    v = F(fr(CD), lean=(-1, 1), bob=(2, 2, 2), an=band(-18, -75), af=band(-24, -80), ln='stance-rear', lf='stance-lead', expr='squint')
+    a = F(fr(CH), lean=(1, 5), bob=(3, 3, 4), an=band(-35, -70), af=band(-40, -75), ln='guard-low-rear', lf='guard-low-lead')
+    v = F(fr(CD), lean=(-1, 1), bob=(2, 2, 2), an=band(-8, -50), af=band(-14, -55), ln='stance-rear', lf='stance-lead', expr='squint')
     out['backclinch'] = dict(names=('backClinchHold', 'backClinchHeld'), base=(CH, CD), pdx=12, flipB=True,
         A=breathe(a, amp=((0, 0, 0), (0, 0, 1), (1, 1, 1), (1, 0, 1))), B=breathe(v, amp=((0, 0, 0), (0, 1, 0), (1, 1, 1), (1, 0, 1)), arms=[(0, 0), (3, 0), (3, 3), (0, 3)]),
         layering=L_BACK('backClinchHold', 'backClinchHeld'), bottomOver=False,

@@ -1422,7 +1422,7 @@
   "pair": {
     "rule": "paired position idle: sideControlTop (E, the controlling fighter) with sideControlBottom (W); the partner pivot sits partnerDx px ahead along the facing",
     "partner": "sideControlBottom",
-    "partnerDx": 9,
+    "partnerDx": 14,
     "top": "self",
     "layering": [
       "sideControlBottom far-arm, body, clothing, hair, eyes",

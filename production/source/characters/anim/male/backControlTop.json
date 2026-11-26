@@ -128,16 +128,16 @@
     "torsoShear": true,
     "dx": {
       "pelvis": [
-        0,
-        0,
-        0,
-        0
+        1,
+        1,
+        1,
+        1
       ],
       "head": [
-        2,
-        2,
-        2,
-        2
+        5,
+        5,
+        5,
+        5
       ]
     }
   },
@@ -547,7 +547,7 @@
         "hipX": 33,
         "hipRow": 52,
         "kneeX": 42,
-        "kneeRow": 52,
+        "kneeRow": 51,
         "ankle": [
           50,
           53
@@ -560,7 +560,7 @@
         "hipX": 31,
         "hipRow": 52,
         "kneeX": 41,
-        "kneeRow": 52,
+        "kneeRow": 51,
         "ankle": [
           49,
           53
@@ -599,68 +599,68 @@
     "near": [
       {
         "construction": "band",
-        "angle": -100,
+        "angle": -75,
         "elbow": {
           "at": 8,
-          "angle": -150
+          "angle": -125
         }
       },
       {
         "construction": "band",
-        "angle": -100,
+        "angle": -75,
         "elbow": {
           "at": 8,
-          "angle": -150
+          "angle": -125
         }
       },
       {
         "construction": "band",
-        "angle": -100,
+        "angle": -75,
         "elbow": {
           "at": 8,
-          "angle": -150
+          "angle": -125
         }
       },
       {
         "construction": "band",
-        "angle": -100,
+        "angle": -75,
         "elbow": {
           "at": 8,
-          "angle": -150
+          "angle": -125
         }
       }
     ],
     "far": [
       {
         "construction": "band",
-        "angle": -80,
+        "angle": -70,
         "elbow": {
           "at": 8,
-          "angle": -120
+          "angle": -110
         }
       },
       {
         "construction": "band",
-        "angle": -80,
+        "angle": -70,
         "elbow": {
           "at": 8,
-          "angle": -120
+          "angle": -110
         }
       },
       {
         "construction": "band",
-        "angle": -80,
+        "angle": -70,
         "elbow": {
           "at": 8,
-          "angle": -120
+          "angle": -110
         }
       },
       {
         "construction": "band",
-        "angle": -80,
+        "angle": -70,
         "elbow": {
           "at": 8,
-          "angle": -120
+          "angle": -110
         }
       }
     ],
@@ -1422,7 +1422,7 @@
   "pair": {
     "rule": "paired position idle: backControlTop (E, the controlling fighter) with backControlBottom (W); the partner faces away (faceFlip): both look E; the partner pivot sits partnerDx px ahead along the facing",
     "partner": "backControlBottom",
-    "partnerDx": 14,
+    "partnerDx": 17,
     "top": "self",
     "layering": [
       "backControlTop far-arm, body, clothing, hair, eyes (behind)",

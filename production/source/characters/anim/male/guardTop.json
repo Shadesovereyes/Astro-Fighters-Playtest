@@ -573,7 +573,7 @@
     "near": [
       {
         "construction": "band",
-        "angle": -20,
+        "angle": -40,
         "elbow": {
           "at": 8,
           "angle": -40
@@ -581,7 +581,7 @@
       },
       {
         "construction": "band",
-        "angle": -19,
+        "angle": -39,
         "elbow": {
           "at": 8,
           "angle": -40
@@ -589,7 +589,7 @@
       },
       {
         "construction": "band",
-        "angle": -19,
+        "angle": -39,
         "elbow": {
           "at": 8,
           "angle": -40
@@ -597,7 +597,7 @@
       },
       {
         "construction": "band",
-        "angle": -20,
+        "angle": -40,
         "elbow": {
           "at": 8,
           "angle": -40
@@ -607,34 +607,34 @@
     "far": [
       {
         "construction": "band",
-        "angle": -26,
+        "angle": -46,
         "elbow": {
           "at": 8,
-          "angle": -36
+          "angle": -46
         }
       },
       {
         "construction": "band",
-        "angle": -26,
+        "angle": -46,
         "elbow": {
           "at": 8,
-          "angle": -36
+          "angle": -46
         }
       },
       {
         "construction": "band",
-        "angle": -25,
+        "angle": -45,
         "elbow": {
           "at": 8,
-          "angle": -36
+          "angle": -46
         }
       },
       {
         "construction": "band",
-        "angle": -25,
+        "angle": -45,
         "elbow": {
           "at": 8,
-          "angle": -36
+          "angle": -46
         }
       }
     ],
@@ -1399,16 +1399,18 @@
     "partnerDx": 12,
     "top": "self",
     "layering": [
+      "guardBottom far-arm (gripping the far collar, behind the top fighter)",
       "guardTop far-arm, body, clothing, hair, eyes",
-      "guardBottom far-arm, body, clothing, hair, eyes (its legs wrap over the top fighter's hips)",
+      "guardBottom body, clothing, hair, eyes (its legs wrap over the top fighter's hips)",
       "guardTop arms",
       "guardBottom arms"
     ],
     "mountLayering": {
       "fromFrame": 0,
       "order": [
+        "guardBottom far-arm (gripping the far collar, behind the top fighter)",
         "guardTop far-arm, body, clothing, hair, eyes",
-        "guardBottom far-arm, body, clothing, hair, eyes (its legs wrap over the top fighter's hips)",
+        "guardBottom body, clothing, hair, eyes (its legs wrap over the top fighter's hips)",
         "guardTop arms",
         "guardBottom arms"
       ],
