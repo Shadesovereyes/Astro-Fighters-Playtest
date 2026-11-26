@@ -545,10 +545,10 @@
         "kneeX": 45,
         "kneeRow": 49,
         "ankle": [
-          38,
-          52
+          34,
+          54
         ],
-        "foot": "levelL"
+        "foot": "pointDL"
       },
       {
         "name": "cg-far",
@@ -558,10 +558,10 @@
         "kneeX": 43,
         "kneeRow": 50,
         "ankle": [
-          36,
-          53
+          32,
+          55
         ],
-        "foot": "levelL"
+        "foot": "pointDL"
       }
     ],
     "near": [

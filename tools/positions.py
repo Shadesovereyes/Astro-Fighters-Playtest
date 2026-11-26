@@ -48,7 +48,7 @@ L_BACK = lambda a, b: [f'{a} far-arm, body, clothing, hair, eyes (behind)', f'{b
 def specs():
     out = {}
     # ---------------- Guard (closed guard) ----------------
-    gl = [P('cg-near', 31, 40, 45, 49, 38, 52, 'levelL'), P('cg-far', 30, 40, 43, 50, 36, 53, 'levelL')]
+    gl = [P('cg-near', 31, 40, 45, 49, 34, 54, 'pointDL'), P('cg-far', 30, 40, 43, 50, 32, 55, 'pointDL')]
     b = F(fr(MB), ln='cg-near', lf='cg-far', an=band(-40, -70), af=band(-36, -66), expr=None)
     t = F(fr(MT), lean=(0, 1), an=band(-30, -70), af=band(-36, -76))
     out['guard'] = dict(names=('guardTop', 'guardBottom'), base=(MT, MB), pdx=12, newB=gl,
