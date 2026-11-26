@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Side Control, bottom: flat on the back (270), knees bent with the feet planted, the near forearm framing against the top fighter's neck and the far hand on their hip, face squeezed.",
+  "intent": "Side Control, bottom: flat on the back (270), knees bent with the feet planted (in front of the top fighter's hips), the near arm wrapped over the top fighter's shoulder, face squeezed.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -595,34 +595,34 @@
     "near": [
       {
         "construction": "band",
-        "angle": -72,
+        "angle": -85,
         "elbow": {
           "at": 8,
-          "angle": -18
+          "angle": 20
         }
       },
       {
         "construction": "band",
-        "angle": -70,
+        "angle": -83,
         "elbow": {
           "at": 8,
-          "angle": -18
+          "angle": 20
         }
       },
       {
         "construction": "band",
-        "angle": -70,
+        "angle": -83,
         "elbow": {
           "at": 8,
-          "angle": -18
+          "angle": 20
         }
       },
       {
         "construction": "band",
-        "angle": -72,
+        "angle": -85,
         "elbow": {
           "at": 8,
-          "angle": -18
+          "angle": 20
         }
       }
     ],
@@ -1529,13 +1529,14 @@
   "pair": {
     "rule": "paired position idle: sideControlTop (E, the controlling fighter) with sideControlBottom (W); the partner pivot sits partnerDx px ahead along the facing",
     "partner": "sideControlTop",
-    "partnerDx": 14,
+    "partnerDx": 4,
     "top": "partner",
     "layering": [
-      "sideControlBottom far-arm, body, clothing, hair, eyes",
-      "sideControlTop far-arm, body, clothing, hair, eyes",
-      "sideControlTop arms",
-      "sideControlBottom arms (the framing forearm over the top fighter's neck)"
-    ]
+      "sideControlTop far-arm, body, clothing, hair, eyes (on the far side of the bottom fighter)",
+      "sideControlTop arms (crossface and underhook, behind the bottom fighter)",
+      "sideControlBottom far-arm, body, clothing, hair, eyes (its bent knees in front of the top fighter's hips)",
+      "sideControlBottom arms (the near arm wrapped over the top fighter's shoulder)"
+    ],
+    "topBehind": true
   }
 }

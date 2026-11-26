@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "sideControlTop",
-  "status": "E/W candidate v1 2026-11-26 (Side Control, top), awaiting user approval; S/N to author",
+  "status": "E/W candidate v1 2026-11-26 (Side Control, top (Christopher's references 2026-11-26)), awaiting user approval; S/N to author",
   "frames": 4,
   "fps": 6,
   "sourceDirection": "E",
@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Side Control, top: a quarter turn chest-down (90), hips up on the knees beside the bottom fighter's hip, chest pinned across their chest, crossface arm around the head and the far arm under the shoulder.",
+  "intent": "Side Control, top (Christopher's references 2026-11-26): on the far side of the bottom fighter, a quarter turn chest-down (90) draped across their chest, head down beside their head, hips up on the knees behind their bent legs, crossface arm under the head and the far arm underhooking.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -599,68 +599,68 @@
     "near": [
       {
         "construction": "band",
-        "angle": -60,
+        "angle": -100,
         "elbow": {
           "at": 8,
-          "angle": -40
+          "angle": -175
         }
       },
       {
         "construction": "band",
-        "angle": -60,
+        "angle": -100,
         "elbow": {
           "at": 8,
-          "angle": -40
+          "angle": -175
         }
       },
       {
         "construction": "band",
-        "angle": -62,
+        "angle": -102,
         "elbow": {
           "at": 8,
-          "angle": -40
+          "angle": -175
         }
       },
       {
         "construction": "band",
-        "angle": -62,
+        "angle": -102,
         "elbow": {
           "at": 8,
-          "angle": -40
+          "angle": -175
         }
       }
     ],
     "far": [
       {
         "construction": "band",
-        "angle": -75,
+        "angle": -95,
         "elbow": {
           "at": 8,
-          "angle": -60
+          "angle": -170
         }
       },
       {
         "construction": "band",
-        "angle": -75,
+        "angle": -95,
         "elbow": {
           "at": 8,
-          "angle": -60
+          "angle": -170
         }
       },
       {
         "construction": "band",
-        "angle": -75,
+        "angle": -95,
         "elbow": {
           "at": 8,
-          "angle": -60
+          "angle": -170
         }
       },
       {
         "construction": "band",
-        "angle": -75,
+        "angle": -95,
         "elbow": {
           "at": 8,
-          "angle": -60
+          "angle": -170
         }
       }
     ],
@@ -1422,14 +1422,15 @@
   "pair": {
     "rule": "paired position idle: sideControlTop (E, the controlling fighter) with sideControlBottom (W); the partner pivot sits partnerDx px ahead along the facing",
     "partner": "sideControlBottom",
-    "partnerDx": 14,
+    "partnerDx": 4,
     "top": "self",
     "layering": [
-      "sideControlBottom far-arm, body, clothing, hair, eyes",
-      "sideControlTop far-arm, body, clothing, hair, eyes",
-      "sideControlTop arms",
-      "sideControlBottom arms (the framing forearm over the top fighter's neck)"
-    ]
+      "sideControlTop far-arm, body, clothing, hair, eyes (on the far side of the bottom fighter)",
+      "sideControlTop arms (crossface and underhook, behind the bottom fighter)",
+      "sideControlBottom far-arm, body, clothing, hair, eyes (its bent knees in front of the top fighter's hips)",
+      "sideControlBottom arms (the near arm wrapped over the top fighter's shoulder)"
+    ],
+    "topBehind": true
   },
   "expressions": {
     "rule": "facial expression per frame, drawn in the eye layers (eye, lid, brow and mouth lines only, no skin): coordinates from the top-left of the frame's eye block, x toward the facing; '@dx,dy' keeps the layer's own pixel (the iris colour)",
@@ -1525,16 +1526,16 @@
       90
     ],
     "dx": [
-      -12,
-      -12,
-      -12,
-      -12
+      -10,
+      -10,
+      -10,
+      -10
     ],
     "dy": [
-      2,
-      2,
-      2,
-      2
+      1,
+      1,
+      1,
+      1
     ],
     "groundSnap": [
       false,

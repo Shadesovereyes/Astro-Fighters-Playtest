@@ -573,68 +573,68 @@
     "near": [
       {
         "construction": "band",
-        "angle": -40,
+        "angle": -30,
         "elbow": {
           "at": 8,
-          "angle": -40
+          "angle": -70
         }
       },
       {
         "construction": "band",
-        "angle": -39,
+        "angle": -29,
         "elbow": {
           "at": 8,
-          "angle": -40
+          "angle": -70
         }
       },
       {
         "construction": "band",
-        "angle": -39,
+        "angle": -29,
         "elbow": {
           "at": 8,
-          "angle": -40
+          "angle": -70
         }
       },
       {
         "construction": "band",
-        "angle": -40,
+        "angle": -30,
         "elbow": {
           "at": 8,
-          "angle": -40
+          "angle": -70
         }
       }
     ],
     "far": [
       {
         "construction": "band",
-        "angle": -46,
+        "angle": -36,
         "elbow": {
           "at": 8,
-          "angle": -46
+          "angle": -76
         }
       },
       {
         "construction": "band",
-        "angle": -46,
+        "angle": -36,
         "elbow": {
           "at": 8,
-          "angle": -46
+          "angle": -76
         }
       },
       {
         "construction": "band",
-        "angle": -45,
+        "angle": -35,
         "elbow": {
           "at": 8,
-          "angle": -46
+          "angle": -76
         }
       },
       {
         "construction": "band",
-        "angle": -45,
+        "angle": -35,
         "elbow": {
           "at": 8,
-          "angle": -46
+          "angle": -76
         }
       }
     ],

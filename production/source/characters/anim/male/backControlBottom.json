@@ -128,16 +128,16 @@
     "torsoShear": true,
     "dx": {
       "pelvis": [
-        -2,
-        -2,
-        -2,
-        -2
+        -1,
+        -1,
+        -1,
+        -1
       ],
       "head": [
-        -5,
-        -5,
-        -5,
-        -5
+        -1,
+        -1,
+        -1,
+        -1
       ]
     }
   },
@@ -1422,7 +1422,7 @@
   "pair": {
     "rule": "paired position idle: backControlTop (E, the controlling fighter) with backControlBottom (W); the partner faces away (faceFlip): both look E; the partner pivot sits partnerDx px ahead along the facing",
     "partner": "backControlTop",
-    "partnerDx": 17,
+    "partnerDx": 15,
     "top": "partner",
     "layering": [
       "backControlTop far-arm, body, clothing, hair, eyes (behind)",
@@ -1514,7 +1514,7 @@
     "intent": "strained: eyes squeezed under the weight"
   },
   "bodyRotation": {
-    "rule": "quarter turns only: both seated upright on the ground (groundSnap)",
+    "rule": "quarter turns only: taker kneeling, victim seated (both groundSnap)",
     "pivot": [
       32,
       44

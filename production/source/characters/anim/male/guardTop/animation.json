@@ -137,14 +137,14 @@
     "groundContact": true,
     "offPalette": {},
     "outlineNotches": {
-      "E:0": 5,
-      "E:1": 5,
-      "E:2": 6,
-      "E:3": 6,
-      "W:0": 5,
-      "W:1": 5,
-      "W:2": 6,
-      "W:3": 6
+      "E:0": 6,
+      "E:1": 6,
+      "E:2": 5,
+      "E:3": 5,
+      "W:0": 6,
+      "W:1": 6,
+      "W:2": 5,
+      "W:3": 5
     },
     "referenceEdges": {
       "E": 0,
@@ -152,10 +152,10 @@
     },
     "cleanup": {
       "cleanupRemoved": [
-        14,
-        11,
-        15,
-        14
+        21,
+        18,
+        21,
+        23
       ],
       "cleanupMerged": [
         0,

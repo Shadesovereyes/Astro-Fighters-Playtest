@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-animation-output/v1",
   "body": "male",
   "state": "sideControlTop",
-  "status": "E/W candidate v1 2026-11-26 (Side Control, top), awaiting user approval; S/N to author",
+  "status": "E/W candidate v1 2026-11-26 (Side Control, top (Christopher's references 2026-11-26)), awaiting user approval; S/N to author",
   "frames": 4,
   "fps": 6,
   "frameSize": [
@@ -137,14 +137,14 @@
     "groundContact": false,
     "offPalette": {},
     "outlineNotches": {
-      "E:0": 5,
-      "E:1": 5,
-      "E:2": 5,
-      "E:3": 5,
-      "W:0": 5,
-      "W:1": 5,
-      "W:2": 5,
-      "W:3": 5
+      "E:0": 4,
+      "E:1": 4,
+      "E:2": 4,
+      "E:3": 4,
+      "W:0": 4,
+      "W:1": 4,
+      "W:2": 4,
+      "W:3": 4
     },
     "referenceEdges": {
       "E": 0,
@@ -152,10 +152,10 @@
     },
     "cleanup": {
       "cleanupRemoved": [
-        12,
-        12,
-        13,
-        13
+        16,
+        16,
+        17,
+        17
       ],
       "cleanupMerged": [
         0,

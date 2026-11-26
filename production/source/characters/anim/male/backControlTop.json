@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Back Control, taker: sitting behind the opponent with both hooks in over their thighs, seat-belt grip (near arm over the shoulder across the chest, far arm under the armpit), chest glued to their back.",
+  "intent": "Back Control, taker: kneeling up behind the seated opponent, chest to their back, seat-belt grip (near arm over the shoulder across the chest, far arm under the armpit), chest glued to their back.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -105,22 +105,22 @@
   "bob": {
     "rule": "a slow breath",
     "dy": [
-      9,
-      9,
-      9,
-      9
-    ],
-    "head": [
-      9,
-      9,
       10,
-      9
-    ],
-    "arms": [
-      9,
       10,
       10,
       10
+    ],
+    "head": [
+      10,
+      10,
+      11,
+      10
+    ],
+    "arms": [
+      11,
+      12,
+      12,
+      12
     ]
   },
   "lean": {
@@ -128,16 +128,16 @@
     "torsoShear": true,
     "dx": {
       "pelvis": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "head": [
         1,
         1,
         1,
         1
-      ],
-      "head": [
-        5,
-        5,
-        5,
-        5
       ]
     }
   },
@@ -569,16 +569,16 @@
       }
     ],
     "near": [
-      6,
-      6,
-      6,
-      6
+      4,
+      4,
+      4,
+      4
     ],
     "far": [
-      7,
-      7,
-      7,
-      7
+      5,
+      5,
+      5,
+      5
     ]
   },
   "arms": {
@@ -599,68 +599,68 @@
     "near": [
       {
         "construction": "band",
-        "angle": -75,
+        "angle": -66,
         "elbow": {
           "at": 8,
-          "angle": -125
+          "angle": -112
         }
       },
       {
         "construction": "band",
-        "angle": -75,
+        "angle": -66,
         "elbow": {
           "at": 8,
-          "angle": -125
+          "angle": -112
         }
       },
       {
         "construction": "band",
-        "angle": -75,
+        "angle": -66,
         "elbow": {
           "at": 8,
-          "angle": -125
+          "angle": -112
         }
       },
       {
         "construction": "band",
-        "angle": -75,
+        "angle": -66,
         "elbow": {
           "at": 8,
-          "angle": -125
+          "angle": -112
         }
       }
     ],
     "far": [
       {
         "construction": "band",
-        "angle": -70,
+        "angle": -62,
         "elbow": {
           "at": 8,
-          "angle": -110
+          "angle": -100
         }
       },
       {
         "construction": "band",
-        "angle": -70,
+        "angle": -62,
         "elbow": {
           "at": 8,
-          "angle": -110
+          "angle": -100
         }
       },
       {
         "construction": "band",
-        "angle": -70,
+        "angle": -62,
         "elbow": {
           "at": 8,
-          "angle": -110
+          "angle": -100
         }
       },
       {
         "construction": "band",
-        "angle": -70,
+        "angle": -62,
         "elbow": {
           "at": 8,
-          "angle": -110
+          "angle": -100
         }
       }
     ],
@@ -1422,7 +1422,7 @@
   "pair": {
     "rule": "paired position idle: backControlTop (E, the controlling fighter) with backControlBottom (W); the partner faces away (faceFlip): both look E; the partner pivot sits partnerDx px ahead along the facing",
     "partner": "backControlBottom",
-    "partnerDx": 17,
+    "partnerDx": 15,
     "top": "self",
     "layering": [
       "backControlTop far-arm, body, clothing, hair, eyes (behind)",
@@ -1514,7 +1514,7 @@
     "intent": "strained: eyes squeezed under the weight"
   },
   "bodyRotation": {
-    "rule": "quarter turns only: both seated upright on the ground (groundSnap)",
+    "rule": "quarter turns only: taker kneeling, victim seated (both groundSnap)",
     "pivot": [
       32,
       44

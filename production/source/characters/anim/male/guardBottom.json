@@ -540,28 +540,28 @@
       {
         "name": "cg-near",
         "construction": "band",
-        "hipX": 32,
-        "hipRow": 42,
-        "kneeX": 49,
-        "kneeRow": 45,
+        "hipX": 31,
+        "hipRow": 40,
+        "kneeX": 45,
+        "kneeRow": 49,
         "ankle": [
-          45,
-          56
+          38,
+          52
         ],
-        "foot": "pointDL"
+        "foot": "levelL"
       },
       {
         "name": "cg-far",
         "construction": "band",
-        "hipX": 31,
-        "hipRow": 42,
-        "kneeX": 47,
-        "kneeRow": 46,
+        "hipX": 30,
+        "hipRow": 40,
+        "kneeX": 43,
+        "kneeRow": 50,
         "ankle": [
-          43,
-          57
+          36,
+          53
         ],
-        "foot": "pointDL"
+        "foot": "levelL"
       }
     ],
     "near": [
