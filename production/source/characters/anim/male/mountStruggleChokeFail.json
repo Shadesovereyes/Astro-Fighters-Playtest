@@ -2,8 +2,8 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "mountStruggleChokeFail",
-  "status": "E/W candidate 2026-11-26 (Submission Struggle from under Cross Choke / Strangle, fail), awaiting user approval; S/N to author",
-  "frames": 10,
+  "status": "E/W candidate v2 2026-11-26 (Submission Struggle from under Cross Choke / Strangle, fail), awaiting user approval; S/N to author",
+  "frames": 16,
   "fps": 6,
   "sourceDirection": "E",
   "directions": [
@@ -114,9 +114,21 @@
       0,
       0,
       0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
       0
     ],
     "head": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
       0,
       0,
       0,
@@ -138,6 +150,12 @@
       0,
       0,
       0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
       0
     ]
   },
@@ -148,16 +166,28 @@
       "pelvis": [
         0,
         0,
+        0,
+        0,
         1,
+        1,
+        3,
+        3,
+        3,
         2,
         2,
-        2,
+        0,
         0,
         0,
         0,
         0
       ],
       "head": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
         0,
         0,
         0,
@@ -213,9 +243,57 @@
       [
         0,
         0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
       ]
     ],
     "W": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
       [
         0,
         0
@@ -645,16 +723,28 @@
     "near": [
       4,
       4,
+      4,
+      4,
       6,
       6,
       6,
       6,
+      6,
+      6,
+      6,
+      4,
       4,
       4,
       4,
       4
     ],
     "far": [
+      5,
+      5,
+      5,
+      5,
+      5,
+      5,
       5,
       5,
       5,
@@ -701,7 +791,31 @@
       },
       {
         "construction": "band",
-        "angle": -50,
+        "angle": -48,
+        "elbow": {
+          "at": 8,
+          "angle": -156
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -54,
+        "elbow": {
+          "at": 8,
+          "angle": -162
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -52,
+        "elbow": {
+          "at": 8,
+          "angle": -160
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -42,
         "elbow": {
           "at": 8,
           "angle": -150
@@ -712,7 +826,23 @@
         "angle": -44,
         "elbow": {
           "at": 8,
-          "angle": -138
+          "angle": -152
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -36,
+        "elbow": {
+          "at": 8,
+          "angle": -144
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -34,
+        "elbow": {
+          "at": 8,
+          "angle": -142
         }
       },
       {
@@ -762,6 +892,14 @@
           "at": 8,
           "angle": -172
         }
+      },
+      {
+        "construction": "band",
+        "angle": -60,
+        "elbow": {
+          "at": 8,
+          "angle": -172
+        }
       }
     ],
     "far": [
@@ -786,7 +924,23 @@
         "angle": -52,
         "elbow": {
           "at": 8,
-          "angle": -158
+          "angle": -168
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -58,
+        "elbow": {
+          "at": 8,
+          "angle": -174
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -56,
+        "elbow": {
+          "at": 8,
+          "angle": -172
         }
       },
       {
@@ -794,7 +948,31 @@
         "angle": -46,
         "elbow": {
           "at": 8,
-          "angle": -146
+          "angle": -162
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -48,
+        "elbow": {
+          "at": 8,
+          "angle": -164
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -40,
+        "elbow": {
+          "at": 8,
+          "angle": -156
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -38,
+        "elbow": {
+          "at": 8,
+          "angle": -154
         }
       },
       {
@@ -819,6 +997,14 @@
         "elbow": {
           "at": 8,
           "angle": -168
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -56,
+        "elbow": {
+          "at": 8,
+          "angle": -170
         }
       },
       {
@@ -941,6 +1127,12 @@
       "bandFollowsBody": true,
       "sway": {
         "E": [
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
           -1,
           -1,
           -1,
@@ -1667,10 +1859,16 @@
     "frames": {
       "E": [
         "squint",
+        null,
+        null,
+        "squint",
+        null,
+        null,
+        null,
         "squint",
         "squint",
         "squint",
-        "squint",
+        "pain",
         "pain",
         "pain",
         "pain",
@@ -1696,9 +1894,21 @@
       270,
       270,
       270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
       270
     ],
     "dx": [
+      10,
+      10,
+      10,
+      10,
+      10,
+      10,
       10,
       10,
       10,
@@ -1720,9 +1930,21 @@
       0,
       0,
       0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
       0
     ],
     "groundSnap": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
       true,
       true,
       true,
@@ -1748,9 +1970,15 @@
         6,
         7,
         8,
-        9
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
       ],
-      "fps": 12,
+      "fps": 10,
       "next": "mountCrossChokeHit@hold"
     }
   },
@@ -1777,10 +2005,10 @@
     "top": "partner"
   },
   "fx": {
-    "rule": "Submission Struggle vs Cross Choke / Strangle: strain marks as the hold sinks back in",
+    "rule": "Submission Struggle vs Cross Choke / Strangle: effort fx on the struggle frames (strain, sweat, shake/tug/shift marks, bridge dust)",
     "frames": [
       {
-        "frame": 6,
+        "frame": 3,
         "splash": [
           {
             "pattern": "strain",
@@ -1792,13 +2020,80 @@
         ]
       },
       {
+        "frame": 4,
+        "splash": [
+          {
+            "pattern": "swish",
+            "at": [
+              38,
+              44
+            ]
+          }
+        ]
+      },
+      {
+        "frame": 6,
+        "splash": [
+          {
+            "pattern": "swish",
+            "at": [
+              39,
+              44
+            ]
+          }
+        ]
+      },
+      {
         "frame": 7,
+        "splash": [
+          {
+            "pattern": "strain",
+            "at": [
+              6,
+              49
+            ]
+          }
+        ]
+      },
+      {
+        "frame": 8,
+        "splash": [
+          {
+            "pattern": "sweat",
+            "at": [
+              10,
+              46
+            ]
+          }
+        ]
+      },
+      {
+        "frame": 11,
+        "splash": [
+          {
+            "pattern": "strain",
+            "at": [
+              6,
+              49
+            ]
+          }
+        ]
+      },
+      {
+        "frame": 12,
         "splash": [
           {
             "pattern": "strain",
             "at": [
               7,
               50
+            ]
+          },
+          {
+            "pattern": "sweat",
+            "at": [
+              4,
+              44
             ]
           }
         ]
@@ -1807,7 +2102,8 @@
     "palette": {
       "W": "#ffffff",
       "w": "#e3e3e3",
-      "#": "#000000"
+      "#": "#000000",
+      "b": "#bfe3ff"
     },
     "patterns": {
       "hitStar": [
@@ -1848,11 +2144,55 @@
         "W..",
         ".W.",
         "W.."
+      ],
+      "sweat": [
+        ".#.",
+        "#b#",
+        "#W#",
+        ".#."
+      ],
+      "shake": [
+        "#...#",
+        ".....",
+        "#...#",
+        ".....",
+        "#...#"
+      ],
+      "vibeL": [
+        ".#W",
+        "#W.",
+        "#W.",
+        ".#W",
+        "#W.",
+        "#W.",
+        ".#W"
+      ],
+      "vibeR": [
+        "W#.",
+        ".W#",
+        ".W#",
+        "W#.",
+        ".W#",
+        ".W#",
+        "W#."
+      ],
+      "chevron": [
+        "#W#...#W#",
+        ".#W#.#W#.",
+        "..#W#W#..",
+        "...#W#..."
+      ],
+      "swish": [
+        "..###.",
+        ".#WWW#",
+        "#W##..",
+        ".#WWW#",
+        "..###."
       ]
     }
   },
   "events": {
-    "rule": "per-frame gameplay data per facing; frame 4 is the impact (grip breaks or re-sinks), held on frame 5",
+    "rule": "per-frame gameplay data per facing; frames 1-8 are the struggle (shared by success and fail), frame 9 is the impact (grip breaks or re-sinks), held on frame 10",
     "E": [
       {
         "frame": 0,
@@ -1860,18 +2200,46 @@
       },
       {
         "frame": 1,
-        "type": "startup"
+        "type": "startup",
+        "struggle": true
       },
       {
         "frame": 2,
-        "type": "startup"
+        "type": "startup",
+        "struggle": true
       },
       {
         "frame": 3,
-        "type": "startup"
+        "type": "startup",
+        "struggle": true
       },
       {
         "frame": 4,
+        "type": "startup",
+        "struggle": true
+      },
+      {
+        "frame": 5,
+        "type": "startup",
+        "struggle": true
+      },
+      {
+        "frame": 6,
+        "type": "startup",
+        "struggle": true
+      },
+      {
+        "frame": 7,
+        "type": "startup",
+        "struggle": true
+      },
+      {
+        "frame": 8,
+        "type": "startup",
+        "struggle": true
+      },
+      {
+        "frame": 9,
         "type": "active",
         "move": "Submission Struggle",
         "damage": "none",
@@ -1879,23 +2247,27 @@
         "impactHold": 2
       },
       {
-        "frame": 5,
+        "frame": 10,
         "type": "recovery"
       },
       {
-        "frame": 6,
+        "frame": 11,
         "type": "recovery"
       },
       {
-        "frame": 7,
+        "frame": 12,
         "type": "recovery"
       },
       {
-        "frame": 8,
+        "frame": 13,
         "type": "recovery"
       },
       {
-        "frame": 9,
+        "frame": 14,
+        "type": "recovery"
+      },
+      {
+        "frame": 15,
         "type": "recovery"
       }
     ],
@@ -1906,18 +2278,46 @@
       },
       {
         "frame": 1,
-        "type": "startup"
+        "type": "startup",
+        "struggle": true
       },
       {
         "frame": 2,
-        "type": "startup"
+        "type": "startup",
+        "struggle": true
       },
       {
         "frame": 3,
-        "type": "startup"
+        "type": "startup",
+        "struggle": true
       },
       {
         "frame": 4,
+        "type": "startup",
+        "struggle": true
+      },
+      {
+        "frame": 5,
+        "type": "startup",
+        "struggle": true
+      },
+      {
+        "frame": 6,
+        "type": "startup",
+        "struggle": true
+      },
+      {
+        "frame": 7,
+        "type": "startup",
+        "struggle": true
+      },
+      {
+        "frame": 8,
+        "type": "startup",
+        "struggle": true
+      },
+      {
+        "frame": 9,
         "type": "active",
         "move": "Submission Struggle",
         "damage": "none",
@@ -1925,23 +2325,27 @@
         "impactHold": 2
       },
       {
-        "frame": 5,
+        "frame": 10,
         "type": "recovery"
       },
       {
-        "frame": 6,
+        "frame": 11,
         "type": "recovery"
       },
       {
-        "frame": 7,
+        "frame": 12,
         "type": "recovery"
       },
       {
-        "frame": 8,
+        "frame": 13,
         "type": "recovery"
       },
       {
-        "frame": 9,
+        "frame": 14,
+        "type": "recovery"
+      },
+      {
+        "frame": 15,
         "type": "recovery"
       }
     ]

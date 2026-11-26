@@ -2,8 +2,8 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "mountMuscleOutChokeHit",
-  "status": "E/W candidate 2026-11-26 (holder side of Muscle Out Escape vs Cross Choke / Strangle, success), awaiting user approval; S/N to author",
-  "frames": 10,
+  "status": "E/W candidate v2 2026-11-26 (holder side of Muscle Out Escape vs Cross Choke / Strangle, success), awaiting user approval; S/N to author",
+  "frames": 16,
   "fps": 6,
   "sourceDirection": "E",
   "directions": [
@@ -108,10 +108,16 @@
       15,
       15,
       15,
+      13,
+      16,
       15,
+      12,
+      12,
+      13,
       10,
       9,
       9,
+      10,
       10,
       10,
       10
@@ -120,11 +126,17 @@
       15,
       15,
       15,
+      13,
+      16,
       15,
+      12,
+      12,
+      13,
       9,
       8,
       9,
       9,
+      10,
       10,
       10
     ],
@@ -132,11 +144,17 @@
       16,
       16,
       16,
+      14,
+      17,
       16,
+      13,
+      13,
+      14,
       10,
       9,
       10,
       10,
+      11,
       11,
       11
     ]
@@ -150,8 +168,14 @@
         2,
         2,
         2,
+        2,
+        2,
+        2,
+        2,
+        2,
         -1,
         -1,
+        0,
         0,
         0,
         0,
@@ -161,11 +185,17 @@
         14,
         14,
         14,
+        13,
+        16,
         14,
+        12,
+        12,
+        13,
         -3,
         -3,
         0,
         3,
+        4,
         4,
         4
       ]
@@ -213,9 +243,57 @@
       [
         0,
         0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
       ]
     ],
     "W": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
       [
         0,
         0
@@ -630,9 +708,21 @@
       4,
       4,
       4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
       4
     ],
     "far": [
+      5,
+      5,
+      5,
+      5,
+      5,
+      5,
       5,
       5,
       5,
@@ -695,6 +785,46 @@
       },
       {
         "construction": "band",
+        "angle": 13,
+        "elbow": {
+          "at": 8,
+          "angle": -43
+        }
+      },
+      {
+        "construction": "band",
+        "angle": 11,
+        "elbow": {
+          "at": 8,
+          "angle": -41
+        }
+      },
+      {
+        "construction": "band",
+        "angle": 14,
+        "elbow": {
+          "at": 8,
+          "angle": -44
+        }
+      },
+      {
+        "construction": "band",
+        "angle": 15,
+        "elbow": {
+          "at": 8,
+          "angle": -45
+        }
+      },
+      {
+        "construction": "band",
+        "angle": 14,
+        "elbow": {
+          "at": 8,
+          "angle": -44
+        }
+      },
+      {
+        "construction": "band",
         "angle": -112,
         "elbow": {
           "at": 8,
@@ -723,6 +853,14 @@
         "elbow": {
           "at": 8,
           "angle": -130
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -22,
+        "elbow": {
+          "at": 8,
+          "angle": -142
         }
       },
       {
@@ -777,6 +915,46 @@
       },
       {
         "construction": "band",
+        "angle": 9,
+        "elbow": {
+          "at": 8,
+          "angle": -51
+        }
+      },
+      {
+        "construction": "band",
+        "angle": 7,
+        "elbow": {
+          "at": 8,
+          "angle": -49
+        }
+      },
+      {
+        "construction": "band",
+        "angle": 10,
+        "elbow": {
+          "at": 8,
+          "angle": -52
+        }
+      },
+      {
+        "construction": "band",
+        "angle": 11,
+        "elbow": {
+          "at": 8,
+          "angle": -53
+        }
+      },
+      {
+        "construction": "band",
+        "angle": 10,
+        "elbow": {
+          "at": 8,
+          "angle": -52
+        }
+      },
+      {
+        "construction": "band",
         "angle": -100,
         "elbow": {
           "at": 8,
@@ -805,6 +983,14 @@
         "elbow": {
           "at": 8,
           "angle": -32
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -42,
+        "elbow": {
+          "at": 8,
+          "angle": -27
         }
       },
       {
@@ -920,6 +1106,12 @@
       "bandFollowsBody": true,
       "sway": {
         "E": [
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
           -1,
           -1,
           -1,
@@ -1585,9 +1777,15 @@
         6,
         7,
         8,
-        9
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
       ],
-      "fps": 12,
+      "fps": 10,
       "next": "mountTop"
     }
   },
@@ -1690,8 +1888,14 @@
         null,
         null,
         null,
+        null,
+        null,
+        null,
+        null,
+        null,
         "squint",
         "squint",
+        null,
         null,
         null,
         null,
@@ -1701,17 +1905,130 @@
     "intent": "strained: eyes squeezed under the weight"
   },
   "fx": {
-    "rule": "impact fx at the grip on the impact frame: a white hit star where the grip breaks (success) or a tug mark where it re-sinks (fail)",
-    "top": true,
+    "rule": "the holder answers each heave/pull on its contact frame; hit star where the grip breaks (success) or tug where it re-sinks (fail)",
     "frames": [
+      {
+        "frame": 3,
+        "splash": [
+          {
+            "pattern": "vibeR",
+            "at": [
+              52,
+              42
+            ]
+          }
+        ]
+      },
       {
         "frame": 4,
         "splash": [
           {
+            "pattern": "strain",
+            "at": [
+              55,
+              28
+            ]
+          }
+        ]
+      },
+      {
+        "frame": 6,
+        "splash": [
+          {
+            "pattern": "vibeR",
+            "at": [
+              52,
+              43
+            ]
+          },
+          {
+            "pattern": "vibeR",
+            "at": [
+              55,
+              41
+            ]
+          },
+          {
+            "pattern": "strain",
+            "at": [
+              55,
+              28
+            ]
+          }
+        ]
+      },
+      {
+        "frame": 7,
+        "splash": [
+          {
+            "pattern": "vibeR",
+            "at": [
+              52,
+              43
+            ]
+          },
+          {
+            "pattern": "vibeR",
+            "at": [
+              55,
+              41
+            ]
+          },
+          {
+            "pattern": "sweat",
+            "at": [
+              52,
+              22
+            ]
+          }
+        ]
+      },
+      {
+        "frame": 8,
+        "splash": [
+          {
+            "pattern": "vibeR",
+            "at": [
+              52,
+              42
+            ]
+          },
+          {
+            "pattern": "strain",
+            "at": [
+              55,
+              28
+            ]
+          }
+        ]
+      },
+      {
+        "frame": 9,
+        "splash": [
+          {
             "pattern": "hitStar",
             "at": [
-              50,
-              44
+              48,
+              42
+            ]
+          },
+          {
+            "pattern": "lines",
+            "at": [
+              40,
+              6
+            ]
+          }
+        ]
+      },
+      {
+        "frame": 10,
+        "splash": [
+          {
+            "pattern": "sweat",
+            "at": [
+              44,
+              16
             ]
           }
         ]
@@ -1720,7 +2037,8 @@
     "palette": {
       "W": "#ffffff",
       "w": "#e3e3e3",
-      "#": "#000000"
+      "#": "#000000",
+      "b": "#bfe3ff"
     },
     "patterns": {
       "hitStar": [
@@ -1761,7 +2079,52 @@
         "W..",
         ".W.",
         "W.."
+      ],
+      "sweat": [
+        ".#.",
+        "#b#",
+        "#W#",
+        ".#."
+      ],
+      "shake": [
+        "#...#",
+        ".....",
+        "#...#",
+        ".....",
+        "#...#"
+      ],
+      "vibeL": [
+        ".#W",
+        "#W.",
+        "#W.",
+        ".#W",
+        "#W.",
+        "#W.",
+        ".#W"
+      ],
+      "vibeR": [
+        "W#.",
+        ".W#",
+        ".W#",
+        "W#.",
+        ".W#",
+        ".W#",
+        "W#."
+      ],
+      "chevron": [
+        "#W#...#W#",
+        ".#W#.#W#.",
+        "..#W#W#..",
+        "...#W#..."
+      ],
+      "swish": [
+        "..###.",
+        ".#WWW#",
+        "#W##..",
+        ".#WWW#",
+        "..###."
       ]
-    }
+    },
+    "top": true
   }
 }

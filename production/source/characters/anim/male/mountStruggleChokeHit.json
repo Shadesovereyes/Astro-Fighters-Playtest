@@ -2,8 +2,8 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "mountStruggleChokeHit",
-  "status": "E/W candidate 2026-11-26 (holder side of Submission Struggle vs Cross Choke / Strangle, success), awaiting user approval; S/N to author",
-  "frames": 10,
+  "status": "E/W candidate v2 2026-11-26 (holder side of Submission Struggle vs Cross Choke / Strangle, success), awaiting user approval; S/N to author",
+  "frames": 16,
   "fps": 6,
   "sourceDirection": "E",
   "directions": [
@@ -108,11 +108,17 @@
       15,
       15,
       15,
+      16,
+      15,
+      15,
+      15,
+      15,
       15,
       16,
       16,
       13,
       11,
+      10,
       10,
       10
     ],
@@ -120,15 +126,26 @@
       15,
       15,
       15,
+      16,
+      15,
+      15,
+      15,
+      15,
       15,
       16,
       16,
       13,
       11,
       10,
+      10,
       10
     ],
     "arms": [
+      16,
+      16,
+      16,
+      17,
+      16,
       16,
       16,
       16,
@@ -137,6 +154,7 @@
       17,
       14,
       12,
+      11,
       11,
       11
     ]
@@ -152,7 +170,13 @@
         2,
         2,
         2,
+        2,
+        2,
+        2,
+        2,
+        2,
         1,
+        0,
         0,
         0,
         0
@@ -161,11 +185,17 @@
         14,
         14,
         14,
+        15,
         14,
+        14,
+        15,
+        15,
+        15,
         15,
         15,
         10,
         6,
+        5,
         4,
         4
       ]
@@ -213,9 +243,57 @@
       [
         0,
         0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
       ]
     ],
     "W": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
       [
         0,
         0
@@ -630,9 +708,21 @@
       4,
       4,
       4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
       4
     ],
     "far": [
+      5,
+      5,
+      5,
+      5,
+      5,
+      5,
       5,
       5,
       5,
@@ -679,6 +769,14 @@
       },
       {
         "construction": "band",
+        "angle": 8,
+        "elbow": {
+          "at": 8,
+          "angle": -38
+        }
+      },
+      {
+        "construction": "band",
         "angle": 11,
         "elbow": {
           "at": 8,
@@ -691,6 +789,38 @@
         "elbow": {
           "at": 8,
           "angle": -41
+        }
+      },
+      {
+        "construction": "band",
+        "angle": 6,
+        "elbow": {
+          "at": 8,
+          "angle": -36
+        }
+      },
+      {
+        "construction": "band",
+        "angle": 11,
+        "elbow": {
+          "at": 8,
+          "angle": -41
+        }
+      },
+      {
+        "construction": "band",
+        "angle": 3,
+        "elbow": {
+          "at": 8,
+          "angle": -33
+        }
+      },
+      {
+        "construction": "band",
+        "angle": 2,
+        "elbow": {
+          "at": 8,
+          "angle": -32
         }
       },
       {
@@ -723,6 +853,14 @@
         "elbow": {
           "at": 8,
           "angle": -130
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -14,
+        "elbow": {
+          "at": 8,
+          "angle": -142
         }
       },
       {
@@ -793,6 +931,46 @@
       },
       {
         "construction": "band",
+        "angle": 7,
+        "elbow": {
+          "at": 8,
+          "angle": -49
+        }
+      },
+      {
+        "construction": "band",
+        "angle": 7,
+        "elbow": {
+          "at": 8,
+          "angle": -49
+        }
+      },
+      {
+        "construction": "band",
+        "angle": 7,
+        "elbow": {
+          "at": 8,
+          "angle": -49
+        }
+      },
+      {
+        "construction": "band",
+        "angle": 7,
+        "elbow": {
+          "at": 8,
+          "angle": -49
+        }
+      },
+      {
+        "construction": "band",
+        "angle": 7,
+        "elbow": {
+          "at": 8,
+          "angle": -49
+        }
+      },
+      {
+        "construction": "band",
         "angle": -20,
         "elbow": {
           "at": 8,
@@ -805,6 +983,14 @@
         "elbow": {
           "at": 8,
           "angle": -28
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -38,
+        "elbow": {
+          "at": 8,
+          "angle": -26
         }
       },
       {
@@ -920,6 +1106,12 @@
       "bandFollowsBody": true,
       "sway": {
         "E": [
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
           -1,
           -1,
           -1,
@@ -1585,9 +1777,15 @@
         6,
         7,
         8,
-        9
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
       ],
-      "fps": 12,
+      "fps": 10,
       "next": "mountTop"
     }
   },
@@ -1614,17 +1812,102 @@
     "top": "self"
   },
   "fx": {
-    "rule": "impact fx at the grip on the impact frame: a white hit star where the grip breaks (success) or a tug mark where it re-sinks (fail)",
-    "top": true,
+    "rule": "the holder answers each heave/pull on its contact frame; hit star where the grip breaks (success) or tug where it re-sinks (fail)",
     "frames": [
       {
-        "frame": 4,
+        "frame": 1,
+        "splash": [
+          {
+            "pattern": "chevron",
+            "at": [
+              51,
+              47
+            ]
+          }
+        ]
+      },
+      {
+        "frame": 2,
+        "splash": [
+          {
+            "pattern": "chevron",
+            "at": [
+              51,
+              48
+            ]
+          }
+        ]
+      },
+      {
+        "frame": 3,
+        "splash": [
+          {
+            "pattern": "tug",
+            "at": [
+              48,
+              44
+            ]
+          }
+        ]
+      },
+      {
+        "frame": 5,
+        "splash": [
+          {
+            "pattern": "chevron",
+            "at": [
+              51,
+              48
+            ]
+          }
+        ]
+      },
+      {
+        "frame": 7,
+        "splash": [
+          {
+            "pattern": "chevron",
+            "at": [
+              51,
+              49
+            ]
+          },
+          {
+            "pattern": "strain",
+            "at": [
+              55,
+              28
+            ]
+          }
+        ]
+      },
+      {
+        "frame": 8,
+        "splash": [
+          {
+            "pattern": "chevron",
+            "at": [
+              51,
+              50
+            ]
+          },
+          {
+            "pattern": "sweat",
+            "at": [
+              52,
+              22
+            ]
+          }
+        ]
+      },
+      {
+        "frame": 9,
         "splash": [
           {
             "pattern": "hitStar",
             "at": [
-              50,
-              44
+              48,
+              42
             ]
           }
         ]
@@ -1633,7 +1916,8 @@
     "palette": {
       "W": "#ffffff",
       "w": "#e3e3e3",
-      "#": "#000000"
+      "#": "#000000",
+      "b": "#bfe3ff"
     },
     "patterns": {
       "hitStar": [
@@ -1674,7 +1958,52 @@
         "W..",
         ".W.",
         "W.."
+      ],
+      "sweat": [
+        ".#.",
+        "#b#",
+        "#W#",
+        ".#."
+      ],
+      "shake": [
+        "#...#",
+        ".....",
+        "#...#",
+        ".....",
+        "#...#"
+      ],
+      "vibeL": [
+        ".#W",
+        "#W.",
+        "#W.",
+        ".#W",
+        "#W.",
+        "#W.",
+        ".#W"
+      ],
+      "vibeR": [
+        "W#.",
+        ".W#",
+        ".W#",
+        "W#.",
+        ".W#",
+        ".W#",
+        "W#."
+      ],
+      "chevron": [
+        "#W#...#W#",
+        ".#W#.#W#.",
+        "..#W#W#..",
+        "...#W#..."
+      ],
+      "swish": [
+        "..###.",
+        ".#WWW#",
+        "#W##..",
+        ".#WWW#",
+        "..###."
       ]
-    }
+    },
+    "top": true
   }
 }
