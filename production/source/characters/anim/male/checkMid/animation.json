@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-animation-output/v1",
   "body": "male",
   "state": "checkMid",
-  "status": "CANDIDATE 2026-11-26 v1 (E/W; W mirrors E; S/N to author after approval)",
+  "status": "CANDIDATE 2026-11-26 v1.1 (E/W; W mirrors E; S/N to author after approval)",
   "frames": 4,
   "fps": 12,
   "frameSize": [
@@ -197,12 +197,12 @@
     "groundContact": true,
     "offPalette": {},
     "outlineNotches": {
-      "E:0": 4,
-      "E:1": 4,
+      "E:0": 5,
+      "E:1": 5,
       "E:2": 4,
       "E:3": 3,
-      "W:0": 4,
-      "W:1": 4,
+      "W:0": 5,
+      "W:1": 5,
       "W:2": 4,
       "W:3": 3
     },
@@ -212,8 +212,8 @@
     },
     "cleanup": {
       "cleanupRemoved": [
-        17,
-        17,
+        11,
+        11,
         5,
         6
       ],
