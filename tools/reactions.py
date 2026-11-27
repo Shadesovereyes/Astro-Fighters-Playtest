@@ -48,7 +48,7 @@ def gl(**k):
         k.setdefault(s_, _U.GUARD[s_]); k[s_] = _low(k[s_], hip)
     return g(**k)
 
-STAT = 'CANDIDATE 2026-11-26 v1.1 (E/W; W mirrors E; S/N to author after approval)'
+STAT = 'CANDIDATE 2026-11-27 v1.2 (E/W; W mirrors E; S/N to author after approval)'
 LOWL = dict(ln='guard-low-rear', lf='guard-low-lead')
 _U.POSES += [kleg('chk-lo', (33, 42), (39, 44), (39, 51), 'toe30k'),     # shin check: lead knee up and turned out, shin vertical at calf height
              kleg('chk-hi', (33, 42), (40, 36), (40, 45), 'toe30k'),     # knee to the elbow: lead knee high, shin covering the ribs
@@ -79,9 +79,9 @@ def _burst(R=9, r=3.5, n=8, jitter=(1.0, .8, 1.15, .75, 1.0, .9, 1.1, .8, .95), 
         for x in range(W):
             if gr[y][x] == '.' and any(0 <= x + dx < W and 0 <= y + dy < W and gr[y + dy][x + dx] != '.' for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1))): out[y][x] = '#'
     return [''.join(r_) for r_ in out]
-astro.NPAT['critA'] = _burst()
-astro.NPAT['critB'] = _burst(R=11, r=6, hollow=.55, rot=0.0)
-astro.NPAT['critC'] = [r_.replace('R', 'M').replace('O', 'M') for r_ in _burst(R=12, r=7, hollow=.7, rot=.2)]
+# v1.2 (Christopher 2026-11-27 00:00Z: 'less fx but a move in the right direction'): smaller burst, one fading frame, no ring
+astro.NPAT['critA'] = _burst(R=6, r=2.5, n=7)
+astro.NPAT['critB'] = [r_.replace('Y', 'R').replace('O', 'R').replace('R', 'M') for r_ in _burst(R=5, r=2, n=7, rot=.6)]
 def R(state, intent, frames, faces, fps=12, rm='E: in place', fx=None):
     return (state, 0, intent, frames, faces, None, dict(fps=fps, react=True, rm=rm, anchored=fx or {}))
 
@@ -171,7 +171,7 @@ CLIPS = {
    g(an=band(-10, -60), af=band(-20, -70), bob=(3, 3, 3), lean=(0, 2), root=(2, 0)),
    g(an=RECOVER, bob=(2, 2, 2), lean=(0, 2), root=(2, 0)), g(root=(2, 0))],
   ['pain', 'pain', 'pain', 'closed', 'closed', 'squint', 'squint', None], fps=10,
-  rm='E: -3 -2 -1 the stagger back, +2 +2 +2 stepping back in (net 0)', fx={0: [('critA', 'head', -2, 2)], 1: [('critB', 'head', -1, 2)], 2: [('critC', 'head', 0, 2)]}),
+  rm='E: -3 -2 -1 the stagger back, +2 +2 +2 stepping back in (net 0)', fx={0: [('critA', 'head', -2, 2)], 1: [('critB', 'head', -1, 2)]}),
 
  'critMid': R('Critical (mid)',
   'critMid (true critical, body punch or knee): frame 0 is the blow sinking in; the fighter folds over it, both hands clamped to the belly, a big white burst at the ribs; the knees sag and it backs a step bent double, hangs there a beat, then straightens wincing into the guard.',
@@ -182,7 +182,7 @@ CLIPS = {
    gl(an=band(-25, -95), af=band(-35, -100), bob=(3, 3, 4), lean=(-1, 2)),
    g(an=RECOVER, bob=(1, 1, 2), lean=(0, 2), root=(2, 0)), g(root=(1, 0))],
   ['pain', 'pain', 'pain', 'pain', 'squint', 'squint', None], fps=10,
-  rm='E: -2 -1 backing off bent double, +2 +1 back in (net 0)', fx={0: [('critA', 'head', 2, 13)], 1: [('critB', 'head', 2, 14)], 2: [('critC', 'head', 2, 14)]}),
+  rm='E: -2 -1 backing off bent double, +2 +1 back in (net 0)', fx={0: [('critA', 'head', 2, 13)], 1: [('critB', 'head', 2, 14)]}),
 
  'critKickMid': R('Critical (kick)',
   'critKickMid (true critical, kick to the body): frame 0 is the shin landing flush; the fighter is lifted clear of the floor and carried back folding over it, both hands on the ribs, a big white burst at the side; it lands, drops nearly to one knee, hangs a beat, and climbs back up into the guard.',
@@ -194,7 +194,7 @@ CLIPS = {
    gl(an=band(-25, -95), af=band(-35, -100), bob=(4, 4, 5), lean=(-1, 2), **LOWL),
    g(an=RECOVER, bob=(2, 2, 2), lean=(0, 2), root=(3, 0)), g(root=(3, 0))],
   ['pain', 'pain', 'pain', 'pain', 'pain', 'strain', 'squint', None], fps=10,
-  rm='E: -3 -2 -1 lifted and carried back, +3 +3 back in (net 0)', fx={0: [('critA', 'head', 2, 14)], 1: [('critB', 'head', 2, 14)], 2: [('critC', 'head', 2, 14), ('dust', 'feet', 0, -2)]}),
+  rm='E: -3 -2 -1 lifted and carried back, +3 +3 back in (net 0)', fx={0: [('critA', 'head', 2, 14)], 1: [('critB', 'head', 2, 14)], 2: [('dust', 'feet', 0, -2)]}),
 
  'critLow': R('Critical (low)',
   'critLow (true critical, leg kick): frame 0 is the shin landing flush on the lead calf; the lead knee buckles forward toward the floor, the body drops, the arms fly out for balance, a white burst at the calf; it hangs on the buckled leg a beat, then limps back up onto it into the guard.',
@@ -204,7 +204,7 @@ CLIPS = {
    gl(an=band(-40, -80), af=band(-60, -110), bob=(5, 6, 6), lean=(0, 3), ln='guard-low-rear', lf='crit-buckle'),
    gl(an=band(-30, -100), af=band(-45, -140), bob=(3, 3, 4), lean=(0, 2), **LOWL),
    g(an=RECOVER, bob=(2, 2, 2), lean=(0, 2)), g()],
-  ['pain', 'pain', 'pain', 'strain', 'squint', 'squint', None], fps=10, fx={0: [('critA', 'feet', 9, -10)], 1: [('critB', 'feet', 9, -9)], 2: [('critC', 'feet', 9, -9)]}),
+  ['pain', 'pain', 'pain', 'strain', 'squint', 'squint', None], fps=10, fx={0: [('critA', 'feet', 9, -10)], 1: [('critB', 'feet', 9, -9)]}),
 }
 astro.CLIPS.update(CLIPS)
 astro.APPROVED.update({k: STAT for k in CLIPS})
