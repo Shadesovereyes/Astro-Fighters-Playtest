@@ -272,6 +272,22 @@ for _st in ('critHigh', 'critMid', 'critKickMid', 'critLow'):
         _an[_k] = [t for t in _an[_k] if t[0] not in ('critA', 'critB')]
         if not _an[_k]: del _an[_k]
     for _k, (_n, _sc, _c) in enumerate(_CRIT_SEQ): _an[_k] = [(_n,) + _at] + _an.get(_k, [])
+# check fx (Christopher 2026-11-27 02:52Z: "the check needs new fx ... symbolize the denial"): a short upright shield bar at the
+# contact point, white-edged steel, with two chevrons rebounding off it toward the attacker (E-facing: to the right), then fading
+def _chk(gap, core, chev):
+    H, W = 13, 13; g = [['.'] * W for _ in range(H)]
+    for y in range(2, 11): g[y][3] = core; g[y][4] = core
+    for k in (0, 1):
+        x0 = 6 + gap + 3 * k
+        for d in range(3):
+            for y in (6 - d, 6 + d):
+                if 0 <= x0 + d < W: g[y][x0 + d] = chev
+    return _edge([''.join(r_) for r_ in g])
+astro.NPAT['chkA'], astro.NPAT['chkB'], astro.NPAT['chkC'] = _chk(-1, 'F', 'W'), _chk(0, 'F', 'w'), _chk(1, 'g', 'g')
+for _st in ('checkHigh', 'checkMid', 'checkKickMid', 'checkLow'):
+    _an = CLIPS[_st][-1]['anchored']; _at = next(t for t in _an[0] if t[0] == 'spark')[1:]
+    _an[0] = [t for t in _an[0] if t[0] != 'spark']
+    for _k, _n in enumerate(('chkA', 'chkB', 'chkC')): _an[_k] = [(_n,) + _at] + _an.get(_k, [])
 astro.CLIPS.update(CLIPS)
 astro.APPROVED.update({k: STAT for k in CLIPS})
 
