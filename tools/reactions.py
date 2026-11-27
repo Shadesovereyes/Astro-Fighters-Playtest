@@ -297,7 +297,12 @@ def _arc(col, r=3):
         a = _m.radians(i); x, y = round(c + r * _m.cos(a)), round(c + r * _m.sin(a))
         g[y][x] = col
     return [''.join(r_) for r_ in g]
-astro.NPAT['prA'], astro.NPAT['prB'] = _arc('W', 3), _arc('g', 4)
+# v2 (Christopher 2026-11-27 16:44Z: "slightly less subtle"): a 2 px arc on the impact frame, 1 px white the next, grey the third
+def _arc2(col, r):
+    a, b = _arc(col, r + 1), _arc(col, r)
+    W = len(a); o = (W - len(b)) // 2
+    return [''.join(col if a[y][x] != '.' or (o <= y < o + len(b) and o <= x < o + len(b) and b[y - o][x - o] != '.') else '.' for x in range(W)) for y in range(W)]
+astro.NPAT['prA'], astro.NPAT['prB'], astro.NPAT['prC'] = _arc2('W', 3), _arc('W', 4), _arc('g', 5)
 # catch fx (05:13Z: "catch needs a less subtle fx"): bold gold clamp brackets shutting on the caught leg, white-edged,
 # tight on the impact frame, held a beat, then opening and fading to grey
 def _clamp(gap, col, tick):
@@ -309,7 +314,19 @@ def _clamp(gap, col, tick):
         for x in range(W // 2 - 1, W // 2 + 1): g[0][x] = tick; g[H - 1][x] = tick
     return _edge([''.join(r_) for r_ in g])
 astro.NPAT['cfA'], astro.NPAT['cfB'], astro.NPAT['cfC'] = _clamp(5, 'Y', 'W'), _clamp(5, 'Y', None), _clamp(8, 'g', None)
-for _st, _seq in (('parryHigh', ('prA', 'prB')), ('parryMid', ('prA', 'prB')), ('parryTeep', ('prA', 'prB')), ('parryKickMid', ('prA', 'prB')),
+# catch fx options (Christopher 2026-11-27 16:44Z: "i do not like the catch fx"): CATCH_OPT=ticks -> four short white-edged gold
+# grip lines converging on the caught leg; CATCH_OPT=ring -> a gold ring squeezing shut on it
+def _ticks(r0, col):
+    W = 2 * (r0 + 4) + 1; c = W // 2; g = _canvas(W)
+    for k in range(4):
+        a = _m.pi / 4 + k * _m.pi / 2
+        for t in range(r0 * 2, (r0 + 3) * 2 + 1): _put(g, round(c + t / 2 * _m.cos(a)), round(c + t / 2 * _m.sin(a)), col)
+    return _edge(_rows(g))
+def _sq(r, col):
+    W = 2 * r + 5; c = W // 2; g = _canvas(W); _ring(g, c, r, col); return _edge(_rows(g))
+if os.environ.get('CATCH_OPT') == 'ticks': astro.NPAT['cfA'], astro.NPAT['cfB'], astro.NPAT['cfC'] = _ticks(5, 'Y'), _ticks(3, 'Y'), _ticks(3, 'g')
+if os.environ.get('CATCH_OPT') == 'ring': astro.NPAT['cfA'], astro.NPAT['cfB'], astro.NPAT['cfC'] = _sq(7, 'Y'), _sq(5, 'Y'), _sq(4, 'g')
+for _st, _seq in (('parryHigh', ('prA', 'prB', 'prC')), ('parryMid', ('prA', 'prB', 'prC')), ('parryTeep', ('prA', 'prB', 'prC')), ('parryKickMid', ('prA', 'prB', 'prC')),
                   ('catchKickMid', ('cfA', 'cfA', 'cfB', 'cfC')), ('catchKickLow', ('cfA', 'cfA', 'cfB', 'cfC'))):
     _an = CLIPS[_st][-1]['anchored']; _at = next(t for t in _an[0] if t[0] == 'spark')[1:]
     _an[0] = [t for t in _an[0] if t[0] != 'spark']
