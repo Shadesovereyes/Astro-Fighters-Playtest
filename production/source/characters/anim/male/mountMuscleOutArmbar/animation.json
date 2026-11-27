@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-animation-output/v1",
   "body": "male",
   "state": "mountMuscleOutArmbar",
-  "status": "E/W candidate v2 2026-11-26 (Muscle Out Escape from under Arm bar, success), awaiting user approval; S/N to author",
+  "status": "E/W APPROVED by user 2026-11-27 (v4) (Muscle Out Escape from under Arm bar, success); S/N to author",
   "frames": 16,
   "fps": 6,
   "frameSize": [
@@ -18,7 +18,7 @@
       "E",
       "W"
     ],
-    "columns": "frames 0–15"
+    "columns": "frames 0\u201315"
   },
   "layers": {
     "body": "body.png",

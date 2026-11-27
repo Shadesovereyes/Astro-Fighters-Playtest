@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "mountStruggleArmbarFailHit",
-  "status": "E/W candidate v2 2026-11-26 (holder side of Submission Struggle vs Arm bar, fail), awaiting user approval; S/N to author",
+  "status": "E/W APPROVED by user 2026-11-27 (v4) (holder side of Submission Struggle vs Arm bar, fail); S/N to author",
   "frames": 16,
   "fps": 6,
   "sourceDirection": "E",
@@ -2114,5 +2114,14 @@
         "....###...."
       ]
     }
+  },
+  "approved": {
+    "by": "user",
+    "date": "2026-11-27",
+    "version": "v4",
+    "facings": [
+      "E",
+      "W"
+    ]
   }
 }
