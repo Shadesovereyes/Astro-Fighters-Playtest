@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-animation-output/v1",
   "body": "male",
   "state": "guardBottom",
-  "status": "E/W candidate v1 2026-11-26 (Guard, bottom (guard player)), awaiting user approval; S/N to author",
+  "status": "E/W APPROVED by user 2026-11-26 19:02 ET (v4) (Guard, bottom (guard player)); S/N to author",
   "frames": 4,
   "fps": 6,
   "frameSize": [

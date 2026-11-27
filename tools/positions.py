@@ -90,6 +90,8 @@ def specs():
         rot='upright')
     return out
 
+APPROVED = {'guard': '2026-11-26 19:02 ET (v4)'}
+
 def run():
     done = []
     for key, s in specs().items():
@@ -107,6 +109,10 @@ def run():
         sb = build(bB, B, s['B'], status=CAND.format(s['intentB'].split(':')[0]), intent=s['intentB'], newPoses=s.get('newB', ()), pair=pb, clips=clipsB,
                    rmRule='in place', rotRule='quarter turns only: ' + s['rot'], bobRule='a slow breath', extra={'faceFlip': [True] * 4} if s.get('flipB') else None)
         for sp in (sa, sb): sp.pop('approved', None); sp['fps'] = 6
+        if key in APPROVED:
+            for sp in (sa, sb):
+                sp['status'] = sp['status'].replace('E/W candidate v1 2026-11-26', 'E/W APPROVED by user ' + APPROVED[key]).replace(', awaiting user approval', '')
+                sp['approved'] = {'by': 'Christopher', 'at': APPROVED[key], 'directions': ['E', 'W']}
         save(sa, D + A + '.json'); save(sb, D + B + '.json'); done += [A, B]
     return done
 
