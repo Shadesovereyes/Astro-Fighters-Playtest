@@ -8,7 +8,8 @@ sys.path.insert(0, '/mnt/project-files/hex-sprites/tools')
 from gen import build, save, load
 import guardmoves as gm
 from guardmoves import fr, F, band, P, poses, withx, fxrec, D, GT, GB, MT, MB
-CAND = 'E/W candidate v3 2026-11-27 ({}), awaiting user approval; S/N to author'
+CAND = 'E/W APPROVED by user 2026-11-27 12:18 ET (v3) ({}); S/N to author'
+APPROVED = {'by': 'Christopher', 'at': '2026-11-27 12:18 ET (v3)', 'directions': ['E', 'W']}
 G = load(D + 'guard.json')
 IMPACT = 2
 
@@ -71,6 +72,7 @@ def run(V=None):
               events=ev, rmRule='per-frame step (screen px): scoots back as it sits up', rotRule='quarter turns only: flat on the back (270) to frame 3, upright (0) from frame 4',
               fx=fxrec(fxB, 'effort: hip swish as the foot comes up, strain on the shove, dust under the post and the stand-up'))
     for s in (t, b): s.pop('approved', None)
+    for sp in (t, b): sp['approved'] = APPROVED
     save(t, D + 'guardMuscleOutHit.json'); save(b, D + 'guardMuscleOut.json')
     return ['guardMuscleOutHit', 'guardMuscleOut']
 

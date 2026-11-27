@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "guardMuscleOut",
-  "status": "E/W candidate v3 2026-11-27 (Muscle Out: Guard bottom -> Free), awaiting user approval; S/N to author",
+  "status": "E/W APPROVED by user 2026-11-27 12:18 ET (v3) (Muscle Out: Guard bottom -> Free); S/N to author",
   "frames": 12,
   "fps": 6,
   "sourceDirection": "E",
@@ -2210,6 +2210,14 @@
         "frame": 11,
         "type": "recovery"
       }
+    ]
+  },
+  "approved": {
+    "by": "Christopher",
+    "at": "2026-11-27 12:18 ET (v3)",
+    "directions": [
+      "E",
+      "W"
     ]
   }
 }
