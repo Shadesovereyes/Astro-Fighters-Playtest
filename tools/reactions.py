@@ -125,8 +125,16 @@ def opt_arcs(scale, col):      # C: shock arcs fanning out from the contact poin
         for i in range(-55, 56):
             a = _m.radians(180 + i); _put(g, round(c + r * _m.cos(a)), round(c + r * _m.sin(a)), col)
     return _rows(g)
+def _edge(p, col='W'):
+    """white outline round a line pattern (Christopher 2026-11-27 00:24Z: try the burst with a white outline)"""
+    H, W = len(p), len(p[0]); g = [list(r_) for r_ in p]
+    for y in range(H):
+        for x in range(W):
+            if p[y][x] == '.' and any(0 <= x + dx < W and 0 <= y + dy < H and p[y + dy][x + dx] not in '.W' for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1))): g[y][x] = col
+    return [''.join(r_) for r_ in g]
 CRIT_OPTS = {'ring': opt_ring, 'burst': opt_burst, 'arcs': opt_arcs}
 astro.NPAT['critA'], astro.NPAT['critB'] = opt_burst(5, 'R'), opt_burst(7, 'M')   # burst APPROVED (Christopher 2026-11-27 00:23Z)
+if os.environ.get('CRIT_EDGE'): astro.NPAT['critA'], astro.NPAT['critB'] = _edge(astro.NPAT['critA']), _edge(astro.NPAT['critB'])
 if os.environ.get('CRIT_OPT') in CRIT_OPTS:
     _o = CRIT_OPTS[os.environ['CRIT_OPT']]; astro.NPAT['critA'] = _o(5, 'R'); astro.NPAT['critB'] = _o(7, 'M')
 def R(state, intent, frames, faces, fps=12, rm='E: in place', fx=None):
