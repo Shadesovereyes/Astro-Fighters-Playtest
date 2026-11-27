@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Side Control, bottom: flat on the back (270), knees bent with the feet planted (in front of the top fighter's hips), the near arm wrapped over the top fighter's shoulder, face squeezed.",
+  "intent": "Side Control, bottom: flat on the back (270), knees bent with the feet planted (in front of the top fighter's hips), the near arm wrapped over the top fighter's shoulder (elbow flexed toward the head, hand behind his neck), face squeezed.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -595,34 +595,34 @@
     "near": [
       {
         "construction": "band",
-        "angle": -85,
+        "angle": -72,
         "elbow": {
           "at": 8,
-          "angle": 20
+          "angle": -160
         }
       },
       {
         "construction": "band",
-        "angle": -83,
+        "angle": -70,
         "elbow": {
           "at": 8,
-          "angle": 20
+          "angle": -160
         }
       },
       {
         "construction": "band",
-        "angle": -83,
+        "angle": -70,
         "elbow": {
           "at": 8,
-          "angle": 20
+          "angle": -160
         }
       },
       {
         "construction": "band",
-        "angle": -85,
+        "angle": -72,
         "elbow": {
           "at": 8,
-          "angle": 20
+          "angle": -160
         }
       }
     ],
@@ -632,7 +632,7 @@
         "angle": -45,
         "elbow": {
           "at": 8,
-          "angle": -30
+          "angle": -100
         }
       },
       {
@@ -640,7 +640,7 @@
         "angle": -45,
         "elbow": {
           "at": 8,
-          "angle": -30
+          "angle": -100
         }
       },
       {
@@ -648,7 +648,7 @@
         "angle": -43,
         "elbow": {
           "at": 8,
-          "angle": -30
+          "angle": -100
         }
       },
       {
@@ -656,7 +656,7 @@
         "angle": -43,
         "elbow": {
           "at": 8,
-          "angle": -30
+          "angle": -100
         }
       }
     ],

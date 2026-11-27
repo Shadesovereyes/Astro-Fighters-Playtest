@@ -61,12 +61,12 @@ def specs():
     tl = [P('sc-near', 33, 42, 46, 44, 45, 54, 'pointDR'), P('sc-far', 31, 42, 45, 44, 45, 54, 'pointDR')]
     bl = [P('scb-near', 32, 42, 44, 48, 36, 57, 'pointDL'), P('scb-far', 31, 42, 42, 48, 35, 57, 'pointDL')]
     t = F(fr(MT), bob=(0, 0, 0), lean=(0, 0), ln='sc-near', lf='sc-far', an=band(-100, -175), af=band(-95, -170), expr='squint', rot=(90, -10, 1, False))
-    b = F(fr(MB), ln='scb-near', lf='scb-far', an=band(-85, 20), af=band(-45, -30), expr='squint')
+    b = F(fr(MB), ln='scb-near', lf='scb-far', an=band(-72, -160), af=band(-45, -100), expr='squint')
     out['side'] = dict(names=('sideControlTop', 'sideControlBottom'), base=(MT, MB), pdx=4, newA=tl, newB=bl,
         A=breathe(t, amp=((0, 0, 0), (0, 0, 0), (0, 0, 1), (0, 0, 1)), arms=[(0, 0), (0, 0), (-2, 0), (-2, 0)]), B=breathe(b, amp=((0, 0, 0), (0, 1, 0), (0, 1, 1), (0, 0, 1)), arms=[(0, 0), (2, 0), (2, 2), (0, 2)]),
         layering=L_SIDE, bottomOver=False, topBehind=True,
         intentA='Side Control, top (Christopher\'s references 2026-11-26): on the far side of the bottom fighter, a quarter turn chest-down (90) draped across their chest, head down beside their head, hips up on the knees behind their bent legs, crossface arm under the head and the far arm underhooking.',
-        intentB='Side Control, bottom: flat on the back (270), knees bent with the feet planted (in front of the top fighter\'s hips), the near arm wrapped over the top fighter\'s shoulder, face squeezed.',
+        intentB='Side Control, bottom: flat on the back (270), knees bent with the feet planted (in front of the top fighter\'s hips), the near arm wrapped over the top fighter\'s shoulder (elbow flexed toward the head, hand behind his neck), face squeezed.',
         rot='top: a quarter turn chest-down (90, held above the ground on its knees); bottom: flat on the back (270)')
     # ---------------- Back Control (ground, seated, hooks in) ----------------
     al = [P('hook-near', 33, 52, 42, 51, 50, 53, 'levelR'), P('hook-far', 31, 52, 41, 51, 49, 53, 'levelR')]
