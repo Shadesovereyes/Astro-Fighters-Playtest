@@ -48,7 +48,7 @@ def gl(**k):
         k.setdefault(s_, _U.GUARD[s_]); k[s_] = _low(k[s_], hip)
     return g(**k)
 
-STAT = 'CANDIDATE 2026-11-27 v1.5 (E/W; W mirrors E; S/N to author after approval)'
+STAT = 'CANDIDATE 2026-11-27 v1.6 (E/W; W mirrors E; S/N to author after approval)'
 LOWL = dict(ln='guard-low-rear', lf='guard-low-lead')
 _U.POSES += [kleg('chk-lo', (33, 42), (39, 44), (39, 51), 'toe30k'),     # shin check: lead knee up and turned out, shin vertical at calf height
              kleg('chk-hi', (33, 42), (40, 36), (40, 45), 'toe30k'),     # knee to the elbow: lead knee high, shin covering the ribs
@@ -90,6 +90,45 @@ def _line(p, col='R'):
     return [''.join(col if c == '#' else '.' for c in r_) for r_ in p]
 astro.NPAT['critA'] = _line(_burst(R=7, r=3.5, n=7))
 astro.NPAT['critB'] = _line(_burst(R=8, r=4.5, n=7, rot=.6), 'M')
+
+# impact shape options (Christopher 2026-11-27 00:21Z: v1.5 thin line liked, shape reads like a blood splatter; show another shape)
+def _canvas(W): return [['.'] * W for _ in range(W)]
+def _put(g, x, y, c):
+    if 0 <= y < len(g) and 0 <= x < len(g[0]): g[y][x] = c
+def _ring(g, c0, r, col, gaps=()):
+    for i in range(360):
+        a = _m.radians(i)
+        if any(abs(((i - gg + 180) % 360) - 180) < 12 for gg in gaps): continue
+        _put(g, round(c0 + r * _m.cos(a)), round(c0 + r * _m.sin(a)), col)
+def _rays(g, c0, r0, r1, n, col, rot=0):
+    for k in range(n):
+        a = rot + 2 * _m.pi * k / n
+        for t in range(int(r0 * 4), int(r1 * 4) + 1):
+            _put(g, round(c0 + t / 4 * _m.cos(a)), round(c0 + t / 4 * _m.sin(a)), col)
+def _rows(g): return [''.join(r_) for r_ in g]
+def opt_ring(scale, col):      # A: shock ring with short rays outside it
+    W = 2 * (scale + 5) + 1; c = W // 2; g = _canvas(W)
+    _ring(g, c, scale, col); _rays(g, c, scale + 2, scale + 4, 8, col, rot=_m.pi / 8); return _rows(g)
+def opt_burst(scale, col):     # B: regular 8-point impact burst outline (even spikes, sharp)
+    W = 2 * scale + 5; c = W / 2 - .5
+    pts = [(c + (scale if i % 2 == 0 else scale * .45) * _m.cos(_m.pi * i / 8), c + (scale if i % 2 == 0 else scale * .45) * _m.sin(_m.pi * i / 8)) for i in range(16)]
+    g = _canvas(W)
+    for i in range(16):
+        (x1, y1), (x2, y2) = pts[i], pts[(i + 1) % 16]
+        n = int(max(abs(x2 - x1), abs(y2 - y1)) * 2) + 1
+        for t in range(n + 1): _put(g, round(x1 + (x2 - x1) * t / n), round(y1 + (y2 - y1) * t / n), col)
+    return _rows(g)
+def opt_arcs(scale, col):      # C: shock arcs fanning out from the contact point, away from the attacker (E-facing target: attacker at the right)
+    W = 2 * (scale + 3) + 1; c = W // 2; g = _canvas(W)
+    for r in (scale - 3, scale - 1, scale + 1):
+        if r < 1: continue
+        for i in range(-55, 56):
+            a = _m.radians(180 + i); _put(g, round(c + r * _m.cos(a)), round(c + r * _m.sin(a)), col)
+    return _rows(g)
+CRIT_OPTS = {'ring': opt_ring, 'burst': opt_burst, 'arcs': opt_arcs}
+astro.NPAT['critA'], astro.NPAT['critB'] = opt_burst(5, 'R'), opt_burst(7, 'M')   # burst APPROVED (Christopher 2026-11-27 00:23Z)
+if os.environ.get('CRIT_OPT') in CRIT_OPTS:
+    _o = CRIT_OPTS[os.environ['CRIT_OPT']]; astro.NPAT['critA'] = _o(5, 'R'); astro.NPAT['critB'] = _o(7, 'M')
 def R(state, intent, frames, faces, fps=12, rm='E: in place', fx=None):
     return (state, 0, intent, frames, faces, None, dict(fps=fps, react=True, rm=rm, anchored=fx or {}))
 
