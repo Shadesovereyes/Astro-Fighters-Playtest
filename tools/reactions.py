@@ -324,8 +324,10 @@ def _ticks(r0, col):
     return _edge(_rows(g))
 def _sq(r, col):
     W = 2 * r + 5; c = W // 2; g = _canvas(W); _ring(g, c, r, col); return _edge(_rows(g))
-if os.environ.get('CATCH_OPT') == 'ticks': astro.NPAT['cfA'], astro.NPAT['cfB'], astro.NPAT['cfC'] = _ticks(5, 'Y'), _ticks(3, 'Y'), _ticks(3, 'g')
-if os.environ.get('CATCH_OPT') == 'ring': astro.NPAT['cfA'], astro.NPAT['cfB'], astro.NPAT['cfC'] = _sq(7, 'Y'), _sq(5, 'Y'), _sq(4, 'g')
+# v3 (Christopher 2026-11-27 16:50Z: yellow reads as damage): silver/steel core, white edge
+# silver ticks APPROVED as the catch fx (Christopher 2026-11-27 16:50Z: 'i prefer the ticks')
+if os.environ.get('CATCH_OPT', 'ticks') == 'ticks': astro.NPAT['cfA'], astro.NPAT['cfB'], astro.NPAT['cfC'] = _ticks(5, 'F'), _ticks(3, 'F'), _ticks(3, 'g')
+if os.environ.get('CATCH_OPT') == 'ring': astro.NPAT['cfA'], astro.NPAT['cfB'], astro.NPAT['cfC'] = _sq(7, 'F'), _sq(5, 'F'), _sq(4, 'g')
 for _st, _seq in (('parryHigh', ('prA', 'prB', 'prC')), ('parryMid', ('prA', 'prB', 'prC')), ('parryTeep', ('prA', 'prB', 'prC')), ('parryKickMid', ('prA', 'prB', 'prC')),
                   ('catchKickMid', ('cfA', 'cfA', 'cfB', 'cfC')), ('catchKickLow', ('cfA', 'cfA', 'cfB', 'cfC'))):
     _an = CLIPS[_st][-1]['anchored']; _at = next(t for t in _an[0] if t[0] == 'spark')[1:]
