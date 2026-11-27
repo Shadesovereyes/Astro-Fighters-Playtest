@@ -8,7 +8,7 @@ sys.path.insert(0, '/mnt/project-files/hex-sprites/tools')
 from gen import build, save, load
 import guardmoves as gm
 from guardmoves import fr, F, band, P, poses, withx, fxrec, D, GT, GB, MT, MB
-CAND = 'E/W candidate v2 2026-11-27 ({}), awaiting user approval; S/N to author'
+CAND = 'E/W candidate v3 2026-11-27 ({}), awaiting user approval; S/N to author'
 G = load(D + 'guard.json')
 IMPACT = 2
 
@@ -30,8 +30,8 @@ def frames(V=None):
          F(b0, ln='hip-near', lf='hip-far', an=band(*g('fa', (-44, -70))), af=band(*g('ff', (-40, -66))), expr='squint'),     # 1 legs open, foot to the hip, frames
          F(b0, ln='push-near', lf='push-far', an=band(*g('pa', (-40, -46))), af=band(*g('pf', (-36, -42))), expr='squint'),  # 2 IMPACT shove
          F(b0, ln='push-near', lf='push-far', an=band(*g('pa', (-40, -46))), af=band(*g('pf', (-36, -42))), expr='squint'),  # 3 held
-         F(fr(MT), rot=(0, 0, 0, True), bob=(12, 12, 12), lean=(-2, 0), ln='sit-near', lf='sit-far', an=band(-150, -160), af=band(-60, -90), root=(-9, 0)),   # 4 sits up, posts the back hand
-         F(fr(MT), rot=(0, 0, 0, True), bob=(10, 10, 10), lean=(-1, 1), ln='kneel-near', lf='sit-far', an=band(-150, -160), af=band(-50, -90), root=(-2, 0)),   # 5 technical stand-up: post + knee
+         F(fr(MT), rot=(0, 0, 0, True), bob=tuple(V.get('b4', (12, 12, 17))), lean=tuple(V.get('l4', (0, -5))), ln='sit-near', lf='sit-far', an=band(*V.get('post', (25, 15))), af=band(-60, -90), root=(-9, 0)),   # 4 sits up, the back hand posts down behind the hips (Christopher 2026-11-27: no raised arm)
+         F(fr(MT), rot=(0, 0, 0, True), bob=(10, 10, 10), lean=tuple(V.get('l5', (0, -4))), ln='kneel-near', lf='sit-far', an=band(*V.get('post5', V.get('post', (25, 15)))), af=band(-50, -90), root=(-2, 0)),   # 5 technical stand-up: post + knee
          F(s0, bob=(5, 5, 5), lean=(-1, 0), ln='guard-low-rear', lf='guard-low-lead', an=band(-60, -100), af=band(-70, -110), root=(-3, 0)),               # 6 rising, hands come up
          F(s0, bob=(3, 3, 3), ln='guard-low-rear', lf='guard-low-lead'),
          s0, s1, s2, s0]

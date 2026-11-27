@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "guardMuscleOut",
-  "status": "E/W candidate v2 2026-11-27 (Muscle Out: Guard bottom -> Free), awaiting user approval; S/N to author",
+  "status": "E/W candidate v3 2026-11-27 (Muscle Out: Guard bottom -> Free), awaiting user approval; S/N to author",
   "frames": 12,
   "fps": 6,
   "sourceDirection": "E",
@@ -137,7 +137,7 @@
       0,
       0,
       0,
-      12,
+      17,
       10,
       5,
       3,
@@ -156,8 +156,8 @@
         0,
         0,
         0,
-        -2,
-        -1,
+        0,
+        0,
         -1,
         0,
         0,
@@ -170,8 +170,8 @@
         0,
         0,
         0,
-        0,
-        1,
+        -5,
+        -4,
         0,
         2,
         2,
@@ -851,18 +851,18 @@
       },
       {
         "construction": "band",
-        "angle": -150,
+        "angle": 25,
         "elbow": {
           "at": 8,
-          "angle": -160
+          "angle": 15
         }
       },
       {
         "construction": "band",
-        "angle": -150,
+        "angle": 25,
         "elbow": {
           "at": 8,
-          "angle": -160
+          "angle": 15
         }
       },
       {
