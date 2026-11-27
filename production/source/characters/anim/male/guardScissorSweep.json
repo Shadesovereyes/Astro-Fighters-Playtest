@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "guardScissorSweep",
-  "status": "E/W candidate v1 2026-11-26 (Jiu-Jitsu Scissor Sweep: Guard bottom -> Mount top), awaiting user approval; S/N to author",
+  "status": "E/W APPROVED by user 2026-11-26 19:14 ET (v1) (Jiu-Jitsu Scissor Sweep: Guard bottom -> Mount top); S/N to author",
   "frames": 12,
   "fps": 6,
   "sourceDirection": "E",
@@ -2211,6 +2211,14 @@
         "frame": 11,
         "type": "recovery"
       }
+    ]
+  },
+  "approved": {
+    "by": "Christopher",
+    "at": "2026-11-26 19:14 ET (v1)",
+    "directions": [
+      "E",
+      "W"
     ]
   }
 }

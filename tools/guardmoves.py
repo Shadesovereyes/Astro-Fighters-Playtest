@@ -8,7 +8,8 @@ import json, copy, sys
 sys.path.insert(0, '/mnt/project-files/hex-sprites/tools')
 from gen import build, save, load
 D = '/home/claude/astro-fighters-playtest/production/source/characters/anim/male/'
-CAND = 'E/W candidate v1 2026-11-26 ({}), awaiting user approval; S/N to author'
+CAND = 'E/W APPROVED by user 2026-11-26 19:14 ET (v1) ({}); S/N to author'
+APPROVED = {'by': 'Christopher', 'at': '2026-11-26 19:14 ET (v1)', 'directions': ['E', 'W']}
 band = lambda a, e: {'construction': 'band', 'angle': a, 'elbow': {'at': 8, 'angle': e}}
 GT, GB, MT, MB = (load(D + n + '.json') for n in ('guardTop', 'guardBottom', 'mountTop', 'mountBottom'))
 GH = load(D + 'mountBottomGarroteHit.json')
@@ -103,6 +104,7 @@ def run():
               rotRule='quarter turns only: flat on the back (270) to frame 5, sits up (0) from frame 6',
               fx=fxrec(fxB, 'effort: hip swish on the shrimp and the scissor, strain on the pull, dust under the planted hip'))
     for s in (t, b): s.pop('approved', None)
+    for sp in (t, b): sp['approved'] = APPROVED
     save(t, D + 'guardScissorSweepHit.json'); save(b, D + 'guardScissorSweep.json')
     return ['guardScissorSweepHit', 'guardScissorSweep']
 
