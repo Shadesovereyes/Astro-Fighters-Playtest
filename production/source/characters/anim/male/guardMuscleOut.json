@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-posed-animation/v1",
   "body": "male",
   "state": "guardMuscleOut",
-  "status": "E/W candidate v1 2026-11-26 (Muscle Out: Guard bottom -> Free), awaiting user approval; S/N to author",
+  "status": "E/W candidate v2 2026-11-27 (Muscle Out: Guard bottom -> Free), awaiting user approval; S/N to author",
   "frames": 12,
   "fps": 6,
   "sourceDirection": "E",
@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Muscle Out from the bottom of the Guard (STR power escape, one step back = Free): opens the legs, plants the near foot on the top fighter's hip and frames both hands on his chest, then on the impact frame 2 drives the leg and both arms straight; sits up behind a posted hand and does a technical stand-up into the unarmed guard.",
+  "intent": "Muscle Out from the bottom of the Guard (STR power escape, one step back = Free): chambers both knees and plants both feet on the top fighter's hips (hands framing), then on the impact frame 2 kicks both legs out straight and hard, lifting him off his knees and driving him back (Christopher 2026-11-27: push hard off him with the legs); sits up behind a posted hand and does a technical stand-up into the unarmed guard.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -724,10 +724,10 @@
         "construction": "band",
         "hipX": 31,
         "hipRow": 40,
-        "kneeX": 44,
-        "kneeRow": 44,
+        "kneeX": 46,
+        "kneeRow": 42,
         "ankle": [
-          42,
+          44,
           49
         ],
         "foot": "pointDL"
@@ -737,11 +737,11 @@
         "construction": "band",
         "hipX": 31,
         "hipRow": 40,
-        "kneeX": 46,
+        "kneeX": 42,
         "kneeRow": 46,
         "ankle": [
-          46,
-          52
+          51,
+          51
         ],
         "foot": "pointDL"
       },
@@ -750,11 +750,24 @@
         "construction": "band",
         "hipX": 30,
         "hipRow": 40,
-        "kneeX": 45,
+        "kneeX": 41,
         "kneeRow": 47,
         "ankle": [
-          45,
-          53
+          50,
+          52
+        ],
+        "foot": "pointDL"
+      },
+      {
+        "name": "hip-far",
+        "construction": "band",
+        "hipX": 30,
+        "hipRow": 40,
+        "kneeX": 45,
+        "kneeRow": 43,
+        "ankle": [
+          43,
+          50
         ],
         "foot": "pointDL"
       }
@@ -775,7 +788,7 @@
     ],
     "far": [
       7,
-      7,
+      15,
       14,
       14,
       11,
