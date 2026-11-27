@@ -2,7 +2,7 @@
   "schema": "astro-fighters-character-animation-output/v1",
   "body": "male",
   "state": "critLow",
-  "status": "CANDIDATE 2026-11-27 v1.2 (E/W; W mirrors E; S/N to author after approval)",
+  "status": "E/W approved by user 2026-11-27 02:50Z (v1.8 set: reaction clips; critical burst orange-red-dark red-black with white edge; W mirrors E); S/N to author",
   "frames": 7,
   "fps": 10,
   "frameSize": [
@@ -18,7 +18,7 @@
       "E",
       "W"
     ],
-    "columns": "frames 0–6"
+    "columns": "frames 0\u20136"
   },
   "layers": {
     "body": "body.png",

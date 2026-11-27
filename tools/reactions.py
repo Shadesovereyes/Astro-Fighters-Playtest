@@ -48,7 +48,7 @@ def gl(**k):
         k.setdefault(s_, _U.GUARD[s_]); k[s_] = _low(k[s_], hip)
     return g(**k)
 
-STAT = 'CANDIDATE 2026-11-27 v1.8 (E/W; W mirrors E; S/N to author after approval)'
+STAT = 'E/W approved by user 2026-11-27 02:50Z (v1.8 set: reaction clips; critical burst orange-red-dark red-black with white edge; W mirrors E); S/N to author'
 LOWL = dict(ln='guard-low-rear', lf='guard-low-lead')
 _U.POSES += [kleg('chk-lo', (33, 42), (39, 44), (39, 51), 'toe30k'),     # shin check: lead knee up and turned out, shin vertical at calf height
              kleg('chk-hi', (33, 42), (40, 36), (40, 45), 'toe30k'),     # knee to the elbow: lead knee high, shin covering the ribs
