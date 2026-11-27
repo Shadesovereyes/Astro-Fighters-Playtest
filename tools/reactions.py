@@ -263,7 +263,8 @@ CLIPS = {
 }
 # critical burst v2 (Christopher 2026-11-27 00:26Z: "white outline is good ... transitions from yellow to red to dark red to black"):
 # v1.8 (00:27Z: orange instead of yellow): the approved 8-point burst with a white edge, one colour per frame from the impact, growing a step each frame
-_CRIT_SEQ = [('critY', 5, 'O'), ('critR', 6, 'R'), ('critM', 7, 'M'), ('critK', 8, 'X')]
+# v1.9 (Christopher 2026-11-27 05:13Z: critical fx smaller): scales 5-8 -> 3-6
+_CRIT_SEQ = [('critY', 3, 'O'), ('critR', 4, 'R'), ('critM', 5, 'M'), ('critK', 6, 'X')]
 for _n, _sc, _c in _CRIT_SEQ: astro.NPAT[_n] = _edge(opt_burst(_sc, _c))
 for _st in ('critHigh', 'critMid', 'critKickMid', 'critLow'):
     _an = CLIPS[_st][-1]['anchored']
@@ -288,6 +289,32 @@ for _st in ('checkHigh', 'checkMid', 'checkKickMid', 'checkLow'):
     _an = CLIPS[_st][-1]['anchored']; _at = next(t for t in _an[0] if t[0] == 'spark')[1:]
     _an[0] = [t for t in _an[0] if t[0] != 'spark']
     for _k, _n in enumerate(('chkA', 'chkB', 'chkC')): _an[_k] = [(_n,) + _at] + _an.get(_k, [])
+# parry fx (Christopher 2026-11-27 05:13Z: "parry needs a subtle fx"): a thin 1 px deflect arc on the attacker's side of the
+# parrying hand (E-facing: right), white on the impact frame, grey the next, then gone; no edge
+def _arc(col, r=3):
+    W = 2 * r + 3; c = W // 2; g = [['.'] * W for _ in range(W)]
+    for i in range(-50, 51, 5):
+        a = _m.radians(i); x, y = round(c + r * _m.cos(a)), round(c + r * _m.sin(a))
+        g[y][x] = col
+    return [''.join(r_) for r_ in g]
+astro.NPAT['prA'], astro.NPAT['prB'] = _arc('W', 3), _arc('g', 4)
+# catch fx (05:13Z: "catch needs a less subtle fx"): bold gold clamp brackets shutting on the caught leg, white-edged,
+# tight on the impact frame, held a beat, then opening and fading to grey
+def _clamp(gap, col, tick):
+    H = 11; W = gap + 8; g = [['.'] * W for _ in range(H)]
+    for y in range(1, H - 1):
+        for x in (1, 2, W - 3, W - 2): g[y][x] = col
+    for x in (3, W - 4): g[1][x] = col; g[H - 2][x] = col
+    if tick:
+        for x in range(W // 2 - 1, W // 2 + 1): g[0][x] = tick; g[H - 1][x] = tick
+    return _edge([''.join(r_) for r_ in g])
+astro.NPAT['cfA'], astro.NPAT['cfB'], astro.NPAT['cfC'] = _clamp(5, 'Y', 'W'), _clamp(5, 'Y', None), _clamp(8, 'g', None)
+for _st, _seq in (('parryHigh', ('prA', 'prB')), ('parryMid', ('prA', 'prB')), ('parryTeep', ('prA', 'prB')), ('parryKickMid', ('prA', 'prB')),
+                  ('catchKickMid', ('cfA', 'cfA', 'cfB', 'cfC')), ('catchKickLow', ('cfA', 'cfA', 'cfB', 'cfC'))):
+    _an = CLIPS[_st][-1]['anchored']; _at = next(t for t in _an[0] if t[0] == 'spark')[1:]
+    _an[0] = [t for t in _an[0] if t[0] != 'spark']
+    if _seq[0] == 'prA': _at = (_at[0], _at[1] - 2, _at[2])
+    for _k, _n in enumerate(_seq): _an[_k] = [(_n,) + _at] + _an.get(_k, [])
 astro.CLIPS.update(CLIPS)
 astro.APPROVED.update({k: STAT for k in CLIPS})
 
