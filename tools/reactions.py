@@ -48,7 +48,7 @@ def gl(**k):
         k.setdefault(s_, _U.GUARD[s_]); k[s_] = _low(k[s_], hip)
     return g(**k)
 
-STAT = 'CANDIDATE 2026-11-27 v1.4 (E/W; W mirrors E; S/N to author after approval)'
+STAT = 'CANDIDATE 2026-11-27 v1.5 (E/W; W mirrors E; S/N to author after approval)'
 LOWL = dict(ln='guard-low-rear', lf='guard-low-lead')
 _U.POSES += [kleg('chk-lo', (33, 42), (39, 44), (39, 51), 'toe30k'),     # shin check: lead knee up and turned out, shin vertical at calf height
              kleg('chk-hi', (33, 42), (40, 36), (40, 45), 'toe30k'),     # knee to the elbow: lead knee high, shin covering the ribs
@@ -85,8 +85,11 @@ def _hollow(p, col='R'):
     the black outline, recoloured `col`; the centre is empty"""
     H, W = len(p), len(p[0]); at = lambda x, y: p[y][x] if 0 <= x < W and 0 <= y < H else '.'
     return [''.join(c if c in '.#' else (col if any(at(x + dx, y + dy) in '.#' for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1), (1, 1), (-1, -1), (1, -1), (-1, 1))) else '.') for x, c in enumerate(r_)) for y, r_ in enumerate(p)]
-astro.NPAT['critA'] = _hollow(_burst(R=7, r=3.5, n=7))
-astro.NPAT['critB'] = _hollow(_burst(R=8, r=4.5, n=7, rot=.6), 'M')
+def _line(p, col='R'):
+    """v1.5 (Christopher 2026-11-27 00:19Z: thinner): only the burst's outline, as a 1 px line in `col`, no black edge"""
+    return [''.join(col if c == '#' else '.' for c in r_) for r_ in p]
+astro.NPAT['critA'] = _line(_burst(R=7, r=3.5, n=7))
+astro.NPAT['critB'] = _line(_burst(R=8, r=4.5, n=7, rot=.6), 'M')
 def R(state, intent, frames, faces, fps=12, rm='E: in place', fx=None):
     return (state, 0, intent, frames, faces, None, dict(fps=fps, react=True, rm=rm, anchored=fx or {}))
 
