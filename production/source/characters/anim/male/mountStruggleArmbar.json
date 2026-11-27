@@ -166,7 +166,7 @@
       "pelvis": [
         0,
         0,
-        1,
+        0,
         1,
         2,
         1,
@@ -723,7 +723,7 @@
     "near": [
       4,
       4,
-      6,
+      4,
       6,
       6,
       6,
@@ -810,7 +810,7 @@
         "angle": -78,
         "elbow": {
           "at": 8,
-          "angle": -90
+          "angle": -96
         }
       },
       {
@@ -818,23 +818,7 @@
         "angle": -78,
         "elbow": {
           "at": 8,
-          "angle": -86
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -78,
-        "elbow": {
-          "at": 8,
-          "angle": -94
-        }
-      },
-      {
-        "construction": "band",
-        "angle": -78,
-        "elbow": {
-          "at": 8,
-          "angle": -98
+          "angle": -84
         }
       },
       {
@@ -843,6 +827,22 @@
         "elbow": {
           "at": 8,
           "angle": -100
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -78,
+        "elbow": {
+          "at": 8,
+          "angle": -110
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -78,
+        "elbow": {
+          "at": 8,
+          "angle": -106
         }
       },
       {
@@ -921,14 +921,6 @@
       },
       {
         "construction": "band",
-        "angle": -38,
-        "elbow": {
-          "at": 8,
-          "angle": -58
-        }
-      },
-      {
-        "construction": "band",
         "angle": -30,
         "elbow": {
           "at": 8,
@@ -937,34 +929,42 @@
       },
       {
         "construction": "band",
-        "angle": -14,
+        "angle": -12,
         "elbow": {
           "at": 8,
-          "angle": -16
+          "angle": -14
         }
       },
       {
         "construction": "band",
-        "angle": -14,
+        "angle": -10,
         "elbow": {
           "at": 8,
-          "angle": -16
+          "angle": -12
         }
       },
       {
         "construction": "band",
-        "angle": -8,
+        "angle": -12,
         "elbow": {
           "at": 8,
-          "angle": -10
+          "angle": -14
         }
       },
       {
         "construction": "band",
-        "angle": -8,
+        "angle": -6,
         "elbow": {
           "at": 8,
-          "angle": -10
+          "angle": -8
+        }
+      },
+      {
+        "construction": "band",
+        "angle": -6,
+        "elbow": {
+          "at": 8,
+          "angle": -8
         }
       },
       {
@@ -1859,12 +1859,12 @@
     "frames": {
       "E": [
         "squint",
-        null,
-        null,
+        "squint",
         null,
         null,
         "squint",
-        null,
+        "pain",
+        "squint",
         "squint",
         "squint",
         "squint",
@@ -2002,198 +2002,6 @@
     "rule": "paired Mount escape: the mounted fighter (W) escapes Arm bar; the top fighter (E) holds it; frames 0-3 shared by success and fail",
     "partner": "mountStruggleArmbarHit",
     "top": "partner"
-  },
-  "fx": {
-    "rule": "Submission Struggle vs Arm bar: effort fx on the struggle frames (strain, sweat, shake/tug/shift marks, bridge dust)",
-    "frames": [
-      {
-        "frame": 2,
-        "splash": [
-          {
-            "pattern": "swish",
-            "at": [
-              38,
-              44
-            ]
-          }
-        ]
-      },
-      {
-        "frame": 4,
-        "splash": [
-          {
-            "pattern": "swish",
-            "at": [
-              39,
-              44
-            ]
-          }
-        ]
-      },
-      {
-        "frame": 5,
-        "splash": [
-          {
-            "pattern": "strain",
-            "at": [
-              6,
-              49
-            ]
-          }
-        ]
-      },
-      {
-        "frame": 6,
-        "splash": [
-          {
-            "pattern": "swish",
-            "at": [
-              40,
-              44
-            ]
-          }
-        ]
-      },
-      {
-        "frame": 7,
-        "splash": [
-          {
-            "pattern": "strain",
-            "at": [
-              6,
-              49
-            ]
-          }
-        ]
-      },
-      {
-        "frame": 8,
-        "splash": [
-          {
-            "pattern": "sweat",
-            "at": [
-              10,
-              46
-            ]
-          }
-        ]
-      },
-      {
-        "frame": 9,
-        "splash": [
-          {
-            "pattern": "swish",
-            "at": [
-              38,
-              44
-            ]
-          }
-        ]
-      },
-      {
-        "frame": 10,
-        "splash": [
-          {
-            "pattern": "speck",
-            "at": [
-              24,
-              32
-            ]
-          }
-        ]
-      }
-    ],
-    "palette": {
-      "W": "#ffffff",
-      "w": "#e3e3e3",
-      "#": "#000000",
-      "b": "#bfe3ff"
-    },
-    "patterns": {
-      "hitStar": [
-        "..#..",
-        "#.#.#",
-        ".#W#.",
-        "#.#.#",
-        "..#.."
-      ],
-      "strain": [
-        "#.#",
-        "...",
-        "#.#"
-      ],
-      "puff": [
-        "..##..",
-        ".#WW#.",
-        "#WWww#",
-        "#wwww#",
-        ".####."
-      ],
-      "speck": [
-        "#w#",
-        ".#."
-      ],
-      "lines": [
-        "#.....#.....#",
-        ".#....#....#.",
-        "..#...#...#..",
-        "......#......",
-        "...#.....#..."
-      ],
-      "tug": [
-        "W.W",
-        ".W."
-      ],
-      "shift": [
-        "W..",
-        ".W.",
-        "W.."
-      ],
-      "sweat": [
-        ".#.",
-        "#b#",
-        "#W#",
-        ".#."
-      ],
-      "shake": [
-        "#...#",
-        ".....",
-        "#...#",
-        ".....",
-        "#...#"
-      ],
-      "vibeL": [
-        ".#W",
-        "#W.",
-        "#W.",
-        ".#W",
-        "#W.",
-        "#W.",
-        ".#W"
-      ],
-      "vibeR": [
-        "W#.",
-        ".W#",
-        ".W#",
-        "W#.",
-        ".W#",
-        ".W#",
-        "W#."
-      ],
-      "chevron": [
-        "#W#...#W#",
-        ".#W#.#W#.",
-        "..#W#W#..",
-        "...#W#..."
-      ],
-      "swish": [
-        "..###.",
-        ".#WWW#",
-        "#W##..",
-        ".#WWW#",
-        "..###."
-      ]
-    }
   },
   "events": {
     "rule": "per-frame gameplay data per facing; frames 1-8 are the struggle (shared by success and fail), frame 9 is the impact (grip breaks or re-sinks), held on frame 10",

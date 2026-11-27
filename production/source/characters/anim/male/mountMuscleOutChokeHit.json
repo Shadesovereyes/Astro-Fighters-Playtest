@@ -1905,28 +1905,17 @@
     "intent": "strained: eyes squeezed under the weight"
   },
   "fx": {
-    "rule": "the holder answers each heave/pull on its contact frame; hit star where the grip breaks (success) or tug where it re-sinks (fail)",
+    "rule": "contact-point fx only (2026-11-26 19:14): vibration arcs at the straining grip on each heave; impact hit star",
+    "top": true,
     "frames": [
       {
         "frame": 3,
         "splash": [
           {
-            "pattern": "vibeR",
+            "pattern": "ring2",
             "at": [
-              52,
-              42
-            ]
-          }
-        ]
-      },
-      {
-        "frame": 4,
-        "splash": [
-          {
-            "pattern": "strain",
-            "at": [
-              55,
-              28
+              42,
+              54
             ]
           }
         ]
@@ -1935,24 +1924,10 @@
         "frame": 6,
         "splash": [
           {
-            "pattern": "vibeR",
+            "pattern": "ring3",
             "at": [
-              52,
-              43
-            ]
-          },
-          {
-            "pattern": "vibeR",
-            "at": [
-              55,
-              41
-            ]
-          },
-          {
-            "pattern": "strain",
-            "at": [
-              55,
-              28
+              38,
+              54
             ]
           }
         ]
@@ -1961,24 +1936,10 @@
         "frame": 7,
         "splash": [
           {
-            "pattern": "vibeR",
+            "pattern": "ring2",
             "at": [
-              52,
-              43
-            ]
-          },
-          {
-            "pattern": "vibeR",
-            "at": [
-              55,
-              41
-            ]
-          },
-          {
-            "pattern": "sweat",
-            "at": [
-              52,
-              22
+              41,
+              52
             ]
           }
         ]
@@ -1987,17 +1948,10 @@
         "frame": 8,
         "splash": [
           {
-            "pattern": "vibeR",
+            "pattern": "ring3",
             "at": [
-              52,
-              42
-            ]
-          },
-          {
-            "pattern": "strain",
-            "at": [
-              55,
-              28
+              39,
+              55
             ]
           }
         ]
@@ -2006,29 +1960,10 @@
         "frame": 9,
         "splash": [
           {
-            "pattern": "hitStar",
+            "pattern": "star",
             "at": [
-              48,
-              42
-            ]
-          },
-          {
-            "pattern": "lines",
-            "at": [
-              40,
-              6
-            ]
-          }
-        ]
-      },
-      {
-        "frame": 10,
-        "splash": [
-          {
-            "pattern": "sweat",
-            "at": [
-              44,
-              16
+              43,
+              52
             ]
           }
         ]
@@ -2037,94 +1972,63 @@
     "palette": {
       "W": "#ffffff",
       "w": "#e3e3e3",
-      "#": "#000000",
-      "b": "#bfe3ff"
+      "#": "#000000"
     },
     "patterns": {
-      "hitStar": [
+      "star": [
         "..#..",
         "#.#.#",
         ".#W#.",
         "#.#.#",
         "..#.."
       ],
-      "strain": [
-        "#.#",
-        "...",
-        "#.#"
-      ],
-      "puff": [
-        "..##..",
-        ".#WW#.",
-        "#WWww#",
-        "#wwww#",
-        ".####."
-      ],
-      "speck": [
-        "#w#",
-        ".#."
-      ],
-      "lines": [
-        "#.....#.....#",
-        ".#....#....#.",
-        "..#...#...#..",
-        "......#......",
-        "...#.....#..."
-      ],
-      "tug": [
-        "W.W",
-        ".W."
-      ],
-      "shift": [
-        "W..",
-        ".W.",
-        "W.."
-      ],
-      "sweat": [
-        ".#.",
-        "#b#",
-        "#W#",
-        ".#."
-      ],
-      "shake": [
-        "#...#",
-        ".....",
-        "#...#",
-        ".....",
-        "#...#"
-      ],
-      "vibeL": [
+      "arcL": [
         ".#W",
         "#W.",
-        "#W.",
-        ".#W",
         "#W.",
         "#W.",
         ".#W"
       ],
-      "vibeR": [
+      "arcR": [
         "W#.",
         ".W#",
-        ".W#",
-        "W#.",
         ".W#",
         ".W#",
         "W#."
       ],
-      "chevron": [
-        "#W#...#W#",
-        ".#W#.#W#.",
-        "..#W#W#..",
-        "...#W#..."
+      "ring1": [
+        "..###..",
+        ".#WWW#.",
+        "#W...W#",
+        "#W...W#",
+        "#W...W#",
+        ".#WWW#.",
+        "..###.."
       ],
-      "swish": [
-        "..###.",
-        ".#WWW#",
-        "#W##..",
-        ".#WWW#",
-        "..###."
+      "ring2": [
+        "...###...",
+        "..#WWW#..",
+        ".#W...W#.",
+        "#W.....W#",
+        "#W.....W#",
+        "#W.....W#",
+        ".#W...W#.",
+        "..#WWW#..",
+        "...###..."
+      ],
+      "ring3": [
+        "....###....",
+        "..##WWW##..",
+        ".#WW...WW#.",
+        ".#W.....W#.",
+        "#W.......W#",
+        "#W.......W#",
+        "#W.......W#",
+        ".#W.....W#.",
+        ".#WW...WW#.",
+        "..##WWW##..",
+        "....###...."
       ]
-    },
-    "top": true
+    }
   }
 }

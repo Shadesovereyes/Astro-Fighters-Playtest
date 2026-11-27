@@ -85,14 +85,16 @@ def tables():
         {**fb, **{9: [(PF, [47, 58])], 11: [(S, [6, 49]), (SW, [4, 44])], 12: [(S, [7, 50])], 13: [(SW, [3, 45])]}},
         {**ft, **{9: [(TG, [48, 44])], 11: [(TG, [47, 45])]}})
     # ---------------- Submission Struggle vs Cross Choke ----------------
-    tw = lambda a, l=(0, 0), legs=('lying-near', 'lying-far'), e=None: F(cb, ln=legs[0], lf=legs[1], lean=l, an=band(-56 + a, -164 + a), af=band(-60 + a, -176 + a), expr=e)
+    # v3 (Christopher 2026-11-26 19:13: no fx near the legs, no chevron): the hand fight carries it. Three tugs on the
+    # near choking wrist, the holder re-gripping between them and leaning in; effort fx only at the faces and the wrist.
     BN = ('bridge-near', 'lying-far')
-    pre_b = [cb, tw(0), tw(8), tw(2, e='squint'), tw(4, (1, 0), BN), tw(14, (1, 0), BN), tw(12, (3, 0), BN), tw(20, (3, 0), BN, 'squint'), tw(22, (3, 0), BN, 'squint')]
-    pull = lambda a, l=(2, 14): F(ct, lean=l, an=band(11 - a, -41 + a), af=band(7, -49))
-    pre_t = [ct, ct, pull(3), F(ct, bob=(16, 16, 17), lean=(2, 15)), ct, pull(5), F(ct, lean=(2, 15)), pull(8, (2, 15)), pull(9, (2, 15))]
-    fb = {3: [(S, [6, 49])], 4: [(SF, [38, 44])], 6: [(SF, [39, 44])], 7: [(S, [6, 49])], 8: [(SW, [10, 46])]}
-
-    ft = {1: [(CV, [51, 47])], 2: [(CV, [51, 48])], 3: [(TG, [48, 44])], 5: [(CV, [51, 48])], 7: [(CV, [51, 49]), (S, [55, 28])], 8: [(CV, [51, 50]), (SW, [52, 22])]}
+    hf = lambda a, f, l=(0, 0), legs=('lying-near', 'lying-far'), e=None: F(cb, ln=legs[0], lf=legs[1], lean=l, an=band(a, -164 + (a + 56)), af=band(f, -176 + (f + 60)), expr=e)
+    pre_b = [cb, hf(-58, -62, e='squint'), hf(-46, -50, e='squint'), hf(-58, -60, e='pain'), hf(-56, -58, (1, 0), BN, 'squint'),
+             hf(-38, -42, (1, 0), BN, 'squint'), hf(-46, -50, (1, 0), BN, 'pain'), hf(-30, -34, (2, 0), BN, 'squint'), hf(-32, -36, (2, 0), BN, 'squint')]
+    wr = lambda a, e_, l=(2, 14), b=(15, 15, 16), x=None: F(ct, bob=b, lean=l, an=band(a, e_), af=band(7, -49), expr=x)
+    pre_t = [ct, ct, wr(7, -32, (2, 15)), wr(11, -41, (2, 15), (16, 16, 17), 'squint'), ct, wr(2, -26, (2, 15)), wr(6, -34, (2, 16), (16, 16, 17), 'squint'), wr(0, -22, (2, 15), x='squint'), wr(1, -24, (2, 15), x='squint')]
+    fb = {1: [(S, [6, 49])], 3: [(S, [6, 49]), (SW, [10, 46])], 5: [(S, [5, 48])], 6: [(SW, [9, 45])], 7: [(S, [6, 49])], 8: [(S, [6, 49]), (SW, [10, 46])]}
+    ft = {2: [(VR, [52, 46])], 3: [(S, [55, 28])], 5: [(VR, [52, 47])], 6: [(S, [55, 28])], 7: [(VR, [52, 48]), (VR, [55, 46])], 8: [(VR, [53, 47]), (SW, [52, 22])]}
     peel = F(cb, ln='bridge-near', lean=(2, 0), an=band(-18, -110), af=band(-14, -104))
     T['ssChokeOk'] = (
         pre_b + [peel, peel, F(mb, an=band(-40, -120), af=band(-36, -112)),
@@ -102,8 +104,8 @@ def tables():
                  F(mt, bob=(13, 13, 14), lean=(1, 10), an=band(-4, -60), af=band(-20, -40)),
                  F(mt, bob=(11, 11, 12), lean=(0, 6), an=band(-12, -130), af=band(-36, -28)),
                  F(mt, bob=(10, 10, 11), lean=(0, 5), an=band(-14, -142), af=band(-38, -26)), mt, mt],
-        {**fb, **{9: [(SF, [38, 44])], 10: [(SP, [20, 50])]}},
-        {**ft, **{9: [(ST, [48, 42])]}})
+        {**fb, **{10: [(SW, [10, 46])]}},
+        {**ft, **{9: [(ST, [48, 44])]}})
     T['ssChokeFail'] = (
         pre_b + [F(peel, an=band(-40, -136), af=band(-42, -144)), F(peel, an=band(-46, -146), af=band(-48, -152), expr='pain'),
                  F(cb, an=band(-58, -168), af=band(-56, -168), expr='pain'),
@@ -144,14 +146,17 @@ def tables():
         {**fb, **{9: [(PF, [47, 58])], 11: [(S, [6, 49]), (SW, [4, 44])], 12: [(S, [7, 50])]}},
         {**ft, **{9: [(TG, [42, 36])], 11: [(TG, [41, 37])]}})
     # ---------------- Submission Struggle vs Arm bar (hitchhiker) ----------------
+    # v3 (Christopher 2026-11-26 19:13: same rework as the choke): thumb turn, free hand frames the hip, the elbow is
+    # worked out in stages while the holder yanks it straight again; effort fx only at the faces and the trapped arm.
     hh = lambda e_, af_, l=(0, 0), legs=BN, x=None: F(ab, ln=legs[0], lf=legs[1], lean=l, an=band(-78, e_), af=af_, expr=x)
     AF0 = ab['af']
-    pre_b = [ab, hh(-84, AF0, (0, 0), ('lying-near', 'lying-far')), hh(-86, AF0, (1, 0)), hh(-88, band(-30, -40), (1, 0)), hh(-90, band(-14, -16), (2, 0)),
-             hh(-86, band(-14, -16), (1, 0), x='squint'), hh(-94, band(-8, -10), (3, 1)), hh(-98, band(-8, -10), (3, 1), x='squint'), hh(-100, band(-6, -8), (3, 1), x='squint')]
-    pre_t = [at, at, at, at, F(at, lean=(-2, -8)), F(at, lean=(-2, -9), an=band(-64, -64)), at, F(at, lean=(-1, -6)), F(at, lean=(-2, -7), an=band(-63, -63))]
-    fb = {2: [(SF, [38, 44])], 4: [(SF, [39, 44])], 5: [(S, [6, 49])], 6: [(SF, [40, 44])], 7: [(S, [6, 49])], 8: [(SW, [10, 46])]}
-
-    ft = {1: [(SF, [45, 32])], 3: [(CV, [41, 42])], 4: [(TG, [40, 36])], 5: [(S, [39, 22])], 6: [(CV, [41, 43])], 8: [(TG, [40, 36]), (SW, [31, 17])]}
+    pre_b = [ab, hh(-84, AF0, (0, 0), ('lying-near', 'lying-far'), 'squint'), hh(-86, band(-30, -40), (0, 0), ('lying-near', 'lying-far')),
+             hh(-88, band(-12, -14), (1, 0)), hh(-96, band(-10, -12), (2, 0), x='squint'), hh(-84, band(-12, -14), (1, 0), x='pain'),
+             hh(-100, band(-6, -8), (3, 1), x='squint'), hh(-110, band(-6, -8), (3, 1), x='squint'), hh(-106, band(-6, -8), (3, 1), x='squint')]
+    pre_t = [at, at, at, at, F(at, an=band(-66, -66), af=band(-62, -62)), F(at, lean=(-2, -9), an=band(-60, -60), af=band(-56, -56), expr='squint'),
+             F(at, lean=(-1, -6), an=band(-64, -64), af=band(-60, -60)), F(at, an=band(-68, -68), af=band(-64, -64), expr='squint'), F(at, an=band(-67, -67), af=band(-63, -63), expr='squint')]
+    fb = {1: [(S, [6, 49])], 4: [(S, [6, 49])], 5: [(S, [5, 48]), (SW, [10, 46])], 7: [(S, [6, 49])], 8: [(SW, [10, 46])]}
+    ft = {4: [(VR, [47, 36])], 5: [(S, [39, 22])], 6: [(VR, [47, 36])], 7: [(VR, [47, 35]), (VR, [50, 33]), (S, [39, 22])], 8: [(VR, [47, 36]), (SW, [31, 17])]}
     slip = F(ab, ln='bridge-near', lean=(2, 1), an=band(-52, -158), af=band(-8, -10))
     T['ssArmbarOk'] = (
         pre_b + [slip, slip, F(mb, an=band(-58, -156), af=band(-30, -70)),
@@ -161,7 +166,7 @@ def tables():
                  F(mt, bob=(9, 9, 10), lean=(-1, -4), an=band(-46, -90), af=band(-50, -60)),
                  F(mt, bob=(10, 10, 11), lean=(0, 2), an=band(-24, -136), af=band(-42, -28)),
                  F(mt, bob=(10, 10, 11), lean=(0, 3), an=band(-20, -142), af=band(-41, -26)), mt, mt],
-        {**fb, **{9: [(SF, [38, 44])], 10: [(SP, [24, 32])]}},
+        {**fb, **{10: [(SW, [10, 46])]}},
         {**ft, **{9: [(ST, [42, 36])]}})
     T['ssArmbarFail'] = (
         pre_b + [F(slip, an=band(-78, -100)), F(slip, an=band(-78, -88), expr='pain'),
@@ -234,7 +239,7 @@ def run(only=None):
                   clips={'rule': f'plays from the {HOLDLOOP[kind][1]} loop; the holder plays {ts} on the same frames',
                          us: {'frames': list(range(n)), 'fps': 10, 'next': nb}},
                   events=ev, rmRule='in place', rotRule='quarter turns only: lying (270) throughout',
-                  fx=fxrec(FB, f'{move} vs {hold}: effort fx on the struggle frames (strain, sweat, shake/tug/shift marks, bridge dust)'))
+                  fx=None)  # v3 2026-11-26: no escaper fx; contact-point fx go on the holder (escapes_contact_fx.py)
         BT = copy.deepcopy(BT); BT.setdefault('expressions', copy.deepcopy(MB['expressions']))
         t = build(BT, ts, Tt, status=CAND.format(f'holder side of {move} vs {hold}, {"success" if ok else "fail"}'),
                   intent=f'The holder keeps the plain {hold} hold pose until the impact frame 4, then ' +
