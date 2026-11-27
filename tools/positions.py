@@ -6,7 +6,7 @@ usage: python3 -I positions.py  (writes specs into the playtest repo; render wit
 import json, copy, sys
 sys.path.insert(0, '/mnt/project-files/hex-sprites/tools')
 from gen import build, save, load
-D = '/home/claude/astro-fighters-playtest/production/source/characters/anim/male/'
+D = '/home/user/astro-fighters-playtest/production/source/characters/anim/male/'
 CAND = 'E/W candidate v1 2026-11-26 ({}), awaiting user approval; S/N to author'
 band = lambda a, e: {'construction': 'band', 'angle': a, 'elbow': {'at': 8, 'angle': e}}
 P = lambda name, hx, hr, kx, kr, ax, ar, foot: {'name': name, 'construction': 'band', 'hipX': hx, 'hipRow': hr, 'kneeX': kx, 'kneeRow': kr, 'ankle': [ax, ar], 'foot': foot}
@@ -69,16 +69,21 @@ def specs():
         intentB='Side Control, bottom: flat on the back (270), knees bent with the feet planted (in front of the top fighter\'s hips), the near arm wrapped over the top fighter\'s shoulder (elbow flexed toward the head, hand behind his neck), face squeezed.',
         rot='top: a quarter turn chest-down (90, held above the ground on its knees); bottom: flat on the back (270)')
     # ---------------- Back Control (ground, seated, hooks in) ----------------
-    al = [P('hook-near', 33, 52, 42, 51, 50, 53, 'levelR'), P('hook-far', 31, 52, 41, 51, 49, 53, 'levelR')]
+    # v4 (Christopher 2026-11-26 19:05: the taker's legs hook around the defender's waist): taker SITS behind, knees up beside the
+    # defender's waist, shins hooked down in front of the defender's hips. One body layer holds both legs, so the taker's body is
+    # drawn a second time over the defender, clipped to rows >= LEGS_ROW (pair.legsOver): only the hooks come out in front.
+    LEGS_ROW = 42
+    al = [P('hook-near', 33, 52, 45, 43, 52, 51, 'pointDR'), P('hook-far', 31, 52, 44, 44, 51, 51, 'pointDR')]
     vl = [P('sitx-near', 33, 52, 43, 53, 53, 53, 'levelR'), P('sitx-far', 31, 52, 42, 53, 52, 53, 'levelR')]
-    a = F(fr(MT), lean=(0, 1), an=band(-66, -112), af=band(-62, -100), rot=(0, 0, 0, True))
-    v = F(fr(MT), bob=(11, 11, 11), lean=(-1, -1), ln='sitx-near', lf='sitx-far', an=band(-40, -170), af=band(-46, -160), expr='squint', rot=(0, 0, 0, True))
-    out['backctl'] = dict(names=('backControlTop', 'backControlBottom'), base=(MT, MT), pdx=15, newA=al, newB=vl, flipB=True,
+    a = F(fr(MT), bob=(9, 7, 9), lean=(0, 3), ln='hook-near', lf='hook-far', an=band(-66, -112), af=band(-62, -100), rot=(0, 0, 0, True))
+    v = F(fr(MT), bob=(13, 14, 13), lean=(-1, -3), ln='sitx-near', lf='sitx-far', an=band(-40, -170), af=band(-46, -160), expr='squint', rot=(0, 0, 0, True))
+    out['backctl'] = dict(names=('backControlTop', 'backControlBottom'), base=(MT, MT), pdx=14, newA=al, newB=vl, flipB=True,
+        legsOver={'role': 'self', 'fromRow': LEGS_ROW, 'rule': 'after the partner\'s body and before the arms, draw self body + look layers again, clipped to frame rows >= fromRow (the hooks in front of the partner\'s waist)'},
         A=breathe(a, amp=((0, 0, 0), (0, 0, 1), (0, 1, 1), (0, 0, 1))), B=breathe(v, amp=((0, 0, 0), (0, 1, 0), (0, 1, 1), (0, 0, 1)), arms=[(0, 0), (3, 0), (3, 3), (0, 3)]),
-        layering=L_BACK('backControlTop', 'backControlBottom'), bottomOver=False,
-        intentA='Back Control, taker: kneeling up behind the seated opponent, chest to their back, seat-belt grip (near arm over the shoulder across the chest, far arm under the armpit), chest glued to their back.',
-        intentB='Back Control, victim: sat on the ground facing away from the taker (faceFlip), legs out, leaning back into the taker\'s chest, both hands fighting the seat-belt wrist at the chest.',
-        rot='taker kneeling, victim seated (both groundSnap)')
+        layering=['backControlTop far-arm, body, clothing, hair, eyes (behind)', 'backControlBottom far-arm, body, clothing, hair, eyes', 'backControlTop body + look again, rows >= 42 only (legs hooked in front of the waist)', 'backControlBottom arms', 'backControlTop arms (seat belt, wrapped in front)'], bottomOver=False,
+        intentA='Back Control, taker: sitting behind the opponent, chest to their back, legs wrapped around their waist (knees up at the waist, shins hooked in front of the hips), seat-belt grip across the chest, chin over their shoulder.',
+        intentB='Back Control, victim: sat on the ground facing away from the taker (faceFlip), legs out, slumped back into the taker\'s chest inside the hooks, both hands fighting the seat-belt wrist at the chest.',
+        rot='both seated upright (groundSnap)')
     # ---------------- Back Clinch (standing) ----------------
     a = F(fr(CH), lean=(1, 5), bob=(3, 3, 4), an=band(-35, -70), af=band(-40, -75), ln='guard-low-rear', lf='guard-low-lead')
     v = F(fr(CD), lean=(-1, 1), bob=(2, 2, 2), an=band(-8, -50), af=band(-14, -55), ln='stance-rear', lf='stance-lead', expr='squint')
@@ -101,6 +106,7 @@ def run():
         if s.get('bottomOver'): pair['mountLayering'] = {'fromFrame': 0, 'order': s['layering'], 'bottomOver': True}
         if s.get('flipB'): pair['victimOver'] = True
         if s.get('topBehind'): pair['topBehind'] = True
+        if s.get('legsOver'): pair['legsOver'] = s['legsOver']
         clipsA = {'rule': f'position idle loop; the partner plays {B}', A: {'frames': [0, 1, 2, 3], 'fps': 6, 'loop': True}}
         clipsB = {'rule': f'position idle loop; the partner plays {A}', B: {'frames': [0, 1, 2, 3], 'fps': 6, 'loop': True}}
         sa = build(bA, A, s['A'], status=CAND.format(s['intentA'].split(':')[0]), intent=s['intentA'], newPoses=s.get('newA', ()), pair=pair, clips=clipsA,

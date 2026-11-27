@@ -17,7 +17,7 @@
       "frameShift": 0
     }
   },
-  "intent": "Back Control, victim: sat on the ground facing away from the taker (faceFlip), legs out, leaning back into the taker's chest, both hands fighting the seat-belt wrist at the chest.",
+  "intent": "Back Control, victim: sat on the ground facing away from the taker (faceFlip), legs out, slumped back into the taker's chest inside the hooks, both hands fighting the seat-belt wrist at the chest.",
   "units": "Pixels in the 64x64 frame of the source direction. x grows toward the facing (E). Rows grow downward.",
   "palette": {
     "L": "#f6a35b",
@@ -105,22 +105,22 @@
   "bob": {
     "rule": "a slow breath",
     "dy": [
-      11,
-      11,
-      11,
-      11
+      13,
+      13,
+      13,
+      13
     ],
     "head": [
-      11,
-      12,
-      12,
-      11
+      14,
+      15,
+      15,
+      14
     ],
     "arms": [
-      11,
-      11,
-      12,
-      12
+      13,
+      13,
+      14,
+      14
     ]
   },
   "lean": {
@@ -134,10 +134,10 @@
         -1
       ],
       "head": [
-        -1,
-        -1,
-        -1,
-        -1
+        -3,
+        -3,
+        -3,
+        -3
       ]
     }
   },
@@ -1422,15 +1422,21 @@
   "pair": {
     "rule": "paired position idle: backControlTop (E, the controlling fighter) with backControlBottom (W); the partner faces away (faceFlip): both look E; the partner pivot sits partnerDx px ahead along the facing",
     "partner": "backControlTop",
-    "partnerDx": 15,
+    "partnerDx": 14,
     "top": "partner",
     "layering": [
       "backControlTop far-arm, body, clothing, hair, eyes (behind)",
       "backControlBottom far-arm, body, clothing, hair, eyes",
+      "backControlTop body + look again, rows >= 42 only (legs hooked in front of the waist)",
       "backControlBottom arms",
-      "backControlTop arms (wrapped in front)"
+      "backControlTop arms (seat belt, wrapped in front)"
     ],
-    "victimOver": true
+    "victimOver": true,
+    "legsOver": {
+      "role": "self",
+      "fromRow": 42,
+      "rule": "after the partner's body and before the arms, draw self body + look layers again, clipped to frame rows >= fromRow (the hooks in front of the partner's waist)"
+    }
   },
   "expressions": {
     "rule": "facial expression per frame, drawn in the eye layers (eye, lid, brow and mouth lines only, no skin): coordinates from the top-left of the frame's eye block, x toward the facing; '@dx,dy' keeps the layer's own pixel (the iris colour)",
@@ -1514,7 +1520,7 @@
     "intent": "strained: eyes squeezed under the weight"
   },
   "bodyRotation": {
-    "rule": "quarter turns only: taker kneeling, victim seated (both groundSnap)",
+    "rule": "quarter turns only: both seated upright (groundSnap)",
     "pivot": [
       32,
       44
