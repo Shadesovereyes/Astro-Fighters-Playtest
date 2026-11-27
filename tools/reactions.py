@@ -48,7 +48,7 @@ def gl(**k):
         k.setdefault(s_, _U.GUARD[s_]); k[s_] = _low(k[s_], hip)
     return g(**k)
 
-STAT = 'CANDIDATE 2026-11-27 v1.6 (E/W; W mirrors E; S/N to author after approval)'
+STAT = 'CANDIDATE 2026-11-27 v1.7 (E/W; W mirrors E; S/N to author after approval)'
 LOWL = dict(ln='guard-low-rear', lf='guard-low-lead')
 _U.POSES += [kleg('chk-lo', (33, 42), (39, 44), (39, 51), 'toe30k'),     # shin check: lead knee up and turned out, shin vertical at calf height
              kleg('chk-hi', (33, 42), (40, 36), (40, 45), 'toe30k'),     # knee to the elbow: lead knee high, shin covering the ribs
@@ -261,6 +261,17 @@ CLIPS = {
    g(an=RECOVER, bob=(2, 2, 2), lean=(0, 2)), g()],
   ['pain', 'pain', 'pain', 'strain', 'squint', 'squint', None], fps=10, fx={0: [('critA', 'feet', 9, -10)], 1: [('critB', 'feet', 9, -9)]}),
 }
+# critical burst v2 (Christopher 2026-11-27 00:26Z: "white outline is good ... transitions from yellow to red to dark red to black"):
+# the approved 8-point burst with a white edge, one colour per frame from the impact, growing a step each frame
+_CRIT_SEQ = [('critY', 5, 'Y'), ('critR', 6, 'R'), ('critM', 7, 'M'), ('critK', 8, 'X')]
+for _n, _sc, _c in _CRIT_SEQ: astro.NPAT[_n] = _edge(opt_burst(_sc, _c))
+for _st in ('critHigh', 'critMid', 'critKickMid', 'critLow'):
+    _an = CLIPS[_st][-1]['anchored']
+    _at = next(t for t in _an[0] if t[0] == 'critA')[1:]
+    for _k in list(_an):
+        _an[_k] = [t for t in _an[_k] if t[0] not in ('critA', 'critB')]
+        if not _an[_k]: del _an[_k]
+    for _k, (_n, _sc, _c) in enumerate(_CRIT_SEQ): _an[_k] = [(_n,) + _at] + _an.get(_k, [])
 astro.CLIPS.update(CLIPS)
 astro.APPROVED.update({k: STAT for k in CLIPS})
 
